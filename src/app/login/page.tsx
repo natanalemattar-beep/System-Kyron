@@ -19,6 +19,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [rif, setRif] = useState("");
+
+  const handleRifChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    if (value && !value.startsWith("J-")) {
+      value = "J-" + value.replace(/J-/i, "");
+    }
+    setRif(value);
+  };
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-teal-50 to-white dark:from-gray-900/50 dark:to-background">
@@ -71,7 +81,7 @@ export default function LoginPage() {
               <TabsContent value="juridica" className="text-left mt-6 space-y-6">
                 <div className="space-y-2">
                     <Label>RIF Empresarial</Label>
-                    <Input type="text" placeholder="J-12345678-9" className="h-12"/>
+                    <Input type="text" placeholder="J-12345678-9" className="h-12" value={rif} onChange={handleRifChange}/>
                 </div>
                 <div className="space-y-2 relative">
                     <Label>Contraseña</Label>
@@ -80,12 +90,12 @@ export default function LoginPage() {
                         placeholder="••••••••" 
                         className="h-12 pr-10"
                     />
-                    <button onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-9 text-muted-foreground">
+                    <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-9 text-muted-foreground">
                         {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
                     </button>
                 </div>
-                <Button className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
-                    Acceder como Jurídica
+                <Button asChild className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
+                    <Link href="/dashboard">Acceder como Jurídica</Link>
                 </Button>
               </TabsContent>
                <TabsContent value="natural" className="text-left mt-6 space-y-6">
@@ -100,12 +110,12 @@ export default function LoginPage() {
                         placeholder="••••••••" 
                         className="h-12 pr-10"
                     />
-                    <button onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-9 text-muted-foreground">
+                    <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-9 text-muted-foreground">
                         {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
                     </button>
                 </div>
-                <Button className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
-                    Acceder como Natural
+                <Button asChild className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
+                    <Link href="/dashboard">Acceder como Natural</Link>
                 </Button>
               </TabsContent>
             </Tabs>
