@@ -14,6 +14,11 @@ import {
   CheckCircle,
   ArrowRight,
   Rocket,
+  Calculator,
+  Heart,
+  Bot,
+  CreditCard,
+  BookUser,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -30,6 +35,59 @@ const statsItems = [
   { value: "1M+", label: "Documentos Procesados", icon: FileBadge },
   { value: "25,000+", label: "Casos Judiciales", icon: Scale },
   { value: "100%", label: "Seguridad", icon: ShieldCheck },
+];
+
+const featureItems = [
+  {
+    icon: FileText,
+    title: "Registro Empresarial RIF",
+    description:
+      "Registra tu empresa y obtén tu RIF automáticamente con conexión directa a entes públicos.",
+    features: [
+      "Registro automático",
+      "Permisos integrados",
+      "Validación en tiempo real",
+    ],
+  },
+  {
+    icon: Calculator,
+    title: "Gestión Contable",
+    description:
+      "Organiza todos tus procesos contables con herramientas profesionales integradas.",
+    features: [
+      "Libros contables",
+      "Reportes fiscales",
+      "Declaraciones automáticas",
+    ],
+  },
+  {
+    icon: Heart,
+    title: "Notificaciones de Multas",
+    description:
+      "Recibe alertas automáticas sobre multas y sanciones para mantener tu empresa al día.",
+    features: ["Alertas en tiempo real", "Historial completo", "Opciones de pago"],
+  },
+  {
+    icon: Bot,
+    title: "Vendedor Virtual 24/7",
+    description:
+      "Bot inteligente que genera ventas automáticamente con pagos y archivo de procesos.",
+    features: ["Ventas automáticas"],
+  },
+  {
+    icon: CreditCard,
+    title: "Sistema de Cobro Integral",
+    description:
+      "Punto de venta con pago móvil, transferencias, efectivo y facturación automática.",
+    features: ["Múltiples métodos de pago"],
+  },
+  {
+    icon: BookUser,
+    title: "Nóminas y Contratos VE",
+    description:
+      "Todos los formatos de nóminas, contratos y libros de vacaciones venezolanos.",
+    features: ["Formatos oficiales LOTTT"],
+  },
 ];
 
 export default function LandingPage() {
@@ -237,6 +295,46 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <section className="py-20 bg-white dark:bg-background">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featureItems.map((item) => (
+                <Card
+                  key={item.title}
+                  className="bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl text-left hover:shadow-2xl transition-shadow duration-300"
+                >
+                  <CardContent className="p-8">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-400 p-3 rounded-lg">
+                        <item.icon className="h-8 w-8" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold">{item.title}</h3>
+                        <p className="text-gray-600 dark:text-gray-400 mt-1">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                    <ul className="space-y-2 my-6 pl-12">
+                      {item.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-2">
+                          <CheckCircle className="h-5 w-5 text-green-500" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Button
+                      variant="outline"
+                      className="w-full border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white"
+                    >
+                      Comenzar <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
