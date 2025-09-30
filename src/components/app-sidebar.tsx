@@ -40,7 +40,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
-const mainMenuItems = [
+const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
   { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
   { href: "/permisos", label: "Permisos", icon: UserCheck },
@@ -69,6 +69,16 @@ const generalMenuItems = [
   { href: "/integraciones", label: "Integraciones", icon: Cog },
 ];
 
+const naturalMenuItems = [
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/documentos", label: "Documentos", icon: File },
+  { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
+  { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
+  { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
+  { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
+  { href: "/notificaciones", label: "Notificaciones", icon: Bell },
+];
+
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -81,10 +91,10 @@ export function AppSidebar() {
     return pathname.startsWith(href);
   };
   
-  const isJuridico = pathname.startsWith('/dashboard-juridico');
-  const isNatural = pathname.startsWith('/dashboard');
+  const isJuridico = !pathname.startsWith('/dashboard') && pathname !== '/documentos' && pathname !== '/partidas-nacimiento' && pathname !== '/actas-matrimonio' && pathname !== '/documentos-judiciales' && pathname !== '/antecedentes-penales';
 
-  if (isNatural) {
+
+  if (!isJuridico) {
     return <AppSidebarNatural />;
   }
 
@@ -108,7 +118,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="flex items-center gap-2"><Gavel className="h-4 w-4"/>Jurídico</SidebarGroupLabel>
           <SidebarMenu>
-            {mainMenuItems.map((item) => (
+            {juridicoMainMenuItems.map((item) => (
               <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
                   asChild
@@ -213,16 +223,6 @@ export function AppSidebar() {
 function AppSidebarNatural() {
   const pathname = usePathname();
   const userAvatar = PlaceHolderImages.find((img) => img.id === "user-avatar");
-
-    const naturalMenuItems = [
-      { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-      { href: "/documentos", label: "Documentos", icon: File },
-      { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
-      { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
-      { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
-      { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
-      { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-    ];
 
   const isActive = (href: string) => {
     if (href === "/dashboard") {
