@@ -14,7 +14,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -43,7 +42,7 @@ export default function LoginPage() {
               <Link href="/login">Iniciar Sesión</Link>
             </Button>
             <Button asChild className="bg-teal-600 hover:bg-teal-700">
-              <Link href="#">Registrarse</Link>
+              <Link href="/register">Registrarse</Link>
             </Button>
           </div>
         </div>
@@ -112,7 +111,7 @@ export default function LoginPage() {
             </Tabs>
              <p className="mt-6 text-sm text-gray-600 dark:text-gray-400">
               ¿Primera vez?{" "}
-              <Link href="#" className="font-semibold text-teal-600 hover:underline">
+              <Link href="/register" className="font-semibold text-teal-600 hover:underline">
                 Regístrate aquí
               </Link>
             </p>

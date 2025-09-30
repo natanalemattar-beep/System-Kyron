@@ -113,7 +113,7 @@ export default function LandingPage() {
               <Link href="/login">Iniciar Sesión</Link>
             </Button>
             <Button asChild className="bg-teal-600 hover:bg-teal-700">
-              <Link href="#">Registrarse</Link>
+              <Link href="/register">Registrarse</Link>
             </Button>
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function LandingPage() {
                         </Button>
                         <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
                             ¿Primera vez?{" "}
-                            <Link href="#" className="font-semibold text-teal-600 hover:underline">
+                            <Link href="/register" className="font-semibold text-teal-600 hover:underline">
                                 Regístrate aquí
                             </Link>
                         </p>
