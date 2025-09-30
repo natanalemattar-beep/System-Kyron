@@ -1,6 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { FileText, Zap, Star, Link as LinkIcon, Building, FileBadge, Scale, ShieldCheck } from "lucide-react";
+import {
+  FileText,
+  Zap,
+  Star,
+  Link as LinkIcon,
+  Building,
+  FileBadge,
+  Scale,
+  ShieldCheck,
+  Recycle,
+  Briefcase,
+  CheckCircle,
+  ArrowRight,
+} from "lucide-react";
 import Link from "next/link";
 
 const integrationItems = [
@@ -12,10 +25,10 @@ const integrationItems = [
 ];
 
 const statsItems = [
-    { value: "50,000+", label: "Empresas Registradas", icon: Building },
-    { value: "1M+", label: "Documentos Procesados", icon: FileBadge },
-    { value: "25,000+", label: "Casos Judiciales", icon: Scale },
-    { value: "100%", label: "Seguridad", icon: ShieldCheck },
+  { value: "50,000+", label: "Empresas Registradas", icon: Building },
+  { value: "1M+", label: "Documentos Procesados", icon: FileBadge },
+  { value: "25,000+", label: "Casos Judiciales", icon: Scale },
+  { value: "100%", label: "Seguridad", icon: ShieldCheck },
 ];
 
 export default function LandingPage() {
@@ -49,17 +62,22 @@ export default function LandingPage() {
 
       <main className="flex-1">
         <section className="container mx-auto flex flex-col items-center justify-center px-4 py-20 text-center md:px-6 md:py-24">
-          
           <Card className="w-full max-w-md bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl">
             <CardContent className="flex flex-col items-center p-8 text-center">
-              <Button asChild className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg">
+              <Button
+                asChild
+                className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg"
+              >
                 <Link href="/dashboard">
                   <Zap className="mr-2 h-5 w-5" /> Acceder Ahora
                 </Link>
               </Button>
               <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
                 ¿Primera vez?{" "}
-                <Link href="#" className="font-semibold text-teal-600 hover:underline">
+                <Link
+                  href="#"
+                  className="font-semibold text-teal-600 hover:underline"
+                >
                   Regístrate aquí
                 </Link>
               </p>
@@ -67,32 +85,140 @@ export default function LandingPage() {
           </Card>
 
           <div className="mt-16 text-center w-full max-w-4xl">
-              <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 flex items-center justify-center gap-2">
-                <LinkIcon className="h-5 w-5"/>
-                Integración oficial con:
-              </h3>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
-                {integrationItems.map((item) => (
-                    <div key={item.name} className="flex items-center gap-2 bg-white/80 dark:bg-card/80 backdrop-blur-sm shadow-md rounded-full px-4 py-2">
-                        <item.icon className="h-4 w-4 text-yellow-500" />
-                        <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{item.name}</span>
-                    </div>
-                ))}
-              </div>
+            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 flex items-center justify-center gap-2">
+              <LinkIcon className="h-5 w-5" />
+              Integración oficial con:
+            </h3>
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
+              {integrationItems.map((item) => (
+                <div
+                  key={item.name}
+                  className="flex items-center gap-2 bg-white/80 dark:bg-card/80 backdrop-blur-sm shadow-md rounded-full px-4 py-2"
+                >
+                  <item.icon className="h-4 w-4 text-yellow-500" />
+                  <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                    {item.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
         <section className="bg-white dark:bg-background py-16">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    {statsItems.map((stat) => (
-                        <div key={stat.label} className="text-center bg-gray-50 dark:bg-card/50 p-6 rounded-2xl shadow-lg">
-                            <p className="text-4xl md:text-5xl font-bold text-teal-600 dark:text-teal-400">{stat.value}</p>
-                            <p className="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-400">{stat.label}</p>
-                        </div>
-                    ))}
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {statsItems.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="text-center bg-gray-50 dark:bg-card/50 p-6 rounded-2xl shadow-lg"
+                >
+                  <p className="text-4xl md:text-5xl font-bold text-teal-600 dark:text-teal-400">
+                    {stat.value}
+                  </p>
+                  <p className="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-400">
+                    {stat.label}
+                  </p>
                 </div>
+              ))}
             </div>
+          </div>
+        </section>
+
+        <section className="py-20">
+          <div className="container mx-auto px-4 md:px-6 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-800 dark:text-gray-200">
+              Impacto Social y Ambiental
+            </h2>
+            <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
+              Tecnología que ayuda a comunidades vulnerables
+            </p>
+            <div className="mt-12 grid gap-8 md:grid-cols-2">
+              <Card className="bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl text-left">
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 p-3 rounded-lg">
+                      <Recycle className="h-8 w-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold">
+                      Fundación de Reciclaje
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    Sistema integrado con basureros inteligentes y recolección
+                    con motos para ayudar a personas vulnerables.
+                  </p>
+                  <ul className="space-y-2 mb-8">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span>Basureros inteligentes</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span>Recolección optimizada</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span>Ayuda social automática</span>
+                    </li>
+                  </ul>
+                  <Button
+                    variant="outline"
+                    className="w-full border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+                  >
+                    Participar <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+              <Card className="bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl text-left">
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 p-3 rounded-lg">
+                      <Briefcase className="h-8 w-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold">
+                      Asesoría de Publicidad
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    Estrategias completas de marketing digital y tradicional
+                    para hacer crecer tu negocio.
+                  </p>
+                  <ul className="space-y-2 mb-8">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span>Estrategias SMART</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span>Canales digitales</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span>Medición de resultados</span>
+                    </li>
+                  </ul>
+                  <Button
+                    variant="outline"
+                    className="w-full border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white"
+                  >
+                    Solicitar Consulta <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-20">
+          <div className="container mx-auto px-4 md:px-6 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-800 dark:text-gray-200">
+              Para Personas
+            </h2>
+            <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
+              Accede a todos tus documentos civiles de forma rápida y segura
+            </p>
+          </div>
         </section>
 
       </main>
