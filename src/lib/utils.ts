@@ -24,7 +24,7 @@ export function formatCurrency(amount: number, currency = "USD") {
 
 export function formatDate(date: string | Date) {
   const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return dateObj.toLocaleDateString('en-US', {
+  return dateObj.toLocaleDateString('es-VE', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
