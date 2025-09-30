@@ -110,7 +110,7 @@ export default function LandingPage() {
           </Link>
           <div className="flex items-center gap-2">
             <Button variant="ghost" asChild>
-              <Link href="/dashboard">Iniciar Sesión</Link>
+              <Link href="/login">Iniciar Sesión</Link>
             </Button>
             <Button asChild className="bg-teal-600 hover:bg-teal-700">
               <Link href="#">Registrarse</Link>
@@ -142,7 +142,7 @@ export default function LandingPage() {
                             Accede a tu cuenta para comenzar a gestionar tus trámites de forma inteligente
                         </p>
                         <Button asChild className="mt-6 w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg">
-                            <Link href="/dashboard">
+                            <Link href="/login">
                                 <Zap className="mr-2 h-5 w-5" /> Acceder Ahora
                             </Link>
                         </Button>
