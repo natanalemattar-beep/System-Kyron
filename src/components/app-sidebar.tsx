@@ -82,17 +82,16 @@ const naturalMenuItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const userAvatar = PlaceHolderImages.find((img) => img.id === "user-avatar");
-
-  const isActive = (href: string) => {
-    if (href === "/dashboard-juridico" || href === "/dashboard") {
-      return pathname === href;
-    }
-    return pathname.startsWith(href);
-  };
   
-  const isJuridico = !pathname.startsWith('/dashboard') && pathname !== '/documentos' && pathname !== '/partidas-nacimiento' && pathname !== '/actas-matrimonio' && pathname !== '/documentos-judiciales' && pathname !== '/antecedentes-penales';
-
+  const isJuridicoPath = (path: string) => {
+    const naturalPaths = naturalMenuItems.map(item => item.href);
+    // The main dashboard is for natural person
+    if (path === '/dashboard') return false;
+    // Any other "natural" path is not juridico
+    return !naturalPaths.some(p => p !== '/dashboard' && path.startsWith(p));
+  }
+  
+  const isJuridico = isJuridicoPath(pathname);
 
   if (!isJuridico) {
     return <AppSidebarNatural />;
@@ -108,7 +107,7 @@ export function AppSidebar() {
             </div>
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
-                GobiernaVE
+                System C.R.S
               </h1>
               <p className="text-xs text-sidebar-foreground/70">Plataforma Digital Oficial</p>
           </div>
@@ -122,7 +121,7 @@ export function AppSidebar() {
               <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
                   asChild
-                  isActive={isActive(item.href)}
+                  isActive={pathname === item.href}
                   tooltip={item.label}
                   className="justify-start"
                 >
@@ -142,7 +141,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                     asChild
-                    isActive={isActive(item.href)}
+                    isActive={pathname.startsWith(item.href)}
                     tooltip={item.label}
                     className="justify-start"
                     >
@@ -161,7 +160,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                     asChild
-                    isActive={isActive(item.href)}
+                    isActive={pathname.startsWith(item.href)}
                     tooltip={item.label}
                     className="justify-start"
                     >
@@ -180,7 +179,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                     asChild
-                    isActive={isActive(item.href)}
+                    isActive={pathname.startsWith(item.href)}
                     tooltip={item.label}
                     className="justify-start"
                     >
@@ -198,14 +197,7 @@ export function AppSidebar() {
         <Separator className="my-2 bg-sidebar-border" />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
-            {userAvatar && (
-              <AvatarImage
-                src={userAvatar.imageUrl}
-                alt={userAvatar.description}
-                data-ai-hint={userAvatar.imageHint}
-              />
-            )}
-            <AvatarFallback>J</AvatarFallback>
+            <AvatarFallback>E</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
             <span className="text-sm font-medium">Empresa S.A.</span>
@@ -235,12 +227,12 @@ function AppSidebarNatural() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-purple-600 text-white p-2 rounded-lg">
-              <Gavel className="h-6 w-6" />
+           <div className="bg-teal-600 text-white p-2 rounded-lg">
+              <User className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
-                GobiernaVE
+                System C.R.S
               </h1>
               <p className="text-xs text-sidebar-foreground/70">Plataforma Digital Oficial</p>
           </div>
