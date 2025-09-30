@@ -3,23 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  BookCopy,
   FileText,
-  Receipt,
-  FileSignature,
-  Boxes,
-  Percent,
-  CreditCard,
   Bell,
-  Settings,
   LayoutDashboard,
-  Landmark,
-  FileBadge,
-  UserCheck,
-  FileWarning,
-  BookOpen,
-  DollarSign,
-  Gavel
+  Gavel,
+  User,
+  Heart,
+  Shield,
+  File,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -36,26 +27,18 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Logo } from "./logo";
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/registro-rif", label: "Registro RIF", icon: FileBadge },
-  { href: "/permisos", label: "Permisos", icon: UserCheck },
-  { href: "/autorizaciones", label: "Autorizaciones", icon: Landmark },
-  { href: "/multas", label: "Multas", icon: FileWarning },
-  { href: "/contabilidad", label: "Contabilidad", icon: BookOpen },
-  { href: "/libros-contables", label: "Libros Contables", icon: BookCopy },
-  { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Receipt },
-  { href: "/libro-de-licores", label: "Libro de Licores", icon: BookCopy },
-  { href: "/proformas", label: "Proformas", icon: FileText },
-  { href: "/facturacion", label: "Facturación", icon: Receipt },
-  { href: "/contratos", label: "Contratos", icon: FileSignature },
-  { href: "/inventario", label: "Inventario", icon: Boxes },
-  { href: "/igtf", label: "IGTF & Exoneraciones", icon: Percent },
-  { href: "/creditos", label: "Créditos", icon: CreditCard },
+];
+
+const naturalMenuItems = [
+  { href: "/documentos", label: "Documentos", icon: File },
+  { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
+  { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
+  { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
+  { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-  { href: "/integraciones", label: "Integraciones", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -85,10 +68,27 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-0">
+        <SidebarMenu>
+          {menuItems.map((item) => (
+            <SidebarMenuItem key={item.href}>
+              <Link href={item.href} passHref legacyBehavior>
+                <SidebarMenuButton
+                  as="a"
+                  isActive={isActive(item.href)}
+                  tooltip={item.label}
+                  className="justify-start"
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.label}</span>
+                </SidebarMenuButton>
+              </Link>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
         <SidebarGroup>
-          <SidebarGroupLabel>Jurídico</SidebarGroupLabel>
+          <SidebarGroupLabel className="flex items-center gap-2"><User className="h-4 w-4"/>Natural</SidebarGroupLabel>
           <SidebarMenu>
-            {menuItems.map((item) => (
+            {naturalMenuItems.map((item) => (
               <SidebarMenuItem key={item.href}>
                 <Link href={item.href} passHref legacyBehavior>
                   <SidebarMenuButton
@@ -120,9 +120,9 @@ export function AppSidebar() {
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <span className="text-sm font-medium">Empresa Activa</span>
+            <span className="text-sm font-medium">Usuario Natural</span>
             <span className="text-xs text-muted-foreground">
-              J-12345678-9
+              V-12345678
             </span>
           </div>
         </div>
