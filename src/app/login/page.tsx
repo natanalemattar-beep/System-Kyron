@@ -18,13 +18,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function LoginPage() {
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [juridicaPasswordVisible, setJuridicaPasswordVisible] = useState(false);
+  const [naturalPasswordVisible, setNaturalPasswordVisible] = useState(false);
   const [rif, setRif] = useState("");
 
   const handleRifChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-    if (value && !value.startsWith("J-")) {
-      value = "J-" + value.replace(/J-/i, "");
+    if (value && !value.toUpperCase().startsWith("J-")) {
+      value = "J-" + value.replace(/J-/gi, "");
     }
     setRif(value);
   };
@@ -86,12 +87,12 @@ export default function LoginPage() {
                 <div className="space-y-2 relative">
                     <Label>Contraseña</Label>
                     <Input 
-                        type={passwordVisible ? "text" : "password"} 
+                        type={juridicaPasswordVisible ? "text" : "password"} 
                         placeholder="••••••••" 
                         className="h-12 pr-10"
                     />
-                    <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-9 text-muted-foreground">
-                        {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                    <button type="button" onClick={() => setJuridicaPasswordVisible(!juridicaPasswordVisible)} className="absolute right-3 top-9 text-muted-foreground">
+                        {juridicaPasswordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
                     </button>
                 </div>
                 <Button asChild className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
@@ -106,12 +107,12 @@ export default function LoginPage() {
                 <div className="space-y-2 relative">
                     <Label>Contraseña</Label>
                     <Input 
-                        type={passwordVisible ? "text" : "password"} 
+                        type={naturalPasswordVisible ? "text" : "password"} 
                         placeholder="••••••••" 
                         className="h-12 pr-10"
                     />
-                    <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-9 text-muted-foreground">
-                        {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                    <button type="button" onClick={() => setNaturalPasswordVisible(!naturalPasswordVisible)} className="absolute right-3 top-9 text-muted-foreground">
+                        {naturalPasswordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
                     </button>
                 </div>
                 <Button asChild className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
