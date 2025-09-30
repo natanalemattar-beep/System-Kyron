@@ -7,11 +7,10 @@ import {
   SheetTitle,
   SheetDescription,
   SheetFooter,
+  SheetTrigger
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -75,6 +74,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
 
   return (
     <Sheet>
+      <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent className="sm:max-w-2xl w-full">
         <SheetHeader>
           <SheetTitle>Create Invoice</SheetTitle>
@@ -155,7 +155,7 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
             </div>
             
             <div>
-              <Label>Invoice Items</Label>
+              <FormLabel>Invoice Items</FormLabel>
               <div className="space-y-4 mt-2">
                 {fields.map((field, index) => (
                   <div key={field.id} className="flex items-end gap-2">
@@ -204,7 +204,6 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
           </form>
         </Form>
       </SheetContent>
-      {children}
     </Sheet>
   );
 }

@@ -1,10 +1,11 @@
 import {
   Activity,
   AlertTriangle,
-  ArrowRightLeft,
   BadgeCheck,
   Bell,
   Book,
+  Download,
+  Eye,
   FileSignature,
   FileText,
   Library,
@@ -50,6 +51,7 @@ const stats = [
 
 const recentActivity = [
   {
+    id: "act-1",
     title: "Autorización SENIAT aprobada",
     time: "Hace 2 horas",
     icon: BadgeCheck,
@@ -57,6 +59,7 @@ const recentActivity = [
     actionIcon: Eye,
   },
   {
+    id: "act-2",
     title: "Factura #2024-0156 generada",
     time: "Hace 4 horas",
     icon: FileText,
@@ -64,6 +67,7 @@ const recentActivity = [
     actionIcon: Download,
   },
   {
+    id: "act-3",
     title: "Permiso ambiental por vencer",
     time: "En 15 días",
     icon: AlertTriangle,
@@ -71,6 +75,7 @@ const recentActivity = [
     actionIcon: Bell,
   },
   {
+    id: "act-4",
     title: "Libro contable 2024 creado",
     time: "Hace 1 día",
     icon: Book,
@@ -78,6 +83,7 @@ const recentActivity = [
     actionIcon: Eye,
   },
   {
+    id: "act-5",
     title: "Registro SENIAT actualizado",
     time: "Hace 2 días",
     icon: Library,
@@ -92,25 +98,6 @@ const financialSummary = [
     { label: "Balance", amount: 600000, color: "bg-blue-500" },
     { label: "IGTF Pagado", amount: 72000, color: "bg-purple-500" },
 ];
-
-function Eye(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-            <circle cx="12" cy="12" r="3" />
-        </svg>
-    )
-}
-
-function Download(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0-0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" x2="12" y1="15" y2="3" />
-        </svg>
-    )
-}
 
 export default function DashboardPage() {
   return (
@@ -141,9 +128,9 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {recentActivity.map((item, index) => (
+            {recentActivity.map((item) => (
               <div
-                key={index}
+                key={item.id}
                 className="flex items-center gap-4 p-3 rounded-lg bg-background/50 hover:bg-background/80"
               >
                 <div
