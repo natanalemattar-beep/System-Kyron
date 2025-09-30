@@ -76,3 +76,14 @@ export const financialChartData = [
   { month: 'Jun', income: 4390, expenses: 2800 },
   { month: 'Jul', income: 3490, expenses: 2100 },
 ];
+
+export const mockMovableAssets = [
+  { id: 'ASSET-M-001', name: 'Laptop Corporativa', purchaseDate: '2023-01-15', cost: 1200, usefulLife: 5, accumulatedDepreciation: 360, bookValue: 840 },
+  { id: 'ASSET-M-002', name: 'Vehículo de reparto', purchaseDate: '2022-03-20', cost: 25000, usefulLife: 10, accumulatedDepreciation: 6250, bookValue: 18750 },
+  { id: 'ASSET-M-003', name: 'Mobiliario de Oficina', purchaseDate: '2021-06-01', cost: 5000, usefulLife: 7, accumulatedDepreciation: 2143, bookValue: 2857 },
+];
+
+export const mockImmovableAssets = [
+    { id: 'ASSET-I-001', name: 'Oficina Principal', purchaseDate: '2018-01-01', cost: 250000, usefulLife: 40, accumulatedDepreciation: 39062.5, bookValue: 210937.5 },
+    { id: 'ASSET-I-002', name: 'Almacén', purchaseDate: '2020-05-10', cost: 150000, usefulLife: 25, accumulatedDepreciation: 26000, bookValue: 124000 },
+];

@@ -29,7 +29,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
-import { mockTransactions } from "@/lib/data";
+import { mockTransactions, mockMovableAssets, mockImmovableAssets } from "@/lib/data";
 
 const incomeStatementData = {
   revenue: mockTransactions.filter(t => t.category === "Income").reduce((sum, t) => sum + t.amount, 0),
@@ -110,31 +110,39 @@ export function ReportsView() {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="income-statement">
-          <TabsList>
-            <TabsTrigger value="income-statement">Income Statement</TabsTrigger>
-            <TabsTrigger value="balance-sheet">Balance Sheet</TabsTrigger>
+          <TabsList className="flex-wrap h-auto justify-start">
+            <TabsTrigger value="income-statement">Estado de Resultados</TabsTrigger>
+            <TabsTrigger value="balance-sheet">Balance General</TabsTrigger>
+            <TabsTrigger value="depreciation-movable">Depreciación (Bienes Muebles)</TabsTrigger>
+            <TabsTrigger value="depreciation-immovable">Depreciación (Bienes Inmuebles)</TabsTrigger>
           </TabsList>
           <TabsContent value="income-statement" className="pt-4">
              <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Descripción</TableHead>
+                        <TableHead className="text-right">Monto</TableHead>
+                    </TableRow>
+                </TableHeader>
                 <TableBody>
                     <TableRow>
-                        <TableCell className="font-medium">Revenue</TableCell>
+                        <TableCell className="font-medium">Ingresos (Revenue)</TableCell>
                         <TableCell className="text-right">{formatCurrency(incomeStatementData.revenue)}</TableCell>
                     </TableRow>
                      <TableRow>
-                        <TableCell className="pl-8 text-muted-foreground">Cost of Goods Sold</TableCell>
+                        <TableCell className="pl-8 text-muted-foreground">Costo de Bienes Vendidos</TableCell>
                         <TableCell className="text-right text-muted-foreground">({formatCurrency(incomeStatementData.costOfGoodsSold)})</TableCell>
                     </TableRow>
                      <TableRow className="font-bold border-t">
-                        <TableCell>Gross Profit</TableCell>
+                        <TableCell>Ganancia Bruta</TableCell>
                         <TableCell className="text-right">{formatCurrency(grossProfit)}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell className="font-medium pt-6">Operating Expenses</TableCell>
-                        <TableCell className="text-right pt-6">{formatCurrency(incomeStatementData.operatingExpenses)}</TableCell>
+                        <TableCell className="font-medium pt-6">Gastos Operativos</TableCell>
+                        <TableCell className="text-right pt-6">({formatCurrency(incomeStatementData.operatingExpenses)})</TableCell>
                     </TableRow>
                      <TableRow className="font-bold border-t text-lg text-primary">
-                        <TableCell>Net Income</TableCell>
+                        <TableCell>Ingreso Neto (Ganancias y Pérdidas)</TableCell>
                         <TableCell className="text-right">{formatCurrency(netIncome)}</TableCell>
                     </TableRow>
                 </TableBody>
@@ -142,31 +150,83 @@ export function ReportsView() {
           </TabsContent>
           <TabsContent value="balance-sheet" className="pt-4">
              <Table>
-                <TableHeader><TableRow><TableHead>Assets</TableHead><TableHead className="text-right"></TableHead></TableRow></TableHeader>
+                <TableHeader><TableRow><TableHead>Activos</TableHead><TableHead className="text-right"></TableHead></TableRow></TableHeader>
                 <TableBody>
                     {Object.entries(balanceSheetData.assets).map(([key, value]) => (
                         <TableRow key={key}><TableCell className="pl-8 text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</TableCell><TableCell className="text-right">{formatCurrency(value)}</TableCell></TableRow>
                     ))}
-                    <TableRow className="font-bold border-t"><TableCell>Total Assets</TableCell><TableCell className="text-right">{formatCurrency(totalAssets)}</TableCell></TableRow>
+                    <TableRow className="font-bold border-t"><TableCell>Activos Totales</TableCell><TableCell className="text-right">{formatCurrency(totalAssets)}</TableCell></TableRow>
                 </TableBody>
-                <TableHeader><TableRow><TableHead className="pt-8">Liabilities</TableHead><TableHead className="text-right pt-8"></TableHead></TableRow></TableHeader>
+                <TableHeader><TableRow><TableHead className="pt-8">Pasivos</TableHead><TableHead className="text-right pt-8"></TableHead></TableRow></TableHeader>
                 <TableBody>
                     {Object.entries(balanceSheetData.liabilities).map(([key, value]) => (
                         <TableRow key={key}><TableCell className="pl-8 text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</TableCell><TableCell className="text-right">{formatCurrency(value)}</TableCell></TableRow>
                     ))}
-                    <TableRow className="font-bold border-t"><TableCell>Total Liabilities</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilities)}</TableCell></TableRow>
+                    <TableRow className="font-bold border-t"><TableCell>Pasivos Totales</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilities)}</TableCell></TableRow>
                 </TableBody>
-                <TableHeader><TableRow><TableHead className="pt-8">Equity</TableHead><TableHead className="text-right pt-8"></TableHead></TableRow></TableHeader>
+                <TableHeader><TableRow><TableHead className="pt-8">Patrimonio</TableHead><TableHead className="text-right pt-8"></TableHead></TableRow></TableHeader>
                 <TableBody>
                     {Object.entries(balanceSheetData.equity).map(([key, value]) => (
                         <TableRow key={key}><TableCell className="pl-8 text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</TableCell><TableCell className="text-right">{formatCurrency(value)}</TableCell></TableRow>
                     ))}
-                    <TableRow className="font-bold border-t"><TableCell>Total Equity</TableCell><TableCell className="text-right">{formatCurrency(totalEquity)}</TableCell></TableRow>
+                    <TableRow className="font-bold border-t"><TableCell>Patrimonio Total</TableCell><TableCell className="text-right">{formatCurrency(totalEquity)}</TableCell></TableRow>
                 </TableBody>
                  <TableBody>
-                    <TableRow className="font-bold border-t text-lg text-primary"><TableCell>Total Liabilities & Equity</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilities + totalEquity)}</TableCell></TableRow>
+                    <TableRow className="font-bold border-t text-lg text-primary"><TableCell>Pasivos Totales + Patrimonio</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilities + totalEquity)}</TableCell></TableRow>
                  </TableBody>
              </Table>
+          </TabsContent>
+          <TabsContent value="depreciation-movable" className="pt-4">
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Activo</TableHead>
+                        <TableHead>Fecha de Compra</TableHead>
+                        <TableHead className="text-right">Costo</TableHead>
+                        <TableHead className="text-right">Vida Útil (Años)</TableHead>
+                        <TableHead className="text-right">Depreciación Acumulada</TableHead>
+                        <TableHead className="text-right">Valor Contable</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {mockMovableAssets.map(asset => (
+                        <TableRow key={asset.id}>
+                            <TableCell>{asset.name}</TableCell>
+                            <TableCell>{asset.purchaseDate}</TableCell>
+                            <TableCell className="text-right">{formatCurrency(asset.cost)}</TableCell>
+                            <TableCell className="text-right">{asset.usefulLife}</TableCell>
+                            <TableCell className="text-right">{formatCurrency(asset.accumulatedDepreciation)}</TableCell>
+                            <TableCell className="text-right font-medium">{formatCurrency(asset.bookValue)}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+          </TabsContent>
+          <TabsContent value="depreciation-immovable" className="pt-4">
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Activo</TableHead>
+                        <TableHead>Fecha de Compra</TableHead>
+                        <TableHead className="text-right">Costo</TableHead>
+                        <TableHead className="text-right">Vida Útil (Años)</TableHead>
+                        <TableHead className="text-right">Depreciación Acumulada</TableHead>
+                        <TableHead className="text-right">Valor Contable</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {mockImmovableAssets.map(asset => (
+                        <TableRow key={asset.id}>
+                            <TableCell>{asset.name}</TableCell>
+                            <TableCell>{asset.purchaseDate}</TableCell>
+                            <TableCell className="text-right">{formatCurrency(asset.cost)}</TableCell>
+                            <TableCell className="text-right">{asset.usefulLife}</TableCell>
+                            <TableCell className="text-right">{formatCurrency(asset.accumulatedDepreciation)}</TableCell>
+                            <TableCell className="text-right font-medium">{formatCurrency(asset.bookValue)}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
           </TabsContent>
         </Tabs>
       </CardContent>
