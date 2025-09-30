@@ -95,7 +95,7 @@ export default function LoginPage() {
                     </button>
                 </div>
                 <Button asChild className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
-                    <Link href="/dashboard">Acceder como Jurídica</Link>
+                    <Link href="/dashboard-juridico">Acceder como Jurídica</Link>
                 </Button>
               </TabsContent>
                <TabsContent value="natural" className="text-left mt-6 space-y-6">
