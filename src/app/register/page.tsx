@@ -127,8 +127,8 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="flex items-center space-x-2 pt-4">
-                    <Checkbox id="terms" />
-                    <Label htmlFor="terms" className="text-sm text-muted-foreground">
+                    <Checkbox id="terms-juridica" />
+                    <Label htmlFor="terms-juridica" className="text-sm text-muted-foreground">
                     Acepto los{" "}
                     <Link href="#" className="underline text-teal-600 hover:text-teal-700">
                         Términos de Servicio
@@ -136,18 +136,89 @@ export default function RegisterPage() {
                     y la{" "}
                     <Link href="#" className="underline text-teal-600 hover:text-teal-700">
                         Política de Privacidad
-                    </Link> de GobiernaVE.
+                    </Link>.
                     </Label>
                 </div>
 
                 <Button className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
-                    Registrarse
+                    Registrar Empresa
                 </Button>
               </TabsContent>
 
                <TabsContent value="natural" className="text-left space-y-6">
-                  {/* Form for Persona Natural would go here */}
-                  <p className="text-center text-muted-foreground">Formulario de registro para Persona Natural.</p>
+                <div>
+                  <h3 className="font-semibold mb-4 text-lg">Datos Personales</h3>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                        <Label>Nombres y Apellidos</Label>
+                        <Input type="text" placeholder="Juan Pérez" className="h-12"/>
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Cédula de Identidad</Label>
+                        <Input type="text" placeholder="V-12345678" className="h-12"/>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold mb-4 text-lg">Datos de Contacto</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                        <Label>Correo Electrónico</Label>
+                        <Input type="email" placeholder="juan.perez@email.com" className="h-12"/>
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Teléfono</Label>
+                        <Input type="tel" placeholder="0412-1234567" className="h-12"/>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold mb-4 text-lg">Seguridad</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2 relative">
+                        <Label>Contraseña</Label>
+                        <Input 
+                            type={passwordVisible ? "text" : "password"} 
+                            placeholder="••••••••" 
+                            className="h-12 pr-10"
+                        />
+                        <button onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-9 text-muted-foreground">
+                            {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                        </button>
+                    </div>
+                    <div className="space-y-2 relative">
+                        <Label>Confirmar Contraseña</Label>
+                        <Input 
+                            type={confirmPasswordVisible ? "text" : "password"} 
+                            placeholder="••••••••" 
+                            className="h-12 pr-10"
+                        />
+                        <button onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)} className="absolute right-3 top-9 text-muted-foreground">
+                            {confirmPasswordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                        </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-2 pt-4">
+                    <Checkbox id="terms-natural" />
+                    <Label htmlFor="terms-natural" className="text-sm text-muted-foreground">
+                    Acepto los{" "}
+                    <Link href="#" className="underline text-teal-600 hover:text-teal-700">
+                        Términos de Servicio
+                    </Link>{" "}
+                    y la{" "}
+                    <Link href="#" className="underline text-teal-600 hover:text-teal-700">
+                        Política de Privacidad
+                    </Link>.
+                    </Label>
+                </div>
+
+                <Button className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
+                    Registrarme
+                </Button>
                </TabsContent>
             </Tabs>
           </CardContent>
