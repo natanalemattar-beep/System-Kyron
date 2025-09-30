@@ -3,11 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  ArrowRightLeft,
-  BarChart3,
+  BookCopy,
   FileText,
-  LayoutDashboard,
-  ScanLine,
+  Receipt,
+  FileSignature,
+  Boxes,
+  Percent,
+  CreditCard,
+  Bell,
+  Settings,
+  LayoutDashboard
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -26,10 +31,15 @@ import { Logo } from "./logo";
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/data-entry", label: "Data Entry", icon: ScanLine },
-  { href: "/transactions", label: "Transactions", icon: ArrowRightLeft },
-  { href: "/invoices", label: "Invoices", icon: FileText },
-  { href: "/reports", label: "Reports", icon: BarChart3 },
+  { href: "/book", label: "Libro de Licores", icon: BookCopy },
+  { href: "/proformas", label: "Proformas", icon: FileText },
+  { href: "/invoices", label: "Facturación", icon: Receipt },
+  { href: "/contracts", label: "Contratos", icon: FileSignature },
+  { href: "/inventory", label: "Inventario", icon: Boxes },
+  { href: "/igtf", label: "IGTF & Exoneraciones", icon: Percent },
+  { href: "/credits", label: "Créditos", icon: CreditCard },
+  { href: "/notifications", label: "Notificaciones", icon: Bell },
+  { href: "/integrations", label: "Integraciones", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -62,8 +72,9 @@ export function AppSidebar() {
                   as="a"
                   isActive={isActive(item.href)}
                   tooltip={item.label}
+                  className="justify-start"
                 >
-                  <item.icon />
+                  <item.icon className="h-5 w-5" />
                   <span>{item.label}</span>
                 </SidebarMenuButton>
               </Link>
