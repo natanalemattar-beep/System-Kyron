@@ -339,7 +339,7 @@ export default function LandingPage() {
       <footer className="py-8 bg-transparent">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <p className="text-gray-600 dark:text-gray-400">
-            dueños: Carlos Mattar, Sebastian Garrido , Marcos Sousa
+            Dueños: Carlos Mattar, Sebastian Garrido , Marcos Sousa
           </p>
         </div>
       </footer>
