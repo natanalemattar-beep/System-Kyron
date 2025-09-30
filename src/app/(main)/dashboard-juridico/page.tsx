@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/utils';
+import Link from 'next/link';
 
 
 const mainActions = [
@@ -24,6 +25,7 @@ const mainActions = [
     description: 'Gestiona todos los libros contables oficiales de tu empresa.',
     icon: BookOpen,
     buttonText: 'Crear Libro',
+    href: '/libros-contables',
     iconColor: 'text-blue-400',
     iconBg: 'bg-blue-900/50',
   },
@@ -32,6 +34,7 @@ const mainActions = [
     description: 'Registro oficial de compras y ventas para el SENIAT.',
     icon: Landmark,
     buttonText: 'Nuevo Registro',
+    href: '/libro-compra-venta',
     iconColor: 'text-green-400',
     iconBg: 'bg-green-900/50',
   },
@@ -40,6 +43,7 @@ const mainActions = [
     description: 'Control especial para empresas del sector licorería.',
     icon: Wine,
     buttonText: 'Registrar Movimiento',
+    href: '/libro-licores',
     iconColor: 'text-orange-400',
     iconBg: 'bg-orange-900/50',
   },
@@ -48,6 +52,7 @@ const mainActions = [
     description: 'Genera proformas y cotizaciones profesionales.',
     icon: Receipt,
     buttonText: 'Nueva Proforma',
+    href: '/proformas',
     iconColor: 'text-purple-400',
     iconBg: 'bg-purple-900/50',
   },
@@ -93,9 +98,11 @@ export default function DashboardJuridicoPage() {
               <CardDescription className="text-sm">{action.description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary-foreground">
-                <Plus className="mr-2 h-4 w-4" />
-                {action.buttonText}
+              <Button asChild className="w-full bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary-foreground">
+                <Link href={action.href}>
+                    <Plus className="mr-2 h-4 w-4" />
+                    {action.buttonText}
+                </Link>
               </Button>
             </CardContent>
           </Card>
