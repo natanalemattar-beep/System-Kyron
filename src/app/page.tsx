@@ -13,6 +13,7 @@ import {
   Briefcase,
   CheckCircle,
   ArrowRight,
+  Rocket,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -61,30 +62,45 @@ export default function LandingPage() {
       </header>
 
       <main className="flex-1">
-        <section className="container mx-auto flex flex-col items-center justify-center px-4 py-20 text-center md:px-6 md:py-24">
-          <Card className="w-full max-w-md bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl">
-            <CardContent className="flex flex-col items-center p-8 text-center">
-              <Button
-                asChild
-                className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg"
-              >
-                <Link href="/dashboard">
-                  <Zap className="mr-2 h-5 w-5" /> Acceder Ahora
-                </Link>
-              </Button>
-              <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                ¿Primera vez?{" "}
-                <Link
-                  href="#"
-                  className="font-semibold text-teal-600 hover:underline"
-                >
-                  Regístrate aquí
-                </Link>
-              </p>
-            </CardContent>
-          </Card>
+        <section className="container mx-auto px-4 py-20 md:px-6 md:py-24">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="text-center lg:text-left">
+                    <span className="inline-block bg-teal-100 text-teal-700 dark:bg-teal-900/50 dark:text-teal-300 text-sm font-medium px-4 py-1.5 rounded-full mb-4">
+                        Plataforma Empresarial Venezuela
+                    </span>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                        Gestión integral para <span className="text-teal-600">Juridicos</span> y <span className="text-green-500">Naturales</span>
+                    </h1>
+                    <p className="mt-6 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0">
+                        Accede a tu cuenta empresarial o personal para gestionar RIF, permisos, documentos civiles y casos judiciales con la más alta tecnología y seguridad
+                    </p>
+                </div>
 
-          <div className="mt-16 text-center w-full max-w-4xl">
+                 <Card className="w-full max-w-md mx-auto bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl">
+                    <CardContent className="flex flex-col items-center p-8 text-center">
+                        <Rocket className="h-12 w-12 text-teal-500 mb-4" />
+                        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Iniciar Sesión</h2>
+                        <p className="mt-2 text-gray-600 dark:text-gray-400">
+                            Accede a tu cuenta para comenzar a gestionar tus trámites de forma inteligente
+                        </p>
+                        <Button asChild className="mt-6 w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg">
+                            <Link href="/dashboard">
+                                <Zap className="mr-2 h-5 w-5" /> Acceder Ahora
+                            </Link>
+                        </Button>
+                        <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                            ¿Primera vez?{" "}
+                            <Link href="#" className="font-semibold text-teal-600 hover:underline">
+                                Regístrate aquí
+                            </Link>
+                        </p>
+                    </CardContent>
+                </Card>
+            </div>
+        </section>
+
+        <section className="container mx-auto px-4 md:px-6 pb-20">
+          <div className="text-center w-full max-w-4xl mx-auto">
             <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 flex items-center justify-center gap-2">
               <LinkIcon className="h-5 w-5" />
               Integración oficial con:
