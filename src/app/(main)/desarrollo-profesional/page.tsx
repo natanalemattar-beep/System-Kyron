@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bookmark, Search, ArrowRight } from "lucide-react";
+import { Bookmark, Search, ArrowRight, BookOpen, Users, Award, Star, MessageSquare, Target, Heart, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 const libros = [
@@ -23,66 +23,153 @@ const libros = [
     descripcion: "Una fábula de liderazgo que explora las barreras que impiden que los equipos alcancen su máximo potencial.",
     imagen: "https://picsum.photos/seed/book3/300/400"
   },
-  {
-    titulo: "Cómo motivar y comprometer a los empleados",
-    autor: "Harvard Business Review",
-    descripcion: "Recopilación de artículos de HBR con estrategias probadas para aumentar el compromiso y la motivación.",
-    imagen: "https://picsum.photos/seed/book4/300/400"
-  },
-  {
-    titulo: "El código del liderazgo",
-    autor: "Dave Ulrich, Norm Smallwood, Kate Sweetman",
-    descripcion: "Define las cinco reglas clave que debe dominar todo líder para generar valor y resultados sostenibles.",
-     imagen: "https://picsum.photos/seed/book5/300/400"
-  },
 ];
+
+const capacitaciones = [
+    { titulo: "Liderazgo Efectivo en Entornos Híbridos", icon: Users },
+    { titulo: "Taller de Comunicación Asertiva", icon: MessageSquare },
+    { titulo: "Certificación en Metodologías Ágiles", icon: Award },
+]
 
 export default function DesarrolloProfesionalPage() {
   return (
-    <div className="p-4 md:p-8">
+    <div className="p-4 md:p-8 space-y-12">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-            <Bookmark className="h-8 w-8" />
-            Desarrollo Profesional
+            <Sparkles className="h-8 w-8 text-yellow-400" />
+            Portal de Crecimiento y Bienestar
         </h1>
         <p className="text-muted-foreground mt-2">
-          Biblioteca de recursos para la gestión y desarrollo del talento humano.
+          Invierte en tu desarrollo y aprovecha las herramientas para crecer.
         </p>
       </header>
 
-      <div className="mb-8 relative max-w-lg">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />
-        <input
-            type="text"
-            placeholder="Buscar libros por título o autor..."
-            className="w-full bg-background border rounded-md h-12 pl-12 pr-4"
-        />
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {libros.map((libro) => (
-          <Card key={libro.titulo} className="flex flex-col">
+    {/* Secciones de Desarrollo, Reconocimiento y Bienestar */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Capacitación */}
+        <Card className="flex flex-col">
             <CardHeader>
-                <div className="relative aspect-[3/4] mb-4">
-                    <Image src={libro.imagen} alt={`Portada de ${libro.titulo}`} layout="fill" className="rounded-md object-cover"/>
-                </div>
-              <CardTitle>{libro.titulo}</CardTitle>
-              <CardDescription>por {libro.autor}</CardDescription>
+                <CardTitle className="flex items-center gap-2"><BookOpen/> Capacitación Continua</CardTitle>
+                <CardDescription>Adquiere nuevas habilidades y conocimientos.</CardDescription>
             </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-sm text-muted-foreground">{libro.descripcion}</p>
+            <CardContent className="flex-grow space-y-3">
+                {capacitaciones.map(c => (
+                    <div key={c.titulo} className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg">
+                        <c.icon className="h-5 w-5 text-primary" />
+                        <span>{c.titulo}</span>
+                    </div>
+                ))}
             </CardContent>
             <CardFooter>
-              <Button variant="outline" className="w-full">
-                Ver más
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+                 <Button variant="outline" className="w-full">Ver Catálogo de Cursos</Button>
             </CardFooter>
-          </Card>
-        ))}
+        </Card>
+
+        {/* Mentoría */}
+        <Card className="flex flex-col">
+             <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Users/> Programa de Mentoría</CardTitle>
+                <CardDescription>Conecta con líderes experimentados y acelera tu crecimiento.</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow text-center flex flex-col items-center justify-center">
+                 <Image src="https://picsum.photos/seed/mentoring/400/250" alt="Mentoría" width={400} height={250} className="rounded-lg mb-4" />
+                 <p className="text-sm text-muted-foreground">Encuentra un mentor que te guíe en tu carrera profesional.</p>
+            </CardContent>
+            <CardFooter>
+                <Button className="w-full">Buscar un Mentor</Button>
+            </CardFooter>
+        </Card>
+
+        {/* Reconocimiento */}
+        <Card className="flex flex-col">
+             <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Star/> Reconocimientos</CardTitle>
+                <CardDescription>Celebramos tus logros y contribuciones.</CardDescription>
+            </CardHeader>
+             <CardContent className="flex-grow space-y-3">
+                <div className="flex items-center gap-3 p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                    <Award className="h-6 w-6 text-yellow-500"/>
+                    <div>
+                        <p className="font-semibold">Empleado del Mes</p>
+                        <p className="text-sm text-muted-foreground">¡Felicidades, Luis Gómez!</p>
+                    </div>
+                </div>
+                 <p className="text-sm text-center text-muted-foreground pt-4">Aquí verás los reconocimientos que has recibido.</p>
+            </CardContent>
+            <CardFooter>
+                 <Button variant="outline" className="w-full">Ver Historial de Logros</Button>
+            </CardFooter>
+        </Card>
+
+         {/* Feedback y Metas */}
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Target/> Feedback y Metas</CardTitle>
+                <CardDescription>Define tus objetivos y recibe retroalimentación constructiva.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                 <Button className="w-full justify-between">
+                    <span>Ver mis Metas del Q3</span>
+                    <ArrowRight/>
+                </Button>
+                 <Button variant="secondary" className="w-full justify-between">
+                    <span>Agendar Sesión de Feedback</span>
+                     <ArrowRight/>
+                </Button>
+            </CardContent>
+        </Card>
+        
+        {/* Bienestar */}
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Heart/> Bienestar Laboral</CardTitle>
+                <CardDescription>Tu salud y equilibrio son nuestra prioridad.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p className="text-sm text-muted-foreground">Accede a recursos de bienestar, pausas activas y solicita horarios flexibles para un mejor balance vida-trabajo.</p>
+            </CardContent>
+             <CardFooter>
+                <Button variant="outline" className="w-full">Explorar Programas</Button>
+            </CardFooter>
+        </Card>
+    </div>
+
+    {/* Biblioteca */}
+      <div className="space-y-8 pt-8">
+        <h2 className="text-2xl font-bold tracking-tight">Biblioteca de Recursos</h2>
+        <div className="relative max-w-lg">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />
+            <input
+                type="text"
+                placeholder="Buscar libros por título o autor..."
+                className="w-full bg-background border rounded-md h-12 pl-12 pr-4"
+            />
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {libros.map((libro) => (
+            <Card key={libro.titulo} className="flex flex-col">
+                <CardHeader>
+                    <div className="relative aspect-[3/4] mb-4">
+                        <Image src={libro.imagen} alt={`Portada de ${libro.titulo}`} layout="fill" className="rounded-md object-cover"/>
+                    </div>
+                <CardTitle className="text-lg">{libro.titulo}</CardTitle>
+                <CardDescription>por {libro.autor}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                <p className="text-sm text-muted-foreground line-clamp-3">{libro.descripcion}</p>
+                </CardContent>
+                <CardFooter>
+                <Button variant="outline" className="w-full">
+                    Leer más
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                </CardFooter>
+            </Card>
+            ))}
+        </div>
       </div>
+
     </div>
   );
 }
-
-    

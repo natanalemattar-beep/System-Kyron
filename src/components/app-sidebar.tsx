@@ -34,7 +34,8 @@ import {
   ShoppingCart,
   UserX,
   Banknote,
-  FileWarning
+  FileWarning,
+  Sparkles,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -79,7 +80,7 @@ const facturacionMenuItems = [
 const recursosHumanosMenuItems = [
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
-    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Bookmark },
+    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
 ];
 
 const librosRegistroMenuItems = [
