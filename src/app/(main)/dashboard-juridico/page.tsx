@@ -1,7 +1,8 @@
 
+"use client";
+
 import {
   BookOpen,
-  FileText,
   FilePlus,
   BarChart2,
   AlertTriangle,
@@ -18,6 +19,20 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/utils';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogFooter,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { useToast } from "@/hooks/use-toast";
 
 
 const mainActions = [
@@ -71,7 +86,7 @@ const mainActions = [
 const stats = [
     { title: 'Permisos Vigentes', value: '3', footer: '1 por renovar', icon: CheckCircle, iconColor: 'text-green-500' },
     { title: 'Multas Pendientes', value: '2', footer: 'Bs. 45,000', icon: AlertTriangle, iconColor: 'text-orange-500' },
-    { title: 'Facturas del Mes', value: '127', footer: 'Bs. 2.4M', icon: FileText, iconColor: 'text-blue-500' },
+    { title: 'Facturas del Mes', value: '127', footer: 'Bs. 2.4M', icon: FilePlus, iconColor: 'text-blue-500' },
     { title: 'Inventario', value: '1,245', footer: '15 productos bajos', icon: BarChart2, iconColor: 'text-purple-500' },
 ]
 
@@ -85,7 +100,40 @@ const financialSummary = [
     { label: 'Gastos del Mes', amount: 1800000, color: 'bg-red-600/20 text-red-400' },
 ]
 
+const ActivitySkeleton = () => (
+  <div className="lg:col-span-2">
+    <Card className="bg-card/50 backdrop-blur-sm">
+      <CardHeader>
+        <Skeleton className="h-6 w-32" />
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex items-center gap-4 p-3 rounded-md bg-secondary/50">
+          <Skeleton className="h-8 w-8 rounded-full" />
+          <div className="flex-1 space-y-2">
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-3 w-1/4" />
+          </div>
+        </div>
+        <div className="flex items-center gap-4 p-3 rounded-md bg-secondary/50">
+          <Skeleton className="h-8 w-8 rounded-full" />
+          <div className="flex-1 space-y-2">
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-3 w-1/4" />
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+);
+
+const LazyActivityCard = dynamic(() => import('@/components/dashboard/activity-card').then(mod => mod.ActivityCard), {
+  ssr: false,
+  loading: () => <ActivitySkeleton />,
+});
+
+
 export default function DashboardJuridicoPage() {
+  const {toast} = useToast();
   return (
     <div className="p-4 md:p-8 space-y-8">
       <div className="flex justify-between items-center">
@@ -99,7 +147,7 @@ export default function DashboardJuridicoPage() {
       {/* Main Actions */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {mainActions.map((action, index) => (
-          <Card key={index} className="bg-card/50 backdrop-blur-sm flex flex-col justify-between">
+          <Card key={index} className="bg-card/50 backdrop-blur-sm flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
             <CardHeader>
               <div className={`p-3 rounded-lg ${action.iconBg} w-max mb-4`}>
                 <action.icon className={`h-6 w-6 ${action.iconColor}`} />
@@ -122,7 +170,7 @@ export default function DashboardJuridicoPage() {
         {/* Stats */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {stats.map(stat => (
-              <Card key={stat.title} className="bg-card/50 backdrop-blur-sm">
+              <Card key={stat.title} className="bg-card/50 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
                     <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
@@ -138,29 +186,9 @@ export default function DashboardJuridicoPage() {
 
       {/* Activity and Financial Summary */}
       <div className="grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle>Actividad Reciente</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4">
-              {recentActivities.map((activity, index) => (
-                  <li key={index} className="flex items-center gap-4 p-3 rounded-md bg-secondary/50">
-                     <activity.icon className={`h-5 w-5 ${activity.iconColor}`} />
-                      <div className="flex-1">
-                          <p className="font-medium">{activity.description}</p>
-                          <p className="text-xs text-muted-foreground">{activity.time}</p>
-                      </div>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <Eye className="h-4 w-4"/>
-                      </Button>
-                  </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <LazyActivityCard recentActivities={recentActivities} />
+        
+        <Card className="bg-card/50 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
           <CardHeader>
             <CardTitle>Resumen Financiero</CardTitle>
           </CardHeader>
