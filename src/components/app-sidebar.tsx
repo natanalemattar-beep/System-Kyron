@@ -45,6 +45,9 @@ import {
   TabletSmartphone,
   ClipboardCheck,
   PieChart,
+  TrendingUp,
+  ShieldQuestion,
+  Lightbulb,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -81,7 +84,14 @@ const contabilidadMenuItems = [
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
-  { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+];
+
+const analisisCrecimientoMenuItems = [
+    { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
+    { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+    { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
+    { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
+    { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
 ];
 
 const entesReguladoresItems = [
@@ -155,6 +165,7 @@ export function AppSidebar() {
         ...librosRegistroMenuItems.map(item => item.href),
         ...generalMenuItems.map(item => item.href),
         ...entesReguladoresItems.map(item => item.href),
+        ...analisisCrecimientoMenuItems.map(item => item.href),
         '/declaracion-iva',
     ];
 
@@ -230,6 +241,28 @@ export function AppSidebar() {
                 ))}
             </SidebarMenu>
         </SidebarGroup>
+
+        <SidebarGroup>
+            <SidebarGroupLabel className="flex items-center gap-2"><TrendingUp className="h-4 w-4"/>Análisis y Crecimiento</SidebarGroupLabel>
+            <SidebarMenu>
+                {analisisCrecimientoMenuItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                    asChild
+                    isActive={pathname.startsWith(item.href)}
+                    tooltip={item.label}
+                    className="justify-start"
+                    >
+                    <Link href={item.href}>
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.label}</span>
+                    </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
+
         <SidebarGroup>
             <SidebarGroupLabel className="flex items-center gap-2"><Landmark className="h-4 w-4"/>Entes Reguladores</SidebarGroupLabel>
             <SidebarMenu>
@@ -422,3 +455,5 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
+    
