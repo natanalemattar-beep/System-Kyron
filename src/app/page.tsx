@@ -264,7 +264,7 @@ export default function LandingPage() {
                             <div>
                                 <h3 className="text-xl font-semibold">Correo Electrónico</h3>
                                 <p className="text-muted-foreground">Envíanos tus preguntas a nuestro correo de soporte.</p>
-                                <a href="mailto:soporte@systemcrs.com" className="text-primary font-medium">soporte@systemcs.com</a>
+                                <a href="mailto:soporte@systemcs.com" className="text-primary font-medium">soporte@systemcs.com</a>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
