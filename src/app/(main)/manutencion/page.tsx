@@ -1,11 +1,12 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { HeartHandshake, PlusCircle, CheckCircle, Download, Eye, FileUp, Loader2 } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { HeartHandshake, PlusCircle, CheckCircle, Download, Eye, FileUp, Loader2, Info, User, Calculator } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -25,6 +26,18 @@ const initialPagos = [
 
 type Pago = typeof initialPagos[0];
 
+const gastosIniciales = {
+    alimentacion: 400,
+    educacion: 250,
+    salud: 150,
+    vestimenta: 100,
+    vivienda: 300,
+    recreacion: 80,
+    extracurriculares: 120,
+};
+
+type Gastos = typeof gastosIniciales;
+
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   Verificado: "default",
   "Pendiente de Verificación": "secondary",
@@ -39,8 +52,17 @@ export default function ManutencionPage() {
     const [fechaPago, setFechaPago] = useState(new Date().toISOString().substring(0, 10));
     const [beneficiario, setBeneficiario] = useState("");
     const [isProcessing, setIsProcessing] = useState(false);
+    const [gastos, setGastos] = useState(gastosIniciales);
 
     const { toast } = useToast();
+    
+    const totalGastos = useMemo(() => {
+        return Object.values(gastos).reduce((acc, valor) => acc + (Number(valor) || 0), 0);
+    }, [gastos]);
+
+    const handleGastoChange = (key: keyof Gastos, value: string) => {
+        setGastos(prev => ({ ...prev, [key]: value === '' ? 0 : Number(value) }));
+    };
 
     const handleFileSelect = async (selectedFile: File) => {
         setFile(selectedFile);
@@ -177,7 +199,7 @@ export default function ManutencionPage() {
             </Dialog>
         </header>
 
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card className="bg-card/50 backdrop-blur-sm mb-8">
             <CardHeader>
                 <CardTitle>Historial de Pagos</CardTitle>
                 <CardDescription>
@@ -220,6 +242,80 @@ export default function ManutencionPage() {
                 </Table>
             </CardContent>
         </Card>
+
+        <div className="grid lg:grid-cols-2 gap-8">
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Calculator /> Estimación de Gastos Mensuales del Menor</CardTitle>
+                    <CardDescription>Desglosa los costos para determinar un monto de manutención justo.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Concepto</TableHead>
+                                <TableHead className="text-right">Monto Estimado (Bs.)</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {Object.entries(gastos).map(([key, value]) => (
+                                <TableRow key={key}>
+                                    <TableCell className="capitalize text-muted-foreground">{key.replace(/([A-Z])/g, ' $1')}</TableCell>
+                                    <TableCell className="text-right">
+                                        <Input
+                                            type="number"
+                                            value={value}
+                                            onChange={(e) => handleGastoChange(key as keyof Gastos, e.target.value)}
+                                            className="text-right bg-transparent border-0 border-b rounded-none focus-visible:ring-0"
+                                            placeholder="0.00"
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+                <CardFooter className="font-bold text-lg flex justify-between bg-secondary/50 p-4">
+                    <span>Total Estimado Mensual:</span>
+                    <span>{formatCurrency(totalGastos, "Bs.")}</span>
+                </CardFooter>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Info /> Aspectos Clave de la Manutención (LOPNNA)</CardTitle>
+                    <CardDescription>Guía rápida sobre tus derechos y deberes.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Accordion type="single" collapsible defaultValue="item-1">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>¿Qué comprende la Obligación de Manutención?</AccordionTrigger>
+                            <AccordionContent>
+                                (Art. 365 LOPNNA) Incluye todo lo necesario para el sustento, vestido, habitación, educación, cultura, asistencia y atención médica, medicinas, recreación y deportes, requeridos por el niño, niña y adolescente.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger>¿Quiénes son los obligados a la manutención?</AccordionTrigger>
+                            <AccordionContent>
+                                El padre y la madre son los responsables principales. En su ausencia, la responsabilidad puede recaer en otros familiares.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-3">
+                            <AccordionTrigger>¿Cómo se determina el monto?</AccordionTrigger>
+                            <AccordionContent>
+                                El monto se fija por acuerdo entre las partes o, en su defecto, por decisión judicial. Debe considerar la necesidad e interés del niño y la capacidad económica del obligado.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-4">
+                            <AccordionTrigger>¿Hasta qué edad se extiende la obligación?</AccordionTrigger>
+                            <AccordionContent>
+                                La obligación subsiste hasta los 18 años de edad. Puede extenderse si el hijo o hija se encuentra incapacitado o si está cursando estudios que le impidan mantenerse por sus propios medios, hasta los 25 años.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </CardContent>
+            </Card>
+        </div>
     </div>
   );
 }
