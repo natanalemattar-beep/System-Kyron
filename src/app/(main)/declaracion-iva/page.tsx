@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FileText, Download, TrendingUp, TrendingDown, CheckCircle } from "lucide-react";
+import { FileText, Download, TrendingUp, TrendingDown, CheckCircle, FilePlus, FileMinus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -13,10 +13,13 @@ import { Separator } from "@/components/ui/separator";
 const resumenMes = {
     debitoFiscal: 46400, // Ventas * 16%
     creditoFiscal: 1564.8, // Compras * 16%
+    retencionesSoportadas: 34800, // Ej: 75% del débito fiscal
+    ivaRetenidoATerceros: 1173.6, // Ej: 75% del crédito fiscal
     alicuota: 0.16,
 };
 
-const totalAPagar = resumenMes.debitoFiscal - resumenMes.creditoFiscal;
+const cuotaTributaria = resumenMes.debitoFiscal - resumenMes.creditoFiscal;
+const totalAPagar = cuotaTributaria - resumenMes.retencionesSoportadas;
 
 const historialDeclaraciones = [
     { id: "IVA-2024-06", periodo: "Junio 2024", monto: 42800.50, fecha: "15/07/2024", estado: "Pagado" },
@@ -40,10 +43,10 @@ export default function DeclaracionIvaPage() {
         <header className="mb-8">
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                 <FileText className="h-8 w-8" />
-                Declaración de IVA
+                Declaración de IVA (Contribuyentes Especiales)
             </h1>
             <p className="text-muted-foreground mt-2">
-                Realiza la declaración y pago del Impuesto al Valor Agregado.
+                Realiza la declaración y pago del Impuesto al Valor Agregado conforme a la normativa para Contribuyentes Especiales.
             </p>
         </header>
 
@@ -52,10 +55,10 @@ export default function DeclaracionIvaPage() {
                 <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Resumen del Período - Julio 2024</CardTitle>
-                        <CardDescription>Cálculo automático basado en los libros de compra y venta.</CardDescription>
+                        <CardDescription>Cálculo automático basado en los libros de compra y venta, incluyendo retenciones.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             <Card className="bg-green-600/10 border-green-600/30">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium">Débito Fiscal (Ventas)</CardTitle>
@@ -63,7 +66,6 @@ export default function DeclaracionIvaPage() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.debitoFiscal, 'Bs.')}</div>
-                                    <p className="text-xs text-muted-foreground">Total IVA generado por ventas</p>
                                 </CardContent>
                             </Card>
                              <Card className="bg-red-600/10 border-red-600/30">
@@ -73,7 +75,24 @@ export default function DeclaracionIvaPage() {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.creditoFiscal, 'Bs.')}</div>
-                                    <p className="text-xs text-muted-foreground">Total IVA soportado en compras</p>
+                                </CardContent>
+                            </Card>
+                             <Card className="bg-yellow-600/10 border-yellow-600/30">
+                                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                    <CardTitle className="text-sm font-medium">Retenciones Soportadas</CardTitle>
+                                    <FileMinus className="h-4 w-4 text-yellow-500" />
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="text-2xl font-bold">{formatCurrency(resumenMes.retencionesSoportadas, 'Bs.')}</div>
+                                </CardContent>
+                            </Card>
+                             <Card className="bg-blue-600/10 border-blue-600/30">
+                                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                    <CardTitle className="text-sm font-medium">IVA Retenido a Terceros</CardTitle>
+                                    <FilePlus className="h-4 w-4 text-blue-500" />
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="text-2xl font-bold">{formatCurrency(resumenMes.ivaRetenidoATerceros, 'Bs.')}</div>
                                 </CardContent>
                             </Card>
                         </div>
@@ -87,8 +106,17 @@ export default function DeclaracionIvaPage() {
                                 <span className="text-muted-foreground">Crédito Fiscal:</span>
                                 <span className="font-semibold text-red-500">- {formatCurrency(resumenMes.creditoFiscal, 'Bs.')}</span>
                            </div>
-                            <div className="flex justify-between items-center font-bold text-2xl border-t pt-4">
-                                <span className="text-primary">Total a Pagar (Cuota Tributaria):</span>
+                            <div className="flex justify-between items-center font-bold text-xl border-t pt-4">
+                                <span className="text-primary">Cuota Tributaria del Período:</span>
+                                <span className="text-primary">{formatCurrency(cuotaTributaria, 'Bs.')}</span>
+                           </div>
+                            <Separator />
+                            <div className="flex justify-between items-center">
+                                <span className="text-muted-foreground">(-) Retenciones de IVA Soportadas:</span>
+                                <span className="font-semibold text-yellow-500">- {formatCurrency(resumenMes.retencionesSoportadas, 'Bs.')}</span>
+                           </div>
+                           <div className="flex justify-between items-center font-bold text-2xl border-t pt-4">
+                                <span className="text-primary">Total a Pagar al SENIAT:</span>
                                 <span className="text-primary">{formatCurrency(totalAPagar, 'Bs.')}</span>
                            </div>
                         </div>
