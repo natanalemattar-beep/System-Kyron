@@ -45,7 +45,7 @@ const pestleData = [
 
 export default function AnalisisFodaPage() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 p-4 md:p-8">
        <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
             <Briefcase className="h-8 w-8" />
@@ -62,13 +62,13 @@ export default function AnalisisFodaPage() {
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-primary"><Zap />Fortalezas</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-green-500"><Zap />Fortalezas</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
                             {fodaData.fortalezas.map(item => (
                                 <li key={item.text} className="flex items-start gap-3">
-                                    <item.icon className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                                    <item.icon className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
                                     <span>{item.text}</span>
                                 </li>
                             ))}
@@ -78,13 +78,13 @@ export default function AnalisisFodaPage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-blue-400"><TrendingUp />Oportunidades</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-primary"><TrendingUp />Oportunidades</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
                             {fodaData.oportunidades.map(item => (
                                 <li key={item.text} className="flex items-start gap-3">
-                                    <item.icon className="h-5 w-5 text-blue-500 mt-0.5 shrink-0" />
+                                    <item.icon className="h-5 w-5 text-primary mt-0.5 shrink-0" />
                                     <span>{item.text}</span>
                                 </li>
                             ))}

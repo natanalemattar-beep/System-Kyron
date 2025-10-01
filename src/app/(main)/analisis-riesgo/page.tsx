@@ -34,7 +34,7 @@ const getProbabilidadVariant = (prob: string) => {
     switch (prob) {
         case "Alta": return "destructive";
         case "Media": return "secondary";
-        default: "outline";
+        default: return "outline";
     }
 }
 

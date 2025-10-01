@@ -78,15 +78,15 @@ const mainActions = [
 ];
 
 const stats = [
-    { title: 'Permisos Vigentes', value: '3', footer: '1 por renovar', icon: CheckCircle, iconColor: 'text-green-400' },
-    { title: 'Multas Pendientes', value: '2', footer: 'Bs. 45,000', icon: AlertTriangle, iconColor: 'text-orange-400' },
-    { title: 'Facturas del Mes', value: '127', footer: 'Bs. 2.4M', icon: FilePlus, iconColor: 'text-blue-400' },
-    { title: 'Inventario', value: '1,245', footer: '15 productos bajos', icon: BarChart2, iconColor: 'text-purple-400' },
+    { title: 'Permisos Vigentes', value: '3', footer: '1 por renovar', icon: CheckCircle, iconColor: 'text-green-500' },
+    { title: 'Multas Pendientes', value: '2', footer: 'Bs. 45,000', icon: AlertTriangle, iconColor: 'text-orange-500' },
+    { title: 'Facturas del Mes', value: '127', footer: 'Bs. 2.4M', icon: FilePlus, iconColor: 'text-blue-500' },
+    { title: 'Inventario', value: '1,245', footer: '15 productos bajos', icon: BarChart2, iconColor: 'text-purple-500' },
 ]
 
 const recentActivities = [
-    { description: 'Autorización SENIAT aprobada', time: 'Hace 2 horas', icon: CheckCircle, iconColor: 'text-green-400' },
-    { description: 'Factura #2024-0156 generada', time: 'Ayer', icon: FilePlus, iconColor: 'text-blue-400' },
+    { description: 'Autorización SENIAT aprobada', time: 'Hace 2 horas', icon: CheckCircle, iconColor: 'text-green-500' },
+    { description: 'Factura #2024-0156 generada', time: 'Ayer', icon: FilePlus, iconColor: 'text-blue-500' },
 ]
 
 const dailySummary = {
@@ -146,7 +146,7 @@ export default function DashboardJuridicoPage() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Dashboard Jurídico</h1>
-        <Badge variant="outline" className="text-green-400 border-green-400/50">
+        <Badge variant="outline" className="text-green-500 border-green-500/50">
           <CheckCircle className="w-4 h-4 mr-2" />
           Empresa Activa
         </Badge>
@@ -157,8 +157,8 @@ export default function DashboardJuridicoPage() {
         {mainActions.map((action, index) => (
           <Card key={index} className="flex flex-col justify-between hover:shadow-md transition-shadow duration-300 bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <div className={`p-3 rounded-lg bg-secondary w-max mb-4`}>
-                <action.icon className={`h-6 w-6 text-primary`} />
+              <div className={'p-3 rounded-lg bg-secondary w-max mb-4'}>
+                <action.icon className={'h-6 w-6 text-primary'} />
               </div>
               <CardTitle className="text-lg font-semibold">{action.title}</CardTitle>
               <CardDescription className="text-sm">{action.description}</CardDescription>
@@ -204,11 +204,11 @@ export default function DashboardJuridicoPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-              <div className={'p-4 rounded-lg bg-green-900/30 text-green-300'}>
+              <div className={'p-4 rounded-lg bg-green-500/10 text-green-500'}>
                   <p className="text-sm font-medium">Ventas del Día</p>
                   <p className="text-2xl font-bold">{formatCurrency(dailySummary.ventas, 'Bs.')}</p>
               </div>
-               <div className={'p-4 rounded-lg bg-red-900/30 text-red-400'}>
+               <div className={'p-4 rounded-lg bg-red-500/10 text-red-500'}>
                   <p className="text-sm font-medium">Gastos del Día</p>
                   <p className="text-2xl font-bold">{formatCurrency(dailySummary.gastos, 'Bs.')}</p>
               </div>

@@ -59,10 +59,10 @@ export default function DeclaracionIvaPage() {
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            <Card className="bg-primary/10 border-primary/20">
+                            <Card className="bg-green-500/10 border-green-500/20">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-primary">Débito Fiscal (Ventas)</CardTitle>
-                                    <TrendingUp className="h-4 w-4 text-primary" />
+                                    <CardTitle className="text-sm font-medium text-green-600">Débito Fiscal (Ventas)</CardTitle>
+                                    <TrendingUp className="h-4 w-4 text-green-600" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.debitoFiscal, 'Bs.')}</div>
@@ -79,8 +79,8 @@ export default function DeclaracionIvaPage() {
                             </Card>
                              <Card className="bg-yellow-400/10 border-yellow-400/20">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-yellow-400">Retenciones Soportadas</CardTitle>
-                                    <FileMinus className="h-4 w-4 text-yellow-400" />
+                                    <CardTitle className="text-sm font-medium text-yellow-500">Retenciones Soportadas</CardTitle>
+                                    <FileMinus className="h-4 w-4 text-yellow-500" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.retencionesSoportadas, 'Bs.')}</div>
@@ -88,8 +88,8 @@ export default function DeclaracionIvaPage() {
                             </Card>
                              <Card className="bg-blue-400/10 border-blue-400/20">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-blue-400">IVA Retenido a Terceros</CardTitle>
-                                    <FilePlus className="h-4 w-4 text-blue-400" />
+                                    <CardTitle className="text-sm font-medium text-blue-500">IVA Retenido a Terceros</CardTitle>
+                                    <FilePlus className="h-4 w-4 text-blue-500" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.ivaRetenidoATerceros, 'Bs.')}</div>

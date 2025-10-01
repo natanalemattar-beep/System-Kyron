@@ -63,7 +63,7 @@ export default function DashboardPersonalPage() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Dashboard Personal</h1>
-        <Badge variant="outline" className="text-green-600 border-green-600">
+        <Badge variant="outline" className="text-green-500 border-green-500/50">
           <CheckCircle className="w-4 h-4 mr-2" />
           Cuenta Verificada
         </Badge>
@@ -74,8 +74,8 @@ export default function DashboardPersonalPage() {
           <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow duration-300 bg-card/50 backdrop-blur-sm">
             <CardHeader>
               <div className="flex items-start gap-4">
-                <div className={`p-3 rounded-lg bg-secondary`}>
-                  <action.icon className={`h-6 w-6 text-primary`} />
+                <div className={'p-3 rounded-lg bg-secondary'}>
+                  <action.icon className={'h-6 w-6 text-primary'} />
                 </div>
                 <div>
                   <CardTitle className="text-lg font-semibold">{action.title}</CardTitle>
