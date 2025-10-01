@@ -47,7 +47,8 @@ import {
   HandCoins,
   Wallet,
   HeartHandshake,
-  Megaphone
+  Megaphone,
+  Mail
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -116,7 +117,7 @@ const recursosHumanosMenuItems = [
     { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
     { href: "/ivss", label: "Gestión IVSS", icon: Briefcase },
     { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
-    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: FileText },
+    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: TrendingUp },
 ];
 
