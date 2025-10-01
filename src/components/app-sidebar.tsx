@@ -141,7 +141,7 @@ const naturalMenuItems = [
   { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
   { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
   { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
-  { href: "/manutencion", label: "Manutención", icon: HeartHandshake },
+  { href: "/manutencion", label: "Gestión Integral CRS", icon: HeartHandshake },
   { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
   { href: "/seguridad", label: "Seguridad", icon: Shield },
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
@@ -432,3 +432,5 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
+    
