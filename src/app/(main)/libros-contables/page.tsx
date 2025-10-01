@@ -5,7 +5,7 @@ import { useState, useMemo }from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { BookOpen, FileUp, PlusCircle, Trash2 } from "lucide-react";
+import { BookOpen, FileUp, PlusCircle, Trash2, CheckCircle } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,13 +37,14 @@ type AsientoLinea = {
     haber: number;
 };
 
+const initialAsientoState: AsientoLinea[] = [
+    { id: 1, cuenta: "", debe: 0, haber: 0 },
+    { id: 2, cuenta: "", debe: 0, haber: 0 },
+];
+
 export default function LibrosContablesPage() {
     const { toast } = useToast();
-    const [isAsientoDialogOpen, setIsAsientoDialogOpen] = useState(false);
-    const [lineasAsiento, setLineasAsiento] = useState<AsientoLinea[]>([
-        { id: 1, cuenta: "", debe: 0, haber: 0 },
-        { id: 2, cuenta: "", debe: 0, haber: 0 },
-    ]);
+    const [lineasAsiento, setLineasAsiento] = useState<AsientoLinea[]>(initialAsientoState);
 
     const totalDebe = useMemo(() => lineasAsiento.reduce((sum, linea) => sum + (linea.debe || 0), 0), [lineasAsiento]);
     const totalHaber = useMemo(() => lineasAsiento.reduce((sum, linea) => sum + (linea.haber || 0), 0), [lineasAsiento]);
@@ -68,12 +69,9 @@ export default function LibrosContablesPage() {
         toast({
             title: "Asiento Contable Registrado",
             description: "La transacción se ha registrado correctamente en el Libro Diario.",
+            action: <CheckCircle className="text-green-500"/>
         });
-        setIsAsientoDialogOpen(false);
-        setLineasAsiento([
-            { id: 1, cuenta: "", debe: 0, haber: 0 },
-            { id: 2, cuenta: "", debe: 0, haber: 0 },
-        ]);
+        setLineasAsiento(initialAsientoState);
     };
     
     const handleLineaChange = (id: number, field: keyof AsientoLinea, value: string | number) => {
@@ -87,12 +85,14 @@ export default function LibrosContablesPage() {
     };
 
     const removeLinea = (id: number) => {
-        setLineasAsiento(lineas => lineas.filter(linea => linea.id !== id));
+        if (lineasAsiento.length > 2) {
+            setLineasAsiento(lineas => lineas.filter(linea => linea.id !== id));
+        }
     };
 
   return (
-    <div className="p-4 md:p-8">
-        <header className="mb-8 flex items-center justify-between">
+    <div className="p-4 md:p-8 space-y-8">
+        <header className="flex items-center justify-between">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <BookOpen className="h-8 w-8" />
@@ -128,6 +128,83 @@ export default function LibrosContablesPage() {
                 </DialogContent>
             </Dialog>
         </header>
+        
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Registrar Nuevo Asiento en Libro Diario</CardTitle>
+                 <CardDescription>
+                   Introduce los detalles de la transacción. El total del Debe debe ser igual al total del Haber.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="grid gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                         <div className="space-y-2">
+                            <Label htmlFor="fecha">Fecha de Operación</Label>
+                            <Input id="fecha" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
+                        </div>
+                         <div className="space-y-2">
+                            <Label htmlFor="asiento-nro">Número de Asiento</Label>
+                            <Input id="asiento-nro" type="number" placeholder="Ej: 001" />
+                        </div>
+                         <div className="space-y-2">
+                            <Label htmlFor="concepto">Concepto</Label>
+                            <Input id="concepto" placeholder="Ej: Pago de alquiler de oficina" />
+                        </div>
+                    </div>
+                    <div className="space-y-2 mt-4">
+                        <Label>Cuentas Afectadas</Label>
+                        <div className="border rounded-md overflow-x-auto">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Cuenta</TableHead>
+                                        <TableHead className="text-right">Debe</TableHead>
+                                        <TableHead className="text-right">Haber</TableHead>
+                                        <TableHead></TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {lineasAsiento.map((linea) => (
+                                        <TableRow key={linea.id}>
+                                            <TableCell className="min-w-[200px]">
+                                                <Input placeholder="Ej: 628 - Gastos de Alquiler" value={linea.cuenta} onChange={(e) => handleLineaChange(linea.id, 'cuenta', e.target.value)} />
+                                            </TableCell>
+                                            <TableCell className="min-w-[120px]">
+                                                <Input type="number" placeholder="0.00" className="text-right" value={linea.debe || ""} onChange={(e) => handleLineaChange(linea.id, 'debe', Number(e.target.value))} />
+                                            </TableCell>
+                                            <TableCell className="min-w-[120px]">
+                                                <Input type="number" placeholder="0.00" className="text-right" value={linea.haber || ""} onChange={(e) => handleLineaChange(linea.id, 'haber', Number(e.target.value))} />
+                                            </TableCell>
+                                            <TableCell>
+                                                  <Button variant="ghost" size="icon" onClick={() => removeLinea(linea.id)} disabled={lineasAsiento.length <= 2}>
+                                                    <Trash2 className="h-4 w-4 text-destructive" />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                            <div className="p-2 border-t flex justify-between items-center">
+                                 <Button variant="outline" size="sm" onClick={addLinea}>
+                                    <PlusCircle className="mr-2 h-4 w-4" />
+                                    Añadir Línea
+                                </Button>
+                                <div className="flex justify-end gap-4 font-bold text-sm pr-12">
+                                    <span>Total Debe: <span className="font-mono">{formatCurrency(totalDebe, 'Bs.')}</span></span>
+                                    <span>Total Haber: <span className="font-mono">{formatCurrency(totalHaber, 'Bs.')}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </CardContent>
+            <CardFooter>
+                 <Button type="button" onClick={handleSaveAsiento} disabled={!isCuadrado} className="w-full md:w-auto">
+                    Guardar Asiento
+                </Button>
+            </CardFooter>
+        </Card>
 
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
@@ -141,7 +218,6 @@ export default function LibrosContablesPage() {
                             <TableHead>Nombre del Libro</TableHead>
                             <TableHead>Descripción</TableHead>
                             <TableHead>Última Actualización</TableHead>
-                            <TableHead className="text-right">Acciones</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -150,90 +226,6 @@ export default function LibrosContablesPage() {
                                 <TableCell className="font-medium">{libro.nombre}</TableCell>
                                 <TableCell>{libro.descripcion}</TableCell>
                                 <TableCell>{libro.ultimaActualizacion}</TableCell>
-                                <TableCell className="text-right">
-                                    <Dialog open={isAsientoDialogOpen} onOpenChange={setIsAsientoDialogOpen}>
-                                        <DialogTrigger asChild>
-                                             <Button variant="outline" size="sm" disabled={libro.nombre !== "Libro Diario"}>
-                                                <FileUp className="mr-2 h-4 w-4" />
-                                                Cargar Asiento
-                                            </Button>
-                                        </DialogTrigger>
-                                        <DialogContent className="max-w-3xl">
-                                            <DialogHeader>
-                                                <DialogTitle>Registrar Asiento en el Libro Diario</DialogTitle>
-                                                <DialogDescription>
-                                                   Introduce los detalles de la transacción. El total del Debe debe ser igual al total del Haber.
-                                                </DialogDescription>
-                                            </DialogHeader>
-                                            <div className="grid gap-4 py-4">
-                                                <div className="grid grid-cols-3 gap-4">
-                                                     <div className="space-y-2">
-                                                        <Label htmlFor="fecha">Fecha de Operación</Label>
-                                                        <Input id="fecha" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
-                                                    </div>
-                                                     <div className="space-y-2">
-                                                        <Label htmlFor="asiento-nro">Número de Asiento</Label>
-                                                        <Input id="asiento-nro" type="number" placeholder="Ej: 001" />
-                                                    </div>
-                                                     <div className="space-y-2 col-span-3 md:col-span-1">
-                                                        <Label htmlFor="concepto">Concepto</Label>
-                                                        <Input id="concepto" placeholder="Ej: Pago de alquiler de oficina" />
-                                                    </div>
-                                                </div>
-                                                <div className="space-y-2 mt-4">
-                                                    <Label>Cuentas Afectadas</Label>
-                                                    <div className="border rounded-md">
-                                                        <Table>
-                                                            <TableHeader>
-                                                                <TableRow>
-                                                                    <TableHead>Cuenta</TableHead>
-                                                                    <TableHead className="text-right">Debe</TableHead>
-                                                                    <TableHead className="text-right">Haber</TableHead>
-                                                                    <TableHead></TableHead>
-                                                                </TableRow>
-                                                            </TableHeader>
-                                                            <TableBody>
-                                                                {lineasAsiento.map((linea, index) => (
-                                                                    <TableRow key={linea.id}>
-                                                                        <TableCell>
-                                                                            <Input placeholder="Ej: 628 - Gastos de Alquiler" value={linea.cuenta} onChange={(e) => handleLineaChange(linea.id, 'cuenta', e.target.value)} />
-                                                                        </TableCell>
-                                                                        <TableCell>
-                                                                            <Input type="number" placeholder="0.00" className="text-right" value={linea.debe} onChange={(e) => handleLineaChange(linea.id, 'debe', Number(e.target.value))} />
-                                                                        </TableCell>
-                                                                        <TableCell>
-                                                                            <Input type="number" placeholder="0.00" className="text-right" value={linea.haber} onChange={(e) => handleLineaChange(linea.id, 'haber', Number(e.target.value))} />
-                                                                        </TableCell>
-                                                                        <TableCell>
-                                                                             <Button variant="ghost" size="icon" onClick={() => removeLinea(linea.id)} disabled={lineasAsiento.length <= 2}>
-                                                                                <Trash2 className="h-4 w-4 text-destructive" />
-                                                                            </Button>
-                                                                        </TableCell>
-                                                                    </TableRow>
-                                                                ))}
-                                                            </TableBody>
-                                                        </Table>
-                                                        <div className="p-2 border-t">
-                                                             <Button variant="outline" size="sm" onClick={addLinea}>
-                                                                <PlusCircle className="mr-2 h-4 w-4" />
-                                                                Añadir Línea
-                                                            </Button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="flex justify-end gap-8 font-bold mt-2 pr-12">
-                                                    <span>Total Debe: <span className="font-mono">{formatCurrency(totalDebe, 'Bs.')}</span></span>
-                                                    <span>Total Haber: <span className="font-mono">{formatCurrency(totalHaber, 'Bs.')}</span></span>
-                                                </div>
-                                            </div>
-                                            <DialogFooter>
-                                                <Button type="button" onClick={handleSaveAsiento} disabled={!isCuadrado}>
-                                                    Guardar Asiento
-                                                </Button>
-                                            </DialogFooter>
-                                        </DialogContent>
-                                    </Dialog>
-                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
