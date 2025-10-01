@@ -50,7 +50,8 @@ import {
   Megaphone,
   Mail,
   Puzzle,
-  Layers
+  Layers,
+  BarChart
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -88,6 +89,7 @@ const finanzasContabilidadMenuItems = [
 
 const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
+    { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
     { href: "/analisis-foda", label: "Análisis FODA", icon: Briefcase },
     { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
@@ -438,5 +440,6 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
 
 
