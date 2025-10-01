@@ -33,7 +33,7 @@ export default function IslrArcPage() {
             </div>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Retenciones de Julio 2024</CardTitle>
                 <CardDescription>Listado de retenciones de ISLR por empleado para el período actual.</CardDescription>

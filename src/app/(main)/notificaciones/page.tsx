@@ -42,7 +42,7 @@ export default function NotificacionesPage() {
           Aquí verás todas tus alertas y notificaciones.
         </p>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardContent className="pt-6">
             {notificaciones.length > 0 ? (
                  <ul className="space-y-4">

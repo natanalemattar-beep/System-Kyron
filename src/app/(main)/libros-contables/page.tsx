@@ -41,7 +41,7 @@ export default function LibrosContablesPage() {
             </Button>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Libros Oficiales</CardTitle>
                 <CardDescription>Visualiza y actualiza tus libros contables.</CardDescription>

@@ -36,7 +36,7 @@ export default function LibroHorasExtrasPage() {
             </div>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Registros de Julio 2024</CardTitle>
                 <CardDescription>Visualiza las horas extras trabajadas y el monto pagado por empleado.</CardDescription>

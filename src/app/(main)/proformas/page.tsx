@@ -38,7 +38,7 @@ export default function ProformasPage() {
             </Button>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Proformas Recientes</CardTitle>
                 <CardDescription>Listado de las últimas proformas generadas.</CardDescription>

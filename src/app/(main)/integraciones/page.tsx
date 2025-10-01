@@ -14,7 +14,7 @@ export default function IntegracionesPage() {
           Módulo de integraciones.
         </p>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Módulo de Integraciones</CardTitle>
           <CardDescription>

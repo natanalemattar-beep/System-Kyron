@@ -43,7 +43,7 @@ export default function DocumentosJudicialesPage() {
           Nueva Solicitud
         </Button>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardContent className="pt-6">
             <Table>
                 <TableHeader>

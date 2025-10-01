@@ -30,7 +30,7 @@ export default function LibroPersonalRetiradoPage() {
             </Button>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Historial de Retiros</CardTitle>
                 <CardDescription>Detalle del personal que ya no forma parte de la empresa.</CardDescription>

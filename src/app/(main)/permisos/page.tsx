@@ -35,7 +35,7 @@ export default function PermisosPage() {
             Solicitar Nuevo Permiso
         </Button>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
             <CardTitle>Permisos y Licencias</CardTitle>
             <CardDescription>Listado de todos los permisos activos y su estado.</CardDescription>

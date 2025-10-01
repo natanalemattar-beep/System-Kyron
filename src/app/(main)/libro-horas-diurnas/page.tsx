@@ -36,7 +36,7 @@ export default function LibroHorasDiurnasPage() {
             </div>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Registros de Julio 2024</CardTitle>
                 <CardDescription>Visualiza las horas diurnas registradas para cada empleado.</CardDescription>

@@ -89,7 +89,7 @@ export default function DesarrolloProfesionalPage() {
     {/* Secciones de Desarrollo, Reconocimiento y Bienestar */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Capacitación */}
-        <Card className="flex flex-col">
+        <Card className="flex flex-col bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2"><BookOpen/> Capacitación Continua</CardTitle>
                 <CardDescription>Adquiere nuevas habilidades y conocimientos.</CardDescription>
@@ -108,7 +108,7 @@ export default function DesarrolloProfesionalPage() {
         </Card>
 
         {/* Mentoría */}
-        <Card className="flex flex-col">
+        <Card className="flex flex-col bg-card/50 backdrop-blur-sm">
              <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Users/> Programa de Mentoría</CardTitle>
                 <CardDescription>Conecta con líderes experimentados y acelera tu crecimiento.</CardDescription>
@@ -123,7 +123,7 @@ export default function DesarrolloProfesionalPage() {
         </Card>
 
         {/* Reconocimiento */}
-        <Card className="flex flex-col">
+        <Card className="flex flex-col bg-card/50 backdrop-blur-sm">
              <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Star/> Reconocimientos</CardTitle>
                 <CardDescription>Celebramos tus logros y contribuciones.</CardDescription>
@@ -144,7 +144,7 @@ export default function DesarrolloProfesionalPage() {
         </Card>
 
          {/* Feedback y Metas */}
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Target/> Feedback y Metas</CardTitle>
                 <CardDescription>Define tus objetivos y recibe retroalimentación constructiva.</CardDescription>
@@ -162,7 +162,7 @@ export default function DesarrolloProfesionalPage() {
         </Card>
         
         {/* Bienestar */}
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2"><HeartHandshake/> Bienestar y Apoyo</CardTitle>
                 <CardDescription>Tu salud y equilibrio son nuestra prioridad.</CardDescription>
@@ -190,7 +190,7 @@ export default function DesarrolloProfesionalPage() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {libros.map((libro) => (
-            <Card key={libro.titulo} className="flex flex-col">
+            <Card key={libro.titulo} className="flex flex-col bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <div className="relative aspect-[3/4] mb-4">
                         <Image src={libro.imagen} alt={`Portada de ${libro.titulo}`} layout="fill" className="rounded-md object-cover"/>

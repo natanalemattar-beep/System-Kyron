@@ -14,7 +14,7 @@ export default function FacturacionPage() {
           Módulo de facturación.
         </p>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Módulo de Facturación</CardTitle>
           <CardDescription>

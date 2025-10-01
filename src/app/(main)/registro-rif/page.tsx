@@ -42,7 +42,7 @@ export default function RegistroRifPage() {
           Gestiona el estado de tu Registro de Información Fiscal (RIF).
         </p>
       </header>
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="w-full max-w-2xl mx-auto bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-3">
              <div className="flex items-center gap-2">

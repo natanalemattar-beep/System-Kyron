@@ -14,7 +14,7 @@ export default function ContabilidadPage() {
           Módulo de contabilidad general.
         </p>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Módulo de Contabilidad</CardTitle>
           <CardDescription>

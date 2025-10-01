@@ -76,7 +76,7 @@ export default function ReciboNominaPage({ params }: { params: { id: string } })
             </div>
         </header>
 
-        <Card className="max-w-4xl mx-auto">
+        <Card className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm">
             <CardHeader className="text-center bg-secondary/30 p-6">
                 <CardTitle className="text-3xl">Recibo de Pago de Nómina</CardTitle>
                 <CardDescription>{nomina.periodo}</CardDescription>

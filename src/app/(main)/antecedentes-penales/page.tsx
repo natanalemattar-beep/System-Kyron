@@ -12,7 +12,7 @@ export default function AntecedentesPenalesPage() {
           Sube tu currículum para obtener tu certificado automáticamente.
         </p>
       </header>
-      <Card className="text-center p-8">
+      <Card className="text-center p-8 bg-card/50 backdrop-blur-sm">
         <CardHeader>
             <CardTitle>Sube tu CV</CardTitle>
             <CardDescription>Nuestro sistema extraerá la información necesaria para generar el certificado.</CardDescription>

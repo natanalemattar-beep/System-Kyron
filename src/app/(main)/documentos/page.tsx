@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 export default function DocumentosPage() {
   return (
     <div className="p-4 md:p-8">
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Mis Documentos</CardTitle>
           <CardDescription>

@@ -14,7 +14,7 @@ export default function InventarioPage() {
           Módulo de gestión de inventario.
         </p>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Módulo de Inventario</CardTitle>
           <CardDescription>

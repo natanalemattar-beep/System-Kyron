@@ -10,7 +10,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-         <header className="p-4 flex justify-between items-center border-b">
+         <header className="p-4 flex justify-between items-center border-b bg-background/50 backdrop-blur-sm sticky top-0 z-10">
            <SidebarTrigger />
            <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon"><Bell className="h-5 w-5"/></Button>

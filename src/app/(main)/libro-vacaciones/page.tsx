@@ -43,7 +43,7 @@ export default function LibroVacacionesPage() {
             </div>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Historial de Vacaciones</CardTitle>
                 <CardDescription>Visualiza los períodos vacacionales por empleado.</CardDescription>

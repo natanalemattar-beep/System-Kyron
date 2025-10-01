@@ -31,7 +31,7 @@ export default function LibroCompraVentaPage() {
             </Button>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Registros del Mes</CardTitle>
                 <CardDescription>Visualiza los movimientos de compras y ventas de Julio 2024.</CardDescription>

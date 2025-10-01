@@ -14,7 +14,7 @@ export default function IgtfPage() {
           Módulo de IGTF y exoneraciones.
         </p>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>IGTF & Exoneraciones</CardTitle>
           <CardDescription>

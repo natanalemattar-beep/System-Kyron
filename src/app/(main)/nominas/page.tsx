@@ -101,7 +101,7 @@ export default function NominasPage() {
             </div>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Lista de Empleados</CardTitle>
                 <CardDescription>Visualiza la información de los empleados y gestiona sus recibos de pago.</CardDescription>

@@ -36,7 +36,7 @@ export default function LibroHorarioNocturnoPage() {
             </div>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Registros de Julio 2024</CardTitle>
                 <CardDescription>Detalle de las horas nocturnas por empleado.</CardDescription>

@@ -30,7 +30,7 @@ export default function MultasPage() {
             Consulta y paga las multas y sanciones asociadas a tu empresa.
         </p>
       </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
             <CardTitle>Historial de Multas</CardTitle>
             <CardDescription>Listado completo de multas y su estado actual.</CardDescription>

@@ -37,7 +37,7 @@ export default function LibroNominaPage() {
             </div>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Libro de Nómina - 1ra Quincena de Julio 2024</CardTitle>
                 <CardDescription>Empresa S.A. | RIF: J-12345678-9</CardDescription>

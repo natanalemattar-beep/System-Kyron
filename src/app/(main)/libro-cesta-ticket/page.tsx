@@ -37,7 +37,7 @@ export default function LibroCestaTicketPage() {
             </div>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Pagos de Julio 2024</CardTitle>
                 <CardDescription>Listado de pagos del bono de alimentación por empleado.</CardDescription>

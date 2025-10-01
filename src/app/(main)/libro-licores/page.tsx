@@ -30,7 +30,7 @@ export default function LibroLicoresPage() {
             </Button>
         </header>
 
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Movimientos de Inventario</CardTitle>
                 <CardDescription>Registro de entradas y salidas de licores.</CardDescription>
