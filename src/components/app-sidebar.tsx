@@ -40,6 +40,7 @@ import {
   Stamp,
   BookUser,
   UserCog,
+  ShieldAlert,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -65,6 +66,7 @@ const juridicoMainMenuItems = [
   { href: "/autorizaciones", label: "Autorizaciones", icon: Shield },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
   { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
+  { href: "/cumplimiento", label: "Cumplimiento", icon: ShieldAlert },
 ];
 
 const contabilidadMenuItems = [
