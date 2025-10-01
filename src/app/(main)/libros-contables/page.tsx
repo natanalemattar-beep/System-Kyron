@@ -3,9 +3,9 @@
 
 import { useState, useMemo }from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { BookOpen, FileUp, PlusCircle, Trash2, CheckCircle } from "lucide-react";
+import { BookOpen, PlusCircle, Trash2, CheckCircle } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -74,7 +74,7 @@ export default function LibrosContablesPage() {
         setLineasAsiento(initialAsientoState);
     };
     
-    const handleLineaChange = (id: number, field: keyof AsientoLinea, value: string | number) => {
+    const handleLineaChange = (id: number, field: 'cuenta' | 'debe' | 'haber', value: string | number) => {
         setLineasAsiento(lineas => lineas.map(linea => 
             linea.id === id ? { ...linea, [field]: value } : linea
         ));
@@ -200,7 +200,7 @@ export default function LibrosContablesPage() {
                 </div>
             </CardContent>
             <CardFooter>
-                 <Button type="button" onClick={handleSaveAsiento} disabled={!isCuadrado} className="w-full md:w-auto">
+                 <Button type="button" onClick={handleSaveAsiento} disabled={!isCuadrado}>
                     Guardar Asiento
                 </Button>
             </CardFooter>
