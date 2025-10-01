@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bookmark, Search, ArrowRight, BookOpen, Users, Award, Star, MessageSquare, Target, Heart, Sparkles } from "lucide-react";
+import { Bookmark, Search, ArrowRight, BookOpen, Users, Award, Star, MessageSquare, Target, Heart, Sparkles, HeartHandshake } from "lucide-react";
 import Image from "next/image";
 
 const libros = [
@@ -164,14 +164,14 @@ export default function DesarrolloProfesionalPage() {
         {/* Bienestar */}
         <Card>
             <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Heart/> Bienestar Laboral</CardTitle>
+                <CardTitle className="flex items-center gap-2"><HeartHandshake/> Bienestar y Apoyo</CardTitle>
                 <CardDescription>Tu salud y equilibrio son nuestra prioridad.</CardDescription>
             </CardHeader>
             <CardContent>
-                <p className="text-sm text-muted-foreground">Accede a recursos de bienestar, pausas activas y solicita horarios flexibles para un mejor balance vida-trabajo.</p>
+                <p className="text-sm text-muted-foreground">Accede a recursos de bienestar, pausas activas y solicita horarios flexibles. Brindamos apoyo en caso de enfermedad del trabajador o de un familiar directo.</p>
             </CardContent>
              <CardFooter>
-                <Button variant="outline" className="w-full">Explorar Programas</Button>
+                <Button variant="outline" className="w-full">Explorar Programas de Apoyo</Button>
             </CardFooter>
         </Card>
     </div>
