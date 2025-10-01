@@ -116,6 +116,7 @@ const recursosHumanosMenuItems = [
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/ivss", label: "IVSS (14-01, 14-02)", icon: Briefcase },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
+    { href: "/clasificacion-empleados", label: "Clasificación Empleados", icon: Award },
     { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
 ];
@@ -455,5 +456,3 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
-
-    
