@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot } from "lucide-react";
+import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot, Phone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
@@ -335,34 +335,26 @@ export default function LandingPage() {
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
-                    <p className="mt-4 text-muted-foreground">¿Listo para tomar el control de tu negocio? Déjanos tus datos y un especialista te contactará.</p>
-                    <div className="mt-4 text-muted-foreground">
-                        <p><strong>Correo:</strong> contacto@systemcms.com</p>
-                        <p><strong>Teléfono:</strong> +58 414-1234567</p>
-                    </div>
+                    <p className="mt-4 text-muted-foreground">¿Listo para tomar el control de tu negocio? Ponte en contacto con nosotros.</p>
                 </div>
-                <Card className="max-w-xl mx-auto">
-                    <CardContent className="p-6">
-                        <form className="space-y-4">
-                            <div className="grid sm:grid-cols-2 gap-4">
-                                <div className="space-y-1">
-                                    <Label htmlFor="name">Nombre</Label>
-                                    <Input id="name" placeholder="Tu nombre completo" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="email">Correo Electrónico</Label>
-                                    <Input id="email" type="email" placeholder="tu@correo.com" />
-                                </div>
+                <Card className="max-w-xl mx-auto bg-card/80 backdrop-blur-sm">
+                    <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
+                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                            <div className="p-3 bg-primary/10 rounded-full mb-3">
+                                <Mail className="h-8 w-8 text-primary"/>
                             </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="message">Mensaje</Label>
-                                <Textarea id="message" placeholder="Cuéntanos sobre tu negocio..." />
+                            <h3 className="font-semibold">Correo Electrónico</h3>
+                            <p className="text-muted-foreground text-sm mb-2">Para consultas generales y soporte.</p>
+                            <a href="mailto:contacto@systemcms.com" className="text-lg font-semibold text-primary hover:underline">contacto@systemcms.com</a>
+                        </div>
+                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                             <div className="p-3 bg-primary/10 rounded-full mb-3">
+                                <Phone className="h-8 w-8 text-primary"/>
                             </div>
-                            <Button className="w-full">
-                                <Mail className="mr-2"/>
-                                Enviar Solicitud
-                            </Button>
-                        </form>
+                            <h3 className="font-semibold">Teléfono</h3>
+                            <p className="text-muted-foreground text-sm mb-2">Habla directamente con nuestro equipo.</p>
+                            <a href="tel:+584141234567" className="text-lg font-semibold text-primary hover:underline">+58 414-1234567</a>
+                        </div>
                     </CardContent>
                 </Card>
             </div>
