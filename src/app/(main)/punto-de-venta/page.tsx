@@ -6,10 +6,12 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle } from "lucide-react";
+import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 
 const products = [
     { id: 1, name: "Resma de Papel", price: 7.50, image: "https://picsum.photos/seed/paper/200/200" },
@@ -29,9 +31,19 @@ type CartItem = {
     quantity: number;
 };
 
+type Currency = "Bs." | "USD" | "EUR";
+
+const exchangeRates: Record<Currency, number> = {
+    "Bs.": 40.0, // Tasa de referencia Bs. por USD
+    "USD": 1,
+    "EUR": 0.92, // Tasa de referencia EUR por USD
+};
+
+
 export default function PuntoDeVentaPage() {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [isReceiptOpen, setIsReceiptOpen] = useState(false);
+    const [currency, setCurrency] = useState<Currency>("Bs.");
     const { toast } = useToast();
 
     const addToCart = (product: typeof products[0]) => {
@@ -62,9 +74,16 @@ export default function PuntoDeVentaPage() {
         setCart(prevCart => prevCart.filter(item => item.id !== productId));
     }
 
+    const getPriceInCurrency = (price: number) => {
+        if (currency === 'USD') return price;
+        const priceInUsd = price;
+        return priceInUsd * exchangeRates[currency];
+    }
+    
     const subtotal = useMemo(() => cart.reduce((acc, item) => acc + item.price * item.quantity, 0), [cart]);
-    const iva = subtotal * 0.16;
-    const total = subtotal + iva;
+    const subtotalInCurrency = getPriceInCurrency(subtotal);
+    const iva = subtotalInCurrency * 0.16;
+    const total = subtotalInCurrency + iva;
     
     const handleCheckout = () => {
         if (cart.length === 0) {
@@ -117,7 +136,7 @@ export default function PuntoDeVentaPage() {
                                     <Image src={product.image} alt={product.name} width={200} height={200} className="aspect-square object-cover rounded-t-lg" />
                                     <div className="p-2 text-center w-full">
                                         <p className="text-sm font-medium truncate">{product.name}</p>
-                                        <p className="text-xs text-muted-foreground">{formatCurrency(product.price, 'Bs.')}</p>
+                                        <p className="text-xs text-muted-foreground">{formatCurrency(getPriceInCurrency(product.price), currency)}</p>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -138,7 +157,7 @@ export default function PuntoDeVentaPage() {
                                         <TableRow key={item.id}>
                                             <TableCell>
                                                 <p className="font-medium">{item.name}</p>
-                                                <p className="text-xs text-muted-foreground">{formatCurrency(item.price, 'Bs.')} c/u</p>
+                                                <p className="text-xs text-muted-foreground">{formatCurrency(getPriceInCurrency(item.price), currency)} c/u</p>
                                             </TableCell>
                                             <TableCell className="w-28">
                                                 <div className="flex items-center gap-1">
@@ -147,7 +166,7 @@ export default function PuntoDeVentaPage() {
                                                     <Button size="icon" variant="ghost" className="h-6 w-6" onClick={() => updateQuantity(item.id, 1)}><Plus className="h-3 w-3"/></Button>
                                                 </div>
                                             </TableCell>
-                                            <TableCell className="text-right font-semibold">{formatCurrency(item.price * item.quantity, 'Bs.')}</TableCell>
+                                            <TableCell className="text-right font-semibold">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</TableCell>
                                             <TableCell><Button size="icon" variant="ghost" className="h-6 w-6 text-destructive" onClick={() => removeFromCart(item.id)}><X className="h-4 w-4"/></Button></TableCell>
                                         </TableRow>
                                     ))}
@@ -160,10 +179,23 @@ export default function PuntoDeVentaPage() {
                         )}
                     </CardContent>
                     <CardFooter className="flex-col !p-4 border-t">
+                        <div className="w-full mb-4">
+                             <Label htmlFor="currency-select">Moneda</Label>
+                             <Select value={currency} onValueChange={(value) => setCurrency(value as Currency)}>
+                                <SelectTrigger id="currency-select">
+                                    <SelectValue placeholder="Seleccionar moneda" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Bs.">Bolívares (Bs.)</SelectItem>
+                                    <SelectItem value="USD">Dólares (USD)</SelectItem>
+                                    <SelectItem value="EUR">Euros (EUR)</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                         <div className="w-full space-y-2 text-sm mb-4">
-                            <div className="flex justify-between"><span>Subtotal:</span><span>{formatCurrency(subtotal, 'Bs.')}</span></div>
-                            <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, 'Bs.')}</span></div>
-                            <div className="flex justify-between font-bold text-lg border-t pt-2"><span>Total a Pagar:</span><span>{formatCurrency(total, 'Bs.')}</span></div>
+                            <div className="flex justify-between"><span>Subtotal:</span><span>{formatCurrency(subtotalInCurrency, currency)}</span></div>
+                            <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, currency)}</span></div>
+                            <div className="flex justify-between font-bold text-lg border-t pt-2"><span>Total a Pagar:</span><span>{formatCurrency(total, currency)}</span></div>
                         </div>
                         <Button className="w-full text-lg h-12" onClick={handleCheckout}>Cobrar</Button>
                     </CardFooter>
@@ -184,20 +216,28 @@ export default function PuntoDeVentaPage() {
                                  <TableBody>
                                     {cart.map(item => (
                                         <TableRow key={item.id}>
-                                            <TableCell>{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(item.price, 'Bs.')}</span></TableCell>
-                                            <TableCell className="text-right font-medium">{formatCurrency(item.price * item.quantity, 'Bs.')}</TableCell>
+                                            <TableCell>{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)}</span></TableCell>
+                                            <TableCell className="text-right font-medium">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
                             </Table>
                         </div>
-                        <Separator className="my-2"/>
-                         <div className="w-full space-y-1 text-sm">
-                            <div className="flex justify-between"><span>Subtotal:</span><span>{formatCurrency(subtotal, 'Bs.')}</span></div>
-                            <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, 'Bs.')}</span></div>
-                            <div className="flex justify-between font-bold text-lg pt-1"><span>TOTAL:</span><span>{formatCurrency(total, 'Bs.')}</span></div>
+                        <div className="my-4">
+                            <h4 className="text-sm font-semibold mb-2">Métodos de Pago Aceptados:</h4>
+                            <p className="text-xs text-muted-foreground">
+                                Zelle, USDT (Binance), PayPal, Pago Móvil (Kontigo)
+                            </p>
                         </div>
-                        <p className="text-center text-xs mt-4">¡Gracias por su compra!</p>
+                         <div className="w-full space-y-1 text-sm">
+                            <div className="flex justify-between"><span>Subtotal:</span><span>{formatCurrency(subtotalInCurrency, currency)}</span></div>
+                            <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, currency)}</span></div>
+                            <div className="flex justify-between font-bold text-lg pt-1"><span>TOTAL ({currency}):</span><span>{formatCurrency(total, currency)}</span></div>
+                        </div>
+                        <div className="flex flex-col items-center text-center mt-4">
+                             <ShieldCheck className="h-6 w-6 text-green-500 mb-1"/>
+                             <p className="text-xs text-muted-foreground">¡Gracias por su compra!</p>
+                        </div>
                     </div>
                     <DialogFooter className="mt-6 gap-2 sm:justify-center print:hidden">
                         <Button variant="outline" onClick={handlePrint}><Printer className="mr-2"/> Imprimir Recibo</Button>
