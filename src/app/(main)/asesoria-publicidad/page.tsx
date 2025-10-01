@@ -6,111 +6,88 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Megaphone, Search, Paintbrush, Tv, Globe, Send } from "lucide-react";
+import { Megaphone, Search, Paintbrush, Bot, Send, Calendar, MessageCircle, Wallet, Briefcase, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const servicios = {
-    digital: [
-        { icon: Search, title: "SEO y SEM", description: "Posicionamos tu marca en los primeros lugares de Google." },
-        { icon: Globe, title: "Gestión de Redes Sociales", description: "Creamos contenido atractivo y gestionamos tu comunidad online." },
-        { icon: Tv, title: "Publicidad Programática", description: "Campañas de banners y video segmentadas para tu público objetivo." },
-    ],
-    tradicional: [
-        { icon: Tv, title: "Campañas en Prensa y Radio", description: "Llegamos a audiencias masivas a través de medios tradicionales." },
-        { icon: Globe, title: "Vallas y Publicidad Exterior", description: "Impacto visual en puntos estratégicos de la ciudad." },
-    ],
-    marca: [
-        { icon: Paintbrush, title: "Creación de Logotipos", description: "Diseñamos un logo memorable que represente la esencia de tu marca." },
-        { icon: Search, title: "Desarrollo de Identidad Corporativa", description: "Definimos la voz, tono y estilo visual de tu empresa." },
-    ]
-}
+const socialPlatforms = [
+    { name: "WhatsApp", icon: MessageCircle },
+    { name: "Instagram", icon: Wallet },
+    { name: "Telegram", icon: Send },
+]
 
-const proceso = [
-    "Diagnóstico Inicial: Analizamos tu marca, mercado y competencia.",
-    "Diseño de Estrategia: Creamos un plan de marketing y publicidad a medida.",
-    "Ejecución de Campañas: Lanzamos las campañas en los canales seleccionados.",
-    "Medición y Optimización: Monitoreamos los resultados y ajustamos la estrategia para maximizar el ROI."
+const services = [
+    { title: "Consultoría Estratégica", description: "Análisis y planificación para optimizar la toma de decisiones.", icon: Briefcase },
+    { title: "Marketing Digital y Publicidad", description: "Campañas de SEO, redes sociales y publicidad programática.", icon: Megaphone },
+    { title: "Análisis de Crecimiento", description: "Estudios de mercado, análisis FODA y estrategias de ventas.", icon: TrendingUp },
 ];
 
-export default function AsesoriaPublicidadPage() {
+const processSteps = [
+    "Contacto Inicial: El cliente interactúa con el agente virtual en WhatsApp, Instagram o Telegram.",
+    "Calificación y Asesoramiento: La IA entiende las necesidades, responde preguntas y presenta los servicios.",
+    "Agendamiento o Venta: El agente agenda una cita en el calendario o procesa la venta directamente.",
+    "Pago Seguro: Se genera un enlace de pago a través de una pasarela segura conectada a tu banco.",
+    "Confirmación y Seguimiento: El cliente recibe confirmación y el equipo es notificado para el seguimiento."
+];
+
+
+export default function AsesoriaVentasPage() {
     const { toast } = useToast();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         toast({
             title: "Solicitud de Consulta Enviada",
-            description: "Gracias por tu interés. Uno de nuestros asesores se pondrá en contacto contigo a la brevedad.",
+            description: "Gracias por tu interés. Uno de nuestros asesores o nuestro agente virtual se pondrá en contacto contigo a la brevedad.",
         });
     }
 
   return (
     <div className="p-4 md:p-8 space-y-12">
       <header className="text-center">
-        <Megaphone className="h-16 w-16 mx-auto text-primary mb-4" />
-        <h1 className="text-4xl font-bold tracking-tight">Asesoría de Marketing y Publicidad</h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-          Estrategias completas y personalizadas para hacer crecer tu negocio. Potenciamos tu marca y la conectamos con su público.
+        <Bot className="h-16 w-16 mx-auto text-primary mb-4" />
+        <h1 className="text-4xl font-bold tracking-tight">Asesoría y Ventas con Agente Virtual IA</h1>
+        <p className="text-muted-foreground mt-2 max-w-3xl mx-auto">
+          Un asistente inteligente disponible 24/7 en tus redes sociales para agendar citas, cerrar ventas e informar sobre tus servicios.
         </p>
       </header>
 
-      {/* Servicios */}
+      {/* Social Platforms */}
+      <section className="text-center">
+          <h2 className="text-2xl font-semibold mb-4">Disponible en tus Plataformas Favoritas</h2>
+          <div className="flex justify-center gap-8">
+            {socialPlatforms.map(platform => (
+                <div key={platform.name} className="flex flex-col items-center gap-2 text-muted-foreground">
+                    <platform.icon className="h-10 w-10"/>
+                    <span>{platform.name}</span>
+                </div>
+            ))}
+          </div>
+      </section>
+
+       {/* Services */}
       <section>
         <h2 className="text-3xl font-semibold mb-8 text-center">Nuestros Servicios</h2>
-        <div className="space-y-10">
-            {/* Marketing Digital */}
-            <div>
-                <h3 className="text-2xl font-semibold mb-4 border-b pb-2">Marketing Digital</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {servicios.digital.map(s => (
-                        <Card key={s.title} className="bg-card/50 backdrop-blur-sm">
-                            <CardHeader className="flex-row items-center gap-4">
-                                <s.icon className="h-8 w-8 text-primary"/>
-                                <CardTitle>{s.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>{s.description}</CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-             {/* Publicidad Tradicional */}
-            <div>
-                <h3 className="text-2xl font-semibold mb-4 border-b pb-2">Publicidad Tradicional</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {servicios.tradicional.map(s => (
-                        <Card key={s.title} className="bg-card/50 backdrop-blur-sm">
-                            <CardHeader className="flex-row items-center gap-4">
-                                <s.icon className="h-8 w-8 text-primary"/>
-                                <CardTitle>{s.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>{s.description}</CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-             {/* Identidad de Marca */}
-            <div>
-                <h3 className="text-2xl font-semibold mb-4 border-b pb-2">Identidad de Marca</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {servicios.marca.map(s => (
-                        <Card key={s.title} className="bg-card/50 backdrop-blur-sm">
-                            <CardHeader className="flex-row items-center gap-4">
-                                <s.icon className="h-8 w-8 text-primary"/>
-                                <CardTitle>{s.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>{s.description}</CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map(s => (
+                <Card key={s.title} className="bg-card/50 backdrop-blur-sm">
+                    <CardHeader className="flex-row items-center gap-4">
+                        <div className="p-3 bg-primary/10 rounded-lg">
+                           <s.icon className="h-8 w-8 text-primary"/>
+                        </div>
+                        <CardTitle>{s.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>{s.description}</CardContent>
+                </Card>
+            ))}
         </div>
       </section>
 
       {/* Proceso */}
         <section>
-            <h2 className="text-3xl font-semibold mb-8 text-center">Nuestro Proceso de Colaboración</h2>
+            <h2 className="text-3xl font-semibold mb-8 text-center">Nuestro Proceso Automatizado</h2>
             <div className="max-w-4xl mx-auto">
                 <ol className="relative border-l border-border ml-6">
-                    {proceso.map((p, index) => (
+                    {processSteps.map((p, index) => (
                          <li key={index} className="mb-10 ml-8">
                             <span className="absolute flex items-center justify-center w-8 h-8 bg-secondary rounded-full -left-4 ring-8 ring-background">
                                 <span className="font-bold text-sm">{index + 1}</span>

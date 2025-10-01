@@ -95,7 +95,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
     { href: "/analisis-foda", label: "Análisis FODA", icon: Briefcase },
-    { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
+    { href: "/asesoria-publicidad", label: "Asesoría y Ventas", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
     { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
@@ -471,8 +471,3 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
-
-
-
-
-
