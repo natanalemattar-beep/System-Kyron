@@ -5,14 +5,14 @@ import { useState, useMemo }from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { BookOpen, PlusCircle, Trash2, CheckCircle } from "lucide-react";
+import { BookOpen, PlusCircle, Trash2, CheckCircle, ArrowRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
 
-const libros = [
+const librosPrincipales = [
     {
         nombre: "Libro Diario",
         descripcion: "Registro cronológico de todas las transacciones.",
@@ -24,11 +24,17 @@ const libros = [
         ultimaActualizacion: "15/07/2024",
     },
     {
-        nombre: "Libro de Inventario",
-        descripcion: "Detalle de los activos y pasivos de la empresa.",
+        nombre: "Libro de Inventario y Balances",
+        descripcion: "Detalle de los activos, pasivos y patrimonio de la empresa.",
         ultimaActualizacion: "30/06/2024",
     }
 ];
+
+const librosAuxiliares = [
+    { nombre: "Cuentas por Cobrar", descripcion: "Detalle de saldos de clientes." },
+    { nombre: "Cuentas por Pagar", descripcion: "Detalle de deudas con proveedores." },
+    { nombre: "Inventario de Mercancía", descripcion: "Movimientos de entrada y salida por producto." },
+]
 
 type AsientoLinea = {
     id: number;
@@ -50,10 +56,10 @@ export default function LibrosContablesPage() {
     const totalHaber = useMemo(() => lineasAsiento.reduce((sum, linea) => sum + (linea.haber || 0), 0), [lineasAsiento]);
     const isCuadrado = totalDebe === totalHaber && totalDebe > 0;
 
-    const handleCreateBook = () => {
+    const handleCreateAuxBook = () => {
         toast({
-            title: "Libro Creado",
-            description: "El nuevo libro contable ha sido creado exitosamente.",
+            title: "Libro Auxiliar Creado",
+            description: "El nuevo libro auxiliar ha sido creado exitosamente.",
         });
     };
 
@@ -71,7 +77,7 @@ export default function LibrosContablesPage() {
             description: "La transacción se ha registrado correctamente en el Libro Diario.",
             action: <CheckCircle className="text-green-500"/>
         });
-        setLineasAsiento(initialAsientoState);
+        // Reset form or close dialog
     };
     
     const handleLineaChange = (id: number, field: 'cuenta' | 'debe' | 'haber', value: string | number) => {
@@ -99,124 +105,97 @@ export default function LibrosContablesPage() {
                     Libros Contables
                 </h1>
                 <p className="text-muted-foreground mt-2">
-                    Gestiona los libros contables oficiales de tu empresa.
+                    Gestiona los libros contables principales y auxiliares de tu empresa.
                 </p>
             </div>
-            <div className="flex gap-2">
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button variant="outline">
-                            <PlusCircle className="mr-2" />
-                            Crear Nuevo Libro
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>Crear Nuevo Libro Contable</DialogTitle>
-                            <DialogDescription>
-                                Elige el tipo de libro que deseas crear.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="book-name" className="text-right">Nombre</Label>
-                                <Input id="book-name" defaultValue="Libro de Actas" className="col-span-3" />
+             <Dialog>
+                <DialogTrigger asChild>
+                    <Button>
+                        <PlusCircle className="mr-2" />
+                        Registrar Asiento en Libro Diario
+                    </Button>
+                </DialogTrigger>
+                 <DialogContent className="sm:max-w-3xl">
+                    <DialogHeader>
+                        <DialogTitle>Registrar Nuevo Asiento en Libro Diario</DialogTitle>
+                        <DialogDescription>
+                        Introduce los detalles de la transacción. El total del Debe debe ser igual al total del Haber.
+                        </DialogDescription>
+                    </DialogHeader>
+                     <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="fecha">Fecha de Operación</Label>
+                                <Input id="fecha" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="asiento-nro">Número de Asiento</Label>
+                                <Input id="asiento-nro" type="number" placeholder="Ej: 001" />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="concepto">Concepto</Label>
+                                <Input id="concepto" placeholder="Ej: Pago de alquiler de oficina" />
                             </div>
                         </div>
-                        <DialogFooter>
-                            <Button type="submit" onClick={handleCreateBook}>Crear Libro</Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
-                 <Dialog>
-                    <DialogTrigger asChild>
-                        <Button>
-                            <PlusCircle className="mr-2" />
-                            Registrar Asiento
-                        </Button>
-                    </DialogTrigger>
-                     <DialogContent className="sm:max-w-3xl">
-                        <DialogHeader>
-                            <DialogTitle>Registrar Nuevo Asiento en Libro Diario</DialogTitle>
-                            <DialogDescription>
-                            Introduce los detalles de la transacción. El total del Debe debe ser igual al total del Haber.
-                            </DialogDescription>
-                        </DialogHeader>
-                         <div className="grid gap-4 py-4">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="fecha">Fecha de Operación</Label>
-                                    <Input id="fecha" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="asiento-nro">Número de Asiento</Label>
-                                    <Input id="asiento-nro" type="number" placeholder="Ej: 001" />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="concepto">Concepto</Label>
-                                    <Input id="concepto" placeholder="Ej: Pago de alquiler de oficina" />
-                                </div>
-                            </div>
-                            <div className="space-y-2 mt-4">
-                                <Label>Cuentas Afectadas</Label>
-                                <div className="border rounded-md overflow-x-auto">
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                <TableHead>Cuenta</TableHead>
-                                                <TableHead className="text-right">Debe</TableHead>
-                                                <TableHead className="text-right">Haber</TableHead>
-                                                <TableHead></TableHead>
+                        <div className="space-y-2 mt-4">
+                            <Label>Cuentas Afectadas</Label>
+                            <div className="border rounded-md overflow-x-auto">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>Cuenta</TableHead>
+                                            <TableHead className="text-right">Debe</TableHead>
+                                            <TableHead className="text-right">Haber</TableHead>
+                                            <TableHead></TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {lineasAsiento.map((linea) => (
+                                            <TableRow key={linea.id}>
+                                                <TableCell className="min-w-[200px]">
+                                                    <Input placeholder="Ej: 628 - Gastos de Alquiler" value={linea.cuenta} onChange={(e) => handleLineaChange(linea.id, 'cuenta', e.target.value)} />
+                                                </TableCell>
+                                                <TableCell className="min-w-[120px]">
+                                                    <Input type="number" placeholder="0.00" className="text-right" value={linea.debe || ""} onChange={(e) => handleLineaChange(linea.id, 'debe', Number(e.target.value))} />
+                                                </TableCell>
+                                                <TableCell className="min-w-[120px]">
+                                                    <Input type="number" placeholder="0.00" className="text-right" value={linea.haber || ""} onChange={(e) => handleLineaChange(linea.id, 'haber', Number(e.target.value))} />
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Button variant="ghost" size="icon" onClick={() => removeLinea(linea.id)} disabled={lineasAsiento.length <= 2}>
+                                                        <Trash2 className="h-4 w-4 text-destructive" />
+                                                    </Button>
+                                                </TableCell>
                                             </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {lineasAsiento.map((linea) => (
-                                                <TableRow key={linea.id}>
-                                                    <TableCell className="min-w-[200px]">
-                                                        <Input placeholder="Ej: 628 - Gastos de Alquiler" value={linea.cuenta} onChange={(e) => handleLineaChange(linea.id, 'cuenta', e.target.value)} />
-                                                    </TableCell>
-                                                    <TableCell className="min-w-[120px]">
-                                                        <Input type="number" placeholder="0.00" className="text-right" value={linea.debe || ""} onChange={(e) => handleLineaChange(linea.id, 'debe', Number(e.target.value))} />
-                                                    </TableCell>
-                                                    <TableCell className="min-w-[120px]">
-                                                        <Input type="number" placeholder="0.00" className="text-right" value={linea.haber || ""} onChange={(e) => handleLineaChange(linea.id, 'haber', Number(e.target.value))} />
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Button variant="ghost" size="icon" onClick={() => removeLinea(linea.id)} disabled={lineasAsiento.length <= 2}>
-                                                            <Trash2 className="h-4 w-4 text-destructive" />
-                                                        </Button>
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                    <div className="p-2 border-t flex justify-between items-center">
-                                        <Button variant="outline" size="sm" onClick={addLinea}>
-                                            <PlusCircle className="mr-2 h-4 w-4" />
-                                            Añadir Línea
-                                        </Button>
-                                        <div className="flex justify-end gap-4 font-bold text-sm pr-12">
-                                            <span>Total Debe: <span className="font-mono">{formatCurrency(totalDebe, 'Bs.')}</span></span>
-                                            <span>Total Haber: <span className="font-mono">{formatCurrency(totalHaber, 'Bs.')}</span></span>
-                                        </div>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                                <div className="p-2 border-t flex justify-between items-center">
+                                    <Button variant="outline" size="sm" onClick={addLinea}>
+                                        <PlusCircle className="mr-2 h-4 w-4" />
+                                        Añadir Línea
+                                    </Button>
+                                    <div className="flex justify-end gap-4 font-bold text-sm pr-12">
+                                        <span>Total Debe: <span className="font-mono">{formatCurrency(totalDebe, 'Bs.')}</span></span>
+                                        <span>Total Haber: <span className="font-mono">{formatCurrency(totalHaber, 'Bs.')}</span></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <DialogFooter>
-                            <Button type="button" onClick={handleSaveAsiento} disabled={!isCuadrado}>
-                                Guardar Asiento
-                            </Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
-            </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="button" onClick={handleSaveAsiento} disabled={!isCuadrado}>
+                            Guardar Asiento
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </header>
 
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle>Libros Oficiales</CardTitle>
-                <CardDescription>Visualiza y actualiza tus libros contables.</CardDescription>
+                <CardTitle>Libros Contables Principales</CardTitle>
+                <CardDescription>Registros obligatorios que sirven como base de la contabilidad.</CardDescription>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -228,7 +207,7 @@ export default function LibrosContablesPage() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {libros.map((libro) => (
+                        {librosPrincipales.map((libro) => (
                             <TableRow key={libro.nombre}>
                                 <TableCell className="font-medium">{libro.nombre}</TableCell>
                                 <TableCell>{libro.descripcion}</TableCell>
@@ -238,6 +217,64 @@ export default function LibrosContablesPage() {
                     </TableBody>
                 </Table>
             </CardContent>
+        </Card>
+
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Libros Auxiliares</CardTitle>
+                <CardDescription>Registros complementarios para el desglose y control de cuentas específicas.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Nombre del Libro</TableHead>
+                            <TableHead>Descripción</TableHead>
+                            <TableHead className="text-right">Acción</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {librosAuxiliares.map((libro) => (
+                            <TableRow key={libro.nombre}>
+                                <TableCell className="font-medium">{libro.nombre}</TableCell>
+                                <TableCell>{libro.descripcion}</TableCell>
+                                <TableCell className="text-right">
+                                    <Button variant="outline" size="sm">
+                                        Ver Detalle <ArrowRight className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </CardContent>
+            <CardFooter>
+                 <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="secondary">
+                            <PlusCircle className="mr-2" />
+                            Crear Libro Auxiliar
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Crear Nuevo Libro Auxiliar</DialogTitle>
+                            <DialogDescription>
+                                Dale un nombre a tu nuevo libro auxiliar.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="book-name">Nombre del Libro</Label>
+                                <Input id="book-name" placeholder="Ej: Libro de Caja" />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="submit" onClick={handleCreateAuxBook}>Crear Libro</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            </CardFooter>
         </Card>
     </div>
   );
