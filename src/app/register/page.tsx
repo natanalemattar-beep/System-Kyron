@@ -208,6 +208,10 @@ export default function RegisterPage() {
                             <Label>Teléfono</Label>
                             <Input type="tel" placeholder="0414-1234567" className="h-12"/>
                         </div>
+                         <div className="space-y-2">
+                            <Label>Teléfono de Recuperación</Label>
+                            <Input type="tel" placeholder="0412-1234567" className="h-12"/>
+                        </div>
                     </div>
                     </div>
 
@@ -289,6 +293,10 @@ export default function RegisterPage() {
                         <div className="space-y-2">
                             <Label>Teléfono</Label>
                             <Input type="tel" placeholder="0412-1234567" className="h-12"/>
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Teléfono de Recuperación</Label>
+                            <Input type="tel" placeholder="0416-1234567" className="h-12"/>
                         </div>
                     </div>
                     </div>
