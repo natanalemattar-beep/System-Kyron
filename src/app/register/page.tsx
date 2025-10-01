@@ -26,6 +26,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function RegisterPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -56,6 +57,7 @@ export default function RegisterPage() {
                     </div>
                 </Link>
                 <div className="flex items-center gap-2">
+                    <ThemeToggle />
                     <Button variant="ghost" asChild>
                     <Link href="/login">Iniciar Sesión</Link>
                     </Button>
@@ -113,6 +115,7 @@ export default function RegisterPage() {
             </div>
           </Link>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="ghost" asChild>
               <Link href="/login">Iniciar Sesión</Link>
             </Button>

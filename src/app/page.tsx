@@ -9,6 +9,7 @@ import { FileText, Building, User, ArrowRight, BookOpen, ShieldCheck, Handshake,
 import Link from "next/link";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
   { href: "/#quienes-somos", label: "Quiénes Somos" },
@@ -79,6 +80,7 @@ export default function LandingPage() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="ghost" asChild>
               <Link href="/login">
                 Iniciar Sesión
@@ -222,7 +224,7 @@ export default function LandingPage() {
                             <div>
                                 <h3 className="text-xl font-semibold">Correo Electrónico</h3>
                                 <p className="text-muted-foreground">Envíanos tus preguntas a nuestro correo de soporte.</p>
-                                <a href="mailto:soporte@systemcrs.com" className="text-primary font-medium">soporte@systemcrs.com</a>
+                                <a href="mailto:soporte@systemcrs.com" className="text-primary font-medium">soporte@systemcs.com</a>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
