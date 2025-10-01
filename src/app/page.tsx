@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { User, Menu, Flag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const navLinks = [
   { href: "/#productos", label: "Productos" },
@@ -73,6 +73,9 @@ export default function LandingPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Menú Principal</SheetTitle>
+                </SheetHeader>
                  <div className="flex justify-between items-center mb-8">
                     <Link href="/" className="flex items-center gap-3">
                       <div className="bg-primary text-primary-foreground p-2 rounded-md">
