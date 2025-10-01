@@ -1,4 +1,5 @@
 
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookUser, Download, ChevronsRight, User, Building } from "lucide-react";
@@ -7,7 +8,7 @@ const juridicoFeatures = [
     "Legalización de Empresa: Guía paso a paso para constituir tu empresa.",
     "Gestión de Permisos: Controla y renueva todas tus licencias y permisos.",
     "Contabilidad y Fiscal: Genera libros contables y declara impuestos (IVA, ISLR).",
-    "Recursos Humanos: Administra nóminas, contratos y libros laborales.",
+    "Recursos Humanos: Administra nóminas y contratos.",
 ];
 
 const naturalFeatures = [

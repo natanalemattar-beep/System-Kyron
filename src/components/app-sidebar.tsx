@@ -26,22 +26,7 @@ import {
   Wine,
   Users,
   Briefcase,
-  Bookmark,
-  Timer,
-  Plane,
-  Moon,
-  Sun,
-  ShoppingCart,
-  UserX,
-  Banknote,
-  Sparkles,
-  Scale,
-  Mail,
-  Stamp,
-  BookUser,
   UserCog,
-  ShieldAlert,
-  Award,
   TabletSmartphone,
   ClipboardCheck,
   PieChart,
@@ -69,14 +54,11 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
-  { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
+  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Gavel },
   { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
   { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
   { href: "/autorizaciones", label: "Autorizaciones", icon: Shield },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
-  { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
-  { href: "/cumplimiento", label: "Cumplimiento", icon: ShieldAlert },
 ];
 
 const finanzasContabilidadMenuItems = [
@@ -86,8 +68,6 @@ const finanzasContabilidadMenuItems = [
   { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
   { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
-  { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
-  { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
 ];
 
 const analisisCrecimientoMenuItems = [
@@ -113,29 +93,13 @@ const facturacionMenuItems = [
 
 const recursosHumanosMenuItems = [
     { href: "/nominas", label: "Nóminas", icon: Users },
-    { href: "/proteccion-pensiones", label: "Protección Pensiones", icon: Shield },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
-    { href: "/ivss", label: "IVSS (14-01, 14-02)", icon: Briefcase },
-    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
-    { href: "/clasificacion-empleados", label: "Clasificación Empleados", icon: Award },
     { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
-    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
 ];
-
-const librosRegistroMenuItems = [
-    { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
-    { href: "/libro-horas-extras", label: "Libro Horas Extras", icon: Timer },
-    { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
-    { href: "/libro-horario-nocturno", label: "Libro Horario Nocturno", icon: Moon },
-    { href: "/libro-horas-diurnas", label: "Libro Horas Diurnas", icon: Sun },
-    { href: "/libro-cesta-ticket", label: "Libro Cesta Ticket", icon: ShoppingCart },
-    { href: "/libro-personal-retirado", label: "Libro Personal Retirado", icon: UserX },
-]
 
 const generalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
   { href: "/integraciones", label: "Integraciones", icon: Cog },
-  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
 ];
 
 const naturalMenuItems = [
@@ -146,7 +110,6 @@ const naturalMenuItems = [
   { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
   { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
 ];
 
 
@@ -163,12 +126,12 @@ export function AppSidebar() {
         ...finanzasContabilidadMenuItems.map(item => item.href),
         ...facturacionMenuItems.map(item => item.href),
         ...recursosHumanosMenuItems.map(item => item.href),
-        ...librosRegistroMenuItems.map(item => item.href),
         ...generalMenuItems.map(item => item.href),
         ...analisisCrecimientoMenuItems.map(item => item.href),
         '/declaracion-iva',
         '/proteccion-pensiones',
         '/tipos-empresa',
+        '/tramites-corporativos',
     ];
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
@@ -286,26 +249,6 @@ export function AppSidebar() {
             <SidebarGroupLabel className="flex items-center gap-2"><Briefcase className="h-4 w-4"/>Recursos Humanos</SidebarGroupLabel>
             <SidebarMenu>
                 {recursosHumanosMenuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-        <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Libros de Registro</SidebarGroupLabel>
-            <SidebarMenu>
-                {librosRegistroMenuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                     asChild
