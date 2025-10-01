@@ -9,20 +9,22 @@ import Link from "next/link";
 import Image from "next/image";
 
 // Mock data, in a real app this would be fetched based on the [id]
-const empleado = { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", fechaIngreso: "01/01/2020" };
+const empleado = { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", fechaIngreso: "01/01/2020", sueldoIntegral: 15000 };
 const empresa = { nombre: "Empresa S.A.", rif: "J-12345678-9" };
 const nomina = {
     periodo: "1ra Quincena de Julio 2024",
     fechaPago: "15/07/2024",
     asignaciones: [
         { concepto: "Sueldo Base Quincenal", monto: 6000 },
+        { concepto: "Bono de Alimentación (Cestaticket)", monto: 1460 }, // Based on ~$40 indexed rate
         { concepto: "Bono de Productividad", monto: 1500 },
-        { concepto: "Cesta Ticket", monto: 1000 },
     ],
     deducciones: [
-        { concepto: "Seguro Social Obligatorio (SSO)", monto: 240 },
-        { concepto: "Régimen Prestacional de Empleo (RPE)", monto: 30 },
-        { concepto: "Aporte Fondo de Ahorro", monto: 300 },
+        { concepto: "Seguro Social Obligatorio (SSO) - 4%", monto: 240 },
+        { concepto: "Régimen Prestacional de Empleo (RPE) - 0.5%", monto: 30 },
+        { concepto: "Fondo de Ahorro para la Vivienda (FAOV) - 1%", monto: 150 }, // 1% of sueldoIntegral
+        { concepto: "Retención ISLR", monto: 450 },
+        { concepto: "Aporte Caja de Ahorro", monto: 300 },
     ]
 };
 
