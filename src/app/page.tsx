@@ -3,16 +3,11 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { FileText, Building, User, ArrowRight, BookOpen, ShieldCheck, Handshake, Mail, Phone, MapPin, Send, Menu, Flag } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { User, Menu, Flag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useToast } from "@/hooks/use-toast";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { href: "/#productos", label: "Productos" },
@@ -41,15 +36,6 @@ const services = [
 ]
 
 export default function LandingPage() {
-    const { toast } = useToast();
-
-    const handleContactSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        toast({
-            title: "Mensaje Enviado",
-            description: "Gracias por contactarnos. Nos pondremos en contacto contigo a la brevedad.",
-        });
-    };
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -139,14 +125,14 @@ export default function LandingPage() {
         </section>
         
         {/* Servicios */}
-        <section id="servicios" className="py-16 md:py-24 bg-secondary/30">
+        <section id="servicios" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Nuestros Productos y Servicios</h2>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {services.map(item => (
-                        <Card key={item.title} className="text-center flex flex-col overflow-hidden">
+                        <Card key={item.title} className="overflow-hidden">
                              <CardContent className="p-0">
                                 <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} width={600} height={400} className="aspect-video object-cover"/>
                             </CardContent>

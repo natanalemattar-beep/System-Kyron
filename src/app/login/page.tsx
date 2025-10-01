@@ -3,10 +3,8 @@
 
 import { useState, useEffect } from "react";
 import {
-  FileText,
   Building,
   User,
-  Shield,
   Eye,
   EyeOff,
   Flag,
@@ -17,8 +15,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
@@ -60,24 +56,12 @@ export default function LoginPage() {
             </div>
           </Link>
           <div className="flex items-center gap-4">
-            <ThemeToggle />
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline">Acceder / Registro</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuItem asChild>
-                        <Link href="/login?tab=juridica">Iniciar Sesión (Jurídico)</Link>
-                    </DropdownMenuItem>
-                     <DropdownMenuItem asChild>
-                        <Link href="/login?tab=natural">Iniciar Sesión (Natural)</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                        <Link href="/register">Registrarse</Link>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            <Button variant="outline" asChild>
+                <Link href="/login">Iniciar Sesión</Link>
+            </Button>
+            <Button asChild>
+                <Link href="/register">Registrarse</Link>
+            </Button>
           </div>
         </div>
       </header>
