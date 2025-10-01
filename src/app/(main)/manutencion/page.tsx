@@ -27,7 +27,7 @@ export default function GestionIntegralPage() {
         <header className="text-center">
             <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
                 <Recycle className="h-10 w-10 text-green-500" />
-                System C.S.M - Gestión Integral
+                C.M.S - Gestión Integral
             </h1>
             <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
                 Una plataforma que fusiona la eficiencia contable y fiscal con la innovación sostenible y el compromiso social.

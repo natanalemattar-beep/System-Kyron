@@ -47,7 +47,7 @@ export default function LandingPage() {
             <div className="bg-primary/10 text-primary p-2 rounded-md">
               <Flag className="h-6 w-6" />
             </div>
-            <span className="text-lg font-bold">System CRS</span>
+            <span className="text-lg font-bold">C.M.S</span>
           </Link>
           
           <nav className="hidden md:flex items-center gap-1">
@@ -100,7 +100,7 @@ export default function LandingPage() {
                         <div className="bg-primary text-primary-foreground p-2 rounded-md">
                           <Flag className="h-6 w-6" />
                         </div>
-                        <span className="text-lg font-bold">System CRS</span>
+                        <span className="text-lg font-bold">C.M.S</span>
                       </Link>
                       <SheetClose asChild>
                           <Button variant="ghost" size="icon">X</Button>
@@ -142,7 +142,7 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-24 md:py-32 text-center flex flex-col items-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary">System CRS</h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary">C.M.S</h1>
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Soluciones Comerciales y Contables para su Negocio
             </p>
@@ -172,7 +172,7 @@ export default function LandingPage() {
 
       <footer className="py-8 border-t">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} System C.S.M. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} C.M.S. Todos los derechos reservados.
         </div>
       </footer>
     </div>

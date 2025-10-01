@@ -169,7 +169,7 @@ export default function ReciboNominaPage({ params }: { params: { id: string } })
                     <ShieldCheck className="h-8 w-8"/>
                     <div>
                         <p className="font-bold">Recibo 100% Protegido y Seguro</p>
-                        <p className="text-xs text-muted-foreground">Verificado por System C.R.S el {nomina.fechaPago}</p>
+                        <p className="text-xs text-muted-foreground">Verificado por C.M.S el {nomina.fechaPago}</p>
                     </div>
                 </div>
                 <div className="flex flex-col items-center">
