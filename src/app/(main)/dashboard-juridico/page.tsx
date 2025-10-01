@@ -45,8 +45,6 @@ const mainActions = [
     icon: BookOpen,
     buttonText: 'Crear Libro',
     href: '/libros-contables',
-    iconColor: 'text-blue-400',
-    iconBg: 'bg-blue-900/50',
   },
   {
     title: 'Libro Compra/Venta SENIAT',
@@ -54,8 +52,6 @@ const mainActions = [
     icon: Landmark,
     buttonText: 'Nuevo Registro',
     href: '/libro-compra-venta',
-    iconColor: 'text-green-400',
-    iconBg: 'bg-green-900/50',
   },
   {
     title: 'Libro de Licores',
@@ -63,8 +59,6 @@ const mainActions = [
     icon: Wine,
     buttonText: 'Registrar Movimiento',
     href: '/libro-licores',
-    iconColor: 'text-orange-400',
-    iconBg: 'bg-orange-900/50',
   },
     {
     title: 'Proformas',
@@ -72,8 +66,6 @@ const mainActions = [
     icon: Receipt,
     buttonText: 'Nueva Proforma',
     href: '/proformas',
-    iconColor: 'text-purple-400',
-    iconBg: 'bg-purple-900/50',
   },
   {
     title: 'Gestión de Nómina',
@@ -81,8 +73,6 @@ const mainActions = [
     icon: Users,
     buttonText: 'Ir a Nómina',
     href: '/nominas',
-    iconColor: 'text-teal-400',
-    iconBg: 'bg-teal-900/50',
   },
 ];
 
@@ -110,19 +100,19 @@ const financialSummary = [
 
 const ActivitySkeleton = () => (
   <div className="lg:col-span-2">
-    <Card className="bg-card/50 backdrop-blur-sm">
+    <Card>
       <CardHeader>
         <Skeleton className="h-6 w-32" />
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center gap-4 p-3 rounded-md bg-secondary/50">
+        <div className="flex items-center gap-4 p-3 rounded-md bg-secondary">
           <Skeleton className="h-8 w-8 rounded-full" />
           <div className="flex-1 space-y-2">
             <Skeleton className="h-4 w-3/4" />
             <Skeleton className="h-3 w-1/4" />
           </div>
         </div>
-        <div className="flex items-center gap-4 p-3 rounded-md bg-secondary/50">
+        <div className="flex items-center gap-4 p-3 rounded-md bg-secondary">
           <Skeleton className="h-8 w-8 rounded-full" />
           <div className="flex-1 space-y-2">
             <Skeleton className="h-4 w-3/4" />
@@ -152,10 +142,10 @@ export default function DashboardJuridicoPage() {
   }
 
   return (
-    <div className="p-4 md:p-8 space-y-8">
+    <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Dashboard Jurídico</h1>
-        <Badge variant="outline" className="border-green-500 text-green-500">
+        <Badge variant="outline" className="text-green-600 border-green-600">
           <CheckCircle className="w-4 h-4 mr-2" />
           Empresa Activa
         </Badge>
@@ -164,16 +154,16 @@ export default function DashboardJuridicoPage() {
       {/* Main Actions */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {mainActions.map((action, index) => (
-          <Card key={index} className="bg-card/50 backdrop-blur-sm flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
+          <Card key={index} className="flex flex-col justify-between hover:shadow-md transition-shadow duration-300">
             <CardHeader>
-              <div className={`p-3 rounded-lg ${action.iconBg} w-max mb-4`}>
-                <action.icon className={`h-6 w-6 ${action.iconColor}`} />
+              <div className={`p-3 rounded-lg bg-secondary w-max mb-4`}>
+                <action.icon className={`h-6 w-6 text-primary`} />
               </div>
               <CardTitle className="text-lg font-semibold">{action.title}</CardTitle>
               <CardDescription className="text-sm">{action.description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button asChild className="w-full bg-primary/20 hover:bg-primary/30 border border-primary/40 text-primary-foreground">
+              <Button asChild className="w-full" variant="secondary">
                 <Link href={action.href}>
                     <Plus className="mr-2 h-4 w-4" />
                     {action.buttonText}
@@ -187,7 +177,7 @@ export default function DashboardJuridicoPage() {
         {/* Stats */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {stats.map(stat => (
-              <Card key={stat.title} className="bg-card/50 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+              <Card key={stat.title} className="hover:shadow-md transition-shadow duration-300">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
                     <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
@@ -205,7 +195,7 @@ export default function DashboardJuridicoPage() {
       <div className="grid gap-6 lg:grid-cols-3">
         <LazyActivityCard recentActivities={recentActivities} />
         
-        <Card className="bg-card/50 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+        <Card className="hover:shadow-md transition-shadow duration-300">
           <CardHeader>
             <CardTitle>Resumen Diario</CardTitle>
              <CardDescription>
@@ -213,11 +203,11 @@ export default function DashboardJuridicoPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-              <div className={'p-4 rounded-lg bg-green-600/20 text-green-400'}>
+              <div className={'p-4 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'}>
                   <p className="text-sm font-medium">Ventas del Día</p>
                   <p className="text-2xl font-bold">{formatCurrency(dailySummary.ventas, 'Bs.')}</p>
               </div>
-               <div className={'p-4 rounded-lg bg-red-600/20 text-red-400'}>
+               <div className={'p-4 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400'}>
                   <p className="text-sm font-medium">Gastos del Día</p>
                   <p className="text-2xl font-bold">{formatCurrency(dailySummary.gastos, 'Bs.')}</p>
               </div>
@@ -231,7 +221,7 @@ export default function DashboardJuridicoPage() {
         </Card>
       </div>
 
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
         <CardHeader className="flex-row items-center justify-between">
             <div>
                 <CardTitle>Supervisión Financiera</CardTitle>

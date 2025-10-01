@@ -39,7 +39,7 @@ export default function DeclaracionIvaPage() {
     }
 
   return (
-    <div className="p-4 md:p-8">
+    <div>
         <header className="mb-8">
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                 <FileText className="h-8 w-8" />
@@ -52,44 +52,44 @@ export default function DeclaracionIvaPage() {
 
         <div className="grid gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2">
-                <Card className="bg-card/50 backdrop-blur-sm">
+                <Card>
                     <CardHeader>
                         <CardTitle>Resumen del Período - Julio 2024</CardTitle>
                         <CardDescription>Cálculo automático basado en los libros de compra y venta, incluyendo retenciones.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            <Card className="bg-green-600/10 border-green-600/30">
+                            <Card className="bg-green-100 dark:bg-green-900/30 border-green-200 dark:border-green-800">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium">Débito Fiscal (Ventas)</CardTitle>
-                                    <TrendingUp className="h-4 w-4 text-green-500" />
+                                    <CardTitle className="text-sm font-medium text-green-800 dark:text-green-300">Débito Fiscal (Ventas)</CardTitle>
+                                    <TrendingUp className="h-4 w-4 text-green-600" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.debitoFiscal, 'Bs.')}</div>
                                 </CardContent>
                             </Card>
-                             <Card className="bg-red-600/10 border-red-600/30">
+                             <Card className="bg-red-100 dark:bg-red-900/30 border-red-200 dark:border-red-800">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium">Crédito Fiscal (Compras)</CardTitle>
-                                    <TrendingDown className="h-4 w-4 text-red-500" />
+                                    <CardTitle className="text-sm font-medium text-red-800 dark:text-red-400">Crédito Fiscal (Compras)</CardTitle>
+                                    <TrendingDown className="h-4 w-4 text-red-600" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.creditoFiscal, 'Bs.')}</div>
                                 </CardContent>
                             </Card>
-                             <Card className="bg-yellow-600/10 border-yellow-600/30">
+                             <Card className="bg-yellow-100 dark:bg-yellow-900/30 border-yellow-200 dark:border-yellow-800">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium">Retenciones Soportadas</CardTitle>
-                                    <FileMinus className="h-4 w-4 text-yellow-500" />
+                                    <CardTitle className="text-sm font-medium text-yellow-800 dark:text-yellow-300">Retenciones Soportadas</CardTitle>
+                                    <FileMinus className="h-4 w-4 text-yellow-600" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.retencionesSoportadas, 'Bs.')}</div>
                                 </CardContent>
                             </Card>
-                             <Card className="bg-blue-600/10 border-blue-600/30">
+                             <Card className="bg-blue-100 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium">IVA Retenido a Terceros</CardTitle>
-                                    <FilePlus className="h-4 w-4 text-blue-500" />
+                                    <CardTitle className="text-sm font-medium text-blue-800 dark:text-blue-300">IVA Retenido a Terceros</CardTitle>
+                                    <FilePlus className="h-4 w-4 text-blue-600" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.ivaRetenidoATerceros, 'Bs.')}</div>
@@ -104,7 +104,7 @@ export default function DeclaracionIvaPage() {
                            </div>
                            <div className="flex justify-between items-center">
                                 <span className="text-muted-foreground">Crédito Fiscal:</span>
-                                <span className="font-semibold text-red-500">- {formatCurrency(resumenMes.creditoFiscal, 'Bs.')}</span>
+                                <span className="font-semibold text-destructive">- {formatCurrency(resumenMes.creditoFiscal, 'Bs.')}</span>
                            </div>
                             <div className="flex justify-between items-center font-bold text-xl border-t pt-4">
                                 <span className="text-primary">Cuota Tributaria del Período:</span>
@@ -113,7 +113,7 @@ export default function DeclaracionIvaPage() {
                             <Separator />
                             <div className="flex justify-between items-center">
                                 <span className="text-muted-foreground">(-) Retenciones de IVA Soportadas:</span>
-                                <span className="font-semibold text-yellow-500">- {formatCurrency(resumenMes.retencionesSoportadas, 'Bs.')}</span>
+                                <span className="font-semibold text-orange-500">- {formatCurrency(resumenMes.retencionesSoportadas, 'Bs.')}</span>
                            </div>
                            <div className="flex justify-between items-center font-bold text-2xl border-t pt-4">
                                 <span className="text-primary">Total a Pagar al SENIAT:</span>
@@ -129,7 +129,7 @@ export default function DeclaracionIvaPage() {
                 </Card>
             </div>
             
-            <Card className="bg-card/50 backdrop-blur-sm">
+            <Card>
                 <CardHeader>
                     <CardTitle>Historial de Declaraciones</CardTitle>
                 </CardHeader>

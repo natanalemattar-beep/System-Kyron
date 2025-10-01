@@ -51,7 +51,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
             </DropdownMenu>
            </div>
         </header>
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8">
           <div className="animate-in fade-in duration-500">
             {children}
           </div>

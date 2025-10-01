@@ -34,7 +34,7 @@ const getProbabilidadVariant = (prob: string) => {
     switch (prob) {
         case "Alta": return "destructive";
         case "Media": return "secondary";
-        default: return "outline";
+        default: "outline";
     }
 }
 
@@ -42,7 +42,7 @@ export default function AnalisisRiesgoPage() {
     const riesgoGeneral = 7.5;
 
   return (
-    <div className="p-4 md:p-8">
+    <div>
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <ShieldQuestion className="h-8 w-8" />
@@ -93,7 +93,7 @@ export default function AnalisisRiesgoPage() {
         </Card>
       </div>
 
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
         <CardHeader>
             <CardTitle>Matriz de Riesgos Identificados</CardTitle>
         </CardHeader>
@@ -115,7 +115,7 @@ export default function AnalisisRiesgoPage() {
                             <TableCell className="font-medium">{riesgo.area}</TableCell>
                             <TableCell>{riesgo.descripcion}</TableCell>
                             <TableCell><Badge variant={getImpactVariant(riesgo.impacto)}>{riesgo.impacto}</Badge></TableCell>
-                            <TableCell><Badge variant={getProbabilidadVariant(riesgo.probabilidad)}>{riesgo.probabilidad}</Badge></TableCell>
+                            <TableCell><Badge variant={getProbabilidadVariant(riesgo.probabilidad) as any}>{riesgo.probabilidad}</Badge></TableCell>
                             <TableCell className="text-center font-bold">{riesgo.puntuacion}</TableCell>
                             <TableCell>{riesgo.estado}</TableCell>
                         </TableRow>

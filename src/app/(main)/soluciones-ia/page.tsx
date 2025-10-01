@@ -75,7 +75,7 @@ export default function SolucionesIAPage() {
     };
 
     return (
-        <div className="p-4 md:p-8">
+        <div>
             <header className="mb-8">
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <BrainCircuit className="h-8 w-8 text-primary" />
@@ -89,7 +89,7 @@ export default function SolucionesIAPage() {
             <div className="grid gap-8 lg:grid-cols-2">
                 {/* Módulos existentes */}
                 {iaSolutions.map(solution => (
-                    <Card key={solution.title} className="bg-card/50 backdrop-blur-sm">
+                    <Card key={solution.title}>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-3">
                                 <solution.icon className="h-6 w-6 text-primary"/>
@@ -109,7 +109,7 @@ export default function SolucionesIAPage() {
             </div>
 
             {/* Nuevo Módulo: Análisis de Sentimiento */}
-            <Card className="mt-8 bg-card/50 backdrop-blur-sm">
+            <Card className="mt-8">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3">
                         <Bot className="h-6 w-6 text-primary"/>
@@ -140,7 +140,7 @@ export default function SolucionesIAPage() {
                             Analizar Sentimiento
                         </Button>
                     </div>
-                    <div className="flex items-center justify-center p-6 bg-secondary/30 rounded-lg">
+                    <div className="flex items-center justify-center p-6 bg-secondary rounded-lg">
                         {!analysisResult && !isLoading && (
                              <div className="text-center text-muted-foreground">
                                 <p>El resultado del análisis aparecerá aquí.</p>

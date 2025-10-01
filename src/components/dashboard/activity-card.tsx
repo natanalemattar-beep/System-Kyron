@@ -23,14 +23,14 @@ type Activity = {
 
 export function ActivityCard({ recentActivities }: { recentActivities: Activity[] }) {
   return (
-    <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+    <Card className="lg:col-span-2 hover:shadow-md transition-shadow duration-300">
       <CardHeader>
         <CardTitle>Actividad Reciente</CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="space-y-4">
           {recentActivities.map((activity, index) => (
-            <li key={index} className="flex items-center gap-4 p-3 rounded-md bg-secondary/50">
+            <li key={index} className="flex items-center gap-4 p-3 rounded-md bg-secondary">
               <activity.icon className={`h-5 w-5 ${activity.iconColor}`} />
               <div className="flex-1">
                 <p className="font-medium">{activity.description}</p>

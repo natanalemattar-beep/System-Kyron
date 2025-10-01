@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   FileText,
   Zap,
@@ -92,18 +92,18 @@ const featureItems = [
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-teal-50 to-white dark:from-gray-900/50 dark:to-background">
-      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-sm dark:bg-background/80 border-b">
+    <div className="flex flex-col min-h-screen bg-background">
+      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="#" className="flex items-center gap-3">
-            <div className="bg-teal-600 text-white p-2 rounded-md">
+            <div className="bg-primary text-primary-foreground p-2 rounded-md">
               <FileText className="h-6 w-6" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-gray-800 dark:text-gray-200">
+              <span className="text-lg font-bold">
                 System C.R.S
               </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-muted-foreground">
                 Plataforma Digital Oficial
               </span>
             </div>
@@ -112,7 +112,7 @@ export default function LandingPage() {
             <Button variant="ghost" asChild>
               <Link href="/login">Iniciar Sesión</Link>
             </Button>
-            <Button asChild className="bg-teal-600 hover:bg-teal-700">
+            <Button asChild>
               <Link href="/register">Registrarse</Link>
             </Button>
           </div>
@@ -123,32 +123,34 @@ export default function LandingPage() {
         <section className="container mx-auto px-4 py-20 md:px-6 md:py-24">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="text-center lg:text-left">
-                    <span className="inline-block bg-teal-100 text-teal-700 dark:bg-teal-900/50 dark:text-teal-300 text-sm font-medium px-4 py-1.5 rounded-full mb-4">
+                    <span className="inline-block bg-secondary text-secondary-foreground text-sm font-medium px-4 py-1.5 rounded-full mb-4">
                         Plataforma Empresarial Venezuela
                     </span>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                        Gestión integral para <span className="text-teal-600">Juridicos</span> y <span className="text-green-500">Naturales</span>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+                        Gestión integral para <span className="text-primary">Juridicos</span> y <span className="text-green-600">Naturales</span>
                     </h1>
-                    <p className="mt-6 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0">
+                    <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
                         Accede a tu cuenta empresarial o personal para gestionar RIF, permisos, documentos civiles y casos judiciales con la más alta tecnología y seguridad
                     </p>
                 </div>
 
-                 <Card className="w-full max-w-md mx-auto bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl">
-                    <CardContent className="flex flex-col items-center p-8 text-center">
-                        <Rocket className="h-12 w-12 text-teal-500 mb-4" />
-                        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Iniciar Sesión</h2>
-                        <p className="mt-2 text-gray-600 dark:text-gray-400">
+                 <Card className="w-full max-w-md mx-auto">
+                    <CardHeader className="items-center text-center">
+                        <Rocket className="h-12 w-12 text-primary mb-4" />
+                        <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-col items-center p-6 pt-0 text-center">
+                        <p className="mt-2 text-muted-foreground">
                             Accede a tu cuenta para comenzar a gestionar tus trámites de forma inteligente
                         </p>
-                        <Button asChild className="mt-6 w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg">
+                        <Button asChild className="mt-6 w-full text-lg">
                             <Link href="/login">
                                 <Zap className="mr-2 h-5 w-5" /> Acceder Ahora
                             </Link>
                         </Button>
-                        <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                        <p className="mt-4 text-sm text-muted-foreground">
                             ¿Primera vez?{" "}
-                            <Link href="/register" className="font-semibold text-teal-600 hover:underline">
+                            <Link href="/register" className="font-semibold text-primary hover:underline">
                                 Regístrate aquí
                             </Link>
                         </p>
@@ -159,7 +161,7 @@ export default function LandingPage() {
 
         <section className="container mx-auto px-4 md:px-6 pb-20">
           <div className="text-center w-full max-w-4xl mx-auto">
-            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 flex items-center justify-center gap-2">
+            <h3 className="text-lg font-medium text-muted-foreground flex items-center justify-center gap-2">
               <LinkIcon className="h-5 w-5" />
               Integración oficial con:
             </h3>
@@ -167,10 +169,10 @@ export default function LandingPage() {
               {integrationItems.map((item) => (
                 <div
                   key={item.name}
-                  className="flex items-center gap-2 bg-white/80 dark:bg-card/80 backdrop-blur-sm shadow-md rounded-full px-4 py-2"
+                  className="flex items-center gap-2 bg-card border shadow-sm rounded-full px-4 py-2"
                 >
                   <item.icon className="h-4 w-4 text-yellow-500" />
-                  <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                  <span className="text-sm font-medium">
                     {item.name}
                   </span>
                 </div>
@@ -179,18 +181,18 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="bg-white dark:bg-background py-16">
+        <section className="bg-secondary/50 py-16">
           <div className="container mx-auto px-4 md:px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {statsItems.map((stat) => (
                 <div
                   key={stat.label}
-                  className="text-center bg-gray-50 dark:bg-card/50 p-6 rounded-2xl shadow-lg"
+                  className="text-center p-6 rounded-2xl"
                 >
-                  <p className="text-4xl md:text-5xl font-bold text-teal-600 dark:text-teal-400">
+                  <p className="text-4xl md:text-5xl font-bold text-primary">
                     {stat.value}
                   </p>
-                  <p className="mt-2 text-sm md:text-base text-gray-600 dark:text-gray-400">
+                  <p className="mt-2 text-sm md:text-base text-muted-foreground">
                     {stat.label}
                   </p>
                 </div>
@@ -201,14 +203,14 @@ export default function LandingPage() {
 
         <section className="py-20">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-800 dark:text-gray-200">
+            <h2 className="text-3xl font-bold tracking-tight">
               Impacto Social y Ambiental
             </h2>
-            <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-lg text-muted-foreground">
               Tecnología que ayuda a comunidades vulnerables
             </p>
             <div className="mt-12 grid gap-8 md:grid-cols-2">
-              <Card className="bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl text-left">
+              <Card className="text-left">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 p-3 rounded-lg">
@@ -218,7 +220,7 @@ export default function LandingPage() {
                       Fundación de Reciclaje
                     </h3>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  <p className="text-muted-foreground mb-6">
                     Sistema integrado con basureros inteligentes y recolección
                     con motos para ayudar a personas vulnerables.
                   </p>
@@ -238,23 +240,23 @@ export default function LandingPage() {
                   </ul>
                   <Button
                     variant="outline"
-                    className="w-full border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+                    className="w-full"
                   >
                     Participar <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardContent>
               </Card>
-              <Card className="bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl text-left">
+              <Card className="text-left">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 p-3 rounded-lg">
+                    <div className="bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 p-3 rounded-lg">
                       <Briefcase className="h-8 w-8" />
                     </div>
                     <h3 className="text-2xl font-bold">
                       Asesoría de Publicidad
                     </h3>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  <p className="text-muted-foreground mb-6">
                     Estrategias completas de marketing digital y tradicional
                     para hacer crecer tu negocio.
                   </p>
@@ -274,7 +276,7 @@ export default function LandingPage() {
                   </ul>
                   <Button
                     variant="outline"
-                    className="w-full border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white"
+                    className="w-full"
                   >
                     Solicitar Consulta <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -286,31 +288,31 @@ export default function LandingPage() {
 
         <section className="pb-20">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-800 dark:text-gray-200">
+            <h2 className="text-3xl font-bold tracking-tight">
               Para Personas
             </h2>
-            <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-lg text-muted-foreground">
               Accede a todos tus documentos civiles de forma rápida y segura
             </p>
           </div>
         </section>
 
-        <section className="py-20 bg-white dark:bg-background">
+        <section className="py-20 bg-secondary/50">
           <div className="container mx-auto px-4 md:px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featureItems.map((item) => (
                 <Card
                   key={item.title}
-                  className="bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl text-left hover:shadow-2xl transition-shadow duration-300"
+                  className="text-left hover:shadow-xl transition-shadow duration-300"
                 >
                   <CardContent className="p-8">
                     <div className="flex items-start gap-4 mb-4">
-                      <div className="bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-400 p-3 rounded-lg">
+                      <div className="bg-primary/10 text-primary p-3 rounded-lg">
                         <item.icon className="h-8 w-8" />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold">{item.title}</h3>
-                        <p className="text-gray-600 dark:text-gray-400 mt-1">
+                        <p className="text-muted-foreground mt-1">
                           {item.description}
                         </p>
                       </div>
@@ -325,7 +327,7 @@ export default function LandingPage() {
                     </ul>
                     <Button
                       variant="outline"
-                      className="w-full border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white"
+                      className="w-full"
                     >
                       Comenzar <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
@@ -338,7 +340,7 @@ export default function LandingPage() {
       </main>
       <footer className="py-8 bg-transparent">
         <div className="container mx-auto px-4 md:px-6 text-center">
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-muted-foreground">
             Dueños: Carlos Mattar, Sebastian Garrido , Marcos Sousa
           </p>
         </div>

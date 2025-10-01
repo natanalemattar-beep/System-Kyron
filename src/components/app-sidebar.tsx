@@ -56,6 +56,7 @@ import {
   BrainCircuit,
   ShieldCheck,
   RefreshCw,
+  ShieldAlert,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -206,7 +207,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-purple-600 text-white p-2 rounded-lg">
+           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
               <Gavel className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
@@ -419,7 +420,7 @@ function AppSidebarNatural() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-purple-600 text-white p-2 rounded-lg">
+           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
               <User className="h-6 w-6" />
             </div>
           <div className="flex flex-col">

@@ -26,8 +26,8 @@ const supplyDemandData = [
 
 const competitorsData = [
     { name: 'OfiExpress', value: 40, color: 'hsl(var(--primary))' },
-    { name: 'Papelemax', value: 25, color: 'hsl(var(--secondary))' },
-    { name: 'Tu Empresa', value: 20, color: 'hsl(var(--accent))' },
+    { name: 'Papelemax', value: 25, color: 'hsl(var(--secondary-foreground))' },
+    { name: 'Tu Empresa', value: 20, color: 'hsl(var(--accent-foreground))' },
     { name: 'Otros', value: 15, color: '#64748b' },
 ];
 
@@ -39,7 +39,7 @@ const estrategias = [
 
 export default function AnalisisMercadoPage() {
   return (
-    <div className="p-4 md:p-8">
+    <div>
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <BarChart className="h-8 w-8" />
@@ -66,7 +66,7 @@ export default function AnalisisMercadoPage() {
       </div>
 
        <div className="grid gap-8 lg:grid-cols-2 mb-8">
-            <Card className="bg-card/50 backdrop-blur-sm">
+            <Card>
                 <CardHeader>
                     <CardTitle>Tendencias de Oferta y Demanda</CardTitle>
                     <CardDescription>Evolución mensual de la oferta del mercado vs. la demanda de los consumidores.</CardDescription>
@@ -85,7 +85,7 @@ export default function AnalisisMercadoPage() {
                     </ResponsiveContainer>
                 </CardContent>
             </Card>
-             <Card className="bg-card/50 backdrop-blur-sm">
+             <Card>
                 <CardHeader>
                     <CardTitle>Cuota de Mercado de Competidores</CardTitle>
                     <CardDescription>Distribución del mercado entre los principales actores.</CardDescription>
@@ -115,14 +115,14 @@ export default function AnalisisMercadoPage() {
             </Card>
        </div>
 
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Lightbulb className="text-yellow-400"/>Estrategias y Conclusiones Sugeridas por IA</CardTitle>
             </CardHeader>
             <CardContent>
                 <ul className="space-y-4">
                     {estrategias.map((sol, index) => (
-                        <li key={index} className="flex items-start gap-3 text-sm p-3 bg-secondary/50 rounded-lg">
+                        <li key={index} className="flex items-start gap-3 text-sm p-3 bg-secondary rounded-lg">
                             <Zap className="h-4 w-4 text-yellow-400 mt-0.5 shrink-0"/>
                             <span>{sol}</span>
                         </li>

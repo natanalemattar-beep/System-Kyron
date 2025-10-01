@@ -45,7 +45,7 @@ const pestleData = [
 
 export default function AnalisisFodaPage() {
   return (
-    <div className="p-4 md:p-8 space-y-12">
+    <div className="space-y-12">
        <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
             <Briefcase className="h-8 w-8" />
@@ -60,9 +60,9 @@ export default function AnalisisFodaPage() {
         <section>
             <h2 className="text-2xl font-semibold mb-4 text-center">Paso 1: Diagnóstico Interno y Externo (FODA)</h2>
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card className="bg-green-600/5 border-green-600/20">
+                <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-green-400"><Zap />Fortalezas</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-green-600"><Zap />Fortalezas</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
@@ -76,9 +76,9 @@ export default function AnalisisFodaPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="bg-blue-600/5 border-blue-600/20">
+                <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-blue-400"><TrendingUp />Oportunidades</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-blue-600"><TrendingUp />Oportunidades</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
@@ -92,9 +92,9 @@ export default function AnalisisFodaPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="bg-orange-600/5 border-orange-600/20">
+                <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-orange-400"><AlertTriangle />Debilidades</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-orange-500"><AlertTriangle />Debilidades</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
@@ -108,9 +108,9 @@ export default function AnalisisFodaPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="bg-red-600/5 border-red-600/20">
+                <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-red-400"><ShieldAlert />Amenazas</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-red-600"><ShieldAlert />Amenazas</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
@@ -129,20 +129,20 @@ export default function AnalisisFodaPage() {
         {/* Sección CAME */}
         <section>
              <h2 className="text-2xl font-semibold mb-4 text-center">Paso 2: Definición de Estrategias (CAME)</h2>
-             <Card className="bg-card/50 backdrop-blur-sm">
+             <Card>
                 <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Puzzle className="text-yellow-400"/>Análisis CAME: De la Reflexión a la Acción</CardTitle>
+                <CardTitle className="flex items-center gap-3"><Puzzle className="text-primary"/>Análisis CAME: De la Reflexión a la Acción</CardTitle>
                 <CardDescription>
                     El análisis CAME (Corregir, Afrontar, Mantener, Explotar) traduce los hallazgos del FODA en estrategias concretas.
                 </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                    <div className="p-4 rounded-lg bg-green-600/10 border border-green-600/20">
-                        <h4 className="font-semibold text-green-400 mb-2">Estrategia Ofensiva (Fortalezas + Oportunidades): Explotar</h4>
+                    <div className="p-4 rounded-lg bg-secondary">
+                        <h4 className="font-semibold text-primary mb-2">Estrategia Ofensiva (Fortalezas + Oportunidades): Explotar</h4>
                         <p className="text-sm">{estrategiasCAME.fo}</p>
                     </div>
-                    <div className="p-4 rounded-lg bg-red-600/10 border border-red-600/20">
-                        <h4 className="font-semibold text-red-400 mb-2">Estrategia de Supervivencia (Debilidades + Amenazas): Afrontar</h4>
+                    <div className="p-4 rounded-lg bg-secondary">
+                        <h4 className="font-semibold text-primary mb-2">Estrategia de Supervivencia (Debilidades + Amenazas): Afrontar</h4>
                         <p className="text-sm">{estrategiasCAME.da}</p>
                     </div>
                     <Button variant="outline" className="w-full md:w-auto">
@@ -155,16 +155,16 @@ export default function AnalisisFodaPage() {
         {/* Sección PESTLE */}
         <section>
             <h2 className="text-2xl font-semibold mb-4 text-center">Paso 3: Análisis del Macroentorno (PESTLE)</h2>
-             <Card className="bg-card/50 backdrop-blur-sm">
+             <Card>
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-3"><Layers className="text-blue-400"/>Análisis PESTLE: Entendiendo el Contexto General</CardTitle>
+                    <CardTitle className="flex items-center gap-3"><Layers className="text-primary"/>Análisis PESTLE: Entendiendo el Contexto General</CardTitle>
                     <CardDescription>
                         Evalúa los factores Políticos, Económicos, Sociales, Tecnológicos, Legales y Ambientales que impactan tu negocio.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {pestleData.map(item => (
-                        <div key={item.factor} className="p-3 rounded-lg bg-secondary/50 flex items-start gap-4">
+                        <div key={item.factor} className="p-3 rounded-lg bg-secondary flex items-start gap-4">
                             <span className="font-bold text-primary w-28">{item.factor}:</span>
                             <p className="text-sm flex-1">{item.descripcion}</p>
                         </div>

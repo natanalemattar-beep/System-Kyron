@@ -23,7 +23,7 @@ const maquinasFiscales = [
 
 export default function GestionIntegralPage() {
   return (
-    <div className="p-4 md:p-8 space-y-12">
+    <div className="space-y-12">
         <header className="text-center">
             <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
                 <Recycle className="h-10 w-10 text-green-500" />
@@ -35,7 +35,7 @@ export default function GestionIntegralPage() {
         </header>
 
         {/* Sección de Soluciones Fiscales */}
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl">
                     <Calculator className="h-7 w-7 text-primary"/>
@@ -73,7 +73,7 @@ export default function GestionIntegralPage() {
                  <Image src="https://picsum.photos/seed/recycling/600/500" alt="Papelera Inteligente" data-ai-hint="smart bin" width={600} height={500} className="rounded-xl shadow-lg object-cover"/>
             </div>
             <div className="lg:col-span-3">
-                 <Card className="bg-card/50 backdrop-blur-sm">
+                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3 text-2xl">
                             <Recycle className="h-7 w-7 text-green-500"/>
@@ -82,14 +82,14 @@ export default function GestionIntegralPage() {
                          <CardDescription>Revolucionamos la recolección de papel y vidrio con tecnología.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div className="flex items-start gap-4 p-3 bg-secondary/50 rounded-lg">
+                        <div className="flex items-start gap-4 p-3 bg-secondary rounded-lg">
                            <Wifi className="h-6 w-6 text-green-400 mt-1"/>
                            <div>
                                 <h4 className="font-semibold">Sensores de Llenado</h4>
                                 <p className="text-sm text-muted-foreground">Cada papelera notifica automáticamente cuando está llena, optimizando las rutas de recolección y ahorrando combustible.</p>
                            </div>
                         </div>
-                        <div className="flex items-start gap-4 p-3 bg-secondary/50 rounded-lg">
+                        <div className="flex items-start gap-4 p-3 bg-secondary rounded-lg">
                            <Bot className="h-6 w-6 text-green-400 mt-1"/>
                            <div>
                                 <h4 className="font-semibold">Plataforma de Gestión</h4>
@@ -105,7 +105,7 @@ export default function GestionIntegralPage() {
         </div>
 
         {/* Sección de Impacto Social */}
-         <Card className="bg-card/50 backdrop-blur-sm text-center">
+         <Card className="text-center">
             <CardHeader>
                 <CardTitle className="flex items-center justify-center gap-3 text-2xl">
                     <HeartHandshake className="h-7 w-7 text-red-400"/>
@@ -119,7 +119,7 @@ export default function GestionIntegralPage() {
                 </p>
             </CardContent>
             <CardFooter className="justify-center">
-                 <Button variant="outline" className="border-red-400/50 text-red-400 hover:bg-red-400/10 hover:text-red-400">
+                 <Button variant="outline" className="text-red-600 border-red-500 hover:bg-red-500/10 hover:text-red-600">
                     Ver Reporte de Impacto Social
                 </Button>
             </CardFooter>
@@ -127,5 +127,3 @@ export default function GestionIntegralPage() {
     </div>
   );
 }
-
-    
