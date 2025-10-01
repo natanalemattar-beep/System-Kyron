@@ -142,13 +142,15 @@ export default function LandingPage() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {services.map(item => (
                         <Card key={item.title} className="text-center flex flex-col">
-                            <CardHeader className="items-center">
+                             <CardHeader className="items-center">
                                 <div className="p-4 bg-primary/10 rounded-full mb-4 w-max">
                                     <item.icon className="h-8 w-8 text-primary"/>
                                 </div>
-                                <CardTitle>{item.title}</CardTitle>
+                                <div className="h-20">
+                                    <CardTitle>{item.title}</CardTitle>
+                                </div>
                             </CardHeader>
-                            <CardContent className="flex-grow">
+                            <CardContent className="flex-grow h-24">
                                 <CardDescription>{item.description}</CardDescription>
                             </CardContent>
                             <CardContent>
