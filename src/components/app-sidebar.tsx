@@ -312,7 +312,7 @@ function AppSidebarNatural() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-teal-600 text-white p-2 rounded-lg">
+           <div className="bg-purple-600 text-white p-2 rounded-lg">
               <User className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
