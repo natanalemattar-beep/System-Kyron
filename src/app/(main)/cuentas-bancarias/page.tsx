@@ -15,6 +15,12 @@ const cuentasBancarias = [
     { id: 2, banco: "Banesco", logo: "/banks/banesco.png", numero: "**** **** **** 5678", tipo: "Corriente", saldo: 25000, moneda: "Bs." },
     { id: 3, banco: "Mercantil", logo: "/banks/mercantil.png", numero: "**** **** **** 9012", tipo: "Corriente", saldo: 75000, moneda: "Bs." },
     { id: 4, banco: "Bancamiga", logo: "/banks/bancamiga.png", numero: "**** **** **** 3456", tipo: "Cuenta en Dólares", saldo: 12500, moneda: "USD" },
+    { id: 5, banco: "Banco Provincial", logo: "/banks/provincial.png", numero: "**** **** **** 1122", tipo: "Corriente", saldo: 95000, moneda: "Bs." },
+    { id: 6, banco: "Banco Nacional de Crédito", logo: "/banks/bnc.png", numero: "**** **** **** 3344", tipo: "Corriente", saldo: 62000, moneda: "Bs." },
+    { id: 7, banco: "Bancaribe", logo: "/banks/bancaribe.png", numero: "**** **** **** 5566", tipo: "Corriente", saldo: 48000, moneda: "Bs." },
+    { id: 8, banco: "Banco Exterior", logo: "/banks/exterior.png", numero: "**** **** **** 7788", tipo: "Corriente", saldo: 31000, moneda: "Bs." },
+    { id: 9, banco: "Banco del Tesoro", logo: "/banks/tesoro.png", numero: "**** **** **** 9900", tipo: "Gubernamental", saldo: 250000, moneda: "Bs." },
+    { id: 10, banco: "Banco Bicentenario", logo: "/banks/bicentenario.png", numero: "**** **** **** 1212", tipo: "Gubernamental", saldo: 180000, moneda: "Bs." },
 ];
 
 const puntosDeVenta = [
@@ -59,7 +65,7 @@ export default function CuentasBancariasPage() {
       {/* Cuentas Bancarias */}
       <div className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Cuentas Bancarias</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {cuentasBancarias.map(cuenta => (
                 <Card key={cuenta.id} className="bg-card/50 backdrop-blur-sm flex flex-col">
                     <CardHeader className="flex flex-row items-start gap-4">
