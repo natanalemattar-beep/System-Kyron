@@ -43,6 +43,7 @@ import {
   UserX,
   Plane,
   Banknote,
+  HandCoins,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -93,6 +94,7 @@ const facturacionMenuItems = [
     { href: "/facturacion", label: "Facturación", icon: FileText },
     { href: "/inventario", label: "Inventario", icon: Archive },
     { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+    { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/igtf", label: "IGTF & Exoneraciones", icon: Percent },
     { href: "/creditos", label: "Créditos", icon: CreditCard },
