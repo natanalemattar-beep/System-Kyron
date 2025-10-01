@@ -336,6 +336,10 @@ export default function LandingPage() {
                  <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
                     <p className="mt-4 text-muted-foreground">¿Listo para tomar el control de tu negocio? Déjanos tus datos y un especialista te contactará.</p>
+                    <div className="mt-4 text-muted-foreground">
+                        <p><strong>Correo:</strong> contacto@systemcms.com</p>
+                        <p><strong>Teléfono:</strong> +58 414-1234567</p>
+                    </div>
                 </div>
                 <Card className="max-w-xl mx-auto">
                     <CardContent className="p-6">
