@@ -3,7 +3,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { Button } from "@/components/ui/button";
-import { Bell, LogOut, Settings, User, FileText, CreditCard } from "lucide-react";
+import { Bell, LogOut, Settings, User, FileText, CreditCard, Shield } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
@@ -33,6 +33,9 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <Link href="/dashboard"><User className="mr-2"/>Perfil</Link>
+                </DropdownMenuItem>
+                 <DropdownMenuItem asChild>
+                    <Link href="/seguridad"><Shield className="mr-2"/>Seguridad</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <Link href="/facturacion"><CreditCard className="mr-2"/>Facturación</Link>

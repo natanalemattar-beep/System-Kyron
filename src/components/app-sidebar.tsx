@@ -140,6 +140,7 @@ const naturalMenuItems = [
   { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
   { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
   { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
+  { href: "/seguridad", label: "Seguridad", icon: Shield },
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
 ];
 
