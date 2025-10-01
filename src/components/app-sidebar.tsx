@@ -74,10 +74,9 @@ const juridicoMainMenuItems = [
   { href: "/multas", label: "Multas", icon: AlertTriangle },
   { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
   { href: "/cumplimiento", label: "Cumplimiento", icon: ShieldAlert },
-  { href: "/administracion", label: "Análisis FODA", icon: Briefcase },
 ];
 
-const contabilidadMenuItems = [
+const finanzasContabilidadMenuItems = [
   { href: "/reports", label: "Reportes Contables", icon: BookOpen },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
@@ -85,14 +84,15 @@ const contabilidadMenuItems = [
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
+  { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
+  { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+  { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
 ];
 
 const analisisCrecimientoMenuItems = [
-    { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
-    { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
-    { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
+    { href: "/administracion", label: "Análisis FODA", icon: Briefcase },
 ];
 
 const entesReguladoresItems = [
@@ -161,7 +161,7 @@ export function AppSidebar() {
     // Check for specific juridico paths to be sure
     const juridicoPaths = [
         ...juridicoMainMenuItems.map(item => item.href),
-        ...contabilidadMenuItems.map(item => item.href),
+        ...finanzasContabilidadMenuItems.map(item => item.href),
         ...facturacionMenuItems.map(item => item.href),
         ...recursosHumanosMenuItems.map(item => item.href),
         ...librosRegistroMenuItems.map(item => item.href),
@@ -224,9 +224,9 @@ export function AppSidebar() {
         </SidebarGroup>
         
         <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Contabilidad</SidebarGroupLabel>
+            <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Finanzas y Contabilidad</SidebarGroupLabel>
             <SidebarMenu>
-                {contabilidadMenuItems.map((item) => (
+                {finanzasContabilidadMenuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                     asChild
@@ -457,3 +457,5 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
+    
