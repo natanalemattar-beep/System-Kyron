@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import Link from "next/link";
@@ -45,7 +46,8 @@ import {
   Banknote,
   HandCoins,
   Wallet,
-  HeartHandshake
+  HeartHandshake,
+  Megaphone
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -84,7 +86,8 @@ const finanzasContabilidadMenuItems = [
 const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
-    { href: "/administracion", label: "Análisis FODA", icon: Briefcase },
+    { href: "/analisis-foda", label: "Análisis FODA", icon: Briefcase },
+    { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
     { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
@@ -433,4 +436,3 @@ function AppSidebarNatural() {
   );
 }
 
-    
