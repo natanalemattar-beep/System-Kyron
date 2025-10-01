@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { href: "/#quienes-somos", label: "Quiénes Somos" },
@@ -81,18 +82,21 @@ export default function LandingPage() {
                 </Link>
             ))}
           </nav>
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
-            <Button variant="ghost" asChild>
-              <Link href="/login">
-                Iniciar Sesión
-              </Link>
-            </Button>
-             <Button asChild>
-              <Link href="/register">
-                Registrarse
-              </Link>
-            </Button>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline">Acceder / Registro</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login">Iniciar Sesión</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/register">Registrarse</Link>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />

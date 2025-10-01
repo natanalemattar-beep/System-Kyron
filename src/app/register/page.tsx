@@ -26,7 +26,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 export default function RegisterPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -56,14 +57,21 @@ export default function RegisterPage() {
                     </span>
                     </div>
                 </Link>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                     <ThemeToggle />
-                    <Button variant="ghost" asChild>
-                    <Link href="/login">Iniciar Sesión</Link>
-                    </Button>
-                    <Button asChild>
-                    <Link href="/register">Registrarse</Link>
-                    </Button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline">Acceder / Registro</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem asChild>
+                                <Link href="/login">Iniciar Sesión</Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="/register">Registrarse</Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
                 </div>
             </header>
@@ -114,14 +122,21 @@ export default function RegisterPage() {
               </span>
             </div>
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <ThemeToggle />
-            <Button variant="ghost" asChild>
-              <Link href="/login">Iniciar Sesión</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/register">Registrarse</Link>
-            </Button>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline">Acceder / Registro</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login">Iniciar Sesión</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/register">Registrarse</Link>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>
