@@ -73,6 +73,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
@@ -170,6 +171,17 @@ const naturalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
 ];
 
+const navGroups = [
+    { title: "Jurídico", icon: Gavel, items: juridicoMainMenuItems },
+    { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+    { title: "Análisis y Crecimiento", icon: TrendingUp, items: analisisCrecimientoMenuItems },
+    { title: "Soluciones con IA", icon: BrainCircuit, items: iaMenuItems },
+    { title: "Facturación", icon: FileText, items: facturacionMenuItems },
+    { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosMenuItems },
+    { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems },
+    { title: "General", icon: Cog, items: generalMenuItems },
+];
+
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -179,16 +191,7 @@ export function AppSidebar() {
     if (path === '/dashboard') return false; // This is the natural dashboard
     if (naturalPaths.some(p => p !== '/dashboard' && path.startsWith(p))) return false;
     
-    const juridicoPaths = [
-        ...juridicoMainMenuItems.map(item => item.href),
-        ...finanzasContabilidadMenuItems.map(item => item.href),
-        ...facturacionMenuItems.map(item => item.href),
-        ...recursosHumanosMenuItems.map(item => item.href),
-        ...librosRegistroMenuItems.map(item => item.href),
-        ...generalMenuItems.map(item => item.href),
-        ...analisisCrecimientoMenuItems.map(item => item.href),
-        ...iaMenuItems.map(item => item.href),
-    ];
+    const juridicoPaths = navGroups.flatMap(g => g.items.map(i => i.href));
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
 
@@ -218,173 +221,38 @@ export function AppSidebar() {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-2">
-        <SidebarGroup>
-          <SidebarGroupLabel className="flex items-center gap-2"><Gavel className="h-4 w-4"/>Jurídico</SidebarGroupLabel>
-          <SidebarMenu>
-            {juridicoMainMenuItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname.startsWith(item.href)}
-                  tooltip={item.label}
-                  className="justify-start"
-                >
-                  <Link href={item.href}>
-                    <item.icon className="h-5 w-5" />
-                    <span>{item.label}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+      <SidebarContent className="p-0">
+        <Accordion type="multiple" className="w-full">
+            {navGroups.map((group) => (
+                <AccordionItem value={group.title} key={group.title} className="border-none">
+                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-sidebar-accent text-sidebar-foreground/70">
+                        <div className="flex items-center gap-2 text-sm font-medium">
+                            <group.icon className="h-4 w-4" />
+                            {group.title}
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-0">
+                        <SidebarMenu className="pl-4 border-l border-sidebar-border ml-4 py-2">
+                            {group.items.map((item) => (
+                            <SidebarMenuItem key={item.href}>
+                                <SidebarMenuButton
+                                asChild
+                                isActive={pathname.startsWith(item.href)}
+                                tooltip={item.label}
+                                className="justify-start h-8"
+                                >
+                                <Link href={item.href}>
+                                    <item.icon className="h-4 w-4" />
+                                    <span>{item.label}</span>
+                                </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </AccordionContent>
+                </AccordionItem>
             ))}
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Finanzas y Contabilidad</SidebarGroupLabel>
-            <SidebarMenu>
-                {finanzasContabilidadMenuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><TrendingUp className="h-4 w-4"/>Análisis y Crecimiento</SidebarGroupLabel>
-            <SidebarMenu>
-                {analisisCrecimientoMenuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><BrainCircuit className="h-4 w-4"/>Soluciones con IA</SidebarGroupLabel>
-            <SidebarMenu>
-                {iaMenuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><FileText className="h-4 w-4"/>Facturación</SidebarGroupLabel>
-            <SidebarMenu>
-                {facturacionMenuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-         <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><Briefcase className="h-4 w-4"/>Recursos Humanos</SidebarGroupLabel>
-            <SidebarMenu>
-                {recursosHumanosMenuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-        
-        <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Libros de Registro</SidebarGroupLabel>
-            <SidebarMenu>
-                {librosRegistroMenuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-             <SidebarGroupLabel className="flex items-center gap-2"><Cog className="h-4 w-4"/>General</SidebarGroupLabel>
-            <SidebarMenu>
-                {generalMenuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
+        </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2 bg-sidebar-border" />

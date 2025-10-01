@@ -93,7 +93,7 @@ const featureItems = [
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
+      <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="#" className="flex items-center gap-3">
             <div className="bg-primary text-primary-foreground p-2 rounded-md">
@@ -134,7 +134,7 @@ export default function LandingPage() {
                     </p>
                 </div>
 
-                 <Card className="w-full max-w-md mx-auto">
+                 <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm">
                     <CardHeader className="items-center text-center">
                         <Rocket className="h-12 w-12 text-primary mb-4" />
                         <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
@@ -210,7 +210,7 @@ export default function LandingPage() {
               Tecnología que ayuda a comunidades vulnerables
             </p>
             <div className="mt-12 grid gap-8 md:grid-cols-2">
-              <Card className="text-left">
+              <Card className="text-left bg-card/50 backdrop-blur-sm">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="bg-green-900/50 text-green-400 p-3 rounded-lg">
@@ -246,7 +246,7 @@ export default function LandingPage() {
                   </Button>
                 </CardContent>
               </Card>
-              <Card className="text-left">
+              <Card className="text-left bg-card/50 backdrop-blur-sm">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="bg-blue-900/50 text-blue-400 p-3 rounded-lg">
@@ -303,7 +303,7 @@ export default function LandingPage() {
               {featureItems.map((item) => (
                 <Card
                   key={item.title}
-                  className="text-left hover:shadow-xl transition-shadow duration-300"
+                  className="text-left hover:shadow-xl transition-shadow duration-300 bg-card/50 backdrop-blur-sm"
                 >
                   <CardContent className="p-8">
                     <div className="flex items-start gap-4 mb-4">

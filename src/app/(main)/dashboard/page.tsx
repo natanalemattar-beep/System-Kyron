@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Badge } from '@/components/ui/badge';
@@ -70,7 +71,7 @@ export default function DashboardPersonalPage() {
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {actions.map((action, index) => (
-          <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow duration-300">
+          <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow duration-300 bg-card/50 backdrop-blur-sm">
             <CardHeader>
               <div className="flex items-start gap-4">
                 <div className={`p-3 rounded-lg bg-secondary`}>
