@@ -16,15 +16,19 @@ const nomina = {
     fechaPago: "15/07/2024",
     asignaciones: [
         { concepto: "Sueldo Base Quincenal", monto: 6000 },
-        { concepto: "Bono de Alimentación (Cestaticket)", monto: 1460 }, // Based on ~$40 indexed rate
+        { concepto: "Bono de Alimentación (Cestaticket)", monto: 1460 },
         { concepto: "Bono de Productividad", monto: 1500 },
+        { concepto: "Pago de Horas Extras", monto: 800 },
+        { concepto: "Bono por Día Feriado", monto: 500 },
+        { concepto: "Bono Vacacional", monto: 2200 },
     ],
     deducciones: [
         { concepto: "Seguro Social Obligatorio (SSO) - 4%", monto: 240 },
         { concepto: "Régimen Prestacional de Empleo (RPE) - 0.5%", monto: 30 },
-        { concepto: "Fondo de Ahorro para la Vivienda (FAOV) - 1%", monto: 150 }, // 1% of sueldoIntegral
+        { concepto: "Fondo de Ahorro para la Vivienda (FAOV) - 1%", monto: 150 },
         { concepto: "Retención ISLR", monto: 450 },
         { concepto: "Aporte Caja de Ahorro", monto: 300 },
+        { concepto: "Adelanto de Quincena", monto: 1000 },
     ]
 };
 
