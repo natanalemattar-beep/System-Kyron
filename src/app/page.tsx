@@ -19,6 +19,7 @@ const navLinks = [
   { href: "/#servicios", label: "Servicios" },
   { href: "/#seguro", label: "Seguro Contable y Jurídico" },
   { href: "/#contacto", label: "Contáctanos" },
+  { href: "/producto", label: "Producto" },
 ];
 
 const services = [
@@ -75,30 +76,8 @@ export default function LandingPage() {
             </div>
             <span className="text-lg font-bold">System C.S.M</span>
           </Link>
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            {navLinks.map((link) => (
-                <Link key={link.label} href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
-                    {link.label}
-                </Link>
-            ))}
-          </nav>
-          <div className="hidden md:flex items-center gap-4">
-            <ThemeToggle />
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline">Acceder / Registro</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuItem asChild>
-                        <Link href="/login">Iniciar Sesión</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/register">Registrarse</Link>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          <div className="md:hidden flex items-center gap-2">
+          
+          <div className="flex items-center gap-2">
             <ThemeToggle />
             <Sheet>
               <SheetTrigger asChild>
@@ -108,7 +87,18 @@ export default function LandingPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
-                <nav className="flex flex-col gap-6 text-lg font-medium mt-8">
+                 <div className="flex justify-between items-center mb-8">
+                    <Link href="/" className="flex items-center gap-3">
+                      <div className="bg-primary text-primary-foreground p-2 rounded-md">
+                        <FileText className="h-6 w-6" />
+                      </div>
+                      <span className="text-lg font-bold">System C.S.M</span>
+                    </Link>
+                    <SheetClose asChild>
+                        <Button variant="ghost" size="icon">X</Button>
+                    </SheetClose>
+                 </div>
+                <nav className="flex flex-col gap-6 text-lg font-medium">
                   {navLinks.map((link) => (
                     <SheetClose asChild key={link.label}>
                       <Link href={link.href} className="text-muted-foreground hover:text-foreground">
