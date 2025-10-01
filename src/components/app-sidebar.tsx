@@ -91,6 +91,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
   { href: "/seguros", label: "Seguros", icon: ShieldCheck },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
+  { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
 ];
 
 const analisisCrecimientoMenuItems = [
