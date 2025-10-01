@@ -95,9 +95,6 @@ const analisisCrecimientoMenuItems = [
     { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
-    { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
-    { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
-    { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
 ];
 
 const facturacionMenuItems = [
@@ -441,6 +438,7 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
 
 
 
