@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserCheck, PlusCircle, Download } from "lucide-react";
+import { UserCheck, PlusCircle, Download, Scale, Trophy, Camera } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
@@ -19,8 +19,10 @@ const permisos = [
     { id: "PERM-011", tipo: "Certificado de Inscripción en el RESQUIMC", emisor: "ONA", fechaEmision: "15/05/2024", fechaVencimiento: "15/05/2025", estado: "Vigente" },
     { id: "PERM-012", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "MINCOMUNAS", fechaEmision: "20/03/2023", fechaVencimiento: "20/03/2025", estado: "Por Vencer" },
     { id: "PERM-013", tipo: "Certificado de Fumigación", emisor: "SACS", fechaEmision: "01/07/2024", fechaVencimiento: "01/01/2025", estado: "Vigente" },
-
-
+    { id: "PERM-014", tipo: "Registro Nacional del Deporte", emisor: "Min. Deporte", fechaEmision: "12/04/2024", fechaVencimiento: "12/04/2026", estado: "Vigente" },
+    { id: "PERM-015", tipo: "Licencia de Turismo", emisor: "MINTUR", fechaEmision: "25/01/2024", fechaVencimiento: "25/01/2025", estado: "Vigente" },
+    { id: "PERM-016", tipo: "Certificado de Patrimonio Cultural", emisor: "Min. Cultura (MPPC)", fechaEmision: "01/12/2023", fechaVencimiento: "Indefinido", estado: "Vigente" },
+    { id: "PERM-017", tipo: "RUPDAE", emisor: "SUNDDE", fechaEmision: "10/02/2024", fechaVencimiento: "10/02/2025", estado: "Vigente" },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
