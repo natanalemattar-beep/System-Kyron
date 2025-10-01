@@ -77,7 +77,7 @@ export default function LandingPage() {
                             <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
                         </DropdownMenuItem>
                          <DropdownMenuItem asChild>
-                            <Link href="/nominas">Recursos Humanos</Link>
+                            <Link href="/recursos-humanos">Recursos Humanos</Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -129,6 +129,11 @@ export default function LandingPage() {
                        <SheetClose asChild>
                          <Button asChild className="w-full justify-start">
                             <Link href="/login-juridico"><User className="mr-2"/>Iniciar Sesión Jurídico</Link>
+                          </Button>
+                      </SheetClose>
+                       <SheetClose asChild>
+                         <Button asChild className="w-full justify-start">
+                            <Link href="/recursos-humanos"><User className="mr-2"/>Recursos Humanos</Link>
                           </Button>
                       </SheetClose>
                       <SheetClose asChild>

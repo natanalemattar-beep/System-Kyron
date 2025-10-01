@@ -72,7 +72,7 @@ export default function RegisterPage() {
                                 <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild>
-                                <Link href="/nominas">Recursos Humanos</Link>
+                                <Link href="/recursos-humanos">Recursos Humanos</Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -146,7 +146,7 @@ export default function RegisterPage() {
                             <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                            <Link href="/nominas">Recursos Humanos</Link>
+                            <Link href="/recursos-humanos">Recursos Humanos</Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

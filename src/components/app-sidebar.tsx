@@ -126,6 +126,7 @@ const facturacionMenuItems = [
 ];
 
 const recursosHumanosMenuItems = [
+    { href: "/recursos-humanos", label: "Dashboard RRHH", icon: Users },
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
