@@ -365,5 +365,3 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
-
-    
