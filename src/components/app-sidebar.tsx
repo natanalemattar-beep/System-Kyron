@@ -48,6 +48,7 @@ import {
   TrendingUp,
   ShieldQuestion,
   Lightbulb,
+  Calendar,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -84,15 +85,16 @@ const finanzasContabilidadMenuItems = [
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
-  { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
-  { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
-  { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
 ];
 
 const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
     { href: "/administracion", label: "Análisis FODA", icon: Briefcase },
+    { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
+    { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
+    { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+    { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
 ];
 
 const entesReguladoresItems = [
@@ -457,5 +459,3 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
-
-    
