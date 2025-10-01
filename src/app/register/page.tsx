@@ -41,18 +41,18 @@ export default function RegisterPage() {
 
   if (step === 2) {
     return (
-        <div className="flex flex-col min-h-screen bg-gradient-to-b from-teal-50 to-white dark:from-gray-900/50 dark:to-background">
-             <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-sm dark:bg-background/80 border-b">
+        <div className="flex flex-col min-h-screen">
+             <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
                 <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
                 <Link href="/" className="flex items-center gap-3">
-                    <div className="bg-teal-600 text-white p-2 rounded-md">
+                    <div className="bg-primary text-primary-foreground p-2 rounded-md">
                     <FileText className="h-6 w-6" />
                     </div>
                     <div className="flex flex-col">
-                    <span className="text-lg font-bold text-gray-800 dark:text-gray-200">
+                    <span className="text-lg font-bold">
                         System C.R.S
                     </span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                         Plataforma Digital Oficial
                     </span>
                     </div>
@@ -61,20 +61,20 @@ export default function RegisterPage() {
                     <Button variant="ghost" asChild>
                     <Link href="/login">Iniciar Sesión</Link>
                     </Button>
-                    <Button asChild className="bg-teal-600 hover:bg-teal-700">
+                    <Button asChild>
                     <Link href="/register">Registrarse</Link>
                     </Button>
                 </div>
                 </div>
             </header>
             <main className="flex-1 flex items-center justify-center p-4">
-                 <Card className="w-full max-w-md mx-auto bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl">
+                 <Card className="w-full max-w-md mx-auto shadow-xl rounded-2xl">
                     <CardContent className="flex flex-col items-center p-8 text-center">
-                        <div className="p-4 bg-teal-600/10 rounded-full mb-4">
-                            <ShieldCheck className="h-10 w-10 text-teal-500" />
+                        <div className="p-4 bg-primary/10 rounded-full mb-4">
+                            <ShieldCheck className="h-10 w-10 text-primary" />
                         </div>
-                        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">Verifica tu Cuenta</h1>
-                        <p className="text-gray-600 dark:text-gray-400 mb-6">
+                        <h1 className="text-3xl font-bold mb-2">Verifica tu Cuenta</h1>
+                        <p className="text-muted-foreground mb-6">
                             Introduce el código de 6 dígitos que enviamos a tu correo electrónico.
                         </p>
                         <InputOTP maxLength={6}>
@@ -87,11 +87,11 @@ export default function RegisterPage() {
                                 <InputOTPSlot index={5} />
                             </InputOTPGroup>
                         </InputOTP>
-                         <Button className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold mt-8">
+                         <Button className="w-full h-12 text-lg font-bold mt-8">
                             Verificar y Crear Cuenta
                         </Button>
                         <p className="mt-4 text-sm text-muted-foreground">
-                            ¿No recibiste el código? <Link href="#" className="font-semibold text-teal-600 hover:underline">Reenviar</Link>
+                            ¿No recibiste el código? <Link href="#" className="font-semibold text-primary hover:underline">Reenviar</Link>
                         </p>
                     </CardContent>
                 </Card>
@@ -101,18 +101,18 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-teal-50 to-white dark:from-gray-900/50 dark:to-background">
-      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-sm dark:bg-background/80 border-b">
+    <div className="flex flex-col min-h-screen">
+      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="bg-teal-600 text-white p-2 rounded-md">
+            <div className="bg-primary text-primary-foreground p-2 rounded-md">
               <FileText className="h-6 w-6" />
             </div>
              <div className="flex flex-col">
-              <span className="text-lg font-bold text-gray-800 dark:text-gray-200">
+              <span className="text-lg font-bold">
                 System C.R.S
               </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-muted-foreground">
                 Plataforma Digital Oficial
               </span>
             </div>
@@ -121,7 +121,7 @@ export default function RegisterPage() {
             <Button variant="ghost" asChild>
               <Link href="/login">Iniciar Sesión</Link>
             </Button>
-            <Button asChild className="bg-teal-600 hover:bg-teal-700">
+            <Button asChild>
               <Link href="/register">Registrarse</Link>
             </Button>
           </div>
@@ -129,21 +129,21 @@ export default function RegisterPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-2xl mx-auto bg-white/60 dark:bg-card/60 backdrop-blur-sm shadow-xl rounded-2xl">
+        <Card className="w-full max-w-2xl mx-auto backdrop-blur-sm shadow-xl rounded-2xl">
           <CardContent className="p-8">
             <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">Crear Cuenta</h1>
-                <p className="text-gray-600 dark:text-gray-400">
+                <h1 className="text-3xl font-bold mb-2">Crear Cuenta</h1>
+                <p className="text-muted-foreground">
                   Regístrate para acceder a todos los servicios gubernamentales digitales
                 </p>
             </div>
 
             <Tabs defaultValue="juridica" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-gray-100 dark:bg-background/50 h-12 p-1 mb-6">
-                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-white dark:data-[state=active]:bg-card/80 data-[state=active]:shadow-sm flex gap-2">
+              <TabsList className="grid w-full grid-cols-2 bg-muted h-12 p-1 mb-6">
+                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-background data-[state=active]:shadow-sm flex gap-2">
                     <Building className="h-5 w-5"/> Persona Jurídica
                 </TabsTrigger>
-                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-white dark:data-[state=active]:bg-card/80 data-[state=active]:shadow-sm flex gap-2">
+                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-background data-[state=active]:shadow-sm flex gap-2">
                     <User className="h-5 w-5"/> Persona Natural
                 </TabsTrigger>
               </TabsList>
@@ -214,17 +214,17 @@ export default function RegisterPage() {
                         <Checkbox id="terms-juridica" />
                         <Label htmlFor="terms-juridica" className="text-sm text-muted-foreground">
                         Acepto los{" "}
-                        <Link href="#" className="underline text-teal-600 hover:text-teal-700">
+                        <Link href="#" className="underline text-primary hover:text-primary/80">
                             Términos de Servicio
                         </Link>{" "}
                         y la{" "}
-                        <Link href="#" className="underline text-teal-600 hover:text-teal-700">
+                        <Link href="#" className="underline text-primary hover:text-primary/80">
                             Política de Privacidad
                         </Link>.
                         </Label>
                     </div>
 
-                    <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
+                    <Button type="submit" className="w-full h-12 text-lg font-bold">
                         Registrar Empresa
                     </Button>
                 </form>
@@ -296,25 +296,25 @@ export default function RegisterPage() {
                         <Checkbox id="terms-natural" />
                         <Label htmlFor="terms-natural" className="text-sm text-muted-foreground">
                         Acepto los{" "}
-                        <Link href="#" className="underline text-teal-600 hover:text-teal-700">
+                        <Link href="#" className="underline text-primary hover:text-primary/80">
                             Términos de Servicio
                         </Link>{" "}
                         y la{" "}
-                        <Link href="#" className="underline text-teal-600 hover:text-teal-700">
+                        <Link href="#" className="underline text-primary hover:text-primary/80">
                             Política de Privacidad
                         </Link>.
                         </Label>
                     </div>
 
-                    <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700 h-12 text-lg font-bold">
+                    <Button type="submit" className="w-full h-12 text-lg font-bold">
                         Registrarme
                     </Button>
                  </form>
                </TabsContent>
             </Tabs>
-             <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
+             <p className="mt-8 text-center text-sm text-muted-foreground">
               ¿Ya tienes una cuenta?{" "}
-              <Link href="/login" className="font-semibold text-teal-600 hover:underline">
+              <Link href="/login" className="font-semibold text-primary hover:underline">
                 Inicia sesión aquí
               </Link>
             </p>

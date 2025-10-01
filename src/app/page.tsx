@@ -127,7 +127,7 @@ export default function LandingPage() {
                         Plataforma Empresarial Venezuela
                     </span>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
-                        Gestión integral para <span className="text-primary">Juridicos</span> y <span className="text-green-600">Naturales</span>
+                        Gestión integral para <span className="text-primary">Jurídicos</span> y <span className="text-green-400">Naturales</span>
                     </h1>
                     <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
                         Accede a tu cuenta empresarial o personal para gestionar RIF, permisos, documentos civiles y casos judiciales con la más alta tecnología y seguridad
@@ -171,7 +171,7 @@ export default function LandingPage() {
                   key={item.name}
                   className="flex items-center gap-2 bg-card border shadow-sm rounded-full px-4 py-2"
                 >
-                  <item.icon className="h-4 w-4 text-yellow-500" />
+                  <item.icon className="h-4 w-4 text-yellow-400" />
                   <span className="text-sm font-medium">
                     {item.name}
                   </span>
@@ -213,7 +213,7 @@ export default function LandingPage() {
               <Card className="text-left">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 p-3 rounded-lg">
+                    <div className="bg-green-900/50 text-green-400 p-3 rounded-lg">
                       <Recycle className="h-8 w-8" />
                     </div>
                     <h3 className="text-2xl font-bold">
@@ -226,15 +226,15 @@ export default function LandingPage() {
                   </p>
                   <ul className="space-y-2 mb-8">
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <CheckCircle className="h-5 w-5 text-primary" />
                       <span>Basureros inteligentes</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <CheckCircle className="h-5 w-5 text-primary" />
                       <span>Recolección optimizada</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <CheckCircle className="h-5 w-5 text-primary" />
                       <span>Ayuda social automática</span>
                     </li>
                   </ul>
@@ -249,7 +249,7 @@ export default function LandingPage() {
               <Card className="text-left">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 p-3 rounded-lg">
+                    <div className="bg-blue-900/50 text-blue-400 p-3 rounded-lg">
                       <Briefcase className="h-8 w-8" />
                     </div>
                     <h3 className="text-2xl font-bold">
@@ -262,15 +262,15 @@ export default function LandingPage() {
                   </p>
                   <ul className="space-y-2 mb-8">
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <CheckCircle className="h-5 w-5 text-primary" />
                       <span>Estrategias SMART</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <CheckCircle className="h-5 w-5 text-primary" />
                       <span>Canales digitales</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <CheckCircle className="h-5 w-5 text-primary" />
                       <span>Medición de resultados</span>
                     </li>
                   </ul>
@@ -320,7 +320,7 @@ export default function LandingPage() {
                     <ul className="space-y-2 my-6 pl-12">
                       {item.features.map((feature) => (
                         <li key={feature} className="flex items-center gap-2">
-                          <CheckCircle className="h-5 w-5 text-green-500" />
+                          <CheckCircle className="h-5 w-5 text-primary" />
                           <span>{feature}</span>
                         </li>
                       ))}

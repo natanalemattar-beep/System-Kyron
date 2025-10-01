@@ -60,11 +60,11 @@ export default function AnalisisRiesgoPage() {
             </CardHeader>
             <CardContent className="text-center">
                 <div className="relative">
-                    <p className="text-6xl font-bold text-orange-500">{riesgoGeneral}</p>
+                    <p className="text-6xl font-bold text-orange-400">{riesgoGeneral}</p>
                     <p className="text-muted-foreground">sobre 10</p>
                 </div>
                 <Progress value={riesgoGeneral * 10} className="mt-4" />
-                <p className="text-sm mt-2 font-medium text-orange-500">Riesgo Moderado-Alto</p>
+                <p className="text-sm mt-2 font-medium text-orange-400">Riesgo Moderado-Alto</p>
             </CardContent>
         </Card>
         <Card className="lg:col-span-2">

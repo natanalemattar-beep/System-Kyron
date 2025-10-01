@@ -59,37 +59,37 @@ export default function DeclaracionIvaPage() {
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            <Card className="bg-green-100 dark:bg-green-900/30 border-green-200 dark:border-green-800">
+                            <Card className="bg-primary/10 border-primary/20">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-green-800 dark:text-green-300">Débito Fiscal (Ventas)</CardTitle>
-                                    <TrendingUp className="h-4 w-4 text-green-600" />
+                                    <CardTitle className="text-sm font-medium text-primary">Débito Fiscal (Ventas)</CardTitle>
+                                    <TrendingUp className="h-4 w-4 text-primary" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.debitoFiscal, 'Bs.')}</div>
                                 </CardContent>
                             </Card>
-                             <Card className="bg-red-100 dark:bg-red-900/30 border-red-200 dark:border-red-800">
+                             <Card className="bg-destructive/10 border-destructive/20">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-red-800 dark:text-red-400">Crédito Fiscal (Compras)</CardTitle>
-                                    <TrendingDown className="h-4 w-4 text-red-600" />
+                                    <CardTitle className="text-sm font-medium text-destructive">Crédito Fiscal (Compras)</CardTitle>
+                                    <TrendingDown className="h-4 w-4 text-destructive" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.creditoFiscal, 'Bs.')}</div>
                                 </CardContent>
                             </Card>
-                             <Card className="bg-yellow-100 dark:bg-yellow-900/30 border-yellow-200 dark:border-yellow-800">
+                             <Card className="bg-yellow-400/10 border-yellow-400/20">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-yellow-800 dark:text-yellow-300">Retenciones Soportadas</CardTitle>
-                                    <FileMinus className="h-4 w-4 text-yellow-600" />
+                                    <CardTitle className="text-sm font-medium text-yellow-400">Retenciones Soportadas</CardTitle>
+                                    <FileMinus className="h-4 w-4 text-yellow-400" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.retencionesSoportadas, 'Bs.')}</div>
                                 </CardContent>
                             </Card>
-                             <Card className="bg-blue-100 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800">
+                             <Card className="bg-blue-400/10 border-blue-400/20">
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                    <CardTitle className="text-sm font-medium text-blue-800 dark:text-blue-300">IVA Retenido a Terceros</CardTitle>
-                                    <FilePlus className="h-4 w-4 text-blue-600" />
+                                    <CardTitle className="text-sm font-medium text-blue-400">IVA Retenido a Terceros</CardTitle>
+                                    <FilePlus className="h-4 w-4 text-blue-400" />
                                 </CardHeader>
                                 <CardContent>
                                     <div className="text-2xl font-bold">{formatCurrency(resumenMes.ivaRetenidoATerceros, 'Bs.')}</div>

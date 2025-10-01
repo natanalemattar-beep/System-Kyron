@@ -62,13 +62,13 @@ export default function AnalisisFodaPage() {
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-green-600"><Zap />Fortalezas</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-primary"><Zap />Fortalezas</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
                             {fodaData.fortalezas.map(item => (
                                 <li key={item.text} className="flex items-start gap-3">
-                                    <item.icon className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
+                                    <item.icon className="h-5 w-5 text-primary mt-0.5 shrink-0" />
                                     <span>{item.text}</span>
                                 </li>
                             ))}
@@ -78,7 +78,7 @@ export default function AnalisisFodaPage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-blue-600"><TrendingUp />Oportunidades</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-blue-400"><TrendingUp />Oportunidades</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
@@ -94,7 +94,7 @@ export default function AnalisisFodaPage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-orange-500"><AlertTriangle />Debilidades</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-orange-400"><AlertTriangle />Debilidades</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
@@ -110,7 +110,7 @@ export default function AnalisisFodaPage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-red-600"><ShieldAlert />Amenazas</CardTitle>
+                        <CardTitle className="flex items-center gap-3 text-red-500"><ShieldAlert />Amenazas</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className="space-y-3">
