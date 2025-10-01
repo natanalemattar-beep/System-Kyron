@@ -13,8 +13,8 @@ import { useToast } from "@/hooks/use-toast";
 const navLinks = [
   { href: "/#quienes-somos", label: "Quiénes Somos" },
   { href: "/#servicios", label: "Servicios" },
+  { href: "/#seguro", label: "Seguro Contable y Jurídico" },
   { href: "/#contacto", label: "Contacto" },
-  { href: "/seguros", label: "Seguro Contable y Jurídico" },
 ];
 
 const services = [
@@ -166,8 +166,50 @@ export default function LandingPage() {
             </div>
         </section>
 
+        {/* Seguro Contable y Jurídico */}
+        <section id="seguro" className="py-16 md:py-24 bg-secondary/50">
+            <div className="container mx-auto px-4 md:px-6 text-center">
+                <div className="max-w-3xl mx-auto">
+                    <h2 className="text-3xl md:text-4xl font-bold">Seguro Contable y Jurídico</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        Tu tranquilidad es nuestra prioridad. Ofrecemos un respaldo integral para que operes con la certeza de que tu negocio está protegido ante cualquier eventualidad fiscal o legal.
+                    </p>
+                </div>
+                <Card className="mt-12 max-w-4xl mx-auto">
+                    <CardContent className="p-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="flex flex-col items-center text-center">
+                            <div className="p-3 bg-primary/10 rounded-full mb-4">
+                                <ShieldCheck className="h-8 w-8 text-primary"/>
+                            </div>
+                            <h4 className="font-semibold">Cumplimiento Garantizado</h4>
+                            <p className="text-sm text-muted-foreground">Nos aseguramos de que tus declaraciones y libros contables cumplan con toda la normativa vigente del SENIAT.</p>
+                        </div>
+                        <div className="flex flex-col items-center text-center">
+                            <div className="p-3 bg-primary/10 rounded-full mb-4">
+                                <BookOpen className="h-8 w-8 text-primary"/>
+                            </div>
+                            <h4 className="font-semibold">Gestión de Nómina</h4>
+                            <p className="text-sm text-muted-foreground">Calculamos y procesamos tu nómina, garantizando el cumplimiento de las obligaciones laborales y parafiscales.</p>
+                        </div>
+                        <div className="flex flex-col items-center text-center md:col-span-2 lg:col-span-1">
+                            <div className="p-3 bg-primary/10 rounded-full mb-4">
+                                <Handshake className="h-8 w-8 text-primary"/>
+                            </div>
+                            <h4 className="font-semibold">Asistencia Legal</h4>
+                            <p className="text-sm text-muted-foreground">Te respaldamos en la redacción de contratos, gestión de poderes y prevención de multas.</p>
+                        </div>
+                    </CardContent>
+                    <CardContent>
+                        <Button asChild>
+                            <Link href="#contacto">Solicitar Asesoría</Link>
+                        </Button>
+                    </CardContent>
+                </Card>
+            </div>
+        </section>
+
          {/* Contacto */}
-        <section id="contacto" className="py-16 md:py-24 bg-secondary/50">
+        <section id="contacto" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Hablemos</h2>
