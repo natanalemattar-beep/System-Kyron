@@ -58,6 +58,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
   { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
   { href: "/permisos", label: "Permisos", icon: UserCheck },
   { href: "/autorizaciones", label: "Autorizaciones", icon: Shield },
