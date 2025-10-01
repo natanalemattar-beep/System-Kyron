@@ -35,6 +35,14 @@ import {
   Lightbulb,
   Calendar,
   Building as BuildingIcon,
+  BookUser,
+  Timer,
+  Moon,
+  Sun,
+  ShoppingCart,
+  UserX,
+  Plane,
+  Banknote,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -95,11 +103,30 @@ const recursosHumanosMenuItems = [
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
+    { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
+    { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
+    { href: "/ivss", label: "Gestión IVSS", icon: Briefcase },
+    { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
+    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: FileText },
+    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: TrendingUp },
 ];
+
+const librosRegistroMenuItems = [
+    { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
+    { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
+    { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
+    { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
+    { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
+    { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
+    { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
+];
+
 
 const generalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
   { href: "/integraciones", label: "Integraciones", icon: Cog },
+  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
+  { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
 ];
 
 const naturalMenuItems = [
@@ -126,16 +153,14 @@ export function AppSidebar() {
         ...finanzasContabilidadMenuItems.map(item => item.href),
         ...facturacionMenuItems.map(item => item.href),
         ...recursosHumanosMenuItems.map(item => item.href),
+        ...librosRegistroMenuItems.map(item => item.href),
         ...generalMenuItems.map(item => item.href),
         ...analisisCrecimientoMenuItems.map(item => item.href),
-        '/declaracion-iva',
-        '/proteccion-pensiones',
-        '/tipos-empresa',
-        '/tramites-corporativos',
     ];
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
 
+    // Default to juridico for root and other non-specified paths
     return true;
   }
   
@@ -265,6 +290,28 @@ export function AppSidebar() {
                 ))}
             </SidebarMenu>
         </SidebarGroup>
+        
+        <SidebarGroup>
+            <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Libros de Registro</SidebarGroupLabel>
+            <SidebarMenu>
+                {librosRegistroMenuItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                    asChild
+                    isActive={pathname.startsWith(item.href)}
+                    tooltip={item.label}
+                    className="justify-start"
+                    >
+                    <Link href={item.href}>
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.label}</span>
+                    </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
+
         <SidebarGroup>
              <SidebarGroupLabel className="flex items-center gap-2"><Cog className="h-4 w-4"/>General</SidebarGroupLabel>
             <SidebarMenu>
