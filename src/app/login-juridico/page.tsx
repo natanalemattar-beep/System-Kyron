@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building, Eye, EyeOff, Flag, ChevronDown } from "lucide-react";
+import { Building, Eye, EyeOff, Flag, ChevronDown, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,8 +49,8 @@ export default function LoginJuridicoPage() {
                     <DropdownMenuItem asChild>
                         <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
                     </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                        <Link href="/recursos-humanos">Recursos Humanos</Link>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login-rrhh">Recursos Humanos</Link>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

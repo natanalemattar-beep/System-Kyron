@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { User, Eye, EyeOff, Flag, ChevronDown, Briefcase } from "lucide-react";
+import { Briefcase, Eye, EyeOff, Flag, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-export default function LoginNaturalPage() {
+export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
@@ -56,15 +56,15 @@ export default function LoginNaturalPage() {
         <Card className="w-full max-w-md mx-auto">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
-              <User className="h-10 w-10 text-primary"/>
+              <Briefcase className="h-10 w-10 text-primary"/>
             </div>
-            <CardTitle className="text-2xl">Acceso Natural</CardTitle>
-            <CardDescription>Inicia sesión con tu Cédula de Identidad.</CardDescription>
+            <CardTitle className="text-2xl">Acceso RR.HH.</CardTitle>
+            <CardDescription>Inicia sesión con tu usuario de Recursos Humanos.</CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-6">
             <div className="space-y-2">
-              <Label>Cédula de Identidad</Label>
-              <Input type="text" placeholder="V-12345678" />
+              <Label>Usuario</Label>
+              <Input type="text" placeholder="usuario.rrhh" />
             </div>
             <div className="space-y-2 relative">
               <Label>Contraseña</Label>
@@ -80,12 +80,6 @@ export default function LoginNaturalPage() {
             <Button asChild className="w-full">
               <Link href="/dashboard">Acceder</Link>
             </Button>
-            <p className="mt-6 text-center text-sm text-muted-foreground">
-              ¿Eres una empresa?{" "}
-              <Link href="/login-juridico" className="font-semibold text-primary hover:underline">
-                Accede como Persona Jurídica
-              </Link>
-            </p>
           </CardContent>
         </Card>
       </main>

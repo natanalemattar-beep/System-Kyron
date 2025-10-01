@@ -102,7 +102,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
-    { href: "/analisis-foda", label: "Análisis FODA", icon: Briefcase },
+    { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: Briefcase },
     { href: "/asesoria-publicidad", label: "Asesoría y Ventas", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
@@ -126,7 +126,7 @@ const facturacionMenuItems = [
 ];
 
 const recursosHumanosMenuItems = [
-    { href: "/recursos-humanos", label: "Dashboard RRHH", icon: Users },
+    { href: "/dashboard-rrhh", label: "Dashboard RRHH", icon: LayoutDashboard },
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
@@ -188,22 +188,14 @@ const navGroups = [
 export function AppSidebar() {
   const pathname = usePathname();
   
-  const isJuridicoPath = (path: string) => {
-    const naturalPaths = naturalMenuItems.map(item => item.href);
-    if (path === '/dashboard') return false; // This is the natural dashboard
-    if (naturalPaths.some(p => p !== '/dashboard' && path.startsWith(p))) return false;
-    
-    const juridicoPaths = navGroups.flatMap(g => g.items.map(i => i.href));
-
-    if (juridicoPaths.some(p => path.startsWith(p))) return true;
-
-    // Default to juridico for root and other non-specified paths
-    return true;
+  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh');
+  const isNaturalPath = (path: string) => naturalMenuItems.some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path);
+  
+  if (isHrPath(pathname)) {
+    return <AppSidebarHr />;
   }
   
-  const isJuridico = isJuridicoPath(pathname);
-
-  if (!isJuridico) {
+  if (isNaturalPath(pathname)) {
     return <AppSidebarNatural />;
   }
 
@@ -340,6 +332,64 @@ function AppSidebarNatural() {
             <span className="text-sm font-medium">Usuario Natural</span>
             <span className="text-xs text-muted-foreground">
               V-12345678
+            </span>
+          </div>
+        </div>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}
+
+function AppSidebarHr() {
+  const pathname = usePathname();
+
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <div className="flex items-center gap-3 p-2">
+           <div className="bg-primary/10 text-primary p-2 rounded-lg">
+              <Flag className="h-6 w-6" />
+            </div>
+          <div className="flex flex-col">
+              <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
+                System C.M.S
+              </h1>
+              <p className="text-xs text-sidebar-foreground/70">Módulo de RR.HH.</p>
+          </div>
+        </div>
+      </SidebarHeader>
+      <SidebarContent className="p-2">
+        <SidebarGroup>
+          <SidebarGroupLabel className="flex items-center gap-2"><Briefcase className="h-4 w-4"/>Recursos Humanos</SidebarGroupLabel>
+          <SidebarMenu>
+            {recursosHumanosMenuItems.map((item) => (
+              <SidebarMenuItem key={item.href}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname.startsWith(item.href)}
+                  tooltip={item.label}
+                  className="justify-start"
+                >
+                  <Link href={item.href}>
+                    <item.icon className="h-5 w-5" />
+                    <span>{item.label}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter className="p-2">
+        <Separator className="my-2 bg-sidebar-border" />
+        <div className="flex items-center gap-3 px-2 py-1">
+          <Avatar className="h-9 w-9">
+            <AvatarFallback>RH</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">Usuario RR.HH.</span>
+            <span className="text-xs text-muted-foreground">
+              Empresa S.A.
             </span>
           </div>
         </div>

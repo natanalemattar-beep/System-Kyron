@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   Flag,
   ChevronDown,
+  Briefcase,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -72,7 +73,7 @@ export default function RegisterPage() {
                                 <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild>
-                                <Link href="/recursos-humanos">Recursos Humanos</Link>
+                                <Link href="/login-rrhh">Recursos Humanos</Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -146,7 +147,7 @@ export default function RegisterPage() {
                             <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                            <Link href="/recursos-humanos">Recursos Humanos</Link>
+                            <Link href="/login-rrhh">Recursos Humanos</Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

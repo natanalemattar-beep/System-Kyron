@@ -43,7 +43,7 @@ const pestleData = [
 ];
 
 
-export default function AnalisisFodaPage() {
+export default function AnalisisEstrategicoPage() {
   return (
     <div className="space-y-12 p-4 md:p-8">
        <header className="mb-8">
