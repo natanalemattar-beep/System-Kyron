@@ -33,6 +33,7 @@ import {
   Sun,
   ShoppingCart,
   UserX,
+  Banknote
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -63,6 +64,7 @@ const contabilidadMenuItems = [
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
+  { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
 ];
 
 const facturacionMenuItems = [
@@ -365,3 +367,5 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
+    
