@@ -11,30 +11,48 @@ import Image from "next/image";
 // Mock data, in a real app this would be fetched based on the [id]
 const empleado = { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", fechaIngreso: "01/01/2020", sueldoIntegral: 15000 };
 const empresa = { nombre: "Empresa S.A.", rif: "J-12345678-9" };
+const sueldoBaseQuincenal = 6000;
+
 const nomina = {
     periodo: "1ra Quincena de Julio 2024",
     fechaPago: "15/07/2024",
     asignaciones: [
-        { concepto: "Sueldo Base Quincenal", monto: 6000 },
+        { concepto: "Sueldo Base Quincenal", monto: sueldoBaseQuincenal },
         { concepto: "Bono de Alimentación (Cestaticket)", monto: 1460 },
         { concepto: "Bono de Productividad", monto: 1500 },
         { concepto: "Pago de Horas Extras", monto: 800 },
         { concepto: "Bono por Día Feriado", monto: 500 },
         { concepto: "Bono Vacacional", monto: 2200 },
     ],
-    deducciones: [
-        { concepto: "Seguro Social Obligatorio (SSO) - 4%", monto: 240 },
-        { concepto: "Régimen Prestacional de Empleo (RPE) - 0.5%", monto: 30 },
-        { concepto: "Fondo de Ahorro para la Vivienda (FAOV) - 1%", monto: 150 },
+    deduccionesBase: [ // Deducciones fijas o que no se calculan como % del sueldo base
         { concepto: "Retención ISLR", monto: 450 },
         { concepto: "Aporte Caja de Ahorro", monto: 300 },
         { concepto: "Adelanto de Quincena", monto: 1000 },
+    ],
+    deduccionesPorcentuales: [ // Deducciones calculadas como % del sueldo base
+        { concepto: "Seguro Social Obligatorio (SSO) - 4%", porcentaje: 0.04 },
+        { concepto: "Régimen Prestacional de Empleo (RPE) - 0.5%", porcentaje: 0.005 },
+        { concepto: "Fondo de Ahorro para la Vivienda (FAOV) - 1%", porcentaje: 0.01 },
     ]
 };
 
+// --- Cálculos automáticos ---
 const totalAsignaciones = nomina.asignaciones.reduce((acc, item) => acc + item.monto, 0);
-const totalDeducciones = nomina.deducciones.reduce((acc, item) => acc + item.monto, 0);
+
+const deduccionesCalculadas = nomina.deduccionesPorcentuales.map(item => ({
+    ...item,
+    monto: sueldoBaseQuincenal * item.porcentaje
+}));
+
+const todasLasDeducciones = [
+    ...deduccionesCalculadas,
+    ...nomina.deduccionesBase
+];
+
+const totalDeducciones = todasLasDeducciones.reduce((acc, item) => acc + item.monto, 0);
+
 const netoAPagar = totalAsignaciones - totalDeducciones;
+// --- Fin de cálculos automáticos ---
 
 export default function ReciboNominaPage({ params }: { params: { id: string } }) {
   return (
@@ -97,7 +115,7 @@ export default function ReciboNominaPage({ params }: { params: { id: string } })
                         <h4 className="font-semibold text-md mb-2 border-b pb-1">Deducciones</h4>
                         <Table>
                             <TableBody>
-                                {nomina.deducciones.map(item => (
+                                {todasLasDeducciones.map(item => (
                                     <TableRow key={item.concepto}>
                                         <TableCell>{item.concepto}</TableCell>
                                         <TableCell className="text-right">({formatCurrency(item.monto, 'Bs.')})</TableCell>
