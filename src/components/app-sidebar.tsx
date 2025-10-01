@@ -97,13 +97,6 @@ const analisisCrecimientoMenuItems = [
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
 ];
 
-const entesReguladoresItems = [
-    { href: "/permisos", label: "Permisos Funerarias", icon: Briefcase },
-    { href: "/permisos", label: "SUDEASEG", icon: Landmark },
-    { href: "/permisos", label: "SUDEBAN", icon: Landmark },
-    { href: "/permisos", label: "Colegiaturas Profesionales", icon: Award },
-];
-
 const facturacionMenuItems = [
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/facturacion", label: "Facturación", icon: FileText },
@@ -168,7 +161,6 @@ export function AppSidebar() {
         ...recursosHumanosMenuItems.map(item => item.href),
         ...librosRegistroMenuItems.map(item => item.href),
         ...generalMenuItems.map(item => item.href),
-        ...entesReguladoresItems.map(item => item.href),
         ...analisisCrecimientoMenuItems.map(item => item.href),
         '/declaracion-iva',
     ];
@@ -225,27 +217,6 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarGroup>
 
-        <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><Landmark className="h-4 w-4"/>Entes Reguladores</SidebarGroupLabel>
-            <SidebarMenu>
-                {entesReguladoresItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-        
         <SidebarGroup>
             <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Finanzas y Contabilidad</SidebarGroupLabel>
             <SidebarMenu>
