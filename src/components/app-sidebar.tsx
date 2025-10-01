@@ -86,6 +86,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
   { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
+  { href: "/cumplimiento-fiscal", label: "Cumplimiento Fiscal", icon: ShieldCheck },
   { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
   { href: "/seguros", label: "Seguros", icon: ShieldCheck },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
