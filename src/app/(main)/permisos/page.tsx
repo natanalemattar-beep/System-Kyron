@@ -6,7 +6,26 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 
 const permisos = [
-    { id: "PERM-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "SACS", fechaEmision: "15/01/2024", fechaVencimiento: "15/01/2025", estado: "Vigente" },
+    // --- Ministerio de Petróleo y relacionados ---
+    { id: "PERM-PET-001", tipo: "Permiso de Transporte Terrestre de Hidrocarburos", emisor: "Min. Petróleo", fechaEmision: "10/01/2024", fechaVencimiento: "10/01/2025", estado: "Vigente" },
+    { id: "PERM-PET-002", tipo: "Permiso de Transporte Acuático de Hidrocarburos", emisor: "Min. Petróleo / INEA", fechaEmision: "15/02/2024", fechaVencimiento: "15/02/2025", estado: "Vigente" },
+    { id: "PERM-PET-003", tipo: "Autorización de Distribución de Lubricantes Terminados", emisor: "Min. Petróleo", fechaEmision: "01/03/2024", fechaVencimiento: "01/03/2025", estado: "Por Vencer" },
+    { id: "PERM-PET-004", tipo: "Autorización de Distribución de Productos Derivados de Hidrocarburos", emisor: "Min. Petróleo", fechaEmision: "05/04/2024", fechaVencimiento: "05/04/2025", estado: "Vigente" },
+    { id: "PERM-PET-005", tipo: "Permiso para Suministro y Almacenamiento de Gas", emisor: "Min. Petróleo", fechaEmision: "20/05/2024", fechaVencimiento: "20/05/2026", estado: "Vigente" },
+    { id: "PERM-PET-006", tipo: "Actualización para industrialización de LGN", emisor: "Min. Petróleo", fechaEmision: "11/06/2024", fechaVencimiento: "11/06/2025", estado: "Vigente" },
+    { id: "PERM-PET-007", tipo: "Registro para industrialización de refinación", emisor: "Min. Petróleo", fechaEmision: "12/07/2024", fechaVencimiento: "12/07/2025", estado: "Vigente" },
+    
+    // --- Construcción ---
+    { id: "PERM-CONS-001", tipo: "Permiso de Construcción de Obra Civil", emisor: "Min. Obras Públicas / Alcaldía", fechaEmision: "01/02/2024", fechaVencimiento: "01/02/2026", estado: "Vigente" },
+    { id: "PERM-CONS-002", tipo: "Permiso de Desmantelamiento de Instalaciones", emisor: "Min. Obras Públicas / MINEC", fechaEmision: "18/03/2024", fechaVencimiento: "18/09/2024", estado: "Por Vencer" },
+
+    // --- Comercio Exterior ---
+    { id: "PERM-COM-001", tipo: "Licencia de Importación", emisor: "Min. Comercio / SENIAT", fechaEmision: "01/07/2024", fechaVencimiento: "31/12/2024", estado: "Vigente" },
+    { id: "PERM-COM-002", tipo: "Licencia de Exportación", emisor: "Min. Comercio / BANCOEX", fechaEmision: "15/06/2024", fechaVencimiento: "15/12/2024", estado: "Vigente" },
+    { id: "PERM-COM-003", tipo: "Certificado de No Producción Nacional (CNP)", emisor: "Min. Comercio", fechaEmision: "22/07/2024", fechaVencimiento: "22/01/2025", estado: "Vigente" },
+
+    // --- Permisología General y Otros Ministerios ---
+    { id: "PERM-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "SACS (Min. Salud)", fechaEmision: "15/01/2024", fechaVencimiento: "15/01/2025", estado: "Vigente" },
     { id: "PERM-002", tipo: "Licencia de Actividades Económicas", emisor: "Alcaldía de Caracas", fechaEmision: "01/03/2024", fechaVencimiento: "01/03/2025", estado: "Vigente" },
     { id: "PERM-003", tipo: "Conformidad de Uso (Bomberos)", emisor: "Cuerpo de Bomberos", fechaEmision: "20/02/2024", fechaVencimiento: "20/08/2024", estado: "Por Vencer" },
     { id: "PERM-004", tipo: "Inscripción en el IVSS", emisor: "IVSS", fechaEmision: "10/01/2020", fechaVencimiento: "Indefinido", estado: "Vigente" },
@@ -23,8 +42,6 @@ const permisos = [
     { id: "PERM-015", tipo: "Licencia de Turismo", emisor: "MINTUR", fechaEmision: "25/01/2024", fechaVencimiento: "25/01/2025", estado: "Vigente" },
     { id: "PERM-016", tipo: "Certificado de Patrimonio Cultural", emisor: "Min. Cultura (MPPC)", fechaEmision: "01/12/2023", fechaVencimiento: "Indefinido", estado: "Vigente" },
     { id: "PERM-017", tipo: "RUPDAE", emisor: "SUNDDE", fechaEmision: "10/02/2024", fechaVencimiento: "10/02/2025", estado: "Vigente" },
-    { id: "PERM-018", tipo: "Licencia de Importación", emisor: "Min. Comercio / SENIAT", fechaEmision: "01/07/2024", fechaVencimiento: "31/12/2024", estado: "Vigente" },
-    { id: "PERM-019", tipo: "Licencia de Exportación", emisor: "Min. Comercio / BANCOEX", fechaEmision: "15/06/2024", fechaVencimiento: "15/12/2024", estado: "Vigente" },
     { id: "PERM-020", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "10/01/2022", fechaVencimiento: "10/01/2032", estado: "Vigente" },
     { id: "PERM-021", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "05/03/2023", fechaVencimiento: "Vitalicio", estado: "Vigente" },
     { id: "PERM-022", tipo: "Conformidad de Uso Educativo", emisor: "Min. Educación", fechaEmision: "01/09/2023", fechaVencimiento: "01/09/2028", estado: "Vigente" },
