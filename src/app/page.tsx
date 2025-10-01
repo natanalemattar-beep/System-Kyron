@@ -69,7 +69,7 @@ export default function LandingPage() {
             <div className="bg-primary text-primary-foreground p-2 rounded-md">
               <FileText className="h-6 w-6" />
             </div>
-            <span className="text-lg font-bold">System C.R.S</span>
+            <span className="text-lg font-bold">System C.S.M</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             {navLinks.map((link) => (
@@ -96,9 +96,7 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-24 md:py-32 text-center flex flex-col items-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl">
-                La Plataforma Digital para la Gestión de Trámites en Venezuela
-            </h1>
+            
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Simplificamos la burocracia para que puedas enfocarte en el crecimiento de tu negocio. Registra tu empresa, gestiona permisos y cumple con tus obligaciones fiscales en un solo lugar.
             </p>
@@ -116,12 +114,12 @@ export default function LandingPage() {
         <section id="quienes-somos" className="py-16 md:py-24 bg-secondary/50">
             <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                     <Image src="https://picsum.photos/seed/office-team/800/600" alt="Equipo de System C.R.S" data-ai-hint="office team" width={800} height={600} className="rounded-lg shadow-md"/>
+                     <Image src="https://picsum.photos/seed/office-team/800/600" alt="Equipo de System C.S.M" data-ai-hint="office team" width={800} height={600} className="rounded-lg shadow-md"/>
                 </div>
                 <div className="text-left">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">Nuestra Misión</h2>
                     <p className="text-lg text-muted-foreground mb-6">
-                        En System C.R.S, nuestra misión es ser la plataforma digital oficial para la gestión integral de trámites de personas jurídicas y naturales en Venezuela. Nacimos de la necesidad de simplificar procesos complejos y centralizar la información, ofreciendo una herramienta confiable y segura que le devuelve el tiempo a los empresarios y ciudadanos.
+                        En System C.S.M, nuestra misión es ser la plataforma digital oficial para la gestión integral de trámites de personas jurídicas y naturales en Venezuela. Nacimos de la necesidad de simplificar procesos complejos y centralizar la información, ofreciendo una herramienta confiable y segura que le devuelve el tiempo a los empresarios y ciudadanos.
                     </p>
                      <Button variant="outline" asChild>
                         <Link href="/manual-usuario">Conoce más sobre nosotros</Link>
@@ -266,7 +264,7 @@ export default function LandingPage() {
 
       <footer className="py-8 border-t">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} System C.R.S. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} System C.S.M. Todos los derechos reservados.
         </div>
       </footer>
     </div>

@@ -215,7 +215,7 @@ export function AppSidebar() {
             </div>
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
-                System C.R.S
+                System C.S.M
               </h1>
               <p className="text-xs text-sidebar-foreground/70">Plataforma Digital Oficial</p>
           </div>
@@ -293,7 +293,7 @@ function AppSidebarNatural() {
             </div>
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
-                System C.R.S
+                System C.S.M
               </h1>
               <p className="text-xs text-sidebar-foreground/70">Plataforma Digital Oficial</p>
           </div>

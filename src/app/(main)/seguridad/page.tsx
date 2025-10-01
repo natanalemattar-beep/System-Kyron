@@ -59,7 +59,7 @@ export default function SeguridadPage() {
                     <h3 className="font-semibold mb-4">Configura tu App de Autenticación</h3>
                     <div className="flex flex-col sm:flex-row items-center gap-6">
                         <div className="p-2 bg-white rounded-lg">
-                            <Image src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=otpauth://totp/SystemCRS:usuario@email.com?secret=JBSWY3DPEHPK3PXP" alt="QR Code" width={120} height={120}/>
+                            <Image src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=otpauth://totp/SystemCSM:usuario@email.com?secret=JBSWY3DPEHPK3PXP" alt="QR Code" width={120} height={120}/>
                         </div>
                         <div className="flex-1 space-y-4">
                             <p className="text-sm text-muted-foreground">1. Escanea este código QR con tu app de autenticación.</p>

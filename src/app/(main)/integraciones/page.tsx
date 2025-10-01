@@ -58,7 +58,7 @@ export default function IntegracionesPage() {
             Integraciones y Conexiones
         </h1>
         <p className="text-muted-foreground mt-2">
-          Conecta System C.R.S con tus herramientas favoritas para automatizar flujos de trabajo.
+          Conecta System C.S.M con tus herramientas favoritas para automatizar flujos de trabajo.
         </p>
       </header>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

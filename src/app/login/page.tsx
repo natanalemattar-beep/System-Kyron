@@ -41,7 +41,7 @@ export default function LoginPage() {
             </div>
              <div className="flex flex-col">
               <span className="text-lg font-bold">
-                System C.R.S
+                System C.S.M
               </span>
             </div>
           </Link>
