@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import { TrendingUp, Users, Package, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown } from "lucide-react";
+import { TrendingUp, Users, Package, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import Link from "next/link";
 
@@ -13,7 +13,7 @@ const kpiData = [
     { title: "Ingresos Totales", value: formatCurrency(125340.50, 'Bs.'), icon: DollarSign, trend: "+15.2% vs mes anterior" },
     { title: "Ventas Totales", value: "852", icon: ShoppingCart, trend: "+20% vs mes anterior" },
     { title: "Ticket Promedio", value: formatCurrency(147.11, 'Bs.'), icon: DollarSign, trend: "-2.5% vs mes anterior" },
-    { title: "Nuevos Clientes", value: "48", icon: Users, trend: "+8 nuevos esta semana" },
+    { title: "Rotación de Inventario", value: "4.2", icon: RefreshCw, trend: "ciclos este mes" },
 ];
 
 const topProducts = [
@@ -95,6 +95,7 @@ export default function AnalisisVentasPage() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Producto</TableHead>
+                                <TableHead className="text-center">Ventas (Uds.)</TableHead>
                                 <TableHead className="text-right">Ingresos</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -102,6 +103,7 @@ export default function AnalisisVentasPage() {
                             {bottomProducts.map((prod) => (
                                 <TableRow key={prod.id}>
                                     <TableCell className="font-medium">{prod.name}</TableCell>
+                                    <TableCell className="text-center">{prod.sales}</TableCell>
                                     <TableCell className="text-right">{prod.revenue}</TableCell>
                                 </TableRow>
                             ))}
@@ -125,6 +127,7 @@ export default function AnalisisVentasPage() {
                     <TableHeader>
                         <TableRow>
                             <TableHead>Producto</TableHead>
+                            <TableHead className="text-center">Ventas (Uds.)</TableHead>
                             <TableHead className="text-right">Ingresos</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -132,6 +135,7 @@ export default function AnalisisVentasPage() {
                         {topProducts.map((prod) => (
                             <TableRow key={prod.id}>
                                 <TableCell className="font-medium">{prod.name}</TableCell>
+                                <TableCell className="text-center">{prod.sales}</TableCell>
                                 <TableCell className="text-right">{prod.revenue}</TableCell>
                             </TableRow>
                         ))}
