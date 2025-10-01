@@ -14,6 +14,12 @@ const permisos = [
     { id: "PERM-006", tipo: "Registro Sanitario de Producto", emisor: "SACS", fechaEmision: "11/11/2022", fechaVencimiento: "11/11/2027", estado: "Vigente" },
     { id: "PERM-007", tipo: "Acreditación en INPSASEL", emisor: "INPSASEL", fechaEmision: "18/01/2023", fechaVencimiento: "18/01/2025", estado: "Vigente" },
     { id: "PERM-008", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "01/06/2021", fechaVencimiento: "01/06/2024", estado: "Vencido" },
+    { id: "PERM-009", tipo: "Registro Nacional de Contratistas (RNC)", emisor: "SNC", fechaEmision: "10/07/2024", fechaVencimiento: "10/07/2025", estado: "Vigente" },
+    { id: "PERM-010", tipo: "Inscripción en el RNA (CONALOTE)", emisor: "LOTTT", fechaEmision: "01/02/2020", fechaVencimiento: "Indefinido", estado: "Vigente" },
+    { id: "PERM-011", tipo: "Certificado de Inscripción en el RESQUIMC", emisor: "ONA", fechaEmision: "15/05/2024", fechaVencimiento: "15/05/2025", estado: "Vigente" },
+    { id: "PERM-012", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "MINCOMUNAS", fechaEmision: "20/03/2023", fechaVencimiento: "20/03/2025", estado: "Por Vencer" },
+    { id: "PERM-013", tipo: "Certificado de Fumigación", emisor: "SACS", fechaEmision: "01/07/2024", fechaVencimiento: "01/01/2025", estado: "Vigente" },
+
 
 ];
 
