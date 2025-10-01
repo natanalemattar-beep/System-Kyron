@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { HeartHandshake, PlusCircle, CheckCircle, Download, Eye, FileUp } from "lucide-react";
+import { HeartHandshake, PlusCircle, CheckCircle, Download, Eye, FileUp, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -14,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FileInputTrigger } from "@/components/file-input-trigger";
 import { formatDate } from "@/lib/utils";
+import { processDocumentAction } from "@/app/(main)/data-entry/actions";
+import type { AutomatedDataEntryOutput } from "@/ai/flows/automated-data-entry-from-image";
 
 const initialPagos = [
     { id: "MAN-001", fecha: "2024-07-05", monto: 1500, beneficiario: "Menor A. Rodríguez", estado: "Verificado", reciboUrl: "#" },
@@ -33,28 +35,68 @@ export default function ManutencionPage() {
     const [pagos, setPagos] = useState(initialPagos);
     const [file, setFile] = useState<File | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [monto, setMonto] = useState("");
+    const [fechaPago, setFechaPago] = useState(new Date().toISOString().substring(0, 10));
+    const [beneficiario, setBeneficiario] = useState("");
+    const [isProcessing, setIsProcessing] = useState(false);
+
     const { toast } = useToast();
 
-    const handleFileSelect = (selectedFile: File) => {
+    const handleFileSelect = async (selectedFile: File) => {
         setFile(selectedFile);
+        setIsProcessing(true);
         toast({
-            title: "Recibo Cargado",
-            description: `"${selectedFile.name}" listo para ser asociado al pago.`,
+            title: "Procesando Recibo...",
+            description: "Extrayendo información del documento.",
         });
+
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onload = async () => {
+            const photoDataUri = reader.result as string;
+            const response = await processDocumentAction({ photoDataUri });
+
+            setIsProcessing(false);
+            if ("error" in response) {
+                toast({
+                    variant: "destructive",
+                    title: "Error al Procesar",
+                    description: response.error,
+                });
+            } else {
+                setMonto(String(response.totalAmount || ""));
+                if (response.date) {
+                    setFechaPago(new Date(response.date).toISOString().substring(0, 10));
+                }
+                setBeneficiario(response.vendorName || "");
+                toast({
+                    title: "Información Extraída",
+                    description: "Los datos del recibo han sido cargados en el formulario.",
+                    action: <CheckCircle className="text-green-500" />
+                });
+            }
+        };
+        reader.onerror = () => {
+            setIsProcessing(false);
+            toast({
+                variant: "destructive",
+                title: "Error de Lectura",
+                description: "No se pudo leer el archivo seleccionado.",
+            });
+        };
     };
 
     const handleRegisterPayment = () => {
-        // Here you would typically handle form data
         const newPayment: Pago = {
             id: `MAN-${String(pagos.length + 1).padStart(3, '0')}`,
-            fecha: new Date().toISOString().split('T')[0],
-            monto: 1500, // Example amount
-            beneficiario: "Menor A. Rodríguez",
+            fecha: fechaPago,
+            monto: Number(monto),
+            beneficiario: beneficiario || "Menor A. Rodríguez",
             estado: "Pendiente de Verificación",
-            reciboUrl: "#" // Placeholder URL
+            reciboUrl: "#"
         };
         setPagos(prev => [newPayment, ...prev]);
-        setFile(null);
+        resetForm();
         setIsDialogOpen(false);
         toast({
             title: "Pago Registrado Exitosamente",
@@ -63,6 +105,12 @@ export default function ManutencionPage() {
         });
     }
 
+    const resetForm = () => {
+        setFile(null);
+        setMonto("");
+        setFechaPago(new Date().toISOString().substring(0, 10));
+        setBeneficiario("");
+    }
 
   return (
     <div className="p-4 md:p-8">
@@ -76,7 +124,7 @@ export default function ManutencionPage() {
                     Registra y gestiona los pagos de manutención de forma segura.
                 </p>
             </div>
-             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+             <Dialog open={isDialogOpen} onOpenChange={(open) => { setIsDialogOpen(open); if (!open) resetForm(); }}>
                 <DialogTrigger asChild>
                     <Button>
                         <PlusCircle className="mr-2" />
@@ -87,40 +135,43 @@ export default function ManutencionPage() {
                     <DialogHeader>
                         <DialogTitle>Registrar Nuevo Pago de Manutención</DialogTitle>
                         <DialogDescription>
-                            Completa los detalles del pago y adjunta el comprobante.
+                            Completa los detalles del pago y adjunta el comprobante. La IA extraerá los datos.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="monto">Monto del Pago (Bs.)</Label>
-                            <Input id="monto" type="number" placeholder="Ej: 1500.00" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="fecha-pago">Fecha de Pago</Label>
-                            <Input id="fecha-pago" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="beneficiario">Beneficiario</Label>
-                            <Input id="beneficiario" placeholder="Nombre del beneficiario" />
-                        </div>
                          <div className="space-y-2">
                             <Label>Comprobante de Pago</Label>
-                            <FileInputTrigger onFileSelect={handleFileSelect}>
-                                <Button variant="outline" className="w-full">
-                                    <FileUp className="mr-2 h-4 w-4" />
-                                    Cargar Recibo (PDF, JPG, PNG)
+                            <FileInputTrigger onFileSelect={handleFileSelect} acceptedFileTypes="image/jpeg,image/png">
+                                <Button variant="outline" className="w-full" disabled={isProcessing}>
+                                    {isProcessing ? (
+                                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analizando Recibo...</>
+                                    ) : (
+                                        <><FileUp className="mr-2 h-4 w-4" /> Cargar Recibo (JPG, PNG)</>
+                                    )}
                                 </Button>
                             </FileInputTrigger>
-                            {file && 
+                            {file && !isProcessing &&
                                 <div className="flex items-center justify-center text-sm text-green-500 font-medium pt-2">
                                     <CheckCircle className="h-4 w-4 mr-2"/>
                                     <p>Archivo cargado: {file.name}</p>
                                 </div>
                             }
                         </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="monto">Monto del Pago (Bs.)</Label>
+                            <Input id="monto" type="number" placeholder="Ej: 1500.00" value={monto} onChange={(e) => setMonto(e.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="fecha-pago">Fecha de Pago</Label>
+                            <Input id="fecha-pago" type="date" value={fechaPago} onChange={(e) => setFechaPago(e.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="beneficiario">Beneficiario</Label>
+                            <Input id="beneficiario" placeholder="Nombre del beneficiario" value={beneficiario} onChange={(e) => setBeneficiario(e.target.value)} />
+                        </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={handleRegisterPayment} disabled={!file}>Guardar Pago</Button>
+                        <Button onClick={handleRegisterPayment} disabled={!file || isProcessing}>Guardar Pago</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -172,4 +223,3 @@ export default function ManutencionPage() {
     </div>
   );
 }
-
