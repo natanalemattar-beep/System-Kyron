@@ -168,7 +168,7 @@ export default function DesarrolloProfesionalPage() {
                 <CardDescription>Tu salud y equilibrio son nuestra prioridad.</CardDescription>
             </CardHeader>
             <CardContent>
-                <p className="text-sm text-muted-foreground">Accede a recursos de bienestar, pausas activas y solicita horarios flexibles. Brindamos apoyo en caso de enfermedad del trabajador o de un familiar directo.</p>
+                <p className="text-sm text-muted-foreground">Accede a nuestro sistema de atención médica, recursos de bienestar y solicita horarios flexibles. Brindamos apoyo en caso de enfermedad del trabajador o de un familiar directo.</p>
             </CardContent>
              <CardFooter>
                 <Button variant="outline" className="w-full">Explorar Programas de Apoyo</Button>
