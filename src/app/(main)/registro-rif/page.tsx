@@ -1,10 +1,18 @@
 
+"use client";
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileEdit, CheckCircle, Clock } from "lucide-react";
+import { FileEdit, CheckCircle, Clock, AlertTriangle, Mail, MessageSquare } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 export default function RegistroRifPage() {
+  const { toast } = useToast();
   const rifStatus = "Verificado"; // Can be "Verificado", "En Proceso", "Rechazado"
 
   const statusInfo = {
@@ -21,14 +29,22 @@ export default function RegistroRifPage() {
       description: "Tu solicitud de RIF está siendo procesada. Te notificaremos cualquier actualización.",
     },
     "Rechazado": {
-        icon: CheckCircle,
+        icon: AlertTriangle,
         color: "text-red-500",
         badge: "destructive",
-        description: "Tu RIF ha sido verificado y está activo.",
+        description: "Tu solicitud de RIF fue rechazada. Por favor, revisa los documentos.",
     },
   };
 
   const currentStatus = statusInfo[rifStatus as keyof typeof statusInfo];
+
+  const handleRecovery = () => {
+    toast({
+        title: "Solicitud de Recuperación Enviada",
+        description: "Se ha enviado una notificación por SMS y Correo Electrónico a la administración para aprobar el reseteo de la clave.",
+        action: <CheckCircle className="text-green-500" />
+    })
+  }
 
 
   return (
@@ -69,12 +85,45 @@ export default function RegistroRifPage() {
                 </div>
             </div>
         </CardContent>
-        <CardFooter className="border-t pt-6">
+        <CardFooter className="flex-col items-start pt-6 border-t">
             {rifStatus === "Verificado" ? (
                 <Button className="w-full">Descargar Comprobante Digital</Button>
             ) : (
                 <Button className="w-full" disabled>Actualizar Información (No disponible)</Button>
             )}
+             <Dialog>
+                <DialogTrigger asChild>
+                    <Button variant="link" className="text-muted-foreground mx-auto mt-4">
+                        ¿Olvidaste tu contraseña?
+                    </Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Recuperación por Preguntas de Seguridad</DialogTitle>
+                        <DialogDescription>
+                           Responde a las preguntas para verificar tu identidad. Se enviará una notificación a la administración.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="q1">¿Fecha de constitución de la empresa? (DD/MM/AAAA)</Label>
+                            <Input id="q1" placeholder="Ej: 15/01/2020" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="q2">¿Cédula del representante legal principal?</Label>
+                            <Input id="q2" placeholder="Ej: V-12345678" />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline">Cancelar</Button>
+                        <DialogTrigger asChild>
+                         <Button onClick={handleRecovery}>
+                            Verificar y Notificar a Administración
+                        </Button>
+                        </DialogTrigger>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </CardFooter>
       </Card>
     </div>
