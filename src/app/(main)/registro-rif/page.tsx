@@ -99,19 +99,19 @@ export default function RegistroRifPage() {
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Recuperación por Preguntas de Seguridad</DialogTitle>
+                        <DialogTitle>Recuperación por Preguntas de Seguridad del SENIAT</DialogTitle>
                         <DialogDescription>
-                           Responde a las preguntas para verificar tu identidad. Se enviará una notificación a la administración.
+                           Responde a las preguntas de seguridad con la información exacta de tus declaraciones para verificar tu identidad.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="q1">¿Fecha de constitución de la empresa? (DD/MM/AAAA)</Label>
-                            <Input id="q1" placeholder="Ej: 15/01/2020" />
+                            <Label htmlFor="q1">Fecha de la última declaración de ISLR (AAAA)</Label>
+                            <Input id="q1" type="number" placeholder="Ej: 2023" />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="q2">¿Cédula del representante legal principal?</Label>
-                            <Input id="q2" placeholder="Ej: V-12345678" />
+                            <Label htmlFor="q2">Monto del impuesto pagado en la última declaración de IVA</Label>
+                            <Input id="q2" type="number" placeholder="Ej: 15750.50" />
                         </div>
                     </div>
                     <DialogFooter>
