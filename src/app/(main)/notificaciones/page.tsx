@@ -1,6 +1,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
-import { AlertTriangle, CheckCircle, Eye } from "lucide-react";
+import { AlertTriangle, CheckCircle, Eye, FileWarning, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const notificaciones = [
@@ -22,6 +22,15 @@ const notificaciones = [
         iconColor: "text-green-500",
         bgColor: "bg-green-500/10",
     },
+    {
+        id: 3,
+        titulo: "Recordatorio: Solicitar Declaración de ISLR",
+        descripcion: "Recuerde solicitar a los empleados no declarantes su información de ISLR para el próximo cierre.",
+        fecha: "Hace 3 días",
+        icon: FileWarning,
+        iconColor: "text-blue-500",
+        bgColor: "bg-blue-500/10",
+    }
 ];
 
 export default function NotificacionesPage() {
