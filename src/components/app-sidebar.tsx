@@ -108,6 +108,7 @@ const recursosHumanosMenuItems = [
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
+    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
     { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
     { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
     { href: "/ivss", label: "Gestión IVSS", icon: Briefcase },

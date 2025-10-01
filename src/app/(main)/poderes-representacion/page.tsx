@@ -1,0 +1,150 @@
+
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Gavel, PlusCircle, CheckCircle, Edit } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const initialPoderes = [
+    { id: "POD-001", tipo: "Poder General de Administración", apoderado: "Ana Pérez (V-12.345.678)", registro: "Reg. Mercantil 1ro, N° 45, Tomo 2-A", expediente: "N/A", estado: "Activo" },
+    { id: "POD-002", tipo: "Apoderado Judicial Especial", apoderado: "Luis Gómez (V-18.765.432)", registro: "N/A", expediente: "AP11-V-2024-000123", estado: "Activo" },
+    { id: "POD-003", tipo: "Poder para Actos de Disposición", apoderado: "Carlos Sanchez (E-8.999.000)", registro: "Notaría Pública 3ra, N° 12, Tomo 5-B", expediente: "N/A", estado: "Revocado" },
+];
+
+type Poder = typeof initialPoderes[0];
+
+const statusVariant: { [key: string]: "default" | "destructive" } = {
+  Activo: "default",
+  Revocado: "destructive",
+};
+
+export default function PoderesRepresentacionPage() {
+    const [poderes, setPoderes] = useState(initialPoderes);
+    const [isJudicial, setIsJudicial] = useState(false);
+    const { toast } = useToast();
+
+    const handleRegister = () => {
+        toast({
+            title: "Poder Registrado Exitosamente",
+            description: "El nuevo poder o representación ha sido añadido al sistema.",
+            action: <CheckCircle className="text-green-500" />
+        });
+    };
+
+    return (
+        <div className="p-4 md:p-8">
+            <header className="mb-8 flex items-center justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                        <Gavel className="h-8 w-8" />
+                        Poderes y Representación Legal
+                    </h1>
+                    <p className="text-muted-foreground mt-2">
+                        Gestiona los apoderados judiciales y los poderes notariales de la empresa.
+                    </p>
+                </div>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button>
+                            <PlusCircle className="mr-2" />
+                            Registrar Nuevo Poder
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-xl">
+                        <DialogHeader>
+                            <DialogTitle>Registrar Poder o Representación</DialogTitle>
+                            <DialogDescription>
+                                Complete los datos del poder, apoderado y los registros correspondientes.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                             <div className="space-y-2">
+                                <Label htmlFor="tipo-poder">Tipo de Poder o Representación</Label>
+                                <Select>
+                                    <SelectTrigger id="tipo-poder">
+                                        <SelectValue placeholder="Seleccione el tipo" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="general">Poder General de Administración</SelectItem>
+                                        <SelectItem value="especial">Poder Especial para Acto Específico</SelectItem>
+                                        <SelectItem value="judicial">Apoderado Judicial (Apud Acta)</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="apoderado">Nombre y C.I. del Apoderado</Label>
+                                <Input id="apoderado" placeholder="Ej: Ana Pérez (V-12.345.678)" />
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Checkbox id="is-judicial" checked={isJudicial} onCheckedChange={(checked) => setIsJudicial(checked as boolean)} />
+                                <Label htmlFor="is-judicial">¿Es un apoderado judicial para un caso específico?</Label>
+                            </div>
+                            {isJudicial ? (
+                                <div className="space-y-2 p-4 border rounded-md bg-secondary/30">
+                                    <Label htmlFor="expediente">Expediente Judicial Asociado</Label>
+                                    <Input id="expediente" placeholder="Ej: AP11-V-2024-000123" />
+                                </div>
+                            ) : (
+                                <div className="space-y-2 p-4 border rounded-md bg-secondary/30">
+                                    <Label htmlFor="registro-saren">Datos del Registro (SAREN / Notaría)</Label>
+                                    <Input id="registro-saren" placeholder="Ej: Reg. Mercantil 1ro, N° 45, Tomo 2-A" />
+                                </div>
+                            )}
+                        </div>
+                        <DialogFooter>
+                            <Button onClick={handleRegister}>Registrar Poder</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            </header>
+
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Listado de Poderes y Representaciones</CardTitle>
+                    <CardDescription>Registro de las personas autorizadas para actuar en nombre de la empresa.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Tipo de Poder</TableHead>
+                                <TableHead>Apoderado</TableHead>
+                                <TableHead>Datos de Registro (SAREN)</TableHead>
+                                <TableHead>Expediente Judicial</TableHead>
+                                <TableHead>Estado</TableHead>
+                                <TableHead className="text-right">Acciones</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {poderes.map((poder) => (
+                                <TableRow key={poder.id}>
+                                    <TableCell className="font-medium">{poder.tipo}</TableCell>
+                                    <TableCell>{poder.apoderado}</TableCell>
+                                    <TableCell>{poder.registro}</TableCell>
+                                    <TableCell className="font-mono">{poder.expediente}</TableCell>
+                                    <TableCell>
+                                        <Badge variant={statusVariant[poder.estado]}>{poder.estado}</Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        <Button variant="ghost" size="icon">
+                                            <Edit className="h-4 w-4" />
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+        </div>
+    );
+}
