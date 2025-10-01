@@ -44,6 +44,7 @@ import {
   Award,
   TabletSmartphone,
   ClipboardCheck,
+  PieChart,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -80,6 +81,7 @@ const contabilidadMenuItems = [
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
+  { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
 ];
 
 const entesReguladoresItems = [

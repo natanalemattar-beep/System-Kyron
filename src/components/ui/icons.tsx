@@ -26,6 +26,7 @@ import {
   LogOut,
   Moon,
   MoreVertical,
+  PieChart,
   Pizza,
   Plus,
   Recycle,
@@ -107,4 +108,5 @@ export const Icons = {
   send: Send,
   calendar: Calendar,
   trendingUp: TrendingUp,
+  pieChart: PieChart,
 };
