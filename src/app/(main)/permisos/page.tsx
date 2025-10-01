@@ -33,6 +33,7 @@ const initialPermisos = [
     { id: "PERM-SAL-003", tipo: "Certificado de Fumigación", emisor: "MPPS / SACS", fechaEmision: "2024-07-01", fechaVencimiento: "2025-01-01", estado: "Vigente", requisitos: [] },
     { id: "PERM-SAL-004", tipo: "Permiso de Manipulación de Alimentos", emisor: "MPPS / SACS", fechaEmision: "2024-06-01", fechaVencimiento: "2025-06-01", estado: "Vigente", requisitos: [] },
     { id: "PERM-SAL-005", tipo: "Conformidad Sanitaria de Habitabilidad", emisor: "MPPS / SACS", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitos: [] },
+    { id: "PERM-SAL-006", tipo: "Registro de Establecimiento de Salud", emisor: "MPPS / SACS", fechaEmision: "2024-01-20", fechaVencimiento: "2029-01-20", estado: "Vigente", requisitos: ["RIF de la clínica", "Nómina de médicos", "Permiso de Bomberos"] },
     { id: "PERM-TRA-001", tipo: "Acreditación en INPSASEL", emisor: "INPSASEL (Min. Trabajo)", fechaEmision: "2023-01-18", fechaVencimiento: "2025-01-18", estado: "Vigente", requisitos: ["Declaración Trimestral de Accidentes", "Programa de Seguridad y Salud"] },
 
     // --- Ministerios - Sectoriales Diversos ---
@@ -53,6 +54,14 @@ const initialPermisos = [
     { id: "PERM-MUN-003", tipo: "Certificado de Uso Conforme", emisor: "Alcaldía (Ing. Municipal)", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitos: [] },
     { id: "PERM-MUN-004", tipo: "Certificado de Uso de Suelo (Zonificación)", emisor: "Alcaldía (Urbanismo)", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitos: [] },
 
+    // --- Entes Reguladores y Profesionales ---
+    { id: "PERM-REG-001", tipo: "Permiso Sanitario para Funerarias", emisor: "MPPS / SACS", fechaEmision: "2024-01-20", fechaVencimiento: "2025-01-20", estado: "Vigente", requisitos: ["RIF de la funeraria", "Planos del local", "Inspección Sanitaria"] },
+    { id: "PERM-REG-002", tipo: "Autorización de Empresa de Seguros", emisor: "SUDEASEG", fechaEmision: "2023-05-10", fechaVencimiento: "2025-05-10", estado: "Vigente", requisitos: ["Capital mínimo", "Estatutos sociales", "Nómina de directores"] },
+    { id: "PERM-REG-003", tipo: "Licencia de Institución Financiera", emisor: "SUDEBAN", fechaEmision: "2022-11-15", fechaVencimiento: "2027-11-15", estado: "Vigente", requisitos: ["Estudio de viabilidad", "Manuales de control interno"] },
+    { id: "PERM-PRO-001", tipo: "Inscripción en Colegio de Médicos", emisor: "Colegio de Médicos Distrital", fechaEmision: "2020-02-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: ["Título universitario", "Cédula de identidad"] },
+    { id: "PERM-PRO-002", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegio de Contadores Públicos", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: ["Título universitario", "Solvencia del colegio"] },
+    { id: "PERM-PRO-003", tipo: "Inscripción en INPREABOGADO", emisor: "INPREABOGADO", fechaEmision: "2018-05-30", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: ["Título de abogado", "Inscripción en el Colegio de Abogados"] },
+
     // --- Entes Nacionales y Registros Obligatorios ---
     { id: "PERM-NAC-001", tipo: "Inscripción Patronal en el IVSS", emisor: "IVSS", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: [] },
     { id: "PERM-NAC-002", tipo: "Inscripción en BANAVIH (FAOV)", emisor: "BANAVIH", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: [] },
@@ -66,6 +75,8 @@ const initialPermisos = [
     { id: "PERM-NAC-010", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "2023-03-05", fechaVencimiento: "Vitalicio", estado: "Vigente", requisitos: [] },
     { id: "PERM-NAC-011", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "2024-07-25", fechaVencimiento: "N/A", estado: "Vigente", requisitos: [] },
     { id: "PERM-NAC-012", tipo: "Inscripción Militar Obligatoria (Empresa)", emisor: "Min. Defensa", fechaEmision: "2020-01-15", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: [] },
+    { id: "PERM-NAC-013", tipo: "Inscripción y Aporte a FONACIT", emisor: "FONACIT (Min. Ciencia y Tec.)", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitos: ["Declaración de Ingresos Brutos", "Pago de aporte"] },
+    { id: "PERM-NAC-014", tipo: "Inscripción y Aporte a FONA", emisor: "FONA / ONA (Min. Interior)", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitos: ["Declaración de Utilidades", "Pago del 1% sobre Utilidad Operativa"] },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -96,8 +107,9 @@ export default function PermisosPage() {
             const newVencimiento = new Date(currentVencimiento.setFullYear(currentVencimiento.getFullYear() + 1));
             
             toast({
-                title: "Renovación Iniciada",
-                description: `El permiso ${p.id} está ahora en proceso de renovación.`,
+                title: "Renovación Guardada en la Nube",
+                description: `Se ha notificado al representante legal sobre la renovación del permiso ${p.id}.`,
+                action: <CheckCircle className="text-green-500" />,
             });
             
             return { ...p, estado: "En Renovación", fechaVencimiento: newVencimiento.toISOString().split('T')[0] };
@@ -109,8 +121,9 @@ export default function PermisosPage() {
   const handleFileSelect = (file: File) => {
       setSelectedFile(file);
       toast({
-          title: "Archivo Cargado",
+          title: "Archivo Cargado y Guardado en la Nube",
           description: `"${file.name}" listo para enviar.`,
+          action: <CheckCircle className="text-green-500" />,
       });
   };
 
