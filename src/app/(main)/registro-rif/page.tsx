@@ -80,6 +80,14 @@ export default function RegistroRifPage() {
                     <span className="font-semibold">J-12345678-9</span>
                 </div>
                  <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
+                    <span className="font-medium text-muted-foreground">Número de Serial:</span>
+                    <span className="font-semibold font-mono">123456789-ABC</span>
+                </div>
+                 <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
+                    <span className="font-medium text-muted-foreground">Fecha de Emisión:</span>
+                    <span className="font-semibold">01/01/2023</span>
+                </div>
+                 <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
                     <span className="font-medium text-muted-foreground">Fecha de Vencimiento:</span>
                     <span className="font-semibold">31/12/2025</span>
                 </div>
