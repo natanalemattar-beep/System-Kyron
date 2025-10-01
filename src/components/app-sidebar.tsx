@@ -84,6 +84,7 @@ const facturacionMenuItems = [
 const recursosHumanosMenuItems = [
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
+    { href: "/ivss", label: "IVSS (14-01, 14-02)", icon: Briefcase },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
 ];
@@ -378,4 +379,3 @@ function AppSidebarNatural() {
   );
 }
 
-    
