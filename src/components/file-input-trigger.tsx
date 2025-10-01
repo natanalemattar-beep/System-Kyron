@@ -12,7 +12,7 @@ type FileInputTriggerProps = {
 export function FileInputTrigger({
   children,
   onFileSelect,
-  acceptedFileTypes = ".pdf",
+  acceptedFileTypes = ".pdf,.jpg,.jpeg,.png",
 }: FileInputTriggerProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 

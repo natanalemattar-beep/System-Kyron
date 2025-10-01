@@ -193,17 +193,22 @@ export default function PermisosPage() {
                                                 ) : <p className="text-sm text-muted-foreground">No hay requisitos específicos listados.</p>}
                                             </div>
                                             <div className="space-y-2">
-                                                <h4 className="font-semibold">Cargar Documentos</h4>
+                                                <h4 className="font-semibold">Cargar Documentos para Inscripción y Actualizaciones</h4>
                                                 <FileInputTrigger onFileSelect={handleFileSelect}>
                                                     <Button variant="outline" className="w-full">
                                                         <FileUp className="mr-2 h-4 w-4" />
-                                                        Cargar Requisitos (PDF)
+                                                        Cargar Requisitos (PDF, JPG, PNG)
                                                     </Button>
                                                 </FileInputTrigger>
-                                                {selectedFile && <p className="text-sm text-center text-green-500">Archivo cargado: {selectedFile.name}</p>}
+                                                {selectedFile && 
+                                                    <div className="flex items-center justify-center text-sm text-green-500 font-medium pt-2">
+                                                        <CheckCircle className="h-4 w-4 mr-2"/>
+                                                        <p>Archivo cargado: {selectedFile.name}</p>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
-                                        <DialogFooter className="gap-2 sm:gap-0">
+                                        <DialogFooter className="gap-2 sm:gap-0 sm:justify-between">
                                             <Button variant="secondary">
                                                 <Download className="mr-2 h-4 w-4" />
                                                 Descargar Permiso
