@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -20,22 +20,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         {children}
-        <svg width="0" height="0" className="absolute">
-          <defs>
-            <filter id="grain">
-              <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="1" result="turbulence" />
-              <feComposite operator="in" in="turbulence" in2="SourceAlpha" result="composite" />
-              <feColorMatrix type="saturate" values="0" result="desaturated" />
-              <feComponentTransfer>
-                <feFuncR type="linear" slope="3" intercept="-1" />
-                <feFuncG type="linear" slope="3" intercept="-1" />
-                <feFuncB type="linear" slope="3" intercept="-1" />
-              </feComponentTransfer>
-              <feComposite operator="over" in="desaturated" in2="SourceGraphic" />
-            </filter>
-          </defs>
-        </svg>
-        </body>
+      </body>
     </html>
   );
 }

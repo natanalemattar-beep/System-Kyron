@@ -43,7 +43,7 @@ export default function RegisterPage() {
   if (step === 2) {
     return (
         <div className="flex flex-col min-h-screen">
-             <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-sm border-b">
+             <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
                 <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
                 <Link href="/" className="flex items-center gap-3">
                     <div className="bg-primary text-primary-foreground p-2 rounded-md">
@@ -52,9 +52,6 @@ export default function RegisterPage() {
                     <div className="flex flex-col">
                     <span className="text-lg font-bold">
                         System C.R.S
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                        Plataforma Digital Oficial
                     </span>
                     </div>
                 </Link>
@@ -69,7 +66,7 @@ export default function RegisterPage() {
                 </div>
             </header>
             <main className="flex-1 flex items-center justify-center p-4">
-                 <Card className="w-full max-w-md mx-auto shadow-xl rounded-2xl bg-card/50 backdrop-blur-sm">
+                 <Card className="w-full max-w-md mx-auto">
                     <CardContent className="flex flex-col items-center p-8 text-center">
                         <div className="p-4 bg-primary/10 rounded-full mb-4">
                             <ShieldCheck className="h-10 w-10 text-primary" />
@@ -103,7 +100,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-sm border-b">
+      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary text-primary-foreground p-2 rounded-md">
@@ -112,9 +109,6 @@ export default function RegisterPage() {
              <div className="flex flex-col">
               <span className="text-lg font-bold">
                 System C.R.S
-              </span>
-              <span className="text-xs text-muted-foreground">
-                Plataforma Digital Oficial
               </span>
             </div>
           </Link>
@@ -130,7 +124,7 @@ export default function RegisterPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-2xl mx-auto backdrop-blur-sm bg-card/50 shadow-xl rounded-2xl">
+        <Card className="w-full max-w-2xl mx-auto">
           <CardContent className="p-8">
             <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold mb-2">Crear Cuenta</h1>

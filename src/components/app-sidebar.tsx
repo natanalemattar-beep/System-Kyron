@@ -211,7 +211,7 @@ export function AppSidebar() {
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
            <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-              <Gavel className="h-6 w-6" />
+              <FileText className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
@@ -289,7 +289,7 @@ function AppSidebarNatural() {
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
            <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-              <User className="h-6 w-6" />
+              <FileText className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
