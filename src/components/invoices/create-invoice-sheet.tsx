@@ -198,8 +198,11 @@ export function CreateInvoiceSheet({ children }: { children: React.ReactNode }) 
                 </div>
             </div>
 
-            <SheetFooter>
+            <SheetFooter className="flex-col gap-2 pt-4">
                 <Button type="submit" className="w-full">Save Invoice</Button>
+                <p className="text-xs text-muted-foreground text-center">
+                    Nota: Los pagos vencidos estarán sujetos a recargos por mora según los artículos 108 del C. de Co. y 1.277 del C.C.V.
+                </p>
             </SheetFooter>
           </form>
         </Form>
