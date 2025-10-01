@@ -1,9 +1,15 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Sun, PlusCircle, Download } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 
 const registros = [
     { id: 1, empleado: "Ana Pérez", fecha: "20/07/2024", horas: 8, observacion: "Jornada regular" },
@@ -12,6 +18,23 @@ const registros = [
 ];
 
 export default function LibroHorasDiurnasPage() {
+    const { toast } = useToast();
+
+    const handleExport = () => {
+        toast({
+        title: "Reporte Exportado",
+        description: "El libro de horas diurnas ha sido exportado.",
+        });
+    };
+
+     const handleNewEntry = () => {
+        toast({
+            title: "Registro Creado",
+            description: "El nuevo registro de horas diurnas ha sido añadido.",
+        })
+    }
+
+
   return (
     <div className="p-4 md:p-8">
         <header className="mb-8 flex items-center justify-between">
@@ -25,14 +48,39 @@ export default function LibroHorasDiurnasPage() {
                 </p>
             </div>
              <div className="flex gap-2">
-                <Button variant="outline">
+                <Button variant="outline" onClick={handleExport}>
                     <Download className="mr-2" />
                     Exportar
                 </Button>
-                <Button>
-                    <PlusCircle className="mr-2" />
-                    Nuevo Registro
-                </Button>
+                 <Dialog>
+                    <DialogTrigger asChild>
+                        <Button>
+                            <PlusCircle className="mr-2" />
+                            Nuevo Registro
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Nuevo Registro de Horas Diurnas</DialogTitle>
+                            <DialogDescription>
+                                Complete los detalles del registro.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="empleado" className="text-right">Empleado</Label>
+                                <Input id="empleado" defaultValue="Ana Pérez" className="col-span-3" />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="horas" className="text-right">Horas</Label>
+                                <Input id="horas" type="number" defaultValue="8" className="col-span-3" />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="submit" onClick={handleNewEntry}>Guardar Registro</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
             </div>
         </header>
 

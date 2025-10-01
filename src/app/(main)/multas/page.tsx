@@ -1,10 +1,14 @@
 
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, CreditCard, Eye } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 
 const multas = [
@@ -19,6 +23,15 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 };
 
 export default function MultasPage() {
+    const { toast } = useToast();
+
+    const handlePayFine = (fineId: string) => {
+        toast({
+            title: "Procesando Pago",
+            description: `Se ha iniciado el proceso de pago para la multa ${fineId}.`,
+        });
+    }
+
   return (
     <div className="p-4 md:p-8">
       <header className="mb-8">
@@ -60,11 +73,28 @@ export default function MultasPage() {
                                 <Badge variant={statusVariant[multa.estado]}>{multa.estado}</Badge>
                             </TableCell>
                             <TableCell className="text-right">
-                                <Button variant="ghost" size="icon" className="mr-2">
-                                    <Eye className="h-4 w-4" />
-                                </Button>
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="mr-2">
+                                            <Eye className="h-4 w-4" />
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>Detalles de la Multa: {multa.id}</DialogTitle>
+                                            <DialogDescription>{multa.motivo}</DialogDescription>
+                                        </DialogHeader>
+                                        <div className="py-4 space-y-2">
+                                            <p><strong>Ente:</strong> {multa.ente}</p>
+                                            <p><strong>Fecha:</strong> {multa.fecha}</p>
+                                            <p><strong>Monto:</strong> {formatCurrency(multa.monto, "Bs.")}</p>
+                                            <p><strong>Estado:</strong> {multa.estado}</p>
+                                        </div>
+                                    </DialogContent>
+                                </Dialog>
+
                                 {multa.estado === "Pendiente" && (
-                                     <Button variant="outline" size="sm">
+                                     <Button variant="outline" size="sm" onClick={() => handlePayFine(multa.id)}>
                                         <CreditCard className="mr-2 h-4 w-4" />
                                         Pagar
                                     </Button>

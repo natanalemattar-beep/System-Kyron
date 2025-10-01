@@ -1,4 +1,6 @@
 
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -7,6 +9,8 @@ import { formatCurrency } from "@/lib/utils";
 import { ArrowLeft, Download, Send, QrCode, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
+
 
 // Mock data, in a real app this would be fetched based on the [id]
 const empleado = { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", fechaIngreso: "01/01/2020", sueldoIntegral: 15000 };
@@ -55,6 +59,23 @@ const netoAPagar = totalAsignaciones - totalDeducciones;
 // --- Fin de cálculos automáticos ---
 
 export default function ReciboNominaPage({ params }: { params: { id: string } }) {
+    const { toast } = useToast();
+
+    const handleDownload = () => {
+        toast({
+            title: "Descarga Iniciada",
+            description: "El recibo de pago se está descargando en formato PDF.",
+        });
+    }
+
+    const handleSend = () => {
+        toast({
+            title: "Recibo Enviado",
+            description: `El recibo ha sido enviado al correo del empleado ${empleado.nombre}.`,
+        });
+    }
+
+
   return (
     <div className="p-4 md:p-8">
         <header className="mb-8 flex items-center justify-between">
@@ -65,11 +86,11 @@ export default function ReciboNominaPage({ params }: { params: { id: string } })
                 </Link>
             </Button>
             <div className="flex gap-2">
-                <Button variant="outline">
+                <Button variant="outline" onClick={handleDownload}>
                     <Download className="mr-2"/>
                     Descargar PDF
                 </Button>
-                 <Button>
+                 <Button onClick={handleSend}>
                     <Send className="mr-2"/>
                     Enviar Recibo
                 </Button>

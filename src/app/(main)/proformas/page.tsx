@@ -1,10 +1,17 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Receipt, PlusCircle, Eye, FileDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+
 
 const proformas = [
     { id: "PRO-2024-001", fecha: "19/07/2024", cliente: "Constructora XYZ", total: 15000, estado: "Enviada" },
@@ -20,6 +27,22 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 };
 
 export default function ProformasPage() {
+    const { toast } = useToast();
+
+    const handleCreateProforma = () => {
+        toast({
+            title: "Proforma Creada",
+            description: "La nueva proforma se ha guardado como borrador.",
+        });
+    }
+
+    const handleDownload = (proformaId: string) => {
+        toast({
+            title: "Descarga Iniciada",
+            description: `La proforma ${proformaId} se está descargando.`,
+        });
+    }
+
   return (
     <div className="p-4 md:p-8">
         <header className="mb-8 flex items-center justify-between">
@@ -32,10 +55,35 @@ export default function ProformasPage() {
                     Crea, envía y gestiona tus cotizaciones y facturas proforma.
                 </p>
             </div>
-            <Button>
-                <PlusCircle className="mr-2" />
-                Nueva Proforma
-            </Button>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button>
+                        <PlusCircle className="mr-2" />
+                        Nueva Proforma
+                    </Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Crear Nueva Proforma</DialogTitle>
+                        <DialogDescription>
+                            Complete los datos para generar una nueva proforma.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="cliente" className="text-right">Cliente</Label>
+                            <Input id="cliente" defaultValue="Nuevo Cliente" className="col-span-3" />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="total" className="text-right">Monto Total</Label>
+                            <Input id="total" type="number" defaultValue="5000" className="col-span-3" />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit" onClick={handleCreateProforma}>Crear Borrador</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </header>
 
         <Card className="bg-card/50 backdrop-blur-sm">
@@ -66,10 +114,25 @@ export default function ProformasPage() {
                                     <Badge variant={statusVariant[proforma.estado]}>{proforma.estado}</Badge>
                                 </TableCell>
                                 <TableCell className="text-right">
-                                    <Button variant="ghost" size="icon" className="mr-2">
-                                        <Eye className="h-4 w-4" />
-                                    </Button>
-                                    <Button variant="ghost" size="icon">
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button variant="ghost" size="icon" className="mr-2">
+                                                <Eye className="h-4 w-4" />
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent>
+                                            <DialogHeader>
+                                                <DialogTitle>Detalles de Proforma: {proforma.id}</DialogTitle>
+                                            </DialogHeader>
+                                            <div className="py-4 space-y-2">
+                                                <p><strong>Cliente:</strong> {proforma.cliente}</p>
+                                                <p><strong>Fecha:</strong> {proforma.fecha}</p>
+                                                <p><strong>Monto:</strong> {formatCurrency(proforma.total, "Bs.")}</p>
+                                                <p><strong>Estado:</strong> {proforma.estado}</p>
+                                            </div>
+                                        </DialogContent>
+                                    </Dialog>
+                                    <Button variant="ghost" size="icon" onClick={() => handleDownload(proforma.id)}>
                                         <FileDown className="h-4 w-4" />
                                     </Button>
                                 </TableCell>

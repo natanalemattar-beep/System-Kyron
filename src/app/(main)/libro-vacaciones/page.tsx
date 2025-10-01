@@ -1,10 +1,16 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plane, PlusCircle, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const registros = [
     { id: 1, empleado: "Ana Pérez", periodo: "2022-2023", inicio: "01/08/2023", fin: "21/08/2023", dias: 15, bono: 3500, estado: "Disfrutadas" },
@@ -19,6 +25,22 @@ const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
 
 
 export default function LibroVacacionesPage() {
+    const { toast } = useToast();
+
+    const handleExport = () => {
+        toast({
+        title: "Reporte Exportado",
+        description: "El libro de vacaciones ha sido exportado.",
+        });
+    };
+
+    const handleRegister = () => {
+        toast({
+            title: "Vacaciones Registradas",
+            description: "El período vacacional ha sido registrado y calculado.",
+        })
+    }
+
   return (
     <div className="p-4 md:p-8">
         <header className="mb-8 flex items-center justify-between">
@@ -32,14 +54,43 @@ export default function LibroVacacionesPage() {
                 </p>
             </div>
              <div className="flex gap-2">
-                <Button variant="outline">
+                <Button variant="outline" onClick={handleExport}>
                     <Download className="mr-2" />
                     Exportar
                 </Button>
-                <Button>
-                    <PlusCircle className="mr-2" />
-                    Registrar Vacaciones
-                </Button>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button>
+                            <PlusCircle className="mr-2" />
+                            Registrar Vacaciones
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Registrar Período Vacacional</DialogTitle>
+                            <DialogDescription>
+                                Complete la información para el registro de vacaciones.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                           <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="empleado" className="text-right">Empleado</Label>
+                                <Input id="empleado" defaultValue="Luis Gómez" className="col-span-3" />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="periodo" className="text-right">Período</Label>
+                                <Input id="periodo" defaultValue="2023-2024" className="col-span-3" />
+                            </div>
+                             <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="dias" className="text-right">Días</Label>
+                                <Input id="dias" type="number" defaultValue="16" className="col-span-3" />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="submit" onClick={handleRegister}>Registrar y Calcular</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
             </div>
         </header>
 

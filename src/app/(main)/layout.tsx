@@ -3,7 +3,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { Button } from "@/components/ui/button";
-import { Bell, LogOut, Settings, User } from "lucide-react";
+import { Bell, LogOut, Settings, User, FileText, CreditCard } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
@@ -20,7 +20,6 @@ export default function AppLayout({ children }: { children: ReactNode }) {
             <Link href="/notificaciones">
               <Button variant="ghost" size="icon"><Bell className="h-5 w-5"/></Button>
             </Link>
-            <Button variant="ghost" size="icon"><Settings className="h-5 w-5"/></Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
@@ -32,9 +31,15 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Perfil</DropdownMenuItem>
-                <DropdownMenuItem>Facturación</DropdownMenuItem>
-                <DropdownMenuItem>Ajustes</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href="/dashboard"><User className="mr-2"/>Perfil</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href="/facturacion"><CreditCard className="mr-2"/>Facturación</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href="/dashboard"><Settings className="mr-2"/>Ajustes</Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                    <Link href="/login"><LogOut className="mr-2"/>Cerrar Sesión</Link>

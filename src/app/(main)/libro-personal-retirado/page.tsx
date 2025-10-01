@@ -1,9 +1,12 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { UserX, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 const registros = [
     { id: 1, empleado: "Pedro Martinez", fechaIngreso: "10/01/2022", fechaRetiro: "15/06/2024", motivo: "Renuncia" },
@@ -12,6 +15,15 @@ const registros = [
 ];
 
 export default function LibroPersonalRetiradoPage() {
+  const { toast } = useToast();
+
+  const handleExport = () => {
+    toast({
+      title: "Historial Exportado",
+      description: "El historial de personal retirado ha sido exportado.",
+    });
+  };
+  
   return (
     <div className="p-4 md:p-8">
         <header className="mb-8 flex items-center justify-between">
@@ -24,7 +36,7 @@ export default function LibroPersonalRetiradoPage() {
                     Historial de empleados que han cesado su relación laboral con la empresa.
                 </p>
             </div>
-            <Button variant="outline">
+            <Button variant="outline" onClick={handleExport}>
                 <Download className="mr-2" />
                 Exportar Historial
             </Button>

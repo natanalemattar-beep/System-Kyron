@@ -1,9 +1,12 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Banknote, FileDown, Download } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const registros = [
     { id: 1, empleado: "Ana Pérez", cedula: "V-12.345.678", retencionMes: 450, retencionAcumulada: 2700 },
@@ -13,6 +16,22 @@ const registros = [
 ];
 
 export default function IslrArcPage() {
+  const { toast } = useToast();
+
+  const handleExport = () => {
+    toast({
+      title: "Reporte Generado",
+      description: "El reporte anual de ISLR ha sido exportado exitosamente.",
+    });
+  };
+
+  const handleGenerateARC = (empleado: string) => {
+    toast({
+      title: `AR-C Generado para ${empleado}`,
+      description: "El comprobante de retención mensual está listo para descargar.",
+    });
+  }
+
   return (
     <div className="p-4 md:p-8">
         <header className="mb-8 flex items-center justify-between">
@@ -26,7 +45,7 @@ export default function IslrArcPage() {
                 </p>
             </div>
              <div className="flex gap-2">
-                <Button variant="outline">
+                <Button variant="outline" onClick={handleExport}>
                     <Download className="mr-2" />
                     Exportar Reporte Anual
                 </Button>
@@ -57,7 +76,7 @@ export default function IslrArcPage() {
                                 <TableCell className="text-right">{formatCurrency(reg.retencionMes, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">{formatCurrency(reg.retencionAcumulada, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">
-                                    <Button variant="outline" size="sm">
+                                    <Button variant="outline" size="sm" onClick={() => handleGenerateARC(reg.empleado)}>
                                         <FileDown className="mr-2 h-4 w-4" />
                                         Generar AR-C Mensual
                                     </Button>

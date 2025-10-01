@@ -1,9 +1,15 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Wine, PlusCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const movimientos = [
     { id: 1, fecha: "15/07/2024", tipo: "Entrada", producto: "Ron Añejo 0.75L", cantidad: 24, origen: "Proveedor A", nroGuia: "G-12345" },
@@ -12,6 +18,15 @@ const movimientos = [
 ];
 
 export default function LibroLicoresPage() {
+    const { toast } = useToast();
+
+    const handleRegisterMovement = () => {
+        toast({
+            title: "Movimiento Registrado",
+            description: "El movimiento de inventario ha sido registrado en el libro de licores.",
+        })
+    }
+
   return (
     <div className="p-4 md:p-8">
         <header className="mb-8 flex items-center justify-between">
@@ -24,10 +39,35 @@ export default function LibroLicoresPage() {
                     Control de entradas y salidas de bebidas alcohólicas.
                 </p>
             </div>
-            <Button>
-                <PlusCircle className="mr-2" />
-                Registrar Movimiento
-            </Button>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button>
+                        <PlusCircle className="mr-2" />
+                        Registrar Movimiento
+                    </Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Registrar Movimiento de Licores</DialogTitle>
+                        <DialogDescription>
+                            Complete los detalles de la entrada o salida de inventario.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="producto" className="text-right">Producto</Label>
+                            <Input id="producto" defaultValue="Ron Añejo 0.75L" className="col-span-3" />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="cantidad" className="text-right">Cantidad</Label>
+                            <Input id="cantidad" type="number" defaultValue="24" className="col-span-3" />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit" onClick={handleRegisterMovement}>Registrar</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </header>
 
         <Card className="bg-card/50 backdrop-blur-sm">
