@@ -14,7 +14,7 @@ const navLinks = [
   { href: "/#quienes-somos", label: "Quiénes Somos" },
   { href: "/#servicios", label: "Servicios" },
   { href: "/#seguro", label: "Seguro Contable y Jurídico" },
-  { href: "/#contacto", label: "Contacto" },
+  { href: "/#contacto", label: "Contáctanos" },
 ];
 
 const services = [
@@ -212,7 +212,7 @@ export default function LandingPage() {
         <section id="contacto" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold">Hablemos</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
                         ¿Tienes alguna duda o necesitas asesoría? Contáctanos.
                     </p>
