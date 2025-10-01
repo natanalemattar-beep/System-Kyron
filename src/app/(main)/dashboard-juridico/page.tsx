@@ -13,6 +13,9 @@ import {
   Wine,
   Receipt,
   Users,
+  Send,
+  Calendar,
+  TrendingUp,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -95,6 +98,11 @@ const recentActivities = [
     { description: 'Factura #2024-0156 generada', time: 'Ayer', icon: FilePlus, iconColor: 'text-blue-500' },
 ]
 
+const dailySummary = {
+    ventas: 1850.75,
+    gastos: 430.50,
+}
+
 const financialSummary = [
     { label: 'Ingresos del Mes', amount: 2400000, color: 'bg-green-600/20 text-green-400' },
     { label: 'Gastos del Mes', amount: 1800000, color: 'bg-red-600/20 text-red-400' },
@@ -134,6 +142,15 @@ const LazyActivityCard = dynamic(() => import('@/components/dashboard/activity-c
 
 export default function DashboardJuridicoPage() {
   const {toast} = useToast();
+
+   const handleRequestReport = () => {
+    toast({
+      title: "Reporte Enviado",
+      description: "Los estados financieros han sido enviados a tu correo.",
+      action: <CheckCircle className="text-green-500" />
+    });
+  }
+
   return (
     <div className="p-4 md:p-8 space-y-8">
       <div className="flex justify-between items-center">
@@ -190,18 +207,71 @@ export default function DashboardJuridicoPage() {
         
         <Card className="bg-card/50 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
           <CardHeader>
-            <CardTitle>Resumen Financiero</CardTitle>
+            <CardTitle>Resumen Diario</CardTitle>
+             <CardDescription>
+                Ventas y gastos del día de hoy.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-              {financialSummary.map(item => (
-                  <div key={item.label} className={`p-4 rounded-lg ${item.color}`}>
-                      <p className="text-sm font-medium">{item.label}</p>
-                      <p className="text-2xl font-bold">{formatCurrency(item.amount, 'Bs.')}</p>
-                  </div>
-              ))}
+              <div className={'p-4 rounded-lg bg-green-600/20 text-green-400'}>
+                  <p className="text-sm font-medium">Ventas del Día</p>
+                  <p className="text-2xl font-bold">{formatCurrency(dailySummary.ventas, 'Bs.')}</p>
+              </div>
+               <div className={'p-4 rounded-lg bg-red-600/20 text-red-400'}>
+                  <p className="text-sm font-medium">Gastos del Día</p>
+                  <p className="text-2xl font-bold">{formatCurrency(dailySummary.gastos, 'Bs.')}</p>
+              </div>
+              <div className="border-t pt-4">
+                 <div className="flex justify-between items-center text-lg">
+                    <span className="font-semibold text-primary">Resultado Neto del Día</span>
+                    <span className="font-bold text-primary">{formatCurrency(dailySummary.ventas - dailySummary.gastos, 'Bs.')}</span>
+                 </div>
+              </div>
           </CardContent>
         </Card>
       </div>
+
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader className="flex-row items-center justify-between">
+            <div>
+                <CardTitle>Supervisión Financiera</CardTitle>
+                <CardDescription>
+                Accede a los reportes financieros o solicita un envío a tu correo.
+                </CardDescription>
+            </div>
+             <div className="flex gap-2">
+                <Button asChild variant="outline">
+                    <Link href="/reports">
+                        <TrendingUp className="mr-2"/>Ver Reportes Completos
+                    </Link>
+                </Button>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button>
+                            <Send className="mr-2"/>Solicitar Estados Financieros
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Solicitar Reporte por Correo</DialogTitle>
+                            <DialogDescription>
+                                Se enviará un resumen de los estados financieros al correo electrónico que especifiques.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="email">Correo del Representante Legal</Label>
+                                <Input id="email" type="email" placeholder="representante@empresa.com" />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button onClick={handleRequestReport}>Enviar Reporte</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+             </div>
+        </CardHeader>
+       </Card>
     </div>
   );
 }

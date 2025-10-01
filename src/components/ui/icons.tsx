@@ -45,6 +45,9 @@ import {
   Zap,
   TabletSmartphone,
   ClipboardCheck,
+  Send,
+  Calendar,
+  TrendingUp,
 } from 'lucide-react';
 
 export const Icons = {
@@ -101,4 +104,7 @@ export const Icons = {
   trash: Trash,
   pos: TabletSmartphone,
   reconciliation: ClipboardCheck,
+  send: Send,
+  calendar: Calendar,
+  trendingUp: TrendingUp,
 };
