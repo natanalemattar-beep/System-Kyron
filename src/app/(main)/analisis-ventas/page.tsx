@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import { TrendingUp, Users, Package, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw } from "lucide-react";
+import { TrendingUp, Users, Package, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw, Share2 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import Link from "next/link";
 
@@ -32,6 +32,7 @@ const bottomProducts = [
 const salesByChannel = [
     { channel: "Tienda Física", value: 75200 },
     { channel: "Ventas Online", value: 35140.50 },
+    { channel: "Redes Sociales", value: 22500 },
     { channel: "Ventas Telefónicas", value: 15000 },
 ];
 
@@ -71,15 +72,14 @@ export default function AnalisisVentasPage() {
         <div className="lg:col-span-2 grid gap-8">
             <Card>
                 <CardHeader>
-                    <CardTitle>Ventas por Canal</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><Share2 className="h-5 w-5"/>Ingresos por Canal</CardTitle>
                 </CardHeader>
                 <CardContent className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={salesByChannel} layout="vertical" margin={{ left: 20 }}>
+                        <BarChart data={salesByChannel} layout="vertical" margin={{ left: 30 }}>
                             <XAxis type="number" hide />
                             <YAxis dataKey="channel" type="category" tickLine={false} axisLine={false} />
                             <Tooltip cursor={{ fill: 'hsl(var(--secondary))' }} formatter={(value) => formatCurrency(value as number, 'Bs.')}/>
-                            <Legend />
                             <Bar dataKey="value" name="Ingresos" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
                         </BarChart>
                     </ResponsiveContainer>
