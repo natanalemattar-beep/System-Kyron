@@ -23,6 +23,7 @@ const permisos = [
     { id: "PERM-COM-001", tipo: "Licencia de Importación", emisor: "Min. Comercio / SENIAT", fechaEmision: "01/07/2024", fechaVencimiento: "31/12/2024", estado: "Vigente" },
     { id: "PERM-COM-002", tipo: "Licencia de Exportación", emisor: "Min. Comercio / BANCOEX", fechaEmision: "15/06/2024", fechaVencimiento: "15/12/2024", estado: "Vigente" },
     { id: "PERM-COM-003", tipo: "Certificado de No Producción Nacional (CNP)", emisor: "Min. Comercio", fechaEmision: "22/07/2024", fechaVencimiento: "22/01/2025", estado: "Vigente" },
+    { id: "PERM-COM-004", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "25/07/2024", fechaVencimiento: "N/A", estado: "Vigente" },
 
     // --- Permisología General y Otros Ministerios ---
     { id: "PERM-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "MPPS / SACS", fechaEmision: "15/01/2024", fechaVencimiento: "15/01/2025", estado: "Vigente" },
