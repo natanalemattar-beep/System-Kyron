@@ -11,6 +11,7 @@ import {
   Landmark,
   Wine,
   Receipt,
+  Users,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -56,6 +57,15 @@ const mainActions = [
     iconColor: 'text-purple-400',
     iconBg: 'bg-purple-900/50',
   },
+  {
+    title: 'Gestión de Nómina',
+    description: 'Calcula y administra la nómina de tus empleados.',
+    icon: Users,
+    buttonText: 'Ir a Nómina',
+    href: '/nominas',
+    iconColor: 'text-teal-400',
+    iconBg: 'bg-teal-900/50',
+  },
 ];
 
 const stats = [
@@ -87,7 +97,7 @@ export default function DashboardJuridicoPage() {
       </div>
 
       {/* Main Actions */}
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {mainActions.map((action, index) => (
           <Card key={index} className="bg-card/50 backdrop-blur-sm flex flex-col justify-between">
             <CardHeader>

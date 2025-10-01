@@ -23,7 +23,9 @@ import {
   CreditCard,
   Cog,
   UserCheck,
-  Wine
+  Wine,
+  Users,
+  Briefcase
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -59,11 +61,15 @@ const contabilidadMenuItems = [
 const facturacionMenuItems = [
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/facturacion", label: "Facturación", icon: FileText },
-    { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/inventario", label: "Inventario", icon: Archive },
     { href: "/igtf", label: "IGTF & Exoneraciones", icon: Percent },
     { href: "/creditos", label: "Créditos", icon: CreditCard },
 ];
+
+const recursosHumanosMenuItems = [
+    { href: "/nominas", label: "Nóminas", icon: Users },
+    { href: "/contratos", label: "Contratos", icon: FileSignature },
+]
 
 const generalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
@@ -93,7 +99,8 @@ export function AppSidebar() {
     const juridicoPaths = [
         ...juridicoMainMenuItems.map(item => item.href),
         ...contabilidadMenuItems.map(item => item.href),
-        ...facturacionMenuItems.map(item => item.href)
+        ...facturacionMenuItems.map(item => item.href),
+        ...recursosHumanosMenuItems.map(item => item.href)
     ];
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
@@ -149,6 +156,7 @@ export function AppSidebar() {
         </SidebarGroup>
         
         <SidebarGroup>
+            <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Contabilidad</SidebarGroupLabel>
             <SidebarMenu>
                 {contabilidadMenuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
@@ -168,6 +176,7 @@ export function AppSidebar() {
             </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup>
+            <SidebarGroupLabel className="flex items-center gap-2"><FileText className="h-4 w-4"/>Facturación</SidebarGroupLabel>
             <SidebarMenu>
                 {facturacionMenuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
@@ -186,7 +195,28 @@ export function AppSidebar() {
                 ))}
             </SidebarMenu>
         </SidebarGroup>
+         <SidebarGroup>
+            <SidebarGroupLabel className="flex items-center gap-2"><Briefcase className="h-4 w-4"/>Recursos Humanos</SidebarGroupLabel>
+            <SidebarMenu>
+                {recursosHumanosMenuItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                    asChild
+                    isActive={pathname.startsWith(item.href)}
+                    tooltip={item.label}
+                    className="justify-start"
+                    >
+                    <Link href={item.href}>
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.label}</span>
+                    </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
         <SidebarGroup>
+             <SidebarGroupLabel className="flex items-center gap-2"><Cog className="h-4 w-4"/>General</SidebarGroupLabel>
             <SidebarMenu>
                 {generalMenuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
