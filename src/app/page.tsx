@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle } from "lucide-react";
+import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
@@ -12,6 +12,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
   { href: "/#productos", label: "Productos" },
@@ -24,26 +25,41 @@ const navLinks = [
 const products = [
     {
         title: "Software Administrativo",
+        description: "Una solución de escritorio robusta para la gestión completa de tu negocio.",
         imageUrl: "https://picsum.photos/seed/productA/600/400",
         imageHint: "desk setup"
     },
     {
-        title: "Máquinas Fiscales",
+        title: "Máquinas Fiscales Homologadas",
+        description: "Equipos de facturación que cumplen con todas las normativas del SENIAT.",
         imageUrl: "https://picsum.photos/seed/productB/600/400",
         imageHint: "receipt printer"
     },
     {
         title: "Plataforma en la Nube",
+        description: "Accede a tu información y gestiona tu empresa desde cualquier lugar del mundo.",
         imageUrl: "https://picsum.photos/seed/productC/600/400",
         imageHint: "cloud server"
     }
 ]
 
 const services = [
-    { title: "Asesoría Contable", description: "Expertos a tu disposición para optimizar tus finanzas.", icon: BookOpen },
-    { title: "Gestión Fiscal", description: "Nos encargamos de tus declaraciones y cumplimiento tributario.", icon: Shield },
-    { title: "Auditoría y Análisis", description: "Evaluamos la salud de tu negocio para la toma de decisiones.", icon: BarChart },
+    { title: "Asesoría Contable Personalizada", description: "Expertos a tu disposición para optimizar tus finanzas y planificar tus impuestos.", icon: BookOpen },
+    { title: "Gestión Fiscal y Tributaria", description: "Nos encargamos de tus declaraciones y te mantenemos al día con el SENIAT.", icon: Shield },
+    { title: "Auditoría y Análisis de Datos", description: "Evaluamos la salud de tu negocio para la toma de decisiones estratégicas.", icon: BarChart },
 ];
+
+const features = [
+    { title: "Cumplimiento SENIAT Garantizado", description: "Duerme tranquilo. Nuestro software está siempre actualizado con las últimas providencias fiscales.", icon: ShieldCheck },
+    { title: "Gestión Integral en un Solo Lugar", description: "Desde facturación y contabilidad hasta nómina y permisos. Todo en una sola plataforma.", icon: GanttChartSquare },
+    { title: "Asistente con Inteligencia Artificial", description: "Nuestra IA te ayuda a detectar errores, optimizar procesos y obtener análisis predictivos.", icon: Bot },
+];
+
+const testimonials = [
+    { quote: "System C.M.S transformó nuestra gestión. Pasamos de tener hojas de cálculo desordenadas a un control total. La tranquilidad que nos da el cumplimiento con el SENIAT no tiene precio.", name: "Ana Rodríguez", company: "CEO de Innovate C.A." },
+    { quote: "La implementación fue rápida y el soporte técnico es excepcional. El módulo de contabilidad nos ahorra incontables horas cada mes.", name: "Carlos Mendoza", company: "Gerente de Administración" },
+];
+
 
 export default function LandingPage() {
 
@@ -161,12 +177,40 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-24 md:py-32 text-center flex flex-col items-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary">System C.M.S</h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                La Plataforma Definitiva para la Gestión <span className="text-primary">Contable y Fiscal</span> en Venezuela
+            </h1>
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-                Soluciones Comerciales y Contables para su Negocio
+                Simplifica tus operaciones, garantiza el cumplimiento con el SENIAT y toma el control total de tu negocio.
             </p>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                <Button size="lg" asChild>
+                    <Link href="#contacto">Solicitar Demo</Link>
+                </Button>
+                 <Button size="lg" variant="outline" asChild>
+                    <Link href="/recursos-humanos">Ver Planes y Precios</Link>
+                </Button>
+            </div>
         </section>
         
+        {/* Features Section */}
+        <section className="py-16 md:py-24">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="grid md:grid-cols-3 gap-8">
+                     {features.map(item => (
+                        <div key={item.title} className="text-center flex flex-col items-center">
+                            <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
+                                <item.icon className="h-8 w-8" />
+                            </div>
+                            <h3 className="text-xl font-semibold">{item.title}</h3>
+                            <p className="text-muted-foreground mt-2">{item.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+
         {/* Productos */}
         <section id="productos" className="py-16 md:py-24 bg-secondary/50">
             <div className="container mx-auto px-4 md:px-6">
@@ -176,12 +220,14 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map(item => (
-                        <Card key={item.title} className="overflow-hidden">
-                             <CardContent className="p-0">
-                                <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} width={600} height={400} className="aspect-video object-cover"/>
-                                <div className="p-6">
-                                  <h3 className="font-semibold text-xl">{item.title}</h3>
-                                </div>
+                        <Card key={item.title} className="overflow-hidden group">
+                            <div className="relative aspect-video">
+                                <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} fill className="object-cover transition-transform duration-300 group-hover:scale-105"/>
+                            </div>
+                             <CardContent className="p-6">
+                                <h3 className="font-semibold text-xl">{item.title}</h3>
+                                <p className="text-muted-foreground mt-2 text-sm">{item.description}</p>
+                                <Button variant="link" className="p-0 mt-4">Conocer más <ArrowRight className="ml-2 h-4 w-4"/></Button>
                             </CardContent>
                         </Card>
                     ))}
@@ -238,19 +284,40 @@ export default function LandingPage() {
         <section id="seguro" className="py-16 md:py-24">
              <div className="container mx-auto px-4 md:px-6 text-center">
                 <div className="max-w-3xl mx-auto">
+                    <div className="mb-4">
+                        <Badge>Exclusivo de System C.M.S</Badge>
+                    </div>
                     <h2 className="text-3xl md:text-4xl font-bold">Póliza de Tranquilidad: Tu Seguro Contable y Jurídico</h2>
                     <p className="mt-4 text-muted-foreground">
                         Entendemos los riesgos de operar en Venezuela. Por eso, creamos un seguro único que protege tu patrimonio ante errores contables, multas inesperadas o contingencias fiscales. Es más que un servicio, es tu paz mental.
                     </p>
-                    <Button size="lg" className="mt-8">
-                        Conoce más sobre tu Póliza <ArrowRight className="ml-2"/>
+                    <Button size="lg" className="mt-8" asChild>
+                        <Link href="/seguros">Conoce más sobre tu Póliza <ArrowRight className="ml-2"/></Link>
                     </Button>
                 </div>
              </div>
         </section>
+        
+         {/* Testimonials */}
+        <section className="py-16 md:py-24 bg-secondary/50">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-12">
+                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
+                </div>
+                <div className="grid lg:grid-cols-2 gap-8">
+                    {testimonials.map(testimonial => (
+                        <blockquote key={testimonial.name} className="p-6 bg-background rounded-lg shadow-sm">
+                            <p className="italic">"{testimonial.quote}"</p>
+                            <footer className="mt-4 font-semibold">{testimonial.name}, <span className="text-muted-foreground font-normal">{testimonial.company}</span></footer>
+                        </blockquote>
+                    ))}
+                </div>
+            </div>
+        </section>
+
 
         {/* Contacto */}
-        <section id="contacto" className="py-16 md:py-24 bg-secondary/50">
+        <section id="contacto" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
@@ -293,5 +360,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
