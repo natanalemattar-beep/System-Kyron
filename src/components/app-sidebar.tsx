@@ -35,6 +35,9 @@ import {
   UserX,
   Banknote,
   Sparkles,
+  Scale,
+  Mail,
+  Stamp,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -58,6 +61,7 @@ const juridicoMainMenuItems = [
   { href: "/permisos", label: "Permisos", icon: UserCheck },
   { href: "/autorizaciones", label: "Autorizaciones", icon: Shield },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
+  { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
 ];
 
 const contabilidadMenuItems = [
@@ -66,6 +70,7 @@ const contabilidadMenuItems = [
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
+  { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
 ];
 
 const facturacionMenuItems = [
@@ -80,6 +85,7 @@ const recursosHumanosMenuItems = [
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
+    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
 ];
 
 const librosRegistroMenuItems = [
@@ -95,6 +101,7 @@ const librosRegistroMenuItems = [
 const generalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
   { href: "/integraciones", label: "Integraciones", icon: Cog },
+  { href: "/administracion", label: "Administración", icon: Briefcase },
 ];
 
 const naturalMenuItems = [
@@ -122,7 +129,8 @@ export function AppSidebar() {
         ...contabilidadMenuItems.map(item => item.href),
         ...facturacionMenuItems.map(item => item.href),
         ...recursosHumanosMenuItems.map(item => item.href),
-        ...librosRegistroMenuItems.map(item => item.href)
+        ...librosRegistroMenuItems.map(item => item.href),
+        ...generalMenuItems.map(item => item.href),
     ];
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
@@ -369,3 +377,5 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
+    
