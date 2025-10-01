@@ -166,12 +166,16 @@ export default function LibrosContablesPage() {
                                                 </DialogDescription>
                                             </DialogHeader>
                                             <div className="grid gap-4 py-4">
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <div className="space-y-2">
+                                                <div className="grid grid-cols-3 gap-4">
+                                                     <div className="space-y-2">
                                                         <Label htmlFor="fecha">Fecha de Operación</Label>
                                                         <Input id="fecha" type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
                                                     </div>
-                                                    <div className="space-y-2">
+                                                     <div className="space-y-2">
+                                                        <Label htmlFor="asiento-nro">Número de Asiento</Label>
+                                                        <Input id="asiento-nro" type="number" placeholder="Ej: 001" />
+                                                    </div>
+                                                     <div className="space-y-2 col-span-3 md:col-span-1">
                                                         <Label htmlFor="concepto">Concepto</Label>
                                                         <Input id="concepto" placeholder="Ej: Pago de alquiler de oficina" />
                                                     </div>
