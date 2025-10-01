@@ -68,6 +68,7 @@ const contabilidadMenuItems = [
   { href: "/contabilidad", label: "Contabilidad", icon: BookOpen },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
+  { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
@@ -132,6 +133,7 @@ export function AppSidebar() {
         ...recursosHumanosMenuItems.map(item => item.href),
         ...librosRegistroMenuItems.map(item => item.href),
         ...generalMenuItems.map(item => item.href),
+        '/declaracion-iva',
     ];
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
@@ -378,4 +380,3 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
-
