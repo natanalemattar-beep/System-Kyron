@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookUser, Download, ChevronsRight, User, Building } from "lucide-react";
+import { BookUser, Download, ChevronsRight, User, Building, FileText } from "lucide-react";
 
 const juridicoFeatures = [
     "Legalización de Empresa: Guía paso a paso para constituir tu empresa.",
@@ -15,6 +15,12 @@ const naturalFeatures = [
     "Documentos Civiles: Solicita partidas de nacimiento y actas de matrimonio.",
     "Trámites Personales: Gestiona antecedentes penales y documentos judiciales.",
     "Notificaciones: Recibe alertas sobre el estado de tus solicitudes.",
+];
+
+const reportFeatures = [
+    "Selección del Tipo de Reporte: Elige entre Balance General, Estado de Resultados, Flujo de Caja, etc.",
+    "Definición de Período y Filtros: Personaliza los reportes por rango de fechas, categorías o sucursales.",
+    "Visualización y Exportación: Visualiza los datos en gráficos interactivos y exporta a PDF o Excel.",
 ];
 
 export default function ManualUsuarioPage() {
@@ -101,6 +107,21 @@ export default function ManualUsuarioPage() {
                     </CardContent>
                 </Card>
             </div>
+             <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><FileText className="h-5 w-5" /> Generación de Reportes</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <ul className="space-y-3">
+                        {reportFeatures.map(feature => (
+                            <li key={feature} className="flex items-start gap-3">
+                                <ChevronsRight className="h-5 w-5 text-primary mt-1 shrink-0" />
+                                <span>{feature}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </CardContent>
+            </Card>
         </div>
     </div>
   );
