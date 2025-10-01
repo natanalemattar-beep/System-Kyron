@@ -177,9 +177,7 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-24 md:py-32 text-center flex flex-col items-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-                La Plataforma Definitiva para la Gestión <span className="text-primary">Contable y Fiscal</span> en Venezuela
-            </h1>
+            
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Simplifica tus operaciones, garantiza el cumplimiento con el SENIAT y toma el control total de tu negocio.
             </p>
