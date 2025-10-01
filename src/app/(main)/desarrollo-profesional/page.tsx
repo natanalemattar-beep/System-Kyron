@@ -23,6 +23,48 @@ const libros = [
     descripcion: "Una fábula de liderazgo que explora las barreras que impiden que los equipos alcancen su máximo potencial.",
     imagen: "https://picsum.photos/seed/book3/300/400"
   },
+  {
+    titulo: "Empresas que sobresalen (Good to Great)",
+    autor: "Jim Collins",
+    descripcion: "Un estudio sobre las empresas que lograron pasar de ser buenas a ser magníficas, con lecciones sobre liderazgo y estrategias.",
+    imagen: "https://picsum.photos/seed/book4/300/400"
+  },
+  {
+    titulo: "El ejecutivo al minuto",
+    autor: "Kenneth Blanchard",
+    descripcion: "Un libro fácil de leer que enseña principios de administración de manera eficiente.",
+    imagen: "https://picsum.photos/seed/book5/300/400"
+  },
+  {
+    titulo: "El método Lean Startup",
+    autor: "Eric Ries",
+    descripcion: "Ofrece un marco para construir negocios innovadores de manera más rápida y eficiente, basándose en la experimentación.",
+    imagen: "https://picsum.photos/seed/book6/300/400"
+  },
+  {
+    titulo: "La semana laboral de 4 horas",
+    autor: "Timothy Ferriss",
+    descripcion: "Enseña cómo diseñar un estilo de vida y crear un negocio que libere tiempo y recursos, en lugar de atarse a él.",
+    imagen: "https://picsum.photos/seed/book7/300/400"
+  },
+  {
+    titulo: "Startup de Riesgo Cero",
+    autor: "Paulo Andrez",
+    descripcion: "Proporciona herramientas para detectar y evitar riesgos en una nueva empresa, buscando construir negocios más seguros.",
+    imagen: "https://picsum.photos/seed/book8/300/400"
+  },
+  {
+    titulo: "Empieza con el porqué",
+    autor: "Simon Sinek",
+    descripcion: "Explora el poder del propósito en el liderazgo y cómo esta idea puede inspirar y motivar a empleados y clientes.",
+    imagen: "https://picsum.photos/seed/book9/300/400"
+  },
+  {
+    titulo: "Nunca te pares (Shoe Dog)",
+    autor: "Phil Knight",
+    descripcion: "La historia del fundador de Nike, que ofrece una perspectiva motivadora sobre la perseverancia y el espíritu emprendedor.",
+    imagen: "https://picsum.photos/seed/book10/300/400"
+  },
 ];
 
 const capacitaciones = [
