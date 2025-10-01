@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookMark, Search, ArrowRight } from "lucide-react";
+import { Bookmark, Search, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 const libros = [
@@ -42,7 +42,7 @@ export default function DesarrolloProfesionalPage() {
     <div className="p-4 md:p-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-            <BookMark className="h-8 w-8" />
+            <Bookmark className="h-8 w-8" />
             Desarrollo Profesional
         </h1>
         <p className="text-muted-foreground mt-2">
@@ -84,3 +84,5 @@ export default function DesarrolloProfesionalPage() {
     </div>
   );
 }
+
+    

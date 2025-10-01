@@ -26,7 +26,13 @@ import {
   Wine,
   Users,
   Briefcase,
-  BookMark,
+  Bookmark,
+  Timer,
+  Plane,
+  Moon,
+  Sun,
+  ShoppingCart,
+  UserX,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -70,7 +76,16 @@ const facturacionMenuItems = [
 const recursosHumanosMenuItems = [
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
-    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: BookMark },
+    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Bookmark },
+];
+
+const librosRegistroMenuItems = [
+    { href: "/libro-horas-extras", label: "Libro Horas Extras", icon: Timer },
+    { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
+    { href: "/libro-horario-nocturno", label: "Libro Horario Nocturno", icon: Moon },
+    { href: "/libro-horas-diurnas", label: "Libro Horas Diurnas", icon: Sun },
+    { href: "/libro-cesta-ticket", label: "Libro Cesta Ticket", icon: ShoppingCart },
+    { href: "/libro-personal-retirado", label: "Libro Personal Retirado", icon: UserX },
 ]
 
 const generalMenuItems = [
@@ -102,7 +117,8 @@ export function AppSidebar() {
         ...juridicoMainMenuItems.map(item => item.href),
         ...contabilidadMenuItems.map(item => item.href),
         ...facturacionMenuItems.map(item => item.href),
-        ...recursosHumanosMenuItems.map(item => item.href)
+        ...recursosHumanosMenuItems.map(item => item.href),
+        ...librosRegistroMenuItems.map(item => item.href)
     ];
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
@@ -201,6 +217,26 @@ export function AppSidebar() {
             <SidebarGroupLabel className="flex items-center gap-2"><Briefcase className="h-4 w-4"/>Recursos Humanos</SidebarGroupLabel>
             <SidebarMenu>
                 {recursosHumanosMenuItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                    asChild
+                    isActive={pathname.startsWith(item.href)}
+                    tooltip={item.label}
+                    className="justify-start"
+                    >
+                    <Link href={item.href}>
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.label}</span>
+                    </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+            <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Libros de Registro</SidebarGroupLabel>
+            <SidebarMenu>
+                {librosRegistroMenuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                     asChild
@@ -329,3 +365,5 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
+    
