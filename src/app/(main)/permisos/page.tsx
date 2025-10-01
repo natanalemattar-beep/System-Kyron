@@ -45,6 +45,7 @@ const initialPermisos = [
     { id: "PERM-013", tipo: "Certificado de Fumigación", emisor: "MPPS / SACS", fechaEmision: "2024-07-01", fechaVencimiento: "2025-01-01", estado: "Vigente" },
     { id: "PERM-014", tipo: "Registro Nacional del Deporte", emisor: "Min. Deporte", fechaEmision: "2024-04-12", fechaVencimiento: "2026-04-12", estado: "Vigente" },
     { id: "PERM-015", tipo: "Licencia de Turismo", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-01-25", fechaVencimiento: "2025-01-25", estado: "Vigente" },
+    { id: "PERM-MP-001", tipo: "Inscripción en Marca País", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-07-26", fechaVencimiento: "2026-07-26", estado: "Vigente" },
     { id: "PERM-016", tipo: "Certificado de Patrimonio Cultural", emisor: "Min. Cultura (MPPC)", fechaEmision: "2023-12-01", fechaVencimiento: "Indefinido", estado: "Vigente" },
     { id: "PERM-017", tipo: "Inscripción en el RUPDAE", emisor: "SUNDDE", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente" },
     { id: "PERM-020", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente" },
