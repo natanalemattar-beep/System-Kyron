@@ -57,14 +57,14 @@ export const mockInvoices: Invoice[] = [
 ];
 
 export const mockTransactions: Transaction[] = [
-  { id: 'TR-001', date: '2024-07-15', description: 'Stripe Payout', amount: 1800.0, category: 'Income' },
+  { id: 'TR-001', date: '2024-07-15', description: 'Pago de Stripe', amount: 1800.0, category: 'Income' },
   { id: 'TR-002', date: '2024-07-14', description: 'DigitalOcean', amount: -50.0, category: 'Utilities' },
-  { id: 'TR-003', date: '2024-07-13', description: 'Lunch at The Corner Cafe', amount: -25.5, category: 'Food' },
-  { id: 'TR-004', date: '2024-07-12', description: 'Figma Subscription', amount: -15.0, category: 'Software' },
-  { id: 'TR-005', date: '2024-07-11', description: 'Client Payment - Beta Co.', amount: 1500.0, category: 'Income' },
-  { id: 'TR-006', date: '2024-07-10', description: 'Office Supplies from Amazon', amount: -75.2, category: 'Office Supplies' },
-  { id: 'TR-007', date: '2024-07-09', description: 'Gasoline', amount: -45.0, category: 'Transportation' },
-  { id: 'TR-008', date: '2024-07-08', description: 'Uncategorized Expense', amount: -120.0, category: 'Uncategorized' },
+  { id: 'TR-003', date: '2024-07-13', description: 'Almuerzo en The Corner Cafe', amount: -25.5, category: 'Food' },
+  { id: 'TR-004', date: '2024-07-12', description: 'Suscripción de Figma', amount: -15.0, category: 'Software' },
+  { id: 'TR-005', date: '2024-07-11', description: 'Pago de Cliente - Beta Co.', amount: 1500.0, category: 'Income' },
+  { id: 'TR-006', date: '2024-07-10', description: 'Suministros de Oficina de Amazon', amount: -75.2, category: 'Office Supplies' },
+  { id: 'TR-007', date: '2024-07-09', description: 'Gasolina', amount: -45.0, category: 'Transportation' },
+  { id: 'TR-008', date: '2024-07-08', description: 'Gasto no categorizado', amount: -120.0, category: 'Uncategorized' },
 ];
 
 export const financialChartData = [

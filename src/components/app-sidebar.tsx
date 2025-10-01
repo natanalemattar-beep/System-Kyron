@@ -38,6 +38,7 @@ import {
   Scale,
   Mail,
   Stamp,
+  BookUser,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -65,7 +66,7 @@ const juridicoMainMenuItems = [
 ];
 
 const contabilidadMenuItems = [
-  { href: "/contabilidad", label: "Contabilidad", icon: BookOpen },
+  { href: "/reports", label: "Reportes Contables", icon: BookOpen },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
   { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
@@ -104,6 +105,7 @@ const generalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
   { href: "/integraciones", label: "Integraciones", icon: Cog },
   { href: "/administracion", label: "Administración", icon: Briefcase },
+  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
 ];
 
 const naturalMenuItems = [
@@ -114,6 +116,7 @@ const naturalMenuItems = [
   { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
   { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
+  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
 ];
 
 

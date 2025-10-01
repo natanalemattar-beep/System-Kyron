@@ -70,8 +70,8 @@ export function ReportsView() {
       <CardHeader>
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
             <div>
-                <CardTitle>Report Center</CardTitle>
-                <CardDescription>Select a report and date range.</CardDescription>
+                <CardTitle>Centro de Reportes</CardTitle>
+                <CardDescription>Selecciona un reporte y un rango de fechas.</CardDescription>
             </div>
             <Popover>
               <PopoverTrigger asChild>
@@ -91,7 +91,7 @@ export function ReportsView() {
                       format(date.from, "LLL dd, y")
                     )
                   ) : (
-                    <span>Pick a date</span>
+                    <span>Elige una fecha</span>
                   )}
                 </Button>
               </PopoverTrigger>
@@ -152,25 +152,22 @@ export function ReportsView() {
              <Table>
                 <TableHeader><TableRow><TableHead>Activos</TableHead><TableHead className="text-right"></TableHead></TableRow></TableHeader>
                 <TableBody>
-                    {Object.entries(balanceSheetData.assets).map(([key, value]) => (
-                        <TableRow key={key}><TableCell className="pl-8 text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</TableCell><TableCell className="text-right">{formatCurrency(value)}</TableCell></TableRow>
-                    ))}
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Efectivo</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.cash)}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Cuentas por Cobrar</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.accountsReceivable)}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Inventario</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.inventory)}</TableCell></TableRow>
                     <TableRow className="font-bold border-t"><TableCell>Activos Totales</TableCell><TableCell className="text-right">{formatCurrency(totalAssets)}</TableCell></TableRow>
                 </TableBody>
                 <TableHeader><TableRow><TableHead className="pt-8">Pasivos</TableHead><TableHead className="text-right pt-8"></TableHead></TableRow></TableHeader>
                 <TableBody>
-                    {Object.entries(balanceSheetData.liabilities).map(([key, value]) => (
-                        <TableRow key={key}><TableCell className="pl-8 text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</TableCell><TableCell className="text-right">{formatCurrency(value)}</TableCell></TableRow>
-                    ))}
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Cuentas por Pagar</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.liabilities.accountsPayable)}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Deuda a Largo Plazo</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.liabilities.longTermDebt)}</TableCell></TableRow>
                     <TableRow className="font-bold border-t"><TableCell>Pasivos Totales</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilities)}</TableCell></TableRow>
                 </TableBody>
                 <TableHeader><TableRow><TableHead className="pt-8">Patrimonio</TableHead><TableHead className="text-right pt-8"></TableHead></TableRow></TableHeader>
                 <TableBody>
-                    {Object.entries(balanceSheetData.equity).map(([key, value]) => (
-                        <TableRow key={key}><TableCell className="pl-8 text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</TableCell><TableCell className="text-right">{formatCurrency(value)}</TableCell></TableRow>
-                    ))}
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Ganancias Retenidas</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.equity.retainedEarnings)}</TableCell></TableRow>
                     <TableRow className="font-bold border-t"><TableCell>Patrimonio Total</TableCell><TableCell className="text-right">{formatCurrency(totalEquity)}</TableCell></TableRow>
-                </TableBody>
+                 </TableBody>
                  <TableBody>
                     <TableRow className="font-bold border-t text-lg text-primary"><TableCell>Pasivos Totales + Patrimonio</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilities + totalEquity)}</TableCell></TableRow>
                  </TableBody>

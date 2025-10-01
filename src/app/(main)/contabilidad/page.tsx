@@ -8,17 +8,17 @@ export default function ContabilidadPage() {
        <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <BookOpen className="h-8 w-8" />
-            Contabilidad
+            Reportes Contables
         </h1>
         <p className="text-muted-foreground mt-2">
-          Módulo de contabilidad general.
+          Módulo de reportes contables.
         </p>
       </header>
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle>Módulo de Contabilidad</CardTitle>
+          <CardTitle>Módulo de Reportes Contables</CardTitle>
           <CardDescription>
-            Sección en construcción. Aquí podrás gestionar la contabilidad de tu empresa.
+            Sección en construcción. Aquí podrás generar y visualizar tus estados financieros.
           </CardDescription>
         </CardHeader>
         <CardContent>
