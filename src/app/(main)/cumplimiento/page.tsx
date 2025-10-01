@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShieldAlert, FileWarning, ArrowRight, BookLock, Banknote, Laptop } from "lucide-react";
+import { ShieldAlert, FileWarning, ArrowRight, BookLock, Banknote, Laptop, Landmark, Building } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 
@@ -25,6 +25,19 @@ const areasCriticas = [
     },
 ];
 
+const fiscalizaciones = [
+    {
+        icon: Landmark,
+        titulo: "Fiscalización del SENIAT",
+        descripcion: "Revisión del cumplimiento de deberes formales (IVA, ISLR) y sustanciales (pago de impuestos). El sistema te ayuda a tener listos libros de compra/venta, declaraciones y facturas.",
+    },
+    {
+        icon: Building,
+        titulo: "Fiscalización Municipal (Alcaldía)",
+        descripcion: "Verificación del pago del Impuesto a las Actividades Económicas y el cumplimiento de deberes como la tenencia de la Licencia de Actividades Económicas.",
+    }
+]
+
 export default function CumplimientoPage() {
 
   return (
@@ -35,7 +48,7 @@ export default function CumplimientoPage() {
             Cumplimiento Normativo y Prevención de Sanciones
         </h1>
         <p className="text-muted-foreground mt-2">
-          Guía sobre la Ley de Responsabilidad Penal de las Personas Jurídicas.
+          Guía sobre la Ley de Responsabilidad Penal de las Personas Jurídicas y procesos de fiscalización.
         </p>
       </header>
 
@@ -50,9 +63,9 @@ export default function CumplimientoPage() {
             </AlertDescription>
         </Alert>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card className="bg-card/50 backdrop-blur-sm mb-8">
         <CardHeader>
-          <CardTitle>Áreas Críticas de Cumplimiento</CardTitle>
+          <CardTitle>Áreas Críticas de Cumplimiento (Ley de Responsabilidad Penal)</CardTitle>
           <CardDescription>
             La ley exige que las empresas implementen modelos de prevención en las siguientes áreas para evitar sanciones penales.
           </CardDescription>
@@ -70,6 +83,34 @@ export default function CumplimientoPage() {
                         <p className="text-sm text-muted-foreground mb-4">{item.descripcion}</p>
                         <Button variant="outline" className="w-full">
                            Ver Guía de Cumplimiento
+                           <ArrowRight className="ml-2 h-4 w-4"/>
+                        </Button>
+                    </CardContent>
+                </Card>
+            ))}
+        </CardContent>
+      </Card>
+      
+      <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle>Procesos de Fiscalización</CardTitle>
+          <CardDescription>
+            Prepárate para las revisiones de los entes tributarios nacionales y municipales.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid md:grid-cols-2 gap-6">
+            {fiscalizaciones.map(item => (
+                 <Card key={item.titulo} className="bg-secondary/50">
+                    <CardHeader>
+                        <CardTitle className="text-lg flex items-center gap-3">
+                           <item.icon className="h-6 w-6 text-primary" />
+                           <span>{item.titulo}</span>
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground mb-4">{item.descripcion}</p>
+                        <Button variant="outline" className="w-full">
+                           Ver Guía de Fiscalización
                            <ArrowRight className="ml-2 h-4 w-4"/>
                         </Button>
                     </CardContent>
