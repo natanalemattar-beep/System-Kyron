@@ -54,6 +54,7 @@ import {
   BarChart,
   Ship,
   BrainCircuit,
+  ShieldCheck,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
