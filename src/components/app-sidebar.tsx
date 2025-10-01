@@ -48,7 +48,9 @@ import {
   Wallet,
   HeartHandshake,
   Megaphone,
-  Mail
+  Mail,
+  Puzzle,
+  Layers
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -436,4 +438,5 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
 
