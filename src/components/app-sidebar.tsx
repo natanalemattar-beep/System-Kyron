@@ -51,7 +51,9 @@ import {
   Mail,
   Puzzle,
   Layers,
-  BarChart
+  BarChart,
+  Ship,
+  BrainCircuit,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -84,6 +86,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
   { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
   { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
+  { href: "/seguros", label: "Seguros", icon: ShieldCheck },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
 ];
 
@@ -95,18 +98,22 @@ const analisisCrecimientoMenuItems = [
     { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
+    { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+    { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
+    { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
 ];
 
 const facturacionMenuItems = [
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/facturacion", label: "Facturación", icon: FileText },
     { href: "/inventario", label: "Inventario", icon: Archive },
+    { href: "/importaciones", label: "Importaciones", icon: Ship },
     { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
     { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/igtf", label: "IGTF & Exoneraciones", icon: Percent },
-    { href: "/creditos", label: "Créditos", icon: CreditCard },
+    { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
     { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
 ];
 
@@ -141,6 +148,10 @@ const generalMenuItems = [
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
 ];
 
+const iaMenuItems = [
+  { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
+];
+
 const naturalMenuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/documentos", label: "Documentos", icon: File },
@@ -170,6 +181,7 @@ export function AppSidebar() {
         ...librosRegistroMenuItems.map(item => item.href),
         ...generalMenuItems.map(item => item.href),
         ...analisisCrecimientoMenuItems.map(item => item.href),
+        ...iaMenuItems.map(item => item.href),
     ];
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
@@ -247,6 +259,27 @@ export function AppSidebar() {
             <SidebarGroupLabel className="flex items-center gap-2"><TrendingUp className="h-4 w-4"/>Análisis y Crecimiento</SidebarGroupLabel>
             <SidebarMenu>
                 {analisisCrecimientoMenuItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                    asChild
+                    isActive={pathname.startsWith(item.href)}
+                    tooltip={item.label}
+                    className="justify-start"
+                    >
+                    <Link href={item.href}>
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.label}</span>
+                    </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
+
+        <SidebarGroup>
+            <SidebarGroupLabel className="flex items-center gap-2"><BrainCircuit className="h-4 w-4"/>Soluciones con IA</SidebarGroupLabel>
+            <SidebarMenu>
+                {iaMenuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                     asChild
@@ -438,6 +471,7 @@ function AppSidebarNatural() {
     </Sidebar>
   );
 }
+
 
 
 

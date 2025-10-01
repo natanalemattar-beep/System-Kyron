@@ -41,7 +41,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                     <Link href="/facturacion"><CreditCard className="mr-2"/>Facturación</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                    <Link href="/dashboard"><Settings className="mr-2"/>Ajustes</Link>
+                    <Link href="/soluciones-ia"><Settings className="mr-2"/>Ajustes</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
