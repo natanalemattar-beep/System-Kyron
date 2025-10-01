@@ -22,11 +22,14 @@ export function formatCurrency(amount: number, currency = "USD") {
   }).format(amount)
 }
 
-export function formatDate(date: string | Date) {
+export function formatDate(date: string | Date | null) {
+  if (!date) return "N/A";
   const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return dateObj.toLocaleDateString('es-VE', {
+   // Add timezone offset to prevent date from changing
+  const userTimezoneOffset = dateObj.getTimezoneOffset() * 60000;
+  return new Date(dateObj.getTime() + userTimezoneOffset).toLocaleDateString('es-VE', {
     year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
   });
 }
