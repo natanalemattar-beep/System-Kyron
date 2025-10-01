@@ -48,7 +48,7 @@ export default function RegisterPage() {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-lg font-bold">
-                            C.M.S
+                            System C.M.S
                         </span>
                     </div>
                 </Link>
@@ -105,7 +105,7 @@ export default function RegisterPage() {
             </div>
              <div className="flex flex-col">
               <span className="text-lg font-bold">
-                C.M.S
+                System C.M.S
               </span>
             </div>
           </Link>

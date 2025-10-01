@@ -30,7 +30,7 @@ export default function ManualUsuarioPage() {
             <div>
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <BookUser className="h-8 w-8" />
-                    Manual de Usuario de C.M.S
+                    Manual de Usuario de System C.M.S
                 </h1>
                 <p className="text-muted-foreground mt-2">
                     Tu guía completa para aprovechar al máximo la plataforma.
@@ -46,7 +46,7 @@ export default function ManualUsuarioPage() {
             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Introducción</CardTitle>
-                    <CardDescription>Bienvenido a C.M.S, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.</CardDescription>
+                    <CardDescription>Bienvenido a System C.M.S, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <p>Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.</p>

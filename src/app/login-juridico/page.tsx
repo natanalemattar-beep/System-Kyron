@@ -30,7 +30,7 @@ export default function LoginJuridicoPage() {
             <div className="bg-primary/10 text-primary p-2 rounded-md">
               <Flag className="h-6 w-6" />
             </div>
-            <span className="text-lg font-bold">C.M.S</span>
+            <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           <div className="flex items-center gap-2">
             <ThemeToggle />

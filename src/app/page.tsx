@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { User, Menu, Flag, Building } from "lucide-react";
+import { User, Menu, Flag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
@@ -45,7 +45,7 @@ export default function LandingPage() {
             <div className="bg-primary/10 text-primary p-2 rounded-md">
               <Flag className="h-6 w-6" />
             </div>
-            <span className="text-lg font-bold">C.M.S</span>
+            <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           
           <nav className="hidden md:flex items-center gap-1">
@@ -77,7 +77,7 @@ export default function LandingPage() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right">
-                  <SheetHeader>
+                   <SheetHeader>
                     <SheetTitle className="sr-only">Menú Principal</SheetTitle>
                   </SheetHeader>
                   <div className="flex justify-between items-center mb-8">
@@ -85,7 +85,7 @@ export default function LandingPage() {
                         <div className="bg-primary text-primary-foreground p-2 rounded-md">
                           <Flag className="h-6 w-6" />
                         </div>
-                        <span className="text-lg font-bold">C.M.S</span>
+                        <span className="text-lg font-bold">System C.M.S</span>
                       </Link>
                       <SheetClose asChild>
                           <Button variant="ghost" size="icon">X</Button>
@@ -101,18 +101,13 @@ export default function LandingPage() {
                     ))}
                     <div className="border-t pt-6 mt-4 space-y-4">
                       <h3 className="text-sm font-semibold text-muted-foreground">Acceso</h3>
-                      <SheetClose asChild>
-                         <Button variant="outline" className="w-full justify-start" asChild>
-                            <Link href="/login-juridico"><Building className="mr-2"/>Iniciar Sesión Jurídico</Link>
-                          </Button>
-                      </SheetClose>
                        <SheetClose asChild>
-                         <Button variant="outline" className="w-full justify-start" asChild>
-                            <Link href="/login-natural"><User className="mr-2"/>Iniciar Sesión Natural</Link>
+                         <Button asChild className="w-full justify-start">
+                            <Link href="/login-juridico"><User className="mr-2"/>Iniciar Sesión</Link>
                           </Button>
                       </SheetClose>
                       <SheetClose asChild>
-                          <Button className="w-full" asChild>
+                          <Button variant="outline" className="w-full" asChild>
                             <Link href="/register">Registrarse</Link>
                           </Button>
                       </SheetClose>
@@ -127,7 +122,7 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-24 md:py-32 text-center flex flex-col items-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary">C.M.S</h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary">System C.M.S</h1>
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Soluciones Comerciales y Contables para su Negocio
             </p>
@@ -157,7 +152,7 @@ export default function LandingPage() {
 
       <footer className="py-8 border-t">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} C.M.S. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>
       </footer>
     </div>
