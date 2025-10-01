@@ -5,10 +5,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, FileText, Gavel, Heart, Shield, Upload } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useState } from 'react';
 import { FileInputTrigger } from '@/components/file-input-trigger';
+import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 const actions = [
   {
@@ -56,6 +56,16 @@ const actions = [
 
 export default function DashboardPersonalPage() {
     const [file, setFile] = useState<File | null>(null);
+    const { toast } = useToast();
+
+    const handleFileSelect = (selectedFile: File) => {
+        setFile(selectedFile);
+        toast({
+            title: "Archivo Seleccionado",
+            description: `CV "${selectedFile.name}" listo para ser procesado.`,
+        });
+    };
+
   return (
     <div className="p-4 md:p-8 space-y-8 bg-background">
       <div className="flex justify-between items-center">
@@ -120,11 +130,13 @@ export default function DashboardPersonalPage() {
                 ))}
               </ul>
                <FileInputTrigger
-                    onFileSelect={(selectedFile) => setFile(selectedFile)}
+                    onFileSelect={handleFileSelect}
                     >
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link href={action.href}>
                         {action.buttonIcon && <action.buttonIcon className="mr-2 h-4 w-4" />}
                         {action.buttonText}
+                      </Link>
                     </Button>
                 </FileInputTrigger>
             </CardContent>
