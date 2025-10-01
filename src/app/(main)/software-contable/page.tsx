@@ -22,17 +22,21 @@ const faqItems = [
         answer: "Ordena la facturación, controla inventarios, reduce errores humanos y, lo más importante, asegura el cumplimiento fiscal, lo que se traduce en tranquilidad."
     },
     {
+        question: "¿Cuánto cuesta implementar un sistema administrativo?",
+        answer: "Los precios varían según licencias, usuarios y soporte, pero lo importante es ver el costo como una inversión en seguridad y tranquilidad."
+    },
+    {
         question: "¿Se puede usar a distancia?",
         answer: "Sí, cada vez más soluciones ofrecen acceso remoto o son basadas en la nube, ideal para gerentes que necesitan revisar reportes desde cualquier lugar."
     }
 ];
 
 const softwareComparison = [
-  { name: "Saint (versión clásica)", homologated: "Parcial", focus: "Contabilidad y facturación básica", pros: "Amplia trayectoria, conocido por usuarios tradicionales", idealFor: "Comercios que ya lo manejan" },
-  { name: "Galac Administrativo", homologated: "Sí", focus: "Gestión integral administrativa y contable", pros: "Marca reconocida, ecosistema completo", idealFor: "Empresas medianas y grandes" },
-  { name: "Profit Plus", homologated: "Sí", focus: "Administración + contabilidad", pros: "Flexibilidad de módulos, soporte extendido", idealFor: "Negocios en crecimiento que necesitan escalabilidad" },
-  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", focus: "Gestión práctica y flexible", pros: "Cumplimiento actualizado, fácil de usar, pensado para PYMEs", idealFor: "PYMEs que buscan simplicidad y confianza" },
-  { name: "SAP Business One", homologated: "Sí (Versión adaptada)", focus: "ERP corporativo", pros: "Potente, con integración global", idealFor: "Grandes corporaciones" },
+  { name: "Saint (versión clásica)", homologated: "Parcial", focus: "Contabilidad y facturación básica", idealFor: "Comercios que ya lo manejan y no quieren cambiar aún" },
+  { name: "Galac Administrativo", homologated: "Sí", focus: "Gestión integral administrativa y contable", idealFor: "Empresas medianas y grandes que buscan un ecosistema completo" },
+  { name: "Profit Plus", homologated: "Sí", focus: "Administración + contabilidad", idealFor: "Negocios en crecimiento que necesitan escalabilidad" },
+  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", focus: "Gestión administrativa práctica y flexible", idealFor: "Pymes y comerciantes que buscan simplicidad + confianza" },
+  { name: "SAP Business One", homologated: "Sí (versión adaptada a Venezuela)", focus: "ERP corporativo", idealFor: "Grandes corporaciones con alto presupuesto" },
 ];
 
 
@@ -70,7 +74,7 @@ export default function SoftwareContablePage() {
                 <CardContent className="space-y-4">
                     <p>El mercado venezolano ha visto varias etapas. Desde pioneros como <strong>Saint</strong> en los años 90, pasando por soluciones consolidadas como <strong>Galac y Profit Plus</strong>, hasta llegar a nuevas alternativas como <strong>Hybrid LiteOS</strong>, que responden mejor a la necesidad actual de simplicidad y cumplimiento legal.</p>
                     <p className="text-sm italic text-muted-foreground p-3 bg-secondary/30 rounded-lg">
-                        "Comencé hace más de 25 años con Saint en DOS. Aprendí que la tecnología solo sirve si se adapta a la realidad del dueño de negocio: sus miedos, su forma de llevar cuentas y hasta su relación con el Seniat."
+                        "Comencé hace más de 25 años con Saint, cuando se usaba en DOS. Aprendí que la tecnología solo sirve si se adapta a la realidad del dueño de negocio: sus miedos, su forma de llevar cuentas y hasta su relación con el Seniat."
                     </p>
                 </CardContent>
             </Card>
@@ -125,7 +129,8 @@ export default function SoftwareContablePage() {
                     <TableHeader>
                         <TableRow>
                             <TableHead>Software</TableHead>
-                            <TableHead className="text-center">Homologado SENIAT</TableHead>
+                            <TableHead className="text-center">Homologado por Seniat</TableHead>
+                            <TableHead>Enfoque Principal</TableHead>
                             <TableHead>Ideal para…</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -134,11 +139,12 @@ export default function SoftwareContablePage() {
                             <TableRow key={item.name}>
                                 <TableCell className="font-medium">{item.name}</TableCell>
                                 <TableCell className="text-center">
-                                    {item.homologated === "Sí" || item.homologated === "Sí (Providencia 121)" || item.homologated === "Sí (Versión adaptada)" ? 
-                                    <Badge variant="default" className="bg-green-600 hover:bg-green-700"><Check className="mr-1 h-4 w-4"/> Sí</Badge> : 
+                                    {item.homologated.startsWith("Sí") ? 
+                                    <Badge variant="default" className="bg-green-600 hover:bg-green-700"><Check className="mr-1 h-4 w-4"/> {item.homologated}</Badge> : 
                                     <Badge variant="secondary">{item.homologated}</Badge>
                                     }
                                 </TableCell>
+                                <TableCell>{item.focus}</TableCell>
                                 <TableCell>{item.idealFor}</TableCell>
                             </TableRow>
                         ))}
@@ -186,5 +192,3 @@ export default function SoftwareContablePage() {
     </div>
   );
 }
-
-    
