@@ -1,62 +1,93 @@
+"use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserCheck, PlusCircle, Download, Scale, Trophy, Camera } from "lucide-react";
+import { UserCheck, PlusCircle, Download, RefreshCw } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
-const permisos = [
+const initialPermisos = [
     // --- Ministerio de Petróleo y relacionados ---
-    { id: "PERM-PET-001", tipo: "Permiso de Transporte Terrestre de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "10/01/2024", fechaVencimiento: "10/01/2025", estado: "Vigente" },
-    { id: "PERM-PET-002", tipo: "Permiso de Transporte Acuático de Hidrocarburos", emisor: "MINPET / INEA", fechaEmision: "15/02/2024", fechaVencimiento: "15/02/2025", estado: "Vigente" },
-    { id: "PERM-PET-003", tipo: "Autorización de Distribución de Lubricantes Terminados", emisor: "Min. Petróleo (MINPET)", fechaEmision: "01/03/2024", fechaVencimiento: "01/03/2025", estado: "Por Vencer" },
-    { id: "PERM-PET-004", tipo: "Distribución de Productos Derivados de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "05/04/2024", fechaVencimiento: "05/04/2025", estado: "Vigente" },
-    { id: "PERM-PET-005", tipo: "Permiso para Suministro y Almacenamiento de Gas", emisor: "Min. Petróleo (MINPET)", fechaEmision: "20/05/2024", fechaVencimiento: "20/05/2026", estado: "Vigente" },
-    { id: "PERM-PET-006", tipo: "Actualización de industrialización de LGN", emisor: "Min. Petróleo (MINPET)", fechaEmision: "11/06/2024", fechaVencimiento: "11/06/2025", estado: "Vigente" },
-    { id: "PERM-PET-007", tipo: "Registro para industrialización de refinación", emisor: "Min. Petróleo (MINPET)", fechaEmision: "12/07/2024", fechaVencimiento: "12/07/2025", estado: "Vigente" },
+    { id: "PERM-PET-001", tipo: "Permiso de Transporte Terrestre de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-01-10", fechaVencimiento: "2025-01-10", estado: "Vigente" },
+    { id: "PERM-PET-002", tipo: "Permiso de Transporte Acuático de Hidrocarburos", emisor: "MINPET / INEA", fechaEmision: "2024-02-15", fechaVencimiento: "2025-02-15", estado: "Vigente" },
+    { id: "PERM-PET-003", tipo: "Autorización de Distribución de Lubricantes Terminados", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2023-08-01", fechaVencimiento: "2024-08-01", estado: "Por Vencer" },
+    { id: "PERM-PET-004", tipo: "Distribución de Productos Derivados de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-04-05", fechaVencimiento: "2025-04-05", estado: "Vigente" },
+    { id: "PERM-PET-005", tipo: "Permiso para Suministro y Almacenamiento de Gas", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-05-20", fechaVencimiento: "2026-05-20", estado: "Vigente" },
+    { id: "PERM-PET-006", tipo: "Actualización de industrialización de LGN", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-06-11", fechaVencimiento: "2025-06-11", estado: "Vigente" },
+    { id: "PERM-PET-007", tipo: "Registro para industrialización de refinación", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-07-12", fechaVencimiento: "2025-07-12", estado: "Vigente" },
     
     // --- Construcción ---
-    { id: "PERM-CONS-001", tipo: "Permiso de Construcción de Obra Civil", emisor: "Min. Obras Públicas / Alcaldía", fechaEmision: "01/02/2024", fechaVencimiento: "01/02/2026", estado: "Vigente" },
-    { id: "PERM-CONS-002", tipo: "Permiso de Desmantelamiento de Instalaciones", emisor: "Min. Obras Públicas / MINEC", fechaEmision: "18/03/2024", fechaVencimiento: "18/09/2024", estado: "Por Vencer" },
+    { id: "PERM-CONS-001", tipo: "Permiso de Construcción de Obra Civil", emisor: "Min. Obras Públicas / Alcaldía", fechaEmision: "2024-02-01", fechaVencimiento: "2026-02-01", estado: "Vigente" },
+    { id: "PERM-CONS-002", tipo: "Permiso de Desmantelamiento de Instalaciones", emisor: "Min. Obras Públicas / MINEC", fechaEmision: "2024-03-18", fechaVencimiento: "2024-09-18", estado: "Por Vencer" },
 
     // --- Comercio Exterior ---
-    { id: "PERM-COM-001", tipo: "Licencia de Importación", emisor: "Min. Comercio / SENIAT", fechaEmision: "01/07/2024", fechaVencimiento: "31/12/2024", estado: "Vigente" },
-    { id: "PERM-COM-002", tipo: "Licencia de Exportación", emisor: "Min. Comercio / BANCOEX", fechaEmision: "15/06/2024", fechaVencimiento: "15/12/2024", estado: "Vigente" },
-    { id: "PERM-COM-003", tipo: "Certificado de No Producción Nacional (CNP)", emisor: "Min. Comercio", fechaEmision: "22/07/2024", fechaVencimiento: "22/01/2025", estado: "Vigente" },
-    { id: "PERM-COM-004", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "25/07/2024", fechaVencimiento: "N/A", estado: "Vigente" },
+    { id: "PERM-COM-001", tipo: "Licencia de Importación", emisor: "Min. Comercio / SENIAT", fechaEmision: "2024-07-01", fechaVencimiento: "2024-12-31", estado: "Vigente" },
+    { id: "PERM-COM-002", tipo: "Licencia de Exportación", emisor: "Min. Comercio / BANCOEX", fechaEmision: "2024-06-15", fechaVencimiento: "2024-12-15", estado: "Vigente" },
+    { id: "PERM-COM-003", tipo: "Certificado de No Producción Nacional (CNP)", emisor: "Min. Comercio", fechaEmision: "2024-07-22", fechaVencimiento: "2025-01-22", estado: "Vigente" },
+    { id: "PERM-COM-004", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "2024-07-25", fechaVencimiento: "N/A", estado: "Vigente" },
 
     // --- Permisología General y Otros Ministerios ---
-    { id: "PERM-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "MPPS / SACS", fechaEmision: "15/01/2024", fechaVencimiento: "15/01/2025", estado: "Vigente" },
-    { id: "PERM-002", tipo: "Licencia de Actividades Económicas", emisor: "Alcaldía Municipal", fechaEmision: "01/03/2024", fechaVencimiento: "01/03/2025", estado: "Vigente" },
-    { id: "PERM-003", tipo: "Conformidad de Uso de Bomberos", emisor: "Cuerpo de Bomberos", fechaEmision: "20/02/2024", fechaVencimiento: "20/08/2024", estado: "Por Vencer" },
-    { id: "PERM-004", tipo: "Inscripción Patronal en el IVSS", emisor: "IVSS", fechaEmision: "10/01/2020", fechaVencimiento: "Indefinido", estado: "Vigente" },
-    { id: "PERM-005", tipo: "Registro de Actividades (RACDA)", emisor: "Min. Ecosocialismo (MINEC)", fechaEmision: "05/09/2023", fechaVencimiento: "05/09/2024", estado: "Por Vencer" },
-    { id: "PERM-006", tipo: "Registro Sanitario de Producto", emisor: "MPPS / SACS", fechaEmision: "11/11/2022", fechaVencimiento: "11/11/2027", estado: "Vigente" },
-    { id: "PERM-007", tipo: "Acreditación en INPSASEL", emisor: "INPSASEL (Min. Trabajo)", fechaEmision: "18/01/2023", fechaVencimiento: "18/01/2025", estado: "Vigente" },
-    { id: "PERM-008", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "01/06/2021", fechaVencimiento: "01/06/2024", estado: "Vencido" },
-    { id: "PERM-009", tipo: "Registro Nacional de Contratistas (RNC)", emisor: "SNC", fechaEmision: "10/07/2024", fechaVencimiento: "10/07/2025", estado: "Vigente" },
-    { id: "PERM-010", tipo: "Inscripción en el RNA (CONALOT)", emisor: "Min. Trabajo (MPPPST)", fechaEmision: "01/02/2020", fechaVencimiento: "Indefinido", estado: "Vigente" },
-    { id: "PERM-011", tipo: "Inscripción en el RESQUIMC", emisor: "ONA (Min. Interior)", fechaEmision: "15/05/2024", fechaVencimiento: "15/05/2025", estado: "Vigente" },
-    { id: "PERM-012", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "Min. Comunas", fechaEmision: "20/03/2023", fechaVencimiento: "20/03/2025", estado: "Por Vencer" },
-    { id: "PERM-013", tipo: "Certificado de Fumigación", emisor: "MPPS / SACS", fechaEmision: "01/07/2024", fechaVencimiento: "01/01/2025", estado: "Vigente" },
-    { id: "PERM-014", tipo: "Registro Nacional del Deporte", emisor: "Min. Deporte", fechaEmision: "12/04/2024", fechaVencimiento: "12/04/2026", estado: "Vigente" },
-    { id: "PERM-015", tipo: "Licencia de Turismo", emisor: "Min. Turismo (MINTUR)", fechaEmision: "25/01/2024", fechaVencimiento: "25/01/2025", estado: "Vigente" },
-    { id: "PERM-016", tipo: "Certificado de Patrimonio Cultural", emisor: "Min. Cultura (MPPC)", fechaEmision: "01/12/2023", fechaVencimiento: "Indefinido", estado: "Vigente" },
-    { id: "PERM-017", tipo: "Inscripción en el RUPDAE", emisor: "SUNDDE", fechaEmision: "10/02/2024", fechaVencimiento: "10/02/2025", estado: "Vigente" },
-    { id: "PERM-020", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "10/01/2022", fechaVencimiento: "10/01/2032", estado: "Vigente" },
-    { id: "PERM-021", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "05/03/2023", fechaVencimiento: "Vitalicio", estado: "Vigente" },
-    { id: "PERM-022", tipo: "Conformidad de Uso Educativo", emisor: "Min. Educación", fechaEmision: "01/09/2023", fechaVencimiento: "01/09/2028", estado: "Vigente" },
-    { id: "PERM-023", tipo: "Asignación de ISBN", emisor: "CENAL (Min. Cultura)", fechaEmision: "20/04/2024", fechaVencimiento: "N/A", estado: "Vigente" },
-    { id: "PERM-024", tipo: "Registro de Empresas de Pesca", emisor: "Min. Pesca y Acuicultura", fechaEmision: "14/05/2024", fechaVencimiento: "14/05/2025", estado: "Vigente" },
+    { id: "PERM-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "MPPS / SACS", fechaEmision: "2024-01-15", fechaVencimiento: "2025-01-15", estado: "Vigente" },
+    { id: "PERM-002", tipo: "Licencia de Actividades Económicas", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente" },
+    { id: "PERM-003", tipo: "Conformidad de Uso de Bomberos", emisor: "Cuerpo de Bomberos", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer" },
+    { id: "PERM-004", tipo: "Inscripción Patronal en el IVSS", emisor: "IVSS", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente" },
+    { id: "PERM-005", tipo: "Registro de Actividades (RACDA)", emisor: "Min. Ecosocialismo (MINEC)", fechaEmision: "2023-09-05", fechaVencimiento: "2024-09-05", estado: "Por Vencer" },
+    { id: "PERM-006", tipo: "Registro Sanitario de Producto", emisor: "MPPS / SACS", fechaEmision: "2022-11-11", fechaVencimiento: "2027-11-11", estado: "Vigente" },
+    { id: "PERM-007", tipo: "Acreditación en INPSASEL", emisor: "INPSASEL (Min. Trabajo)", fechaEmision: "2023-01-18", fechaVencimiento: "2025-01-18", estado: "Vigente" },
+    { id: "PERM-008", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "2021-06-01", fechaVencimiento: "2024-06-01", estado: "Vencido" },
+    { id: "PERM-009", tipo: "Registro Nacional de Contratistas (RNC)", emisor: "SNC", fechaEmision: "2024-07-10", fechaVencimiento: "2025-07-10", estado: "Vigente" },
+    { id: "PERM-010", tipo: "Inscripción en el RNA (CONALOT)", emisor: "Min. Trabajo (MPPPST)", fechaEmision: "2020-02-01", fechaVencimiento: "Indefinido", estado: "Vigente" },
+    { id: "PERM-011", tipo: "Inscripción en el RESQUIMC", emisor: "ONA (Min. Interior)", fechaEmision: "2024-05-15", fechaVencimiento: "2025-05-15", estado: "Vigente" },
+    { id: "PERM-012", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "Min. Comunas", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer" },
+    { id: "PERM-013", tipo: "Certificado de Fumigación", emisor: "MPPS / SACS", fechaEmision: "2024-07-01", fechaVencimiento: "2025-01-01", estado: "Vigente" },
+    { id: "PERM-014", tipo: "Registro Nacional del Deporte", emisor: "Min. Deporte", fechaEmision: "2024-04-12", fechaVencimiento: "2026-04-12", estado: "Vigente" },
+    { id: "PERM-015", tipo: "Licencia de Turismo", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-01-25", fechaVencimiento: "2025-01-25", estado: "Vigente" },
+    { id: "PERM-016", tipo: "Certificado de Patrimonio Cultural", emisor: "Min. Cultura (MPPC)", fechaEmision: "2023-12-01", fechaVencimiento: "Indefinido", estado: "Vigente" },
+    { id: "PERM-017", tipo: "Inscripción en el RUPDAE", emisor: "SUNDDE", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente" },
+    { id: "PERM-020", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente" },
+    { id: "PERM-021", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "2023-03-05", fechaVencimiento: "Vitalicio", estado: "Vigente" },
+    { id: "PERM-022", tipo: "Conformidad de Uso Educativo", emisor: "Min. Educación", fechaEmision: "2023-09-01", fechaVencimiento: "2028-09-01", estado: "Vigente" },
+    { id: "PERM-023", tipo: "Asignación de ISBN", emisor: "CENAL (Min. Cultura)", fechaEmision: "2024-04-20", fechaVencimiento: "N/A", estado: "Vigente" },
+    { id: "PERM-024", tipo: "Registro de Empresas de Pesca", emisor: "Min. Pesca y Acuicultura", fechaEmision: "2024-05-14", fechaVencimiento: "2025-05-14", estado: "Vigente" },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   Vigente: "default",
   "Por Vencer": "secondary",
   Vencido: "destructive",
+  "En Renovación": "outline",
 };
 
+const formatDate = (dateString: string) => {
+    if (!dateString || dateString === "N/A" || dateString === "Indefinido" || dateString === "Vitalicio") return dateString;
+    return new Date(dateString).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+
 export default function PermisosPage() {
+  const [permisos, setPermisos] = useState(initialPermisos);
+  const { toast } = useToast();
+
+  const handleRenew = (permisoId: string) => {
+    setPermisos(permisos.map(p => {
+        if (p.id === permisoId) {
+            const currentVencimiento = new Date(p.fechaVencimiento);
+            const newVencimiento = new Date(currentVencimiento.setFullYear(currentVencimiento.getFullYear() + 1));
+            
+            toast({
+                title: "Renovación Iniciada",
+                description: `El permiso ${p.id} está ahora en proceso de renovación.`,
+            });
+            
+            return { ...p, estado: "En Renovación", fechaVencimiento: newVencimiento.toISOString().split('T')[0] };
+        }
+        return p;
+    }));
+  };
+
   return (
     <div className="p-4 md:p-8">
       <header className="mb-8 flex items-center justify-between">
@@ -94,19 +125,45 @@ export default function PermisosPage() {
                 </TableHeader>
                 <TableBody>
                     {permisos.map((permiso) => (
-                        <TableRow key={permiso.id} className={permiso.estado === 'Vencido' ? 'bg-destructive/10' : ''}>
+                        <TableRow key={permiso.id} className={permiso.estado === 'Vencido' ? 'bg-destructive/10' : permiso.estado === 'Por Vencer' ? 'bg-secondary/50' : ''}>
                             <TableCell className="font-medium">{permiso.id}</TableCell>
                             <TableCell>{permiso.tipo}</TableCell>
                             <TableCell>{permiso.emisor}</TableCell>
-                            <TableCell>{permiso.fechaEmision}</TableCell>
-                            <TableCell>{permiso.fechaVencimiento}</TableCell>
+                            <TableCell>{formatDate(permiso.fechaEmision)}</TableCell>
+                            <TableCell>{formatDate(permiso.fechaVencimiento)}</TableCell>
                             <TableCell>
                                 <Badge variant={statusVariant[permiso.estado]}>{permiso.estado}</Badge>
                             </TableCell>
-                            <TableCell className="text-right">
-                                <Button variant="ghost" size="icon">
+                            <TableCell className="text-right space-x-2">
+                                <Button variant="ghost" size="icon" title="Descargar">
                                     <Download className="h-4 w-4" />
                                 </Button>
+                                {(permiso.estado === "Por Vencer" || permiso.estado === "Vencido") && (
+                                     <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button variant="outline" size="sm">
+                                                <RefreshCw className="mr-2 h-4 w-4" />
+                                                Renovar
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent>
+                                            <DialogHeader>
+                                                <DialogTitle>Confirmar Renovación</DialogTitle>
+                                                <DialogDescription>
+                                                    Estás a punto de iniciar el proceso de renovación para el permiso <span className="font-bold">{permiso.id} ({permiso.tipo})</span>. ¿Deseas continuar?
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <DialogFooter>
+                                                <DialogTrigger asChild>
+                                                    <Button variant="outline">Cancelar</Button>
+                                                </DialogTrigger>
+                                                <DialogTrigger asChild>
+                                                    <Button onClick={() => handleRenew(permiso.id)}>Sí, Iniciar Renovación</Button>
+                                                </DialogTrigger>
+                                            </DialogFooter>
+                                        </DialogContent>
+                                     </Dialog>
+                                )}
                             </TableCell>
                         </TableRow>
                     ))}

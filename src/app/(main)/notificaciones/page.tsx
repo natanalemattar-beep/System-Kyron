@@ -1,6 +1,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
-import { AlertTriangle, CheckCircle, Eye, FileWarning, Bell } from "lucide-react";
+import { AlertTriangle, CheckCircle, Eye, FileWarning, Bell, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const notificaciones = [
@@ -12,6 +12,7 @@ const notificaciones = [
         icon: AlertTriangle,
         iconColor: "text-orange-500",
         bgColor: "bg-orange-500/10",
+        action: "renovar",
     },
     {
         id: 2,
@@ -21,6 +22,7 @@ const notificaciones = [
         icon: FileWarning,
         iconColor: "text-red-500",
         bgColor: "bg-red-500/10",
+        action: "pagar",
     },
     {
         id: 3,
@@ -30,6 +32,7 @@ const notificaciones = [
         icon: CheckCircle,
         iconColor: "text-green-500",
         bgColor: "bg-green-500/10",
+        action: "ver",
     },
     {
         id: 4,
@@ -39,7 +42,18 @@ const notificaciones = [
         icon: FileWarning,
         iconColor: "text-blue-500",
         bgColor: "bg-blue-500/10",
-    }
+        action: "ver",
+    },
+     {
+        id: 5,
+        titulo: "Permiso próximo a vencer: RACDA",
+        descripcion: "El Registro de Actividades (RACDA) PERM-005 vencerá el 05/09/2024.",
+        fecha: "Hace 4 días",
+        icon: AlertTriangle,
+        iconColor: "text-orange-500",
+        bgColor: "bg-orange-500/10",
+        action: "renovar",
+    },
 ];
 
 export default function NotificacionesPage() {
@@ -63,9 +77,16 @@ export default function NotificacionesPage() {
                                 <p className="text-sm text-muted-foreground">{notificacion.descripcion}</p>
                                 <p className="text-xs text-muted-foreground mt-2">{notificacion.fecha}</p>
                             </div>
-                            <Button variant="ghost" size="icon">
-                                <Eye className="h-5 w-5" />
-                            </Button>
+                            {notificacion.action === "renovar" ? (
+                                <Button variant="outline" size="sm">
+                                    <RefreshCw className="mr-2 h-4 w-4" />
+                                    Iniciar Renovación
+                                </Button>
+                            ) : (
+                               <Button variant="ghost" size="icon">
+                                    <Eye className="h-5 w-5" />
+                               </Button>
+                            )}
                         </li>
                     ))}
                  </ul>
@@ -81,5 +102,3 @@ export default function NotificacionesPage() {
     </div>
   );
 }
-
-    
