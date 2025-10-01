@@ -106,6 +106,7 @@ const facturacionMenuItems = [
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/igtf", label: "IGTF & Exoneraciones", icon: Percent },
     { href: "/creditos", label: "Créditos", icon: CreditCard },
+    { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
 ];
 
 const recursosHumanosMenuItems = [
