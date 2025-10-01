@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Landmark, PlusCircle, CreditCard, Eye, FileSync } from "lucide-react";
+import { Landmark, PlusCircle, CreditCard, Eye, FileScan } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
@@ -114,7 +114,7 @@ export default function CuentasBancariasPage() {
                                 <TableCell><Badge variant={statusVariant[pos.estado]}>{pos.estado}</Badge></TableCell>
                                 <TableCell className="text-right">
                                     <Button variant="outline" size="sm" onClick={() => handleAction(`Cierre de lote solicitado para ${pos.id}.`)}>
-                                        <FileSync className="mr-2 h-4 w-4"/>
+                                        <FileScan className="mr-2 h-4 w-4"/>
                                         Solicitar Cierre de Lote
                                     </Button>
                                 </TableCell>
