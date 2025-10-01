@@ -9,6 +9,7 @@ import {
   Shield,
   Eye,
   EyeOff,
+  Flag,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -49,12 +50,12 @@ export default function LoginPage() {
       <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="bg-primary text-primary-foreground p-2 rounded-md">
-              <FileText className="h-6 w-6" />
+            <div className="bg-primary/10 text-primary p-2 rounded-md">
+              <Flag className="h-6 w-6" />
             </div>
              <div className="flex flex-col">
               <span className="text-lg font-bold">
-                System C.S.M
+                System CRS
               </span>
             </div>
           </Link>

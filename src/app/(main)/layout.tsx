@@ -1,3 +1,4 @@
+
 import type { ReactNode } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -15,9 +16,11 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <AppSidebar />
       <SidebarInset>
          <header className="p-4 flex justify-between items-center border-b bg-background sticky top-0 z-10 h-16">
-           <SidebarTrigger />
            <div className="flex items-center gap-2">
+            <SidebarTrigger />
             <ThemeToggle />
+           </div>
+           <div className="flex items-center gap-2">
             <Link href="/notificaciones">
               <Button variant="ghost" size="icon"><Bell className="h-5 w-5"/></Button>
             </Link>

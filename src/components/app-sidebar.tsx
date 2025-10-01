@@ -57,6 +57,7 @@ import {
   ShieldCheck,
   RefreshCw,
   ShieldAlert,
+  Flag
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -210,12 +211,12 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-              <FileText className="h-6 w-6" />
+           <div className="bg-primary/10 text-primary p-2 rounded-lg">
+              <Flag className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
-                System C.S.M
+                System CRS
               </h1>
               <p className="text-xs text-sidebar-foreground/70">Plataforma Digital Oficial</p>
           </div>
@@ -288,12 +289,12 @@ function AppSidebarNatural() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-              <FileText className="h-6 w-6" />
+           <div className="bg-primary/10 text-primary p-2 rounded-lg">
+              <Flag className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
-                System C.S.M
+                System CRS
               </h1>
               <p className="text-xs text-sidebar-foreground/70">Plataforma Digital Oficial</p>
           </div>
