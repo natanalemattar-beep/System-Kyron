@@ -22,7 +22,8 @@ import {
   Percent,
   CreditCard,
   Cog,
-  UserCheck
+  UserCheck,
+  Wine
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -52,7 +53,7 @@ const contabilidadMenuItems = [
   { href: "/contabilidad", label: "Contabilidad", icon: BookOpen },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
-  { href: "/libro-licores", label: "Libro de Licores", icon: Gavel },
+  { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
 ];
 
 const facturacionMenuItems = [
@@ -85,10 +86,22 @@ export function AppSidebar() {
   
   const isJuridicoPath = (path: string) => {
     const naturalPaths = naturalMenuItems.map(item => item.href);
-    // The main dashboard is for natural person
-    if (path === '/dashboard') return false;
-    // Any other "natural" path is not juridico
-    return !naturalPaths.some(p => p !== '/dashboard' && path.startsWith(p));
+    if (path === '/dashboard') return false; // This is the natural dashboard
+    if (naturalPaths.some(p => p !== '/dashboard' && path.startsWith(p))) return false;
+    
+    // Check for specific juridico paths to be sure
+    const juridicoPaths = [
+        ...juridicoMainMenuItems.map(item => item.href),
+        ...contabilidadMenuItems.map(item => item.href),
+        ...facturacionMenuItems.map(item => item.href)
+    ];
+
+    if (juridicoPaths.some(p => path.startsWith(p))) return true;
+
+    // Fallback for pages that could be either, like /notificaciones
+    // A more robust solution might be needed if ambiguity increases.
+    // For now, if it's not explicitly natural, assume juridico if not on a natural page.
+    return true;
   }
   
   const isJuridico = isJuridicoPath(pathname);
@@ -121,7 +134,7 @@ export function AppSidebar() {
               <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === item.href}
+                  isActive={pathname.startsWith(item.href)}
                   tooltip={item.label}
                   className="justify-start"
                 >
