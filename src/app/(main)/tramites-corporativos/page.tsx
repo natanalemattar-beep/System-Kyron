@@ -2,14 +2,14 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Globe, UserCog, CheckCircle, ArrowRight, Award } from "lucide-react";
+import { Globe, UserCog, CheckCircle, ArrowRight, Award, Briefcase, Building } from "lucide-react";
 
 const pasosSucursal = [
-    "Estudio de viabilidad y legislación del país destino.",
-    "Legalización y apostilla de documentos de la empresa matriz (ver detalle abajo).",
-    "Inscripción en el registro mercantil del país de destino.",
-    "Obtención de identificaciones fiscales locales.",
-    "Cumplimiento de la normativa cambiaria y de inversión extranjera.",
+    "Registro de sucursal en SAREN (si es nacional).",
+    "Estudio de viabilidad y legislación del país destino (si es internacional).",
+    "Legalización y apostilla de documentos para uso en el extranjero.",
+    "Obtención de identificaciones fiscales locales (nacionales o internacionales).",
+    "Cumplimiento de normativas municipales y de inversión extranjera.",
 ];
 
 const pasosResidencia = [
@@ -25,6 +25,14 @@ const pasosApostilla = [
     "Certificación de RIF y Billetes de Banco.",
     "Poderes Generales o Especiales.",
     "Certificaciones de Gravamen.",
+];
+
+const pasosFranquicia = [
+    "Elaboración del Contrato de Franquicia (Circular de Oferta).",
+    "Registro de la marca y propiedad intelectual.",
+    "Manuales de Operación y Asistencia Técnica.",
+    "Gestión de cánones, regalías y fondos de publicidad.",
+    "Soporte continuo y control de calidad.",
 ];
 
 
@@ -70,14 +78,14 @@ export default function TramitesCorporativosPage() {
         </Card>
       </div>
       <div className="grid gap-8 lg:grid-cols-2 mt-8">
-        {/* Apertura de Sucursal Internacional */}
+        {/* Gestión de Sucursales */}
         <Card className="bg-card/50 backdrop-blur-sm flex flex-col">
             <CardHeader>
                 <CardTitle className="flex items-center gap-3">
-                    <Globe className="h-6 w-6 text-primary"/>
-                    <span>Apertura de Sucursal Internacional</span>
+                    <Building className="h-6 w-6 text-primary"/>
+                    <span>Gestión de Sucursales (Nacional / Internacional)</span>
                 </CardTitle>
-                <CardDescription>Pasos clave y consideraciones para la expansión de su empresa a otros países.</CardDescription>
+                <CardDescription>Pasos clave para la apertura y gestión de sucursales dentro y fuera del país.</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
                 <ul className="space-y-3">
@@ -91,7 +99,7 @@ export default function TramitesCorporativosPage() {
             </CardContent>
             <CardContent>
                 <Button variant="outline" className="w-full">
-                    Iniciar Asesoría Internacional <ArrowRight className="ml-2"/>
+                    Iniciar Asesoría de Expansión <ArrowRight className="ml-2"/>
                 </Button>
             </CardContent>
         </Card>
@@ -118,6 +126,32 @@ export default function TramitesCorporativosPage() {
              <CardContent>
                 <Button variant="outline" className="w-full">
                     Iniciar Trámite de Actualización <ArrowRight className="ml-2"/>
+                </Button>
+            </CardContent>
+        </Card>
+
+        {/* Gestión de Franquicias */}
+        <Card className="bg-card/50 backdrop-blur-sm flex flex-col">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                    <Briefcase className="h-6 w-6 text-primary"/>
+                    <span>Gestión de Franquicias (Franquiciante / Franquiciado)</span>
+                </CardTitle>
+                <CardDescription>Guía para la administración, creación o adquisición de una franquicia.</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow">
+                 <ul className="space-y-3">
+                    {pasosFranquicia.map((paso, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
+                            <span>{paso}</span>
+                        </li>
+                    ))}
+                </ul>
+            </CardContent>
+             <CardContent>
+                <Button variant="outline" className="w-full">
+                    Gestionar Franquicias <ArrowRight className="ml-2"/>
                 </Button>
             </CardContent>
         </Card>
