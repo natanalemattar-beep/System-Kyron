@@ -231,3 +231,5 @@ export default function NominasPage() {
     </div>
   );
 }
+
+    

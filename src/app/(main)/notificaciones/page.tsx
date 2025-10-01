@@ -6,15 +6,24 @@ import { Button } from "@/components/ui/button";
 const notificaciones = [
     {
         id: 1,
-        titulo: "Multa pendiente de pago",
-        descripcion: "Tiene una multa de tránsito por Bs. 500.000 que vence el 30/08/2024.",
-        fecha: "Hace 2 días",
+        titulo: "Aviso de Vencimiento: Permiso de Bomberos",
+        descripcion: "El permiso de Conformidad de Uso (Bomberos) PERM-003 vencerá en 15 días (20/08/2024). Inicie el proceso de renovación.",
+        fecha: "Hace 1 hora",
         icon: AlertTriangle,
         iconColor: "text-orange-500",
         bgColor: "bg-orange-500/10",
     },
     {
         id: 2,
+        titulo: "Multa pendiente de pago",
+        descripcion: "Tiene una multa de tránsito por Bs. 500.000 que vence el 30/08/2024.",
+        fecha: "Hace 2 días",
+        icon: FileWarning,
+        iconColor: "text-red-500",
+        bgColor: "bg-red-500/10",
+    },
+    {
+        id: 3,
         titulo: "Solicitud de Acta de Nacimiento Aprobada",
         descripcion: "Su solicitud Nro. PN-2024-001 ha sido aprobada y está lista para descargar.",
         fecha: "Hace 1 semana",
@@ -23,8 +32,8 @@ const notificaciones = [
         bgColor: "bg-green-500/10",
     },
     {
-        id: 3,
-        titulo: "Recordatorio: Solicitar Declaración de ISLR",
+        id: 4,
+        titulo: "Recordatorio: Declaración de ISLR",
         descripcion: "Recuerde solicitar a los empleados no declarantes su información de ISLR para el próximo cierre.",
         fecha: "Hace 3 días",
         icon: FileWarning,
@@ -72,3 +81,5 @@ export default function NotificacionesPage() {
     </div>
   );
 }
+
+    
