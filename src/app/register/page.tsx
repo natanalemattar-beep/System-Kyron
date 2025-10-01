@@ -27,7 +27,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 export default function RegisterPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -64,9 +64,13 @@ export default function RegisterPage() {
                             <Button variant="outline">Acceder / Registro</Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuItem asChild>
-                                <Link href="/login">Iniciar Sesión</Link>
+                             <DropdownMenuItem asChild>
+                                <Link href="/login?tab=juridica">Iniciar Sesión (Jurídico)</Link>
                             </DropdownMenuItem>
+                             <DropdownMenuItem asChild>
+                                <Link href="/login?tab=natural">Iniciar Sesión (Natural)</Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
                             <DropdownMenuItem asChild>
                                 <Link href="/register">Registrarse</Link>
                             </DropdownMenuItem>
@@ -130,8 +134,12 @@ export default function RegisterPage() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem asChild>
-                        <Link href="/login">Iniciar Sesión</Link>
+                        <Link href="/login?tab=juridica">Iniciar Sesión (Jurídico)</Link>
                     </DropdownMenuItem>
+                     <DropdownMenuItem asChild>
+                        <Link href="/login?tab=natural">Iniciar Sesión (Natural)</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                         <Link href="/register">Registrarse</Link>
                     </DropdownMenuItem>

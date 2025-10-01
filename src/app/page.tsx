@@ -12,7 +12,7 @@ import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { href: "/#quienes-somos", label: "Quiénes Somos" },
@@ -109,8 +109,15 @@ export default function LandingPage() {
                   <div className="border-t pt-6 mt-6 space-y-4">
                     <SheetClose asChild>
                        <Button variant="outline" className="w-full" asChild>
-                          <Link href="/login">
-                            Iniciar Sesión
+                          <Link href="/login?tab=juridica">
+                            Iniciar Sesión (Jurídico)
+                          </Link>
+                        </Button>
+                    </SheetClose>
+                    <SheetClose asChild>
+                       <Button variant="outline" className="w-full" asChild>
+                          <Link href="/login?tab=natural">
+                            Iniciar Sesión (Natural)
                           </Link>
                         </Button>
                     </SheetClose>

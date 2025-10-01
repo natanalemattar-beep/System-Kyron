@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FileText,
   Building,
@@ -17,12 +17,23 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const [juridicaPasswordVisible, setJuridicaPasswordVisible] = useState(false);
   const [naturalPasswordVisible, setNaturalPasswordVisible] = useState(false);
   const [rif, setRif] = useState("");
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab") || "juridica";
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab === "juridica" || tab === "natural") {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
 
   const handleRifChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -55,8 +66,12 @@ export default function LoginPage() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem asChild>
-                        <Link href="/login">Iniciar Sesión</Link>
+                        <Link href="/login?tab=juridica">Iniciar Sesión (Jurídico)</Link>
                     </DropdownMenuItem>
+                     <DropdownMenuItem asChild>
+                        <Link href="/login?tab=natural">Iniciar Sesión (Natural)</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                         <Link href="/register">Registrarse</Link>
                     </DropdownMenuItem>
@@ -73,7 +88,7 @@ export default function LoginPage() {
             <CardDescription>Accede a tu cuenta para gestionar tus trámites</CardDescription>
           </CardHeader>
           <CardContent className="p-6">
-            <Tabs defaultValue="juridica" className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="juridica" className="data-[state=active]:shadow-sm flex gap-2">
                     <Building className="h-5 w-5"/> Jurídica
