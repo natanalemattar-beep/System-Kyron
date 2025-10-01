@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import { TrendingUp, Users, Package, ShoppingCart, DollarSign, ArrowRight, Download } from "lucide-react";
+import { TrendingUp, Users, Package, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import Link from "next/link";
 
 const kpiData = [
     { title: "Ingresos Totales", value: formatCurrency(125340.50, 'Bs.'), icon: DollarSign, trend: "+15.2% vs mes anterior" },
@@ -20,6 +21,13 @@ const topProducts = [
     { id: "PROD-002", name: "Tóner para Impresora", sales: 350, revenue: formatCurrency(29750, 'Bs.') },
     { id: "PROD-004", name: "Silla de Oficina Ergonómica", sales: 80, revenue: formatCurrency(12000, 'Bs.') },
 ];
+
+const bottomProducts = [
+    { id: "PROD-008", name: "Alfombrilla para Mouse", sales: 15, revenue: formatCurrency(150, 'Bs.') },
+    { id: "PROD-012", name: "Filtro de Pantalla 14''", sales: 10, revenue: formatCurrency(200, 'Bs.') },
+    { id: "PROD-009", name: "Portalápices de Metal", sales: 25, revenue: formatCurrency(125, 'Bs.') },
+];
+
 
 const salesByChannel = [
     { channel: "Tienda Física", value: 75200 },
@@ -59,24 +67,55 @@ export default function AnalisisVentasPage() {
         ))}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-5">
-        <Card className="lg:col-span-3">
-            <CardHeader>
-                <CardTitle>Ventas por Canal</CardTitle>
-            </CardHeader>
-            <CardContent className="h-80">
-                 <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={salesByChannel} layout="vertical" margin={{ left: 20 }}>
-                        <XAxis type="number" hide />
-                        <YAxis dataKey="channel" type="category" tickLine={false} axisLine={false} />
-                        <Tooltip cursor={{ fill: 'hsl(var(--secondary))' }} formatter={(value) => formatCurrency(value as number, 'Bs.')}/>
-                        <Legend />
-                        <Bar dataKey="value" name="Ingresos" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
-                    </BarChart>
-                </ResponsiveContainer>
-            </CardContent>
-        </Card>
-        <Card className="lg:col-span-2">
+      <div className="grid gap-8 lg:grid-cols-3">
+        <div className="lg:col-span-2 grid gap-8">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Ventas por Canal</CardTitle>
+                </CardHeader>
+                <CardContent className="h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={salesByChannel} layout="vertical" margin={{ left: 20 }}>
+                            <XAxis type="number" hide />
+                            <YAxis dataKey="channel" type="category" tickLine={false} axisLine={false} />
+                            <Tooltip cursor={{ fill: 'hsl(var(--secondary))' }} formatter={(value) => formatCurrency(value as number, 'Bs.')}/>
+                            <Legend />
+                            <Bar dataKey="value" name="Ingresos" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><TrendingDown className="text-red-500"/>Productos con Menor Demanda</CardTitle>
+                    <CardDescription>Top 3 productos con menores ingresos. Considera nuevas estrategias.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Producto</TableHead>
+                                <TableHead className="text-right">Ingresos</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {bottomProducts.map((prod) => (
+                                <TableRow key={prod.id}>
+                                    <TableCell className="font-medium">{prod.name}</TableCell>
+                                    <TableCell className="text-right">{prod.revenue}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+                <CardContent>
+                     <Button asChild variant="outline" className="w-full">
+                        <Link href="/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
+                    </Button>
+                </CardContent>
+            </Card>
+        </div>
+        <Card className="lg:col-span-1">
             <CardHeader>
                 <CardTitle>Productos Más Vendidos</CardTitle>
                 <CardDescription>Top 3 productos por ingresos generados.</CardDescription>
@@ -105,5 +144,3 @@ export default function AnalisisVentasPage() {
     </div>
   );
 }
-
-    

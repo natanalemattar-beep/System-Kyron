@@ -49,6 +49,7 @@ import {
   ShieldQuestion,
   Lightbulb,
   Calendar,
+  Building as BuildingIcon,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -69,6 +70,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
   { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
+  { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
   { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
   { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
   { href: "/autorizaciones", label: "Autorizaciones", icon: Shield },
@@ -111,6 +113,7 @@ const facturacionMenuItems = [
 
 const recursosHumanosMenuItems = [
     { href: "/nominas", label: "Nóminas", icon: Users },
+    { href: "/proteccion-pensiones", label: "Protección Pensiones", icon: Shield },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/ivss", label: "IVSS (14-01, 14-02)", icon: Briefcase },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
@@ -155,7 +158,6 @@ export function AppSidebar() {
     if (path === '/dashboard') return false; // This is the natural dashboard
     if (naturalPaths.some(p => p !== '/dashboard' && path.startsWith(p))) return false;
     
-    // Check for specific juridico paths to be sure
     const juridicoPaths = [
         ...juridicoMainMenuItems.map(item => item.href),
         ...finanzasContabilidadMenuItems.map(item => item.href),
@@ -165,13 +167,12 @@ export function AppSidebar() {
         ...generalMenuItems.map(item => item.href),
         ...analisisCrecimientoMenuItems.map(item => item.href),
         '/declaracion-iva',
+        '/proteccion-pensiones',
+        '/tipos-empresa',
     ];
 
     if (juridicoPaths.some(p => path.startsWith(p))) return true;
 
-    // Fallback for pages that could be either, like /notificaciones
-    // A more robust solution might be needed if ambiguity increases.
-    // For now, if it's not explicitly natural, assume juridico if not on a natural page.
     return true;
   }
   
