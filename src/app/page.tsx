@@ -182,9 +182,25 @@ export default function LandingPage() {
                 Simplifica tus operaciones, garantiza el cumplimiento con el SENIAT y toma el control total de tu negocio.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <Button size="lg" asChild>
-                    <Link href="#contacto">Solicitar Demo</Link>
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button size="lg">
+                            Acceder
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login-natural">Iniciar Sesión Natural</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
+                        </DropdownMenuItem>
+                         <DropdownMenuItem asChild>
+                            <Link href="/recursos-humanos">Recursos Humanos</Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
                  <Button size="lg" variant="outline" asChild>
                     <Link href="/register">Registrarse</Link>
                 </Button>
