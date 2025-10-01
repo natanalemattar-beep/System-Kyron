@@ -1,15 +1,17 @@
 
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { FileText, Building, User, ArrowRight, BookOpen, ShieldCheck, Handshake, Mail, Phone, MapPin, Send } from "lucide-react";
+import { FileText, Building, User, ArrowRight, BookOpen, ShieldCheck, Handshake, Mail, Phone, MapPin, Send, Menu } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 
 const navLinks = [
   { href: "/#quienes-somos", label: "Quiénes Somos" },
@@ -79,7 +81,7 @@ export default function LandingPage() {
                 </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
             <Button variant="ghost" asChild>
               <Link href="/login">
@@ -91,6 +93,44 @@ export default function LandingPage() {
                 Registrarse
               </Link>
             </Button>
+          </div>
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Abrir menú</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <nav className="flex flex-col gap-6 text-lg font-medium mt-8">
+                  {navLinks.map((link) => (
+                    <SheetClose asChild key={link.label}>
+                      <Link href={link.href} className="text-muted-foreground hover:text-foreground">
+                        {link.label}
+                      </Link>
+                    </SheetClose>
+                  ))}
+                  <div className="border-t pt-6 mt-6 space-y-4">
+                    <SheetClose asChild>
+                       <Button variant="outline" className="w-full" asChild>
+                          <Link href="/login">
+                            Iniciar Sesión
+                          </Link>
+                        </Button>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <Button className="w-full" asChild>
+                          <Link href="/register">
+                            Registrarse
+                          </Link>
+                        </Button>
+                    </SheetClose>
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
