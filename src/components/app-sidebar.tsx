@@ -35,7 +35,6 @@ import {
   UserX,
   Banknote,
   Sparkles,
-  HeartHandshake,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -84,6 +83,7 @@ const recursosHumanosMenuItems = [
 ];
 
 const librosRegistroMenuItems = [
+    { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
     { href: "/libro-horas-extras", label: "Libro Horas Extras", icon: Timer },
     { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
     { href: "/libro-horario-nocturno", label: "Libro Horario Nocturno", icon: Moon },

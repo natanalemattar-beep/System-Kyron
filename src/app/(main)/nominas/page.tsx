@@ -4,19 +4,39 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud } from "lucide-react";
+import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
+
+// Simple Telegram Icon
+const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+  </svg>
+);
+
 
 const empleados = [
-    { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", salarioBase: 12000, estado: "Activo", email: "ana.perez@email.com", telefono: "0412-1112233" },
-    { id: 2, nombre: "Luis Gómez", cedula: "V-18.765.432", cargo: "Desarrollador Senior", salarioBase: 10500, estado: "Activo", email: "luis.gomez@email.com", telefono: "0414-4445566" },
-    { id: 3, nombre: "María Rodriguez", cedula: "V-20.111.222", cargo: "Diseñadora UI/UX", salarioBase: 9000, estado: "De Vacaciones", email: "maria.r@email.com", telefono: "0416-7778899" },
-    { id: 4, nombre: "Carlos Sanchez", cedula: "E-8.999.000", cargo: "Analista de Calidad", salarioBase: 8500, estado: "Activo", email: "carlos.sanchez@email.com", telefono: "0424-0001122" },
+    { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", salarioBase: 12000, estado: "Activo", email: "ana.perez@email.com", telefono: "0412-1112233", fechaIngreso: "01/01/2020" },
+    { id: 2, nombre: "Luis Gómez", cedula: "V-18.765.432", cargo: "Desarrollador Senior", salarioBase: 10500, estado: "Activo", email: "luis.gomez@email.com", telefono: "0414-4445566", fechaIngreso: "15/03/2021" },
+    { id: 3, nombre: "María Rodriguez", cedula: "V-20.111.222", cargo: "Diseñadora UI/UX", salarioBase: 9000, estado: "De Vacaciones", email: "maria.r@email.com", telefono: "0416-7778899", fechaIngreso: "10/06/2022" },
+    { id: 4, nombre: "Carlos Sanchez", cedula: "E-8.999.000", cargo: "Analista de Calidad", salarioBase: 8500, estado: "Activo", email: "carlos.sanchez@email.com", telefono: "0424-0001122", fechaIngreso: "01/11/2023" },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
@@ -26,25 +46,36 @@ const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
 };
 
 export default function NominasPage() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSendDialogOpen, setIsSendDialogOpen] = useState(false);
+  const [isCartaDialogOpen, setIsCartaDialogOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<(typeof empleados)[0] | null>(null);
   const { toast } = useToast();
 
-  const handleOpenDialog = (employee: (typeof empleados)[0]) => {
+  const handleOpenSendDialog = (employee: (typeof empleados)[0]) => {
     setSelectedEmployee(employee);
-    setIsDialogOpen(true);
+    setIsSendDialogOpen(true);
+  };
+  
+  const handleOpenCartaDialog = (employee: (typeof empleados)[0]) => {
+    setSelectedEmployee(employee);
+    setIsCartaDialogOpen(true);
   };
 
   const handleSend = (method: 'whatsapp' | 'email') => {
-    // Simulate sending action
-    console.log(`Sending receipt to ${selectedEmployee?.nombre} via ${method}`);
     toast({
       title: "Recibo Enviado Exitosamente",
       description: `El recibo de ${selectedEmployee?.nombre} fue enviado por ${method} y archivado en la nube.`,
     });
-    setIsDialogOpen(false);
+    setIsSendDialogOpen(false);
   };
 
+  const handleSendCarta = (method: 'whatsapp' | 'email' | 'telegram') => {
+    toast({
+      title: "Carta de Trabajo Enviada",
+      description: `La carta de trabajo de ${selectedEmployee?.nombre} fue enviada por ${method}.`,
+    });
+    setIsCartaDialogOpen(false);
+  };
 
   return (
     <div className="p-4 md:p-8">
@@ -97,16 +128,17 @@ export default function NominasPage() {
                                 <TableCell className="text-center">
                                     <Badge variant={statusVariant[emp.estado]}>{emp.estado}</Badge>
                                 </TableCell>
-                                <TableCell className="text-right space-x-2">
-                                    <Button asChild variant="outline" size="sm">
+                                <TableCell className="text-right space-x-1">
+                                    <Button asChild variant="ghost" size="sm">
                                        <Link href={`/nominas/${emp.id}`}>
-                                            <Eye className="mr-2 h-4 w-4" />
-                                            Ver Recibo
+                                            <Eye className="h-4 w-4" />
                                        </Link>
                                     </Button>
-                                    <Button variant="default" size="sm" onClick={() => handleOpenDialog(emp)}>
-                                        <Send className="mr-2 h-4 w-4" />
-                                        Enviar Recibo
+                                    <Button variant="ghost" size="sm" onClick={() => handleOpenSendDialog(emp)}>
+                                        <Send className="h-4 w-4" />
+                                    </Button>
+                                    <Button variant="ghost" size="sm" onClick={() => handleOpenCartaDialog(emp)}>
+                                        <Briefcase className="h-4 w-4" />
                                     </Button>
                                 </TableCell>
                             </TableRow>
@@ -116,8 +148,9 @@ export default function NominasPage() {
             </CardContent>
         </Card>
 
+        {/* Send Receipt Dialog */}
         {selectedEmployee && (
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <Dialog open={isSendDialogOpen} onOpenChange={setIsSendDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Enviar Recibo de Pago a {selectedEmployee.nombre}</DialogTitle>
@@ -140,6 +173,57 @@ export default function NominasPage() {
                             <Cloud className="mr-2 h-4 w-4 text-green-500"/>
                             <span>El recibo se archivará de forma segura en la nube.</span>
                         </div>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+        )}
+
+        {/* Generate Work Certificate Dialog */}
+        {selectedEmployee && (
+           <Dialog open={isCartaDialogOpen} onOpenChange={setIsCartaDialogOpen}>
+                <DialogContent className="sm:max-w-2xl">
+                    <DialogHeader>
+                        <DialogTitle>Carta de Trabajo: {selectedEmployee.nombre}</DialogTitle>
+                        <DialogDescription>
+                            Previsualización de la carta de trabajo. Puedes enviarla o imprimirla.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <Card className="my-4">
+                        <CardContent className="p-8 text-sm text-justify space-y-6">
+                            <h3 className="text-center font-bold text-lg">CARTA DE TRABAJO</h3>
+                            <p className="pt-8">A quien pueda interesar,</p>
+                            <p>
+                                Por medio de la presente hacemos constar que el(la) ciudadano(a) <span className="font-bold">{selectedEmployee.nombre}</span>, titular de la cédula de identidad N° <span className="font-bold">{selectedEmployee.cedula}</span>, presta sus servicios en nuestra empresa, Empresa S.A. (RIF: J-12345678-9), desde el <span className="font-bold">{selectedEmployee.fechaIngreso}</span>, desempeñando el cargo de <span className="font-bold">{selectedEmployee.cargo}</span> y devengando un salario mensual de <span className="font-bold">{formatCurrency(selectedEmployee.salarioBase, 'Bs.')}</span>.
+                            </p>
+                            <p>
+                                Constancia que se expide a petición de la parte interesada en la ciudad de Caracas, a los {formatDate(new Date().toISOString())}.
+                            </p>
+                            <div className="pt-16 text-center">
+                                <p className="border-t-2 border-foreground inline-block px-8">Atentamente,</p>
+                                <p className="font-bold">Recursos Humanos</p>
+                                <p>Empresa S.A.</p>
+                            </div>
+                        </CardContent>
+                    </Card>
+                    <DialogFooter className="sm:justify-between">
+                         <div className="flex gap-2">
+                            <Button className="w-full justify-start" onClick={() => handleSendCarta('whatsapp')}>
+                                <MessageCircle className="mr-2" />
+                                WhatsApp
+                            </Button>
+                            <Button className="w-full justify-start" onClick={() => handleSendCarta('email')}>
+                                <Mail className="mr-2" />
+                                Email
+                            </Button>
+                             <Button className="w-full justify-start" onClick={() => handleSendCarta('telegram')}>
+                                <TelegramIcon className="mr-2" />
+                                Telegram
+                            </Button>
+                        </div>
+                        <Button variant="outline" onClick={() => window.print()}>
+                            <Printer className="mr-2" />
+                            Imprimir
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
