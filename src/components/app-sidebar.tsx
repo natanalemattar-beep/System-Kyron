@@ -74,6 +74,7 @@ const juridicoMainMenuItems = [
   { href: "/multas", label: "Multas", icon: AlertTriangle },
   { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
   { href: "/cumplimiento", label: "Cumplimiento", icon: ShieldAlert },
+  { href: "/administracion", label: "Análisis FODA", icon: Briefcase },
 ];
 
 const contabilidadMenuItems = [
