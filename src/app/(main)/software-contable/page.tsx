@@ -1,22 +1,40 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Shield, SlidersHorizontal, Users, Zap, Puzzle, ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { Check, CheckCircle, HelpCircle, Puzzle, ThumbsUp, ShieldCheck, ArrowRight } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 
-const factores = [
-    { icon: Shield, title: "Homologación del SENIAT", description: "Esencial para que la facturación y los reportes sean válidos fiscalmente." },
-    { icon: SlidersHorizontal, title: "Funcionalidades Específicas", description: "Debe cubrir facturación, inventario, cuentas por cobrar/pagar y reportes financieros." },
-    { icon: Users, title: "Soporte Técnico Local", description: "Un soporte eficiente en Venezuela es clave para resolver problemas rápidamente." },
+const faqItems = [
+    {
+        question: "¿Qué es un sistema administrativo en Venezuela?",
+        answer: "Es un software que gestiona procesos contables y de facturación, adaptado a la normativa del país, especialmente las exigencias del SENIAT."
+    },
+    {
+        question: "¿Cuál es el mejor software administrativo homologado por el Seniat?",
+        answer: "Depende de cada negocio, pero opciones como Hybrid LiteOS, Galac y Profit Plus destacan por cumplir con la providencia vigente. La elección debe basarse en el tamaño de la empresa y sus necesidades específicas."
+    },
+    {
+        question: "¿Qué beneficios tiene para una pyme?",
+        answer: "Ordena la facturación, controla inventarios, reduce errores humanos y, lo más importante, asegura el cumplimiento fiscal, lo que se traduce en tranquilidad."
+    },
+    {
+        question: "¿Se puede usar a distancia?",
+        answer: "Sí, cada vez más soluciones ofrecen acceso remoto o son basadas en la nube, ideal para gerentes que necesitan revisar reportes desde cualquier lugar."
+    }
 ];
 
-const opciones = [
-    { title: "ERPs Consolidados (Galac, Profit Plus)", description: "Sistemas robustos con un ecosistema completo, ideales para medianas y grandes empresas con operaciones complejas." },
-    { title: "Sistemas Modernos (Hybrid LitePRO)", description: "Soluciones flexibles para empresas con alto volumen de transacciones y múltiples sucursales, ofreciendo contabilidad centralizada." },
-    { title: "Software en la Nube (Zoho Books)", description: "Permiten el acceso desde cualquier lugar, perfectos para una gestión ágil y remota de los datos financieros." },
+const softwareComparison = [
+  { name: "Saint (versión clásica)", homologated: "Parcial", focus: "Contabilidad y facturación básica", pros: "Amplia trayectoria, conocido por usuarios tradicionales", idealFor: "Comercios que ya lo manejan" },
+  { name: "Galac Administrativo", homologated: "Sí", focus: "Gestión integral administrativa y contable", pros: "Marca reconocida, ecosistema completo", idealFor: "Empresas medianas y grandes" },
+  { name: "Profit Plus", homologated: "Sí", focus: "Administración + contabilidad", pros: "Flexibilidad de módulos, soporte extendido", idealFor: "Negocios en crecimiento que necesitan escalabilidad" },
+  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", focus: "Gestión práctica y flexible", pros: "Cumplimiento actualizado, fácil de usar, pensado para PYMEs", idealFor: "PYMEs que buscan simplicidad y confianza" },
+  { name: "SAP Business One", homologated: "Sí (Versión adaptada)", focus: "ERP corporativo", pros: "Potente, con integración global", idealFor: "Grandes corporaciones" },
 ];
+
 
 export default function SoftwareContablePage() {
   return (
@@ -24,75 +42,149 @@ export default function SoftwareContablePage() {
        <header className="mb-8 text-center">
         <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
             <Puzzle className="h-10 w-10 text-primary"/>
-            Guía para Elegir tu Sistema Contable en Venezuela
+            Guía Completa para Elegir tu Sistema Administrativo
         </h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Encuentra el software administrativo o ERP que mejor se adapte a tu empresa, asegurando el cumplimiento con la normativa del SENIAT.
+          En un entorno donde la inflación y los impuestos son retos constantes, contar con un sistema confiable no es un lujo: es un salvavidas que da control y tranquilidad al empresario.
         </p>
       </header>
 
-      {/* Factores Clave */}
-      <section>
-         <h2 className="text-2xl font-semibold mb-8 text-center">Factores Clave a Considerar</h2>
-         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {factores.map(factor => (
-                <Card key={factor.title} className="bg-card/50 backdrop-blur-sm">
-                    <CardHeader className="items-center text-center">
-                        <div className="p-4 bg-primary/10 rounded-full mb-2">
-                             <factor.icon className="h-8 w-8 text-primary"/>
-                        </div>
-                        <CardTitle>{factor.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-center text-sm text-muted-foreground">
-                        {factor.description}
-                    </CardContent>
-                </Card>
-            ))}
-         </div>
-      </section>
+      {/* Main Sections */}
+      <div className="grid lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>¿Qué es un Sistema Administrativo y por qué es Clave en Venezuela?</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-muted-foreground">
+                        Un sistema administrativo es un software que ayuda a manejar las operaciones de un negocio: facturación, inventario, contabilidad, compras y ventas. En Venezuela, su importancia es doble: no solo facilita la gestión interna, sino que también asegura el cumplimiento con las normativas del SENIAT, que exige que los programas estén homologados según la providencia vigente.
+                    </p>
+                </CardContent>
+            </Card>
 
-       {/* Opciones de Software */}
-      <section>
-         <h2 className="text-2xl font-semibold mb-8 text-center">Opciones de Software en el Mercado</h2>
-          <div className="space-y-4">
-            {opciones.map(opt => (
-                <div key={opt.title} className="p-4 rounded-lg bg-secondary/30 flex items-start gap-4">
-                    <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Evolución de los Sistemas Administrativos en el País</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <p>El mercado venezolano ha visto varias etapas. Desde pioneros como <strong>Saint</strong> en los años 90, pasando por soluciones consolidadas como <strong>Galac y Profit Plus</strong>, hasta llegar a nuevas alternativas como <strong>Hybrid LiteOS</strong>, que responden mejor a la necesidad actual de simplicidad y cumplimiento legal.</p>
+                    <p className="text-sm italic text-muted-foreground p-3 bg-secondary/30 rounded-lg">
+                        "Comencé hace más de 25 años con Saint en DOS. Aprendí que la tecnología solo sirve si se adapta a la realidad del dueño de negocio: sus miedos, su forma de llevar cuentas y hasta su relación con el Seniat."
+                    </p>
+                </CardContent>
+            </Card>
+        </div>
+        <Card className="lg:col-span-1 bg-primary/10 border-primary/20">
+             <CardHeader>
+                <CardTitle className="flex items-center gap-2"><ThumbsUp/> Beneficios Clave</CardTitle>
+            </CardHeader>
+             <CardContent className="space-y-4">
+                <div className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
                     <div>
-                        <h3 className="font-semibold">{opt.title}</h3>
-                        <p className="text-sm text-muted-foreground">{opt.description}</p>
+                        <h4 className="font-semibold">Control de Inventario y Facturación</h4>
+                        <p className="text-xs text-muted-foreground">Evita pérdidas y factura sin errores.</p>
                     </div>
                 </div>
+                 <div className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
+                    <div>
+                        <h4 className="font-semibold">Cumplimiento con el SENIAT</h4>
+                        <p className="text-xs text-muted-foreground">La clave es usar software homologado para evitar multas.</p>
+                    </div>
+                </div>
+                 <div className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
+                    <div>
+                        <h4 className="font-semibold">Mayor Productividad</h4>
+                        <p className="text-xs text-muted-foreground">Reduce errores humanos y enfócate en crecer.</p>
+                    </div>
+                </div>
+                 <div className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
+                    <div>
+                        <h4 className="font-semibold">Paz Mental</h4>
+                        <p className="text-xs text-muted-foreground">Un buen sistema te da tranquilidad y control.</p>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+      </div>
+
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+            <CardTitle>Comparativa de Sistemas Administrativos en Venezuela</CardTitle>
+            <CardDescription>
+                No todos los negocios tienen las mismas necesidades. Esta tabla resume las opciones más comunes del mercado.
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <div className="overflow-x-auto">
+                 <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Software</TableHead>
+                            <TableHead className="text-center">Homologado SENIAT</TableHead>
+                            <TableHead>Ideal para…</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {softwareComparison.map((item) => (
+                            <TableRow key={item.name}>
+                                <TableCell className="font-medium">{item.name}</TableCell>
+                                <TableCell className="text-center">
+                                    {item.homologated === "Sí" || item.homologated === "Sí (Providencia 121)" || item.homologated === "Sí (Versión adaptada)" ? 
+                                    <Badge variant="default" className="bg-green-600 hover:bg-green-700"><Check className="mr-1 h-4 w-4"/> Sí</Badge> : 
+                                    <Badge variant="secondary">{item.homologated}</Badge>
+                                    }
+                                </TableCell>
+                                <TableCell>{item.idealFor}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
+        </CardContent>
+       </Card>
+
+      {/* FAQ */}
+      <section>
+         <h2 className="text-2xl font-semibold mb-8 text-center">Preguntas Frecuentes</h2>
+         <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
+            {faqItems.map((item, index) => (
+                 <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger>
+                        <div className="flex items-center gap-3">
+                            <HelpCircle className="h-5 w-5 text-primary" />
+                            <span>{item.question}</span>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pl-10">
+                        {item.answer}
+                    </AccordionContent>
+                </AccordionItem>
             ))}
-        </div>
+        </Accordion>
       </section>
       
-      {/* Integración con System C.R.S */}
+       {/* Call to Action */}
        <Card className="bg-gradient-to-r from-primary/80 to-secondary/80 text-primary-foreground">
-        <div className="grid md:grid-cols-5 items-center">
-            <div className="md:col-span-3 p-8">
-                 <CardHeader className="p-0">
-                    <CardTitle className="text-3xl flex items-center gap-3"><Zap/>System C.R.S: Tu Centro de Integración</CardTitle>
-                    <CardDescription className="text-primary-foreground/80 pt-2">
-                        System C.R.S no es solo un sistema contable, es un ecosistema que se integra con tu software administrativo (Galac, Profit Plus, etc.) para centralizar y automatizar todos tus flujos de trabajo.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="p-0 pt-6 space-y-3">
-                    <p>✓ Conecta tu facturación para generar y timbrar documentos fiscales automáticamente.</p>
-                    <p>✓ Sincroniza tus libros contables para facilitar las declaraciones de IVA e ISLR.</p>
-                    <p>✓ Automatiza la gestión de permisos y notificaciones de vencimiento.</p>
-                </CardContent>
+         <CardContent className="p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+                <h2 className="text-3xl font-bold">Da el Siguiente Paso con Tranquilidad</h2>
+                <p className="mt-2 opacity-80 max-w-2xl">
+                    Elegir un sistema administrativo en Venezuela no es solo una decisión técnica: es una inversión en tu tranquilidad y en el futuro de tu negocio.
+                </p>
             </div>
-             <div className="md:col-span-2 p-8 text-center bg-black/20 h-full flex flex-col justify-center rounded-r-lg">
-                <h3 className="text-xl font-bold">¿Necesitas Ayuda?</h3>
-                <p className="mt-2 mb-4 text-sm opacity-80">Nuestro equipo de expertos puede asesorarte para encontrar la combinación de software perfecta para tu negocio.</p>
-                <Button variant="secondary" className="bg-background text-foreground hover:bg-background/80 w-full">
-                    Solicitar Asesoría de Integración <ArrowRight className="ml-2"/>
-                </Button>
-            </div>
-        </div>
+             <Button size="lg" variant="secondary" className="bg-background text-foreground hover:bg-background/80 shrink-0">
+                Solicitar Asesoría Personalizada <ArrowRight className="ml-2"/>
+            </Button>
+         </CardContent>
        </Card>
 
     </div>
   );
 }
+
+    
