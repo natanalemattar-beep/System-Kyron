@@ -3,8 +3,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { Button } from "@/components/ui/button";
-import { Bell, LogOut, Settings, User, FileText, CreditCard, Shield } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Bell, LogOut, Settings, User } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -34,14 +33,8 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 <DropdownMenuItem asChild>
                     <Link href="/dashboard"><User className="mr-2"/>Perfil</Link>
                 </DropdownMenuItem>
-                 <DropdownMenuItem asChild>
-                    <Link href="/seguridad"><Shield className="mr-2"/>Seguridad</Link>
-                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                    <Link href="/facturacion"><CreditCard className="mr-2"/>Facturación</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                    <Link href="/soluciones-ia"><Settings className="mr-2"/>Ajustes</Link>
+                    <Link href="/seguridad"><Settings className="mr-2"/>Ajustes</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>

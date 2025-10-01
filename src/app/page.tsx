@@ -1,40 +1,66 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { FileText, Building, User, ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { FileText, Building, User, ArrowRight, BookOpen, ShieldCheck, Handshake, Mail, Phone, MapPin, Send } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
 
 const navLinks = [
-  { href: "/#productos", label: "Productos" },
+  { href: "/#quienes-somos", label: "Quiénes Somos" },
   { href: "/#servicios", label: "Servicios" },
-  { href: "/#contabilidad", label: "Contabilidad" },
-  { href: "/seguros", label: "Seguro Contable y Jurídico" },
   { href: "/#contacto", label: "Contacto" },
+  { href: "/seguros", label: "Seguro Contable y Jurídico" },
 ];
 
-const productsAndServices = [
+const services = [
     {
-        title: "Registro Empresarial",
-        description: "Constitución y legalización de tu empresa de forma rápida y segura.",
-        image: "https://picsum.photos/seed/bridge/600/400",
-        dataAiHint: "bridge structure"
+        title: "Registro y Legalización Empresarial",
+        description: "Constituimos, legalizamos y actualizamos tu empresa ante todos los entes gubernamentales.",
+        icon: Building,
+        href: "/legalizacion-empresa",
     },
     {
-        title: "Gestión Contable",
-        description: "Soluciones completas para la contabilidad y finanzas de tu negocio.",
-        image: "https://picsum.photos/seed/desktop/600/400",
-        dataAiHint: "desktop computer"
+        title: "Gestión Contable y Fiscal",
+        description: "Lleva tu contabilidad al día, declara impuestos y cumple con el SENIAT sin estrés.",
+        icon: BookOpen,
+        href: "/reports",
     },
     {
-        title: "Trámites Personales",
-        description: "Gestiona documentos civiles y personales con facilidad y confianza.",
-        image: "https://picsum.photos/seed/waterfall/600/400",
-        dataAiHint: "waterfall"
+        title: "Cumplimiento y Permisología",
+        description: "Gestionamos todos los permisos, licencias y solvencias que tu negocio necesita para operar.",
+        icon: ShieldCheck,
+        href: "/permisos",
+    },
+    {
+        title: "Trámites para Personas Naturales",
+        description: "Solicita documentos civiles, antecedentes penales y gestiona trámites personales con facilidad.",
+        icon: User,
+        href: "/dashboard",
+    },
+    {
+        title: "Asesoría Estratégica",
+        description: "Te guiamos en la toma de decisiones para el crecimiento y la sostenibilidad de tu negocio.",
+        icon: Handshake,
+        href: "/asesoria-publicidad",
     }
 ]
 
 export default function LandingPage() {
+    const { toast } = useToast();
+
+    const handleContactSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        toast({
+            title: "Mensaje Enviado",
+            description: "Gracias por contactarnos. Nos pondremos en contacto contigo a la brevedad.",
+        });
+    };
+
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
@@ -43,11 +69,11 @@ export default function LandingPage() {
             <div className="bg-primary text-primary-foreground p-2 rounded-md">
               <FileText className="h-6 w-6" />
             </div>
-            <span className="text-lg font-bold">System CRS</span>
+            <span className="text-lg font-bold">System C.R.S</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             {navLinks.map((link) => (
-                <Link key={link.label} href={link.href} className="text-muted-foreground hover:text-foreground transition-colors data-[active=true]:text-foreground data-[active=true]:font-semibold">
+                <Link key={link.label} href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
                     {link.label}
                 </Link>
             ))}
@@ -55,8 +81,12 @@ export default function LandingPage() {
           <div className="flex items-center gap-2">
             <Button variant="ghost" asChild>
               <Link href="/login">
-                <User className="mr-2 h-4 w-4" />
                 Iniciar Sesión
+              </Link>
+            </Button>
+             <Button asChild>
+              <Link href="/register">
+                Registrarse
               </Link>
             </Button>
           </div>
@@ -64,38 +94,135 @@ export default function LandingPage() {
       </header>
 
       <main className="flex-1">
-        <section className="container mx-auto px-4 py-24 md:py-32 text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary">
-                System CRS
+        {/* Hero Section */}
+        <section className="container mx-auto px-4 py-24 md:py-32 text-center flex flex-col items-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl">
+                La Plataforma Digital para la Gestión de Trámites en Venezuela
             </h1>
-            <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-                Soluciones Comerciales y Contables para su Negocio
+            <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+                Simplificamos la burocracia para que puedas enfocarte en el crecimiento de tu negocio. Registra tu empresa, gestiona permisos y cumple con tus obligaciones fiscales en un solo lugar.
             </p>
+            <div className="mt-8 flex gap-4">
+                <Button size="lg" asChild>
+                    <Link href="/register">Comenzar Ahora</Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                    <Link href="#servicios">Saber Más</Link>
+                </Button>
+            </div>
         </section>
 
-        <section id="productos" className="py-16 bg-secondary/30">
+        {/* Quienes Somos */}
+        <section id="quienes-somos" className="py-16 md:py-24 bg-secondary/50">
+            <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                     <Image src="https://picsum.photos/seed/office-team/800/600" alt="Equipo de System C.R.S" data-ai-hint="office team" width={800} height={600} className="rounded-lg shadow-md"/>
+                </div>
+                <div className="text-left">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Nuestra Misión</h2>
+                    <p className="text-lg text-muted-foreground mb-6">
+                        En System C.R.S, nuestra misión es ser la plataforma digital oficial para la gestión integral de trámites de personas jurídicas y naturales en Venezuela. Nacimos de la necesidad de simplificar procesos complejos y centralizar la información, ofreciendo una herramienta confiable y segura que le devuelve el tiempo a los empresarios y ciudadanos.
+                    </p>
+                     <Button variant="outline" asChild>
+                        <Link href="/manual-usuario">Conoce más sobre nosotros</Link>
+                    </Button>
+                </div>
+            </div>
+        </section>
+
+        {/* Servicios */}
+        <section id="servicios" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Nuestros Productos y Servicios</h2>
+                <div className="text-center max-w-3xl mx-auto mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema de Soluciones para Ti</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        Desde la creación de tu empresa hasta la gestión diaria, te acompañamos en cada paso.
+                    </p>
+                </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {productsAndServices.map(item => (
-                        <Card key={item.title}>
-                            <CardContent className="p-0">
-                                <Image src={item.image} alt={item.title} data-ai-hint={item.dataAiHint} width={600} height={400} className="rounded-t-lg aspect-video object-cover"/>
-                            </CardContent>
-                            <CardHeader>
+                    {services.map(item => (
+                        <Card key={item.title} className="text-center flex flex-col">
+                            <CardHeader className="items-center">
+                                <div className="p-4 bg-primary/10 rounded-full mb-4 w-max">
+                                    <item.icon className="h-8 w-8 text-primary"/>
+                                </div>
                                 <CardTitle>{item.title}</CardTitle>
-                                <CardDescription>{item.description}</CardDescription>
                             </CardHeader>
+                            <CardContent className="flex-grow">
+                                <CardDescription>{item.description}</CardDescription>
+                            </CardContent>
+                            <CardContent>
+                                <Button variant="secondary" className="w-full" asChild>
+                                    <Link href={item.href}>
+                                        Explorar <ArrowRight className="ml-2 h-4 w-4"/>
+                                    </Link>
+                                </Button>
+                            </CardContent>
                         </Card>
                     ))}
                 </div>
             </div>
         </section>
+
+         {/* Contacto */}
+        <section id="contacto" className="py-16 md:py-24 bg-secondary/50">
+            <div className="container mx-auto px-4 md:px-6">
+                 <div className="text-center max-w-3xl mx-auto mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold">Hablemos</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        ¿Tienes alguna duda o necesitas asesoría? Contáctanos.
+                    </p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-12">
+                    <div className="space-y-6">
+                         <div className="flex items-start gap-4">
+                            <div className="p-3 bg-primary/10 rounded-md mt-1"><Mail className="h-6 w-6 text-primary"/></div>
+                            <div>
+                                <h3 className="text-xl font-semibold">Correo Electrónico</h3>
+                                <p className="text-muted-foreground">Envíanos tus preguntas a nuestro correo de soporte.</p>
+                                <a href="mailto:soporte@systemcrs.com" className="text-primary font-medium">soporte@systemcrs.com</a>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <div className="p-3 bg-primary/10 rounded-md mt-1"><Phone className="h-6 w-6 text-primary"/></div>
+                            <div>
+                                <h3 className="text-xl font-semibold">Teléfono</h3>
+                                <p className="text-muted-foreground">Llámanos para una atención más directa.</p>
+                                <a href="tel:+582121234567" className="text-primary font-medium">+58 (212) 123-4567</a>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <div className="p-3 bg-primary/10 rounded-md mt-1"><MapPin className="h-6 w-6 text-primary"/></div>
+                            <div>
+                                <h3 className="text-xl font-semibold">Oficina</h3>
+                                <p className="text-muted-foreground">Av. Principal, Edificio Central, Piso 5, Caracas, Venezuela.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <Card>
+                        <CardHeader>
+                            <CardTitle>Envíanos un Mensaje</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                             <form onSubmit={handleContactSubmit} className="space-y-4">
+                                <Input placeholder="Tu Nombre Completo" required />
+                                <Input type="email" placeholder="Tu Correo Electrónico" required />
+                                <Textarea placeholder="Escribe tu mensaje aquí..." required />
+                                <Button type="submit" className="w-full">
+                                    <Send className="mr-2 h-4 w-4"/> Enviar Mensaje
+                                </Button>
+                            </form>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+        </section>
+
       </main>
 
       <footer className="py-8 border-t">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} System CRS. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} System C.R.S. Todos los derechos reservados.
         </div>
       </footer>
     </div>
