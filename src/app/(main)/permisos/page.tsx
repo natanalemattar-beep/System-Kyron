@@ -6,9 +6,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 
 const permisos = [
-    { id: "PERM-001", tipo: "Permiso Sanitario", emisor: "SACS", fechaEmision: "15/01/2024", fechaVencimiento: "15/01/2025", estado: "Vigente" },
+    { id: "PERM-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "SACS", fechaEmision: "15/01/2024", fechaVencimiento: "15/01/2025", estado: "Vigente" },
     { id: "PERM-002", tipo: "Licencia de Actividades Económicas", emisor: "Alcaldía de Caracas", fechaEmision: "01/03/2024", fechaVencimiento: "01/03/2025", estado: "Vigente" },
     { id: "PERM-003", tipo: "Conformidad de Uso (Bomberos)", emisor: "Cuerpo de Bomberos", fechaEmision: "20/02/2024", fechaVencimiento: "20/08/2024", estado: "Por Vencer" },
+    { id: "PERM-004", tipo: "Inscripción en el IVSS", emisor: "IVSS", fechaEmision: "10/01/2020", fechaVencimiento: "Indefinido", estado: "Vigente" },
+    { id: "PERM-005", tipo: "Registro de Actividades (RACDA)", emisor: "MINEC", fechaEmision: "05/09/2023", fechaVencimiento: "05/09/2024", estado: "Por Vencer" },
+    { id: "PERM-006", tipo: "Registro Sanitario de Producto", emisor: "SACS", fechaEmision: "11/11/2022", fechaVencimiento: "11/11/2027", estado: "Vigente" },
+    { id: "PERM-007", tipo: "Acreditación en INPSASEL", emisor: "INPSASEL", fechaEmision: "18/01/2023", fechaVencimiento: "18/01/2025", estado: "Vigente" },
+    { id: "PERM-008", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "01/06/2021", fechaVencimiento: "01/06/2024", estado: "Vencido" },
+
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -55,7 +61,7 @@ export default function PermisosPage() {
                 </TableHeader>
                 <TableBody>
                     {permisos.map((permiso) => (
-                        <TableRow key={permiso.id}>
+                        <TableRow key={permiso.id} className={permiso.estado === 'Vencido' ? 'bg-destructive/10' : ''}>
                             <TableCell className="font-medium">{permiso.id}</TableCell>
                             <TableCell>{permiso.tipo}</TableCell>
                             <TableCell>{permiso.emisor}</TableCell>
