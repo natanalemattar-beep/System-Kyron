@@ -3,11 +3,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { User, Menu, Flag } from "lucide-react";
+import { User, Menu, Flag, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
   { href: "/#productos", label: "Productos" },
@@ -61,10 +62,29 @@ export default function LandingPage() {
           <div className="flex items-center gap-2">
               <ThemeToggle />
               <div className="hidden md:flex items-center gap-2">
-                <Button asChild>
-                    <Link href="/login-juridico">
-                      <User className="mr-2 h-4 w-4" />
-                      Iniciar Sesión
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button>
+                            Acceder
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login-natural">Iniciar Sesión Natural</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
+                        </DropdownMenuItem>
+                         <DropdownMenuItem asChild>
+                            <Link href="/nominas">Recursos Humanos</Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
+                <Button variant="outline" asChild>
+                    <Link href="/register">
+                      Registrarse
                     </Link>
                 </Button>
               </div>
@@ -103,7 +123,12 @@ export default function LandingPage() {
                       <h3 className="text-sm font-semibold text-muted-foreground">Acceso</h3>
                        <SheetClose asChild>
                          <Button asChild className="w-full justify-start">
-                            <Link href="/login-juridico"><User className="mr-2"/>Iniciar Sesión</Link>
+                            <Link href="/login-natural"><User className="mr-2"/>Iniciar Sesión Natural</Link>
+                          </Button>
+                      </SheetClose>
+                       <SheetClose asChild>
+                         <Button asChild className="w-full justify-start">
+                            <Link href="/login-juridico"><User className="mr-2"/>Iniciar Sesión Jurídico</Link>
                           </Button>
                       </SheetClose>
                       <SheetClose asChild>

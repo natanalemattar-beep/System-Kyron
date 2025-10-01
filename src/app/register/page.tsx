@@ -10,6 +10,7 @@ import {
   EyeOff,
   ShieldCheck,
   Flag,
+  ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -23,6 +24,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function RegisterPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -52,12 +55,29 @@ export default function RegisterPage() {
                         </span>
                     </div>
                 </Link>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                    <ThemeToggle />
+                     <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button>
+                                Acceder
+                                <ChevronDown className="ml-2 h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem asChild>
+                                <Link href="/login-natural">Iniciar Sesión Natural</Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href="/nominas">Recursos Humanos</Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <Button variant="outline" asChild>
-                        <Link href="/login-juridico">Iniciar Sesión</Link>
-                    </Button>
-                    <Button asChild>
-                        <Link href="/register">Registrarse</Link>
+                    <Link href="/register">Registrarse</Link>
                     </Button>
                 </div>
                 </div>
@@ -109,11 +129,28 @@ export default function RegisterPage() {
               </span>
             </div>
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button>
+                            Acceder
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login-natural">Iniciar Sesión Natural</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href="/nominas">Recursos Humanos</Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
                 <Button variant="outline" asChild>
-                    <Link href="/login-juridico">Iniciar Sesión</Link>
-                </Button>
-                <Button asChild>
                     <Link href="/register">Registrarse</Link>
                 </Button>
           </div>

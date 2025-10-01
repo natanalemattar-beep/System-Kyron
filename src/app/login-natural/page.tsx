@@ -2,13 +2,14 @@
 "use client";
 
 import { useState } from "react";
-import { User, Eye, EyeOff, Flag } from "lucide-react";
+import { User, Eye, EyeOff, Flag, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -25,7 +26,26 @@ export default function LoginNaturalPage() {
           </Link>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Button asChild>
+             <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button>
+                        Acceder
+                        <ChevronDown className="ml-2 h-4 w-4" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login-natural">Iniciar Sesión Natural</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/nominas">Recursos Humanos</Link>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+            <Button variant="outline" asChild>
               <Link href="/register">Registrarse</Link>
             </Button>
           </div>
