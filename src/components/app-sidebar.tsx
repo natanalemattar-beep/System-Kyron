@@ -224,6 +224,27 @@ export function AppSidebar() {
             ))}
           </SidebarMenu>
         </SidebarGroup>
+
+        <SidebarGroup>
+            <SidebarGroupLabel className="flex items-center gap-2"><Landmark className="h-4 w-4"/>Entes Reguladores</SidebarGroupLabel>
+            <SidebarMenu>
+                {entesReguladoresItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                    asChild
+                    isActive={pathname.startsWith(item.href)}
+                    tooltip={item.label}
+                    className="justify-start"
+                    >
+                    <Link href={item.href}>
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.label}</span>
+                    </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
         
         <SidebarGroup>
             <SidebarGroupLabel className="flex items-center gap-2"><BookOpen className="h-4 w-4"/>Finanzas y Contabilidad</SidebarGroupLabel>
@@ -267,26 +288,6 @@ export function AppSidebar() {
             </SidebarMenu>
         </SidebarGroup>
 
-        <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center gap-2"><Landmark className="h-4 w-4"/>Entes Reguladores</SidebarGroupLabel>
-            <SidebarMenu>
-                {entesReguladoresItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={item.label}
-                    className="justify-start"
-                    >
-                    <Link href={item.href}>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                    </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
         <SidebarGroup>
             <SidebarGroupLabel className="flex items-center gap-2"><FileText className="h-4 w-4"/>Facturación</SidebarGroupLabel>
             <SidebarMenu>
