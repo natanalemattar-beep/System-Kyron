@@ -107,7 +107,6 @@ const librosRegistroMenuItems = [
 const generalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
   { href: "/integraciones", label: "Integraciones", icon: Cog },
-  { href: "/administracion", label: "Administración", icon: Briefcase },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
 ];
 
