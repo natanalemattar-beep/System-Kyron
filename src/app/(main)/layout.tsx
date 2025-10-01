@@ -43,7 +43,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                   <Link href="/login"><LogOut className="mr-2"/>Cerrar Sesión</Link>
+                   <Link href="/"><LogOut className="mr-2"/>Cerrar Sesión</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

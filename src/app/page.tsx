@@ -1,14 +1,12 @@
 
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { User, Menu, Flag, ChevronDown, Building, LogIn } from "lucide-react";
+import { User, Menu, Flag, Building } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
@@ -63,24 +61,11 @@ export default function LandingPage() {
           <div className="flex items-center gap-2">
               <ThemeToggle />
               <div className="hidden md:flex items-center gap-2">
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost">
-                            Acceder
-                            <ChevronDown className="ml-2 h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuItem asChild>
-                            <Link href="/login?tab=juridica"><Building className="mr-2 h-4 w-4" /> Iniciar Sesión Jurídico</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link href="/login?tab=natural"><User className="mr-2 h-4 w-4" /> Iniciar Sesión Natural</Link>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
                 <Button asChild>
-                    <Link href="/register">Registrarse</Link>
+                    <Link href="/login-juridico">
+                      <User className="mr-2 h-4 w-4" />
+                      Iniciar Sesión
+                    </Link>
                 </Button>
               </div>
 
@@ -118,12 +103,12 @@ export default function LandingPage() {
                       <h3 className="text-sm font-semibold text-muted-foreground">Acceso</h3>
                       <SheetClose asChild>
                          <Button variant="outline" className="w-full justify-start" asChild>
-                            <Link href="/login?tab=juridica"><Building className="mr-2"/>Iniciar Sesión Jurídico</Link>
+                            <Link href="/login-juridico"><Building className="mr-2"/>Iniciar Sesión Jurídico</Link>
                           </Button>
                       </SheetClose>
                        <SheetClose asChild>
                          <Button variant="outline" className="w-full justify-start" asChild>
-                            <Link href="/login?tab=natural"><User className="mr-2"/>Iniciar Sesión Natural</Link>
+                            <Link href="/login-natural"><User className="mr-2"/>Iniciar Sesión Natural</Link>
                           </Button>
                       </SheetClose>
                       <SheetClose asChild>

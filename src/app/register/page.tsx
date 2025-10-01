@@ -54,7 +54,7 @@ export default function RegisterPage() {
                 </Link>
                 <div className="flex items-center gap-4">
                     <Button variant="outline" asChild>
-                        <Link href="/login">Iniciar Sesión</Link>
+                        <Link href="/login-juridico">Iniciar Sesión</Link>
                     </Button>
                     <Button asChild>
                         <Link href="/register">Registrarse</Link>
@@ -111,7 +111,7 @@ export default function RegisterPage() {
           </Link>
           <div className="flex items-center gap-4">
                 <Button variant="outline" asChild>
-                    <Link href="/login">Iniciar Sesión</Link>
+                    <Link href="/login-juridico">Iniciar Sesión</Link>
                 </Button>
                 <Button asChild>
                     <Link href="/register">Registrarse</Link>
@@ -306,7 +306,7 @@ export default function RegisterPage() {
             </Tabs>
              <p className="mt-8 text-center text-sm text-muted-foreground">
               ¿Ya tienes una cuenta?{" "}
-              <Link href="/login" className="font-semibold text-primary hover:underline">
+              <Link href="/login-juridico" className="font-semibold text-primary hover:underline">
                 Inicia sesión aquí
               </Link>
             </p>
