@@ -186,7 +186,7 @@ export default function LandingPage() {
                     <Link href="#contacto">Solicitar Demo</Link>
                 </Button>
                  <Button size="lg" variant="outline" asChild>
-                    <Link href="/recursos-humanos">Ver Planes y Precios</Link>
+                    <Link href="/register">Registrarse</Link>
                 </Button>
             </div>
         </section>
