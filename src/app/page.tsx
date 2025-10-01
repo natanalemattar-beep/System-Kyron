@@ -4,10 +4,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { User, Menu, Flag } from "lucide-react";
+import { User, Menu, Flag, ChevronDown, Building, LogIn } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
   { href: "/#productos", label: "Productos" },
@@ -50,70 +52,89 @@ export default function LandingPage() {
           
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
-                <Button key={link.label} variant={link.label === "Seguro Contable y Jurídico" ? "secondary" : "ghost"} asChild>
-                    <Link href={link.href} className="text-sm font-medium">
+                <Button key={link.label} variant="ghost" asChild>
+                    <Link href={link.href} className={`text-sm font-medium ${link.label === "Seguro Contable y Jurídico" ? 'bg-secondary' : ''}`}>
                         {link.label}
                     </Link>
                 </Button>
             ))}
           </nav>
           
-          <div className="flex items-center gap-4">
-              <Button variant="ghost" asChild className="hidden md:flex items-center gap-2">
-                 <Link href="/login">
-                    <User className="h-4 w-4"/>
-                    Iniciar Sesión
-                 </Link>
-              </Button>
-              <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="md:hidden">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Abrir menú</span>
+          <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <div className="hidden md:flex items-center gap-2">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost">
+                            Acceder
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login?tab=juridica"><Building className="mr-2 h-4 w-4" /> Iniciar Sesión Jurídico</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login?tab=natural"><User className="mr-2 h-4 w-4" /> Iniciar Sesión Natural</Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+                <Button asChild>
+                    <Link href="/register">Registrarse</Link>
                 </Button>
-              </SheetTrigger>
-              <SheetContent side="right">
-                <SheetHeader>
-                  <SheetTitle className="sr-only">Menú Principal</SheetTitle>
-                </SheetHeader>
-                 <div className="flex justify-between items-center mb-8">
-                    <Link href="/" className="flex items-center gap-3">
-                      <div className="bg-primary text-primary-foreground p-2 rounded-md">
-                        <Flag className="h-6 w-6" />
-                      </div>
-                      <span className="text-lg font-bold">System CRS</span>
-                    </Link>
-                    <SheetClose asChild>
-                        <Button variant="ghost" size="icon">X</Button>
-                    </SheetClose>
-                 </div>
-                <nav className="flex flex-col gap-6 text-lg font-medium">
-                  {navLinks.map((link) => (
-                    <SheetClose asChild key={link.label}>
-                      <Link href={link.href} className="text-muted-foreground hover:text-foreground">
-                        {link.label}
+              </div>
+
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="icon" className="md:hidden">
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Abrir menú</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right">
+                  <SheetHeader>
+                    <SheetTitle className="sr-only">Menú Principal</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex justify-between items-center mb-8">
+                      <Link href="/" className="flex items-center gap-3">
+                        <div className="bg-primary text-primary-foreground p-2 rounded-md">
+                          <Flag className="h-6 w-6" />
+                        </div>
+                        <span className="text-lg font-bold">System CRS</span>
                       </Link>
-                    </SheetClose>
-                  ))}
-                  <div className="border-t pt-6 mt-6 space-y-4">
-                    <SheetClose asChild>
-                       <Button variant="outline" className="w-full" asChild>
-                          <Link href="/login">
-                            Iniciar Sesión
-                          </Link>
-                        </Button>
-                    </SheetClose>
-                    <SheetClose asChild>
-                        <Button className="w-full" asChild>
-                          <Link href="/register">
-                            Registrarse
-                          </Link>
-                        </Button>
-                    </SheetClose>
+                      <SheetClose asChild>
+                          <Button variant="ghost" size="icon">X</Button>
+                      </SheetClose>
                   </div>
-                </nav>
-              </SheetContent>
-            </Sheet>
+                  <nav className="flex flex-col gap-4 text-lg font-medium">
+                    {navLinks.map((link) => (
+                      <SheetClose asChild key={link.label}>
+                        <Link href={link.href} className="text-muted-foreground hover:text-foreground">
+                          {link.label}
+                        </Link>
+                      </SheetClose>
+                    ))}
+                    <div className="border-t pt-6 mt-4 space-y-4">
+                      <h3 className="text-sm font-semibold text-muted-foreground">Acceso</h3>
+                      <SheetClose asChild>
+                         <Button variant="outline" className="w-full justify-start" asChild>
+                            <Link href="/login?tab=juridica"><Building className="mr-2"/>Iniciar Sesión Jurídico</Link>
+                          </Button>
+                      </SheetClose>
+                       <SheetClose asChild>
+                         <Button variant="outline" className="w-full justify-start" asChild>
+                            <Link href="/login?tab=natural"><User className="mr-2"/>Iniciar Sesión Natural</Link>
+                          </Button>
+                      </SheetClose>
+                      <SheetClose asChild>
+                          <Button className="w-full" asChild>
+                            <Link href="/register">Registrarse</Link>
+                          </Button>
+                      </SheetClose>
+                    </div>
+                  </nav>
+                </SheetContent>
+              </Sheet>
           </div>
         </div>
       </header>
@@ -128,7 +149,7 @@ export default function LandingPage() {
         </section>
         
         {/* Servicios */}
-        <section id="servicios" className="py-16 md:py-24">
+        <section id="servicios" className="py-16 md:py-24 bg-secondary/50">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Nuestros Productos y Servicios</h2>
@@ -138,6 +159,9 @@ export default function LandingPage() {
                         <Card key={item.title} className="overflow-hidden">
                              <CardContent className="p-0">
                                 <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} width={600} height={400} className="aspect-video object-cover"/>
+                                <div className="p-4">
+                                  <h3 className="font-semibold text-lg">{item.title}</h3>
+                                </div>
                             </CardContent>
                         </Card>
                     ))}

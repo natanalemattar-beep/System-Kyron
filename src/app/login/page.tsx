@@ -8,6 +8,7 @@ import {
   Eye,
   EyeOff,
   Flag,
+  ChevronDown
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSearchParams } from "next/navigation";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function LoginPage() {
   const [juridicaPasswordVisible, setJuridicaPasswordVisible] = useState(false);
@@ -55,13 +58,29 @@ export default function LoginPage() {
               </span>
             </div>
           </Link>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" asChild>
-                <Link href="/login">Iniciar Sesión</Link>
-            </Button>
-            <Button asChild>
-                <Link href="/register">Registrarse</Link>
-            </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <div className="hidden md:flex items-center gap-2">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost">
+                            Acceder
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login?tab=juridica"><Building className="mr-2 h-4 w-4" /> Iniciar Sesión Jurídico</Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login?tab=natural"><User className="mr-2 h-4 w-4" /> Iniciar Sesión Natural</Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+                <Button asChild>
+                    <Link href="/register">Registrarse</Link>
+                </Button>
+              </div>
           </div>
         </div>
       </header>
