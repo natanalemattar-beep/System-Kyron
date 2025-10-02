@@ -14,7 +14,7 @@ export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-     <div className="flex flex-col min-h-screen bg-background">
+     <div className="flex flex-col min-h-screen">
       <header className="sticky top-0 z-50 w-full bg-card/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -46,7 +46,7 @@ export default function LoginRrhhPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto">
+        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-sm">
           <CardHeader className="text-center">
             <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
               <Briefcase className="h-8 w-8"/>

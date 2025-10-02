@@ -69,7 +69,7 @@ export default function AsesoriaVentasPage() {
         <h2 className="text-3xl font-semibold mb-8 text-center">Nuestros Servicios</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map(s => (
-                <Card key={s.title}>
+                <Card key={s.title} className="bg-card/80 backdrop-blur-sm">
                     <CardHeader className="flex-row items-center gap-4">
                         <div className="p-3 bg-primary/10 rounded-lg">
                            <s.icon className="h-8 w-8 text-primary"/>
@@ -103,7 +103,7 @@ export default function AsesoriaVentasPage() {
 
       {/* Contacto */}
       <section>
-        <Card className="max-w-2xl mx-auto">
+        <Card className="max-w-2xl mx-auto bg-card/80 backdrop-blur-sm">
             <CardHeader className="text-center">
                 <CardTitle>Solicita una Consulta Gratuita</CardTitle>
                 <CardDescription>Cuéntanos sobre tu negocio y tus objetivos. Te contactaremos para una asesoría sin costo.</CardDescription>

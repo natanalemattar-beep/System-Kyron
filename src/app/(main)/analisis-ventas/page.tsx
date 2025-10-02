@@ -55,7 +55,7 @@ export default function AnalisisVentasPage() {
       
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
         {kpiData.map(kpi => (
-            <Card key={kpi.title}>
+            <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
                     <kpi.icon className="h-4 w-4 text-muted-foreground" />
@@ -70,7 +70,7 @@ export default function AnalisisVentasPage() {
 
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 grid gap-8">
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2"><Share2 className="h-5 w-5"/>Ingresos por Canal</CardTitle>
                 </CardHeader>
@@ -85,7 +85,7 @@ export default function AnalisisVentasPage() {
                     </ResponsiveContainer>
                 </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2"><TrendingDown className="text-red-500"/>Productos con Menor Demanda</CardTitle>
                     <CardDescription>Top 3 productos con menores ingresos. Considera nuevas estrategias.</CardDescription>
@@ -117,7 +117,7 @@ export default function AnalisisVentasPage() {
                 </CardContent>
             </Card>
         </div>
-        <Card>
+        <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Productos Más Vendidos</CardTitle>
                 <CardDescription>Top 3 productos por ingresos generados.</CardDescription>

@@ -30,7 +30,7 @@ const features = [
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen text-foreground">
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -74,7 +74,7 @@ export default function LandingPage() {
                   <span className="sr-only">Abrir menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-card">
+              <SheetContent side="right" className="bg-card/80 backdrop-blur-sm">
                 <SheetHeader>
                   <SheetTitle className="sr-only">Menú</SheetTitle>
                 </SheetHeader>
@@ -127,7 +127,7 @@ export default function LandingPage() {
             </div>
         </section>
 
-        <section id="servicios" className="py-20 md:py-28 bg-secondary">
+        <section id="servicios" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -135,7 +135,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                      {services.map(item => (
-                        <Card key={item.title}>
+                        <Card key={item.title} className="bg-card/80 backdrop-blur-sm">
                             <CardHeader>
                                 <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4">
                                     <item.icon className="h-8 w-8" />
@@ -171,7 +171,7 @@ export default function LandingPage() {
                   <Link href="/soluciones-ia">Descubre el Poder de la IA <ArrowRight className="ml-2"/></Link>
               </Button>
             </div>
-            <div className="p-8 rounded-xl bg-card border">
+            <div className="p-8 rounded-xl bg-card/80 backdrop-blur-sm border">
                  <Card className="bg-transparent border-0 shadow-none">
                     <CardHeader>
                         <div className="flex items-center gap-3">
@@ -187,7 +187,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="nosotros" className="py-20 md:py-28 bg-secondary">
+        <section id="nosotros" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
@@ -204,7 +204,7 @@ export default function LandingPage() {
                     <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Ponte en contacto con nuestro equipo de especialistas. Estamos listos para ayudarte.</p>
                 </div>
-                <Card className="max-w-4xl mx-auto shadow-lg">
+                <Card className="max-w-4xl mx-auto shadow-lg bg-card/80 backdrop-blur-sm">
                      <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-primary/10 rounded-lg">
@@ -232,7 +232,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t">
+      <footer className="py-8 border-t bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>

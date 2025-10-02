@@ -14,7 +14,7 @@ export default function ContabilidadPage() {
           Módulo de reportes contables.
         </p>
       </header>
-      <Card>
+      <Card className="bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Módulo de Reportes Contables</CardTitle>
           <CardDescription>

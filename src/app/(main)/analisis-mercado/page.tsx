@@ -52,7 +52,7 @@ export default function AnalisisMercadoPage() {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
         {kpiData.map(kpi => (
-            <Card key={kpi.title}>
+            <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
                     <kpi.icon className="h-4 w-4 text-muted-foreground" />
@@ -66,7 +66,7 @@ export default function AnalisisMercadoPage() {
       </div>
 
        <div className="grid gap-8 lg:grid-cols-2 mb-8">
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Tendencias de Oferta y Demanda</CardTitle>
                     <CardDescription>Evolución mensual de la oferta del mercado vs. la demanda de los consumidores.</CardDescription>
@@ -85,7 +85,7 @@ export default function AnalisisMercadoPage() {
                     </ResponsiveContainer>
                 </CardContent>
             </Card>
-             <Card>
+             <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Cuota de Mercado de Competidores</CardTitle>
                     <CardDescription>Distribución del mercado entre los principales actores.</CardDescription>
@@ -115,7 +115,7 @@ export default function AnalisisMercadoPage() {
             </Card>
        </div>
 
-       <Card>
+       <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Lightbulb className="text-yellow-400"/>Estrategias y Conclusiones Sugeridas por IA</CardTitle>
             </CardHeader>

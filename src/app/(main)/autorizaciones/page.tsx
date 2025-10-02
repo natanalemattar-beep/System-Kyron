@@ -36,7 +36,7 @@ export default function AutorizacionesPage() {
         {autorizaciones.map(auth => {
             const status = statusInfo[auth.estado as keyof typeof statusInfo];
             return (
-                <Card key={auth.id}>
+                <Card key={auth.id} className="bg-card/80 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="flex items-center justify-between">
                             <span>{auth.ente}</span>

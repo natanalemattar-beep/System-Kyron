@@ -85,7 +85,7 @@ export default function ArqueoCajaPage() {
             <div className="grid gap-8 lg:grid-cols-5">
                 <div className="lg:col-span-3 space-y-8">
                     {/* Resumen del Sistema */}
-                    <Card>
+                    <Card className="bg-card/80 backdrop-blur-sm">
                         <CardHeader>
                             <CardTitle>Resumen del Sistema (Turno Actual)</CardTitle>
                             <CardDescription>Valores calculados automáticamente por las ventas registradas.</CardDescription>
@@ -108,7 +108,7 @@ export default function ArqueoCajaPage() {
                     </Card>
 
                     {/* Conteo Manual */}
-                    <Card>
+                    <Card className="bg-card/80 backdrop-blur-sm">
                         <CardHeader>
                             <CardTitle>Conteo Manual de Efectivo</CardTitle>
                             <CardDescription>Introduce la cantidad de cada billete y moneda.</CardDescription>
@@ -130,7 +130,7 @@ export default function ArqueoCajaPage() {
 
                 <div className="lg:col-span-2 space-y-8">
                      {/* Resultados del Arqueo */}
-                    <Card className="sticky top-20">
+                    <Card className="sticky top-20 bg-card/80 backdrop-blur-sm">
                          <CardHeader>
                             <CardTitle>Resultados del Arqueo</CardTitle>
                         </CardHeader>
@@ -152,7 +152,7 @@ export default function ArqueoCajaPage() {
             </div>
 
              {/* Historial de Cierres */}
-            <Card className="mt-8">
+            <Card className="mt-8 bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Historial de Cierres de Caja</CardTitle>
                 </CardHeader>

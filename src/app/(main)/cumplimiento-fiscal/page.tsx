@@ -68,7 +68,7 @@ export default function CumplimientoFiscalPage() {
             </div>
         </div>
 
-        <Card>
+        <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader className="text-center">
                 <CardTitle>Solicita una Demostración Gratuita</CardTitle>
                 <CardDescription>

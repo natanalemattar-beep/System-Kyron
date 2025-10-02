@@ -116,7 +116,7 @@ export default function ArchivoDigitalPage() {
                 </Dialog>
             </header>
 
-            <Card>
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Repositorio de Documentos</CardTitle>
                     <CardDescription>

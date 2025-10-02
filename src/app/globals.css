@@ -42,10 +42,21 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image: radial-gradient(circle at center, hsla(160, 70%, 90%, 0.4), transparent 40%),
-                      radial-gradient(circle at top left, hsla(190, 70%, 90%, 0.4), transparent 50%),
-                      radial-gradient(circle at bottom right, hsla(160, 70%, 90%, 0.4), transparent 50%);
-    background-color: hsl(var(--background));
+    background: linear-gradient(-45deg, #e0f7fa, #e8f5e9, #f3e5f5, #e3f2fd);
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
     min-height: 100vh;
+  }
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
