@@ -46,12 +46,12 @@ export default function LandingPage() {
                 {link.label}
               </Link>
             ))}
+             <Button asChild variant="outline">
+              <Link href="/register">Registrarse</Link>
+            </Button>
           </nav>
           
           <div className="flex items-center gap-2">
-            <Button asChild variant="outline">
-              <Link href="/register">Registrarse</Link>
-            </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                   <Button>
@@ -224,7 +224,7 @@ export default function LandingPage() {
         <section id="contacto" className="py-20 md:py-28 bg-secondary/50">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold">¡Contactanos!</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Ponte en contacto con nuestro equipo de especialistas. Estamos listos para ayudarte.</p>
                 </div>
                 <Card className="max-w-4xl mx-auto shadow-lg">
