@@ -31,7 +31,7 @@ const features = [
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen text-foreground">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 w-full border-b bg-card/80 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary text-primary-foreground p-2 rounded-md">
@@ -232,7 +232,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t bg-background/80 backdrop-blur-sm">
+      <footer className="py-8 border-t bg-card/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>
