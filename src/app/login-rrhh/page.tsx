@@ -45,15 +45,12 @@ export default function LoginRrhhPage() {
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant="outline" asChild>
-              <Link href="/register">Registrarse</Link>
-            </Button>
           </div>
         </div>
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm">
+        <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm border">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
               <Briefcase className="h-10 w-10 text-primary"/>

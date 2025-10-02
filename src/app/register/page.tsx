@@ -77,14 +77,11 @@ export default function RegisterPage() {
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <Button variant="outline" asChild>
-                    <Link href="/register">Registrarse</Link>
-                    </Button>
                 </div>
                 </div>
             </header>
             <main className="flex-1 flex items-center justify-center p-4">
-                 <Card className="w-full max-w-md mx-auto">
+                 <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm border">
                     <CardContent className="flex flex-col items-center p-8 text-center">
                         <div className="p-4 bg-primary/10 rounded-full mb-4">
                             <ShieldCheck className="h-10 w-10 text-primary" />
@@ -151,15 +148,12 @@ export default function RegisterPage() {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <Button variant="outline" asChild>
-                    <Link href="/register">Registrarse</Link>
-                </Button>
           </div>
         </div>
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-2xl mx-auto">
+        <Card className="w-full max-w-2xl mx-auto bg-card/50 backdrop-blur-sm border">
           <CardContent className="p-8">
             <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold mb-2">Crear Cuenta</h1>

@@ -106,12 +106,6 @@ export default function LandingPage() {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-
-                <Button variant="outline" asChild>
-                    <Link href="/register">
-                      Registrarse
-                    </Link>
-                </Button>
               </div>
 
               <Sheet>
@@ -161,11 +155,6 @@ export default function LandingPage() {
                             <Link href="/login-rrhh"><User className="mr-2"/>Recursos Humanos</Link>
                           </Button>
                       </SheetClose>
-                      <SheetClose asChild>
-                          <Button variant="outline" className="w-full" asChild>
-                            <Link href="/register">Registrarse</Link>
-                          </Button>
-                      </SheetClose>
                     </div>
                   </nav>
                 </SheetContent>
@@ -201,9 +190,6 @@ export default function LandingPage() {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                 <Button size="lg" variant="outline" asChild>
-                    <Link href="/register">Registrarse</Link>
-                </Button>
             </div>
         </section>
         
@@ -392,5 +378,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
