@@ -3,11 +3,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { User, Menu, Flag, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Building } from "lucide-react";
+import { User, Menu, Flag, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Building, Layers, Cpu, Users, BarChart } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import React, { useEffect } from 'react';
 
 const navLinks = [
   { href: "#servicios", label: "Servicios" },
@@ -17,8 +16,8 @@ const navLinks = [
 ];
 
 const services = [
-    { title: "Gestión Fiscal y Contable", description: "Automatiza tu contabilidad, desde libros oficiales hasta la declaración de impuestos, todo homologado por el SENIAT.", icon: BookOpen },
-    { title: "Administración de Nómina", description: "Calcula y gestiona la nómina, beneficios y obligaciones parafiscales de tus empleados sin complicaciones.", icon: Briefcase },
+    { title: "Gestión Fiscal y Contable", description: "Automatiza tu contabilidad, desde libros oficiales hasta la declaración de impuestos, todo homologado por el SENIAT.", icon: Layers },
+    { title: "Administración de Nómina", description: "Calcula y gestiona la nómina, beneficios y obligaciones parafiscales de tus empleados sin complicaciones.", icon: Users },
     { title: "Permisología y Cumplimiento", description: "Centraliza y mantén al día todas las licencias y permisos necesarios para operar en Venezuela.", icon: Shield },
 ];
 
@@ -30,7 +29,7 @@ const features = [
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen text-foreground">
+    <div className="flex flex-col min-h-screen text-foreground overflow-x-hidden">
       <header className="sticky top-0 z-50 w-full border-b bg-card/80 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -112,14 +111,14 @@ export default function LandingPage() {
 
       <main className="flex-1">
         <section className="container mx-auto px-4 md:px-6 py-24 md:py-32 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance text-primary">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance text-primary animate-in fade-in slide-in-from-top-4 duration-1000">
               La Gestión Empresarial, Reinventada
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto text-balance">
+            <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto text-balance animate-in fade-in slide-in-from-top-6 duration-1000 delay-200">
               Transforma la complejidad fiscal y administrativa en una ventaja competitiva con la plataforma inteligente diseñada para Venezuela.
             </p>
-            <div className="mt-10 flex gap-4 justify-center">
-              <Button size="lg" asChild>
+            <div className="mt-10 flex gap-4 justify-center animate-in fade-in zoom-in-95 duration-1000 delay-400">
+              <Button size="lg" asChild className="animate-pulse-slow hover:animate-none transition-all">
                 <Link href="/register">
                   Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
                 </Link>
@@ -127,17 +126,17 @@ export default function LandingPage() {
             </div>
         </section>
 
-        <section id="servicios" className="py-20 md:py-28">
+        <section id="servicios" className="py-20 md:py-28 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
-                     {services.map(item => (
-                        <Card key={item.title} className="bg-card/80 backdrop-blur-sm">
+                     {services.map((item, i) => (
+                        <Card key={item.title} className="bg-card/80 backdrop-blur-sm hover:border-primary/50 transition-colors duration-300 animate-in fade-in zoom-in-95" style={{animationDelay: `${200 * (i + 1)}ms`}}>
                             <CardHeader>
-                                <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4">
+                                <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4 transition-transform duration-300 group-hover:scale-110">
                                     <item.icon className="h-8 w-8" />
                                 </div>
                                 <CardTitle>{item.title}</CardTitle>
@@ -149,7 +148,7 @@ export default function LandingPage() {
             </div>
         </section>
         
-        <section id="ia" className="py-20 md:py-28">
+        <section id="ia" className="py-20 md:py-28 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-400">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold">Inteligencia Artificial que Trabaja para Ti</h2>
@@ -180,14 +179,14 @@ export default function LandingPage() {
                         </div>
                     </CardHeader>
                     <CardContent>
-                        <p className="font-mono text-sm p-4 bg-muted rounded-md">"He detectado una inconsistencia entre tu declaración de IVA y el libro de ventas del mes pasado. ¿Quieres que genere un reporte detallado?"</p>
+                        <p className="font-mono text-sm p-4 bg-muted rounded-md animate-in fade-in duration-1000 delay-500">"He detectado una inconsistencia entre tu declaración de IVA y el libro de ventas del mes pasado. ¿Quieres que genere un reporte detallado?"</p>
                     </CardContent>
                 </Card>
             </div>
           </div>
         </section>
 
-        <section id="nosotros" className="py-20 md:py-28">
+        <section id="nosotros" className="py-20 md:py-28 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-600">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
@@ -198,7 +197,7 @@ export default function LandingPage() {
             </div>
         </section>
         
-        <section id="contacto" className="py-20 md:py-28">
+        <section id="contacto" className="py-20 md:py-28 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-800">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
@@ -240,5 +239,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
