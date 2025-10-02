@@ -134,10 +134,10 @@ export default function RegisterPage() {
 
             <Tabs defaultValue="juridica" className="w-full">
               <TabsList className="grid w-full grid-cols-2 bg-muted h-12 p-1 mb-6">
-                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-background data-[state=active]:shadow-sm flex gap-2">
+                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-card data-[state=active]:shadow-sm flex gap-2">
                     <Building className="h-5 w-5"/> Persona Jurídica
                 </TabsTrigger>
-                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-background data-[state=active]:shadow-sm flex gap-2">
+                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-card data-[state=active]:shadow-sm flex gap-2">
                     <User className="h-5 w-5"/> Persona Natural
                 </TabsTrigger>
               </TabsList>
