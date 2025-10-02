@@ -28,10 +28,10 @@ const features = [
     { title: "Auditoría Inteligente en Tiempo Real", description: "Detecta inconsistencias o posibles fraudes antes de que se conviertan en un problema." },
 ];
 
-export default function LandingPageV2() {
+export default function LandingPageV3() {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
+    <div className="flex flex-col min-h-screen bg-transparent text-foreground">
+      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b border-white/10">
         <div className="container mx-auto flex h-20 items-center justify-between px-6 md:px-8">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary/10 text-primary p-2 rounded-lg">
@@ -49,40 +49,34 @@ export default function LandingPageV2() {
           </nav>
           
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex">
-                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button>
-                            <User className="mr-2 h-4 w-4"/>
-                            Acceder
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem asChild>
-                            <Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link>
-                        </DropdownMenuItem>
-                         <DropdownMenuSeparator />
-                        <DropdownMenuItem asChild>
-                           <Link href="/register">Crear una cuenta</Link>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="hidden md:flex">
+                      <User className="mr-2 h-4 w-4"/>
+                      Acceder
+                  </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-background/80 backdrop-blur-sm border-white/10">
+                  <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button asChild className="hidden md:flex group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-md bg-primary px-6 font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90">
+              <Link href="/register">
+                 <span className="relative z-10">Registrarse</span>
+              </Link>
+            </Button>
 
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="md:hidden">
+                <Button variant="ghost" size="icon" className="md:hidden">
                   <Menu className="h-6 w-6" />
                   <span className="sr-only">Abrir menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right">
+              <SheetContent side="right" className="bg-background/90 backdrop-blur-lg border-l-white/10">
                 <SheetHeader>
                   <SheetTitle className="sr-only">Menú</SheetTitle>
                 </SheetHeader>
@@ -96,11 +90,21 @@ export default function LandingPageV2() {
                         </SheetClose>
                         ))}
                     </nav>
-                    <div className="mt-auto space-y-2">
-                        <Button asChild className="w-full">
-                            <Link href="/login-juridico">Acceder</Link>
-                        </Button>
-                        <Button asChild variant="outline" className="w-full">
+                    <div className="mt-auto space-y-4">
+                       <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button className="w-full h-12 text-base" variant="outline">
+                                <User className="mr-2"/>
+                                Acceder
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="bg-background/80 backdrop-blur-sm border-white/10 w-56">
+                            <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
+                            <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
+                            <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                        <Button asChild className="w-full h-12 text-base">
                              <Link href="/register">Registrarse</Link>
                         </Button>
                     </div>
@@ -112,25 +116,26 @@ export default function LandingPageV2() {
       </header>
 
       <main className="flex-1">
-        <section className="relative container mx-auto px-6 md:px-8 py-24 md:py-32 text-center">
-             <div className="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-5xl w-full h-96 bg-primary/10 rounded-full blur-[100px] -z-10"></div>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance">
-              System C.M.S
+        <section className="relative container mx-auto px-6 md:px-8 py-24 md:py-40 text-center">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance bg-clip-text text-transparent bg-gradient-to-br from-white to-white/60">
+              La Gestión Empresarial, Reinventada
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto text-balance">
-              Simplifica tu contabilidad, asegura el cumplimiento fiscal y toma el control total de tu negocio con nuestra plataforma todo-en-uno.
+              Transforma la complejidad fiscal y administrativa en una ventaja competitiva con la plataforma inteligente diseñada para Venezuela.
             </p>
             <div className="mt-10 flex gap-4 justify-center">
-              <Button size="lg" asChild>
-                <Link href="/register">Comenzar Ahora</Link>
+              <Button size="lg" asChild className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-primary px-8 font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90">
+                <Link href="/register">
+                  <span className="relative z-10">Comenzar Ahora</span>
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" asChild className="border-white/20 hover:bg-white/5 hover:text-white">
                  <Link href="#servicios">Explorar Servicios</Link>
               </Button>
             </div>
         </section>
 
-        <section id="servicios" className="py-20 md:py-28 bg-card border-y">
+        <section id="servicios" className="py-20 md:py-28">
             <div className="container mx-auto px-6 md:px-8">
                  <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -138,9 +143,9 @@ export default function LandingPageV2() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                      {services.map(item => (
-                        <Card key={item.title} className="bg-background/80">
+                        <Card key={item.title} className="bg-card/50 backdrop-blur-sm border-white/10 hover:border-primary/50 transition-all duration-300 group">
                             <CardHeader>
-                                <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4">
+                                <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
                                     <item.icon className="h-8 w-8" />
                                 </div>
                                 <CardTitle>{item.title}</CardTitle>
@@ -174,8 +179,8 @@ export default function LandingPageV2() {
                   <Link href="/soluciones-ia">Descubre el Poder de la IA <ArrowRight className="ml-2"/></Link>
               </Button>
             </div>
-            <div className="bg-card p-8 rounded-xl border">
-                 <Card className="bg-background">
+            <div className="bg-card/30 backdrop-blur-sm p-8 rounded-xl border border-white/10">
+                 <Card className="bg-background/80">
                     <CardHeader>
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-primary/10 rounded-md"><Bot className="h-5 w-5 text-primary"/></div>
@@ -190,7 +195,7 @@ export default function LandingPageV2() {
           </div>
         </section>
 
-        <section id="nosotros" className="py-20 md:py-28 bg-card border-y">
+        <section id="nosotros" className="py-20 md:py-28 bg-card/20 border-y border-white/10">
             <div className="container mx-auto px-6 md:px-8">
                  <div className="text-center max-w-3xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
@@ -207,7 +212,7 @@ export default function LandingPageV2() {
                     <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Ponte en contacto con nuestro equipo de especialistas. Estamos listos para ayudarte.</p>
                 </div>
-                <Card className="max-w-4xl mx-auto border shadow-lg">
+                <Card className="max-w-4xl mx-auto border-white/10 bg-card/50 backdrop-blur-sm shadow-lg">
                      <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-primary/10 rounded-full">
@@ -235,7 +240,7 @@ export default function LandingPageV2() {
         </section>
       </main>
 
-      <footer className="py-8 border-t">
+      <footer className="py-8 border-t border-white/10">
         <div className="container mx-auto px-6 md:px-8 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>

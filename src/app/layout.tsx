@@ -20,7 +20,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased aurora-bg">
         <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -33,3 +33,4 @@ export default function RootLayout({
     </html>
   );
 }
+

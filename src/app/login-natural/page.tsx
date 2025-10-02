@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
+    <div className="flex flex-col min-h-screen bg-transparent">
+      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b border-white/10">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary/10 text-primary p-2 rounded-md">
@@ -30,7 +30,7 @@ export default function LoginNaturalPage() {
                         <User className="ml-2 h-4 w-4"/>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end" className="bg-background/80 backdrop-blur-sm border-white/10">
                     <DropdownMenuItem asChild>
                         <Link href="/login-natural">Acceso Natural</Link>
                     </DropdownMenuItem>
@@ -46,9 +46,9 @@ export default function LoginNaturalPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto">
+        <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm border-white/10">
           <CardHeader className="text-center">
-            <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4">
+            <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
               <User className="h-8 w-8"/>
             </div>
             <CardTitle className="text-2xl">Acceso Personal</CardTitle>
@@ -57,20 +57,20 @@ export default function LoginNaturalPage() {
           <CardContent className="p-6 space-y-6">
             <div className="space-y-2">
               <Label>Cédula de Identidad</Label>
-              <Input type="text" placeholder="V-12345678" />
+              <Input type="text" placeholder="V-12345678" className="bg-secondary/50 border-white/10"/>
             </div>
             <div className="space-y-2 relative">
               <Label>Contraseña</Label>
               <Input
                 type={passwordVisible ? "text" : "password"}
                 placeholder="••••••••"
-                className="pr-10"
+                className="pr-10 bg-secondary/50 border-white/10"
               />
               <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
                 {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
             </div>
-            <Button asChild className="w-full">
+            <Button asChild className="w-full h-11 text-base">
               <Link href="/dashboard">Acceder</Link>
             </Button>
             <p className="mt-6 text-center text-sm text-muted-foreground">

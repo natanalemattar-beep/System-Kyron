@@ -14,7 +14,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-         <header className="p-4 flex justify-between items-center border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10 h-20 px-6 md:px-8">
+         <header className="p-4 flex justify-between items-center border-b border-white/10 bg-background/80 backdrop-blur-sm sticky top-0 z-10 h-20 px-6 md:px-8">
            <div className="flex items-center gap-4">
             <SidebarTrigger />
            </div>
@@ -30,7 +30,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="bg-background/80 backdrop-blur-sm border-white/10">
                 <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
