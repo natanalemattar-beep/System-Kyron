@@ -235,7 +235,7 @@ export default function LandingPage() {
         </section>
         
         {/* Features Section */}
-        <section id="features" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
+        <section id="features" className="py-20 md:py-32 bg-secondary/30">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Todo lo que tu Empresa Necesita</h2>
@@ -280,7 +280,7 @@ export default function LandingPage() {
         </section>
 
         {/* Servicios */}
-        <section id="servicios" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
+        <section id="servicios" className="py-20 md:py-32 bg-secondary/30">
              <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Servicios Profesionales</h2>
@@ -329,7 +329,7 @@ export default function LandingPage() {
         </section>
 
         {/* Contabilidad */}
-        <section id="contabilidad" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
+        <section id="contabilidad" className="py-20 md:py-32 bg-secondary/30">
              <div className="container mx-auto px-4 md:px-6">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                      <div>
@@ -358,7 +358,7 @@ export default function LandingPage() {
                         <Badge variant="outline">Exclusivo de System C.M.S</Badge>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Póliza de Tranquilidad: Tu Seguro Contable y Jurídico</h2>
-                    <p className="mt-4 text-muted-foreground text-lg">
+                    <p className="mt-4 text-lg text-muted-foreground">
                         Entendemos los riesgos de operar en Venezuela. Por eso, creamos un seguro único que protege tu patrimonio ante errores contables, multas inesperadas o contingencias fiscales. Es más que un servicio, es tu paz mental.
                     </p>
                     <Button size="lg" className="mt-8" asChild>
@@ -369,7 +369,7 @@ export default function LandingPage() {
         </section>
         
          {/* Testimonials */}
-        <section className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
+        <section className="py-20 md:py-32 bg-secondary/30">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                      <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
@@ -416,7 +416,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t bg-secondary/30 dark:bg-card">
+      <footer className="py-8 border-t bg-secondary/30">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>

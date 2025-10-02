@@ -47,7 +47,7 @@ export default function RecursosHumanosPage() {
       </header>
 
       {/* Fundamentos de la Nómina */}
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
             <CardTitle className="flex items-center gap-3"><Landmark className="h-6 w-6 text-primary"/>Fundamentos de la Nómina en Venezuela 🇻🇪</CardTitle>
             <CardDescription>Elementos clave que nuestro sistema maneja para garantizar el cumplimiento legal.</CardDescription>
@@ -63,7 +63,7 @@ export default function RecursosHumanosPage() {
       </Card>
 
       {/* Características del Software */}
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
             <CardTitle>Módulos y Características del Sistema</CardTitle>
             <CardDescription>Un ecosistema completo para la gestión del talento humano.</CardDescription>
@@ -84,14 +84,14 @@ export default function RecursosHumanosPage() {
       </Card>
       
        {/* Servicios Ofertados */}
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
             <CardTitle>Nuestra Oferta de Servicios</CardTitle>
             <CardDescription>Nos adaptamos a las necesidades de tu empresa, desde la externalización completa hasta la asesoría estratégica.</CardDescription>
         </CardHeader>
         <CardContent className="grid md:grid-cols-3 gap-6">
             {serviciosOfertados.map(service => (
-                 <Card key={service.title} className="bg-card/50 backdrop-blur-sm">
+                 <Card key={service.title}>
                     <CardHeader>
                         <CardTitle className="text-lg">{service.title}</CardTitle>
                     </CardHeader>
@@ -104,7 +104,7 @@ export default function RecursosHumanosPage() {
       </Card>
 
        {/* Planes y Precios */}
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
             <CardTitle className="flex items-center gap-3"><DollarSign className="h-6 w-6 text-primary"/>Planes y Precios</CardTitle>
             <CardDescription>Modelos de precios transparentes y escalables. Contacta con nosotros para una cotización detallada de implementación y soporte.</CardDescription>

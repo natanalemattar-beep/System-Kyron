@@ -42,7 +42,7 @@ export default function ActasMatrimonioPage() {
                 Solicitar Acta
             </Button>
         </header>
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardContent className="pt-6">
             <Table>
                 <TableHeader>
