@@ -4,19 +4,19 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 220 13% 95%; /* Light blue-gray */
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 217.2 91.2% 59.8%; /* Vibrant Blue */
     --primary-foreground: 210 40% 98%;
-    --secondary: 170 76.2% 36.3%;
+    --secondary: 170 76.2% 36.3%; /* Sea Green */
     --secondary-foreground: 170 76.2% 96.3%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 170 83.4% 47.5%;
+    --accent: 170 83.4% 47.5%; /* Accent Green */
     --accent-foreground: 170 83.4% 97.5%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
@@ -71,8 +71,23 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image: radial-gradient(hsl(var(--muted-foreground) / 0.1) 1px, transparent 1px);
-    background-size: 16px 16px;
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--accent)));
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
+  }
+}
+
+@layer utilities {
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 }
 
