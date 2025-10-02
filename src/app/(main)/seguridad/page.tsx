@@ -33,24 +33,11 @@ export default function SeguridadPage() {
             Seguridad y Configuración
         </h1>
         <p className="text-muted-foreground mt-2">
-          Gestiona la seguridad y la apariencia de tu cuenta.
+          Gestiona la seguridad de tu cuenta.
         </p>
       </header>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         
-        <Card className="lg:col-span-1 bg-card/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-3"><Palette /> Apariencia</CardTitle>
-            <CardDescription>
-                Elige el tema visual de la aplicación.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex items-center justify-between p-6">
-                <p className="font-medium">Modo Claro / Oscuro</p>
-                <ThemeToggle />
-          </CardContent>
-        </Card>
-
         <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm">
           <CardHeader>
             <CardTitle>Verificación en Dos Pasos (2FA)</CardTitle>
