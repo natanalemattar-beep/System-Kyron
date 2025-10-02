@@ -155,8 +155,8 @@ export default function DashboardJuridicoPage() {
       {/* Main Actions */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {mainActions.map((action, index) => (
-          <Card key={index} className="flex flex-col justify-between hover:shadow-md transition-shadow duration-300 bg-card/80">
-            <CardHeader>
+          <Card key={index} className="flex flex-col hover:shadow-md transition-shadow duration-300 bg-card/80">
+            <CardHeader className="flex-grow">
               <div className={'p-3 rounded-lg bg-secondary w-max mb-4'}>
                 <action.icon className={'h-6 w-6 text-primary'} />
               </div>
