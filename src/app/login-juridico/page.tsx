@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building, Eye, EyeOff, Flag, ChevronDown, Briefcase } from "lucide-react";
+import { Building, Eye, EyeOff, Flag, ChevronDown, Briefcase, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,9 +37,9 @@ export default function LoginJuridicoPage() {
             <ThemeToggle />
              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button>
-                        Acceder
-                        <ChevronDown className="ml-2 h-4 w-4" />
+                    <Button variant="ghost" size="icon">
+                        <User className="h-5 w-5"/>
+                        <span className="sr-only">Acceder</span>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>

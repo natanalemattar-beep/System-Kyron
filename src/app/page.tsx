@@ -88,9 +88,9 @@ export default function LandingPage() {
               <div className="hidden md:flex items-center gap-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button>
-                            Acceder
-                            <ChevronDown className="ml-2 h-4 w-4" />
+                        <Button variant="ghost" size="icon">
+                            <User className="h-5 w-5"/>
+                            <span className="sr-only">Acceder</span>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -304,7 +304,7 @@ export default function LandingPage() {
                     <p className="mt-4 text-muted-foreground">
                         Entendemos los riesgos de operar en Venezuela. Por eso, creamos un seguro único que protege tu patrimonio ante errores contables, multas inesperadas o contingencias fiscales. Es más que un servicio, es tu paz mental.
                     </p>
-                    <Button size="lg" className="mt-8" asChild>
+                    <Button size="lg" variant="ghost" className="mt-8" asChild>
                         <Link href="/seguros">Conoce más sobre tu Póliza <ArrowRight className="ml-2"/></Link>
                     </Button>
                 </div>

@@ -60,9 +60,9 @@ export default function RegisterPage() {
                     <ThemeToggle />
                      <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button>
-                                Acceder
-                                <ChevronDown className="ml-2 h-4 w-4" />
+                            <Button variant="ghost" size="icon">
+                                <User className="h-5 w-5"/>
+                                <span className="sr-only">Acceder</span>
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
@@ -134,9 +134,9 @@ export default function RegisterPage() {
                 <ThemeToggle />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button>
-                            Acceder
-                            <ChevronDown className="ml-2 h-4 w-4" />
+                        <Button variant="ghost" size="icon">
+                            <User className="h-5 w-5"/>
+                            <span className="sr-only">Acceder</span>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -362,5 +362,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-
-    
