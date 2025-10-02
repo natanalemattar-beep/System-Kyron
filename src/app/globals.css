@@ -42,8 +42,10 @@
   }
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(-45deg, #020617, #032d3c, #023834, #020617);
-    background-size: 400% 400%;
-    animation: gradient-animation 15s ease infinite;
+    background-image: radial-gradient(circle at center, hsla(170, 80%, 30%, 0.3), hsla(222, 84%, 4.9%, 0) 40%),
+                      radial-gradient(circle at top left, hsla(150, 70%, 40%, 0.3), hsla(222, 84%, 4.9%, 0) 50%),
+                      radial-gradient(circle at bottom right, hsla(210, 80%, 40%, 0.3), hsla(222, 84%, 4.9%, 0) 50%);
+    background-color: hsl(var(--background));
+    min-height: 100vh;
   }
 }
