@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 220 13% 95%; /* Light blue-gray */
+    --background: 220 13% 98%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
@@ -71,6 +71,12 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  body.light-mode-gradient {
+    @apply bg-gradient-to-br from-blue-100 via-green-50 to-white;
+    background-size: 200% 200%;
+    animation: gradient-animation 20s ease infinite;
   }
 }
 
