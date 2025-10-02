@@ -4,12 +4,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot, Phone, HeartHandshake } from "lucide-react";
+import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot, Phone, HeartHandshake, Building, Briefcase } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
@@ -74,7 +74,7 @@ export default function LandingPage() {
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           
-          <nav className="hidden md:flex items-center gap-2">
+          <nav className="hidden md:flex items-center gap-x-1">
             {navLinks.map((link) => (
                 <Button key={link.label} variant={activeLink === link.href ? "secondary" : "ghost"} asChild onClick={() => setActiveLink(link.href)}>
                     <Link href={link.href} className="text-sm font-medium">
@@ -90,25 +90,27 @@ export default function LandingPage() {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button>
+                            <User className="mr-2 h-4 w-4"/>
                             Acceder
                             <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem asChild>
-                            <Link href="/login-natural">Iniciar Sesión Natural</Link>
+                            <Link href="/login-natural"><User className="mr-2"/>Iniciar Sesión Natural</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                            <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
+                            <Link href="/login-juridico"><Building className="mr-2"/>Iniciar Sesión Jurídico</Link>
                         </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                            <Link href="/login-rrhh"><Briefcase className="mr-2"/>Recursos Humanos</Link>
+                        </DropdownMenuItem>
+                         <DropdownMenuSeparator />
                          <DropdownMenuItem asChild>
-                            <Link href="/login-rrhh">Recursos Humanos</Link>
+                           <Link href="/register">Registrarse</Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <Button variant="outline" asChild>
-                  <Link href="/register">Registrarse</Link>
-                </Button>
               </div>
 
               <Sheet>
@@ -150,12 +152,12 @@ export default function LandingPage() {
                       </SheetClose>
                        <SheetClose asChild>
                          <Button asChild className="w-full justify-start">
-                            <Link href="/login-juridico"><User className="mr-2"/>Iniciar Sesión Jurídico</Link>
+                            <Link href="/login-juridico"><Building className="mr-2"/>Iniciar Sesión Jurídico</Link>
                           </Button>
                       </SheetClose>
                        <SheetClose asChild>
                          <Button asChild className="w-full justify-start">
-                            <Link href="/login-rrhh"><User className="mr-2"/>Recursos Humanos</Link>
+                            <Link href="/login-rrhh"><Briefcase className="mr-2"/>Recursos Humanos</Link>
                           </Button>
                       </SheetClose>
                        <SheetClose asChild>
