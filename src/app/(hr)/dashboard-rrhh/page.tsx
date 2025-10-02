@@ -91,7 +91,7 @@ export default function RecursosHumanosPage() {
         </CardHeader>
         <CardContent className="grid md:grid-cols-3 gap-6">
             {serviciosOfertados.map(service => (
-                 <Card key={service.title}>
+                 <Card key={service.title} className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="text-lg">{service.title}</CardTitle>
                     </CardHeader>
