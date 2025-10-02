@@ -200,14 +200,23 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-24 md:py-32 flex items-center justify-center">
-            <div className="relative text-center animate-in fade-in duration-1000">
-                <div className="absolute -inset-2 bg-gradient-to-r from-primary to-secondary rounded-xl blur-lg opacity-20 animate-pulse"></div>
-                <Card className="max-w-4xl p-8 md:p-12 bg-card/50 backdrop-blur-sm border-2 border-primary/20 shadow-xl">
+        <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-white">
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="https://picsum.photos/seed/hero-bg/1920/1080"
+                    alt="Abstract background"
+                    data-ai-hint="abstract background"
+                    fill
+                    className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/60" />
+            </div>
+            <div className="container mx-auto px-4 relative z-10 text-center animate-in fade-in duration-1000">
+                <Card className="max-w-4xl mx-auto p-8 md:p-12 bg-card/50 backdrop-blur-sm border-2 border-primary/20 shadow-xl">
                     <h1 className="text-4xl md:text-6xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-primary via-green-400 to-secondary animate-gradient-animation">
                         La Plataforma Definitiva para la Gestión Empresarial en Venezuela
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+                    <p className="mt-6 text-lg md:text-xl text-foreground max-w-3xl mx-auto">
                         Simplifica tus operaciones, garantiza el cumplimiento con el SENIAT y toma el control total de tu negocio.
                     </p>
                 </Card>
