@@ -73,17 +73,26 @@ export default function LandingPage() {
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           
-          <nav className="hidden md:flex items-center gap-x-1">
-            {navLinks.map((link) => (
-                <Button key={link.label} variant={activeLink === link.href ? "secondary" : "ghost"} asChild onClick={() => setActiveLink(link.href)}>
-                    <Link href={link.href} className="text-sm font-medium">
-                        {link.label}
-                    </Link>
-                </Button>
-            ))}
-          </nav>
-          
           <div className="flex items-center gap-4">
+              <nav className="hidden md:flex items-center gap-x-1">
+                 <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost">
+                            Secciones
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        {navLinks.map((link) => (
+                            <DropdownMenuItem key={link.label} asChild>
+                                <Link href={link.href}>
+                                    {link.label}
+                                </Link>
+                            </DropdownMenuItem>
+                        ))}
+                    </DropdownMenuContent>
+                </DropdownMenu>
+              </nav>
               <div className="hidden md:flex items-center gap-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
