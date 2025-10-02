@@ -233,7 +233,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map(item => (
-                        <Card key={item.title} className="overflow-hidden group">
+                        <Card key={item.title} className="overflow-hidden group bg-card/50 backdrop-blur-sm">
                             <div className="relative aspect-video">
                                 <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} fill className="object-cover transition-transform duration-300 group-hover:scale-105"/>
                             </div>
@@ -257,7 +257,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                     {services.map(service => (
-                        <Card key={service.title} className="text-center">
+                        <Card key={service.title} className="text-center bg-card/50 backdrop-blur-sm">
                             <CardHeader>
                                 <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full w-max mb-4">
                                     <service.icon className="h-8 w-8" />
@@ -319,7 +319,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                     {testimonials.map(testimonial => (
-                        <blockquote key={testimonial.name} className="p-6 bg-background rounded-lg shadow-sm">
+                        <blockquote key={testimonial.name} className="p-6 bg-background/50 backdrop-blur-sm rounded-lg shadow-sm">
                             <p className="italic">"{testimonial.quote}"</p>
                             <footer className="mt-4 font-semibold">{testimonial.name}, <span className="text-muted-foreground font-normal">{testimonial.company}</span></footer>
                         </blockquote>
