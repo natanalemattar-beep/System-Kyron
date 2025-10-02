@@ -66,7 +66,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen text-foreground">
       <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+        <div className="container mx-auto flex h-20 items-center justify-between px-6 md:px-8">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary/10 text-primary p-2 rounded-md">
               <Flag className="h-6 w-6" />
@@ -74,7 +74,7 @@ export default function LandingPage() {
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
                 <Button key={link.label} variant={activeLink === link.href ? "secondary" : "ghost"} asChild onClick={() => setActiveLink(link.href)}>
                     <Link href={link.href} className="text-sm font-medium">
@@ -84,7 +84,7 @@ export default function LandingPage() {
             ))}
           </nav>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
               <ThemeToggle />
               <div className="hidden md:flex items-center gap-2">
                 <DropdownMenu>
@@ -156,11 +156,6 @@ export default function LandingPage() {
                        <SheetClose asChild>
                          <Button asChild className="w-full justify-start">
                             <Link href="/login-rrhh"><User className="mr-2"/>Recursos Humanos</Link>
-                          </Button>
-                      </SheetClose>
-                       <SheetClose asChild>
-                         <Button asChild variant="outline" className="w-full justify-start">
-                            <Link href="/register"><User className="mr-2"/>Registrarse</Link>
                           </Button>
                       </SheetClose>
                     </div>

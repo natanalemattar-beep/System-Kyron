@@ -15,12 +15,12 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-         <header className="p-4 flex justify-between items-center border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10 h-16">
-           <div className="flex items-center gap-2">
+         <header className="p-4 flex justify-between items-center border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10 h-20 px-6 md:px-8">
+           <div className="flex items-center gap-4">
             <SidebarTrigger />
             <ThemeToggle />
            </div>
-           <div className="flex items-center gap-2">
+           <div className="flex items-center gap-4">
             <Link href="/notificaciones">
               <Button variant="ghost" size="icon"><Bell className="h-5 w-5"/></Button>
             </Link>
