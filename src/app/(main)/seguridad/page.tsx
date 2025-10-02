@@ -4,12 +4,13 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, KeyRound, QrCode } from "lucide-react";
+import { Shield, KeyRound, QrCode, Palette } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function SeguridadPage() {
     const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
@@ -29,14 +30,28 @@ export default function SeguridadPage() {
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Shield className="h-8 w-8" />
-            Seguridad de la Cuenta
+            Seguridad y Configuración
         </h1>
         <p className="text-muted-foreground mt-2">
-          Gestiona la contraseña y la verificación en dos pasos para proteger tu cuenta.
+          Gestiona la seguridad y la apariencia de tu cuenta.
         </p>
       </header>
-      <div className="grid gap-8 md:grid-cols-2">
-        <Card className="bg-card/50 backdrop-blur-sm">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        
+        <Card className="lg:col-span-1 bg-card/50 backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3"><Palette /> Apariencia</CardTitle>
+            <CardDescription>
+                Elige el tema visual de la aplicación.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex items-center justify-between p-6">
+                <p className="font-medium">Modo Claro / Oscuro</p>
+                <ThemeToggle />
+          </CardContent>
+        </Card>
+
+        <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm">
           <CardHeader>
             <CardTitle>Verificación en Dos Pasos (2FA)</CardTitle>
             <CardDescription>
@@ -75,14 +90,14 @@ export default function SeguridadPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card className="lg:col-span-3 bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Cambiar Contraseña</CardTitle>
                 <CardDescription>
                     Es recomendable usar una contraseña segura que no utilices en otros sitios.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="grid md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                     <Label htmlFor="current-password">Contraseña Actual</Label>
                     <Input id="current-password" type="password" />
@@ -95,7 +110,9 @@ export default function SeguridadPage() {
                     <Label htmlFor="confirm-password">Confirmar Nueva Contraseña</Label>
                     <Input id="confirm-password" type="password" />
                 </div>
-                <Button className="w-full pt-2">
+            </CardContent>
+            <CardContent>
+                <Button className="w-full md:w-auto">
                     <KeyRound className="mr-2"/>
                     Actualizar Contraseña
                 </Button>

@@ -8,7 +8,6 @@ import { Bell, LogOut, Settings, User } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function HrLayout({ children }: { children: ReactNode }) {
   return (
@@ -18,7 +17,6 @@ export default function HrLayout({ children }: { children: ReactNode }) {
          <header className="p-4 flex justify-between items-center border-b bg-background/80 backdrop-blur-sm sticky top-0 z-10 h-20 px-6 md:px-8">
            <div className="flex items-center gap-4">
             <SidebarTrigger />
-            <ThemeToggle />
            </div>
            <div className="flex items-center gap-4">
             <Link href="/notificaciones">

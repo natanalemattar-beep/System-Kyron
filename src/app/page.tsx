@@ -85,12 +85,11 @@ export default function LandingPage() {
           </nav>
           
           <div className="flex items-center gap-4">
-              <ThemeToggle />
               <div className="hidden md:flex items-center gap-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button>
-                            <User className="mr-2 h-4 w-4"/>
+                            <Briefcase className="mr-2 h-4 w-4"/>
                             Acceder
                             <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
@@ -105,12 +104,11 @@ export default function LandingPage() {
                         <DropdownMenuItem asChild>
                             <Link href="/login-rrhh"><Briefcase className="mr-2"/>Recursos Humanos</Link>
                         </DropdownMenuItem>
-                         <DropdownMenuSeparator />
-                         <DropdownMenuItem asChild>
-                           <Link href="/register">Registrarse</Link>
-                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+                <Button asChild variant="outline">
+                    <Link href="/register">Registrarse</Link>
+                </Button>
               </div>
 
               <Sheet>

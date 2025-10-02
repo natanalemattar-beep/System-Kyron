@@ -26,7 +26,6 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function RegisterPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -57,7 +56,6 @@ export default function RegisterPage() {
                     </div>
                 </Link>
                 <div className="flex items-center gap-2">
-                    <ThemeToggle />
                      <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="icon">
@@ -128,7 +126,6 @@ export default function RegisterPage() {
             </div>
           </Link>
           <div className="flex items-center gap-2">
-                <ThemeToggle />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">
