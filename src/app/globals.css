@@ -13,24 +13,24 @@
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
  
-    --primary: 45 100% 51%; /* Araguaney Yellow */
-    --primary-foreground: 224 71.4% 4.1%;
+    --primary: 217 91% 60%; /* Vibrant Blue */
+    --primary-foreground: 210 20% 98%;
  
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220 20% 20%;
+    --secondary: 180 44% 95%; /* Muted Teal */
+    --secondary-foreground: 174 81% 23%; /* Dark Green */
  
     --muted: 220 14.3% 95.9%;
     --muted-foreground: 220 8.9% 46.1%;
  
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 224 71.4% 4.1%;
+    --accent: 180 44% 95%; /* Muted Teal for accents */
+    --accent-foreground: 174 81% 23%;
  
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 224 71.4% 4.1%;
+    --ring: 217 91% 60%;
  
     --radius: 0.7rem;
   }
@@ -45,24 +45,24 @@
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
  
-    --primary: 45 100% 51%;
-    --primary-foreground: 224 71.4% 4.1%;
+    --primary: 217 91% 60%; /* Vibrant Blue */
+    --primary-foreground: 210 20% 98%;
  
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 174 81% 23%; /* Dark Green */
+    --secondary-foreground: 180 44% 95%; /* Muted Teal */
  
     --muted: 215 27.9% 16.9%;
     --muted-foreground: 217.9 10.6% 64.9%;
  
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
+    --accent: 174 81% 23%; /* Dark Green for accents */
+    --accent-foreground: 180 44% 95%;
  
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 20% 98%;
  
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
-    --ring: 215 27.9% 16.9%;
+    --ring: 217 91% 60%;
   }
 }
 
