@@ -212,13 +212,13 @@ export default function LandingPage() {
             <div className="container mx-auto px-4 md:px-6">
                 <div className="grid md:grid-cols-3 gap-8">
                      {features.map(item => (
-                        <div key={item.title} className="text-center flex flex-col items-center">
+                        <Card key={item.title} className="text-center flex flex-col items-center p-6 bg-card/50 backdrop-blur-sm border">
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
                                 <item.icon className="h-8 w-8" />
                             </div>
                             <h3 className="text-xl font-semibold">{item.title}</h3>
-                            <p className="text-muted-foreground mt-2">{item.description}</p>
-                        </div>
+                            <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
+                        </Card>
                     ))}
                 </div>
             </div>
@@ -234,7 +234,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map(item => (
-                        <Card key={item.title} className="overflow-hidden group bg-card/50 backdrop-blur-sm">
+                        <Card key={item.title} className="overflow-hidden group bg-card/50 backdrop-blur-sm border">
                             <div className="relative aspect-video">
                                 <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} fill className="object-cover transition-transform duration-300 group-hover:scale-105"/>
                             </div>
@@ -258,7 +258,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                     {services.map(service => (
-                        <Card key={service.title} className="text-center bg-card/50 backdrop-blur-sm">
+                        <Card key={service.title} className="text-center bg-card/50 backdrop-blur-sm border">
                             <CardHeader>
                                 <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full w-max mb-4">
                                     <service.icon className="h-8 w-8" />
@@ -342,7 +342,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                     {testimonials.map(testimonial => (
-                        <blockquote key={testimonial.name} className="p-6 bg-background/50 backdrop-blur-sm rounded-lg shadow-sm">
+                        <blockquote key={testimonial.name} className="p-6 bg-card/50 backdrop-blur-sm border rounded-lg shadow-sm">
                             <p className="italic">"{testimonial.quote}"</p>
                             <footer className="mt-4 font-semibold">{testimonial.name}, <span className="text-muted-foreground font-normal">{testimonial.company}</span></footer>
                         </blockquote>
@@ -359,7 +359,7 @@ export default function LandingPage() {
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
                     <p className="mt-4 text-muted-foreground">¿Listo para tomar el control de tu negocio? Ponte en contacto con nosotros.</p>
                 </div>
-                <Card className="max-w-xl mx-auto bg-card/80 backdrop-blur-sm">
+                <Card className="max-w-xl mx-auto bg-card/80 backdrop-blur-sm border">
                     <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
                             <div className="p-3 bg-primary/10 rounded-full mb-3">
@@ -392,3 +392,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
