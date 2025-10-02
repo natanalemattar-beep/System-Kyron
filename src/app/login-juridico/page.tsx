@@ -24,7 +24,7 @@ export default function LoginJuridicoPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
+      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary/10 text-primary p-2 rounded-md">
@@ -57,7 +57,7 @@ export default function LoginJuridicoPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm border">
+        <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
               <Building className="h-10 w-10 text-primary"/>

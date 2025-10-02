@@ -65,8 +65,8 @@ export default function LandingPage() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-image');
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
+    <div className="flex flex-col min-h-screen bg-background">
+       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-20 items-center justify-between px-6 md:px-8">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary/10 text-primary p-2 rounded-md">
@@ -423,5 +423,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
