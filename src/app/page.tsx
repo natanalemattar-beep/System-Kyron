@@ -200,24 +200,29 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-20 md:py-32">
+        <section className="relative py-20 md:py-32 flex items-center justify-center text-center text-white">
+            <div className="absolute inset-0 -z-10">
+                <Image 
+                    src="https://picsum.photos/seed/team-meeting-charts-hero/1920/1080"
+                    alt="Equipo de negocios analizando gráficos"
+                    data-ai-hint="team presentation"
+                    fill
+                    className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/60"></div>
+            </div>
             <div className="container mx-auto px-4 md:px-6">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    <div className="animate-in fade-in slide-in-from-left duration-700">
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance">
-                           La Plataforma Definitiva para la Gestión Empresarial en Venezuela
-                        </h1>
-                        <p className="mt-6 text-lg md:text-xl text-balance text-muted-foreground max-w-2xl">
-                            Simplifica tu contabilidad, asegura el cumplimiento fiscal y toma el control total de tu negocio con nuestra plataforma todo-en-uno.
-                        </p>
-                        <div className="mt-10">
-                            <Button size="lg" asChild>
-                                <Link href="/#features">Conoce la Plataforma <ArrowRight className="ml-2"/></Link>
-                            </Button>
-                        </div>
-                    </div>
-                    <div className="animate-in fade-in slide-in-from-right duration-700">
-                       <Image src="https://picsum.photos/seed/accounting-charts-final/800/600" alt="Contabilidad" data-ai-hint="accounting charts" width={800} height={600} className="rounded-xl shadow-2xl"/>
+                <div className="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-12 duration-700">
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>
+                        La Plataforma Definitiva para la Gestión Empresarial en Venezuela
+                    </h1>
+                    <p className="mt-6 text-lg md:text-xl text-balance text-white/80 max-w-3xl mx-auto"  style={{textShadow: '0 2px 8px rgba(0,0,0,0.7)'}}>
+                        Simplifica tu contabilidad, asegura el cumplimiento fiscal y toma el control total de tu negocio con nuestra plataforma todo-en-uno.
+                    </p>
+                    <div className="mt-10">
+                        <Button size="lg" asChild>
+                            <Link href="/#features">Conoce la Plataforma <ArrowRight className="ml-2"/></Link>
+                        </Button>
                     </div>
                 </div>
             </div>
