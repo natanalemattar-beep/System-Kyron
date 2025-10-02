@@ -10,18 +10,18 @@ import { Label } from "@/components/ui/label";
 import { BrainCircuit, FileScan, ListTree, ArrowRight, Bot, Loader2, Smile, Frown, Meh, BadgeCheck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { analyzeSentiment, type AnalyzeSentimentOutput } from "@/ai/flows/sentiment-analysis";
-
+import { Progress } from "@/components/ui/progress";
 
 const iaSolutions = [
     {
         title: "Extracción Automática de Datos",
-        description: "Sube facturas, recibos o cualquier documento y nuestra IA extraerá la información clave por ti.",
+        description: "Sube facturas, recibos o cualquier documento y nuestra IA extraerá la información clave por ti, ahorrándote horas de trabajo manual.",
         icon: FileScan,
         href: "/data-entry"
     },
     {
         title: "Categorización de Transacciones",
-        description: "Conecta tus cuentas y la IA categorizará automáticamente tus ingresos y gastos para un análisis financiero claro.",
+        description: "Conecta tus cuentas y la IA categorizará automáticamente tus ingresos y gastos para un análisis financiero claro y sin esfuerzo.",
         icon: ListTree,
         href: "/transactions"
     },
@@ -46,132 +46,152 @@ export default function SolucionesIAPage() {
         setIsLoading(true);
         setAnalysisResult(null);
 
-        const result = await analyzeSentiment({ textToAnalyze });
-        
-        if ('error' in result) {
-            toast({
+        try {
+            const result = await analyzeSentiment({ textToAnalyze });
+            if ('error' in result) {
+                 toast({
+                    variant: "destructive",
+                    title: "Error en el Análisis",
+                    description: result.error,
+                });
+            } else {
+                setAnalysisResult(result);
+            }
+        } catch (error) {
+             toast({
                 variant: "destructive",
-                title: "Error en el Análisis",
-                description: result.error,
+                title: "Error inesperado",
+                description: "Ocurrió un problema al conectar con el servicio de IA.",
             });
-        } else {
-            setAnalysisResult(result);
         }
         
         setIsLoading(false);
     };
     
-    const getSentimentIcon = (sentiment: "Positivo" | "Negativo" | "Neutral" | undefined) => {
+    const getSentimentInfo = (sentiment: "Positivo" | "Negativo" | "Neutral" | undefined) => {
         switch (sentiment) {
             case "Positivo":
-                return <Smile className="h-10 w-10 text-green-500" />;
+                return { icon: <Smile className="h-16 w-16 text-green-500" />, color: "bg-green-500/10 border-green-500/20", textColor: "text-green-500" };
             case "Negativo":
-                return <Frown className="h-10 w-10 text-red-500" />;
+                return { icon: <Frown className="h-16 w-16 text-red-500" />, color: "bg-red-500/10 border-red-500/20", textColor: "text-red-500" };
             case "Neutral":
-                return <Meh className="h-10 w-10 text-yellow-500" />;
+                return { icon: <Meh className="h-16 w-16 text-yellow-500" />, color: "bg-yellow-500/10 border-yellow-500/20", textColor: "text-yellow-500" };
             default:
-                return null;
+                 return { icon: null, color: "", textColor: "" };
         }
     };
 
+    const sentimentInfo = getSentimentInfo(analysisResult?.sentiment);
+
     return (
-        <div>
-            <header className="mb-8">
-                <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                    <BrainCircuit className="h-8 w-8 text-primary" />
-                    Soluciones con Inteligencia Artificial
-                </h1>
-                <p className="text-muted-foreground mt-2">
-                    Automatiza tareas y obtén análisis inteligentes para potenciar tu negocio.
+        <div className="space-y-12">
+            <header className="text-center">
+                <BrainCircuit className="h-16 w-16 mx-auto text-primary mb-4" />
+                <h1 className="text-4xl font-bold tracking-tight">Soluciones con Inteligencia Artificial</h1>
+                <p className="text-muted-foreground mt-2 max-w-3xl mx-auto">
+                    Automatiza tareas, obtén análisis inteligentes y toma decisiones más rápidas para potenciar tu negocio.
                 </p>
             </header>
 
-            <div className="grid gap-8 lg:grid-cols-2">
-                {/* Módulos existentes */}
+            <div className="grid gap-8 md:grid-cols-2">
                 {iaSolutions.map(solution => (
-                    <Card key={solution.title}>
+                    <Card key={solution.title} className="flex flex-col bg-card/50 backdrop-blur-sm">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-3">
-                                <solution.icon className="h-6 w-6 text-primary"/>
-                                <span>{solution.title}</span>
-                            </CardTitle>
-                            <CardDescription>{solution.description}</CardDescription>
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-primary/10 rounded-lg">
+                                    <solution.icon className="h-8 w-8 text-primary"/>
+                                </div>
+                                <CardTitle className="text-xl">{solution.title}</CardTitle>
+                            </div>
                         </CardHeader>
-                        <CardContent>
-                            <Button asChild variant="outline">
+                        <CardContent className="flex-grow">
+                            <CardDescription>{solution.description}</CardDescription>
+                        </CardContent>
+                        <CardFooter>
+                            <Button asChild className="w-full">
                                 <Link href={solution.href}>
-                                    Ir al Módulo <ArrowRight className="ml-2 h-4 w-4"/>
+                                    Probar ahora <ArrowRight className="ml-2 h-4 w-4"/>
                                 </Link>
                             </Button>
-                        </CardContent>
+                        </CardFooter>
                     </Card>
                 ))}
             </div>
 
-            {/* Nuevo Módulo: Análisis de Sentimiento */}
-            <Card className="mt-8">
+            <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3">
                         <Bot className="h-6 w-6 text-primary"/>
                         Análisis de Sentimiento de Clientes
                     </CardTitle>
                     <CardDescription>
-                        Pega una reseña, un comentario o cualquier texto de un cliente para analizar su sentimiento.
+                        Pega una reseña, un comentario o cualquier texto de un cliente para analizar su opinión al instante.
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="grid gap-6 md:grid-cols-2">
+                <CardContent className="grid gap-8 md:grid-cols-2">
                     <div className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="sentiment-text">Texto a Analizar</Label>
+                            <Label htmlFor="sentiment-text" className="text-lg font-medium">Texto a Analizar</Label>
                             <Textarea 
                                 id="sentiment-text" 
                                 placeholder="Ej: 'El servicio fue excelente, pero el producto llegó tarde.'" 
-                                className="min-h-[150px]"
+                                className="min-h-[200px] text-base"
                                 value={textToAnalyze}
                                 onChange={(e) => setTextToAnalyze(e.target.value)}
                             />
                         </div>
-                        <Button onClick={handleAnalyze} disabled={isLoading} className="w-full">
+                        <Button onClick={handleAnalyze} disabled={isLoading} className="w-full h-12 text-lg">
                             {isLoading ? (
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                             ) : (
-                                <BrainCircuit className="mr-2 h-4 w-4" />
+                                <BrainCircuit className="mr-2 h-5 w-5" />
                             )}
                             Analizar Sentimiento
                         </Button>
                     </div>
-                    <div className="flex items-center justify-center p-6 bg-secondary rounded-lg">
+                    <div className={`flex items-center justify-center p-6 rounded-lg transition-colors duration-300 ${analysisResult ? sentimentInfo.color : 'bg-secondary'}`}>
                         {!analysisResult && !isLoading && (
-                             <div className="text-center text-muted-foreground">
-                                <p>El resultado del análisis aparecerá aquí.</p>
+                             <div className="text-center text-muted-foreground animate-pulse">
+                                <Bot className="h-16 w-16 mx-auto mb-4"/>
+                                <p className="font-medium">El resultado del análisis aparecerá aquí.</p>
                             </div>
                         )}
                         {isLoading && (
                             <div className="text-center">
                                 <Loader2 className="h-12 w-12 text-primary animate-spin" />
-                                <p className="mt-4 text-muted-foreground">Analizando...</p>
+                                <p className="mt-4 text-muted-foreground font-semibold">Analizando...</p>
                             </div>
                         )}
                         {analysisResult && (
-                            <div className="text-center space-y-4">
-                                {getSentimentIcon(analysisResult.sentiment)}
+                            <div className="text-center space-y-4 w-full animate-in fade-in duration-500">
+                                {sentimentInfo.icon}
                                 <div>
-                                    <p className="text-3xl font-bold">{analysisResult.sentiment}</p>
-                                    <div className="flex items-center justify-center gap-2 text-sm text-green-500 font-medium mt-2">
-                                        <BadgeCheck className="h-4 w-4" />
-                                        <span>Confianza del {Math.round(analysisResult.confidence * 100)}%</span>
+                                    <p className={`text-5xl font-bold ${sentimentInfo.textColor}`}>{analysisResult.sentiment}</p>
+                                    <div className="mt-4 space-y-2">
+                                        <p className="text-sm font-medium">Confianza del Análisis</p>
+                                        <Progress value={analysisResult.confidence * 100} className="w-full" />
+                                        <p className="font-bold text-lg">{Math.round(analysisResult.confidence * 100)}%</p>
                                     </div>
                                 </div>
                             </div>
                         )}
                     </div>
                 </CardContent>
-                 <CardFooter>
-                    <p className="text-xs text-muted-foreground">
-                        Esta herramienta es ideal para analizar rápidamente feedback de clientes, comentarios en redes sociales o resultados de encuestas.
-                    </p>
-                </CardFooter>
+            </Card>
+            
+             <Card className="bg-primary/10 border-primary/20 text-center">
+                <CardHeader>
+                    <CardTitle>¿Necesitas más poder?</CardTitle>
+                    <CardDescription>
+                        Podemos desarrollar soluciones de IA a medida para las necesidades específicas de tu empresa.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Button>Solicitar una Demo Personalizada <ArrowRight className="ml-2"/></Button>
+                </CardContent>
             </Card>
         </div>
     );
 }
+
+    
