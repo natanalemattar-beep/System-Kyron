@@ -17,6 +17,7 @@ import {
   Send,
   Calendar,
   TrendingUp,
+  Briefcase
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -266,5 +267,3 @@ export default function DashboardJuridicoPage() {
     </div>
   );
 }
-
-    

@@ -24,7 +24,7 @@ type Activity = {
 
 export function ActivityCard({ recentActivities }: { recentActivities: Activity[] }) {
   return (
-    <Card className="lg:col-span-2 hover:shadow-md transition-shadow duration-300 bg-card/80">
+    <Card className="lg:col-span-2 hover:shadow-md transition-shadow duration-300 bg-background/80 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Actividad Reciente</CardTitle>
       </CardHeader>
