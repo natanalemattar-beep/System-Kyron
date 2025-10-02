@@ -65,8 +65,8 @@ export default function LandingPage() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-image');
 
   return (
-    <div className="flex flex-col min-h-screen text-foreground bg-white dark:bg-background">
-      <header className="sticky top-0 z-50 w-full bg-white/90 dark:bg-background/95 backdrop-blur-sm border-b">
+    <div className="flex flex-col min-h-screen">
+      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-20 items-center justify-between px-6 md:px-8">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary/10 text-primary p-2 rounded-md">
@@ -234,7 +234,7 @@ export default function LandingPage() {
         </section>
         
         {/* Features Section */}
-        <section id="features" className="py-20 md:py-32 bg-slate-50 dark:bg-card">
+        <section id="features" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Todo lo que tu Empresa Necesita</h2>
@@ -242,7 +242,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                      {features.map(item => (
-                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-white dark:bg-background border shadow-lg">
+                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-card border shadow-lg">
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
@@ -263,7 +263,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map(item => (
-                        <Card key={item.title} className="overflow-hidden group bg-white dark:bg-card border shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                        <Card key={item.title} className="overflow-hidden group bg-card border shadow-lg hover:shadow-2xl transition-shadow duration-300">
                              <div className="relative aspect-video">
                                 <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} fill className="object-cover transition-transform duration-300 group-hover:scale-105"/>
                             </div>
@@ -279,7 +279,7 @@ export default function LandingPage() {
         </section>
 
         {/* Servicios */}
-        <section id="servicios" className="py-20 md:py-32 bg-slate-50 dark:bg-card">
+        <section id="servicios" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
              <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Servicios Profesionales</h2>
@@ -287,7 +287,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                     {services.map(service => (
-                        <Card key={service.title} className="text-center bg-white dark:bg-background border shadow-lg">
+                        <Card key={service.title} className="text-center bg-card border shadow-lg">
                             <CardHeader>
                                 <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full w-max mb-4">
                                     <service.icon className="h-8 w-8" />
@@ -328,7 +328,7 @@ export default function LandingPage() {
         </section>
 
         {/* Contabilidad */}
-        <section id="contabilidad" className="py-20 md:py-32 bg-slate-50 dark:bg-card">
+        <section id="contabilidad" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
              <div className="container mx-auto px-4 md:px-6">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                      <div>
@@ -368,14 +368,14 @@ export default function LandingPage() {
         </section>
         
          {/* Testimonials */}
-        <section className="py-20 md:py-32 bg-slate-50 dark:bg-card">
+        <section className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-16">
                      <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                     {testimonials.map(testimonial => (
-                        <blockquote key={testimonial.name} className="p-8 bg-white dark:bg-background border rounded-lg shadow-lg">
+                        <blockquote key={testimonial.name} className="p-8 bg-card border rounded-lg shadow-lg">
                             <p className="italic text-lg">"{testimonial.quote}"</p>
                             <footer className="mt-6 font-semibold text-md">{testimonial.name}, <span className="text-muted-foreground font-normal">{testimonial.company}</span></footer>
                         </blockquote>
@@ -391,7 +391,7 @@ export default function LandingPage() {
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
                     <p className="mt-4 text-lg text-muted-foreground">¿Listo para tomar el control de tu negocio? Ponte en contacto con nosotros.</p>
                 </div>
-                <Card className="max-w-4xl mx-auto bg-white dark:bg-card border shadow-lg">
+                <Card className="max-w-4xl mx-auto bg-card border shadow-lg">
                     <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
                             <div className="p-3 bg-primary/10 rounded-full mb-3">
@@ -415,7 +415,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t bg-slate-50 dark:bg-card">
+      <footer className="py-8 border-t bg-secondary/30 dark:bg-card">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>
