@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot, Phone } from "lucide-react";
@@ -59,6 +60,7 @@ const testimonials = [
 
 
 export default function LandingPage() {
+  const [activeLink, setActiveLink] = useState('');
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -73,7 +75,7 @@ export default function LandingPage() {
           
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
-                <Button key={link.label} variant="ghost" asChild>
+                <Button key={link.label} variant={activeLink === link.href ? "secondary" : "ghost"} asChild onClick={() => setActiveLink(link.href)}>
                     <Link href={link.href} className="text-sm font-medium">
                         {link.label}
                     </Link>
