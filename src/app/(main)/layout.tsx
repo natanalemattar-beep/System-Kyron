@@ -14,7 +14,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-         <header className="p-4 flex justify-between items-center border-b sticky top-0 z-10 h-16 px-6 md:px-8 bg-background/80 backdrop-blur-sm">
+         <header className="p-4 flex justify-between items-center border-b border-white/10 sticky top-0 z-10 h-16 px-6 md:px-8 bg-background/50 backdrop-blur-sm">
            <div className="flex items-center gap-4">
             <SidebarTrigger />
            </div>

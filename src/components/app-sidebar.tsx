@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import Link from "next/link";
@@ -221,14 +220,14 @@ export function AppSidebar() {
         <Accordion type="multiple" className="w-full" defaultValue={['Jurídico', 'Finanzas y Contabilidad', 'Análisis y Crecimiento', 'Facturación', 'Recursos Humanos', 'Libros de Registro', 'General', 'Soluciones con IA']}>
             {navGroups.map((group) => (
                 <AccordionItem value={group.title} key={group.title} className="border-none">
-                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
+                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b border-white/10">
                         <div className="flex items-center gap-2 text-sm font-medium">
                             <group.icon className="h-4 w-4" />
                             {group.title}
                         </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-0">
-                        <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                        <SidebarMenu className="pl-4 border-l border-white/10 ml-4 py-2">
                             {group.items.map((item) => (
                             <SidebarMenuItem key={item.href}>
                                 <SidebarMenuButton
