@@ -209,7 +209,7 @@ export default function LandingPage() {
                 className="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover"
                 poster="https://picsum.photos/seed/accounting-hero/1920/1080"
             >
-                <source src="https://storage.googleapis.com/studio-webapp-assets/videos/hero_video_2.mp4" type="video/mp4" />
+                <source src="https://storage.googleapis.com/studio-webapp-assets/videos/hero_video.mp4" type="video/mp4" />
                 Tu navegador no soporta el tag de video.
             </video>
             <div className="absolute inset-0 bg-black/70" />
