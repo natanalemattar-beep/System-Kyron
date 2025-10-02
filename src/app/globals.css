@@ -10,14 +10,14 @@
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 217.2 91.2% 59.8%; /* Vibrant Blue */
+    --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 170 76.2% 36.3%; /* Sea Green */
-    --secondary-foreground: 170 76.2% 96.3%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 170 83.4% 47.5%; /* Accent Green */
-    --accent-foreground: 170 83.4% 97.5%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
     --border: 214.3 31.8% 91.4%;
@@ -74,7 +74,7 @@
   }
 
   body.light-mode-gradient {
-    @apply bg-gradient-to-br from-blue-100 via-green-50 to-white;
+    @apply bg-gradient-to-br from-blue-50 via-gray-50 to-white;
     background-size: 200% 200%;
     animation: gradient-animation 20s ease infinite;
   }
@@ -92,10 +92,4 @@
       background-position: 0% 50%;
     }
   }
-}
-
-@layer components {
-    .bg-card\/50 {
-        background-color: hsl(var(--card) / 0.5);
-    }
 }
