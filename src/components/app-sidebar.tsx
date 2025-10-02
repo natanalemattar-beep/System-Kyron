@@ -86,7 +86,7 @@ const juridicoMainMenuItems = [
 ];
 
 const finanzasContabilidadMenuItems = [
-  { href: "/reports", label: "Reportes Contables", icon: BookOpen },
+  { href: "/reports", label: "Reportes Contables", icon: BarChart },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
   { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
@@ -126,12 +126,10 @@ const facturacionMenuItems = [
     { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
 ];
 
-const recursosHumanosMenuItems = [
+const recursosHumanosGestionItems = [
     { href: "/dashboard-rrhh", label: "Dashboard RRHH", icon: LayoutDashboard },
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
-    { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
-    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
     { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
     { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
     { href: "/ivss", label: "Gestión IVSS", icon: Briefcase },
@@ -150,6 +148,10 @@ const librosRegistroMenuItems = [
     { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
 ];
 
+const corporativoMenuItems = [
+    { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
+    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
+];
 
 const generalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
@@ -180,7 +182,7 @@ const navGroups = [
     { title: "Análisis y Crecimiento", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Soluciones con IA", icon: BrainCircuit, items: iaMenuItems },
     { title: "Facturación", icon: FileText, items: facturacionMenuItems },
-    { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosMenuItems },
+    { title: "Recursos Humanos", icon: Briefcase, items: [...recursosHumanosGestionItems, ...corporativoMenuItems] },
     { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
@@ -189,7 +191,7 @@ const navGroups = [
 export function AppSidebar() {
   const pathname = usePathname();
   
-  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh');
+  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => naturalMenuItems.some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path);
   
   if (isHrPath(pathname)) {
@@ -217,8 +219,10 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-0">
-        <Accordion type="multiple" className="w-full" defaultValue={['Jurídico', 'Finanzas y Contabilidad', 'Análisis y Crecimiento', 'Facturación', 'Recursos Humanos', 'Libros de Registro', 'General', 'Soluciones con IA']}>
-            {navGroups.map((group) => (
+        <Accordion type="multiple" className="w-full" defaultValue={['Jurídico', 'Finanzas y Contabilidad', 'Análisis y Crecimiento', 'Facturación', 'Recursos Humanos', 'General', 'Soluciones con IA']}>
+            {navGroups.map((group) => {
+              if (group.title === "Recursos Humanos" || group.title === "Libros de Registro") return null;
+              return (
                 <AccordionItem value={group.title} key={group.title} className="border-none">
                     <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
                         <div className="flex items-center gap-2 text-sm font-medium">
@@ -246,7 +250,7 @@ export function AppSidebar() {
                         </SidebarMenu>
                     </AccordionContent>
                 </AccordionItem>
-            ))}
+            )})}
         </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
@@ -344,6 +348,12 @@ function AppSidebarNatural() {
 function AppSidebarHr() {
   const pathname = usePathname();
 
+  const navGroups = [
+    { title: "Gestión", items: recursosHumanosGestionItems },
+    { title: "Corporativo", items: corporativoMenuItems },
+    { title: "Libros de Registro", items: librosRegistroMenuItems },
+  ]
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -359,27 +369,37 @@ function AppSidebarHr() {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-2">
-        <SidebarGroup>
-          <SidebarGroupLabel className="flex items-center gap-2"><Briefcase className="h-4 w-4"/>Recursos Humanos</SidebarGroupLabel>
-          <SidebarMenu>
-            {recursosHumanosMenuItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname.startsWith(item.href)}
-                  tooltip={item.label}
-                  className="justify-start"
-                >
-                  <Link href={item.href}>
-                    <item.icon className="h-5 w-5" />
-                    <span>{item.label}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+      <SidebarContent className="p-0">
+         <Accordion type="multiple" className="w-full" defaultValue={['Gestión', 'Corporativo', 'Libros de Registro']}>
+            {navGroups.map((group) => (
+                <AccordionItem value={group.title} key={group.title} className="border-none">
+                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
+                        <div className="flex items-center gap-2 text-sm font-medium">
+                            {group.title}
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-0">
+                        <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                            {group.items.map((item) => (
+                            <SidebarMenuItem key={item.href}>
+                                <SidebarMenuButton
+                                asChild
+                                isActive={pathname.startsWith(item.href)}
+                                tooltip={item.label}
+                                className="justify-start h-8"
+                                >
+                                <Link href={item.href}>
+                                    <item.icon className="h-4 w-4" />
+                                    <span>{item.label}</span>
+                                </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </AccordionContent>
+                </AccordionItem>
             ))}
-          </SidebarMenu>
-        </SidebarGroup>
+        </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />

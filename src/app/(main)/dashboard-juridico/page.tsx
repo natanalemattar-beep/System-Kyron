@@ -95,11 +95,6 @@ const dailySummary = {
     gastos: 430.50,
 }
 
-const financialSummary = [
-    { label: 'Ingresos del Mes', amount: 2400000, color: 'bg-green-600/20 text-green-400' },
-    { label: 'Gastos del Mes', amount: 1800000, color: 'bg-red-600/20 text-red-400' },
-]
-
 const ActivitySkeleton = () => (
   <div className="lg:col-span-2">
     <Card className="bg-card/80 backdrop-blur-sm">
@@ -153,6 +148,22 @@ export default function DashboardJuridicoPage() {
         </Badge>
       </div>
 
+       {/* Stats */}
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {stats.map(stat => (
+              <Card key={stat.title} className="hover:shadow-md transition-shadow duration-300 bg-card/80 backdrop-blur-sm">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
+                    <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold">{stat.value}</div>
+                    <p className="text-xs text-muted-foreground">{stat.footer}</p>
+                  </CardContent>
+              </Card>
+          ))}
+      </div>
+      
       {/* Main Actions */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {mainActions.map((action, index) => (
@@ -175,23 +186,6 @@ export default function DashboardJuridicoPage() {
           </Card>
         ))}
       </div>
-
-        {/* Stats */}
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {stats.map(stat => (
-              <Card key={stat.title} className="hover:shadow-md transition-shadow duration-300 bg-card/80 backdrop-blur-sm">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
-                    <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-4xl font-bold">{stat.value}</div>
-                    <p className="text-xs text-muted-foreground">{stat.footer}</p>
-                  </CardContent>
-              </Card>
-          ))}
-      </div>
-
 
       {/* Activity and Financial Summary */}
       <div className="grid gap-6 lg:grid-cols-3">

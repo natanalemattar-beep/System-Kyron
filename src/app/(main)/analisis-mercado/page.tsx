@@ -4,9 +4,9 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Users, DollarSign, ArrowRight, Lightbulb, Zap } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { formatCurrency } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 const kpiData = [
     { title: "Tamaño del Mercado", value: formatCurrency(12000000, 'Bs.'), icon: DollarSign, description: "Valor total estimado del mercado de papelería." },
@@ -39,7 +39,7 @@ const estrategias = [
 
 export default function AnalisisMercadoPage() {
   return (
-    <div>
+    <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <BarChart className="h-8 w-8" />
@@ -73,15 +73,10 @@ export default function AnalisisMercadoPage() {
                 </CardHeader>
                 <CardContent className="h-80">
                    <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={supplyDemandData}>
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="month" />
-                          <YAxis />
+                        <PieChart data={supplyDemandData}>
+                          <Pie dataKey="demanda" nameKey="month" cx="50%" cy="50%" outerRadius={80} fill="hsl(var(--primary))" label />
                           <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))' }} />
-                          <Legend />
-                          <Line type="monotone" dataKey="demanda" name="Demanda" stroke="hsl(var(--primary))" strokeWidth={2} />
-                          <Line type="monotone" dataKey="oferta" name="Oferta" stroke="hsl(var(--destructive))" strokeWidth={2} />
-                        </LineChart>
+                        </PieChart>
                     </ResponsiveContainer>
                 </CardContent>
             </Card>
@@ -139,5 +134,3 @@ export default function AnalisisMercadoPage() {
     </div>
   );
 }
-
-    

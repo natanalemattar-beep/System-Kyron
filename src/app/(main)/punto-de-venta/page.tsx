@@ -249,29 +249,3 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
-
-// Add styles for printing
-const styles = `
-@media print {
-    body * {
-        visibility: hidden;
-    }
-    .print-content, .print-content * {
-        visibility: visible;
-    }
-    .print-content {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-    @page {
-        size: 80mm auto; /* Adjust for thermal printer roll width */
-        margin: 5mm;
-    }
-}
-`;
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);
