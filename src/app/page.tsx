@@ -219,7 +219,7 @@ export default function LandingPage() {
             <div className="container mx-auto px-4 md:px-6">
                 <div className="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-12 duration-700">
                     <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>
-                        La Plataforma Definitiva para la Gestión Empresarial en Venezuela
+                        System C.M.S
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-balance text-white/80 max-w-3xl mx-auto"  style={{textShadow: '0 2px 8px rgba(0,0,0,0.7)'}}>
                         Simplifica tu contabilidad, asegura el cumplimiento fiscal y toma el control total de tu negocio con nuestra plataforma todo-en-uno.
