@@ -8,7 +8,6 @@ import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowR
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 
@@ -104,11 +103,12 @@ export default function LandingPage() {
                         <DropdownMenuItem asChild>
                             <Link href="/login-rrhh"><Briefcase className="mr-2"/>Recursos Humanos</Link>
                         </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild>
+                            <Link href="/register">Registrarse</Link>
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <Button asChild variant="outline">
-                    <Link href="/register">Registrarse</Link>
-                </Button>
               </div>
 
               <Sheet>
