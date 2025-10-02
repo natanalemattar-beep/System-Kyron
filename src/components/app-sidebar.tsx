@@ -206,14 +206,14 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-primary/10 text-primary p-2 rounded-lg">
+           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
               <Flag className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
-              <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
+              <h1 className="text-lg font-bold tracking-tight">
                 System C.M.S
               </h1>
-              <p className="text-xs text-sidebar-foreground/70">Plataforma Digital Oficial</p>
+              <p className="text-xs text-muted-foreground">Plataforma Digital Oficial</p>
           </div>
         </div>
       </SidebarHeader>
@@ -221,14 +221,14 @@ export function AppSidebar() {
         <Accordion type="multiple" className="w-full" defaultValue={['Jurídico', 'Finanzas y Contabilidad', 'Análisis y Crecimiento', 'Facturación', 'Recursos Humanos', 'Libros de Registro', 'General', 'Soluciones con IA']}>
             {navGroups.map((group) => (
                 <AccordionItem value={group.title} key={group.title} className="border-none">
-                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-sidebar-accent text-sidebar-foreground/70 border-b border-white/5">
+                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
                         <div className="flex items-center gap-2 text-sm font-medium">
                             <group.icon className="h-4 w-4" />
                             {group.title}
                         </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-0">
-                        <SidebarMenu className="pl-4 border-l border-white/10 ml-4 py-2">
+                        <SidebarMenu className="pl-4 border-l ml-4 py-2">
                             {group.items.map((item) => (
                             <SidebarMenuItem key={item.href}>
                                 <SidebarMenuButton
@@ -251,7 +251,7 @@ export function AppSidebar() {
         </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
-        <Separator className="my-2 bg-sidebar-border" />
+        <Separator className="my-2" />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>E</AvatarFallback>
@@ -284,14 +284,14 @@ function AppSidebarNatural() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-primary/10 text-primary p-2 rounded-lg">
+           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
               <Flag className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
-              <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
+              <h1 className="text-lg font-bold tracking-tight">
                 System C.M.S
               </h1>
-              <p className="text-xs text-sidebar-foreground/70">Plataforma Digital Oficial</p>
+              <p className="text-xs text-muted-foreground">Plataforma Digital Oficial</p>
           </div>
         </div>
       </SidebarHeader>
@@ -318,7 +318,7 @@ function AppSidebarNatural() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-2">
-        <Separator className="my-2 bg-sidebar-border" />
+        <Separator className="my-2" />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             {userAvatar && (
@@ -349,14 +349,14 @@ function AppSidebarHr() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-primary/10 text-primary p-2 rounded-lg">
+           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
               <Flag className="h-6 w-6" />
             </div>
           <div className="flex flex-col">
-              <h1 className="text-lg font-bold tracking-tight text-sidebar-foreground">
+              <h1 className="text-lg font-bold tracking-tight">
                 System C.M.S
               </h1>
-              <p className="text-xs text-sidebar-foreground/70">Módulo de RR.HH.</p>
+              <p className="text-xs text-muted-foreground">Módulo de RR.HH.</p>
           </div>
         </div>
       </SidebarHeader>
@@ -383,7 +383,7 @@ function AppSidebarHr() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-2">
-        <Separator className="my-2 bg-sidebar-border" />
+        <Separator className="my-2" />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>RH</AvatarFallback>

@@ -9,7 +9,6 @@ import {
   EyeOff,
   ShieldCheck,
   Flag,
-  Briefcase,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -38,11 +37,11 @@ export default function RegisterPage() {
 
   if (step === 2) {
     return (
-        <div className="flex flex-col min-h-screen bg-transparent">
-             <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b border-white/10">
+        <div className="flex flex-col min-h-screen bg-background">
+             <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
                 <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
                 <Link href="/" className="flex items-center gap-3">
-                    <div className="bg-primary/10 text-primary p-2 rounded-md">
+                    <div className="bg-primary text-primary-foreground p-2 rounded-md">
                         <Flag className="h-6 w-6" />
                     </div>
                     <span className="text-lg font-bold">System C.M.S</span>
@@ -54,7 +53,7 @@ export default function RegisterPage() {
                             <User className="ml-2 h-4 w-4"/>
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-background/80 backdrop-blur-sm border-white/10">
+                    <DropdownMenuContent align="end">
                         <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-juridico">Acceso Jurídico</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
@@ -63,7 +62,7 @@ export default function RegisterPage() {
                 </div>
             </header>
             <main className="flex-1 flex items-center justify-center p-4">
-                 <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm border-white/10">
+                 <Card className="w-full max-w-md mx-auto">
                     <CardContent className="flex flex-col items-center p-8 text-center">
                         <div className="p-4 bg-primary/10 rounded-full mb-4">
                             <ShieldCheck className="h-10 w-10 text-primary" />
@@ -98,11 +97,11 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-transparent">
-      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b border-white/10">
+    <div className="flex flex-col min-h-screen bg-background">
+      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="bg-primary/10 text-primary p-2 rounded-md">
+            <div className="bg-primary text-primary-foreground p-2 rounded-md">
               <Flag className="h-6 w-6" />
             </div>
              <span className="text-lg font-bold">System C.M.S</span>
@@ -114,7 +113,7 @@ export default function RegisterPage() {
                     <User className="ml-2 h-4 w-4"/>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-background/80 backdrop-blur-sm border-white/10">
+            <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-juridico">Acceso Jurídico</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
@@ -124,7 +123,7 @@ export default function RegisterPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-2xl mx-auto bg-card/50 backdrop-blur-sm border-white/10">
+        <Card className="w-full max-w-2xl mx-auto">
           <CardContent className="p-8">
             <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold mb-2">Crear una Cuenta</h1>
@@ -134,49 +133,49 @@ export default function RegisterPage() {
             </div>
 
             <Tabs defaultValue="juridica" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-secondary/50 h-12 p-1 mb-6">
-                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-background/80 data-[state=active]:shadow-sm flex gap-2">
+              <TabsList className="grid w-full grid-cols-2 bg-muted h-12 p-1 mb-6">
+                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-background data-[state=active]:shadow-sm flex gap-2">
                     <Building className="h-5 w-5"/> Persona Jurídica
                 </TabsTrigger>
-                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-background/80 data-[state=active]:shadow-sm flex gap-2">
+                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-background data-[state=active]:shadow-sm flex gap-2">
                     <User className="h-5 w-5"/> Persona Natural
                 </TabsTrigger>
               </TabsList>
 
               <TabsContent value="juridica" className="text-left">
                 <form onSubmit={handleRegistration} className="space-y-6">
-                    <h3 className="font-semibold text-lg border-b pb-2 border-white/10">Datos de la Empresa</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2">Datos de la Empresa</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label>Razón Social</Label>
-                            <Input type="text" placeholder="Nombre de la empresa" className="bg-secondary/50 border-white/10"/>
+                            <Input type="text" placeholder="Nombre de la empresa"/>
                         </div>
                         <div className="space-y-2">
                             <Label>RIF</Label>
-                            <Input type="text" placeholder="J-12345678-9" className="bg-secondary/50 border-white/10"/>
+                            <Input type="text" placeholder="J-12345678-9"/>
                         </div>
                     </div>
                     
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4 border-white/10">Datos de Contacto</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Datos de Contacto</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label>Correo Electrónico</Label>
-                            <Input type="email" placeholder="contacto@empresa.com" className="bg-secondary/50 border-white/10"/>
+                            <Input type="email" placeholder="contacto@empresa.com"/>
                         </div>
                          <div className="space-y-2">
                             <Label>Teléfono</Label>
-                            <Input type="tel" placeholder="0414-1234567" className="bg-secondary/50 border-white/10"/>
+                            <Input type="tel" placeholder="0414-1234567"/>
                         </div>
                     </div>
 
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4 border-white/10">Seguridad</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Seguridad</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2 relative">
                             <Label>Contraseña</Label>
                             <Input 
                                 type={passwordVisible ? "text" : "password"} 
                                 placeholder="••••••••" 
-                                className="pr-10 bg-secondary/50 border-white/10"
+                                className="pr-10"
                             />
                             <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
                                 {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
@@ -187,7 +186,7 @@ export default function RegisterPage() {
                             <Input 
                                 type={confirmPasswordVisible ? "text" : "password"} 
                                 placeholder="••••••••" 
-                                className="pr-10 bg-secondary/50 border-white/10"
+                                className="pr-10"
                             />
                             <button type="button" onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)} className="absolute right-3 top-8 text-muted-foreground">
                                 {confirmPasswordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
@@ -214,38 +213,38 @@ export default function RegisterPage() {
 
                <TabsContent value="natural" className="text-left">
                  <form onSubmit={handleRegistration} className="space-y-6">
-                    <h3 className="font-semibold text-lg border-b pb-2 border-white/10">Datos Personales</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2">Datos Personales</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label>Nombres y Apellidos</Label>
-                            <Input type="text" placeholder="Juan Pérez" className="bg-secondary/50 border-white/10"/>
+                            <Input type="text" placeholder="Juan Pérez"/>
                         </div>
                         <div className="space-y-2">
                             <Label>Cédula de Identidad</Label>
-                            <Input type="text" placeholder="V-12345678" className="bg-secondary/50 border-white/10"/>
+                            <Input type="text" placeholder="V-12345678"/>
                         </div>
                     </div>
                     
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4 border-white/10">Datos de Contacto</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Datos de Contacto</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label>Correo Electrónico</Label>
-                            <Input type="email" placeholder="juan.perez@email.com" className="bg-secondary/50 border-white/10"/>
+                            <Input type="email" placeholder="juan.perez@email.com"/>
                         </div>
                         <div className="space-y-2">
                             <Label>Teléfono</Label>
-                            <Input type="tel" placeholder="0412-1234567" className="bg-secondary/50 border-white/10"/>
+                            <Input type="tel" placeholder="0412-1234567"/>
                         </div>
                     </div>
 
-                     <h3 className="font-semibold text-lg border-b pb-2 pt-4 border-white/10">Seguridad</h3>
+                     <h3 className="font-semibold text-lg border-b pb-2 pt-4">Seguridad</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2 relative">
                             <Label>Contraseña</Label>
                             <Input 
                                 type={passwordVisible ? "text" : "password"} 
                                 placeholder="••••••••" 
-                                className="pr-10 bg-secondary/50 border-white/10"
+                                className="pr-10"
                             />
                             <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
                                 {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
@@ -256,7 +255,7 @@ export default function RegisterPage() {
                             <Input 
                                 type={confirmPasswordVisible ? "text" : "password"} 
                                 placeholder="••••••••" 
-                                className="pr-10 bg-secondary/50 border-white/10"
+                                className="pr-10"
                             />
                             <button type="button" onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)} className="absolute right-3 top-8 text-muted-foreground">
                                 {confirmPasswordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
