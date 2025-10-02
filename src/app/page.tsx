@@ -48,6 +48,9 @@ export default function LandingPage() {
           </nav>
           
           <div className="flex items-center gap-2">
+            <Button asChild variant="outline">
+              <Link href="/register">Registrarse</Link>
+            </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="hidden md:flex">
@@ -61,10 +64,6 @@ export default function LandingPage() {
                   <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
-            <Button asChild>
-              <Link href="/register">Registrarse</Link>
-            </Button>
 
             <Sheet>
               <SheetTrigger asChild>
