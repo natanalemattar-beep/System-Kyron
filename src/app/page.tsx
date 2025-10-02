@@ -217,7 +217,7 @@ export default function LandingPage() {
                         </div>
                     </div>
                     <div className="animate-in fade-in slide-in-from-right duration-700">
-                       <Image src="https://picsum.photos/seed/accounting/800/600" alt="Contabilidad" data-ai-hint="accounting charts" width={800} height={600} className="rounded-xl shadow-2xl"/>
+                       <Image src="https://picsum.photos/seed/team-meeting-hero/800/600" alt="Team meeting" data-ai-hint="team presentation" width={800} height={600} className="rounded-xl shadow-2xl"/>
                     </div>
                 </div>
             </div>
