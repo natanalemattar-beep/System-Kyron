@@ -78,18 +78,37 @@ export default function LandingPage() {
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost">
-                            Secciones
+                            Productos y Servicios
                             <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        {navLinks.map((link) => (
-                            <DropdownMenuItem key={link.label} asChild>
-                                <Link href={link.href}>
-                                    {link.label}
-                                </Link>
-                            </DropdownMenuItem>
-                        ))}
+                        <DropdownMenuItem asChild><Link href="/#productos">Productos</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/#servicios">Servicios</Link></DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost">
+                            Soluciones Contables
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                       <DropdownMenuItem asChild><Link href="/#contabilidad">Contabilidad</Link></DropdownMenuItem>
+                       <DropdownMenuItem asChild><Link href="/#seguro">Seguro Contable y Jurídico</Link></DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost">
+                            Fundación y Contacto
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem asChild><Link href="/#fundacion">Fundación</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/#contacto">Contacto</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
               </nav>
@@ -99,7 +118,6 @@ export default function LandingPage() {
                         <Button>
                             <Briefcase className="mr-2 h-4 w-4"/>
                             Acceder
-                            <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
