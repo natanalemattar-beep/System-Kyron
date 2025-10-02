@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 207 90% 95%;
-    --foreground: 224 71.4% 4.1%;
+    --background: 222 84% 4.9%; /* Dark Blue */
+    --foreground: 210 40% 98%;
 
-    --card: 207 90% 98%;
-    --card-foreground: 224 71.4% 4.1%;
+    --card: 222 47% 11%; /* Darker Blue */
+    --card-foreground: 210 40% 98%;
  
-    --popover: 207 90% 98%;
-    --popover-foreground: 224 71.4% 4.1%;
+    --popover: 222 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
  
     --primary: 207 90% 54%; /* Cerulean Blue */
-    --primary-foreground: 210 20% 98%;
+    --primary-foreground: 210 40% 98%;
  
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
  
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
  
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
  
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 207 90% 54%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 217 33% 17%;
  
     --radius: 0.7rem;
   }
@@ -42,7 +42,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(-45deg, #0077b6, #0096c7, #00b4d8, #48cae4);
+    background: linear-gradient(-45deg, hsl(207, 90%, 54%), hsl(222, 47%, 11%), hsl(222, 84%, 4.9%), hsl(207, 90%, 54%));
     background-size: 400% 400%;
     min-height: 100vh;
   }
