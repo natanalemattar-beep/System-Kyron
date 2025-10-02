@@ -66,7 +66,7 @@ export default function CuentasPorCobrarPage() {
             </header>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
-                <Card className="bg-background/80 backdrop-blur-sm">
+                <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Total por Cobrar</CardTitle>
                         <Wallet className="h-4 w-4 text-muted-foreground" />
@@ -76,7 +76,7 @@ export default function CuentasPorCobrarPage() {
                         <p className="text-xs text-muted-foreground">Suma de todas las facturas pendientes y vencidas.</p>
                     </CardContent>
                 </Card>
-                <Card className="bg-background/80 backdrop-blur-sm">
+                <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Facturas Vencidas</CardTitle>
                         <AlertTriangle className="h-4 w-4 text-destructive" />
@@ -86,7 +86,7 @@ export default function CuentasPorCobrarPage() {
                         <p className="text-xs text-muted-foreground">Facturas que han superado su fecha de pago.</p>
                     </CardContent>
                 </Card>
-                <Card className="bg-background/80 backdrop-blur-sm">
+                <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Días Promedio de Cobro</CardTitle>
                         <Clock className="h-4 w-4 text-muted-foreground" />
@@ -100,7 +100,7 @@ export default function CuentasPorCobrarPage() {
 
             <div className="grid gap-8 lg:grid-cols-5">
                 <div className="lg:col-span-3">
-                    <Card className="bg-background/80 backdrop-blur-sm">
+                    <Card>
                         <CardHeader>
                             <CardTitle>Facturas Pendientes de Cobro</CardTitle>
                         </CardHeader>
@@ -133,7 +133,7 @@ export default function CuentasPorCobrarPage() {
                     </Card>
                 </div>
                 <div className="lg:col-span-2 space-y-8">
-                     <Card className="bg-background/80 backdrop-blur-sm">
+                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><BarChart />Análisis de Clientes</CardTitle>
                             <CardDescription>Top 5 clientes por deuda total.</CardDescription>
@@ -149,7 +149,7 @@ export default function CuentasPorCobrarPage() {
                             </ResponsiveContainer>
                         </CardContent>
                     </Card>
-                    <Card className="bg-background/80 backdrop-blur-sm">
+                    <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><Lightbulb className="text-yellow-400" />Soluciones de Cobranza</CardTitle>
                         </CardHeader>

@@ -14,7 +14,7 @@ export default function ContratosPage() {
           Módulo de gestión de contratos.
         </p>
       </header>
-      <Card className="bg-background/80 backdrop-blur-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Módulo de Contratos</CardTitle>
           <CardDescription>

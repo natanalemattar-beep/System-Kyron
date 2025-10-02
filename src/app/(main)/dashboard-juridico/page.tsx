@@ -102,7 +102,7 @@ const financialSummary = [
 
 const ActivitySkeleton = () => (
   <div className="lg:col-span-2">
-    <Card className="bg-background/80 backdrop-blur-sm">
+    <Card>
       <CardHeader>
         <Skeleton className="h-6 w-32" />
       </CardHeader>
@@ -156,7 +156,7 @@ export default function DashboardJuridicoPage() {
       {/* Main Actions */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {mainActions.map((action, index) => (
-          <Card key={index} className="flex flex-col hover:shadow-md transition-shadow duration-300 bg-background/80 backdrop-blur-sm">
+          <Card key={index} className="flex flex-col hover:shadow-md transition-shadow duration-300">
             <CardHeader className="flex-grow">
               <div className={'p-3 rounded-lg bg-secondary w-max mb-4'}>
                 <action.icon className={'h-6 w-6 text-primary'} />
@@ -179,7 +179,7 @@ export default function DashboardJuridicoPage() {
         {/* Stats */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {stats.map(stat => (
-              <Card key={stat.title} className="hover:shadow-md transition-shadow duration-300 bg-background/80 backdrop-blur-sm">
+              <Card key={stat.title} className="hover:shadow-md transition-shadow duration-300">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
                     <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
@@ -197,7 +197,7 @@ export default function DashboardJuridicoPage() {
       <div className="grid gap-6 lg:grid-cols-3">
         <LazyActivityCard recentActivities={recentActivities} />
         
-        <Card className="hover:shadow-md transition-shadow duration-300 bg-background/80 backdrop-blur-sm">
+        <Card className="hover:shadow-md transition-shadow duration-300">
           <CardHeader>
             <CardTitle>Resumen Diario</CardTitle>
              <CardDescription>
@@ -223,7 +223,7 @@ export default function DashboardJuridicoPage() {
         </Card>
       </div>
 
-       <Card className="bg-background/80 backdrop-blur-sm">
+       <Card>
         <CardHeader className="flex-row items-center justify-between">
             <div>
                 <CardTitle>Supervisión Financiera</CardTitle>

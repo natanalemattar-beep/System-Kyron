@@ -4,35 +4,35 @@
 
 @layer base {
   :root {
-    --background: 222 84% 4.9%; /* Deep blue-black */
-    --foreground: 210 40% 98%;
+    --background: 220 20% 98%; /* Light greyish white */
+    --foreground: 224 71.4% 4.1%;
 
-    --card: 222 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 20% 100%;
+    --card-foreground: 224 71.4% 4.1%;
  
-    --popover: 222 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 20% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
  
-    --primary: 170 80% 50%; /* Vibrant Cyan/Green */
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 160 70% 40%; /* Vibrant Mint Green */
+    --primary-foreground: 210 20% 98%;
  
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
  
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
  
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
  
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 170 80% 50%; /* Ring color matches new primary */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 160 70% 40%;
  
-    --radius: 0.8rem;
+    --radius: 0.7rem;
   }
 }
 
@@ -42,9 +42,9 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image: radial-gradient(circle at center, hsla(170, 80%, 30%, 0.3), hsla(222, 84%, 4.9%, 0) 40%),
-                      radial-gradient(circle at top left, hsla(150, 70%, 40%, 0.3), hsla(222, 84%, 4.9%, 0) 50%),
-                      radial-gradient(circle at bottom right, hsla(210, 80%, 40%, 0.3), hsla(222, 84%, 4.9%, 0) 50%);
+    background-image: radial-gradient(circle at center, hsla(160, 70%, 90%, 0.4), transparent 40%),
+                      radial-gradient(circle at top left, hsla(190, 70%, 90%, 0.4), transparent 50%),
+                      radial-gradient(circle at bottom right, hsla(160, 70%, 90%, 0.4), transparent 50%);
     background-color: hsl(var(--background));
     min-height: 100vh;
   }

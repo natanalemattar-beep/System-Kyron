@@ -28,118 +28,10 @@ const features = [
     { title: "Auditoría Inteligente en Tiempo Real", description: "Detecta inconsistencias o posibles fraudes antes de que se conviertan en un problema." },
 ];
 
-const ParticleCanvas = () => {
-  useEffect(() => {
-    const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let particles: any[] = [];
-    const numParticles = 100;
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.size > 0.2) this.size -= 0.01;
-
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.fillStyle = 'rgba(100, 255, 218, 0.8)';
-        ctx.strokeStyle = 'rgba(100, 255, 218, 0.1)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
-      }
-    }
-
-    function init() {
-      particles = [];
-      for (let i = 0; i < numParticles; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animate() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-      }
-      connect();
-      requestAnimationFrame(animate);
-    }
-
-    function connect() {
-      if (!ctx) return;
-      let opacityValue = 1;
-      for (let a = 0; a < particles.length; a++) {
-        for (let b = a; b < particles.length; b++) {
-          let distance = Math.sqrt(
-            Math.pow(particles[a].x - particles[b].x, 2) +
-            Math.pow(particles[a].y - particles[b].y, 2)
-          );
-
-          if (distance < 100) {
-            opacityValue = 1 - (distance / 100);
-            ctx.strokeStyle = `rgba(100, 255, 218, ${opacityValue})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particles[a].x, particles[a].y);
-            ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    init();
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-    };
-  }, []);
-
-  return <canvas id="particle-canvas" className="fixed top-0 left-0 -z-10 w-full h-full"></canvas>;
-};
-
-
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <ParticleCanvas />
-      <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-background/50 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary text-primary-foreground p-2 rounded-md">
@@ -182,7 +74,7 @@ export default function LandingPage() {
                   <span className="sr-only">Abrir menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-background/80 backdrop-blur-lg">
+              <SheetContent side="right" className="bg-card">
                 <SheetHeader>
                   <SheetTitle className="sr-only">Menú</SheetTitle>
                 </SheetHeader>
@@ -235,7 +127,7 @@ export default function LandingPage() {
             </div>
         </section>
 
-        <section id="servicios" className="py-20 md:py-28">
+        <section id="servicios" className="py-20 md:py-28 bg-secondary">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -243,7 +135,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                      {services.map(item => (
-                        <Card key={item.title} className="bg-background/80 backdrop-blur-sm">
+                        <Card key={item.title}>
                             <CardHeader>
                                 <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4">
                                     <item.icon className="h-8 w-8" />
@@ -279,7 +171,7 @@ export default function LandingPage() {
                   <Link href="/soluciones-ia">Descubre el Poder de la IA <ArrowRight className="ml-2"/></Link>
               </Button>
             </div>
-            <div className="p-8 rounded-xl bg-background/80 backdrop-blur-sm">
+            <div className="p-8 rounded-xl bg-card border">
                  <Card className="bg-transparent border-0 shadow-none">
                     <CardHeader>
                         <div className="flex items-center gap-3">
@@ -295,7 +187,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="nosotros" className="py-20 md:py-28">
+        <section id="nosotros" className="py-20 md:py-28 bg-secondary">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
@@ -312,7 +204,7 @@ export default function LandingPage() {
                     <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Ponte en contacto con nuestro equipo de especialistas. Estamos listos para ayudarte.</p>
                 </div>
-                <Card className="max-w-4xl mx-auto shadow-lg bg-background/80 backdrop-blur-sm">
+                <Card className="max-w-4xl mx-auto shadow-lg">
                      <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-primary/10 rounded-lg">
@@ -340,7 +232,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t border-white/10">
+      <footer className="py-8 border-t">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>

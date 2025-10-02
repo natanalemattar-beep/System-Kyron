@@ -78,7 +78,7 @@ export default function ClasificacionEmpleadosPage() {
             </Dialog>
         </header>
 
-        <Card className="bg-background/80 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle>Listado de Personal</CardTitle>
                 <CardDescription>Detalle de la clasificación del personal activo.</CardDescription>

@@ -38,7 +38,7 @@ export default function RegisterPage() {
   if (step === 2) {
     return (
         <div className="flex flex-col min-h-screen bg-background">
-             <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-sm border-b border-white/10">
+             <header className="sticky top-0 z-50 w-full bg-card/80 backdrop-blur-sm border-b">
                 <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
                 <Link href="/" className="flex items-center gap-3">
                     <div className="bg-primary text-primary-foreground p-2 rounded-md">
@@ -62,7 +62,7 @@ export default function RegisterPage() {
                 </div>
             </header>
             <main className="flex-1 flex items-center justify-center p-4">
-                 <Card className="w-full max-w-md mx-auto bg-background/80 backdrop-blur-sm">
+                 <Card className="w-full max-w-md mx-auto">
                     <CardContent className="flex flex-col items-center p-8 text-center">
                         <div className="p-4 bg-primary/10 rounded-full mb-4">
                             <ShieldCheck className="h-10 w-10 text-primary" />
@@ -98,7 +98,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-sm border-b border-white/10">
+      <header className="sticky top-0 z-50 w-full bg-card/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="bg-primary text-primary-foreground p-2 rounded-md">
@@ -123,7 +123,7 @@ export default function RegisterPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-2xl mx-auto bg-background/80 backdrop-blur-sm">
+        <Card className="w-full max-w-2xl mx-auto">
           <CardContent className="p-8">
             <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold mb-2">Crear una Cuenta</h1>
@@ -144,7 +144,7 @@ export default function RegisterPage() {
 
               <TabsContent value="juridica" className="text-left">
                 <form onSubmit={handleRegistration} className="space-y-6">
-                    <h3 className="font-semibold text-lg border-b pb-2 border-white/10">Datos de la Empresa</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2">Datos de la Empresa</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label>Razón Social</Label>
@@ -156,7 +156,7 @@ export default function RegisterPage() {
                         </div>
                     </div>
                     
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4 border-white/10">Datos de Contacto</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Datos de Contacto</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label>Correo Electrónico</Label>
@@ -168,7 +168,7 @@ export default function RegisterPage() {
                         </div>
                     </div>
 
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4 border-white/10">Seguridad</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Seguridad</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2 relative">
                             <Label>Contraseña</Label>
@@ -213,7 +213,7 @@ export default function RegisterPage() {
 
                <TabsContent value="natural" className="text-left">
                  <form onSubmit={handleRegistration} className="space-y-6">
-                    <h3 className="font-semibold text-lg border-b pb-2 border-white/10">Datos Personales</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2">Datos Personales</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label>Nombres y Apellidos</Label>
@@ -225,7 +225,7 @@ export default function RegisterPage() {
                         </div>
                     </div>
                     
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4 border-white/10">Datos de Contacto</h3>
+                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Datos de Contacto</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label>Correo Electrónico</Label>
@@ -237,7 +237,7 @@ export default function RegisterPage() {
                         </div>
                     </div>
 
-                     <h3 className="font-semibold text-lg border-b pb-2 pt-4 border-white/10">Seguridad</h3>
+                     <h3 className="font-semibold text-lg border-b pb-2 pt-4">Seguridad</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2 relative">
                             <Label>Contraseña</Label>
