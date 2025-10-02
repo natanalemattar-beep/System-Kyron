@@ -42,7 +42,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(-45deg, #e0f7fa, #e8f5e9, #f3e5f5, #e3f2fd);
+    background: linear-gradient(-45deg, #03045e, #0077b6, #00b4d8, #90e0ef);
     background-size: 400% 400%;
     animation: gradient-animation 15s ease infinite;
     min-height: 100vh;
