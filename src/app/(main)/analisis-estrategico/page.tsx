@@ -60,7 +60,7 @@ export default function AnalisisEstrategicoPage() {
         <section>
             <h2 className="text-2xl font-semibold mb-4 text-center">Paso 1: Diagnóstico Interno y Externo (FODA)</h2>
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3 text-green-500"><Zap />Fortalezas</CardTitle>
                     </CardHeader>
@@ -76,7 +76,7 @@ export default function AnalisisEstrategicoPage() {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3 text-primary"><TrendingUp />Oportunidades</CardTitle>
                     </CardHeader>
@@ -92,7 +92,7 @@ export default function AnalisisEstrategicoPage() {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3 text-orange-400"><AlertTriangle />Debilidades</CardTitle>
                     </CardHeader>
@@ -108,7 +108,7 @@ export default function AnalisisEstrategicoPage() {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3 text-red-500"><ShieldAlert />Amenazas</CardTitle>
                     </CardHeader>
@@ -129,7 +129,7 @@ export default function AnalisisEstrategicoPage() {
         {/* Sección CAME */}
         <section>
              <h2 className="text-2xl font-semibold mb-4 text-center">Paso 2: Definición de Estrategias (CAME)</h2>
-             <Card>
+             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                 <CardTitle className="flex items-center gap-3"><Puzzle className="text-primary"/>Análisis CAME: De la Reflexión a la Acción</CardTitle>
                 <CardDescription>
@@ -155,7 +155,7 @@ export default function AnalisisEstrategicoPage() {
         {/* Sección PESTLE */}
         <section>
             <h2 className="text-2xl font-semibold mb-4 text-center">Paso 3: Análisis del Macroentorno (PESTLE)</h2>
-             <Card>
+             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3"><Layers className="text-primary"/>Análisis PESTLE: Entendiendo el Contexto General</CardTitle>
                     <CardDescription>
