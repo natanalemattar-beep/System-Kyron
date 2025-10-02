@@ -1,129 +1,277 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calculator, Recycle, HeartHandshake, ArrowRight, Bot, Wifi } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot, Phone, HeartHandshake, Building, Briefcase } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
-const maquinasFiscales = [
+const products = [
     {
-        modelo: "Epson Fiscal FX-890II",
-        descripcion: "Impresora fiscal de matriz de puntos de alta velocidad, ideal para grandes volúmenes de facturación y condiciones exigentes.",
-        imagen: "https://picsum.photos/seed/fiscal1/400/300",
-        dataAiHint: "fiscal printer"
+        title: "Software Administrativo",
+        description: "Una solución de escritorio robusta para la gestión completa de tu negocio.",
+        imageUrl: "https://picsum.photos/seed/productA/600/400",
+        imageHint: "desk setup"
     },
     {
-        modelo: "Bixolon SRP-350plusIII",
-        descripcion: "Impresora térmica rápida y fiable, perfecta para puntos de venta (POS) con alto tráfico de clientes.",
-        imagen: "https://picsum.photos/seed/fiscal2/400/300",
-        dataAiHint: "receipt printer"
+        title: "Máquinas Fiscales Homologadas",
+        description: "Equipos de facturación que cumplen con todas las normativas del SENIAT.",
+        imageUrl: "https://picsum.photos/seed/productB/600/400",
+        imageHint: "receipt printer"
+    },
+    {
+        title: "Plataforma en la Nube",
+        description: "Accede a tu información y gestiona tu empresa desde cualquier lugar del mundo.",
+        imageUrl: "https://picsum.photos/seed/productC/600/400",
+        imageHint: "cloud server"
     }
+]
+
+const services = [
+    { title: "Asesoría Contable Personalizada", description: "Expertos a tu disposición para optimizar tus finanzas y planificar tus impuestos.", icon: BookOpen },
+    { title: "Gestión Fiscal y Tributaria", description: "Nos encargamos de tus declaraciones y te mantenemos al día con el SENIAT.", icon: Shield },
+    { title: "Auditoría y Análisis de Datos", description: "Evaluamos la salud de tu negocio para la toma de decisiones estratégicas.", icon: BarChart },
 ];
 
-export default function GestionIntegralPage() {
-  return (
-    <div className="p-4 md:p-8 space-y-12">
-        <header className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
-                <Recycle className="h-10 w-10 text-green-500" />
-                System C.M.S - Gestión Integral
-            </h1>
-            <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-                Una plataforma que fusiona la eficiencia contable y fiscal con la innovación sostenible y el compromiso social.
-            </p>
-        </header>
+const features = [
+    { title: "Cumplimiento SENIAT Garantizado", description: "Duerme tranquilo. Nuestro software está siempre actualizado con las últimas providencias fiscales.", icon: ShieldCheck },
+    { title: "Gestión Integral en un Solo Lugar", description: "Desde facturación y contabilidad hasta nómina y permisos. Todo en una sola plataforma.", icon: GanttChartSquare },
+    { title: "Asistente con Inteligencia Artificial", description: "Nuestra IA te ayuda a detectar errores, optimizar procesos y obtener análisis predictivos.", icon: Bot },
+];
 
-        {/* Sección de Soluciones Fiscales */}
-        <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl">
-                    <Calculator className="h-7 w-7 text-primary"/>
-                    Soluciones Fiscales y Contables
-                </CardTitle>
-                <CardDescription>Equipa tu negocio con tecnología de punta homologada por el SENIAT y optimiza tu contabilidad.</CardDescription>
-            </CardHeader>
-            <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {maquinasFiscales.map(maquina => (
-                    <Card key={maquina.modelo} className="flex flex-col">
-                        <CardHeader>
-                           <Image src={maquina.imagen} alt={maquina.modelo} data-ai-hint={maquina.dataAiHint} width={400} height={300} className="rounded-lg aspect-[4/3] object-cover" />
-                        </CardHeader>
-                        <CardContent className="flex-grow">
-                             <h3 className="font-semibold text-lg">{maquina.modelo}</h3>
-                             <p className="text-sm text-muted-foreground mt-1">{maquina.descripcion}</p>
-                        </CardContent>
-                        <CardFooter>
-                            <Button className="w-full">Cotizar Máquina Fiscal <ArrowRight className="ml-2"/></Button>
-                        </CardFooter>
-                    </Card>
-                ))}
-                 <Card className="lg:col-span-1 md:col-span-2 bg-primary/10 border-primary/20 flex flex-col justify-center items-center text-center p-6">
-                    <Bot className="h-12 w-12 text-primary mb-4"/>
-                    <h3 className="font-semibold text-lg">Software Contable Automatizado</h3>
-                    <p className="text-sm text-muted-foreground mt-2">Nuestro sistema se integra con tus máquinas fiscales para una contabilidad sin errores y en tiempo real.</p>
-                     <Button variant="outline" className="mt-4 w-full">Solicitar Demo</Button>
-                </Card>
-            </CardContent>
-        </Card>
-        
-        {/* Sección de Sostenibilidad y Reciclaje */}
-        <div className="grid lg:grid-cols-5 gap-8 items-center">
-            <div className="lg:col-span-2">
-                 <Image src="https://picsum.photos/seed/recycling/600/500" alt="Papelera Inteligente" data-ai-hint="smart bin" width={600} height={500} className="rounded-xl shadow-lg object-cover"/>
+const testimonials = [
+    { quote: "System C.M.S transformó nuestra gestión. Pasamos de tener hojas de cálculo desordenadas a un control total. La tranquilidad que nos da el cumplimiento con el SENIAT no tiene precio.", name: "Ana Rodríguez", company: "CEO de Innovate C.A." },
+    { quote: "La implementación fue rápida y el soporte técnico es excepcional. El módulo de contabilidad nos ahorra incontables horas cada mes.", name: "Carlos Mendoza", company: "Gerente de Administración" },
+];
+
+
+export default function ManutencionRedesignPage() {
+  const heroImage = PlaceHolderImages.find(p => p.id === 'hero-image');
+
+  return (
+    <div className="flex flex-col min-h-screen bg-background">
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative py-20 md:py-32 flex items-center justify-center text-center text-white">
+            <div className="absolute inset-0 -z-10">
+                {heroImage && (
+                    <Image 
+                        src={heroImage.imageUrl}
+                        alt={heroImage.description}
+                        data-ai-hint={heroImage.imageHint}
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                )}
+                <div className="absolute inset-0 bg-black/60"></div>
             </div>
-            <div className="lg:col-span-3">
-                 <Card className="bg-card/50 backdrop-blur-sm">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-2xl">
-                            <Recycle className="h-7 w-7 text-green-500"/>
-                            Innovación y Sostenibilidad: Papeleras Inteligentes
-                        </CardTitle>
-                         <CardDescription>Revolucionamos la recolección de papel y vidrio con tecnología.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="flex items-start gap-4 p-3 bg-secondary rounded-lg">
-                           <Wifi className="h-6 w-6 text-green-400 mt-1"/>
-                           <div>
-                                <h4 className="font-semibold">Sensores de Llenado con Wi-Fi</h4>
-                                <p className="text-sm text-muted-foreground">Cada papelera notifica automáticamente su nivel de llenado a través de Wi-Fi, optimizando las rutas de recolección y ahorrando combustible.</p>
-                           </div>
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-12 duration-700">
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>
+                        System C.M.S
+                    </h1>
+                    <p className="mt-6 text-lg md:text-xl text-balance text-white/80 max-w-3xl mx-auto"  style={{textShadow: '0 2px 8px rgba(0,0,0,0.7)'}}>
+                        Simplifica tu contabilidad, asegura el cumplimiento fiscal y toma el control total de tu negocio con nuestra plataforma todo-en-uno.
+                    </p>
+                    <div className="mt-10">
+                        <Button size="lg" asChild>
+                            <Link href="#features">Conoce la Plataforma <ArrowRight className="ml-2"/></Link>
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        {/* Features Section */}
+        <section id="features" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Todo lo que tu Empresa Necesita</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Desde el cumplimiento fiscal hasta la gestión inteligente, nuestra plataforma lo cubre todo.</p>
+                </div>
+                <div className="grid md:grid-cols-3 gap-8">
+                     {features.map(item => (
+                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-card border shadow-lg">
+                            <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
+                                <item.icon className="h-8 w-8" />
+                            </div>
+                            <h3 className="text-xl font-semibold">{item.title}</h3>
+                            <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        {/* Productos */}
+        <section id="productos" className="py-20 md:py-32">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Nuestros Productos</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Soluciones tecnológicas diseñadas para cumplir con la normativa venezolana y potenciar tu gestión.</p>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {products.map(item => (
+                        <Card key={item.title} className="overflow-hidden group bg-card border shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                             <div className="relative aspect-video">
+                                <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} fill className="object-cover transition-transform duration-300 group-hover:scale-105"/>
+                            </div>
+                             <CardContent className="p-6">
+                                <h3 className="font-semibold text-xl">{item.title}</h3>
+                                <p className="text-muted-foreground mt-2 text-sm">{item.description}</p>
+                                <Button variant="link" className="p-0 mt-4">Conocer más <ArrowRight className="ml-2 h-4 w-4"/></Button>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        {/* Servicios */}
+        <section id="servicios" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
+             <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Servicios Profesionales</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Más allá del software, te acompañamos con un equipo de expertos para garantizar tu éxito.</p>
+                </div>
+                <div className="grid md:grid-cols-3 gap-8">
+                    {services.map(service => (
+                        <Card key={service.title} className="text-center bg-card border shadow-lg">
+                            <CardHeader>
+                                <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full w-max mb-4">
+                                    <service.icon className="h-8 w-8" />
+                                </div>
+                                <CardTitle>{service.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">{service.description}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+             </div>
+        </section>
+
+        {/* Fundación Section */}
+        <section id="fundacion" className="py-20 md:py-32">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                    <div className="p-8 md:p-12">
+                        <h2 className="text-3xl md:text-4xl font-bold">Fundación CRS: Reciclaje con Impacto Social</h2>
+                        <p className="text-muted-foreground text-lg mt-4">
+                            Creemos en un modelo de negocio que va más allá de lo económico. Nuestra fundación se dedica a la recolección de desechos como papel y vidrio, transformando lo que para muchos es basura en oportunidades para los más necesitados.
+                        </p>
+                         <ul className="space-y-3 pt-6">
+                            <li className="flex items-start gap-3 text-md"><HeartHandshake className="h-6 w-6 text-red-500" /> Los ingresos del reciclaje se destinan a programas de ayuda social.</li>
+                            <li className="flex items-start gap-3 text-md"><HeartHandshake className="h-6 w-6 text-red-500" /> Colaboramos con fundaciones para llevar alimentos y medicinas.</li>
+                        </ul>
+                        <Button size="lg" asChild className="mt-8">
+                            <Link href="/manutencion">Conoce Más Sobre la Causa <ArrowRight className="ml-2"/></Link>
+                        </Button>
+                    </div>
+                    <div>
+                        <Image src="https://picsum.photos/seed/foundation/800/600" alt="Fundación CRS" data-ai-hint="community support recycling" width={800} height={600} className="rounded-xl shadow-2xl h-full w-full object-cover"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Contabilidad */}
+        <section id="contabilidad" className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
+             <div className="container mx-auto px-4 md:px-6">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                     <div>
+                        <Image src="https://picsum.photos/seed/accounting/800/600" alt="Contabilidad" data-ai-hint="accounting charts" width={800} height={600} className="rounded-xl shadow-2xl h-full w-full object-cover"/>
+                    </div>
+                    <div className="p-8 md:p-12">
+                         <h2 className="text-3xl md:text-4xl font-bold">Contabilidad Sin Complicaciones</h2>
+                        <p className="text-muted-foreground text-lg mt-4">
+                            Nuestra plataforma integra todas tus operaciones para generar automáticamente los libros contables y reportes financieros que necesitas, manteniéndote siempre al día con tus obligaciones.
+                        </p>
+                        <ul className="space-y-4 pt-6">
+                            <li className="flex items-start gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500 mt-1" /> Libros de Compra y Venta</li>
+                            <li className="flex items-start gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500 mt-1" /> Estados Financieros en Tiempo Real</li>
+                            <li className="flex items-start gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500 mt-1" /> Cumplimiento SENIAT garantizado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         {/* Seguro */}
+        <section id="seguro" className="py-20 md:py-32">
+             <div className="container mx-auto px-4 md:px-6 text-center">
+                <div className="max-w-3xl mx-auto">
+                    <div className="mb-4">
+                        <Badge variant="outline">Exclusivo de System C.M.S</Badge>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-balance">Póliza de Tranquilidad: Tu Seguro Contable y Jurídico</h2>
+                    <p className="mt-4 text-muted-foreground text-lg">
+                        Entendemos los riesgos de operar en Venezuela. Por eso, creamos un seguro único que protege tu patrimonio ante errores contables, multas inesperadas o contingencias fiscales. Es más que un servicio, es tu paz mental.
+                    </p>
+                    <Button size="lg" className="mt-8" asChild>
+                        <Link href="/seguros">Conoce más sobre tu Póliza <ArrowRight className="ml-2"/></Link>
+                    </Button>
+                </div>
+             </div>
+        </section>
+        
+         {/* Testimonials */}
+        <section className="py-20 md:py-32 bg-secondary/30 dark:bg-card">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
+                </div>
+                <div className="grid lg:grid-cols-2 gap-8">
+                    {testimonials.map(testimonial => (
+                        <blockquote key={testimonial.name} className="p-8 bg-card border rounded-lg shadow-lg">
+                            <p className="italic text-lg">"{testimonial.quote}"</p>
+                            <footer className="mt-6 font-semibold text-md">{testimonial.name}, <span className="text-muted-foreground font-normal">{testimonial.company}</span></footer>
+                        </blockquote>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        {/* Contacto */}
+        <section id="contacto" className="py-20 md:py-32">
+            <div className="container mx-auto px-4 md:px-6">
+                 <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">¿Listo para tomar el control de tu negocio? Ponte en contacto con nosotros.</p>
+                </div>
+                <Card className="max-w-4xl mx-auto bg-card border shadow-lg">
+                    <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
+                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                            <div className="p-3 bg-primary/10 rounded-full mb-3">
+                                <Mail className="h-8 w-8 text-primary"/>
+                            </div>
+                            <h3 className="font-semibold text-xl">Correo Electrónico</h3>
+                            <p className="text-muted-foreground text-sm mb-2">Para consultas generales y soporte.</p>
+                            <a href="mailto:contacto@systemcms.com" className="text-lg font-semibold text-primary hover:underline">contacto@systemcms.com</a>
                         </div>
-                        <div className="flex items-start gap-4 p-3 bg-secondary rounded-lg">
-                           <Bot className="h-6 w-6 text-green-400 mt-1"/>
-                           <div>
-                                <h4 className="font-semibold">Plataforma de Gestión</h4>
-                                <p className="text-sm text-muted-foreground">Un dashboard centralizado muestra el estado de todas las papeleras, generando rutas eficientes para el equipo de recolección.</p>
-                           </div>
+                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                             <div className="p-3 bg-primary/10 rounded-full mb-3">
+                                <Phone className="h-8 w-8 text-primary"/>
+                            </div>
+                            <h3 className="font-semibold text-xl">Teléfono</h3>
+                            <p className="text-muted-foreground text-sm mb-2">Habla directamente con nuestro equipo.</p>
+                            <a href="tel:+584141234567" className="text-lg font-semibold text-primary hover:underline">+58 414-1234567</a>
                         </div>
                     </CardContent>
-                    <CardFooter>
-                         <Button variant="secondary" className="w-full">Únete a la Red de Reciclaje Inteligente</Button>
-                    </CardFooter>
                 </Card>
             </div>
-        </div>
-
-        {/* Sección de Impacto Social */}
-         <Card className="text-center bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle className="flex items-center justify-center gap-3 text-2xl">
-                    <HeartHandshake className="h-7 w-7 text-red-400"/>
-                    Nuestro Impacto Social
-                </CardTitle>
-                <CardDescription>Convertimos el reciclaje en ayuda directa para los más necesitados.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <p className="max-w-3xl mx-auto">
-                    Los ingresos generados por la venta de papel y vidrio recolectados se destinan íntegramente a programas de ayuda social. Colaboramos con fundaciones locales para proporcionar alimentos, medicinas y recursos a comunidades vulnerables. Al usar nuestras papeleras, tu empresa no solo es más sostenible, sino que también se convierte en un agente de cambio social.
-                </p>
-            </CardContent>
-            <CardFooter className="justify-center">
-                 <Button variant="outline" className="text-red-600 border-red-500 hover:bg-red-500/10 hover:text-red-600">
-                    Ver Reporte de Impacto Social
-                </Button>
-            </CardFooter>
-        </Card>
+        </section>
+      </main>
     </div>
   );
 }
+
+    
