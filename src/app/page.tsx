@@ -89,9 +89,9 @@ export default function LandingPage() {
               <div className="hidden md:flex items-center gap-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                            <User className="h-5 w-5"/>
-                            <span className="sr-only">Acceder</span>
+                        <Button>
+                            Acceder
+                            <ChevronDown className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -106,6 +106,9 @@ export default function LandingPage() {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+                <Button variant="outline" asChild>
+                  <Link href="/register">Registrarse</Link>
+                </Button>
               </div>
 
               <Sheet>
@@ -155,6 +158,11 @@ export default function LandingPage() {
                             <Link href="/login-rrhh"><User className="mr-2"/>Recursos Humanos</Link>
                           </Button>
                       </SheetClose>
+                       <SheetClose asChild>
+                         <Button asChild variant="outline" className="w-full justify-start">
+                            <Link href="/register"><User className="mr-2"/>Registrarse</Link>
+                          </Button>
+                      </SheetClose>
                     </div>
                   </nav>
                 </SheetContent>
@@ -171,28 +179,7 @@ export default function LandingPage() {
                 Simplifica tus operaciones, garantiza el cumplimiento con el SENIAT y toma el control total de tu negocio.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button size="lg">
-                            Acceder
-                            <ChevronDown className="ml-2 h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuItem asChild>
-                            <Link href="/login-natural">Iniciar Sesión Natural</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
-                        </DropdownMenuItem>
-                         <DropdownMenuItem asChild>
-                            <Link href="/login-rrhh">Recursos Humanos</Link>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-                 <Button size="lg" variant="outline" asChild>
-                    <Link href="/register">Registrarse</Link>
-                </Button>
+                {/* Buttons are now in the header */}
             </div>
         </section>
         
