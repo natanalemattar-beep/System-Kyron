@@ -69,7 +69,7 @@ export default function LandingPage() {
        <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-20 items-center justify-between px-6 md:px-8">
           <Link href="/" className="flex items-center gap-3">
-            <div className="bg-primary/10 text-primary p-2 rounded-md">
+            <div className="bg-primary/10 text-primary p-2 rounded-lg">
               <Flag className="h-6 w-6" />
             </div>
             <span className="text-lg font-bold">System C.M.S</span>
@@ -114,7 +114,8 @@ export default function LandingPage() {
                     </DropdownMenuContent>
                 </DropdownMenu>
               </nav>
-              <div className="hidden md:flex items-center gap-2">
+              
+            <div className="hidden md:flex items-center gap-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button>
@@ -138,7 +139,7 @@ export default function LandingPage() {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-              </div>
+            </div>
 
               <Sheet>
                 <SheetTrigger asChild>
