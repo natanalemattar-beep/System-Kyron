@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const navLinks = [
   { href: "/#productos", label: "Productos" },
@@ -61,6 +62,7 @@ const testimonials = [
 
 export default function LandingPage() {
   const [activeLink, setActiveLink] = useState('');
+  const heroImage = PlaceHolderImages.find(p => p.id === 'hero-image');
 
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-white dark:bg-background">
@@ -202,13 +204,16 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="relative py-20 md:py-32 flex items-center justify-center text-center text-white">
             <div className="absolute inset-0 -z-10">
-                <Image 
-                    src="https://picsum.photos/seed/team-meeting-charts-hero/1920/1080"
-                    alt="Equipo de negocios analizando gráficos"
-                    data-ai-hint="team presentation"
-                    fill
-                    className="object-cover"
-                />
+                {heroImage && (
+                    <Image 
+                        src={heroImage.imageUrl}
+                        alt={heroImage.description}
+                        data-ai-hint={heroImage.imageHint}
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                )}
                 <div className="absolute inset-0 bg-black/60"></div>
             </div>
             <div className="container mx-auto px-4 md:px-6">
@@ -418,3 +423,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
