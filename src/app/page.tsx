@@ -190,6 +190,9 @@ export default function LandingPage() {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+                 <Button size="lg" variant="outline" asChild>
+                    <Link href="/register">Registrarse</Link>
+                </Button>
             </div>
         </section>
         
