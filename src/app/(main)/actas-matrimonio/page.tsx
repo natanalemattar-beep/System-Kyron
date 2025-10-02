@@ -30,7 +30,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 export default function ActasMatrimonioPage() {
   return (
     <div>
-        <header className="mb-8 flex items-center justify-between">
+        <header className="mb-8 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Actas de Matrimonio</h1>
                 <p className="text-muted-foreground">

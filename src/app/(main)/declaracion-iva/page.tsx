@@ -52,7 +52,7 @@ export default function DeclaracionIvaPage() {
 
         <div className="grid gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2">
-                <Card className="bg-card/50 backdrop-blur-sm">
+                <Card className="bg-card/80 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Resumen del Período - Julio 2024</CardTitle>
                         <CardDescription>Cálculo automático basado en los libros de compra y venta, incluyendo retenciones.</CardDescription>
@@ -129,7 +129,7 @@ export default function DeclaracionIvaPage() {
                 </Card>
             </div>
             
-            <Card className="bg-card/50 backdrop-blur-sm">
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Historial de Declaraciones</CardTitle>
                 </CardHeader>

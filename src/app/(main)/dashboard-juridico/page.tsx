@@ -145,7 +145,7 @@ export default function DashboardJuridicoPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <h1 className="text-3xl font-bold">Dashboard Jurídico</h1>
         <Badge variant="secondary" className="text-green-400 border-green-500/50 bg-green-500/10">
           <CheckCircle className="w-4 h-4 mr-2" />
@@ -224,22 +224,22 @@ export default function DashboardJuridicoPage() {
       </div>
 
        <Card className="bg-card/80 backdrop-blur-sm">
-        <CardHeader className="flex-row items-center justify-between">
+        <CardHeader className="flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
                 <CardTitle>Supervisión Financiera</CardTitle>
                 <CardDescription>
                 Accede a los reportes financieros o solicita un envío a tu correo.
                 </CardDescription>
             </div>
-             <div className="flex gap-2">
-                <Button asChild variant="outline">
+             <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                <Button asChild variant="outline" className="w-full sm:w-auto">
                     <Link href="/reports">
                         <TrendingUp className="mr-2"/>Ver Reportes Completos
                     </Link>
                 </Button>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button>
+                        <Button className="w-full sm:w-auto">
                             <Send className="mr-2"/>Solicitar Estados Financieros
                         </Button>
                     </DialogTrigger>
