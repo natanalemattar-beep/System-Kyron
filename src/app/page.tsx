@@ -9,9 +9,6 @@ import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
@@ -77,7 +74,7 @@ export default function LandingPage() {
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
                 <Button key={link.label} variant="ghost" asChild>
-                    <Link href={link.href} className={`text-sm font-medium ${link.label === "Seguro Contable y Jurídico" ? 'bg-secondary' : ''}`}>
+                    <Link href={link.href} className="text-sm font-medium">
                         {link.label}
                     </Link>
                 </Button>
