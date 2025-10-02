@@ -13,7 +13,7 @@
     --popover: 222 84% 4.9%;
     --popover-foreground: 210 40% 98%;
  
-    --primary: 142.1 76.2% 41.2%; /* Vibrant Neon Green */
+    --primary: 170 80% 50%; /* Vibrant Cyan/Green */
     --primary-foreground: 222.2 47.4% 11.2%;
  
     --secondary: 217.2 32.6% 17.5%;
@@ -30,7 +30,7 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 142.1 76.2% 41.2%;
+    --ring: 170 80% 50%; /* Ring color matches new primary */
  
     --radius: 0.8rem;
   }
@@ -42,5 +42,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    background: linear-gradient(-45deg, #020617, #032d3c, #023834, #020617);
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
   }
 }
