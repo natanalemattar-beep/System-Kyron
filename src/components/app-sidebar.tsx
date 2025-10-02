@@ -57,7 +57,8 @@ import {
   ShieldCheck,
   RefreshCw,
   ShieldAlert,
-  Flag
+  Flag,
+  Bot,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -109,6 +110,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
+    { href: "/soluciones-empresariales-ia", label: "Soluciones Empresariales IA", icon: Bot },
 ];
 
 const facturacionMenuItems = [
