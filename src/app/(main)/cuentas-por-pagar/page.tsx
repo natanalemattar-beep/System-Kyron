@@ -54,7 +54,7 @@ export default function CuentasPorPagarPage() {
     const diasPromedioPago = 32;
 
     return (
-        <div className="p-4 md:p-8">
+        <div>
             <header className="mb-8">
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <HandCoins className="h-8 w-8" />
@@ -66,7 +66,7 @@ export default function CuentasPorPagarPage() {
             </header>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Total por Pagar</CardTitle>
                         <HandCoins className="h-4 w-4 text-muted-foreground" />
@@ -76,7 +76,7 @@ export default function CuentasPorPagarPage() {
                         <p className="text-xs text-muted-foreground">Suma de todas las facturas pendientes y vencidas.</p>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Facturas Vencidas</CardTitle>
                         <AlertTriangle className="h-4 w-4 text-destructive" />
@@ -86,7 +86,7 @@ export default function CuentasPorPagarPage() {
                         <p className="text-xs text-muted-foreground">Facturas que han superado su fecha de pago.</p>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Días Promedio de Pago</CardTitle>
                         <Clock className="h-4 w-4 text-muted-foreground" />
@@ -133,7 +133,7 @@ export default function CuentasPorPagarPage() {
                     </Card>
                 </div>
                 <div className="lg:col-span-2 space-y-8">
-                     <Card>
+                     <Card className="bg-card/50 backdrop-blur-sm">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><BarChart />Análisis de Proveedores</CardTitle>
                             <CardDescription>Top 5 proveedores por volumen de compra.</CardDescription>
@@ -149,7 +149,7 @@ export default function CuentasPorPagarPage() {
                             </ResponsiveContainer>
                         </CardContent>
                     </Card>
-                    <Card>
+                    <Card className="bg-card/50 backdrop-blur-sm">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><Lightbulb className="text-yellow-400" />Soluciones de Optimización de Pagos</CardTitle>
                         </CardHeader>

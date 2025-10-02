@@ -41,7 +41,7 @@ const dataVariables = costosVariables.map(item => ({ name: item.concepto, value:
 
 export default function EstructuraCostosPage() {
   return (
-    <div className="p-4 md:p-8">
+    <div>
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <LucidePieChart className="h-8 w-8" />
@@ -61,7 +61,7 @@ export default function EstructuraCostosPage() {
         
         <TabsContent value="resumen" className="mt-6">
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Costos Fijos Totales</CardTitle>
                     </CardHeader>
@@ -70,7 +70,7 @@ export default function EstructuraCostosPage() {
                         <p className="text-sm text-muted-foreground">Gastos que no cambian con el volumen de producción.</p>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Costos Variables Totales</CardTitle>
                     </CardHeader>
@@ -79,7 +79,7 @@ export default function EstructuraCostosPage() {
                          <p className="text-sm text-muted-foreground">Gastos que varían directamente con la producción.</p>
                     </CardContent>
                 </Card>
-                <Card className="md:col-span-2 lg:col-span-1">
+                <Card className="md:col-span-2 lg:col-span-1 bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Costo Total de Operación</CardTitle>
                     </CardHeader>
@@ -88,7 +88,7 @@ export default function EstructuraCostosPage() {
                          <p className="text-sm text-muted-foreground">Suma de costos fijos y variables.</p>
                     </CardContent>
                 </Card>
-                <Card className="lg:col-span-3">
+                <Card className="lg:col-span-3 bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Target />
@@ -115,7 +115,7 @@ export default function EstructuraCostosPage() {
         </TabsContent>
 
         <TabsContent value="fijos" className="mt-6">
-           <Card>
+           <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Desglose de Costos Fijos</CardTitle>
                 </CardHeader>
@@ -160,7 +160,7 @@ export default function EstructuraCostosPage() {
         </TabsContent>
 
         <TabsContent value="variables" className="mt-6">
-           <Card>
+           <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Desglose de Costos Variables</CardTitle>
                      <CardDescription>Basado en un volumen de ventas de ejemplo.</CardDescription>

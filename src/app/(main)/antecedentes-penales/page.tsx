@@ -21,7 +21,7 @@ export default function AntecedentesPenalesPage() {
     };
 
   return (
-    <div className="p-4 md:p-8">
+    <div>
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Certificado de Antecedentes Penales</h1>
         <p className="text-muted-foreground">

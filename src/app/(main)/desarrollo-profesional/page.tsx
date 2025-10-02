@@ -75,7 +75,7 @@ const capacitaciones = [
 
 export default function DesarrolloProfesionalPage() {
   return (
-    <div className="p-4 md:p-8 space-y-12">
+    <div className="space-y-12">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Sparkles className="h-8 w-8 text-yellow-400" />

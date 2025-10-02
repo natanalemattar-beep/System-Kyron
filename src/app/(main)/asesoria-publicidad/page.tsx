@@ -42,7 +42,7 @@ export default function AsesoriaVentasPage() {
     }
 
   return (
-    <div className="p-4 md:p-8 space-y-12">
+    <div className="space-y-12">
       <header className="text-center">
         <Bot className="h-16 w-16 mx-auto text-primary mb-4" />
         <h1 className="text-4xl font-bold tracking-tight">Asesoría y Ventas con Agente Virtual IA</h1>

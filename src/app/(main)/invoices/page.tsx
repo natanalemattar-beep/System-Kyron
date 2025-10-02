@@ -6,7 +6,7 @@ import { mockInvoices } from "@/lib/data";
 
 export default function InvoicesPage() {
   return (
-    <div className="p-4 md:p-8">
+    <div>
       <header className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Invoices</h1>

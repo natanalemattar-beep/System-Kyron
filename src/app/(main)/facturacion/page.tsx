@@ -4,7 +4,7 @@ import { FileText } from "lucide-react";
 
 export default function FacturacionPage() {
   return (
-    <div className="p-4 md:p-8">
+    <div>
        <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <FileText className="h-8 w-8" />
