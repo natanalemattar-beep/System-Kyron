@@ -158,6 +158,11 @@ export default function LandingPage() {
                             <Link href="/login-rrhh"><User className="mr-2"/>Recursos Humanos</Link>
                           </Button>
                       </SheetClose>
+                       <SheetClose asChild>
+                         <Button asChild variant="outline" className="w-full justify-start">
+                            <Link href="/register">Registrarse</Link>
+                          </Button>
+                      </SheetClose>
                     </div>
                   </nav>
                 </SheetContent>
@@ -182,10 +187,15 @@ export default function LandingPage() {
             </div>
         </section>
         
-        {/* Features Section */}
-        <section className="py-16 md:py-24">
+        {/* Productos */}
+        <section id="productos" className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center max-w-3xl mx-auto mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold">Nuestros Productos</h2>
+                    <p className="mt-4 text-muted-foreground">Soluciones tecnológicas diseñadas para cumplir con la normativa venezolana y potenciar tu gestión.</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8 mb-12">
                      {features.map(item => (
                         <Card key={item.title} className="text-center flex flex-col items-center p-6 bg-card/50 backdrop-blur-sm border">
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
@@ -196,17 +206,7 @@ export default function LandingPage() {
                         </Card>
                     ))}
                 </div>
-            </div>
-        </section>
 
-
-        {/* Productos */}
-        <section id="productos" className="py-16 md:py-24 bg-secondary/50">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold">Nuestros Productos</h2>
-                    <p className="mt-4 text-muted-foreground">Soluciones tecnológicas diseñadas para cumplir con la normativa venezolana y potenciar tu gestión.</p>
-                </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map(item => (
                         <Card key={item.title} className="overflow-hidden group bg-card/50 backdrop-blur-sm border">
@@ -250,7 +250,7 @@ export default function LandingPage() {
         </section>
 
         {/* Fundación Section */}
-        <section id="fundacion" className="py-16 md:py-24 bg-secondary/50">
+        <section id="fundacion" className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10">
             <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <Image src="https://picsum.photos/seed/foundation/600/500" alt="Fundación CRS" data-ai-hint="community support recycling" width={600} height={500} className="rounded-lg shadow-lg"/>
@@ -292,7 +292,7 @@ export default function LandingPage() {
         </section>
 
          {/* Seguro */}
-        <section id="seguro" className="py-16 md:py-24 bg-secondary/50">
+        <section id="seguro" className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10">
              <div className="container mx-auto px-4 md:px-6 text-center">
                 <div className="max-w-3xl mx-auto">
                     <div className="mb-4">
@@ -328,7 +328,7 @@ export default function LandingPage() {
 
 
         {/* Contacto */}
-        <section id="contacto" className="py-16 md:py-24 bg-secondary/50">
+        <section id="contacto" className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
