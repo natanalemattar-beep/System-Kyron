@@ -4,13 +4,12 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, KeyRound, QrCode, Palette } from "lucide-react";
+import { Shield, KeyRound, QrCode } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function SeguridadPage() {
     const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
@@ -38,7 +37,7 @@ export default function SeguridadPage() {
       </header>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         
-        <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm">
+        <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>Verificación en Dos Pasos (2FA)</CardTitle>
             <CardDescription>
@@ -77,7 +76,7 @@ export default function SeguridadPage() {
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-3 bg-card/50 backdrop-blur-sm">
+        <Card className="lg:col-span-3">
             <CardHeader>
                 <CardTitle>Cambiar Contraseña</CardTitle>
                 <CardDescription>

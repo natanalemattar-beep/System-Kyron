@@ -30,10 +30,10 @@ const features = [
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b border-primary/20">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="bg-primary text-primary-foreground p-2 rounded-md glow-effect">
+            <div className="bg-primary text-primary-foreground p-2 rounded-md">
               <Flag className="h-6 w-6" />
             </div>
             <span className="text-lg font-bold">System C.M.S</span>
@@ -62,7 +62,7 @@ export default function LandingPage() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button asChild className="glow-effect">
+            <Button asChild>
               <Link href="/register">Registrarse</Link>
             </Button>
 
@@ -73,7 +73,7 @@ export default function LandingPage() {
                   <span className="sr-only">Abrir menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-background/80 backdrop-blur-sm">
+              <SheetContent side="right">
                 <SheetHeader>
                   <SheetTitle className="sr-only">Menú</SheetTitle>
                 </SheetHeader>
@@ -111,14 +111,14 @@ export default function LandingPage() {
 
       <main className="flex-1">
         <section className="container mx-auto px-4 md:px-6 py-24 md:py-32 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance text-primary-foreground">
-              La Gestión Empresarial del Futuro, Hoy.
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance">
+              La Gestión Empresarial, Reinventada
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto text-balance">
               Transforma la complejidad fiscal y administrativa en una ventaja competitiva con la plataforma inteligente diseñada para Venezuela.
             </p>
             <div className="mt-10 flex gap-4 justify-center">
-              <Button size="lg" asChild className="glow-effect">
+              <Button size="lg" asChild>
                 <Link href="/register">
                   Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
                 </Link>
@@ -126,17 +126,17 @@ export default function LandingPage() {
             </div>
         </section>
 
-        <section id="servicios" className="bg-background/80 backdrop-blur-sm py-20 md:py-28">
+        <section id="servicios" className="bg-secondary/50 py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground">Un Ecosistema para tu Tranquilidad</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                      {services.map(item => (
-                        <Card key={item.title} className="bg-background/80 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all hover:scale-105">
+                        <Card key={item.title}>
                             <CardHeader>
-                                <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4 glow-effect--subtle">
+                                <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4">
                                     <item.icon className="h-8 w-8" />
                                 </div>
                                 <CardTitle>{item.title}</CardTitle>
@@ -151,7 +151,7 @@ export default function LandingPage() {
         <section id="ia" className="py-20 md:py-28">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground">Inteligencia Artificial que Trabaja para Ti</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">Inteligencia Artificial que Trabaja para Ti</h2>
               <p className="mt-4 text-lg text-muted-foreground">
                 Deja que nuestra IA se encargue de las tareas tediosas y te ofrezca insights valiosos para que tú te dediques a crecer tu negocio.
               </p>
@@ -170,8 +170,8 @@ export default function LandingPage() {
                   <Link href="/soluciones-ia">Descubre el Poder de la IA <ArrowRight className="ml-2"/></Link>
               </Button>
             </div>
-            <div className="bg-background/80 backdrop-blur-sm p-8 rounded-xl border border-primary/20">
-                 <Card className="bg-background/80">
+            <div className="p-8 rounded-xl bg-secondary/50">
+                 <Card>
                     <CardHeader>
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-primary/10 rounded-md"><Bot className="h-5 w-5 text-primary"/></div>
@@ -186,10 +186,10 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="nosotros" className="py-20 md:py-28 bg-background/80 backdrop-blur-sm">
+        <section id="nosotros" className="py-20 md:py-28 bg-secondary/50">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground">Hecho en Venezuela, para Venezolanos</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
                         Nacimos de la necesidad de una herramienta que realmente entienda los desafíos de hacer negocios en nuestro país. Somos un equipo de contadores, abogados y desarrolladores comprometidos con tu éxito.
                     </p>
@@ -200,10 +200,10 @@ export default function LandingPage() {
         <section id="contacto" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground">¿Listo para Transformar tu Gestión?</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Ponte en contacto con nuestro equipo de especialistas. Estamos listos para ayudarte.</p>
                 </div>
-                <Card className="max-w-4xl mx-auto shadow-lg bg-background/80 backdrop-blur-sm border-primary/20">
+                <Card className="max-w-4xl mx-auto shadow-lg">
                      <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-primary/10 rounded-lg">
@@ -231,7 +231,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t border-primary/20">
+      <footer className="py-8 border-t">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>
@@ -239,5 +239,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
