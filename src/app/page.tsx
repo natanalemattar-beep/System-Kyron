@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot, Phone } from "lucide-react";
+import { User, Menu, Flag, ChevronDown, BookOpen, Shield, BarChart, Mail, ArrowRight, CheckCircle, ShieldCheck, GanttChartSquare, Bot, Phone, HeartHandshake } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 const navLinks = [
   { href: "/#productos", label: "Productos" },
   { href: "/#servicios", label: "Servicios" },
+  { href: "/#fundacion", label: "Fundación" },
   { href: "/#contabilidad", label: "Contabilidad" },
   { href: "/#seguro", label: "Seguro Contable y Jurídico" },
   { href: "/#contacto", label: "Contacto" },
@@ -273,8 +274,30 @@ export default function LandingPage() {
              </div>
         </section>
 
+        {/* Fundación Section */}
+        <section id="fundacion" className="py-16 md:py-24 bg-secondary/50">
+            <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <Image src="https://picsum.photos/seed/foundation/600/500" alt="Fundación CRS" data-ai-hint="community support recycling" width={600} height={500} className="rounded-lg shadow-lg"/>
+                </div>
+                <div className="space-y-4">
+                    <h2 className="text-3xl md:text-4xl font-bold">Fundación CRS: Reciclaje con Impacto Social</h2>
+                    <p className="text-muted-foreground">
+                        Creemos en un modelo de negocio que va más allá de lo económico. Nuestra fundación se dedica a la recolección de desechos como papel y vidrio, transformando lo que para muchos es basura en oportunidades para los más necesitados.
+                    </p>
+                     <ul className="space-y-2">
+                        <li className="flex items-center gap-2"><HeartHandshake className="h-5 w-5 text-red-400" /> Los ingresos del reciclaje se destinan a programas de ayuda social.</li>
+                        <li className="flex items-center gap-2"><HeartHandshake className="h-5 w-5 text-red-400" /> Colaboramos con fundaciones para llevar alimentos y medicinas.</li>
+                    </ul>
+                    <Button asChild>
+                        <Link href="/manutencion">Conoce Más Sobre la Causa <ArrowRight className="ml-2"/></Link>
+                    </Button>
+                </div>
+            </div>
+        </section>
+
         {/* Contabilidad */}
-        <section id="contabilidad" className="py-16 md:py-24 bg-secondary/50">
+        <section id="contabilidad" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
                 <div className="space-y-4">
                     <h2 className="text-3xl md:text-4xl font-bold">Contabilidad Sin Complicaciones</h2>
@@ -294,7 +317,7 @@ export default function LandingPage() {
         </section>
 
          {/* Seguro */}
-        <section id="seguro" className="py-16 md:py-24">
+        <section id="seguro" className="py-16 md:py-24 bg-secondary/50">
              <div className="container mx-auto px-4 md:px-6 text-center">
                 <div className="max-w-3xl mx-auto">
                     <div className="mb-4">
@@ -312,7 +335,7 @@ export default function LandingPage() {
         </section>
         
          {/* Testimonials */}
-        <section className="py-16 md:py-24 bg-secondary/50">
+        <section className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                      <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
@@ -330,7 +353,7 @@ export default function LandingPage() {
 
 
         {/* Contacto */}
-        <section id="contacto" className="py-16 md:py-24">
+        <section id="contacto" className="py-16 md:py-24 bg-secondary/50">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
