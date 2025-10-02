@@ -118,7 +118,7 @@ export default function LandingPage() {
               Transforma la complejidad fiscal y administrativa en una ventaja competitiva con la plataforma inteligente diseñada para Venezuela.
             </p>
             <div className="mt-10 flex gap-4 justify-center animate-in fade-in zoom-in-95 duration-1000 delay-400">
-              <Button size="lg" asChild className="animate-pulse-slow hover:animate-none transition-all">
+              <Button size="lg" asChild>
                 <Link href="/register">
                   Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
                 </Link>
@@ -134,7 +134,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                      {services.map((item, i) => (
-                        <Card key={item.title} className="bg-card/80 backdrop-blur-sm hover:border-primary/50 transition-colors duration-300 animate-in fade-in zoom-in-95" style={{animationDelay: `${200 * (i + 1)}ms`}}>
+                        <Card key={item.title} className="bg-card/80 backdrop-blur-sm hover:border-primary/50 transition-colors duration-300 animate-in fade-in zoom-in-95" style={{animationDelay: `${'200 * (i + 1)'}ms`}}>
                             <CardHeader>
                                 <div className="p-3 bg-primary/10 text-primary rounded-lg w-max mb-4 transition-transform duration-300 group-hover:scale-110">
                                     <item.icon className="h-8 w-8" />
