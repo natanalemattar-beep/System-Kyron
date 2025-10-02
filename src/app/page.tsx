@@ -215,7 +215,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 bg-black/70" />
             <div className="container mx-auto px-4 relative z-10 text-center animate-in fade-in duration-1000">
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-                    Gestión Empresarial Inteligente para Venezuela
+                    La Plataforma Definitiva para la Gestión Empresarial en Venezuela
                 </h1>
                 <p className="mt-6 text-lg md:text-xl text-balance text-white/80 max-w-3xl mx-auto" style={{ textShadow: '0 1px 5px rgba(0,0,0,0.5)' }}>
                     Simplifica tu contabilidad, asegura el cumplimiento fiscal y toma el control total de tu negocio con nuestra plataforma todo-en-uno.
@@ -249,7 +249,7 @@ export default function LandingPage() {
         </section>
 
         {/* Productos */}
-        <section id="productos" className="py-16 md:py-24 bg-secondary/5">
+        <section id="productos" className="py-16 md:py-24 bg-card/50">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Nuestros Productos</h2>
@@ -281,7 +281,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                     {services.map(service => (
-                        <Card key={service.title} className="text-center bg-card border shadow-lg">
+                        <Card key={service.title} className="text-center bg-card/50 border shadow-lg">
                             <CardHeader>
                                 <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full w-max mb-4">
                                     <service.icon className="h-8 w-8" />
@@ -298,7 +298,7 @@ export default function LandingPage() {
         </section>
 
         {/* Fundación Section */}
-        <section id="fundacion" className="py-16 md:py-24 bg-secondary/5">
+        <section id="fundacion" className="py-16 md:py-24 bg-card/50">
             <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <Image src="https://picsum.photos/seed/foundation/600/500" alt="Fundación CRS" data-ai-hint="community support recycling" width={600} height={500} className="rounded-lg shadow-2xl"/>
@@ -340,7 +340,7 @@ export default function LandingPage() {
         </section>
 
          {/* Seguro */}
-        <section id="seguro" className="py-16 md:py-24 bg-secondary/5">
+        <section id="seguro" className="py-16 md:py-24 bg-card/50">
              <div className="container mx-auto px-4 md:px-6 text-center">
                 <div className="max-w-3xl mx-auto">
                     <div className="mb-4">
@@ -365,7 +365,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                     {testimonials.map(testimonial => (
-                        <blockquote key={testimonial.name} className="p-8 bg-card border rounded-lg shadow-lg">
+                        <blockquote key={testimonial.name} className="p-8 bg-card/50 border rounded-lg shadow-lg">
                             <p className="italic text-lg">"{testimonial.quote}"</p>
                             <footer className="mt-6 font-semibold text-md">{testimonial.name}, <span className="text-muted-foreground font-normal">{testimonial.company}</span></footer>
                         </blockquote>
@@ -375,7 +375,7 @@ export default function LandingPage() {
         </section>
 
         {/* Contacto */}
-        <section id="contacto" className="py-16 md:py-24 bg-secondary/5">
+        <section id="contacto" className="py-16 md:py-24 bg-card/50">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
@@ -413,3 +413,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
