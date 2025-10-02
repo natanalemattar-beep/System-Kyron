@@ -112,7 +112,7 @@ export default function LandingPage() {
 
       <main className="flex-1">
         <section className="container mx-auto px-4 md:px-6 py-24 md:py-32 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance text-primary">
               La Gestión Empresarial, Reinventada
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto text-balance">
@@ -240,3 +240,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
