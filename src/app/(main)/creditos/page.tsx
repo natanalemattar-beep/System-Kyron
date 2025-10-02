@@ -14,7 +14,7 @@ export default function CreditosPage() {
           Módulo de gestión de créditos.
         </p>
       </header>
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card className="bg-background/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Módulo de Créditos</CardTitle>
           <CardDescription>
@@ -28,3 +28,5 @@ export default function CreditosPage() {
     </div>
   );
 }
+
+    

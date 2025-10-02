@@ -67,7 +67,7 @@ export default function CuentasBancariasPage() {
         <h2 className="text-2xl font-semibold mb-4">Cuentas Bancarias</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {cuentasBancarias.map(cuenta => (
-                <Card key={cuenta.id} className="bg-card/50 backdrop-blur-sm flex flex-col">
+                <Card key={cuenta.id} className="bg-background/80 backdrop-blur-sm flex flex-col">
                     <CardHeader className="flex flex-row items-start gap-4">
                         <Image src={cuenta.logo} alt={`${cuenta.banco} logo`} width={48} height={48} className="rounded-md" />
                         <div>
@@ -95,7 +95,7 @@ export default function CuentasBancariasPage() {
       {/* Puntos de Venta */}
       <div>
         <h2 className="text-2xl font-semibold mb-4">Puntos de Venta (POS)</h2>
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card className="bg-background/80 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Terminales Afiliados</CardTitle>
                 <CardDescription>Gestiona los cierres de lote y el estado de tus puntos de venta.</CardDescription>
@@ -135,3 +135,5 @@ export default function CuentasBancariasPage() {
     </div>
   );
 }
+
+    

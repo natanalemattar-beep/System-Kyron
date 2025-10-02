@@ -63,7 +63,7 @@ export default function CumplimientoPage() {
             </AlertDescription>
         </Alert>
 
-      <Card className="bg-card/50 backdrop-blur-sm mb-8">
+      <Card className="bg-background/80 backdrop-blur-sm mb-8">
         <CardHeader>
           <CardTitle>Áreas Críticas de Cumplimiento (Ley de Responsabilidad Penal)</CardTitle>
           <CardDescription>
@@ -91,7 +91,7 @@ export default function CumplimientoPage() {
         </CardContent>
       </Card>
       
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card className="bg-background/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Procesos de Fiscalización</CardTitle>
           <CardDescription>
@@ -121,3 +121,5 @@ export default function CumplimientoPage() {
     </div>
   );
 }
+
+    

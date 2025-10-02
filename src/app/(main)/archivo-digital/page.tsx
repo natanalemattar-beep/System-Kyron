@@ -116,7 +116,7 @@ export default function ArchivoDigitalPage() {
                 </Dialog>
             </header>
 
-            <Card className="bg-card/50 backdrop-blur-sm">
+            <Card className="bg-background/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Repositorio de Documentos</CardTitle>
                     <CardDescription>
@@ -179,3 +179,5 @@ export default function ArchivoDigitalPage() {
         </div>
     );
 }
+
+    
