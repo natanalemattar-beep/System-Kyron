@@ -1,13 +1,21 @@
 /** @type {import('next').NextConfig} */
-const config = {
-  reactStrictMode: true,
-  typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+      {
+        protocol: "https",
+        hostname: "api.qrserver.com",
+      },
+    ],
   },
 };
 
-export default config;
+export default nextConfig;
