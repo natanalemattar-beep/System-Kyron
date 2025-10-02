@@ -200,7 +200,7 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[85vh] flex items-center justify-center text-white overflow-hidden">
+        <section className="relative h-[90vh] flex items-center text-white overflow-hidden">
             <video
                 autoPlay
                 loop
@@ -213,20 +213,19 @@ export default function LandingPage() {
                 Tu navegador no soporta el tag de video.
             </video>
             <div className="absolute inset-0 bg-black/70" />
-            <div className="container mx-auto px-4 relative z-10 text-center animate-in fade-in duration-1000">
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-                    La Plataforma Definitiva para la Gestión Empresarial en Venezuela
-                </h1>
-                <p className="mt-6 text-lg md:text-xl text-balance text-white/80 max-w-3xl mx-auto" style={{ textShadow: '0 1px 5px rgba(0,0,0,0.5)' }}>
-                    Simplifica tu contabilidad, asegura el cumplimiento fiscal y toma el control total de tu negocio con nuestra plataforma todo-en-uno.
-                </p>
-                <div className="mt-10 flex flex-wrap justify-center gap-4">
-                    <Button size="lg" asChild>
-                        <Link href="/register">Solicitar Demo</Link>
-                    </Button>
-                    <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white hover:text-black">
-                        Ver Planes
-                    </Button>
+            <div className="container mx-auto px-4 md:px-6 relative z-10 animate-in fade-in duration-1000">
+                <div className="max-w-3xl">
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
+                        La Plataforma Definitiva para la Gestión Empresarial en Venezuela
+                    </h1>
+                    <p className="mt-6 text-lg md:text-xl text-balance text-white/80 max-w-2xl" style={{ textShadow: '0 1px 5px rgba(0,0,0,0.5)' }}>
+                        Simplifica tu contabilidad, asegura el cumplimiento fiscal y toma el control total de tu negocio con nuestra plataforma todo-en-uno.
+                    </p>
+                    <div className="mt-10">
+                        <Button size="lg" asChild>
+                            <Link href="/#features">Conoce la Plataforma <ArrowRight className="ml-2"/></Link>
+                        </Button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -234,22 +233,26 @@ export default function LandingPage() {
         {/* Features Section */}
         <section id="features" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold">Todo lo que tu Empresa Necesita</h2>
+                    <p className="mt-4 text-muted-foreground">Desde el cumplimiento fiscal hasta la gestión inteligente, nuestra plataforma lo cubre todo.</p>
+                </div>
                 <div className="grid md:grid-cols-3 gap-8">
                      {features.map(item => (
-                        <div key={item.title} className="text-center flex flex-col items-center p-6">
-                            <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
+                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-card/50 backdrop-blur-sm border-white/10 shadow-lg">
+                            <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
                             <h3 className="text-xl font-semibold">{item.title}</h3>
                             <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
-                        </div>
+                        </Card>
                     ))}
                 </div>
             </div>
         </section>
 
         {/* Productos */}
-        <section id="productos" className="py-16 md:py-24 bg-card/50">
+        <section id="productos" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Nuestros Productos</h2>
@@ -257,7 +260,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map(item => (
-                        <Card key={item.title} className="overflow-hidden group bg-card border shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                        <Card key={item.title} className="overflow-hidden group bg-card/50 backdrop-blur-sm border-white/10 shadow-lg hover:shadow-2xl transition-shadow duration-300">
                             <div className="relative aspect-video">
                                 <Image src={item.imageUrl} alt={item.title} data-ai-hint={item.imageHint} fill className="object-cover transition-transform duration-300 group-hover:scale-105"/>
                             </div>
@@ -281,7 +284,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-3 gap-8">
                     {services.map(service => (
-                        <Card key={service.title} className="text-center bg-card/50 border shadow-lg">
+                        <Card key={service.title} className="text-center bg-card/50 backdrop-blur-sm border-white/10 shadow-lg">
                             <CardHeader>
                                 <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full w-max mb-4">
                                     <service.icon className="h-8 w-8" />
@@ -298,49 +301,57 @@ export default function LandingPage() {
         </section>
 
         {/* Fundación Section */}
-        <section id="fundacion" className="py-16 md:py-24 bg-card/50">
-            <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <Image src="https://picsum.photos/seed/foundation/600/500" alt="Fundación CRS" data-ai-hint="community support recycling" width={600} height={500} className="rounded-lg shadow-2xl"/>
-                </div>
-                <div className="space-y-4">
-                    <h2 className="text-3xl md:text-4xl font-bold">Fundación CRS: Reciclaje con Impacto Social</h2>
-                    <p className="text-muted-foreground text-lg">
-                        Creemos en un modelo de negocio que va más allá de lo económico. Nuestra fundación se dedica a la recolección de desechos como papel y vidrio, transformando lo que para muchos es basura en oportunidades para los más necesitados.
-                    </p>
-                     <ul className="space-y-2 pt-4">
-                        <li className="flex items-center gap-3 text-md"><HeartHandshake className="h-6 w-6 text-red-500" /> Los ingresos del reciclaje se destinan a programas de ayuda social.</li>
-                        <li className="flex items-center gap-3 text-md"><HeartHandshake className="h-6 w-6 text-red-500" /> Colaboramos con fundaciones para llevar alimentos y medicinas.</li>
-                    </ul>
-                    <Button size="lg" asChild className="mt-4">
-                        <Link href="/manutencion">Conoce Más Sobre la Causa <ArrowRight className="ml-2"/></Link>
-                    </Button>
-                </div>
+        <section id="fundacion" className="py-16 md:py-24">
+            <div className="container mx-auto px-4 md:px-6">
+                <Card className="bg-card/50 backdrop-blur-sm border-white/10 shadow-lg overflow-hidden">
+                    <div className="grid lg:grid-cols-2 items-center">
+                        <div className="p-8 md:p-12">
+                            <h2 className="text-3xl md:text-4xl font-bold">Fundación CRS: Reciclaje con Impacto Social</h2>
+                            <p className="text-muted-foreground text-lg mt-4">
+                                Creemos en un modelo de negocio que va más allá de lo económico. Nuestra fundación se dedica a la recolección de desechos como papel y vidrio, transformando lo que para muchos es basura en oportunidades para los más necesitados.
+                            </p>
+                             <ul className="space-y-2 pt-6">
+                                <li className="flex items-center gap-3 text-md"><HeartHandshake className="h-6 w-6 text-red-500" /> Los ingresos del reciclaje se destinan a programas de ayuda social.</li>
+                                <li className="flex items-center gap-3 text-md"><HeartHandshake className="h-6 w-6 text-red-500" /> Colaboramos con fundaciones para llevar alimentos y medicinas.</li>
+                            </ul>
+                            <Button size="lg" asChild className="mt-8">
+                                <Link href="/manutencion">Conoce Más Sobre la Causa <ArrowRight className="ml-2"/></Link>
+                            </Button>
+                        </div>
+                        <div className="hidden lg:block">
+                            <Image src="https://picsum.photos/seed/foundation/800/600" alt="Fundación CRS" data-ai-hint="community support recycling" width={800} height={600} className="h-full w-full object-cover"/>
+                        </div>
+                    </div>
+                </Card>
             </div>
         </section>
 
         {/* Contabilidad */}
         <section id="contabilidad" className="py-16 md:py-24">
-            <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
-                <div className="space-y-4">
-                    <h2 className="text-3xl md:text-4xl font-bold">Contabilidad Sin Complicaciones</h2>
-                    <p className="text-muted-foreground text-lg">
-                        Nuestra plataforma integra todas tus operaciones para generar automáticamente los libros contables y reportes financieros que necesitas, manteniéndote siempre al día con tus obligaciones.
-                    </p>
-                    <ul className="space-y-3 pt-4">
-                        <li className="flex items-center gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500" /> Libros de Compra y Venta</li>
-                        <li className="flex items-center gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500" /> Estados Financieros en Tiempo Real</li>
-                        <li className="flex items-center gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500" /> Cumplimiento SENIAT garantizado</li>
-                    </ul>
-                </div>
-                <div>
-                     <Image src="https://picsum.photos/seed/accounting/600/500" alt="Contabilidad" data-ai-hint="accounting charts" width={600} height={500} className="rounded-lg shadow-2xl"/>
-                </div>
+             <div className="container mx-auto px-4 md:px-6">
+                <Card className="bg-card/50 backdrop-blur-sm border-white/10 shadow-lg overflow-hidden">
+                    <div className="grid lg:grid-cols-2 items-center">
+                         <div className="hidden lg:block">
+                            <Image src="https://picsum.photos/seed/accounting/800/600" alt="Contabilidad" data-ai-hint="accounting charts" width={800} height={600} className="h-full w-full object-cover"/>
+                        </div>
+                        <div className="p-8 md:p-12">
+                             <h2 className="text-3xl md:text-4xl font-bold">Contabilidad Sin Complicaciones</h2>
+                            <p className="text-muted-foreground text-lg mt-4">
+                                Nuestra plataforma integra todas tus operaciones para generar automáticamente los libros contables y reportes financieros que necesitas, manteniéndote siempre al día con tus obligaciones.
+                            </p>
+                            <ul className="space-y-3 pt-6">
+                                <li className="flex items-center gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500" /> Libros de Compra y Venta</li>
+                                <li className="flex items-center gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500" /> Estados Financieros en Tiempo Real</li>
+                                <li className="flex items-center gap-3 text-md"><CheckCircle className="h-6 w-6 text-green-500" /> Cumplimiento SENIAT garantizado</li>
+                            </ul>
+                        </div>
+                    </div>
+                </Card>
             </div>
         </section>
 
          {/* Seguro */}
-        <section id="seguro" className="py-16 md:py-24 bg-card/50">
+        <section id="seguro" className="py-16 md:py-24">
              <div className="container mx-auto px-4 md:px-6 text-center">
                 <div className="max-w-3xl mx-auto">
                     <div className="mb-4">
@@ -365,7 +376,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid lg:grid-cols-2 gap-8">
                     {testimonials.map(testimonial => (
-                        <blockquote key={testimonial.name} className="p-8 bg-card/50 border rounded-lg shadow-lg">
+                        <blockquote key={testimonial.name} className="p-8 bg-card/50 backdrop-blur-sm border-white/10 rounded-lg shadow-lg">
                             <p className="italic text-lg">"{testimonial.quote}"</p>
                             <footer className="mt-6 font-semibold text-md">{testimonial.name}, <span className="text-muted-foreground font-normal">{testimonial.company}</span></footer>
                         </blockquote>
@@ -375,13 +386,13 @@ export default function LandingPage() {
         </section>
 
         {/* Contacto */}
-        <section id="contacto" className="py-16 md:py-24 bg-card/50">
+        <section id="contacto" className="py-16 md:py-24">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold">Contáctanos</h2>
                     <p className="mt-4 text-muted-foreground text-lg">¿Listo para tomar el control de tu negocio? Ponte en contacto con nosotros.</p>
                 </div>
-                <Card className="max-w-4xl mx-auto bg-card border shadow-lg">
+                <Card className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border-white/10 shadow-lg">
                     <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
                             <div className="p-3 bg-primary/10 rounded-full mb-3">
@@ -405,7 +416,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t bg-background">
+      <footer className="py-8 border-t">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>
@@ -413,5 +424,7 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
 
     
