@@ -216,7 +216,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-0">
-        <Accordion type="multiple" className="w-full">
+        <Accordion type="multiple" className="w-full" defaultValue={['Jurídico', 'Finanzas y Contabilidad', 'Análisis y Crecimiento', 'Facturación', 'Recursos Humanos', 'Libros de Registro', 'General', 'Soluciones con IA']}>
             {navGroups.map((group) => (
                 <AccordionItem value={group.title} key={group.title} className="border-none">
                     <AccordionTrigger className="px-2 hover:no-underline hover:bg-sidebar-accent text-sidebar-foreground/70">
