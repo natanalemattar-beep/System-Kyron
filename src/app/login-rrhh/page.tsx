@@ -53,7 +53,7 @@ export default function LoginRrhhPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto">
+        <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
               <Briefcase className="h-10 w-10 text-primary"/>
@@ -78,7 +78,7 @@ export default function LoginRrhhPage() {
               </button>
             </div>
             <Button asChild className="w-full">
-              <Link href="/dashboard">Acceder</Link>
+              <Link href="/dashboard-rrhh">Acceder</Link>
             </Button>
           </CardContent>
         </Card>
