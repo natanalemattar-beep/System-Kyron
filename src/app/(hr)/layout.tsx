@@ -50,8 +50,10 @@ export default function HrLayout({ children }: { children: ReactNode }) {
            </div>
         </header>
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
-          <div className="animate-in fade-in duration-500">
-            {children}
+          <div className="container mx-auto">
+            <div className="animate-in fade-in duration-500">
+              {children}
+            </div>
           </div>
         </main>
       </SidebarInset>
