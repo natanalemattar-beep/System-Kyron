@@ -23,19 +23,19 @@ const maquinasFiscales = [
 
 export default function GestionIntegralPage() {
   return (
-    <div className="space-y-12">
+    <div className="p-4 md:p-8 space-y-12">
         <header className="text-center">
             <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
                 <Recycle className="h-10 w-10 text-green-500" />
                 System C.M.S - Gestión Integral
             </h1>
-            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
                 Una plataforma que fusiona la eficiencia contable y fiscal con la innovación sostenible y el compromiso social.
             </p>
         </header>
 
         {/* Sección de Soluciones Fiscales */}
-        <Card>
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl">
                     <Calculator className="h-7 w-7 text-primary"/>
@@ -73,7 +73,7 @@ export default function GestionIntegralPage() {
                  <Image src="https://picsum.photos/seed/recycling/600/500" alt="Papelera Inteligente" data-ai-hint="smart bin" width={600} height={500} className="rounded-xl shadow-lg object-cover"/>
             </div>
             <div className="lg:col-span-3">
-                 <Card>
+                 <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3 text-2xl">
                             <Recycle className="h-7 w-7 text-green-500"/>
@@ -85,8 +85,8 @@ export default function GestionIntegralPage() {
                         <div className="flex items-start gap-4 p-3 bg-secondary rounded-lg">
                            <Wifi className="h-6 w-6 text-green-400 mt-1"/>
                            <div>
-                                <h4 className="font-semibold">Sensores de Llenado</h4>
-                                <p className="text-sm text-muted-foreground">Cada papelera notifica automáticamente cuando está llena, optimizando las rutas de recolección y ahorrando combustible.</p>
+                                <h4 className="font-semibold">Sensores de Llenado con Wi-Fi</h4>
+                                <p className="text-sm text-muted-foreground">Cada papelera notifica automáticamente su nivel de llenado a través de Wi-Fi, optimizando las rutas de recolección y ahorrando combustible.</p>
                            </div>
                         </div>
                         <div className="flex items-start gap-4 p-3 bg-secondary rounded-lg">
@@ -105,7 +105,7 @@ export default function GestionIntegralPage() {
         </div>
 
         {/* Sección de Impacto Social */}
-         <Card className="text-center">
+         <Card className="text-center bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle className="flex items-center justify-center gap-3 text-2xl">
                     <HeartHandshake className="h-7 w-7 text-red-400"/>
