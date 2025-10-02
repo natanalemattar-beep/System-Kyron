@@ -2,19 +2,19 @@
 "use client";
 
 import { useState } from "react";
-import { User, Eye, EyeOff, Flag, ChevronDown, Briefcase } from "lucide-react";
+import { User, Eye, EyeOff, Flag, Briefcase, Building } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -23,37 +23,35 @@ export default function LoginNaturalPage() {
             </div>
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
-          <div className="flex items-center gap-2">
-             <DropdownMenu>
+          <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                        <User className="h-5 w-5"/>
-                        <span className="sr-only">Acceder</span>
+                    <Button variant="ghost">
+                        Acceder
+                        <User className="ml-2 h-4 w-4"/>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild>
-                        <Link href="/login-natural">Iniciar Sesión Natural</Link>
+                        <Link href="/login-natural">Acceso Natural</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                        <Link href="/login-juridico">Iniciar Sesión Jurídico</Link>
+                        <Link href="/login-juridico">Acceso Jurídico</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                        <Link href="/login-rrhh">Recursos Humanos</Link>
+                        <Link href="/login-rrhh">Acceso RR.HH.</Link>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-          </div>
         </div>
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto bg-card/50 backdrop-blur-sm">
+        <Card className="w-full max-w-md mx-auto">
           <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
-              <User className="h-10 w-10 text-primary"/>
+            <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4">
+              <User className="h-8 w-8"/>
             </div>
-            <CardTitle className="text-2xl">Acceso Natural</CardTitle>
+            <CardTitle className="text-2xl">Acceso Personal</CardTitle>
             <CardDescription>Inicia sesión con tu Cédula de Identidad.</CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-6">
@@ -76,9 +74,9 @@ export default function LoginNaturalPage() {
               <Link href="/dashboard">Acceder</Link>
             </Button>
             <p className="mt-6 text-center text-sm text-muted-foreground">
-              ¿Eres una empresa?{" "}
-              <Link href="/login-juridico" className="font-semibold text-primary hover:underline">
-                Accede como Persona Jurídica
+              ¿No tienes una cuenta?{" "}
+              <Link href="/register" className="font-semibold text-primary hover:underline">
+                Regístrate aquí
               </Link>
             </p>
           </CardContent>

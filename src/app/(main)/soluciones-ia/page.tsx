@@ -48,14 +48,15 @@ export default function SolucionesIAPage() {
 
         try {
             const result = await analyzeSentiment({ textToAnalyze });
-            if ('error' in result) {
+            // Type guard to check if result is not an error
+            if (result && 'sentiment' in result && 'confidence' in result) {
+                setAnalysisResult(result);
+            } else {
                  toast({
                     variant: "destructive",
                     title: "Error en el Análisis",
-                    description: result.error,
+                    description: (result as any).error || "No se pudo obtener un resultado válido.",
                 });
-            } else {
-                setAnalysisResult(result);
             }
         } catch (error) {
              toast({
@@ -71,11 +72,11 @@ export default function SolucionesIAPage() {
     const getSentimentInfo = (sentiment: "Positivo" | "Negativo" | "Neutral" | undefined) => {
         switch (sentiment) {
             case "Positivo":
-                return { icon: <Smile className="h-16 w-16 text-green-500" />, color: "bg-green-500/10 border-green-500/20", textColor: "text-green-500" };
+                return { icon: <Smile className="h-16 w-16 text-green-400" />, color: "bg-green-500/10 border-green-500/20", textColor: "text-green-400" };
             case "Negativo":
-                return { icon: <Frown className="h-16 w-16 text-red-500" />, color: "bg-red-500/10 border-red-500/20", textColor: "text-red-500" };
+                return { icon: <Frown className="h-16 w-16 text-red-400" />, color: "bg-red-500/10 border-red-500/20", textColor: "text-red-400" };
             case "Neutral":
-                return { icon: <Meh className="h-16 w-16 text-yellow-500" />, color: "bg-yellow-500/10 border-yellow-500/20", textColor: "text-yellow-500" };
+                return { icon: <Meh className="h-16 w-16 text-yellow-400" />, color: "bg-yellow-500/10 border-yellow-500/20", textColor: "text-yellow-400" };
             default:
                  return { icon: null, color: "", textColor: "" };
         }
@@ -86,7 +87,9 @@ export default function SolucionesIAPage() {
     return (
         <div className="space-y-12">
             <header className="text-center">
-                <BrainCircuit className="h-16 w-16 mx-auto text-primary mb-4" />
+                <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
+                    <BrainCircuit className="h-12 w-12" />
+                </div>
                 <h1 className="text-4xl font-bold tracking-tight">Soluciones con Inteligencia Artificial</h1>
                 <p className="text-muted-foreground mt-2 max-w-3xl mx-auto">
                     Automatiza tareas, obtén análisis inteligentes y toma decisiones más rápidas para potenciar tu negocio.
@@ -95,7 +98,7 @@ export default function SolucionesIAPage() {
 
             <div className="grid gap-8 md:grid-cols-2">
                 {iaSolutions.map(solution => (
-                    <Card key={solution.title} className="flex flex-col bg-card/50 backdrop-blur-sm">
+                    <Card key={solution.title} className="flex flex-col bg-card/80">
                         <CardHeader>
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-primary/10 rounded-lg">
@@ -118,7 +121,7 @@ export default function SolucionesIAPage() {
                 ))}
             </div>
 
-            <Card className="bg-card/50 backdrop-blur-sm">
+            <Card className="bg-card/80">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3">
                         <Bot className="h-6 w-6 text-primary"/>
@@ -131,16 +134,16 @@ export default function SolucionesIAPage() {
                 <CardContent className="grid gap-8 md:grid-cols-2">
                     <div className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="sentiment-text" className="text-lg font-medium">Texto a Analizar</Label>
+                            <Label htmlFor="sentiment-text" className="font-medium">Texto a Analizar</Label>
                             <Textarea 
                                 id="sentiment-text" 
                                 placeholder="Ej: 'El servicio fue excelente, pero el producto llegó tarde.'" 
-                                className="min-h-[200px] text-base"
+                                className="min-h-[200px]"
                                 value={textToAnalyze}
                                 onChange={(e) => setTextToAnalyze(e.target.value)}
                             />
                         </div>
-                        <Button onClick={handleAnalyze} disabled={isLoading} className="w-full h-12 text-lg">
+                        <Button onClick={handleAnalyze} disabled={isLoading} className="w-full h-11">
                             {isLoading ? (
                                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                             ) : (
@@ -151,8 +154,8 @@ export default function SolucionesIAPage() {
                     </div>
                     <div className={`flex items-center justify-center p-6 rounded-lg transition-colors duration-300 ${analysisResult ? sentimentInfo.color : 'bg-secondary'}`}>
                         {!analysisResult && !isLoading && (
-                             <div className="text-center text-muted-foreground animate-pulse">
-                                <Bot className="h-16 w-16 mx-auto mb-4"/>
+                             <div className="text-center text-muted-foreground">
+                                <Bot className="h-16 w-16 mx-auto mb-4 opacity-50"/>
                                 <p className="font-medium">El resultado del análisis aparecerá aquí.</p>
                             </div>
                         )}
@@ -193,5 +196,3 @@ export default function SolucionesIAPage() {
         </div>
     );
 }
-
-    

@@ -63,7 +63,7 @@ export default function DashboardPersonalPage() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Dashboard Personal</h1>
-        <Badge variant="outline" className="text-green-500 border-green-500/50">
+        <Badge variant="secondary" className="text-green-400 border-green-500/50 bg-green-500/10">
           <CheckCircle className="w-4 h-4 mr-2" />
           Cuenta Verificada
         </Badge>
@@ -71,7 +71,7 @@ export default function DashboardPersonalPage() {
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {actions.map((action, index) => (
-          <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow duration-300">
+          <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow duration-300 bg-card/80">
             <CardHeader>
               <div className="flex items-start gap-4">
                 <div className={'p-3 rounded-lg bg-secondary'}>
@@ -87,7 +87,7 @@ export default function DashboardPersonalPage() {
               <ul className="space-y-2 mb-6">
                 {action.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <CheckCircle className="h-4 w-4 text-primary" />
                     <span>{feature}</span>
                   </li>
                 ))}

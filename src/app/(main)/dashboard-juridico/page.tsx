@@ -78,10 +78,10 @@ const mainActions = [
 ];
 
 const stats = [
-    { title: 'Permisos Vigentes', value: '3', footer: '1 por renovar', icon: CheckCircle, iconColor: 'text-green-500' },
-    { title: 'Multas Pendientes', value: '2', footer: 'Bs. 45,000', icon: AlertTriangle, iconColor: 'text-orange-500' },
-    { title: 'Facturas del Mes', value: '127', footer: 'Bs. 2.4M', icon: FilePlus, iconColor: 'text-blue-500' },
-    { title: 'Inventario', value: '1,245', footer: '15 productos bajos', icon: BarChart2, iconColor: 'text-purple-500' },
+    { title: 'Permisos Vigentes', value: '3', footer: '1 por renovar', icon: CheckCircle, iconColor: 'text-green-400' },
+    { title: 'Multas Pendientes', value: '2', footer: 'Bs. 45,000', icon: AlertTriangle, iconColor: 'text-orange-400' },
+    { title: 'Facturas del Mes', value: '127', footer: 'Bs. 2.4M', icon: FilePlus, iconColor: 'text-blue-400' },
+    { title: 'Inventario', value: '1,245', footer: '15 productos bajos', icon: BarChart2, iconColor: 'text-purple-400' },
 ]
 
 const recentActivities = [
@@ -101,7 +101,7 @@ const financialSummary = [
 
 const ActivitySkeleton = () => (
   <div className="lg:col-span-2">
-    <Card className="bg-card/50 backdrop-blur-sm">
+    <Card className="bg-card/80">
       <CardHeader>
         <Skeleton className="h-6 w-32" />
       </CardHeader>
@@ -146,7 +146,7 @@ export default function DashboardJuridicoPage() {
     <div className="space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Dashboard Jurídico</h1>
-        <Badge variant="outline" className="text-green-500 border-green-500/50">
+        <Badge variant="secondary" className="text-green-400 border-green-500/50 bg-green-500/10">
           <CheckCircle className="w-4 h-4 mr-2" />
           Empresa Activa
         </Badge>
@@ -155,7 +155,7 @@ export default function DashboardJuridicoPage() {
       {/* Main Actions */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
         {mainActions.map((action, index) => (
-          <Card key={index} className="flex flex-col justify-between hover:shadow-md transition-shadow duration-300 bg-card/50 backdrop-blur-sm">
+          <Card key={index} className="flex flex-col justify-between hover:shadow-md transition-shadow duration-300 bg-card/80">
             <CardHeader>
               <div className={'p-3 rounded-lg bg-secondary w-max mb-4'}>
                 <action.icon className={'h-6 w-6 text-primary'} />
@@ -178,7 +178,7 @@ export default function DashboardJuridicoPage() {
         {/* Stats */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {stats.map(stat => (
-              <Card key={stat.title} className="hover:shadow-md transition-shadow duration-300 bg-card/50 backdrop-blur-sm">
+              <Card key={stat.title} className="hover:shadow-md transition-shadow duration-300 bg-card/80">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
                     <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
@@ -196,7 +196,7 @@ export default function DashboardJuridicoPage() {
       <div className="grid gap-6 lg:grid-cols-3">
         <LazyActivityCard recentActivities={recentActivities} />
         
-        <Card className="hover:shadow-md transition-shadow duration-300 bg-card/50 backdrop-blur-sm">
+        <Card className="hover:shadow-md transition-shadow duration-300 bg-card/80">
           <CardHeader>
             <CardTitle>Resumen Diario</CardTitle>
              <CardDescription>
@@ -204,11 +204,11 @@ export default function DashboardJuridicoPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-              <div className={'p-4 rounded-lg bg-green-500/10 text-green-500'}>
+              <div className={'p-4 rounded-lg bg-green-500/10 text-green-400'}>
                   <p className="text-sm font-medium">Ventas del Día</p>
                   <p className="text-2xl font-bold">{formatCurrency(dailySummary.ventas, 'Bs.')}</p>
               </div>
-               <div className={'p-4 rounded-lg bg-red-500/10 text-red-500'}>
+               <div className={'p-4 rounded-lg bg-red-500/10 text-red-400'}>
                   <p className="text-sm font-medium">Gastos del Día</p>
                   <p className="text-2xl font-bold">{formatCurrency(dailySummary.gastos, 'Bs.')}</p>
               </div>
@@ -222,7 +222,7 @@ export default function DashboardJuridicoPage() {
         </Card>
       </div>
 
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card className="bg-card/80">
         <CardHeader className="flex-row items-center justify-between">
             <div>
                 <CardTitle>Supervisión Financiera</CardTitle>
