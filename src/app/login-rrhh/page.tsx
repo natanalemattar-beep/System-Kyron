@@ -2,12 +2,12 @@
 "use client";
 
 import { useState } from "react";
-import { Briefcase, Eye, EyeOff, Flag, User } from "lucide-react";
+import { Briefcase, Eye, EyeOff, Flag, User, Building } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function LoginRrhhPage() {
@@ -15,8 +15,7 @@ export default function LoginRrhhPage() {
 
   return (
      <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div className="absolute inset-0 -z-20 h-full w-full bg-gradient-to-br from-primary/20 via-transparent to-primary/20 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,hsl(var(--primary)/.2),rgba(255,255,255,0))]"></div>
       <header className="sticky top-0 z-50 w-full bg-card/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -76,6 +75,17 @@ export default function LoginRrhhPage() {
               <Link href="/dashboard-rrhh">Acceder</Link>
             </Button>
           </CardContent>
+           <CardFooter className="flex-col gap-2 p-6 border-t text-sm">
+                <p className="text-muted-foreground">¿No perteneces a RR.HH.?</p>
+                <div className="flex gap-4">
+                    <Button asChild variant="link" className="p-0">
+                        <Link href="/login-natural">Acceso Personal</Link>
+                    </Button>
+                     <Button asChild variant="link" className="p-0">
+                        <Link href="/login-juridico">Acceso Empresarial</Link>
+                    </Button>
+                </div>
+            </CardFooter>
         </Card>
       </main>
     </div>
