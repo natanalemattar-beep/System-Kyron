@@ -14,7 +14,9 @@ export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-     <div className="flex flex-col min-h-screen">
+     <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div className="absolute inset-0 -z-20 h-full w-full bg-gradient-to-br from-primary/20 via-transparent to-primary/20 backdrop-blur-sm"></div>
       <header className="sticky top-0 z-50 w-full bg-card/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
