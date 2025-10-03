@@ -334,10 +334,10 @@ export default function LandingPage() {
          {/* CTA Section */}
         <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
+                <h2 className="text-3xl md:text-4xl font-bold">¡Contactanos!</h2>
                 <p className="mt-4 text-lg max-w-2xl mx-auto opacity-90">Únete a cientos de empresas que ya están optimizando sus procesos y garantizando su cumplimiento.</p>
                 <Button size="lg" variant="secondary" asChild className="mt-8">
-                   <Link href="/register">Comienza Gratis Hoy Mismo <ArrowRight className="ml-2"/></Link>
+                   <Link href="/register">¡Comienza Hoy! <ArrowRight className="ml-2"/></Link>
                 </Button>
             </div>
         </section>
@@ -385,5 +385,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
