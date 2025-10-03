@@ -11,7 +11,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function HrLayout({ children }: { children: ReactNode }) {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <SidebarInset>
          <header className="p-4 flex justify-between items-center border-b bg-card/80 backdrop-blur-sm sticky top-0 z-10 h-16 px-6 md:px-8">
