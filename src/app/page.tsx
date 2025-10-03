@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { User, Menu, Flag, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Building, Layers, Cpu, Users, BarChart, ShieldCheck } from "lucide-react";
+import { User, Menu, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Building, Layers, Cpu, Users, BarChart, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -11,6 +11,7 @@ import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { AnchorHTMLAttributes, FC } from 'react';
+import { Logo } from "@/components/logo";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -88,9 +89,7 @@ export default function LandingPage() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="bg-primary text-primary-foreground p-2 rounded-md">
-              <Flag className="h-6 w-6" />
-            </div>
+            <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           
@@ -345,7 +344,7 @@ export default function LandingPage() {
          {/* CTA Section */}
         <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
+                <h2 className="text-3xl md:text-4xl font-bold">¡Contactanos!</h2>
                 <p className="mt-4 text-lg max-w-2xl mx-auto opacity-90">Únete a cientos de empresas que ya están optimizando sus procesos y garantizando su cumplimiento.</p>
                 <Button size="lg" variant="secondary" asChild className="mt-8">
                    <Link href="/register">¡Comienza Hoy! <ArrowRight className="ml-2"/></Link>

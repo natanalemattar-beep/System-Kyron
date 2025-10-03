@@ -2,26 +2,24 @@
 "use client";
 
 import { useState } from "react";
-import { User, Eye, EyeOff, Flag, Building, Briefcase } from "lucide-react";
+import { User, Eye, EyeOff, Building, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Logo } from "@/components/logo";
 
 export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
     <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,hsl(200_100%_90%),rgba(255,255,255,0))]"></div>
-      <header className="sticky top-0 z-50 w-full bg-card/80 backdrop-blur-sm border-b">
+      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <div className="bg-primary text-primary-foreground p-2 rounded-md">
-              <Flag className="h-6 w-6" />
-            </div>
+            <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           <DropdownMenu>
@@ -47,7 +45,7 @@ export default function LoginNaturalPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-sm">
+        <Card className="w-full max-w-md mx-auto">
           <CardHeader className="text-center">
             <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
               <User className="h-8 w-8"/>

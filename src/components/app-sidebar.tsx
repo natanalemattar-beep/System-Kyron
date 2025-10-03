@@ -56,7 +56,6 @@ import {
   ShieldCheck,
   RefreshCw,
   ShieldAlert,
-  Flag,
   Bot,
 } from "lucide-react";
 
@@ -75,6 +74,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
+import { Logo } from "@/components/logo";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
@@ -212,14 +212,11 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-              <Flag className="h-6 w-6" />
-            </div>
+           <Logo />
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight">
                 System C.M.S
               </h1>
-              <p className="text-xs text-muted-foreground">Plataforma Digital Oficial</p>
           </div>
         </div>
       </SidebarHeader>
@@ -297,14 +294,11 @@ function AppSidebarNatural() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-              <Flag className="h-6 w-6" />
-            </div>
+           <Logo />
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight">
                 System C.M.S
               </h1>
-              <p className="text-xs text-muted-foreground">Plataforma Digital Oficial</p>
           </div>
         </div>
       </SidebarHeader>
@@ -379,9 +373,7 @@ function AppSidebarHr() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-              <Flag className="h-6 w-6" />
-            </div>
+           <Logo />
           <div className="flex flex-col">
               <h1 className="text-lg font-bold tracking-tight">
                 System C.M.S
