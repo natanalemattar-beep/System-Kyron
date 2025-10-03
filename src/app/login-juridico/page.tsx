@@ -25,7 +25,7 @@ export default function LoginJuridicoPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,hsl(var(--primary)/.2),rgba(255,255,255,0))]"></div>
+        <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,hsl(200_100%_90%),rgba(255,255,255,0))]"></div>
       <header className="sticky top-0 z-50 w-full bg-card/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
