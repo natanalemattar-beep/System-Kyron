@@ -10,6 +10,21 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { AnchorHTMLAttributes, FC } from 'react';
+
+const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const targetId = href!.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    return <a href={href} onClick={handleClick} {...props} />;
+};
+
 
 const navLinks = [
   { href: "#servicios", label: "Servicios" },
@@ -34,15 +49,11 @@ const testimonials = [
   {
     name: "Carlos Rodríguez",
     company: "Constructora XYZ",
-    avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
-    imageHint: "businessman portrait",
     text: "“System C.M.S ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.”",
   },
   {
     name: "Ana Pérez",
     company: "Inversiones ABC",
-    avatar: "https://images.unsplash.com/photo-1544725176-7c40e5a71c3e?w=400&q=80",
-    imageHint: "businesswoman portrait",
     text: "“La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.”",
   },
 ];
@@ -85,9 +96,9 @@ export default function LandingPage() {
           
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              <SmoothScrollLink key={link.label} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 {link.label}
-              </Link>
+              </SmoothScrollLink>
             ))}
              <Button asChild variant="outline">
               <Link href="/register">Registrarse</Link>
@@ -124,9 +135,9 @@ export default function LandingPage() {
                     <nav className="flex flex-col gap-4 text-lg font-medium mt-8">
                         {navLinks.map((link) => (
                         <SheetClose asChild key={link.label}>
-                            <Link href={link.href} className="text-muted-foreground hover:text-foreground">
+                            <SmoothScrollLink href={link.href} className="text-muted-foreground hover:text-foreground">
                             {link.label}
-                            </Link>
+                            </SmoothScrollLink>
                         </SheetClose>
                         ))}
                     </nav>
@@ -186,9 +197,9 @@ export default function LandingPage() {
                             </Link>
                         </Button>
                         <Button size="lg" variant="outline" className="bg-background/20 text-white border-white/50 hover:bg-background/30">
-                            <Link href="#servicios">
+                            <SmoothScrollLink href="#servicios">
                             Explorar Servicios
-                            </Link>
+                            </SmoothScrollLink>
                         </Button>
                     </div>
                 </div>
@@ -288,7 +299,7 @@ export default function LandingPage() {
                       return (
                         <Card key={index} className="p-8 shadow-lg bg-card">
                             <CardContent className="p-0">
-                                <p className="text-muted-foreground italic text-lg mb-6">"{testimonial.text}"</p>
+                                <p className="text-muted-foreground italic text-lg mb-6">{testimonial.text}</p>
                                 <div className="flex items-center gap-4">
                                   {avatar && (
                                     <Avatar>
@@ -334,7 +345,7 @@ export default function LandingPage() {
          {/* CTA Section */}
         <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold">¡Contactanos!</h2>
+                <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
                 <p className="mt-4 text-lg max-w-2xl mx-auto opacity-90">Únete a cientos de empresas que ya están optimizando sus procesos y garantizando su cumplimiento.</p>
                 <Button size="lg" variant="secondary" asChild className="mt-8">
                    <Link href="/register">¡Comienza Hoy! <ArrowRight className="ml-2"/></Link>
@@ -385,3 +396,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
