@@ -8,9 +8,15 @@
     },
     {
       "id": "hero-image",
-      "description": "A placeholder for the hero section background, showing a team analyzing charts.",
-      "imageUrl": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "imageHint": "team presentation"
+      "description": "A placeholder for the hero section background, showing the Angel Falls in Venezuela.",
+      "imageUrl": "https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "Angel Falls"
+    },
+    {
+      "id": "about-us-image",
+      "description": "A placeholder image for the about us section, showing a diverse team working collaboratively.",
+      "imageUrl": "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx0ZWFtJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NTk0NDUxNzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "team collaboration"
     }
   ]
 }

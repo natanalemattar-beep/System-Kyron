@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const navLinks = [
   { href: "#servicios", label: "Servicios" },
@@ -29,6 +30,9 @@ const features = [
 ];
 
 export default function LandingPage() {
+    const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
+    const aboutImage = PlaceHolderImages.find((img) => img.id === "about-us-image");
+
   return (
     <div className="flex flex-col min-h-screen text-foreground overflow-x-hidden">
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
@@ -116,19 +120,21 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="relative py-24 md:py-40 flex items-center text-center">
             <div className="absolute inset-0 -z-10">
-                <Image 
-                    src="https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=1920&auto=format&fit=crop"
-                    alt="Salto Ángel, Venezuela"
-                    data-ai-hint="Angel Falls"
-                    fill
-                    className="object-cover"
-                    priority
-                />
+                {heroImage && (
+                    <Image 
+                        src={heroImage.imageUrl}
+                        alt={heroImage.description}
+                        data-ai-hint={heroImage.imageHint}
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                )}
                 <div className="absolute inset-0 bg-black/50"></div>
             </div>
             <div className="container mx-auto px-4 md:px-6">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance text-primary" style={{textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance text-primary" style={{textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>
                         La Gestión Empresarial, Reinventada
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-balance text-white/90 max-w-3xl mx-auto" style={{textShadow: '0 2px 8px rgba(0,0,0,0.7)'}}>
@@ -157,7 +163,7 @@ export default function LandingPage() {
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                      {services.map((item, i) => (
                         <Card key={item.title} className="bg-card text-center flex flex-col items-center p-8 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
@@ -181,9 +187,9 @@ export default function LandingPage() {
                   Nuestra plataforma integra tecnologías de vanguardia para darte una ventaja competitiva.
                 </p>
               </div>
-              <ul className="space-y-6">
+              <div className="grid sm:grid-cols-1 gap-6">
                 {features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-4">
+                  <div key={index} className="flex items-start gap-4">
                     <div className="p-3 bg-primary/10 text-primary rounded-lg mt-1">
                       <feature.icon className="h-6 w-6 shrink-0" />
                     </div>
@@ -191,9 +197,9 @@ export default function LandingPage() {
                       <h4 className="font-semibold text-lg">{feature.title}</h4>
                       <p className="text-muted-foreground text-sm">{feature.description}</p>
                     </div>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
             <div className="p-8 rounded-xl flex items-center justify-center">
                  <Image 
@@ -210,13 +216,23 @@ export default function LandingPage() {
 
         {/* About Us Section */}
         <section id="nosotros" className="py-20 md:py-28">
-            <div className="container mx-auto px-4 md:px-6">
-                 <div className="text-center max-w-3xl mx-auto">
+            <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-16 items-center">
+                 <div className="text-left">
                     <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
                         Nacimos de la necesidad de una herramienta que realmente entienda los desafíos de hacer negocios en nuestro país. Somos un equipo de contadores, abogados y desarrolladores comprometidos con tu éxito.
                     </p>
                 </div>
+                {aboutImage && (
+                    <Image 
+                        src={aboutImage.imageUrl}
+                        alt={aboutImage.description}
+                        data-ai-hint={aboutImage.imageHint}
+                        width={600}
+                        height={400}
+                        className="rounded-xl shadow-lg"
+                    />
+                )}
             </div>
         </section>
         
