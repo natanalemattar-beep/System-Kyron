@@ -17,6 +17,18 @@
       "description": "A placeholder image for the about us section, showing a diverse team working collaboratively.",
       "imageUrl": "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx0ZWFtJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NTk0NDUxNzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "team collaboration"
+    },
+    {
+      "id": "testimonial-avatar-1",
+      "description": "A placeholder image for a testimonial avatar, showing a businessman.",
+      "imageUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
+      "imageHint": "businessman portrait"
+    },
+    {
+      "id": "testimonial-avatar-2",
+      "description": "A placeholder image for a testimonial avatar, showing a businesswoman.",
+      "imageUrl": "https://images.unsplash.com/photo-1544725176-7c40e5a71c3e?w=400&q=80",
+      "imageHint": "businesswoman portrait"
     }
   ]
 }

@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const navLinks = [
   { href: "#servicios", label: "Servicios" },
@@ -29,9 +30,47 @@ const features = [
     { title: "Análisis y Reportes", description: "Visualiza la salud de tu negocio con dashboards intuitivos y reportes personalizables.", icon: BarChart },
 ];
 
+const testimonials = [
+  {
+    name: "Carlos Rodríguez",
+    company: "Constructora XYZ",
+    avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
+    imageHint: "businessman portrait",
+    text: "“System C.M.S ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.”",
+  },
+  {
+    name: "Ana Pérez",
+    company: "Inversiones ABC",
+    avatar: "https://images.unsplash.com/photo-1544725176-7c40e5a71c3e?w=400&q=80",
+    imageHint: "businesswoman portrait",
+    text: "“La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.”",
+  },
+];
+
+const howItWorksSteps = [
+    {
+        step: 1,
+        title: "Regístrate y Configura",
+        description: "Crea tu cuenta en minutos y configura los datos de tu empresa o perfil personal. Nuestro sistema te guiará en cada paso.",
+    },
+    {
+        step: 2,
+        title: "Automatiza y Gestiona",
+        description: "Desde la facturación hasta la nómina, deja que nuestra IA se encargue de las tareas repetitivas mientras tú te enfocas en tu negocio.",
+    },
+    {
+        step: 3,
+        title: "Analiza y Crece",
+        description: "Utiliza nuestros reportes y dashboards para obtener una visión clara de tus finanzas y tomar decisiones estratégicas para el crecimiento.",
+    },
+];
+
 export default function LandingPage() {
     const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
     const aboutImage = PlaceHolderImages.find((img) => img.id === "about-us-image");
+    const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
+    const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
+
 
   return (
     <div className="flex flex-col min-h-screen text-foreground overflow-x-hidden">
@@ -214,6 +253,62 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* How it Works Section */}
+        <section id="how-it-works" className="py-20 md:py-28">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Empezar es muy Sencillo</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">En solo tres pasos, estarás en camino a una gestión más inteligente y eficiente.</p>
+                </div>
+                <div className="relative grid md:grid-cols-3 gap-8">
+                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-border -translate-y-1/2 hidden md:block"></div>
+                     {howItWorksSteps.map((step) => (
+                        <div key={step.step} className="relative flex flex-col items-center text-center p-8 bg-card rounded-lg shadow-sm border">
+                           <div className="absolute -top-6 bg-background p-1 rounded-full">
+                             <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-xl">{step.step}</div>
+                           </div>
+                           <h3 className="mt-8 text-xl font-semibold">{step.title}</h3>
+                           <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section id="testimonials" className="py-20 md:py-28 bg-secondary/50">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">La confianza de nuestros clientes es nuestro mayor activo.</p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    {testimonials.map((testimonial, index) => {
+                      const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
+                      return (
+                        <Card key={index} className="p-8 shadow-lg bg-card">
+                            <CardContent className="p-0">
+                                <p className="text-muted-foreground italic text-lg mb-6">"{testimonial.text}"</p>
+                                <div className="flex items-center gap-4">
+                                  {avatar && (
+                                    <Avatar>
+                                        <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
+                                        <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                    </Avatar>
+                                  )}
+                                    <div>
+                                        <p className="font-semibold">{testimonial.name}</p>
+                                        <p className="text-sm text-muted-foreground">{testimonial.company}</p>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                      )
+                    })}
+                </div>
+            </div>
+        </section>
+
         {/* About Us Section */}
         <section id="nosotros" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-16 items-center">
@@ -235,9 +330,20 @@ export default function LandingPage() {
                 )}
             </div>
         </section>
+
+         {/* CTA Section */}
+        <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
+            <div className="container mx-auto px-4 md:px-6 text-center">
+                <h2 className="text-3xl md:text-4xl font-bold">¿Listo para Transformar tu Gestión?</h2>
+                <p className="mt-4 text-lg max-w-2xl mx-auto opacity-90">Únete a cientos de empresas que ya están optimizando sus procesos y garantizando su cumplimiento.</p>
+                <Button size="lg" variant="secondary" asChild className="mt-8">
+                   <Link href="/register">Comienza Gratis Hoy Mismo <ArrowRight className="ml-2"/></Link>
+                </Button>
+            </div>
+        </section>
         
         {/* Contact Section */}
-        <section id="contacto" className="py-20 md:py-28 bg-secondary/50">
+        <section id="contacto" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">¡Contactanos!</h2>
@@ -279,3 +385,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
