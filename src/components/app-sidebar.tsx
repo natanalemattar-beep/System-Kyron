@@ -164,26 +164,31 @@ const iaMenuItems = [
   { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
 ];
 
-const naturalMenuItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/documentos", label: "Documentos", icon: File },
-  { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
-  { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
-  { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
-  { href: "/manutencion", label: "Gestión Integral CRS", icon: HeartHandshake },
-  { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
-  { href: "/seguridad", label: "Seguridad", icon: Shield },
-  { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-];
+const naturalMenuItems = {
+    principal: [
+        { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+        { href: "/seguridad", label: "Seguridad", icon: Shield },
+        { href: "/notificaciones", label: "Notificaciones", icon: Bell },
+    ],
+    tramites: [
+        { href: "/documentos", label: "Mis Documentos", icon: File },
+        { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
+        { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
+        { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
+        { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
+    ],
+    crs: [
+        { href: "/manutencion", label: "Gestión Integral CRS", icon: HeartHandshake },
+    ]
+};
 
-const navGroups = [
+
+const juridicoNavGroups = [
     { title: "Jurídico", icon: Gavel, items: juridicoMainMenuItems },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
     { title: "Análisis y Crecimiento", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Soluciones con IA", icon: BrainCircuit, items: iaMenuItems },
     { title: "Facturación", icon: FileText, items: facturacionMenuItems },
-    { title: "Recursos Humanos", icon: Briefcase, items: [...recursosHumanosGestionItems, ...corporativoMenuItems] },
-    { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
 
@@ -192,7 +197,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href));
-  const isNaturalPath = (path: string) => naturalMenuItems.some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path);
+  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path);
   
   if (isHrPath(pathname)) {
     return <AppSidebarHr />;
@@ -219,9 +224,8 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-0">
-        <Accordion type="multiple" className="w-full" defaultValue={['Jurídico', 'Finanzas y Contabilidad', 'Análisis y Crecimiento', 'Facturación', 'Recursos Humanos', 'General', 'Soluciones con IA']}>
-            {navGroups.map((group) => {
-              if (group.title === "Recursos Humanos" || group.title === "Libros de Registro") return null;
+        <Accordion type="multiple" className="w-full" defaultValue={['Jurídico', 'Finanzas y Contabilidad', 'Análisis y Crecimiento', 'Facturación', 'General', 'Soluciones con IA']}>
+            {juridicoNavGroups.map((group) => {
               return (
                 <AccordionItem value={group.title} key={group.title} className="border-none">
                     <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
@@ -276,6 +280,12 @@ function AppSidebarNatural() {
   const pathname = usePathname();
   const userAvatar = PlaceHolderImages.find((img) => img.id === "user-avatar");
 
+  const naturalNavGroups = [
+      { title: "Principal", icon: User, items: naturalMenuItems.principal },
+      { title: "Trámites Civiles", icon: Gavel, items: naturalMenuItems.tramites },
+      { title: "Gestión CRS", icon: HeartHandshake, items: naturalMenuItems.crs },
+  ];
+
   const isActive = (href: string) => {
     if (href === "/dashboard") {
       return pathname === href;
@@ -298,27 +308,38 @@ function AppSidebarNatural() {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-2">
-        <SidebarGroup>
-          <SidebarGroupLabel className="flex items-center gap-2"><User className="h-4 w-4"/>Natural</SidebarGroupLabel>
-          <SidebarMenu>
-            {naturalMenuItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={isActive(item.href)}
-                  tooltip={item.label}
-                  className="justify-start"
-                >
-                  <Link href={item.href}>
-                    <item.icon className="h-5 w-5" />
-                    <span>{item.label}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+      <SidebarContent className="p-0">
+         <Accordion type="multiple" className="w-full" defaultValue={['Principal', 'Trámites Civiles', 'Gestión CRS']}>
+            {naturalNavGroups.map((group) => (
+                <AccordionItem value={group.title} key={group.title} className="border-none">
+                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
+                        <div className="flex items-center gap-2 text-sm font-medium">
+                            <group.icon className="h-4 w-4" />
+                            {group.title}
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-0">
+                        <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                            {group.items.map((item) => (
+                            <SidebarMenuItem key={item.href}>
+                                <SidebarMenuButton
+                                asChild
+                                isActive={isActive(item.href)}
+                                tooltip={item.label}
+                                className="justify-start h-8"
+                                >
+                                <Link href={item.href}>
+                                    <item.icon className="h-4 w-4" />
+                                    <span>{item.label}</span>
+                                </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </AccordionContent>
+                </AccordionItem>
             ))}
-          </SidebarMenu>
-        </SidebarGroup>
+        </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
