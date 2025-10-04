@@ -15,6 +15,7 @@ const tasas = {
     "SAREN": 0.05, // 5%
     "SAPI": 0.03, // 3%
     "Alcaldías": 0.01, // 1%
+    "Gobernación": 0.01, // 1%
 };
 
 export default function TimbresFiscalesPage() {
