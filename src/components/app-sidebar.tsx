@@ -135,7 +135,7 @@ const facturacionGeneralMenuItems = [
 ];
 
 const ventasMenuItems = [
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+    { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
 ];
 
