@@ -15,14 +15,14 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 const products = [
-    { id: 1, name: "Hamburguesa Clásica", price: 12.50, barcode: "8591234567890" },
-    { id: 2, name: "Pizza Margarita", price: 15.00, barcode: "8591234567891" },
-    { id: 3, name: "Papas Fritas", price: 5.00, barcode: "8591234567892" },
-    { id: 4, name: "Refresco", price: 2.50, barcode: "8591234567893" },
-    { id: 5, name: "Ensalada César", price: 8.00, barcode: "8591234567894" },
-    { id: 6, name: "Torta de Chocolate", price: 6.00, barcode: "8591234567895" },
-    { id: 7, name: "Jugo Natural", price: 4.00, barcode: "8591234567896" },
-    { id: 8, name: "Café Americano", price: 3.00, barcode: "8591234567897" },
+    { id: 1, name: "Resma de Papel Carta", price: 8.50, barcode: "7591234567890" },
+    { id: 2, name: "Impresora Fiscal", price: 350.00, barcode: "7591234567891" },
+    { id: 3, name: "Punto de Venta Inalámbrico", price: 280.00, barcode: "7591234567892" },
+    { id: 4, name: "Lector de Código de Barras", price: 95.00, barcode: "7591234567893" },
+    { id: 5, name: "Tóner para Impresora", price: 85.00, barcode: "7591234567894" },
+    { id: 6, name: "Caja de Bolígrafos (12 Unid.)", price: 5.00, barcode: "7591234567895" },
+    { id: 7, name: "Rollo de Etiquetas Térmicas", price: 12.00, barcode: "7591234567896" },
+    { id: 8, name: "Calculadora de Escritorio", price: 18.00, barcode: "7591234567897" },
 ];
 
 const cashiers = [
@@ -364,3 +364,5 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
+
+    
