@@ -4,7 +4,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Scale, Search, FileDown, BookOpen } from "lucide-react";
+import { Scale, Search, FileDown, BookOpen, Newspaper } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const jurisprudencia = [
@@ -31,25 +31,40 @@ const jurisprudencia = [
     }
 ];
 
+const gacetasOficiales = [
+    {
+        id: "GO-43032",
+        titulo: "Gaceta Oficial N° 43.032 - Calendario de Contribución Especial de Pensiones 2025",
+        fecha: "19/12/2024",
+        resumen: "Se establece el calendario para la declaración y pago de la Contribución Especial para la Protección de las Pensiones de Seguridad Social para el ejercicio fiscal 2025.",
+    },
+    {
+        id: "GO-43031",
+        titulo: "Gaceta Oficial N° 43.031 - Calendario de Sujetos Pasivos Especiales 2025",
+        fecha: "18/12/2024",
+        resumen: "Se publican las fechas y plazos para las obligaciones tributarias de los Sujetos Pasivos Especiales durante el año 2025.",
+    }
+];
+
 export default function RecursosFiscalesPage() {
     const { toast } = useToast();
 
-    const handleDownload = (sentenciaId: string) => {
+    const handleDownload = (documentId: string) => {
         toast({
             title: "Descarga Iniciada",
-            description: `La sentencia ${sentenciaId} se está descargando en formato PDF.`,
+            description: `El documento ${documentId} se está descargando en formato PDF.`,
         });
     }
 
   return (
-    <div className="p-4 md:p-8">
+    <div className="p-4 md:p-8 space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Scale className="h-8 w-8" />
             Recursos Fiscales y Jurisprudencia
         </h1>
         <p className="text-muted-foreground mt-2">
-          Consulta la jurisprudencia del TSJ, leyes y otros recursos de interés.
+          Consulta la jurisprudencia del TSJ, leyes, gacetas y otros recursos de interés.
         </p>
       </header>
 
@@ -63,6 +78,43 @@ export default function RecursosFiscalesPage() {
             />
         </div>
       </div>
+
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle>Gacetas Oficiales de Interés</CardTitle>
+          <CardDescription>
+            Información relevante y calendarios fiscales publicados recientemente.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-6">
+            {gacetasOficiales.map(item => (
+                 <Card key={item.id} className="bg-secondary/50">
+                    <CardHeader>
+                        <CardTitle className="text-lg flex justify-between items-start">
+                           <span className="flex items-center gap-3"><Newspaper className="h-5 w-5"/>{item.titulo}</span>
+                           <span className="text-sm font-mono text-muted-foreground">{item.id}</span>
+                        </CardTitle>
+                        <CardDescription>
+                           Fecha de Publicación: {item.fecha}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground mb-4">{item.resumen}</p>
+                        <div className="flex gap-2">
+                             <Button variant="outline">
+                                <BookOpen className="mr-2" />
+                                Ver Gaceta Completa
+                            </Button>
+                             <Button variant="secondary" onClick={() => handleDownload(item.id)}>
+                                <FileDown className="mr-2" />
+                                Descargar PDF
+                            </Button>
+                        </div>
+                    </CardContent>
+                </Card>
+            ))}
+        </CardContent>
+      </Card>
 
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
@@ -103,4 +155,5 @@ export default function RecursosFiscalesPage() {
     </div>
   );
 }
+
 
