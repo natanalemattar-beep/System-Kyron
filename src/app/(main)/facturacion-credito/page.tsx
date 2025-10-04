@@ -191,4 +191,3 @@ export default function FacturacionCreditoPage() {
         </div>
     );
 }
-
