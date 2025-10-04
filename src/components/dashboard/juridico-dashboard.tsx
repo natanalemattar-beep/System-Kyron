@@ -22,8 +22,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid, TooltipProps } from 'recharts';
-import { NameType, ValueType } from "recharts/types/component/DefaultTooltipContent";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
+import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const kpiData = [
   { title: "Flujo de Caja Neto (Mes)", value: formatCurrency(12850.75), icon: DollarSign, trend: "+10% vs mes anterior", trendColor: "text-green-500" },
@@ -59,20 +59,6 @@ const quickAccessModules = [
   { href: "/nominas", label: "Gestión de Nómina", icon: Users },
   { href: "/permisos", label: "Control de Permisos", icon: ShieldAlert },
 ];
-
-const CustomTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameType>) => {
-    if (active && payload && payload.length) {
-        return (
-        <div className="bg-background/80 backdrop-blur-sm p-4 rounded-lg border shadow-lg">
-            <p className="font-bold">{label}</p>
-            <p className="text-primary">Ingresos: <span className="font-mono">{formatCurrency(payload[0].value as number)}</span></p>
-            <p className="text-destructive">Gastos: <span className="font-mono">{formatCurrency(payload[1].value as number)}</span></p>
-        </div>
-        );
-    }
-    return null;
-};
-
 
 export function JuridicoDashboard() {
   return (
@@ -151,7 +137,7 @@ export function JuridicoDashboard() {
                                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
                                 <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
                                 <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${formatCurrency(value as number, 'Bs.')[0]}k`} />
-                                <Tooltip content={<CustomTooltip />} />
+                                <ChartTooltip content={<ChartTooltipContent formatter={(value, name) => `${name === 'ingresos' ? 'Ingresos' : 'Gastos'}: ${formatCurrency(value as number)}`} />} />
                                 <Legend />
                                 <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
                                 <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
