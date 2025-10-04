@@ -115,6 +115,7 @@ export default function FacturacionCreditoPage() {
                                             <SelectItem value="directo">Crédito Directo Empresa</SelectItem>
                                             <SelectItem value="cashea">Cashea</SelectItem>
                                             <SelectItem value="krece">Krece</SelectItem>
+                                            <SelectItem value="rapikom">Rapikom</SelectItem>
                                             <SelectItem value="popclik">Popclik</SelectItem>
                                         </SelectContent>
                                     </Select>
@@ -207,5 +208,3 @@ export default function FacturacionCreditoPage() {
         </div>
     );
 }
-
-    
