@@ -60,6 +60,7 @@ import {
   Scale,
   Stamp,
   Gift,
+  FileScan,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -120,12 +121,13 @@ const analisisCrecimientoMenuItems = [
 ];
 
 const facturacionMenuItems = [
+    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/facturacion", label: "Facturación", icon: FileText },
     { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
     { href: "/inventario", label: "Inventario", icon: Archive },
+    { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
     { href: "/importaciones", label: "Importaciones", icon: Ship },
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
     { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
