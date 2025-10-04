@@ -199,6 +199,13 @@ export default function FacturacionCreditoPage() {
                                         <li className="flex items-start gap-2"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5"/> <span><strong>Sin Intereses:</strong> El precio final es el mismo que el precio de contado.</span></li>
                                         <li className="flex items-start gap-2"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5"/> <span><strong>Club Cashea Más:</strong> Pagar a tiempo acumula puntos para subir de nivel y obtener mejores beneficios (más línea de crédito, más cuotas).</span></li>
                                      </ul>
+                                     <h4 className="font-semibold pt-2">Comisiones por Servicio para el Comercio:</h4>
+                                      <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
+                                        <li><strong>4%</strong> para tiendas físicas de la Línea Principal.</li>
+                                        <li><strong>3%</strong> para supermercados y farmacias de la Línea Cotidiana.</li>
+                                        <li><strong>5%</strong> para restaurantes y bebidas de la Línea Cotidiana.</li>
+                                        <li><strong>6%</strong> para las ventas realizadas a través de Cashea Online.</li>
+                                     </ul>
                                 </CardContent>
                            </Card>
                         </TabsContent>
