@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
@@ -279,7 +280,7 @@ export default function PuntoDeVentaPage() {
                                         <TableRow key={item.id}>
                                             <TableCell>
                                                 <p className="font-medium">{item.name}</p>
-                                                <p className="text-xs text-muted-foreground">{formatCurrency(getPriceInCurrency(item.price), currency)} c/u</p>
+                                                <p className="text-xs text-muted-foreground">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)} c/u</p>
                                             </TableCell>
                                             <TableCell className="w-28">
                                                 <div className="flex items-center gap-1">
@@ -438,3 +439,4 @@ export default function PuntoDeVentaPage() {
 
         </div>
     );
+}
