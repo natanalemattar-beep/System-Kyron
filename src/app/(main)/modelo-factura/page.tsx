@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { FileText, Download, Printer, QrCode, ShieldCheck } from "lucide-react";
+import { FileText, Download, Printer, QrCode, ShieldCheck, CreditCard } from "lucide-react";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 const factura = {
     numero: "00001234",
@@ -126,6 +127,23 @@ export default function ModeloFacturaPage() {
                      </div>
                 </div>
             </div>
+            
+            <Separator className="my-8" />
+            
+            <div className="space-y-4">
+                <div className="p-4 rounded-lg bg-secondary/50 flex items-center justify-center text-center gap-4">
+                     <CreditCard className="h-8 w-8 text-primary shrink-0"/>
+                     <div>
+                        <h4 className="font-semibold">Paga en cuotas sin interés con Cashea</h4>
+                        <p className="text-xs text-muted-foreground">Escanea el QR en tu comercio aliado para procesar el pago.</p>
+                     </div>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                    <h4 className="font-semibold text-foreground mb-1">Términos y Condiciones:</h4>
+                    <p>1. Esta factura debe ser pagada en o antes de la fecha de vencimiento. <br/> 2. Los pagos vencidos estarán sujetos a recargos por mora según los artículos 108 del Código de Comercio y 1.277 del Código Civil Venezolano.</p>
+                </div>
+            </div>
+
         </CardContent>
         <CardFooter className="p-6 md:p-8 border-t bg-secondary/30 flex justify-between items-center">
             <div className="flex items-center gap-2 text-green-500 text-sm">
@@ -133,7 +151,7 @@ export default function ModeloFacturaPage() {
                 <p>Factura emitida conforme a la Prov. Adm. SNAT.</p>
             </div>
             <div className="flex flex-col items-center">
-                <Image src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=RIF:{factura.empresa.rif},Factura:{factura.numero},Fecha:{factura.fechaEmision.toISOString().split('T')[0]},Monto:{total}" alt="QR Fiscal" width={80} height={80} />
+                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=RIF:${factura.empresa.rif},Factura:${factura.numero},Fecha:${factura.fechaEmision.toISOString().split('T')[0]},Monto:${total}`} alt="QR Fiscal" width={80} height={80} />
                 <p className="text-xs text-muted-foreground mt-1">Validez Fiscal</p>
             </div>
         </CardFooter>
