@@ -6,23 +6,23 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search } from "lucide-react";
+import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 const products = [
-    { id: 1, name: "Resma de Papel", price: 7.50, image: "https://picsum.photos/seed/paper/200/200", barcode: "7591234567890" },
-    { id: 2, name: "Tóner de Impresora", price: 85.00, image: "https://picsum.photos/seed/toner/200/200", barcode: "7591234567891" },
-    { id: 3, name: "Caja de Bolígrafos", price: 5.00, image: "https://picsum.photos/seed/pens/200/200", barcode: "7591234567892" },
-    { id: 4, name: "Silla de Oficina", price: 150.00, image: "https://picsum.photos/seed/chair/200/200", barcode: "7591234567893" },
-    { id: 5, name: "Laptop 14''", price: 650.00, image: "https://picsum.photos/seed/laptop/200/200", barcode: "7591234567894" },
-    { id: 6, name: "Monitor 24''", price: 250.00, image: "https://picsum.photos/seed/monitor/200/200", barcode: "7591234567895" },
-    { id: 7, name: "Teclado Inalámbrico", price: 45.00, image: "https://picsum.photos/seed/keyboard/200/200", barcode: "7591234567896" },
-    { id: 8, name: "Mouse Óptico", price: 25.00, image: "https://picsum.photos/seed/mouse/200/200", barcode: "7591234567897" },
+    { id: 1, name: "Hamburguesa Clásica", price: 12.50, barcode: "8591234567890" },
+    { id: 2, name: "Pizza Margarita", price: 15.00, barcode: "8591234567891" },
+    { id: 3, name: "Papas Fritas", price: 5.00, barcode: "8591234567892" },
+    { id: 4, name: "Refresco", price: 2.50, barcode: "8591234567893" },
+    { id: 5, name: "Ensalada César", price: 8.00, barcode: "8591234567894" },
+    { id: 6, name: "Torta de Chocolate", price: 6.00, barcode: "8591234567895" },
+    { id: 7, name: "Jugo Natural", price: 4.00, barcode: "8591234567896" },
+    { id: 8, name: "Café Americano", price: 3.00, barcode: "8591234567897" },
 ];
 
 const cashiers = ["Ana Pérez", "Luis Gómez", "Carlos Sánchez"];
@@ -46,6 +46,8 @@ const exchangeRates: Record<Currency, number> = {
 export default function PuntoDeVentaPage() {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [isReceiptOpen, setIsReceiptOpen] = useState(false);
+    const [isQrDialogOpen, setIsQrDialogOpen] = useState(false);
+    const [tableNumber, setTableNumber] = useState("");
     const [currency, setCurrency] = useState<Currency>("Bs.");
     const [activeCashier, setActiveCashier] = useState<string | null>(null);
     const [barcode, setBarcode] = useState("");
@@ -153,6 +155,9 @@ export default function PuntoDeVentaPage() {
              action: <CheckCircle className="text-green-500" />
         });
     }
+    
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://systemcms.com/menu/table/${tableNumber}`;
+
 
     return (
         <div className="h-auto md:h-screen bg-muted flex flex-col p-2 md:p-4 gap-4">
@@ -175,21 +180,51 @@ export default function PuntoDeVentaPage() {
                     </div>
                 ) : (
                     <>
-                        <div className="relative w-full max-w-sm">
-                            <Barcode className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                            <Input 
-                                ref={barcodeRef}
-                                type="text" 
-                                placeholder="Escanear o introducir código de barras..." 
-                                className="pl-10 pr-20"
-                                value={barcode}
-                                onChange={(e) => setBarcode(e.target.value)}
-                                onKeyDown={handleBarcodeKeyDown}
-                                disabled={!activeCashier}
-                            />
-                            <Button onClick={handleBarcodeAdd} size="sm" className="absolute right-1 top-1/2 -translate-y-1/2 h-8">
-                                <Search className="h-4 w-4 md:mr-2"/> <span className="hidden md:inline">Añadir</span>
-                            </Button>
+                        <div className="flex items-center gap-2 flex-grow">
+                             <Dialog open={isQrDialogOpen} onOpenChange={setIsQrDialogOpen}>
+                                <DialogTrigger asChild>
+                                    <Button variant="outline">
+                                        <QrCode className="mr-2 h-4 w-4"/>
+                                        Generar QR para Mesa
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Generar QR para Pedido en Mesa</DialogTitle>
+                                        <DialogDescription>Introduce el número de la mesa para generar su código QR único.</DialogDescription>
+                                    </DialogHeader>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="table-number">Número de Mesa</Label>
+                                        <Input id="table-number" value={tableNumber} onChange={(e) => setTableNumber(e.target.value)} placeholder="Ej: 15" />
+                                    </div>
+                                    {tableNumber && (
+                                        <div className="flex flex-col items-center justify-center pt-4">
+                                            <Image src={qrCodeUrl} alt={`QR para mesa ${tableNumber}`} width={200} height={200} />
+                                            <p className="font-bold mt-2 text-lg">Mesa {tableNumber}</p>
+                                            <p className="text-sm text-muted-foreground">Escanea para ordenar</p>
+                                        </div>
+                                    )}
+                                    <DialogFooter>
+                                        <Button onClick={() => setIsQrDialogOpen(false)}>Cerrar</Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
+                            <div className="relative w-full max-w-sm">
+                                <Barcode className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                                <Input 
+                                    ref={barcodeRef}
+                                    type="text" 
+                                    placeholder="Escanear o introducir código..." 
+                                    className="pl-10 pr-20"
+                                    value={barcode}
+                                    onChange={(e) => setBarcode(e.target.value)}
+                                    onKeyDown={handleBarcodeKeyDown}
+                                    disabled={!activeCashier}
+                                />
+                                <Button onClick={handleBarcodeAdd} size="sm" className="absolute right-1 top-1/2 -translate-y-1/2 h-8">
+                                    <Search className="h-4 w-4 md:mr-2"/> <span className="hidden md:inline">Añadir</span>
+                                </Button>
+                            </div>
                         </div>
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2 text-sm">
@@ -205,19 +240,16 @@ export default function PuntoDeVentaPage() {
             <div className="flex-grow grid lg:grid-cols-3 gap-4 overflow-hidden h-full flex-col md:flex-row">
                 {/* Product Catalog */}
                 <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm overflow-y-auto h-[50vh] md:h-full">
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {products.map(product => (
-                            <Card key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:shadow-md transition-shadow">
-                                <CardContent className="p-0 flex flex-col items-center">
-                                    <Image src={product.image} alt={product.name} width={200} height={200} className="aspect-square object-cover rounded-t-lg" />
-                                    <div className="p-2 text-center w-full">
-                                        <p className="text-sm font-medium truncate">{product.name}</p>
-                                        <p className="text-xs text-muted-foreground">{formatCurrency(getPriceInCurrency(product.price), currency)}</p>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
+                    <Table>
+                        <TableBody>
+                            {products.map(product => (
+                                <TableRow key={product.id} onClick={() => addToCart(product)} className="cursor-pointer">
+                                    <TableCell className="font-medium text-lg">{product.name}</TableCell>
+                                    <TableCell className="text-right text-lg">{formatCurrency(getPriceInCurrency(product.price), currency)}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </div>
 
                 {/* Order Summary */}
@@ -328,7 +360,5 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
-
-    
 
     
