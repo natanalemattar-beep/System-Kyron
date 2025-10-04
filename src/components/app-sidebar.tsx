@@ -83,7 +83,7 @@ const juridicoMainMenuItems = [
   { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
   { href: "/autorizaciones", label: "Autorizaciones", icon: Shield },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
-  { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
+  { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
 ];
 
 const finanzasContabilidadMenuItems = [
@@ -431,3 +431,5 @@ function AppSidebarHr() {
     </Sidebar>
   );
 }
+
+    

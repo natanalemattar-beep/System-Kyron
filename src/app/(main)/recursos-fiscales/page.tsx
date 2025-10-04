@@ -4,8 +4,9 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning } from "lucide-react";
+import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const jurisprudencia = [
     {
@@ -64,6 +65,21 @@ const providenciasSeniat = [
     }
 ];
 
+const calendariosHistoricos = [
+    { year: "2024", content: "Gaceta Oficial N° 42.782 de fecha 20 de diciembre 2023: Calendario Vigente de Sujetos Pasivos para el año 2024" },
+    { year: "2018", content: "Calendario de Sujetos Pasivos Especiales y Agentes de Retención para el año 2018" },
+    { year: "2017", content: "Calendario de Sujetos Pasivos Especiales y Agentes de Retención para el año 2017\nCalendario de Sujetos Pasivos No Calificados como Especiales para Actividades de Juegos de Envite o Azar para el año 2017" },
+    { year: "2016", content: "Calendario de Sujetos Pasivos Especiales y Agentes de Retención para el año 2016\nCalendario de Sujetos Pasivos No Calificados como Especiales para Actividades de Juegos de Envite o Azar para el año 2016" },
+    { year: "2015", content: "Calendario de Sujetos Pasivos Especiales y Agentes de Retención para el año 2015\nCalendario de Sujetos Pasivos No Calificados como Especiales para Actividades de Juegos de Envite o Azar para el año 2015" },
+    { year: "2014", content: "Calendario de Sujetos Pasivos Especiales y Agentes de Retención para el año 2014\nCalendario de Sujetos Pasivos No Calificados como Especiales para Actividades de Juegos de Envite o Azar para el año 2014" },
+    { year: "2013", content: "Calendario de Sujetos Pasivos Especiales y Agentes de Retención para aquellas obligaciones que deben cumplirse para el año 2013\nCalendario de Sujetos Pasivos No Calificados como Especiales para Actividades de Juegos de Envite o Azar a cumplirse para el año 2013" },
+    { year: "2012", content: "Calendario de Sujetos Pasivos Especiales y Agentes de Retención para aquellas obligaciones que deben cumplirse para el año 2012\nCalendario de Sujetos Pasivos No Calificados como Especiales para Actividades de Juegos de Envite o Azar a cumplirse para el año 2012" },
+    { year: "2011", content: "Calendario de Sujetos Pasivos Especiales y Agentes de Retención para aquellas obligaciones que deben cumplirse para el año 2011\nCalendario de Sujetos Pasivos Ordinarios para Actividades de Juegos de Envite o Azar para el año 2011" },
+    { year: "2010", content: "Aviso Oficial mediante el cual se corrigen los errores materiales de la Providencia Administrativa N° SNAT/2010/0091\nCalendario de Sujetos Pasivos Especiales y Agentes de Retención para aquellas obligaciones que deben cumplirse para el año 2010" },
+    { year: "2009", content: "Modificación del Calendario de Sujetos Pasivos Especiales y Agentes de Retención, para aquellas obligaciones que deban cumplirse a partir del mes de agosto del año 2009\nCalendario de Contribuyentes Especiales y Agentes de Retención" },
+];
+
+
 export default function RecursosFiscalesPage() {
     const { toast } = useToast();
 
@@ -79,7 +95,7 @@ export default function RecursosFiscalesPage() {
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Scale className="h-8 w-8" />
-            Recursos Fiscales y Jurisprudencia
+            Recursos Fiscales y Gacetas
         </h1>
         <p className="text-muted-foreground mt-2">
           Consulta la jurisprudencia del TSJ, leyes, gacetas y otros recursos de interés.
@@ -169,6 +185,29 @@ export default function RecursosFiscalesPage() {
       </Card>
 
       <Card className="bg-card/50 backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle>Calendarios Fiscales Anteriores (Histórico)</CardTitle>
+            <CardDescription>Consulta los calendarios de Sujetos Pasivos de años anteriores.</CardDescription>
+          </CardHeader>
+          <CardContent>
+              <Accordion type="single" collapsible className="w-full">
+                {calendariosHistoricos.map((item) => (
+                    <AccordionItem value={`item-${item.year}`} key={item.year}>
+                        <AccordionTrigger>
+                            <span className="font-semibold text-lg flex items-center gap-2"><Calendar className="h-5 w-5 text-primary"/> Año {item.year}</span>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                           <div className="prose prose-sm dark:prose-invert whitespace-pre-line text-muted-foreground p-4 bg-secondary/30 rounded-md">
+                                {item.content}
+                           </div>
+                        </AccordionContent>
+                    </AccordionItem>
+                ))}
+              </Accordion>
+          </CardContent>
+      </Card>
+
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Jurisprudencia del TSJ (Materia Mercantil)</CardTitle>
           <CardDescription>
@@ -207,9 +246,5 @@ export default function RecursosFiscalesPage() {
     </div>
   );
 }
-
-
-
-
 
     
