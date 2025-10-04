@@ -13,6 +13,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const polizasGenerales = [
     { id: "POL-RC-001", tipo: "Responsabilidad Civil General", aseguradora: "Seguros Caracas", monto: 100000, vencimiento: "2025-06-30", estado: "Vigente" },
@@ -31,6 +32,44 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
   "Por Vencer": "secondary",
   Vencida: "destructive",
 };
+
+const asientosContables = [
+    {
+        id: "asiento-1",
+        titulo: "Contratación y Pago Completo del Seguro",
+        concepto: "Registrar la erogación inicial al pagar la póliza de seguro.",
+        debe: "Cuenta 18 (Servicios y otros contratados por anticipado) o cuenta 10 (Efectivo y equivalentes de efectivo) por el total de la póliza.",
+        haber: "Cuenta 18 (Servicios y otros contratados por anticipado) o cuenta 10 (Efectivo y equivalentes de efectivo)."
+    },
+    {
+        id: "asiento-2",
+        titulo: "Aplicación del Gasto de Seguro (Gasto Devengado)",
+        concepto: "Ajustar al cierre de un periodo contable el gasto que corresponde a la cobertura de ese mes.",
+        debe: "Cuenta 625 (Primas de seguros) por el importe del seguro consumido en el mes.",
+        haber: "Cuenta 18 (Servicios y otros contratados por anticipado) por el mismo importe, reflejando la reducción del gasto anticipado."
+    },
+    {
+        id: "asiento-3",
+        titulo: "Registro por Indemnización Recibida",
+        concepto: "Contabilizar el ingreso por una indemnización cubierta por el seguro tras un evento.",
+        debe: "Cuenta 10 (Efectivo y equivalentes de efectivo) o cuenta por cobrar si la aseguradora aún no ha pagado.",
+        haber: "Cuenta 778 (Ingresos extraordinarios) o cuenta similar para registrar el ingreso."
+    },
+    {
+        id: "asiento-4",
+        titulo: "Contabilización de Seguros Pagados por un Período Específico",
+        concepto: "Registrar el costo del seguro que se ha incurrido en un período determinado.",
+        debe: "Cuenta 625 (Primas de seguros), como los 4.067.79 del ejemplo.",
+        haber: "Cuenta 18 (Servicios y otros contratados por anticipado), reflejando que la parte del seguro que ya no se debe se ha aplicado al gasto."
+    },
+    {
+        id: "asiento-5",
+        titulo: "Asiento de Vencimiento de la Póliza (Contrato de Seguro)",
+        concepto: "Registrar la operación de la firma del contrato y el compromiso de pago.",
+        debe: "Cuenta 469 (Otras cuentas por pagar diversas).",
+        haber: "Cuenta 10 (Efectivo y equivalentes de efectivo) o cuenta 18 (Servicios y otros contratados por anticipado)."
+    }
+];
 
 export default function SegurosPage() {
     const { toast } = useToast();
@@ -88,7 +127,7 @@ export default function SegurosPage() {
             </Dialog>
         </header>
 
-        <Tabs defaultValue="seguros">
+        <Tabs defaultValue="seguros" className="mb-8">
             <TabsList className="grid w-full grid-cols-2 max-w-lg mb-8">
                 <TabsTrigger value="seguros">Pólizas de Seguro Generales</TabsTrigger>
                 <TabsTrigger value="fianzas">Pólizas de Fianza</TabsTrigger>
@@ -167,6 +206,32 @@ export default function SegurosPage() {
                 </Card>
             </TabsContent>
         </Tabs>
+        
+        <Card className="bg-card/50 backdrop-blur-sm mt-8">
+            <CardHeader>
+                <CardTitle>Asientos Contables Típicos para Pólizas de Seguro</CardTitle>
+                <CardDescription>Guía de referencia para el registro contable de operaciones de seguros.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 <Accordion type="single" collapsible className="w-full">
+                    {asientosContables.map((asiento) => (
+                        <AccordionItem value={asiento.id} key={asiento.id}>
+                            <AccordionTrigger>{asiento.titulo}</AccordionTrigger>
+                            <AccordionContent>
+                               <div className="p-4 bg-secondary/30 rounded-md">
+                                    <p className="text-sm text-muted-foreground mb-4">{asiento.concepto}</p>
+                                    <div className="space-y-2">
+                                        <p><strong>Debe:</strong> {asiento.debe}</p>
+                                        <p><strong>Haber:</strong> {asiento.haber}</p>
+                                    </div>
+                               </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                </Accordion>
+            </CardContent>
+        </Card>
+
     </div>
   );
 }
