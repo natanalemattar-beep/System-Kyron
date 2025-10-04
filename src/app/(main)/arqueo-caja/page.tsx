@@ -8,12 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ClipboardCheck, TrendingUp, AlertTriangle, CheckCircle, Printer } from "lucide-react";
+import { ClipboardCheck, CheckCircle, Printer } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const denominaciones = [
+const denominacionesBs = [
     { tipo: 'billete', valor: 100 },
     { tipo: 'billete', valor: 50 },
     { tipo: 'billete', valor: 20 },
@@ -21,7 +22,23 @@ const denominaciones = [
     { tipo: 'billete', valor: 5 },
     { tipo: 'billete', valor: 1 },
     { tipo: 'moneda', valor: 0.5 },
-    { tipo: 'moneda', valor: 0.25 },
+];
+
+const denominacionesUsd = [
+    { tipo: 'billete', valor: 100 },
+    { tipo: 'billete', valor: 50 },
+    { tipo: 'billete', valor: 20 },
+    { tipo: 'billete', valor: 10 },
+    { tipo: 'billete', valor: 5 },
+    { tipo: 'billete', valor: 1 },
+];
+
+const denominacionesEur = [
+    { tipo: 'billete', valor: 100 },
+    { tipo: 'billete', valor: 50 },
+    { tipo: 'billete', valor: 20 },
+    { tipo: 'billete', valor: 10 },
+    { tipo: 'billete', valor: 5 },
 ];
 
 const resumenSistema = {
@@ -29,7 +46,7 @@ const resumenSistema = {
     pagosTarjetaDebito: 550.25,
     pagosTarjetaCredito: 400.00,
     pagosPorTransferencia: 300.50,
-    efectivoEsperado: 600.00,
+    efectivoEsperadoBs: 600.00,
 };
 
 const historialCierres = [
@@ -45,31 +62,50 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 };
 
 export default function ArqueoCajaPage() {
-    const [conteo, setConteo] = useState<Record<string, number>>({});
+    const [conteoBs, setConteoBs] = useState<Record<string, number>>({});
+    const [conteoUsd, setConteoUsd] = useState<Record<string, number>>({});
+    const [conteoEur, setConteoEur] = useState<Record<string, number>>({});
     const { toast } = useToast();
 
-    const totalContado = useMemo(() => {
-        return Object.entries(conteo).reduce((acc, [valor, cantidad]) => {
-            return acc + (Number(valor) * (cantidad || 0));
-        }, 0);
-    }, [conteo]);
+    const totalContadoBs = useMemo(() => {
+        return Object.entries(conteoBs).reduce((acc, [valor, cantidad]) => acc + (Number(valor) * (cantidad || 0)), 0);
+    }, [conteoBs]);
+    
+    const totalContadoUsd = useMemo(() => {
+        return Object.entries(conteoUsd).reduce((acc, [valor, cantidad]) => acc + (Number(valor) * (cantidad || 0)), 0);
+    }, [conteoUsd]);
 
-    const diferencia = totalContado - resumenSistema.efectivoEsperado;
+    const totalContadoEur = useMemo(() => {
+        return Object.entries(conteoEur).reduce((acc, [valor, cantidad]) => acc + (Number(valor) * (cantidad || 0)), 0);
+    }, [conteoEur]);
 
-    const handleConteoChange = (valor: number, cantidad: string) => {
-        setConteo(prev => ({
-            ...prev,
-            [valor]: Number(cantidad)
-        }));
+    const diferenciaBs = totalContadoBs - resumenSistema.efectivoEsperadoBs;
+
+    const handleConteoChange = (moneda: 'bs' | 'usd' | 'eur', valor: number, cantidad: string) => {
+        const setter = { bs: setConteoBs, usd: setConteoUsd, eur: setConteoEur }[moneda];
+        setter(prev => ({ ...prev, [valor]: Number(cantidad) }));
     };
     
     const handleCerrarCaja = () => {
         toast({
             title: "Caja Cerrada Exitosamente",
-            description: `Se ha registrado el arqueo con una diferencia de ${formatCurrency(diferencia, 'Bs.')}.`,
+            description: `Se ha registrado el arqueo con una diferencia de ${formatCurrency(diferenciaBs, 'Bs.')}.`,
             action: <CheckCircle className="text-green-500" />
         });
     }
+
+    const ConteoInputs = ({ denominaciones, moneda, onChange }: { denominaciones: {valor:number, tipo:string}[], moneda: 'bs' | 'usd' | 'eur', onChange: (valor: number, cantidad: string) => void}) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {denominaciones.map(({ valor, tipo }) => (
+                <div key={`${moneda}-${valor}`} className="space-y-1">
+                    <Label htmlFor={`conteo-${moneda}-${valor}`}>{tipo === 'billete' ? 'Billetes' : 'Monedas'} de {moneda === 'bs' ? formatCurrency(valor, 'Bs.') : `${valor} ${moneda.toUpperCase()}`}</Label>
+                    <Input id={`conteo-${moneda}-${valor}`} type="number" placeholder="0" min="0" 
+                    onChange={e => onChange(valor, e.target.value)}
+                    className="text-right font-mono" />
+                </div>
+            ))}
+        </div>
+    );
 
     return (
         <div>
@@ -103,8 +139,8 @@ export default function ArqueoCajaPage() {
                                 <div><p className="text-sm text-muted-foreground">Pagos por Transferencia:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosPorTransferencia, 'Bs.')}</p></div>
                             </div>
                             <div className="flex justify-between items-center text-xl p-4 bg-green-600/10 border border-green-600/30 rounded-lg">
-                                <span className="font-bold">Efectivo Esperado en Caja:</span>
-                                <span className="font-bold">{formatCurrency(resumenSistema.efectivoEsperado, 'Bs.')}</span>
+                                <span className="font-bold">Efectivo Esperado en Caja (Bs.):</span>
+                                <span className="font-bold">{formatCurrency(resumenSistema.efectivoEsperadoBs, 'Bs.')}</span>
                             </div>
                         </CardContent>
                     </Card>
@@ -113,19 +149,25 @@ export default function ArqueoCajaPage() {
                     <Card className="bg-card/80 backdrop-blur-sm">
                         <CardHeader>
                             <CardTitle>Conteo Manual de Efectivo</CardTitle>
-                            <CardDescription>Introduce la cantidad de cada billete y moneda.</CardDescription>
+                            <CardDescription>Introduce la cantidad de cada billete y moneda por divisa.</CardDescription>
                         </CardHeader>
                         <CardContent>
-                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {denominaciones.map(({ valor, tipo }) => (
-                                    <div key={valor} className="space-y-1">
-                                        <Label htmlFor={`conteo-${valor}`}>{tipo === 'billete' ? 'Billetes' : 'Monedas'} de {formatCurrency(valor, 'Bs.')}</Label>
-                                        <Input id={`conteo-${valor}`} type="number" placeholder="0" min="0" 
-                                        onChange={e => handleConteoChange(valor, e.target.value)}
-                                        className="text-right font-mono" />
-                                    </div>
-                                ))}
-                            </div>
+                            <Tabs defaultValue="bs">
+                                <TabsList className="grid w-full grid-cols-3">
+                                    <TabsTrigger value="bs">Bolívares (Bs.)</TabsTrigger>
+                                    <TabsTrigger value="usd">Dólares (USD)</TabsTrigger>
+                                    <TabsTrigger value="eur">Euros (EUR)</TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="bs" className="mt-6">
+                                    <ConteoInputs denominaciones={denominacionesBs} moneda="bs" onChange={(v, c) => handleConteoChange('bs', v, c)} />
+                                </TabsContent>
+                                <TabsContent value="usd" className="mt-6">
+                                    <ConteoInputs denominaciones={denominacionesUsd} moneda="usd" onChange={(v, c) => handleConteoChange('usd', v, c)} />
+                                </TabsContent>
+                                <TabsContent value="eur" className="mt-6">
+                                    <ConteoInputs denominaciones={denominacionesEur} moneda="eur" onChange={(v, c) => handleConteoChange('eur', v, c)} />
+                                </TabsContent>
+                            </Tabs>
                         </CardContent>
                     </Card>
                 </div>
@@ -138,13 +180,15 @@ export default function ArqueoCajaPage() {
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div className="space-y-2">
-                                <div className="flex justify-between text-lg"><span className="text-muted-foreground">Efectivo Esperado:</span><span className="font-semibold">{formatCurrency(resumenSistema.efectivoEsperado, 'Bs.')}</span></div>
-                                <div className="flex justify-between text-lg"><span className="text-muted-foreground">Efectivo Contado:</span><span className="font-semibold">{formatCurrency(totalContado, 'Bs.')}</span></div>
+                                <h4 className="font-medium text-muted-foreground">Totales en Efectivo Contado</h4>
+                                <div className="flex justify-between text-lg"><span className="text-muted-foreground">Bolívares (Bs.):</span><span className="font-semibold">{formatCurrency(totalContadoBs, 'Bs.')}</span></div>
+                                <div className="flex justify-between text-lg"><span className="text-muted-foreground">Dólares (USD):</span><span className="font-semibold">{formatCurrency(totalContadoUsd, 'USD')}</span></div>
+                                <div className="flex justify-between text-lg"><span className="text-muted-foreground">Euros (EUR):</span><span className="font-semibold">{formatCurrency(totalContadoEur, 'EUR')}</span></div>
                             </div>
                             <Separator/>
-                            <div className={`p-4 rounded-lg text-center ${diferencia === 0 ? 'bg-green-600/10 border-green-600/30' : 'bg-red-600/10 border-red-600/30'}`}>
-                                <h4 className="text-sm font-semibold mb-1">{diferencia === 0 ? 'CAJA CUADRADA' : diferencia > 0 ? 'SOBRANTE' : 'FALTANTE'}</h4>
-                                <p className={`text-3xl font-bold ${diferencia === 0 ? 'text-green-500' : 'text-red-500'}`}>{formatCurrency(diferencia, 'Bs.')}</p>
+                            <div className={`p-4 rounded-lg text-center ${diferenciaBs === 0 ? 'bg-green-600/10 border-green-600/30' : 'bg-red-600/10 border-red-600/30'}`}>
+                                <h4 className="text-sm font-semibold mb-1">{diferenciaBs === 0 ? 'CAJA CUADRADA' : diferenciaBs > 0 ? 'SOBRANTE' : 'FALTANTE'} (en Bs.)</h4>
+                                <p className={`text-3xl font-bold ${diferenciaBs === 0 ? 'text-green-500' : 'text-red-500'}`}>{formatCurrency(diferenciaBs, 'Bs.')}</p>
                             </div>
                             <Button className="w-full text-lg py-6" onClick={handleCerrarCaja}>Cerrar Caja y Registrar</Button>
                             <Button className="w-full" variant="outline"><Printer className="mr-2"/> Imprimir Reporte</Button>
@@ -164,7 +208,7 @@ export default function ArqueoCajaPage() {
                             <TableRow>
                                 <TableHead>Fecha</TableHead>
                                 <TableHead>Realizado por</TableHead>
-                                <TableHead className="text-right">Diferencia</TableHead>
+                                <TableHead className="text-right">Diferencia (Bs.)</TableHead>
                                 <TableHead className="text-center">Estado</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -187,6 +231,8 @@ export default function ArqueoCajaPage() {
         </div>
     );
 }
+
+    
 
     
 
