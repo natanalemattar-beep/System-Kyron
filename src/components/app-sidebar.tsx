@@ -90,6 +90,7 @@ const juridicoMainMenuItems = [
 const finanzasContabilidadMenuItems = [
   { href: "/reports", label: "Reportes Contables", icon: BarChart },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
+  { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
   { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
   { href: "/cumplimiento", label: "Cumplimiento Normativo", icon: ShieldAlert },
