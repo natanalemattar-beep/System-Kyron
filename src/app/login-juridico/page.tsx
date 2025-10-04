@@ -25,7 +25,19 @@ export default function LoginJuridicoPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-gray-900 text-white relative overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      <div 
+        className="absolute inset-0 z-0 opacity-20"
+        style={{
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255, 0.1) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+        }}
+      />
+      <div className="absolute left-1/2 top-0 h-1/2 w-1/3 -translate-x-1/2 animate-grid-pulse rounded-full bg-primary/20 blur-3xl" />
+
+
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -54,8 +66,8 @@ export default function LoginJuridicoPage() {
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto">
+      <main className="flex-1 flex items-center justify-center p-4 z-10">
+        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-border/50">
           <CardHeader className="text-center">
              <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
               <Building className="h-8 w-8"/>
@@ -83,7 +95,7 @@ export default function LoginJuridicoPage() {
               <Link href="/dashboard-juridico">Acceder</Link>
             </Button>
           </CardContent>
-           <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
+           <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t border-border/50">
               <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
               <div className="flex justify-center gap-4">
                 <Link href="/login-natural" className="font-medium text-primary hover:underline flex items-center gap-1">

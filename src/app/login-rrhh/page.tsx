@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Briefcase, Eye, EyeOff, User } from "lucide-react";
+import { Briefcase, Eye, EyeOff, User, Building } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,15 @@ export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-     <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
+     <div className="flex flex-col min-h-screen bg-blue-50 dark:bg-gray-950 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div 
+            className="absolute inset-0 z-0 opacity-40 dark:opacity-20"
+            style={{
+                backgroundImage: 'repeating-conic-gradient(from 45deg, #A8D5E2 0%, #A8D5E2 12.5%, transparent 12.5%, transparent 50%)',
+                backgroundSize: '40px 40px',
+            }}
+        />
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -44,8 +52,8 @@ export default function LoginRrhhPage() {
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto">
+      <main className="flex-1 flex items-center justify-center p-4 z-10">
+        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-border/50">
           <CardHeader className="text-center">
             <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
               <Briefcase className="h-8 w-8"/>
@@ -73,14 +81,14 @@ export default function LoginRrhhPage() {
               <Link href="/dashboard-rrhh">Acceder</Link>
             </Button>
           </CardContent>
-           <CardFooter className="flex-col gap-2 p-6 border-t text-sm">
+           <CardFooter className="flex-col gap-2 p-6 border-t border-border/50 text-sm">
                 <p className="text-muted-foreground">¿No perteneces a RR.HH.?</p>
                 <div className="flex gap-4">
                     <Button asChild variant="link" className="p-0">
-                        <Link href="/login-natural">Acceso Personal</Link>
+                        <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4"/>Acceso Personal</Link>
                     </Button>
                      <Button asChild variant="link" className="p-0">
-                        <Link href="/login-juridico">Acceso Empresarial</Link>
+                        <Link href="/login-juridico" className="flex items-center gap-1"><Building className="h-4 w-4"/>Acceso Empresarial</Link>
                     </Button>
                 </div>
             </CardFooter>

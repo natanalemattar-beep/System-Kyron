@@ -16,7 +16,11 @@ export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-tr from-sky-100 via-blue-200 to-purple-100 dark:from-background dark:to-blue-900/40 bg-[length:200%_200%] animate-gradient-animation">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 relative overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-40">
+            <div className="absolute top-1/4 left-1/4 h-96 w-96 animate-soft-pulse rounded-full bg-orange-200 blur-3xl dark:bg-orange-900/50"></div>
+            <div className="absolute bottom-1/4 right-1/4 h-96 w-96 animate-soft-pulse animation-delay-4000 rounded-full bg-yellow-200 blur-3xl dark:bg-yellow-900/50"></div>
+        </div>
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -45,8 +49,8 @@ export default function LoginNaturalPage() {
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md mx-auto">
+      <main className="flex-1 flex items-center justify-center p-4 z-10">
+        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-border/50">
           <CardHeader className="text-center">
             <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
               <User className="h-8 w-8"/>
@@ -74,7 +78,7 @@ export default function LoginNaturalPage() {
               <Link href="/dashboard">Acceder</Link>
             </Button>
           </CardContent>
-           <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
+           <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t border-border/50">
               <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
               <div className="flex justify-center gap-4">
                 <Link href="/login-juridico" className="font-medium text-primary hover:underline flex items-center gap-1">
