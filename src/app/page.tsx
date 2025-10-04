@@ -193,14 +193,13 @@ export default function LandingPage() {
                         priority
                     />
                 )}
-                <div className="absolute inset-0 bg-black/50"></div>
             </div>
             <div className="container mx-auto px-4 md:px-6">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance text-primary" style={{textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance text-primary" style={{textShadow: '0 1px 4px rgba(0,0,0,0.1)'}}>
                         La Gestión Empresarial, Reinventada
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-balance text-white/90 max-w-3xl mx-auto" style={{textShadow: '0 2px 8px rgba(0,0,0,0.7)'}}>
+                    <p className="mt-6 text-lg md:text-xl text-balance text-foreground/90 max-w-3xl mx-auto" style={{textShadow: '0 1px 3px rgba(0,0,0,0.1)'}}>
                         Simplifica la contabilidad, la nómina y el cumplimiento normativo con una solución inteligente diseñada para el mercado venezolano.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -209,7 +208,7 @@ export default function LandingPage() {
                             Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
                             </Link>
                         </Button>
-                        <Button size="lg" variant="outline" className="bg-background/20 text-white border-white/50 hover:bg-background/30">
+                        <Button size="lg" variant="outline" className="bg-background/20 text-foreground border-border/50 hover:bg-background/30">
                             <SmoothScrollLink href="#servicios">
                             Explorar Servicios
                             </SmoothScrollLink>
@@ -408,7 +407,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
-
-    
