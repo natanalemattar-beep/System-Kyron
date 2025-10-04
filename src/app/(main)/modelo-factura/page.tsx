@@ -31,18 +31,19 @@ const factura = {
         { id: 3, descripcion: "Módulo de Nómina Avanzada", cantidad: 1, precio: 150 },
     ],
     metodoPago: {
-        tipo: "Crédito Directo",
-        condicion: "3 Cuotas, pago quincenal",
-        referencia: "N/A"
+        tipo: "Punto de Venta",
+        banco: "Banesco",
+        tarjeta: "Mastercard",
+        referencia: "00123456"
     },
     plataformaCredito: {
         nombre: "Cashea",
         modalidad: "Compra Ahora, Paga Después (BNPL)",
-        instruccion: "El cliente debe subir la foto de esta factura a la app para formalizar el compromiso de pago."
+        instruccion: "El cliente debe escanear el código QR en la tienda para ver el plan de pagos y confirmar la compra en la app. Luego, debe subir la foto de esta factura para formalizar el compromiso de pago."
     }
 };
 
-const subtotal = factura.items.reduce((acc, item) => acc + (item.cantidad * item.precio), 0);
+const subtotal = factura.items.reduce((acc, item) => acc + (item.cantidad * item.price), 0);
 const iva = subtotal * 0.16;
 const total = subtotal + iva;
 
@@ -144,7 +145,8 @@ export default function ModeloFacturaPage() {
                 <div className="p-4 rounded-lg bg-secondary/50">
                      <h4 className="font-semibold mb-2 text-foreground">Método de Pago</h4>
                      <p className="text-sm"><strong>Tipo:</strong> {factura.metodoPago.tipo}</p>
-                     <p className="text-sm"><strong>Condición:</strong> {factura.metodoPago.condicion}</p>
+                     <p className="text-sm"><strong>Banco:</strong> {factura.metodoPago.banco}</p>
+                     <p className="text-sm"><strong>Tarjeta:</strong> {factura.metodoPago.tarjeta}</p>
                      <p className="text-sm"><strong>Referencia:</strong> {factura.metodoPago.referencia}</p>
                 </div>
                 <div className="p-4 rounded-lg bg-secondary/50 flex flex-col items-start justify-center text-left gap-2">
@@ -177,5 +179,7 @@ export default function ModeloFacturaPage() {
     </div>
   );
 }
+
+    
 
     
