@@ -139,7 +139,7 @@ export default function DashboardJuridicoPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-100 via-white to-white dark:from-sky-900/20 dark:via-background dark:to-background rounded-xl p-4 md:p-8 -m-4 md:-m-8 overflow-hidden">
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <h1 className="text-3xl font-bold">Dashboard Jurídico</h1>
         <Badge variant="secondary" className="text-green-400 border-green-500/50 bg-green-500/10">
