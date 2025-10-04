@@ -14,7 +14,7 @@ const clasificacionGeneral = [
         subcategories: [
             {
                 title: "Activos Corrientes",
-                description: "Recursos que se espera convertir en efectivo, vender o consumir dentro de un período no mayor a 12 meses.",
+                description: "Recursos que se espera convertir en efectivo, vender o consumir dentro de un período no mayor a 12 meses (Ej: Caja, Bancos, Clientes, Inventarios).",
             },
             {
                 title: "Activos No Corrientes",
@@ -28,7 +28,7 @@ const clasificacionGeneral = [
         subcategories: [
             {
                 title: "Pasivos Corrientes",
-                description: "Pasivos que se deben pagar en el corto plazo, generalmente en menos de 12 meses.",
+                description: "Pasivos que se deben pagar en el corto plazo, generalmente en menos de 12 meses (Ej: Proveedores, Documentos por pagar, Préstamos a corto plazo).",
             },
             {
                 title: "Pasivos No Corrientes",
@@ -70,7 +70,7 @@ const clasificacionGeneral = [
          subcategories: [
             {
                 title: "Gastos Operativos",
-                description: "Gastos directamente relacionados con la actividad principal (ej: Sueldos y salarios, Alquiler, Materiales).",
+                description: "Gastos directamente relacionados con la actividad principal (ej: Sueldos y salarios, Alquiler, Materiales, Costo de ventas).",
             },
             {
                 title: "Gastos No Operativos",
@@ -84,6 +84,8 @@ const reglasDebitoCredito = [
     { tipo: "Activo", debito: "Aumenta", credito: "Disminuye" },
     { tipo: "Pasivo", debito: "Disminuye", credito: "Aumenta" },
     { tipo: "Patrimonio", debito: "Disminuye", credito: "Aumenta" },
+    { tipo: "Ingresos", debito: "Disminuye", credito: "Aumenta" },
+    { tipo: "Gastos", debito: "Aumenta", credito: "Disminuye" },
 ];
 
 const transacciones = [
