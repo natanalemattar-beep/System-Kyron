@@ -205,7 +205,7 @@ export default function PuntoDeVentaPage() {
             <div className="flex-grow grid lg:grid-cols-3 gap-4 overflow-hidden h-full flex-col md:flex-row">
                 {/* Product Catalog */}
                 <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm overflow-y-auto h-[50vh] md:h-full">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {products.map(product => (
                             <Card key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:shadow-md transition-shadow">
                                 <CardContent className="p-0 flex flex-col items-center">
