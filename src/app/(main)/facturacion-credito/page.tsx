@@ -117,6 +117,7 @@ export default function FacturacionCreditoPage() {
                                             <SelectItem value="krece">Krece</SelectItem>
                                             <SelectItem value="rapikom">Rapikom</SelectItem>
                                             <SelectItem value="popclik">Popclik</SelectItem>
+                                            <SelectItem value="zueno">Zueño</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
