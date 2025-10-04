@@ -143,7 +143,7 @@ export default function LandingPage() {
                         </SheetClose>
                         ))}
                     </nav>
-                    <div className="mt-auto space-y-2">
+                    <div className="mt-auto flex w-full gap-2">
                        <Button asChild className="w-full">
                          <Link href="/register">Registrarse</Link>
                        </Button>
