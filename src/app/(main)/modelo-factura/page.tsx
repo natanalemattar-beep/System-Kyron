@@ -30,6 +30,12 @@ const factura = {
         { id: 2, descripcion: "Soporte Técnico Prioritario (Mensual)", cantidad: 6, precio: 50 },
         { id: 3, descripcion: "Módulo de Nómina Avanzada", cantidad: 1, precio: 150 },
     ],
+    metodoPago: {
+        tipo: "Punto de Venta",
+        banco: "Banesco",
+        tarjeta: "Mastercard",
+        referencia: "123456"
+    }
 };
 
 const subtotal = factura.items.reduce((acc, item) => acc + (item.cantidad * item.precio), 0);
@@ -130,7 +136,14 @@ export default function ModeloFacturaPage() {
             
             <Separator className="my-8" />
             
-            <div className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-8">
+                <div className="p-4 rounded-lg bg-secondary/50">
+                     <h4 className="font-semibold mb-2 text-foreground">Método de Pago</h4>
+                     <p className="text-sm"><strong>Tipo:</strong> {factura.metodoPago.tipo}</p>
+                     <p className="text-sm"><strong>Banco:</strong> {factura.metodoPago.banco}</p>
+                     <p className="text-sm"><strong>Tarjeta:</strong> {factura.metodoPago.tarjeta}</p>
+                     <p className="text-sm"><strong>Referencia:</strong> {factura.metodoPago.referencia}</p>
+                </div>
                 <div className="p-4 rounded-lg bg-secondary/50 flex items-center justify-center text-center gap-4">
                      <CreditCard className="h-8 w-8 text-primary shrink-0"/>
                      <div>
@@ -138,17 +151,17 @@ export default function ModeloFacturaPage() {
                         <p className="text-xs text-muted-foreground">Escanea el QR en tu comercio aliado para procesar el pago.</p>
                      </div>
                 </div>
-                <div className="text-xs text-muted-foreground">
-                    <h4 className="font-semibold text-foreground mb-1">Términos y Condiciones:</h4>
-                    <p>1. Esta factura debe ser pagada en o antes de la fecha de vencimiento. <br/> 2. Los pagos vencidos estarán sujetos a recargos por mora según los artículos 108 del Código de Comercio y 1.277 del Código Civil Venezolano.</p>
-                </div>
+            </div>
+             <div className="text-xs text-muted-foreground mt-8">
+                <h4 className="font-semibold text-foreground mb-1">Términos y Condiciones:</h4>
+                <p>1. Esta factura debe ser pagada en o antes de la fecha de vencimiento. <br/> 2. Los pagos vencidos estarán sujetos a recargos por mora según los artículos 108 del C. de Co. y 1.277 del C.C.V.</p>
             </div>
 
         </CardContent>
         <CardFooter className="p-6 md:p-8 border-t bg-secondary/30 flex justify-between items-center">
             <div className="flex items-center gap-2 text-green-500 text-sm">
                 <ShieldCheck className="h-5 w-5"/>
-                <p>Factura emitida conforme a la Prov. Adm. SNAT.</p>
+                <p>Factura emitida conforme a la Prov. Adm. SNAT/2011/0071.</p>
             </div>
             <div className="flex flex-col items-center">
                 <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=RIF:${factura.empresa.rif},Factura:${factura.numero},Fecha:${factura.fechaEmision.toISOString().split('T')[0]},Monto:${total}`} alt="QR Fiscal" width={80} height={80} />
@@ -159,5 +172,7 @@ export default function ModeloFacturaPage() {
     </div>
   );
 }
+
+    
 
     
