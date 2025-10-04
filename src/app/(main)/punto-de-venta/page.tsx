@@ -1,27 +1,28 @@
 
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User } from "lucide-react";
+import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const products = [
-    { id: 1, name: "Resma de Papel", price: 7.50, image: "https://picsum.photos/seed/paper/200/200" },
-    { id: 2, name: "Tóner de Impresora", price: 85.00, image: "https://picsum.photos/seed/toner/200/200" },
-    { id: 3, name: "Caja de Bolígrafos", price: 5.00, image: "https://picsum.photos/seed/pens/200/200" },
-    { id: 4, name: "Silla de Oficina", price: 150.00, image: "https://picsum.photos/seed/chair/200/200" },
-    { id: 5, name: "Laptop 14''", price: 650.00, image: "https://picsum.photos/seed/laptop/200/200" },
-    { id: 6, name: "Monitor 24''", price: 250.00, image: "https://picsum.photos/seed/monitor/200/200" },
-    { id: 7, name: "Teclado Inalámbrico", price: 45.00, image: "https://picsum.photos/seed/keyboard/200/200" },
-    { id: 8, name: "Mouse Óptico", price: 25.00, image: "https://picsum.photos/seed/mouse/200/200" },
+    { id: 1, name: "Resma de Papel", price: 7.50, image: "https://picsum.photos/seed/paper/200/200", barcode: "7591234567890" },
+    { id: 2, name: "Tóner de Impresora", price: 85.00, image: "https://picsum.photos/seed/toner/200/200", barcode: "7591234567891" },
+    { id: 3, name: "Caja de Bolígrafos", price: 5.00, image: "https://picsum.photos/seed/pens/200/200", barcode: "7591234567892" },
+    { id: 4, name: "Silla de Oficina", price: 150.00, image: "https://picsum.photos/seed/chair/200/200", barcode: "7591234567893" },
+    { id: 5, name: "Laptop 14''", price: 650.00, image: "https://picsum.photos/seed/laptop/200/200", barcode: "7591234567894" },
+    { id: 6, name: "Monitor 24''", price: 250.00, image: "https://picsum.photos/seed/monitor/200/200", barcode: "7591234567895" },
+    { id: 7, name: "Teclado Inalámbrico", price: 45.00, image: "https://picsum.photos/seed/keyboard/200/200", barcode: "7591234567896" },
+    { id: 8, name: "Mouse Óptico", price: 25.00, image: "https://picsum.photos/seed/mouse/200/200", barcode: "7591234567897" },
 ];
 
 const cashiers = ["Ana Pérez", "Luis Gómez", "Carlos Sánchez"];
@@ -47,7 +48,15 @@ export default function PuntoDeVentaPage() {
     const [isReceiptOpen, setIsReceiptOpen] = useState(false);
     const [currency, setCurrency] = useState<Currency>("Bs.");
     const [activeCashier, setActiveCashier] = useState<string | null>(null);
+    const [barcode, setBarcode] = useState("");
+    const barcodeRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
+    
+    useEffect(() => {
+      if (activeCashier) {
+        barcodeRef.current?.focus();
+      }
+    }, [activeCashier]);
 
     const addToCart = (product: typeof products[0]) => {
         if (!activeCashier) {
@@ -63,6 +72,23 @@ export default function PuntoDeVentaPage() {
             }
             return [...prevCart, { ...product, quantity: 1 }];
         });
+    };
+
+    const handleBarcodeAdd = () => {
+        const product = products.find(p => p.barcode === barcode);
+        if (product) {
+            addToCart(product);
+            setBarcode(""); // Clear input after adding
+        } else {
+            toast({ variant: "destructive", title: "Producto no encontrado", description: `No se encontró ningún producto con el código de barras ${barcode}.` });
+        }
+    };
+
+    const handleBarcodeKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleBarcodeAdd();
+        }
     };
 
     const updateQuantity = (productId: number, amount: number) => {
@@ -131,11 +157,11 @@ export default function PuntoDeVentaPage() {
     return (
         <div className="h-auto md:h-screen bg-muted flex flex-col p-2 md:p-4 gap-4">
             <header className="flex items-center justify-between bg-background p-3 rounded-lg shadow-sm flex-wrap gap-4">
-                <div className="flex items-center gap-2">
+                 <div className="flex items-center gap-2">
                     <TabletSmartphone className="h-6 w-6" />
                     <h1 className="text-xl font-bold">Punto de Venta</h1>
                 </div>
-                {!activeCashier ? (
+                 {!activeCashier ? (
                      <div className="flex items-center gap-2 w-full sm:w-auto">
                         <Label htmlFor="cashier-select" className="whitespace-nowrap">Seleccionar Cajero:</Label>
                          <Select onValueChange={(value) => setActiveCashier(value)}>
@@ -148,13 +174,31 @@ export default function PuntoDeVentaPage() {
                         </Select>
                     </div>
                 ) : (
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 text-sm">
-                            <User className="h-4 w-4"/>
-                            <span>Cajero: <span className="font-semibold">{activeCashier}</span></span>
+                    <>
+                        <div className="relative w-full max-w-sm">
+                            <Barcode className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                            <Input 
+                                ref={barcodeRef}
+                                type="text" 
+                                placeholder="Escanear o introducir código de barras..." 
+                                className="pl-10 pr-20"
+                                value={barcode}
+                                onChange={(e) => setBarcode(e.target.value)}
+                                onKeyDown={handleBarcodeKeyDown}
+                                disabled={!activeCashier}
+                            />
+                            <Button onClick={handleBarcodeAdd} size="sm" className="absolute right-1 top-1/2 -translate-y-1/2 h-8">
+                                <Search className="h-4 w-4 md:mr-2"/> <span className="hidden md:inline">Añadir</span>
+                            </Button>
                         </div>
-                        <Button onClick={handleCloseShift} variant="outline" size="sm">Cerrar Turno</Button>
-                    </div>
+                        <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-2 text-sm">
+                                <User className="h-4 w-4"/>
+                                <span>Cajero: <span className="font-semibold">{activeCashier}</span></span>
+                            </div>
+                            <Button onClick={handleCloseShift} variant="outline" size="sm">Cerrar Turno</Button>
+                        </div>
+                    </>
                 )}
             </header>
 
