@@ -46,8 +46,12 @@ const resumenSistema = {
     pagosTarjetaDebito: 550.25,
     pagosTarjetaCredito: 400.00,
     pagosPorTransferencia: 300.50,
-    efectivoEsperadoBs: 600.00,
+    fondoDeCaja: 5000.00,
 };
+
+const efectivoEsperadoPorVentas = resumenSistema.ventasTotales - (resumenSistema.pagosTarjetaDebito + resumenSistema.pagosTarjetaCredito + resumenSistema.pagosPorTransferencia);
+const totalEsperadoEnCaja = efectivoEsperadoPorVentas + resumenSistema.fondoDeCaja;
+
 
 const historialCierres = [
     { id: 1, fecha: "20/07/2024", usuario: "Ana Pérez", diferencia: 0, estado: "Cuadrado" },
@@ -79,7 +83,7 @@ export default function ArqueoCajaPage() {
         return Object.entries(conteoEur).reduce((acc, [valor, cantidad]) => acc + (Number(valor) * (cantidad || 0)), 0);
     }, [conteoEur]);
 
-    const diferenciaBs = totalContadoBs - resumenSistema.efectivoEsperadoBs;
+    const diferenciaBs = totalContadoBs - totalEsperadoEnCaja;
 
     const handleConteoChange = (moneda: 'bs' | 'usd' | 'eur', valor: number, cantidad: string) => {
         const setter = { bs: setConteoBs, usd: setConteoUsd, eur: setConteoEur }[moneda];
@@ -136,11 +140,15 @@ export default function ArqueoCajaPage() {
                             <div className="grid grid-cols-3 gap-4">
                                 <div><p className="text-sm text-muted-foreground">Tarjeta de Débito:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosTarjetaDebito, 'Bs.')}</p></div>
                                 <div><p className="text-sm text-muted-foreground">Tarjeta de Crédito:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosTarjetaCredito, 'Bs.')}</p></div>
-                                <div><p className="text-sm text-muted-foreground">Pagos por Transferencia:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosPorTransferencia, 'Bs.')}</p></div>
+                                <div><p className="text-sm text-muted-foreground">Transferencias:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosPorTransferencia, 'Bs.')}</p></div>
+                            </div>
+                             <div className="flex justify-between items-center text-md p-3 bg-secondary/50 rounded-lg">
+                                <span className="text-muted-foreground">Fondo de Caja Inicial:</span>
+                                <span className="font-semibold">{formatCurrency(resumenSistema.fondoDeCaja, 'Bs.')}</span>
                             </div>
                             <div className="flex justify-between items-center text-xl p-4 bg-green-600/10 border border-green-600/30 rounded-lg">
-                                <span className="font-bold">Efectivo Esperado en Caja (Bs.):</span>
-                                <span className="font-bold">{formatCurrency(resumenSistema.efectivoEsperadoBs, 'Bs.')}</span>
+                                <span className="font-bold">Total Esperado en Caja (Bs.):</span>
+                                <span className="font-bold">{formatCurrency(totalEsperadoEnCaja, 'Bs.')}</span>
                             </div>
                         </CardContent>
                     </Card>
