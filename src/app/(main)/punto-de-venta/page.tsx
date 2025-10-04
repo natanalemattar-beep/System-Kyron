@@ -42,6 +42,7 @@ type CartItem = {
 
 type Currency = "Bs." | "USD" | "EUR";
 type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Zelle" | "Efectivo";
+type OperationType = "Venta Inmediata" | "Abono a Factura de Crédito" | "Venta con Financiamiento";
 
 const exchangeRates: Record<Currency, number> = {
     "Bs.": 40.0, // Tasa de referencia Bs. por USD
@@ -58,6 +59,7 @@ export default function PuntoDeVentaPage() {
     const [tableNumber, setTableNumber] = useState("");
     const [currency, setCurrency] = useState<Currency>("Bs.");
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
+    const [operationType, setOperationType] = useState<OperationType | null>(null);
     const [activeCashier, setActiveCashier] = useState<string | null>(null);
     const [barcode, setBarcode] = useState("");
     const barcodeRef = useRef<HTMLInputElement>(null);
@@ -143,6 +145,10 @@ export default function PuntoDeVentaPage() {
             toast({ variant: "destructive", title: "Carrito Vacío", description: "Agrega productos al carrito antes de cobrar." });
             return;
         }
+        if (!operationType) {
+             toast({ variant: "destructive", title: "Selecciona un tipo de operación", description: "Debes clasificar la operación para continuar." });
+            return;
+        }
         if (!paymentMethod) {
              toast({ variant: "destructive", title: "Selecciona un método de pago", description: "Debes seleccionar un método de pago para continuar." });
             return;
@@ -161,6 +167,7 @@ export default function PuntoDeVentaPage() {
         setAmountReceived("");
         setGiveChangeByPagoMovil(false);
         setPaymentMethod(null);
+        setOperationType(null);
          toast({
             title: "Inventario y Costos Actualizados",
             description: "La venta se ha registrado y el inventario y la estructura de costos han sido actualizados automáticamente.",
@@ -301,9 +308,22 @@ export default function PuntoDeVentaPage() {
                             </div>
                         )}
                     </CardContent>
-                    <CardFooter className="flex-col !p-4 border-t gap-4">
+                    <CardFooter className="flex-col !p-4 border-t gap-2">
                          <div className="w-full grid grid-cols-2 gap-4">
-                            <div className="w-full">
+                            <div>
+                                <Label htmlFor="op-type-select">Tipo de Operación</Label>
+                                <Select onValueChange={(value) => setOperationType(value as OperationType)} value={operationType || ""}>
+                                    <SelectTrigger id="op-type-select">
+                                        <SelectValue placeholder="Clasificar..." />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="Venta Inmediata">Venta Inmediata</SelectItem>
+                                        <SelectItem value="Abono a Factura de Crédito">Abono a Factura de Crédito</SelectItem>
+                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento (Cashea, etc)</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div>
                                 <Label htmlFor="currency-select">Moneda</Label>
                                 <Select value={currency} onValueChange={(value) => setCurrency(value as Currency)}>
                                     <SelectTrigger id="currency-select">
@@ -316,22 +336,22 @@ export default function PuntoDeVentaPage() {
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <div className="w-full">
-                                <Label htmlFor="payment-method-select">Pago Inmediato</Label>
-                                <Select onValueChange={(value) => setPaymentMethod(value as PaymentMethod)} value={paymentMethod || ""}>
-                                    <SelectTrigger id="payment-method-select">
-                                        <SelectValue placeholder="Seleccionar..." />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="Punto de Venta">Punto de Venta</SelectItem>
-                                        <SelectItem value="Pago Móvil">Pago Móvil</SelectItem>
-                                        <SelectItem value="Zelle">Zelle</SelectItem>
-                                        <SelectItem value="Efectivo">Efectivo</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
                          </div>
-                        <div className="w-full space-y-2 text-sm mb-4">
+                         <div className="w-full">
+                            <Label htmlFor="payment-method-select">Método de Pago</Label>
+                            <Select onValueChange={(value) => setPaymentMethod(value as PaymentMethod)} value={paymentMethod || ""}>
+                                <SelectTrigger id="payment-method-select">
+                                    <SelectValue placeholder="Seleccionar..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Punto de Venta">Punto de Venta</SelectItem>
+                                    <SelectItem value="Pago Móvil">Pago Móvil</SelectItem>
+                                    <SelectItem value="Zelle">Zelle</SelectItem>
+                                    <SelectItem value="Efectivo">Efectivo</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="w-full space-y-2 text-sm my-4">
                             <div className="flex justify-between"><span>Subtotal:</span><span>{formatCurrency(subtotalInCurrency, currency)}</span></div>
                             <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, currency)}</span></div>
                             <div className="flex justify-between font-bold text-lg border-t pt-2"><span>Total a Pagar:</span><span>{formatCurrency(total, currency)}</span></div>
@@ -399,6 +419,7 @@ export default function PuntoDeVentaPage() {
                         <div className="my-4 text-xs space-y-1">
                             <p>Fecha: {new Date().toLocaleString('es-VE')}</p>
                             <p>Cajero: {activeCashier}</p>
+                            {operationType && <p>Operación: {operationType}</p>}
                             {paymentMethod && <p>Método de Pago: {paymentMethod}</p>}
                         </div>
                         <div className="my-4">
@@ -453,3 +474,4 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
+
