@@ -150,8 +150,8 @@ export default function PuntoDeVentaPage() {
         setIsReceiptOpen(false);
         setCart([]);
          toast({
-            title: "Venta Completada",
-            description: "El punto de venta está listo para una nueva transacción.",
+            title: "Inventario y Costos Actualizados",
+            description: "La venta se ha registrado y el inventario y la estructura de costos han sido actualizados automáticamente.",
              action: <CheckCircle className="text-green-500" />
         });
     }
@@ -360,5 +360,3 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
-
-    

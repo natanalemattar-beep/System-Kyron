@@ -163,7 +163,7 @@ export default function EstructuraCostosPage() {
            <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Desglose de Costos Variables</CardTitle>
-                     <CardDescription>Basado en un volumen de ventas de ejemplo.</CardDescription>
+                     <CardDescription>Basado en un volumen de ventas de ejemplo, actualizado en tiempo real desde el Punto de Venta.</CardDescription>
                 </CardHeader>
                 <CardContent className="grid md:grid-cols-2 gap-8">
                      <div>

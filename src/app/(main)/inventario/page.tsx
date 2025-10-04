@@ -76,7 +76,7 @@ export default function InventarioPage() {
                         Gestión de Inventario
                     </h1>
                     <p className="text-muted-foreground mt-2">
-                        Control de existencias y valoración según normativa SENIAT.
+                        Control de existencias y valoración según normativa SENIAT. Las existencias se actualizan en tiempo real con cada venta del Punto de Venta.
                     </p>
                 </div>
                 <div className="flex gap-2">
