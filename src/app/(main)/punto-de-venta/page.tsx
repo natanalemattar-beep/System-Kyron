@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
@@ -6,13 +5,14 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode } from "lucide-react";
+import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode, CreditCard, Banknote } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 
 const products = [
     { id: 1, name: "Resma de Papel Carta", price: 8.50, barcode: "7591234567890" },
@@ -24,6 +24,7 @@ const products = [
     { id: 7, name: "Rollo de Etiquetas Térmicas", price: 12.00, barcode: "7591234567896" },
     { id: 8, name: "Calculadora de Escritorio", price: 18.00, barcode: "7591234567897" },
 ];
+
 
 const cashiers = [
     "Cajero 1", "Cajero 2", "Cajero 3", "Cajero 4", "Cajero 5",
@@ -51,6 +52,7 @@ const exchangeRates: Record<Currency, number> = {
 export default function PuntoDeVentaPage() {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [isReceiptOpen, setIsReceiptOpen] = useState(false);
+    const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
     const [isQrDialogOpen, setIsQrDialogOpen] = useState(false);
     const [tableNumber, setTableNumber] = useState("");
     const [currency, setCurrency] = useState<Currency>("Bs.");
@@ -58,6 +60,9 @@ export default function PuntoDeVentaPage() {
     const [activeCashier, setActiveCashier] = useState<string | null>(null);
     const [barcode, setBarcode] = useState("");
     const barcodeRef = useRef<HTMLInputElement>(null);
+    const [amountReceived, setAmountReceived] = useState<number | "">("");
+    const [giveChangeByPagoMovil, setGiveChangeByPagoMovil] = useState(false);
+    
     const { toast } = useToast();
     
     useEffect(() => {
@@ -130,45 +135,42 @@ export default function PuntoDeVentaPage() {
     const subtotalInCurrency = getPriceInCurrency(subtotal);
     const iva = subtotalInCurrency * 0.16;
     const total = subtotalInCurrency + iva;
+    const changeDue = amountReceived ? Number(amountReceived) - total : 0;
     
     const handleCheckout = () => {
         if (cart.length === 0) {
-            toast({
-                variant: "destructive",
-                title: "Carrito Vacío",
-                description: "Agrega productos al carrito antes de cobrar.",
-            });
+            toast({ variant: "destructive", title: "Carrito Vacío", description: "Agrega productos al carrito antes de cobrar." });
             return;
         }
         if (!paymentMethod) {
-             toast({
-                variant: "destructive",
-                title: "Selecciona un método de pago",
-                description: "Debes seleccionar un método de pago para continuar.",
-            });
+             toast({ variant: "destructive", title: "Selecciona un método de pago", description: "Debes seleccionar un método de pago para continuar." });
             return;
         }
-        setIsReceiptOpen(true);
+        setIsCheckoutOpen(true);
     };
 
     const handlePrint = () => {
         window.print();
-        toast({
-            title: "Imprimiendo Recibo",
-            description: "Tu recibo se está enviando a la impresora.",
-            action: <Printer className="text-gray-500" />
-        });
+        toast({ title: "Imprimiendo Recibo", description: "Tu recibo se está enviando a la impresora.", action: <Printer className="text-gray-500" /> });
     };
     
     const handleNewSale = () => {
         setIsReceiptOpen(false);
         setCart([]);
+        setAmountReceived("");
+        setGiveChangeByPagoMovil(false);
+        setPaymentMethod(null);
          toast({
             title: "Inventario y Costos Actualizados",
             description: "La venta se ha registrado y el inventario y la estructura de costos han sido actualizados automáticamente.",
              action: <CheckCircle className="text-green-500" />
         });
     }
+
+    const handleFinalizeTransaction = () => {
+        setIsCheckoutOpen(false);
+        setIsReceiptOpen(true);
+    };
     
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://systemcms.com/menu/table/${tableNumber}`;
 
@@ -252,27 +254,19 @@ export default function PuntoDeVentaPage() {
             </header>
 
             <div className="flex-grow grid lg:grid-cols-3 gap-4 overflow-hidden h-full flex-col md:flex-row">
-                {/* Product Catalog */}
-                 <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm overflow-y-auto h-[50vh] md:h-full">
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {products.map(product => (
-                            <Card 
-                                key={product.id} 
-                                onClick={() => addToCart(product)} 
-                                className="cursor-pointer hover:shadow-lg hover:border-primary transition-all flex flex-col"
-                            >
-                                <CardHeader className="p-3">
-                                    <CardTitle className="text-base leading-tight">{product.name}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="p-3 flex-grow flex items-end">
-                                    <p className="text-lg font-semibold text-primary">{formatCurrency(getPriceInCurrency(product.price), currency)}</p>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
+                <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm overflow-y-auto h-[50vh] md:h-full">
+                     <Table>
+                        <TableBody>
+                            {products.map(product => (
+                                <TableRow key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:bg-muted">
+                                    <TableCell className="font-medium">{product.name}</TableCell>
+                                    <TableCell className="text-right font-semibold text-primary">{formatCurrency(getPriceInCurrency(product.price), currency)}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </div>
 
-                {/* Order Summary */}
                 <Card className="lg:col-span-1 flex flex-col h-full">
                     <CardHeader>
                         <CardTitle>Resumen de Orden</CardTitle>
@@ -323,7 +317,7 @@ export default function PuntoDeVentaPage() {
                             </div>
                             <div className="w-full">
                                 <Label htmlFor="payment-method-select">Pago Inmediato</Label>
-                                <Select onValueChange={(value) => setPaymentMethod(value as PaymentMethod)}>
+                                <Select onValueChange={(value) => setPaymentMethod(value as PaymentMethod)} value={paymentMethod || ""}>
                                     <SelectTrigger id="payment-method-select">
                                         <SelectValue placeholder="Seleccionar..." />
                                     </SelectTrigger>
@@ -346,6 +340,53 @@ export default function PuntoDeVentaPage() {
                 </Card>
             </div>
             
+            {/* Checkout Dialog */}
+            <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Finalizar Compra</DialogTitle>
+                        <DialogDescription>Confirma el pago y la devolución.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-center text-xl font-bold p-4 bg-secondary rounded-lg">
+                            <Label>Total a Pagar:</Label>
+                            <span>{formatCurrency(total, currency)}</span>
+                        </div>
+                        <div className="space-y-2">
+                             <Label htmlFor="amount-received">Monto Recibido del Cliente</Label>
+                             <Input 
+                                id="amount-received" 
+                                type="number" 
+                                placeholder="0.00" 
+                                value={amountReceived}
+                                onChange={(e) => setAmountReceived(Number(e.target.value))}
+                            />
+                        </div>
+                        {changeDue > 0 && (
+                            <div className="p-4 bg-blue-500/10 rounded-lg text-center space-y-2">
+                                <Label className="text-lg font-semibold">Vuelto a Entregar</Label>
+                                <p className="text-3xl font-bold text-blue-400">{formatCurrency(changeDue, currency)}</p>
+                                <div className="flex items-center justify-center space-x-2 pt-2">
+                                    <input type="checkbox" id="pago-movil-check" checked={giveChangeByPagoMovil} onChange={(e) => setGiveChangeByPagoMovil(e.target.checked)}/>
+                                    <Label htmlFor="pago-movil-check">Dar vuelto por Pago Móvil</Label>
+                                </div>
+                                {giveChangeByPagoMovil && (
+                                     <div className="pt-2 space-y-2 text-left animate-in fade-in">
+                                         <Label>Datos para Pago Móvil</Label>
+                                        <Input placeholder="Teléfono del cliente" />
+                                        <Input placeholder="Cédula/RIF del cliente" />
+                                     </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                     <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsCheckoutOpen(false)}>Cancelar</Button>
+                        <Button onClick={handleFinalizeTransaction}>Finalizar y Generar Factura</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
             {/* Receipt Dialog */}
             <Dialog open={isReceiptOpen} onOpenChange={setIsReceiptOpen}>
                 <DialogContent className="sm:max-w-md print:shadow-none print:border-none">
@@ -371,11 +412,18 @@ export default function PuntoDeVentaPage() {
                                 </TableBody>
                             </Table>
                         </div>
+                         <Separator className="my-2"/>
                          <div className="w-full space-y-1 text-sm">
                             <div className="flex justify-between"><span>Subtotal:</span><span>{formatCurrency(subtotalInCurrency, currency)}</span></div>
                             <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, currency)}</span></div>
-                            <div className="flex justify-between font-bold text-lg pt-1"><span>TOTAL ({currency}):</span><span>{formatCurrency(total, currency)}</span></div>
+                            <div className="flex justify-between font-bold text-base pt-1"><span>TOTAL ({currency}):</span><span>{formatCurrency(total, currency)}</span></div>
                         </div>
+                        <Separator className="my-2"/>
+                        <div className="w-full space-y-1 text-sm">
+                            <div className="flex justify-between"><span>Monto Pagado:</span><span>{formatCurrency(Number(amountReceived), currency)}</span></div>
+                            <div className="flex justify-between"><span>Vuelto:</span><span>{formatCurrency(changeDue, currency)}</span></div>
+                        </div>
+
                         <div className="flex flex-col items-center text-center mt-4">
                              <ShieldCheck className="h-6 w-6 text-green-500 mb-1"/>
                              <p className="text-xs text-muted-foreground">¡Gracias por su compra!</p>
@@ -390,8 +438,3 @@ export default function PuntoDeVentaPage() {
 
         </div>
     );
-}
-
-    
-
-    
