@@ -8,9 +8,9 @@
     },
     {
       "id": "hero-image",
-      "description": "A placeholder for the hero section background, showing a person working on accounting documents.",
-      "imageUrl": "https://images.unsplash.com/photo-1612550761236-e083969d2c94?q=80&w=1920&auto=format&fit=crop",
-      "imageHint": "accounting finance"
+      "description": "A placeholder for the hero section background, showing a serious accounting setup.",
+      "imageUrl": "https://images.unsplash.com/photo-1554224155-1696413565d3?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "serious accounting"
     },
     {
       "id": "about-us-image",
