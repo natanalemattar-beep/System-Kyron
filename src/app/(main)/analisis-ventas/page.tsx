@@ -5,42 +5,41 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import { TrendingUp, Users, Package, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw, Share2 } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { TrendingUp, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import Link from "next/link";
+import { historicalFinancialData } from "@/lib/historical-financial-data";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 
 const kpiData = [
-    { title: "Ingresos Totales", value: formatCurrency(125340.50, 'Bs.'), icon: DollarSign, trend: "+15.2% vs mes anterior" },
-    { title: "Ventas Totales", value: "852", icon: ShoppingCart, trend: "+20% vs mes anterior" },
-    { title: "Ticket Promedio", value: formatCurrency(147.11, 'Bs.'), icon: DollarSign, trend: "-2.5% vs mes anterior" },
-    { title: "Rotación de Inventario", value: "4.2", icon: RefreshCw, trend: "ciclos este mes" },
+    { title: "Ingresos Totales (Mes)", value: formatCurrency(62000, 'Bs.'), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
+    { title: "Ventas Totales (Mes)", value: "335", icon: ShoppingCart, trend: "+18% vs mes anterior", trendColor: "text-green-500" },
+    { title: "Ticket Promedio", value: formatCurrency(185.30, 'Bs.'), icon: DollarSign, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
+    { title: "Rotación de Inventario", value: "4.2", icon: RefreshCw, trend: "ciclos este mes", trendColor: "text-green-500" },
 ];
 
 const topProducts = [
-    { id: "PROD-003", name: "Laptop 14 pulgadas", sales: 150, revenue: formatCurrency(90000, 'Bs.') },
-    { id: "PROD-002", name: "Tóner para Impresora", sales: 350, revenue: formatCurrency(29750, 'Bs.') },
-    { id: "PROD-004", name: "Silla de Oficina Ergonómica", sales: 80, revenue: formatCurrency(12000, 'Bs.') },
+    { id: "PROD-002", name: "Impresora Fiscal", sales: 45, revenue: formatCurrency(15750, 'Bs.') },
+    { id: "PROD-003", name: "Punto de Venta Inalámbrico", sales: 50, revenue: formatCurrency(14000, 'Bs.') },
+    { id: "PROD-005", name: "Tóner para Impresora", sales: 110, revenue: formatCurrency(9350, 'Bs.') },
 ];
 
-const bottomProducts = [
-    { id: "PROD-008", name: "Alfombrilla para Mouse", sales: 15, revenue: formatCurrency(150, 'Bs.') },
-    { id: "PROD-012", name: "Filtro de Pantalla 14''", sales: 10, revenue: formatCurrency(200, 'Bs.') },
-    { id: "PROD-009", name: "Portalápices de Metal", sales: 25, revenue: formatCurrency(125, 'Bs.') },
-];
-
-
-const salesByChannel = [
-    { channel: "Tienda Física", value: 75200 },
-    { channel: "Ventas Online", value: 35140.50 },
-    { channel: "Redes Sociales", value: 22500 },
-    { channel: "Ventas Telefónicas", value: 15000 },
-];
+const chartConfig = {
+  ingresos: {
+    label: "Ingresos",
+    color: "hsl(var(--primary))",
+  },
+  gastos: {
+    label: "Gastos",
+    color: "hsl(var(--destructive))",
+  },
+} satisfies ChartConfig;
 
 
 export default function AnalisisVentasPage() {
   return (
-    <div>
-      <header className="mb-8 flex justify-between items-center">
+    <div className="space-y-8">
+      <header className="mb-8 flex flex-col md:flex-row justify-between md:items-center gap-4">
         <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                 <TrendingUp className="h-8 w-8" />
@@ -50,77 +49,72 @@ export default function AnalisisVentasPage() {
             Dashboard con métricas y KPIs clave para tu rendimiento comercial.
             </p>
         </div>
-        <Button><Download className="mr-2"/>Exportar Reporte</Button>
+        <div className="flex gap-2">
+          <Button variant="outline"><Download className="mr-2"/>Exportar Reporte</Button>
+          <Button asChild>
+            <Link href="/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
+          </Button>
+        </div>
       </header>
       
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {kpiData.map(kpi => (
             <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                    <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium flex items-center justify-between">
+                      <span>{kpi.title}</span>
+                      <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                    </CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{kpi.value}</div>
-                    <p className="text-xs text-muted-foreground">{kpi.trend}</p>
+                    <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
                 </CardContent>
             </Card>
         ))}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2 grid gap-8">
-            <Card className="bg-card/80 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Share2 className="h-5 w-5"/>Ingresos por Canal</CardTitle>
-                </CardHeader>
-                <CardContent className="h-80">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={salesByChannel} layout="vertical" margin={{ left: 30 }}>
-                            <XAxis type="number" hide />
-                            <YAxis dataKey="channel" type="category" tickLine={false} axisLine={false} />
-                            <Tooltip cursor={{ fill: 'hsl(var(--secondary))' }} formatter={(value) => formatCurrency(value as number, 'Bs.')}/>
-                            <Bar dataKey="value" name="Ingresos" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </CardContent>
-            </Card>
-            <Card className="bg-card/80 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><TrendingDown className="text-red-500"/>Productos con Menor Demanda</CardTitle>
-                    <CardDescription>Top 3 productos con menores ingresos. Considera nuevas estrategias.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Producto</TableHead>
-                                <TableHead className="text-center">Ventas (Uds.)</TableHead>
-                                <TableHead className="text-right">Ingresos</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {bottomProducts.map((prod) => (
-                                <TableRow key={prod.id}>
-                                    <TableCell className="font-medium">{prod.name}</TableCell>
-                                    <TableCell className="text-center">{prod.sales}</TableCell>
-                                    <TableCell className="text-right">{prod.revenue}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-                <CardContent>
-                     <Button asChild variant="outline" className="w-full">
-                        <Link href="/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
-                    </Button>
-                </CardContent>
-            </Card>
-        </div>
-        <Card className="bg-card/80 backdrop-blur-sm">
+       <Card className="bg-card/80 backdrop-blur-sm">
+          <CardHeader>
+              <CardTitle>Pulso Financiero (Últimos 12 meses)</CardTitle>
+              <CardDescription>Evolución de ingresos vs. gastos para medir la rentabilidad.</CardDescription>
+          </CardHeader>
+          <CardContent className="h-80">
+                <ChartContainer config={chartConfig} className="w-full h-full">
+                  <AreaChart data={historicalFinancialData.slice(-12)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                      <defs>
+                          <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                          </linearGradient>
+                          <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
+                              <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
+                          </linearGradient>
+                      </defs>
+                      <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value as number) / 1000}k`} />
+                      <ChartTooltip 
+                          cursor={false}
+                          content={<ChartTooltipContent 
+                              indicator="dot" 
+                              formatter={(value) => formatCurrency(value as number, 'Bs.')} 
+                          />} 
+                      />
+                      <Legend />
+                      <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
+                      <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
+                  </AreaChart>
+              </ChartContainer>
+          </CardContent>
+      </Card>
+
+
+      <div className="grid gap-8 lg:grid-cols-5">
+          <Card className="lg:col-span-3 bg-card/80 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle>Productos Más Vendidos</CardTitle>
-                <CardDescription>Top 3 productos por ingresos generados.</CardDescription>
+                <CardTitle>Productos Más Vendidos (Top 3)</CardTitle>
+                <CardDescription>Productos que generan mayores ingresos este mes.</CardDescription>
             </CardHeader>
             <CardContent>
                  <Table>
@@ -143,10 +137,23 @@ export default function AnalisisVentasPage() {
                 </Table>
             </CardContent>
         </Card>
+        <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><TrendingDown className="text-red-500"/>Productos con Menor Demanda</CardTitle>
+                <CardDescription>Productos con menores ingresos. Considera nuevas estrategias.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p className="text-sm text-muted-foreground">La funcionalidad para mostrar productos con menor demanda se implementará próximamente.</p>
+            </CardContent>
+            <CardContent>
+                 <Button asChild variant="outline" className="w-full">
+                    <Link href="/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
+                </Button>
+            </CardContent>
+        </Card>
       </div>
 
     </div>
   );
-}
 
     
