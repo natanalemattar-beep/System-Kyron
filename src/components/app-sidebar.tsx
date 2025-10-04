@@ -208,7 +208,7 @@ const juridicoNavGroups = [
 ];
 
 const ventasNavGroups = [
-    { title: "Ventas", icon: ShoppingCart, items: ventasMenuItems },
+    { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
 ];
 
 
@@ -456,7 +456,7 @@ function AppSidebarVentas() {
   const pathname = usePathname();
 
   const navGroups = [
-    { title: "Ventas", icon: ShoppingCart, items: ventasMenuItems },
+    { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
   ]
 
   return (
@@ -471,7 +471,7 @@ function AppSidebarVentas() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-        <Accordion type="multiple" className="w-full" defaultValue={['Ventas']}>
+        <Accordion type="multiple" className="w-full" defaultValue={['Ventas y Facturación']}>
             {navGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
