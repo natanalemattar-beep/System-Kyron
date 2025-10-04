@@ -84,10 +84,6 @@ export default {
             "0%, 100%": { transform: 'scale(1)', opacity: '0.4' },
             "50%": { transform: 'scale(1.2)', opacity: '0.6' },
         },
-        "grid-pulse": {
-            "0%, 100%": { transform: 'translate(-50%, -50%) scale(1)', opacity: '0.2' },
-            "50%": { transform: 'translate(-50%, -50%) scale(1.5)', opacity: '0.4' },
-        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -95,7 +91,6 @@ export default {
         "gradient-animation": "gradient-animation 15s ease infinite",
         "pulse-slow": "pulse-slow 3s infinite",
         "soft-pulse": "soft-pulse 8s infinite ease-in-out",
-        "grid-pulse": "grid-pulse 10s infinite ease-in-out",
       },
     },
   },

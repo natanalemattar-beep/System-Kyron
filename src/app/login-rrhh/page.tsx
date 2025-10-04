@@ -15,15 +15,10 @@ export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-     <div className="flex flex-col min-h-screen bg-blue-50 dark:bg-gray-950 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div 
-            className="absolute inset-0 z-0 opacity-40 dark:opacity-20"
-            style={{
-                backgroundImage: 'repeating-conic-gradient(from 45deg, #A8D5E2 0%, #A8D5E2 12.5%, transparent 12.5%, transparent 50%)',
-                backgroundSize: '40px 40px',
-            }}
-        />
+     <div className="flex flex-col min-h-screen bg-green-50 dark:bg-gray-950 text-foreground relative overflow-hidden">
+        {/* Background Gradient */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] animate-soft-pulse rounded-full bg-green-200 blur-3xl -z-10" />
+
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">

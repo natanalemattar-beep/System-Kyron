@@ -16,10 +16,10 @@ export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-40">
-            <div className="absolute top-1/4 left-1/4 h-96 w-96 animate-soft-pulse rounded-full bg-orange-200 blur-3xl dark:bg-orange-900/50"></div>
-            <div className="absolute bottom-1/4 right-1/4 h-96 w-96 animate-soft-pulse animation-delay-4000 rounded-full bg-yellow-200 blur-3xl dark:bg-yellow-900/50"></div>
+    <div className="flex flex-col min-h-screen bg-gray-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+            <div className="absolute -top-1/4 -left-1/4 h-96 w-96 animate-soft-pulse rounded-full bg-blue-800 blur-3xl opacity-50"></div>
+            <div className="absolute -bottom-1/4 -right-1/4 h-96 w-96 animate-soft-pulse animation-delay-4000 rounded-full bg-indigo-900 blur-3xl opacity-50"></div>
         </div>
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">

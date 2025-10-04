@@ -25,18 +25,9 @@ export default function LoginJuridicoPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900 text-white relative overflow-hidden">
-      {/* Background Grid */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-      <div 
-        className="absolute inset-0 z-0 opacity-20"
-        style={{
-          backgroundImage: 'linear-gradient(to right, rgba(255,255,255, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255, 0.1) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}
-      />
-      <div className="absolute left-1/2 top-0 h-1/2 w-1/3 -translate-x-1/2 animate-grid-pulse rounded-full bg-primary/20 blur-3xl" />
-
+    <div className="flex flex-col min-h-screen bg-slate-100 dark:bg-gray-950 text-foreground relative overflow-hidden">
+      {/* Background Gradient */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] animate-soft-pulse rounded-full bg-blue-200 blur-3xl -z-10" />
 
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
