@@ -25,7 +25,7 @@ export default function LoginJuridicoPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 text-foreground relative overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-blue-50 text-foreground relative overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] animate-soft-pulse rounded-full bg-blue-200 blur-3xl -z-10" />
 
