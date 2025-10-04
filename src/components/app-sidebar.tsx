@@ -126,7 +126,7 @@ const facturacionMenuItems = [
     { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
     { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
-    { href: "/igtf", label: "IGTF & Exoneraciones", icon: Percent },
+    { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
     { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
     { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
 ];
