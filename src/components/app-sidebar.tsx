@@ -78,10 +78,10 @@ import { Logo } from "@/components/logo";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Gavel },
+  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
   { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
   { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
-  { href: "/autorizaciones", label: "Autorizaciones", icon: Shield },
+  { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
   { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
 ];
@@ -431,5 +431,3 @@ function AppSidebarHr() {
     </Sidebar>
   );
 }
-
-    

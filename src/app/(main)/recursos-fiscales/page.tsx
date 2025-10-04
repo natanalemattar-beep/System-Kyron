@@ -4,7 +4,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar } from "lucide-react";
+import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar, FileEdit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -112,6 +112,36 @@ export default function RecursosFiscalesPage() {
             />
         </div>
       </div>
+
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-3"><FileEdit className="h-5 w-5" /> Normas sobre la Información Fiscal del Contribuyente (RIF)</CardTitle>
+          <CardDescription>
+            Obligaciones legales relacionadas con el Registro Único de Información Fiscal (RIF) en Venezuela.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4 text-muted-foreground">
+            <p>
+                En la República Bolivariana de Venezuela, la Providencia Administrativa No. 0073 (G.O. No. 38.389) establece que todas las personas naturales o jurídicas sujetas a tributos administrados por el SENIAT deben inscribirse en el Registro Único de Información Fiscal (RIF). Esto incluye a entidades no residentes que realicen actividades económicas en el país.
+            </p>
+             <p>
+                El número de RIF es único, permanente y de uso obligatorio en cualquier trámite ante el SENIAT, así como en declaraciones, facturas y otros documentos fiscales.
+            </p>
+             <p className="font-semibold text-foreground">Obligación de Actualización:</p>
+             <p>
+                El Código Orgánico Tributario (G.O. N° 37.305) obliga a los contribuyentes a notificar al SENIAT, en un plazo máximo de un (1) mes, cualquier cambio en:
+             </p>
+             <ul className="list-disc list-inside pl-4 space-y-2">
+                <li>Directores, administradores, o razón social.</li>
+                <li>Domicilio fiscal (según los artículos 30 al 35 del COT).</li>
+                <li>Actividad principal.</li>
+                <li>Cesación, suspensión o paralización de la actividad económica.</li>
+            </ul>
+             <p className="text-sm italic pt-2">
+                Mantener la información del RIF actualizada es crucial para el control fiscal y para evitar sanciones.
+            </p>
+        </CardContent>
+      </Card>
 
        <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
@@ -246,5 +276,3 @@ export default function RecursosFiscalesPage() {
     </div>
   );
 }
-
-    
