@@ -40,6 +40,11 @@ const factura = {
         nombre: "Cashea",
         modalidad: "Compra Ahora, Paga Después (BNPL)",
         instruccion: "El cliente debe escanear el código QR en la tienda para ver el plan de pagos y confirmar la compra en la app. Luego, debe subir la foto de esta factura para formalizar el compromiso de pago."
+    },
+     creditoDirecto: {
+        tipo: "Crédito Directo Empresa",
+        terminos: "3 Cuotas (Cada 30 días)",
+        instruccion: "El pago de las cuotas se debe realizar mediante transferencia bancaria a la cuenta de la empresa."
     }
 };
 
@@ -142,14 +147,20 @@ export default function ModeloFacturaPage() {
             <Separator className="my-8" />
             
             <div className="grid md:grid-cols-2 gap-8">
-                <div className="p-4 rounded-lg bg-secondary/50">
-                     <h4 className="font-semibold mb-2 text-foreground">Método de Pago</h4>
+                 <div className="p-4 rounded-lg bg-secondary/50">
+                     <h4 className="font-semibold mb-2 text-foreground">Método de Pago (Inmediato)</h4>
                      <p className="text-sm"><strong>Tipo:</strong> {factura.metodoPago.tipo}</p>
                      <p className="text-sm"><strong>Banco:</strong> {factura.metodoPago.banco}</p>
                      <p className="text-sm"><strong>Tarjeta:</strong> {factura.metodoPago.tarjeta}</p>
                      <p className="text-sm"><strong>Referencia:</strong> {factura.metodoPago.referencia}</p>
                 </div>
-                <div className="p-4 rounded-lg bg-secondary/50 flex flex-col items-start justify-center text-left gap-2">
+                <div className="p-4 rounded-lg bg-secondary/50">
+                     <h4 className="font-semibold mb-2 text-foreground">Condiciones de Crédito</h4>
+                     <p className="text-sm"><strong>Tipo:</strong> {factura.creditoDirecto.tipo}</p>
+                     <p className="text-sm"><strong>Términos:</strong> {factura.creditoDirecto.terminos}</p>
+                     <p className="text-sm"><strong>Instrucción:</strong> {factura.creditoDirecto.instruccion}</p>
+                </div>
+                <div className="md:col-span-2 p-4 rounded-lg bg-secondary/50 flex flex-col items-start justify-center text-left gap-2">
                      <div className="flex items-center gap-2">
                         <CreditCard className="h-6 w-6 text-primary shrink-0"/>
                         <h4 className="font-semibold">{factura.plataformaCredito.nombre} ({factura.plataformaCredito.modalidad})</h4>
@@ -179,6 +190,8 @@ export default function ModeloFacturaPage() {
     </div>
   );
 }
+
+    
 
     
 

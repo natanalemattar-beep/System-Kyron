@@ -21,8 +21,8 @@ const clientes = [
 ];
 
 const initialFacturas = [
-    { id: "FACC-001", cliente: "Tech Solutions LLC", fechaEmision: "2024-07-25", fechaVencimiento: "2024-08-24", monto: 5500, estado: "Pendiente" },
-    { id: "FACC-002", cliente: "Innovate Corp", fechaEmision: "2024-06-15", fechaVencimiento: "2024-07-15", monto: 3200, estado: "Vencida" },
+    { id: "FACC-001", cliente: "Tech Solutions LLC", fechaEmision: "2024-07-25", fechaVencimiento: "2024-08-24", monto: 5500, estado: "Pendiente", metodo: "Crédito Directo" },
+    { id: "FACC-002", cliente: "Innovate Corp", fechaEmision: "2024-06-15", fechaVencimiento: "2024-07-15", monto: 3200, estado: "Vencida", metodo: "Cashea" },
 ];
 
 type Item = { id: number; descripcion: string; cantidad: number; precio: number };
@@ -93,7 +93,7 @@ export default function FacturacionCreditoPage() {
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto pr-4">
-                            <div className="grid md:grid-cols-2 gap-4">
+                            <div className="grid md:grid-cols-3 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="cliente">Cliente</Label>
                                     <Select>
@@ -102,6 +102,20 @@ export default function FacturacionCreditoPage() {
                                         </SelectTrigger>
                                         <SelectContent>
                                             {clientes.map(c => <SelectItem key={c.id} value={c.id}>{c.nombre}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="metodo-credito">Método de Crédito</Label>
+                                     <Select>
+                                        <SelectTrigger id="metodo-credito">
+                                            <SelectValue placeholder="Selecciona el método" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="directo">Crédito Directo Empresa</SelectItem>
+                                            <SelectItem value="cashea">Cashea</SelectItem>
+                                            <SelectItem value="krece">Krece</SelectItem>
+                                            <SelectItem value="popclik">Popclik</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -159,7 +173,8 @@ export default function FacturacionCreditoPage() {
                             <TableRow>
                                 <TableHead>Nro. Factura</TableHead>
                                 <TableHead>Cliente</TableHead>
-                                <TableHead>Fecha de Vencimiento</TableHead>
+                                <TableHead>Método</TableHead>
+                                <TableHead>Vencimiento</TableHead>
                                 <TableHead className="text-right">Monto</TableHead>
                                 <TableHead className="text-center">Estado</TableHead>
                                 <TableHead className="text-right">Acciones</TableHead>
@@ -170,6 +185,7 @@ export default function FacturacionCreditoPage() {
                                 <TableRow key={factura.id}>
                                     <TableCell className="font-mono">{factura.id}</TableCell>
                                     <TableCell className="font-medium">{factura.cliente}</TableCell>
+                                    <TableCell>{factura.metodo}</TableCell>
                                     <TableCell>{formatDate(factura.fechaVencimiento)}</TableCell>
                                     <TableCell className="text-right font-semibold">{formatCurrency(factura.monto, 'Bs.')}</TableCell>
                                     <TableCell className="text-center">
@@ -191,3 +207,5 @@ export default function FacturacionCreditoPage() {
         </div>
     );
 }
+
+    
