@@ -103,7 +103,6 @@ export default function LoginJuridicoPage() {
             </CardFooter>
         </Card>
       </main>
-      <div className="h-[120vh]"></div>
     </div>
   );
 }
