@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building, Eye, EyeOff, User, Briefcase, ShoppingCart } from "lucide-react";
+import { ShoppingCart, Eye, EyeOff, User, Briefcase, Building } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,23 +12,14 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/logo";
 
-export default function LoginJuridicoPage() {
+export default function LoginVentasPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [rif, setRif] = useState("");
-
-  const handleRifChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.toUpperCase();
-    if (value && !["J", "G", "V", "E"].includes(value[0])) {
-      value = "J-" + value;
-    }
-    setRif(value);
-  };
 
   return (
     <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-slate-900">
       <div className="absolute inset-0 z-0 opacity-50">
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-cyan-900 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-green-900 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-bl from-emerald-900 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
 
       <header className="sticky top-0 z-50 w-full bg-slate-900/50 backdrop-blur-md border-b border-white/10">
@@ -66,19 +57,15 @@ export default function LoginJuridicoPage() {
         <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-border/50">
           <CardHeader className="text-center">
              <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
-              <Building className="h-8 w-8"/>
+              <ShoppingCart className="h-8 w-8"/>
             </div>
-            <CardTitle className="text-2xl">Acceso Administrativo</CardTitle>
-            <CardDescription>Inicia sesión con tu RIF empresarial y usuario.</CardDescription>
+            <CardTitle className="text-2xl">Acceso a Ventas</CardTitle>
+            <CardDescription>Inicia sesión con tu usuario de cajero o vendedor.</CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-6">
-            <div className="space-y-2">
-              <Label>RIF Empresarial</Label>
-              <Input type="text" placeholder="J-12345678-9" value={rif} onChange={handleRifChange} />
-            </div>
              <div className="space-y-2">
               <Label>Usuario</Label>
-              <Input type="text" placeholder="admin.user"/>
+              <Input type="text" placeholder="cajero.1"/>
             </div>
             <div className="space-y-2 relative">
               <Label>Contraseña</Label>
@@ -92,26 +79,22 @@ export default function LoginJuridicoPage() {
               </button>
             </div>
             <Button asChild className="w-full h-11 text-base">
-              <Link href="/dashboard-juridico">Acceder</Link>
+              <Link href="/punto-de-venta">Acceder al Punto de Venta</Link>
             </Button>
           </CardContent>
            <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t border-border/50">
               <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
               <div className="flex justify-center gap-4">
+                 <Link href="/login-juridico" className="font-medium text-primary hover:underline flex items-center gap-1">
+                    <Building className="h-4 w-4"/> Admin
+                </Link>
                 <Link href="/login-natural" className="font-medium text-primary hover:underline flex items-center gap-1">
                     <User className="h-4 w-4"/> Personal
-                </Link>
-                <Link href="/login-ventas" className="font-medium text-primary hover:underline flex items-center gap-1">
-                    <ShoppingCart className="h-4 w-4"/> Ventas
                 </Link>
                  <Link href="/login-rrhh" className="font-medium text-primary hover:underline flex items-center gap-1">
                     <Briefcase className="h-4 w-4"/> RR.HH.
                 </Link>
               </div>
-               <Separator className="my-2"/>
-               <Link href="/register" className="font-medium text-primary hover:underline">
-                    Crear una cuenta nueva
-                </Link>
             </CardFooter>
         </Card>
       </main>

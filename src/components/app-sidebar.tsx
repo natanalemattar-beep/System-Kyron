@@ -203,15 +203,24 @@ const juridicoNavGroups = [
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
 
+const ventasNavGroups = [
+    { title: "Facturación", icon: FileText, items: facturacionMenuItems },
+];
+
 
 export function AppSidebar() {
   const pathname = usePathname();
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href));
-  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path);
+  const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
+  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path);
   
   if (isHrPath(pathname)) {
     return <AppSidebarHr />;
+  }
+
+  if (isVentasPath(pathname)) {
+    return <AppSidebarVentas />;
   }
   
   if (isNaturalPath(pathname)) {
@@ -428,6 +437,76 @@ function AppSidebarHr() {
           </Avatar>
           <div className="flex flex-col">
             <span className="text-sm font-medium">Usuario RR.HH.</span>
+            <span className="text-xs text-muted-foreground">
+              Empresa S.A.
+            </span>
+          </div>
+        </div>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}
+
+
+function AppSidebarVentas() {
+  const pathname = usePathname();
+
+  const navGroups = [
+    { title: "Facturación", icon: FileText, items: facturacionMenuItems },
+  ]
+
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <div className="flex items-center gap-3 p-2">
+           <Logo />
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold leading-tight">System</span>
+            <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+          </div>
+        </div>
+      </SidebarHeader>
+       <SidebarContent className="p-2">
+        <Accordion type="multiple" className="w-full" defaultValue={['Facturación']}>
+            {navGroups.map((group) => (
+              <AccordionItem value={group.title} key={group.title} className="border-none">
+                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
+                   <div className="flex items-center gap-2">
+                       <group.icon className="h-4 w-4" />
+                      {group.title}
+                    </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                    {group.items.map((item) => (
+                      <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(item.href)}
+                          tooltip={item.label}
+                          className="justify-start h-8"
+                        >
+                          <Link href={item.href}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+        </Accordion>
+      </SidebarContent>
+      <SidebarFooter className="p-2">
+        <Separator className="my-2" />
+        <div className="flex items-center gap-3 px-2 py-1">
+          <Avatar className="h-9 w-9">
+            <AvatarFallback>V</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">Usuario Ventas</span>
             <span className="text-xs text-muted-foreground">
               Empresa S.A.
             </span>

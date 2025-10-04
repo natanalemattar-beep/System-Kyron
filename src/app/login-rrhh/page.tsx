@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Briefcase, Eye, EyeOff, User, Building } from "lucide-react";
+import { Briefcase, Eye, EyeOff, User, Building, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,7 +39,10 @@ export default function LoginRrhhPage() {
                         <Link href="/login-natural">Acceso Natural</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                        <Link href="/login-juridico">Acceso Jurídico</Link>
+                        <Link href="/login-juridico">Admin y Finanzas</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login-ventas">Ventas y Facturación</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href="/login-rrhh">Acceso RR.HH.</Link>
@@ -85,7 +88,10 @@ export default function LoginRrhhPage() {
                         <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4"/>Acceso Personal</Link>
                     </Button>
                      <Button asChild variant="link" className="p-0">
-                        <Link href="/login-juridico" className="flex items-center gap-1"><Building className="h-4 w-4"/>Acceso Empresarial</Link>
+                        <Link href="/login-juridico" className="flex items-center gap-1"><Building className="h-4 w-4"/>Acceso Admin</Link>
+                    </Button>
+                     <Button asChild variant="link" className="p-0">
+                        <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4"/>Acceso Ventas</Link>
                     </Button>
                 </div>
             </CardFooter>

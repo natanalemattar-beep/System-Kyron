@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { User, Eye, EyeOff, Building, Briefcase } from "lucide-react";
+import { User, Eye, EyeOff, Building, Briefcase, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,8 +39,11 @@ export default function LoginNaturalPage() {
                     <DropdownMenuItem asChild>
                         <Link href="/login-natural">Acceso Natural</Link>
                     </DropdownMenuItem>
+                     <DropdownMenuItem asChild>
+                        <Link href="/login-juridico">Admin y Finanzas</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                        <Link href="/login-juridico">Acceso Jurídico</Link>
+                        <Link href="/login-ventas">Ventas y Facturación</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href="/login-rrhh">Acceso RR.HH.</Link>
@@ -83,7 +86,10 @@ export default function LoginNaturalPage() {
               <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
               <div className="flex justify-center gap-4">
                 <Link href="/login-juridico" className="font-medium text-primary hover:underline flex items-center gap-1">
-                    <Building className="h-4 w-4"/> Empresarial
+                    <Building className="h-4 w-4"/> Admin
+                </Link>
+                 <Link href="/login-ventas" className="font-medium text-primary hover:underline flex items-center gap-1">
+                    <ShoppingCart className="h-4 w-4"/> Ventas
                 </Link>
                  <Link href="/login-rrhh" className="font-medium text-primary hover:underline flex items-center gap-1">
                     <Briefcase className="h-4 w-4"/> RR.HH.
