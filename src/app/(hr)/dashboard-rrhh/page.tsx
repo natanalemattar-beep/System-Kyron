@@ -28,7 +28,7 @@ const upcomingDeadlines = [
 
 export default function RecursosHumanosPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
             <Briefcase className="h-8 w-8" />
