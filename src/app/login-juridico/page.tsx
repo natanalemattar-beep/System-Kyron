@@ -63,7 +63,7 @@ export default function LoginJuridicoPage() {
              <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
               <Building className="h-8 w-8"/>
             </div>
-            <CardTitle className="text-2xl">Acceso Jurídico</CardTitle>
+            <CardTitle className="text-2xl">Acceso Jurídico Azul</CardTitle>
             <CardDescription>Inicia sesión con tu RIF empresarial.</CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-6">
