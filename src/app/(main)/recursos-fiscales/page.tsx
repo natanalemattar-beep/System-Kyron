@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar, FileEdit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { CheckCircle } from "lucide-react";
 
 const jurisprudencia = [
     {
@@ -112,7 +113,7 @@ export default function RecursosFiscalesPage() {
             />
         </div>
       </div>
-
+      
        <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-3"><FileEdit className="h-5 w-5" /> Normas sobre la Información Fiscal del Contribuyente (RIF)</CardTitle>
@@ -132,13 +133,40 @@ export default function RecursosFiscalesPage() {
                 El Código Orgánico Tributario (G.O. N° 37.305) obliga a los contribuyentes a notificar al SENIAT, en un plazo máximo de un (1) mes, cualquier cambio en:
              </p>
              <ul className="list-disc list-inside pl-4 space-y-2">
-                <li>Directores, administradores, o razón social.</li>
-                <li>Domicilio fiscal (según los artículos 30 al 35 del COT).</li>
-                <li>Actividad principal.</li>
-                <li>Cesación, suspensión o paralización de la actividad económica.</li>
+                <li>Directores, administradores, o razón o denominación social de la entidad.</li>
+                <li>Cambio del domicilio fiscal (según los artículos 30 al 35 del COT).</li>
+                <li>Cambio de la actividad principal.</li>
+                <li>Cesación, suspensión o paralización de la actividad económica habitual del contribuyente.</li>
             </ul>
              <p className="text-sm italic pt-2">
                 Mantener la información del RIF actualizada es crucial para el control fiscal y para evitar sanciones.
+            </p>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+            <CardTitle>Sistema Tributario Venezolano y Tributos Internos</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 text-muted-foreground">
+            <p>
+                La República Bolivariana de Venezuela es un estado federal con 22 estados, un Distrito Capital y dependencias federales. El sistema tributario se basa en los principios constitucionales de legalidad, progresividad, equidad, justicia, capacidad contributiva, no retroactividad y no confiscación.
+            </p>
+            <p>
+                La potestad tributaria se distribuye en tres niveles: nacional, estadal y municipal.
+            </p>
+            <p className="font-semibold text-foreground">
+                Actualmente, el SENIAT tiene jurisdicción sobre los siguientes impuestos a nivel nacional:
+            </p>
+            <ul className="list-disc list-inside pl-4 space-y-2">
+                <li>Impuesto sobre la Renta (ISLR)</li>
+                <li>Impuesto al Valor Agregado (IVA)</li>
+                <li>Impuesto sobre Sucesiones y Donaciones</li>
+                <li>Impuestos sobre Cigarrillos, Licores y Especies Alcohólicas</li>
+                <li>Impuestos sobre actividades de juegos de envite y azar</li>
+            </ul>
+            <p className="text-sm italic pt-2">
+                ¡Cumple con tu deber constitucional de contribuir con las cargas públicas, para que así el Gobierno Nacional pueda disponer de los recursos necesarios para propiciar el bienestar de la colectividad!
             </p>
         </CardContent>
       </Card>
@@ -276,3 +304,5 @@ export default function RecursosFiscalesPage() {
     </div>
   );
 }
+
+    
