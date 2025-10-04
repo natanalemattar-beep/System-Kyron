@@ -112,11 +112,14 @@ const analisisCrecimientoMenuItems = [
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
     { href: "/soluciones-empresariales-ia", label: "Soluciones Empresariales IA", icon: Bot },
+    { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
+    { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
 ];
 
 const facturacionMenuItems = [
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/facturacion", label: "Facturación", icon: FileText },
+    { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
     { href: "/inventario", label: "Inventario", icon: Archive },
     { href: "/importaciones", label: "Importaciones", icon: Ship },
     { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
