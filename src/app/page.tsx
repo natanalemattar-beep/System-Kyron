@@ -93,14 +93,12 @@ export default function LandingPage() {
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           
-          <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <SmoothScrollLink key={link.label} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                {link.label}
-              </SmoothScrollLink>
-            ))}
+          <nav className="hidden md:flex items-center gap-4">
              <Button asChild variant="outline">
               <Link href="/register">Registrarse</Link>
+            </Button>
+            <Button>
+              <a href="#contacto">Contáctanos</a>
             </Button>
           </nav>
           
@@ -189,7 +187,7 @@ export default function LandingPage() {
                     <p className="mt-6 text-lg md:text-xl text-balance text-white/90 max-w-3xl mx-auto" style={{textShadow: '0 2px 8px rgba(0,0,0,0.7)'}}>
                         Simplifica la contabilidad, la nómina y el cumplimiento normativo con una solución inteligente diseñada para el mercado venezolano.
                     </p>
-                    <div className="mt-10 flex gap-4 justify-center">
+                    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild>
                             <Link href="/register">
                             Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
@@ -230,7 +228,7 @@ export default function LandingPage() {
         <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/50 border-y">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <div className="text-left">
+              <div className="text-center lg:text-left">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
                 <p className="mt-4 text-lg text-muted-foreground">
                   Nuestra plataforma integra tecnologías de vanguardia para darte una ventaja competitiva.
@@ -322,7 +320,7 @@ export default function LandingPage() {
         {/* About Us Section */}
         <section id="nosotros" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-16 items-center">
-                 <div className="text-left">
+                 <div className="text-center lg:text-left">
                     <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
                         Nacimos de la necesidad de una herramienta que realmente entienda los desafíos de hacer negocios en nuestro país. Somos un equipo de contadores, abogados y desarrolladores comprometidos con tu éxito.
@@ -344,8 +342,7 @@ export default function LandingPage() {
          {/* CTA Section */}
         <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold">¡Contactanos!</h2>
-                <p className="mt-4 text-lg max-w-2xl mx-auto opacity-90">Únete a cientos de empresas que ya están optimizando sus procesos y garantizando su cumplimiento.</p>
+                <h2 className="text-3xl md:text-4xl font-bold">Únete a cientos de empresas que ya están optimizando sus procesos y garantizando su cumplimiento.</h2>
                 <Button size="lg" variant="secondary" asChild className="mt-8">
                    <Link href="/register">¡Comienza Hoy! <ArrowRight className="ml-2"/></Link>
                 </Button>
@@ -356,8 +353,8 @@ export default function LandingPage() {
         <section id="contacto" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold">¡Contactanos!</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Ponte en contacto con nuestro equipo de especialistas. Estamos listos para ayudarte.</p>
+                    <h2 className="text-3xl md:text-4xl font-bold">Ponte en Contacto</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Nuestro equipo de especialistas está listo para ayudarte.</p>
                 </div>
                 <Card className="max-w-4xl mx-auto shadow-lg">
                      <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
