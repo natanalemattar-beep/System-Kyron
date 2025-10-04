@@ -26,7 +26,8 @@ const denominaciones = [
 
 const resumenSistema = {
     ventasTotales: 1850.75,
-    pagosConTarjeta: 950.25,
+    pagosTarjetaDebito: 550.25,
+    pagosTarjetaCredito: 400.00,
     pagosPorTransferencia: 300.50,
     efectivoEsperado: 600.00,
 };
@@ -96,8 +97,9 @@ export default function ArqueoCajaPage() {
                                 <span className="font-bold text-primary">{formatCurrency(resumenSistema.ventasTotales, 'Bs.')}</span>
                             </div>
                             <Separator/>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div><p className="text-sm text-muted-foreground">Pagos con Tarjeta:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosConTarjeta, 'Bs.')}</p></div>
+                            <div className="grid grid-cols-3 gap-4">
+                                <div><p className="text-sm text-muted-foreground">Tarjeta de Débito:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosTarjetaDebito, 'Bs.')}</p></div>
+                                <div><p className="text-sm text-muted-foreground">Tarjeta de Crédito:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosTarjetaCredito, 'Bs.')}</p></div>
                                 <div><p className="text-sm text-muted-foreground">Pagos por Transferencia:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosPorTransferencia, 'Bs.')}</p></div>
                             </div>
                             <div className="flex justify-between items-center text-xl p-4 bg-green-600/10 border border-green-600/30 rounded-lg">
@@ -185,5 +187,7 @@ export default function ArqueoCajaPage() {
         </div>
     );
 }
+
+    
 
     
