@@ -93,29 +93,34 @@ export default function LandingPage() {
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
           
-          <nav className="hidden md:flex items-center gap-4">
-             <Button asChild variant="outline">
-              <Link href="/register">Registrarse</Link>
-            </Button>
-            <Button>
-              <a href="#contacto">Contáctanos</a>
-            </Button>
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+            {navLinks.map((link) => (
+              <SmoothScrollLink key={link.label} href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                {link.label}
+              </SmoothScrollLink>
+            ))}
           </nav>
           
           <div className="flex items-center gap-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                  <Button>
-                      <User className="mr-2 h-4 w-4"/>
-                      Acceder
-                  </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="hidden md:flex items-center gap-2">
+                <Button asChild variant="ghost">
+                <Link href="/register">Registrarse</Link>
+                </Button>
+                <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button>
+                        <User className="mr-2 h-4 w-4"/>
+                        Acceder
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
+                </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
+
 
             <Sheet>
               <SheetTrigger asChild>
