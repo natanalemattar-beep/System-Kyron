@@ -21,7 +21,7 @@ export default function LoginRrhhPage() {
             <div className="absolute inset-0 bg-gradient-to-bl from-cyan-900 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
         </div>
         
-      <header className="sticky top-0 z-50 w-full bg-blue-200/30 backdrop-blur-md border-b">
+      <header className="sticky top-0 z-50 w-full bg-slate-900/50 backdrop-blur-md border-b border-white/10">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
@@ -29,7 +29,7 @@ export default function LoginRrhhPage() {
           </Link>
           <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost">
+                    <Button variant="ghost" className="hover:bg-primary/20">
                         Acceder
                         <User className="ml-2 h-4 w-4"/>
                     </Button>

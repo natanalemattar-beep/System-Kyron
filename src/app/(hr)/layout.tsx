@@ -90,5 +90,3 @@ export default function HrLayout({ children }: { children: ReactNode }) {
     </SidebarProvider>
   );
 }
-
-    

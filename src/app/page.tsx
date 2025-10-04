@@ -116,12 +116,16 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-slate-900 overflow-x-hidden">
+      <div className="absolute inset-0 z-0 opacity-50">
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-bl from-cyan-900 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+      </div>
       <header className={cn("sticky top-0 z-50 w-full border-b border-white/10 bg-slate-900/50 backdrop-blur-md transition-transform duration-300", {
           "-translate-y-full": !isHeaderVisible,
       })}>
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <Logo />
+            <Logo className="bg-primary text-primary-foreground" />
             <span className="text-lg font-bold text-white">System C.M.S</span>
           </Link>
           
@@ -139,7 +143,7 @@ export default function LandingPage() {
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                  <Button className="bg-white text-primary hover:bg-slate-200">
+                  <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                       <User className="mr-2 h-4 w-4"/>
                       Acceder
                   </Button>
@@ -173,7 +177,7 @@ export default function LandingPage() {
                         ))}
                     </nav>
                     <div className="mt-auto flex w-full gap-2">
-                       <Button asChild className="w-full bg-white text-primary hover:bg-slate-200">
+                       <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                          <Link href="/register">Registrarse</Link>
                        </Button>
                     </div>
@@ -189,14 +193,14 @@ export default function LandingPage() {
         <section className="relative py-24 md:py-40 flex items-center text-center">
             <div className="container mx-auto px-4 md:px-6 z-10">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-white to-slate-400 bg-clip-text text-transparent animate-in fade-in duration-1000">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-white to-cyan-400 bg-clip-text text-transparent animate-in fade-in duration-1000" style={{textShadow: '0 2px 20px rgba(0, 255, 255, 0.3)'}}>
                         La Gestión Empresarial, Reinventada
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-balance text-slate-300 max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000">
                         Simplifica la contabilidad, la nómina y el cumplimiento normativo con una solución inteligente diseñada para el mercado venezolano.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in-20 slide-in-from-bottom-6 duration-1000">
-                        <Button size="lg" className="bg-white text-primary hover:bg-slate-200" asChild>
+                        <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(0,255,255,0.4)]" asChild>
                             <Link href="/register">
                             Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
                             </Link>
@@ -221,7 +225,7 @@ export default function LandingPage() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                      {services.map((item, i) => (
                         <Card key={item.title} className="bg-slate-800/50 text-white text-center flex flex-col items-center p-8 shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 border border-slate-700">
-                            <div className="p-4 bg-cyan-400/10 text-cyan-400 rounded-full mb-6">
+                            <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
                             <h3 className="text-xl font-semibold ">{item.title}</h3>
@@ -245,7 +249,7 @@ export default function LandingPage() {
               <div className="grid sm:grid-cols-1 gap-6">
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="p-3 bg-cyan-400/10 text-cyan-400 rounded-lg mt-1">
+                    <div className="p-3 bg-primary/10 text-primary rounded-lg mt-1">
                       <feature.icon className="h-6 w-6 shrink-0" />
                     </div>
                     <div>
@@ -281,7 +285,7 @@ export default function LandingPage() {
                      {howItWorksSteps.map((step) => (
                         <div key={step.step} className="relative flex flex-col items-center text-center p-8 bg-slate-800/50 rounded-lg shadow-sm border border-slate-700">
                            <div className="absolute -top-6 bg-slate-900 p-1 rounded-full">
-                             <div className="flex items-center justify-center h-12 w-12 rounded-full bg-cyan-500 text-slate-900 font-bold text-xl">{step.step}</div>
+                             <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-slate-900 font-bold text-xl">{step.step}</div>
                            </div>
                            <h3 className="mt-8 text-xl font-semibold text-white">{step.title}</h3>
                            <p className="mt-2 text-sm text-slate-400">{step.description}</p>
@@ -348,7 +352,7 @@ export default function LandingPage() {
         </section>
 
          {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
+        <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-cyan-500/80 text-white">
             <div className="container mx-auto px-4 md:px-6 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-balance" style={{textShadow: '0 1px 4px rgba(0,0,0,0.2)'}}>Únete a cientos de empresas que ya están optimizando sus procesos.</h2>
                 <Button size="lg" variant="secondary" asChild className="mt-8 bg-white text-primary hover:bg-slate-200 shadow-lg">
@@ -367,23 +371,23 @@ export default function LandingPage() {
                 <Card className="max-w-4xl mx-auto shadow-lg bg-slate-800/50 border border-slate-700 text-white">
                      <CardContent className="p-6 md:p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex items-start gap-4">
-                            <div className="p-3 bg-cyan-400/10 rounded-lg">
-                                <Mail className="h-6 w-6 text-cyan-400"/>
+                            <div className="p-3 bg-primary/10 rounded-lg">
+                                <Mail className="h-6 w-6 text-primary"/>
                             </div>
                             <div>
                                 <h3 className="font-semibold text-lg text-white">Correo Electrónico</h3>
                                 <p className="text-slate-400 text-sm mb-1">Para consultas y demos.</p>
-                                <a href="mailto:contacto@systemcms.com" className="font-medium text-cyan-400 hover:underline">contacto@systemcms.com</a>
+                                <a href="mailto:contacto@systemcms.com" className="font-medium text-primary hover:underline">contacto@systemcms.com</a>
                             </div>
                         </div>
                          <div className="flex items-start gap-4">
-                             <div className="p-3 bg-cyan-400/10 rounded-lg">
-                                <Phone className="h-6 w-6 text-cyan-400"/>
+                             <div className="p-3 bg-primary/10 rounded-lg">
+                                <Phone className="h-6 w-6 text-primary"/>
                             </div>
                             <div>
                                 <h3 className="font-semibold text-lg text-white">Teléfono</h3>
                                 <p className="text-slate-400 text-sm mb-1">Habla con un asesor.</p>
-                                <a href="tel:+584141234567" className="font-medium text-cyan-400 hover:underline">+58 414-1234567</a>
+                                <a href="tel:+584141234567" className="font-medium text-primary hover:underline">+58 414-1234567</a>
                             </div>
                         </div>
                     </CardContent>
