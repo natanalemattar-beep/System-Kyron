@@ -3,10 +3,12 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, CheckCircle, HelpCircle, Puzzle, ThumbsUp, ShieldCheck, ArrowRight } from "lucide-react";
+import { Check, CheckCircle, HelpCircle, Puzzle, ThumbsUp, ShieldCheck, ArrowRight, FileWarning } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 
 const faqItems = [
     {
@@ -52,6 +54,14 @@ export default function SoftwareContablePage() {
           En un entorno donde la inflación y los impuestos son retos constantes, contar con un sistema confiable no es un lujo: es un salvavidas que da control y tranquilidad al empresario.
         </p>
       </header>
+
+      <Alert variant="destructive" className="max-w-4xl mx-auto">
+          <FileWarning className="h-4 w-4"/>
+          <AlertTitle>Advertencia Oficial del SENIAT</AlertTitle>
+          <AlertDescription>
+            Según la <strong>Providencia Administrativa N° SNAT/2024/000121</strong> (Gaceta Oficial N° 43.032), es crucial utilizar únicamente las versiones de software autorizadas. "Las versiones anteriores de estos sistemas y cualquier otra variante de los mismos no incluidos en esta lista <strong>NO ESTÁN AUTORIZADOS</strong>." El uso de software no homologado puede acarrear sanciones.
+          </AlertDescription>
+      </Alert>
 
       {/* Main Sections */}
       <div className="grid lg:grid-cols-3 gap-8">
@@ -192,3 +202,5 @@ export default function SoftwareContablePage() {
     </div>
   );
 }
+
+    
