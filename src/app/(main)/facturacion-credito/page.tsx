@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FilePlus, PlusCircle, Trash2, CreditCard } from "lucide-react";
+import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const clientes = [
     { id: "CLI-001", nombre: "Tech Solutions LLC" },
@@ -67,15 +68,15 @@ export default function FacturacionCreditoPage() {
     }
 
     return (
-        <div className="p-4 md:p-8">
-            <header className="mb-8 flex items-center justify-between">
+        <div className="p-4 md:p-8 space-y-8">
+            <header className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <CreditCard className="h-8 w-8" />
-                        Facturación a Crédito (Cuentas por Cobrar)
+                        Facturación a Crédito y Financiamiento
                     </h1>
                     <p className="text-muted-foreground mt-2">
-                        Genera y gestiona las facturas para tus clientes a crédito.
+                        Genera facturas, gestiona cuentas por cobrar y conoce las plataformas de financiamiento.
                     </p>
                 </div>
                 <Dialog>
@@ -167,6 +168,86 @@ export default function FacturacionCreditoPage() {
 
             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
+                    <CardTitle>Guía de Plataformas de Financiamiento</CardTitle>
+                    <CardDescription>
+                        Información sobre las principales aplicaciones de "Compra Ahora, Paga Después" (BNPL) en Venezuela.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Tabs defaultValue="cashea">
+                        <TabsList className="grid w-full grid-cols-5">
+                            <TabsTrigger value="cashea">Cashea</TabsTrigger>
+                            <TabsTrigger value="zueno">Zueño</TabsTrigger>
+                            <TabsTrigger value="krece">Krece</TabsTrigger>
+                            <TabsTrigger value="rapikom">Rapikom</TabsTrigger>
+                            <TabsTrigger value="popclik">Popclik</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="cashea" className="mt-6">
+                           <Card className="bg-secondary/30">
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2"><Smartphone/> ¿Cómo funciona Cashea?</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                     <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                                        <li><strong>Descarga la app y regístrate:</strong> El usuario debe validar su identidad con su cédula y una selfie.</li>
+                                        <li><strong>Obtén una línea de compra:</strong> Cashea preaprueba un monto en minutos.</li>
+                                        <li><strong>Realiza la compra:</strong> El cliente paga un porcentaje inicial en la tienda y se lleva el producto.</li>
+                                        <li><strong>Paga las cuotas:</strong> El resto se divide en cuotas fijas (generalmente 3) sin intereses, que se pagan cada 14 días desde la app.</li>
+                                    </ol>
+                                     <h4 className="font-semibold pt-2">Beneficios Clave:</h4>
+                                     <ul className="space-y-2">
+                                        <li className="flex items-start gap-2"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5"/> <span><strong>Sin Intereses:</strong> El precio final es el mismo que el precio de contado.</span></li>
+                                        <li className="flex items-start gap-2"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5"/> <span><strong>Club Cashea Más:</strong> Pagar a tiempo acumula puntos para subir de nivel y obtener mejores beneficios (más línea de crédito, más cuotas).</span></li>
+                                     </ul>
+                                </CardContent>
+                           </Card>
+                        </TabsContent>
+                         <TabsContent value="zueno" className="mt-6">
+                             <Card className="bg-secondary/30">
+                                <CardHeader>
+                                    <CardTitle>Zueño</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">Se presenta como una alternativa más flexible que Cashea. La principal diferencia es que <span className="font-semibold text-foreground">el usuario puede elegir el monto de las cuotas y la frecuencia de los pagos</span>, adaptando el plan de financiamiento a su ritmo y capacidad económica.</p>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+                         <TabsContent value="krece" className="mt-6">
+                            <Card className="bg-secondary/30">
+                                <CardHeader>
+                                    <CardTitle>Krece</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">Fue una de las primeras aplicaciones en ofrecer crédito al consumo en Venezuela. Permite financiar la compra de productos, especialmente tecnología como celulares, en varias cuotas.</p>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+                        <TabsContent value="rapikom" className="mt-6">
+                             <Card className="bg-secondary/30">
+                                <CardHeader>
+                                    <CardTitle>Rapikom</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">Otra aplicación que compite directamente en el mercado de "Compra Ahora, Paga Después", ofreciendo servicios de financiamiento y crédito para la compra de diversos productos en el país.</p>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+                         <TabsContent value="popclik" className="mt-6">
+                            <Card className="bg-secondary/30">
+                                <CardHeader>
+                                    <CardTitle>Popclik</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">Es una plataforma que también surgió como una alternativa para financiar compras, permitiendo a los consumidores adquirir productos de forma más accesible a través de un esquema de pagos en cuotas.</p>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+                    </Tabs>
+                </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
                     <CardTitle>Historial de Facturas a Crédito</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -208,4 +289,5 @@ export default function FacturacionCreditoPage() {
             </Card>
         </div>
     );
-}
+
+    
