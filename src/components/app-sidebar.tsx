@@ -81,6 +81,7 @@ const juridicoMainMenuItems = [
   { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
   { href: "/autorizaciones", label: "Autorizaciones", icon: Shield },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
+  { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
 ];
 
 const finanzasContabilidadMenuItems = [
@@ -94,6 +95,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/seguros", label: "Seguros", icon: ShieldCheck },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
+  { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
 ];
 
 const analisisCrecimientoMenuItems = [
@@ -125,7 +127,7 @@ const facturacionMenuItems = [
 ];
 
 const recursosHumanosGestionItems = [
-    { href: "/dashboard-rrhh", label: "Dashboard RRHH", icon: LayoutDashboard },
+    { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
     { href: "/nominas", label: "Nóminas", icon: Users },
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
@@ -153,7 +155,7 @@ const corporativoMenuItems = [
 
 const generalMenuItems = [
   { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-  { href: "/integraciones", label: "Integraciones", icon: Cog },
+  { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
 ];
@@ -194,7 +196,7 @@ const juridicoNavGroups = [
 export function AppSidebar() {
   const pathname = usePathname();
   
-  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href));
+  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path);
   
   if (isHrPath(pathname)) {
@@ -358,9 +360,9 @@ function AppSidebarHr() {
   const pathname = usePathname();
 
   const navGroups = [
-    { title: "Gestión", items: recursosHumanosGestionItems },
-    { title: "Corporativo", items: corporativoMenuItems },
-    { title: "Libros de Registro", items: librosRegistroMenuItems },
+    { title: "Gestión", icon: Briefcase, items: recursosHumanosGestionItems },
+    { title: "Corporativo", icon: BuildingIcon, items: corporativoMenuItems },
+    { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems },
   ]
 
   return (
@@ -380,6 +382,7 @@ function AppSidebarHr() {
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
+                       <group.icon className="h-4 w-4" />
                       {group.title}
                     </div>
                 </AccordionTrigger>

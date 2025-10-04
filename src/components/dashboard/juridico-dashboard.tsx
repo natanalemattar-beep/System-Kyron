@@ -66,10 +66,10 @@ const quickAccessModules = [
 
 export function JuridicoDashboard() {
   return (
-    <div className="space-y-8 p-4 md:p-0 bg-gradient-to-tr from-sky-100 via-blue-200 to-purple-100 dark:from-background dark:to-blue-900/40 bg-[length:200%_200%] animate-gradient-animation -m-4 md:-m-8 rounded-xl min-h-screen">
+    <div className="space-y-8 p-4 md:p-0">
       
       {/* Header */}
-      <div className="px-4 md:px-8 pt-8">
+      <div className="px-4 md:px-8">
         <h1 className="text-3xl font-bold tracking-tight">Bienvenido al Centro de Mando</h1>
         <p className="text-muted-foreground">Tu resumen ejecutivo para una gestión inteligente.</p>
       </div>
@@ -77,7 +77,7 @@ export function JuridicoDashboard() {
       <div className="px-4 md:px-8 space-y-8">
         {/* Critical Status & Quick Actions */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="bg-card/60 backdrop-blur-sm">
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Estado Crítico</CardTitle>
                 </CardHeader>
@@ -96,7 +96,7 @@ export function JuridicoDashboard() {
                     </div>
                 </CardContent>
             </Card>
-            <Card className="bg-card/60 backdrop-blur-sm">
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Acciones Rápidas</CardTitle>
                 </CardHeader>
@@ -121,7 +121,7 @@ export function JuridicoDashboard() {
         <div className="space-y-2">
             <h2 className="text-2xl font-semibold tracking-tight">Pulso Financiero</h2>
             <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-                <Card className="xl:col-span-3 bg-card/60 backdrop-blur-sm">
+                <Card className="xl:col-span-3 bg-card/80 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Ingresos vs. Gastos (Histórico)</CardTitle>
                     </CardHeader>
@@ -157,7 +157,7 @@ export function JuridicoDashboard() {
                 </Card>
                  <div className="space-y-4">
                     {kpiData.map(kpi => (
-                        <Card key={kpi.title} className="bg-card/60 backdrop-blur-sm">
+                        <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-sm font-medium flex items-center gap-2">
                                   <kpi.icon className="h-4 w-4 text-muted-foreground" />
@@ -178,7 +178,7 @@ export function JuridicoDashboard() {
          <div className="space-y-2">
             <h2 className="text-2xl font-semibold tracking-tight">Flujos de Trabajo</h2>
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                 <Card className="bg-card/60 backdrop-blur-sm">
+                 <Card className="bg-card/80 backdrop-blur-sm">
                     <CardHeader><CardTitle>Actividad Reciente</CardTitle></CardHeader>
                     <CardContent>
                         <div className="relative pl-6">
@@ -197,7 +197,7 @@ export function JuridicoDashboard() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="bg-card/60 backdrop-blur-sm">
+                <Card className="bg-card/80 backdrop-blur-sm">
                     <CardHeader><CardTitle>Vencimientos Próximos</CardTitle></CardHeader>
                     <CardContent>
                         <ul className="space-y-4">
@@ -214,7 +214,7 @@ export function JuridicoDashboard() {
                         </ul>
                     </CardContent>
                 </Card>
-                <Card className="bg-card/60 backdrop-blur-sm">
+                <Card className="bg-card/80 backdrop-blur-sm">
                     <CardHeader><CardTitle>Acceso Rápido a Módulos</CardTitle></CardHeader>
                     <CardContent className="space-y-4">
                         {quickAccessModules.map((mod, index) => (
