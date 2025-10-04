@@ -59,7 +59,7 @@ export default function SoftwareContablePage() {
           <FileWarning className="h-4 w-4"/>
           <AlertTitle>Advertencia Oficial del SENIAT</AlertTitle>
           <AlertDescription>
-            Según la <strong>Providencia Administrativa N° SNAT/2024/000121</strong> (Gaceta Oficial N° 43.032), es crucial utilizar únicamente las versiones de software autorizadas. "Las versiones anteriores de estos sistemas y cualquier otra variante de los mismos no incluidos en esta lista <strong>NO ESTÁN AUTORIZADOS</strong>." El uso de software no homologado puede acarrear sanciones.
+            Según la <strong>Providencia Administrativa N° SNAT/2024/000121</strong> (Gaceta Oficial N° 43.032), solo están autorizados los Software Homologados y sus versiones específicas. "Las versiones anteriores de estos sistemas y cualquier otra variante de los mismos no incluidos en esta lista <strong>NO ESTÁN AUTORIZADOS</strong>." El uso de software no homologado puede acarrear sanciones.
           </AlertDescription>
       </Alert>
 
@@ -202,5 +202,3 @@ export default function SoftwareContablePage() {
     </div>
   );
 }
-
-    
