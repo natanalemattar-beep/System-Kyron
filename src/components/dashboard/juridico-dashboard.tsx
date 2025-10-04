@@ -76,7 +76,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameT
 
 export function JuridicoDashboard() {
   return (
-    <div className="space-y-8 p-4 md:p-0 bg-gradient-to-tr from-sky-100/30 to-blue-200/30 dark:from-background dark:to-blue-900/20 -m-4 md:-m-8 rounded-xl min-h-screen">
+    <div className="space-y-8 p-4 md:p-0 bg-gradient-to-tr from-sky-100 via-blue-200 to-purple-100 dark:from-background dark:to-blue-900/40 bg-[length:200%_200%] animate-gradient-animation -m-4 md:-m-8 rounded-xl min-h-screen">
       
       {/* Header */}
       <div className="px-4 md:px-8 pt-8">
