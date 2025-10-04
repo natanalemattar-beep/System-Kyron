@@ -18,7 +18,7 @@ export default function LoginNaturalPage() {
   return (
     <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-200 bg-[length:200%_200%] animate-gradient-animation">
         
-      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
+      <header className="sticky top-0 z-50 w-full bg-blue-200/30 backdrop-blur-md border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
@@ -95,3 +95,5 @@ export default function LoginNaturalPage() {
     </div>
   );
 }
+
+    

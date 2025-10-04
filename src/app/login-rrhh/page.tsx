@@ -19,7 +19,7 @@ export default function LoginRrhhPage() {
         {/* Background Gradient */}
         
 
-      <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
+      <header className="sticky top-0 z-50 w-full bg-blue-200/30 backdrop-blur-md border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
@@ -92,3 +92,5 @@ export default function LoginRrhhPage() {
     </div>
   );
 }
+
+    

@@ -86,7 +86,7 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen text-foreground overflow-x-hidden">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 w-full border-b bg-blue-200/30 backdrop-blur-md">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
@@ -381,5 +381,7 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
 
     
