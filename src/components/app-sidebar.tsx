@@ -97,6 +97,9 @@ const finanzasContabilidadMenuItems = [
   { href: "/cumplimiento", label: "Cumplimiento Normativo", icon: ShieldAlert },
   { href: "/cumplimiento-fiscal", label: "Cumplimiento Fiscal", icon: ShieldCheck },
   { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
+  { href: "/inventario", label: "Inventario", icon: Archive },
+  { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
+  { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
   { href: "/seguros", label: "Seguros", icon: ShieldCheck },
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
@@ -120,20 +123,20 @@ const analisisCrecimientoMenuItems = [
     { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
 ];
 
-const facturacionMenuItems = [
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+const facturacionGeneralMenuItems = [
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/facturacion", label: "Facturación", icon: FileText },
     { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
-    { href: "/inventario", label: "Inventario", icon: Archive },
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
     { href: "/importaciones", label: "Importaciones", icon: Ship },
-    { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
-    { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
-    { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
     { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
     { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
+];
+
+const ventasMenuItems = [
+    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+    { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
 ];
 
 const recursosHumanosGestionItems = [
@@ -198,13 +201,13 @@ const juridicoNavGroups = [
     { title: "Jurídico", icon: Gavel, items: juridicoMainMenuItems },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
     { title: "Análisis y Crecimiento", icon: TrendingUp, items: analisisCrecimientoMenuItems },
+    { title: "Facturación General", icon: FileText, items: facturacionGeneralMenuItems },
     { title: "Soluciones con IA", icon: BrainCircuit, items: iaMenuItems },
-    { title: "Facturación", icon: FileText, items: facturacionMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
 
 const ventasNavGroups = [
-    { title: "Facturación", icon: FileText, items: facturacionMenuItems },
+    { title: "Ventas", icon: ShoppingCart, items: ventasMenuItems },
 ];
 
 
@@ -452,7 +455,7 @@ function AppSidebarVentas() {
   const pathname = usePathname();
 
   const navGroups = [
-    { title: "Facturación", icon: FileText, items: facturacionMenuItems },
+    { title: "Ventas", icon: ShoppingCart, items: ventasMenuItems },
   ]
 
   return (
@@ -467,7 +470,7 @@ function AppSidebarVentas() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-        <Accordion type="multiple" className="w-full" defaultValue={['Facturación']}>
+        <Accordion type="multiple" className="w-full" defaultValue={['Ventas']}>
             {navGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
