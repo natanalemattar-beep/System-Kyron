@@ -34,7 +34,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <Link href="/dashboard"><User className="mr-2"/>Perfil</Link>
+                    <Link href="/dashboard-juridico"><User className="mr-2"/>Perfil</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <Link href="/seguridad"><Settings className="mr-2"/>Ajustes</Link>
