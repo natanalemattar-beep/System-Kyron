@@ -57,6 +57,7 @@ import {
   RefreshCw,
   ShieldAlert,
   Bot,
+  Scale,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -426,3 +427,5 @@ function AppSidebarHr() {
     </Sidebar>
   );
 }
+
+    
