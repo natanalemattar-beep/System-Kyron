@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { User, Menu, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Building, Layers, Cpu, Users, BarChart, ShieldCheck } from "lucide-react";
@@ -12,6 +13,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { AnchorHTMLAttributes, FC } from 'react';
 import { Logo } from "@/components/logo";
+import { cn } from "@/lib/utils";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -82,11 +84,36 @@ export default function LandingPage() {
     const aboutImage = PlaceHolderImages.find((img) => img.id === "about-us-image");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
+    
+    const [isHeaderVisible, setHeaderVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down
+                setHeaderVisible(false);
+            } else {
+                // Scrolling up
+                setHeaderVisible(true);
+            }
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [lastScrollY]);
 
 
   return (
     <div className="flex flex-col min-h-screen text-foreground overflow-x-hidden">
-      <header className="sticky top-0 z-50 w-full border-b bg-blue-200/30 backdrop-blur-md">
+      <header className={cn("sticky top-0 z-50 w-full border-b bg-blue-200/30 backdrop-blur-md transition-transform duration-300", {
+          "-translate-y-full": !isHeaderVisible,
+      })}>
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />

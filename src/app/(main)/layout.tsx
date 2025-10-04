@@ -1,5 +1,8 @@
 
+"use client";
+
 import type { ReactNode } from "react";
+import { useState, useEffect } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,13 +11,40 @@ import { Bell, LogOut, Settings, User } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 export default function AppLayout({ children }: { children: ReactNode }) {
+  const [isHeaderVisible, setHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const mainContent = document.querySelector('main');
+    if (!mainContent) return;
+    
+    const handleScroll = () => {
+        const currentScrollY = mainContent.scrollTop;
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            setHeaderVisible(false);
+        } else {
+            setHeaderVisible(true);
+        }
+        setLastScrollY(currentScrollY);
+    };
+
+    mainContent.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+        mainContent.removeEventListener('scroll', handleScroll);
+    };
+}, [lastScrollY]);
+
   return (
     <SidebarProvider defaultOpen={true}>
       <AppSidebar />
       <SidebarInset>
-         <header className="p-4 flex justify-between items-center border-b sticky top-0 z-10 h-16 px-6 md:px-8 bg-blue-200/30 backdrop-blur-md">
+         <header className={cn("p-4 flex justify-between items-center border-b bg-blue-200/30 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8 transition-transform duration-300", {
+           "-translate-y-full": !isHeaderVisible
+         })}>
            <div className="flex items-center gap-4">
             <SidebarTrigger />
            </div>
