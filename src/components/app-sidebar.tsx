@@ -68,7 +68,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarGroup,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -206,6 +205,7 @@ export function AppSidebar() {
     return <AppSidebarNatural />;
   }
 
+  const defaultOpenValues = juridicoNavGroups.map(g => g.title);
 
   return (
     <Sidebar>
@@ -219,7 +219,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-          <Accordion type="multiple" defaultValue={juridicoNavGroups.map(g => g.title)} className="w-full">
+          <Accordion type="multiple" defaultValue={defaultOpenValues} className="w-full">
             {juridicoNavGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
