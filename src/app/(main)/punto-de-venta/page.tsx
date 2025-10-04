@@ -42,7 +42,7 @@ type CartItem = {
 
 type Currency = "Bs." | "USD" | "EUR";
 type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Zelle" | "Efectivo";
-type OperationType = "Venta Inmediata" | "Abono a Factura de Crédito" | "Venta con Financiamiento";
+type OperationType = "Venta Inmediata" | "Factura a Crédito sin Abono" | "Venta con Financiamiento";
 
 const exchangeRates: Record<Currency, number> = {
     "Bs.": 40.0, // Tasa de referencia Bs. por USD
@@ -318,7 +318,7 @@ export default function PuntoDeVentaPage() {
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="Venta Inmediata">Venta Inmediata</SelectItem>
-                                        <SelectItem value="Abono a Factura de Crédito">Abono a Factura de Crédito</SelectItem>
+                                        <SelectItem value="Factura a Crédito sin Abono">Factura a Crédito sin Abono</SelectItem>
                                         <SelectItem value="Venta con Financiamiento">Venta con Financiamiento (Cashea, etc)</SelectItem>
                                     </SelectContent>
                                 </Select>
