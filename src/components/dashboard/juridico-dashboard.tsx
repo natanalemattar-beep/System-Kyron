@@ -23,7 +23,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
-import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 
 const kpiData = [
   { title: "Flujo de Caja Neto (Mes)", value: formatCurrency(12850.75), icon: DollarSign, trend: "+10% vs mes anterior", trendColor: "text-green-500" },
@@ -39,6 +39,17 @@ const financialChartData = [
   { month: "Jun", ingresos: 55000, gastos: 37000 },
   { month: "Jul", ingresos: 62000, gastos: 41000 },
 ];
+
+const chartConfig = {
+  ingresos: {
+    label: "Ingresos",
+    color: "hsl(var(--primary))",
+  },
+  gastos: {
+    label: "Gastos",
+    color: "hsl(var(--destructive))",
+  },
+} satisfies ChartConfig;
 
 const recentActivities = [
   { time: "Hace 15 min", description: "Se generó la Factura #V-2024-0589 para 'Constructora XYZ'." },
@@ -122,7 +133,7 @@ export function JuridicoDashboard() {
                         <CardTitle>Ingresos vs. Gastos (Últimos 6 meses)</CardTitle>
                     </CardHeader>
                     <CardContent className="h-80">
-                         <ResponsiveContainer width="100%" height="100%">
+                         <ChartContainer config={chartConfig} className="w-full h-full">
                             <AreaChart data={financialChartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                 <defs>
                                     <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
@@ -137,12 +148,18 @@ export function JuridicoDashboard() {
                                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
                                 <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
                                 <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${formatCurrency(value as number, 'Bs.')[0]}k`} />
-                                <ChartTooltip content={<ChartTooltipContent formatter={(value, name) => `${name === 'ingresos' ? 'Ingresos' : 'Gastos'}: ${formatCurrency(value as number)}`} />} />
+                                <ChartTooltip 
+                                    cursor={false}
+                                    content={<ChartTooltipContent 
+                                        indicator="dot" 
+                                        formatter={(value, name) => formatCurrency(value as number, 'Bs.')} 
+                                    />} 
+                                />
                                 <Legend />
                                 <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
                                 <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
                             </AreaChart>
-                        </ResponsiveContainer>
+                        </ChartContainer>
                     </CardContent>
                 </Card>
                  <div className="space-y-4">
