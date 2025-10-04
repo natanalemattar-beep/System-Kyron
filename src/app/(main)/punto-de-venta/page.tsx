@@ -25,7 +25,11 @@ const products = [
     { id: 8, name: "Café Americano", price: 3.00, barcode: "8591234567897" },
 ];
 
-const cashiers = ["Ana Pérez", "Luis Gómez", "Carlos Sánchez"];
+const cashiers = [
+    "Cajero 1", "Cajero 2", "Cajero 3", "Cajero 4", "Cajero 5",
+    "Cajero 6", "Cajero 7", "Cajero 8", "Cajero 9", "Cajero 10"
+];
+
 
 type CartItem = {
     id: number;
