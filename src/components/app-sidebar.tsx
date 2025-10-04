@@ -125,6 +125,7 @@ const analisisCrecimientoMenuItems = [
 
 const facturacionGeneralMenuItems = [
     { href: "/proformas", label: "Proformas", icon: Receipt },
+    { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
     { href: "/facturacion", label: "Facturación", icon: FileText },
     { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
