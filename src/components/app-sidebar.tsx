@@ -219,39 +219,40 @@ export function AppSidebar() {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-0">
-        <Accordion type="multiple" className="w-full" defaultValue={['Jurídico', 'Finanzas y Contabilidad', 'Análisis y Crecimiento', 'Facturación', 'General', 'Soluciones con IA']}>
-            {juridicoNavGroups.map((group) => {
-              return (
-                <AccordionItem value={group.title} key={group.title} className="border-none">
-                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
-                        <div className="flex items-center gap-2 text-sm font-medium">
-                            <group.icon className="h-4 w-4" />
-                            {group.title}
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-0">
-                        <SidebarMenu className="pl-4 border-l ml-4 py-2">
-                            {group.items.map((item) => (
-                            <SidebarMenuItem key={item.href}>
-                                <SidebarMenuButton
-                                asChild
-                                isActive={pathname.startsWith(item.href)}
-                                tooltip={item.label}
-                                className="justify-start h-8"
-                                >
-                                <Link href={item.href}>
-                                    <item.icon className="h-4 w-4" />
-                                    <span>{item.label}</span>
-                                </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </AccordionContent>
-                </AccordionItem>
-            )})}
-        </Accordion>
+      <SidebarContent className="p-2">
+        {juridicoNavGroups.map((group) => (
+          <SidebarGroup key={group.title} className="p-0">
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1" className="border-none">
+                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
+                   <div className="flex items-center gap-2">
+                      <group.icon className="h-4 w-4" />
+                      {group.title}
+                    </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                    {group.items.map((item) => (
+                      <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(item.href)}
+                          tooltip={item.label}
+                          className="justify-start h-8"
+                        >
+                          <Link href={item.href}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
@@ -300,38 +301,40 @@ function AppSidebarNatural() {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-0">
-         <Accordion type="multiple" className="w-full" defaultValue={['Principal', 'Trámites Civiles', 'Gestión CRS']}>
-            {naturalNavGroups.map((group) => (
-                <AccordionItem value={group.title} key={group.title} className="border-none">
-                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
-                        <div className="flex items-center gap-2 text-sm font-medium">
-                            <group.icon className="h-4 w-4" />
-                            {group.title}
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-0">
-                        <SidebarMenu className="pl-4 border-l ml-4 py-2">
-                            {group.items.map((item) => (
-                            <SidebarMenuItem key={item.href}>
-                                <SidebarMenuButton
-                                asChild
-                                isActive={isActive(item.href)}
-                                tooltip={item.label}
-                                className="justify-start h-8"
-                                >
-                                <Link href={item.href}>
-                                    <item.icon className="h-4 w-4" />
-                                    <span>{item.label}</span>
-                                </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </AccordionContent>
-                </AccordionItem>
-            ))}
-        </Accordion>
+       <SidebarContent className="p-2">
+        {naturalNavGroups.map((group) => (
+          <SidebarGroup key={group.title} className="p-0">
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1" className="border-none">
+                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
+                   <div className="flex items-center gap-2">
+                      <group.icon className="h-4 w-4" />
+                      {group.title}
+                    </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                    {group.items.map((item) => (
+                      <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={isActive(item.href)}
+                          tooltip={item.label}
+                          className="justify-start h-8"
+                        >
+                          <Link href={item.href}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
@@ -378,37 +381,39 @@ function AppSidebarHr() {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-0">
-         <Accordion type="multiple" className="w-full" defaultValue={['Gestión', 'Corporativo', 'Libros de Registro']}>
-            {navGroups.map((group) => (
-                <AccordionItem value={group.title} key={group.title} className="border-none">
-                    <AccordionTrigger className="px-2 hover:no-underline hover:bg-accent text-muted-foreground border-b">
-                        <div className="flex items-center gap-2 text-sm font-medium">
-                            {group.title}
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-0">
-                        <SidebarMenu className="pl-4 border-l ml-4 py-2">
-                            {group.items.map((item) => (
-                            <SidebarMenuItem key={item.href}>
-                                <SidebarMenuButton
-                                asChild
-                                isActive={pathname.startsWith(item.href)}
-                                tooltip={item.label}
-                                className="justify-start h-8"
-                                >
-                                <Link href={item.href}>
-                                    <item.icon className="h-4 w-4" />
-                                    <span>{item.label}</span>
-                                </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
-                    </AccordionContent>
-                </AccordionItem>
-            ))}
-        </Accordion>
+       <SidebarContent className="p-2">
+        {navGroups.map((group) => (
+          <SidebarGroup key={group.title} className="p-0">
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1" className="border-none">
+                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
+                   <div className="flex items-center gap-2">
+                      {group.title}
+                    </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                    {group.items.map((item) => (
+                      <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(item.href)}
+                          tooltip={item.label}
+                          className="justify-start h-8"
+                        >
+                          <Link href={item.href}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
