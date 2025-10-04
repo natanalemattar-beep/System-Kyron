@@ -25,9 +25,9 @@ export default function LoginJuridicoPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-blue-300 text-foreground relative overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-sky-100 text-foreground relative overflow-hidden">
       {/* Background Gradient */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] animate-soft-pulse rounded-full bg-blue-400 blur-3xl -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] animate-soft-pulse rounded-full bg-sky-300 blur-3xl -z-10" />
 
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
