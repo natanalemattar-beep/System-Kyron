@@ -4,7 +4,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Scale, Search, FileDown, BookOpen, Newspaper } from "lucide-react";
+import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const jurisprudencia = [
@@ -43,6 +43,24 @@ const gacetasOficiales = [
         titulo: "Gaceta Oficial N° 43.031 - Calendario de Sujetos Pasivos Especiales 2025",
         fecha: "18/12/2024",
         resumen: "Se publican las fechas y plazos para las obligaciones tributarias de los Sujetos Pasivos Especiales durante el año 2025.",
+    }
+];
+
+const providenciasSeniat = [
+    {
+        id: "SNAT/2011/0071",
+        titulo: "Providencia sobre Emisión de Facturas",
+        resumen: "Establece las normas generales para la emisión de facturas y otros documentos fiscales, regulando los medios de emisión (formatos, formas libres y máquinas fiscales)."
+    },
+    {
+        id: "SNAT/2018/0141",
+        titulo: "Providencia sobre Sujetos Pasivos Especiales",
+        resumen: "Define los criterios para la calificación de los contribuyentes como Sujetos Pasivos Especiales y establece sus obligaciones específicas."
+    },
+    {
+        id: "SNAT/2015/0049",
+        titulo: "Providencia sobre Retenciones de IVA",
+        resumen: "Regula el régimen de retenciones del Impuesto al Valor Agregado, designando a los agentes de retención y estableciendo los porcentajes aplicables."
     }
 ];
 
@@ -115,6 +133,40 @@ export default function RecursosFiscalesPage() {
             ))}
         </CardContent>
       </Card>
+      
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle>Providencias Administrativas del SENIAT</CardTitle>
+          <CardDescription>
+            Normativas clave que regulan las obligaciones tributarias en Venezuela.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-6">
+            {providenciasSeniat.map(item => (
+                 <Card key={item.id} className="bg-secondary/50">
+                    <CardHeader>
+                        <CardTitle className="text-lg flex justify-between items-start">
+                           <span className="flex items-center gap-3"><FileWarning className="h-5 w-5"/>{item.titulo}</span>
+                           <span className="text-sm font-mono text-muted-foreground">{item.id}</span>
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground mb-4">{item.resumen}</p>
+                        <div className="flex gap-2">
+                             <Button variant="outline">
+                                <BookOpen className="mr-2" />
+                                Ver Documento Completo
+                            </Button>
+                             <Button variant="secondary" onClick={() => handleDownload(item.id)}>
+                                <FileDown className="mr-2" />
+                                Descargar PDF
+                            </Button>
+                        </div>
+                    </CardContent>
+                </Card>
+            ))}
+        </CardContent>
+      </Card>
 
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
@@ -158,3 +210,6 @@ export default function RecursosFiscalesPage() {
 
 
 
+
+
+    
