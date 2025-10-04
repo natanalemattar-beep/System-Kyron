@@ -25,9 +25,9 @@ export default function LoginJuridicoPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-sky-100 text-foreground relative overflow-hidden">
+    <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-gradient-to-br from-sky-100 to-blue-200 bg-[length:200%_200%] animate-gradient-animation">
       {/* Background Gradient */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] animate-soft-pulse rounded-full bg-sky-300 blur-3xl -z-10" />
+      
 
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
@@ -47,7 +47,7 @@ export default function LoginJuridicoPage() {
                         <Link href="/login-natural">Acceso Natural</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                        <Link href="/login-juridico">Acceso Jurídico</Link>
+                        <Link href="/login-juridico">Acceso Juridico</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href="/login-rrhh">Acceso RR.HH.</Link>

@@ -76,21 +76,11 @@ export default {
           "50%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
         },
-         "pulse-slow": {
-          "0%, 100%": { transform: 'scale(1)', boxShadow: '0 0 0 0 hsl(var(--primary) / 0.7)' },
-          "50%": { transform: 'scale(1.05)', boxShadow: '0 0 0 10px hsl(var(--primary) / 0)' },
-        },
-        "soft-pulse": {
-            "0%, 100%": { transform: 'scale(1)', opacity: '0.4' },
-            "50%": { transform: 'scale(1.2)', opacity: '0.6' },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "gradient-animation": "gradient-animation 15s ease infinite",
-        "pulse-slow": "pulse-slow 3s infinite",
-        "soft-pulse": "soft-pulse 8s infinite ease-in-out",
       },
     },
   },

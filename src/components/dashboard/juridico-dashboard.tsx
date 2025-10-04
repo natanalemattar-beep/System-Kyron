@@ -82,9 +82,9 @@ export function JuridicoDashboard() {
                     <CardTitle>Estado Crítico</CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-3 gap-4 text-center">
-                    <div className="p-4 rounded-lg bg-warning/10 border border-warning/20">
-                        <h3 className="text-4xl font-bold text-warning">8</h3>
-                        <p className="text-sm font-semibold text-warning/80">Por Vencer</p>
+                    <div className="p-4 rounded-lg bg-orange-400/10 border border-orange-400/20">
+                        <h3 className="text-4xl font-bold text-orange-400">8</h3>
+                        <p className="text-sm font-semibold text-orange-400/80">Por Vencer</p>
                     </div>
                      <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
                         <h3 className="text-4xl font-bold text-blue-500">12</h3>
@@ -203,7 +203,7 @@ export function JuridicoDashboard() {
                         <ul className="space-y-4">
                             {upcomingDeadlines.map((deadline, index) => (
                                 <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
-                                    <CalendarClock className="h-6 w-6 text-warning shrink-0" />
+                                    <CalendarClock className="h-6 w-6 text-orange-400 shrink-0" />
                                     <div className="flex-1">
                                         <p className="text-sm font-semibold truncate">{deadline.description}</p>
                                         <p className="text-xs">Vence en {deadline.days} días</p>
