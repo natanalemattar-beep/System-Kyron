@@ -16,7 +16,11 @@ export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-gradient-to-br from-blue-100 to-indigo-200 bg-[length:200%_200%] animate-gradient-animation">
+    <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0 opacity-40">
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-800 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute inset-0 bg-gradient-to-bl from-cyan-800 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+        </div>
         
       <header className="sticky top-0 z-50 w-full bg-blue-200/30 backdrop-blur-md border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
@@ -95,5 +99,3 @@ export default function LoginNaturalPage() {
     </div>
   );
 }
-
-    

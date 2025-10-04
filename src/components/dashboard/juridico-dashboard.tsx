@@ -3,12 +3,10 @@
 
 import {
   Activity,
-  AlertTriangle,
   ArrowRight,
   BookOpen,
   Calculator,
   CalendarClock,
-  CircleDashed,
   DollarSign,
   FilePlus,
   FileText,
@@ -17,9 +15,8 @@ import {
   ShieldAlert,
   Users
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
@@ -28,9 +25,9 @@ import { historicalFinancialData } from "@/lib/historical-financial-data";
 
 
 const kpiData = [
-  { title: "Flujo de Caja Neto (Mes)", value: formatCurrency(12850.75, 'Bs.'), icon: DollarSign, trend: "+10% vs mes anterior", trendColor: "text-green-500" },
-  { title: "Margen de Utilidad Bruta", value: "45.2%", icon: Percent, trend: "+2% vs mes anterior", trendColor: "text-green-500" },
-  { title: "Ticket Promedio de Venta", value: formatCurrency(185.30, 'Bs.'), icon: FileText, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
+  { title: "Ingresos Totales (Mes)", value: formatCurrency(62000, 'Bs.'), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
+  { title: "Ticket Promedio", value: formatCurrency(185.30, 'Bs.'), icon: FileText, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
+  { title: "Rotación de Inventario", value: "4.2", icon: Activity, trend: "ciclos este mes", trendColor: "text-green-500" },
 ];
 
 const chartConfig = {
@@ -66,112 +63,70 @@ const quickAccessModules = [
 
 export function JuridicoDashboard() {
   return (
-    <div className="space-y-8 p-4 md:p-0">
+    <div className="space-y-8">
       
       {/* Header */}
-      <div className="px-4 md:px-8">
+      <div>
         <h1 className="text-3xl font-bold tracking-tight">Bienvenido al Centro de Mando</h1>
         <p className="text-muted-foreground">Tu resumen ejecutivo para una gestión inteligente.</p>
       </div>
 
-      <div className="px-4 md:px-8 space-y-8">
-        {/* Critical Status & Quick Actions */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="bg-card/80 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle>Estado Crítico</CardTitle>
-                </CardHeader>
-                <CardContent className="grid grid-cols-3 gap-4 text-center">
-                    <div className="p-4 rounded-lg bg-orange-400/10 border border-orange-400/20">
-                        <h3 className="text-4xl font-bold text-orange-400">8</h3>
-                        <p className="text-sm font-semibold text-orange-400/80">Por Vencer</p>
-                    </div>
-                     <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                        <h3 className="text-4xl font-bold text-blue-500">12</h3>
-                        <p className="text-sm font-semibold text-blue-500/80">Pendientes</p>
-                    </div>
-                    <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-                        <h3 className="text-4xl font-bold text-destructive">3</h3>
-                        <p className="text-sm font-semibold text-destructive/80">Vencido</p>
-                    </div>
-                </CardContent>
-            </Card>
-            <Card className="bg-card/80 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle>Acciones Rápidas</CardTitle>
-                </CardHeader>
-                <CardContent className="grid grid-cols-3 gap-4">
-                     <Button variant="outline" className="flex flex-col h-20 gap-1">
-                        <BookOpen className="h-6 w-6"/>
-                        <span className="text-xs">Registrar Asiento</span>
-                    </Button>
-                    <Button variant="outline" className="flex flex-col h-20 gap-1">
-                        <FilePlus className="h-6 w-6"/>
-                        <span className="text-xs">Nueva Factura</span>
-                    </Button>
-                    <Button variant="outline" className="flex flex-col h-20 gap-1">
-                        <Calculator className="h-6 w-6"/>
-                        <span className="text-xs">Calcular Nómina</span>
-                    </Button>
-                </CardContent>
-            </Card>
+      <div className="space-y-8">
+        {/* KPIs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {kpiData.map(kpi => (
+              <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
+                  <CardHeader className="pb-2">
+                      <CardTitle className="text-sm font-medium flex items-center gap-2">
+                        <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                        {kpi.title}
+                      </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                      <p className="text-2xl font-bold">{kpi.value}</p>
+                      <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
+                  </CardContent>
+              </Card>
+          ))}
         </div>
 
         {/* Financial Pulse */}
         <div className="space-y-2">
             <h2 className="text-2xl font-semibold tracking-tight">Pulso Financiero</h2>
-            <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-                <Card className="xl:col-span-3 bg-card/80 backdrop-blur-sm">
-                    <CardHeader>
-                        <CardTitle>Ingresos vs. Gastos (Histórico)</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-80">
-                         <ChartContainer config={chartConfig} className="w-full h-full">
-                            <AreaChart data={historicalFinancialData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                                <defs>
-                                    <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                                    </linearGradient>
-                                    <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
-                                        <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
-                                    </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
-                                <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                                <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${(value as number) / 1000}k`} />
-                                <ChartTooltip 
-                                    cursor={false}
-                                    content={<ChartTooltipContent 
-                                        indicator="dot" 
-                                        formatter={(value) => formatCurrency(value as number, 'Bs.')} 
-                                    />} 
-                                />
-                                <Legend />
-                                <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
-                                <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
-                            </AreaChart>
-                        </ChartContainer>
-                    </CardContent>
-                </Card>
-                 <div className="space-y-4">
-                    {kpiData.map(kpi => (
-                        <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
-                            <CardHeader className="pb-2">
-                                <CardTitle className="text-sm font-medium flex items-center gap-2">
-                                  <kpi.icon className="h-4 w-4 text-muted-foreground" />
-                                  {kpi.title}
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-2xl font-bold">{kpi.value}</p>
-                                <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
-                            </CardContent>
-                        </Card>
-                    ))}
-                 </div>
-            </div>
+            <Card className="bg-card/80 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Ingresos vs. Gastos (Últimos 12 meses)</CardTitle>
+                </CardHeader>
+                <CardContent className="h-80">
+                      <ChartContainer config={chartConfig} className="w-full h-full">
+                        <AreaChart data={historicalFinancialData.slice(-12)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <defs>
+                                <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                                </linearGradient>
+                                <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
+                                    <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
+                                </linearGradient>
+                            </defs>
+                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+                            <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${(value as number) / 1000}k`} />
+                            <ChartTooltip 
+                                cursor={false}
+                                content={<ChartTooltipContent 
+                                    indicator="dot" 
+                                    formatter={(value) => formatCurrency(value as number, 'Bs.')} 
+                                />} 
+                            />
+                            <Legend />
+                            <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
+                            <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
+                        </AreaChart>
+                    </ChartContainer>
+                </CardContent>
+            </Card>
         </div>
 
         {/* Operational Streams */}
@@ -214,19 +169,38 @@ export function JuridicoDashboard() {
                         </ul>
                     </CardContent>
                 </Card>
-                <Card className="bg-card/80 backdrop-blur-sm">
-                    <CardHeader><CardTitle>Acceso Rápido a Módulos</CardTitle></CardHeader>
-                    <CardContent className="space-y-4">
-                        {quickAccessModules.map((mod, index) => (
-                            <Button key={index} asChild variant="outline" className="w-full justify-start h-14 text-base">
-                                <Link href={mod.href}>
-                                    <mod.icon className="mr-3 h-5 w-5"/>
-                                    {mod.label}
-                                </Link>
+                 <div className="space-y-8">
+                    <Card className="bg-card/80 backdrop-blur-sm">
+                        <CardHeader><CardTitle>Acciones Rápidas</CardTitle></CardHeader>
+                        <CardContent className="grid grid-cols-3 gap-4">
+                              <Button variant="outline" className="flex flex-col h-20 gap-1">
+                                <BookOpen className="h-6 w-6"/>
+                                <span className="text-xs">Registrar Asiento</span>
                             </Button>
-                        ))}
-                    </CardContent>
-                </Card>
+                            <Button variant="outline" className="flex flex-col h-20 gap-1">
+                                <FilePlus className="h-6 w-6"/>
+                                <span className="text-xs">Nueva Factura</span>
+                            </Button>
+                            <Button variant="outline" className="flex flex-col h-20 gap-1">
+                                <Calculator className="h-6 w-6"/>
+                                <span className="text-xs">Calcular Nómina</span>
+                            </Button>
+                        </CardContent>
+                    </Card>
+                     <Card className="bg-card/80 backdrop-blur-sm">
+                        <CardHeader><CardTitle>Acceso Rápido a Módulos</CardTitle></CardHeader>
+                        <CardContent className="space-y-4">
+                            {quickAccessModules.map((mod, index) => (
+                                <Button key={index} asChild variant="outline" className="w-full justify-start h-14 text-base">
+                                    <Link href={mod.href}>
+                                        <mod.icon className="mr-3 h-5 w-5"/>
+                                        {mod.label}
+                                    </Link>
+                                </Button>
+                            ))}
+                        </CardContent>
+                    </Card>
+                </div>
              </div>
         </div>
 
