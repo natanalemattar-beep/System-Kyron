@@ -205,8 +205,6 @@ export function AppSidebar() {
     return <AppSidebarNatural />;
   }
 
-  const defaultOpenValues = juridicoNavGroups.map(g => g.title);
-
   return (
     <Sidebar>
       <SidebarHeader>
@@ -219,7 +217,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-          <Accordion type="multiple" defaultValue={defaultOpenValues} className="w-full">
+          <Accordion type="multiple" className="w-full">
             {juridicoNavGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
@@ -280,8 +278,6 @@ function AppSidebarNatural() {
       { title: "Gestión CRS", icon: HeartHandshake, items: naturalMenuItems.crs },
   ];
   
-  const defaultOpenValues = naturalNavGroups.map(g => g.title);
-
   const isActive = (href: string) => {
     if (href === "/dashboard") {
       return pathname === href;
@@ -301,7 +297,7 @@ function AppSidebarNatural() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-          <Accordion type="multiple" defaultValue={defaultOpenValues} className="w-full">
+          <Accordion type="multiple" className="w-full">
             {naturalNavGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
@@ -366,7 +362,6 @@ function AppSidebarHr() {
     { title: "Corporativo", items: corporativoMenuItems },
     { title: "Libros de Registro", items: librosRegistroMenuItems },
   ]
-  const defaultOpenValues = navGroups.map(g => g.title);
 
   return (
     <Sidebar>
@@ -380,7 +375,7 @@ function AppSidebarHr() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-        <Accordion type="multiple" defaultValue={defaultOpenValues} className="w-full">
+        <Accordion type="multiple" className="w-full">
             {navGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
