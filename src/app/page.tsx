@@ -102,25 +102,22 @@ export default function LandingPage() {
           </nav>
           
           <div className="flex items-center gap-2">
-            <div className="hidden md:flex items-center gap-2">
-                <Button asChild variant="ghost">
-                <Link href="/register">Registrarse</Link>
-                </Button>
-                <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button>
-                        <User className="mr-2 h-4 w-4"/>
-                        Acceder
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
-                    <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
-                    <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
-                </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
-
+            <Button asChild variant="ghost" className="hidden md:inline-flex">
+              <Link href="/register">Registrarse</Link>
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                  <Button>
+                      <User className="mr-2 h-4 w-4"/>
+                      Acceder
+                  </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <Sheet>
               <SheetTrigger asChild>
@@ -147,19 +144,6 @@ export default function LandingPage() {
                        <Button asChild className="w-full">
                          <Link href="/register">Registrarse</Link>
                        </Button>
-                       <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button className="w-full" variant="outline">
-                                <User className="mr-2"/>
-                                Acceder
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-56">
-                            <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
-                            <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
-                            <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
                     </div>
                 </div>
               </SheetContent>
@@ -397,3 +381,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
