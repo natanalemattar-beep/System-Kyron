@@ -69,7 +69,6 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarGroup,
-  SidebarGroupLabel
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -212,7 +211,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-           <Logo />
+          <Logo />
           <div className="flex flex-col">
             <span className="text-sm font-semibold leading-tight">System</span>
             <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
@@ -220,10 +219,9 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-        {juridicoNavGroups.map((group) => (
-          <SidebarGroup key={group.title} className="p-0">
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1" className="border-none">
+          <Accordion type="multiple" defaultValue={juridicoNavGroups.map(g => g.title)} className="w-full">
+            {juridicoNavGroups.map((group) => (
+              <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
                       <group.icon className="h-4 w-4" />
@@ -250,9 +248,8 @@ export function AppSidebar() {
                   </SidebarMenu>
                 </AccordionContent>
               </AccordionItem>
-            </Accordion>
-          </SidebarGroup>
-        ))}
+            ))}
+        </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
@@ -282,6 +279,8 @@ function AppSidebarNatural() {
       { title: "Trámites Civiles", icon: Gavel, items: naturalMenuItems.tramites },
       { title: "Gestión CRS", icon: HeartHandshake, items: naturalMenuItems.crs },
   ];
+  
+  const defaultOpenValues = naturalNavGroups.map(g => g.title);
 
   const isActive = (href: string) => {
     if (href === "/dashboard") {
@@ -302,10 +301,9 @@ function AppSidebarNatural() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-        {naturalNavGroups.map((group) => (
-          <SidebarGroup key={group.title} className="p-0">
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1" className="border-none">
+          <Accordion type="multiple" defaultValue={defaultOpenValues} className="w-full">
+            {naturalNavGroups.map((group) => (
+              <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
                       <group.icon className="h-4 w-4" />
@@ -332,9 +330,8 @@ function AppSidebarNatural() {
                   </SidebarMenu>
                 </AccordionContent>
               </AccordionItem>
-            </Accordion>
-          </SidebarGroup>
-        ))}
+            ))}
+        </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
@@ -369,6 +366,7 @@ function AppSidebarHr() {
     { title: "Corporativo", items: corporativoMenuItems },
     { title: "Libros de Registro", items: librosRegistroMenuItems },
   ]
+  const defaultOpenValues = navGroups.map(g => g.title);
 
   return (
     <Sidebar>
@@ -382,10 +380,9 @@ function AppSidebarHr() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-        {navGroups.map((group) => (
-          <SidebarGroup key={group.title} className="p-0">
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1" className="border-none">
+        <Accordion type="multiple" defaultValue={defaultOpenValues} className="w-full">
+            {navGroups.map((group) => (
+              <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
                       {group.title}
@@ -411,9 +408,8 @@ function AppSidebarHr() {
                   </SidebarMenu>
                 </AccordionContent>
               </AccordionItem>
-            </Accordion>
-          </SidebarGroup>
-        ))}
+            ))}
+        </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
