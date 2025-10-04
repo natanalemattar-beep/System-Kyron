@@ -214,9 +214,8 @@ export function AppSidebar() {
         <div className="flex items-center gap-3 p-2">
            <Logo />
           <div className="flex flex-col">
-              <h1 className="text-lg font-bold tracking-tight">
-                System C.M.S
-              </h1>
+            <span className="text-sm font-semibold leading-tight">System</span>
+            <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
           </div>
         </div>
       </SidebarHeader>
@@ -296,9 +295,8 @@ function AppSidebarNatural() {
         <div className="flex items-center gap-3 p-2">
            <Logo />
           <div className="flex flex-col">
-              <h1 className="text-lg font-bold tracking-tight">
-                System C.M.S
-              </h1>
+            <span className="text-sm font-semibold leading-tight">System</span>
+            <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
           </div>
         </div>
       </SidebarHeader>
@@ -375,10 +373,8 @@ function AppSidebarHr() {
         <div className="flex items-center gap-3 p-2">
            <Logo />
           <div className="flex flex-col">
-              <h1 className="text-lg font-bold tracking-tight">
-                System C.M.S
-              </h1>
-              <p className="text-xs text-muted-foreground">Módulo de RR.HH.</p>
+            <span className="text-sm font-semibold leading-tight">System</span>
+            <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
           </div>
         </div>
       </SidebarHeader>
