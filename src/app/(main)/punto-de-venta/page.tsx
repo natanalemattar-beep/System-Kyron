@@ -74,9 +74,8 @@ export default function PuntoDeVentaPage() {
         setCart(prevCart => prevCart.filter(item => item.id !== productId));
     }
 
-    const getPriceInCurrency = (price: number) => {
-        if (currency === 'USD') return price;
-        const priceInUsd = price;
+    const getPriceInCurrency = (priceInUsd: number) => {
+        if (currency === 'USD') return priceInUsd;
         return priceInUsd * exchangeRates[currency];
     }
     

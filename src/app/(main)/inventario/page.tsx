@@ -171,32 +171,40 @@ export default function InventarioPage() {
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                         <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button variant="ghost" size="icon"><MoreHorizontal className="h-4 w-4" /></Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent align="end">
-                                                 <DialogTrigger asChild>
-                                                    <DropdownMenuItem>
-                                                        <Edit className="mr-2 h-4 w-4" /> Ajustar Stock
-                                                    </DropdownMenuItem>
-                                                 </DialogTrigger>
-                                                {status.text === 'Próximo a Vencer' && (
+                                         <Dialog>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="ghost" size="icon"><MoreHorizontal className="h-4 w-4" /></Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end">
                                                     <DialogTrigger asChild>
-                                                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                                                        <DropdownMenuItem><Edit className="mr-2 h-4 w-4" /> Ajustar Stock</DropdownMenuItem>
+                                                    </DialogTrigger>
+                                                    {status.text === 'Próximo a Vencer' && (
+                                                        <DropdownMenuItem onSelect={() => handlePromote(item)}>
                                                             <AlertTriangle className="mr-2 h-4 w-4 text-orange-500" /> Promocionar
                                                         </DropdownMenuItem>
-                                                    </DialogTrigger>
-                                                )}
-                                                {status.text === 'Vencido' && (
-                                                    <DialogTrigger asChild>
-                                                        <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="text-destructive">
+                                                    )}
+                                                    {status.text === 'Vencido' && (
+                                                         <DropdownMenuItem onSelect={() => handleRemove(item.sku)} className="text-destructive">
                                                             <Trash2 className="mr-2 h-4 w-4" /> Retirar y Desechar
                                                         </DropdownMenuItem>
-                                                    </DialogTrigger>
-                                                )}
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
+                                                    )}
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                            <DialogContent>
+                                                <DialogHeader>
+                                                    <DialogTitle>Ajustar Stock para {item.nombre}</DialogTitle>
+                                                </DialogHeader>
+                                                <div className="grid gap-4 py-4">
+                                                    <Label htmlFor="new-stock">Nuevo Stock</Label>
+                                                    <Input id="new-stock" type="number" defaultValue={item.stock}/>
+                                                </div>
+                                                <DialogFooter>
+                                                    <Button onClick={() => handleAction("Stock ajustado")}>Ajustar Stock</Button>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
                                     </TableCell>
                                 </TableRow>
                             )})}
@@ -204,62 +212,6 @@ export default function InventarioPage() {
                     </Table>
                 </CardContent>
             </Card>
-
-            {/* Dialogs for actions. Using one set of dialogs and managing content would be more optimized, but this is simpler for now. */}
-            <Dialog>
-                 <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Ajustar Stock</DialogTitle>
-                    </DialogHeader>
-                     <div className="grid gap-4 py-4">
-                         <Label htmlFor="new-stock">Nuevo Stock</Label>
-                        <Input id="new-stock" type="number" />
-                    </div>
-                    <DialogFooter>
-                        <Button onClick={() => handleAction("Stock ajustado")}>Ajustar Stock</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-
-             <Dialog>
-                 <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Notificar Promoción</DialogTitle>
-                        <DialogDescription>
-                           Se enviará una notificación al administrador y a los vendedores para promocionar este producto.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="py-4 space-y-2">
-                        <p><strong>Producto:</strong> Leche Larga Duración 1L</p>
-                        <p><strong>Stock:</strong> 50</p>
-                        <p><strong>Vence en:</strong> 20 días</p>
-                    </div>
-                    <DialogFooter>
-                        <Button onClick={() => handlePromote(inventory[0])}>
-                            <Send className="mr-2 h-4 w-4" /> Enviar Notificaciones (WhatsApp & Email)
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-
-             <Dialog>
-                 <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle className="text-destructive">Confirmar Retiro de Producto Vencido</DialogTitle>
-                        <DialogDescription>
-                           ¿Está seguro de que desea retirar y desechar <strong>Pan de Molde</strong>? Esta acción es irreversible y moverá el costo a cuentas incobrables.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter>
-                        <Button variant="ghost">Cancelar</Button>
-                         <Button variant="destructive" onClick={() => handleRemove("FOOD-004")}>
-                            <Trash2 className="mr-2 h-4 w-4" /> Sí, retirar y desechar
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-
         </div>
     );
 }
-    

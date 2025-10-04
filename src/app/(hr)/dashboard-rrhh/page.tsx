@@ -38,7 +38,7 @@ export default function RecursosHumanosPage() {
     <div className="space-y-12">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-            <Users className="h-8 w-8" />
+            <Briefcase className="h-8 w-8" />
             Dashboard de Recursos Humanos y Nómina
         </h1>
         <p className="text-muted-foreground mt-2">

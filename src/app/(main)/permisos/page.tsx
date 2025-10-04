@@ -233,12 +233,10 @@ export default function PermisosPage() {
                                                         Descargar Permiso
                                                     </Button>
                                                     {(permiso.estado === "Por Vencer" || permiso.estado === "Vencido") && (
-                                                        <DialogTrigger asChild>
-                                                            <Button onClick={() => handleRenew(permiso.id)}>
-                                                                <RefreshCw className="mr-2 h-4 w-4" />
-                                                                Iniciar Renovación
-                                                            </Button>
-                                                        </DialogTrigger>
+                                                        <Button onClick={() => handleRenew(permiso.id)}>
+                                                            <RefreshCw className="mr-2 h-4 w-4" />
+                                                            Iniciar Renovación
+                                                        </Button>
                                                     )}
                                                 </DialogFooter>
                                             </DialogContent>
