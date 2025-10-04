@@ -24,20 +24,13 @@ import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import { historicalFinancialData } from "@/lib/historical-financial-data";
+
 
 const kpiData = [
-  { title: "Flujo de Caja Neto (Mes)", value: formatCurrency(12850.75), icon: DollarSign, trend: "+10% vs mes anterior", trendColor: "text-green-500" },
+  { title: "Flujo de Caja Neto (Mes)", value: formatCurrency(12850.75, 'Bs.'), icon: DollarSign, trend: "+10% vs mes anterior", trendColor: "text-green-500" },
   { title: "Margen de Utilidad Bruta", value: "45.2%", icon: Percent, trend: "+2% vs mes anterior", trendColor: "text-green-500" },
-  { title: "Ticket Promedio de Venta", value: formatCurrency(185.30), icon: FileText, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
-];
-
-const financialChartData = [
-  { month: "Feb", ingresos: 45000, gastos: 30000 },
-  { month: "Mar", ingresos: 48000, gastos: 32000 },
-  { month: "Abr", ingresos: 52000, gastos: 35000 },
-  { month: "May", ingresos: 50000, gastos: 38000 },
-  { month: "Jun", ingresos: 55000, gastos: 37000 },
-  { month: "Jul", ingresos: 62000, gastos: 41000 },
+  { title: "Ticket Promedio de Venta", value: formatCurrency(185.30, 'Bs.'), icon: FileText, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
 ];
 
 const chartConfig = {
@@ -130,11 +123,11 @@ export function JuridicoDashboard() {
             <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
                 <Card className="xl:col-span-3 bg-card/60 backdrop-blur-sm">
                     <CardHeader>
-                        <CardTitle>Ingresos vs. Gastos (Últimos 6 meses)</CardTitle>
+                        <CardTitle>Ingresos vs. Gastos (Histórico)</CardTitle>
                     </CardHeader>
                     <CardContent className="h-80">
                          <ChartContainer config={chartConfig} className="w-full h-full">
-                            <AreaChart data={financialChartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <AreaChart data={historicalFinancialData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                 <defs>
                                     <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
@@ -147,12 +140,12 @@ export function JuridicoDashboard() {
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
                                 <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                                <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${formatCurrency(value as number, 'Bs.')[0]}k`} />
+                                <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${(value as number) / 1000}k`} />
                                 <ChartTooltip 
                                     cursor={false}
                                     content={<ChartTooltipContent 
                                         indicator="dot" 
-                                        formatter={(value, name) => formatCurrency(value as number, 'Bs.')} 
+                                        formatter={(value) => formatCurrency(value as number, 'Bs.')} 
                                     />} 
                                 />
                                 <Legend />

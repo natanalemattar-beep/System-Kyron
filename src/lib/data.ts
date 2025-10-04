@@ -67,15 +67,6 @@ export const mockTransactions: Transaction[] = [
   { id: 'TR-008', date: '2024-07-08', description: 'Gasto no categorizado', amount: -120.0, category: 'Uncategorized' },
 ];
 
-export const financialChartData = [
-  { month: 'Jan', income: 4000, expenses: 2400 },
-  { month: 'Feb', income: 3000, expenses: 1398 },
-  { month: 'Mar', income: 5000, expenses: 3800 },
-  { month: 'Apr', income: 2780, expenses: 1908 },
-  { month: 'May', income: 1890, expenses: 800 },
-  { month: 'Jun', income: 4390, expenses: 2800 },
-  { month: 'Jul', income: 3490, expenses: 2100 },
-];
 
 export const mockMovableAssets = [
   { id: 'ASSET-M-001', name: 'Laptop Corporativa', purchaseDate: '2023-01-15', cost: 1200, usefulLife: 5, accumulatedDepreciation: 360, bookValue: 840 },

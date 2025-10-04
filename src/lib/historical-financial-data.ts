@@ -1,0 +1,37 @@
+
+export const historicalFinancialData = [
+  // 2022
+  { month: "Ene '22", ingresos: 20000, gastos: 15000 },
+  { month: "Feb '22", ingresos: 22000, gastos: 16500 },
+  { month: "Mar '22", ingresos: 25000, gastos: 18000 },
+  { month: "Abr '22", ingresos: 23000, gastos: 17000 },
+  { month: "May '22", ingresos: 26000, gastos: 19000 },
+  { month: "Jun '22", ingresos: 28000, gastos: 20000 },
+  { month: "Jul '22", ingresos: 27000, gastos: 21000 },
+  { month: "Ago '22", ingresos: 29000, gastos: 22000 },
+  { month: "Sep '22", ingresos: 31000, gastos: 23000 },
+  { month: "Oct '22", ingresos: 30000, gastos: 24000 },
+  { month: "Nov '22", ingresos: 33000, gastos: 25000 },
+  { month: "Dic '22", ingresos: 35000, gastos: 26000 },
+  // 2023
+  { month: "Ene '23", ingresos: 36000, gastos: 27000 },
+  { month: "Feb '23", ingresos: 38000, gastos: 28000 },
+  { month: "Mar '23", ingresos: 42000, gastos: 30000 },
+  { month: "Abr '23", ingresos: 40000, gastos: 29000 },
+  { month: "May '23", ingresos: 43000, gastos: 31000 },
+  { month: "Jun '23", ingresos: 45000, gastos: 32000 },
+  { month: "Jul '23", ingresos: 44000, gastos: 33000 },
+  { month: "Ago '23", ingresos: 46000, gastos: 34000 },
+  { month: "Sep '23", ingresos: 48000, gastos: 35000 },
+  { month: "Oct '23", ingresos: 47000, gastos: 36000 },
+  { month: "Nov '23", ingresos: 50000, gastos: 37000 },
+  { month: "Dic '23", ingresos: 52000, gastos: 38000 },
+  // 2024
+  { month: "Ene '24", ingresos: 53000, gastos: 39000 },
+  { month: "Feb '24", ingresos: 45000, gastos: 30000 },
+  { month: "Mar '24", ingresos: 48000, gastos: 32000 },
+  { month: "Abr '24", ingresos: 52000, gastos: 35000 },
+  { month: "May '24", ingresos: 50000, gastos: 38000 },
+  { month: "Jun '24", ingresos: 55000, gastos: 37000 },
+  { month: "Jul '24", ingresos: 62000, gastos: 41000 },
+];
