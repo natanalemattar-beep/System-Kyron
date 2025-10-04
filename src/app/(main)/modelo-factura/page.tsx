@@ -31,10 +31,14 @@ const factura = {
         { id: 3, descripcion: "Módulo de Nómina Avanzada", cantidad: 1, precio: 150 },
     ],
     metodoPago: {
-        tipo: "Punto de Venta",
-        banco: "Banesco",
-        tarjeta: "Mastercard",
-        referencia: "123456"
+        tipo: "Crédito Directo",
+        condicion: "3 Cuotas, pago quincenal",
+        referencia: "N/A"
+    },
+    plataformaCredito: {
+        nombre: "Cashea",
+        modalidad: "Compra Ahora, Paga Después (BNPL)",
+        instruccion: "El cliente debe subir la foto de esta factura a la app para formalizar el compromiso de pago."
     }
 };
 
@@ -140,15 +144,16 @@ export default function ModeloFacturaPage() {
                 <div className="p-4 rounded-lg bg-secondary/50">
                      <h4 className="font-semibold mb-2 text-foreground">Método de Pago</h4>
                      <p className="text-sm"><strong>Tipo:</strong> {factura.metodoPago.tipo}</p>
-                     <p className="text-sm"><strong>Banco:</strong> {factura.metodoPago.banco}</p>
-                     <p className="text-sm"><strong>Tarjeta:</strong> {factura.metodoPago.tarjeta}</p>
+                     <p className="text-sm"><strong>Condición:</strong> {factura.metodoPago.condicion}</p>
                      <p className="text-sm"><strong>Referencia:</strong> {factura.metodoPago.referencia}</p>
                 </div>
-                <div className="p-4 rounded-lg bg-secondary/50 flex items-center justify-center text-center gap-4">
-                     <CreditCard className="h-8 w-8 text-primary shrink-0"/>
+                <div className="p-4 rounded-lg bg-secondary/50 flex flex-col items-start justify-center text-left gap-2">
+                     <div className="flex items-center gap-2">
+                        <CreditCard className="h-6 w-6 text-primary shrink-0"/>
+                        <h4 className="font-semibold">{factura.plataformaCredito.nombre} ({factura.plataformaCredito.modalidad})</h4>
+                     </div>
                      <div>
-                        <h4 className="font-semibold">Compra a crédito con Cashea</h4>
-                        <p className="text-xs text-muted-foreground">Escanea el QR en tienda y sube la foto de esta factura a la app para formalizar el pago.</p>
+                        <p className="text-xs text-muted-foreground">{factura.plataformaCredito.instruccion}</p>
                      </div>
                 </div>
             </div>
@@ -172,3 +177,5 @@ export default function ModeloFacturaPage() {
     </div>
   );
 }
+
+    
