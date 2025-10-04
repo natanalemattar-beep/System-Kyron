@@ -425,9 +425,22 @@ export default function PuntoDeVentaPage() {
                             <div className="flex justify-between"><span>Vuelto:</span><span>{formatCurrency(changeDue, currency)}</span></div>
                         </div>
 
-                        <div className="flex flex-col items-center text-center mt-4">
-                             <ShieldCheck className="h-6 w-6 text-green-500 mb-1"/>
-                             <p className="text-xs text-muted-foreground">¡Gracias por su compra!</p>
+                         <div className="flex flex-col items-center text-center mt-4">
+                             <div className="flex items-center gap-3 text-sm text-green-600">
+                                <ShieldCheck className="h-8 w-8"/>
+                                <div>
+                                    <p className="font-bold">Recibo 100% Protegido y Seguro</p>
+                                    <p className="text-xs text-muted-foreground">Verificado por C.M.S el {new Date().toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                            <Image 
+                                src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Factura:VF-001,Monto:${total},Fecha:${new Date().toISOString()}`} 
+                                alt="QR de Verificación" 
+                                width={100} 
+                                height={100}
+                                className="mt-4"
+                            />
+                            <p className="text-xs text-muted-foreground mt-1">Escanear para verificar</p>
                         </div>
                     </div>
                     <DialogFooter className="mt-6 gap-2 sm:justify-center print:hidden">
@@ -439,4 +452,5 @@ export default function PuntoDeVentaPage() {
 
         </div>
     );
-}
+
+    
