@@ -9,13 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/logo";
 
 export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background relative overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-gradient-to-tr from-sky-100 via-blue-200 to-purple-100 dark:from-background dark:to-blue-900/40 bg-[length:200%_200%] animate-gradient-animation">
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -73,25 +74,20 @@ export default function LoginNaturalPage() {
               <Link href="/dashboard">Acceder</Link>
             </Button>
           </CardContent>
-           <CardFooter className="flex flex-col gap-4 p-6 border-t text-sm">
-                <div className="flex justify-between w-full">
-                    <p className="text-muted-foreground">¿No tienes cuenta?</p>
-                    <Link href="/register" className="font-semibold text-primary hover:underline">
-                        Regístrate aquí
-                    </Link>
-                </div>
-                 <div className="flex justify-between w-full">
-                    <p className="text-muted-foreground">¿Eres una empresa?</p>
-                     <Link href="/login-juridico" className="font-semibold text-primary hover:underline flex items-center gap-1">
-                        Acceso Jurídico <Building className="h-4 w-4"/>
-                    </Link>
-                </div>
-                 <div className="flex justify-between w-full">
-                    <p className="text-muted-foreground">¿Eres de RR.HH.?</p>
-                    <Link href="/login-rrhh" className="font-semibold text-primary hover:underline flex items-center gap-1">
-                        Acceso RR.HH. <Briefcase className="h-4 w-4"/>
-                    </Link>
-                </div>
+           <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
+              <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
+              <div className="flex justify-center gap-4">
+                <Link href="/login-juridico" className="font-medium text-primary hover:underline flex items-center gap-1">
+                    <Building className="h-4 w-4"/> Empresarial
+                </Link>
+                 <Link href="/login-rrhh" className="font-medium text-primary hover:underline flex items-center gap-1">
+                    <Briefcase className="h-4 w-4"/> RR.HH.
+                </Link>
+              </div>
+               <Separator className="my-2"/>
+               <Link href="/register" className="font-medium text-primary hover:underline">
+                    Crear una cuenta nueva
+                </Link>
             </CardFooter>
         </Card>
       </main>
