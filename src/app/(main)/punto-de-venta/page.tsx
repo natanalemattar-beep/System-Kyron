@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck } from "lucide-react";
+import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -23,6 +23,8 @@ const products = [
     { id: 7, name: "Teclado Inalámbrico", price: 45.00, image: "https://picsum.photos/seed/keyboard/200/200" },
     { id: 8, name: "Mouse Óptico", price: 25.00, image: "https://picsum.photos/seed/mouse/200/200" },
 ];
+
+const cashiers = ["Ana Pérez", "Luis Gómez", "Carlos Sánchez"];
 
 type CartItem = {
     id: number;
@@ -44,9 +46,14 @@ export default function PuntoDeVentaPage() {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [isReceiptOpen, setIsReceiptOpen] = useState(false);
     const [currency, setCurrency] = useState<Currency>("Bs.");
+    const [activeCashier, setActiveCashier] = useState<string | null>(null);
     const { toast } = useToast();
 
     const addToCart = (product: typeof products[0]) => {
+        if (!activeCashier) {
+            toast({ variant: "destructive", title: "Seleccione un cajero", description: "Debe seleccionar un cajero para iniciar una venta." });
+            return;
+        }
         setCart(prevCart => {
             const existingItem = prevCart.find(item => item.id === product.id);
             if (existingItem) {
@@ -73,6 +80,12 @@ export default function PuntoDeVentaPage() {
     const removeFromCart = (productId: number) => {
         setCart(prevCart => prevCart.filter(item => item.id !== productId));
     }
+    
+    const handleCloseShift = () => {
+        toast({ title: "Turno Cerrado", description: `El turno de ${activeCashier} ha sido cerrado.`});
+        setActiveCashier(null);
+        setCart([]);
+    };
 
     const getPriceInCurrency = (priceInUsd: number) => {
         if (currency === 'USD') return priceInUsd;
@@ -117,12 +130,32 @@ export default function PuntoDeVentaPage() {
 
     return (
         <div className="h-auto md:h-screen bg-muted flex flex-col p-2 md:p-4 gap-4">
-            <header className="flex items-center justify-between bg-background p-3 rounded-lg shadow-sm">
+            <header className="flex items-center justify-between bg-background p-3 rounded-lg shadow-sm flex-wrap gap-4">
                 <div className="flex items-center gap-2">
                     <TabletSmartphone className="h-6 w-6" />
                     <h1 className="text-xl font-bold">Punto de Venta</h1>
                 </div>
-                <Button onClick={() => setCart([])} variant="destructive" size="sm">Vaciar Carrito</Button>
+                {!activeCashier ? (
+                     <div className="flex items-center gap-2 w-full sm:w-auto">
+                        <Label htmlFor="cashier-select" className="whitespace-nowrap">Seleccionar Cajero:</Label>
+                         <Select onValueChange={(value) => setActiveCashier(value)}>
+                            <SelectTrigger id="cashier-select" className="w-full sm:w-[180px]">
+                                <SelectValue placeholder="Seleccionar..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {cashiers.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                ) : (
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 text-sm">
+                            <User className="h-4 w-4"/>
+                            <span>Cajero: <span className="font-semibold">{activeCashier}</span></span>
+                        </div>
+                        <Button onClick={handleCloseShift} variant="outline" size="sm">Cerrar Turno</Button>
+                    </div>
+                )}
             </header>
 
             <div className="flex-grow grid lg:grid-cols-3 gap-4 overflow-hidden h-full flex-col md:flex-row">
@@ -196,7 +229,7 @@ export default function PuntoDeVentaPage() {
                             <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, currency)}</span></div>
                             <div className="flex justify-between font-bold text-lg border-t pt-2"><span>Total a Pagar:</span><span>{formatCurrency(total, currency)}</span></div>
                         </div>
-                        <Button className="w-full text-lg h-12" onClick={handleCheckout}>Cobrar</Button>
+                        <Button className="w-full text-lg h-12" onClick={handleCheckout} disabled={!activeCashier}>Cobrar</Button>
                     </CardFooter>
                 </Card>
             </div>
@@ -209,14 +242,17 @@ export default function PuntoDeVentaPage() {
                             <DialogTitle className="text-2xl">Empresa S.A.</DialogTitle>
                             <DialogDescription>RIF: J-12345678-9 <br/> Recibo de Venta</DialogDescription>
                         </DialogHeader>
+                        <div className="my-4 text-xs space-y-1">
+                            <p>Fecha: {new Date().toLocaleString('es-VE')}</p>
+                            <p>Cajero: {activeCashier}</p>
+                        </div>
                         <div className="my-4">
-                            <p className="text-xs">Fecha: {new Date().toLocaleString('es-VE')}</p>
                             <Table className="mt-2">
                                  <TableBody>
                                     {cart.map(item => (
                                         <TableRow key={item.id}>
-                                            <TableCell>{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)}</span></TableCell>
-                                            <TableCell className="text-right font-medium">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</TableCell>
+                                            <TableCell className="p-1">{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)}</span></TableCell>
+                                            <TableCell className="text-right font-medium p-1">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -248,5 +284,7 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
+
+    
 
     
