@@ -189,7 +189,7 @@ export function JuridicoDashboard() {
                                         <Activity className="h-3 w-3 text-primary" />
                                     </div>
                                     <div className="flex-1 -mt-1">
-                                        <p className="text-sm font-medium">{activity.description}</p>
+                                        <p className="text-sm font-medium truncate">{activity.description}</p>
                                         <p className="text-xs text-muted-foreground">{activity.time}</p>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@ export function JuridicoDashboard() {
                                 <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
                                     <CalendarClock className="h-6 w-6 text-warning shrink-0" />
                                     <div className="flex-1">
-                                        <p className="text-sm font-semibold">{deadline.description}</p>
+                                        <p className="text-sm font-semibold truncate">{deadline.description}</p>
                                         <p className="text-xs">Vence en {deadline.days} días</p>
                                     </div>
                                     <Button size="sm" variant="ghost"><ArrowRight className="h-4 w-4"/></Button>

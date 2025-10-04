@@ -216,7 +216,7 @@ export default function LandingPage() {
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
-                            <h3 className="text-xl font-semibold">{item.title}</h3>
+                            <h3 className="text-xl font-semibold truncate">{item.title}</h3>
                             <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
                         </Card>
                     ))}
@@ -392,5 +392,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
