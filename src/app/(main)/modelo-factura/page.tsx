@@ -147,8 +147,8 @@ export default function ModeloFacturaPage() {
                 <div className="p-4 rounded-lg bg-secondary/50 flex items-center justify-center text-center gap-4">
                      <CreditCard className="h-8 w-8 text-primary shrink-0"/>
                      <div>
-                        <h4 className="font-semibold">Paga en cuotas sin interés con Cashea</h4>
-                        <p className="text-xs text-muted-foreground">Escanea el QR en tu comercio aliado para procesar el pago.</p>
+                        <h4 className="font-semibold">Compra a crédito con Cashea</h4>
+                        <p className="text-xs text-muted-foreground">Escanea el QR en tienda y sube la foto de esta factura a la app para formalizar el pago.</p>
                      </div>
                 </div>
             </div>
@@ -172,7 +172,3 @@ export default function ModeloFacturaPage() {
     </div>
   );
 }
-
-    
-
-    
