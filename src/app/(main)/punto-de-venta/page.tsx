@@ -116,7 +116,7 @@ export default function PuntoDeVentaPage() {
     }
 
     return (
-        <div className="h-screen bg-muted flex flex-col p-4 gap-4">
+        <div className="h-auto md:h-screen bg-muted flex flex-col p-2 md:p-4 gap-4">
             <header className="flex items-center justify-between bg-background p-3 rounded-lg shadow-sm">
                 <div className="flex items-center gap-2">
                     <TabletSmartphone className="h-6 w-6" />
@@ -125,9 +125,9 @@ export default function PuntoDeVentaPage() {
                 <Button onClick={() => setCart([])} variant="destructive" size="sm">Vaciar Carrito</Button>
             </header>
 
-            <div className="flex-grow grid lg:grid-cols-3 gap-4 overflow-hidden">
+            <div className="flex-grow grid lg:grid-cols-3 gap-4 overflow-hidden h-full flex-col md:flex-row">
                 {/* Product Catalog */}
-                <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm overflow-y-auto">
+                <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm overflow-y-auto h-[50vh] md:h-full">
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         {products.map(product => (
                             <Card key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:shadow-md transition-shadow">
@@ -144,7 +144,7 @@ export default function PuntoDeVentaPage() {
                 </div>
 
                 {/* Order Summary */}
-                <Card className="lg:col-span-1 flex flex-col">
+                <Card className="lg:col-span-1 flex flex-col h-full">
                     <CardHeader>
                         <CardTitle>Resumen de Orden</CardTitle>
                     </CardHeader>
@@ -248,3 +248,5 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
+
+      

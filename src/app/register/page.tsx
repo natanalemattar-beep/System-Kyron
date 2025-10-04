@@ -8,6 +8,7 @@ import {
   Eye,
   EyeOff,
   ShieldCheck,
+  Briefcase
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -52,9 +53,9 @@ export default function RegisterPage() {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-juridico">Acceso Jurídico</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
                 </div>
@@ -110,9 +111,9 @@ export default function RegisterPage() {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-juridico">Acceso Jurídico</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -120,20 +121,20 @@ export default function RegisterPage() {
 
       <main className="flex-1 flex items-center justify-center p-4">
         <Card className="w-full max-w-2xl mx-auto">
-          <CardContent className="p-8">
+          <CardContent className="p-6 md:p-8">
             <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold mb-2">Crear una Cuenta</h1>
-                <p className="text-muted-foreground">
+                <h1 className="text-2xl md:text-3xl font-bold mb-2">Crear una Cuenta</h1>
+                <p className="text-muted-foreground text-sm md:text-base">
                   Regístrate para simplificar la gestión de tu empresa o tus trámites personales.
                 </p>
             </div>
 
             <Tabs defaultValue="juridica" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-muted h-12 p-1 mb-6">
-                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-card data-[state=active]:shadow-sm flex gap-2">
+              <TabsList className="grid w-full grid-cols-2 bg-muted h-auto md:h-12 p-1 mb-6">
+                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-card data-[state=active]:shadow-sm flex gap-2 py-2 md:py-0">
                     <Building className="h-5 w-5"/> Persona Jurídica
                 </TabsTrigger>
-                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-card data-[state=active]:shadow-sm flex gap-2">
+                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-card data-[state=active]:shadow-sm flex gap-2 py-2 md:py-0">
                     <User className="h-5 w-5"/> Persona Natural
                 </TabsTrigger>
               </TabsList>
@@ -287,3 +288,5 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+      

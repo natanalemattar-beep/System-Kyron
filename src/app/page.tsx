@@ -23,6 +23,11 @@ const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, .
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
+        // Close sheet on mobile after clicking a link
+        const closeButton = document.querySelector('[data-radix-dialog-close]');
+        if (closeButton instanceof HTMLElement) {
+            closeButton.click();
+        }
     };
 
     return <a href={href} onClick={handleClick} {...props} />;
@@ -193,13 +198,14 @@ export default function LandingPage() {
                         priority
                     />
                 )}
+                <div className="absolute inset-0 bg-black/50"></div>
             </div>
             <div className="container mx-auto px-4 md:px-6">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-balance text-primary" style={{textShadow: '0 1px 4px rgba(0,0,0,0.1)'}}>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance text-white" style={{textShadow: '0 2px 8px rgba(0,0,0,0.7)'}}>
                         La Gestión Empresarial, Reinventada
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-balance text-foreground/90 max-w-3xl mx-auto" style={{textShadow: '0 1px 3px rgba(0,0,0,0.1)'}}>
+                    <p className="mt-6 text-lg md:text-xl text-balance text-white/90 max-w-3xl mx-auto" style={{textShadow: '0 1px 5px rgba(0,0,0,0.7)'}}>
                         Simplifica la contabilidad, la nómina y el cumplimiento normativo con una solución inteligente diseñada para el mercado venezolano.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -208,7 +214,7 @@ export default function LandingPage() {
                             Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
                             </Link>
                         </Button>
-                        <Button size="lg" variant="outline" className="bg-background/20 text-foreground border-border/50 hover:bg-background/30">
+                        <Button size="lg" variant="outline" className="bg-background/20 text-white border-white/50 hover:bg-background/30">
                             <SmoothScrollLink href="#servicios">
                             Explorar Servicios
                             </SmoothScrollLink>
@@ -221,7 +227,7 @@ export default function LandingPage() {
         {/* Services Section */}
         <section id="servicios" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
-                 <div className="text-center max-w-3xl mx-auto mb-16">
+                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
@@ -231,7 +237,7 @@ export default function LandingPage() {
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
-                            <h3 className="text-xl font-semibold truncate">{item.title}</h3>
+                            <h3 className="text-xl font-semibold ">{item.title}</h3>
                             <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
                         </Card>
                     ))}
@@ -241,7 +247,7 @@ export default function LandingPage() {
         
         {/* Features Section */}
         <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/50 border-y">
-          <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-16 items-center">
+          <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="space-y-8">
               <div className="text-center lg:text-left">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
@@ -263,7 +269,7 @@ export default function LandingPage() {
                 ))}
               </div>
             </div>
-            <div className="p-8 rounded-xl flex items-center justify-center">
+            <div className="p-4 md:p-8 rounded-xl flex items-center justify-center">
                  <Image 
                     src="https://images.unsplash.com/photo-1526666923127-b2970f64b422?q=80&w=1920&auto=format&fit=crop"
                     alt="Puente sobre el lago de Maracaibo"
@@ -279,7 +285,7 @@ export default function LandingPage() {
         {/* How it Works Section */}
         <section id="how-it-works" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Empezar es muy Sencillo</h2>
                     <p className="mt-4 text-lg text-muted-foreground">En solo tres pasos, estarás en camino a una gestión más inteligente y eficiente.</p>
                 </div>
@@ -301,7 +307,7 @@ export default function LandingPage() {
         {/* Testimonials Section */}
         <section id="testimonials" className="py-20 md:py-28 bg-secondary/50">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
                     <p className="mt-4 text-lg text-muted-foreground">La confianza de nuestros clientes es nuestro mayor activo.</p>
                 </div>
@@ -309,9 +315,9 @@ export default function LandingPage() {
                     {testimonials.map((testimonial, index) => {
                       const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
                       return (
-                        <Card key={index} className="p-8 shadow-lg bg-card">
+                        <Card key={index} className="p-6 md:p-8 shadow-lg bg-card">
                             <CardContent className="p-0">
-                                <p className="text-muted-foreground italic text-lg mb-6">{testimonial.text}</p>
+                                <p className="text-muted-foreground italic md:text-lg mb-6">{testimonial.text}</p>
                                 <div className="flex items-center gap-4">
                                   {avatar && (
                                     <Avatar>
@@ -334,7 +340,7 @@ export default function LandingPage() {
 
         {/* About Us Section */}
         <section id="nosotros" className="py-20 md:py-28">
-            <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                  <div className="text-center lg:text-left">
                     <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
@@ -348,7 +354,7 @@ export default function LandingPage() {
                         data-ai-hint={aboutImage.imageHint}
                         width={600}
                         height={400}
-                        className="rounded-xl shadow-lg"
+                        className="rounded-xl shadow-lg w-full h-auto"
                     />
                 )}
             </div>
@@ -367,12 +373,12 @@ export default function LandingPage() {
         {/* Contact Section */}
         <section id="contacto" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
-                 <div className="text-center max-w-3xl mx-auto mb-16">
+                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Ponte en Contacto</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Nuestro equipo de especialistas está listo para ayudarte.</p>
                 </div>
                 <Card className="max-w-4xl mx-auto shadow-lg">
-                     <CardContent className="p-8 grid sm:grid-cols-2 gap-8">
+                     <CardContent className="p-6 md:p-8 grid sm:grid-cols-2 gap-8">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-primary/10 rounded-lg">
                                 <Mail className="h-6 w-6 text-primary"/>
@@ -407,3 +413,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+      
