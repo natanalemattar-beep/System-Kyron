@@ -120,7 +120,7 @@ export default function SoftwareContablePage() {
         <CardHeader>
             <CardTitle>Comparativa de Sistemas Administrativos en Venezuela</CardTitle>
             <CardDescription>
-                No todos los negocios tienen las mismas necesidades. Esta tabla resume las opciones más comunes del mercado.
+                Según la Providencia Administrativa N° SNAT/2024/000121, solo el software homologado está autorizado. Esta tabla resume las opciones más comunes del mercado.
             </CardDescription>
         </CardHeader>
         <CardContent>
@@ -175,7 +175,7 @@ export default function SoftwareContablePage() {
       </section>
       
        {/* Call to Action */}
-       <Card className="bg-gradient-to-r from-primary/80 to-secondary/80 text-primary-foreground">
+       <Card className="bg-gradient-to-r from-primary/80 to-cyan-500/80 text-primary-foreground">
          <CardContent className="p-10 flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
                 <h2 className="text-3xl font-bold">Da el Siguiente Paso con Tranquilidad</h2>
