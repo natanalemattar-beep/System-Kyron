@@ -16,14 +16,14 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
 const products = [
-    { id: 1, name: "Resma de Papel Carta", price: 8.50, barcode: "7591234567890" },
-    { id: 2, name: "Impresora Fiscal", price: 350.00, barcode: "7591234567891" },
-    { id: 3, name: "Punto de Venta Inalámbrico", price: 280.00, barcode: "7591234567892" },
-    { id: 4, name: "Lector de Código de Barras", price: 95.00, barcode: "7591234567893" },
-    { id: 5, name: "Tóner para Impresora", price: 85.00, barcode: "7591234567894" },
-    { id: 6, name: "Caja de Bolígrafos (12 Unid.)", price: 5.00, barcode: "7591234567895" },
-    { id: 7, name: "Rollo de Etiquetas Térmicas", price: 12.00, barcode: "7591234567896" },
-    { id: 8, name: "Calculadora de Escritorio", price: 18.00, barcode: "7591234567897" },
+    { id: 1, name: "Resma de Papel Carta", price: 8.50, barcode: "7591234567890", image: "https://picsum.photos/seed/paper/200/200" },
+    { id: 2, name: "Impresora Fiscal", price: 350.00, barcode: "7591234567891", image: "https://picsum.photos/seed/printer/200/200" },
+    { id: 3, name: "Punto de Venta Inalámbrico", price: 280.00, barcode: "7591234567892", image: "https://picsum.photos/seed/pos/200/200" },
+    { id: 4, name: "Lector de Código de Barras", price: 95.00, barcode: "7591234567893", image: "https://picsum.photos/seed/scanner/200/200" },
+    { id: 5, name: "Tóner para Impresora", price: 85.00, barcode: "7591234567894", image: "https://picsum.photos/seed/toner/200/200" },
+    { id: 6, name: "Caja de Bolígrafos (12 Unid.)", price: 5.00, barcode: "7591234567895", image: "https://picsum.photos/seed/pens/200/200" },
+    { id: 7, name: "Rollo de Etiquetas Térmicas", price: 12.00, barcode: "7591234567896", image: "https://picsum.photos/seed/labels/200/200" },
+    { id: 8, name: "Calculadora de Escritorio", price: 18.00, barcode: "7591234567897", image: "https://picsum.photos/seed/calculator/200/200" },
 ];
 
 
@@ -65,6 +65,7 @@ export default function PuntoDeVentaPage() {
     const barcodeRef = useRef<HTMLInputElement>(null);
     const [amountReceived, setAmountReceived] = useState<number | "">("");
     const [giveChangeByPagoMovil, setGiveChangeByPagoMovil] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
     
     const { toast } = useToast();
     
@@ -182,9 +183,13 @@ export default function PuntoDeVentaPage() {
     
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://systemcms.com/menu/table/${tableNumber}`;
 
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.barcode.includes(searchTerm)
+    );
 
     return (
-        <div className="h-auto md:h-screen bg-muted flex flex-col p-2 md:p-4 gap-4">
+        <div className="h-screen bg-muted flex flex-col p-2 md:p-4 gap-4">
             <header className="flex items-center justify-between bg-background p-3 rounded-lg shadow-sm flex-wrap gap-4">
                  <div className="flex items-center gap-2">
                     <TabletSmartphone className="h-6 w-6" />
@@ -234,20 +239,17 @@ export default function PuntoDeVentaPage() {
                                 </DialogContent>
                             </Dialog>
                             <div className="relative w-full max-w-sm">
-                                <Barcode className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                                 <Input 
                                     ref={barcodeRef}
                                     type="text" 
-                                    placeholder="Escanear o introducir código..." 
-                                    className="pl-10 pr-20"
-                                    value={barcode}
-                                    onChange={(e) => setBarcode(e.target.value)}
+                                    placeholder="Buscar producto o escanear código..." 
+                                    className="pl-10"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
                                     onKeyDown={handleBarcodeKeyDown}
                                     disabled={!activeCashier}
                                 />
-                                <Button onClick={handleBarcodeAdd} size="sm" className="absolute right-1 top-1/2 -translate-y-1/2 h-8">
-                                    <Search className="h-4 w-4 md:mr-2"/> <span className="hidden md:inline">Añadir</span>
-                                </Button>
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
@@ -263,16 +265,21 @@ export default function PuntoDeVentaPage() {
 
             <div className="flex-grow grid lg:grid-cols-3 gap-4 overflow-hidden h-full flex-col md:flex-row">
                 <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm overflow-y-auto h-[50vh] md:h-full">
-                     <Table>
-                        <TableBody>
-                            {products.map(product => (
-                                <TableRow key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:bg-muted">
-                                    <TableCell className="font-medium">{product.name}</TableCell>
-                                    <TableCell className="text-right font-semibold text-primary">{formatCurrency(getPriceInCurrency(product.price), currency)}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                         {filteredProducts.map(product => (
+                            <Card key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:shadow-lg hover:border-primary transition-all flex flex-col">
+                                <CardContent className="p-0 aspect-square relative w-full">
+                                    <Image src={product.image} alt={product.name} fill className="object-cover rounded-t-lg"/>
+                                </CardContent>
+                                <div className="p-3 flex-grow">
+                                    <p className="font-medium text-sm leading-tight">{product.name}</p>
+                                </div>
+                                <CardFooter className="p-3 pt-0">
+                                    <p className="text-sm font-semibold text-primary">{formatCurrency(getPriceInCurrency(product.price), currency)}</p>
+                                </CardFooter>
+                            </Card>
+                        ))}
+                    </div>
                 </div>
 
                 <Card className="lg:col-span-1 flex flex-col h-full">
@@ -474,4 +481,3 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
-
