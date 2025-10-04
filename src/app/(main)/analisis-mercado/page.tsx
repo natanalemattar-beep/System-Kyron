@@ -32,7 +32,7 @@ const competitorsData = [
 ];
 
 const estrategias = [
-    "La demanda supera a la oferta en los meses de Marzo y Julio (inicio de períodos escolares/fiscales). Considerar aumentar el stock preventivamente.",
+    "La demanda supera a la oferta en los meses de marzo y julio (inicio de períodos escolares/fiscales). Considerar aumentar el stock preventivamente.",
     "El competidor 'OfiExpress' tiene una cuota de mercado dominante. Analizar su estrategia de precios y promociones para identificar oportunidades.",
     "El CAC es moderado. Implementar campañas de referidos podría reducirlo y aumentar la base de clientes leales."
 ];

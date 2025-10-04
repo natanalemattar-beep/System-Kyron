@@ -8,7 +8,7 @@ export default function IgtfPage() {
        <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Percent className="h-8 w-8" />
-            IGTF & Exoneraciones
+            IGTF y Exoneraciones
         </h1>
         <p className="text-muted-foreground mt-2">
           Módulo de IGTF y exoneraciones.
@@ -16,7 +16,7 @@ export default function IgtfPage() {
       </header>
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle>IGTF & Exoneraciones</CardTitle>
+          <CardTitle>IGTF y Exoneraciones</CardTitle>
           <CardDescription>
             Sección en construcción. Aquí podrás gestionar el IGTF y las exoneraciones.
           </CardDescription>

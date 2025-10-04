@@ -26,9 +26,6 @@ export default function LoginJuridicoPage() {
 
   return (
     <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-gradient-to-br from-sky-100 to-blue-200 bg-[length:200%_200%] animate-gradient-animation">
-      {/* Background Gradient */}
-      
-
       <header className="sticky top-0 z-50 w-full bg-blue-200/30 backdrop-blur-md border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -47,7 +44,7 @@ export default function LoginJuridicoPage() {
                         <Link href="/login-natural">Acceso Natural</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                        <Link href="/login-juridico">Acceso Juridico</Link>
+                        <Link href="/login-juridico">Acceso Jurídico</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href="/login-rrhh">Acceso RR.HH.</Link>
@@ -63,7 +60,7 @@ export default function LoginJuridicoPage() {
              <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
               <Building className="h-8 w-8"/>
             </div>
-            <CardTitle className="text-2xl">Acceso Juridico</CardTitle>
+            <CardTitle className="text-2xl">Acceso Jurídico</CardTitle>
             <CardDescription>Inicia sesión con tu RIF empresarial.</CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-6">
@@ -106,5 +103,3 @@ export default function LoginJuridicoPage() {
     </div>
   );
 }
-
-    
