@@ -53,10 +53,10 @@ export default function RegistroRifPage() {
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <FileEdit className="h-8 w-8" />
-            Registro de RIF
+            Registro Parental: Autorización Fiscal y Financiera para Menores
         </h1>
         <p className="text-muted-foreground mt-2">
-          Gestiona el estado de tu Registro de Información Fiscal (RIF).
+          Gestiona el RIF y las autorizaciones para que los menores puedan manejar instrumentos financieros, cumpliendo con las normativas de impuestos.
         </p>
       </header>
       <Card className="w-full max-w-2xl mx-auto bg-card/50 backdrop-blur-sm">
@@ -138,7 +138,7 @@ export default function RegistroRifPage() {
 
        <Card className="w-full max-w-2xl mx-auto bg-card/50 backdrop-blur-sm mt-8">
         <CardHeader>
-          <CardTitle>Registro de RIF para Menores de Edad</CardTitle>
+          <CardTitle>¿Quiénes deben tener RIF?</CardTitle>
           <CardDescription>
             Información sobre el procedimiento para la inscripción de menores en el RIF.
           </CardDescription>
@@ -149,6 +149,9 @@ export default function RegistroRifPage() {
             <AlertTitle>Puntos Clave para el Registro de Menores</AlertTitle>
             <AlertDescription>
                 <ul className="list-disc pl-5 space-y-2 mt-2">
+                    <li>
+                        <strong>Obligatoriedad:</strong> Toda persona que realice operaciones que incurran en pago de impuestos, incluidos menores de edad autorizados para manejar instrumentos financieros, debe estar inscrita.
+                    </li>
                     <li>
                         <strong>Edad Mínima:</strong> Un menor de edad puede obtener un RIF a partir de los 9 años, siempre que posea una Cédula de Identidad.
                     </li>
