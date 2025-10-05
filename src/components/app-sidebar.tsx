@@ -128,6 +128,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
     { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
     { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
+    { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
 ];
 
 const facturacionGeneralMenuItems = [
@@ -150,9 +151,9 @@ const facturacionGeneralMenuItems = [
 const ventasMenuItems = [
     { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
     { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
+    { href: "/punto-de-venta", label: "Devolución de Productos", icon: TabletSmartphone },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/punto-de-venta", label: "Devolución de Productos", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
     { href: "/notificaciones", label: "Notificaciones", icon: Bell },
