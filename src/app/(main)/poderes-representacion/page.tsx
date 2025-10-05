@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Gavel, PlusCircle, CheckCircle, Edit } from "lucide-react";
+import { Gavel, PlusCircle, CheckCircle, Edit, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -20,6 +20,12 @@ const initialPoderes = [
     { id: "POD-002", tipo: "Apoderado Judicial Especial", apoderado: "Luis Gómez (V-18.765.432)", registro: "N/A", expediente: "AP11-V-2024-000123", estado: "Activo" },
     { id: "POD-003", tipo: "Poder para Actos de Disposición", apoderado: "Carlos Sanchez (E-8.999.000)", registro: "Notaría Pública 3ra, N° 12, Tomo 5-B", expediente: "N/A", estado: "Revocado" },
 ];
+
+const holdingData = [
+    { id: 1, nombre: "Ana Pérez", rol: "Socio / Director", cedula: "V-12.345.678", participacion: "50%" },
+    { id: 2, nombre: "Luis Gómez", rol: "Socio / Director", cedula: "V-18.765.432", participacion: "50%" },
+];
+
 
 type Poder = typeof initialPoderes[0];
 
@@ -141,6 +147,40 @@ export default function PoderesRepresentacionPage() {
                                             <Edit className="h-4 w-4" />
                                         </Button>
                                     </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+
+            <Card className="mt-8 bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Users className="h-6 w-6 text-primary" />
+                        Holding de Representantes y Socios
+                    </CardTitle>
+                    <CardDescription>
+                        Detalle de la participación accionaria de los representantes legales y socios, requerido para fiscalización.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Nombre</TableHead>
+                                <TableHead>Rol</TableHead>
+                                <TableHead>Cédula / RIF</TableHead>
+                                <TableHead className="text-right">Participación (%)</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {holdingData.map((socio) => (
+                                <TableRow key={socio.id}>
+                                    <TableCell className="font-medium">{socio.nombre}</TableCell>
+                                    <TableCell>{socio.rol}</TableCell>
+                                    <TableCell>{socio.cedula}</TableCell>
+                                    <TableCell className="text-right font-semibold">{socio.participacion}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
