@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone, Lock, Unlock } from "lucide-react";
+import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone, Lock, Unlock, Mail } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -16,9 +16,9 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const initialClientes = [
-    { id: "CLI-001", nombre: "Tech Solutions LLC", bloqueado: false },
-    { id: "CLI-002", nombre: "Innovate Corp", bloqueado: true },
-    { id: "CLI-003", nombre: "Marketing Pro", bloqueado: false },
+    { id: "CLI-001", nombre: "Tech Solutions LLC", bloqueado: false, email: "billing@techsolutions.com" },
+    { id: "CLI-002", nombre: "Innovate Corp", bloqueado: true, email: "accounts@innovatecorp.com" },
+    { id: "CLI-003", nombre: "Marketing Pro", bloqueado: false, email: "contact@marketingpro.net" },
 ];
 
 const initialFacturas = [
@@ -93,6 +93,13 @@ export default function FacturacionCreditoPage() {
             }
             return c;
         }));
+    };
+    
+    const handleNotifyCustomer = (cliente: Cliente) => {
+        toast({
+            title: "Notificación Enviada",
+            description: `Se ha enviado un recordatorio de pago a ${cliente.nombre} al correo ${cliente.email}.`,
+        });
     };
 
     return (
@@ -358,7 +365,16 @@ export default function FacturacionCreditoPage() {
                                                 Registrar Pago
                                             </Button>
                                         )}
-                                        {factura.estado === "Vencida" && factura.metodo === "Crédito Directo" && (
+                                        {factura.estado === "Vencida" && factura.metodo === "Crédito Directo" && cliente && (
+                                           <>
+                                             <Button 
+                                                size="sm" 
+                                                variant="outline"
+                                                onClick={() => handleNotifyCustomer(cliente)}
+                                            >
+                                                <Mail className="mr-2 h-4 w-4"/>
+                                                Notificar
+                                            </Button>
                                             <Button 
                                                 size="sm" 
                                                 variant={cliente?.bloqueado ? 'secondary' : 'destructive'}
@@ -367,6 +383,7 @@ export default function FacturacionCreditoPage() {
                                                 {cliente?.bloqueado ? <Unlock className="mr-2 h-4 w-4"/> : <Lock className="mr-2 h-4 w-4"/>}
                                                 {cliente?.bloqueado ? 'Desbloquear' : 'Bloquear'}
                                             </Button>
+                                           </>
                                         )}
                                     </TableCell>
                                 </TableRow>
