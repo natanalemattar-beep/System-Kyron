@@ -94,7 +94,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                     <Loader2 className="h-12 w-12 animate-spin text-primary" />
                 </div>
             ) : (
-                <div className="container mx-auto">
+                <div className="w-full">
                     <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
                         {children}
                     </div>
