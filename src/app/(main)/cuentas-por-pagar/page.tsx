@@ -5,17 +5,18 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { HandCoins, AlertTriangle, Clock, Lightbulb, BarChart } from "lucide-react";
+import { HandCoins, AlertTriangle, Clock, Lightbulb, BarChart, Mail, Bell } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const facturasPendientes = [
-    { id: "FAC-001", proveedor: "OficinaTech C.A.", fechaEmision: "2024-07-01", fechaVencimiento: "2024-07-31", monto: 1392, estado: "Pendiente" },
-    { id: "FAC-002", proveedor: "Suministros Globales", fechaEmision: "2024-06-15", fechaVencimiento: "2024-07-15", monto: 986, estado: "Vencida" },
-    { id: "FAC-003", proveedor: "Papelería Mundial", fechaEmision: "2024-07-10", fechaVencimiento: "2024-08-10", monto: 550, estado: "Pendiente" },
-    { id: "FAC-004", proveedor: "OficinaTech C.A.", fechaEmision: "2024-07-20", fechaVencimiento: "2024-08-20", monto: 2100, estado: "Pendiente" },
+    { id: "FAC-001", proveedor: "OficinaTech C.A.", email: "cobranza@oficinatech.com", fechaEmision: "2024-07-01", fechaVencimiento: "2024-07-31", monto: 1392, estado: "Pendiente" },
+    { id: "FAC-002", proveedor: "Suministros Globales", email: "pagos@suministrosglobales.com", fechaEmision: "2024-06-15", fechaVencimiento: "2024-07-15", monto: 986, estado: "Vencida" },
+    { id: "FAC-003", proveedor: "Papelería Mundial", email: "admin@papeleriamundial.net", fechaEmision: "2024-07-10", fechaVencimiento: "2024-08-10", monto: 550, estado: "Pendiente" },
+    { id: "FAC-004", proveedor: "OficinaTech C.A.", email: "cobranza@oficinatech.com", fechaEmision: "2024-07-20", fechaVencimiento: "2024-08-20", monto: 2100, estado: "Pendiente" },
 ];
 
 const topProveedoresData = [
@@ -49,6 +50,13 @@ export default function CuentasPorPagarPage() {
             description: `Se ha registrado el pago para la factura ${facturaId}.`,
         });
     };
+
+    const handleNotify = (facturaId: string, email: string) => {
+        toast({
+            title: "Notificación Enviada",
+            description: `Se ha enviado un recordatorio de vencimiento para la factura ${facturaId} a ${email}.`,
+        });
+    }
 
     const totalPorPagar = facturasPendientes.filter(f => f.estado !== "Pagada").reduce((acc, f) => acc + f.monto, 0);
     const facturasVencidas = facturasPendientes.filter(f => f.estado === "Vencida").length;
@@ -123,9 +131,31 @@ export default function CuentasPorPagarPage() {
                                             <TableCell>{formatDate(factura.fechaVencimiento)}</TableCell>
                                             <TableCell className="text-right">{formatCurrency(factura.monto, 'Bs.')}</TableCell>
                                             <TableCell><Badge variant={getStatusVariant(factura.estado)}>{factura.estado}</Badge></TableCell>
-                                            <TableCell className="text-right">
+                                            <TableCell className="text-right space-x-1">
                                                  <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=factura-pagar-${factura.id}`} alt={`QR for ${factura.id}`} width={24} height={24} className="inline-block mr-2" />
                                                 <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id)}>Registrar Pago</Button>
+                                                {factura.estado === 'Pendiente' && (
+                                                    <Dialog>
+                                                        <DialogTrigger asChild>
+                                                            <Button size="sm" variant="outline"><Mail className="mr-2 h-4 w-4"/> Notificar Vencimiento</Button>
+                                                        </DialogTrigger>
+                                                        <DialogContent>
+                                                            <DialogHeader>
+                                                                <DialogTitle>Confirmar Notificación</DialogTitle>
+                                                                <DialogDescription>
+                                                                    Se enviará un correo a <strong>{factura.email}</strong> como recordatorio del próximo vencimiento de la factura {factura.id}.
+                                                                </DialogDescription>
+                                                            </DialogHeader>
+                                                            <DialogFooter>
+                                                                <Button variant="outline">Cancelar</Button>
+                                                                <Button onClick={() => handleNotify(factura.id, factura.email)}>Enviar Notificación</Button>
+                                                            </DialogFooter>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                )}
+                                                {factura.estado === 'Vencida' && (
+                                                    <Button size="sm" variant="destructive" onClick={() => handleNotify(factura.id, factura.email)}><Bell className="mr-2 h-4 w-4"/> Notificar Pago</Button>
+                                                )}
                                             </TableCell>
                                         </TableRow>
                                     ))}
