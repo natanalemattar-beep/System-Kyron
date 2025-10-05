@@ -74,7 +74,7 @@ export default function RegistroRifPage() {
             <div className="space-y-4">
                 <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
                     <span className="font-medium text-muted-foreground">Razón Social:</span>
-                    <span className="font-semibold">Empresa S.A.</span>
+                    <span className="font-semibold">Cliente</span>
                 </div>
                 <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
                     <span className="font-medium text-muted-foreground">Número de RIF:</span>
