@@ -2,36 +2,8 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { HelpCircle, FileText, FilePlus, FileMinus, CheckCircle } from "lucide-react";
-
-const documents = [
-    {
-        icon: FileText,
-        title: "Factura",
-        purpose: "Comprobante de venta que detalla los bienes o servicios vendidos, sus precios y el total del pedido.",
-        fn: "Documento principal de una transacción; registra la operación y crea las cuentas por cobrar del cliente y las cuentas por pagar de la empresa.",
-        issuer: "Vendedor",
-        example: "Venta de mercancía a un cliente.",
-    },
-    {
-        icon: FilePlus,
-        title: "Nota de Crédito",
-        purpose: "Disminuir el monto adeudado por el cliente o anular una factura.",
-        fn: "Refleja que la empresa debe dinero al cliente o que el cliente tiene un saldo a favor.",
-        causes: ["Devoluciones de productos", "Errores de facturación (sobrecargo)", "Descuentos o bonificaciones post-venta"],
-        issuer: "Vendedor",
-        example: "Un cliente devuelve una prenda porque no le gusta.",
-    },
-    {
-        icon: FileMinus,
-        title: "Nota de Débito",
-        purpose: "Aumentar el valor de una factura o una deuda.",
-        fn: "Aumenta la deuda del comprador o refleja que el cliente debe más dinero al vendedor.",
-        causes: ["Cobrar importes adicionales no incluidos en la factura original (ej: gastos de envío)", "Penalizaciones por pago tardío", "Corrección de un precio facturado por debajo del correcto"],
-        issuer: "Comprador o vendedor, según el caso",
-        example: "Un producto se facturó con un precio menor al correcto, y el vendedor emite una nota de débito para cobrar la diferencia.",
-    },
-];
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { HelpCircle, FileText, FilePlus, FileMinus } from "lucide-react";
 
 export default function FacturaNotaDebitoCreditoPage() {
   return (
@@ -52,53 +24,60 @@ export default function FacturaNotaDebitoCreditoPage() {
         </CardHeader>
         <CardContent>
             <p className="text-muted-foreground">
-                Una **factura** es un comprobante de una transacción comercial; una **nota de crédito** se emite para anular o reducir el valor de una factura previa, a favor del cliente; y una **nota de débito** se emite para aumentar el valor de una factura original, a favor del vendedor, por conceptos adicionales.
+                Una <strong>factura</strong> es un comprobante de una transacción; una <strong>nota de crédito</strong> se emite para anular o reducir el valor de una factura, a favor del cliente; y una <strong>nota de débito</strong> se emite para aumentar el valor de una factura, a favor del vendedor, por conceptos adicionales.
             </p>
         </CardContent>
        </Card>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {documents.map((doc) => (
-            <Card key={doc.title} className="flex flex-col bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-3">
-                        <doc.icon className="h-6 w-6 text-primary" />
-                        <span>{doc.title}</span>
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4 flex-grow">
-                    <div>
-                        <h4 className="font-semibold">Propósito</h4>
-                        <p className="text-sm text-muted-foreground">{doc.purpose}</p>
-                    </div>
-                     <div>
-                        <h4 className="font-semibold">Función Principal</h4>
-                        <p className="text-sm text-muted-foreground">{doc.fn}</p>
-                    </div>
-                     <div>
-                        <h4 className="font-semibold">Emisor Común</h4>
-                        <p className="text-sm text-muted-foreground">{doc.issuer}</p>
-                    </div>
-                    {doc.causes && (
-                        <div>
-                            <h4 className="font-semibold">Causas Comunes</h4>
-                            <ul className="list-disc pl-5 mt-1 space-y-1">
-                            {doc.causes.map(cause => (
-                                <li key={cause} className="text-sm text-muted-foreground">{cause}</li>
-                            ))}
+      <Card className="bg-card/50 backdrop-blur-sm">
+          <CardHeader>
+              <CardTitle>Tabla Comparativa</CardTitle>
+          </CardHeader>
+          <CardContent>
+              <Table>
+                  <TableHeader>
+                      <TableRow>
+                          <TableHead className="w-[15%]">Documento</TableHead>
+                          <TableHead className="w-[25%]">Propósito</TableHead>
+                          <TableHead className="w-[30%]">Efecto Contable</TableHead>
+                          <TableHead className="w-[30%]">Causas y Ejemplos Comunes</TableHead>
+                      </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                      <TableRow>
+                          <TableCell className="font-semibold flex items-center gap-2"><FileText className="h-5 w-5 text-primary"/>Factura</TableCell>
+                          <TableCell>Comprobante de una venta de bienes o servicios.</TableCell>
+                          <TableCell>Registra un ingreso para el vendedor y una cuenta por pagar para el comprador.</TableCell>
+                          <TableCell className="text-sm text-muted-foreground">Ej: Venta de mercancía a un cliente.</TableCell>
+                      </TableRow>
+                      <TableRow>
+                          <TableCell className="font-semibold flex items-center gap-2"><FilePlus className="h-5 w-5 text-green-500"/>Nota de Crédito</TableCell>
+                          <TableCell>Disminuir el monto adeudado por el cliente o anular una factura.</TableCell>
+                          <TableCell>Reduce los ingresos del vendedor y la deuda del comprador. Indica que el cliente tiene un saldo a favor.</TableCell>
+                          <TableCell className="text-sm text-muted-foreground">
+                            <ul className="list-disc pl-4 space-y-2">
+                                <li><strong>Devoluciones:</strong> Un cliente devuelve un producto defectuoso.</li>
+                                <li><strong>Descuentos:</strong> Se aplica un descuento después de la facturación.</li>
+                                <li><strong>Pago Fallido:</strong> El pago de un cliente con tarjeta es rechazado después de emitir la factura. Se emite una Nota de Crédito para anular la venta fallida.</li>
                             </ul>
-                        </div>
-                    )}
-                     <div className="pt-4">
-                        <h4 className="font-semibold">Ejemplo</h4>
-                        <p className="text-sm text-muted-foreground italic">"{doc.example}"</p>
-                    </div>
-                </CardContent>
-            </Card>
-        ))}
-      </div>
+                          </TableCell>
+                      </TableRow>
+                      <TableRow>
+                          <TableCell className="font-semibold flex items-center gap-2"><FileMinus className="h-5 w-5 text-red-500"/>Nota de Débito</TableCell>
+                          <TableCell>Aumentar el valor de una factura o una deuda existente.</TableCell>
+                          <TableCell>Aumenta los ingresos del vendedor y la deuda del comprador.</TableCell>
+                           <TableCell className="text-sm text-muted-foreground">
+                             <ul className="list-disc pl-4 space-y-2">
+                                <li><strong>Cargos Adicionales:</strong> Cobrar gastos de envío no incluidos en la factura original.</li>
+                                <li><strong>Intereses por Mora:</strong> Aplicar penalizaciones por pago tardío.</li>
+                                <li><strong>Errores de Precio:</strong> Un producto se facturó con un precio menor al correcto y se cobra la diferencia.</li>
+                            </ul>
+                           </TableCell>
+                      </TableRow>
+                  </TableBody>
+              </Table>
+          </CardContent>
+      </Card>
     </div>
   );
 }
-
-    
