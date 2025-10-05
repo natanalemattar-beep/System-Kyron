@@ -149,13 +149,13 @@ const facturacionGeneralMenuItems = [
 
 const ventasMenuItems = [
     { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+    { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
     { href: "/punto-de-venta", label: "Devolución de Productos", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/notificaciones", label: "Notificaciones a RR.HH.", icon: Bell },
+    { href: "/notificaciones", label: "Notificaciones", icon: Bell },
     { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
 ];
 
@@ -420,7 +420,7 @@ function AppSidebarHr() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-        <Accordion type="multiple" className="w-full">
+        <Accordion type="multiple" className="w-full" defaultValue={['Gestión']}>
             {navGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
@@ -547,3 +547,6 @@ function AppSidebarVentas() {
     
 
 
+
+
+    

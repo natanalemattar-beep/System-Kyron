@@ -4,81 +4,82 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp } from "lucide-react";
+import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { FileInputTrigger } from "@/components/file-input-trigger";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 
 const initialPermisos = [
     // --- Ministerios - Petróleo y Minería ---
-    { id: "PERM-PET-001", tipo: "Transporte Terrestre de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-01-10", fechaVencimiento: "2025-01-10", estado: "Vigente", requisitos: ["Copia del RIF", "Registro Mercantil", "Póliza de Seguro"] },
-    { id: "PERM-PET-002", tipo: "Transporte Acuático de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-02-15", fechaVencimiento: "2025-02-15", estado: "Vigente", requisitos: ["Matrícula de la embarcación", "Certificado de seguridad"] },
-    { id: "PERM-PET-003", tipo: "Distribución de Lubricantes Terminados", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2023-08-01", fechaVencimiento: "2024-08-01", estado: "Por Vencer", requisitos: ["Licencia de Actividades Económicas", "Memoria Descriptiva"] },
-    { id: "PERM-PET-004", tipo: "Distribución de Derivados de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-04-05", fechaVencimiento: "2025-04-05", estado: "Vigente", requisitos: [] },
-    { id: "PERM-PET-005", tipo: "Suministro y Almacenamiento de Gas", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-05-20", fechaVencimiento: "2026-05-20", estado: "Vigente", requisitos: [] },
-    { id: "PERM-PET-006", tipo: "Actualización de Industrialización de LGN", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-06-11", fechaVencimiento: "2025-06-11", estado: "Vigente", requisitos: [] },
-    { id: "PERM-PET-007", tipo: "Registro para Industrialización de Refinación", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-07-12", fechaVencimiento: "2025-07-12", estado: "Vigente", requisitos: [] },
-    { id: "PERM-MIN-001", tipo: "Desarrollo Minero Ecológico", emisor: "Min. Desarrollo Minero Ecológico", fechaEmision: "2024-03-10", fechaVencimiento: "2026-03-10", estado: "Vigente", requisitos: [] },
+    { id: "PERM-PET-001", tipo: "Transporte Terrestre de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-01-10", fechaVencimiento: "2025-01-10", estado: "Vigente", requisitosInscripcion: ["Copia del RIF", "Registro Mercantil", "Póliza de Seguro"], requisitosRenovacion: ["Solvencia de pago de impuestos", "Inspección técnica vehicular"] },
+    { id: "PERM-PET-002", tipo: "Transporte Acuático de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-02-15", fechaVencimiento: "2025-02-15", estado: "Vigente", requisitosInscripcion: ["Matrícula de la embarcación", "Certificado de seguridad"], requisitosRenovacion: ["Inspección de seguridad actualizada"] },
+    { id: "PERM-PET-003", tipo: "Distribución de Lubricantes Terminados", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2023-08-01", fechaVencimiento: "2024-08-01", estado: "Por Vencer", requisitosInscripcion: ["Licencia de Actividades Económicas", "Memoria Descriptiva"], requisitosRenovacion: [] },
+    { id: "PERM-PET-004", tipo: "Distribución de Derivados de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-04-05", fechaVencimiento: "2025-04-05", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-PET-005", tipo: "Suministro y Almacenamiento de Gas", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-05-20", fechaVencimiento: "2026-05-20", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-PET-006", tipo: "Actualización de Industrialización de LGN", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-06-11", fechaVencimiento: "2025-06-11", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-PET-007", tipo: "Registro para Industrialización de Refinación", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-07-12", fechaVencimiento: "2025-07-12", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-MIN-001", tipo: "Desarrollo Minero Ecológico", emisor: "Min. Desarrollo Minero Ecológico", fechaEmision: "2024-03-10", fechaVencimiento: "2026-03-10", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
 
     // --- Ministerios - Comercio e Industria ---
-    { id: "PERM-COM-001", tipo: "Licencia de Importación", emisor: "Min. Comercio", fechaEmision: "2024-07-01", fechaVencimiento: "2024-12-31", estado: "Vigente", requisitos: ["Factura Comercial", "Documento de Transporte"] },
-    { id: "PERM-COM-002", tipo: "Licencia de Exportación", emisor: "Min. Comercio", fechaEmision: "2024-06-15", fechaVencimiento: "2024-12-15", estado: "Vigente", requisitos: ["Certificado de Origen"] },
-    { id: "PERM-COM-003", tipo: "Certificado de No Producción Nacional (CNP)", emisor: "Min. Comercio", fechaEmision: "2024-07-22", fechaVencimiento: "2025-01-22", estado: "Vigente", requisitos: [] },
+    { id: "PERM-COM-001", tipo: "Licencia de Importación", emisor: "Min. Comercio", fechaEmision: "2024-07-01", fechaVencimiento: "2024-12-31", estado: "Vigente", requisitosInscripcion: ["Factura Comercial", "Documento de Transporte"], requisitosRenovacion: ["Declaración de necesidad de importación"] },
+    { id: "PERM-COM-002", tipo: "Licencia de Exportación", emisor: "Min. Comercio", fechaEmision: "2024-06-15", fechaVencimiento: "2024-12-15", estado: "Vigente", requisitosInscripcion: ["Certificado de Origen"], requisitosRenovacion: [] },
+    { id: "PERM-COM-003", tipo: "Certificado de No Producción Nacional (CNP)", emisor: "Min. Comercio", fechaEmision: "2024-07-22", fechaVencimiento: "2025-01-22", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
 
     // --- Ministerios - Salud y Trabajo ---
-    { id: "PERM-SAL-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "MPPS / SACS", fechaEmision: "2024-01-15", fechaVencimiento: "2025-01-15", estado: "Vigente", requisitos: ["RIF", "Permiso de Bomberos", "Planos del local"] },
-    { id: "PERM-SAL-002", tipo: "Registro Sanitario de Producto", emisor: "MPPS / SACS", fechaEmision: "2022-11-11", fechaVencimiento: "2027-11-11", estado: "Vigente", requisitos: [] },
-    { id: "PERM-SAL-003", tipo: "Certificado de Fumigación", emisor: "MPPS / SACS", fechaEmision: "2024-07-01", fechaVencimiento: "2025-01-01", estado: "Vigente", requisitos: [] },
-    { id: "PERM-SAL-004", tipo: "Permiso de Manipulación de Alimentos", emisor: "MPPS / SACS", fechaEmision: "2024-06-01", fechaVencimiento: "2025-06-01", estado: "Vigente", requisitos: [] },
-    { id: "PERM-SAL-005", tipo: "Conformidad Sanitaria de Habitabilidad", emisor: "MPPS / SACS", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitos: [] },
-    { id: "PERM-SAL-006", tipo: "Registro de Establecimiento de Salud", emisor: "MPPS / SACS", fechaEmision: "2024-01-20", fechaVencimiento: "2029-01-20", estado: "Vigente", requisitos: ["RIF de la clínica", "Nómina de médicos", "Permiso de Bomberos"] },
-    { id: "PERM-TRA-001", tipo: "Acreditación en INPSASEL", emisor: "INPSASEL", fechaEmision: "2023-01-18", fechaVencimiento: "2025-01-18", estado: "Vigente", requisitos: ["Declaración Trimestral de Accidentes", "Programa de Seguridad y Salud"] },
+    { id: "PERM-SAL-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "MPPS / SACS", fechaEmision: "2024-01-15", fechaVencimiento: "2025-01-15", estado: "Vigente", requisitosInscripcion: ["RIF", "Permiso de Bomberos", "Planos del local"], requisitosRenovacion: ["Certificado de fumigación vigente"] },
+    { id: "PERM-SAL-002", tipo: "Registro Sanitario de Producto", emisor: "MPPS / SACS", fechaEmision: "2022-11-11", fechaVencimiento: "2027-11-11", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-SAL-003", tipo: "Certificado de Fumigación", emisor: "MPPS / SACS", fechaEmision: "2024-07-01", fechaVencimiento: "2025-01-01", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-SAL-004", tipo: "Permiso de Manipulación de Alimentos", emisor: "MPPS / SACS", fechaEmision: "2024-06-01", fechaVencimiento: "2025-06-01", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-SAL-005", tipo: "Conformidad Sanitaria de Habitabilidad", emisor: "MPPS / SACS", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-SAL-006", tipo: "Registro de Establecimiento de Salud", emisor: "MPPS / SACS", fechaEmision: "2024-01-20", fechaVencimiento: "2029-01-20", estado: "Vigente", requisitosInscripcion: ["RIF de la clínica", "Nómina de médicos", "Permiso de Bomberos"], requisitosRenovacion: [] },
+    { id: "PERM-TRA-001", tipo: "Acreditación en INPSASEL", emisor: "INPSASEL", fechaEmision: "2023-01-18", fechaVencimiento: "2025-01-18", estado: "Vigente", requisitosInscripcion: ["Declaración Trimestral de Accidentes", "Programa de Seguridad y Salud"], requisitosRenovacion: [] },
 
     // --- Ministerios - Sectoriales Diversos ---
-    { id: "PERM-CONS-001", tipo: "Permiso de Construcción de Obra Civil", emisor: "Min. Obras Públicas", fechaEmision: "2024-02-01", fechaVencimiento: "2026-02-01", estado: "Vigente", requisitos: [] },
-    { id: "PERM-CONS-002", tipo: "Permiso de Desmantelamiento de Instalaciones", emisor: "Min. Obras Públicas", fechaEmision: "2024-03-18", fechaVencimiento: "2024-09-18", estado: "Por Vencer", requisitos: [] },
-    { id: "PERM-ECO-001", tipo: "Registro de Actividades (RACDA)", emisor: "Min. Ecosocialismo (MINEC)", fechaEmision: "2023-09-05", fechaVencimiento: "2024-09-05", estado: "Por Vencer", requisitos: [] },
-    { id: "PERM-TUR-001", tipo: "Licencia de Turismo", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-01-25", fechaVencimiento: "2025-01-25", estado: "Vigente", requisitos: [] },
-    { id: "PERM-TUR-002", tipo: "Inscripción en Marca País", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-07-26", fechaVencimiento: "2026-07-26", estado: "Vigente", requisitos: ["Portafolio de productos", "Acta Constitutiva"] },
-    { id: "PERM-EDU-001", tipo: "Conformidad de Uso Educativo", emisor: "Min. Educación", fechaEmision: "2023-09-01", fechaVencimiento: "2028-09-01", estado: "Vigente", requisitos: [] },
-    { id: "PERM-CUL-001", tipo: "Asignación de ISBN", emisor: "CENAL", fechaEmision: "2024-04-20", fechaVencimiento: "N/A", estado: "Vigente", requisitos: [] },
-    { id: "PERM-CUL-002", tipo: "Certificado de Patrimonio Cultural", emisor: "Min. Cultura (MPPC)", fechaEmision: "2023-12-01", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: [] },
-    { id: "PERM-DEP-001", tipo: "Registro Nacional del Deporte", emisor: "Min. Deporte", fechaEmision: "2024-04-12", fechaVencimiento: "2026-04-12", estado: "Vigente", requisitos: [] },
-    { id: "PERM-PES-001", tipo: "Registro de Empresas de Pesca", emisor: "Min. Pesca y Acuicultura", fechaEmision: "2024-05-14", fechaVencimiento: "2025-05-14", estado: "Vigente", requisitos: [] },
+    { id: "PERM-CONS-001", tipo: "Permiso de Construcción de Obra Civil", emisor: "Min. Obras Públicas", fechaEmision: "2024-02-01", fechaVencimiento: "2026-02-01", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-CONS-002", tipo: "Permiso de Desmantelamiento de Instalaciones", emisor: "Min. Obras Públicas", fechaEmision: "2024-03-18", fechaVencimiento: "2024-09-18", estado: "Por Vencer", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-ECO-001", tipo: "Registro de Actividades (RACDA)", emisor: "Min. Ecosocialismo (MINEC)", fechaEmision: "2023-09-05", fechaVencimiento: "2024-09-05", estado: "Por Vencer", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-TUR-001", tipo: "Licencia de Turismo", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-01-25", fechaVencimiento: "2025-01-25", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-TUR-002", tipo: "Inscripción en Marca País", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-07-26", fechaVencimiento: "2026-07-26", estado: "Vigente", requisitosInscripcion: ["Portafolio de productos", "Acta Constitutiva"], requisitosRenovacion: [] },
+    { id: "PERM-EDU-001", tipo: "Conformidad de Uso Educativo", emisor: "Min. Educación", fechaEmision: "2023-09-01", fechaVencimiento: "2028-09-01", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-CUL-001", tipo: "Asignación de ISBN", emisor: "CENAL", fechaEmision: "2024-04-20", fechaVencimiento: "N/A", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-CUL-002", tipo: "Certificado de Patrimonio Cultural", emisor: "Min. Cultura (MPPC)", fechaEmision: "2023-12-01", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-DEP-001", tipo: "Registro Nacional del Deporte", emisor: "Min. Deporte", fechaEmision: "2024-04-12", fechaVencimiento: "2026-04-12", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-PES-001", tipo: "Registro de Empresas de Pesca", emisor: "Min. Pesca y Acuicultura", fechaEmision: "2024-05-14", fechaVencimiento: "2025-05-14", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
     
     // --- Permisos Municipales ---
-    { id: "PERM-MUN-001", tipo: "Licencia de Actividades Económicas", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitos: ["RIF", "Uso Conforme", "Permiso de Bomberos"] },
-    { id: "PERM-MUN-002", tipo: "Conformidad de Uso de Bomberos", emisor: "Cuerpo de Bomberos", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer", requisitos: ["Inspección técnica", "Plan de emergencia"] },
-    { id: "PERM-MUN-003", tipo: "Certificado de Uso Conforme", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitos: [] },
-    { id: "PERM-MUN-004", tipo: "Certificado de Uso de Suelo (Zonificación)", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitos: [] },
+    { id: "PERM-MUN-001", tipo: "Licencia de Actividades Económicas", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitosInscripcion: ["RIF", "Uso Conforme", "Permiso de Bomberos"], requisitosRenovacion: ["Solvencia de impuestos municipales"] },
+    { id: "PERM-MUN-002", tipo: "Conformidad de Uso de Bomberos", emisor: "Cuerpo de Bomberos", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer", requisitosInscripcion: ["Inspección técnica", "Plan de emergencia"], requisitosRenovacion: ["Inspección anual"] },
+    { id: "PERM-MUN-003", tipo: "Certificado de Uso Conforme", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-MUN-004", tipo: "Certificado de Uso de Suelo (Zonificación)", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
 
     // --- Entes Reguladores y Profesionales ---
-    { id: "PERM-REG-001", tipo: "Permiso Sanitario para Funerarias", emisor: "MPPS / SACS", fechaEmision: "2024-01-20", fechaVencimiento: "2025-01-20", estado: "Vigente", requisitos: ["RIF de la funeraria", "Planos del local", "Inspección Sanitaria"] },
-    { id: "PERM-REG-002", tipo: "Autorización de Empresa de Seguros", emisor: "SUDEASEG", fechaEmision: "2023-05-10", fechaVencimiento: "2025-05-10", estado: "Vigente", requisitos: ["Capital mínimo", "Estatutos sociales", "Nómina de directores"] },
-    { id: "PERM-REG-003", tipo: "Licencia de Institución Financiera", emisor: "SUDEBAN", fechaEmision: "2022-11-15", fechaVencimiento: "2027-11-15", estado: "Vigente", requisitos: ["Estudio de viabilidad", "Manuales de control interno"] },
-    { id: "PERM-PRO-001", tipo: "Inscripción en Colegio de Médicos", emisor: "Colegios Profesionales", fechaEmision: "2020-02-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: ["Título universitario", "Cédula de identidad"] },
-    { id: "PERM-PRO-002", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: ["Título universitario", "Solvencia del colegio"] },
-    { id: "PERM-PRO-003", tipo: "Inscripción en INPREABOGADO", emisor: "Colegios Profesionales", fechaEmision: "2018-05-30", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: ["Título de abogado", "Inscripción en el Colegio de Abogados"] },
+    { id: "PERM-REG-001", tipo: "Permiso Sanitario para Funerarias", emisor: "MPPS / SACS", fechaEmision: "2024-01-20", fechaVencimiento: "2025-01-20", estado: "Vigente", requisitosInscripcion: ["RIF de la funeraria", "Planos del local", "Inspección Sanitaria"], requisitosRenovacion: [] },
+    { id: "PERM-REG-002", tipo: "Autorización de Empresa de Seguros", emisor: "SUDEASEG", fechaEmision: "2023-05-10", fechaVencimiento: "2025-05-10", estado: "Vigente", requisitosInscripcion: ["Capital mínimo", "Estatutos sociales", "Nómina de directores"], requisitosRenovacion: [] },
+    { id: "PERM-REG-003", tipo: "Licencia de Institución Financiera", emisor: "SUDEBAN", fechaEmision: "2022-11-15", fechaVencimiento: "2027-11-15", estado: "Vigente", requisitosInscripcion: ["Estudio de viabilidad", "Manuales de control interno"], requisitosRenovacion: [] },
+    { id: "PERM-PRO-001", tipo: "Inscripción en Colegio de Médicos", emisor: "Colegios Profesionales", fechaEmision: "2020-02-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario", "Cédula de identidad"], requisitosRenovacion: [] },
+    { id: "PERM-PRO-002", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario", "Solvencia del colegio"], requisitosRenovacion: [] },
+    { id: "PERM-PRO-003", tipo: "Inscripción en INPREABOGADO", emisor: "Colegios Profesionales", fechaEmision: "2018-05-30", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de abogado", "Inscripción en el Colegio de Abogados"], requisitosRenovacion: [] },
 
     // --- Entes Nacionales y Registros Obligatorios ---
-    { id: "PERM-NAC-001", tipo: "Inscripción Patronal en el IVSS", emisor: "IVSS", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: [] },
-    { id: "PERM-NAC-002", tipo: "Inscripción en BANAVIH (FAOV)", emisor: "BANAVIH", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: [] },
-    { id: "PERM-NAC-003", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "2021-06-01", fechaVencimiento: "2024-06-01", estado: "Vencido", requisitos: [] },
-    { id: "PERM-NAC-004", tipo: "Registro Nacional de Contratistas (RNC)", emisor: "SNC", fechaEmision: "2024-07-10", fechaVencimiento: "2025-07-10", estado: "Vigente", requisitos: ["Estados Financieros", "Solvencia Laboral"] },
-    { id: "PERM-NAC-005", tipo: "Inscripción en el RNA (CONALOT)", emisor: "Min. Trabajo (MPPPST)", fechaEmision: "2020-02-01", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: [] },
-    { id: "PERM-NAC-006", tipo: "Inscripción en el RESQUIMC", emisor: "ONA", fechaEmision: "2024-05-15", fechaVencimiento: "2025-05-15", estado: "Vigente", requisitos: [] },
-    { id: "PERM-NAC-007", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "Min. Comunas", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer", requisitos: [] },
-    { id: "PERM-NAC-008", tipo: "Inscripción en el RUPDAE", emisor: "SUNDDE", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitos: [] },
-    { id: "PERM-NAC-009", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente", requisitos: ["Búsqueda fonética y gráfica", "Diseño del logo"] },
-    { id: "PERM-NAC-010", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "2023-03-05", fechaVencimiento: "Vitalicio", estado: "Vigente", requisitos: [] },
-    { id: "PERM-NAC-011", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "2024-07-25", fechaVencimiento: "N/A", estado: "Vigente", requisitos: [] },
-    { id: "PERM-NAC-012", tipo: "Inscripción Militar Obligatoria (Empresa)", emisor: "Min. Defensa", fechaEmision: "2020-01-15", fechaVencimiento: "Indefinido", estado: "Vigente", requisitos: [] },
-    { id: "PERM-NAC-013", tipo: "Inscripción y Aporte a FONACIT", emisor: "FONACIT", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitos: ["Declaración de Ingresos Brutos", "Pago de aporte"] },
-    { id: "PERM-NAC-014", tipo: "Inscripción y Aporte a FONA", emisor: "ONA", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitos: ["Declaración de Utilidades", "Pago del 1% sobre Utilidad Operativa"] },
+    { id: "PERM-NAC-001", tipo: "Inscripción Patronal en el IVSS", emisor: "IVSS", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-002", tipo: "Inscripción en BANAVIH (FAOV)", emisor: "BANAVIH", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-003", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "2021-06-01", fechaVencimiento: "2024-06-01", estado: "Vencido", requisitosInscripcion: [], requisitosRenovacion: ["Solvencia de tasas postales"] },
+    { id: "PERM-NAC-004", tipo: "Registro Nacional de Contratistas (RNC)", emisor: "SNC", fechaEmision: "2024-07-10", fechaVencimiento: "2025-07-10", estado: "Vigente", requisitosInscripcion: ["Estados Financieros", "Solvencia Laboral"], requisitosRenovacion: ["Actualización de estados financieros"] },
+    { id: "PERM-NAC-005", tipo: "Inscripción en el RNA (CONALOT)", emisor: "Min. Trabajo (MPPPST)", fechaEmision: "2020-02-01", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-006", tipo: "Inscripción en el RESQUIMC", emisor: "ONA", fechaEmision: "2024-05-15", fechaVencimiento: "2025-05-15", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-007", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "Min. Comunas", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-008", tipo: "Inscripción en el RUPDAE", emisor: "SUNDDE", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-009", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente", requisitosInscripcion: ["Búsqueda fonética y gráfica", "Diseño del logo"], requisitosRenovacion: ["Pago de tasa de renovación"] },
+    { id: "PERM-NAC-010", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "2023-03-05", fechaVencimiento: "Vitalicio", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-011", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "2024-07-25", fechaVencimiento: "N/A", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-012", tipo: "Inscripción Militar Obligatoria (Empresa)", emisor: "Min. Defensa", fechaEmision: "2020-01-15", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: [], requisitosRenovacion: [] },
+    { id: "PERM-NAC-013", tipo: "Inscripción y Aporte a FONACIT", emisor: "FONACIT", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitosInscripcion: ["Declaración de Ingresos Brutos", "Pago de aporte"], requisitosRenovacion: ["Nueva declaración y pago"] },
+    { id: "PERM-NAC-014", tipo: "Inscripción y Aporte a FONA", emisor: "ONA", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitosInscripcion: ["Declaración de Utilidades", "Pago del 1% sobre Utilidad Operativa"], requisitosRenovacion: ["Nueva declaración y pago"] },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -124,7 +125,7 @@ export default function PermisosPage() {
       setSelectedFile(file);
       toast({
           title: "Archivo Cargado y Guardado en la Nube",
-          description: `"${file.name}" listo para enviar.`,
+          description: `"${file.name}" listo para enviar. El archivo se conservará por 10 años.`,
           action: <CheckCircle className="text-green-500" />,
       });
   };
@@ -197,37 +198,60 @@ export default function PermisosPage() {
                                                     <Eye className="h-4 w-4" />
                                                 </Button>
                                             </DialogTrigger>
-                                            <DialogContent className="sm:max-w-lg">
+                                            <DialogContent className="sm:max-w-2xl">
                                                 <DialogHeader>
                                                     <DialogTitle>Detalles del Permiso: {permiso.id}</DialogTitle>
                                                     <DialogDescription>{permiso.tipo}</DialogDescription>
                                                 </DialogHeader>
-                                                <div className="py-4 space-y-4">
-                                                    <div>
-                                                        <h4 className="font-semibold mb-2">Requisitos para Inscripción/Renovación</h4>
-                                                        {permiso.requisitos.length > 0 ? (
-                                                            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                                                                {permiso.requisitos.map(req => <li key={req}>{req}</li>)}
-                                                            </ul>
-                                                        ) : <p className="text-sm text-muted-foreground">No hay requisitos específicos listados.</p>}
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <h4 className="font-semibold">Cargar Documentos para Inscripción y Actualizaciones</h4>
-                                                        <FileInputTrigger onFileSelect={handleFileSelect}>
-                                                            <Button variant="outline" className="w-full">
-                                                                <FileUp className="mr-2 h-4 w-4" />
-                                                                Cargar Requisitos (PDF, JPG, PNG)
-                                                            </Button>
-                                                        </FileInputTrigger>
-                                                        {selectedFile && 
-                                                            <div className="flex items-center justify-center text-sm text-green-500 font-medium pt-2">
-                                                                <CheckCircle className="h-4 w-4 mr-2"/>
-                                                                <p>Archivo cargado: {selectedFile.name}</p>
+                                                <Tabs defaultValue="requisitos" className="py-4">
+                                                    <TabsList className="grid w-full grid-cols-2">
+                                                        <TabsTrigger value="requisitos">Requisitos</TabsTrigger>
+                                                        <TabsTrigger value="documentos">Cargar Documentos</TabsTrigger>
+                                                    </TabsList>
+                                                    <TabsContent value="requisitos" className="mt-4">
+                                                        <div className="grid grid-cols-2 gap-6">
+                                                            <div>
+                                                                <h4 className="font-semibold mb-2">Requisitos de Inscripción</h4>
+                                                                {permiso.requisitosInscripcion.length > 0 ? (
+                                                                    <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                                                        {permiso.requisitosInscripcion.map(req => <li key={req}>{req}</li>)}
+                                                                    </ul>
+                                                                ) : <p className="text-sm text-muted-foreground">No hay requisitos específicos listados.</p>}
                                                             </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <DialogFooter className="gap-2 sm:gap-0 sm:justify-between">
+                                                            <div>
+                                                                <h4 className="font-semibold mb-2">Requisitos de Renovación</h4>
+                                                                {permiso.requisitosRenovacion.length > 0 ? (
+                                                                    <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                                                        {permiso.requisitosRenovacion.map(req => <li key={req}>{req}</li>)}
+                                                                    </ul>
+                                                                ) : <p className="text-sm text-muted-foreground">No hay requisitos de renovación listados.</p>}
+                                                            </div>
+                                                        </div>
+                                                    </TabsContent>
+                                                    <TabsContent value="documentos" className="mt-4">
+                                                        <div className="space-y-4">
+                                                            <div className="space-y-2">
+                                                                <Label>Adjuntar Inscripción / Renovación / Pago</Label>
+                                                                <FileInputTrigger onFileSelect={handleFileSelect}>
+                                                                    <Button variant="outline" className="w-full">
+                                                                        <FileUp className="mr-2 h-4 w-4" />
+                                                                        Cargar Documento (PDF, JPG, PNG)
+                                                                    </Button>
+                                                                </FileInputTrigger>
+                                                                {selectedFile && 
+                                                                    <div className="flex items-center justify-center text-sm text-green-500 font-medium pt-2">
+                                                                        <CheckCircle className="h-4 w-4 mr-2"/>
+                                                                        <p>Archivo cargado: {selectedFile.name}</p>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                            <CardFooter className="p-0 pt-2">
+                                                               <p className="text-xs text-muted-foreground flex items-center gap-2"><Info className="h-4 w-4"/>Los documentos se archivarán de forma segura por 10 años.</p>
+                                                            </CardFooter>
+                                                        </div>
+                                                    </TabsContent>
+                                                </Tabs>
+                                                <DialogFooter className="gap-2 sm:gap-0 sm:justify-between pt-4 border-t">
                                                     <Button variant="secondary">
                                                         <Download className="mr-2 h-4 w-4" />
                                                         Descargar Permiso
@@ -255,3 +279,5 @@ export default function PermisosPage() {
     </div>
   );
 }
+
+    
