@@ -22,7 +22,7 @@ export default function IslrArcPage() {
   const handleExport = () => {
     toast({
       title: "Reporte Generado",
-      description: "El reporte anual de ISLR ha sido exportado exitosamente.",
+      description: "El reporte de ISLR ha sido exportado exitosamente.",
     });
   };
 
@@ -48,7 +48,7 @@ export default function IslrArcPage() {
              <div className="flex gap-2">
                 <Button variant="outline" onClick={handleExport}>
                     <Download className="mr-2" />
-                    Exportar Reporte Anual
+                    Exportar Reporte
                 </Button>
             </div>
         </header>
