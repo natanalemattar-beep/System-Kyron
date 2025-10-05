@@ -64,7 +64,7 @@ type CartItem = {
 
 type Currency = "Bs." | "USD" | "EUR";
 type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Zelle" | "Efectivo";
-type OperationType = "Venta Inmediata" | "Factura a Crédito sin Abono" | "Venta con Financiamiento";
+type OperationType = "Venta Inmediata" | "Factura a Crédito sin Abono" | "Venta con Financiamiento" | "Venta a Ente Exento de IVA";
 type FinancingPlatform = "Cashea" | "Krece" | "Rapikom";
 
 const exchangeRates: Record<Currency, number> = {
@@ -165,7 +165,7 @@ export default function PuntoDeVentaPage() {
     
     const subtotal = useMemo(() => cart.reduce((acc, item) => acc + item.price * item.quantity, 0), [cart]);
     const subtotalInCurrency = getPriceInCurrency(subtotal);
-    const iva = subtotalInCurrency * 0.16;
+    const iva = operationType === "Venta a Ente Exento de IVA" ? 0 : subtotalInCurrency * 0.16;
     const total = subtotalInCurrency + iva;
     const changeDue = amountReceived ? Number(amountReceived) - total : 0;
     
@@ -366,6 +366,7 @@ export default function PuntoDeVentaPage() {
                                         <SelectItem value="Venta Inmediata">Venta Inmediata</SelectItem>
                                         <SelectItem value="Factura a Crédito sin Abono">Factura a Crédito sin Abono</SelectItem>
                                         <SelectItem value="Venta con Financiamiento">Venta con Financiamiento</SelectItem>
+                                        <SelectItem value="Venta a Ente Exento de IVA">Venta a Ente Exento de IVA</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
