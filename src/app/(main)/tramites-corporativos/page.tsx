@@ -140,6 +140,18 @@ export default function TramitesCorporativosPage() {
                            </ul>
                         </AccordionContent>
                     </AccordionItem>
+                     <AccordionItem value="moderna">
+                        <AccordionTrigger>Gestión Moderna con BI y FP&A</AccordionTrigger>
+                        <AccordionContent>
+                            <ul className="space-y-4 text-muted-foreground list-disc pl-5">
+                               <li><strong>Plataforma Única:</strong> Con sistemas modernos de Business Intelligence (BI) y Financial Planning &amp; Analysis (FP&amp;A), toda la gestión se puede centralizar en una única plataforma, sin importar la ubicación del negocio.</li>
+                               <li><strong>Integración de Datos:</strong> La plataforma se integra con ERP, CRM, HRIS y otras fuentes de datos para validar y actualizar automáticamente los asientos contables y centros de costes.</li>
+                               <li><strong>Informes Automatizados:</strong> Se pueden crear y automatizar diferentes conjuntos de estados financieros (Estado de Resultados, Balance General, Flujo de Caja) para cada sucursal o de forma consolidada, ahorrando días de trabajo.</li>
+                               <li><strong>Gestión de Transacciones Complejas:</strong> Se gestionan automáticamente las transacciones interempresariales, la conversión de divisas para sucursales internacionales y el cumplimiento de diferentes normativas contables (como los PCGA).</li>
+                               <li><strong>Soporte a la Toma de Decisiones Locales:</strong> Permite crear presupuestos y pronósticos específicos para cada sucursal, analizar costos fijos y variables, gestionar inventarios y adaptar estrategias de precios a las condiciones del mercado local, fomentando la autonomía y la rentabilidad.</li>
+                           </ul>
+                        </AccordionContent>
+                    </AccordionItem>
                 </Accordion>
             </CardContent>
         </Card>
