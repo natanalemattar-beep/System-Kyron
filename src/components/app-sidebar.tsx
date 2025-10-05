@@ -222,7 +222,15 @@ const juridicoNavGroups = [
 ];
 
 const ventasNavGroups = [
-    { title: "Ventas y Facturación", icon: ShoppingCart, items: [...ventasMenuItems, { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus }, { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus }, { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle }] },
+    { title: "Ventas y Facturación", icon: ShoppingCart, items: [
+        { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
+        { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+        { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+        { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
+        { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+        { href: "/notificaciones", label: "Notificaciones a RR.HH.", icon: Bell },
+        { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
+    ] },
 ];
 
 
@@ -539,4 +547,4 @@ function AppSidebarVentas() {
 
     
 
-
+    
