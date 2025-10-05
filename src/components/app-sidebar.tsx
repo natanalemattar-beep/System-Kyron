@@ -88,6 +88,9 @@ import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { Logo } from "@/components/logo";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Input } from "./ui/input";
+import { chat } from "@/ai/flows/chat";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
@@ -156,8 +159,7 @@ const facturacionGeneralMenuItems = [
 
 const ventasMenuItems = [
     { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
-    { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
-    { href: "/punto-de-venta", label: "Devolución de Productos", icon: TabletSmartphone },
+    { href: "/punto-de-venta", label: "Facturación y Devoluciones", icon: TabletSmartphone },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
@@ -240,6 +242,117 @@ const ventasNavGroups = [
     { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
 ];
 
+type Message = {
+  role: 'user' | 'bot';
+  text: string;
+};
+
+function ChatDialog() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = { role: 'user', text: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+       const pageContext = document.title || "Página General";
+      const botResponse = await chat({ message: input, context: pageContext });
+      const botMessage: Message = { role: 'bot', text: botResponse };
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      const errorMessage: Message = { role: 'bot', text: "Lo siento, tuve un problema para conectarme. Inténtalo de nuevo." };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+          <Button variant="ghost" className="w-full justify-start h-10 text-base">
+                <Bot className="mr-3 h-5 w-5"/>
+                Chat IA
+          </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-lg flex flex-col h-[80vh]">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Bot className="h-5 w-5" /> Asistente IA
+          </DialogTitle>
+          <DialogDescription>
+            Hazme una pregunta sobre la página actual o cualquier otra duda.
+          </DialogDescription>
+        </DialogHeader>
+        <div ref={chatContainerRef} className="flex-grow flex flex-col p-4 bg-secondary/50 rounded-lg min-h-0 overflow-y-auto space-y-4">
+          {messages.length === 0 ? (
+            <div className="flex-grow flex items-center justify-center text-center text-muted-foreground">
+              <p>Hola, ¿cómo puedo ayudarte hoy?</p>
+            </div>
+          ) : (
+            messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`flex items-start gap-3 ${
+                  msg.role === 'user' ? 'justify-end' : 'justify-start'
+                }`}
+              >
+                {msg.role === 'bot' && <Avatar className="h-8 w-8"><AvatarFallback><Bot className="h-4 w-4"/></AvatarFallback></Avatar>}
+                <div
+                  className={`max-w-xs md:max-w-md rounded-lg px-4 py-2 ${
+                    msg.role === 'user'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-background'
+                  }`}
+                >
+                  <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
+                </div>
+                {msg.role === 'user' && <Avatar className="h-8 w-8"><AvatarFallback>TÚ</AvatarFallback></Avatar>}
+              </div>
+            ))
+          )}
+           {isLoading && (
+              <div className="flex items-start gap-3 justify-start">
+                <Avatar className="h-8 w-8"><AvatarFallback><Bot className="h-4 w-4"/></AvatarFallback></Avatar>
+                <div className="bg-background max-w-xs md:max-w-md rounded-lg px-4 py-2 flex items-center">
+                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground"/>
+                </div>
+              </div>
+            )}
+        </div>
+        <form onSubmit={handleSendMessage}>
+            <div className="relative">
+                <Input 
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Escribe tu mensaje..."
+                    disabled={isLoading}
+                />
+                <Button type="submit" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8" disabled={isLoading || !input.trim()}>
+                    <Send className="h-4 w-4"/>
+                </Button>
+            </div>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+
 export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
@@ -286,7 +399,7 @@ export function AppSidebar() {
                 <AccordionContent className="pb-0">
                    <SidebarMenu className="pl-4 border-l ml-4 py-2">
                     {group.items.map((item) => (
-                      <SidebarMenuItem key={item.href}>
+                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
                         <SidebarMenuButton
                           asChild
                           isActive={pathname.startsWith(item.href)}
@@ -308,6 +421,7 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
+        <ChatDialog />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>E</AvatarFallback>
@@ -372,7 +486,7 @@ function AppSidebarNatural() {
                 <AccordionContent className="pb-0">
                    <SidebarMenu className="pl-4 border-l ml-4 py-2">
                     {group.items.map((item) => (
-                      <SidebarMenuItem key={item.href}>
+                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
                         <SidebarMenuButton
                           asChild
                           isActive={isActive(item.href)}
@@ -394,6 +508,7 @@ function AppSidebarNatural() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
+        <ChatDialog />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             {userAvatar && (
@@ -455,7 +570,7 @@ function AppSidebarHr() {
                 <AccordionContent className="pb-0">
                    <SidebarMenu className="pl-4 border-l ml-4 py-2">
                     {group.items.map((item) => (
-                      <SidebarMenuItem key={item.href}>
+                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
                         <SidebarMenuButton
                           asChild
                           isActive={pathname.startsWith(item.href)}
@@ -477,6 +592,7 @@ function AppSidebarHr() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
+        <ChatDialog />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>RH</AvatarFallback>
@@ -530,7 +646,7 @@ function AppSidebarVentas() {
                 <AccordionContent className="pb-0">
                    <SidebarMenu className="pl-4 border-l ml-4 py-2">
                     {group.items.map((item) => (
-                      <SidebarMenuItem key={item.href}>
+                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
                         <SidebarMenuButton
                           asChild
                           isActive={pathname.startsWith(item.href)}
@@ -552,6 +668,7 @@ function AppSidebarVentas() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
+        <ChatDialog />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>V</AvatarFallback>
