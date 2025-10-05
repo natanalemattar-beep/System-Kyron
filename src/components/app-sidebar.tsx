@@ -133,6 +133,7 @@ const facturacionGeneralMenuItems = [
     { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
     { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
     { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
+    { href: "/registro-comprador", label: "Registro de Comprador", icon: UserCheck },
 ];
 
 const ventasMenuItems = [
