@@ -7,7 +7,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { Button } from "@/components/ui/button";
-import { Bell, LogOut, Settings, User } from "lucide-react";
+import { Bell, LogOut, Settings, User, Loader2 } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -17,6 +17,17 @@ import { cn } from "@/lib/utils";
 export default function HrLayout({ children }: { children: ReactNode }) {
   const [isHeaderVisible, setHeaderVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => {
+        setLoading(false);
+    }, 1000); // Adjust time as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
 
   useEffect(() => {
     const mainContent = document.querySelector('main');
@@ -37,7 +48,7 @@ export default function HrLayout({ children }: { children: ReactNode }) {
     return () => {
         mainContent.removeEventListener('scroll', handleScroll);
     };
-}, [lastScrollY]);
+  }, [lastScrollY]);
 
   return (
     <SidebarProvider defaultOpen={true}>
@@ -80,11 +91,17 @@ export default function HrLayout({ children }: { children: ReactNode }) {
              </div>
           </header>
           <main className="flex-1 p-4 md:p-8">
-            <div className="container mx-auto">
-              <div className="animate-in fade-in duration-500">
-                {children}
-              </div>
-            </div>
+             {loading ? (
+                <div className="flex items-center justify-center h-[calc(100vh-200px)]">
+                    <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                </div>
+            ) : (
+                 <div className="container mx-auto">
+                    <div className="animate-in fade-in duration-500">
+                        {children}
+                    </div>
+                </div>
+            )}
           </main>
         </SidebarInset>
       </div>
