@@ -55,7 +55,7 @@ export default function IslrArcPage() {
 
         <Card className="mb-8 bg-blue-500/10 border-blue-500/20">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><HelpCircle className="h-5 w-5"/>¿Cuál es la base de cálculo?</CardTitle>
+                <CardTitle className="flex items-center gap-3"><HelpCircle className="h-5 w-5"/>Declaración Estimada de ISLR: ¿Cuál es la base de cálculo?</CardTitle>
             </CardHeader>
             <CardContent>
                 <p className="text-blue-200">
