@@ -180,7 +180,7 @@ const recursosHumanosGestionItems = [
     { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
-    { href: "/notificaciones", label: "Notificaciones", icon: Bell },
+    { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
 ];
 
 const librosRegistroMenuItems = [
