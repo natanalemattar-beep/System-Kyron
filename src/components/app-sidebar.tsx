@@ -258,7 +258,7 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar>
+    <Sidebar variant="floating">
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
           <Logo />
@@ -304,6 +304,16 @@ export function AppSidebar() {
         </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
+        <SidebarMenu>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild tooltip="Chat IA" className="justify-start h-8">
+                    <Link href="#">
+                        <Bot className="h-4 w-4" />
+                        <span>Chat IA</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+        </SidebarMenu>
         <Separator className="my-2" />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
@@ -344,7 +354,7 @@ function AppSidebarNatural() {
   };
 
   return (
-    <Sidebar>
+    <Sidebar variant="floating">
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
            <Logo />
@@ -390,6 +400,16 @@ function AppSidebarNatural() {
         </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
+         <SidebarMenu>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild tooltip="Chat IA" className="justify-start h-8">
+                    <Link href="#">
+                        <Bot className="h-4 w-4" />
+                        <span>Chat IA</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+        </SidebarMenu>
         <Separator className="my-2" />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
@@ -427,7 +447,7 @@ function AppSidebarHr() {
   ]
 
   return (
-    <Sidebar>
+    <Sidebar variant="floating">
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
            <Logo />
@@ -473,6 +493,16 @@ function AppSidebarHr() {
         </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
+         <SidebarMenu>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild tooltip="Chat IA" className="justify-start h-8">
+                    <Link href="#">
+                        <Bot className="h-4 w-4" />
+                        <span>Chat IA</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+        </SidebarMenu>
         <Separator className="my-2" />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
@@ -502,7 +532,7 @@ function AppSidebarVentas() {
   ]
 
   return (
-    <Sidebar>
+    <Sidebar variant="floating">
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
            <Logo />
@@ -548,6 +578,16 @@ function AppSidebarVentas() {
         </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
+        <SidebarMenu>
+            <SidebarMenuItem>
+                <SidebarMenuButton asChild tooltip="Chat IA" className="justify-start h-8">
+                    <Link href="#">
+                        <Bot className="h-4 w-4" />
+                        <span>Chat IA</span>
+                    </Link>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+        </SidebarMenu>
         <Separator className="my-2" />
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
@@ -566,5 +606,3 @@ function AppSidebarVentas() {
     </Sidebar>
   );
 }
-
-    
