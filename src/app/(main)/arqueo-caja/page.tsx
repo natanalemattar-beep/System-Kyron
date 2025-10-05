@@ -64,7 +64,7 @@ const historialCierres = [
 
 const libroSobrantesFaltantes = [
     { id: 1, fecha: "19/07/2024", usuario: "Ana Pérez", tipo: "Faltante", monto: -5.50, observaciones: "Posible error en vuelto.", estado: "Pendiente" },
-    { id: 2, fecha: "18/07/2024", usuario: "Luis Gómez", tipo: "Sobrante", monto: 10.00, observaciones: "Cliente no retiró vuelto completo.", estado: "Ajustado" },
+    { id: 2, fecha: "18/07/2024", usuario: "Luis Gómez", tipo: "Sobrante", monto: 10.00, observaciones: "Cliente no retiró vuelto completo.", estado: "observacion eso indica que hay un producto no facturado pero se puede rebajar cuando el sistema de inventario" },
 ];
 
 
@@ -342,7 +342,7 @@ export default function ArqueoCajaPage() {
                                     </TableCell>
                                     <TableCell className="text-xs text-muted-foreground">{item.observaciones}</TableCell>
                                     <TableCell className="text-center">
-                                        <Badge variant={statusVariant[item.estado]}>{item.estado}</Badge>
+                                        <Badge variant={statusVariant[item.estado as keyof typeof statusVariant] || 'outline'}>{item.estado}</Badge>
                                     </TableCell>
                                     <TableCell className="text-right">
                                         {item.estado === 'Pendiente' && (
@@ -362,5 +362,7 @@ export default function ArqueoCajaPage() {
         </div>
     );
 }
+
+    
 
     
