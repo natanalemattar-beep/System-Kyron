@@ -1,6 +1,8 @@
 
+
 "use client";
 
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -68,6 +70,7 @@ import {
   HelpCircle,
   Building,
   Send,
+  Loader2,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -87,6 +90,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./
 import { Logo } from "@/components/logo";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Input } from "./ui/input";
+import { chat } from "@/ai/flows/chat";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
@@ -239,35 +243,114 @@ const ventasNavGroups = [
     { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
 ];
 
+type Message = {
+  role: 'user' | 'bot';
+  text: string;
+};
+
 function ChatDialog() {
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <SidebarMenuButton tooltip="Chat IA" className="justify-start h-8">
-                    <Bot className="h-4 w-4" />
-                    <span>Chat IA</span>
-                </SidebarMenuButton>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2"><Bot className="h-5 w-5"/> Asistente IA</DialogTitle>
-                    <DialogDescription>
-                        Hazme una pregunta sobre tus finanzas, cumplimiento o cualquier otra duda.
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="flex-grow flex flex-col p-4 bg-secondary/50 rounded-lg min-h-[300px] justify-end">
-                    {/* Chat messages would go here */}
-                    <p className="text-sm text-center text-muted-foreground">Inicia una conversación.</p>
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = { role: 'user', text: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const botResponse = await chat({ message: input });
+      const botMessage: Message = { role: 'bot', text: botResponse };
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      const errorMessage: Message = { role: 'bot', text: "Lo siento, tuve un problema para conectarme. Inténtalo de nuevo." };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <SidebarMenuButton tooltip="Chat IA" className="justify-start h-8">
+          <Bot className="h-4 w-4" />
+          <span>Chat IA</span>
+        </SidebarMenuButton>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-lg flex flex-col h-[80vh]">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Bot className="h-5 w-5" /> Asistente IA
+          </DialogTitle>
+          <DialogDescription>
+            Hazme una pregunta sobre tus finanzas, cumplimiento o cualquier otra
+            duda.
+          </DialogDescription>
+        </DialogHeader>
+        <div ref={chatContainerRef} className="flex-grow flex flex-col p-4 bg-secondary/50 rounded-lg min-h-0 overflow-y-auto space-y-4">
+          {messages.length === 0 ? (
+            <div className="flex-grow flex items-center justify-center text-center text-muted-foreground">
+              <p>Inicia una conversación.</p>
+            </div>
+          ) : (
+            messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`flex items-start gap-3 ${
+                  msg.role === 'user' ? 'justify-end' : 'justify-start'
+                }`}
+              >
+                {msg.role === 'bot' && <Avatar className="h-8 w-8"><AvatarFallback><Bot className="h-4 w-4"/></AvatarFallback></Avatar>}
+                <div
+                  className={`max-w-xs md:max-w-md rounded-lg px-4 py-2 ${
+                    msg.role === 'user'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-background'
+                  }`}
+                >
+                  <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
                 </div>
-                <div className="relative">
-                    <Input placeholder="Escribe tu mensaje..."/>
-                    <Button size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8">
-                        <Send className="h-4 w-4"/>
-                    </Button>
+                {msg.role === 'user' && <Avatar className="h-8 w-8"><AvatarFallback>TÚ</AvatarFallback></Avatar>}
+              </div>
+            ))
+          )}
+           {isLoading && (
+              <div className="flex items-start gap-3 justify-start">
+                <Avatar className="h-8 w-8"><AvatarFallback><Bot className="h-4 w-4"/></AvatarFallback></Avatar>
+                <div className="bg-background max-w-xs md:max-w-md rounded-lg px-4 py-2 flex items-center">
+                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground"/>
                 </div>
-            </DialogContent>
-        </Dialog>
-    )
+              </div>
+            )}
+        </div>
+        <form onSubmit={handleSendMessage}>
+            <div className="relative">
+                <Input 
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Escribe tu mensaje..."
+                    disabled={isLoading}
+                />
+                <Button type="submit" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8" disabled={isLoading || !input.trim()}>
+                    <Send className="h-4 w-4"/>
+                </Button>
+            </div>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
 }
 
 export function AppSidebar() {
@@ -295,7 +378,7 @@ export function AppSidebar() {
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
           <Logo />
-          {state === 'expanded' && (
+           {state === 'expanded' && (
             <div className="flex flex-col">
               <span className="text-sm font-semibold leading-tight">System</span>
               <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
