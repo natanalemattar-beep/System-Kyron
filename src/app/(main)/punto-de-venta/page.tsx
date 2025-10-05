@@ -32,6 +32,15 @@ const cashiers = [
     "Cajero 6", "Cajero 7", "Cajero 8", "Cajero 9", "Cajero 10"
 ];
 
+const casheaLevels = [
+    { level: 1, name: "Semilla", requirements: "Nivel base", initialPayment: "60%", moreQuotas: "No" },
+    { level: 2, name: "Raíz", requirements: "5 cuotas pagadas a tiempo o $120 en compras", initialPayment: "50%", moreQuotas: "No" },
+    { level: 3, name: "Hoja", requirements: "10 cuotas pagadas a tiempo o $400 en compras", initialPayment: "40% (Desde 30% en aliados sel.)", moreQuotas: "SÍ" },
+    { level: 4, name: "Tronco", requirements: "20 cuotas pagadas a tiempo o $800 en compras", initialPayment: "40% (Desde 25% en aliados sel.)", moreQuotas: "SÍ" },
+    { level: 5, name: "Árbol", requirements: "40 cuotas pagadas a tiempo o $2000 en compras", initialPayment: "40% (Desde 20% en aliados sel.)", moreQuotas: "SÍ" },
+    { level: 6, name: "Araguaney", requirements: "80 cuotas pagadas a tiempo o $4000 en compras", initialPayment: "40% (Desde 20% en aliados sel. y pronto desde 0%)", moreQuotas: "SÍ" },
+];
+
 
 type CartItem = {
     id: number;
@@ -60,6 +69,7 @@ export default function PuntoDeVentaPage() {
     const [currency, setCurrency] = useState<Currency>("Bs.");
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
     const [operationType, setOperationType] = useState<OperationType | null>(null);
+    const [casheaLevel, setCasheaLevel] = useState<string | null>(null);
     const [activeCashier, setActiveCashier] = useState<string | null>(null);
     const [barcode, setBarcode] = useState("");
     const barcodeRef = useRef<HTMLInputElement>(null);
@@ -169,6 +179,7 @@ export default function PuntoDeVentaPage() {
         setGiveChangeByPagoMovil(false);
         setPaymentMethod(null);
         setOperationType(null);
+        setCasheaLevel(null);
          toast({
             title: "Inventario y Costos Actualizados",
             description: "La venta se ha registrado y el inventario y la estructura de costos han sido actualizados automáticamente.",
@@ -326,7 +337,7 @@ export default function PuntoDeVentaPage() {
                                     <SelectContent>
                                         <SelectItem value="Venta Inmediata">Venta Inmediata</SelectItem>
                                         <SelectItem value="Factura a Crédito sin Abono">Factura a Crédito sin Abono</SelectItem>
-                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento (Cashea, etc)</SelectItem>
+                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -344,6 +355,21 @@ export default function PuntoDeVentaPage() {
                                 </Select>
                             </div>
                          </div>
+                         {operationType === 'Venta con Financiamiento' && (
+                            <div className="w-full animate-in fade-in">
+                                <Label htmlFor="cashea-level">Nivel de Cliente en Cashea</Label>
+                                <Select onValueChange={setCasheaLevel}>
+                                    <SelectTrigger id="cashea-level">
+                                        <SelectValue placeholder="Seleccionar nivel..." />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {casheaLevels.map(l => (
+                                            <SelectItem key={l.level} value={String(l.level)}>Nivel {l.level}: {l.name}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                         )}
                          <div className="w-full">
                             <Label htmlFor="payment-method-select">Método de Pago</Label>
                             <Select onValueChange={(value) => setPaymentMethod(value as PaymentMethod)} value={paymentMethod || ""}>
