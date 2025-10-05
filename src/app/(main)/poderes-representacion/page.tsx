@@ -27,8 +27,9 @@ const holdingData = [
 ];
 
 const holdingCompanies = [
-    { id: 1, nombre: "Empresa Filial A, C.A.", rif: "J-23456789-0", rol: "Subsidiaria" },
-    { id: 2, nombre: "Servicios Integrados B, S.A.", rif: "J-34567890-1", rol: "Aliada Estratégica" },
+    { id: 1, nombre: "Empresa Filial A, C.A.", rif: "J-23456789-0", rol: "Subsidiaria", jurisdiccion: "Nacional" },
+    { id: 2, nombre: "Servicios Integrados B, S.A.", rif: "J-34567890-1", rol: "Aliada Estratégica", jurisdiccion: "Nacional" },
+    { id: 3, nombre: "International Holdings LLC", rif: "N/A", rol: "Casa Matriz", jurisdiccion: "Internacional" },
 ];
 
 
@@ -212,6 +213,7 @@ export default function PoderesRepresentacionPage() {
                                 <TableHead>Razón Social</TableHead>
                                 <TableHead>RIF</TableHead>
                                 <TableHead>Rol en el Holding</TableHead>
+                                <TableHead>Jurisdicción</TableHead>
                                 <TableHead className="text-right">Acciones</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -221,6 +223,11 @@ export default function PoderesRepresentacionPage() {
                                     <TableCell className="font-medium">{company.nombre}</TableCell>
                                     <TableCell>{company.rif}</TableCell>
                                     <TableCell>{company.rol}</TableCell>
+                                    <TableCell>
+                                        <Badge variant={company.jurisdiccion === 'Nacional' ? 'secondary' : 'outline'}>
+                                            {company.jurisdiccion}
+                                        </Badge>
+                                    </TableCell>
                                     <TableCell className="text-right">
                                         <Button variant="outline" size="sm">
                                             <Eye className="mr-2 h-4 w-4" />
