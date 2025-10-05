@@ -35,10 +35,10 @@ const cashiers = [
 const casheaLevels = [
     { level: 1, name: "Semilla", requirements: "Nivel base", initialPayment: "60%", moreQuotas: "No" },
     { level: 2, name: "Raíz", requirements: "5 cuotas pagadas a tiempo o $120 en compras", initialPayment: "50%", moreQuotas: "No" },
-    { level: 3, name: "Hoja", requirements: "10 cuotas pagadas a tiempo o $400 en compras", initialPayment: "40% (Desde 30% en aliados sel.)", moreQuotas: "SÍ" },
-    { level: 4, name: "Tronco", requirements: "20 cuotas pagadas a tiempo o $800 en compras", initialPayment: "40% (Desde 25% en aliados sel.)", moreQuotas: "SÍ" },
-    { level: 5, name: "Árbol", requirements: "40 cuotas pagadas a tiempo o $2000 en compras", initialPayment: "40% (Desde 20% en aliados sel.)", moreQuotas: "SÍ" },
-    { level: 6, name: "Araguaney", requirements: "80 cuotas pagadas a tiempo o $4000 en compras", initialPayment: "40% (Desde 20% en aliados sel. y pronto desde 0%)", moreQuotas: "SÍ" },
+    { level: 3, name: "Hoja", requirements: "10 cuotas pagadas a tiempo o $400 en compras", initialPayment: "40%", moreQuotas: "SÍ" },
+    { level: 4, name: "Tronco", requirements: "20 cuotas pagadas a tiempo o $800 en compras", initialPayment: "25%", moreQuotas: "SÍ" },
+    { level: 5, name: "Árbol", requirements: "40 cuotas pagadas a tiempo o $2000 en compras", initialPayment: "20%", moreQuotas: "SÍ" },
+    { level: 6, name: "Araguaney", requirements: "80 cuotas pagadas a tiempo o $4000 en compras", initialPayment: "20%", moreQuotas: "SÍ" },
 ];
 
 
@@ -355,7 +355,7 @@ export default function PuntoDeVentaPage() {
                                 </Select>
                             </div>
                          </div>
-                         {operationType === 'Venta con Financiamiento' && (
+                          {operationType === 'Venta con Financiamiento' && (
                             <div className="w-full animate-in fade-in">
                                 <Label htmlFor="cashea-level">Nivel de Cliente en Cashea</Label>
                                 <Select onValueChange={setCasheaLevel}>
@@ -364,7 +364,7 @@ export default function PuntoDeVentaPage() {
                                     </SelectTrigger>
                                     <SelectContent>
                                         {casheaLevels.map(l => (
-                                            <SelectItem key={l.level} value={String(l.level)}>Nivel {l.level}: {l.name}</SelectItem>
+                                            <SelectItem key={l.level} value={String(l.level)}>Nivel {l.level}: {l.name} ({l.initialPayment} Inicial)</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
@@ -460,7 +460,7 @@ export default function PuntoDeVentaPage() {
                                  <TableBody>
                                     {cart.map(item => (
                                         <TableRow key={item.id}>
-                                            <TableCell className="p-1">{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)}</span></TableCell>
+                                            <TableCell className="p-1">{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(getPriceIncurrency(item.price), currency)}</span></TableCell>
                                             <TableCell className="text-right font-medium p-1">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</TableCell>
                                         </TableRow>
                                     ))}
@@ -507,3 +507,4 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
+
