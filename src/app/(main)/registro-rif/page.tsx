@@ -81,12 +81,12 @@ export default function RegistroRifPage() {
                     <span className="font-semibold">J-12345678-9</span>
                 </div>
                  <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
-                    <span className="font-medium text-muted-foreground">cedula del niño, niña,adolecentes</span>
+                    <span className="font-medium text-muted-foreground">Cédula del niño, niña, adolescente:</span>
                     <span className="font-semibold font-mono">123456789-ABC</span>
                 </div>
                  <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
-                    <span className="font-medium text-muted-foreground">Fecha de Emisión:</span>
-                    <span className="font-semibold">01/01/2023</span>
+                    <span className="font-medium text-muted-foreground">Nombre del Padre/Madre/Representante:</span>
+                    <span className="font-semibold">Representante Legal</span>
                 </div>
                  <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
                     <span className="font-medium text-muted-foreground">Fecha de Vencimiento:</span>
