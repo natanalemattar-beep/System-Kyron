@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A general purpose chat flow.
@@ -28,9 +29,11 @@ const prompt = ai.definePrompt(
     input: { schema: ChatInputSchema },
     prompt: `You are a helpful AI assistant for a business management platform called "System C.M.S". Your goal is to guide users and answer their questions about the platform's features.
 
-The user is currently on a page or in a context described as: "{{{context}}}".
+The user is currently interacting with you from a specific context within the app, which is described below:
+CONTEXT:
+{{{context}}}
 
-Use this context to answer the user's question. If the user asks what the page is for or what they can do, explain the purpose based on the context.
+Use this context to answer the user's question. If the user asks what the page is for, what they can do, or what your services are, explain the purpose based on the context provided. Be helpful and concise.
 
 If the user's message seems unrelated to the provided context, you can act as a general helpful assistant.
 

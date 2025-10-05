@@ -114,7 +114,11 @@ function ChatDialog() {
     setIsLoading(true);
 
     try {
-      const pageContext = "Página de Inicio";
+      const pageContext = `El usuario está en la página de inicio de System C.M.S. 
+      La página describe una plataforma de gestión empresarial para el mercado venezolano.
+      - Servicios ofrecidos: Gestión Fiscal y Contable (automatización, libros, impuestos, homologado por SENIAT), Administración de Nómina (cálculo, beneficios, parafiscales), y Permisología y Cumplimiento (gestión de licencias).
+      - Características destacadas: Inteligencia Artificial (conciliación, análisis predictivo), Seguridad de Nivel Superior (cifrado, 2FA), y Análisis y Reportes (dashboards).
+      - La página también tiene testimonios de clientes y explica cómo funciona el sistema en 3 pasos: 1. Regístrate, 2. Automatiza, 3. Analiza y Crece.`;
       const botResponse = await chat({ message: input, context: pageContext });
       const botMessage: Message = { role: 'bot', text: botResponse };
       setMessages(prev => [...prev, botMessage]);
