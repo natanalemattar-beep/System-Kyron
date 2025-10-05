@@ -49,6 +49,11 @@ const kreceLevels = [
     { level: 'Platino', name: "Platino", initialPayment: "25% Inicial" },
 ];
 
+const rapikomLines = [
+  { id: 'clasica', name: 'Línea Clásica (3 cuotas)' },
+  { id: 'express', name: 'Línea Express (1-2 cuotas)' },
+];
+
 
 type CartItem = {
     id: number;
@@ -60,7 +65,7 @@ type CartItem = {
 type Currency = "Bs." | "USD" | "EUR";
 type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Zelle" | "Efectivo";
 type OperationType = "Venta Inmediata" | "Factura a Crédito sin Abono" | "Venta con Financiamiento";
-type FinancingPlatform = "Cashea" | "Krece";
+type FinancingPlatform = "Cashea" | "Krece" | "Rapikom";
 
 const exchangeRates: Record<Currency, number> = {
     "Bs.": 40.0, // Tasa de referencia Bs. por USD
@@ -81,6 +86,7 @@ export default function PuntoDeVentaPage() {
     const [financingPlatform, setFinancingPlatform] = useState<FinancingPlatform | null>(null);
     const [casheaLevel, setCasheaLevel] = useState<string | null>(null);
     const [kreceLevel, setKreceLevel] = useState<string | null>(null);
+    const [rapikomLine, setRapikomLine] = useState<string | null>(null);
     const [useModoMasCuotas, setUseModoMasCuotas] = useState(false);
     const [activeCashier, setActiveCashier] = useState<string | null>(null);
     const [barcode, setBarcode] = useState("");
@@ -198,6 +204,7 @@ export default function PuntoDeVentaPage() {
         setFinancingPlatform(null);
         setCasheaLevel(null);
         setKreceLevel(null);
+        setRapikomLine(null);
         setUseModoMasCuotas(false);
          toast({
             title: "Inventario y Costos Actualizados",
@@ -387,6 +394,7 @@ export default function PuntoDeVentaPage() {
                                         <SelectContent>
                                             <SelectItem value="Cashea">Cashea</SelectItem>
                                             <SelectItem value="Krece">Krece</SelectItem>
+                                            <SelectItem value="Rapikom">Rapikom</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -449,6 +457,23 @@ export default function PuntoDeVentaPage() {
                                                 {kreceLevels.map(l => (
                                                     <SelectItem key={l.level} value={l.level}>
                                                         {l.name} ({l.initialPayment})
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                )}
+                                {financingPlatform === 'Rapikom' && (
+                                    <div className="space-y-2 animate-in fade-in">
+                                        <Label htmlFor="rapikom-line">Línea de Crédito Rapikom</Label>
+                                        <Select onValueChange={setRapikomLine} value={rapikomLine ?? ''}>
+                                            <SelectTrigger id="rapikom-line">
+                                                <SelectValue placeholder="Seleccionar línea..." />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {rapikomLines.map(l => (
+                                                    <SelectItem key={l.id} value={l.id}>
+                                                        {l.name}
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>
@@ -593,4 +618,3 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
-
