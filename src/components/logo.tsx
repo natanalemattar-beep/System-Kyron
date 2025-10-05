@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Sparkles } from "lucide-react";
 
 export function Logo({ className }: { className?: string }) {
   return (
@@ -8,7 +9,7 @@ export function Logo({ className }: { className?: string }) {
         className
       )}
     >
-      <span className="font-bold text-lg tracking-tighter">CMS</span>
+      <Sparkles className="h-5 w-5" />
     </div>
   );
 }
