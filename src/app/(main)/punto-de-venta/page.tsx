@@ -342,7 +342,7 @@ export default function PuntoDeVentaPage() {
                                     <SelectContent>
                                         <SelectItem value="Venta Inmediata">Venta Inmediata</SelectItem>
                                         <SelectItem value="Factura a Crédito sin Abono">Factura a Crédito sin Abono</SelectItem>
-                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento (Cashea, etc)</SelectItem>
+                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -384,7 +384,7 @@ export default function PuntoDeVentaPage() {
                                             checked={useModoMasCuotas}
                                             onCheckedChange={setUseModoMasCuotas}
                                         />
-                                        <Label htmlFor="modo-mas-cuotas">Activar Modo Más Cuotas</Label>
+                                        <Label htmlFor="modo-mas-cuotas">Clasifícame el modo más cuota</Label>
                                     </div>
                                 )}
                             </div>
@@ -522,7 +522,6 @@ export default function PuntoDeVentaPage() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
-
         </div>
     );
 }
