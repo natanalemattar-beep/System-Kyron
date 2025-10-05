@@ -11,10 +11,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/logo";
+import { useRouter } from "next/navigation";
 
 export default function LoginJuridicoPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [rif, setRif] = useState("");
+  const router = useRouter();
 
   const handleRifChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.toUpperCase();
@@ -22,6 +24,11 @@ export default function LoginJuridicoPage() {
       value = "J-" + value;
     }
     setRif(value);
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push('/dashboard-juridico');
   };
 
   return (
@@ -71,30 +78,32 @@ export default function LoginJuridicoPage() {
             <CardTitle className="text-2xl">Acceso Administrativo</CardTitle>
             <CardDescription>Inicia sesión con tu RIF empresarial y usuario.</CardDescription>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
-            <div className="space-y-2">
-              <Label>RIF Empresarial</Label>
-              <Input type="text" placeholder="J-12345678-9" value={rif} onChange={handleRifChange} />
-            </div>
-             <div className="space-y-2">
-              <Label>Usuario</Label>
-              <Input type="text" placeholder="admin.user"/>
-            </div>
-            <div className="space-y-2 relative">
-              <Label>Contraseña</Label>
-              <Input
-                type={passwordVisible ? "text" : "password"}
-                placeholder="••••••••"
-                className="pr-10"
-              />
-              <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-                {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-              </button>
-            </div>
-            <Button asChild className="w-full h-11 text-base">
-              <Link href="/dashboard-juridico">Acceder</Link>
-            </Button>
-          </CardContent>
+          <form onSubmit={handleLogin}>
+            <CardContent className="p-6 space-y-6">
+              <div className="space-y-2">
+                <Label>RIF Empresarial</Label>
+                <Input type="text" placeholder="J-12345678-9" value={rif} onChange={handleRifChange} />
+              </div>
+               <div className="space-y-2">
+                <Label>Usuario</Label>
+                <Input type="text" placeholder="admin.user"/>
+              </div>
+              <div className="space-y-2 relative">
+                <Label>Contraseña</Label>
+                <Input
+                  type={passwordVisible ? "text" : "password"}
+                  placeholder="••••••••"
+                  className="pr-10"
+                />
+                <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
+                  {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
+              <Button type="submit" className="w-full h-11 text-base">
+                Acceder
+              </Button>
+            </CardContent>
+          </form>
            <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t border-border/50">
               <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
               <div className="flex justify-center gap-4">
