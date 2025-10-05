@@ -65,11 +65,12 @@ export default function IslrArcPage() {
 
         <Card className="mb-8 bg-blue-500/10 border-blue-500/20">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><HelpCircle className="h-5 w-5"/>Declaración Estimada de ISLR: ¿Cuál es la base de cálculo?</CardTitle>
+                <CardTitle className="flex items-center gap-3"><HelpCircle className="h-5 w-5"/>¿Quién debe presentar la Declaración Estimada de Rentas?</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className="text-blue-200">
-                    La base imponible que deben considerar los contribuyentes obligados a presentar la Declaración Estimada de Rentas, será el <strong>ochenta por ciento (80%)</strong> del enriquecimiento global neto correspondiente al año inmediato anterior.
+                 <p className="text-blue-200">
+                    La Declaración Estimada de Rentas es la obligación de anticipar el pago de Impuesto Sobre la Renta, prevista en el Decreto-Ley de ISLR y su Reglamento. 
+                    Le corresponde efectuarla a todo aquel contribuyente que haya obtenido un <strong>Enriquecimiento Neto Gravable superior a 1.500 Unidades Tributarias</strong> en el ejercicio fiscal anterior. La base de cálculo para la estimación es el <strong>ochenta por ciento (80%)</strong> de dicho enriquecimiento.
                 </p>
             </CardContent>
         </Card>
