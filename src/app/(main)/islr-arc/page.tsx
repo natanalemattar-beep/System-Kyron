@@ -39,7 +39,7 @@ export default function IslrArcPage() {
             <div>
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <Banknote className="h-8 w-8" />
-                    Gestión de ISLR y AR-C
+                    Declaración Estimada del SENIAT para el Personal
                 </h1>
                 <p className="text-muted-foreground mt-2">
                     Genera y consulta los Comprobantes de Retención de ISLR (AR-C).
