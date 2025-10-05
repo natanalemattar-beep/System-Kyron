@@ -63,6 +63,8 @@ import {
   FileScan,
   AreaChart,
   Sparkles,
+  FilePlus,
+  FileMinus,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -131,6 +133,9 @@ const facturacionGeneralMenuItems = [
     { href: "/punto-de-venta", label: "Facturación (Punto de Venta)", icon: TabletSmartphone },
     { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
     { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
+    { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: FileText },
+    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
     { href: "/importaciones", label: "Importaciones", icon: Ship },
     { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
@@ -526,3 +531,5 @@ function AppSidebarVentas() {
     </Sidebar>
   );
 }
+
+    
