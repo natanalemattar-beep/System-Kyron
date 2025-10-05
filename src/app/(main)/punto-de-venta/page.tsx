@@ -364,7 +364,7 @@ export default function PuntoDeVentaPage() {
                                     </SelectTrigger>
                                     <SelectContent>
                                         {casheaLevels.map(l => (
-                                            <SelectItem key={l.level} value={String(l.level)}>Nivel {l.level}: {l.name} ({l.initialPayment} Inicial)</SelectItem>
+                                            <SelectItem key={l.level} value={String(l.level)}>Nivel {l.level}: {l.name} ({l.initialPayment} Inicial) {l.moreQuotas === 'SÍ' ? '(+ Modo Más Cuotas)' : ''}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
@@ -460,7 +460,7 @@ export default function PuntoDeVentaPage() {
                                  <TableBody>
                                     {cart.map(item => (
                                         <TableRow key={item.id}>
-                                            <TableCell className="p-1">{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(getPriceIncurrency(item.price), currency)}</span></TableCell>
+                                            <TableCell className="p-1">{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)}</span></TableCell>
                                             <TableCell className="text-right font-medium p-1">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</TableCell>
                                         </TableRow>
                                     ))}
