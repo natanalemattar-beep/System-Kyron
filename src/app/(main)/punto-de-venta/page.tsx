@@ -342,7 +342,7 @@ export default function PuntoDeVentaPage() {
                                     <SelectContent>
                                         <SelectItem value="Venta Inmediata">Venta Inmediata</SelectItem>
                                         <SelectItem value="Factura a Crédito sin Abono">Factura a Crédito sin Abono</SelectItem>
-                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento (Cashea, etc)</SelectItem>
+                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -525,4 +525,5 @@ export default function PuntoDeVentaPage() {
 
         </div>
     );
-}
+
+    
