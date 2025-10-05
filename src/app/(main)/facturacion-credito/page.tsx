@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone } from "lucide-react";
+import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone, Lock, Unlock } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -15,15 +15,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const clientes = [
-    { id: "CLI-001", nombre: "Tech Solutions LLC" },
-    { id: "CLI-002", nombre: "Innovate Corp" },
-    { id: "CLI-003", nombre: "Marketing Pro" },
+const initialClientes = [
+    { id: "CLI-001", nombre: "Tech Solutions LLC", bloqueado: false },
+    { id: "CLI-002", nombre: "Innovate Corp", bloqueado: true },
+    { id: "CLI-003", nombre: "Marketing Pro", bloqueado: false },
 ];
 
 const initialFacturas = [
-    { id: "FACC-001", cliente: "Tech Solutions LLC", fechaEmision: "2024-07-25", fechaVencimiento: "2024-08-24", monto: 5500, estado: "Pendiente", metodo: "Crédito Directo" },
-    { id: "FACC-002", cliente: "Innovate Corp", fechaEmision: "2024-06-15", fechaVencimiento: "2024-07-15", monto: 3200, estado: "Vencida", metodo: "Cashea" },
+    { id: "FACC-001", clienteId: "CLI-001", cliente: "Tech Solutions LLC", fechaEmision: "2024-07-25", fechaVencimiento: "2024-08-24", monto: 5500, estado: "Pendiente", metodo: "Crédito Directo" },
+    { id: "FACC-002", clienteId: "CLI-002", cliente: "Innovate Corp", fechaEmision: "2024-06-15", fechaVencimiento: "2024-07-15", monto: 3200, estado: "Vencida", metodo: "Crédito Directo" },
+    { id: "FACC-003", clienteId: "CLI-003", cliente: "Marketing Pro", fechaEmision: "2024-07-20", fechaVencimiento: "2024-08-20", monto: 800, estado: "Pendiente", metodo: "Cashea" },
 ];
 
 const casheaLevels = [
@@ -37,6 +38,7 @@ const casheaLevels = [
 
 type Item = { id: number; descripcion: string; cantidad: number; precio: number };
 type Factura = typeof initialFacturas[0];
+type Cliente = typeof initialClientes[0];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   Pagada: "default",
@@ -46,6 +48,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function FacturacionCreditoPage() {
     const [facturas, setFacturas] = useState<Factura[]>(initialFacturas);
+    const [clientes, setClientes] = useState<Cliente[]>(initialClientes);
     const [items, setItems] = useState<Item[]>([{ id: 1, descripcion: '', cantidad: 1, precio: 0 }]);
     const [metodoCredito, setMetodoCredito] = useState("");
     const { toast } = useToast();
@@ -76,6 +79,21 @@ export default function FacturacionCreditoPage() {
             description: `Se ha marcado la factura ${facturaId} como pagada.`,
         });
     }
+    
+    const toggleBlockCustomer = (clienteId: string, nombreCliente: string) => {
+        setClientes(clientes.map(c => {
+            if (c.id === clienteId) {
+                const isBlocked = !c.bloqueado;
+                toast({
+                    title: `Cliente ${isBlocked ? 'Bloqueado' : 'Desbloqueado'}`,
+                    description: `${nombreCliente} ha sido ${isBlocked ? 'bloqueado por impago.' : 'desbloqueado.'}`,
+                    variant: isBlocked ? 'destructive' : 'default'
+                });
+                return { ...c, bloqueado: !c.bloqueado };
+            }
+            return c;
+        }));
+    };
 
     return (
         <div className="p-4 md:p-8 space-y-8">
@@ -317,25 +335,42 @@ export default function FacturacionCreditoPage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {facturas.map((factura) => (
+                            {facturas.map((factura) => {
+                                const cliente = clientes.find(c => c.id === factura.clienteId);
+                                return (
                                 <TableRow key={factura.id}>
                                     <TableCell className="font-mono">{factura.id}</TableCell>
-                                    <TableCell className="font-medium">{factura.cliente}</TableCell>
+                                    <TableCell className="font-medium">
+                                        <div className="flex items-center gap-2">
+                                            {cliente?.bloqueado && <Lock className="h-4 w-4 text-destructive" />}
+                                            {factura.cliente}
+                                        </div>
+                                    </TableCell>
                                     <TableCell>{factura.metodo}</TableCell>
                                     <TableCell>{formatDate(factura.fechaVencimiento)}</TableCell>
                                     <TableCell className="text-right font-semibold">{formatCurrency(factura.monto, 'Bs.')}</TableCell>
                                     <TableCell className="text-center">
                                         <Badge variant={statusVariant[factura.estado]}>{factura.estado}</Badge>
                                     </TableCell>
-                                    <TableCell className="text-right">
+                                    <TableCell className="text-right space-x-1">
                                         {factura.estado !== "Pagada" && (
                                             <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id)}>
                                                 Registrar Pago
                                             </Button>
                                         )}
+                                        {factura.estado === "Vencida" && factura.metodo === "Crédito Directo" && (
+                                            <Button 
+                                                size="sm" 
+                                                variant={cliente?.bloqueado ? 'secondary' : 'destructive'}
+                                                onClick={() => toggleBlockCustomer(factura.clienteId, factura.cliente)}
+                                            >
+                                                {cliente?.bloqueado ? <Unlock className="mr-2 h-4 w-4"/> : <Lock className="mr-2 h-4 w-4"/>}
+                                                {cliente?.bloqueado ? 'Desbloquear' : 'Bloquear'}
+                                            </Button>
+                                        )}
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            )})}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -343,3 +378,4 @@ export default function FacturacionCreditoPage() {
         </div>
     );
 }
+
