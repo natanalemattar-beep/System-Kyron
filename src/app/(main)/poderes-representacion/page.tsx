@@ -84,6 +84,8 @@ export default function PoderesRepresentacionPage() {
                                         <SelectItem value="general">Poder General de Administración</SelectItem>
                                         <SelectItem value="especial">Poder Especial para Acto Específico</SelectItem>
                                         <SelectItem value="judicial">Apoderado Judicial (Apud Acta)</SelectItem>
+                                        <SelectItem value="socio-holding">Socio de Holding</SelectItem>
+                                        <SelectItem value="nuevos-socios">Nuevos Socios</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
