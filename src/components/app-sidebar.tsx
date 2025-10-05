@@ -132,7 +132,7 @@ const analisisCrecimientoMenuItems = [
 
 const facturacionGeneralMenuItems = [
     { href: "/proformas", label: "Proformas", icon: Receipt },
-    { href: "/punto-de-venta", label: "Facturación (Punto de Venta)", icon: TabletSmartphone },
+    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
     { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
     { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: FileText },
@@ -148,10 +148,13 @@ const facturacionGeneralMenuItems = [
 ];
 
 const ventasMenuItems = [
-    { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
+    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
     { href: "/notificaciones", label: "Notificaciones a RR.HH.", icon: Bell },
+    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
 ];
 
 const recursosHumanosGestionItems = [
@@ -223,7 +226,7 @@ const juridicoNavGroups = [
 
 const ventasNavGroups = [
     { title: "Ventas y Facturación", icon: ShoppingCart, items: [
-        { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
+        { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
         { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
         { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
