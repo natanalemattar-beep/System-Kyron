@@ -150,6 +150,9 @@ const ventasMenuItems = [
     { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
 ];
 
 const recursosHumanosGestionItems = [
@@ -163,7 +166,7 @@ const recursosHumanosGestionItems = [
     { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
-    { href: "/notificaciones", label: "Notificaciones a RR.HH.", icon: Bell },
+    { href: "/notificaciones", label: "Notificaciones", icon: Bell },
 ];
 
 const librosRegistroMenuItems = [
@@ -532,5 +535,7 @@ function AppSidebarVentas() {
     </Sidebar>
   );
 }
+
+    
 
     
