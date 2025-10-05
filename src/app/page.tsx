@@ -115,12 +115,12 @@ export default function LandingPage() {
 
 
   return (
-    <div className="flex flex-col min-h-screen text-foreground bg-blue-50 overflow-x-hidden">
+    <div className="flex flex-col min-h-screen text-foreground bg-blue-50 overflow-x-hidden pt-16">
       <div className="absolute inset-0 z-0 opacity-20">
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
-      <header className={cn("sticky top-0 z-50 w-full border-b border-black/10 bg-background/50 backdrop-blur-md transition-transform duration-300", {
+      <header className={cn("fixed top-0 left-0 right-0 z-50 w-full border-b border-black/10 bg-background/50 backdrop-blur-md transition-transform duration-300", {
           "-translate-y-full": !isHeaderVisible,
       })}>
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
