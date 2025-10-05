@@ -61,6 +61,7 @@ import {
   Stamp,
   Gift,
   FileScan,
+  AreaChart,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -118,6 +119,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
     { href: "/soluciones-empresariales-ia", label: "Soluciones Empresariales IA", icon: Bot },
+    { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
     { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
     { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
     { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
