@@ -148,7 +148,8 @@ const facturacionGeneralMenuItems = [
 ];
 
 const ventasMenuItems = [
-    { href: "/facturacion", label: "Facturación", icon: TabletSmartphone },
+    { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
+    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
     { href: "/punto-de-venta", label: "Devolución de Productos", icon: TabletSmartphone },
@@ -544,4 +545,5 @@ function AppSidebarVentas() {
     
 
     
+
 
