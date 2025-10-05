@@ -302,7 +302,7 @@ export default function PuntoDeVentaPage() {
     const selectedCasheaLevelData = casheaLevel ? casheaLevels.find(l => String(l.level) === casheaLevel) : null;
 
     return (
-        <div className="h-screen bg-muted flex flex-col p-2 md:p-4 gap-4 relative">
+        <div className="flex flex-col gap-4 relative">
              {isLocked && (
                 <div className="absolute inset-0 bg-black/70 z-20 flex flex-col items-center justify-center gap-6">
                     <Lock className="h-20 w-20 text-yellow-400"/>
@@ -389,8 +389,8 @@ export default function PuntoDeVentaPage() {
                 )}
             </header>
 
-            <div className="flex-grow grid lg:grid-cols-3 gap-4 overflow-hidden h-full flex-col md:flex-row">
-                <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm overflow-y-auto h-[50vh] md:h-full">
+            <div className="grid lg:grid-cols-3 gap-4">
+                <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm">
                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                          {filteredProducts.map(product => (
                             <Card key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:shadow-lg hover:border-primary transition-all flex flex-col">
@@ -408,7 +408,7 @@ export default function PuntoDeVentaPage() {
                     </div>
                 </div>
 
-                <Card className="lg:col-span-1 flex flex-col h-full">
+                <Card className="lg:col-span-1 flex flex-col">
                     <CardHeader>
                         <CardTitle>Resumen de Orden</CardTitle>
                     </CardHeader>
