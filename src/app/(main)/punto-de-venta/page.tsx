@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode, CreditCard, Banknote, Lock, Key } from "lucide-react";
+import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode, CreditCard, Banknote, Lock, Key, UserMinus } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -25,6 +25,12 @@ const products = [
     { id: 6, name: "Caja de Bolígrafos (12 Unid.)", price: 5.00, barcode: "7591234567895", image: "https://picsum.photos/seed/pens/200/200" },
     { id: 7, name: "Rollo de Etiquetas Térmicas", price: 12.00, barcode: "7591234567896", image: "https://picsum.photos/seed/labels/200/200" },
     { id: 8, name: "Calculadora de Escritorio", price: 18.00, barcode: "7591234567897", image: "https://picsum.photos/seed/calculator/200/200" },
+];
+
+const mockClientes = [
+    { id: "V-12345678", nombre: "Juan Pérez", rif: "V-12345678-9" },
+    { id: "J-12345678", nombre: "Empresa S.A.", rif: "J-12345678-9" },
+    { id: "V-87654321", nombre: "Maria Rodriguez", rif: "V-87654321-0" },
 ];
 
 
@@ -61,6 +67,11 @@ type CartItem = {
     price: number;
     quantity: number;
 };
+type Cliente = {
+    id: string;
+    nombre: string;
+    rif: string;
+};
 
 type Currency = "Bs." | "USD" | "EUR";
 type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Zelle" | "Efectivo";
@@ -96,6 +107,8 @@ export default function PuntoDeVentaPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [isLocked, setIsLocked] = useState(false);
     const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+    const [clienteCedula, setClienteCedula] = useState("");
+    const [attachedCliente, setAttachedCliente] = useState<Cliente | null>(null);
     
     const { toast } = useToast();
     
@@ -154,6 +167,24 @@ export default function PuntoDeVentaPage() {
         if (e.key === 'Enter') {
             e.preventDefault();
             handleBarcodeAdd();
+        }
+    };
+
+    const handleClienteKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleAttachCliente();
+        }
+    };
+    
+    const handleAttachCliente = () => {
+        const normalizedCedula = clienteCedula.replace(/[^0-9JVEG]/gi, '').toUpperCase();
+        const cliente = mockClientes.find(c => c.id.replace(/[^0-9JVEG]/gi, '').toUpperCase() === normalizedCedula);
+        if (cliente) {
+            setAttachedCliente(cliente);
+            toast({ title: "Cliente Adjuntado", description: `${cliente.nombre} ha sido adjuntado a la venta.` });
+        } else {
+            toast({ variant: "destructive", title: "Cliente no encontrado", description: "No se encontró un cliente con esa Cédula/RIF." });
         }
     };
 
@@ -227,6 +258,8 @@ export default function PuntoDeVentaPage() {
         setKreceLevel(null);
         setRapikomLine(null);
         setUseModoMasCuotas(false);
+        setAttachedCliente(null);
+        setClienteCedula("");
          toast({
             title: "Inventario y Costos Actualizados",
             description: "La venta se ha registrado y el inventario y la estructura de costos han sido actualizados automáticamente.",
@@ -398,6 +431,32 @@ export default function PuntoDeVentaPage() {
                         )}
                     </CardContent>
                     <CardFooter className="flex-col !p-4 border-t gap-2">
+                        <div className="w-full space-y-2">
+                            <Label htmlFor="cliente-cedula">Adjuntar Cliente (Cédula/RIF)</Label>
+                            {attachedCliente ? (
+                                <div className="flex items-center justify-between p-2 bg-secondary rounded-md">
+                                    <div>
+                                        <p className="font-semibold text-sm">{attachedCliente.nombre}</p>
+                                        <p className="text-xs text-muted-foreground">{attachedCliente.rif}</p>
+                                    </div>
+                                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setAttachedCliente(null)}>
+                                        <UserMinus className="h-4 w-4 text-destructive"/>
+                                    </Button>
+                                </div>
+                            ) : (
+                                <div className="flex gap-2">
+                                    <Input
+                                        id="cliente-cedula"
+                                        placeholder="V-12345678"
+                                        value={clienteCedula}
+                                        onChange={(e) => setClienteCedula(e.target.value)}
+                                        onKeyDown={handleClienteKeyDown}
+                                    />
+                                    <Button variant="outline" onClick={handleAttachCliente}><Search className="h-4 w-4"/></Button>
+                                </div>
+                            )}
+                        </div>
+                        <Separator className="my-2"/>
                          <div className="w-full grid grid-cols-2 gap-4">
                             <div>
                                 <Label htmlFor="op-type-select">Tipo de Operación</Label>
@@ -605,6 +664,13 @@ export default function PuntoDeVentaPage() {
                             <DialogTitle className="text-2xl">Empresa S.A.</DialogTitle>
                             <DialogDescription>RIF: J-12345678-9 <br/> Recibo de Venta</DialogDescription>
                         </DialogHeader>
+                        {attachedCliente && (
+                            <div className="text-xs my-4 border-y py-2">
+                                <p className="font-bold">CLIENTE:</p>
+                                <p>{attachedCliente.nombre}</p>
+                                <p>RIF/C.I: {attachedCliente.rif}</p>
+                            </div>
+                        )}
                         <div className="my-4 text-xs space-y-1">
                             <p>Fecha: {new Date().toLocaleString('es-VE')}</p>
                             <p>Cajero: {activeCashier}</p>
