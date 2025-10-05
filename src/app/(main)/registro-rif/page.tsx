@@ -3,13 +3,14 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileEdit, CheckCircle, Clock, AlertTriangle, Mail, MessageSquare } from "lucide-react";
+import { FileEdit, CheckCircle, Clock, AlertTriangle, Mail, MessageSquare, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function RegistroRifPage() {
   const { toast } = useToast();
@@ -48,7 +49,7 @@ export default function RegistroRifPage() {
 
 
   return (
-    <div className="p-4 md:p-8">
+    <div className="p-4 md:p-8 space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <FileEdit className="h-8 w-8" />
@@ -132,6 +133,39 @@ export default function RegistroRifPage() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+        </CardFooter>
+      </Card>
+
+       <Card className="w-full max-w-2xl mx-auto bg-card/50 backdrop-blur-sm mt-8">
+        <CardHeader>
+          <CardTitle>Registro de RIF para Menores de Edad</CardTitle>
+          <CardDescription>
+            Información sobre el procedimiento para la inscripción de menores en el RIF.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Alert>
+            <Info className="h-4 w-4" />
+            <AlertTitle>Puntos Clave para el Registro de Menores</AlertTitle>
+            <AlertDescription>
+                <ul className="list-disc pl-5 space-y-2 mt-2">
+                    <li>
+                        <strong>Edad Mínima:</strong> Un menor de edad puede obtener un RIF a partir de los 9 años, siempre que posea una Cédula de Identidad.
+                    </li>
+                    <li>
+                        <strong>Vinculación Parental:</strong> El registro se realiza vinculando la Cédula de Identidad del menor a la del padre, madre o representante legal.
+                    </li>
+                    <li>
+                        <strong>Declaración de Pensión Alimentaria:</strong> Si el menor recibe pensión alimentaria, este monto debe ser declarado en el registro. Esto facilita la fiscalización del SENIAT, ya que los padres deben presentar facturas de gastos ante los tribunales de protección correspondientes.
+                    </li>
+                </ul>
+            </AlertDescription>
+          </Alert>
+        </CardContent>
+         <CardFooter>
+            <Button variant="outline" className="w-full">
+                Iniciar Trámite de Registro para Menor
+            </Button>
         </CardFooter>
       </Card>
     </div>
