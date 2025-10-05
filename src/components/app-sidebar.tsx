@@ -215,6 +215,9 @@ const naturalMenuItems = {
     ],
     crs: [
         { href: "/manutencion", label: "Obligación de Manutención", icon: Gavel },
+    ],
+    parental: [
+        { href: "/registro-rif", label: "Registro RIF (Hijos)", icon: FileEdit },
     ]
 };
 
@@ -323,6 +326,7 @@ function AppSidebarNatural() {
       { title: "Principal", icon: User, items: naturalMenuItems.principal },
       { title: "Trámites Civiles", icon: Gavel, items: naturalMenuItems.tramites },
       { title: "Gestión CRS", icon: HeartHandshake, items: naturalMenuItems.crs },
+      { title: "Gestión Parental", icon: Users, items: naturalMenuItems.parental },
   ];
   
   const isActive = (href: string) => {
