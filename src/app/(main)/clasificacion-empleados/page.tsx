@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Award, PlusCircle, Check, X } from "lucide-react";
+import { Award, PlusCircle, Check, X, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -12,11 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const empleados = [
-    { id: 1, nombre: "Ana Pérez", departamento: "Gerencia", nivelAcademico: "Universitario", permisoMenor: false },
-    { id: 2, nombre: "Luis Gómez", departamento: "Tecnología", nivelAcademico: "Universitario", permisoMenor: false },
-    { id: 3, nombre: "María Rodriguez", departamento: "Diseño", nivelAcademico: "Técnico Superior", permisoMenor: false },
-    { id: 4, nombre: "Carlos Sanchez", departamento: "Vigilancia", nivelAcademico: "Bachiller", permisoMenor: false },
-    { id: 5, nombre: "Jorge Vivas", departamento: "Pasante de Verano", nivelAcademico: "Bachiller", permisoMenor: true },
+    { id: 1, nombre: "Ana Pérez", departamento: "Gerencia", nivelAcademico: "Universitario", permisoMenor: false, manutencionPendiente: false },
+    { id: 2, nombre: "Luis Gómez", departamento: "Tecnología", nivelAcademico: "Universitario", permisoMenor: false, manutencionPendiente: true },
+    { id: 3, nombre: "María Rodriguez", departamento: "Diseño", nivelAcademico: "Técnico Superior", permisoMenor: false, manutencionPendiente: false },
+    { id: 4, nombre: "Carlos Sanchez", departamento: "Vigilancia", nivelAcademico: "Bachiller", permisoMenor: false, manutencionPendiente: false },
+    { id: 5, nombre: "Jorge Vivas", departamento: "Pasante de Verano", nivelAcademico: "Bachiller", permisoMenor: true, manutencionPendiente: false },
 ];
 
 const levelVariant: { [key: string]: "default" | "secondary" | "outline" } = {
@@ -81,7 +81,7 @@ export default function ClasificacionEmpleadosPage() {
         <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Listado de Personal</CardTitle>
-                <CardDescription>Detalle de la clasificación del personal activo.</CardDescription>
+                <CardDescription>Detalle de la clasificación del personal activo y sus obligaciones legales.</CardDescription>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -91,11 +91,12 @@ export default function ClasificacionEmpleadosPage() {
                             <TableHead>Departamento</TableHead>
                             <TableHead>Nivel Académico</TableHead>
                             <TableHead className="text-center">Permiso de Menor (LOPNNA)</TableHead>
+                             <TableHead className="text-center">Manutención Pendiente (LOPNNA)</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {empleados.map((emp) => (
-                            <TableRow key={emp.id} className={emp.permisoMenor ? "bg-blue-500/10" : ""}>
+                            <TableRow key={emp.id} className={emp.permisoMenor ? "bg-blue-500/10" : emp.manutencionPendiente ? "bg-red-500/10" : ""}>
                                 <TableCell className="font-medium">{emp.nombre}</TableCell>
                                 <TableCell>{emp.departamento}</TableCell>
                                 <TableCell>
@@ -110,6 +111,19 @@ export default function ClasificacionEmpleadosPage() {
                                     ) : (
                                         <div className="flex items-center justify-center gap-2 text-muted-foreground">
                                             <X className="h-5 w-5" />
+                                            <span>No</span>
+                                        </div>
+                                    )}
+                                </TableCell>
+                                 <TableCell className="text-center">
+                                    {emp.manutencionPendiente ? (
+                                        <div className="flex items-center justify-center gap-2 text-red-500">
+                                            <AlertTriangle className="h-5 w-5" />
+                                            <span>Sí</span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-center justify-center gap-2 text-muted-foreground">
+                                            <Check className="h-5 w-5" />
                                             <span>No</span>
                                         </div>
                                     )}
