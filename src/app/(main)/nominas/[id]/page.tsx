@@ -13,9 +13,9 @@ import { useToast } from "@/hooks/use-toast";
 
 
 // Mock data, in a real app this would be fetched based on the [id]
-const empleado = { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", fechaIngreso: "01/01/2020", sueldoIntegral: 15000 };
+const empleado = { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", fechaIngreso: "01/01/2020", sueldoBase: 12000 };
 const empresa = { nombre: "Empresa S.A.", rif: "J-12345678-9" };
-const sueldoBaseQuincenal = 6000;
+const sueldoBaseQuincenal = empleado.sueldoBase / 2;
 
 const nomina = {
     periodo: "1ra Quincena de Julio 2024",

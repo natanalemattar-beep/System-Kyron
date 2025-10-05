@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode, CreditCard, Banknote, Lock, Key, UserMinus } from "lucide-react";
+import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode, CreditCard, Banknote, Lock, Key, UserMinus, Loader2 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -107,6 +107,7 @@ export default function PuntoDeVentaPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [isLocked, setIsLocked] = useState(false);
     const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
     const [clienteCedula, setClienteCedula] = useState("");
     const [attachedCliente, setAttachedCliente] = useState<Cliente | null>(null);
     
@@ -219,7 +220,12 @@ export default function PuntoDeVentaPage() {
     const subtotalInCurrency = getPriceInCurrency(subtotal);
     const iva = operationType === "Venta a Ente Exento de IVA" ? 0 : subtotalInCurrency * 0.16;
     const total = subtotalInCurrency + iva;
-    const changeDue = amountReceived ? Number(amountReceived) - total : 0;
+    
+    const changeDue = useMemo(() => {
+        const received = Number(amountReceived);
+        if (isNaN(received) || received <= 0) return 0;
+        return received - total;
+    }, [amountReceived, total]);
     
     const handleCheckout = () => {
         if (cart.length === 0) {
@@ -268,8 +274,13 @@ export default function PuntoDeVentaPage() {
     }
 
     const handleFinalizeTransaction = () => {
-        setIsCheckoutOpen(false);
-        setIsReceiptOpen(true);
+        setIsProcessing(true);
+        // Simulate API call
+        setTimeout(() => {
+            setIsCheckoutOpen(false);
+            setIsReceiptOpen(true);
+            setIsProcessing(false);
+        }, 1000);
     };
 
      const handleAuthorization = () => {
@@ -651,7 +662,10 @@ export default function PuntoDeVentaPage() {
                     </div>
                      <DialogFooter>
                         <Button variant="outline" onClick={() => setIsCheckoutOpen(false)}>Cancelar</Button>
-                        <Button onClick={handleFinalizeTransaction}>Finalizar y Generar Factura</Button>
+                        <Button onClick={handleFinalizeTransaction} disabled={isProcessing}>
+                            {isProcessing && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
+                            Finalizar y Generar Factura
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
