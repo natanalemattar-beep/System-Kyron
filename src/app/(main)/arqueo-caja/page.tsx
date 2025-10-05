@@ -43,13 +43,14 @@ const denominacionesEur = [
 
 const resumenSistema = {
     ventasTotales: 1850.75,
-    pagosTarjetaDebito: 550.25,
-    pagosTarjetaCredito: 400.00,
-    pagosPorTransferencia: 300.50,
+    pagosTarjetaDebito: 450.25,
+    pagosTarjetaCredito: 300.00,
+    pagosPorTransferencia: 200.50,
+    pagosPagoMovil: 300.00,
     fondoDeCaja: 5000.00,
 };
 
-const efectivoEsperadoPorVentas = resumenSistema.ventasTotales - (resumenSistema.pagosTarjetaDebito + resumenSistema.pagosTarjetaCredito + resumenSistema.pagosPorTransferencia);
+const efectivoEsperadoPorVentas = resumenSistema.ventasTotales - (resumenSistema.pagosTarjetaDebito + resumenSistema.pagosTarjetaCredito + resumenSistema.pagosPorTransferencia + resumenSistema.pagosPagoMovil);
 const totalEsperadoEnCaja = efectivoEsperadoPorVentas + resumenSistema.fondoDeCaja;
 
 
@@ -137,10 +138,11 @@ export default function ArqueoCajaPage() {
                                 <span className="font-bold text-primary">{formatCurrency(resumenSistema.ventasTotales, 'Bs.')}</span>
                             </div>
                             <Separator/>
-                            <div className="grid grid-cols-3 gap-4">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div><p className="text-sm text-muted-foreground">Tarjeta de Débito:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosTarjetaDebito, 'Bs.')}</p></div>
                                 <div><p className="text-sm text-muted-foreground">Tarjeta de Crédito:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosTarjetaCredito, 'Bs.')}</p></div>
                                 <div><p className="text-sm text-muted-foreground">Transferencias:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosPorTransferencia, 'Bs.')}</p></div>
+                                <div><p className="text-sm text-muted-foreground">Pago Móvil:</p><p className="font-semibold">{formatCurrency(resumenSistema.pagosPagoMovil, 'Bs.')}</p></div>
                             </div>
                              <div className="flex justify-between items-center text-md p-3 bg-secondary/50 rounded-lg">
                                 <span className="text-muted-foreground">Fondo de Caja Inicial:</span>
@@ -239,9 +241,3 @@ export default function ArqueoCajaPage() {
         </div>
     );
 }
-
-    
-
-    
-
-    
