@@ -206,39 +206,13 @@ export default function LandingPage() {
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     
-    const [isHeaderVisible, setHeaderVisible] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                // Scrolling down
-                setHeaderVisible(false);
-            } else {
-                // Scrolling up
-                setHeaderVisible(true);
-            }
-            setLastScrollY(currentScrollY);
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [lastScrollY]);
-
-
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-blue-50 overflow-x-hidden">
       <div className="absolute inset-0 z-0 opacity-20">
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
-      <header className={cn("fixed top-0 left-0 right-0 z-50 transition-transform duration-300 m-4", {
-          "-translate-y-[calc(100%+2rem)]": !isHeaderVisible,
-      })}>
+      <header className="fixed top-0 left-0 right-0 z-50 m-4">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/50 backdrop-blur-md rounded-xl border border-black/10 shadow-lg">
           <Link href="/" className="flex items-center gap-3">
             <Logo className="bg-primary text-primary-foreground" />
