@@ -78,6 +78,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -238,6 +239,7 @@ const ventasNavGroups = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { state } = useSidebar();
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href));
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
@@ -260,10 +262,12 @@ export function AppSidebar() {
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
           <Logo />
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold leading-tight">System</span>
-            <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
-          </div>
+          {state === 'expanded' && (
+            <div className="flex flex-col">
+              <span className="text-sm font-semibold leading-tight">System</span>
+              <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+            </div>
+          )}
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
@@ -273,7 +277,7 @@ export function AppSidebar() {
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
                       <group.icon className="h-4 w-4" />
-                      {group.title}
+                      {state === 'expanded' && <span>{group.title}</span>}
                     </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-0">
@@ -305,12 +309,14 @@ export function AppSidebar() {
           <Avatar className="h-9 w-9">
             <AvatarFallback>E</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">Empresa S.A.</span>
-            <span className="text-xs text-muted-foreground">
-              J-12345678-9
-            </span>
-          </div>
+          {state === 'expanded' && (
+            <div className="flex flex-col">
+              <span className="text-sm font-medium">Empresa S.A.</span>
+              <span className="text-xs text-muted-foreground">
+                J-12345678-9
+              </span>
+            </div>
+          )}
         </div>
       </SidebarFooter>
     </Sidebar>
@@ -321,6 +327,7 @@ export function AppSidebar() {
 function AppSidebarNatural() {
   const pathname = usePathname();
   const userAvatar = PlaceHolderImages.find((img) => img.id === "user-avatar");
+  const { state } = useSidebar();
 
   const naturalNavGroups = [
       { title: "Principal", icon: User, items: naturalMenuItems.principal },
@@ -341,10 +348,12 @@ function AppSidebarNatural() {
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
            <Logo />
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold leading-tight">System</span>
-            <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
-          </div>
+           {state === 'expanded' && (
+            <div className="flex flex-col">
+                <span className="text-sm font-semibold leading-tight">System</span>
+                <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+            </div>
+           )}
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
@@ -354,7 +363,7 @@ function AppSidebarNatural() {
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
                       <group.icon className="h-4 w-4" />
-                      {group.title}
+                      {state === 'expanded' && <span>{group.title}</span>}
                     </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-0">
@@ -393,12 +402,14 @@ function AppSidebarNatural() {
             )}
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">Usuario Natural</span>
-            <span className="text-xs text-muted-foreground">
-              V-12345678
-            </span>
-          </div>
+           {state === 'expanded' && (
+            <div className="flex flex-col">
+                <span className="text-sm font-medium">Usuario Natural</span>
+                <span className="text-xs text-muted-foreground">
+                V-12345678
+                </span>
+            </div>
+           )}
         </div>
       </SidebarFooter>
     </Sidebar>
@@ -407,6 +418,7 @@ function AppSidebarNatural() {
 
 function AppSidebarHr() {
   const pathname = usePathname();
+  const { state } = useSidebar();
 
   const navGroups = [
     { title: "Gestión", icon: Briefcase, items: recursosHumanosGestionItems },
@@ -419,10 +431,12 @@ function AppSidebarHr() {
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
            <Logo />
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold leading-tight">System</span>
-            <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
-          </div>
+           {state === 'expanded' && (
+            <div className="flex flex-col">
+                <span className="text-sm font-semibold leading-tight">System</span>
+                <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+            </div>
+           )}
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
@@ -432,7 +446,7 @@ function AppSidebarHr() {
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
                        <group.icon className="h-4 w-4" />
-                      {group.title}
+                      {state === 'expanded' && <span>{group.title}</span>}
                     </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-0">
@@ -464,12 +478,14 @@ function AppSidebarHr() {
           <Avatar className="h-9 w-9">
             <AvatarFallback>RH</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">Usuario RR.HH.</span>
-            <span className="text-xs text-muted-foreground">
-              Empresa S.A.
-            </span>
-          </div>
+          {state === 'expanded' && (
+            <div className="flex flex-col">
+                <span className="text-sm font-medium">Usuario RR.HH.</span>
+                <span className="text-xs text-muted-foreground">
+                Empresa S.A.
+                </span>
+            </div>
+          )}
         </div>
       </SidebarFooter>
     </Sidebar>
@@ -479,6 +495,7 @@ function AppSidebarHr() {
 
 function AppSidebarVentas() {
   const pathname = usePathname();
+  const { state } = useSidebar();
 
   const navGroups = [
     { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
@@ -489,10 +506,12 @@ function AppSidebarVentas() {
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
            <Logo />
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold leading-tight">System</span>
-            <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
-          </div>
+            {state === 'expanded' && (
+                <div className="flex flex-col">
+                    <span className="text-sm font-semibold leading-tight">System</span>
+                    <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                </div>
+            )}
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
@@ -502,7 +521,7 @@ function AppSidebarVentas() {
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
                        <group.icon className="h-4 w-4" />
-                      {group.title}
+                       {state === 'expanded' && <span>{group.title}</span>}
                     </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-0">
@@ -534,12 +553,14 @@ function AppSidebarVentas() {
           <Avatar className="h-9 w-9">
             <AvatarFallback>V</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">Usuario Ventas</span>
-            <span className="text-xs text-muted-foreground">
-              Empresa S.A.
-            </span>
-          </div>
+           {state === 'expanded' && (
+            <div className="flex flex-col">
+                <span className="text-sm font-medium">Usuario Ventas</span>
+                <span className="text-xs text-muted-foreground">
+                Empresa S.A.
+                </span>
+            </div>
+           )}
         </div>
       </SidebarFooter>
     </Sidebar>
