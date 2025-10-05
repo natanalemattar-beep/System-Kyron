@@ -1,8 +1,11 @@
 
+"use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Globe, UserCog, CheckCircle, ArrowRight, TrendingDown } from "lucide-react";
+import { Globe, UserCog, CheckCircle, ArrowRight, TrendingDown, BookOpen } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
 
 const pasosSucursal = [
     "Registro de sucursal en SAREN (si es nacional).",
@@ -103,6 +106,41 @@ export default function TramitesCorporativosPage() {
             <CardContent className="flex flex-col sm:flex-row gap-2">
                  <Button variant="outline" className="w-full">Convocar Asamblea</Button>
                  <Button variant="destructive" className="w-full">Iniciar Trámite en SAREN</Button>
+            </CardContent>
+        </Card>
+
+        <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                    <BookOpen className="h-6 w-6 text-primary"/>
+                    <span>Facturación de Sucursales y Franquicias</span>
+                </CardTitle>
+                <CardDescription>Modelos contables para la gestión de ingresos en empresas con múltiples sedes.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="sucursales">
+                        <AccordionTrigger>Facturación de Sucursales</AccordionTrigger>
+                        <AccordionContent>
+                           <ul className="space-y-4 text-muted-foreground list-disc pl-5">
+                               <li><strong>Centralización de la Contabilidad:</strong> La forma más común es mantener los registros contables de las sucursales en la sede central.</li>
+                               <li><strong>Mecanismo de Integración:</strong> Se utilizan cuentas como "Sucursal, Cuenta Corriente" en la casa matriz y "Casa Matriz, Cuenta Corriente" en la sucursal para controlar las transacciones.</li>
+                               <li><strong>Consolidación de Información:</strong> La sucursal envía periódicamente sus cuentas a la oficina central para consolidar la información financiera y formar una visión completa de las operaciones.</li>
+                           </ul>
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="franquicias">
+                        <AccordionTrigger>Facturación de Franquicias</AccordionTrigger>
+                        <AccordionContent>
+                            <ul className="space-y-4 text-muted-foreground list-disc pl-5">
+                               <li><strong>Principio de Reconocimiento de Ingresos:</strong> La facturación se rige por normativas (como la ASC 606) que exigen identificar el contrato, las obligaciones de desempeño y el precio de la transacción.</li>
+                               <li><strong>Obligaciones de Desempeño:</strong> Se deben reconocer los servicios que el franquiciador proporciona (capacitación, marketing, etc.) como obligaciones de desempeño.</li>
+                               <li><strong>Reconocimiento Gradual:</strong> Los ingresos no se reconocen de inmediato, sino que se asignan a medida que se cumplen las obligaciones, lo que requiere un seguimiento cuidadoso.</li>
+                               <li><strong>Tarifas y Regalías:</strong> El franquiciado paga tarifas iniciales y regalías continuas, que se reconocen como ingresos a medida que se prestan los servicios asociados.</li>
+                           </ul>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
             </CardContent>
         </Card>
 
