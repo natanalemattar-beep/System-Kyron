@@ -47,6 +47,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 export default function FacturacionCreditoPage() {
     const [facturas, setFacturas] = useState<Factura[]>(initialFacturas);
     const [items, setItems] = useState<Item[]>([{ id: 1, descripcion: '', cantidad: 1, precio: 0 }]);
+    const [metodoCredito, setMetodoCredito] = useState("");
     const { toast } = useToast();
     
     const totalFactura = items.reduce((acc, item) => acc + (item.cantidad * item.precio), 0);
@@ -117,7 +118,7 @@ export default function FacturacionCreditoPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="metodo-credito">Método de Crédito</Label>
-                                     <Select>
+                                     <Select onValueChange={setMetodoCredito}>
                                         <SelectTrigger id="metodo-credito">
                                             <SelectValue placeholder="Selecciona el método" />
                                         </SelectTrigger>
@@ -131,19 +132,21 @@ export default function FacturacionCreditoPage() {
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="terminos">Términos de Pago</Label>
-                                     <Select>
-                                        <SelectTrigger id="terminos">
-                                            <SelectValue placeholder="Selecciona los términos" />
+                               {metodoCredito === 'cashea' && (
+                                <div className="space-y-2 animate-in fade-in">
+                                    <Label htmlFor="cashea-level">Nivel de Cliente en Cashea</Label>
+                                    <Select>
+                                        <SelectTrigger id="cashea-level">
+                                            <SelectValue placeholder="Seleccionar nivel..." />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="30">Neto 30 días</SelectItem>
-                                            <SelectItem value="60">Neto 60 días</SelectItem>
-                                            <SelectItem value="90">Neto 90 días</SelectItem>
+                                            {casheaLevels.map(l => (
+                                                <SelectItem key={l.level} value={String(l.level)}>Nivel {l.level}: {l.name}</SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
+                                )}
                             </div>
                             
                             <div className="space-y-2 pt-4">
@@ -340,5 +343,3 @@ export default function FacturacionCreditoPage() {
         </div>
     );
 }
-
-    
