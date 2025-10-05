@@ -148,7 +148,6 @@ const ventasMenuItems = [
     { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/notificaciones", label: "Notificaciones", icon: Bell },
 ];
 
 const recursosHumanosGestionItems = [
@@ -162,6 +161,7 @@ const recursosHumanosGestionItems = [
     { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
+    { href: "/notificaciones", label: "Notificaciones a RR.HH.", icon: Bell },
 ];
 
 const librosRegistroMenuItems = [
@@ -180,7 +180,6 @@ const corporativoMenuItems = [
 ];
 
 const generalMenuItems = [
-  { href: "/notificaciones", label: "Notificaciones", icon: Bell },
   { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
