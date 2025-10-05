@@ -26,6 +26,15 @@ const initialFacturas = [
     { id: "FACC-002", cliente: "Innovate Corp", fechaEmision: "2024-06-15", fechaVencimiento: "2024-07-15", monto: 3200, estado: "Vencida", metodo: "Cashea" },
 ];
 
+const casheaLevels = [
+    { level: 1, name: "Semilla", requirements: "Nivel base", initialPayment: "60%", moreQuotas: "No" },
+    { level: 2, name: "Raíz", requirements: "5 cuotas pagadas a tiempo o $120 en compras", initialPayment: "50%", moreQuotas: "No" },
+    { level: 3, name: "Hoja", requirements: "10 cuotas pagadas a tiempo o $400 en compras", initialPayment: "40% (Desde 30% en aliados sel.)", moreQuotas: "SÍ" },
+    { level: 4, name: "Tronco", requirements: "20 cuotas pagadas a tiempo o $800 en compras", initialPayment: "40% (Desde 25% en aliados sel.)", moreQuotas: "SÍ" },
+    { level: 5, name: "Árbol", requirements: "40 cuotas pagadas a tiempo o $2000 en compras", initialPayment: "40% (Desde 20% en aliados sel.)", moreQuotas: "SÍ" },
+    { level: 6, name: "Araguaney", requirements: "80 cuotas pagadas a tiempo o $4000 en compras", initialPayment: "40% (Desde 20% en aliados sel. y pronto desde 0%)", moreQuotas: "SÍ" },
+];
+
 type Item = { id: number; descripcion: string; cantidad: number; precio: number };
 type Factura = typeof initialFacturas[0];
 
@@ -187,7 +196,7 @@ export default function FacturacionCreditoPage() {
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2"><Smartphone/> ¿Cómo funciona Cashea?</CardTitle>
                                 </CardHeader>
-                                <CardContent className="space-y-4">
+                                <CardContent className="space-y-6">
                                      <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
                                         <li><strong>Descarga la app y regístrate:</strong> El usuario debe validar su identidad con su cédula y una selfie.</li>
                                         <li><strong>Obtén una línea de compra:</strong> Cashea preaprueba un monto en minutos.</li>
@@ -199,13 +208,47 @@ export default function FacturacionCreditoPage() {
                                         <li className="flex items-start gap-2"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5"/> <span><strong>Sin Intereses:</strong> El precio final es el mismo que el precio de contado.</span></li>
                                         <li className="flex items-start gap-2"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5"/> <span><strong>Club Cashea Más:</strong> Pagar a tiempo acumula puntos para subir de nivel y obtener mejores beneficios (más línea de crédito, más cuotas).</span></li>
                                      </ul>
-                                     <h4 className="font-semibold pt-2">Comisiones por Servicio para el Comercio:</h4>
-                                      <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
-                                        <li><strong>4%</strong> para tiendas físicas de la Línea Principal.</li>
-                                        <li><strong>3%</strong> para supermercados y farmacias de la Línea Cotidiana.</li>
-                                        <li><strong>5%</strong> para restaurantes y bebidas de la Línea Cotidiana.</li>
-                                        <li><strong>6%</strong> para las ventas realizadas a través de Cashea Online.</li>
-                                     </ul>
+                                     
+                                    <div>
+                                        <h4 className="font-semibold pt-4">Club Cashea Más: Niveles y Beneficios</h4>
+                                        <Table className="mt-2">
+                                            <TableHeader>
+                                                <TableRow>
+                                                    <TableHead>Nivel</TableHead>
+                                                    <TableHead>Requisitos para Subir</TableHead>
+                                                    <TableHead>Pago Inicial</TableHead>
+                                                    <TableHead>Acceso a Más Cuotas</TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {casheaLevels.map(level => (
+                                                    <TableRow key={level.level}>
+                                                        <TableCell className="font-bold">{level.level}: {level.name}</TableCell>
+                                                        <TableCell className="text-xs">{level.requirements}</TableCell>
+                                                        <TableCell className="text-xs">{level.initialPayment}</TableCell>
+                                                        <TableCell>
+                                                            <Badge variant={level.moreQuotas === 'SÍ' ? 'default' : 'outline'}>{level.moreQuotas}</Badge>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                    
+                                     <div>
+                                        <h4 className="font-semibold pt-4">¿Qué es el "Modo Más Cuotas"?</h4>
+                                        <p className="text-sm text-muted-foreground mt-2">Es un beneficio para usuarios de nivel 3 o superior que permite financiar compras en 6, 9 o hasta 12 cuotas sin interés en tiendas y productos seleccionados, comprando exclusivamente desde la app de Cashea.</p>
+                                     </div>
+
+                                     <div>
+                                        <h4 className="font-semibold pt-4">Comisiones por Servicio para el Comercio:</h4>
+                                          <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
+                                            <li><strong>4%</strong> para tiendas físicas de la Línea Principal.</li>
+                                            <li><strong>3%</strong> para supermercados y farmacias de la Línea Cotidiana.</li>
+                                            <li><strong>5%</strong> para restaurantes y bebidas de la Línea Cotidiana.</li>
+                                            <li><strong>6%</strong> para las ventas realizadas a través de Cashea Online.</li>
+                                         </ul>
+                                     </div>
                                 </CardContent>
                            </Card>
                         </TabsContent>
@@ -296,5 +339,6 @@ export default function FacturacionCreditoPage() {
             </Card>
         </div>
     );
+}
 
     
