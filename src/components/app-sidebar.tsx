@@ -91,6 +91,7 @@ import { Logo } from "@/components/logo";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { chat } from "@/ai/flows/chat";
+import { Button } from "@/components/ui/button";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
