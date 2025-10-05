@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bookmark, Search, ArrowRight, BookOpen, Users, Award, Star, MessageSquare, Target, Heart, Sparkles, HeartHandshake } from "lucide-react";
+import { Bookmark, Search, ArrowRight, BookOpen, Users, Award, Star, MessageSquare, Target, Heart, Sparkles, HeartHandshake, Lightbulb } from "lucide-react";
 import Image from "next/image";
 
 const libros = [
@@ -134,6 +134,13 @@ export default function DesarrolloProfesionalPage() {
                     <div>
                         <p className="font-semibold">Empleado del Mes</p>
                         <p className="text-sm text-muted-foreground">¡Felicidades, Luis Gómez!</p>
+                    </div>
+                </div>
+                 <div className="flex items-center gap-3 p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                    <Lightbulb className="h-6 w-6 text-green-500"/>
+                    <div>
+                        <p className="font-semibold">Bono por Creatividad e Innovación</p>
+                        <p className="text-sm text-muted-foreground">Pago adicional por mejoras propuestas.</p>
                     </div>
                 </div>
                  <p className="text-sm text-center text-muted-foreground pt-4">Aquí verás los reconocimientos que has recibido.</p>
