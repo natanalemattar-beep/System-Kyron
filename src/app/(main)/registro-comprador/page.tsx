@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, Camera, CheckCircle, RefreshCw, AlertTriangle } from "lucide-react";
+import { User, Camera, CheckCircle, RefreshCw, AlertTriangle, Cpu, Shield, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
@@ -49,7 +49,6 @@ export default function RegistroCompradorPage() {
         getCameraPermission();
 
         return () => {
-            // Detener el stream de la cámara al desmontar el componente
             if (videoRef.current && videoRef.current.srcObject) {
                 const stream = videoRef.current.srcObject as MediaStream;
                 stream.getTracks().forEach(track => track.stop());
@@ -179,6 +178,41 @@ export default function RegistroCompradorPage() {
                     </Button>
                 </CardFooter>
             </form>
+            
+            <section className="mt-12">
+                <Card className="bg-card/50 backdrop-blur-sm">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-3"><Cpu className="text-primary"/> Proceso Automatizado: Pre-Registro de Clientes</CardTitle>
+                        <CardDescription>Esta funcionalidad, conocida como Pre-registro o Facturación Rápida (Quick Billing), agiliza las ventas y asegura el cumplimiento con el SENIAT.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        <div>
+                            <h4 className="font-semibold text-lg flex items-center gap-2"><User className="h-5 w-5"/> 1. Módulos de Registro y Validación Inicial</h4>
+                            <ul className="list-disc pl-8 mt-2 space-y-2 text-muted-foreground">
+                                <li><strong>Captura de Datos:</strong> El cliente se registra con su Cédula/RIF, nombre completo y dirección fiscal.</li>
+                                <li><strong>Validación con OCR:</strong> El sistema utiliza la foto de la cédula para rellenar campos automáticamente, minimizando errores.</li>
+                                <li><strong>Verificación de RIF:</strong> Se valida la información contra bases de datos públicas para asegurar el cumplimiento fiscal antes de la primera venta.</li>
+                                <li><strong>Ficha Única de Cliente:</strong> Se crea un perfil único en la base de datos, vinculado a la Cédula/RIF.</li>
+                            </ul>
+                        </div>
+                         <div>
+                            <h4 className="font-semibold text-lg flex items-center gap-2"><FileText className="h-5 w-5"/> 2. Automatización en el Punto de Venta (TPV)</h4>
+                            <ul className="list-disc pl-8 mt-2 space-y-2 text-muted-foreground">
+                                <li><strong>Búsqueda por Cédula/RIF:</strong> El cajero solo necesita ingresar el número de identificación del cliente.</li>
+                                <li><strong>Carga Instantánea de Datos:</strong> El sistema carga automáticamente todos los datos fiscales en el encabezado de la factura.</li>
+                                <li><strong>Facturación Rápida:</strong> El cajero se enfoca solo en escanear los productos mientras el sistema gestiona el formato de factura del SENIAT, el cálculo de IVA y el número de control.</li>
+                            </ul>
+                        </div>
+                         <div>
+                            <h4 className="font-semibold text-lg flex items-center gap-2"><Shield className="h-5 w-5"/> 3. Seguridad y Cumplimiento</h4>
+                             <ul className="list-disc pl-8 mt-2 space-y-2 text-muted-foreground">
+                                <li><strong>Integridad de Datos:</strong> Una vez validados, los datos fiscales clave (RIF, Razón Social) se bloquean en el TPV para evitar modificaciones.</li>
+                                <li><strong>Verificación Final:</strong> El cajero puede verificar rápidamente que la persona que compra coincide con la cédula ingresada, añadiendo una capa final de seguridad.</li>
+                            </ul>
+                        </div>
+                    </CardContent>
+                </Card>
+            </section>
         </div>
     );
 }

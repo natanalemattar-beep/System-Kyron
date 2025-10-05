@@ -109,6 +109,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
   { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
+  { href: "/clasificacion-facturacion", label: "Clasificación de Facturación", icon: Layers },
 ];
 
 const analisisCrecimientoMenuItems = [
@@ -150,7 +151,6 @@ const ventasMenuItems = [
     { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/notificaciones", label: "Notificaciones a RR.HH.", icon: Bell },
 ];
 
 const recursosHumanosGestionItems = [
@@ -221,7 +221,7 @@ const juridicoNavGroups = [
 ];
 
 const ventasNavGroups = [
-    { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
+    { title: "Ventas y Facturación", icon: ShoppingCart, items: [...ventasMenuItems, { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus }, { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus }, { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle }] },
 ];
 
 
@@ -537,3 +537,4 @@ function AppSidebarVentas() {
     
 
     
+

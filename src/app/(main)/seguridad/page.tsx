@@ -29,7 +29,7 @@ const loginHistory = [
 const businessFraudStrategies = {
     "Controles Financieros y Contables": [
         "Segregación de Funciones: Dividir tareas para que ninguna persona maneje sola un ciclo financiero completo (autorización, pago, conciliación).",
-        "Rotación de Personal: Rotar responsabilidades financieras periódicamente para desalentar esquemas a largo plazo.",
+        "Rotación de Personal: Rotar las responsabilidades financieras y de inventario periódicamente para desalentar esquemas a largo plazo.",
         "Conciliaciones Frecuentes: Realizar conciliaciones bancarias diarias o semanales para detectar transacciones no autorizadas rápidamente.",
         "Doble Firma/Aprobación: Exigir dos aprobaciones para pagos que superen un monto preestablecido.",
         "Auditorías Sorpresa: Realizar auditorías internas o recuentos de caja sin previo aviso."
