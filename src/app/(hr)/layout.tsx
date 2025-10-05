@@ -51,11 +51,11 @@ export default function HrLayout({ children }: { children: ReactNode }) {
   }, [lastScrollY]);
 
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <div className="p-2 md:p-4 w-full overflow-y-auto">
         <SidebarInset>
-           <header className={cn("p-4 flex justify-between items-center border-b bg-blue-200/30 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8 transition-transform duration-300", {
+           <header className={cn("p-4 flex justify-between items-center border-b bg-background/50 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8 transition-transform duration-300", {
              "-translate-y-full": !isHeaderVisible
            })}>
              <div className="flex items-center gap-4">
@@ -97,7 +97,7 @@ export default function HrLayout({ children }: { children: ReactNode }) {
                 </div>
             ) : (
                  <div className="container mx-auto">
-                    <div className="animate-in fade-in duration-500">
+                    <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
                         {children}
                     </div>
                 </div>
