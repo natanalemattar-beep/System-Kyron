@@ -67,6 +67,7 @@ import {
   FileMinus,
   HelpCircle,
   Building,
+  Send,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -84,6 +85,8 @@ import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { Logo } from "@/components/logo";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Input } from "./ui/input";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
@@ -236,6 +239,36 @@ const ventasNavGroups = [
     { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
 ];
 
+function ChatDialog() {
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <SidebarMenuButton tooltip="Chat IA" className="justify-start h-8">
+                    <Bot className="h-4 w-4" />
+                    <span>Chat IA</span>
+                </SidebarMenuButton>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2"><Bot className="h-5 w-5"/> Asistente IA</DialogTitle>
+                    <DialogDescription>
+                        Hazme una pregunta sobre tus finanzas, cumplimiento o cualquier otra duda.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="flex-grow flex flex-col p-4 bg-secondary/50 rounded-lg min-h-[300px] justify-end">
+                    {/* Chat messages would go here */}
+                    <p className="text-sm text-center text-muted-foreground">Inicia una conversación.</p>
+                </div>
+                <div className="relative">
+                    <Input placeholder="Escribe tu mensaje..."/>
+                    <Button size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8">
+                        <Send className="h-4 w-4"/>
+                    </Button>
+                </div>
+            </DialogContent>
+        </Dialog>
+    )
+}
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -306,12 +339,7 @@ export function AppSidebar() {
       <SidebarFooter className="p-2">
         <SidebarMenu>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Chat IA" className="justify-start h-8">
-                    <Link href="#">
-                        <Bot className="h-4 w-4" />
-                        <span>Chat IA</span>
-                    </Link>
-                </SidebarMenuButton>
+                <ChatDialog />
             </SidebarMenuItem>
         </SidebarMenu>
         <Separator className="my-2" />
@@ -402,12 +430,7 @@ function AppSidebarNatural() {
       <SidebarFooter className="p-2">
          <SidebarMenu>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Chat IA" className="justify-start h-8">
-                    <Link href="#">
-                        <Bot className="h-4 w-4" />
-                        <span>Chat IA</span>
-                    </Link>
-                </SidebarMenuButton>
+                <ChatDialog />
             </SidebarMenuItem>
         </SidebarMenu>
         <Separator className="my-2" />
@@ -495,12 +518,7 @@ function AppSidebarHr() {
       <SidebarFooter className="p-2">
          <SidebarMenu>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Chat IA" className="justify-start h-8">
-                    <Link href="#">
-                        <Bot className="h-4 w-4" />
-                        <span>Chat IA</span>
-                    </Link>
-                </SidebarMenuButton>
+                <ChatDialog />
             </SidebarMenuItem>
         </SidebarMenu>
         <Separator className="my-2" />
@@ -580,12 +598,7 @@ function AppSidebarVentas() {
       <SidebarFooter className="p-2">
         <SidebarMenu>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Chat IA" className="justify-start h-8">
-                    <Link href="#">
-                        <Bot className="h-4 w-4" />
-                        <span>Chat IA</span>
-                    </Link>
-                </SidebarMenuButton>
+                <ChatDialog />
             </SidebarMenuItem>
         </SidebarMenu>
         <Separator className="my-2" />
