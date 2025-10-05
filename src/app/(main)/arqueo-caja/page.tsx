@@ -8,12 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ClipboardCheck, CheckCircle, Printer, ShieldCheck } from "lucide-react";
+import { ClipboardCheck, CheckCircle, Printer, ShieldCheck, FileWarning, BookOpen } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 const denominacionesBs = [
     { tipo: 'billete', valor: 100 },
@@ -56,21 +57,30 @@ const totalEsperadoEnCaja = efectivoEsperadoPorVentas + resumenSistema.fondoDeCa
 
 
 const historialCierres = [
-    { id: 1, fecha: "20/07/2024", usuario: "Ana Pérez", diferencia: 0, estado: "Cuadrado" },
-    { id: 2, fecha: "19/07/2024", usuario: "Ana Pérez", diferencia: -5.50, estado: "Faltante" },
-    { id: 3, fecha: "18/07/2024", usuario: "Luis Gómez", diferencia: 10.00, estado: "Sobrante" },
+    { id: 1, fecha: "20/07/2024", usuario: "Ana Pérez", diferencia: 0, estado: "Cuadrado", observaciones: "Cierre de turno normal." },
+    { id: 2, fecha: "19/07/2024", usuario: "Ana Pérez", diferencia: -5.50, estado: "Faltante", observaciones: "Posible error en vuelto." },
+    { id: 3, fecha: "18/07/2024", usuario: "Luis Gómez", diferencia: 10.00, estado: "Sobrante", observaciones: "Cliente no retiró vuelto completo." },
 ];
+
+const libroSobrantesFaltantes = [
+    { id: 1, fecha: "19/07/2024", usuario: "Ana Pérez", tipo: "Faltante", monto: -5.50, observaciones: "Posible error en vuelto.", estado: "Pendiente" },
+    { id: 2, fecha: "18/07/2024", usuario: "Luis Gómez", tipo: "Sobrante", monto: 10.00, observaciones: "Cliente no retiró vuelto completo.", estado: "Ajustado" },
+];
+
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   Cuadrado: "default",
   Sobrante: "secondary",
   Faltante: "destructive",
+  Ajustado: "default",
+  Pendiente: "secondary",
 };
 
 export default function ArqueoCajaPage() {
     const [conteoBs, setConteoBs] = useState<Record<string, number>>({});
     const [conteoUsd, setConteoUsd] = useState<Record<string, number>>({});
     const [conteoEur, setConteoEur] = useState<Record<string, number>>({});
+    const [observaciones, setObservaciones] = useState("");
     const { toast } = useToast();
 
     const totalContadoBs = useMemo(() => {
@@ -93,6 +103,14 @@ export default function ArqueoCajaPage() {
     };
     
     const handleCerrarCaja = () => {
+        if (diferenciaBs !== 0 && !observaciones) {
+            toast({
+                variant: "destructive",
+                title: "Observación Requerida",
+                description: "Debe añadir una observación si hay un faltante o sobrante en caja.",
+            });
+            return;
+        }
         toast({
             title: "Caja Cerrada Exitosamente",
             description: `Se ha registrado el arqueo con una diferencia de ${formatCurrency(diferenciaBs, 'Bs.')}.`,
@@ -201,6 +219,15 @@ export default function ArqueoCajaPage() {
                                 <h4 className="text-sm font-semibold mb-1">{diferenciaBs === 0 ? 'CAJA CUADRADA' : diferenciaBs > 0 ? 'SOBRANTE' : 'FALTANTE'} (en Bs.)</h4>
                                 <p className={`text-3xl font-bold ${diferenciaBs === 0 ? 'text-green-500' : 'text-red-500'}`}>{formatCurrency(diferenciaBs, 'Bs.')}</p>
                             </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="observaciones">Observaciones</Label>
+                                <Textarea 
+                                    id="observaciones" 
+                                    placeholder="Añadir observaciones sobre faltantes, sobrantes o cualquier otra incidencia..." 
+                                    value={observaciones}
+                                    onChange={(e) => setObservaciones(e.target.value)}
+                                />
+                            </div>
                             <Button className="w-full text-lg py-6" onClick={handleCerrarCaja}>Cerrar Caja y Registrar</Button>
                             <Button className="w-full" variant="outline"><Printer className="mr-2"/> Imprimir Reporte</Button>
                         </CardContent>
@@ -237,7 +264,7 @@ export default function ArqueoCajaPage() {
                             Asegúrate siempre de que el punto de venta imprima un voucher con la palabra "Aprobada" y guárdalo.
                         </p>
                     </div>
-                    <div className="p-4 bg-secondary/50 rounded-lg">
+                     <div className="p-4 bg-secondary/50 rounded-lg">
                         <h4 className="font-semibold mb-2">Conciliación Diaria</h4>
                         <p className="text-sm text-muted-foreground">
                             El arqueo diario es tu mejor herramienta para detectar cualquier inconsistencia o fraude a tiempo.
@@ -259,6 +286,7 @@ export default function ArqueoCajaPage() {
                                 <TableHead>Realizado por</TableHead>
                                 <TableHead className="text-right">Diferencia (Bs.)</TableHead>
                                 <TableHead className="text-center">Estado</TableHead>
+                                <TableHead>Observaciones</TableHead>
                                 <TableHead className="text-right">QR</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -271,8 +299,58 @@ export default function ArqueoCajaPage() {
                                     <TableCell className="text-center">
                                         <Badge variant={statusVariant[cierre.estado]}>{cierre.estado}</Badge>
                                     </TableCell>
+                                     <TableCell className="text-xs text-muted-foreground">{cierre.observaciones}</TableCell>
                                     <TableCell className="text-right">
                                         <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=cierre-caja-${cierre.id}`} alt={`QR for ${cierre.id}`} width={24} height={24} />
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+            
+             {/* Libro de Sobrantes y Faltantes */}
+            <Card className="mt-8 bg-card/80 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><BookOpen/>Libro de Control de Sobrantes y Faltantes</CardTitle>
+                    <CardDescription>Registro de discrepancias para ajuste contra inventario.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Fecha</TableHead>
+                                <TableHead>Cajero</TableHead>
+                                <TableHead>Tipo</TableHead>
+                                <TableHead className="text-right">Monto (Bs.)</TableHead>
+                                <TableHead>Observación del Cajero</TableHead>
+                                <TableHead className="text-center">Estado</TableHead>
+                                <TableHead className="text-right">Acción</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {libroSobrantesFaltantes.map((item) => (
+                                <TableRow key={item.id} className={item.estado === 'Pendiente' ? 'bg-yellow-500/10' : ''}>
+                                    <TableCell>{item.fecha}</TableCell>
+                                    <TableCell className="font-medium">{item.usuario}</TableCell>
+                                    <TableCell>
+                                        <Badge variant={item.tipo === 'Faltante' ? 'destructive' : 'secondary'}>{item.tipo}</Badge>
+                                    </TableCell>
+                                    <TableCell className={`text-right font-semibold ${item.monto < 0 ? 'text-red-500' : 'text-green-500'}`}>
+                                        {formatCurrency(item.monto, 'Bs.')}
+                                    </TableCell>
+                                    <TableCell className="text-xs text-muted-foreground">{item.observaciones}</TableCell>
+                                    <TableCell className="text-center">
+                                        <Badge variant={statusVariant[item.estado]}>{item.estado}</Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        {item.estado === 'Pendiente' && (
+                                             <Button variant="outline" size="sm">
+                                                <FileWarning className="mr-2 h-4 w-4"/>
+                                                Justificar y Ajustar
+                                            </Button>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -284,3 +362,5 @@ export default function ArqueoCajaPage() {
         </div>
     );
 }
+
+    
