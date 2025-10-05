@@ -432,7 +432,7 @@ export default function PuntoDeVentaPage() {
                     </CardContent>
                     <CardFooter className="flex-col !p-4 border-t gap-2">
                         <div className="w-full space-y-2">
-                            <Label htmlFor="cliente-cedula">Adjuntar Cliente (Cédula/RIF)</Label>
+                            <Label htmlFor="cliente-cedula">Adjuntar Cliente (Cédula/RIF/Pasaporte)</Label>
                             {attachedCliente ? (
                                 <div className="flex items-center justify-between p-2 bg-secondary rounded-md">
                                     <div>
@@ -447,7 +447,7 @@ export default function PuntoDeVentaPage() {
                                 <div className="flex gap-2">
                                     <Input
                                         id="cliente-cedula"
-                                        placeholder="V-12345678"
+                                        placeholder="Cédula, RIF o Pasaporte"
                                         value={clienteCedula}
                                         onChange={(e) => setClienteCedula(e.target.value)}
                                         onKeyDown={handleClienteKeyDown}
@@ -748,5 +748,3 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
-
-    
