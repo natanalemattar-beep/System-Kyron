@@ -342,7 +342,7 @@ export default function PuntoDeVentaPage() {
                                     <SelectContent>
                                         <SelectItem value="Venta Inmediata">Venta Inmediata</SelectItem>
                                         <SelectItem value="Factura a Crédito sin Abono">Factura a Crédito sin Abono</SelectItem>
-                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento</SelectItem>
+                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento (Cashea, etc)</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -440,7 +440,7 @@ export default function PuntoDeVentaPage() {
                                 <Label className="text-lg font-semibold">Vuelto a Entregar</Label>
                                 <p className="text-3xl font-bold text-blue-400">{formatCurrency(changeDue, currency)}</p>
                                 <div className="flex items-center justify-center space-x-2 pt-2">
-                                    <input type="checkbox" id="pago-movil-check" checked={giveChangeByPagoMovil} onChange={(e) => setGiveChangeByPagoMovil(e.target.checked)}/>
+                                    <Switch id="pago-movil-check" checked={giveChangeByPagoMovil} onCheckedChange={setGiveChangeByPagoMovil}/>
                                     <Label htmlFor="pago-movil-check">Dar vuelto por Pago Móvil</Label>
                                 </div>
                                 {giveChangeByPagoMovil && (
@@ -525,5 +525,4 @@ export default function PuntoDeVentaPage() {
 
         </div>
     );
-
-    
+}
