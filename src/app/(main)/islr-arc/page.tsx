@@ -4,10 +4,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Banknote, FileDown, Download, HelpCircle } from "lucide-react";
+import { Banknote, FileDown, Download, HelpCircle, FileWarning } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const registros = [
     { id: 1, empleado: "Ana Pérez", cedula: "V-12.345.678", remuneracionAnual: 149520, retencionMes: 450, retencionAcumulada: 2700 },
@@ -52,6 +53,15 @@ export default function IslrArcPage() {
                 </Button>
             </div>
         </header>
+        
+        <Alert variant="destructive" className="mb-8">
+            <FileWarning className="h-4 w-4" />
+            <AlertTitle>Alerta de Pago Pendiente</AlertTitle>
+            <AlertDescription>
+                Se ha detectado que el pago de las retenciones de ISLR del período anterior aún no ha sido enterado al SENIAT.
+                <Button size="sm" className="ml-4">Pagar Ahora</Button>
+            </AlertDescription>
+        </Alert>
 
         <Card className="mb-8 bg-blue-500/10 border-blue-500/20">
             <CardHeader>
