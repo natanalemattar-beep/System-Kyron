@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode, CreditCard, Banknote } from "lucide-react";
+import { Plus, Minus, X, TabletSmartphone, Printer, CheckCircle, ShieldCheck, User, Barcode, Search, QrCode, CreditCard, Banknote, Lock, Key } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -94,8 +94,29 @@ export default function PuntoDeVentaPage() {
     const [amountReceived, setAmountReceived] = useState<number | "">("");
     const [giveChangeByPagoMovil, setGiveChangeByPagoMovil] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isLocked, setIsLocked] = useState(false);
+    const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
     
     const { toast } = useToast();
+    
+    useEffect(() => {
+      const checkWorkHours = () => {
+        const now = new Date();
+        const currentHour = now.getHours();
+        // Horario laboral de 8 AM a 6 PM (18:00)
+        if (currentHour < 8 || currentHour >= 18) {
+          setIsLocked(true);
+        } else {
+          setIsLocked(false);
+        }
+      };
+      
+      checkWorkHours();
+      // Opcional: comprobar cada minuto
+      const interval = setInterval(checkWorkHours, 60000); 
+
+      return () => clearInterval(interval);
+    }, []);
     
     useEffect(() => {
       if (activeCashier) {
@@ -217,6 +238,15 @@ export default function PuntoDeVentaPage() {
         setIsCheckoutOpen(false);
         setIsReceiptOpen(true);
     };
+
+     const handleAuthorization = () => {
+        setIsLocked(false);
+        setIsAuthDialogOpen(false);
+        toast({
+            title: "Sistema Desbloqueado",
+            description: "El punto de venta ha sido autorizado y está listo para operar.",
+        });
+    };
     
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://systemcms.com/menu/table/${tableNumber}`;
 
@@ -228,7 +258,20 @@ export default function PuntoDeVentaPage() {
     const selectedCasheaLevelData = casheaLevel ? casheaLevels.find(l => String(l.level) === casheaLevel) : null;
 
     return (
-        <div className="h-screen bg-muted flex flex-col p-2 md:p-4 gap-4">
+        <div className="h-screen bg-muted flex flex-col p-2 md:p-4 gap-4 relative">
+             {isLocked && (
+                <div className="absolute inset-0 bg-black/70 z-20 flex flex-col items-center justify-center gap-6">
+                    <Lock className="h-20 w-20 text-yellow-400"/>
+                    <div className="text-center">
+                        <h2 className="text-3xl font-bold text-white">TPV Bloqueado</h2>
+                        <p className="text-muted-foreground mt-2">El sistema se encuentra fuera del horario laboral.</p>
+                    </div>
+                    <Button size="lg" onClick={() => setIsAuthDialogOpen(true)}>
+                        <Key className="mr-2"/>
+                        Autorización de Supervisor
+                    </Button>
+                </div>
+            )}
             <header className="flex items-center justify-between bg-background p-3 rounded-lg shadow-sm flex-wrap gap-4">
                  <div className="flex items-center gap-2">
                     <TabletSmartphone className="h-6 w-6" />
@@ -616,6 +659,28 @@ export default function PuntoDeVentaPage() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+            {/* Supervisor Authorization Dialog */}
+            <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Autorización de Supervisor</DialogTitle>
+                        <DialogDescription>
+                            Para desbloquear el TPV fuera del horario laboral, se requiere la autorización de un supervisor.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-2 py-4">
+                        <Label htmlFor="auth-code">Código de Autorización</Label>
+                        <Input id="auth-code" type="password" placeholder="Introduzca el código del supervisor"/>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsAuthDialogOpen(false)}>Cancelar</Button>
+                        <Button onClick={handleAuthorization}>Desbloquear</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
+
+    
