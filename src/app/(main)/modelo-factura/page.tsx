@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { FileText, Download, Printer, QrCode, ShieldCheck, CreditCard } from "lucide-react";
+import { FileText, Download, Printer, QrCode, ShieldCheck, CreditCard, Info } from "lucide-react";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
@@ -72,7 +72,7 @@ export default function ModeloFacturaPage() {
                 Modelo de Factura Fiscal
             </h1>
             <p className="text-muted-foreground mt-2">
-              Diseño de factura homologada y adaptada a la Providencia Administrativa del SENIAT.
+              Diseño de factura homologado y adaptado a la Providencia Administrativa del SENIAT.
             </p>
         </div>
         <div className="flex gap-2">
@@ -104,7 +104,8 @@ export default function ModeloFacturaPage() {
         </CardHeader>
         <CardContent className="p-6 md:p-8">
             <div className="mb-8 p-4 rounded-lg bg-secondary/50">
-                <h3 className="font-semibold mb-1">Datos del Cliente:</h3>
+                <h3 className="font-semibold mb-2">Datos del Cliente:</h3>
+                <p className="text-xs text-muted-foreground mb-3 flex items-center gap-2"><Info className="h-4 w-4"/>Los datos del cliente se cargan automáticamente al ingresar el RIF/Cédula en el punto de venta, cumpliendo con la Prov. Adm. SNAT/2011/0071.</p>
                 <p><strong>Razón Social:</strong> {factura.cliente.nombre}</p>
                 <p><strong>RIF:</strong> {factura.cliente.rif}</p>
                 <p><strong>Domicilio Fiscal:</strong> {factura.cliente.direccion}</p>
@@ -194,3 +195,5 @@ export default function ModeloFacturaPage() {
     </div>
   );
 }
+
+    
