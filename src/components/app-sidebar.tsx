@@ -405,7 +405,7 @@ function AppSidebarHr() {
 
   const navGroups = [
     { title: "Gestión", icon: Briefcase, items: recursosHumanosGestionItems },
-    { title: "Corporativo", icon: BuildingIcon, items: corporativoMenuItems },
+    { title: "Trámites Corporativos y Holding", icon: BuildingIcon, items: corporativoMenuItems },
     { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems },
   ]
 
