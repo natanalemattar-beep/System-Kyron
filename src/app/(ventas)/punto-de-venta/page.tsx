@@ -304,7 +304,7 @@ export default function PuntoDeVentaPage() {
     return (
         <div className="flex flex-col gap-4 relative">
              {isLocked && (
-                <div className="absolute inset-0 bg-black/70 z-20 flex flex-col items-center justify-center gap-6">
+                <div className="absolute inset-0 bg-black/70 z-20 flex flex-col items-center justify-center gap-6 -m-4 md:-m-8">
                     <Lock className="h-20 w-20 text-yellow-400"/>
                     <div className="text-center">
                         <h2 className="text-3xl font-bold text-white">TPV Bloqueado</h2>

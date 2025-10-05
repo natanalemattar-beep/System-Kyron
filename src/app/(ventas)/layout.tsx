@@ -7,19 +7,18 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { Button } from "@/components/ui/button";
-import { Bell, LogOut, Settings, User, Loader2 } from "lucide-react";
+import { Bell, LogOut, Settings, User, Loader2, ShoppingCart } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
-export default function AppLayout({ children }: { children: ReactNode }) {
+export default function VentasLayout({ children }: { children: ReactNode }) {
   const [isHeaderVisible, setHeaderVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => {
         setLoading(false);
     }, 500);
@@ -28,7 +27,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const mainContentContainer = document.getElementById('main-content-container');
+    const mainContentContainer = document.getElementById('ventas-main-content-container');
     if (!mainContentContainer) return;
     
     const handleScroll = () => {
@@ -51,7 +50,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider defaultOpen={false}>
       <AppSidebar />
-      <div id="main-content-container" className="w-full overflow-y-auto">
+      <div id="ventas-main-content-container" className="w-full overflow-y-auto">
         <SidebarInset>
            <header className={cn("p-4 flex justify-between items-center border-b bg-background/50 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8 transition-transform duration-300", {
              "-translate-y-full": !isHeaderVisible
@@ -67,15 +66,15 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
                     <Avatar>
-                      <AvatarFallback>U</AvatarFallback>
+                      <AvatarFallback>V</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
+                  <DropdownMenuLabel>Mi Cuenta (Ventas)</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                      <Link href="/dashboard-juridico"><User className="mr-2"/>Perfil</Link>
+                   <DropdownMenuItem asChild>
+                      <Link href="/punto-de-venta"><User className="mr-2"/>Perfil</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                       <Link href="/seguridad"><Settings className="mr-2"/>Ajustes</Link>

@@ -20,7 +20,6 @@ export default function HrLayout({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => {
         setLoading(false);
     }, 500);
@@ -30,11 +29,11 @@ export default function HrLayout({ children }: { children: ReactNode }) {
 
 
   useEffect(() => {
-    const mainContent = document.querySelector('main');
-    if (!mainContent) return;
+    const mainContentContainer = document.getElementById('hr-main-content-container');
+    if (!mainContentContainer) return;
     
     const handleScroll = () => {
-        const currentScrollY = mainContent.scrollTop;
+        const currentScrollY = mainContentContainer.scrollTop;
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
             setHeaderVisible(false);
         } else {
@@ -43,17 +42,17 @@ export default function HrLayout({ children }: { children: ReactNode }) {
         setLastScrollY(currentScrollY);
     };
 
-    mainContent.addEventListener('scroll', handleScroll, { passive: true });
+    mainContentContainer.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-        mainContent.removeEventListener('scroll', handleScroll);
+        mainContentContainer.removeEventListener('scroll', handleScroll);
     };
   }, [lastScrollY]);
 
   return (
     <SidebarProvider defaultOpen={false}>
       <AppSidebar />
-      <div className="w-full overflow-y-auto">
+      <div id="hr-main-content-container" className="w-full overflow-y-auto">
         <SidebarInset>
            <header className={cn("p-4 flex justify-between items-center border-b bg-background/50 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8 transition-transform duration-300", {
              "-translate-y-full": !isHeaderVisible

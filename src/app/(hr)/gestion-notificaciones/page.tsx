@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BellRing, FileWarning, Check, X, Filter } from "lucide-react";
@@ -16,7 +17,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-const notificacionesRecibidas = [
+type Notificacion = {
+    id: number;
+    empleado: string;
+    tipo: string;
+    fecha: string;
+    estado: string;
+    descripcion: string;
+};
+
+const initialNotificaciones: Notificacion[] = [
     {
         id: 1,
         empleado: "Juan Pérez",
@@ -52,8 +62,12 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function GestionNotificacionesPage() {
     const { toast } = useToast();
+    const [notificaciones, setNotificaciones] = useState(initialNotificaciones);
 
     const handleUpdateStatus = (id: number, newStatus: string) => {
+        setNotificaciones(prev => 
+            prev.map(n => n.id === id ? { ...n, estado: newStatus } : n)
+        );
         toast({
             title: "Estado Actualizado",
             description: `La notificación #${id} ha sido marcada como ${newStatus}.`,
@@ -105,7 +119,7 @@ export default function GestionNotificacionesPage() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {notificacionesRecibidas.map((notificacion) => (
+                    {notificaciones.map((notificacion) => (
                         <TableRow key={notificacion.id}>
                             <TableCell className="font-medium">{notificacion.empleado}</TableCell>
                             <TableCell>{notificacion.tipo}</TableCell>
