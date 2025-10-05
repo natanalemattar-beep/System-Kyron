@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Gavel, PlusCircle, CheckCircle, Edit, Users, Building, Eye } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -239,6 +239,12 @@ export default function PoderesRepresentacionPage() {
                         </TableBody>
                     </Table>
                 </CardContent>
+                <CardFooter>
+                    <Button variant="secondary">
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Añadir Empresa al Holding
+                    </Button>
+                </CardFooter>
             </Card>
 
             <Card className="mt-8 bg-card/50 backdrop-blur-sm">
