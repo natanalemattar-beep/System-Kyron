@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Gavel, PlusCircle, CheckCircle, Edit, Users } from "lucide-react";
+import { Gavel, PlusCircle, CheckCircle, Edit, Users, Building } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -187,6 +187,32 @@ export default function PoderesRepresentacionPage() {
                             ))}
                         </TableBody>
                     </Table>
+                </CardContent>
+            </Card>
+
+            <Card className="mt-8 bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Building className="h-6 w-6 text-primary" />
+                        Estructura Organizativa del Holding
+                    </CardTitle>
+                    <CardDescription>
+                        Más allá de la tecnología, el holding o la empresa administradora debe tener departamentos específicos para soportar el riesgo y la operación.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div>
+                        <h4 className="font-semibold">Departamento de Tecnología y Seguridad (IT)</h4>
+                        <p className="text-sm text-muted-foreground">Encargado de mantener la plataforma, la seguridad de los datos (cifrado) y prevenir ciberataques.</p>
+                    </div>
+                    <div>
+                        <h4 className="font-semibold">Departamento de Cumplimiento (Compliance)</h4>
+                        <p className="text-sm text-muted-foreground">Responsable de la auditoría interna, asegurar el cumplimiento del SENIAT y las regulaciones AML/CFT.</p>
+                    </div>
+                    <div>
+                        <h4 className="font-semibold">Departamento de Riesgo y Cobranza</h4>
+                        <p className="text-sm text-muted-foreground">Administra el motor de scoring, monitorea las tasas de morosidad y ejecuta las estrategias de cobro.</p>
+                    </div>
                 </CardContent>
             </Card>
         </div>
