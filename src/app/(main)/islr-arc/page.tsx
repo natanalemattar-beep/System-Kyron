@@ -10,10 +10,10 @@ import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 
 const registros = [
-    { id: 1, empleado: "Ana Pérez", cedula: "V-12.345.678", retencionMes: 450, retencionAcumulada: 2700 },
-    { id: 2, empleado: "Luis Gómez", cedula: "V-18.765.432", retencionMes: 380, retencionAcumulada: 2280 },
-    { id: 3, empleado: "María Rodriguez", cedula: "V-20.111.222", retencionMes: 320, retencionAcumulada: 1920 },
-    { id: 4, empleado: "Carlos Sanchez", cedula: "E-8.999.000", retencionMes: 300, retencionAcumulada: 1800 },
+    { id: 1, empleado: "Ana Pérez", cedula: "V-12.345.678", remuneracionAnual: 149520, retencionMes: 450, retencionAcumulada: 2700 },
+    { id: 2, empleado: "Luis Gómez", cedula: "V-18.765.432", remuneracionAnual: 132000, retencionMes: 380, retencionAcumulada: 2280 },
+    { id: 3, empleado: "María Rodriguez", cedula: "V-20.111.222", remuneracionAnual: 114000, retencionMes: 320, retencionAcumulada: 1920 },
+    { id: 4, empleado: "Carlos Sanchez", cedula: "E-8.999.000", remuneracionAnual: 108000, retencionMes: 300, retencionAcumulada: 1800 },
 ];
 
 export default function IslrArcPage() {
@@ -74,9 +74,10 @@ export default function IslrArcPage() {
                     <TableHeader>
                         <TableRow>
                             <TableHead>Empleado</TableHead>
-                            <TableHead>Cédula</TableHead>
-                            <TableHead className="text-right">Retención del Mes</TableHead>
-                            <TableHead className="text-right">Retención Acumulada (Año)</TableHead>
+                            <TableHead>Remuneración Anual (Bs.)</TableHead>
+                            <TableHead className="text-right">Porción de Retención del Mes (Bs.)</TableHead>
+                            <TableHead className="text-right">Total Retenido del Mes (Bs.)</TableHead>
+                            <TableHead className="text-right">Acumulado (Año)</TableHead>
                              <TableHead className="text-right">Acciones</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -84,8 +85,9 @@ export default function IslrArcPage() {
                         {registros.map((reg) => (
                             <TableRow key={reg.id}>
                                 <TableCell className="font-medium">{reg.empleado}</TableCell>
-                                <TableCell>{reg.cedula}</TableCell>
+                                <TableCell>{formatCurrency(reg.remuneracionAnual, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">{formatCurrency(reg.retencionMes, 'Bs.')}</TableCell>
+                                <TableCell className="text-right font-semibold">{formatCurrency(reg.retencionMes, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">{formatCurrency(reg.retencionAcumulada, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">
                                     <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=arc-${reg.id}`} alt={`QR for ${reg.id}`} width={24} height={24} className="inline-block mr-2" />
