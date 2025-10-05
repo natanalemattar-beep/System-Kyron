@@ -11,7 +11,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-
+import Image from "next/image";
 
 const proformas = [
     { id: "PRO-2024-001", fecha: "19/07/2024", cliente: "Constructora XYZ", total: 15000, estado: "Enviada" },
@@ -114,6 +114,7 @@ export default function ProformasPage() {
                                     <Badge variant={statusVariant[proforma.estado]}>{proforma.estado}</Badge>
                                 </TableCell>
                                 <TableCell className="text-right">
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=proforma-${proforma.id}`} alt={`QR for ${proforma.id}`} width={24} height={24} className="inline-block mr-2" />
                                     <Dialog>
                                         <DialogTrigger asChild>
                                             <Button variant="ghost" size="icon" className="mr-2">

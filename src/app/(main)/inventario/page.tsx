@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Archive, PlusCircle, Download, Edit, MoreHorizontal, AlertTriangle, Trash2, Send } from "lucide-react";
+import { Archive, PlusCircle, Download, Edit, MoreHorizontal, AlertTriangle, Trash2, Send, QrCode } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { addDays } from "date-fns";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 const today = new Date();
 const initialInventory = [
@@ -171,6 +172,7 @@ export default function InventarioPage() {
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right">
+                                         <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=product-${item.sku}`} alt={`QR for ${item.sku}`} width={24} height={24} className="inline-block mr-2" />
                                          <Dialog>
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>

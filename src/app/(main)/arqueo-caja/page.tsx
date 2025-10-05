@@ -13,6 +13,7 @@ import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "next/image";
 
 const denominacionesBs = [
     { tipo: 'billete', valor: 100 },
@@ -258,6 +259,7 @@ export default function ArqueoCajaPage() {
                                 <TableHead>Realizado por</TableHead>
                                 <TableHead className="text-right">Diferencia (Bs.)</TableHead>
                                 <TableHead className="text-center">Estado</TableHead>
+                                <TableHead className="text-right">QR</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -268,6 +270,9 @@ export default function ArqueoCajaPage() {
                                     <TableCell className={`text-right font-semibold ${cierre.diferencia < 0 ? 'text-red-500' : ''}`}>{formatCurrency(cierre.diferencia, 'Bs.')}</TableCell>
                                     <TableCell className="text-center">
                                         <Badge variant={statusVariant[cierre.estado]}>{cierre.estado}</Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=cierre-caja-${cierre.id}`} alt={`QR for ${cierre.id}`} width={24} height={24} />
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -3,13 +3,13 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, CreditCard, Eye } from "lucide-react";
+import { AlertTriangle, CreditCard, Eye, QrCode } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-
+import Image from "next/image";
 
 const multas = [
     { id: "MUL-001", ente: "SENIAT", motivo: "Retraso en declaración de IVA", fecha: "05/07/2024", monto: 45000, estado: "Pendiente" },
@@ -73,6 +73,7 @@ export default function MultasPage() {
                                 <Badge variant={statusVariant[multa.estado]}>{multa.estado}</Badge>
                             </TableCell>
                             <TableCell className="text-right">
+                                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=multa-${multa.id}`} alt={`QR for ${multa.id}`} width={24} height={24} className="inline-block mr-2" />
                                 <Dialog>
                                     <DialogTrigger asChild>
                                         <Button variant="ghost" size="icon" className="mr-2">

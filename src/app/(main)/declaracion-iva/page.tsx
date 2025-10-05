@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
 
 const resumenMes = {
     debitoFiscal: 46400, // Ventas * 16%
@@ -140,6 +141,7 @@ export default function DeclaracionIvaPage() {
                                 <TableHead>Período</TableHead>
                                 <TableHead className="text-right">Monto</TableHead>
                                 <TableHead className="text-center">Estado</TableHead>
+                                <TableHead className="text-right">QR</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -149,6 +151,9 @@ export default function DeclaracionIvaPage() {
                                     <TableCell className="text-right">{formatCurrency(dec.monto, 'Bs.')}</TableCell>
                                     <TableCell className="text-center">
                                         <Badge>{dec.estado}</Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=declaracion-iva-${dec.id}`} alt={`QR for ${dec.id}`} width={24} height={24} />
                                     </TableCell>
                                 </TableRow>
                             ))}

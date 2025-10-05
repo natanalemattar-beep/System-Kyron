@@ -1,9 +1,10 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, FileDown, Eye } from "lucide-react";
+import { PlusCircle, FileDown, Eye, QrCode } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 const solicitudes = [
     {
@@ -64,6 +65,7 @@ export default function ActasMatrimonioPage() {
                                 <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge>
                             </TableCell>
                             <TableCell className="text-right">
+                                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=solicitud-${solicitud.id}`} alt={`QR for ${solicitud.id}`} width={24} height={24} className="inline-block mr-2" />
                                 <Button variant="ghost" size="icon" className="mr-2">
                                     <Eye className="h-4 w-4" />
                                 </Button>

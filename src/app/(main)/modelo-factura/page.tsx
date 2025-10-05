@@ -9,6 +9,7 @@ import { FileText, Download, Printer, QrCode, ShieldCheck, CreditCard } from "lu
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { Logo } from "@/components/logo";
 
 const factura = {
     numero: "00001234",
@@ -86,10 +87,13 @@ export default function ModeloFacturaPage() {
 
       <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl">
         <CardHeader className="p-6 md:p-8 border-b grid grid-cols-2 gap-8">
-            <div>
-                <h2 className="font-bold text-xl">{factura.empresa.nombre}</h2>
-                <p className="text-sm text-muted-foreground">RIF: {factura.empresa.rif}</p>
-                <p className="text-xs text-muted-foreground">{factura.empresa.direccion}</p>
+            <div className="flex items-center gap-4">
+                 <Logo className="h-14 w-14" />
+                 <div>
+                    <h2 className="font-bold text-xl">{factura.empresa.nombre}</h2>
+                    <p className="text-sm text-muted-foreground">RIF: {factura.empresa.rif}</p>
+                    <p className="text-xs text-muted-foreground">{factura.empresa.direccion}</p>
+                 </div>
             </div>
             <div className="text-right">
                 <h2 className="text-2xl font-bold">FACTURA</h2>
@@ -190,9 +194,3 @@ export default function ModeloFacturaPage() {
     </div>
   );
 }
-
-    
-
-    
-
-    

@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import Image from "next/image";
 
 const initialPoderes = [
     { id: "POD-001", tipo: "Poder General de Administración", apoderado: "Ana Pérez (V-12.345.678)", registro: "Reg. Mercantil 1ro, N° 45, Tomo 2-A", expediente: "N/A", estado: "Activo" },
@@ -135,6 +136,7 @@ export default function PoderesRepresentacionPage() {
                                         <Badge variant={statusVariant[poder.estado]}>{poder.estado}</Badge>
                                     </TableCell>
                                     <TableCell className="text-right">
+                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=poder-${poder.id}`} alt={`QR for ${poder.id}`} width={24} height={24} className="inline-block mr-2" />
                                         <Button variant="ghost" size="icon">
                                             <Edit className="h-4 w-4" />
                                         </Button>

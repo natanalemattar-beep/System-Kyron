@@ -8,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 const importaciones = [
     { id: "IMP-2024-001", fechaSalida: "2024-07-10", fechaLlegadaEst: "2024-08-05", proveedor: "Global Tech Supplies", origen: "China", valorCIF: 25000, estado: "En Tránsito" },
@@ -90,6 +91,7 @@ export default function ImportacionesPage() {
                                     </Badge>
                                 </TableCell>
                                 <TableCell className="text-right">
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=importacion-${imp.id}`} alt={`QR for ${imp.id}`} width={24} height={24} className="inline-block mr-2" />
                                     <Button variant="ghost" size="icon" title="Ver Detalles">
                                         <Eye className="h-4 w-4" />
                                     </Button>

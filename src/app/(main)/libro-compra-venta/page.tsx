@@ -2,9 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Landmark, PlusCircle } from "lucide-react";
+import { Landmark, PlusCircle, QrCode } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
+import Image from "next/image";
 
 const registros = [
     { id: 1, fecha: "15/07/2024", tipo: "Compra", proveedor: "OficinaTech C.A.", rif: "J-12345678-9", nroFactura: "F-2024-00123", base: 1200, iva: 192, total: 1392 },
@@ -48,6 +49,7 @@ export default function LibroCompraVentaPage() {
                             <TableHead className="text-right">Base Imponible</TableHead>
                             <TableHead className="text-right">IVA (16%)</TableHead>
                             <TableHead className="text-right">Total</TableHead>
+                             <TableHead className="text-right">QR</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -63,6 +65,9 @@ export default function LibroCompraVentaPage() {
                                 <TableCell className="text-right">{formatCurrency(reg.base, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">{formatCurrency(reg.iva, 'Bs.')}</TableCell>
                                 <TableCell className="text-right font-semibold">{formatCurrency(reg.total, 'Bs.')}</TableCell>
+                                <TableCell className="text-right">
+                                     <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=factura-${reg.nroFactura}`} alt={`QR for ${reg.nroFactura}`} width={24} height={24} />
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

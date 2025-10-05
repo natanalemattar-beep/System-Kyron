@@ -9,6 +9,7 @@ import { HandCoins, AlertTriangle, Clock, Lightbulb, BarChart } from "lucide-rea
 import { Badge } from "@/components/ui/badge";
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 const facturasPendientes = [
     { id: "FAC-001", proveedor: "OficinaTech C.A.", fechaEmision: "2024-07-01", fechaVencimiento: "2024-07-31", monto: 1392, estado: "Pendiente" },
@@ -123,6 +124,7 @@ export default function CuentasPorPagarPage() {
                                             <TableCell className="text-right">{formatCurrency(factura.monto, 'Bs.')}</TableCell>
                                             <TableCell><Badge variant={getStatusVariant(factura.estado)}>{factura.estado}</Badge></TableCell>
                                             <TableCell className="text-right">
+                                                 <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=factura-pagar-${factura.id}`} alt={`QR for ${factura.id}`} width={24} height={24} className="inline-block mr-2" />
                                                 <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id)}>Registrar Pago</Button>
                                             </TableCell>
                                         </TableRow>

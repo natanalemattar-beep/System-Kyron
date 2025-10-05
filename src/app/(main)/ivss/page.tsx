@@ -4,12 +4,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Briefcase, PlusCircle } from "lucide-react";
+import { Briefcase, PlusCircle, QrCode } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Image from "next/image";
 
 const movimientos = [
     { id: 1, empleado: "Ana Pérez", fechaIngreso: "10/01/2022", fechaMovimiento: "11/01/2022", tipo: "Ingreso (14-01)" },
@@ -112,6 +113,7 @@ export default function IvssPage() {
                             <TableHead>Fecha de Ingreso a la Empresa</TableHead>
                             <TableHead>Fecha del Movimiento IVSS</TableHead>
                             <TableHead className="text-center">Tipo de Movimiento</TableHead>
+                            <TableHead className="text-right">QR</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -122,6 +124,9 @@ export default function IvssPage() {
                                 <TableCell>{mov.fechaMovimiento}</TableCell>
                                 <TableCell className="text-center">
                                     <Badge variant={typeVariant[mov.tipo]}>{mov.tipo}</Badge>
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=ivss-mov-${mov.id}`} alt={`QR for ${mov.id}`} width={24} height={24} />
                                 </TableCell>
                             </TableRow>
                         ))}

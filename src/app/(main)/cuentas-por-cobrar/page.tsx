@@ -5,10 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { Wallet, AlertTriangle, Clock, Lightbulb, BarChart } from "lucide-react";
+import { Wallet, AlertTriangle, Clock, Lightbulb, BarChart, QrCode } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 const facturasPendientes = [
     { id: "FAC-C-001", cliente: "Tech Solutions LLC", fechaEmision: "2024-07-05", fechaVencimiento: "2024-08-04", monto: 5500, estado: "Pendiente" },
@@ -123,6 +124,7 @@ export default function CuentasPorCobrarPage() {
                                             <TableCell className="text-right">{formatCurrency(factura.monto, 'Bs.')}</TableCell>
                                             <TableCell><Badge variant={getStatusVariant(factura.estado)}>{factura.estado}</Badge></TableCell>
                                             <TableCell className="text-right">
+                                                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=factura-cobrar-${factura.id}`} alt={`QR for ${factura.id}`} width={24} height={24} className="inline-block mr-2" />
                                                 <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id)}>Registrar Cobro</Button>
                                             </TableCell>
                                         </TableRow>

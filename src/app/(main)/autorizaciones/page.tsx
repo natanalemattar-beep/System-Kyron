@@ -1,7 +1,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, PlusCircle, CheckCircle, Clock } from "lucide-react";
+import { Shield, PlusCircle, CheckCircle, Clock, QrCode } from "lucide-react";
+import Image from "next/image";
 
 const autorizaciones = [
     { id: "AUT-SEN-001", ente: "SENIAT", tipo: "Autorización para Emisión de Facturas", estado: "Aprobada", fecha: "10/01/2024" },
@@ -56,6 +57,9 @@ export default function AutorizacionesPage() {
                         <div className="flex justify-between items-center text-sm">
                             <span className="text-muted-foreground">Estado:</span>
                             <span className={`font-semibold ${status.color}`}>{status.label}</span>
+                        </div>
+                        <div className="flex justify-center pt-2">
+                            <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=auth-${auth.id}`} alt={`QR for ${auth.id}`} width={80} height={80} />
                         </div>
                          <Button variant="outline" className="w-full mt-4">Ver Detalles</Button>
                     </CardContent>

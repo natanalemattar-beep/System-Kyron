@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Banknote, FileDown, Download } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 const registros = [
     { id: 1, empleado: "Ana Pérez", cedula: "V-12.345.678", retencionMes: 450, retencionAcumulada: 2700 },
@@ -76,6 +77,7 @@ export default function IslrArcPage() {
                                 <TableCell className="text-right">{formatCurrency(reg.retencionMes, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">{formatCurrency(reg.retencionAcumulada, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=arc-${reg.id}`} alt={`QR for ${reg.id}`} width={24} height={24} className="inline-block mr-2" />
                                     <Button variant="outline" size="sm" onClick={() => handleGenerateARC(reg.empleado)}>
                                         <FileDown className="mr-2 h-4 w-4" />
                                         Generar AR-C Mensual

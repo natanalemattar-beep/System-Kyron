@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { addYears, format } from "date-fns";
 import { FileInputTrigger } from "@/components/file-input-trigger";
+import Image from "next/image";
 
 const initialDocuments = [
     { id: "DOC-001", nombre: "Acta Constitutiva Original", categoria: "Documentos Legales", fechaCarga: new Date(2012, 5, 15), fechaVencimiento: addYears(new Date(2012, 5, 15), 12) },
@@ -148,6 +149,7 @@ export default function ArchivoDigitalPage() {
                                         <Badge variant={status.variant}>{status.text}</Badge>
                                     </TableCell>
                                     <TableCell className="text-right space-x-1">
+                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=doc-${doc.id}`} alt={`QR for ${doc.id}`} width={24} height={24} className="inline-block mr-2" />
                                         <Button variant="ghost" size="icon" title="Ver"><Eye className="h-4 w-4"/></Button>
                                         <Button variant="ghost" size="icon" title="Descargar"><Download className="h-4 w-4"/></Button>
                                          <Dialog>
@@ -179,5 +181,3 @@ export default function ArchivoDigitalPage() {
         </div>
     );
 }
-
-    
