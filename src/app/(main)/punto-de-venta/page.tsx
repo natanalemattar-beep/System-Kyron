@@ -447,7 +447,7 @@ export default function PuntoDeVentaPage() {
                                 <div className="flex gap-2">
                                     <Input
                                         id="cliente-cedula"
-                                        placeholder="Cédula, RIF o Pasaporte"
+                                        placeholder="Cédula (V/E), RIF (J/G), Pasaporte..."
                                         value={clienteCedula}
                                         onChange={(e) => setClienteCedula(e.target.value)}
                                         onKeyDown={handleClienteKeyDown}
