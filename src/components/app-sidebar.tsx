@@ -66,6 +66,7 @@ import {
   FilePlus,
   FileMinus,
   HelpCircle,
+  Building,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -166,7 +167,7 @@ const recursosHumanosGestionItems = [
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
     { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
-    { href: "/ivss", label: "Gestión IVSS", icon: Briefcase },
+    { href: "/poderes-representacion", label: "Gestión de Empresas del Holding", icon: Building },
     { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
     { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
