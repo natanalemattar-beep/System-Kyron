@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Banknote, FileDown, Download } from "lucide-react";
+import { Banknote, FileDown, Download, HelpCircle } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
@@ -52,6 +52,17 @@ export default function IslrArcPage() {
                 </Button>
             </div>
         </header>
+
+        <Card className="mb-8 bg-blue-500/10 border-blue-500/20">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3"><HelpCircle className="h-5 w-5"/>¿Cuál es la base de cálculo?</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-blue-200">
+                    La base imponible que deben considerar los contribuyentes obligados a presentar la Declaración Estimada de Rentas, será el <strong>ochenta por ciento (80%)</strong> del enriquecimiento global neto correspondiente al año inmediato anterior.
+                </p>
+            </CardContent>
+        </Card>
 
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
