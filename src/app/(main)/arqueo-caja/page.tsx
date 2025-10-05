@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ClipboardCheck, CheckCircle, Printer } from "lucide-react";
+import { ClipboardCheck, CheckCircle, Printer, ShieldCheck } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
@@ -206,6 +206,44 @@ export default function ArqueoCajaPage() {
                     </Card>
                 </div>
             </div>
+
+            <Card className="mt-8 bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <ShieldCheck className="text-primary"/>
+                        Recomendaciones Clave para la Prevención de Fraudes
+                    </CardTitle>
+                    <CardDescription>
+                        Nunca confíes únicamente en la confirmación del cliente. Verifica siempre cada transacción.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="p-4 bg-secondary/50 rounded-lg">
+                        <h4 className="font-semibold mb-2">Pago Móvil</h4>
+                        <p className="text-sm text-muted-foreground">
+                            Verifica la transacción directamente en tu cuenta bancaria. No aceptes capturas de pantalla como comprobante válido.
+                        </p>
+                    </div>
+                    <div className="p-4 bg-secondary/50 rounded-lg">
+                        <h4 className="font-semibold mb-2">Transferencias</h4>
+                        <p className="text-sm text-muted-foreground">
+                            Confirma que la transferencia se haya hecho efectiva en tu cuenta. Las transferencias de otros bancos pueden tardar.
+                        </p>
+                    </div>
+                    <div className="p-4 bg-secondary/50 rounded-lg">
+                        <h4 className="font-semibold mb-2">Punto de Venta</h4>
+                        <p className="text-sm text-muted-foreground">
+                            Asegúrate siempre de que el punto de venta imprima un voucher con la palabra "Aprobada" y guárdalo.
+                        </p>
+                    </div>
+                    <div className="p-4 bg-secondary/50 rounded-lg">
+                        <h4 className="font-semibold mb-2">Conciliación Diaria</h4>
+                        <p className="text-sm text-muted-foreground">
+                            El arqueo diario es tu mejor herramienta para detectar cualquier inconsistencia o fraude a tiempo.
+                        </p>
+                    </div>
+                </CardContent>
+            </Card>
 
              {/* Historial de Cierres */}
             <Card className="mt-8 bg-card/80 backdrop-blur-sm">
