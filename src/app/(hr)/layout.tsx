@@ -42,7 +42,7 @@ export default function HrLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider defaultOpen={true}>
       <AppSidebar />
-      <div className="p-2 md:p-4 w-full">
+      <div className="p-2 md:p-4 w-full overflow-y-auto">
         <SidebarInset>
            <header className={cn("p-4 flex justify-between items-center border-b bg-blue-200/30 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8 transition-transform duration-300", {
              "-translate-y-full": !isHeaderVisible
@@ -79,7 +79,7 @@ export default function HrLayout({ children }: { children: ReactNode }) {
               </DropdownMenu>
              </div>
           </header>
-          <main className="flex-1 overflow-y-auto p-4 md:p-8">
+          <main className="flex-1 p-4 md:p-8">
             <div className="container mx-auto">
               <div className="animate-in fade-in duration-500">
                 {children}

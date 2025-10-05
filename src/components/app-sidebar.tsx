@@ -270,7 +270,8 @@ function ChatDialog() {
     setIsLoading(true);
 
     try {
-      const botResponse = await chat({ message: input });
+      const pageContext = document.title || 'Página Desconocida';
+      const botResponse = await chat({ message: input, context: pageContext });
       const botMessage: Message = { role: 'bot', text: botResponse };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
