@@ -141,6 +141,7 @@ const facturacionGeneralMenuItems = [
 const ventasMenuItems = [
     { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
+    { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
 ];
 
 const recursosHumanosGestionItems = [
