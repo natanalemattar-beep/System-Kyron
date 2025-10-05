@@ -34,12 +34,19 @@ const cashiers = [
 ];
 
 const casheaLevels = [
-    { level: 1, name: "Semilla", initialPayment: "60%", moreQuotas: false },
-    { level: 2, name: "Raíz", initialPayment: "50%", moreQuotas: false },
-    { level: 3, name: "Hoja", initialPayment: "40%", moreQuotas: true },
-    { level: 4, name: "Tronco", initialPayment: "25%", moreQuotas: true },
-    { level: 5, name: "Árbol", initialPayment: "20%", moreQuotas: true },
-    { level: 6, name: "Araguaney", initialPayment: "20%", moreQuotas: true },
+    { level: 1, name: "Semilla", initialPayment: "60% Inicial", moreQuotas: false },
+    { level: 2, name: "Raíz", initialPayment: "50% Inicial", moreQuotas: false },
+    { level: 3, name: "Hoja", initialPayment: "40% Inicial", moreQuotas: true },
+    { level: 4, name: "Tronco", initialPayment: "25% Inicial", moreQuotas: true },
+    { level: 5, name: "Árbol", initialPayment: "20% Inicial", moreQuotas: true },
+    { level: 6, name: "Araguaney", initialPayment: "20% Inicial", moreQuotas: true },
+];
+
+const kreceLevels = [
+    { level: 'Azul', name: "Azul (Base)", initialPayment: "40% Inicial" },
+    { level: 'Plata', name: "Plata", initialPayment: "35% Inicial" },
+    { level: 'Oro', name: "Oro", initialPayment: "30% Inicial" },
+    { level: 'Platino', name: "Platino", initialPayment: "25% Inicial" },
 ];
 
 
@@ -53,6 +60,7 @@ type CartItem = {
 type Currency = "Bs." | "USD" | "EUR";
 type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Zelle" | "Efectivo";
 type OperationType = "Venta Inmediata" | "Factura a Crédito sin Abono" | "Venta con Financiamiento";
+type FinancingPlatform = "Cashea" | "Krece";
 
 const exchangeRates: Record<Currency, number> = {
     "Bs.": 40.0, // Tasa de referencia Bs. por USD
@@ -70,7 +78,9 @@ export default function PuntoDeVentaPage() {
     const [currency, setCurrency] = useState<Currency>("Bs.");
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
     const [operationType, setOperationType] = useState<OperationType | null>(null);
+    const [financingPlatform, setFinancingPlatform] = useState<FinancingPlatform | null>(null);
     const [casheaLevel, setCasheaLevel] = useState<string | null>(null);
+    const [kreceLevel, setKreceLevel] = useState<string | null>(null);
     const [useModoMasCuotas, setUseModoMasCuotas] = useState(false);
     const [activeCashier, setActiveCashier] = useState<string | null>(null);
     const [barcode, setBarcode] = useState("");
@@ -162,6 +172,10 @@ export default function PuntoDeVentaPage() {
              toast({ variant: "destructive", title: "Selecciona un tipo de operación", description: "Debes clasificar la operación para continuar." });
             return;
         }
+        if (operationType === "Venta con Financiamiento" && !financingPlatform) {
+             toast({ variant: "destructive", title: "Selecciona una plataforma", description: "Debes seleccionar la plataforma de financiamiento." });
+            return;
+        }
         if (!paymentMethod) {
              toast({ variant: "destructive", title: "Selecciona un método de pago", description: "Debes seleccionar un método de pago para continuar." });
             return;
@@ -181,7 +195,9 @@ export default function PuntoDeVentaPage() {
         setGiveChangeByPagoMovil(false);
         setPaymentMethod(null);
         setOperationType(null);
+        setFinancingPlatform(null);
         setCasheaLevel(null);
+        setKreceLevel(null);
         setUseModoMasCuotas(false);
          toast({
             title: "Inventario y Costos Actualizados",
@@ -362,47 +378,81 @@ export default function PuntoDeVentaPage() {
                          </div>
                           {operationType === 'Venta con Financiamiento' && (
                             <div className="w-full space-y-3 p-3 bg-secondary/50 rounded-lg animate-in fade-in">
-                                <div className="space-y-2">
-                                    <Label htmlFor="cashea-level">Nivel de Cliente en Cashea</Label>
-                                    <Select onValueChange={setCasheaLevel} value={casheaLevel ?? ''}>
-                                        <SelectTrigger id="cashea-level">
-                                            <SelectValue placeholder="Seleccionar nivel..." />
+                                 <div className="space-y-2">
+                                    <Label htmlFor="financing-platform">Plataforma</Label>
+                                     <Select onValueChange={(value) => setFinancingPlatform(value as FinancingPlatform)} value={financingPlatform ?? ''}>
+                                        <SelectTrigger id="financing-platform">
+                                            <SelectValue placeholder="Seleccionar plataforma..." />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {casheaLevels.map(l => (
-                                                <SelectItem key={l.level} value={String(l.level)}>
-                                                    Nivel {l.level}: {l.name} ({l.initialPayment} Inicial)
-                                                </SelectItem>
-                                            ))}
+                                            <SelectItem value="Cashea">Cashea</SelectItem>
+                                            <SelectItem value="Krece">Krece</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                {selectedCasheaLevelData && selectedCasheaLevelData.moreQuotas && (
-                                    <div className="space-y-3">
-                                        <div className="flex items-center space-x-2">
-                                            <Switch 
-                                                id="modo-mas-cuotas" 
-                                                checked={useModoMasCuotas}
-                                                onCheckedChange={setUseModoMasCuotas}
-                                            />
-                                            <Label htmlFor="modo-mas-cuotas">Clasifícame el modo más cuota</Label>
+                                {financingPlatform === 'Cashea' && (
+                                    <div className="space-y-3 animate-in fade-in">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="cashea-level">Nivel de Cliente en Cashea</Label>
+                                            <Select onValueChange={setCasheaLevel} value={casheaLevel ?? ''}>
+                                                <SelectTrigger id="cashea-level">
+                                                    <SelectValue placeholder="Seleccionar nivel..." />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {casheaLevels.map(l => (
+                                                        <SelectItem key={l.level} value={String(l.level)}>
+                                                            Nivel {l.level}: {l.name} ({l.initialPayment})
+                                                            {l.moreQuotas && " (+ Modo Más Cuotas)"}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
                                         </div>
-                                        {useModoMasCuotas && (
-                                            <div className="animate-in fade-in">
-                                                <Label htmlFor="installments-select">Plan de Pago (Cada 14 días)</Label>
-                                                <Select defaultValue="3">
-                                                    <SelectTrigger id="installments-select">
-                                                        <SelectValue />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="3">3 Cuotas (Estándar)</SelectItem>
-                                                        <SelectItem value="6">6 Cuotas</SelectItem>
-                                                        <SelectItem value="9">9 Cuotas</SelectItem>
-                                                        <SelectItem value="12">12 Cuotas</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
+                                        {selectedCasheaLevelData && selectedCasheaLevelData.moreQuotas && (
+                                            <div className="space-y-3">
+                                                <div className="flex items-center space-x-2">
+                                                    <Switch 
+                                                        id="modo-mas-cuotas" 
+                                                        checked={useModoMasCuotas}
+                                                        onCheckedChange={setUseModoMasCuotas}
+                                                    />
+                                                    <Label htmlFor="modo-mas-cuotas">Clasifícame el modo más cuota</Label>
+                                                </div>
+                                                {useModoMasCuotas && (
+                                                    <div className="animate-in fade-in">
+                                                        <Label htmlFor="installments-select">Plan de Pago (Cada 14 días)</Label>
+                                                        <Select defaultValue="3">
+                                                            <SelectTrigger id="installments-select">
+                                                                <SelectValue />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value="3">3 Cuotas (Estándar)</SelectItem>
+                                                                <SelectItem value="6">6 Cuotas</SelectItem>
+                                                                <SelectItem value="9">9 Cuotas</SelectItem>
+                                                                <SelectItem value="12">12 Cuotas</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
+                                    </div>
+                                )}
+                                 {financingPlatform === 'Krece' && (
+                                    <div className="space-y-2 animate-in fade-in">
+                                        <Label htmlFor="krece-level">Nivel de Cliente en Krece</Label>
+                                        <Select onValueChange={setKreceLevel} value={kreceLevel ?? ''}>
+                                            <SelectTrigger id="krece-level">
+                                                <SelectValue placeholder="Seleccionar nivel..." />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {kreceLevels.map(l => (
+                                                    <SelectItem key={l.level} value={l.level}>
+                                                        {l.name} ({l.initialPayment})
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 )}
                             </div>
@@ -543,3 +593,4 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
+
