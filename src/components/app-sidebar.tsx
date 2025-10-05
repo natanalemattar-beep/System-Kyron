@@ -65,6 +65,7 @@ import {
   Sparkles,
   FilePlus,
   FileMinus,
+  HelpCircle,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -136,6 +137,7 @@ const facturacionGeneralMenuItems = [
     { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: FileText },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
     { href: "/importaciones", label: "Importaciones", icon: Ship },
     { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
