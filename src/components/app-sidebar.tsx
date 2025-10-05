@@ -151,6 +151,7 @@ const ventasMenuItems = [
     { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+    { href: "/notificaciones", label: "Notificaciones a RR.HH.", icon: Bell },
 ];
 
 const recursosHumanosGestionItems = [
@@ -537,4 +538,5 @@ function AppSidebarVentas() {
     
 
     
+
 
