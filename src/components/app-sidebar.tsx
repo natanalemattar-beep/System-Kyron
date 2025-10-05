@@ -150,9 +150,7 @@ const ventasMenuItems = [
     { href: "/punto-de-venta", label: "Facturación", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
-    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
+    { href: "/notificaciones", label: "Notificaciones a RR.HH.", icon: Bell },
 ];
 
 const recursosHumanosGestionItems = [
@@ -208,7 +206,7 @@ const naturalMenuItems = {
         { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
     ],
     crs: [
-        { href: "/manutencion", label: "Gestión Integral CRS", icon: HeartHandshake },
+        { href: "/manutencion", label: "Obligación de Manutención", icon: Gavel },
     ]
 };
 
