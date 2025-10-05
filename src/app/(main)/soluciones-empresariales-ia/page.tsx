@@ -20,9 +20,9 @@ const securityFeatures = [
 ];
 
 const communicationFeatures = [
-    "Notificaciones automáticas de facturación y cobros a clientes vía WhatsApp y SMS.",
-    "Canal de soporte y consultas para clientes integrado a la plataforma.",
-    "Generación de reportes y alertas internas para el equipo de gestión.",
+    "Notificaciones y recordatorios de pago automáticos a clientes vía WhatsApp, SMS y correo electrónico (Gmail).",
+    "Canal de soporte y consultas para clientes integrado directamente en la plataforma de comunicación.",
+    "Generación de reportes de entrega y lectura de notificaciones para un seguimiento efectivo.",
 ];
 
 export default function SolucionesEmpresarialesIAPage() {
@@ -99,7 +99,7 @@ export default function SolucionesEmpresarialesIAPage() {
                 <span>Alianza Estratégica de Comunicación</span>
               </CardTitle>
               <CardDescription>
-                Integramos tu sistema con los canales de comunicación más importantes: WhatsApp, SMS y telefonía.
+                Automatiza tu cobranza y comunicación. Integramos tu sistema con WhatsApp, SMS y correo electrónico.
               </CardDescription>
             </CardHeader>
              <CardContent>
