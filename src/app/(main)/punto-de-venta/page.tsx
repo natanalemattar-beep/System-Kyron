@@ -378,13 +378,31 @@ export default function PuntoDeVentaPage() {
                                     </Select>
                                 </div>
                                 {selectedCasheaLevelData && selectedCasheaLevelData.moreQuotas && (
-                                    <div className="flex items-center space-x-2">
-                                        <Switch 
-                                            id="modo-mas-cuotas" 
-                                            checked={useModoMasCuotas}
-                                            onCheckedChange={setUseModoMasCuotas}
-                                        />
-                                        <Label htmlFor="modo-mas-cuotas">Clasifícame el modo más cuota</Label>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center space-x-2">
+                                            <Switch 
+                                                id="modo-mas-cuotas" 
+                                                checked={useModoMasCuotas}
+                                                onCheckedChange={setUseModoMasCuotas}
+                                            />
+                                            <Label htmlFor="modo-mas-cuotas">Clasifícame el modo más cuota</Label>
+                                        </div>
+                                        {useModoMasCuotas && (
+                                            <div className="animate-in fade-in">
+                                                <Label htmlFor="installments-select">Plan de Pago (Cada 14 días)</Label>
+                                                <Select defaultValue="3">
+                                                    <SelectTrigger id="installments-select">
+                                                        <SelectValue />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="3">3 Cuotas (Estándar)</SelectItem>
+                                                        <SelectItem value="6">6 Cuotas</SelectItem>
+                                                        <SelectItem value="9">9 Cuotas</SelectItem>
+                                                        <SelectItem value="12">12 Cuotas</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>
