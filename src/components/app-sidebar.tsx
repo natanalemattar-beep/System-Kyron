@@ -71,6 +71,7 @@ import {
   Building,
   Send,
   Loader2,
+  Contact,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -165,8 +166,6 @@ const ventasMenuItems = [
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
 ];
 
 const recursosHumanosGestionItems = [
@@ -211,6 +210,7 @@ const iaMenuItems = [
 const naturalMenuItems = {
     principal: [
         { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+        { href: "/tarjeta-digital", label: "Tarjeta Digital", icon: Contact },
         { href: "/seguridad", label: "Seguridad", icon: Shield },
         { href: "/notificaciones", label: "Notificaciones", icon: Bell },
     ],
