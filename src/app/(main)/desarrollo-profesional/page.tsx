@@ -65,6 +65,12 @@ const libros = [
     descripcion: "La historia del fundador de Nike, que ofrece una perspectiva motivadora sobre la perseverancia y el espíritu emprendedor.",
     imagen: "https://picsum.photos/seed/book10/300/400"
   },
+   {
+    titulo: "Gestión del Talento",
+    autor: "Harvard Business Review",
+    descripcion: "Una compilación de artículos sobre las mejores prácticas para identificar, atraer, desarrollar y retener a los empleados clave.",
+    imagen: "https://picsum.photos/seed/book11/300/400"
+  },
 ];
 
 const capacitaciones = [
