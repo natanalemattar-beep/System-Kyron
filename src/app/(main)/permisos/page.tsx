@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info } from "lucide-react";
+import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info, DollarSign } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -13,6 +13,8 @@ import { FileInputTrigger } from "@/components/file-input-trigger";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { formatCurrency } from "@/lib/utils";
 
 
 const initialPermisos = [
@@ -98,10 +100,21 @@ const formatDate = (dateString: string) => {
     return new Date(date.getTime() + userTimezoneOffset).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
+type Payment = {
+    id: number;
+    fecha: string;
+    monto: number;
+    referencia: string;
+};
 
 export default function PermisosPage() {
   const [permisos, setPermisos] = useState(initialPermisos);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [payments, setPayments] = useState<Record<string, Payment[]>>({
+      "PERM-MUN-001": [
+          { id: 1, fecha: '2024-03-01', monto: 500, referencia: 'PAGO-TASA-001' }
+      ]
+  });
   const { toast } = useToast();
 
   const handleRenew = (permisoId: string) => {
@@ -129,6 +142,29 @@ export default function PermisosPage() {
           description: `"${file.name}" listo para enviar. El archivo se conservará por 10 años.`,
           action: <CheckCircle className="text-green-500" />,
       });
+  };
+  
+  const handleAddPayment = (permisoId: string, event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+      const newPayment: Payment = {
+          id: Date.now(),
+          fecha: formData.get('fecha') as string,
+          monto: Number(formData.get('monto')),
+          referencia: formData.get('referencia') as string,
+      };
+
+      setPayments(prev => ({
+          ...prev,
+          [permisoId]: [...(prev[permisoId] || []), newPayment]
+      }));
+
+      toast({
+        title: "Pago Registrado",
+        description: `Se ha añadido un nuevo pago al historial del permiso ${permisoId}.`
+      });
+      form.reset();
   };
 
   const groupedPermisos = permisos.reduce((acc, permiso) => {
@@ -199,15 +235,16 @@ export default function PermisosPage() {
                                                     <Eye className="h-4 w-4" />
                                                 </Button>
                                             </DialogTrigger>
-                                            <DialogContent className="sm:max-w-2xl">
+                                            <DialogContent className="sm:max-w-3xl">
                                                 <DialogHeader>
                                                     <DialogTitle>Detalles del Permiso: {permiso.id}</DialogTitle>
                                                     <DialogDescription>{permiso.tipo}</DialogDescription>
                                                 </DialogHeader>
                                                 <Tabs defaultValue="requisitos" className="py-4">
-                                                    <TabsList className="grid w-full grid-cols-2">
+                                                    <TabsList className="grid w-full grid-cols-3">
                                                         <TabsTrigger value="requisitos">Requisitos</TabsTrigger>
                                                         <TabsTrigger value="documentos">Cargar Documentos</TabsTrigger>
+                                                        <TabsTrigger value="pagos">Historial de Pagos</TabsTrigger>
                                                     </TabsList>
                                                     <TabsContent value="requisitos" className="mt-4">
                                                         <div className="grid grid-cols-2 gap-6">
@@ -251,6 +288,41 @@ export default function PermisosPage() {
                                                             </CardFooter>
                                                         </div>
                                                     </TabsContent>
+                                                    <TabsContent value="pagos" className="mt-4">
+                                                        <div className="space-y-4">
+                                                            <h4 className="font-semibold">Pagos Registrados</h4>
+                                                            <div className="border rounded-md max-h-48 overflow-y-auto">
+                                                                <Table>
+                                                                    <TableHeader>
+                                                                        <TableRow>
+                                                                            <TableHead>Fecha</TableHead>
+                                                                            <TableHead>Referencia</TableHead>
+                                                                            <TableHead className="text-right">Monto</TableHead>
+                                                                        </TableRow>
+                                                                    </TableHeader>
+                                                                    <TableBody>
+                                                                        {payments[permiso.id]?.length > 0 ? payments[permiso.id].map(p => (
+                                                                            <TableRow key={p.id}>
+                                                                                <TableCell>{formatDate(p.fecha)}</TableCell>
+                                                                                <TableCell>{p.referencia}</TableCell>
+                                                                                <TableCell className="text-right">{formatCurrency(p.monto, "Bs.")}</TableCell>
+                                                                            </TableRow>
+                                                                        )) : (
+                                                                            <TableRow><TableCell colSpan={3} className="text-center text-muted-foreground">No hay pagos registrados.</TableCell></TableRow>
+                                                                        )}
+                                                                    </TableBody>
+                                                                </Table>
+                                                            </div>
+                                                            <form onSubmit={(e) => handleAddPayment(permiso.id, e)}>
+                                                                <div className="grid sm:grid-cols-3 gap-2 border-t pt-4 mt-4">
+                                                                    <Input name="fecha" type="date" required/>
+                                                                    <Input name="referencia" placeholder="Referencia" required/>
+                                                                    <Input name="monto" type="number" placeholder="Monto (Bs.)" required/>
+                                                                    <Button type="submit" className="sm:col-span-3">Registrar Pago</Button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </TabsContent>
                                                 </Tabs>
                                                 <DialogFooter className="gap-2 sm:gap-0 sm:justify-between pt-4 border-t">
                                                     <Button variant="secondary">
@@ -280,3 +352,5 @@ export default function PermisosPage() {
     </div>
   );
 }
+
+      
