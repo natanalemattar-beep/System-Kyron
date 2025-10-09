@@ -358,7 +358,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
   
-  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href));
+  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path);
   
