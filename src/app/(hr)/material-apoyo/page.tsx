@@ -18,12 +18,27 @@ const presentationTemplates = [
     PlaceHolderImages.find(img => img.id === "presentation-template-1"),
     PlaceHolderImages.find(img => img.id === "presentation-template-2"),
     PlaceHolderImages.find(img => img.id === "presentation-template-3"),
+    PlaceHolderImages.find(img => img.id === "presentation-template-4"),
+    PlaceHolderImages.find(img => img.id === "presentation-template-5"),
 ].filter(Boolean);
 
 const letterheadTemplates = [
     PlaceHolderImages.find(img => img.id === "letterhead-template-1"),
     PlaceHolderImages.find(img => img.id === "letterhead-template-2"),
     PlaceHolderImages.find(img => img.id === "letterhead-template-3"),
+    PlaceHolderImages.find(img => img.id === "letterhead-template-4"),
+    PlaceHolderImages.find(img => img.id === "letterhead-template-5"),
+].filter(Boolean);
+
+const packagingDesigns = [
+    PlaceHolderImages.find(img => img.id === "corporate-box-1"),
+    PlaceHolderImages.find(img => img.id === "corporate-box-2"),
+    PlaceHolderImages.find(img => img.id === "shopping-bag-1"),
+].filter(Boolean);
+
+const promoItems = [
+    PlaceHolderImages.find(img => img.id === "pen-design-1"),
+    PlaceHolderImages.find(img => img.id === "pen-design-2"),
 ].filter(Boolean);
 
 
@@ -41,10 +56,12 @@ export default function MaterialApoyoPage() {
             </header>
 
              <Tabs defaultValue="libretas" className="w-full">
-                <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
-                    <TabsTrigger value="libretas">Diseños de Libretas</TabsTrigger>
-                    <TabsTrigger value="presentaciones">Plantillas de Presentación</TabsTrigger>
-                    <TabsTrigger value="papeleria">Papelería Corporativa</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-5 max-w-4xl mx-auto">
+                    <TabsTrigger value="libretas">Libretas</TabsTrigger>
+                    <TabsTrigger value="presentaciones">Presentaciones</TabsTrigger>
+                    <TabsTrigger value="papeleria">Papelería</TabsTrigger>
+                    <TabsTrigger value="empaques">Empaques</TabsTrigger>
+                    <TabsTrigger value="promocionales">Promocionales</TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="libretas" className="mt-8">
@@ -117,6 +134,57 @@ export default function MaterialApoyoPage() {
                                 </CardContent>
                                 <CardFooter className="gap-2">
                                      <Button className="w-full"><Download className="mr-2 h-4 w-4"/> Descargar Hoja</Button>
+                                </CardFooter>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
+                
+                 <TabsContent value="empaques" className="mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {packagingDesigns.map(design => (
+                            <Card key={design!.id} className="bg-card/50 backdrop-blur-sm">
+                                <CardHeader className="p-0">
+                                     <Image 
+                                        src={design!.imageUrl} 
+                                        alt={design!.description} 
+                                        width={400} 
+                                        height={300} 
+                                        className="rounded-t-xl object-cover"
+                                        data-ai-hint={design!.imageHint}
+                                    />
+                                </CardHeader>
+                                <CardContent className="p-4">
+                                    <CardTitle className="text-base">{design!.description}</CardTitle>
+                                </CardContent>
+                                <CardFooter className="gap-2">
+                                    <Button variant="outline" className="w-full"><Settings className="mr-2 h-4 w-4"/> Personalizar</Button>
+                                    <Button className="w-full"><Download className="mr-2 h-4 w-4"/> Descargar Diseño</Button>
+                                </CardFooter>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
+                
+                <TabsContent value="promocionales" className="mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {promoItems.map(design => (
+                            <Card key={design!.id} className="bg-card/50 backdrop-blur-sm">
+                                <CardHeader className="p-0">
+                                     <Image 
+                                        src={design!.imageUrl} 
+                                        alt={design!.description} 
+                                        width={400} 
+                                        height={300} 
+                                        className="rounded-t-xl object-cover"
+                                        data-ai-hint={design!.imageHint}
+                                    />
+                                </CardHeader>
+                                <CardContent className="p-4">
+                                    <CardTitle className="text-base">{design!.description}</CardTitle>
+                                </CardContent>
+                                <CardFooter className="gap-2">
+                                    <Button className="w-full"><Download className="mr-2 h-4 w-4"/> Contactar Proveedor</Button>
                                 </CardFooter>
                             </Card>
                         ))}

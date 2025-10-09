@@ -67,6 +67,18 @@
       "imageHint": "minimalist presentation"
     },
     {
+      "id": "presentation-template-4",
+      "description": "Template de presentación con infografías.",
+      "imageUrl": "https://picsum.photos/seed/prez4/400/300",
+      "imageHint": "infographic presentation"
+    },
+    {
+      "id": "presentation-template-5",
+      "description": "Template de presentación con fondo de video.",
+      "imageUrl": "https://picsum.photos/seed/prez5/400/300",
+      "imageHint": "video presentation"
+    },
+    {
       "id": "letterhead-template-1",
       "description": "A template for a corporate letterhead with a classic header.",
       "imageUrl": "https://picsum.photos/seed/letter1/400/300",
@@ -83,6 +95,48 @@
       "description": "An elegant letterhead with a watermark logo.",
       "imageUrl": "https://picsum.photos/seed/letter3/400/300",
       "imageHint": "elegant letterhead"
+    },
+    {
+      "id": "letterhead-template-4",
+      "description": "Papelería con diseño eco-amigable.",
+      "imageUrl": "https://picsum.photos/seed/letter4/400/300",
+      "imageHint": "eco letterhead"
+    },
+    {
+      "id": "letterhead-template-5",
+      "description": "Papelería creativa con formas abstractas.",
+      "imageUrl": "https://picsum.photos/seed/letter5/400/300",
+      "imageHint": "creative letterhead"
+    },
+    {
+      "id": "corporate-box-1",
+      "description": "Caja corporativa con logo estampado.",
+      "imageUrl": "https://picsum.photos/seed/box1/400/300",
+      "imageHint": "corporate box"
+    },
+    {
+      "id": "corporate-box-2",
+      "description": "Diseño de empaque para productos.",
+      "imageUrl": "https://picsum.photos/seed/box2/400/300",
+      "imageHint": "product packaging"
+    },
+    {
+      "id": "shopping-bag-1",
+      "description": "Bolsa de compras con branding.",
+      "imageUrl": "https://picsum.photos/seed/bag1/400/300",
+      "imageHint": "branded bag"
+    },
+    {
+      "id": "pen-design-1",
+      "description": "Bolígrafo corporativo metálico.",
+      "imageUrl": "https://picsum.photos/seed/pen1/400/300",
+      "imageHint": "corporate pen"
+    },
+    {
+      "id": "pen-design-2",
+      "description": "Set de bolígrafos de colores.",
+      "imageUrl": "https://picsum.photos/seed/pen2/400/300",
+      "imageHint": "colored pens"
     }
   ]
 }
