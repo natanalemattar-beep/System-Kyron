@@ -71,6 +71,24 @@ const libros = [
     descripcion: "Una compilación de artículos sobre las mejores prácticas para identificar, atraer, desarrollar y retener a los empleados clave.",
     imagen: "https://picsum.photos/seed/book11/300/400"
   },
+  {
+    titulo: "Aumenta tus Ventas: El Método Definitivo",
+    autor: "Equipo System C.M.S",
+    descripcion: "Una guía práctica con estrategias y tácticas probadas para potenciar el rendimiento de tu equipo de ventas.",
+    imagen: "https://picsum.photos/seed/book12/300/400"
+  },
+  {
+    titulo: "Padre Rico, Padre Pobre",
+    autor: "Robert T. Kiyosaki",
+    descripcion: "Un clásico sobre la inteligencia financiera que desafía las creencias convencionales sobre el dinero y la inversión.",
+    imagen: "https://picsum.photos/seed/book13/300/400"
+  },
+  {
+    titulo: "¿Quién se ha llevado mi queso?",
+    autor: "Spencer Johnson",
+    descripcion: "Una parábola simple pero poderosa sobre cómo adaptarse al cambio en el trabajo y en la vida.",
+    imagen: "https://picsum.photos/seed/book14/300/400"
+  },
 ];
 
 const capacitaciones = [

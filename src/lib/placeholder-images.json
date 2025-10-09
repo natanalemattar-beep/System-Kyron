@@ -137,6 +137,24 @@
       "description": "Set de bolígrafos de colores.",
       "imageUrl": "https://picsum.photos/seed/pen2/400/300",
       "imageHint": "colored pens"
+    },
+    {
+      "id": "book-aumenta-ventas",
+      "description": "Portada del libro Aumenta tus Ventas.",
+      "imageUrl": "https://picsum.photos/seed/book12/300/400",
+      "imageHint": "sales book"
+    },
+    {
+      "id": "book-padre-rico",
+      "description": "Portada del libro Padre Rico, Padre Pobre.",
+      "imageUrl": "https://picsum.photos/seed/book13/300/400",
+      "imageHint": "finance book"
+    },
+    {
+      "id": "book-quien-queso",
+      "description": "Portada del libro ¿Quién se ha llevado mi queso?.",
+      "imageUrl": "https://picsum.photos/seed/book14/300/400",
+      "imageHint": "change management"
     }
   ]
 }
