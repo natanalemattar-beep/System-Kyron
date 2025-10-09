@@ -29,6 +29,36 @@
       "description": "A placeholder image for a testimonial avatar, showing a businesswoman.",
       "imageUrl": "https://images.unsplash.com/photo-1544725176-7c40e5a71c3e?w=400&q=80",
       "imageHint": "businesswoman portrait"
+    },
+    {
+      "id": "notebook-design-1",
+      "description": "A modern notebook design with geometric patterns.",
+      "imageUrl": "https://picsum.photos/seed/notebook1/400/300",
+      "imageHint": "modern notebook"
+    },
+    {
+      "id": "notebook-design-2",
+      "description": "A minimalist notebook design in pastel colors.",
+      "imageUrl": "https://picsum.photos/seed/notebook2/400/300",
+      "imageHint": "minimalist notebook"
+    },
+    {
+      "id": "notebook-design-3",
+      "description": "A professional notebook design with a corporate logo mockup.",
+      "imageUrl": "https://picsum.photos/seed/notebook3/400/300",
+      "imageHint": "corporate notebook"
+    },
+    {
+      "id": "presentation-template-1",
+      "description": "A template for a business presentation slide.",
+      "imageUrl": "https://picsum.photos/seed/prez1/400/300",
+      "imageHint": "presentation slide"
+    },
+    {
+      "id": "letterhead-template-1",
+      "description": "A template for a corporate letterhead.",
+      "imageUrl": "https://picsum.photos/seed/letter1/400/300",
+      "imageHint": "corporate letterhead"
     }
   ]
 }

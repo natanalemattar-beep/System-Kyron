@@ -73,6 +73,7 @@ import {
   Loader2,
   Contact,
   Calculator,
+  Paintbrush,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -183,6 +184,7 @@ const recursosHumanosGestionItems = [
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
     { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
     { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
+    { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
 ];
 
 const librosRegistroMenuItems = [
@@ -361,7 +363,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
   
-  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales');
+  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path);
   
