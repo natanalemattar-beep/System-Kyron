@@ -191,24 +191,22 @@ export default function NominasPage() {
                     </DialogHeader>
                     <Card className="my-4">
                         <CardContent className="p-8 text-sm text-justify space-y-6">
-                             <div className="flex justify-between items-start">
-                                <div>
-                                    <h3 className="text-center font-bold text-lg mb-8">CARTA DE TRABAJO</h3>
-                                    <p className="pt-8">A quien pueda interesar,</p>
-                                    <p>
-                                        Por medio de la presente hacemos constar que el(la) ciudadano(a) <span className="font-bold">{selectedEmployee.nombre}</span>, titular de la cédula de identidad N° <span className="font-bold">{selectedEmployee.cedula}</span>, presta sus servicios en nuestra empresa, Empresa S.A. (RIF: J-12345678-9), desde el <span className="font-bold">{selectedEmployee.fechaIngreso}</span>, desempeñando el cargo de <span className="font-bold">{selectedEmployee.cargo}</span> y devengando un salario mensual de <span className="font-bold">{formatCurrency(selectedEmployee.salarioBase, 'Bs.')}</span>.
-                                    </p>
-                                    <p>
-                                        Constancia que se expide a petición de la parte interesada en la ciudad de Caracas, a los {formatDate(new Date().toISOString())}.
-                                    </p>
+                            <h3 className="text-center font-bold text-lg mb-8">CARTA DE TRABAJO</h3>
+                            <p className="pt-8">A quien pueda interesar,</p>
+                            <p>
+                                Por medio de la presente hacemos constar que el(la) ciudadano(a) <span className="font-bold">{selectedEmployee.nombre}</span>, titular de la cédula de identidad N° <span className="font-bold">{selectedEmployee.cedula}</span>, presta sus servicios en nuestra empresa, Empresa S.A. (RIF: J-12345678-9), desde el <span className="font-bold">{selectedEmployee.fechaIngreso}</span>, desempeñando el cargo de <span className="font-bold">{selectedEmployee.cargo}</span> y devengando un salario mensual de <span className="font-bold">{formatCurrency(selectedEmployee.salarioBase, 'Bs.')}</span>.
+                            </p>
+                            <p>
+                                Constancia que se expide a petición de la parte interesada en la ciudad de Caracas, a los {formatDate(new Date().toISOString())}.
+                            </p>
+                             <div className="flex flex-col items-center justify-center pt-8 space-y-2">
+                                <div className="p-2 bg-white rounded-lg border">
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=empleado-id-${selectedEmployee.id}`} alt={`QR para ${selectedEmployee.nombre}`} width={100} height={100} />
                                 </div>
-                                <div className="flex flex-col items-center pl-8">
-                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=empleado-id-${selectedEmployee.id}`} alt={`QR para ${selectedEmployee.nombre}`} width={100} height={100} />
-                                    <p className="text-xs text-muted-foreground mt-1">Verificar Documento</p>
-                                </div>
+                                <p className="text-xs text-muted-foreground">Escanear para verificar documento</p>
                             </div>
                             <div className="pt-16 text-center">
-                                <p className="border-t-2 border-foreground inline-block px-8">Atentamente,</p>
+                                <p className="border-t-2 border-foreground inline-block px-8 pt-2">Atentamente,</p>
                                 <p className="font-bold">Recursos Humanos</p>
                                 <p>Empresa S.A.</p>
                             </div>
@@ -240,3 +238,4 @@ export default function NominasPage() {
     </div>
   );
 }
+
