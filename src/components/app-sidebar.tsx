@@ -141,7 +141,6 @@ const analisisCrecimientoMenuItems = [
     { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
     { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
     { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
-    { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
 ];
 
 const facturacionGeneralMenuItems = [
@@ -206,6 +205,7 @@ const generalMenuItems = [
   { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
+  { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
 ];
 
 const iaMenuItems = [
