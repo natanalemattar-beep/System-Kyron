@@ -111,6 +111,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
+  { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileText },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
   { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
   { href: "/cumplimiento", label: "Cumplimiento Normativo", icon: ShieldAlert },
@@ -693,4 +694,3 @@ function AppSidebarVentas() {
     </Sidebar>
   );
 }
-
