@@ -108,6 +108,7 @@ const juridicoMainMenuItems = [
 
 const finanzasContabilidadMenuItems = [
   { href: "/reports", label: "Reportes Contables", icon: BarChart },
+  { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
   { href: "/libro-compra-venta", label: "Libro Compra/Venta SENIAT", icon: Landmark },
@@ -692,3 +693,4 @@ function AppSidebarVentas() {
     </Sidebar>
   );
 }
+
