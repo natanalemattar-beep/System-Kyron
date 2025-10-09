@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase } from "lucide-react";
+import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -35,10 +35,10 @@ const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 const empleados = [
-    { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", salarioBase: 12000, estado: "Activo", email: "ana.perez@email.com", telefono: "0412-1112233", fechaIngreso: "01/01/2020" },
-    { id: 2, nombre: "Luis Gómez", cedula: "V-18.765.432", cargo: "Desarrollador Senior", salarioBase: 10500, estado: "Activo", email: "luis.gomez@email.com", telefono: "0414-4445566", fechaIngreso: "15/03/2021" },
-    { id: 3, nombre: "María Rodriguez", cedula: "V-20.111.222", cargo: "Diseñadora UI/UX", salarioBase: 9000, estado: "De Vacaciones", email: "maria.r@email.com", telefono: "0416-7778899", fechaIngreso: "10/06/2022" },
-    { id: 4, nombre: "Carlos Sanchez", cedula: "E-8.999.000", cargo: "Analista de Calidad", salarioBase: 8500, estado: "Activo", email: "carlos.sanchez@email.com", telefono: "0424-0001122", fechaIngreso: "01/11/2023" },
+    { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", salarioBase: 12000, estado: "Activo", email: "ana.perez@email.com", telefono: "0412-1112233", fechaIngreso: "01/01/2020", departamento: "Gerencia" },
+    { id: 2, nombre: "Luis Gómez", cedula: "V-18.765.432", cargo: "Desarrollador Senior", salarioBase: 10500, estado: "Activo", email: "luis.gomez@email.com", telefono: "0414-4445566", fechaIngreso: "15/03/2021", departamento: "Tecnología" },
+    { id: 3, nombre: "María Rodriguez", cedula: "V-20.111.222", cargo: "Diseñadora UI/UX", salarioBase: 9000, estado: "De Vacaciones", email: "maria.r@email.com", telefono: "0416-7778899", fechaIngreso: "10/06/2022", departamento: "Diseño" },
+    { id: 4, nombre: "Carlos Sanchez", cedula: "E-8.999.000", cargo: "Analista de Calidad", salarioBase: 8500, estado: "Activo", email: "carlos.sanchez@email.com", telefono: "0424-0001122", fechaIngreso: "01/11/2023", departamento: "Calidad" },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
@@ -78,6 +78,30 @@ export default function NominasPage() {
     });
     setIsCartaDialogOpen(false);
   };
+  
+  const handleExportContacts = () => {
+    const headers = ["Nombre", "Cargo", "Departamento", "Teléfono", "Email"];
+    const csvContent = [
+        headers.join(","),
+        ...empleados.map(e => [e.nombre, e.cargo, e.departamento, e.telefono, e.email].join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "contactos_empleados.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+    toast({
+        title: "Exportación Completa",
+        description: "Los contactos de los empleados han sido exportados a un archivo CSV."
+    });
+  };
 
   return (
     <div className="p-4 md:p-8">
@@ -92,6 +116,10 @@ export default function NominasPage() {
                 </p>
             </div>
             <div className="flex gap-2">
+                <Button variant="outline" onClick={handleExportContacts}>
+                    <Download className="mr-2"/>
+                    Exportar Contactos
+                </Button>
                 <Button variant="outline">
                     <PlusCircle className="mr-2" />
                     Agregar Empleado

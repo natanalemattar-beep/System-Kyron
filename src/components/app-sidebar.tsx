@@ -182,6 +182,7 @@ const recursosHumanosGestionItems = [
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
     { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
+    { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
 ];
 
 const librosRegistroMenuItems = [
