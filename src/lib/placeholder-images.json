@@ -50,15 +50,39 @@
     },
     {
       "id": "presentation-template-1",
-      "description": "A template for a business presentation slide.",
+      "description": "A template for a business presentation slide with dark theme.",
       "imageUrl": "https://picsum.photos/seed/prez1/400/300",
       "imageHint": "presentation slide"
     },
     {
+      "id": "presentation-template-2",
+      "description": "A vibrant presentation template with bold colors.",
+      "imageUrl": "https://picsum.photos/seed/prez2/400/300",
+      "imageHint": "vibrant presentation"
+    },
+    {
+      "id": "presentation-template-3",
+      "description": "A clean and minimalist presentation slide layout.",
+      "imageUrl": "https://picsum.photos/seed/prez3/400/300",
+      "imageHint": "minimalist presentation"
+    },
+    {
       "id": "letterhead-template-1",
-      "description": "A template for a corporate letterhead.",
+      "description": "A template for a corporate letterhead with a classic header.",
       "imageUrl": "https://picsum.photos/seed/letter1/400/300",
       "imageHint": "corporate letterhead"
+    },
+    {
+      "id": "letterhead-template-2",
+      "description": "A modern letterhead design with a sidebar for contact info.",
+      "imageUrl": "https://picsum.photos/seed/letter2/400/300",
+      "imageHint": "modern letterhead"
+    },
+    {
+      "id": "letterhead-template-3",
+      "description": "An elegant letterhead with a watermark logo.",
+      "imageUrl": "https://picsum.photos/seed/letter3/400/300",
+      "imageHint": "elegant letterhead"
     }
   ]
 }

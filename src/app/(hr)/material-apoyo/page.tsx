@@ -16,10 +16,14 @@ const notebookDesigns = [
 
 const presentationTemplates = [
     PlaceHolderImages.find(img => img.id === "presentation-template-1"),
+    PlaceHolderImages.find(img => img.id === "presentation-template-2"),
+    PlaceHolderImages.find(img => img.id === "presentation-template-3"),
 ].filter(Boolean);
 
 const letterheadTemplates = [
     PlaceHolderImages.find(img => img.id === "letterhead-template-1"),
+    PlaceHolderImages.find(img => img.id === "letterhead-template-2"),
+    PlaceHolderImages.find(img => img.id === "letterhead-template-3"),
 ].filter(Boolean);
 
 
@@ -122,4 +126,3 @@ export default function MaterialApoyoPage() {
         </div>
     );
 }
-
