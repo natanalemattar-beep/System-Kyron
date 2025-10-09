@@ -723,7 +723,7 @@ export default function PuntoDeVentaPage() {
                                     <p className="text-xs text-muted-foreground">Verificado por C.M.S el {new Date().toLocaleDateString()}</p>
                                 </div>
                             </div>
-                            <Image 
+                             <Image 
                                 src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Factura:VF-001,Monto:${total},Fecha:${new Date().toISOString()}`} 
                                 alt="QR de Verificación" 
                                 width={100} 
