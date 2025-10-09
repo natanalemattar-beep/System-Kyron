@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { FileInputTrigger } from "@/components/file-input-trigger";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
 
 
 const initialPermisos = [
