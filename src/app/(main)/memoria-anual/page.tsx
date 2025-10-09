@@ -53,6 +53,29 @@ const incomeStatement = {
   netIncome: 132000,
 };
 
+const cashFlowStatement = {
+    operatingActivities: {
+        netIncome: 132000,
+        depreciation: 25000,
+        changeInAccountsReceivable: -15000,
+        changeInInventory: -20000,
+        changeInAccountsPayable: 10000,
+        netCash: 132000,
+    },
+    investingActivities: {
+        purchaseOfEquipment: -50000,
+        netCash: -50000,
+    },
+    financingActivities: {
+        loanRepayment: -20000,
+        issuanceOfStock: 0,
+        netCash: -20000,
+    },
+    netIncrease: 62000,
+    cashAtBeginning: 88000,
+    cashAtEnd: 150000,
+};
+
 export default function MemoriaAnualPage() {
 
     const handlePrint = () => {
@@ -155,6 +178,36 @@ export default function MemoriaAnualPage() {
                                 <TableRow className="font-bold"><TableCell>Ganancia en Operaciones</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.operatingIncome, 'Bs.')}</TableCell></TableRow>
                                 <TableRow><TableCell>Impuesto Sobre la Renta</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(incomeStatement.incomeTax), 'Bs.')})</TableCell></TableRow>
                                 <TableRow className="font-bold border-t text-xl text-primary"><TableCell>Utilidad Neta del Ejercicio</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.netIncome, 'Bs.')}</TableCell></TableRow>
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
+
+                <Card className="border-none shadow-none mt-12">
+                    <CardHeader className="text-center">
+                        <CardTitle className="text-2xl">Estado de Flujo de Efectivo Consolidado</CardTitle>
+                        <CardDescription>{reportDate}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableBody>
+                                <TableRow><TableCell className="font-semibold">Flujo de Efectivo de Actividades Operativas</TableCell><TableCell></TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Utilidad Neta</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.netIncome, 'Bs.')}</TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Depreciación</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.depreciation, 'Bs.')}</TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Cambios en Cuentas por Cobrar/Pagar</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.changeInAccountsReceivable + cashFlowStatement.operatingActivities.changeInAccountsPayable, 'Bs.')}</TableCell></TableRow>
+                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Operaciones</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.netCash, 'Bs.')}</TableCell></TableRow>
+                                
+                                <TableRow><TableCell className="font-semibold pt-4">Flujo de Efectivo de Actividades de Inversión</TableCell><TableCell></TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Compra de Equipo</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.investingActivities.purchaseOfEquipment), 'Bs.')})</TableCell></TableRow>
+                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Inversiones</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.investingActivities.netCash), 'Bs.')})</TableCell></TableRow>
+                                
+                                <TableRow><TableCell className="font-semibold pt-4">Flujo de Efectivo de Actividades de Financiación</TableCell><TableCell></TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Pago de Préstamos</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.financingActivities.loanRepayment), 'Bs.')})</TableCell></TableRow>
+                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Financiación</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.financingActivities.netCash), 'Bs.')})</TableCell></TableRow>
+
+                                <TableRow><TableCell className="font-bold pt-4">Aumento Neto de Efectivo</TableCell><TableCell className="text-right font-bold pt-4">{formatCurrency(cashFlowStatement.netIncrease, 'Bs.')}</TableCell></TableRow>
+                                <TableRow><TableCell className="text-muted-foreground">Efectivo al Inicio del Período</TableCell><TableCell className="text-right text-muted-foreground">{formatCurrency(cashFlowStatement.cashAtBeginning, 'Bs.')}</TableCell></TableRow>
+                                <TableRow className="font-bold text-lg border-t text-primary"><TableCell>Efectivo al Final del Período</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.cashAtEnd, 'Bs.')}</TableCell></TableRow>
                             </TableBody>
                         </Table>
                     </CardContent>
