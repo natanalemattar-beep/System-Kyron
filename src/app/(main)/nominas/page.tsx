@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState } from "react";
@@ -190,7 +191,7 @@ export default function NominasPage() {
                         </DialogDescription>
                     </DialogHeader>
                     <Card className="my-4">
-                        <CardContent className="p-8 text-sm text-justify space-y-6">
+                        <CardContent className="p-8 text-sm text-justify space-y-6 relative">
                             <h3 className="text-center font-bold text-lg mb-8">CARTA DE TRABAJO</h3>
                             <p className="pt-8">A quien pueda interesar,</p>
                             <p>
@@ -199,16 +200,15 @@ export default function NominasPage() {
                             <p>
                                 Constancia que se expide a petición de la parte interesada en la ciudad de Caracas, a los {formatDate(new Date().toISOString())}.
                             </p>
-                             <div className="flex flex-col items-center justify-center pt-8 space-y-2">
-                                <div className="p-2 bg-white rounded-lg border">
-                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=empleado-id-${selectedEmployee.id}`} alt={`QR para ${selectedEmployee.nombre}`} width={100} height={100} />
-                                </div>
-                                <p className="text-xs text-muted-foreground">Escanear para verificar documento</p>
-                            </div>
-                            <div className="pt-16 text-center">
+                            
+                            <div className="pt-24 text-center">
                                 <p className="border-t-2 border-foreground inline-block px-8 pt-2">Atentamente,</p>
                                 <p className="font-bold">Recursos Humanos</p>
                                 <p>Empresa S.A.</p>
+                            </div>
+                            
+                            <div className="absolute bottom-8 right-8">
+                                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=60x60&data=empleado-id-${selectedEmployee.id}`} alt={`QR para ${selectedEmployee.nombre}`} width={60} height={60} />
                             </div>
                         </CardContent>
                     </Card>
@@ -238,4 +238,3 @@ export default function NominasPage() {
     </div>
   );
 }
-
