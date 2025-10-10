@@ -145,6 +145,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
     { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
     { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
+    { href: "/propuesta-proyecto", label: "Carta de Propuesta", icon: FileText },
 ];
 
 const facturacionGeneralMenuItems = [
