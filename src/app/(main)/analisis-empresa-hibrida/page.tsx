@@ -136,8 +136,8 @@ export default function AnalisisEmpresaHibridaPage() {
             </CardContent>
             <CardContent>
                  <Button asChild className="w-full">
-                    <Link href="/soluciones-empresariales-ia">
-                        Ver Anteproyecto de Inversión Completo <ArrowRight className="ml-2"/>
+                    <Link href="/estudio-factibilidad-economica">
+                        Ver Estudio de Factibilidad Completo <ArrowRight className="ml-2"/>
                     </Link>
                 </Button>
             </CardContent>

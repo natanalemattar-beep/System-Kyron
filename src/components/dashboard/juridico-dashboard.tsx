@@ -17,10 +17,13 @@ import {
   FileSignature,
   BookUser,
   Cpu,
-  Ship
+  Ship,
+  Briefcase,
+  Network,
+  BarChart
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
@@ -45,14 +48,6 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const recentActivities = [
-  { time: "Hace 15 min", description: "Se generó la Factura #V-2024-0589 para 'Constructora XYZ'." },
-  { time: "Hace 1 hora", description: "Se registró un asiento contable de 'Pago de Alquiler'." },
-  { time: "Hace 5 horas", description: "Se calculó y cerró la nómina de la 1ra quincena de Julio." },
-  { time: "Ayer", description: "El permiso 'Conformidad de Uso de Bomberos' fue marcado 'Por Vencer'." },
-  { time: "Ayer", description: "Usuario 'admin' actualizó el estado del RIF." },
-];
-
 const upcomingDeadlines = [
   { days: 3, description: "Declaración y pago de IVA (Julio)" },
   { days: 8, description: "Renovación de 'Licencia de Actividades Económicas'" },
@@ -65,7 +60,6 @@ const quickAccessModules = [
   { href: "/permisos", label: "Control de Permisos", icon: ShieldAlert },
   { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
-  { href: "/soluciones-empresariales-ia", label: "Proyecto de Factibilidad", icon: Cpu },
   { href: "/importaciones", label: "Proveedores", icon: Ship },
 ];
 
@@ -142,21 +136,40 @@ export function JuridicoDashboard() {
             <h2 className="text-2xl font-semibold tracking-tight">Flujos de Trabajo</h2>
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                  <Card className="bg-card/80 backdrop-blur-sm">
-                    <CardHeader><CardTitle>Actividad Reciente</CardTitle></CardHeader>
-                    <CardContent>
-                        <div className="relative pl-6">
-                            <div className="absolute left-3 top-0 h-full w-0.5 bg-border -z-10"></div>
-                            {recentActivities.map((activity, index) => (
-                                <div key={index} className="relative flex items-start gap-4 pb-8">
-                                    <div className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-secondary">
-                                        <Activity className="h-3 w-3 text-primary" />
-                                    </div>
-                                    <div className="flex-1 -mt-1">
-                                        <p className="text-sm font-medium truncate">{activity.description}</p>
-                                        <p className="text-xs text-muted-foreground">{activity.time}</p>
-                                    </div>
-                                </div>
-                            ))}
+                    <CardHeader>
+                        <CardTitle>Aspectos Clave del Anteproyecto de Inversión</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                         <div className="p-4 rounded-lg bg-secondary">
+                            <h4 className="font-semibold text-primary mb-2">Modelo de Negocio de Doble Impacto</h4>
+                            <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                                <li>Venta de Papeleras Inteligentes (Hardware).</li>
+                                <li>Licenciamiento de Software Contable (SaaS).</li>
+                                <li>Soporte Técnico y Mantenimiento.</li>
+                            </ul>
+                             <Button asChild variant="link" size="sm" className="p-0 h-auto mt-2">
+                                <Link href="/estudio-factibilidad-economica">Ver modelo de negocio completo <ArrowRight className="h-4 w-4 ml-1"/></Link>
+                            </Button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-secondary">
+                            <h4 className="font-semibold text-primary mb-2">Estructura Organizacional</h4>
+                             <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                                <li>Departamentos: Tecnología (IT), Cumplimiento (Compliance), Riesgo y Cobranza.</li>
+                                <li>Organigrama sugerido con roles clave (CEO, CTO, COO).</li>
+                            </ul>
+                             <Button asChild variant="link" size="sm" className="p-0 h-auto mt-2">
+                                <Link href="/estudio-factibilidad-economica">Ver estructura organizacional <ArrowRight className="h-4 w-4 ml-1"/></Link>
+                            </Button>
+                        </div>
+                        <div className="p-4 rounded-lg bg-secondary">
+                            <h4 className="font-semibold text-primary mb-2">Análisis de Mercado</h4>
+                             <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                                <li>Marketing Digital (SEO, Contenidos, Alianzas).</li>
+                                <li>Expansión de Productos (Contenedores para hogar, Plataforma de análisis).</li>
+                            </ul>
+                             <Button asChild variant="link" size="sm" className="p-0 h-auto mt-2">
+                                <Link href="/estudio-factibilidad-economica">Ver análisis de mercado <ArrowRight className="h-4 w-4 ml-1"/></Link>
+                            </Button>
                         </div>
                     </CardContent>
                 </Card>
@@ -216,9 +229,3 @@ export function JuridicoDashboard() {
     </div>
   );
 }
-
-    
-
-    
-
-    

@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
@@ -144,7 +143,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
-    { href: "/soluciones-empresariales-ia", label: "Proyecto de Factibilidad", icon: Bot },
+    { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
     { href: "/analisis-empresa-hibrida", label: "Análisis de Empresa Híbrida", icon: Rocket },
     { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
     { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
