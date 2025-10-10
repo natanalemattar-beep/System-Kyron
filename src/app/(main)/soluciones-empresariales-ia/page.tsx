@@ -68,10 +68,16 @@ export default function SolucionesEmpresarialesIAPage() {
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
           Evaluación de un modelo de negocio que combina tecnología para el impacto ambiental con la automatización total de la gestión empresarial, creando una propuesta de valor única y sostenible.
         </p>
-         <Button className="mt-6">
-            <Download className="mr-2" />
-            Descargar Demo del Proyecto
-        </Button>
+         <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg">
+                <FileText className="mr-2" />
+                Descargar Anteproyecto de Inversión
+            </Button>
+            <Button size="lg" variant="outline">
+                <Cpu className="mr-2" />
+                Probar Demo Funcional
+            </Button>
+        </div>
       </header>
 
       <div className="space-y-12">
