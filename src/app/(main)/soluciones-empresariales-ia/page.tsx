@@ -28,6 +28,19 @@ const ventajasPapelera = [
     "Generación de datos valiosos para la toma de decisiones de municipios y empresas."
 ];
 
+const desafiosPapelera = [
+    "Alto costo inicial: La inversión en tecnología (sensores, IA, conectividad) puede ser alta, pero se justifica con los beneficios a largo plazo.",
+    "Precisión y mantenimiento: Es crucial que la tecnología de clasificación sea precisa y reciba mantenimiento regular.",
+    "Adopción por el público: Puede ser necesario educar a los usuarios, aunque la simplicidad del sistema es un gran incentivo."
+];
+
+const integracionPlanNegocio = [
+    "Venta del Producto: Comercialización de las papeleras a empresas, escuelas, centros comerciales y municipios.",
+    "Soporte Técnico: Clave para mantener las papeleras en óptimas condiciones, gestionar la conectividad y las actualizaciones del sistema.",
+    "Impacto Social: Venta a bajo costo o donación a ONGs y comunidades, junto con programas de incentivos por reciclaje.",
+    "Modelo de Datos: Monetización del análisis de los datos de residuos para ayudar a otras empresas a optimizar su gestión."
+];
+
 const aspectosTecnicosSoftware = [
     "Automatización de Procesos (RPA): El sistema automatiza tareas repetitivas como la entrada de datos de facturas, conciliaciones bancarias y generación de reportes.",
     "Inteligencia Artificial para el Cumplimiento: La IA verifica que todas las operaciones cumplan con las normativas del SENIAT y otras regulaciones locales, minimizando el riesgo de sanciones.",
@@ -98,10 +111,26 @@ export default function SolucionesEmpresarialesIAPage() {
                             </AccordionContent>
                         </AccordionItem>
                          <AccordionItem value="ventajas-papelera">
-                            <AccordionTrigger>Ventajas y Oportunidades</AccordionTrigger>
+                            <AccordionTrigger>Ventajas del Producto</AccordionTrigger>
                             <AccordionContent>
                                <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
                                     {ventajasPapelera.map(item => <li key={item}>{item}</li>)}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                         <AccordionItem value="desafios-papelera">
+                            <AccordionTrigger>Desafíos a Considerar</AccordionTrigger>
+                            <AccordionContent>
+                               <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
+                                    {desafiosPapelera.map(item => <li key={item}>{item}</li>)}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="plan-negocio-papelera">
+                            <AccordionTrigger>Integración con el Plan de Negocio</AccordionTrigger>
+                            <AccordionContent>
+                               <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
+                                    {integracionPlanNegocio.map(item => <li key={item}>{item}</li>)}
                                 </ul>
                             </AccordionContent>
                         </AccordionItem>
