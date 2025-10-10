@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, FileSignature, ShieldCheck, Scale, ArrowRight, Building } from "lucide-react";
+import { Gavel, FileSignature, ShieldCheck, Scale, ArrowRight, Building, Sitemap } from "lucide-react";
 import Link from "next/link";
 
 const responsabilidades = [
@@ -30,6 +30,12 @@ const responsabilidades = [
         titulo: "Asesoría Estratégica",
         descripcion: "Proporcionar orientación legal a la dirección sobre nuevas líneas de negocio, fusiones, adquisiciones y gestión de riesgos.",
         href: "/analisis-estrategico"
+    },
+    {
+        icon: Sitemap,
+        titulo: "Holding y Estructura Organizativa",
+        descripcion: "Gestionar la estructura de socios, empresas del holding y la organización de los departamentos clave para el cumplimiento y la operación.",
+        href: "/poderes-representacion"
     }
 ];
 
@@ -46,7 +52,7 @@ export default function DepartamentoJuridicoPage() {
         </p>
       </header>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {responsabilidades.map((item) => (
             <Card key={item.titulo} className="flex flex-col bg-card/50 backdrop-blur-sm">
                 <CardHeader className="flex-row items-start gap-4">
