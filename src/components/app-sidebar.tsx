@@ -134,6 +134,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
+    { href: "/marketing-ventas", label: "Marketing y Ventas", icon: Megaphone },
     { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: Briefcase },
     { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
     { href: "/asesoria-publicidad", label: "Asesoría y Ventas", icon: Megaphone },
