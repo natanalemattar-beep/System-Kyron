@@ -14,7 +14,8 @@ import {
   Percent,
   ShieldAlert,
   Users,
-  FileSignature
+  FileSignature,
+  BookUser
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -61,6 +62,7 @@ const quickAccessModules = [
   { href: "/nominas", label: "Gestión de Nómina", icon: Users },
   { href: "/permisos", label: "Control de Permisos", icon: ShieldAlert },
   { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
+  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
 ];
 
 export function JuridicoDashboard() {
@@ -210,5 +212,7 @@ export function JuridicoDashboard() {
     </div>
   );
 }
+
+    
 
     
