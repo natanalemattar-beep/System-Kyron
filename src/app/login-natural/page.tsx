@@ -48,6 +48,9 @@ export default function LoginNaturalPage() {
                     <DropdownMenuItem asChild>
                         <Link href="/login-rrhh">Acceso RR.HH.</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login-socios">Acceso Socios</Link>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

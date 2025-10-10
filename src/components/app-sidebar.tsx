@@ -74,6 +74,7 @@ import {
   Contact,
   Calculator,
   Paintbrush,
+  Sitemap,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -236,6 +237,12 @@ const naturalMenuItems = {
     ]
 };
 
+const sociosNavGroups = [
+    { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
+    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
+    { href: "/tramites-corporativos", label: "Estructura del Holding", icon: Sitemap },
+];
+
 
 const juridicoNavGroups = [
     { title: "Jurídico", icon: Gavel, items: juridicoMainMenuItems },
@@ -367,7 +374,8 @@ export function AppSidebar() {
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path);
+  const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.some(item => path.startsWith(item.href));
+  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
   
   if (isHrPath(pathname)) {
     return <AppSidebarHr />;
@@ -375,6 +383,10 @@ export function AppSidebar() {
 
   if (isVentasPath(pathname)) {
     return <AppSidebarVentas />;
+  }
+
+  if (isSociosPath(pathname)) {
+    return <AppSidebarSocios />;
   }
   
   if (isNaturalPath(pathname)) {
@@ -684,6 +696,63 @@ function AppSidebarVentas() {
            {state === 'expanded' && (
             <div className="flex flex-col">
                 <span className="text-sm font-medium">Usuario Ventas</span>
+                <span className="text-xs text-muted-foreground">
+                Empresa S.A.
+                </span>
+            </div>
+           )}
+        </div>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}
+
+function AppSidebarSocios() {
+  const pathname = usePathname();
+  const { state } = useSidebar();
+  
+  return (
+    <Sidebar variant="floating">
+      <SidebarHeader>
+        <div className="flex items-center gap-3 p-2">
+           <Logo />
+            {state === 'expanded' && (
+                <div className="flex flex-col">
+                    <span className="text-sm font-semibold leading-tight">System</span>
+                    <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                </div>
+            )}
+        </div>
+      </SidebarHeader>
+       <SidebarContent className="p-2">
+        <SidebarMenu>
+          {sociosNavGroups.map((item) => (
+            <SidebarMenuItem key={item.href}>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname.startsWith(item.href)}
+                tooltip={item.label}
+                className="justify-start h-10 text-base"
+              >
+                <Link href={item.href}>
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.label}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
+      <SidebarFooter className="p-2">
+        <Separator className="my-2" />
+        <ChatDialog />
+        <div className="flex items-center gap-3 px-2 py-1">
+          <Avatar className="h-9 w-9">
+            <AvatarFallback>S</AvatarFallback>
+          </Avatar>
+           {state === 'expanded' && (
+            <div className="flex flex-col">
+                <span className="text-sm font-medium">Socio Principal</span>
                 <span className="text-xs text-muted-foreground">
                 Empresa S.A.
                 </span>

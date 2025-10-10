@@ -56,6 +56,7 @@ export default function RegisterPage() {
                         <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
+                         <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
                 </div>
@@ -114,6 +115,7 @@ export default function RegisterPage() {
                 <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import * as React from "react"
@@ -11,7 +12,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetClose } from "@/components/ui/sheet"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
@@ -502,14 +503,19 @@ SidebarMenu.displayName = "SidebarMenu"
 const SidebarMenuItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentProps<"li">
->(({ className, ...props }, ref) => (
-  <li
-    ref={ref}
-    data-sidebar="menu-item"
-    className={cn("group/menu-item relative", className)}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const { isMobile } = useSidebar()
+  const Comp = isMobile ? SheetClose : "li"
+
+  return (
+    <Comp
+      ref={ref}
+      data-sidebar="menu-item"
+      className={cn("group/menu-item relative", className)}
+      {...props}
+    />
+  )
+})
 SidebarMenuItem.displayName = "SidebarMenuItem"
 
 const sidebarMenuButtonVariants = cva(
