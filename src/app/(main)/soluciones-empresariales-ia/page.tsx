@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bot, CheckCircle, Shield, ArrowRight, Download, Recycle, Cpu, Briefcase, FileText, Network, DollarSign, ShieldAlert, TrendingUp, Search, User, Check, Coins, Workflow } from "lucide-react";
+import { Bot, CheckCircle, Shield, ArrowRight, Download, Recycle, Cpu, Briefcase, FileText, Network, DollarSign, ShieldAlert, TrendingUp, Search, User, Check, Coins, Workflow, ShieldCheck } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 
@@ -64,7 +64,7 @@ export default function SolucionesEmpresarialesIAPage() {
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
             <Bot className="h-12 w-12" />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">Anteproyecto de Inversión</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Anteproyecto de Inversión: Análisis de Viabilidad y Procedimientos Administrativos</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
           Evaluación de un modelo de negocio que combina tecnología para el impacto ambiental con la automatización total de la gestión empresarial, creando una propuesta de valor única y sostenible.
         </p>
@@ -341,5 +341,3 @@ export default function SolucionesEmpresarialesIAPage() {
     </div>
   );
 }
-
-    
