@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bot, CheckCircle, Shield, ArrowRight, Download, Recycle, Cpu, Briefcase, FileText, Network, DollarSign, ShieldAlert, TrendingUp, Search } from "lucide-react";
+import { Bot, CheckCircle, Shield, ArrowRight, Download, Recycle, Cpu, Briefcase, FileText, Network, DollarSign, ShieldAlert, TrendingUp, Search, User, Check, Coins } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 
@@ -169,6 +169,44 @@ export default function SolucionesEmpresarialesIAPage() {
 
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
+                <CardTitle className="flex items-center gap-3"><Coins className="h-6 w-6 text-yellow-500"/>Modelo de Recompensas por Reciclaje</CardTitle>
+                <CardDescription>Incentivando la participación ciudadana y corporativa en la economía circular.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <div>
+                    <h4 className="font-semibold text-lg mb-2">Funcionamiento del Sistema de Recompensas</h4>
+                    <p className="text-muted-foreground mb-4">El acuerdo consiste en crear un ecosistema donde los usuarios son recompensados por reciclar, fomentando una cultura de sostenibilidad. Este sistema se apoya en una alianza estratégica entre System C.M.S. y una aplicación de pagos o lealtad.</p>
+                    <div className="flex flex-col md:flex-row items-center justify-around gap-4 text-center p-4 bg-secondary/50 rounded-lg">
+                        <div className="flex flex-col items-center gap-2">
+                            <div className="p-3 bg-primary/10 rounded-full"><User className="h-6 w-6 text-primary"/></div>
+                            <p className="font-semibold">1. Usuario Recicla</p>
+                        </div>
+                         <ArrowRight className="h-6 w-6 text-muted-foreground hidden md:block"/>
+                        <div className="flex flex-col items-center gap-2">
+                            <div className="p-3 bg-green-500/10 rounded-full"><Recycle className="h-6 w-6 text-green-500"/></div>
+                            <p className="font-semibold">2. Papelera Identifica</p>
+                        </div>
+                        <ArrowRight className="h-6 w-6 text-muted-foreground hidden md:block"/>
+                        <div className="flex flex-col items-center gap-2">
+                            <div className="p-3 bg-yellow-500/10 rounded-full"><Check className="h-6 w-6 text-yellow-500"/></div>
+                            <p className="font-semibold">3. App Aliada Recompensa</p>
+                        </div>
+                    </div>
+                </div>
+                 <div>
+                    <h4 className="font-semibold text-lg mb-2">Beneficios del Modelo</h4>
+                    <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                        <li><strong>Fomenta la Cultura del Reciclaje:</strong> Incentiva directamente al usuario, aumentando las tasas de reciclaje.</li>
+                        <li><strong>Crea un Ecosistema de Economía Circular:</strong> Conecta a los productores de residuos (usuarios) con el sistema de recolección y las empresas recicladoras.</li>
+                        <li><strong>Fortalece el Impacto Social:</strong> Genera un beneficio tangible para la comunidad, reforzando la imagen de marca de la startup y sus aliados.</li>
+                        <li><strong>Nuevas Oportunidades de Negocio:</strong> Abre la puerta a alianzas con programas de lealtad, supermercados y otras empresas que quieran participar en el ecosistema.</li>
+                    </ul>
+                </div>
+            </CardContent>
+        </Card>
+
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
                 <CardTitle className="flex items-center gap-3"><Network className="h-6 w-6 text-primary"/>Estructura Organizacional y Tecnológica</CardTitle>
                 <CardDescription>Una estructura sólida para soportar la operación y el crecimiento.</CardDescription>
             </CardHeader>
@@ -263,3 +301,5 @@ export default function SolucionesEmpresarialesIAPage() {
     </div>
   );
 }
+
+    
