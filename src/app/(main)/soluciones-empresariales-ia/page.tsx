@@ -64,13 +64,13 @@ export default function SolucionesEmpresarialesIAPage() {
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
             <Bot className="h-12 w-12" />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">Análisis de Viabilidad y Procedimientos Administrativos</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Anteproyecto de Inversión</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
           Evaluación de un modelo de negocio que combina tecnología para el impacto ambiental con la automatización total de la gestión empresarial, creando una propuesta de valor única y sostenible.
         </p>
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg">
-                <Download className="mr-2" />
+                <FileText className="mr-2" />
                 Descargar Anteproyecto de Inversión
             </Button>
             <Button size="lg" variant="outline">

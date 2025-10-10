@@ -290,7 +290,7 @@ export default function LandingPage() {
                         La Gestión Empresarial, Reinventada
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-balance text-slate-600 max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000">
-                        Simplifica la contabilidad, la nómina y el cumplimiento normativo con una solución inteligente diseñada para el mercado venezolano.
+                        Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in-20 slide-in-from-bottom-6 duration-1000">
                         <Button size="lg" asChild>
