@@ -36,6 +36,7 @@ import {
   Settings,
   ShieldCheck,
   ShoppingBag,
+  Sitemap,
   Star,
   Sun,
   Trash,
@@ -100,7 +101,9 @@ export const Icons = {
   rocket: Rocket,
   save: Save,
   scale: Scale,
+  settings: Settings,
   shieldCheck: ShieldCheck,
+  shoppingBag: ShoppingBag,
   star: Star,
   trash: Trash,
   pos: TabletSmartphone,
@@ -109,4 +112,5 @@ export const Icons = {
   calendar: Calendar,
   trendingUp: TrendingUp,
   pieChart: PieChart,
+  sitemap: Sitemap,
 };
