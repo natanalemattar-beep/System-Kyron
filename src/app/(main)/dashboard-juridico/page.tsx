@@ -63,7 +63,7 @@ const quickAccessModules = [
   { href: "/importaciones", label: "Proveedores", icon: Ship },
 ];
 
-export function JuridicoDashboard() {
+function JuridicoDashboard() {
   return (
     <div className="space-y-8">
       
@@ -229,3 +229,5 @@ export function JuridicoDashboard() {
     </div>
   );
 }
+
+export default JuridicoDashboard;
