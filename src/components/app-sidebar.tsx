@@ -99,6 +99,7 @@ import { Button } from "@/components/ui/button";
 
 const juridicoMainMenuItems = [
   { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
   { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
   { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
   { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
