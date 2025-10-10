@@ -17,15 +17,18 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 
 const products = [
-    { id: 1, name: "Resma de Papel Carta", price: 8.50, barcode: "7591234567890", image: "https://picsum.photos/seed/paper/200/200" },
-    { id: 2, name: "Impresora Fiscal", price: 350.00, barcode: "7591234567891", image: "https://picsum.photos/seed/printer/200/200" },
+    { id: 1, name: "Resma de Papel Carta (500 Hojas)", price: 8.50, barcode: "7591234567890", image: "https://picsum.photos/seed/paper/200/200" },
+    { id: 2, name: "Impresora Fiscal Térmica", price: 350.00, barcode: "7591234567891", image: "https://picsum.photos/seed/printer/200/200" },
     { id: 3, name: "Punto de Venta Inalámbrico", price: 280.00, barcode: "7591234567892", image: "https://picsum.photos/seed/pos/200/200" },
-    { id: 4, name: "Lector de Código de Barras", price: 95.00, barcode: "7591234567893", image: "https://picsum.photos/seed/scanner/200/200" },
-    { id: 5, name: "Tóner para Impresora", price: 85.00, barcode: "7591234567894", image: "https://picsum.photos/seed/toner/200/200" },
-    { id: 6, name: "Caja de Bolígrafos (12 Unid.)", price: 5.00, barcode: "7591234567895", image: "https://picsum.photos/seed/pens/200/200" },
-    { id: 7, name: "Rollo de Etiquetas Térmicas", price: 12.00, barcode: "7591234567896", image: "https://picsum.photos/seed/labels/200/200" },
-    { id: 8, name: "Calculadora de Escritorio", price: 18.00, barcode: "7591234567897", image: "https://picsum.photos/seed/calculator/200/200" },
+    { id: 4, name: "Lector de Código de Barras USB", price: 95.00, barcode: "7591234567893", image: "https://picsum.photos/seed/scanner/200/200" },
+    { id: 5, name: "Tóner de Repuesto para Impresora", price: 85.00, barcode: "7591234567894", image: "https://picsum.photos/seed/toner/200/200" },
+    { id: 6, name: "Caja de Bolígrafos Negros (12 Unidades)", price: 5.00, barcode: "7591234567895", image: "https://picsum.photos/seed/pens/200/200" },
+    { id: 7, name: "Rollo de Etiquetas para Precios", price: 12.00, barcode: "7591234567896", image: "https://picsum.photos/seed/labels/200/200" },
+    { id: 8, name: "Calculadora de Escritorio con Impresora", price: 18.00, barcode: "7591234567897", image: "https://picsum.photos/seed/calculator/200/200" },
+    { id: 9, name: "Licencia Anual Software Contable", price: 480.00, barcode: "7591234567898", image: "https://picsum.photos/seed/software/200/200" },
+    { id: 10, name: "Gaveta de Dinero para Punto de Venta", price: 120.00, barcode: "7591234567899", image: "https://picsum.photos/seed/cashdrawer/200/200" }
 ];
+
 
 const mockClientes = [
     { id: "V-12345678", nombre: "Juan Pérez", rif: "V-12345678-9" },
