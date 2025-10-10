@@ -3,44 +3,57 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Megaphone, Search, Newspaper, Share2, Target, CheckCircle, ArrowRight, Bot, Star, Rocket } from "lucide-react";
+import { Megaphone, Search, Newspaper, Share2, Bot, ArrowRight, CheckCircle, BarChart, Globe } from "lucide-react";
 import Link from "next/link";
 
-const salesFunnel = [
+const channels = [
     {
-        stage: "Atracción (Awareness)",
-        description: "El objetivo es atraer a desconocidos y convertirlos en visitantes. Es la parte más ancha del embudo.",
-        tactics: ["Optimización SEO para aparecer en Google.", "Crear contenido de valor en un blog.", "Publicar en redes sociales (LinkedIn, Instagram)."]
+        title: "Motores de Búsqueda (SEO & PPC)",
+        description: "Mejora la visibilidad en Google para captar usuarios que buscan activamente tus soluciones.",
+        icon: Search
     },
     {
-        stage: "Interés (Interest)",
-        description: "Una vez que te conocen, debes despertar su interés. El visitante investiga y compara.",
-        tactics: ["Ofrecer guías, eBooks o webinars gratuitos a cambio de su email.", "Casos de estudio y testimonios de clientes.", "Demostraciones de producto."]
+        title: "Redes Sociales",
+        description: "Crea una comunidad, interactúa con clientes y promociona tus servicios a través de perfiles y anuncios pagados.",
+        icon: Share2
     },
     {
-        stage: "Decisión (Decision)",
-        description: "El prospecto está listo para comprar, pero evalúa sus opciones. Aquí debes diferenciarte.",
-        tactics: ["Ofertas personalizadas o descuentos por tiempo limitado.", "Consultas gratuitas para resolver sus dudas finales.", "Comparativas detalladas con la competencia."]
+        title: "Sitios Web y Blogs",
+        description: "La base de tu presencia online, ideal para atraer clientes con contenido de valor y mostrar tus productos.",
+        icon: Globe
     },
-    {
-        stage: "Acción (Action)",
-        description: "El objetivo final: convertir al prospecto en cliente. El proceso de compra debe ser fácil y sin fricciones.",
-        tactics: ["Llamadas a la acción (CTA) claras como 'Comprar Ahora' o 'Registrarse'.", "Proceso de checkout simplificado.", "Garantías de satisfacción o períodos de prueba."]
+     {
+        title: "Correo Electrónico",
+        description: "Envía newsletters, promociones personalizadas y automatiza campañas para nutrir a tus prospectos.",
+        icon: Megaphone
+    },
+     {
+        title: "Publicidad en Línea",
+        description: "Utiliza banners, anuncios en redes sociales y videos para llegar a audiencias específicas.",
+        icon: BarChart
+    },
+     {
+        title: "Otras Herramientas (IA, SMS)",
+        description: "Automatiza tareas, genera contenido con IA y utiliza SMS para comunicados directos.",
+        icon: Bot
     },
 ];
 
-const marketingChannels = [
-    { title: "SEO (Search Engine Optimization)", description: "Optimizar tu sitio web para que aparezca en los primeros resultados de Google cuando alguien busca 'software contable en Venezuela'." },
-    { title: "Marketing de Contenidos", description: "Crear artículos de blog, guías y videos que resuelvan los problemas de tu público objetivo (Ej: 'Cómo declarar IVA como contribuyente especial')." },
-    { title: "Redes Sociales", description: "Utilizar LinkedIn para conectar con gerentes y dueños de empresas, e Instagram para mostrar el lado humano de tu marca y casos de éxito." },
+const benefits = [
+    {
+        title: "Medición y Análisis",
+        description: "Rastrea métricas clave como clics, conversiones y retorno de la inversión (ROI) en tiempo real para optimizar tus campañas."
+    },
+    {
+        title: "Personalización y Segmentación",
+        description: "Adapta el mensaje a audiencias específicas para mejorar la relevancia y el impacto de tus comunicaciones."
+    },
+    {
+        title: "Flexibilidad y Coste Adaptativo",
+        description: "Ajusta las campañas y el presupuesto sobre la marcha, haciendo que el marketing sea accesible para cualquier tamaño de empresa."
+    }
 ];
 
-const launchPlan = [
-    { stage: "1. Pre-Lanzamiento (Expectativa)", description: "Crear anticipación. Publicar 'teasers' en redes, enviar correos a una lista VIP anunciando una 'nueva solución' sin dar todos los detalles." },
-    { stage: "2. Lanzamiento (Anuncio)", description: "El día del lanzamiento, publicar en todos los canales: nota de prensa, post de blog detallado, campaña de email y publicaciones coordinadas en redes sociales." },
-    { stage: "3. Post-Lanzamiento (Sostenimiento)", description: "Recopilar testimonios de los primeros clientes, publicar casos de estudio, crear tutoriales en video y mantener la conversación activa." }
-];
 
 export default function MarketingVentasPage() {
   return (
@@ -49,98 +62,61 @@ export default function MarketingVentasPage() {
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
             <Megaphone className="h-12 w-12" />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">Diseño de Marketing y Avisos de Productos</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Guía Completa de Marketing Digital</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Una guía estratégica para atraer clientes, estructurar tu proceso de ventas y lanzar nuevos productos de manera exitosa.
+          El marketing digital es el conjunto de estrategias que utilizan herramientas digitales para promocionar productos y servicios, permitiendo una personalización y medición sin precedentes.
         </p>
       </header>
 
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="flex items-center gap-3"><Target className="h-6 w-6"/> El Embudo de Ventas y Marketing</CardTitle>
-          <CardDescription>Desde que un cliente te descubre hasta que te compra, pasa por un viaje. Entenderlo es clave para vender más.</CardDescription>
+          <CardTitle className="flex items-center gap-3">Canales y Herramientas del Marketing Digital</CardTitle>
+          <CardDescription>Desde la optimización en buscadores hasta el poder de la inteligencia artificial, estos son los pilares de una estrategia digital exitosa.</CardDescription>
         </CardHeader>
-        <CardContent>
-             <Accordion type="single" collapsible className="w-full">
-                {salesFunnel.map((item) => (
-                     <AccordionItem value={item.stage} key={item.stage}>
-                        <AccordionTrigger>{item.stage}</AccordionTrigger>
-                        <AccordionContent>
-                           <p className="text-muted-foreground mb-4">{item.description}</p>
-                           <h4 className="font-semibold mb-2">Tácticas recomendadas:</h4>
-                           <ul className="list-disc pl-5 space-y-2 text-sm">
-                                {item.tactics.map(tactic => <li key={tactic}>{tactic}</li>)}
-                           </ul>
-                        </AccordionContent>
-                    </AccordionItem>
-                ))}
-             </Accordion>
+        <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {channels.map((channel) => (
+                <div key={channel.title} className="p-4 bg-secondary/50 rounded-lg">
+                    <channel.icon className="h-8 w-8 text-primary mb-3"/>
+                    <h4 className="font-semibold">{channel.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-1">{channel.description}</p>
+                </div>
+            ))}
         </CardContent>
       </Card>
-
-      <div className="grid lg:grid-cols-2 gap-8">
-        <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle>Canales Clave de Marketing</CardTitle>
-                <CardDescription>Dónde encontrar a tus clientes potenciales.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-                {marketingChannels.map(channel => (
-                    <div key={channel.title}>
-                        <h4 className="font-semibold">{channel.title}</h4>
-                        <p className="text-sm text-muted-foreground">{channel.description}</p>
-                    </div>
-                ))}
-            </CardContent>
-        </Card>
-        <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle>Plan de Lanzamiento de Productos</CardTitle>
-                <CardDescription>Cómo anunciar una nueva característica o producto.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                 <ol className="list-decimal list-inside space-y-4">
-                    {launchPlan.map(step => (
-                        <li key={step.stage}>
-                            <span className="font-semibold">{step.stage}:</span>
-                            <p className="text-sm text-muted-foreground pl-4">{step.description}</p>
-                        </li>
-                    ))}
-                 </ol>
-            </CardContent>
-        </Card>
-      </div>
       
        <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-            <CardTitle className="flex items-center gap-3"><Bot className="h-6 w-6"/> Marketing Potenciado por IA</CardTitle>
-            <CardDescription>Usa la Inteligencia Artificial para llevar tu marketing al siguiente nivel.</CardDescription>
+            <CardTitle>Beneficios Clave del Marketing Digital</CardTitle>
+            <CardDescription>Descubre por qué el marketing digital es indispensable para el crecimiento de tu negocio.</CardDescription>
         </CardHeader>
-        <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="p-4 bg-secondary/50 rounded-lg">
-                <Star className="h-6 w-6 text-yellow-400 mb-2"/>
-                <h4 className="font-semibold">Personalización a Escala</h4>
-                <p className="text-sm text-muted-foreground">La IA puede analizar el comportamiento del cliente para enviar correos y ofertas personalizadas, aumentando la probabilidad de conversión.</p>
-            </div>
-             <div className="p-4 bg-secondary/50 rounded-lg">
-                <BarChart className="h-6 w-6 text-blue-400 mb-2"/>
-                <h4 className="font-semibold">Análisis Predictivo</h4>
-                <p className="text-sm text-muted-foreground">Anticípate a las necesidades de tus clientes. La IA puede predecir qué clientes tienen más probabilidad de comprar o de abandonar el servicio.</p>
-            </div>
-             <div className="p-4 bg-secondary/50 rounded-lg">
-                <Newspaper className="h-6 w-6 text-green-400 mb-2"/>
-                <h4 className="font-semibold">Generación de Contenido</h4>
-                <p className="text-sm text-muted-foreground">Usa la IA para generar borradores de artículos de blog, publicaciones para redes sociales y copys para anuncios, acelerando tu producción de contenido.</p>
-            </div>
+        <CardContent className="space-y-4">
+            {benefits.map(benefit => (
+                <div key={benefit.title} className="flex items-start gap-4 p-4 bg-secondary/50 rounded-lg">
+                    <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0"/>
+                    <div>
+                        <h4 className="font-semibold">{benefit.title}</h4>
+                        <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                    </div>
+                </div>
+            ))}
         </CardContent>
-         <CardFooter>
-            <Button asChild>
+      </Card>
+
+       <Card className="bg-gradient-to-r from-primary/80 to-cyan-500/80 text-primary-foreground">
+         <CardContent className="p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+                <h2 className="text-3xl font-bold">Potencia tu Estrategia con IA</h2>
+                <p className="mt-2 opacity-80 max-w-2xl">
+                    Utiliza nuestras herramientas de inteligencia artificial para analizar el sentimiento de tus clientes, automatizar la entrada de datos y mucho más.
+                </p>
+            </div>
+             <Button size="lg" variant="secondary" className="bg-background text-foreground hover:bg-background/80 shrink-0" asChild>
                 <Link href="/soluciones-ia">
                     Explorar Soluciones de IA <ArrowRight className="ml-2"/>
                 </Link>
             </Button>
-        </CardFooter>
-      </Card>
+         </CardContent>
+       </Card>
     </div>
   );
 }
