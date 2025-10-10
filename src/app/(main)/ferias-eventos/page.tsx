@@ -1,11 +1,28 @@
 
+
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, MapPin, Globe, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, Globe, ArrowRight, Ticket, Users, Mic, Presentation, Code } from "lucide-react";
 import Image from "next/image";
+
+const featuredEvent = {
+    title: "Venezuela Startup Summit 2024",
+    date: "Por Anunciar",
+    location: "Caracas, Venezuela",
+    description: "Un día completo de conferencias abiertas al público, diseñado para más de 600 asistentes y con la participación de más de 50 speakers de primer nivel. Este espacio único reunirá a fundadores, inversionistas, líderes y visionarios venezolanos que están marcando historia a nivel global.",
+    image: "https://picsum.photos/seed/summit2024/1200/400"
+};
+
+const workshops = [
+    { title: "Bases del Emprendimiento", icon: Code },
+    { title: "Construcción y Desarrollo de Productos", icon: Presentation },
+    { title: "Financiamiento (Venture Capital)", icon: Code },
+    { title: "Habilidades de Pitch y Presentación", icon: Mic },
+];
+
 
 const feriasNacionales = [
     {
@@ -60,6 +77,50 @@ export default function FeriasEventosPage() {
                 Descubre oportunidades para expandir tu negocio en eventos nacionales e internacionales.
             </p>
         </header>
+
+        {/* Featured Event */}
+        <Card className="mb-12 bg-card/80 backdrop-blur-sm overflow-hidden">
+            <div className="relative h-64 w-full">
+                <Image src={featuredEvent.image} alt={featuredEvent.title} layout="fill" objectFit="cover" className="opacity-80"/>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"/>
+                <div className="absolute bottom-0 left-0 p-6">
+                    <h2 className="text-3xl font-bold text-white shadow-md">{featuredEvent.title}</h2>
+                    <div className="flex items-center gap-4 text-white/90 text-sm mt-2">
+                        <div className="flex items-center gap-2"><Calendar className="h-4 w-4"/> {featuredEvent.date}</div>
+                        <div className="flex items-center gap-2"><MapPin className="h-4 w-4"/> {featuredEvent.location}</div>
+                    </div>
+                </div>
+            </div>
+            <CardContent className="p-6 grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 className="font-semibold text-lg mb-2">Conferencias de Primer Nivel</h3>
+                    <p className="text-muted-foreground">{featuredEvent.description}</p>
+                    <Button className="mt-4">
+                        <Ticket className="mr-2"/>
+                        Comprar Entradas
+                    </Button>
+                </div>
+                <div className="space-y-4">
+                    <div>
+                        <h4 className="font-semibold text-lg mb-2">Workshops para Emprendedores</h4>
+                        <p className="text-sm text-muted-foreground">Talleres prácticos diseñados para equipar a los emprendedores con herramientas y conocimientos esenciales.</p>
+                        <div className="mt-4 grid grid-cols-2 gap-4">
+                            {workshops.map(w => (
+                                <div key={w.title} className="p-3 bg-secondary/50 rounded-lg flex items-center gap-2">
+                                    <w.icon className="h-5 w-5 text-primary"/>
+                                    <span className="text-xs font-medium">{w.title}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                     <div>
+                        <h4 className="font-semibold text-lg mb-2">Pitch Competition</h4>
+                        <p className="text-sm text-muted-foreground">Presentaciones de las ideas más prometedoras de las principales universidades del país, agrupadas por vertical, para demostrar la creatividad, resiliencia y visión de la nueva generación de emprendedores.</p>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+
 
          <Tabs defaultValue="nacionales">
             <TabsList className="grid w-full grid-cols-2 max-w-lg mx-auto">
