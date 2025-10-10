@@ -16,7 +16,8 @@ import {
   Users,
   FileSignature,
   BookUser,
-  Cpu
+  Cpu,
+  Ship
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -65,6 +66,7 @@ const quickAccessModules = [
   { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
   { href: "/soluciones-empresariales-ia", label: "Proyecto de Factibilidad", icon: Cpu },
+  { href: "/importaciones", label: "Proveedores", icon: Ship },
 ];
 
 export function JuridicoDashboard() {
