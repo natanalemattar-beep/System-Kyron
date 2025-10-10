@@ -128,6 +128,8 @@ const finanzasContabilidadMenuItems = [
   { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
   { href: "/clasificacion-facturacion", label: "Clasificación de Facturación", icon: Layers },
+  { href: "/certificado-ingresos", label: "Certificado de Ingresos", icon: Banknote },
+  { href: "/certificado-anteproyecto", label: "Certificado Anteproyecto", icon: FileSignature },
 ];
 
 const analisisCrecimientoMenuItems = [
