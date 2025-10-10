@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bot, CheckCircle, Shield, ArrowRight, Download, Recycle, Cpu, Briefcase, FileText, Network, DollarSign, ShieldAlert, TrendingUp, Search, User, Check, Coins } from "lucide-react";
+import { Bot, CheckCircle, Shield, ArrowRight, Download, Recycle, Cpu, Briefcase, FileText, Network, DollarSign, ShieldAlert, TrendingUp, Search, User, Check, Coins, Workflow } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 
@@ -64,13 +64,13 @@ export default function SolucionesEmpresarialesIAPage() {
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
             <Bot className="h-12 w-12" />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">Análisis de Viabilidad: Startup de Automatización Sostenible</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Análisis de Viabilidad y Procedimientos Administrativos</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
           Evaluación de un modelo de negocio que combina tecnología para el impacto ambiental con la automatización total de la gestión empresarial, creando una propuesta de valor única y sostenible.
         </p>
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg">
-                <FileText className="mr-2" />
+                <Download className="mr-2" />
                 Descargar Anteproyecto de Inversión
             </Button>
             <Button size="lg" variant="outline">
@@ -147,8 +147,8 @@ export default function SolucionesEmpresarialesIAPage() {
             {/* Producto 2: Automatización Contable */}
             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-3"><FileText className="h-6 w-6 text-blue-500"/>Producto 2: Automatización Contable</CardTitle>
-                    <CardDescription>Eficiencia y cumplimiento para la gestión empresarial.</CardDescription>
+                    <CardTitle className="flex items-center gap-3"><FileText className="h-6 w-6 text-blue-500"/>Producto 2: Software de Automatización Contable</CardTitle>
+                    <CardDescription>Eficiencia y cumplimiento para la gestión empresarial interna y para la venta a clientes.</CardDescription>
                 </CardHeader>
                  <CardContent>
                     <Accordion type="single" collapsible className="w-full">
@@ -172,6 +172,40 @@ export default function SolucionesEmpresarialesIAPage() {
                 </CardContent>
             </Card>
         </div>
+        
+         <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3"><Workflow className="h-6 w-6 text-primary"/>Procedimientos Administrativos Automatizados</CardTitle>
+                <CardDescription>El software de automatización será el sistema nervioso central de la startup, gestionando todos los procedimientos internos.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 <p className="text-muted-foreground mb-4">
+                    La empresa utilizará su propio software para demostrar su eficacia (dogfooding) y optimizar su gestión. El flujo de trabajo será el siguiente:
+                </p>
+                <ol className="relative border-l border-border ml-6 space-y-8">
+                    <li className="ml-8">
+                        <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full -left-4 ring-8 ring-background"><FileText className="h-4 w-4 text-primary"/></span>
+                        <h3 className="font-semibold">1. Venta y Facturación</h3>
+                        <p className="text-sm text-muted-foreground">Cuando se vende una papelera o una licencia de software, el sistema genera la factura automáticamente, cumpliendo con la normativa SENIAT y la envía al cliente.</p>
+                    </li>
+                    <li className="ml-8">
+                        <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full -left-4 ring-8 ring-background"><DollarSign className="h-4 w-4 text-primary"/></span>
+                        <h3 className="font-semibold">2. Cuentas por Cobrar</h3>
+                        <p className="text-sm text-muted-foreground">La IA monitorea los vencimientos, envía recordatorios de pago automáticos y alerta al equipo de cobranza sobre facturas en mora.</p>
+                    </li>
+                    <li className="ml-8">
+                        <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full -left-4 ring-8 ring-background"><Cpu className="h-4 w-4 text-primary"/></span>
+                        <h3 className="font-semibold">3. Conciliación Bancaria</h3>
+                        <p className="text-sm text-muted-foreground">El sistema se conecta con los bancos para conciliar los pagos recibidos con las facturas pendientes de forma automática, reduciendo el trabajo manual.</p>
+                    </li>
+                    <li className="ml-8">
+                        <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full -left-4 ring-8 ring-background"><ShieldCheck className="h-4 w-4 text-primary"/></span>
+                        <h3 className="font-semibold">4. Contabilidad y Cumplimiento Fiscal</h3>
+                        <p className="text-sm text-muted-foreground">Cada transacción (ingreso o gasto) genera los asientos contables correspondientes en tiempo real. Al final del mes, el sistema prepara los borradores para la declaración de IVA, ISLR y otras obligaciones fiscales.</p>
+                    </li>
+                </ol>
+            </CardContent>
+        </Card>
 
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
