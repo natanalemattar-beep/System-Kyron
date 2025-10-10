@@ -4,10 +4,11 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar, FileEdit } from "lucide-react";
+import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar, FileEdit, UserCog } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CheckCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const jurisprudencia = [
     {
@@ -79,6 +80,32 @@ const calendariosHistoricos = [
     { year: "2010", content: "Aviso Oficial mediante el cual se corrigen los errores materiales de la Providencia Administrativa N° SNAT/2010/0091\nCalendario de Sujetos Pasivos Especiales y Agentes de Retención para aquellas obligaciones que deben cumplirse para el año 2010" },
     { year: "2009", content: "Modificación del Calendario de Sujetos Pasivos Especiales y Agentes de Retención, para aquellas obligaciones que deban cumplirse a partir del mes de agosto del año 2009\nCalendario de Contribuyentes Especiales y Agentes de Retención" },
 ];
+
+const marcoLegalContaduria = {
+    titulo: "Marco Legal y Ético",
+    documentos: [
+        "Ley de Ejercicio de la Contaduría Pública y Reglamento",
+        "Código de Ética Profesional del Contador Público Venezolano",
+        "Código de Ética para regular el ejercicio profesional del Contador Público (IFAC)",
+        "Estatutos de la Federación de Colegios de Contadores Públicos de Venezuela",
+        "Estatutos del Colegio de Contadores Público del Distrito Capital",
+        "Reglamento de Protección del Ejercicio Profesional del Contador Público Colegiado",
+        "Normas que Regula El Servicio de Registro de Actuación Profesional del Contador Público Colegiado",
+        "Reglamento de la Orden del Contador Público",
+        "Reglamento de uso del Papel Único de Seguridad",
+        "Reglamento de Exoneraciones",
+    ]
+};
+
+const normasIrhm = {
+    titulo: "Normas de Interés (Histórico IRHM)",
+    documentos: [
+        "Norma IRHM Marzo 2022", "NORMA IRHM Abril 2022", "NORMA IRHM Mayo 2022",
+        "NORMA IRHM Junio 2022", "NORMA IRHM Julio 2022", "NORMA IRHM Agosto 2022",
+        "NORMA IRHM Septiembre 2022", "NORMA IRHM Octubre 2022", "NORMA IRHM Noviembre 2022",
+        "NORMA IRHM Diciembre 2022", "NORMA IRHM Enero 2023",
+    ]
+};
 
 
 export default function RecursosFiscalesPage() {
@@ -168,6 +195,47 @@ export default function RecursosFiscalesPage() {
             <p className="text-sm italic pt-2">
                 ¡Cumple con tu deber constitucional de contribuir con las cargas públicas, para que así el Gobierno Nacional pueda disponer de los recursos necesarios para propiciar el bienestar de la colectividad!
             </p>
+        </CardContent>
+      </Card>
+      
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+            <CardTitle className="flex items-center gap-3"><UserCog className="h-5 w-5" />Regulación Profesional del Contador Público</CardTitle>
+            <CardDescription>
+                Marco legal y normativo que rige el ejercicio de la contaduría pública en Venezuela.
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="marco-legal">
+                    <AccordionTrigger>{marcoLegalContaduria.titulo}</AccordionTrigger>
+                    <AccordionContent>
+                        <div className="grid gap-4 pt-4">
+                            {marcoLegalContaduria.documentos.map(doc => (
+                                <div key={doc} className="flex justify-between items-center p-3 bg-secondary/50 rounded-md">
+                                    <span className="text-sm font-medium">{doc}</span>
+                                    <Button variant="outline" size="sm"><BookOpen className="mr-2 h-4 w-4"/>Ver Documento</Button>
+                                </div>
+                            ))}
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="normas-irhm">
+                    <AccordionTrigger>{normasIrhm.titulo}</AccordionTrigger>
+                    <AccordionContent>
+                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
+                            {normasIrhm.documentos.map(doc => (
+                                <div key={doc} className="flex justify-between items-center p-3 bg-secondary/50 rounded-md">
+                                    <span className="text-sm font-medium">{doc}</span>
+                                    <Button variant="outline" size="sm" onClick={() => handleDownload(doc)}>
+                                        <FileDown className="mr-2 h-4 w-4"/>Descargar
+                                    </Button>
+                                </div>
+                            ))}
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
         </CardContent>
       </Card>
 
@@ -304,5 +372,3 @@ export default function RecursosFiscalesPage() {
     </div>
   );
 }
-
-    
