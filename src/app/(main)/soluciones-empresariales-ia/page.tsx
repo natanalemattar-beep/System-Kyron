@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bot, CheckCircle, Shield, MessageCircle, Phone, FileText, ArrowRight } from "lucide-react";
+import { Bot, CheckCircle, Shield, MessageCircle, Phone, FileText, ArrowRight, Download } from "lucide-react";
 
 const aiFeatures = [
     "Conciliación bancaria automatizada",
@@ -29,14 +29,20 @@ export default function SolucionesEmpresarialesIAPage() {
 
   return (
     <div className="p-4 md:p-8">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-            <Bot className="h-8 w-8 text-primary" />
-            Soluciones Empresariales con IA
-        </h1>
-        <p className="text-muted-foreground mt-2">
-          Integramos un sistema contable automatizado, ciberseguridad y canales de comunicación para potenciar tu negocio.
-        </p>
+      <header className="mb-8 flex flex-col md:flex-row justify-between md:items-center gap-4">
+        <div>
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                <Bot className="h-8 w-8 text-primary" />
+                Análisis de Viabilidad de Startup
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              Evaluación de un modelo de negocio basado en tecnología sostenible.
+            </p>
+        </div>
+        <Button>
+            <Download className="mr-2" />
+            Descargar Demo
+        </Button>
       </header>
 
       <div className="grid lg:grid-cols-3 gap-8">
