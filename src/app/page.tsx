@@ -202,9 +202,10 @@ function ChatDialog() {
 
 export default function LandingPage() {
     const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
-    const aboutImage = PlaceHolderImages.find((img) => img.id === "about-us-image");
+    const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
+    const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
     
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-blue-50 overflow-x-hidden">
@@ -352,14 +353,14 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="p-4 md:p-8 rounded-xl flex items-center justify-center">
-                 <Image 
-                    src="https://images.unsplash.com/photo-1526666923127-b2970f64b422?q=80&w=1920&auto=format&fit=crop"
-                    alt="Puente sobre el lago de Maracaibo"
-                    data-ai-hint="Maracaibo bridge"
+                 {satelliteImage && <Image 
+                    src={satelliteImage.imageUrl}
+                    alt={satelliteImage.description}
+                    data-ai-hint={satelliteImage.imageHint}
                     width={600}
                     height={600}
                     className="rounded-xl aspect-square object-cover shadow-2xl"
-                 />
+                 />}
             </div>
           </div>
         </section>
@@ -496,5 +497,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
