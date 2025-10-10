@@ -39,6 +39,24 @@ export default function ManualUsuarioPage() {
 
   return (
     <div className="p-4 md:p-8">
+        <style>
+            {`
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+                    #printable-manual, #printable-manual * {
+                        visibility: visible;
+                    }
+                    #printable-manual {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                    }
+                }
+            `}
+        </style>
         <header className="mb-8 flex items-center justify-between print:hidden">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
@@ -55,18 +73,18 @@ export default function ManualUsuarioPage() {
             </Button>
         </header>
 
-        <div className="space-y-8">
+        <div id="printable-manual">
             <Card className="bg-card/50 backdrop-blur-sm print:shadow-none print:border-none">
-                <CardHeader>
-                    <CardTitle>Introducción</CardTitle>
+                <CardHeader className="text-center">
+                    <CardTitle className="text-3xl">Manual de Procedimientos del Sistema</CardTitle>
                     <CardDescription>Bienvenido a System C.M.S, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <p>Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.</p>
+                    <p className="text-center">Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.</p>
                 </CardContent>
             
 
-                 <Card className="bg-card/50 backdrop-blur-sm mt-8">
+                 <Card className="bg-card/50 backdrop-blur-sm mt-8 print:shadow-none print:border">
                     <CardHeader>
                         <CardTitle>Primeros Pasos: Registro e Inicio de Sesión</CardTitle>
                     </CardHeader>
@@ -89,7 +107,7 @@ export default function ManualUsuarioPage() {
                 </Card>
 
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
-                     <Card className="bg-card/50 backdrop-blur-sm">
+                     <Card className="bg-card/50 backdrop-blur-sm print:shadow-none print:border">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><Building className="h-5 w-5" /> Módulos Clave (Persona Jurídica)</CardTitle>
                         </CardHeader>
@@ -104,7 +122,7 @@ export default function ManualUsuarioPage() {
                             </ul>
                         </CardContent>
                     </Card>
-                     <Card className="bg-card/50 backdrop-blur-sm">
+                     <Card className="bg-card/50 backdrop-blur-sm print:shadow-none print:border">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><User className="h-5 w-5" /> Módulos Clave (Persona Natural)</CardTitle>
                         </CardHeader>
@@ -120,22 +138,23 @@ export default function ManualUsuarioPage() {
                         </CardContent>
                     </Card>
                 </div>
-                 <Card className="bg-card/50 backdrop-blur-sm mt-8">
+                 <Card className="bg-card/50 backdrop-blur-sm mt-8 print:shadow-none print:border">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2"><FileText className="h-5 w-5" /> Generación de Reportes</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <ul className="space-y-3">
+                         <h4 className="font-semibold mb-2">Procedimiento:</h4>
+                        <ol className="list-decimal list-inside space-y-3 text-muted-foreground">
                             {reportFeatures.map(feature => (
-                                <li key={feature} className="flex items-start gap-3">
-                                    <ChevronsRight className="h-5 w-5 text-primary mt-1 shrink-0" />
-                                    <span>{feature}</span>
+                                <li key={feature}>
+                                    <span className="font-medium text-foreground">{feature.split(':')[0]}:</span>
+                                    {feature.split(':')[1]}
                                 </li>
                             ))}
-                        </ul>
+                        </ol>
                     </CardContent>
                 </Card>
-                 <CardFooter className="mt-8 flex justify-between items-end print:hidden">
+                 <CardFooter className="mt-8 flex justify-between items-end p-6 border-t print:pt-12">
                     <div>
                         <p className="font-semibold">System C.M.S, C.A.</p>
                         <p className="text-sm text-muted-foreground">RIF: J-12345678-9</p>
@@ -145,7 +164,7 @@ export default function ManualUsuarioPage() {
                         <p className="text-xs text-muted-foreground mt-1">Escanear para ver en línea</p>
                     </div>
                 </CardFooter>
-            </div>
+            </Card>
         </div>
     </div>
   );
