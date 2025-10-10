@@ -140,7 +140,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
-    { href: "/soluciones-empresariales-ia", label: "Soluciones Empresariales IA", icon: Bot },
+    { href: "/soluciones-empresariales-ia", label: "Proyecto de Factibilidad", icon: Bot },
     { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
     { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
     { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
@@ -179,6 +179,7 @@ const recursosHumanosGestionItems = [
     { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
     { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
+    { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
     { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
     { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
     { href: "/poderes-representacion", label: "Gestión de Empresas del Holding", icon: Building },
@@ -374,7 +375,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
   
-  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo');
+  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
