@@ -59,6 +59,99 @@ const ventajasSoftware = [
 
 export default function EstudioFactibilidadEconomicaPage() {
 
+    const handleDownloadDemo = () => {
+        const content = `
+Propuesta de Valor de la Demo - System C.M.S
+
+Este demo muestra un modelo de negocio de doble impacto que combina tecnología para la sostenibilidad con la automatización de la gestión empresarial.
+
+1. Papelera Inteligente:
+   - Clasificación de residuos con IA.
+   - Conectividad IoT para optimizar la recolección.
+   - Fomenta la economía circular.
+
+2. Software de Automatización Contable:
+   - Automatización de procesos (facturación, conciliación).
+   - Garantía de cumplimiento con normativas locales (SENIAT).
+   - Informes en tiempo real para decisiones estratégicas.
+
+La sinergia de ambos productos crea una solución robusta y única en el mercado.
+        `;
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'demo-anteproyecto.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const handleDownloadStudy = () => {
+        const fullStudyContent = `
+ESTUDIO DE FACTIBILIDAD ECONÓMICA - System C.M.S.
+
+I. DEFINICIÓN DE FACTIBILIDAD ECONÓMICA
+Un "certificado de factibilidad económica" es un documento que evalúa si un proyecto es financieramente viable.
+1. Estudio de Factibilidad Económica: Análisis financiero para determinar si un proyecto es rentable y sostenible.
+2. Certificado de Factibilidad Territorial y de Zonificación: Acredita que una actividad comercial o de servicios es factible según las normativas del municipio.
+
+II. MODELO DE NEGOCIO: DOBLE IMPACTO
+${modeloNegocio.join('\n- ')}
+
+III. PRODUCTO 1: PAPELERA INTELIGENTE
+- Aspectos Técnicos:
+  - ${aspectosTecnicosPapelera.join('\n  - ')}
+- Ventajas del Producto:
+  - ${ventajasPapelera.join('\n  - ')}
+- Desafíos a Considerar:
+  - ${desafiosPapelera.join('\n  - ')}
+- Integración con el Plan de Negocio:
+  - ${integracionPlanNegocio.join('\n  - ')}
+
+IV. PRODUCTO 2: SOFTWARE DE AUTOMATIZACIÓN CONTABLE
+- Aspectos Técnicos:
+  - ${aspectosTecnicosSoftware.join('\n  - ')}
+- Ventajas y Oportunidades:
+  - ${ventajasSoftware.join('\n  - ')}
+
+V. PROCEDIMIENTOS ADMINISTRATIVOS AUTOMATIZADOS
+1. Venta y Facturación: Generación automática de facturas cumpliendo normativa SENIAT.
+2. Cuentas por Cobrar: Monitoreo con IA, envío de recordatorios y alertas de mora.
+3. Conciliación Bancaria: Conexión con bancos para conciliación automática.
+4. Contabilidad y Cumplimiento Fiscal: Generación de asientos contables en tiempo real y borradores para declaraciones de impuestos.
+
+VI. MODELO DE RECOMPENSAS POR RECICLAJE
+El ecosistema recompensa a los usuarios por reciclar a través de una app aliada.
+Beneficios:
+- Fomenta la cultura del reciclaje.
+- Crea un ecosistema de economía circular.
+- Fortalece el impacto social.
+- Genera nuevas oportunidades de negocio.
+
+VII. ESTRUCTURA ORGANIZACIONAL Y TECNOLÓGICA
+Departamentos Clave:
+- Tecnología y Seguridad (IT)
+- Cumplimiento (Compliance)
+- Riesgo y Cobranza
+
+VIII. ESTRATEGIA DE MARKETING Y EXPANSIÓN
+- Marketing Digital, de Contenidos y Alianzas Estratégicas.
+- Expansión de productos: Contenedores para hogar, plataforma de análisis de residuos.
+
+IX. ANÁLISIS DE INVERSIÓN Y RIESGO
+Áreas de Inversión: I+D, desarrollo de software, marketing, capital de trabajo.
+Riesgos Potenciales: Competencia, adopción tecnológica, costos de producción, regulaciones.
+        `;
+
+        const blob = new Blob([fullStudyContent.trim()], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'estudio-factibilidad.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
   return (
     <div className="p-4 md:p-8">
       <header className="mb-8 text-center">
@@ -70,11 +163,11 @@ export default function EstudioFactibilidadEconomicaPage() {
           Evaluación de un modelo de negocio que combina tecnología para el impacto ambiental con la automatización total de la gestión empresarial, creando una propuesta de valor única y sostenible.
         </p>
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg">
+            <Button size="lg" onClick={handleDownloadStudy}>
                 <FileText className="mr-2" />
                 Descargar Estudio de Factibilidad
             </Button>
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="outline" onClick={handleDownloadDemo}>
                 <Download className="mr-2" />
                 Descargar Demo
             </Button>
