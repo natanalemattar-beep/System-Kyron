@@ -206,6 +206,24 @@ export default function LandingPage() {
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
+    const [isHeaderVisible, setHeaderVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    const handleScroll = () => {
+        if (window.scrollY > lastScrollY && window.scrollY > 100) {
+            setHeaderVisible(false);
+        } else {
+            setHeaderVisible(true);
+        }
+        setLastScrollY(window.scrollY);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [lastScrollY]);
     
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-background overflow-x-hidden">
@@ -213,7 +231,10 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation dark:from-blue-900" style={{ animationDuration: '20s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation dark:from-cyan-900" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
-      <header className="sticky top-0 z-50 w-full p-2">
+      <header className={cn("sticky top-0 z-50 w-full p-2 transition-transform duration-300", {
+            "translate-y-0": isHeaderVisible,
+            "-translate-y-full": !isHeaderVisible,
+      })}>
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-full shadow-lg border">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
@@ -317,7 +338,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                      {services.map((item, i) => (
-                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-background shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${'${i * 150}'}ms`}}>
+                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-background shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${i * 150}ms`}}>
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
