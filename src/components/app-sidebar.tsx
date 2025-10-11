@@ -250,14 +250,12 @@ const naturalMenuItems = {
     ]
 };
 
-const sociosNavItems = [
-    { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
-    { href: "/empresas-relacionadas", label: "Empresas Relacionadas", icon: Sitemap },
-    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
-];
-
 const sociosNavGroups = [
-    { title: "Socios y Holding", icon: Briefcase, items: sociosNavItems },
+    { title: "Socios y Holding", icon: Briefcase, items: [
+        { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
+        { href: "/empresas-relacionadas", label: "Empresas Relacionadas", icon: Sitemap },
+        { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
+    ] },
 ];
 
 
