@@ -206,78 +206,96 @@ export default function LandingPage() {
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
+    const [isHeaderVisible, setHeaderVisible] = useState(true);
+    
+    useEffect(() => {
+        let lastScrollY = window.scrollY;
+        const handleScroll = () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                setHeaderVisible(false);
+            } else {
+                setHeaderVisible(true);
+            }
+            lastScrollY = window.scrollY;
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
     
   return (
-    <div className="flex flex-col min-h-screen text-foreground bg-white dark:bg-slate-950 overflow-x-hidden">
+    <div className="flex flex-col min-h-screen text-foreground bg-background overflow-x-hidden">
       <div className="absolute inset-0 z-0 opacity-20 dark:opacity-40">
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation dark:from-blue-900" style={{ animationDuration: '20s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation dark:from-cyan-900" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
-      <header className="sticky top-4 z-50 container mx-auto">
-        <div className="bg-background/80 backdrop-blur-lg rounded-full flex h-16 items-center justify-between px-4 md:px-6 shadow-md border">
-          <Link href="/" className="flex items-center gap-3">
-            <Logo className="bg-primary text-primary-foreground" />
-            <span className="text-lg font-bold">System C.M.S</span>
-          </Link>
-          
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            {navLinks.map((link) => (
-              <SmoothScrollLink key={link.label} href={link.href} className="text-slate-600 hover:text-primary transition-colors">
-                {link.label}
-              </SmoothScrollLink>
-            ))}
-          </nav>
-          
-          <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" className="hidden md:inline-flex">
-              <Link href="/register">Registrarse</Link>
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                  <Button>
-                      <User className="mr-2 h-4 w-4"/>
-                      Acceder
-                  </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Admin y Finanzas</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link href="/login-ventas"><ShoppingCart className="mr-2"/>Ventas y Facturación</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Abrir menú</span>
+      <header className={cn("sticky top-0 z-50 transition-transform duration-300", isHeaderVisible ? 'translate-y-0' : '-translate-y-full')}>
+        <div className="container mx-auto p-2">
+            <div className="bg-background/80 backdrop-blur-lg rounded-full flex h-16 items-center justify-between px-4 md:px-6 shadow-md border">
+              <Link href="/" className="flex items-center gap-3">
+                <Logo className="bg-primary text-primary-foreground" />
+                <span className="text-lg font-bold">System C.M.S</span>
+              </Link>
+              
+              <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+                {navLinks.map((link) => (
+                  <SmoothScrollLink key={link.label} href={link.href} className="text-muted-foreground hover:text-primary transition-colors">
+                    {link.label}
+                  </SmoothScrollLink>
+                ))}
+              </nav>
+              
+              <div className="flex items-center gap-2">
+                <Button asChild variant="ghost" className="hidden md:inline-flex">
+                  <Link href="/register">Registrarse</Link>
                 </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-background">
-                <SheetHeader>
-                  <SheetTitle className="sr-only">Menú</SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col h-full">
-                    <nav className="flex flex-col gap-4 text-lg font-medium mt-8">
-                        {navLinks.map((link) => (
-                        <SheetClose asChild key={link.label}>
-                            <SmoothScrollLink href={link.href} className="text-foreground hover:text-primary">
-                            {link.label}
-                            </SmoothScrollLink>
-                        </SheetClose>
-                        ))}
-                    </nav>
-                    <div className="mt-auto flex w-full gap-2">
-                       <Button asChild className="w-full">
-                         <Link href="/register">Registrarse</Link>
-                       </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                      <Button>
+                          <User className="mr-2 h-4 w-4"/>
+                          Acceder
+                      </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                      <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
+                      <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Admin y Finanzas</Link></DropdownMenuItem>
+                      <DropdownMenuItem asChild><Link href="/login-ventas"><ShoppingCart className="mr-2"/>Ventas y Facturación</Link></DropdownMenuItem>
+                      <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
+                      <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon" className="md:hidden">
+                      <Menu className="h-6 w-6" />
+                      <span className="sr-only">Abrir menú</span>
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="bg-background">
+                    <SheetHeader>
+                      <SheetTitle className="sr-only">Menú</SheetTitle>
+                    </SheetHeader>
+                    <div className="flex flex-col h-full">
+                        <nav className="flex flex-col gap-4 text-lg font-medium mt-8">
+                            {navLinks.map((link) => (
+                            <SheetClose asChild key={link.label}>
+                                <SmoothScrollLink href={link.href} className="text-foreground hover:text-primary">
+                                {link.label}
+                                </SmoothScrollLink>
+                            </SheetClose>
+                            ))}
+                        </nav>
+                        <div className="mt-auto flex w-full gap-2">
+                           <Button asChild className="w-full">
+                             <Link href="/register">Registrarse</Link>
+                           </Button>
+                        </div>
                     </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+            </div>
         </div>
       </header>
 
@@ -286,10 +304,10 @@ export default function LandingPage() {
         <section className="relative pt-40 pb-24 md:pt-52 md:pb-40 flex items-center text-center">
             <div className="container mx-auto px-4 md:px-6 z-10">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-slate-900 to-blue-600 bg-clip-text text-transparent animate-in fade-in duration-1000">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-slate-900 to-blue-600 bg-clip-text text-transparent dark:from-white dark:to-blue-400 animate-in fade-in duration-1000">
                         La Gestión Empresarial, Reinventada
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-balance text-slate-600 max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000 delay-200">
+                    <p className="mt-6 text-lg md:text-xl text-balance text-muted-foreground max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000 delay-200">
                        Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in-20 slide-in-from-bottom-6 duration-1000 delay-400">
@@ -317,7 +335,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                      {services.map((item, i) => (
-                        <Card key={item.title} className="text-center flex flex-col items-center p-8 shadow-lg hover:shadow-cyan-500/10 dark:hover:shadow-cyan-400/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${i * 150}ms`}}>
+                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-background shadow-lg hover:shadow-cyan-500/10 dark:hover:shadow-cyan-400/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${i * 150}ms`}}>
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
@@ -330,7 +348,7 @@ export default function LandingPage() {
         </section>
         
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-slate-50 dark:bg-black border-y">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/50 border-y">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="space-y-8">
               <div className="text-center lg:text-left">
@@ -389,7 +407,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="py-20 md:py-28 bg-slate-50 dark:bg-black border-y">
+        <section id="testimonials" className="py-20 md:py-28 bg-secondary/50 border-y">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
@@ -445,7 +463,7 @@ export default function LandingPage() {
         </section>
 
          {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-cyan-500/80 text-primary-foreground">
+        <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-blue-500/80 text-primary-foreground">
             <div className="container mx-auto px-4 md:px-6 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-balance" style={{textShadow: '0 1px 4px rgba(0,0,0,0.2)'}}>Únete a cientos de empresas que ya están optimizando sus procesos.</h2>
                 <Button size="lg" variant="secondary" asChild className="mt-8 bg-white text-primary hover:bg-slate-200 shadow-lg">
@@ -489,7 +507,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t bg-slate-100 dark:bg-black">
+      <footer className="py-8 border-t bg-secondary/50">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>
@@ -498,5 +516,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
