@@ -206,20 +206,6 @@ export default function LandingPage() {
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
-    const [isHeaderSticky, setIsHeaderSticky] = useState(false);
-    
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 10) {
-                setIsHeaderSticky(true);
-            } else {
-                setIsHeaderSticky(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
     
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-background overflow-x-hidden">
@@ -227,15 +213,9 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation dark:from-blue-900" style={{ animationDuration: '20s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation dark:from-cyan-900" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
-      <header className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
-        isHeaderSticky ? "py-2" : "py-4"
-      )}>
+      <header className="sticky top-0 z-50 w-full transition-all duration-300 py-2">
         <div className="container mx-auto">
-            <div className={cn(
-                "flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
-                isHeaderSticky ? "bg-background/80 backdrop-blur-lg rounded-full shadow-md border" : ""
-            )}>
+            <div className="flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300 bg-background/80 backdrop-blur-lg rounded-full shadow-md border">
               <Link href="/" className="flex items-center gap-3">
                 <Logo className="bg-primary text-primary-foreground" />
                 <span className="text-lg font-bold">System C.M.S</span>
@@ -339,7 +319,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                      {services.map((item, i) => (
-                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-background shadow-lg hover:shadow-cyan-500/10 dark:hover:shadow-cyan-400/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${i * 150}ms`}}>
+                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-background shadow-lg hover:shadow-cyan-500/10 dark:hover:shadow-cyan-400/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${'${i * 150}'}ms`}}>
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
