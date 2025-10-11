@@ -130,12 +130,12 @@ const finanzasContabilidadMenuItems = [
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
   { href: "/clasificacion-facturacion", label: "Clasificación de Facturación", icon: Layers },
   { href: "/certificado-ingresos", label: "Certificado de Ingresos", icon: Banknote },
-  { href: "/certificado-anteproyecto", label: "Certificado Anteproyecto", icon: FileSignature },
 ];
 
 const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+    { href: "/empresas-con-mismos-productos", label: "Análisis de Competencia", icon: Users },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
     { href: "/marketing-ventas", label: "Marketing y Ventas", icon: Megaphone },
     { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: Briefcase },
@@ -250,10 +250,14 @@ const naturalMenuItems = {
     ]
 };
 
-const sociosNavGroups = [
+const sociosNavItems = [
     { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
+    { href: "/empresas-relacionadas", label: "Empresas Relacionadas", icon: Sitemap },
     { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
-    { href: "/tramites-corporativos", label: "Estructura del Holding", icon: Sitemap },
+];
+
+const sociosNavGroups = [
+    { title: "Socios y Holding", icon: Briefcase, items: sociosNavItems },
 ];
 
 
@@ -387,7 +391,7 @@ export function AppSidebar() {
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.some(item => path.startsWith(item.href));
+  const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
   
   if (isHrPath(pathname)) {
@@ -738,23 +742,37 @@ function AppSidebarSocios() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-        <SidebarMenu>
-          {sociosNavGroups.map((item) => (
-            <SidebarMenuItem key={item.href}>
-              <SidebarMenuButton
-                asChild
-                isActive={pathname.startsWith(item.href)}
-                tooltip={item.label}
-                className="justify-start h-10 text-base"
-              >
-                <Link href={item.href}>
-                  <item.icon className="h-5 w-5" />
-                  <span>{item.label}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
+        <Accordion type="multiple" className="w-full" defaultValue={['Socios y Holding']}>
+            {sociosNavGroups.map((group) => (
+              <AccordionItem value={group.title} key={group.title} className="border-none">
+                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
+                   <div className="flex items-center gap-2">
+                      <group.icon className="h-4 w-4" />
+                      {state === 'expanded' && <span>{group.title}</span>}
+                    </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                    {group.items.map((item) => (
+                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(item.href)}
+                          tooltip={item.label}
+                          className="justify-start h-8"
+                        >
+                          <Link href={item.href}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+        </Accordion>
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
