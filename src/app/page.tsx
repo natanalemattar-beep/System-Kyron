@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -209,7 +208,7 @@ export default function LandingPage() {
     const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
     
   return (
-    <div className="flex flex-col min-h-screen text-foreground bg-blue-50 overflow-x-hidden">
+    <div className="flex flex-col min-h-screen text-foreground bg-white overflow-x-hidden">
       <div className="absolute inset-0 z-0 opacity-20">
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
