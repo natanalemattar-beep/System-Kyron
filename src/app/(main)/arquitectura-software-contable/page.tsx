@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Cpu, Server, Shield, BrainCircuit, Link as LinkIcon, Bot, ArrowRight, Table as TableIcon, FileText, Code, VenetianMask, FlaskConical, Trophy, Repeat, BookOpen, HeartHandshake, Eye, Share2, Database, HelpCircle, BarChart, CheckCircle, Globe, Users, Scale, Ship, Briefcase, Network, DollarSign, ShieldAlert, TrendingUp, Search, User, Check, Coins, Workflow, ShieldCheck } from "lucide-react";
+import { Cpu, Server, Shield, BrainCircuit, Link as LinkIcon, Bot, ArrowRight, Table as TableIcon, FileText, Code, VenetianMask, FlaskConical, Trophy, Repeat, BookOpen, HeartHandshake, Eye, Share2, Database, HelpCircle, BarChart, CheckCircle, Globe, Users, Scale, Ship, Briefcase, Network, DollarSign, ShieldAlert, TrendingUp, Search, User, Check, Coins, Workflow, ShieldCheck, Heart, GitBranch, Terminal, Layers3, Telescope, Microscope, Lightbulb, Zap, Rocket, Atom, Palmtree, Brain } from "lucide-react";
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -26,6 +26,19 @@ const iaFeatures = [
         description: "Un modelo de lenguaje grande (LLM) ajustado a los datos de la empresa que permite a los usuarios preguntar en lenguaje natural sobre el estado financiero ('¿Cuál fue nuestro margen de beneficio el último trimestre?') y recibir resúmenes e informes instantáneos.",
     }
 ];
+
+const advancedInnovations = {
+    "Contabilidad Cognitiva y Autónoma": { icon: Brain, description: "IA que comprende el significado empresarial de cada transacción, identifica patrones y adapta principios contables a cada contexto." },
+    "Realidad Extendida en Contabilidad": { icon: Eye, description: "Visualización inmersiva de datos con Realidad Virtual para auditorías, Realidad Aumentada para análisis y hologramas interactivos." },
+    "Contabilidad Cuántica y Computación Avanzada": { icon: Atom, description: "Uso de algoritmos cuánticos para optimización de portafolios y simulación de mercados, y computación neuromórfica para reconocimiento de patrones complejos." },
+    "Ecosistema de Datos Financieros Interconectados": { icon: GitBranch, description: "Bases de datos de grafos para entender relaciones financieras y una API Economy para la interconexión automática entre sistemas (Open Banking 2.0)." },
+    "Inteligencia Artificial Generativa en Contabilidad": { icon: Zap, description: "Generación automática de reportes narrativos y escenarios 'what-if', además de la creación de patrones de fraude para entrenar sistemas de defensa." },
+    "Internet de las Cosas (IoT) Contable": { icon: Ship, description: "Sensores para el conteo automático de inventario, registro de gastos de dispositivos conectados y contratos inteligentes activados por eventos del mundo real." },
+    "Neurotecnología en Interfaces Contables": { icon: BrainCircuit, description: "Control del sistema mediante pensamiento (BCI), detección de estados mentales como el estrés o la fatiga para optimizar la toma de decisiones." },
+    "Sustentabilidad y Contabilidad Regenerativa": { icon: Palmtree, description: "Blockchain para la trazabilidad del impacto ESG, registro de huella de carbono y gestión de una economía circular." },
+    "Arquitecturas Futuras de Plataforma": { icon: Rocket, description: "Plataformas que actúan como ecosistemas vivientes, con capacidades de auto-reparación y evolución automática." },
+    "Ética y Transparencia Automatizada": { icon: ShieldCheck, description: "IA con algoritmos auditables, detección automática de sesgos y gobernanza algorítmica para asegurar decisiones éticas." },
+};
 
 export default function ArquitecturaSoftwarePage() {
   return (
@@ -121,6 +134,72 @@ export default function ArquitecturaSoftwarePage() {
         </CardContent>
       </Card>
       
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Innovaciones Avanzadas para Revolucionar la Contabilidad</CardTitle>
+                <CardDescription>Explora los conceptos de vanguardia que definirán el futuro de la gestión financiera.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 <Accordion type="single" collapsible className="w-full">
+                    {Object.entries(advancedInnovations).map(([title, { icon: Icon, description }]) => (
+                        <AccordionItem value={title} key={title}>
+                            <AccordionTrigger>
+                                <div className="flex items-center gap-3 font-semibold">
+                                    <Icon className="h-5 w-5 text-primary"/>
+                                    <span>{title}</span>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent>
+                               <p className="pl-8 text-muted-foreground">{description}</p>
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                </Accordion>
+            </CardContent>
+        </Card>
+
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Hoja de Ruta Detallada de Implementación</CardTitle>
+                <CardDescription>Un plan por fases para materializar la visión de una contabilidad inteligente y autónoma.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="fase1">
+                        <AccordionTrigger className="text-xl font-bold">🎯 Fase 1: Fundación Inteligente (Meses 0-12)</AccordionTrigger>
+                        <AccordionContent className="space-y-4 pt-4">
+                            <h4 className="font-semibold text-base">Trimestre 1-2: Plataforma Core con IA Básica</h4>
+                            <p><strong>Arquitectura Técnica:</strong> Implementar microservicios serverless (AWS/Azure), GraphQL API y blockchain privado (Hyperledger Fabric).</p>
+                             <p><strong>Componentes Clave:</strong> IA para procesamiento documental (OCR+ML), conciliación automática, dashboard de BI y módulo de compliance.</p>
+                            <h4 className="font-semibold text-base">Trimestre 3-4: Inteligencia Operacional</h4>
+                             <p><strong>Smart Contracts:</strong> Automatización de impuestos, nóminas y pagos recurrentes con alertas de cumplimiento.</p>
+                             <p><strong>Características Principales:</strong> Asistente de IA conversacional, predictor de cash flow y sistema de detección de anomalías.</p>
+                        </AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="fase2">
+                        <AccordionTrigger className="text-xl font-bold">🚀 Fase 2: Plataforma Cognitiva (Meses 13-24)</AccordionTrigger>
+                        <AccordionContent className="space-y-4 pt-4">
+                            <h4 className="font-semibold text-base">Trimestre 5-6: Contabilidad Contextual</h4>
+                            <p><strong>IA Semántica:</strong> Implementación de un motor de conocimiento (Knowledge Graph) con Neo4j para entender el "porqué" de las transacciones.</p>
+                             <p><strong>Visualización:</strong> Desarrollo de una app de Realidad Aumentada para visualizar KPIs sobre documentos físicos.</p>
+                            <h4 className="font-semibold text-base">Trimestre 7-8: IoT y Automatización Avanzada</h4>
+                             <p><strong>IoT Contable:</strong> Integración de sensores para inventario, Edge Computing para procesamiento local y Smart Contracts activados por eventos del mundo real.</p>
+                        </AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="fase3">
+                        <AccordionTrigger className="text-xl font-bold">🔮 Fase 3: Transformación Radical (Meses 25-36)</AccordionTrigger>
+                        <AccordionContent className="space-y-4 pt-4">
+                            <h4 className="font-semibold text-base">Trimestre 9-10: Neuro-Interfaces y Computación Cuántica</h4>
+                            <p><strong>Investigación y Prototipado:</strong> Desarrollo de interfaces cerebro-computadora (BCI) para control por ondas cerebrales y aplicación de algoritmos cuánticos para optimización de portafolios.</p>
+                             <h4 className="font-semibold text-base">Trimestre 11-12: Plataforma Autónoma y Evolutiva</h4>
+                             <p><strong>Sistema Autónomo Final:</strong> Implementación de un motor de auto-aprendizaje, algoritmos evolutivos y una gobernanza ética de IA para una operación totalmente autónoma.</p>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            </CardContent>
+        </Card>
+
+
        <Card className="bg-gradient-to-r from-primary/80 to-cyan-500/80 text-primary-foreground">
          <CardContent className="p-10 flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
@@ -140,4 +219,6 @@ export default function ArquitecturaSoftwarePage() {
     </div>
   );
 }
+    
+
     
