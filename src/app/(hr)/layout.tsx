@@ -15,8 +15,6 @@ import { cn } from "@/lib/utils";
 
 
 export default function HrLayout({ children }: { children: ReactNode }) {
-  const [isHeaderVisible, setHeaderVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,36 +25,12 @@ export default function HrLayout({ children }: { children: ReactNode }) {
     return () => clearTimeout(timer);
   }, []);
 
-
-  useEffect(() => {
-    const mainContentContainer = document.getElementById('hr-main-content-container');
-    if (!mainContentContainer) return;
-    
-    const handleScroll = () => {
-        const currentScrollY = mainContentContainer.scrollTop;
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            setHeaderVisible(false);
-        } else {
-            setHeaderVisible(true);
-        }
-        setLastScrollY(currentScrollY);
-    };
-
-    mainContentContainer.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-        mainContentContainer.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
-
   return (
     <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <div id="hr-main-content-container" className="w-full overflow-y-auto">
         <SidebarInset>
-           <header className={cn("p-4 flex justify-between items-center border-b bg-background/50 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8 transition-transform duration-300", {
-             "-translate-y-full": !isHeaderVisible
-           })}>
+           <header className="p-4 flex justify-between items-center border-b bg-background/50 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8">
              <div className="flex items-center gap-4">
               <SidebarTrigger />
              </div>
@@ -108,3 +82,4 @@ export default function HrLayout({ children }: { children: ReactNode }) {
     </SidebarProvider>
   );
 }
+
