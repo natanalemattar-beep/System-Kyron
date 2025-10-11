@@ -208,10 +208,10 @@ export default function LandingPage() {
     const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
     
   return (
-    <div className="flex flex-col min-h-screen text-foreground bg-white overflow-x-hidden">
-      <div className="absolute inset-0 z-0 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+    <div className="flex flex-col min-h-screen text-foreground bg-white dark:bg-slate-950 overflow-x-hidden">
+      <div className="absolute inset-0 z-0 opacity-20 dark:opacity-40">
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation dark:from-blue-900" style={{ animationDuration: '20s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation dark:from-cyan-900" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
       <header className="sticky top-4 z-50 container mx-auto">
         <div className="bg-background/80 backdrop-blur-lg rounded-full flex h-16 items-center justify-between px-4 md:px-6 shadow-md border">
@@ -289,10 +289,10 @@ export default function LandingPage() {
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-slate-900 to-blue-600 bg-clip-text text-transparent animate-in fade-in duration-1000">
                         La Gestión Empresarial, Reinventada
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-balance text-slate-600 max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000">
+                    <p className="mt-6 text-lg md:text-xl text-balance text-slate-600 max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000 delay-200">
                        Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.
                     </p>
-                    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in-20 slide-in-from-bottom-6 duration-1000">
+                    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in-20 slide-in-from-bottom-6 duration-1000 delay-400">
                         <Button size="lg" asChild>
                             <Link href="/register">
                             Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
@@ -309,7 +309,7 @@ export default function LandingPage() {
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-white">
+        <section id="servicios" className="py-20 md:py-28 bg-white dark:bg-slate-900">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -317,7 +317,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                      {services.map((item, i) => (
-                        <Card key={item.title} className="text-center flex flex-col items-center p-8 shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 border">
+                        <Card key={item.title} className="text-center flex flex-col items-center p-8 shadow-lg hover:shadow-cyan-500/10 dark:hover:shadow-cyan-400/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${i * 150}ms`}}>
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
@@ -330,7 +330,7 @@ export default function LandingPage() {
         </section>
         
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-slate-50 border-y">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-slate-50 dark:bg-black border-y">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="space-y-8">
               <div className="text-center lg:text-left">
@@ -367,7 +367,7 @@ export default function LandingPage() {
         </section>
 
         {/* How it Works Section */}
-        <section id="how-it-works" className="py-20 md:py-28 bg-white">
+        <section id="how-it-works" className="py-20 md:py-28 bg-white dark:bg-slate-900">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Empezar es muy Sencillo</h2>
@@ -389,7 +389,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="py-20 md:py-28 bg-slate-50 border-y">
+        <section id="testimonials" className="py-20 md:py-28 bg-slate-50 dark:bg-black border-y">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
@@ -423,7 +423,7 @@ export default function LandingPage() {
         </section>
 
         {/* About Us Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-white">
+        <section id="nosotros" className="py-20 md:py-28 bg-white dark:bg-slate-900">
             <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                  <div className="text-center lg:text-left">
                     <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
@@ -455,7 +455,7 @@ export default function LandingPage() {
         </section>
         
         {/* Contact Section */}
-        <section id="contacto" className="py-20 md:py-28 bg-white">
+        <section id="contacto" className="py-20 md:py-28 bg-white dark:bg-slate-900">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Ponte en Contacto</h2>
@@ -489,7 +489,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="py-8 border-t bg-slate-100">
+      <footer className="py-8 border-t bg-slate-100 dark:bg-black">
         <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>
@@ -498,3 +498,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
