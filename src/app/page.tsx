@@ -227,15 +227,15 @@ export default function LandingPage() {
     
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-background overflow-x-hidden">
-      <div className="absolute inset-0 z-0 opacity-40">
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation dark:from-blue-900" style={{ animationDuration: '20s' }}></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation dark:from-cyan-900" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
-      </div>
+        <div className="absolute inset-0 z-0 opacity-20 dark:opacity-40">
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-300 via-transparent to-transparent animate-gradient-animation dark:from-blue-900" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute inset-0 bg-gradient-to-bl from-cyan-300 via-transparent to-transparent animate-gradient-animation dark:from-cyan-900" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+        </div>
       <header className={cn("sticky top-0 z-50 w-full p-2 transition-transform duration-300", {
             "translate-y-0": isHeaderVisible,
             "-translate-y-full": !isHeaderVisible,
       })}>
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-full shadow-lg border">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-lg shadow-lg border">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
@@ -307,7 +307,7 @@ export default function LandingPage() {
         <section className="relative pt-40 pb-24 md:pt-52 md:pb-40 flex items-center text-center">
             <div className="container mx-auto px-4 md:px-6 z-10">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-slate-900 to-blue-600 bg-clip-text text-transparent dark:from-white dark:to-blue-400 animate-in fade-in duration-1000">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-slate-900 to-primary bg-clip-text text-transparent dark:from-white dark:to-blue-400 animate-in fade-in duration-1000">
                         La Gestión Empresarial, Reinventada
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-balance text-muted-foreground max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000 delay-200">
@@ -330,7 +330,7 @@ export default function LandingPage() {
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-blue-50 dark:bg-blue-900/10">
+        <section id="servicios" className="py-20 md:py-28 bg-primary/5 dark:bg-primary/10">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -338,7 +338,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                      {services.map((item, i) => (
-                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-background shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${i * 150}ms`}}>
+                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-card shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${i * 150}ms`}}>
                             <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
@@ -388,7 +388,7 @@ export default function LandingPage() {
         </section>
 
         {/* How it Works Section */}
-        <section id="how-it-works" className="py-20 md:py-28 bg-background">
+        <section id="how-it-works" className="py-20 md:py-28 bg-card/20">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Empezar es muy Sencillo</h2>
@@ -511,8 +511,18 @@ export default function LandingPage() {
       </main>
 
       <footer className="py-8 border-t bg-secondary/20">
-        <div className="container mx-auto px-4 md:px-6 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
+        <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
+          <p className="text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
+          </p>
+          <div className="flex gap-4">
+            <Link href="/terms" className="text-sm text-muted-foreground hover:text-primary">
+              Términos de Servicio
+            </Link>
+            <Link href="/politica-privacidad" className="text-sm text-muted-foreground hover:text-primary">
+              Política de Privacidad
+            </Link>
+          </div>
         </div>
       </footer>
       <ChatDialog />

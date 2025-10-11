@@ -198,10 +198,14 @@ export default function RegisterPage() {
                     <div className="flex items-center space-x-2 pt-4">
                         <Checkbox id="terms-juridica" />
                         <Label htmlFor="terms-juridica" className="text-sm text-muted-foreground">
-                        Acepto los{" "}
-                        <Link href="#" className="underline text-primary hover:text-primary/80">
-                            Términos de Servicio
-                        </Link>
+                            Acepto los{" "}
+                            <Link href="/terms" className="underline text-primary hover:text-primary/80">
+                                Términos de Servicio
+                            </Link>
+                            {" y la "}
+                            <Link href="/politica-privacidad" className="underline text-primary hover:text-primary/80">
+                                Política de Privacidad
+                            </Link>.
                         </Label>
                     </div>
 
@@ -266,10 +270,14 @@ export default function RegisterPage() {
                     <div className="flex items-center space-x-2 pt-4">
                         <Checkbox id="terms-natural" />
                         <Label htmlFor="terms-natural" className="text-sm text-muted-foreground">
-                        Acepto los{" "}
-                        <Link href="#" className="underline text-primary hover:text-primary/80">
-                            Términos de Servicio
-                        </Link>
+                             Acepto los{" "}
+                            <Link href="/terms" className="underline text-primary hover:text-primary/80">
+                                Términos de Servicio
+                            </Link>
+                            {" y la "}
+                            <Link href="/politica-privacidad" className="underline text-primary hover:text-primary/80">
+                                Política de Privacidad
+                            </Link>.
                         </Label>
                     </div>
 
