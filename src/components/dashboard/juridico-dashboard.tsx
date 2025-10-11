@@ -135,7 +135,7 @@ export function JuridicoDashboard() {
          <div className="space-y-2">
             <h2 className="text-2xl font-semibold tracking-tight">Flujos de Trabajo</h2>
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                 <Card className="bg-card/80 backdrop-blur-sm">
+                 <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Aspectos Clave del Anteproyecto de Inversión</CardTitle>
                     </CardHeader>
@@ -161,36 +161,26 @@ export function JuridicoDashboard() {
                                 <Link href="/estudio-factibilidad-economica">Ver estructura organizacional <ArrowRight className="h-4 w-4 ml-1"/></Link>
                             </Button>
                         </div>
-                        <div className="p-4 rounded-lg bg-secondary">
-                            <h4 className="font-semibold text-primary mb-2">Análisis de Mercado</h4>
-                             <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                                <li>Marketing Digital (SEO, Contenidos, Alianzas).</li>
-                                <li>Expansión de Productos (Contenedores para hogar, Plataforma de análisis).</li>
+                    </CardContent>
+                </Card>
+                <div className="space-y-8">
+                     <Card className="bg-card/80 backdrop-blur-sm">
+                        <CardHeader><CardTitle>Vencimientos Próximos</CardTitle></CardHeader>
+                        <CardContent>
+                            <ul className="space-y-4">
+                                {upcomingDeadlines.map((deadline, index) => (
+                                    <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
+                                        <CalendarClock className="h-6 w-6 text-orange-400 shrink-0" />
+                                        <div className="flex-1">
+                                            <p className="text-sm font-semibold truncate">{deadline.description}</p>
+                                            <p className="text-xs">Vence en {deadline.days} días</p>
+                                        </div>
+                                        <Button size="sm" variant="ghost"><ArrowRight className="h-4 w-4"/></Button>
+                                    </li>
+                                ))}
                             </ul>
-                             <Button asChild variant="link" size="sm" className="p-0 h-auto mt-2">
-                                <Link href="/estudio-factibilidad-economica">Ver análisis de mercado <ArrowRight className="h-4 w-4 ml-1"/></Link>
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card className="bg-card/80 backdrop-blur-sm">
-                    <CardHeader><CardTitle>Vencimientos Próximos</CardTitle></CardHeader>
-                    <CardContent>
-                        <ul className="space-y-4">
-                            {upcomingDeadlines.map((deadline, index) => (
-                                <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
-                                    <CalendarClock className="h-6 w-6 text-orange-400 shrink-0" />
-                                    <div className="flex-1">
-                                        <p className="text-sm font-semibold truncate">{deadline.description}</p>
-                                        <p className="text-xs">Vence en {deadline.days} días</p>
-                                    </div>
-                                    <Button size="sm" variant="ghost"><ArrowRight className="h-4 w-4"/></Button>
-                                </li>
-                            ))}
-                        </ul>
-                    </CardContent>
-                </Card>
-                 <div className="space-y-8">
+                        </CardContent>
+                    </Card>
                     <Card className="bg-card/80 backdrop-blur-sm">
                         <CardHeader><CardTitle>Acciones Rápidas</CardTitle></CardHeader>
                         <CardContent className="grid grid-cols-3 gap-4">
@@ -208,23 +198,9 @@ export function JuridicoDashboard() {
                             </Button>
                         </CardContent>
                     </Card>
-                     <Card className="bg-card/80 backdrop-blur-sm">
-                        <CardHeader><CardTitle>Acceso Rápido a Módulos</CardTitle></CardHeader>
-                        <CardContent className="space-y-4">
-                            {quickAccessModules.map((mod, index) => (
-                                <Button key={index} asChild variant="outline" className="w-full justify-start h-14 text-base">
-                                    <Link href={mod.href}>
-                                        <mod.icon className="mr-3 h-5 w-5"/>
-                                        {mod.label}
-                                    </Link>
-                                </Button>
-                            ))}
-                        </CardContent>
-                    </Card>
                 </div>
              </div>
         </div>
-
       </div>
     </div>
   );

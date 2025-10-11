@@ -206,17 +206,15 @@ export default function LandingPage() {
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
-    const [isHeaderVisible, setHeaderVisible] = useState(true);
+    const [isHeaderSticky, setIsHeaderSticky] = useState(false);
     
     useEffect(() => {
-        let lastScrollY = window.scrollY;
         const handleScroll = () => {
-            if (window.scrollY > lastScrollY && window.scrollY > 100) {
-                setHeaderVisible(false);
+            if (window.scrollY > 10) {
+                setIsHeaderSticky(true);
             } else {
-                setHeaderVisible(true);
+                setIsHeaderSticky(false);
             }
-            lastScrollY = window.scrollY;
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -229,9 +227,15 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation dark:from-blue-900" style={{ animationDuration: '20s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation dark:from-cyan-900" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
-      <header className={cn("sticky top-0 z-50 transition-transform duration-300", isHeaderVisible ? 'translate-y-0' : '-translate-y-full')}>
-        <div className="container mx-auto p-2">
-            <div className="bg-background/80 backdrop-blur-lg rounded-full flex h-16 items-center justify-between px-4 md:px-6 shadow-md border">
+      <header className={cn(
+        "sticky top-0 z-50 w-full transition-all duration-300",
+        isHeaderSticky ? "py-2" : "py-4"
+      )}>
+        <div className="container mx-auto">
+            <div className={cn(
+                "flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
+                isHeaderSticky ? "bg-background/80 backdrop-blur-lg rounded-full shadow-md border" : ""
+            )}>
               <Link href="/" className="flex items-center gap-3">
                 <Logo className="bg-primary text-primary-foreground" />
                 <span className="text-lg font-bold">System C.M.S</span>
