@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, CheckCircle, HelpCircle, Puzzle, ThumbsUp, ShieldCheck, ArrowRight, FileWarning } from "lucide-react";
+import { Check, CheckCircle, HelpCircle, Puzzle, ThumbsUp, ShieldCheck, ArrowRight, FileWarning, X } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -34,11 +34,11 @@ const faqItems = [
 ];
 
 const softwareComparison = [
-  { name: "Saint (versión clásica)", homologated: "Parcial", focus: "Contabilidad y facturación básica", idealFor: "Comercios que ya lo manejan y no quieren cambiar aún" },
-  { name: "Galac Administrativo", homologated: "Sí", focus: "Gestión integral administrativa y contable", idealFor: "Empresas medianas y grandes que buscan un ecosistema completo" },
-  { name: "Profit Plus", homologated: "Sí", focus: "Administración + contabilidad", idealFor: "Negocios en crecimiento que necesitan escalabilidad" },
-  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", focus: "Gestión administrativa práctica y flexible", idealFor: "Pymes y comerciantes que buscan simplicidad + confianza" },
-  { name: "SAP Business One", homologated: "Sí (versión adaptada a Venezuela)", focus: "ERP corporativo", idealFor: "Grandes corporaciones con alto presupuesto" },
+  { name: "Saint (versiones clásicas)", homologated: "No", advantages: "Muy conocido en el mercado; gran cantidad de contadores lo dominan.", disadvantages: "Sus versiones más populares no están homologadas. Interfaz considerada anticuada. Rígido para adaptarse a nuevas normativas.", idealFor: "Comercios que ya lo manejan y no quieren cambiar aún" },
+  { name: "Galac Administrativo", homologated: "Sí", advantages: "Solución robusta y completa. Ecosistema integrado. Homologado.", disadvantages: "Puede ser complejo para pymes. Costo de implementación más elevado.", idealFor: "Empresas medianas y grandes que buscan un ecosistema completo" },
+  { name: "Profit Plus", homologated: "Sí", advantages: "Muy escalable y adaptable. Fuerte presencia en el país. Homologado.", disadvantages: "Curva de aprendizaje pronunciada. Requiere personalización para sacarle provecho.", idealFor: "Negocios en crecimiento que necesitan escalabilidad" },
+  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", advantages: "Diseño moderno e intuitivo. Enfocado en la facilidad de uso para pymes. Cumplimiento garantizado.", disadvantages: "Más nuevo en el mercado en comparación con los sistemas tradicionales.", idealFor: "Pymes y comerciantes que buscan simplicidad + confianza" },
+  { name: "SAP Business One", homologated: "Sí (versión adaptada)", advantages: "ERP de clase mundial, extremadamente potente y personalizable.", disadvantages: "Costo muy elevado, tanto en licencias como en implementación. Excesivo para la mayoría de las pymes.", idealFor: "Grandes corporaciones con alto presupuesto" },
 ];
 
 
@@ -130,7 +130,7 @@ export default function SoftwareContablePage() {
         <CardHeader>
             <CardTitle>Comparativa de Sistemas Administrativos en Venezuela</CardTitle>
             <CardDescription>
-                Según la Providencia Administrativa N° SNAT/2024/000121, solo el software homologado está autorizado. Esta tabla resume las opciones más comunes del mercado.
+                Análisis de las soluciones más comunes del mercado y su estado frente a la normativa fiscal.
             </CardDescription>
         </CardHeader>
         <CardContent>
@@ -139,23 +139,25 @@ export default function SoftwareContablePage() {
                     <TableHeader>
                         <TableRow>
                             <TableHead>Software</TableHead>
-                            <TableHead className="text-center">Homologado por Seniat</TableHead>
-                            <TableHead>Enfoque Principal</TableHead>
+                            <TableHead className="text-center">Homologado</TableHead>
+                            <TableHead>Ventajas</TableHead>
+                            <TableHead>Desventajas</TableHead>
                             <TableHead>Ideal para…</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {softwareComparison.map((item) => (
                             <TableRow key={item.name}>
-                                <TableCell className="font-medium">{item.name}</TableCell>
+                                <TableCell className="font-medium whitespace-nowrap">{item.name}</TableCell>
                                 <TableCell className="text-center">
                                     {item.homologated.startsWith("Sí") ? 
-                                    <Badge variant="default" className="bg-green-600 hover:bg-green-700"><Check className="mr-1 h-4 w-4"/> {item.homologated}</Badge> : 
-                                    <Badge variant="secondary">{item.homologated}</Badge>
+                                    <Badge variant="default" className="bg-green-600 hover:bg-green-700 whitespace-nowrap"><Check className="mr-1 h-4 w-4"/> {item.homologated}</Badge> : 
+                                    <Badge variant="destructive" className="whitespace-nowrap"><X className="mr-1 h-4 w-4"/> {item.homologated}</Badge>
                                     }
                                 </TableCell>
-                                <TableCell>{item.focus}</TableCell>
-                                <TableCell>{item.idealFor}</TableCell>
+                                <TableCell className="text-sm">{item.advantages}</TableCell>
+                                <TableCell className="text-sm">{item.disadvantages}</TableCell>
+                                <TableCell className="text-sm">{item.idealFor}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
