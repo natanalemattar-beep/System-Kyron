@@ -75,8 +75,8 @@ export default function EstudioFactibilidadEconomicaPage() {
                 Descargar Estudio de Factibilidad
             </Button>
             <Button size="lg" variant="outline">
-                <Cpu className="mr-2" />
-                Probar Demo Funcional
+                <Download className="mr-2" />
+                Descargar Demo
             </Button>
         </div>
       </header>
