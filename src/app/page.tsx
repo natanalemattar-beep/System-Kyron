@@ -214,8 +214,8 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-bl from-cyan-200 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
-      <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-md border-b">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+      <header className="sticky top-4 z-50 container mx-auto">
+        <div className="bg-background/80 backdrop-blur-lg rounded-full flex h-16 items-center justify-between px-4 md:px-6 shadow-md border">
           <Link href="/" className="flex items-center gap-3">
             <Logo className="bg-primary text-primary-foreground" />
             <span className="text-lg font-bold">System C.M.S</span>
