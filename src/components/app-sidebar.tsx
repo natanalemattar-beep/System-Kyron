@@ -76,6 +76,7 @@ import {
   Rocket,
   Mail,
   Award,
+  Presentation
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -153,6 +154,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
     { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
     { href: "/propuesta-proyecto", label: "Carta de Propuesta", icon: FileText },
+    { href: "/presentacion-startup", label: "Presentación de Startup", icon: Presentation },
 ];
 
 const facturacionGeneralMenuItems = [
