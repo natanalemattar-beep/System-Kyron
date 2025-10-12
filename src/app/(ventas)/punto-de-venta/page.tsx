@@ -77,7 +77,7 @@ type Cliente = {
 };
 
 type Currency = "Bs." | "USD" | "EUR";
-type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Zelle" | "Efectivo";
+type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Transferencia Bancaria" | "Zelle" | "Efectivo";
 type OperationType = "Venta Inmediata" | "Factura a Crédito sin Abono" | "Venta con Financiamiento" | "Venta a Ente Exento de IVA";
 type FinancingPlatform = "Cashea" | "Krece" | "Rapikom";
 
@@ -280,10 +280,16 @@ export default function PuntoDeVentaPage() {
         setIsProcessing(true);
         // Simulate API call
         setTimeout(() => {
+            if (paymentMethod === "Pago Móvil" || paymentMethod === "Transferencia Bancaria") {
+                toast({
+                    title: "Pago Confirmado en Cuenta",
+                    description: `El pago de ${formatCurrency(total, currency)} ha sido verificado en la cuenta de la empresa.`
+                });
+            }
             setIsCheckoutOpen(false);
             setIsReceiptOpen(true);
             setIsProcessing(false);
-        }, 1000);
+        }, 1500);
     };
 
      const handleAuthorization = () => {
@@ -608,6 +614,7 @@ export default function PuntoDeVentaPage() {
                                 <SelectContent>
                                     <SelectItem value="Punto de Venta">Punto de Venta</SelectItem>
                                     <SelectItem value="Pago Móvil">Pago Móvil</SelectItem>
+                                    <SelectItem value="Transferencia Bancaria">Transferencia Bancaria</SelectItem>
                                     <SelectItem value="Zelle">Zelle</SelectItem>
                                     <SelectItem value="Efectivo">Efectivo</SelectItem>
                                 </SelectContent>
