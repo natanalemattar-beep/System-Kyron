@@ -3,8 +3,10 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Gift, ScanLine, ShoppingBag, Zap, Award, Coffee, Ticket, Recycling, Users, TrendingUp, Handshake, CheckCircle } from "lucide-react";
+import { ArrowRight, Download, Gift, ScanLine, ShoppingBag, Zap, Award, Coffee, Ticket, Recycling, Users, TrendingUp, Handshake, CheckCircle, Smartphone } from "lucide-react";
 import Image from "next/image";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
 
 const howItWorks = [
     { step: 1, title: "Descarga y Regístrate", description: "Baja la App Aliada desde tu tienda de aplicaciones y crea tu cuenta en segundos." },
@@ -101,7 +103,7 @@ export default function AppAliadaRecompensaPage() {
                     ))}
                 </CardContent>
             </Card>
-            
+
             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Únete como Comercio Aliado y Crece con Nosotros</CardTitle>
@@ -115,6 +117,56 @@ export default function AppAliadaRecompensaPage() {
                 <CardFooter>
                     <Button><Handshake className="mr-2"/> Quiero ser Aliado</Button>
                 </CardFooter>
+            </Card>
+            
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Modelos de Inspiración: Casos de Éxito Global</CardTitle>
+                    <CardDescription>Nuestro sistema se inspira en modelos probados de economía circular y programas de lealtad.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                     <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>
+                                <div className="flex items-center gap-3 font-semibold">
+                                    <Recycling className="h-5 w-5 text-green-500"/>
+                                    <span>Canje de Envases (Sistema Pfand en Alemania)</span>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-2 pl-8">
+                                <p className="text-sm text-muted-foreground">
+                                    Es un sistema de depósito para envases de bebidas. Al comprar una botella o lata, pagas un pequeño depósito (entre €0.08 y €0.25) que te devuelven al regresar el envase a las máquinas de reciclaje en los supermercados, incentivando altas tasas de retorno.
+                                </p>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger>
+                                <div className="flex items-center gap-3 font-semibold">
+                                    <Award className="h-5 w-5 text-yellow-500"/>
+                                    <span>Millas de Programas de Fidelización</span>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-2 pl-8">
+                               <p className="text-sm text-muted-foreground">
+                                   Al igual que programas como Miles & More, donde acumulas millas por volar, nuestro sistema te permite acumular puntos por reciclar. Estos puntos pueden ser canjeados por productos, descuentos o servicios en una red de comercios asociados.
+                                </p>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-3">
+                            <AccordionTrigger>
+                                <div className="flex items-center gap-3 font-semibold">
+                                    <Smartphone className="h-5 w-5 text-blue-500"/>
+                                    <span>Intercambio de Dispositivos (Trade-in)</span>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-2 pl-8">
+                               <p className="text-sm text-muted-foreground">
+                                   Similar a cómo Microsoft o Apple ofrecen crédito por entregar un dispositivo usado, nuestro sistema asigna un valor a tus residuos. Al "entregarlos" en nuestras papeleras, recibes puntos que funcionan como un crédito para canjear por recompensas.
+                                </p>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </CardContent>
             </Card>
 
              <div className="grid sm:grid-cols-2 gap-8">
