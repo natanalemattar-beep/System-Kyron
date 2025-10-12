@@ -76,7 +76,8 @@ import {
   Rocket,
   Mail,
   Award,
-  Presentation
+  Presentation,
+  Cpu,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -255,6 +256,7 @@ const sociosNavGroups = [
         { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
         { href: "/empresas-relacionadas", label: "Empresas Relacionadas", icon: Sitemap },
         { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
+        { href: "/organigrama", label: "Organigrama", icon: Sitemap },
     ] },
 ];
 
@@ -270,6 +272,16 @@ const juridicoNavGroups = [
 
 const ventasNavGroups = [
     { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
+];
+
+const informaticaNavGroups = [
+    { title: "Seguridad", icon: Shield, items: [
+        { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck },
+    ] },
+    { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
+     { title: "Arquitectura", icon: Puzzle, items: [
+        { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
+    ] },
 ];
 
 type Message = {
@@ -391,7 +403,9 @@ export function AppSidebar() {
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
-  
+  const isInformaticaPath = (path: string) => path.startsWith('/login-informatica');
+
+
   if (isHrPath(pathname)) {
     return <AppSidebarHr />;
   }
@@ -407,6 +421,11 @@ export function AppSidebar() {
   if (isNaturalPath(pathname)) {
     return <AppSidebarNatural />;
   }
+
+  if (isInformaticaPath(pathname)) {
+    return <AppSidebarInformatica />;
+  }
+
 
   return (
     <Sidebar variant="floating">
@@ -791,4 +810,75 @@ function AppSidebarSocios() {
       </SidebarFooter>
     </Sidebar>
   );
+}
+
+function AppSidebarInformatica() {
+    const pathname = usePathname();
+    const { state } = useSidebar();
+    
+    return (
+        <Sidebar variant="floating">
+        <SidebarHeader>
+            <div className="flex items-center gap-3 p-2">
+            <Logo />
+                {state === 'expanded' && (
+                    <div className="flex flex-col">
+                        <span className="text-sm font-semibold leading-tight">System</span>
+                        <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                    </div>
+                )}
+            </div>
+        </SidebarHeader>
+        <SidebarContent className="p-2">
+            <Accordion type="multiple" className="w-full" defaultValue={['Seguridad', 'Soluciones IA', 'Arquitectura']}>
+                {informaticaNavGroups.map((group) => (
+                <AccordionItem value={group.title} key={group.title} className="border-none">
+                    <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
+                    <div className="flex items-center gap-2">
+                        <group.icon className="h-4 w-4" />
+                        {state === 'expanded' && <span>{group.title}</span>}
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-0">
+                    <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                        {group.items.map((item) => (
+                        <SidebarMenuItem key={`${item.href}-${item.label}`}>
+                            <SidebarMenuButton
+                            asChild
+                            isActive={pathname.startsWith(item.href)}
+                            tooltip={item.label}
+                            className="justify-start h-8"
+                            >
+                            <Link href={item.href}>
+                                <item.icon className="h-4 w-4" />
+                                <span>{item.label}</span>
+                            </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                        ))}
+                    </SidebarMenu>
+                    </AccordionContent>
+                </AccordionItem>
+                ))}
+            </Accordion>
+        </SidebarContent>
+        <SidebarFooter className="p-2">
+            <Separator className="my-2" />
+            <ChatDialog />
+            <div className="flex items-center gap-3 px-2 py-1">
+            <Avatar className="h-9 w-9">
+                <AvatarFallback>TI</AvatarFallback>
+            </Avatar>
+            {state === 'expanded' && (
+                <div className="flex flex-col">
+                    <span className="text-sm font-medium">Usuario TI</span>
+                    <span className="text-xs text-muted-foreground">
+                    Admin de Sistema
+                    </span>
+                </div>
+            )}
+            </div>
+        </SidebarFooter>
+        </Sidebar>
+    );
 }
