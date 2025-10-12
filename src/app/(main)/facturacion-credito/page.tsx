@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone, Lock, Unlock, Mail } from "lucide-react";
+import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone, Lock, Unlock, Mail, Bot } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const initialClientes = [
     { id: "CLI-001", nombre: "Tech Solutions LLC", bloqueado: false, email: "billing@techsolutions.com" },
@@ -212,8 +213,9 @@ export default function FacturacionCreditoPage() {
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="cashea">
-                        <TabsList className="grid w-full grid-cols-5">
+                        <TabsList className="grid w-full grid-cols-6">
                             <TabsTrigger value="cashea">Cashea</TabsTrigger>
+                            <TabsTrigger value="vippo">Vippo</TabsTrigger>
                             <TabsTrigger value="zueno">Zueño</TabsTrigger>
                             <TabsTrigger value="krece">Krece</TabsTrigger>
                             <TabsTrigger value="rapikom">Rapikom</TabsTrigger>
@@ -277,6 +279,41 @@ export default function FacturacionCreditoPage() {
                                             <li><strong>6%</strong> para las ventas realizadas a través de Cashea Online.</li>
                                          </ul>
                                      </div>
+                                </CardContent>
+                           </Card>
+                        </TabsContent>
+                         <TabsContent value="vippo" className="mt-6">
+                           <Card className="bg-secondary/30">
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2"><Smartphone/> Vippo: Pagos Móviles y Más</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <Accordion type="single" collapsible className="w-full">
+                                        <AccordionItem value="user-flow">
+                                            <AccordionTrigger>Para el USUARIO (Cliente)</AccordionTrigger>
+                                            <AccordionContent className="pt-2">
+                                                <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                                                    <li><strong>Registro en la Plataforma:</strong> Descargar la app, completar datos personales, crear usuario, contraseña y PIN transaccional.</li>
+                                                    <li><strong>Verificación:</strong> Adjuntar documentos solicitados para la identificación.</li>
+                                                    <li><strong>Uso Básico:</strong> Recargar saldo en la billetera ViPPO y usarlo para pagar servicios, recargas o en comercios afiliados.</li>
+                                                </ol>
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="business-flow">
+                                            <AccordionTrigger>Para el COMERCIO o EMPRESA</AccordionTrigger>
+                                            <AccordionContent className="pt-2">
+                                                <p className="text-sm text-muted-foreground mb-4">Vippo ofrece soluciones como SmartCashier y botones de pago para e-commerce.</p>
+                                                <h4 className="font-semibold mb-2 text-sm">Validación de Pago Móvil/C2P:</h4>
+                                                <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                                                    <li>El cliente te proporciona sus datos de Pago Móvil y número de referencia.</li>
+                                                    <li>El comercio introduce esta información en el sistema ViPPO (SmartCashier).</li>
+                                                    <li>Vippo valida de forma inmediata y segura la transacción.</li>
+                                                </ol>
+                                                <h4 className="font-semibold mt-4 mb-2 text-sm">Vuelto Digital:</h4>
+                                                <p className="text-sm text-muted-foreground">Permite dar vuelto a través de una transferencia a la cuenta ViPPO del cliente.</p>
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                    </Accordion>
                                 </CardContent>
                            </Card>
                         </TabsContent>
@@ -395,4 +432,3 @@ export default function FacturacionCreditoPage() {
         </div>
     );
 }
-
