@@ -1,15 +1,15 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Gift, ScanLine, ShoppingBag, Zap, Award, Coffee, Ticket, Recycling, Users, TrendingUp, Handshake } from "lucide-react";
+import { ArrowRight, Download, Gift, ScanLine, ShoppingBag, Zap, Award, Coffee, Ticket, Recycling, Users, TrendingUp, Handshake, CheckCircle } from "lucide-react";
 import Image from "next/image";
 
 const howItWorks = [
     { step: 1, title: "Descarga y Regístrate", description: "Baja la App Aliada desde tu tienda de aplicaciones y crea tu cuenta en segundos." },
     { step: 2, title: "Encuentra y Escanea", description: "Ubica una de nuestras Papeleras Inteligentes y escanea el código QR para identificarte." },
-    { step: 3, title: "Recicla y Gana Puntos", description: "Deposita tus residuos. Nuestra IA los clasifica y te asigna puntos por cada botella, lata o papel." },
+    { step: 3, title: "Recicla y Gana Puntos", description: "Deposita tus residuos. Nuestra IA los clasifica y pesa (plástico, vidrio, aluminio), asignando puntos según el tipo y peso del material, reflejando su valor de reciclaje." },
     { step: 4, title: "Canjea tus Recompensas", description: "Usa tus puntos acumulados para obtener descuentos, productos y experiencias en nuestra red de comercios afiliados." },
 ];
 
@@ -102,6 +102,21 @@ export default function AppAliadaRecompensaPage() {
                 </CardContent>
             </Card>
             
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Únete como Comercio Aliado y Crece con Nosotros</CardTitle>
+                    <CardDescription>
+                        Ofrece tus productos o servicios en nuestro catálogo de recompensas y conecta con miles de usuarios comprometidos con un futuro sostenible.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-muted-foreground">Al unirte a nuestra red, ganas visibilidad, atraes nuevos clientes y posicionas tu marca como líder en responsabilidad social. Nosotros nos encargamos de la tecnología, tú te encargas de ofrecer las mejores recompensas.</p>
+                </CardContent>
+                <CardFooter>
+                    <Button><Handshake className="mr-2"/> Quiero ser Aliado</Button>
+                </CardFooter>
+            </Card>
+
              <div className="grid sm:grid-cols-2 gap-8">
                  <Card className="bg-primary/10 border-primary/20 text-center">
                     <CardHeader>
