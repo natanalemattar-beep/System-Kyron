@@ -121,6 +121,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
   { href: "/cumplimiento", label: "Cumplimiento Normativo", icon: ShieldAlert },
   { href: "/cumplimiento-fiscal", label: "Cumplimiento Fiscal", icon: ShieldCheck },
+  { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
   { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
   { href: "/inventario", label: "Inventario", icon: Archive },
   { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
