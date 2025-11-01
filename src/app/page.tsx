@@ -228,8 +228,8 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-background overflow-x-hidden">
         <div className="absolute inset-0 z-0 opacity-20 dark:opacity-40">
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-300 via-transparent to-transparent animate-gradient-animation dark:from-blue-900" style={{ animationDuration: '20s' }}></div>
-            <div className="absolute inset-0 bg-gradient-to-bl from-cyan-300 via-transparent to-transparent animate-gradient-animation dark:from-cyan-900" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-transparent animate-gradient-animation dark:from-primary/20" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute inset-0 bg-gradient-to-bl from-secondary/10 via-transparent to-transparent animate-gradient-animation dark:from-secondary/20" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
         </div>
       <header className={cn("sticky top-0 z-50 w-full p-2 transition-transform duration-300", {
             "translate-y-0": isHeaderVisible,
@@ -307,7 +307,7 @@ export default function LandingPage() {
         <section className="relative pt-40 pb-24 md:pt-52 md:pb-40 flex items-center text-center">
             <div className="container mx-auto px-4 md:px-6 z-10">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-slate-900 to-primary bg-clip-text text-transparent dark:from-white dark:to-blue-400 animate-in fade-in duration-1000">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent dark:from-white dark:to-slate-400 animate-in fade-in duration-1000">
                         La Gestión Empresarial, Reinventada
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-balance text-muted-foreground max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000 delay-200">
@@ -466,7 +466,7 @@ export default function LandingPage() {
         </section>
 
          {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-gradient-to-r from-primary to-blue-600 text-primary-foreground">
+        <section className="py-20 md:py-28 bg-gradient-to-r from-foreground to-foreground/90 text-background">
             <div className="container mx-auto px-4 md:px-6 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-balance" style={{textShadow: '0 1px 4px rgba(0,0,0,0.2)'}}>Únete a cientos de empresas que ya están optimizando sus procesos.</h2>
                 <Button size="lg" variant="secondary" asChild className="mt-8 bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-lg">
