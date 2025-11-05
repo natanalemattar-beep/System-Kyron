@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Menu, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building } from "lucide-react";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -206,24 +206,6 @@ export default function LandingPage() {
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
-    const [isHeaderVisible, setHeaderVisible] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
-
-    const handleScroll = () => {
-        if (window.scrollY > lastScrollY && window.scrollY > 100) {
-            setHeaderVisible(false);
-        } else {
-            setHeaderVisible(true);
-        }
-        setLastScrollY(window.scrollY);
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [lastScrollY]);
     
   return (
     <div className="flex flex-col min-h-screen text-foreground bg-background overflow-x-hidden">
@@ -231,10 +213,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-transparent animate-gradient-animation dark:from-primary/20" style={{ animationDuration: '20s' }}></div>
             <div className="absolute inset-0 bg-gradient-to-bl from-secondary/10 via-transparent to-transparent animate-gradient-animation dark:from-secondary/20" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
         </div>
-      <header className={cn("sticky top-0 z-50 w-full p-2 transition-transform duration-300", {
-            "translate-y-0": isHeaderVisible,
-            "-translate-y-full": !isHeaderVisible,
-      })}>
+      <header className="sticky top-0 z-50 w-full p-2">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-lg shadow-lg border">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
