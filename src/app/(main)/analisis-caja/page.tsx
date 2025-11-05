@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
 import { BarChart, DollarSign, Hash } from "lucide-react";
-import { Bar, BarChart as RechartsBarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import { Bar, BarChart as RechartsBarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const kpiData = [
@@ -70,15 +70,22 @@ export default function AnalisisCajaPage() {
             <CardContent className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                     <RechartsBarChart data={dailySalesData}>
+                         <defs>
+                            <linearGradient id="colorVentas" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
+                            </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
                         <XAxis
                             dataKey="day"
-                            stroke="#888888"
+                            stroke="hsl(var(--muted-foreground))"
                             fontSize={12}
                             tickLine={false}
                             axisLine={false}
                         />
                         <YAxis
-                            stroke="#888888"
+                            stroke="hsl(var(--muted-foreground))"
                             fontSize={12}
                             tickLine={false}
                             axisLine={false}
@@ -86,10 +93,10 @@ export default function AnalisisCajaPage() {
                         />
                         <Tooltip
                             content={<ChartTooltipContent formatter={(value) => formatCurrency(value as number, 'Bs.')}/>}
-                            cursor={{ fill: 'hsl(var(--secondary))' }}
+                            cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }}
                         />
                         <Legend />
-                        <Bar dataKey="ventas" name="Ventas en Efectivo" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="ventas" name="Ventas en Efectivo" fill="url(#colorVentas)" radius={[4, 4, 0, 0]} />
                     </RechartsBarChart>
                 </ResponsiveContainer>
             </CardContent>

@@ -29,7 +29,7 @@ export default function VentasLayout({ children }: { children: ReactNode }) {
       <AppSidebar />
       <div id="ventas-main-content-container" className="w-full overflow-y-auto">
         <SidebarInset>
-           <header className="p-4 flex justify-between items-center border-b bg-background/80 backdrop-blur-lg sticky top-0 z-10 h-16 px-6 md:px-8">
+           <header className="p-4 flex justify-between items-center border-b border-border/50 bg-background/80 backdrop-blur-lg sticky top-0 z-10 h-16 px-6 md:px-8">
              <div className="flex items-center gap-4">
               <SidebarTrigger />
              </div>
