@@ -34,8 +34,8 @@ export default function LoginJuridicoPage() {
   return (
     <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-background">
       <div className="absolute inset-0 z-0 opacity-50 dark:opacity-40">
-        <div className="absolute inset-0 bg-gradient-to-tr from-green-900/40 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-emerald-900/40 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/40 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-bl from-cyan-900/40 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
       </div>
 
       <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-md border-b">
