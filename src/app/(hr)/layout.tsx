@@ -26,11 +26,11 @@ export default function HrLayout({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <SidebarProvider defaultOpen={false}>
+    <SidebarProvider>
       <AppSidebar />
       <div id="hr-main-content-container" className="w-full overflow-y-auto">
         <SidebarInset>
-           <header className="p-4 flex justify-between items-center border-b bg-background/50 backdrop-blur-md sticky top-0 z-10 h-16 px-6 md:px-8">
+           <header className="p-4 flex justify-between items-center border-b bg-background/80 backdrop-blur-lg sticky top-0 z-10 h-16 px-6 md:px-8">
              <div className="flex items-center gap-4">
               <SidebarTrigger />
              </div>
@@ -70,7 +70,7 @@ export default function HrLayout({ children }: { children: ReactNode }) {
                 </div>
             ) : (
                 <div className="w-full">
-                    <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    <div className="animate-in fade-in-50 slide-in-from-bottom-8 duration-700">
                         {children}
                     </div>
                 </div>

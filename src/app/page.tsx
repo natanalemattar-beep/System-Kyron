@@ -155,17 +155,14 @@ function ChatDialog() {
             messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex items-start gap-3 ${
-                  msg.role === 'user' ? 'justify-end' : 'justify-start'
-                }`}
+                className={cn('flex items-start gap-3', msg.role === 'user' ? 'justify-end' : 'justify-start')}
               >
                 {msg.role === 'bot' && <Avatar className="h-8 w-8"><AvatarFallback><Bot className="h-4 w-4"/></AvatarFallback></Avatar>}
                 <div
-                  className={`max-w-xs md:max-w-md rounded-lg px-4 py-2 ${
-                    msg.role === 'user'
+                  className={cn('max-w-xs md:max-w-md rounded-lg px-4 py-2', msg.role === 'user'
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-background'
-                  }`}
+                  )}
                 >
                   <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
                 </div>
@@ -201,7 +198,6 @@ function ChatDialog() {
 }
 
 export default function LandingPage() {
-    const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
@@ -214,7 +210,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 bg-gradient-to-bl from-secondary/10 via-transparent to-transparent animate-gradient-animation dark:from-secondary/20" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
         </div>
       <header className="sticky top-0 z-50 w-full p-2">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-lg shadow-lg border">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-xl shadow-lg border">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
