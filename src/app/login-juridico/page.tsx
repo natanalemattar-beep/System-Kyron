@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building, Eye, EyeOff, User, Briefcase, ShoppingCart } from "lucide-react";
+import { Building, Eye, EyeOff, User, Briefcase, ShoppingCart, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,8 +20,8 @@ export default function LoginJuridicoPage() {
 
   const handleRifChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.toUpperCase();
-    if (value && !["J", "G", "V", "E"].includes(value[0])) {
-      value = "J-" + value;
+    if (value.length === 1 && !["J", "G", "V", "E"].includes(value)) {
+        value = "J-" + value;
     }
     setRif(value);
   };
@@ -85,11 +85,11 @@ export default function LoginJuridicoPage() {
             <CardContent className="p-6 space-y-6">
               <div className="space-y-2">
                 <Label>RIF Empresarial</Label>
-                <Input type="text" placeholder="J-12345678-9" value={rif} onChange={handleRifChange} />
+                <Input type="text" placeholder="J-12345678-9" value={rif} onChange={handleRifChange} required/>
               </div>
                <div className="space-y-2">
                 <Label>Usuario</Label>
-                <Input type="text" placeholder="admin.user"/>
+                <Input type="text" placeholder="admin.user" required/>
               </div>
               <div className="space-y-2 relative">
                 <Label>Contraseña</Label>
@@ -97,6 +97,7 @@ export default function LoginJuridicoPage() {
                   type={passwordVisible ? "text" : "password"}
                   placeholder="••••••••"
                   className="pr-10"
+                  required
                 />
                 <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
                   {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}

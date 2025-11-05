@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Briefcase, Eye, EyeOff, User, Building, ShoppingCart } from "lucide-react";
+import { Briefcase, Eye, EyeOff, User, Building, ShoppingCart, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
