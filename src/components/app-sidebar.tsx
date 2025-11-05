@@ -78,6 +78,7 @@ import {
   Award,
   Presentation,
   Cpu,
+  Recycle,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -149,6 +150,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
     { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
     { href: "/app-aliada-recompensa", label: "App de Recompensas", icon: Award },
+    { href: "/tarjeta-reciclaje", label: "Tarjeta de Reciclaje", icon: Recycle },
     { href: "/analisis-empresa-hibrida", label: "Análisis de Empresa Híbrida", icon: Rocket },
     { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
     { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
