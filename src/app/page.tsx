@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Menu, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building } from "lucide-react";
+import { User, Menu, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -241,6 +241,7 @@ export default function LandingPage() {
                   <DropdownMenuItem asChild><Link href="/login-ventas"><ShoppingCart className="mr-2"/>Ventas y Facturación</Link></DropdownMenuItem>
                   <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
                   <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link href="/login-marketing"><Megaphone className="mr-2"/>Productos, Asesoría y Marketing</Link></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
