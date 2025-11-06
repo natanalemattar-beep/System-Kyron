@@ -79,6 +79,7 @@ import {
   Presentation,
   Cpu,
   Recycle,
+  Wand2,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -157,6 +158,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-empresa-hibrida", label: "Análisis de Empresa Híbrida", icon: Rocket },
     { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
     { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
+    { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
     { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
     { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
     { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
