@@ -173,7 +173,7 @@ export default function ReciboNominaPage({ params }: { params: { id: string } })
                     </div>
                 </div>
                 <div className="flex flex-col items-center">
-                    <Image src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=recibo-verificado-123" alt="QR Code" width={80} height={80} />
+                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=RIF:${empresa.rif},Recibo:Nomina-${empleado.id},Fecha:${nomina.fechaPago},Monto:${netoAPagar}`} alt="QR Code" width={80} height={80} />
                     <p className="text-xs text-muted-foreground mt-1">Escanear para verificar</p>
                 </div>
             </CardFooter>

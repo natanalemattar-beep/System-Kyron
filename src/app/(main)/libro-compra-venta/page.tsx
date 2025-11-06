@@ -66,7 +66,7 @@ export default function LibroCompraVentaPage() {
                                 <TableCell className="text-right">{formatCurrency(reg.iva, 'Bs.')}</TableCell>
                                 <TableCell className="text-right font-semibold">{formatCurrency(reg.total, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">
-                                     <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=factura-${reg.nroFactura}`} alt={`QR for ${reg.nroFactura}`} width={24} height={24} />
+                                     <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=RIF:${reg.rif},Factura:${reg.nroFactura},Fecha:${reg.fecha},Monto:${reg.total}`} alt={`QR for ${reg.nroFactura}`} width={24} height={24} />
                                 </TableCell>
                             </TableRow>
                         ))}

@@ -101,7 +101,7 @@ export default function IslrArcPage() {
                                 <TableCell className="text-right font-semibold">{formatCurrency(reg.retencionMes, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">{formatCurrency(reg.retencionAcumulada, 'Bs.')}</TableCell>
                                 <TableCell className="text-right">
-                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=arc-${reg.id}`} alt={`QR for ${reg.id}`} width={24} height={24} className="inline-block mr-2" />
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=RIF:${'J-12345678-9'},ARC:${reg.id},Empleado:${reg.cedula},Monto:${reg.retencionMes}`} alt={`QR for ${reg.id}`} width={24} height={24} className="inline-block mr-2" />
                                     <Button variant="outline" size="sm" onClick={() => handleGenerateARC(reg.empleado)}>
                                         <FileDown className="mr-2 h-4 w-4" />
                                         Generar AR-C Mensual

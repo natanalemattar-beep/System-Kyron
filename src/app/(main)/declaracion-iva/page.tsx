@@ -153,7 +153,7 @@ export default function DeclaracionIvaPage() {
                                         <Badge>{dec.estado}</Badge>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=declaracion-iva-${dec.id}`} alt={`QR for ${dec.id}`} width={24} height={24} />
+                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=RIF:${'J-12345678-9'},Declaracion:${dec.id},Fecha:${dec.fecha},Monto:${dec.monto}`} alt={`QR for ${dec.id}`} width={24} height={24} />
                                     </TableCell>
                                 </TableRow>
                             ))}
