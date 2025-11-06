@@ -114,7 +114,7 @@ const juridicoMainMenuItems = [
 ];
 
 const finanzasContabilidadMenuItems = [
-  { href: "/reports", label: "Reportes Contables", icon: BarChart },
+  { href: "/reports", label: "Reportes Financieros", icon: BarChart },
   { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
@@ -227,6 +227,7 @@ const generalMenuItems = [
   { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
+  { href: "/organigrama", label: "Organigrama", icon: Sitemap },
   { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
 ];
 
@@ -406,7 +407,7 @@ export function AppSidebar() {
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
+  const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href)) || path.startsWith('/organigrama');
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
   const isInformaticaPath = (path: string) => path.startsWith('/login-informatica');
 
@@ -887,7 +888,3 @@ function AppSidebarInformatica() {
         </Sidebar>
     );
 }
-
-    
-
-    
