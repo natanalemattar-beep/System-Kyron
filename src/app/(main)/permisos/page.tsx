@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info, DollarSign } from "lucide-react";
+import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info, DollarSign, Mail, MessageSquare, Send } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -107,6 +107,8 @@ type Payment = {
     referencia: string;
 };
 
+type Permiso = typeof initialPermisos[0];
+
 export default function PermisosPage() {
   const [permisos, setPermisos] = useState(initialPermisos);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -115,6 +117,8 @@ export default function PermisosPage() {
           { id: 1, fecha: '2024-03-01', monto: 500, referencia: 'PAGO-TASA-001' }
       ]
   });
+  const [selectedPermit, setSelectedPermit] = useState<Permiso | null>(null);
+
   const { toast } = useToast();
 
   const handleRenew = (permisoId: string) => {
@@ -165,6 +169,14 @@ export default function PermisosPage() {
         description: `Se ha añadido un nuevo pago al historial del permiso ${permisoId}.`
       });
       form.reset();
+  };
+
+  const handleSendNotification = (permiso: Permiso, method: string) => {
+    toast({
+        title: `Notificación Enviada por ${method}`,
+        description: `Se ha enviado una alerta de renovación para el permiso "${permiso.tipo}" al responsable.`,
+    });
+    setSelectedPermit(null);
   };
 
   const groupedPermisos = permisos.reduce((acc, permiso) => {
@@ -235,14 +247,15 @@ export default function PermisosPage() {
                                                     <Eye className="h-4 w-4" />
                                                 </Button>
                                             </DialogTrigger>
-                                            <DialogContent className="sm:max-w-3xl">
+                                            <DialogContent className="sm:max-w-4xl">
                                                 <DialogHeader>
                                                     <DialogTitle>Detalles del Permiso: {permiso.id}</DialogTitle>
                                                     <DialogDescription>{permiso.tipo}</DialogDescription>
                                                 </DialogHeader>
                                                 <Tabs defaultValue="requisitos" className="py-4">
-                                                    <TabsList className="grid w-full grid-cols-3">
+                                                    <TabsList className="grid w-full grid-cols-4">
                                                         <TabsTrigger value="requisitos">Requisitos</TabsTrigger>
+                                                        <TabsTrigger value="cartas">Modelos de Carta</TabsTrigger>
                                                         <TabsTrigger value="documentos">Cargar Documentos</TabsTrigger>
                                                         <TabsTrigger value="pagos">Historial de Pagos</TabsTrigger>
                                                     </TabsList>
@@ -263,6 +276,42 @@ export default function PermisosPage() {
                                                                         {permiso.requisitosRenovacion.map(req => <li key={req}>{req}</li>)}
                                                                     </ul>
                                                                 ) : <p className="text-sm text-muted-foreground">No hay requisitos de renovación listados.</p>}
+                                                            </div>
+                                                        </div>
+                                                    </TabsContent>
+                                                    <TabsContent value="cartas" className="mt-4">
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                            <div className="p-4 border rounded-lg">
+                                                                <h4 className="font-semibold mb-2">Modelo de Carta de Solicitud</h4>
+                                                                <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto">
+                                                                    Ciudad y Fecha,<br/><br/>
+                                                                    <strong>Señores {permiso.emisor},</strong><br/>
+                                                                    Presente.-<br/><br/>
+                                                                    Yo, [Su Nombre], en mi carácter de Representante Legal de [Su Empresa], C.A., RIF [Su RIF], me dirijo a ustedes para solicitar formalmente el permiso de <strong>{permiso.tipo}</strong>.<br/><br/>
+                                                                    Adjuntamos los recaudos correspondientes.<br/><br/>
+                                                                    Atentamente,<br/>
+                                                                    [Su Nombre y C.I.]
+                                                                </div>
+                                                                <div className="flex gap-2 mt-2">
+                                                                    <Button size="sm" variant="outline">Copiar</Button>
+                                                                    <Button size="sm" variant="outline">Imprimir</Button>
+                                                                </div>
+                                                            </div>
+                                                            <div className="p-4 border rounded-lg">
+                                                                <h4 className="font-semibold mb-2">Modelo de Carta de Renovación</h4>
+                                                                <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto">
+                                                                    Ciudad y Fecha,<br/><br/>
+                                                                    <strong>Señores {permiso.emisor},</strong><br/>
+                                                                    Presente.-<br/><br/>
+                                                                    Yo, [Su Nombre], en mi carácter de Representante Legal de [Su Empresa], C.A., RIF [Su RIF], me dirijo a ustedes para solicitar la renovación del permiso de <strong>{permiso.tipo}</strong>, con referencia N° <strong>{permiso.id}</strong>, próximo a vencer.<br/><br/>
+                                                                    Adjuntamos los recaudos correspondientes para la renovación.<br/><br/>
+                                                                    Atentamente,<br/>
+                                                                    [Su Nombre y C.I.]
+                                                                </div>
+                                                                <div className="flex gap-2 mt-2">
+                                                                    <Button size="sm" variant="outline">Copiar</Button>
+                                                                    <Button size="sm" variant="outline">Imprimir</Button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </TabsContent>
@@ -338,6 +387,34 @@ export default function PermisosPage() {
                                                 </DialogFooter>
                                             </DialogContent>
                                         </Dialog>
+                                         {(permiso.estado === "Por Vencer" || permiso.estado === "Vencido") && (
+                                            <Dialog onOpenChange={() => setSelectedPermit(permiso)}>
+                                                <DialogTrigger asChild>
+                                                    <Button variant="outline" size="sm" className="text-orange-500 border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-600">
+                                                        Notificar
+                                                    </Button>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogHeader>
+                                                        <DialogTitle>Notificar Renovación</DialogTitle>
+                                                        <DialogDescription>
+                                                            Enviar un recordatorio para iniciar el proceso de renovación del permiso: <br/><strong>{permiso.tipo}</strong>.
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+                                                    <div className="flex flex-col gap-2 py-4">
+                                                        <Button onClick={() => handleSendNotification(permiso, "Correo")}>
+                                                            <Mail className="mr-2"/> Enviar por Correo Electrónico
+                                                        </Button>
+                                                        <Button onClick={() => handleSendNotification(permiso, "WhatsApp")}>
+                                                            <MessageSquare className="mr-2"/> Enviar por WhatsApp
+                                                        </Button>
+                                                         <Button onClick={() => handleSendNotification(permiso, "SMS")}>
+                                                            <Send className="mr-2"/> Enviar por SMS
+                                                        </Button>
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog>
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -353,4 +430,4 @@ export default function PermisosPage() {
   );
 }
 
-      
+    
