@@ -51,7 +51,7 @@ export default function EstrategiasVentasPage() {
                 <Card key={estrategia.titulo} className="flex flex-col bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle className="flex items-start gap-3">
-                            <div className="p-3 rounded-lg bg-primary/10">
+                            <div className="p-3 bg-primary/10 rounded-lg">
                                <estrategia.icon className="h-6 w-6 text-primary" />
                             </div>
                            <span>{estrategia.titulo}</span>
@@ -70,5 +70,4 @@ export default function EstrategiasVentasPage() {
     </div>
   );
 }
-
     
