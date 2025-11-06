@@ -97,7 +97,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { Logo } from "@/components/logo";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Input } from "./ui/input";
+import { Input } from "@/components/ui/input";
 import { chat } from "@/ai/flows/chat";
 import { Button } from "@/components/ui/button";
 
@@ -133,6 +133,8 @@ const finanzasContabilidadMenuItems = [
   { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
   { href: "/clasificacion-facturacion", label: "Clasificación de Facturación", icon: Layers },
   { href: "/certificado-ingresos", label: "Certificado de Ingresos", icon: Banknote },
+  { href: "/ajuste-por-inflacion", label: "Ajuste por Inflación Fiscal", icon: TrendingUp },
+  { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
 ];
 
 const analisisCrecimientoMenuItems = [
