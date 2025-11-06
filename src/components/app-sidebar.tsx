@@ -161,6 +161,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
     { href: "/propuesta-proyecto", label: "Carta de Propuesta", icon: FileText },
     { href: "/presentacion-startup", label: "Presentación de Startup", icon: Presentation },
+    { href: "/carta-exposicion-motivos", label: "Carta de Motivos", icon: FileText },
 ];
 
 const facturacionGeneralMenuItems = [
