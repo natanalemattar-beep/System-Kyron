@@ -148,6 +148,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: Briefcase },
     { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
     { href: "/asesoria-publicidad", label: "Asesoría y Ventas", icon: Megaphone },
+    { href: "/asesoria-importaciones", label: "Asesoría de Importación", icon: Ship },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
