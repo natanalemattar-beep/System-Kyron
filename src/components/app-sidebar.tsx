@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
@@ -138,6 +139,7 @@ const finanzasContabilidadMenuItems = [
 const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+    { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
     { href: "/empresas-con-mismos-productos", label: "Análisis de Competencia", icon: Users },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
     { href: "/marketing-ventas", label: "Marketing y Ventas", icon: Megaphone },
