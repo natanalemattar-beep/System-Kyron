@@ -19,6 +19,51 @@ export default function PropuestaProyectoPage() {
         });
         if (action === 'impresa') {
             window.print();
+        } else {
+             const content = `
+PROPUESTA DE PROYECTO: INNOVACIÓN SOSTENIBLE Y EFICIENCIA ADMINISTRATIVA
+
+Fecha: ${formatDate(new Date())}
+Para: [Nombre del Destinatario / Empresa Cliente]
+De: System C.M.S, C.A.
+
+ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN DE RESIDUOS Y AUTOMATIZACIÓN EMPRESARIAL
+
+Estimados señores de [Nombre de la Empresa Cliente],
+
+Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En System C.M.S, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.
+
+1. ENTENDIMIENTO DEL PROBLEMA
+Reconocemos dos grandes desafíos en el entorno actual:
+- La gestión ineficiente de residuos sólidos, que resulta en bajos índices de reciclaje y altos costos operativos para municipios y empresas.
+- La complejidad administrativa y fiscal en Venezuela, que consume tiempo y recursos valiosos que podrían dedicarse a la innovación y el crecimiento.
+
+2. SOLUCIÓN PROPUESTA
+Nuestro proyecto se basa en dos pilares fundamentales que funcionan de manera sinérgica:
+a) Papelera Inteligente para Reciclaje: Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen. Esta tecnología no solo mejora la calidad de los materiales recuperados, sino que también genera datos valiosos para optimizar las rutas de recolección y fomentar una economía circular.
+b) Software de Automatización Contable y Administrativa: Una plataforma en la nube que automatiza el 100% de los procesos de su empresa: facturación homologada por el SENIAT, gestión de inventario, cuentas por cobrar/pagar, conciliación bancaria y generación de reportes fiscales. Este sistema es el mismo que utilizamos internamente para gestionar la venta y el soporte de nuestras papeleras, demostrando su robustez y fiabilidad.
+
+3. BENEFICIOS CLAVE
+- Sostenibilidad y Responsabilidad Social: Mejora radicalmente la gestión de residuos y posiciona a su organización como líder en sostenibilidad.
+- Eficiencia Operativa: Reduce los costos de recolección de residuos y automatiza tareas administrativas, liberando a su equipo para que se enfoque en actividades de mayor valor.
+- Cumplimiento y Tranquilidad: Garantiza el cumplimiento de las normativas fiscales venezolanas, minimizando el riesgo de sanciones.
+- Toma de Decisiones Basada en Datos: Obtenga informes en tiempo real sobre la generación de residuos y el rendimiento financiero de su empresa.
+
+4. PRÓXIMOS PASOS
+Nos encantaría tener la oportunidad de presentarles una demostración en vivo de nuestra solución y discutir cómo podemos adaptarla a sus necesidades específicas. Proponemos una reunión la próxima semana para explorar esta colaboración.
+
+Agradecemos de antemano su tiempo y consideración.
+
+Atentamente,
+El Equipo de System C.M.S, C.A.
+            `;
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Propuesta_Proyecto_SystemCMS.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     };
 
