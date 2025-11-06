@@ -24,6 +24,12 @@ const topProducts = [
     { id: "PROD-005", name: "Tóner para Impresora", sales: 110, revenue: formatCurrency(9350, 'Bs.') },
 ];
 
+const bottomProducts = [
+    { id: "PROD-008", name: "Calculadora de Escritorio", sales: 5, revenue: formatCurrency(90, 'Bs.') },
+    { id: "PROD-007", name: "Rollo de Etiquetas para Precios", sales: 12, revenue: formatCurrency(144, 'Bs.') },
+    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: formatCurrency(75, 'Bs.') },
+];
+
 const chartConfig = {
   ingresos: {
     label: "Ingresos",
@@ -143,7 +149,24 @@ export default function AnalisisVentasPage() {
                 <CardDescription>Productos con menores ingresos. Considera nuevas estrategias.</CardDescription>
             </CardHeader>
             <CardContent>
-                <p className="text-sm text-muted-foreground">La funcionalidad para mostrar productos con menor demanda se implementará próximamente.</p>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Producto</TableHead>
+                            <TableHead className="text-center">Ventas</TableHead>
+                            <TableHead className="text-right">Ingresos</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {bottomProducts.map((prod) => (
+                            <TableRow key={prod.id}>
+                                <TableCell className="font-medium">{prod.name}</TableCell>
+                                <TableCell className="text-center">{prod.sales}</TableCell>
+                                <TableCell className="text-right">{prod.revenue}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </CardContent>
             <CardContent>
                  <Button asChild variant="outline" className="w-full">
