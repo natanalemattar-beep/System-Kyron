@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Ship, PlusCircle, FileDown, Eye, CheckCircle, Clock, AlertTriangle, Route } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const importaciones = [
     { id: "IMP-2024-001", fechaSalida: "2024-07-10", fechaLlegadaEst: "2024-08-05", proveedor: "Global Tech Supplies", origen: "China", valorCIF: 25000, estado: "En Tránsito" },
@@ -16,6 +17,24 @@ const importaciones = [
     { id: "IMP-2024-003", fechaSalida: "2024-06-15", fechaLlegadaEst: "2024-07-10", proveedor: "American Parts Co.", origen: "EE.UU.", valorCIF: 32000, estado: "Completado" },
     { id: "IMP-2024-004", fechaSalida: "2024-07-01", fechaLlegadaEst: "2024-07-25", proveedor: "Brazil Exports", origen: "Brasil", valorCIF: 15000, estado: "Retenido" },
 ];
+
+const proveedoresSugeridos = {
+    china: [
+        { nombre: "Alibaba", especialidad: "Plataforma B2B para encontrar fabricantes de prácticamente cualquier producto. Ideal para buscar precios competitivos." },
+        { nombre: "Shenzhen Tech-Innovate Co.", especialidad: "Especialistas en componentes electrónicos, gadgets y tecnología de consumo." },
+        { nombre: "Guangzhou Furniture Direct", especialidad: "Fabricantes de mobiliario de oficina y para el hogar, con opciones de personalización." },
+    ],
+    espana: [
+        { nombre: "Cerámicas Castellón, S.A.", especialidad: "Líderes en la producción de baldosas de cerámica y porcelanato de alta calidad." },
+        { nombre: "Bodegas Rioja Alta", especialidad: "Exportadores de vinos con denominación de origen, ideales para el mercado gourmet." },
+        { nombre: "Textiles del Mediterráneo", especialidad: "Productores de tejidos y textiles para la industria de la moda y decoración." },
+    ],
+    italia: [
+        { nombre: "Milano Moda Group", especialidad: "Proveedores de artículos de cuero de lujo, como carteras, calzado y accesorios." },
+        { nombre: "Bologna Food Exports", especialidad: "Especialistas en la exportación de productos alimenticios italianos auténticos (pastas, aceites, quesos)." },
+        { nombre: "Turin Machinery Solutions", especialidad: "Fabricantes de maquinaria industrial para los sectores de automoción y empaquetado." },
+    ]
+};
 
 
 const statusInfo: { [key: string]: { icon: React.ElementType, color: string, label: string, variant: "default" | "secondary" | "destructive" | "outline" } } = {
@@ -53,7 +72,7 @@ export default function ImportacionesPage() {
         </Button>
       </header>
 
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card className="bg-card/50 backdrop-blur-sm mb-8">
         <CardHeader>
             <CardTitle>Operaciones de Importación</CardTitle>
             <CardDescription>
@@ -109,7 +128,65 @@ export default function ImportacionesPage() {
             </Table>
         </CardContent>
       </Card>
+      
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+            <CardTitle>Sugerencias de Proveedores Internacionales</CardTitle>
+            <CardDescription>
+                Explora proveedores recomendados por país y especialidad.
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Tabs defaultValue="china">
+                <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="china">China</TabsTrigger>
+                    <TabsTrigger value="espana">España</TabsTrigger>
+                    <TabsTrigger value="italia">Italia</TabsTrigger>
+                </TabsList>
+                <TabsContent value="china" className="mt-6">
+                    <div className="space-y-4">
+                        {proveedoresSugeridos.china.map(p => (
+                             <div key={p.nombre} className="p-4 bg-secondary/50 rounded-lg flex items-center justify-between">
+                                <div>
+                                    <h4 className="font-semibold">{p.nombre}</h4>
+                                    <p className="text-sm text-muted-foreground">{p.especialidad}</p>
+                                </div>
+                                <Button variant="outline">Contactar Proveedor</Button>
+                            </div>
+                        ))}
+                    </div>
+                </TabsContent>
+                <TabsContent value="espana" className="mt-6">
+                    <div className="space-y-4">
+                         {proveedoresSugeridos.espana.map(p => (
+                             <div key={p.nombre} className="p-4 bg-secondary/50 rounded-lg flex items-center justify-between">
+                                <div>
+                                    <h4 className="font-semibold">{p.nombre}</h4>
+                                    <p className="text-sm text-muted-foreground">{p.especialidad}</p>
+                                </div>
+                                <Button variant="outline">Contactar Proveedor</Button>
+                            </div>
+                        ))}
+                    </div>
+                </TabsContent>
+                <TabsContent value="italia" className="mt-6">
+                    <div className="space-y-4">
+                         {proveedoresSugeridos.italia.map(p => (
+                             <div key={p.nombre} className="p-4 bg-secondary/50 rounded-lg flex items-center justify-between">
+                                <div>
+                                    <h4 className="font-semibold">{p.nombre}</h4>
+                                    <p className="text-sm text-muted-foreground">{p.especialidad}</p>
+                                </div>
+                                <Button variant="outline">Contactar Proveedor</Button>
+                            </div>
+                        ))}
+                    </div>
+                </TabsContent>
+            </Tabs>
+        </CardContent>
+      </Card>
 
     </div>
   );
 }
+
