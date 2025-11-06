@@ -219,6 +219,3 @@ export default function ArquitecturaSoftwarePage() {
     </div>
   );
 }
-    
-
-    
