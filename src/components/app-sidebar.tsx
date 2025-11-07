@@ -147,6 +147,7 @@ const finanzasContabilidadMenuItems = [
 const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+    { href: "/analisis-empresas-no-digitales", label: "Análisis de Empresas No Digitalizadas", icon: Building },
     { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
