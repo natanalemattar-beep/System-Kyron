@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
@@ -168,6 +167,9 @@ const analisisCrecimientoMenuItems = [
     { href: "/propuesta-proyecto", label: "Carta de Propuesta", icon: FileText },
     { href: "/presentacion-startup", label: "Presentación de Startup", icon: Presentation },
     { href: "/carta-exposicion-motivos", label: "Carta de Motivos", icon: FileText },
+    { href: "/organigrama", label: "Organigrama", icon: Sitemap },
+    { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
+    { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
 ];
 
 const facturacionGeneralMenuItems = [
@@ -896,5 +898,3 @@ function AppSidebarInformatica() {
         </Sidebar>
     );
 }
-
-    
