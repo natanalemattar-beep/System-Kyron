@@ -14,19 +14,19 @@ const importSteps = [
     {
         step: 1,
         title: "Búsqueda y Verificación del Proveedor",
-        description: "El primer paso es encontrar un proveedor confiable en China. Se negocian los términos de la compra y se confirma que el proveedor puede enviar la mercancía a nuestro almacén en origen.",
+        description: "El primer paso es encontrar un proveedor confiable en el país de origen. Se negocian los términos de la compra y se confirma que el proveedor puede enviar la mercancía a nuestro almacén en origen.",
         icon: Handshake,
     },
     {
         step: 2,
         title: "Consolidación de Carga en Almacén",
-        description: "Tu mercancía llega a nuestro almacén en China. Si tienes compras de múltiples proveedores, las agrupamos (consolidamos) en un solo envío para optimizar el costo del flete.",
+        description: "Tu mercancía llega a nuestro almacén en el país de origen. Si tienes compras de múltiples proveedores, las agrupamos (consolidamos) en un solo envío para optimizar el costo del flete.",
         icon: Warehouse,
     },
     {
         step: 3,
         title: "Embarque y Transporte Marítimo",
-        description: "Una vez consolidada, la carga se embarca en un contenedor y comienza su viaje marítimo desde China hasta Venezuela. Se emite el Bill of Lading (BL).",
+        description: "Una vez consolidada, la carga se embarca en un contenedor y comienza su viaje marítimo hasta Venezuela. Se emite el Bill of Lading (BL).",
         icon: Anchor,
     },
     {
@@ -79,7 +79,7 @@ export default function AsesoriaImportacionesPage() {
                 </div>
                 <h1 className="text-4xl font-bold tracking-tight">Asesoría en Importaciones y Logística</h1>
                 <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-                    Una guía integral sobre el proceso de importación desde China a Venezuela, incluyendo consolidación de carga, documentación clave y optimización de costos.
+                    Una guía integral sobre el proceso de importación, incluyendo consolidación de carga, documentación clave y optimización de costos.
                 </p>
             </header>
 
