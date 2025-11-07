@@ -26,9 +26,9 @@ const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, .
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
-        const closeButton = document.querySelector('[data-radix-dialog-close]');
-        if (closeButton instanceof HTMLElement) {
-            closeButton.click();
+        const sheetCloseButton = document.querySelector('[data-radix-dialog-close]');
+        if (sheetCloseButton instanceof HTMLElement) {
+            sheetCloseButton.click();
         }
     };
 
@@ -66,24 +66,6 @@ const testimonials = [
     company: "Inversiones ABC",
     text: "“La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.”",
   },
-];
-
-const howItWorksSteps = [
-    {
-        step: 1,
-        title: "Regístrate y Configura",
-        description: "Crea tu cuenta en minutos y configura los datos de tu empresa o perfil personal. Nuestro sistema te guiará en cada paso.",
-    },
-    {
-        step: 2,
-        title: "Automatiza y Gestiona",
-        description: "Desde la facturación hasta la nómina, deja que nuestra IA se encargue de las tareas repetitivas mientras tú te enfocas en tu negocio.",
-    },
-    {
-        step: 3,
-        title: "Analiza y Crece",
-        description: "Utiliza nuestros reportes y dashboards para obtener una visión clara de tus finanzas y tomar decisiones estratégicas para el crecimiento.",
-    },
 ];
 
 type Message = {
@@ -200,14 +182,11 @@ export default function LandingPage() {
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
-    const satelliteImage = PlaceHolderImages.find((img) => img.id === "satellite-image");
+    const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
     
   return (
-    <div className="flex flex-col min-h-screen text-foreground bg-background overflow-x-hidden">
-        <div className="absolute inset-0 z-0 opacity-20 dark:opacity-40">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-transparent animate-gradient-animation dark:from-primary/20" style={{ animationDuration: '20s' }}></div>
-            <div className="absolute inset-0 bg-gradient-to-bl from-secondary/10 via-transparent to-transparent animate-gradient-animation dark:from-secondary/20" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
-        </div>
+    <div className="flex flex-col min-h-dvh bg-background">
+      {/* Header */}
       <header className="sticky top-0 z-50 w-full p-2">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-xl shadow-lg border">
           <Link href="/" className="flex items-center gap-3">
@@ -272,44 +251,72 @@ export default function LandingPage() {
         </div>
       </header>
 
+      {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-40 pb-24 md:pt-52 md:pb-40 flex items-center text-center">
-            <div className="container mx-auto px-4 md:px-6 z-10">
-                <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent dark:from-white dark:to-slate-400 animate-in fade-in duration-1000">
-                        La Gestión Empresarial, Reinventada para Venezuela
-                    </h1>
-                    <p className="mt-6 text-lg md:text-xl text-balance text-muted-foreground max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000 delay-200">
-                       Simplificamos la burocracia para que puedas enfocarte en crecer. Automatiza tu contabilidad, gestiona permisos y cumple con el SENIAT sin esfuerzo.
-                    </p>
-                    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in-20 slide-in-from-bottom-6 duration-1000 delay-400">
-                        <Button size="lg" asChild>
-                            <Link href="/register">
-                            Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
-                            </Link>
-                        </Button>
-                        <Button size="lg" variant="outline">
-                            <SmoothScrollLink href="#servicios">
-                            Explorar Servicios
-                            </SmoothScrollLink>
-                        </Button>
-                    </div>
-                </div>
+        <section className="relative py-24 md:py-48">
+          <div className="container px-4 md:px-6 grid lg:grid-cols-2 gap-8 items-center">
+            <div className="text-center lg:text-left">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
+                La Gestión Empresarial, Reinventada para Venezuela
+              </h1>
+              <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 text-balance">
+                Simplificamos la burocracia para que puedas enfocarte en crecer. Automatiza tu contabilidad, gestiona permisos y cumple con el SENIAT sin esfuerzo.
+              </p>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <Button size="lg" asChild>
+                      <Link href="/register">
+                      Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
+                      </Link>
+                  </Button>
+                  <Button size="lg" variant="outline">
+                      <SmoothScrollLink href="#servicios">
+                      Explorar Servicios
+                      </SmoothScrollLink>
+                  </Button>
+              </div>
             </div>
+            <div className="relative h-64 lg:h-auto lg:aspect-square">
+              {heroImage && 
+                <Image 
+                  src={heroImage.imageUrl} 
+                  alt={heroImage.description} 
+                  data-ai-hint={heroImage.imageHint}
+                  fill
+                  className="object-cover rounded-3xl shadow-2xl" 
+                />
+              }
+            </div>
+          </div>
         </section>
 
+        {/* Featured Logos */}
+        <section className="py-12 bg-secondary/30">
+          <div className="container px-4 md:px-6">
+            <h3 className="text-center text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-8">
+              CON LA CONFIANZA DE EMPRESAS LÍDERES EN VENEZUELA
+            </h3>
+            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 md:gap-x-12">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} className="h-8 text-muted-foreground" viewBox="0 0 120 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <text x="60" y="20" fontFamily="Arial, sans-serif" fontSize="14" fill="currentColor" textAnchor="middle" fontWeight="bold">EMPRESA {i+1}</text>
+                </svg>
+              ))}
+            </div>
+          </div>
+        </section>
+        
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-primary/5 dark:bg-primary/10">
+        <section id="servicios" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                     {services.map((item, i) => (
-                        <Card key={item.title} className="text-center flex flex-col items-center p-8 bg-card shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 border animate-in fade-in-50 slide-in-from-bottom-8" style={{animationDelay: `${i * 150}ms`}}>
-                            <div className="p-4 bg-primary/10 text-primary rounded-full mb-6">
+                     {services.map((item) => (
+                        <Card key={item.title} className="text-center p-8 bg-card shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 border">
+                            <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
                             <h3 className="text-xl font-semibold ">{item.title}</h3>
@@ -321,71 +328,42 @@ export default function LandingPage() {
         </section>
         
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-background/50 border-y">
-          <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            <div className="space-y-8">
-              <div className="text-center lg:text-left">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/30 border-y">
+          <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
-                <p className="mt-4 text-lg text-muted-foreground">
+                <p className="text-lg text-muted-foreground">
                   Nuestra plataforma integra tecnologías de vanguardia para darte una ventaja competitiva.
                 </p>
-              </div>
-              <div className="grid sm:grid-cols-1 gap-6">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-start gap-4">
-                    <div className="p-3 bg-primary/10 text-primary rounded-lg mt-1">
-                      <feature.icon className="h-6 w-6 shrink-0" />
+                <div className="space-y-6">
+                    {features.map((feature, index) => (
+                    <div key={index} className="flex items-start gap-4">
+                        <div className="p-3 bg-primary/10 text-primary rounded-lg mt-1">
+                        <feature.icon className="h-6 w-6 shrink-0" />
+                        </div>
+                        <div>
+                        <h4 className="font-semibold text-lg">{feature.title}</h4>
+                        <p className="text-muted-foreground text-sm">{feature.description}</p>
+                        </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg">{feature.title}</h4>
-                      <p className="text-muted-foreground text-sm">{feature.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    ))}
+                </div>
             </div>
-            <div className="p-4 md:p-8 rounded-xl flex items-center justify-center">
-                 {satelliteImage && <Image 
-                    src={satelliteImage.imageUrl}
-                    alt={satelliteImage.description}
-                    data-ai-hint={satelliteImage.imageHint}
+             <div className="p-4 md:p-8 rounded-xl flex items-center justify-center">
+                 {aboutImage && <Image 
+                    src={aboutImage.imageUrl}
+                    alt={aboutImage.description}
+                    data-ai-hint={aboutImage.imageHint}
                     width={600}
-                    height={600}
-                    className="rounded-xl aspect-square object-cover shadow-2xl"
+                    height={400}
+                    className="rounded-xl object-cover shadow-2xl"
                  />}
             </div>
           </div>
         </section>
 
-        {/* How it Works Section */}
-        <section id="how-it-works" className="py-20 md:py-28 bg-card/20">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold">Empezar es muy Sencillo</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">En solo tres pasos, estarás en camino a una gestión más inteligente y eficiente.</p>
-                </div>
-                <div className="relative max-w-5xl mx-auto">
-                    <div className="absolute top-6 left-1/2 w-0.5 h-full bg-border -translate-x-1/2 md:hidden"></div>
-                    <div className="absolute top-6 left-0 w-full h-0.5 bg-border hidden md:block"></div>
-                     <div className="grid md:grid-cols-3 gap-8">
-                         {howItWorksSteps.map((step) => (
-                            <div key={step.step} className="relative flex md:flex-col items-center text-center md:text-left">
-                                <div className="flex-shrink-0 relative z-10">
-                                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-xl">{step.step}</div>
-                                </div>
-                                <div className="ml-6 md:ml-0 md:mt-6">
-                                   <h3 className="text-xl font-semibold">{step.title}</h3>
-                                   <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
-                               </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
-
         {/* Testimonials Section */}
-        <section id="testimonials" className="py-20 md:py-28 bg-secondary/20 border-y">
+        <section id="testimonials" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
@@ -397,7 +375,7 @@ export default function LandingPage() {
                       return (
                         <Card key={index} className="p-6 md:p-8 shadow-lg border bg-card">
                             <CardContent className="p-0">
-                                <p className="text-muted-foreground italic md:text-lg mb-6">{testimonial.text}</p>
+                                <p className="text-muted-foreground italic md:text-lg mb-6">“{testimonial.text}”</p>
                                 <div className="flex items-center gap-4">
                                   {avatar && (
                                     <Avatar>
@@ -417,87 +395,52 @@ export default function LandingPage() {
                 </div>
             </div>
         </section>
-
-        {/* About Us Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-background">
-            <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                 <div className="text-center lg:text-left">
-                    <h2 className="text-3xl md:text-4xl font-bold">Hecho en Venezuela, para Venezolanos</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">
-                        Nacimos de la necesidad de una herramienta que realmente entienda los desafíos de hacer negocios en nuestro país. Somos un equipo de contadores, abogados y desarrolladores comprometidos con tu éxito.
-                    </p>
-                </div>
-                {aboutImage && (
-                    <Image 
-                        src={aboutImage.imageUrl}
-                        alt={aboutImage.description}
-                        data-ai-hint={aboutImage.imageHint}
-                        width={600}
-                        height={400}
-                        className="rounded-xl shadow-lg w-full h-auto"
-                    />
-                )}
-            </div>
-        </section>
-
-         {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-gradient-to-r from-foreground to-foreground/90 text-background">
-            <div className="container mx-auto px-4 md:px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-balance" style={{textShadow: '0 1px 4px rgba(0,0,0,0.2)'}}>Únete a cientos de empresas que ya están optimizando sus procesos.</h2>
-                <Button size="lg" variant="secondary" asChild className="mt-8 bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-lg">
-                   <Link href="/register">¡Comienza Hoy! <ArrowRight className="ml-2"/></Link>
-                </Button>
-            </div>
-        </section>
         
-        {/* Contact Section */}
-        <section id="contacto" className="py-20 md:py-28 bg-background">
-            <div className="container mx-auto px-4 md:px-6">
-                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold">Ponte en Contacto</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Nuestro equipo de especialistas está listo para ayudarte.</p>
-                </div>
-                <Card className="max-w-4xl mx-auto shadow-lg border">
-                     <CardContent className="p-6 md:p-8 grid sm:grid-cols-2 gap-8">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 bg-primary/10 rounded-lg">
-                                <Mail className="h-6 w-6 text-primary"/>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-lg">Correo Electrónico</h3>
-                                <p className="text-muted-foreground text-sm mb-1">Para consultas y demos.</p>
-                                <a href="mailto:contacto@systemcms.com" className="font-medium text-primary hover:underline">contacto@systemcms.com</a>
-                            </div>
-                        </div>
-                         <div className="flex items-start gap-4">
-                             <div className="p-3 bg-primary/10 rounded-lg">
-                                <Phone className="h-6 w-6 text-primary"/>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-lg">Teléfono</h3>
-                                <p className="text-muted-foreground text-sm mb-1">Habla con un asesor.</p>
-                                <a href="tel:+584141234567" className="font-medium text-primary hover:underline">+58 414-1234567</a>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+        {/* CTA Section */}
+        <section className="py-20 md:py-28 bg-primary/10">
+            <div className="container mx-auto px-4 md:px-6 text-center">
+                <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
+                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con System C.M.S.</p>
+                <Button size="lg" asChild className="mt-8">
+                   <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
+                </Button>
             </div>
         </section>
       </main>
 
-      <footer className="py-8 border-t bg-secondary/20">
-        <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
-          </p>
-          <div className="flex gap-4">
-            <Link href="/terms" className="text-sm text-muted-foreground hover:text-primary">
-              Términos de Servicio
-            </Link>
-            <Link href="/politica-privacidad" className="text-sm text-muted-foreground hover:text-primary">
-              Política de Privacidad
-            </Link>
+      {/* Footer */}
+      <footer id="contacto" className="py-16 bg-secondary/30 border-t">
+        <div className="container px-4 md:px-6 grid md:grid-cols-3 gap-8">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <Logo />
+              <span className="text-xl font-bold">System C.M.S</span>
+            </div>
+            <p className="text-sm text-muted-foreground">La solución definitiva para la gestión empresarial en Venezuela.</p>
           </div>
+          <div className="space-y-4">
+            <h4 className="font-semibold">Contacto</h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-start gap-3">
+                <Mail className="h-5 w-5 text-muted-foreground mt-0.5"/>
+                <a href="mailto:contacto@systemcms.com" className="hover:text-primary">contacto@systemcms.com</a>
+              </div>
+              <div className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-muted-foreground mt-0.5"/>
+                <a href="tel:+584141234567" className="hover:text-primary">+58 414-1234567</a>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <h4 className="font-semibold">Legal</h4>
+            <nav className="flex flex-col gap-2 text-sm">
+                <Link href="/terms" className="text-muted-foreground hover:text-primary">Términos de Servicio</Link>
+                <Link href="/politica-privacidad" className="text-muted-foreground hover:text-primary">Política de Privacidad</Link>
+            </nav>
+          </div>
+        </div>
+        <div className="container px-4 md:px-6 mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
         </div>
       </footer>
       <ChatDialog />
