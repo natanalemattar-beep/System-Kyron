@@ -5,18 +5,28 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { HandCoins, AlertTriangle, Clock, Lightbulb, BarChart, Mail, Bell } from "lucide-react";
+import { HandCoins, AlertTriangle, Clock, Lightbulb, BarChart, Mail, Bell, ShieldCheck, Banknote } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 const facturasPendientes = [
     { id: "FAC-001", proveedor: "OficinaTech C.A.", email: "cobranza@oficinatech.com", fechaEmision: "2024-07-01", fechaVencimiento: "2024-07-31", monto: 1392, estado: "Pendiente" },
     { id: "FAC-002", proveedor: "Suministros Globales", email: "pagos@suministrosglobales.com", fechaEmision: "2024-06-15", fechaVencimiento: "2024-07-15", monto: 986, estado: "Vencida" },
     { id: "FAC-003", proveedor: "Papelería Mundial", email: "admin@papeleriamundial.net", fechaEmision: "2024-07-10", fechaVencimiento: "2024-08-10", monto: 550, estado: "Pendiente" },
     { id: "FAC-004", proveedor: "OficinaTech C.A.", email: "cobranza@oficinatech.com", fechaEmision: "2024-07-20", fechaVencimiento: "2024-08-20", monto: 2100, estado: "Pendiente" },
+];
+
+const cuentasBancarias = [
+    { id: 1, banco: "Banco de Venezuela", numero: "**** 1234", saldo: 150000 },
+    { id: 2, banco: "Banesco", numero: "**** 5678", saldo: 25000 },
+    { id: 3, banco: "Mercantil", numero: "**** 9012", saldo: 75000 },
 ];
 
 const topProveedoresData = [
@@ -46,8 +56,8 @@ export default function CuentasPorPagarPage() {
 
     const handleRegisterPayment = (facturaId: string) => {
         toast({
-            title: "Pago Registrado",
-            description: `Se ha registrado el pago para la factura ${facturaId}.`,
+            title: "Pago Procesado y Debitado",
+            description: `Se ha debitado el pago para la factura ${facturaId} de la cuenta seleccionada.`,
         });
     };
 
@@ -133,29 +143,75 @@ export default function CuentasPorPagarPage() {
                                             <TableCell><Badge variant={getStatusVariant(factura.estado)}>{factura.estado}</Badge></TableCell>
                                             <TableCell className="text-right space-x-1">
                                                  <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=factura-pagar-${factura.id}`} alt={`QR for ${factura.id}`} width={24} height={24} className="inline-block mr-2" />
-                                                <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id)}>Registrar Pago</Button>
-                                                {factura.estado === 'Pendiente' && (
-                                                    <Dialog>
-                                                        <DialogTrigger asChild>
-                                                            <Button size="sm" variant="outline"><Mail className="mr-2 h-4 w-4"/> Notificar Vencimiento</Button>
-                                                        </DialogTrigger>
-                                                        <DialogContent>
-                                                            <DialogHeader>
-                                                                <DialogTitle>Confirmar Notificación</DialogTitle>
-                                                                <DialogDescription>
-                                                                    Se enviará un correo a <strong>{factura.email}</strong> como recordatorio del próximo vencimiento de la factura {factura.id}.
-                                                                </DialogDescription>
-                                                            </DialogHeader>
-                                                            <DialogFooter>
-                                                                <Button variant="outline">Cancelar</Button>
-                                                                <Button onClick={() => handleNotify(factura.id, factura.email)}>Enviar Notificación</Button>
-                                                            </DialogFooter>
-                                                        </DialogContent>
-                                                    </Dialog>
-                                                )}
-                                                {factura.estado === 'Vencida' && (
-                                                    <Button size="sm" variant="destructive" onClick={() => handleNotify(factura.id, factura.email)}><Bell className="mr-2 h-4 w-4"/> Notificar Pago</Button>
-                                                )}
+                                                <Dialog>
+                                                    <DialogTrigger asChild>
+                                                        <Button size="sm" variant="outline">Registrar Pago</Button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="sm:max-w-3xl">
+                                                        <DialogHeader>
+                                                            <DialogTitle>Confirmar y Realizar Pago</DialogTitle>
+                                                            <DialogDescription>
+                                                                Verifica los datos de la factura, selecciona la cuenta a debitar y autoriza el pago.
+                                                            </DialogDescription>
+                                                        </DialogHeader>
+                                                        <div className="grid md:grid-cols-2 gap-6 py-4">
+                                                            <div className="space-y-4">
+                                                                <Card>
+                                                                    <CardHeader><CardTitle className="text-base">Factura a Pagar</CardTitle></CardHeader>
+                                                                    <CardContent>
+                                                                        <Image src="https://picsum.photos/seed/invoice1/400/500" alt="Factura" width={400} height={500} className="rounded-md object-cover" />
+                                                                    </CardContent>
+                                                                </Card>
+                                                            </div>
+                                                            <div className="space-y-6">
+                                                                <dl className="grid gap-2">
+                                                                    <div className="flex justify-between"><dt className="text-muted-foreground">Proveedor:</dt><dd className="font-semibold">{factura.proveedor}</dd></div>
+                                                                    <div className="flex justify-between"><dt className="text-muted-foreground">Nro. Factura:</dt><dd className="font-semibold">{factura.id}</dd></div>
+                                                                    <div className="flex justify-between text-lg"><dt className="text-muted-foreground">Monto Total:</dt><dd className="font-bold text-primary">{formatCurrency(factura.monto, 'Bs.')}</dd></div>
+                                                                </dl>
+                                                                <div className="space-y-2">
+                                                                    <Label htmlFor="cuenta-origen">Seleccionar Cuenta a Debitar</Label>
+                                                                    <Select>
+                                                                        <SelectTrigger id="cuenta-origen">
+                                                                            <SelectValue placeholder="Seleccione una cuenta..." />
+                                                                        </SelectTrigger>
+                                                                        <SelectContent>
+                                                                            {cuentasBancarias.map(c => (
+                                                                                <SelectItem key={c.id} value={String(c.id)}>{c.banco} ({c.numero}) - Saldo: {formatCurrency(c.saldo, 'Bs.')}</SelectItem>
+                                                                            ))}
+                                                                        </SelectContent>
+                                                                    </Select>
+                                                                </div>
+                                                                <div className="space-y-2">
+                                                                    <Label>Monto a Pagar</Label>
+                                                                    <Input type="number" defaultValue={factura.monto} />
+                                                                </div>
+                                                                <div className="space-y-2 text-center p-4 bg-secondary/50 rounded-lg">
+                                                                    <Label className="font-semibold">Código de Autorización (2FA)</Label>
+                                                                    <p className="text-xs text-muted-foreground">Un supervisor debe aprobar esta transacción.</p>
+                                                                    <InputOTP maxLength={6}>
+                                                                        <InputOTPGroup>
+                                                                            <InputOTPSlot index={0} />
+                                                                            <InputOTPSlot index={1} />
+                                                                            <InputOTPSlot index={2} />
+                                                                        </InputOTPGroup>
+                                                                        <InputOTPGroup>
+                                                                            <InputOTPSlot index={3} />
+                                                                            <InputOTPSlot index={4} />
+                                                                            <InputOTPSlot index={5} />
+                                                                        </InputOTPGroup>
+                                                                    </InputOTP>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <DialogFooter>
+                                                            <Button variant="outline">Cancelar</Button>
+                                                            <Button onClick={() => handleRegisterPayment(factura.id)}>
+                                                                <ShieldCheck className="mr-2 h-4 w-4"/> Pagar y Debitar de Cuenta
+                                                            </Button>
+                                                        </DialogFooter>
+                                                    </DialogContent>
+                                                </Dialog>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -200,4 +256,5 @@ export default function CuentasPorPagarPage() {
             </div>
         </div>
     );
-}
+
+    
