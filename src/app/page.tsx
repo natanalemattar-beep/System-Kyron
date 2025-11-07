@@ -4,9 +4,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Menu, BookOpen, Shield, Briefcase, ArrowRight, CheckCircle, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase } from "lucide-react";
 import Link from "next/link";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -26,7 +26,6 @@ const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, .
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
-        // Close sheet on mobile after clicking a link
         const closeButton = document.querySelector('[data-radix-dialog-close]');
         if (closeButton instanceof HTMLElement) {
             closeButton.click();
@@ -246,24 +245,19 @@ export default function LandingPage() {
             </DropdownMenu>
 
             <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Abrir menú</span>
-                </Button>
-              </SheetTrigger>
+                <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon" className="md:hidden" data-radix-dialog-close>
+                        <Menu className="h-6 w-6" />
+                        <span className="sr-only">Abrir menú</span>
+                    </Button>
+                </SheetTrigger>
               <SheetContent side="right" className="bg-background">
-                <SheetHeader>
-                  <SheetTitle className="sr-only">Menú</SheetTitle>
-                </SheetHeader>
                 <div className="flex flex-col h-full">
                     <nav className="flex flex-col gap-4 text-lg font-medium mt-8">
                         {navLinks.map((link) => (
-                        <SheetClose asChild key={link.label}>
-                            <SmoothScrollLink href={link.href} className="text-foreground hover:text-primary">
+                         <SmoothScrollLink key={link.label} href={link.href} className="text-foreground hover:text-primary">
                             {link.label}
-                            </SmoothScrollLink>
-                        </SheetClose>
+                        </SmoothScrollLink>
                         ))}
                     </nav>
                     <div className="mt-auto flex w-full gap-2">
@@ -284,10 +278,10 @@ export default function LandingPage() {
             <div className="container mx-auto px-4 md:px-6 z-10">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent dark:from-white dark:to-slate-400 animate-in fade-in duration-1000">
-                        La Gestión Empresarial, Reinventada
+                        La Gestión Empresarial, Reinventada para Venezuela
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-balance text-muted-foreground max-w-3xl mx-auto animate-in fade-in-20 slide-in-from-bottom-4 duration-1000 delay-200">
-                       Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.
+                       Simplificamos la burocracia para que puedas enfocarte en crecer. Automatiza tu contabilidad, gestiona permisos y cumple con el SENIAT sin esfuerzo.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in-20 slide-in-from-bottom-6 duration-1000 delay-400">
                         <Button size="lg" asChild>
@@ -370,17 +364,22 @@ export default function LandingPage() {
                     <h2 className="text-3xl md:text-4xl font-bold">Empezar es muy Sencillo</h2>
                     <p className="mt-4 text-lg text-muted-foreground">En solo tres pasos, estarás en camino a una gestión más inteligente y eficiente.</p>
                 </div>
-                <div className="relative grid md:grid-cols-3 gap-8">
-                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-border -translate-y-1/2 hidden md:block"></div>
-                     {howItWorksSteps.map((step) => (
-                        <div key={step.step} className="relative flex flex-col items-center text-center p-8 bg-card rounded-lg shadow-sm border">
-                           <div className="absolute -top-6 bg-background p-1 rounded-full">
-                             <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-xl">{step.step}</div>
-                           </div>
-                           <h3 className="mt-8 text-xl font-semibold">{step.title}</h3>
-                           <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
-                        </div>
-                    ))}
+                <div className="relative max-w-5xl mx-auto">
+                    <div className="absolute top-6 left-1/2 w-0.5 h-full bg-border -translate-x-1/2 md:hidden"></div>
+                    <div className="absolute top-6 left-0 w-full h-0.5 bg-border hidden md:block"></div>
+                     <div className="grid md:grid-cols-3 gap-8">
+                         {howItWorksSteps.map((step) => (
+                            <div key={step.step} className="relative flex md:flex-col items-center text-center md:text-left">
+                                <div className="flex-shrink-0 relative z-10">
+                                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-primary-foreground font-bold text-xl">{step.step}</div>
+                                </div>
+                                <div className="ml-6 md:ml-0 md:mt-6">
+                                   <h3 className="text-xl font-semibold">{step.title}</h3>
+                                   <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
+                               </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
