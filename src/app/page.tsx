@@ -197,10 +197,10 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-dvh bg-background">
       {/* Header */}
        <header className={cn(
-        "fixed top-0 z-50 w-full p-2 transition-all duration-500 ease-in-out",
-        isScrolled ? "translate-y-0" : "-translate-y-full"
+        "fixed top-0 z-50 w-full transition-all duration-300 ease-in-out",
+        isScrolled ? "p-2" : "p-0"
       )}>
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-xl shadow-lg border">
+        <div className={cn("container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300", isScrolled && "bg-background/80 backdrop-blur-lg rounded-xl shadow-lg border")}>
           <Link href="/" className="flex items-center gap-3">
             <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
