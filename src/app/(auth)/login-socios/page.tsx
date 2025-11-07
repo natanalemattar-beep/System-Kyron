@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Users, Eye, EyeOff, User, Building, ShoppingCart, Briefcase, Megaphone } from "lucide-react";
+import { Users, Eye, EyeOff, User, Building, ShoppingCart, Briefcase, Megaphone, Gavel } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,6 +39,9 @@ export default function LoginSociosPage() {
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href="/login-juridico">Admin y Finanzas</Link>
+                    </DropdownMenuItem>
+                     <DropdownMenuItem asChild>
+                        <Link href="/escritorio-juridico">Escritorio Jurídico</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href="/login-ventas">Ventas y Facturación</Link>

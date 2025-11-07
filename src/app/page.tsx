@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -227,6 +227,7 @@ export default function LandingPage() {
               <DropdownMenuContent align="end">
                   <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
                   <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Admin y Finanzas</Link></DropdownMenuItem>
+                   <DropdownMenuItem asChild><Link href="/escritorio-juridico"><Gavel className="mr-2"/>Escritorio Jurídico</Link></DropdownMenuItem>
                   <DropdownMenuItem asChild><Link href="/login-ventas"><ShoppingCart className="mr-2"/>Ventas y Facturación</Link></DropdownMenuItem>
                   <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
                   <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>

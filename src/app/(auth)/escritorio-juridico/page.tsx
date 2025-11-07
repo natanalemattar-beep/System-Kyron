@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building, Eye, EyeOff, User, Briefcase, ShoppingCart, Users, Megaphone, Gavel } from "lucide-react";
+import { Gavel, Eye, EyeOff, User, Briefcase, Building, ShoppingCart, Users, Megaphone } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/logo";
 import { useRouter } from "next/navigation";
 
-export default function LoginJuridicoPage() {
+export default function EscritorioJuridicoPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [rif, setRif] = useState("");
   const router = useRouter();
@@ -57,7 +57,7 @@ export default function LoginJuridicoPage() {
                     <DropdownMenuItem asChild>
                         <Link href="/login-juridico">Admin y Finanzas</Link>
                     </DropdownMenuItem>
-                     <DropdownMenuItem asChild>
+                    <DropdownMenuItem asChild>
                         <Link href="/escritorio-juridico">Escritorio Jurídico</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
@@ -81,20 +81,16 @@ export default function LoginJuridicoPage() {
         <Card className="w-full max-w-md mx-auto shadow-xl">
           <CardHeader className="text-center">
              <div className="mx-auto mb-4 h-16 w-16 flex items-center justify-center rounded-full bg-primary/10">
-                <Building className="h-8 w-8 text-primary"/>
+                <Gavel className="h-8 w-8 text-primary"/>
             </div>
-            <CardTitle className="text-2xl tracking-wider">Acceso Administrativo</CardTitle>
-            <CardDescription>Inicia sesión con tu RIF empresarial y usuario.</CardDescription>
+            <CardTitle className="text-2xl tracking-wider">Escritorio Jurídico</CardTitle>
+            <CardDescription>Acceso para gestión de casos y documentos legales.</CardDescription>
           </CardHeader>
           <form onSubmit={handleLogin}>
             <CardContent className="p-6 space-y-6">
               <div className="space-y-2">
-                <Label>RIF Empresarial</Label>
-                <Input type="text" placeholder="J-12345678-9" value={rif} onChange={handleRifChange} required />
-              </div>
-               <div className="space-y-2">
                 <Label>Usuario</Label>
-                <Input type="text" placeholder="admin.user" required />
+                <Input type="text" placeholder="abogado.user" required />
               </div>
               <div className="space-y-2 relative">
                 <Label>Contraseña</Label>
@@ -116,20 +112,13 @@ export default function LoginJuridicoPage() {
            <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
               <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
               <div className="flex justify-center gap-4">
+                <Link href="/login-juridico" className="font-medium text-primary hover:underline flex items-center gap-1">
+                    <Building className="h-4 w-4"/> Admin
+                </Link>
                 <Link href="/login-natural" className="font-medium text-primary hover:underline flex items-center gap-1">
                     <User className="h-4 w-4"/> Personal
                 </Link>
-                <Link href="/login-ventas" className="font-medium text-primary hover:underline flex items-center gap-1">
-                    <ShoppingCart className="h-4 w-4"/> Ventas
-                </Link>
-                 <Link href="/login-rrhh" className="font-medium text-primary hover:underline flex items-center gap-1">
-                    <Briefcase className="h-4 w-4"/> RR.HH.
-                </Link>
               </div>
-               <Separator className="my-2"/>
-               <Link href="/register" className="font-medium text-primary hover:underline">
-                    Crear una cuenta nueva
-                </Link>
             </CardFooter>
         </Card>
       </main>
