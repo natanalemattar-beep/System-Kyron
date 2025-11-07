@@ -80,6 +80,7 @@ import {
   Cpu,
   Recycle,
   Wand2,
+  Link as LinkIcon
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -143,9 +144,8 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
     { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
     { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto vs Estrategias", icon: HelpCircle },
-    { href: "/empresas-con-mismos-productos", label: "Análisis de Competencia", icon: Users },
     { href: "/estrategias-ventas", label: "Estrategias de Ventas", icon: Lightbulb },
-    { href: "/marketing-ventas", label: "Marketing y Ventas", icon: Megaphone },
+    { href: "/marketing-ventas", label: "Guía de Marketing Digital", icon: Megaphone },
     { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: Briefcase },
     { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
     { href: "/asesoria-publicidad", label: "Asesoría y Ventas", icon: Megaphone },

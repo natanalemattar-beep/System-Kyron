@@ -3,40 +3,60 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Megaphone, Search, Newspaper, Share2, Bot, ArrowRight, CheckCircle, BarChart, Globe } from "lucide-react";
+import { Megaphone, Search, Newspaper, Share2, Bot, ArrowRight, CheckCircle, BarChart, Globe, Mail, Users, Video, Gift, Star, Link as LinkIcon } from "lucide-react";
 import Link from "next/link";
 
-const channels = [
+const strategies = [
     {
-        title: "Motores de Búsqueda (SEO & PPC)",
-        description: "Mejora la visibilidad en Google para captar usuarios que buscan activamente tus soluciones.",
+        title: "Marketing de Contenidos",
+        description: "Crear y compartir contenido valioso (blogs, videos, podcasts) para atraer y retener a una audiencia.",
+        icon: Newspaper
+    },
+    {
+        title: "SEO (Search Engine Optimization)",
+        description: "Optimizar el sitio web para que aparezca en los primeros resultados de búsqueda orgánica en motores como Google.",
         icon: Search
     },
     {
-        title: "Redes Sociales",
-        description: "Crea una comunidad, interactúa con clientes y promociona tus servicios a través de perfiles y anuncios pagados.",
+        title: "Publicidad en Redes Sociales y Online",
+        description: "Utilizar plataformas como Facebook, Instagram y Google Ads para llegar a públicos específicos.",
         icon: Share2
     },
+     {
+        title: "Email Marketing",
+        description: "Enviar correos electrónicos personalizados para nutrir leads y generar ventas, utilizando listas de suscripción.",
+        icon: Mail
+    },
+     {
+        title: "Marketing de Influencers",
+        description: "Colaborar con personas influyentes para promocionar productos o servicios a su audiencia.",
+        icon: Users
+    },
+     {
+        title: "Marketing de Afiliados",
+        description: "Asociarse con otras empresas o individuos que ganan una comisión por cada venta o lead que generan para tu negocio.",
+        icon: LinkIcon
+    },
     {
-        title: "Sitios Web y Blogs",
-        description: "La base de tu presencia online, ideal para atraer clientes con contenido de valor y mostrar tus productos.",
-        icon: Globe
+        title: "Contenido de Video Corto",
+        description: "Crear y publicar videos de formato corto y dinámico (TikTok, Reels) para captar la atención con 'ganchos' visuales.",
+        icon: Video
     },
-     {
-        title: "Correo Electrónico",
-        description: "Envía newsletters, promociones personalizadas y automatiza campañas para nutrir a tus prospectos.",
-        icon: Megaphone
-    },
-     {
-        title: "Publicidad en Línea",
-        description: "Utiliza banners, anuncios en redes sociales y videos para llegar a audiencias específicas.",
-        icon: BarChart
-    },
-     {
-        title: "Otras Herramientas (IA, SMS)",
-        description: "Automatiza tareas, genera contenido con IA y utiliza SMS para comunicados directos.",
+    {
+        title: "Marketing Conversacional",
+        description: "Implementar chatbots para interactuar con los clientes en tiempo real, respondiendo preguntas y guiando a los usuarios.",
         icon: Bot
     },
+    {
+        title: "Relaciones Públicas",
+        description: "Gestionar la comunicación de la marca con el público y los medios para construir una reputación positiva.",
+        icon: Megaphone
+    },
+    {
+        title: "Programas de Fidelización",
+        description: "Incentivar la repetición de compras y la lealtad del cliente a través de recompensas y ofertas exclusivas.",
+        icon: Gift
+    }
 ];
 
 const benefits = [
@@ -70,15 +90,15 @@ export default function MarketingVentasPage() {
 
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="flex items-center gap-3">Canales y Herramientas del Marketing Digital</CardTitle>
-          <CardDescription>Desde la optimización en buscadores hasta el poder de la inteligencia artificial, estos son los pilares de una estrategia digital exitosa.</CardDescription>
+          <CardTitle className="flex items-center gap-3">10 Estrategias de Marketing Efectivas</CardTitle>
+          <CardDescription>Desde la creación de contenido hasta la automatización con IA, estos son los pilares de una estrategia digital exitosa.</CardDescription>
         </CardHeader>
         <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {channels.map((channel) => (
-                <div key={channel.title} className="p-4 bg-secondary/50 rounded-lg">
-                    <channel.icon className="h-8 w-8 text-primary mb-3"/>
-                    <h4 className="font-semibold">{channel.title}</h4>
-                    <p className="text-sm text-muted-foreground mt-1">{channel.description}</p>
+            {strategies.map((strategy) => (
+                <div key={strategy.title} className="p-4 bg-secondary/50 rounded-lg">
+                    <strategy.icon className="h-8 w-8 text-primary mb-3"/>
+                    <h4 className="font-semibold">{strategy.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-1">{strategy.description}</p>
                 </div>
             ))}
         </CardContent>
