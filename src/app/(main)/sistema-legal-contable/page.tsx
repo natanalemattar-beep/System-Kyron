@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Scale, Book, AlertTriangle, Link as LinkIcon } from "lucide-react";
+import { Scale, Book, AlertTriangle, Link as LinkIcon, Gavel } from "lucide-react";
 
 export default function SistemaLegalContablePage() {
   return (
@@ -41,6 +41,25 @@ export default function SistemaLegalContablePage() {
             <p className="text-sm italic pt-2">
                 ¡Cumple con tu deber constitucional de contribuir con las cargas públicas, para que así el Gobierno Nacional pueda disponer de los recursos necesarios para propiciar el bienestar de la colectividad!
             </p>
+        </CardContent>
+      </Card>
+      
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-3"><Gavel className="text-primary"/>Fuentes del Derecho Tributario</CardTitle>
+          <CardDescription>Según el artículo 2 del Código Orgánico Tributario (G.O. N° 37.305).</CardDescription>
+        </CardHeader>
+        <CardContent>
+            <p className="text-muted-foreground mb-4">
+               Constituyen fuentes del Derecho Tributario las siguientes disposiciones:
+            </p>
+            <ol className="list-decimal list-inside space-y-3 text-muted-foreground">
+                <li>Las disposiciones constitucionales.</li>
+                <li>Los tratados, convenios o acuerdos internacionales celebrados por la República.</li>
+                <li>Las leyes y los actos con fuerza de ley.</li>
+                <li>Los contratos relativos a la estabilidad jurídica de regímenes de tributos nacionales, estadales y municipales.</li>
+                <li>Las reglamentaciones y demás disposiciones de carácter general establecidas por los órganos administrativos facultados al efecto.</li>
+            </ol>
         </CardContent>
       </Card>
 
