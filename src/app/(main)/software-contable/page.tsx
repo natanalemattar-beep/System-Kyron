@@ -33,13 +33,45 @@ const faqItems = [
     }
 ];
 
-const softwareComparison = [
-  { name: "Saint (versiones clásicas)", homologated: "No", advantages: "Muy conocido en el mercado; gran cantidad de contadores lo dominan.", disadvantages: "Sus versiones más populares no están homologadas. Interfaz considerada anticuada. Rígido para adaptarse a nuevas normativas.", idealFor: "Comercios que ya lo manejan y no quieren cambiar aún." },
-  { name: "Galac Administrativo", homologated: "Sí", advantages: "Solución robusta y completa. Ecosistema integrado. Homologado.", disadvantages: "Puede ser complejo para PYMES. Costo de implementación más elevado.", idealFor: "Empresas medianas y grandes que buscan un ecosistema completo." },
-  { name: "Profit Plus", homologated: "Sí", advantages: "Muy escalable y adaptable. Fuerte presencia en el país. Homologado.", disadvantages: "Curva de aprendizaje pronunciada. Requiere personalización para sacarle provecho.", idealFor: "Negocios en crecimiento que necesitan escalabilidad." },
-  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", advantages: "Diseño moderno e intuitivo. Enfocado en la facilidad de uso para PYMES. Cumplimiento garantizado.", disadvantages: "Más nuevo en el mercado en comparación con los sistemas tradicionales.", idealFor: "PYMES y comerciantes que buscan simplicidad y confianza." },
-  { name: "SAP Business One", homologated: "Sí (versión adaptada)", advantages: "ERP de clase mundial, extremadamente potente y personalizable.", disadvantages: "Costo muy elevado, tanto en licencias como en implementación. Excesivo para la mayoría de las PYMES.", idealFor: "Grandes corporaciones con alto presupuesto." },
+const nationalSystems = [
+  { 
+    name: "Saint", 
+    description: "Muy popular por su versatilidad, usado en PYMES. Ofrece módulos administrativos y contables.",
+    advantages: ["Muy conocido en el mercado", "Gran cantidad de contadores lo dominan."],
+    disadvantages: ["Versiones más populares no homologadas", "Interfaz considerada anticuada", "Rígido para adaptarse."]
+  },
+  { 
+    name: "Gálac Software", 
+    description: "Soluciones robustas y completas (Contabilidad, Nómina, Administrativo) con fuerte enfoque en cumplimiento.",
+    advantages: ["Ecosistema integrado", "Homologado", "Fuerte enfoque en NIIF."],
+    disadvantages: ["Puede ser complejo para PYMES", "Costo de implementación más elevado."]
+  },
+  { 
+    name: "Profit Plus", 
+    description: "Muy escalable y adaptable, con fuerte presencia en el país.",
+    advantages: ["Altamente personalizable", "Homologado", "Ideal para negocios en crecimiento."],
+    disadvantages: ["Curva de aprendizaje pronunciada", "Requiere inversión en personalización."]
+  },
+   { 
+    name: "A2 Softway", 
+    description: "Amplia gama de módulos con gran presencia en comercios minoristas (POS).",
+    advantages: ["Fuerte en punto de venta", "Modular", "Buena red de distribución."],
+    disadvantages: ["La integración entre módulos puede ser compleja."]
+  },
 ];
+
+const internationalSystems = [
+    { name: "SAP Business One", description: "ERP de clase mundial para empresas medianas y grandes que buscan una integración total.", advantages: ["Extremadamente potente", "Personalizable", "Reconocimiento global."], disadvantages: ["Costo muy elevado en licencias e implementación", "Excesivo para la mayoría de PYMES."] },
+    { name: "Odoo", description: "ERP de código abierto con una gran cantidad de módulos que se adapta a diversas necesidades.", advantages: ["Modular y flexible", "Comunidad activa", "Costo inicial puede ser bajo."], disadvantages: ["Requiere un 'partner' local para la localización fiscal", "La personalización puede volverse costosa."] },
+    { name: "QuickBooks Online", description: "Plataforma en la nube popular para la gestión de PYMES a nivel global.", advantages: ["Interfaz muy amigable", "Fácil de usar", "Basado 100% en la nube."], disadvantages: ["No está adaptado a la normativa venezolana", "Requiere herramientas complementarias para reportes fiscales."] },
+];
+
+const ourSystem = {
+    name: "Hybrid LiteOS (System C.M.S)",
+    description: "La solución moderna diseñada para PYMES y comerciantes en Venezuela, que combina facilidad de uso con cumplimiento fiscal garantizado.",
+    advantages: ["Diseño moderno e intuitivo", "Enfocado en la facilidad de uso", "Homologado (Providencia 121)", "Asesoría y soporte local incluidos."],
+    disadvantages: ["Más nuevo en el mercado en comparación con sistemas tradicionales."]
+};
 
 
 export default function SoftwareContablePage() {
@@ -48,7 +80,7 @@ export default function SoftwareContablePage() {
        <header className="mb-8 text-center">
         <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
             <Puzzle className="h-10 w-10 text-primary"/>
-            Guía Completa para Elegir tu Sistema Administrativo
+            Guía para Elegir tu Sistema Administrativo en Venezuela
         </h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
           En un entorno donde la inflación y los impuestos son retos constantes, contar con un sistema confiable no es un lujo: es un salvavidas que da control y tranquilidad al empresario.
@@ -59,110 +91,93 @@ export default function SoftwareContablePage() {
           <FileWarning className="h-4 w-4"/>
           <AlertTitle>Advertencia Oficial del SENIAT</AlertTitle>
           <AlertDescription>
-            Según la <strong>Providencia Administrativa N° SNAT/2024/000121</strong> (Gaceta Oficial N° 43.032), solo están autorizados los Software Homologados y sus versiones específicas. "Las versiones anteriores de estos sistemas y cualquier otra variante de los mismos no incluidos en esta lista <strong>NO ESTÁN AUTORIZADOS</strong>." El uso de software no homologado puede acarrear sanciones.
+            Según la <strong>Providencia Administrativa N° SNAT/2024/000121</strong> (Gaceta Oficial N° 43.032), solo están autorizados los Software Homologados y sus versiones específicas. El uso de software no homologado puede acarrear severas sanciones.
           </AlertDescription>
       </Alert>
-
-      {/* Main Sections */}
-      <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
-            <Card className="bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle>¿Qué es un Sistema Administrativo y por qué es Clave en Venezuela?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground">
-                        Un sistema administrativo es un software que ayuda a manejar las operaciones de un negocio: facturación, inventario, contabilidad, compras y ventas. En Venezuela, su importancia es doble: no solo facilita la gestión interna, sino que también asegura el cumplimiento con las normativas del SENIAT, que exige que los programas estén homologados según la providencia vigente.
-                    </p>
-                </CardContent>
-            </Card>
-
-            <Card className="bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle>Evolución de los Sistemas Administrativos en el País</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <p>El mercado venezolano ha visto varias etapas. Desde pioneros como <strong>Saint</strong> en los años 90, pasando por soluciones consolidadas como <strong>Galac y Profit Plus</strong>, hasta llegar a nuevas alternativas como <strong>Hybrid LiteOS</strong>, que responden mejor a la necesidad actual de simplicidad y cumplimiento legal.</p>
-                    <p className="text-sm italic text-muted-foreground p-3 bg-secondary/30 rounded-lg">
-                        "Comencé hace más de 25 años con Saint, cuando se usaba en DOS. Aprendí que la tecnología solo sirve si se adapta a la realidad del dueño de negocio: sus miedos, su forma de llevar cuentas y hasta su relación con el SENIAT."
-                    </p>
-                </CardContent>
-            </Card>
-        </div>
-        <Card className="lg:col-span-1 bg-primary/10 border-primary/20">
-             <CardHeader>
-                <CardTitle className="flex items-center gap-2"><ThumbsUp/> Beneficios Clave</CardTitle>
+      
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Sistemas Contables Populares de Desarrollo Nacional</CardTitle>
+                <CardDescription>Sistemas adaptados a la normativa venezolana, multimoneda y reportes SENIAT.</CardDescription>
             </CardHeader>
-             <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
-                    <div>
-                        <h4 className="font-semibold">Control de Inventario y Facturación</h4>
-                        <p className="text-xs text-muted-foreground">Evita pérdidas y factura sin errores.</p>
-                    </div>
-                </div>
-                 <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
-                    <div>
-                        <h4 className="font-semibold">Cumplimiento con el SENIAT</h4>
-                        <p className="text-xs text-muted-foreground">La clave es usar software homologado para evitar multas.</p>
-                    </div>
-                </div>
-                 <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
-                    <div>
-                        <h4 className="font-semibold">Mayor Productividad</h4>
-                        <p className="text-xs text-muted-foreground">Reduce errores humanos y enfócate en crecer.</p>
-                    </div>
-                </div>
-                 <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
-                    <div>
-                        <h4 className="font-semibold">Paz Mental</h4>
-                        <p className="text-xs text-muted-foreground">Un buen sistema te da tranquilidad y control.</p>
-                    </div>
-                </div>
+            <CardContent className="grid md:grid-cols-2 gap-6">
+                {nationalSystems.map(system => (
+                    <Card key={system.name}>
+                        <CardHeader>
+                            <CardTitle>{system.name}</CardTitle>
+                            <CardDescription>{system.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-3">
+                            <div>
+                                <h4 className="font-semibold text-green-500 mb-2">Ventajas</h4>
+                                <ul className="list-disc pl-5 text-sm space-y-1">
+                                    {system.advantages.map(adv => <li key={adv}>{adv}</li>)}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-red-500 mb-2">Desventajas</h4>
+                                <ul className="list-disc pl-5 text-sm space-y-1">
+                                    {system.disadvantages.map(dis => <li key={dis}>{dis}</li>)}
+                                </ul>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
             </CardContent>
         </Card>
-      </div>
+
+        <Card className="bg-primary/10 border-primary/20">
+            <CardHeader>
+                <CardTitle className="text-primary flex items-center gap-2"><ShieldCheck/> Nuestra Solución Recomendada: {ourSystem.name}</CardTitle>
+                <CardDescription>{ourSystem.description}</CardDescription>
+            </CardHeader>
+            <CardContent className="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 className="font-semibold text-green-500 mb-2">Ventajas Clave</h4>
+                    <ul className="list-disc pl-5 text-sm space-y-1">
+                        {ourSystem.advantages.map(adv => <li key={adv}>{adv}</li>)}
+                    </ul>
+                </div>
+                 <div>
+                    <h4 className="font-semibold text-red-500 mb-2">Desventajas</h4>
+                    <ul className="list-disc pl-5 text-sm space-y-1">
+                        {ourSystem.disadvantages.map(dis => <li key={dis}>{dis}</li>)}
+                    </ul>
+                </div>
+            </CardContent>
+             <CardFooter>
+                <Button>Solicitar un Demo <ArrowRight className="ml-2"/></Button>
+            </CardFooter>
+        </Card>
 
        <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-            <CardTitle>Comparativa de Sistemas Administrativos en Venezuela</CardTitle>
-            <CardDescription>
-                Análisis de las soluciones más comunes del mercado y su estado frente a la normativa fiscal.
-            </CardDescription>
+            <CardTitle>Soluciones Internacionales con Presencia en Venezuela</CardTitle>
+            <CardDescription>Sistemas ERP que requieren configuración especial para cumplir con la normativa fiscal local.</CardDescription>
         </CardHeader>
-        <CardContent>
-            <div className="overflow-x-auto">
-                 <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Software</TableHead>
-                            <TableHead className="text-center">Homologado</TableHead>
-                            <TableHead>Ventajas</TableHead>
-                            <TableHead>Desventajas</TableHead>
-                            <TableHead>Ideal para…</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {softwareComparison.map((item) => (
-                            <TableRow key={item.name}>
-                                <TableCell className="font-medium whitespace-nowrap">{item.name}</TableCell>
-                                <TableCell className="text-center">
-                                    {item.homologated.startsWith("Sí") ? 
-                                    <Badge variant="default" className="bg-green-600 hover:bg-green-700 whitespace-nowrap"><Check className="mr-1 h-4 w-4"/> {item.homologated}</Badge> : 
-                                    <Badge variant="destructive" className="whitespace-nowrap"><X className="mr-1 h-4 w-4"/> {item.homologated}</Badge>
-                                    }
-                                </TableCell>
-                                <TableCell className="text-sm">{item.advantages}</TableCell>
-                                <TableCell className="text-sm">{item.disadvantages}</TableCell>
-                                <TableCell className="text-sm">{item.idealFor}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
+        <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {internationalSystems.map(system => (
+                <Card key={system.name}>
+                    <CardHeader>
+                        <CardTitle>{system.name}</CardTitle>
+                        <CardDescription>{system.description}</CardDescription>
+                    </CardHeader>
+                     <CardContent className="space-y-3">
+                        <div>
+                            <h4 className="font-semibold text-green-500 mb-2">Ventajas</h4>
+                            <ul className="list-disc pl-5 text-sm space-y-1">
+                                {system.advantages.map(adv => <li key={adv}>{adv}</li>)}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-red-500 mb-2">Desventajas</h4>
+                            <ul className="list-disc pl-5 text-sm space-y-1">
+                                {system.disadvantages.map(dis => <li key={dis}>{dis}</li>)}
+                            </ul>
+                        </div>
+                    </CardContent>
+                </Card>
+            ))}
         </CardContent>
        </Card>
 
@@ -185,24 +200,7 @@ export default function SoftwareContablePage() {
             ))}
         </Accordion>
       </section>
-      
-       {/* Call to Action */}
-       <Card className="bg-gradient-to-r from-primary/80 to-cyan-500/80 text-primary-foreground">
-         <CardContent className="p-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-                <h2 className="text-3xl font-bold">Da el Siguiente Paso con Tranquilidad</h2>
-                <p className="mt-2 opacity-80 max-w-2xl">
-                    Elegir un sistema administrativo en Venezuela no es solo una decisión técnica: es una inversión en tu tranquilidad y en el futuro de tu negocio.
-                </p>
-            </div>
-             <Button size="lg" variant="secondary" className="bg-background text-foreground hover:bg-background/80 shrink-0">
-                Solicitar Asesoría Personalizada <ArrowRight className="ml-2"/>
-            </Button>
-         </CardContent>
-       </Card>
 
     </div>
   );
 }
-
-    
