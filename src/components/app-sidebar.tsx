@@ -147,6 +147,7 @@ const finanzasContabilidadMenuItems = [
 const analisisCrecimientoMenuItems = [
     { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+    { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
     { href: "/analisis-empresas-no-digitales", label: "Análisis de Empresas No Digitalizadas", icon: Building },
     { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
@@ -291,7 +292,7 @@ const juridicoNavGroups = [
 ];
 
 const ventasNavGroups = [
-    { title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems },
+    { title: "Ventas y Caja", icon: ShoppingCart, items: ventasMenuItems },
 ];
 
 const informaticaNavGroups = [

@@ -1,10 +1,12 @@
 
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { ShieldAlert, FileWarning, ArrowRight, BookLock, Banknote, Laptop, Landmark, Building } from "lucide-react";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { ShieldCheck, Target, TrendingUp, Zap, AlertTriangle, Lightbulb, Users, BarChart, ShoppingCart, DollarSign, CheckCircle, Award, ArrowRight, FileWarning, BookLock, Banknote, Laptop, Landmark, Building } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 
 const areasCriticas = [
@@ -44,7 +46,7 @@ export default function CumplimientoPage() {
     <div>
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-            <ShieldAlert className="h-8 w-8" />
+            <ShieldCheck className="h-8 w-8" />
             Cumplimiento Normativo y Prevención de Sanciones
         </h1>
         <p className="text-muted-foreground mt-2">
