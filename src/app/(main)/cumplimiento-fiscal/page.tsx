@@ -152,7 +152,7 @@ export default function CumplimientoFiscalPage() {
                 </div>
             ))}
         </CardContent>
-      </Card>
+       </Card>
 
       <div className="grid lg:grid-cols-2 gap-8">
             <Card className="bg-card/50 backdrop-blur-sm">
@@ -192,3 +192,5 @@ export default function CumplimientoFiscalPage() {
     </div>
   );
 }
+
+    
