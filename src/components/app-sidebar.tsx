@@ -175,6 +175,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
     { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
     { href: "/ingenieria-ia", label: "Ingeniería y Planos con IA", icon: Cpu },
+    { href: "/demografia", label: "Análisis Demográfico", icon: Users },
 ];
 
 const facturacionGeneralMenuItems = [
