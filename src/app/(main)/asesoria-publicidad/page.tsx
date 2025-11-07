@@ -6,31 +6,80 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Megaphone, Search, Paintbrush, Bot, Send, Calendar, MessageCircle, Wallet, Briefcase, TrendingUp } from "lucide-react";
+import { Megaphone, Search, Newspaper, Share2, Bot, ArrowRight, CheckCircle, BarChart, Globe, Mail, Users, Video, Gift, Star, Link as LinkIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
-const socialPlatforms = [
-    { name: "WhatsApp", icon: MessageCircle },
-    { name: "Instagram", icon: Wallet },
-    { name: "Telegram", icon: Send },
-]
-
-const services = [
-    { title: "Consultoría Estratégica", description: "Análisis y planificación para optimizar la toma de decisiones.", icon: Briefcase },
-    { title: "Marketing Digital y Publicidad", description: "Campañas de SEO, redes sociales y publicidad programática.", icon: Megaphone },
-    { title: "Análisis de Crecimiento", description: "Estudios de mercado, análisis FODA y estrategias de ventas.", icon: TrendingUp },
+const strategies = [
+    {
+        title: "Marketing de Contenidos",
+        description: "Crear y compartir contenido valioso (blogs, videos, podcasts) para atraer y retener a una audiencia.",
+        icon: Newspaper
+    },
+    {
+        title: "SEO (Search Engine Optimization)",
+        description: "Optimizar el sitio web para que aparezca en los primeros resultados de búsqueda orgánica en motores como Google.",
+        icon: Search
+    },
+    {
+        title: "Publicidad en Redes Sociales y Online",
+        description: "Utilizar plataformas como Facebook, Instagram y Google Ads para llegar a públicos específicos.",
+        icon: Share2
+    },
+     {
+        title: "Email Marketing",
+        description: "Enviar correos electrónicos personalizados para nutrir leads y generar ventas, utilizando listas de suscripción.",
+        icon: Mail
+    },
+     {
+        title: "Marketing de Influencers",
+        description: "Colaborar con personas influyentes para promocionar productos o servicios a su audiencia.",
+        icon: Users
+    },
+     {
+        title: "Marketing de Afiliados",
+        description: "Asociarse con otras empresas o individuos que ganan una comisión por cada venta o lead que generan para tu negocio.",
+        icon: LinkIcon
+    },
+    {
+        title: "Contenido de Video Corto",
+        description: "Crear y publicar videos de formato corto y dinámico (TikTok, Reels) para captar la atención con 'ganchos' visuales.",
+        icon: Video
+    },
+    {
+        title: "Marketing Conversacional",
+        description: "Implementar chatbots para interactuar con los clientes en tiempo real, respondiendo preguntas y guiando a los usuarios.",
+        icon: Bot
+    },
+    {
+        title: "Relaciones Públicas",
+        description: "Gestionar la comunicación de la marca con el público y los medios para construir una reputación positiva.",
+        icon: Megaphone
+    },
+    {
+        title: "Programas de Fidelización",
+        description: "Incentivar la repetición de compras y la lealtad del cliente a través de recompensas y ofertas exclusivas.",
+        icon: Gift
+    }
 ];
 
-const processSteps = [
-    "Contacto Inicial: El cliente interactúa con el agente virtual en WhatsApp, Instagram o Telegram.",
-    "Calificación y Asesoramiento: La IA entiende las necesidades, responde preguntas y presenta los servicios.",
-    "Agendamiento o Venta: El agente agenda una cita en el calendario o procesa la venta directamente.",
-    "Pago Seguro: Se genera un enlace de pago a través de una pasarela segura conectada a tu banco.",
-    "Confirmación y Seguimiento: El cliente recibe confirmación y el equipo es notificado para el seguimiento."
+const benefits = [
+    {
+        title: "Medición y Análisis",
+        description: "Rastrea métricas clave como clics, conversiones y retorno de la inversión (ROI) en tiempo real para optimizar tus campañas."
+    },
+    {
+        title: "Personalización y Segmentación",
+        description: "Adapta el mensaje a audiencias específicas para mejorar la relevancia y el impacto de tus comunicaciones."
+    },
+    {
+        title: "Flexibilidad y Coste Adaptativo",
+        description: "Ajusta las campañas y el presupuesto sobre la marcha, haciendo que el marketing sea accesible para cualquier tamaño de empresa."
+    }
 ];
 
 
-export default function AsesoriaVentasPage() {
+export default function AsesoriaPublicidadPage() {
     const { toast } = useToast();
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -44,100 +93,64 @@ export default function AsesoriaVentasPage() {
   return (
     <div className="space-y-12">
       <header className="text-center">
-        <Bot className="h-16 w-16 mx-auto text-primary mb-4" />
-        <h1 className="text-4xl font-bold tracking-tight">Asesoría y Ventas con Agente Virtual IA</h1>
-        <p className="text-muted-foreground mt-2 max-w-3xl mx-auto">
-          Un asistente inteligente disponible 24/7 en tus redes sociales para agendar citas, cerrar ventas e informar sobre tus servicios.
+        <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
+            <Megaphone className="h-12 w-12" />
+        </div>
+        <h1 className="text-4xl font-bold tracking-tight">Asesoría en Publicidad y Marketing Digital</h1>
+        <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
+          El marketing digital es el conjunto de estrategias que utilizan herramientas digitales para promocionar productos y servicios, permitiendo una personalización y medición sin precedentes.
         </p>
       </header>
 
-      {/* Social Platforms */}
-      <section className="text-center">
-          <h2 className="text-2xl font-semibold mb-4">Disponible en tus Plataformas Favoritas</h2>
-          <div className="flex justify-center gap-8">
-            {socialPlatforms.map(platform => (
-                <div key={platform.name} className="flex flex-col items-center gap-2 text-muted-foreground">
-                    <platform.icon className="h-10 w-10"/>
-                    <span>{platform.name}</span>
+      <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-3">10 Estrategias de Marketing Efectivas</CardTitle>
+          <CardDescription>Desde la creación de contenido hasta la automatización con IA, estos son los pilares de una estrategia digital exitosa.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {strategies.map((strategy) => (
+                <div key={strategy.title} className="p-4 bg-secondary/50 rounded-lg">
+                    <strategy.icon className="h-8 w-8 text-primary mb-3"/>
+                    <h4 className="font-semibold">{strategy.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-1">{strategy.description}</p>
                 </div>
             ))}
-          </div>
-      </section>
-
-       {/* Services */}
-      <section>
-        <h2 className="text-3xl font-semibold mb-8 text-center">Nuestros Servicios</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map(s => (
-                <Card key={s.title} className="bg-card/80 backdrop-blur-sm">
-                    <CardHeader className="flex-row items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-lg">
-                           <s.icon className="h-8 w-8 text-primary"/>
-                        </div>
-                        <CardTitle>{s.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>{s.description}</CardContent>
-                </Card>
+        </CardContent>
+      </Card>
+      
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+            <CardTitle>Beneficios Clave del Marketing Digital</CardTitle>
+            <CardDescription>Descubre por qué el marketing digital es indispensable para el crecimiento de tu negocio.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+            {benefits.map(benefit => (
+                <div key={benefit.title} className="flex items-start gap-4 p-4 bg-secondary/50 rounded-lg">
+                    <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0"/>
+                    <div>
+                        <h4 className="font-semibold">{benefit.title}</h4>
+                        <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                    </div>
+                </div>
             ))}
-        </div>
-      </section>
+        </CardContent>
+      </Card>
 
-      {/* Proceso */}
-        <section>
-            <h2 className="text-3xl font-semibold mb-8 text-center">Nuestro Proceso Automatizado</h2>
-            <div className="max-w-4xl mx-auto">
-                <ol className="relative border-l border-border ml-6">
-                    {processSteps.map((p, index) => (
-                         <li key={index} className="mb-10 ml-8">
-                            <span className="absolute flex items-center justify-center w-8 h-8 bg-secondary rounded-full -left-4 ring-8 ring-background">
-                                <span className="font-bold text-sm">{index + 1}</span>
-                            </span>
-                            <h3 className="flex items-center mb-1 text-lg font-semibold">{p.split(':')[0]}</h3>
-                            <p className="text-muted-foreground">{p.split(':')[1]}</p>
-                        </li>
-                    ))}
-                </ol>
+       <Card className="bg-gradient-to-r from-primary/80 to-cyan-500/80 text-primary-foreground">
+         <CardContent className="p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+                <h2 className="text-3xl font-bold">Potencia tu Estrategia con IA</h2>
+                <p className="mt-2 opacity-80 max-w-2xl">
+                    Utiliza nuestras herramientas de inteligencia artificial para analizar el sentimiento de tus clientes, automatizar la entrada de datos y mucho más.
+                </p>
             </div>
-        </section>
-
-
-      {/* Contacto */}
-      <section>
-        <Card className="max-w-2xl mx-auto bg-card/80 backdrop-blur-sm">
-            <CardHeader className="text-center">
-                <CardTitle>Solicita una Consulta Gratuita</CardTitle>
-                <CardDescription>Cuéntanos sobre tu negocio y tus objetivos. Te contactaremos para una asesoría sin costo.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="nombre">Nombre</Label>
-                            <Input id="nombre" placeholder="Tu nombre" required/>
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="empresa">Empresa</Label>
-                            <Input id="empresa" placeholder="Nombre de tu empresa" />
-                        </div>
-                    </div>
-                    <div className="space-y-2">
-                         <Label htmlFor="email">Correo Electrónico</Label>
-                         <Input id="email" type="email" placeholder="tu@correo.com" required/>
-                    </div>
-                     <div className="space-y-2">
-                         <Label htmlFor="mensaje">¿Cuáles son tus objetivos?</Label>
-                         <Textarea id="mensaje" placeholder="Ej: Aumentar ventas online, mejorar mi marca, etc." required/>
-                    </div>
-                    <Button type="submit" className="w-full">
-                        <Send className="mr-2"/>
-                        Enviar Solicitud
-                    </Button>
-                </form>
-            </CardContent>
-        </Card>
-      </section>
+             <Button size="lg" variant="secondary" className="bg-background text-foreground hover:bg-background/80 shrink-0" asChild>
+                <Link href="/soluciones-ia">
+                    Explorar Soluciones de IA <ArrowRight className="ml-2"/>
+                </Link>
+            </Button>
+         </CardContent>
+       </Card>
     </div>
   );
 }
-
-    

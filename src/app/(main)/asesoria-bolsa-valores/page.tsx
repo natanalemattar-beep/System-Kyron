@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
-import { AreaChart, LineChart, CandlestickChart, ArrowRight, TrendingUp, Zap, Send, Bell, CheckCircle } from "lucide-react";
+import { AreaChart, LineChart, CandlestickChart, ArrowRight, TrendingUp, Zap, Send, Bell, CheckCircle, Activity, DollarSign } from "lucide-react";
 import { Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
 import { useToast } from "@/hooks/use-toast";
