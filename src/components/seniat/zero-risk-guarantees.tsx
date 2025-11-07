@@ -1,7 +1,7 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
+import { formatCurrency } from '@/lib/utils';
 
 interface FinancialGuarantee {
   id: string;
@@ -84,41 +84,41 @@ export const ZeroRiskGuarantees = () => {
   const totalCoverage = guarantees.reduce((sum, g) => sum + g.amount, 0);
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <div className="bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Garantías y Seguros de Cero Riesgo</h2>
-          <p className="text-gray-600">Protección financiera absoluta</p>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Garantías y Seguros de Cero Riesgo</h2>
+          <p className="text-gray-600 dark:text-gray-300">Protección financiera absoluta</p>
         </div>
         <div className="text-right">
-          <div className="text-2xl font-bold text-green-600">${(totalCoverage / 1000000).toFixed(1)}M</div>
-          <div className="text-sm text-gray-600">Cobertura Total</div>
+          <div className="text-2xl font-bold text-green-600 dark:text-green-400">{formatCurrency(totalCoverage)}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">Cobertura Total</div>
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
-          <h3 className="font-semibold text-gray-900 mb-4">Garantías Financieras</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Garantías Financieras</h3>
           <div className="space-y-4">
             {guarantees.map((guarantee) => (
-              <div key={guarantee.id} className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900">{guarantee.provider}</h4>
-                <p className="text-sm text-gray-600 mt-1">{guarantee.coverage}</p>
+              <div key={guarantee.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 dark:text-white">{guarantee.provider}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{guarantee.coverage}</p>
                 <div className="flex justify-between items-center text-xs mt-2">
-                  <span className="font-semibold text-blue-600">${guarantee.amount.toLocaleString()}</span>
-                  <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full">{guarantee.status}</span>
+                  <span className="font-semibold text-blue-600 dark:text-blue-400">{formatCurrency(guarantee.amount)}</span>
+                  <span className="bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 px-2 py-1 rounded-full">{guarantee.status}</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
         <div>
-          <h3 className="font-semibold text-gray-900 mb-4">Garantías de Cero Riesgo</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Garantías de Cero Riesgo</h3>
           <div className="space-y-4">
             {warranties.map((warranty) => (
-              <div key={warranty.id} className="border border-green-200 bg-green-50 rounded-lg p-4">
-                <h4 className="font-semibold text-green-900">{warranty.warranty}</h4>
-                <p className="text-sm text-green-700 mt-1">{warranty.coverage}</p>
-                 <div className="text-xs text-green-600 mt-2">
+              <div key={warranty.id} className="border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/50 rounded-lg p-4">
+                <h4 className="font-semibold text-green-900 dark:text-green-200">{warranty.warranty}</h4>
+                <p className="text-sm text-green-700 dark:text-green-300 mt-1">{warranty.coverage}</p>
+                 <div className="text-xs text-green-600 dark:text-green-400 mt-2">
                   <strong>Monto:</strong> {warranty.amount}
                 </div>
               </div>

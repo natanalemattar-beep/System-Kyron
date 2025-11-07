@@ -1,21 +1,24 @@
-
 'use client';
 
-import { AIRiskDetector } from './ai-risk-detector';
+import { AIPredictiveShield } from './ai-predictive-shield';
 import { ContinuousAudit } from './continuous-audit';
 import { ExecutiveAnalytics } from './executive-analytics';
 import { FiscalAlerts } from './fiscal-alerts';
+import { QuantumVerification } from './quantum-verification';
+import { ZeroRiskCertification } from './zero-risk-certification';
+import { ZeroRiskGuarantees } from './zero-risk-guarantees';
+import { ZeroRiskProtection } from './zero-risk-protection';
 
 export const AbsoluteZeroRiskDashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
             🛡️ Sistema Ultimate de Protección Fiscal
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Defensa integral contra fiscalizaciones con Inteligencia Artificial
           </p>
         </div>
@@ -27,31 +30,37 @@ export const AbsoluteZeroRiskDashboard = () => {
 
         {/* Métricas Principales */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 text-center shadow-sm">
-            <div className="text-3xl font-bold text-green-600">85%</div>
-            <div className="text-sm text-gray-600">Protección Activa</div>
+          <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center shadow-sm">
+            <div className="text-3xl font-bold text-green-600 dark:text-green-400">85%</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Protección Activa</div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 text-center shadow-sm">
-            <div className="text-3xl font-bold text-red-600">3</div>
-            <div className="text-sm text-gray-600">Amenazas Críticas</div>
+          <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center shadow-sm">
+            <div className="text-3xl font-bold text-red-600 dark:text-red-400">3</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Amenazas Críticas</div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 text-center shadow-sm">
-            <div className="text-3xl font-bold text-blue-600">24/7</div>
-            <div className="text-sm text-gray-600">Monitoreo IA</div>
+          <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center shadow-sm">
+            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">24/7</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Monitoreo IA</div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 text-center shadow-sm">
-            <div className="text-3xl font-bold text-purple-600">98%</div>
-            <div className="text-sm text-gray-600">Precisión Detección</div>
+          <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center shadow-sm">
+            <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">98%</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Precisión Detección</div>
           </div>
         </div>
 
         {/* Módulos Principales */}
         <div className="space-y-6">
-          <AIRiskDetector />
+          <ZeroRiskProtection />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <ContinuousAudit />
-            <ExecutiveAnalytics />
+            <QuantumVerification />
+            <AIPredictiveShield />
           </div>
+          <ContinuousAudit />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ZeroRiskGuarantees />
+            <ZeroRiskCertification />
+          </div>
+          <ExecutiveAnalytics />
         </div>
 
         {/* Sello de Certificación Final */}
