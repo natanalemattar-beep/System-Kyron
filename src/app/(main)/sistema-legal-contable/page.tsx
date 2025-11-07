@@ -17,6 +17,34 @@ export default function SistemaLegalContablePage() {
         </p>
       </header>
 
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle>Sistema Tributario Venezolano y Tributos Internos</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 text-muted-foreground">
+            <p>
+                La República Bolivariana de Venezuela es un estado federal con 22 estados, un Distrito Capital y dependencias federales. El sistema tributario se basa en los principios constitucionales de legalidad, progresividad, equidad, justicia, capacidad contributiva, no retroactividad y no confiscación.
+            </p>
+            <p>
+                La potestad tributaria se distribuye en tres niveles: nacional, estadal y municipal.
+            </p>
+            <p className="font-semibold text-foreground">
+                Actualmente, el SENIAT tiene jurisdicción sobre los siguientes impuestos a nivel nacional:
+            </p>
+            <ul className="list-disc list-inside pl-4 space-y-2">
+                <li>Impuesto sobre la Renta (ISLR)</li>
+                <li>Impuesto al Valor Agregado (IVA)</li>
+                <li>Impuesto sobre Sucesiones y Donaciones</li>
+                <li>Impuestos sobre Cigarrillos, Licores y Especies Alcohólicas</li>
+                <li>Impuestos sobre actividades de juegos de envite y azar</li>
+            </ul>
+            <p className="text-sm italic pt-2">
+                ¡Cumple con tu deber constitucional de contribuir con las cargas públicas, para que así el Gobierno Nacional pueda disponer de los recursos necesarios para propiciar el bienestar de la colectividad!
+            </p>
+        </CardContent>
+      </Card>
+
+
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Interconexión de Normativas</CardTitle>
