@@ -89,7 +89,7 @@ export default function RegistroRifPage() {
                     <span className="font-semibold">Representante Legal</span>
                 </div>
                  <div className="flex justify-between p-3 rounded-lg bg-secondary/50">
-                    <span className="font-medium text-muted-foreground">Nombre del Padre/Madre/Representante:</span>
+                    <span className="font-medium text-muted-foreground">Fecha de Vencimiento:</span>
                     <span className="font-semibold">31/12/2025</span>
                 </div>
             </div>

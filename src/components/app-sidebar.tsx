@@ -136,6 +136,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
   { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
   { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
+  { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
 ];
 
 const analisisCrecimientoMenuItems = [
