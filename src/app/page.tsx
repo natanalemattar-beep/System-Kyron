@@ -196,10 +196,11 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       {/* Header */}
-      <header className={cn("fixed top-0 z-50 w-full p-2 transition-all duration-300", isScrolled ? " " : " ")}>
-        <div className={cn("container mx-auto flex h-16 items-center justify-between px-4 md:px-6 rounded-xl transition-all duration-300",
-          isScrolled ? "bg-background/80 backdrop-blur-lg shadow-lg border" : ""
-        )}>
+       <header className={cn(
+        "fixed top-0 z-50 w-full p-2 transition-all duration-500 ease-in-out",
+        isScrolled ? "translate-y-0" : "-translate-y-full"
+      )}>
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-xl shadow-lg border">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
@@ -266,7 +267,11 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative py-24 md:py-48">
-          <div className="container px-4 md:px-6 grid lg:grid-cols-2 gap-8 items-center">
+          <div className="absolute inset-0 z-0 opacity-10">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute inset-0 bg-gradient-to-bl from-accent/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+          </div>
+          <div className="container px-4 md:px-6 grid lg:grid-cols-2 gap-8 items-center relative z-10">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
                 La Gestión Empresarial, Reinventada para Venezuela
@@ -374,7 +379,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="py-20 md:py-28 bg-background">
+        <section id="nosotros" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
