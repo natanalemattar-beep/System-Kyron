@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -80,7 +79,7 @@ export default function EstudioFactibilidadEconomicaPage() {
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Estudio de Factibilidad Económica</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Análisis integral del proyecto "System C.M.S." bajo la Metodología de Proyectos de Inversión (UPAL).
+          Análisis integral del proyecto "System C.M.S." bajo la Metodología de Proyectos de Inversión.
         </p>
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={handleDownloadStudy}>
@@ -119,7 +118,7 @@ export default function EstudioFactibilidadEconomicaPage() {
 
          <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle>2. Marco Metodológico (Enfoque UPAL)</CardTitle>
+                <CardTitle>2. Marco Metodológico</CardTitle>
                 <CardDescription>La investigación se enmarca en una metodología de proyecto factible, con un enfoque descriptivo y documental.</CardDescription>
             </CardHeader>
             <CardContent>
