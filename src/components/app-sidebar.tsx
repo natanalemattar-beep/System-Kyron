@@ -151,7 +151,8 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-empresas-no-digitales", label: "Análisis de Empresas No Digitalizadas", icon: Building },
     { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
-    { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
+    { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+    { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: DollarSignIcon },
     { href: "/analisis-estrategico", label: "Análisis Estratégico FODA", icon: ShieldQuestion },
     { href: "/nivel-competencia", label: "Industria y Cadena de Valor", icon: Swords },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
@@ -173,7 +174,6 @@ const analisisCrecimientoMenuItems = [
     { href: "/organigrama", label: "Organigrama", icon: Sitemap },
     { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
     { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
-    { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: DollarSignIcon },
 ];
 
 const facturacionGeneralMenuItems = [
