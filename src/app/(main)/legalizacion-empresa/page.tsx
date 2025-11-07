@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, FileText, Newspaper, Search, Stamp, Users, ArrowRight, ShieldCheck, Upload, DollarSign } from "lucide-react";
+import { CheckCircle, Clock, FileText, Newspaper, Search, Stamp, Users, ArrowRight, ShieldCheck, Upload, DollarSign, Globe } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FileInputTrigger } from "@/components/file-input-trigger";
@@ -66,6 +66,15 @@ const initialPasos = [
         icon: Users,
         arancel: 0
     },
+     { 
+        paso: 7,
+        titulo: "Apostilla de Documentos para Uso Internacional",
+        descripcion: "Se apostillan el Acta Constitutiva y otros documentos clave para darles validez legal en países firmantes del Convenio de La Haya.",
+        ente: "Ministerio de Relaciones Exteriores (MPPRE)",
+        estado: "Pendiente",
+        icon: Globe,
+        arancel: 540
+    },
 ];
 
 type Paso = typeof initialPasos[0];
@@ -123,7 +132,7 @@ export default function LegalizacionEmpresaPage() {
                 
                 {pasos.map((paso) => {
                      const status = statusInfo[paso.estado as keyof typeof statusInfo];
-                     const esTramiteSaren = paso.ente.includes("SAREN");
+                     const esTramiteSaren = paso.ente.includes("SAREN") || paso.ente.includes("MPPRE");
 
                      return (
                         <div key={paso.paso} className="relative flex items-start gap-6 pb-12">
@@ -147,13 +156,13 @@ export default function LegalizacionEmpresaPage() {
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <Button size="sm">
-                                                    Iniciar Trámite SAREN <ArrowRight className="ml-2 h-4 w-4"/>
+                                                    Iniciar Trámite <ArrowRight className="ml-2 h-4 w-4"/>
                                                 </Button>
                                             </DialogTrigger>
                                             <DialogContent>
                                                 <DialogHeader>
                                                     <DialogTitle>Procesar: {paso.titulo}</DialogTitle>
-                                                    <DialogDescription>Carga el documento requerido y paga el arancel para procesar este trámite en el SAREN.</DialogDescription>
+                                                    <DialogDescription>Carga el documento requerido y paga el arancel para procesar este trámite.</DialogDescription>
                                                 </DialogHeader>
                                                 <div className="py-4 space-y-6">
                                                      <div className="space-y-2">
@@ -182,7 +191,7 @@ export default function LegalizacionEmpresaPage() {
                                                         disabled={!selectedFile}
                                                         className="w-full"
                                                     >
-                                                        Pagar y Procesar en SAREN
+                                                        Pagar y Procesar
                                                     </Button>
                                                 </DialogFooter>
                                             </DialogContent>
