@@ -127,7 +127,7 @@ function ChatDialog() {
             Hazme una pregunta sobre nuestros servicios, características o cualquier otra duda.
           </DialogDescription>
         </DialogHeader>
-        <div ref={chatContainerRef} className="flex-grow flex flex-col p-4 bg-secondary/50 rounded-lg min-h-0 overflow-y-auto space-y-4">
+        <div ref={chatContainerRef} className="flex-grow flex flex-col p-4 bg-secondary rounded-lg min-h-0 overflow-y-auto space-y-4">
           {messages.length === 0 ? (
             <div className="flex-grow flex items-center justify-center text-center text-muted-foreground">
               <p>Hola, ¿cómo puedo ayudarte hoy?</p>
@@ -197,8 +197,7 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-dvh bg-background">
       {/* Header */}
        <header className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300 ease-in-out",
-        isScrolled ? "p-2" : "p-0"
+        "fixed top-0 z-50 w-full transition-all duration-300 ease-in-out"
       )}>
         <div className={cn("container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300", isScrolled && "bg-background/80 backdrop-blur-lg rounded-xl shadow-lg border")}>
           <Link href="/" className="flex items-center gap-3">
@@ -268,8 +267,7 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="relative py-24 md:py-48">
           <div className="absolute inset-0 z-0 opacity-10">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
-            <div className="absolute inset-0 bg-gradient-to-bl from-accent/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
           </div>
           <div className="container px-4 md:px-6 grid lg:grid-cols-2 gap-8 items-center relative z-10">
             <div className="text-center lg:text-left">
@@ -312,19 +310,12 @@ export default function LandingPage() {
             <h3 className="text-center text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-8">
               CON LA CONFIANZA DE EMPRESAS LÍDERES EN VENEZUELA
             </h3>
-            <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 md:gap-x-16">
-              {[
-                  { name: "Quantum", path: "M26.46,14a13.4,13.4,0,0,1-4,9.45,13.4,13.4,0,0,1-9.45,4,13.4,13.4,0,0,1-9.45-4,13.4,13.4,0,0,1-4-9.45,13.4,13.4,0,0,1,4-9.45,13.4,13.4,0,0,1,9.45-4,13.4,13.4,0,0,1,9.45,4,13.4,13.4,0,0,1,4,9.45Z" },
-                  { name: "Nexus", path: "M10,13V4a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V27a1,1,0,0,1-1,1H11a1,1,0,0,1-1-1V17h4.5" },
-                  { name: "Vertex", path: "M2,10,15,2,28,10V22L15,30,2,22Z" },
-                  { name: "Aperture", path: "M23.11,25.56,21.36,24l5.29-5.29a1,1,0,0,0,0-1.42l-2.12-2.12a1,1,0,0,0-1.42,0L17.82,21l-2-2.22-4.47,4.46a1,1,0,0,0,0,1.42l2.12,2.12a1,1,0,0,0,1.42,0L20.18,22l1.6,1.6Z" },
-                  { name: "Zenith", path: "M2,16H8v2a4,4,0,0,0,8,0V16h6" }
-                ].map((logo, i) => (
-                  <svg key={i} className="h-7 text-muted-foreground" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <title>{logo.name}</title>
-                    <path d={logo.path} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-              ))}
+            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 md:gap-x-12">
+               <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26.46,14a13.4,13.4,0,0,1-4,9.45,13.4,13.4,0,0,1-9.45,4,13.4,13.4,0,0,1-9.45-4,13.4,13.4,0,0,1-4-9.45,13.4,13.4,0,0,1,4-9.45,13.4,13.4,0,0,1,9.45-4,13.4,13.4,0,0,1,9.45,4,13.4,13.4,0,0,1,4,9.45Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+              <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10,13V4a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V27a1,1,0,0,1-1,1H11a1,1,0,0,1-1-1V17h4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+              <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2,10,15,2,28,10V22L15,30,2,22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+              <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.11,25.56,21.36,24l5.29-5.29a1,1,0,0,0,0-1.42l-2.12-2.12a1,1,0,0,0-1.42,0L17.82,21l-2-2.22-4.47,4.46a1,1,0,0,0,0,1.42l2.12,2.12a1,1,0,0,0,1.42,0L20.18,22l1.6,1.6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+              <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2,16H8v2a4,4,0,0,0,8,0V16h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
             </div>
           </div>
         </section>
