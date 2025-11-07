@@ -312,11 +312,18 @@ export default function LandingPage() {
             <h3 className="text-center text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-8">
               CON LA CONFIANZA DE EMPRESAS LÍDERES EN VENEZUELA
             </h3>
-            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 md:gap-x-12">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="h-8 text-muted-foreground" viewBox="0 0 120 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <text x="60" y="20" fontFamily="Arial, sans-serif" fontSize="14" fill="currentColor" textAnchor="middle" fontWeight="bold">EMPRESA {i+1}</text>
-                </svg>
+            <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 md:gap-x-16">
+              {[
+                  { name: "Quantum", path: "M26.46,14a13.4,13.4,0,0,1-4,9.45,13.4,13.4,0,0,1-9.45,4,13.4,13.4,0,0,1-9.45-4,13.4,13.4,0,0,1-4-9.45,13.4,13.4,0,0,1,4-9.45,13.4,13.4,0,0,1,9.45-4,13.4,13.4,0,0,1,9.45,4,13.4,13.4,0,0,1,4,9.45Z" },
+                  { name: "Nexus", path: "M10,13V4a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V27a1,1,0,0,1-1,1H11a1,1,0,0,1-1-1V17h4.5" },
+                  { name: "Vertex", path: "M2,10,15,2,28,10V22L15,30,2,22Z" },
+                  { name: "Aperture", path: "M23.11,25.56,21.36,24l5.29-5.29a1,1,0,0,0,0-1.42l-2.12-2.12a1,1,0,0,0-1.42,0L17.82,21l-2-2.22-4.47,4.46a1,1,0,0,0,0,1.42l2.12,2.12a1,1,0,0,0,1.42,0L20.18,22l1.6,1.6Z" },
+                  { name: "Zenith", path: "M2,16H8v2a4,4,0,0,0,8,0V16h6" }
+                ].map((logo, i) => (
+                  <svg key={i} className="h-7 text-muted-foreground" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <title>{logo.name}</title>
+                    <path d={logo.path} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
               ))}
             </div>
           </div>
