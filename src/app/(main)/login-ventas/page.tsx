@@ -16,9 +16,9 @@ export default function LoginVentasPage() {
 
   return (
      <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-background">
-        <div className="absolute inset-0 z-0 opacity-10 dark:opacity-20">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/50 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
-            <div className="absolute inset-0 bg-gradient-to-bl from-accent/50 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
+        <div className="absolute inset-0 z-0 opacity-40">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute inset-0 bg-gradient-to-bl from-accent/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
         </div>
         
       <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-md border-b">
@@ -81,7 +81,7 @@ export default function LoginVentasPage() {
               </button>
             </div>
             <Button asChild className="w-full h-11 text-base">
-              <Link href="/punto-de-venta">Acceder al Punto de Venta</Link>
+              <Link href="/punto-de-venta">Acceder</Link>
             </Button>
           </CardContent>
            <CardFooter className="flex-col gap-2 p-6 border-t border-border/50 text-sm">

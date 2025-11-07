@@ -84,7 +84,7 @@ export default function LoginSociosPage() {
               </button>
             </div>
             <Button asChild className="w-full h-11 text-base">
-              <Link href="/dashboard-socios">Acceder al Dashboard</Link>
+              <Link href="/dashboard-socios">Acceder</Link>
             </Button>
           </CardContent>
            <CardFooter className="flex-col gap-2 p-6 border-t border-border/50 text-sm">
