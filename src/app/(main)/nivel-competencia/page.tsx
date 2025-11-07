@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Swords, UserPlus, Handshake, Users, Repeat, CheckCircle, ArrowRight } from "lucide-react";
+import { Swords, UserPlus, Handshake, Users, Repeat, CheckCircle, ArrowRight, ArrowDown, Activity, Settings, Search, Package } from "lucide-react";
 import Link from "next/link";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -46,8 +46,24 @@ const porterForces = [
     }
 ];
 
+const valueChainActivities = {
+    primary: [
+        { name: "Logística Interna", example: "Gestión de proveedores de componentes de hardware (papeleras), almacenamiento de piezas." },
+        { name: "Operaciones", example: "Ensamblaje del hardware y desarrollo/mantenimiento del software SaaS." },
+        { name: "Logística Externa", example: "Distribución de las papeleras físicas, despliegue del software en la nube." },
+        { name: "Marketing y Ventas", example: "Campañas de marketing digital, equipo de ventas, gestión de canales de distribución (contadores aliados)." },
+        { name: "Servicio Postventa", example: "Soporte técnico, actualizaciones de software, mantenimiento de hardware." },
+    ],
+    support: [
+        { name: "Infraestructura de la Empresa", icon: Settings, example: "Gestión administrativa, finanzas, planificación estratégica." },
+        { name: "Gestión de Recursos Humanos", icon: Users, example: "Contratación y capacitación de desarrolladores, vendedores y personal de soporte." },
+        { name: "Desarrollo de Tecnología (I+D)", icon: Search, example: "Innovación en el software (IA, blockchain) y en el hardware (nuevos sensores)." },
+        { name: "Compras", icon: Package, example: "Adquisición de licencias de software, componentes electrónicos y servicios en la nube." },
+    ]
+};
 
-export default function NivelCompetenciaPage() {
+
+export default function IndustriaCadenaValorPage() {
 
   return (
     <div className="p-4 md:p-8 space-y-12">
@@ -55,17 +71,17 @@ export default function NivelCompetenciaPage() {
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
             <Swords className="h-12 w-12" />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">Nivel de Competencia: Análisis de las 5 Fuerzas de Porter</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Análisis de la Industria y Cadena de Valor</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Una herramienta estratégica esencial para entender la estructura de tu industria y anticipar los movimientos de la competencia.
+          Herramientas estratégicas para entender la estructura de tu industria (5 Fuerzas) y optimizar tus procesos internos (Cadena de Valor).
         </p>
       </header>
       
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-            <CardTitle>Las 5 Fuerzas que Moldean tu Mercado</CardTitle>
+            <CardTitle>Análisis Externo: Las 5 Fuerzas de Porter</CardTitle>
             <CardDescription>
-                Este modelo, creado por Michael Porter, permite analizar qué tan atractiva es una industria y detectar oportunidades y amenazas.
+                Este modelo permite analizar qué tan atractiva es una industria y detectar oportunidades y amenazas.
             </CardDescription>
         </CardHeader>
         <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -77,11 +93,14 @@ export default function NivelCompetenciaPage() {
                 </div>
             ))}
         </CardContent>
+         <CardFooter>
+            <p className="text-xs text-muted-foreground">La sección a continuación aplica este modelo a tu empresa.</p>
+        </CardFooter>
       </Card>
-      
+
        <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-            <CardTitle>Análisis Detallado y Aplicación Práctica</CardTitle>
+            <CardTitle>Aplicación Práctica de las 5 Fuerzas a "System C.M.S"</CardTitle>
         </CardHeader>
         <CardContent className="space-y-8">
             {porterForces.map((force, index) => (
@@ -115,15 +134,61 @@ export default function NivelCompetenciaPage() {
        <Alert>
         <AlertTitle className="flex items-center gap-2">
             <CheckCircle className="h-5 w-5"/>
-            Conclusión Estratégica
+            Conclusión del Análisis Externo
         </AlertTitle>
         <AlertDescription>
-          <p>Un análisis de las 5 Fuerzas revela que, si bien el mercado de software es competitivo, existen barreras de entrada regulatorias (homologación) y costos de cambio para el cliente que pueden ser explotados. La estrategia debe centrarse en la diferenciación a través de un servicio superior, la facilidad de uso y un ecosistema de productos integrados (Hardware + Software) que cree una barrera competitiva difícil de imitar.</p>
-           <Button asChild variant="link" className="p-0 h-auto mt-2">
-                <Link href="/analisis-estrategico">Ver Análisis FODA y CAME <ArrowRight className="h-4 w-4 ml-1"/></Link>
-            </Button>
+          <p>El análisis de las 5 Fuerzas revela que, si bien el mercado de software es competitivo, existen barreras de entrada regulatorias (homologación) y costos de cambio para el cliente que pueden ser explotados. La estrategia debe centrarse en la diferenciación a través de un servicio superior y un ecosistema integrado (Hardware + Software) que sea difícil de imitar.</p>
         </AlertDescription>
       </Alert>
+
+      {/* Value Chain Analysis */}
+      <div className="border-t pt-12">
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Análisis Interno: La Cadena de Valor</CardTitle>
+                <CardDescription>Identifica las actividades clave que crean valor para tus clientes y dónde puedes mejorar la eficiencia para ganar ventaja competitiva.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 className="font-semibold mb-2">Actividades Primarias</h4>
+                        <p className="text-sm text-muted-foreground mb-4">Actividades directamente relacionadas con la creación y entrega del producto.</p>
+                        <div className="space-y-3">
+                        {valueChainActivities.primary.map(activity => (
+                            <div key={activity.name} className="p-3 bg-secondary/50 rounded-lg">
+                                <h5 className="font-medium text-foreground">{activity.name}</h5>
+                                <p className="text-xs text-muted-foreground">Ej: {activity.example}</p>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 className="font-semibold mb-2">Actividades de Soporte</h4>
+                        <p className="text-sm text-muted-foreground mb-4">Actividades que apoyan a las primarias y a la empresa en su conjunto.</p>
+                        <div className="space-y-3">
+                        {valueChainActivities.support.map(activity => (
+                            <div key={activity.name} className="p-3 bg-secondary/50 rounded-lg">
+                                <h5 className="font-medium text-foreground flex items-center gap-2"><activity.icon className="h-4 w-4"/> {activity.name}</h5>
+                                <p className="text-xs text-muted-foreground">Ej: {activity.example}</p>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                </div>
+            </CardContent>
+            <CardFooter>
+                 <Alert className="w-full">
+                    <AlertTitle className="flex items-center gap-2">Conclusión Estratégica Integrada</AlertTitle>
+                    <AlertDescription>
+                        <p>Al combinar el análisis de las 5 Fuerzas (externo) con la Cadena de Valor (interno), puedes alinear tus fortalezas internas para aprovechar las oportunidades del mercado y defenderte de las amenazas competitivas. Por ejemplo, tu fortaleza en "Desarrollo de Tecnología" (Cadena de Valor) te permite crear una ventaja competitiva al mitigar la "Rivalidad entre Competidores" (5 Fuerzas).</p>
+                        <Button asChild variant="link" className="p-0 h-auto mt-2">
+                            <Link href="/analisis-estrategico">Ver Análisis FODA y CAME <ArrowRight className="h-4 w-4 ml-1"/></Link>
+                        </Button>
+                    </AlertDescription>
+                </Alert>
+            </CardFooter>
+        </Card>
+      </div>
 
     </div>
   );

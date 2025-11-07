@@ -151,7 +151,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
     { href: "/analisis-estrategico", label: "Análisis Estratégico FODA", icon: ShieldQuestion },
-    { href: "/nivel-competencia", label: "Nivel de Competencia", icon: Swords },
+    { href: "/nivel-competencia", label: "Industria y Cadena de Valor", icon: Swords },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
     { href: "/cumplimiento-fiscal", label: "Estrategia de Marketing", icon: ShieldCheck },
