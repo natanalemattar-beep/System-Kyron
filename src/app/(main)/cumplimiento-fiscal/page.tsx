@@ -2,105 +2,193 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { ShieldCheck, CheckCircle, Send, FileText, BarChart, HardDrive, Wrench } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { ShieldCheck, Target, TrendingUp, Zap, AlertTriangle, Lightbulb, Users, BarChart, ShoppingCart, DollarSign, CheckCircle, Award, ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
-const features = [
-    {
-        icon: FileText,
-        title: "Sistema de facturación electrónica válido ante el SENIAT",
-    },
-    {
-        icon: BarChart,
-        title: "Gestión integral: ventas, compras, inventario, cuentas y más",
-    },
-     {
-        icon: HardDrive,
-        title: "Cotización consultiva basada en el tipo y tamaño de tu negocio",
-    },
-    {
-        icon: Wrench,
-        title: "Soporte técnico profesional en Monagas, Caracas y todo el país",
-    },
+const swot = {
+    fortalezas: ["Producto necesario", "Ahorro de tiempo", "Reduce errores", "Cumplimiento legal garantizado"],
+    oportunidades: ["Obligatoriedad de facturación electrónica", "Altas sanciones del SENIAT", "Digitalización de PYMES"],
+    debilidades: ["Competencia establecida", "Necesidad de constante actualización", "Curva de aprendizaje para usuarios"],
+    amenazas: ["Cambios en la normativa", "Competencia con precios bajos", "Desconfianza en sistemas nuevos"],
+};
+
+const publicoObjetivo = [
+    { title: "Pymes y Pequeños Negocios", description: "Dueños que no son expertos en impuestos y ven la facturación como un dolor de cabeza." },
+    { title: "Emprendedores y Nuevos Contribuyentes", description: "Personas que necesitan empezar con el pie derecho y buscan una solución todo-en-uno." },
+    { title: "Contadores Independientes", description: "Que buscan una herramienta confiable para recomendar y gestionar a sus clientes." },
 ];
 
-export default function CumplimientoFiscalPage() {
-    const { toast } = useToast();
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        toast({
-            title: "Solicitud Recibida",
-            description: "Gracias por tu interés. En breve, uno de nuestros especialistas te contactará para agendar una demostración.",
-            action: <CheckCircle className="text-green-500" />
-        });
+const marketingPhases = [
+    {
+        title: "Fase 1: Lanzamiento y Construcción de Autoridad",
+        content: [
+            "Contenido Educativo: Crear guías y blogs sobre cómo cumplir con el SENIAT.",
+            "Webinars: Realizar seminarios gratuitos para capturar emails de potenciales clientes.",
+            "Landing Page: Página de lanzamiento para generar una lista de espera.",
+            "Redes Sociales: Compartir tips fiscales y mostrar el proceso de homologación para generar confianza."
+        ]
+    },
+    {
+        title: "Fase 2: Captación y Conversión",
+        content: [
+            "Website Profesional: Página de ventas clara, testimonios y una prueba gratuita o demo.",
+            "Chat en Vivo: Para resolver dudas de ventas y soporte en tiempo real.",
+            "Casos de Éxito: Publicar historias de clientes que han tenido éxito con el sistema.",
+            "Publicidad Pagada: Campañas en Google y redes sociales segmentadas a dueños de PYMES y contadores.",
+            "Alianzas con Contadores: Ofrecer comisiones y precios especiales para que recomienden el sistema."
+        ]
+    },
+    {
+        title: "Fase 3: Fidelización y Expansión",
+        content: [
+            "Onboarding Impecable: Un proceso de bienvenida guiado para asegurar el uso correcto del sistema.",
+            "Soporte y Asesoría de Primera: Resolver dudas no solo del software, sino fiscales básicas.",
+            "Email Marketing Nutritivo: Enviar recordatorios de obligaciones fiscales y novedades.",
+            "Programas de Referidos: Incentivar a clientes satisfechos a que recomienden el sistema."
+        ]
     }
+];
 
+const marketingMix = [
+    { p: "Producto", description: "Paquetes claros (Básico, Profesional) con la asesoría fiscal como diferenciador clave." },
+    { p: "Precio", description: "Modelo de suscripción transparente con descuento anual y un plan de prueba gratuito (trial)." },
+    { p: "Plaza", description: "Venta directa online a través del sitio web y venta indirecta a través de una red de contadores aliados." },
+    { p: "Promoción", description: "Marketing de contenidos, publicidad online, marketing de afiliados y programas de referidos." },
+];
+
+const kpis = ["Tasa de Conversión de la Web", "Costo de Adquisición de Cliente (CAC)", "Tasa de Abandono (Churn)", "Valor de Vida del Cliente (LTV)", "Satisfacción del Cliente (CSAT/NPS)"];
+
+export default function CumplimientoFiscalPage() {
   return (
-    <div>
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-            <ShieldCheck className="h-8 w-8 text-primary" />
-            Cumplimiento Fiscal y Soluciones Administrativas
+    <div className="p-4 md:p-8 space-y-12">
+      <header className="text-center mb-12">
+        <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
+            <ShieldCheck className="h-10 w-10 text-primary" />
+            Estrategia de Marketing: "Más que Facturas, Tranquilidad Fiscal"
         </h1>
-        <p className="text-muted-foreground mt-2">
-          Evita sanciones del SENIAT con una solución homologada y adaptada a las necesidades de tu empresa.
+        <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
+          Un plan integral para posicionar un sistema de facturación homologado en Venezuela, enfocado en generar confianza y vender seguridad jurídica.
         </p>
       </header>
 
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-6">
-            <h2 className="text-2xl font-semibold">¿Qué incluye nuestra propuesta?</h2>
-            <p className="text-muted-foreground">
-                Te ofrecemos una solución completa para garantizar tu tranquilidad fiscal y optimizar la gestión de tu negocio, cumpliendo con la <strong>Providencia SNAT/2024/000121</strong>.
-            </p>
-            <div className="space-y-4">
-                {features.map(feature => (
-                    <div key={feature.title} className="flex items-start gap-3 p-4 bg-secondary/30 rounded-lg">
-                        <feature.icon className="h-6 w-6 text-green-500 mt-1 shrink-0"/>
-                        <span className="font-medium">{feature.title}</span>
+      <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+            <CardTitle>Análisis Situacional (FODA)</CardTitle>
+        </CardHeader>
+        <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-4 bg-green-500/10 rounded-lg">
+                <h4 className="font-semibold text-green-600 flex items-center gap-2 mb-2"><Zap/>Fortalezas</h4>
+                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                    {swot.fortalezas.map(item => <li key={item}>{item}</li>)}
+                </ul>
+            </div>
+             <div className="p-4 bg-blue-500/10 rounded-lg">
+                <h4 className="font-semibold text-blue-600 flex items-center gap-2 mb-2"><Lightbulb/>Oportunidades</h4>
+                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                    {swot.oportunidades.map(item => <li key={item}>{item}</li>)}
+                </ul>
+            </div>
+             <div className="p-4 bg-yellow-500/10 rounded-lg">
+                <h4 className="font-semibold text-yellow-600 flex items-center gap-2 mb-2"><TrendingUp/>Debilidades</h4>
+                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                    {swot.debilidades.map(item => <li key={item}>{item}</li>)}
+                </ul>
+            </div>
+             <div className="p-4 bg-red-500/10 rounded-lg">
+                <h4 className="font-semibold text-red-600 flex items-center gap-2 mb-2"><AlertTriangle/>Amenazas</h4>
+                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                    {swot.amenazas.map(item => <li key={item}>{item}</li>)}
+                </ul>
+            </div>
+        </CardContent>
+      </Card>
+      
+      <div className="grid lg:grid-cols-3 gap-8">
+        <Card className="lg:col-span-1 bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Target/>Público Objetivo</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                {publicoObjetivo.map(item => (
+                    <div key={item.title} className="p-3 bg-secondary/50 rounded-lg">
+                        <h4 className="font-semibold">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground">{item.description}</p>
                     </div>
                 ))}
-            </div>
-        </div>
-
-        <Card className="bg-card/80 backdrop-blur-sm">
-            <CardHeader className="text-center">
-                <CardTitle>Solicita una Demostración Gratuita</CardTitle>
-                <CardDescription>
-                    Descubre cómo podemos ayudarte. Agenda una demostración virtual por Anydesk, sin compromiso.
-                </CardDescription>
+            </CardContent>
+        </Card>
+        <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Fases de la Estrategia de Marketing</CardTitle>
             </CardHeader>
             <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="nombre">Nombre y Apellido</Label>
-                        <Input id="nombre" placeholder="Tu nombre" required/>
-                    </div>
-                    <div className="space-y-2">
-                         <Label htmlFor="empresa">Nombre de la Empresa</Label>
-                         <Input id="empresa" placeholder="Tu empresa" required/>
-                    </div>
-                     <div className="space-y-2">
-                         <Label htmlFor="email">Correo Electrónico</Label>
-                         <Input id="email" type="email" placeholder="tu@correo.com" required/>
-                    </div>
-                    <div className="space-y-2">
-                         <Label htmlFor="telefono">Teléfono de Contacto</Label>
-                         <Input id="telefono" type="tel" placeholder="0412-1234567" required/>
-                    </div>
-                    <Button type="submit" className="w-full">
-                        <Send className="mr-2"/>
-                        Solicitar Cotización y Demo
-                    </Button>
-                </form>
+                 <Accordion type="single" collapsible className="w-full">
+                    {marketingPhases.map((phase) => (
+                        <AccordionItem value={phase.title} key={phase.title}>
+                            <AccordionTrigger>{phase.title}</AccordionTrigger>
+                            <AccordionContent>
+                                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                                    {phase.content.map(item => <li key={item}>{item}</li>)}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                </Accordion>
             </CardContent>
         </Card>
       </div>
+      
+       <Card className="bg-card/50 backdrop-blur-sm">
+        <CardHeader>
+            <CardTitle>Mix de Marketing (Las 4 P's)</CardTitle>
+        </CardHeader>
+        <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {marketingMix.map(item => (
+                <div key={item.p} className="p-4 bg-secondary/50 rounded-lg">
+                    <h4 className="font-bold text-primary text-lg mb-2">{item.p}</h4>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                </div>
+            ))}
+        </CardContent>
+      </Card>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Métricas Clave de Éxito (KPIs)</CardTitle>
+                    <CardDescription>Indicadores para medir la efectividad de la estrategia.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <ul className="space-y-3">
+                        {kpis.map(item => (
+                            <li key={item} className="flex items-center gap-3 p-2 bg-secondary/50 rounded-md">
+                                <BarChart className="h-5 w-5 text-primary"/>
+                                <span className="font-medium text-sm">{item}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </CardContent>
+            </Card>
+             <Card className="bg-primary/10 border-primary/20">
+                <CardHeader>
+                    <CardTitle className="text-primary">Conclusión Estratégica</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <p className="text-muted-foreground">
+                        La estrategia debe girar en torno a construir confianza. En un tema tan sensible como los impuestos, las empresas no compran un software, compran la seguridad de no tener problemas con el fisco.
+                    </p>
+                     <p className="font-semibold">
+                       Al combinar un producto técnicamente sólido (homologado) con una capa humana (asesoría) y una comunicación educativa, tu estrategia no solo venderá, sino que construirá una marca líder y respetada.
+                    </p>
+                     <Button asChild>
+                        <a href="#">Solicitar Demo <ArrowRight className="ml-2"/></a>
+                     </Button>
+                </CardContent>
+            </Card>
+      </div>
+
     </div>
   );
 }
