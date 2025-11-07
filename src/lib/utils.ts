@@ -1,3 +1,4 @@
+
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -5,21 +6,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amount: number, currency = "USD") {
-  const symbol = currency === "Bs." ? "" : currency;
+export function formatCurrency(amount: number, currency = "Bs.") {
+  const symbol = currency === "USD" ? "$" : currency === "EUR" ? "€" : "Bs.";
   const formattedAmount = new Intl.NumberFormat("es-VE", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);
 
-  if (currency === "Bs.") {
-    return `Bs. ${formattedAmount}`;
-  }
-
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount)
+  return `${symbol} ${formattedAmount}`;
 }
 
 export function formatDate(date: string | Date | null) {
@@ -33,3 +27,11 @@ export function formatDate(date: string | Date | null) {
     day: '2-digit',
   });
 }
+
+export function formatPercentage(value: number): string {
+  return new Intl.NumberFormat('es-VE', {
+    style: 'percent',
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  }).format(value);
+};

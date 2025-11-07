@@ -82,7 +82,8 @@ import {
   Wand2,
   Link as LinkIcon,
   Globe,
-  Activity
+  Activity,
+  DollarSign as DollarSignIcon,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -172,6 +173,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/organigrama", label: "Organigrama", icon: Sitemap },
     { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
     { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
+    { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: DollarSignIcon },
 ];
 
 const facturacionGeneralMenuItems = [
@@ -901,5 +903,3 @@ function AppSidebarInformatica() {
         </Sidebar>
     );
 }
-
-    
