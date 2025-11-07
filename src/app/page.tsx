@@ -59,12 +59,12 @@ const testimonials = [
   {
     name: "Carlos Rodríguez",
     company: "Constructora XYZ",
-    text: "“System C.M.S ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.”",
+    text: "System C.M.S ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
   },
   {
     name: "Ana Pérez",
     company: "Inversiones ABC",
-    text: "“La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.”",
+    text: "La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.",
   },
 ];
 
@@ -179,16 +179,27 @@ function ChatDialog() {
 }
 
 export default function LandingPage() {
+    const [isScrolled, setIsScrolled] = useState(false);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 10);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
     
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full p-2">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 bg-background/80 backdrop-blur-lg rounded-xl shadow-lg border">
+      <header className={cn("fixed top-0 z-50 w-full p-2 transition-all duration-300", isScrolled ? " " : " ")}>
+        <div className={cn("container mx-auto flex h-16 items-center justify-between px-4 md:px-6 rounded-xl transition-all duration-300",
+          isScrolled ? "bg-background/80 backdrop-blur-lg shadow-lg border" : ""
+        )}>
           <Link href="/" className="flex items-center gap-3">
             <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
@@ -375,7 +386,7 @@ export default function LandingPage() {
                       return (
                         <Card key={index} className="p-6 md:p-8 shadow-lg border bg-card">
                             <CardContent className="p-0">
-                                <p className="text-muted-foreground italic md:text-lg mb-6">“{testimonial.text}”</p>
+                                <p className="text-muted-foreground italic md:text-lg mb-6">{testimonial.text}</p>
                                 <div className="flex items-center gap-4">
                                   {avatar && (
                                     <Avatar>
