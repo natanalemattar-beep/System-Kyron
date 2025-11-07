@@ -174,6 +174,7 @@ const facturacionGeneralMenuItems = [
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
+    { href: "/cobranza", label: "Gestión de Cobranza", icon: HandCoins },
     { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
     { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: FileText },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
