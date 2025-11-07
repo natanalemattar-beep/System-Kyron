@@ -137,6 +137,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/certificado-ingresos", label: "Certificado de Ingresos", icon: Banknote },
   { href: "/ajuste-por-inflacion", label: "Ajuste por Inflación Fiscal", icon: TrendingUp },
   { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
+  { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
 ];
 
 const analisisCrecimientoMenuItems = [
