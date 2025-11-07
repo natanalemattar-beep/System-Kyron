@@ -17,10 +17,6 @@ export const ZeroRiskCertification = () => {
   const [proofs, setProofs] = useState<MathematicalProof[]>([]);
 
   useEffect(() => {
-    loadMathematicalProofs();
-  }, []);
-
-  const loadMathematicalProofs = () => {
     const mathematicalProofs: MathematicalProof[] = [
       {
         id: 'proof-001',
@@ -52,7 +48,7 @@ export const ZeroRiskCertification = () => {
     ];
 
     setProofs(mathematicalProofs);
-  };
+  }, []);
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">

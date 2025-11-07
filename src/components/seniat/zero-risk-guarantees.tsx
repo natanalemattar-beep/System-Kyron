@@ -26,11 +26,6 @@ export const ZeroRiskGuarantees = () => {
   const [warranties, setWarranties] = useState<ZeroRiskWarranty[]>([]);
 
   useEffect(() => {
-    loadFinancialGuarantees();
-    loadZeroRiskWarranties();
-  }, []);
-
-  const loadFinancialGuarantees = () => {
     const financialGuarantees: FinancialGuarantee[] = [
       {
         id: 'guarantee-001',
@@ -61,9 +56,6 @@ export const ZeroRiskGuarantees = () => {
       }
     ];
     setGuarantees(financialGuarantees);
-  };
-  
-  const loadZeroRiskWarranties = () => {
       const zeroRiskWarranties: ZeroRiskWarranty[] = [
       {
         id: 'warranty-001',
@@ -87,7 +79,7 @@ export const ZeroRiskGuarantees = () => {
       },
     ];
     setWarranties(zeroRiskWarranties);
-  };
+  }, []);
 
   const totalCoverage = guarantees.reduce((sum, g) => sum + g.amount, 0);
 

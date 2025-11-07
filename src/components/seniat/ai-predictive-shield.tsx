@@ -20,12 +20,20 @@ export const AIPredictiveShield = () => {
   const [preventionRate] = useState(100);
 
   useEffect(() => {
-    loadPredictiveShield();
-    const interval = startRealTimePrediction();
-    return () => clearInterval(interval);
-  }, []);
-
-  const loadPredictiveShield = () => {
+    const interval = setInterval(() => {
+        const newRisk: PredictiveRisk = {
+          id: `pred-${Date.now()}`,
+          riskType: 'Riesgo Emergente Detectado',
+          probability: Math.random() * 0.1,
+          impact: Math.random() * 0.3,
+          detectionTime: new Date(),
+          preventionAction: 'Neutralizado automáticamente',
+          status: 'prevented',
+          confidence: 99.9 + Math.random() * 0.1
+        };
+        setPredictiveRisks(prev => [newRisk, ...prev.slice(0, 4)]);
+      }, 10000);
+    
     const risks: PredictiveRisk[] = [
       {
         id: 'pred-001',
@@ -60,25 +68,10 @@ export const AIPredictiveShield = () => {
     ];
 
     setPredictiveRisks(risks);
-  };
+    return () => clearInterval(interval);
+  }, []);
 
-  const startRealTimePrediction = () => {
-    return setInterval(() => {
-      setPredictiveRisks(prev => {
-        const newRisk: PredictiveRisk = {
-          id: `pred-${Date.now()}`,
-          riskType: 'Riesgo Emergente Detectado',
-          probability: Math.random() * 0.1,
-          impact: Math.random() * 0.3,
-          detectionTime: new Date(),
-          preventionAction: 'Neutralizado automáticamente',
-          status: 'prevented',
-          confidence: 99.9 + Math.random() * 0.1
-        };
-        return [newRisk, ...prev.slice(0, 4)];
-      });
-    }, 10000);
-  };
+
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">

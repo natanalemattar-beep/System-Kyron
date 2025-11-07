@@ -27,11 +27,6 @@ export const ZeroRiskProtection = () => {
   const [eliminatedRisks, setEliminatedRisks] = useState<RiskElimination[]>([]);
 
   useEffect(() => {
-    loadZeroRiskControls();
-    loadEliminatedRisks();
-  }, []);
-
-  const loadZeroRiskControls = () => {
     const zeroRiskControls: ZeroRiskControl[] = [
       {
         id: 'control-001',
@@ -79,10 +74,7 @@ export const ZeroRiskProtection = () => {
       },
     ];
     setControls(zeroRiskControls);
-  };
-  
-  const loadEliminatedRisks = () => {
-      const eliminated: RiskElimination[] = [
+    const eliminated: RiskElimination[] = [
       {
         riskId: 'risk-001',
         riskName: 'Error en Cálculo de Impuestos',
@@ -97,7 +89,7 @@ export const ZeroRiskProtection = () => {
       },
     ];
      setEliminatedRisks(eliminated);
-  };
+  }, []);
 
   const systemRisk = (1 - controls.reduce((acc, control) => acc * (1 - control.failureProbability / 100), 1)) * 100;
 

@@ -19,12 +19,20 @@ export const QuantumVerification = () => {
   const [quantumStatus] = useState<'active' | 'calibrating' | 'optimal'>('optimal');
 
   useEffect(() => {
-    loadQuantumValidations();
-    const interval = simulateQuantumOperations();
-    return () => clearInterval(interval);
-  }, []);
+    const interval = setInterval(() => {
+        const newValidation: QuantumValidation = {
+          id: `qval-${Date.now()}`,
+          process: 'Verificación Cuántica en Tiempo Real',
+          validationType: 'quantum',
+          status: 'verified',
+          timestamp: new Date(),
+          hash: `0x${Math.random().toString(16).substr(2, 16)}...`,
+          confidence: 99.9999 + Math.random() * 0.0001,
+          verificationLayers: 8
+        };
+        setValidations(prev => [newValidation, ...prev.slice(0, 4)]);
+      }, 5000);
 
-  const loadQuantumValidations = () => {
     const quantumValidations: QuantumValidation[] = [
       {
         id: 'qval-001',
@@ -59,25 +67,10 @@ export const QuantumVerification = () => {
     ];
 
     setValidations(quantumValidations);
-  };
+    return () => clearInterval(interval);
+  }, []);
 
-  const simulateQuantumOperations = () => {
-    return setInterval(() => {
-      setValidations(prev => {
-        const newValidation: QuantumValidation = {
-          id: `qval-${Date.now()}`,
-          process: 'Verificación Cuántica en Tiempo Real',
-          validationType: 'quantum',
-          status: 'verified',
-          timestamp: new Date(),
-          hash: `0x${Math.random().toString(16).substr(2, 16)}...`,
-          confidence: 99.9999 + Math.random() * 0.0001,
-          verificationLayers: 8
-        };
-        return [newValidation, ...prev.slice(0, 4)];
-      });
-    }, 5000);
-  };
+
 
   const getValidationColor = (type: string) => {
     switch (type) {
