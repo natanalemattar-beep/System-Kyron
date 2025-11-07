@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bot, Download, FileText, DollarSign, ShieldAlert, TrendingUp, Search, Users, Cpu, Recycle, Workflow, ShieldCheck, Scale, Info, Briefcase, Network, Target } from "lucide-react";
+import { Bot, Download, FileText, DollarSign, ShieldAlert, TrendingUp, Search, Users, Cpu, Recycle, Workflow, ShieldCheck, Scale, Info, Briefcase, Network, Target, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
@@ -139,7 +139,7 @@ ESTUDIO DE FACTIBILIDAD ECONÓMICA - System C.M.S.
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Estudio de Factibilidad Económica</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Análisis integral del proyecto "System C.M.S", que combina un ecosistema de hardware sostenible y software de gestión avanzada.
+          Análisis integral del proyecto "System C.M.S.", que combina un ecosistema de hardware sostenible y software de gestión avanzada.
         </p>
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={handleDownloadStudy}>
