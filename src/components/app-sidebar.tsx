@@ -80,7 +80,8 @@ import {
   Cpu,
   Recycle,
   Wand2,
-  Link as LinkIcon
+  Link as LinkIcon,
+  Globe
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -188,6 +189,7 @@ const facturacionGeneralMenuItems = [
     { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
     { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
     { href: "/registro-comprador", label: "Registro de Comprador", icon: UserCheck },
+    { href: "/facturacion-internacional", label: "Facturación Internacional", icon: Globe },
 ];
 
 const ventasMenuItems = [
