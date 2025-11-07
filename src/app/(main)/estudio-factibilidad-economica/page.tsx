@@ -3,17 +3,16 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bot, CheckCircle, Shield, ArrowRight, Download, Recycle, Cpu, Briefcase, FileText, Network, DollarSign, ShieldAlert, TrendingUp, Search, User, Check, Coins, Workflow, ShieldCheck, Scale, Info } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import Link from "next/link";
-
+import { Bot, Download, FileText, DollarSign, ShieldAlert, TrendingUp, Search, Users, Cpu, Recycle, Workflow, ShieldCheck, Scale, Info, Briefcase, Network, Target } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { formatCurrency } from "@/lib/utils";
 
 const modeloNegocio = [
     "Venta de Papeleras Inteligentes: Comercialización de los dispositivos a municipios, centros comerciales, empresas y condominios.",
     "Licenciamiento de Software Contable: Venta de licencias del sistema de gestión administrativa y contable 100% automatizado.",
     "Soporte Técnico y Mantenimiento: Contratos de soporte para garantizar el funcionamiento óptimo tanto del hardware (papeleras) como del software (sistema contable).",
     "Análisis de Datos como Servicio: Monetización de los datos de residuos para ayudar a otras empresas a mejorar su gestión de desperdicios.",
-    "Impacto Social: Donación de equipos y software a comunidades u organizaciones sin fines de lucro, reforzando la misión social."
 ];
 
 const aspectosTecnicosPapelera = [
@@ -22,192 +21,204 @@ const aspectosTecnicosPapelera = [
     "Conectividad IoT: Las papeleras se conectan a la nube para monitorear en tiempo real los niveles de llenado, optimizando las rutas de recolección y reduciendo costos."
 ];
 
-const ventajasPapelera = [
-    "Mejora radical del reciclaje y la calidad de los materiales recuperados.",
-    "Eficiencia en la gestión de residuos, reduciendo costos operativos y consumo de combustible.",
-    "Fomento de una economía circular y un futuro más sostenible.",
-    "Generación de datos valiosos para la toma de decisiones de municipios y empresas."
-];
-
-const desafiosPapelera = [
-    "Alto costo inicial: La inversión en tecnología (sensores, IA, conectividad) puede ser alta, pero se justifica con los beneficios a largo plazo.",
-    "Precisión y mantenimiento: Es crucial que la tecnología de clasificación sea precisa y reciba mantenimiento regular.",
-    "Adopción por el público: Puede ser necesario educar a los usuarios, aunque la simplicidad del sistema es un gran incentivo."
-];
-
-const integracionPlanNegocio = [
-    "Venta del Producto: Comercialización de las papeleras a empresas, escuelas, centros comerciales y municipios.",
-    "Soporte Técnico: Clave para mantener las papeleras en óptimas condiciones, gestionar la conectividad y las actualizaciones del sistema.",
-    "Impacto Social: Venta a bajo costo o donación a ONGs y comunidades, junto con programas de incentivos por reciclaje.",
-    "Modelo de Datos: Monetización del análisis de los datos de residuos para ayudar a otras empresas a optimizar su gestión."
-];
-
 const aspectosTecnicosSoftware = [
     "Automatización de Procesos (RPA): El sistema automatiza tareas repetitivas como la entrada de datos de facturas, conciliaciones bancarias y generación de reportes.",
     "Inteligencia Artificial para el Cumplimiento: La IA verifica que todas las operaciones cumplan con las normativas del SENIAT y otras regulaciones locales, minimizando el riesgo de sanciones.",
     "Integración Total: Se conecta con bancos, sistemas de facturación de proveedores y plataformas de RR.HH. para centralizar toda la información financiera.",
-    "Gestión de Ciclo de Vida de Datos: Una 'papelera inteligente' de datos que archiva y depura la información de forma automática para optimizar el rendimiento y cumplir con las leyes de protección de datos."
 ];
 
-const ventajasSoftware = [
-    "Reducción de costos operativos y errores humanos en más de un 90%.",
-    "Garantía de cumplimiento fiscal y administrativo, brindando tranquilidad a los empresarios.",
-    "Escalabilidad para crecer sin que los procesos administrativos se conviertan en un cuello de botella.",
-    "Informes financieros precisos y en tiempo real para una toma de decisiones basada en datos."
+const publicoObjetivoPapelera = [
+    { target: "Municipios y Entes Públicos", need: "Optimizar la gestión de residuos urbanos y promover la sostenibilidad." },
+    { target: "Centros Comerciales y Grandes Superficies", need: "Mejorar la experiencia del visitante y reducir costos operativos de limpieza." },
+    { target: "Empresas con Políticas de Sostenibilidad (RSE)", need: "Cumplir con metas ambientales y mejorar su imagen corporativa." },
 ];
+
+const publicoObjetivoSoftware = [
+    { target: "Pequeñas y Medianas Empresas (PYMES)", need: "Automatizar su contabilidad y asegurar el cumplimiento fiscal sin necesidad de un gran equipo." },
+    { target: "Emprendedores y Nuevos Negocios", need: "Una solución todo-en-uno para empezar con el pie derecho, gestionando facturación y finanzas desde el día uno." },
+    { target: "Firmas de Contadores", need: "Una herramienta eficiente para gestionar la contabilidad de múltiples clientes desde una única plataforma." },
+];
+
+const foda = {
+    fortalezas: ["Doble línea de negocio (hardware + software) que crea un ecosistema robusto.", "Solución innovadora con alto impacto social y ambiental.", "Mercado con una necesidad clara y urgente de digitalización y cumplimiento."],
+    oportunidades: ["Creciente conciencia sobre la sostenibilidad y la economía circular.", "Digitalización acelerada de las PYMES en Venezuela.", "Altas sanciones del SENIAT que incentivan la adopción de sistemas homologados."],
+    debilidades: ["Alta inversión inicial en I+D para hardware y software.", "Dependencia de proveedores de tecnología y componentes.", "Curva de aprendizaje para la adopción de nuevas tecnologías por parte de los clientes."],
+    amenazas: ["Competencia de software administrativo tradicional ya establecido.", "Cambios regulatorios imprevistos en materia fiscal o ambiental.", "Inestabilidad económica que puede afectar la inversión en tecnología."],
+};
+
+const proyecciones = {
+    ingresosPapeleras: 450000,
+    ingresosSoftware: 280000,
+    ingresosSoporte: 120000,
+    costosVariables: -350000,
+    costosFijos: -250000,
+};
+const totalIngresos = proyecciones.ingresosPapeleras + proyecciones.ingresosSoftware + proyecciones.ingresosSoporte;
+const utilidadBruta = totalIngresos + proyecciones.costosVariables;
+const utilidadNeta = utilidadBruta + proyecciones.costosFijos;
+const puntoEquilibrio = Math.abs(proyecciones.costosFijos) / (utilidadBruta / totalIngresos);
 
 
 export default function EstudioFactibilidadEconomicaPage() {
-
-    const handleDownloadDemo = () => {
-        const content = `
-Propuesta de Valor de la Demo - System C.M.S
-
-Este demo muestra un modelo de negocio de doble impacto que combina tecnología para la sostenibilidad con la automatización de la gestión empresarial.
-
-1. Papelera Inteligente:
-   - Clasificación de residuos con IA.
-   - Conectividad IoT para optimizar la recolección.
-   - Fomenta la economía circular.
-
-2. Software de Automatización Contable:
-   - Automatización de procesos (facturación, conciliación).
-   - Garantía de cumplimiento con normativas locales (SENIAT).
-   - Informes en tiempo real para decisiones estratégicas.
-
-La sinergia de ambos productos crea una solución robusta y única en el mercado.
-        `;
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'demo-anteproyecto.txt';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+    const { toast } = useToast();
 
     const handleDownloadStudy = () => {
         const fullStudyContent = `
 ESTUDIO DE FACTIBILIDAD ECONÓMICA - System C.M.S.
 
-I. DEFINICIÓN DE FACTIBILIDAD ECONÓMICA
-Un "certificado de factibilidad económica" es un documento que evalúa si un proyecto es financieramente viable.
-1. Estudio de Factibilidad Económica: Análisis financiero para determinar si un proyecto es rentable y sostenible.
-2. Certificado de Factibilidad Territorial y de Zonificación: Acredita que una actividad comercial o de servicios es factible según las normativas del municipio.
+1. RESUMEN EJECUTIVO
+   - Proyecto: Desarrollo y comercialización de un ecosistema integrado que consiste en una Papelera Inteligente para reciclaje y un Software de Automatización Contable.
+   - Misión: Impulsar la sostenibilidad ambiental y la eficiencia empresarial en Venezuela a través de la tecnología.
+   - Oportunidad: Existe una doble oportunidad de mercado: la necesidad de una gestión de residuos moderna y la demanda de herramientas administrativas que garanticen el cumplimiento fiscal.
+   - Objetivos: 
+     1. Posicionarse como líder en tecnología para la sostenibilidad.
+     2. Convertirse en la solución SaaS de referencia para la gestión contable de PYMES en Venezuela.
+     3. Alcanzar el punto de equilibrio en 24 meses.
 
-II. MODELO DE NEGOCIO: DOBLE IMPACTO
-- ${modeloNegocio.join('\n- ')}
+2. ANÁLISIS DE MERCADO
+   - Público Objetivo (Papelera): Municipios, centros comerciales, grandes empresas.
+   - Público Objetivo (Software): PYMES, emprendedores y contadores.
+   - Tamaño del Mercado (Estimado):
+     - Mercado de Gestión de Residuos (Potencial): $50M Anuales.
+     - Mercado de Software Administrativo (PYMES): $30M Anuales.
+   - Competencia:
+     - Papelera: Competidores indirectos (sistemas de recolección tradicionales). Ventaja: innovación y eficiencia.
+     - Software: Sistemas administrativos establecidos (ej. Saint, ProfitPlus). Ventaja: enfoque en la nube, automatización con IA y usabilidad.
 
-III. PRODUCTO 1: PAPELERA INTELIGENTE
-- Aspectos Técnicos:
-  - ${aspectosTecnicosPapelera.join('\n  - ')}
-- Ventajas del Producto:
-  - ${ventajasPapelera.join('\n  - ')}
-- Desafíos a Considerar:
-  - ${desafiosPapelera.join('\n  - ')}
-- Integración con el Plan de Negocio:
-  - ${integracionPlanNegocio.join('\n  - ')}
+3. ESTUDIO TÉCNICO
+   3.1. Producto 1: Papelera Inteligente
+       - Aspectos Técnicos: ${aspectosTecnicosPapelera.join(', ')}.
+   3.2. Producto 2: Software de Automatización Contable
+       - Aspectos Técnicos: ${aspectosTecnicosSoftware.join(', ')}.
 
-IV. PRODUCTO 2: SOFTWARE DE AUTOMATIZACIÓN CONTABLE
-- Aspectos Técnicos:
-  - ${aspectosTecnicosSoftware.join('\n  - ')}
-- Ventajas y Oportunidades:
-  - ${ventajasSoftware.join('\n  - ')}
+4. MODELO DE NEGOCIO Y ESTRATEGIA DE MONETIZACIÓN
+   - ${modeloNegocio.join('\n   - ')}
 
-V. PROCEDIMIENTOS ADMINISTRATIVOS AUTOMATIZADOS
-1. Venta y Facturación: Generación automática de facturas cumpliendo normativa SENIAT.
-2. Cuentas por Cobrar: Monitoreo con IA, envío de recordatorios y alertas de mora.
-3. Conciliación Bancaria: Conexión con bancos para conciliación automática.
-4. Contabilidad y Cumplimiento Fiscal: Generación de asientos contables en tiempo real y borradores para declaraciones de impuestos.
+5. ESTRUCTURA ORGANIZACIONAL
+   - Departamentos Clave: Tecnología y Desarrollo, Operaciones y Logística, Ventas y Marketing, Administración y Finanzas, Cumplimiento Legal.
 
-VI. MODELO DE RECOMPENSAS POR RECICLAJE
-El ecosistema recompensa a los usuarios por reciclar a través de una app aliada.
-Beneficios:
-- Fomenta la cultura del reciclaje.
-- Crea un ecosistema de economía circular.
-- Fortalece el impacto social.
-- Genera nuevas oportunidades de negocio.
+6. ANÁLISIS FINANCIERO (PROYECCIONES ANUALES)
+   - Ingresos por Venta de Papeleras: ${formatCurrency(proyecciones.ingresosPapeleras)}
+   - Ingresos por Licencias de Software: ${formatCurrency(proyecciones.ingresosSoftware)}
+   - Ingresos por Soporte y Mantenimiento: ${formatCurrency(proyecciones.ingresosSoporte)}
+   - TOTAL INGRESOS: ${formatCurrency(totalIngresos)}
+   - Costos Variables (Producción, Comisiones): ${formatCurrency(proyecciones.costosVariables)}
+   - UTILIDAD BRUTA: ${formatCurrency(utilidadBruta)}
+   - Costos Fijos (Nómina, Alquiler, Marketing): ${formatCurrency(proyecciones.costosFijos)}
+   - UTILIDAD NETA (EBITDA): ${formatCurrency(utilidadNeta)}
+   - Punto de Equilibrio (Ingresos necesarios): ${formatCurrency(puntoEquilibrio)}
 
-VII. ESTRUCTURA ORGANIZACIONAL Y TECNOLÓGICA
-Departamentos Clave:
-- Tecnología y Seguridad (IT)
-- Cumplimiento (Compliance)
-- Riesgo y Cobranza
+7. ANÁLISIS DE RIESGOS (FODA)
+   - Fortalezas: ${foda.fortalezas.join('. ')}.
+   - Oportunidades: ${foda.oportunidades.join('. ')}.
+   - Debilidades: ${foda.debilidades.join('. ')}.
+   - Amenazas: ${foda.amenazas.join('. ')}.
 
-VIII. ESTRATEGIA DE MARKETING Y EXPANSIÓN
-- Marketing Digital, de Contenidos y Alianzas Estratégicas.
-- Expansión de productos: Contenedores para hogar, plataforma de análisis de residuos.
-
-IX. ANÁLISIS DE INVERSIÓN Y RIESGO
-Áreas de Inversión: I+D, desarrollo de software, marketing, capital de trabajo.
-Riesgos Potenciales: Competencia, adopción tecnológica, costos de producción, regulaciones.
+8. CONCLUSIÓN
+   El proyecto es altamente factible. La sinergia entre ambos productos crea barreras de entrada significativas y múltiples flujos de ingreso. El principal desafío reside en la ejecución y la gestión del capital inicial, pero el potencial de mercado y el impacto positivo justifican la inversión.
         `;
 
         const blob = new Blob([fullStudyContent.trim()], { type: 'text/plain;charset=utf-8' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'estudio-factibilidad.txt';
+        link.download = 'estudio-factibilidad-completo.txt';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        toast({
+            title: "Descarga Completa",
+            description: "El estudio de factibilidad detallado ha sido descargado.",
+        });
     };
 
   return (
-    <div className="p-4 md:p-8">
+    <div className="p-4 md:p-8 space-y-12">
       <header className="mb-8 text-center">
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
             <Bot className="h-12 w-12" />
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Estudio de Factibilidad Económica</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Evaluación de un modelo de negocio que combina tecnología para el impacto ambiental con la automatización total de la gestión empresarial, creando una propuesta de valor única y sostenible.
+          Análisis integral del proyecto "System C.M.S", que combina un ecosistema de hardware sostenible y software de gestión avanzada.
         </p>
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={handleDownloadStudy}>
-                <FileText className="mr-2" />
-                Descargar Estudio de Factibilidad
-            </Button>
-            <Button size="lg" variant="outline" onClick={handleDownloadDemo}>
                 <Download className="mr-2" />
-                Descargar Demo
+                Descargar Estudio Completo
             </Button>
         </div>
       </header>
 
-      <div className="space-y-12">
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Scale className="h-6 w-6 text-primary"/>¿Qué es un Certificado de Factibilidad Económica?</CardTitle>
-                <CardDescription>
-                    Un "certificado de factibilidad económica" es un documento que evalúa si un proyecto es financieramente viable. No es un documento único, sino que se refiere a dos conceptos principales.
-                </CardDescription>
+                <CardTitle>1. Resumen Ejecutivo</CardTitle>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-6">
-                <div className="p-4 bg-secondary/50 rounded-lg">
-                    <h4 className="font-semibold mb-2">1. Estudio de Factibilidad Económica</h4>
-                    <p className="text-sm text-muted-foreground">Es un análisis financiero que determina si un proyecto es rentable y sostenible a largo plazo, analizando costos, ingresos esperados y retornos de la inversión (VPN, TIR, punto de equilibrio).</p>
+            <CardContent className="space-y-4 text-muted-foreground">
+                <p>El presente documento evalúa la factibilidad del proyecto "System C.M.S.", un modelo de negocio de doble impacto diseñado para el mercado venezolano. El proyecto se centra en dos productos sinérgicos: una **Papelera Inteligente** para la gestión de residuos y un **Software de Automatización Contable**.</p>
+                <p>La misión es abordar simultáneamente la necesidad de soluciones sostenibles para el medio ambiente y la urgente demanda de eficiencia y cumplimiento fiscal por parte de las empresas en Venezuela. Este estudio concluye que el proyecto es financieramente viable, con un mercado potencial significativo y fuertes barreras de entrada gracias a su modelo de ecosistema integrado.</p>
+            </CardContent>
+        </Card>
+
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3"><Search className="h-6 w-6"/>2. Análisis de Mercado</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <div>
+                    <h3 className="font-semibold mb-3">Público Objetivo</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 bg-secondary/50 rounded-lg">
+                            <h4 className="font-medium text-foreground mb-2">Papelera Inteligente</h4>
+                             <ul className="space-y-2 text-sm">
+                                {publicoObjetivoPapelera.map(item => <li key={item.target}><strong>{item.target}:</strong> {item.need}</li>)}
+                            </ul>
+                        </div>
+                        <div className="p-4 bg-secondary/50 rounded-lg">
+                            <h4 className="font-medium text-foreground mb-2">Software Contable</h4>
+                            <ul className="space-y-2 text-sm">
+                                {publicoObjetivoSoftware.map(item => <li key={item.target}><strong>{item.target}:</strong> {item.need}</li>)}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                 <div className="p-4 bg-secondary/50 rounded-lg">
-                    <h4 className="font-semibold mb-2">2. Certificado de Factibilidad Territorial y de Zonificación</h4>
-                    <p className="text-sm text-muted-foreground">Acredita que una actividad comercial o de servicios es factible según las normativas del municipio. Define los usos permitidos y restricciones para un inmueble.</p>
+                 <div>
+                    <h3 className="font-semibold mb-3">Tamaño y Competencia</h3>
+                    <p className="text-muted-foreground">Se estima un mercado potencial combinado de más de **$80 millones anuales**. La competencia es fragmentada y, en su mayoría, no ofrece una solución integrada, lo que representa una ventaja competitiva clave para System C.M.S.</p>
                 </div>
-                 <div className="md:col-span-2 p-4 rounded-lg bg-background border">
-                     <p className="text-sm text-center text-muted-foreground font-medium flex items-center justify-center gap-2">
-                        <Info className="h-4 w-4"/>Este documento constituye un **Estudio de Factibilidad Económica** para el proyecto de System C.M.S.
-                    </p>
+            </CardContent>
+        </Card>
+
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3"><Cpu className="h-6 w-6"/>3. Estudio Técnico</CardTitle>
+            </CardHeader>
+            <CardContent className="grid md:grid-cols-2 gap-8">
+                 <div className="space-y-4">
+                    <h3 className="font-semibold flex items-center gap-2"><Recycle className="text-green-500"/>Producto 1: Papelera Inteligente</h3>
+                    <p className="text-sm text-muted-foreground">Dispositivo de hardware diseñado para revolucionar la recolección y clasificación de residuos.</p>
+                     <ul className="list-disc pl-5 space-y-2 text-sm">
+                        {aspectosTecnicosPapelera.map(item => <li key={item}>{item}</li>)}
+                    </ul>
+                </div>
+                 <div className="space-y-4">
+                    <h3 className="font-semibold flex items-center gap-2"><FileText className="text-blue-500"/>Producto 2: Software de Automatización</h3>
+                    <p className="text-sm text-muted-foreground">Plataforma SaaS para la gestión integral de procesos administrativos y contables.</p>
+                    <ul className="list-disc pl-5 space-y-2 text-sm">
+                        {aspectosTecnicosSoftware.map(item => <li key={item}>{item}</li>)}
+                    </ul>
                 </div>
             </CardContent>
         </Card>
         
          <Card className="bg-card/50 backdrop-blur-sm">
              <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Briefcase className="h-6 w-6 text-primary"/>Modelo de Negocio: Doble Impacto</CardTitle>
-                <CardDescription>La startup se fundamenta en dos líneas de productos innovadores que comparten una misma filosofía: la automatización como motor de eficiencia y sostenibilidad.</CardDescription>
+                <CardTitle className="flex items-center gap-3"><Briefcase className="h-6 w-6"/>4. Modelo de Negocio y Monetización</CardTitle>
             </CardHeader>
             <CardContent>
+                <p className="text-muted-foreground mb-4">La estrategia de monetización se basa en múltiples flujos de ingreso para garantizar la sostenibilidad y el crecimiento:</p>
                 <ul className="space-y-3">
                     {modeloNegocio.map((item, index) => (
-                        <li key={index} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg">
+                        <li key={index} className="flex items-start gap-3">
                             <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
                             <span>{item}</span>
                         </li>
@@ -216,244 +227,61 @@ Riesgos Potenciales: Competencia, adopción tecnológica, costos de producción,
             </CardContent>
         </Card>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-            {/* Producto 1: Papelera Inteligente */}
-            <Card className="bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-3"><Recycle className="h-6 w-6 text-green-500"/>Producto 1: Papelera Inteligente</CardTitle>
-                    <CardDescription>Tecnología para la sostenibilidad y el impacto social.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="tech-papelera">
-                            <AccordionTrigger>Aspectos Técnicos</AccordionTrigger>
-                            <AccordionContent>
-                                <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                                    {aspectosTecnicosPapelera.map(item => <li key={item}>{item}</li>)}
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                         <AccordionItem value="ventajas-papelera">
-                            <AccordionTrigger>Ventajas del Producto</AccordionTrigger>
-                            <AccordionContent>
-                               <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                                    {ventajasPapelera.map(item => <li key={item}>{item}</li>)}
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                         <AccordionItem value="desafios-papelera">
-                            <AccordionTrigger>Desafíos a Considerar</AccordionTrigger>
-                            <AccordionContent>
-                               <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                                    {desafiosPapelera.map(item => <li key={item}>{item}</li>)}
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="plan-negocio-papelera">
-                            <AccordionTrigger>Integración con el Plan de Negocio</AccordionTrigger>
-                            <AccordionContent>
-                               <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                                    {integracionPlanNegocio.map(item => <li key={item}>{item}</li>)}
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </CardContent>
-            </Card>
-
-            {/* Producto 2: Automatización Contable */}
-            <Card className="bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-3"><FileText className="h-6 w-6 text-blue-500"/>Producto 2: Software de Automatización Contable</CardTitle>
-                    <CardDescription>Eficiencia y cumplimiento para la gestión empresarial interna y para la venta a clientes.</CardDescription>
-                </CardHeader>
-                 <CardContent>
-                    <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="tech-software">
-                            <AccordionTrigger>Aspectos Técnicos</AccordionTrigger>
-                            <AccordionContent>
-                                <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                                    {aspectosTecnicosSoftware.map(item => <li key={item}>{item}</li>)}
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                         <AccordionItem value="ventajas-software">
-                            <AccordionTrigger>Ventajas y Oportunidades</AccordionTrigger>
-                            <AccordionContent>
-                               <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                                    {ventajasSoftware.map(item => <li key={item}>{item}</li>)}
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </CardContent>
-            </Card>
-        </div>
-        
-         <Card className="bg-card/50 backdrop-blur-sm">
+        <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Workflow className="h-6 w-6 text-primary"/>Procedimientos Administrativos Automatizados</CardTitle>
-                <CardDescription>El software de automatización será el sistema nervioso central de la startup, gestionando todos los procedimientos internos.</CardDescription>
+                <CardTitle className="flex items-center gap-3"><DollarSign className="h-6 w-6"/>5. Análisis Financiero</CardTitle>
             </CardHeader>
             <CardContent>
-                 <p className="text-muted-foreground mb-4">
-                    La empresa utilizará su propio software para demostrar su eficacia (dogfooding) y optimizar su gestión. El flujo de trabajo será el siguiente:
-                </p>
-                <ol className="relative border-l border-border ml-6 space-y-8">
-                    <li className="ml-8">
-                        <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full -left-4 ring-8 ring-background"><FileText className="h-4 w-4 text-primary"/></span>
-                        <h3 className="font-semibold">1. Venta y Facturación</h3>
-                        <p className="text-sm text-muted-foreground">Cuando se vende una papelera o una licencia de software, el sistema genera la factura automáticamente, cumpliendo con la normativa SENIAT y la envía al cliente.</p>
-                    </li>
-                    <li className="ml-8">
-                        <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full -left-4 ring-8 ring-background"><DollarSign className="h-4 w-4 text-primary"/></span>
-                        <h3 className="font-semibold">2. Cuentas por Cobrar</h3>
-                        <p className="text-sm text-muted-foreground">La IA monitorea los vencimientos, envía recordatorios de pago automáticos y alerta al equipo de cobranza sobre facturas en mora.</p>
-                    </li>
-                    <li className="ml-8">
-                        <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full -left-4 ring-8 ring-background"><Cpu className="h-4 w-4 text-primary"/></span>
-                        <h3 className="font-semibold">3. Conciliación Bancaria</h3>
-                        <p className="text-sm text-muted-foreground">El sistema se conecta con los bancos para conciliar los pagos recibidos con las facturas pendientes de forma automática, reduciendo el trabajo manual.</p>
-                    </li>
-                    <li className="ml-8">
-                        <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/20 rounded-full -left-4 ring-8 ring-background"><ShieldCheck className="h-4 w-4 text-primary"/></span>
-                        <h3 className="font-semibold">4. Contabilidad y Cumplimiento Fiscal</h3>
-                        <p className="text-sm text-muted-foreground">Cada transacción (ingreso o gasto) genera los asientos contables correspondientes en tiempo real. Al final del mes, el sistema prepara los borradores para la declaración de IVA, ISLR y otras obligaciones fiscales.</p>
-                    </li>
-                </ol>
+                 <Table>
+                    <TableHeader><TableRow><TableHead colSpan={2}>Proyecciones Financieras Anuales (Estimadas)</TableHead></TableRow></TableHeader>
+                    <TableBody>
+                        <TableRow><TableCell>Ingresos por Venta de Papeleras</TableCell><TableCell className="text-right">{formatCurrency(proyecciones.ingresosPapeleras)}</TableCell></TableRow>
+                        <TableRow><TableCell>Ingresos por Licencias de Software</TableCell><TableCell className="text-right">{formatCurrency(proyecciones.ingresosSoftware)}</TableCell></TableRow>
+                        <TableRow><TableCell>Ingresos por Soporte y Mantenimiento</TableCell><TableCell className="text-right">{formatCurrency(proyecciones.ingresosSoporte)}</TableCell></TableRow>
+                        <TableRow className="font-bold"><TableCell>Total Ingresos</TableCell><TableCell className="text-right">{formatCurrency(totalIngresos)}</TableCell></TableRow>
+                        <TableRow><TableCell>Costos Variables</TableCell><TableCell className="text-right text-red-500">{formatCurrency(proyecciones.costosVariables)}</TableCell></TableRow>
+                        <TableRow className="font-bold border-t"><TableCell>Utilidad Bruta</TableCell><TableCell className="text-right">{formatCurrency(utilidadBruta)}</TableCell></TableRow>
+                        <TableRow><TableCell>Costos Fijos</TableCell><TableCell className="text-right text-red-500">{formatCurrency(proyecciones.costosFijos)}</TableCell></TableRow>
+                        <TableRow className="font-bold text-lg text-primary border-t-2 border-primary"><TableCell>Utilidad Neta (EBITDA)</TableCell><TableCell className="text-right">{formatCurrency(utilidadNeta)}</TableCell></TableRow>
+                         <TableRow className="font-bold border-t"><TableCell>Punto de Equilibrio (Ingresos)</TableCell><TableCell className="text-right">{formatCurrency(puntoEquilibrio)}</TableCell></TableRow>
+                    </TableBody>
+                </Table>
             </CardContent>
         </Card>
-
+        
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Coins className="h-6 w-6 text-yellow-500"/>Modelo de Recompensas por Reciclaje</CardTitle>
-                <CardDescription>Incentivando la participación ciudadana y corporativa en la economía circular.</CardDescription>
+                <CardTitle className="flex items-center gap-3"><ShieldAlert className="h-6 w-6"/>6. Análisis de Riesgos (FODA)</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-                <div>
-                    <h4 className="font-semibold text-lg mb-2">Funcionamiento del Sistema de Recompensas</h4>
-                    <p className="text-muted-foreground mb-4">El acuerdo consiste en crear un ecosistema donde los usuarios son recompensados por reciclar, fomentando una cultura de sostenibilidad. Este sistema se apoya en una alianza estratégica entre System C.M.S. y una aplicación de pagos o lealtad.</p>
-                    <div className="flex flex-col md:flex-row items-center justify-around gap-4 text-center p-4 bg-secondary/50 rounded-lg">
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="p-3 bg-primary/10 rounded-full"><User className="h-6 w-6 text-primary"/></div>
-                            <p className="font-semibold">1. Usuario Recicla</p>
-                        </div>
-                         <ArrowRight className="h-6 w-6 text-muted-foreground hidden md:block"/>
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="p-3 bg-green-500/10 rounded-full"><Recycle className="h-6 w-6 text-green-500"/></div>
-                            <p className="font-semibold">2. Papelera Identifica</p>
-                        </div>
-                        <ArrowRight className="h-6 w-6 text-muted-foreground hidden md:block"/>
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="p-3 bg-yellow-500/10 rounded-full"><Check className="h-6 w-6 text-yellow-500"/></div>
-                            <p className="font-semibold">3. App Aliada Recompensa</p>
-                        </div>
-                    </div>
+            <CardContent className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <h3 className="font-semibold text-green-500">Fortalezas</h3>
+                    <ul className="list-disc pl-5 text-sm">{foda.fortalezas.map(item => <li key={item}>{item}</li>)}</ul>
                 </div>
-                 <div>
-                    <h4 className="font-semibold text-lg mb-2">Beneficios del Modelo</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
-                        <li><strong>Fomenta la Cultura del Reciclaje:</strong> Incentiva directamente al usuario, aumentando las tasas de reciclaje.</li>
-                        <li><strong>Crea un Ecosistema de Economía Circular:</strong> Conecta a los productores de residuos (usuarios) con el sistema de recolección y las empresas recicladoras.</li>
-                        <li><strong>Fortalece el Impacto Social:</strong> Genera un beneficio tangible para la comunidad, reforzando la imagen de marca de la startup y sus aliados.</li>
-                        <li><strong>Nuevas Oportunidades de Negocio:</strong> Abre la puerta a alianzas con programas de lealtad, supermercados y otras empresas que quieran participar en el ecosistema.</li>
-                    </ul>
+                 <div className="space-y-2">
+                    <h3 className="font-semibold text-blue-500">Oportunidades</h3>
+                    <ul className="list-disc pl-5 text-sm">{foda.oportunidades.map(item => <li key={item}>{item}</li>)}</ul>
+                </div>
+                 <div className="space-y-2">
+                    <h3 className="font-semibold text-yellow-500">Debilidades</h3>
+                    <ul className="list-disc pl-5 text-sm">{foda.debilidades.map(item => <li key={item}>{item}</li>)}</ul>
+                </div>
+                 <div className="space-y-2">
+                    <h3 className="font-semibold text-red-500">Amenazas</h3>
+                    <ul className="list-disc pl-5 text-sm">{foda.amenazas.map(item => <li key={item}>{item}</li>)}</ul>
                 </div>
             </CardContent>
         </Card>
-
-        <Card className="bg-card/50 backdrop-blur-sm">
+        
+         <Card className="bg-primary/10 border-primary/20">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Network className="h-6 w-6 text-primary"/>Estructura Organizacional y Tecnológica</CardTitle>
-                <CardDescription>Una estructura sólida para soportar la operación y el crecimiento.</CardDescription>
+                <CardTitle>7. Conclusión del Estudio</CardTitle>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                     <h4 className="font-semibold">Departamentos Clave</h4>
-                     <p className="text-sm text-muted-foreground">
-                        El holding o la empresa administradora debe tener departamentos específicos para soportar el riesgo y la operación.
-                    </p>
-                    <div>
-                        <h5 className="font-semibold">Departamento de Tecnología y Seguridad (IT)</h5>
-                        <p className="text-sm text-muted-foreground">Encargado de mantener la plataforma, la seguridad de los datos (cifrado) y prevenir ciberataques.</p>
-                    </div>
-                    <div>
-                        <h5 className="font-semibold">Departamento de Cumplimiento (Compliance)</h5>
-                        <p className="text-sm text-muted-foreground">Responsable de la auditoría interna, asegurar el cumplimiento del SENIAT y las regulaciones AML/CFT.</p>
-                    </div>
-                    <div>
-                        <h5 className="font-semibold">Departamento de Riesgo y Cobranza</h5>
-                        <p className="text-sm text-muted-foreground">Administra el motor de scoring, monitorea las tasas de morosidad y ejecuta las estrategias de cobro.</p>
-                    </div>
-                </div>
-                 <div className="space-y-4">
-                     <h4 className="font-semibold">Organigrama Sugerido</h4>
-                     <div className="text-sm p-4 border rounded-lg bg-secondary/30">
-                        <ul className="space-y-2">
-                           <li className="font-bold">CEO / Dirección General</li>
-                           <li className="pl-4 font-semibold">|- CTO (Director de Tecnología)</li>
-                           <li className="pl-8">|- Equipo de Desarrollo de Software</li>
-                           <li className="pl-8">|- Equipo de Hardware e IoT (Papeleras)</li>
-                           <li className="pl-8">|- Equipo de Seguridad Informática</li>
-                           <li className="pl-4 font-semibold">|- COO (Director de Operaciones)</li>
-                           <li className="pl-8">|- Equipo de Logística y Soporte Técnico</li>
-                           <li className="pl-8">|- Equipo de Cumplimiento y Legal</li>
-                           <li className="pl-4 font-semibold">|- CMO (Director de Marketing)</li>
-                        </ul>
-                     </div>
-                </div>
+            <CardContent>
+                <p className="text-lg font-semibold">El proyecto "System C.M.S." se considera **altamente factible y con un potencial de mercado significativo**.</p>
+                <p className="text-muted-foreground mt-2">La combinación de un producto de hardware innovador con un modelo de negocio SaaS recurrente crea una propuesta de valor sólida y sostenible. Aunque la inversión inicial es considerable, las proyecciones financieras y las ventajas competitivas justifican el riesgo. El éxito dependerá de una ejecución técnica impecable y una estrategia de comercialización agresiva.</p>
             </CardContent>
         </Card>
-
-         <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-3"><TrendingUp className="h-6 w-6 text-primary"/>Estrategia de Marketing y Expansión de Productos</CardTitle>
-            </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-8">
-                <div>
-                     <h4 className="font-semibold mb-2">Estrategias de Marketing</h4>
-                     <ul className="space-y-3 text-sm text-muted-foreground">
-                        <li className="flex items-start gap-2"><CheckCircle className="h-4 w-4 mt-0.5 text-green-500 shrink-0"/><span><strong>Marketing Digital:</strong> Campañas en redes (LinkedIn, Instagram) y Google Ads dirigidas a municipios, empresas y administradores de condominios.</span></li>
-                        <li className="flex items-start gap-2"><CheckCircle className="h-4 w-4 mt-0.5 text-green-500 shrink-0"/><span><strong>Marketing de Contenidos:</strong> Crear artículos y videos sobre sostenibilidad, gestión de residuos y eficiencia administrativa para posicionarse como líder de opinión.</span></li>
-                        <li className="flex items-start gap-2"><CheckCircle className="h-4 w-4 mt-0.5 text-green-500 shrink-0"/><span><strong>Alianzas Estratégicas:</strong> Colaborar con cámaras de comercio, asociaciones de reciclaje y empresas de tecnología.</span></li>
-                     </ul>
-                </div>
-                 <div>
-                     <h4 className="font-semibold mb-2">Sugerencias para Expandir la Línea de Productos</h4>
-                      <ul className="space-y-3 text-sm text-muted-foreground">
-                        <li className="flex items-start gap-2"><Search className="h-4 w-4 mt-0.5 text-blue-500 shrink-0"/><span><strong>Contenedores Inteligentes para el Hogar:</strong> Una versión más pequeña de la papelera para uso residencial, conectada a una app para gamificar el reciclaje.</span></li>
-                        <li className="flex items-start gap-2"><Search className="h-4 w-4 mt-0.5 text-blue-500 shrink-0"/><span><strong>Plataforma de Análisis de Residuos:</strong> Un dashboard avanzado para que los municipios visualicen datos de residuos y optimicen políticas públicas.</span></li>
-                     </ul>
-                </div>
-            </CardContent>
-        </Card>
-
-        <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-3"><DollarSign className="h-6 w-6 text-primary"/>Análisis de Inversión y Riesgo</CardTitle>
-            </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-8">
-                <div>
-                     <h4 className="font-semibold mb-2">Áreas de Inversión Inicial</h4>
-                     <ul className="space-y-3 text-sm text-muted-foreground">
-                        <li className="flex items-start gap-2"><Cpu className="h-4 w-4 mt-0.5 text-green-500 shrink-0"/><span><strong>I+D y Prototipos:</strong> Desarrollo y prueba de la papelera inteligente y su IA.</span></li>
-                        <li className="flex items-start gap-2"><FileText className="h-4 w-4 mt-0.5 text-green-500 shrink-0"/><span><strong>Desarrollo de Software:</strong> Creación de la plataforma en la nube y el sistema contable.</span></li>
-                        <li className="flex items-start gap-2"><TrendingUp className="h-4 w-4 mt-0.5 text-green-500 shrink-0"/><span><strong>Marketing y Ventas:</strong> Lanzamiento inicial y creación de la fuerza de ventas.</span></li>
-                         <li className="flex items-start gap-2"><Briefcase className="h-4 w-4 mt-0.5 text-green-500 shrink-0"/><span><strong>Capital de Trabajo:</strong> Para cubrir operaciones mientras se escala.</span></li>
-                     </ul>
-                </div>
-                 <div>
-                     <h4 className="font-semibold mb-2">Riesgos Potenciales y Mitigación</h4>
-                      <ul className="space-y-3 text-sm text-muted-foreground">
-                        <li className="flex items-start gap-2"><ShieldAlert className="h-4 w-4 mt-0.5 text-red-500 shrink-0"/><span><strong>Competencia:</strong> Mitigar con una fuerte propuesta de valor (impacto social) y un servicio al cliente superior.</span></li>
-                        <li className="flex items-start gap-2"><ShieldAlert className="h-4 w-4 mt-0.5 text-red-500 shrink-0"/><span><strong>Adopción Tecnológica:</strong> Mitigar con demos, planes piloto y una interfaz de usuario muy intuitiva.</span></li>
-                        <li className="flex items-start gap-2"><ShieldAlert className="h-4 w-4 mt-0.5 text-red-500 shrink-0"/><span><strong>Costos de Producción:</strong> Mitigar buscando alianzas con fabricantes y optimizando la cadena de suministro.</span></li>
-                        <li className="flex items-start gap-2"><ShieldAlert className="h-4 w-4 mt-0.5 text-red-500 shrink-0"/><span><strong>Regulaciones Cambiantes:</strong> Mitigar manteniendo un equipo legal y de cumplimiento proactivo.</span></li>
-                     </ul>
-                </div>
-            </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }
