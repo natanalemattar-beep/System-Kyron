@@ -81,7 +81,8 @@ import {
   Recycle,
   Wand2,
   Link as LinkIcon,
-  Globe
+  Globe,
+  Activity
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -154,7 +155,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
-    { href: "/cumplimiento-fiscal", label: "Cumplimiento Fiscal", icon: ShieldCheck },
+    { href: "/cumplimiento-fiscal", label: "Estrategia de Marketing", icon: ShieldCheck },
     { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
     { href: "/app-aliada-recompensa", label: "App de Recompensas", icon: Award },
     { href: "/tarjeta-reciclaje", label: "Tarjeta de Reciclaje", icon: Recycle },
