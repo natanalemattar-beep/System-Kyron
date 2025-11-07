@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -17,7 +16,7 @@ const softwareList = [
     { rif: "J308016284", empresa: "A2SOFTWAY C.A.", sistema: "A2 HERRAMIENTA ADMINISTRATIVA CONFIGURABLE MODULO DE VENTA (HAC)", version: "13.01.0ALX", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
     { rif: "J308016284", empresa: "A2SOFTWAY C.A.", sistema: "A2 ADMINISTRATIVO BASICO MODULO DE VENTAS", version: "10.0.1ALX", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
     { rif: "J309827316", empresa: "SMS CONSULTORES C.A.", sistema: "SISTEMA OASIS", version: "12.0.2.5", categoria: "Sistema integral para la administración empresarial, gestión de operaciones, facturación (POS) e inventario." },
-    { rif: "J294813488", empresa: "SISTEMAS D3XD C.A.", sistema: "D3XD CLÍNICAS ADMINISTRATIVO", version: "1.1.18", categoria: "Gestión administrativa integral (ERP) para clínicas y centros de salud." },
+    { rif: "J294813488", empresa: "SISTEMAS D3XD C.A.", sistema: "D3XD CLÍNICAS ADMINISTRATIVO", version: "1.1.18", categoria: "Gestión administrativa integral (ERP) para clinicas y centros de salud." },
     { rif: "J294813488", empresa: "SISTEMAS D3XD C.A.", sistema: "D3Xd Gym", version: "1.0.10", categoria: "Gestión administrativa integral (ERP) para gimnasios." },
     { rif: "J294813488", empresa: "SISTEMAS D3XD C.A.", sistema: "GISIN3", version: "1.1.35", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
     { rif: "J307928220", empresa: "KLK SISTEMAS, C.A.", sistema: "KLK POS", version: "4.0.1.7", categoria: "Sistema integral para la administración empresarial, gestión de operaciones, facturación (POS) e inventario." },
@@ -71,7 +70,7 @@ export default function HomologacionSeniatPage() {
                             </TableHeader>
                             <TableBody>
                                 {softwareList.map((item) => (
-                                    <TableRow key={item.rif + item.sistema}>
+                                    <TableRow key={item.rif + item.sistema + item.version}>
                                         <TableCell className="font-mono">{item.rif}</TableCell>
                                         <TableCell className="font-medium">{item.empresa}</TableCell>
                                         <TableCell>{item.sistema}</TableCell>
