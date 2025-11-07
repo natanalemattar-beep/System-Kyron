@@ -84,6 +84,7 @@ import {
   Globe,
   Activity,
   DollarSign as DollarSignIcon,
+  CandlestickChart,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -152,6 +153,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
     { href: "/asesoria-publicidad", label: "Asesoría y Ventas", icon: Megaphone },
     { href: "/asesoria-importaciones", label: "Asesoría de Importación", icon: Ship },
+    { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
