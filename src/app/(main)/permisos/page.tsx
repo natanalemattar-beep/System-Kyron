@@ -15,6 +15,11 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
+import {
+    AlertTriangle,
+    Clock,
+    Route,
+} from "lucide-react";
 
 
 const initialPermisos = [
