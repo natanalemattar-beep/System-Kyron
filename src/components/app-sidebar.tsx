@@ -86,6 +86,7 @@ import {
   Activity,
   DollarSign as DollarSignIcon,
   CandlestickChart,
+  Swords
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -149,6 +150,8 @@ const analisisCrecimientoMenuItems = [
     { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
+    { href: "/analisis-estrategico", label: "Análisis Estratégico FODA", icon: ShieldQuestion },
+    { href: "/nivel-competencia", label: "Nivel de Competencia", icon: Swords },
     { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
     { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
     { href: "/cumplimiento-fiscal", label: "Estrategia de Marketing", icon: ShieldCheck },
