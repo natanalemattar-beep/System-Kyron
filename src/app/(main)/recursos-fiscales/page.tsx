@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Scale, Search, FileDown, BookOpen, Newspaper, FileWarning, Calendar, FileEdit, UserCog } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { CheckCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const jurisprudencia = [
@@ -200,10 +199,10 @@ export default function RecursosFiscalesPage() {
       
        <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
-            <CardTitle className="flex items-center gap-3"><UserCog className="h-5 w-5" />Regulación Profesional del Contador Público</CardTitle>
-            <CardDescription>
-                Marco legal y normativo que rige el ejercicio de la contaduría pública en Venezuela.
-            </CardDescription>
+          <CardTitle className="flex items-center gap-3"><UserCog className="h-5 w-5" />Regulación Profesional del Contador Público</CardTitle>
+          <CardDescription>
+            Marco legal y normativo que rige el ejercicio de la contaduría pública en Venezuela.
+          </CardDescription>
         </CardHeader>
         <CardContent>
             <Accordion type="single" collapsible className="w-full">

@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Presentation, Lightbulb, TrendingUp, Users, DollarSign, Target, CheckCircle, Search, Sparkles } from "lucide-react";
+import { Presentation, Lightbulb, CheckCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const pitchDeckSections = [
@@ -118,4 +118,3 @@ export default function PresentacionStartupPage() {
     </div>
   );
 }
-

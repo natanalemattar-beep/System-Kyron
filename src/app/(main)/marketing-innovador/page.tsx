@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Sparkles, Bot, Video, UserCheck, Package, Zap, Lightbulb, ArrowRight } from "lucide-react";
+import { Sparkles, Bot, Video, UserCheck, Package, Lightbulb, ArrowRight } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const marketingTrends = [
@@ -127,4 +127,3 @@ export default function MarketingInnovadorPage() {
     </div>
   );
 }
-

@@ -13,10 +13,10 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 const faqItems = [
     {
         question: "¿Qué es un sistema administrativo en Venezuela?",
-        answer: "Es un software que gestiona procesos contables y de facturación, adaptado a la normativa del país, especialmente las exigencias del SENIAT."
+        answer: "Es un software que gestiona procesos contables y de facturación, adaptado a la normativa del país, especialmente a las exigencias del SENIAT."
     },
     {
-        question: "¿Cuál es el mejor software administrativo homologado por el Seniat?",
+        question: "¿Cuál es el mejor software administrativo homologado por el SENIAT?",
         answer: "Depende de cada negocio, pero opciones como Hybrid LiteOS, Galac y Profit Plus destacan por cumplir con la providencia vigente. La elección debe basarse en el tamaño de la empresa y sus necesidades específicas."
     },
     {
@@ -37,7 +37,7 @@ const softwareComparison = [
   { name: "Saint (versiones clásicas)", homologated: "No", advantages: "Muy conocido en el mercado; gran cantidad de contadores lo dominan.", disadvantages: "Sus versiones más populares no están homologadas. Interfaz considerada anticuada. Rígido para adaptarse a nuevas normativas.", idealFor: "Comercios que ya lo manejan y no quieren cambiar aún" },
   { name: "Galac Administrativo", homologated: "Sí", advantages: "Solución robusta y completa. Ecosistema integrado. Homologado.", disadvantages: "Puede ser complejo para pymes. Costo de implementación más elevado.", idealFor: "Empresas medianas y grandes que buscan un ecosistema completo" },
   { name: "Profit Plus", homologated: "Sí", advantages: "Muy escalable y adaptable. Fuerte presencia en el país. Homologado.", disadvantages: "Curva de aprendizaje pronunciada. Requiere personalización para sacarle provecho.", idealFor: "Negocios en crecimiento que necesitan escalabilidad" },
-  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", advantages: "Diseño moderno e intuitivo. Enfocado en la facilidad de uso para pymes. Cumplimiento garantizado.", disadvantages: "Más nuevo en el mercado en comparación con los sistemas tradicionales.", idealFor: "Pymes y comerciantes que buscan simplicidad + confianza" },
+  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", advantages: "Diseño moderno e intuitivo. Enfocado en la facilidad de uso para pymes. Cumplimiento garantizado.", disadvantages: "Más nuevo en el mercado en comparación con los sistemas tradicionales.", idealFor: "Pymes y comerciantes que buscan simplicidad y confianza" },
   { name: "SAP Business One", homologated: "Sí (versión adaptada)", advantages: "ERP de clase mundial, extremadamente potente y personalizable.", disadvantages: "Costo muy elevado, tanto en licencias como en implementación. Excesivo para la mayoría de las pymes.", idealFor: "Grandes corporaciones con alto presupuesto" },
 ];
 
@@ -84,7 +84,7 @@ export default function SoftwareContablePage() {
                 <CardContent className="space-y-4">
                     <p>El mercado venezolano ha visto varias etapas. Desde pioneros como <strong>Saint</strong> en los años 90, pasando por soluciones consolidadas como <strong>Galac y Profit Plus</strong>, hasta llegar a nuevas alternativas como <strong>Hybrid LiteOS</strong>, que responden mejor a la necesidad actual de simplicidad y cumplimiento legal.</p>
                     <p className="text-sm italic text-muted-foreground p-3 bg-secondary/30 rounded-lg">
-                        "Comencé hace más de 25 años con Saint, cuando se usaba en DOS. Aprendí que la tecnología solo sirve si se adapta a la realidad del dueño de negocio: sus miedos, su forma de llevar cuentas y hasta su relación con el Seniat."
+                        "Comencé hace más de 25 años con Saint, cuando se usaba en DOS. Aprendí que la tecnología solo sirve si se adapta a la realidad del dueño de negocio: sus miedos, su forma de llevar cuentas y hasta su relación con el SENIAT."
                     </p>
                 </CardContent>
             </Card>
