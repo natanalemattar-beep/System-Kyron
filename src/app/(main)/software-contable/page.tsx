@@ -20,7 +20,7 @@ const faqItems = [
         answer: "Depende de cada negocio, pero opciones como Hybrid LiteOS, Galac y Profit Plus destacan por cumplir con la providencia vigente. La elección debe basarse en el tamaño de la empresa y sus necesidades específicas."
     },
     {
-        question: "¿Qué beneficios tiene para una pyme?",
+        question: "¿Qué beneficios tiene para una PYME?",
         answer: "Ordena la facturación, controla inventarios, reduce errores humanos y, lo más importante, asegura el cumplimiento fiscal, lo que se traduce en tranquilidad."
     },
     {
@@ -34,11 +34,11 @@ const faqItems = [
 ];
 
 const softwareComparison = [
-  { name: "Saint (versiones clásicas)", homologated: "No", advantages: "Muy conocido en el mercado; gran cantidad de contadores lo dominan.", disadvantages: "Sus versiones más populares no están homologadas. Interfaz considerada anticuada. Rígido para adaptarse a nuevas normativas.", idealFor: "Comercios que ya lo manejan y no quieren cambiar aún" },
-  { name: "Galac Administrativo", homologated: "Sí", advantages: "Solución robusta y completa. Ecosistema integrado. Homologado.", disadvantages: "Puede ser complejo para pymes. Costo de implementación más elevado.", idealFor: "Empresas medianas y grandes que buscan un ecosistema completo" },
-  { name: "Profit Plus", homologated: "Sí", advantages: "Muy escalable y adaptable. Fuerte presencia en el país. Homologado.", disadvantages: "Curva de aprendizaje pronunciada. Requiere personalización para sacarle provecho.", idealFor: "Negocios en crecimiento que necesitan escalabilidad" },
-  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", advantages: "Diseño moderno e intuitivo. Enfocado en la facilidad de uso para pymes. Cumplimiento garantizado.", disadvantages: "Más nuevo en el mercado en comparación con los sistemas tradicionales.", idealFor: "Pymes y comerciantes que buscan simplicidad y confianza" },
-  { name: "SAP Business One", homologated: "Sí (versión adaptada)", advantages: "ERP de clase mundial, extremadamente potente y personalizable.", disadvantages: "Costo muy elevado, tanto en licencias como en implementación. Excesivo para la mayoría de las pymes.", idealFor: "Grandes corporaciones con alto presupuesto" },
+  { name: "Saint (versiones clásicas)", homologated: "No", advantages: "Muy conocido en el mercado; gran cantidad de contadores lo dominan.", disadvantages: "Sus versiones más populares no están homologadas. Interfaz considerada anticuada. Rígido para adaptarse a nuevas normativas.", idealFor: "Comercios que ya lo manejan y no quieren cambiar aún." },
+  { name: "Galac Administrativo", homologated: "Sí", advantages: "Solución robusta y completa. Ecosistema integrado. Homologado.", disadvantages: "Puede ser complejo para PYMES. Costo de implementación más elevado.", idealFor: "Empresas medianas y grandes que buscan un ecosistema completo." },
+  { name: "Profit Plus", homologated: "Sí", advantages: "Muy escalable y adaptable. Fuerte presencia en el país. Homologado.", disadvantages: "Curva de aprendizaje pronunciada. Requiere personalización para sacarle provecho.", idealFor: "Negocios en crecimiento que necesitan escalabilidad." },
+  { name: "Hybrid LiteOS", homologated: "Sí (Providencia 121)", advantages: "Diseño moderno e intuitivo. Enfocado en la facilidad de uso para PYMES. Cumplimiento garantizado.", disadvantages: "Más nuevo en el mercado en comparación con los sistemas tradicionales.", idealFor: "PYMES y comerciantes que buscan simplicidad y confianza." },
+  { name: "SAP Business One", homologated: "Sí (versión adaptada)", advantages: "ERP de clase mundial, extremadamente potente y personalizable.", disadvantages: "Costo muy elevado, tanto en licencias como en implementación. Excesivo para la mayoría de las PYMES.", idealFor: "Grandes corporaciones con alto presupuesto." },
 ];
 
 
@@ -171,14 +171,14 @@ export default function SoftwareContablePage() {
          <h2 className="text-2xl font-semibold mb-8 text-center">Preguntas Frecuentes</h2>
          <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
             {faqItems.map((item, index) => (
-                 <AccordionItem key={index} value={`item-${index}`}>
+                 <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 backdrop-blur-sm border rounded-lg px-4">
                     <AccordionTrigger>
                         <div className="flex items-center gap-3">
                             <HelpCircle className="h-5 w-5 text-primary" />
                             <span>{item.question}</span>
                         </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pl-10">
+                    <AccordionContent className="pl-10 text-muted-foreground">
                         {item.answer}
                     </AccordionContent>
                 </AccordionItem>

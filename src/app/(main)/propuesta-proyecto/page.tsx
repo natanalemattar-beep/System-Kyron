@@ -15,7 +15,7 @@ export default function PropuestaProyectoPage() {
     const handleAction = (action: string) => {
         toast({
             title: `Propuesta ${action}`,
-            description: `El documento de propuesta ha sido ${action === 'impresa' ? 'enviado a la impresora' : 'descargado en formato PDF'}.`,
+            description: `El documento de propuesta ha sido ${action === 'impresa' ? 'enviado a la impresora' : 'descargado como archivo de texto'}.`,
         });
         if (action === 'impresa') {
             window.print();
@@ -84,7 +84,7 @@ El Equipo de System C.M.S, C.A.
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar PDF
+                <Download className="mr-2"/> Descargar
             </Button>
         </div>
       </header>

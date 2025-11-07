@@ -17,7 +17,7 @@ const modeloNegocio = [
 ];
 
 const aspectosTecnicosPapelera = [
-    "Sensores y Clasificación por IA: Uso de sensores ópticos, de peso y visión artificial para identificar y clasificar automáticamente papel, plástico, vidrio, metal y orgánicos.",
+    "Sensores y Clasificación por IA: Uso de sensores ópticos, de peso y visión por computadora para identificar y clasificar automáticamente papel, plástico, vidrio, metal y orgánicos.",
     "Automatización de Compartimentos: Una vez clasificado, el residuo es dirigido al compartimento interno correcto de forma automática.",
     "Conectividad IoT: Las papeleras se conectan a la nube para monitorear en tiempo real los niveles de llenado, optimizando las rutas de recolección y reduciendo costos."
 ];
@@ -96,7 +96,7 @@ Un "certificado de factibilidad económica" es un documento que evalúa si un pr
 2. Certificado de Factibilidad Territorial y de Zonificación: Acredita que una actividad comercial o de servicios es factible según las normativas del municipio.
 
 II. MODELO DE NEGOCIO: DOBLE IMPACTO
-${modeloNegocio.join('\n- ')}
+- ${modeloNegocio.join('\n- ')}
 
 III. PRODUCTO 1: PAPELERA INTELIGENTE
 - Aspectos Técnicos:
@@ -453,7 +453,6 @@ Riesgos Potenciales: Competencia, adopción tecnológica, costos de producción,
                 </div>
             </CardContent>
         </Card>
-
       </div>
     </div>
   );
