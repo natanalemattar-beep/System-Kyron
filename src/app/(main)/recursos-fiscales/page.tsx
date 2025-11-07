@@ -370,4 +370,3 @@ export default function RecursosFiscalesPage() {
       </Card>
     </div>
   );
-}
