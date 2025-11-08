@@ -189,7 +189,8 @@ const facturacionGeneralMenuItems = [
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
-    { href: "/importaciones", label: "Importaciones", icon: Ship },
+    { href: "/importaciones", label: "Proveedores", icon: Ship },
+    { href: "/registro-proveedores", label: "Registro de Proveedores", icon: UserCog },
     { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
     { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
     { href: "/registro-comprador", label: "Registro de Comprador", icon: UserCheck },
@@ -277,6 +278,7 @@ const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
         { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
         { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
+        { href: "/organigrama", label: "Organigrama", icon: Sitemap },
     ] },
 ];
 
@@ -284,13 +286,7 @@ const sociosNavGroups = [
 const juridicoNavGroups = [
     { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
-    { title: "Impuestos y Fiscal", icon: Percent, items: [
-      { href: "/declaracion-iva", label: "Declaración de IVA", icon: FileText },
-      { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
-      { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
-      { href: "/igtf", label: "IGTF", icon: Percent },
-    ]},
-    { title: "Gestión de Ventas", icon: ShoppingCart, items: facturacionGeneralMenuItems.concat(ventasMenuItems) },
+    { title: "Gestión de Ventas", icon: ShoppingCart, items: facturacionGeneralMenuItems },
     { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
@@ -427,7 +423,7 @@ export function AppSidebar() {
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href)) || path.startsWith('/organigrama');
+  const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
   const isInformaticaPath = (path: string) => path.startsWith('/login-informatica');
 

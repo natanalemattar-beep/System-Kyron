@@ -21,7 +21,37 @@ const countryModules = {
         currency: "EUR",
         tax_rates: { "IVA": "21% (General), 10% (Reducido), 4% (Superreducido)", "IRPF": "variable" },
         legal_requirements: { "Campos Obligatorios": ["NIF", "Régimen IVA"], "Obligación SII": true, "Formato FacturaE": "Opcional" }
-    }
+    },
+     "Colombia": {
+        currency: "COP",
+        tax_rates: { "IVA": "19% (General)", "Retefuente": "variable" },
+        legal_requirements: { "Campos Obligatorios": ["NIT", "CUFE", "Resolución DIAN"], "Facturación Electrónica": true }
+    },
+    "Chile": {
+        currency: "CLP",
+        tax_rates: { "IVA": "19%" },
+        legal_requirements: { "Campos Obligatorios": ["RUT", "Folio Sii"], "Documento Electrónico (DTE)": true, "Boleta Electrónica": true }
+    },
+    "Brasil": {
+        currency: "BRL",
+        tax_rates: { "ICMS": "variable", "IPI": "variable", "PIS/COFINS": "variable" },
+        legal_requirements: { "Campos Obligatorios": ["CNPJ/CPF", "Nota Fiscal Eletrônica (NF-e)"], "CFOP (Código Fiscal)": true }
+    },
+    "Alemania": {
+        currency: "EUR",
+        tax_rates: { "Umsatzsteuer (VAT)": "19% (General), 7% (Reducido)" },
+        legal_requirements: { "Campos Obligatorios": ["Steuernummer/USt-IdNr."], "GoBD Compliant": true }
+    },
+    "Francia": {
+        currency: "EUR",
+        tax_rates: { "TVA": "20% (General), 10%, 5.5%, 2.1%" },
+        legal_requirements: { "Campos Obligatorios": ["Numéro de TVA", "SIREN/SIRET"], "Chorus Pro (B2G)": true }
+    },
+     "Italia": {
+        currency: "EUR",
+        tax_rates: { "IVA": "22% (Ordinaria), 10%, 5%, 4%" },
+        legal_requirements: { "Campos Obligatorios": ["Partita IVA/Codice Fiscale"], "Fattura Elettronica (SdI)": true }
+    },
 };
 
 const implementationConsiderations = [
@@ -94,10 +124,10 @@ CREATE TABLE invoices (
         </CardHeader>
         <CardContent>
             <Tabs defaultValue="Argentina">
-                <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="Argentina">Argentina</TabsTrigger>
-                    <TabsTrigger value="México">México</TabsTrigger>
-                    <TabsTrigger value="España">España</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 lg:grid-cols-9">
+                    {Object.keys(countryModules).map(country => (
+                         <TabsTrigger key={country} value={country}>{country}</TabsTrigger>
+                    ))}
                 </TabsList>
                 {Object.entries(countryModules).map(([country, data]) => (
                     <TabsContent value={country} key={country}>
