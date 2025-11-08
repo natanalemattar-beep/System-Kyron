@@ -174,6 +174,7 @@ const analisisCrecimientoMenuItems = [
     { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
     { href: "/ingenieria-ia", label: "Ingeniería y Planos con IA", icon: Cpu },
     { href: "/importaciones", label: "Proveedores", icon: Ship },
+    { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
 ];
 
 const facturacionGeneralMenuItems = [
