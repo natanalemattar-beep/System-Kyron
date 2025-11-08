@@ -275,9 +275,7 @@ const naturalMenuItems = {
 const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
         { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
-        { href: "/empresas-relacionadas", label: "Empresas Relacionadas", icon: Sitemap },
-        { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
-        { href: "/organigrama", label: "Organigrama", icon: Sitemap },
+        { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
     ] },
 ];
 
