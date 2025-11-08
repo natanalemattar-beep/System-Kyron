@@ -53,9 +53,7 @@ export default function HrLayout({ children }: { children: ReactNode }) {
           </header>
           <main className="flex-1 p-4 md:p-8">
             <div className="w-full">
-                <div className="animate-in fade-in-50 slide-in-from-bottom-8 duration-700">
-                    {children}
-                </div>
+                {children}
             </div>
           </main>
         </SidebarInset>
