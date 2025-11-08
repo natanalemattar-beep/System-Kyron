@@ -1,9 +1,9 @@
 
 export const countries = [
-    // North America
+    // America
+    { name: "Venezuela", code: "VEN", flag: "https://flagcdn.com/w320/ve.png", taxInfo: "IVA, ISLR, IGTF" },
     { name: "United States", code: "USA", flag: "https://flagcdn.com/w320/us.png", taxInfo: "Sales Tax (Variable)" },
     { name: "Canada", code: "CAN", flag: "https://flagcdn.com/w320/ca.png", taxInfo: "GST/HST/PST" },
-    // Latin America
     { name: "México", code: "MEX", flag: "https://flagcdn.com/w320/mx.png", taxInfo: "IVA, ISR" },
     { name: "Brasil", code: "BRA", flag: "https://flagcdn.com/w320/br.png", taxInfo: "ICMS, IPI, PIS/COFINS" },
     { name: "Argentina", code: "ARG", flag: "https://flagcdn.com/w320/ar.png", taxInfo: "IVA, IIBB, Ganancias" },
@@ -27,6 +27,11 @@ type CountryModule = {
 }
 
 export const countryModules: Record<string, CountryModule> = {
+    "VEN": {
+        currency: "VES",
+        tax_rates: { "IVA": ["16% (General)", "8% (Reducida)", "31% (Lujo)"], "IGTF": "3%" },
+        legal_requirements: { "Campos Obligatorios": ["RIF", "Razón Social", "Dirección Fiscal"], "Homologación SENIAT": true }
+    },
     "USA": {
         currency: "USD",
         tax_rates: { "Sales Tax": "Variable by state" },
