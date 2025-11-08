@@ -141,38 +141,6 @@ const finanzasContabilidadMenuItems = [
   { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
 ];
 
-const analisisCrecimientoMenuItems = [
-    { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
-    { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
-    { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
-    { href: "/analisis-empresas-no-digitales", label: "Análisis de Empresas No Digitalizadas", icon: Building },
-    { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
-    { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
-    { href: "/estructura-costos", label: "Análisis de Costos", icon: PieChart },
-    { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: DollarSignIcon },
-    { href: "/analisis-estrategico", label: "Análisis Estratégico FODA", icon: ShieldQuestion },
-    { href: "/nivel-competencia", label: "Industria y Cadena de Valor", icon: Swords },
-    { href: "/solicitud-credito", label: "Análisis para Crédito", icon: CreditCard },
-    { href: "/software-contable", label: "Software Contable y ERP", icon: Puzzle },
-    { href: "/cumplimiento-fiscal", label: "Estrategia de Marketing", icon: ShieldCheck },
-    { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
-    { href: "/app-aliada-recompensa", label: "App de Recompensas", icon: Award },
-    { href: "/tarjeta-reciclaje", label: "Tarjeta de Reciclaje", icon: Recycle },
-    { href: "/analisis-empresa-hibrida", label: "Análisis de Empresa Híbrida", icon: Rocket },
-    { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
-    { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
-    { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
-    { href: "/planes-y-precios", label: "Planes y Precios", icon: BarChart },
-    { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
-    { href: "/licencia-software", label: "Modelo de Licencia de Software", icon: FileSignature },
-    { href: "/propuesta-proyecto", label: "Carta de Propuesta", icon: FileText },
-    { href: "/presentacion-startup", label: "Presentación de Startup", icon: Presentation },
-    { href: "/carta-exposicion-motivos", label: "Carta de Motivos", icon: FileText },
-    { href: "/organigrama", label: "Organigrama", icon: Sitemap },
-    { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
-    { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
-];
-
 const facturacionGeneralMenuItems = [
     { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
     { href: "/proformas", label: "Proformas", icon: Receipt },
@@ -201,6 +169,7 @@ const ventasMenuItems = [
     { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+    { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
@@ -223,12 +192,6 @@ const recursosHumanosGestionItems = [
     { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
     { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
     { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
-];
-
-const ingenieriaMenuItems = [
-    { href: "/ingenieria-ia", label: "Planificación con IA", icon: Cpu },
-    { href: "/analisis-suelo-foto", label: "Análisis de Suelo", icon: Search },
-    { href: "/carta-aval-ingenieria", label: "Permisos y Cartas de Aval", icon: Gavel },
 ];
 
 const librosRegistroMenuItems = [
@@ -292,9 +255,7 @@ const juridicoNavGroups = [
     { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
     { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-    { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
     { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
-    { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
@@ -304,14 +265,11 @@ const ventasNavGroups = [
 ];
 
 const informaticaNavGroups = [
-    { title: "Seguridad", icon: Shield, items: [
-        { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck },
-    ] },
+    { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
     { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
-     { title: "Arquitectura", icon: Puzzle, items: [
-        { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
-    ] },
+    { title: "Arquitectura", icon: Puzzle, items: [ { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle } ] },
 ];
+
 
 type Message = {
   role: 'user' | 'bot';
@@ -432,7 +390,7 @@ export function AppSidebar() {
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
-  const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || ingenieriaMenuItems.some(item => path.startsWith(item.href));
+  const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
 
 
   if (isHrPath(pathname)) {
@@ -459,9 +417,7 @@ export function AppSidebar() {
     { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
     { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-    { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
     { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
-    { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
   ]
@@ -481,7 +437,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General', 'Operaciones Internacionales', 'Ingeniería y Proyectos']}>
+          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General', 'Operaciones Internacionales']}>
             {allJuridicoGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
@@ -859,8 +815,6 @@ function AppSidebarInformatica() {
     const allInformaticaGroups = [
       { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
       { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
-      { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
-      { title: "Arquitectura", icon: Puzzle, items: [ { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle } ] },
     ];
     
     return (
@@ -929,3 +883,6 @@ function AppSidebarInformatica() {
         </Sidebar>
     );
 }
+
+
+  

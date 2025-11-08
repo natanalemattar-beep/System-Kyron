@@ -138,98 +138,56 @@ export function JuridicoDashboard() {
          <div className="space-y-2">
             <h2 className="text-2xl font-semibold tracking-tight">Flujos de Trabajo</h2>
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <Card className="bg-card/80 backdrop-blur-sm">
-                        <CardHeader>
-                            <CardTitle>Aspectos Clave del Anteproyecto de Inversión</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="p-4 rounded-lg bg-secondary">
-                                <h4 className="font-semibold text-primary mb-2">Modelo de Negocio de Doble Impacto</h4>
-                                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                                    <li>Venta de Papeleras Inteligentes (Hardware).</li>
-                                    <li>Licenciamiento de Software Contable (SaaS).</li>
-                                </ul>
-                                <Button asChild variant="link" size="sm" className="p-0 h-auto mt-2">
-                                    <Link href="/estudio-factibilidad-economica">Ver modelo de negocio completo <ArrowRight className="h-4 w-4 ml-1"/></Link>
-                                </Button>
-                            </div>
-                            <div className="p-4 rounded-lg bg-secondary">
-                                <h4 className="font-semibold text-primary mb-2">Estructura Organizacional</h4>
-                                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                                    <li>Departamentos: Tecnología, Cumplimiento, Riesgo, etc.</li>
-                                    <li>Organigrama sugerido con roles clave.</li>
-                                </ul>
-                                <Button asChild variant="link" size="sm" className="p-0 h-auto mt-2">
-                                    <Link href="/estudio-factibilidad-economica">Ver estructura organizacional <ArrowRight className="h-4 w-4 ml-1"/></Link>
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                    <Card className="bg-card/80 backdrop-blur-sm">
-                        <CardHeader>
-                             <CardTitle>Centro de Mando de Ingeniería</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="p-4 rounded-lg bg-secondary">
-                                <h4 className="font-semibold text-primary mb-2">Planificación y Presupuestos</h4>
-                                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                                    <li>Generación de planos a partir de fotos con IA.</li>
-                                    <li>Cálculo de materiales y presupuesto de obra.</li>
-                                </ul>
-                                <Button asChild variant="link" size="sm" className="p-0 h-auto mt-2">
-                                    <Link href="/ingenieria-ia">Ir a Ingeniería con IA <ArrowRight className="h-4 w-4 ml-1"/></Link>
-                                </Button>
-                            </div>
-                            <div className="p-4 rounded-lg bg-secondary">
-                                <h4 className="font-semibold text-primary mb-2">Análisis y Permisología</h4>
-                                 <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                                    <li>Análisis de suelo por fotografía (Guía).</li>
-                                    <li>Emisión de Cartas de Aval y gestión de permisos.</li>
-                                </ul>
-                                <Button asChild variant="link" size="sm" className="p-0 h-auto mt-2">
-                                    <Link href="/carta-aval-ingenieria">Gestionar Permisos <ArrowRight className="h-4 w-4 ml-1"/></Link>
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
-                <div className="space-y-8">
-                     <Card className="bg-card/80 backdrop-blur-sm">
-                        <CardHeader><CardTitle>Vencimientos Próximos</CardTitle></CardHeader>
-                        <CardContent>
-                            <ul className="space-y-4">
-                                {upcomingDeadlines.map((deadline, index) => (
-                                    <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
-                                        <CalendarClock className="h-6 w-6 text-orange-400 shrink-0" />
-                                        <div className="flex-1">
-                                            <p className="text-sm font-semibold truncate">{deadline.description}</p>
-                                            <p className="text-xs">Vence en {deadline.days} días</p>
-                                        </div>
-                                        <Button size="sm" variant="ghost"><ArrowRight className="h-4 w-4"/></Button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </CardContent>
-                    </Card>
-                    <Card className="bg-card/80 backdrop-blur-sm">
-                        <CardHeader><CardTitle>Acciones Rápidas</CardTitle></CardHeader>
-                        <CardContent className="grid grid-cols-3 gap-4">
-                              <Button variant="outline" className="flex flex-col h-20 gap-1">
-                                <BookOpen className="h-6 w-6"/>
-                                <span className="text-xs">Registrar Asiento</span>
-                            </Button>
-                            <Button variant="outline" className="flex flex-col h-20 gap-1">
-                                <FilePlus className="h-6 w-6"/>
-                                <span className="text-xs">Nueva Factura</span>
-                            </Button>
-                            <Button variant="outline" className="flex flex-col h-20 gap-1">
-                                <Calculator className="h-6 w-6"/>
-                                <span className="text-xs">Calcular Nómina</span>
-                            </Button>
-                        </CardContent>
-                    </Card>
-                </div>
+                 <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+                    <CardHeader>
+                        <CardTitle>Vencimientos Próximos</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <ul className="space-y-4">
+                            {upcomingDeadlines.map((deadline, index) => (
+                                <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
+                                    <CalendarClock className="h-6 w-6 text-orange-400 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-sm font-semibold truncate">{deadline.description}</p>
+                                        <p className="text-xs">Vence en {deadline.days} días</p>
+                                    </div>
+                                    <Button size="sm" variant="ghost"><ArrowRight className="h-4 w-4"/></Button>
+                                </li>
+                            ))}
+                        </ul>
+                    </CardContent>
+                </Card>
+                <Card className="bg-card/80 backdrop-blur-sm">
+                    <CardHeader>
+                        <CardTitle>Acciones Rápidas</CardTitle>
+                    </CardHeader>
+                     <CardContent className="grid grid-cols-2 gap-4">
+                        <Button asChild variant="outline" className="h-20 flex-col gap-1">
+                          <Link href="/libros-contables">
+                            <BookOpen className="h-6 w-6"/>
+                            <span className="text-xs">Registrar Asiento</span>
+                          </Link>
+                        </Button>
+                         <Button asChild variant="outline" className="h-20 flex-col gap-1">
+                          <Link href="/facturacion">
+                            <FilePlus className="h-6 w-6"/>
+                            <span className="text-xs">Nueva Factura</span>
+                           </Link>
+                        </Button>
+                         <Button asChild variant="outline" className="h-20 flex-col gap-1">
+                          <Link href="/nominas">
+                            <Calculator className="h-6 w-6"/>
+                            <span className="text-xs">Calcular Nómina</span>
+                           </Link>
+                        </Button>
+                        <Button asChild variant="outline" className="h-20 flex-col gap-1">
+                           <Link href="/declaracion-iva">
+                            <Percent className="h-6 w-6"/>
+                            <span className="text-xs">Declarar IVA</span>
+                           </Link>
+                        </Button>
+                    </CardContent>
+                </Card>
              </div>
         </div>
       </div>
