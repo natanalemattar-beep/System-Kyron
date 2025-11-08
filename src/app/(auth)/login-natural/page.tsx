@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { User, Eye, EyeOff, Building, Briefcase, ShoppingCart, Users, Megaphone, Gavel } from "lucide-react";
+import { User, Eye, EyeOff, Building, Briefcase, ShoppingCart, Users, Megaphone, Gavel, Cpu } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,30 +60,14 @@ export default function LoginNaturalPage() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                    <DropdownMenuItem asChild>
-                        <Link href="/login-natural">Acceso Natural</Link>
-                    </DropdownMenuItem>
-                     <DropdownMenuItem asChild>
-                        <Link href="/login-juridico">Admin y Finanzas</Link>
-                    </DropdownMenuItem>
-                     <DropdownMenuItem asChild>
-                        <Link href="/escritorio-juridico">Escritorio Jurídico</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/login-ventas">Ventas y Facturación</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/login-rrhh">Acceso RR.HH.</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/login-socios">Acceso Socios</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/login-marketing">Productos, Asesoría y Marketing</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/login-informatica">Informática y Tecnología</Link>
-                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-juridico">Admin y Finanzas</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/escritorio-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Gavel, Eye, EyeOff, User, Building, ShoppingCart, Briefcase, Megaphone, Users, Cpu } from "lucide-react";
+import { Cpu, Eye, EyeOff, User, Building, ShoppingCart, Briefcase, Megaphone, Gavel, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,13 +12,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Logo } from "@/components/logo";
 import { useRouter } from "next/navigation";
 
-export default function EscritorioJuridicoPage() {
+export default function LoginInformaticaPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/dashboard-juridico');
+    router.push('/seguridad');
   };
 
   return (
@@ -59,16 +59,16 @@ export default function EscritorioJuridicoPage() {
         <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-border/50">
           <CardHeader className="text-center">
              <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
-                <Gavel className="h-8 w-8 text-primary"/>
+                <Cpu className="h-8 w-8 text-primary"/>
             </div>
-            <CardTitle className="text-2xl">Escritorio Jurídico</CardTitle>
-            <CardDescription>Acceso para gestión de casos y documentos legales.</CardDescription>
+            <CardTitle className="text-2xl">Ingeniería e Informática</CardTitle>
+            <CardDescription>Acceso para el personal de tecnología y seguridad.</CardDescription>
           </CardHeader>
           <form onSubmit={handleLogin}>
             <CardContent className="p-6 space-y-6">
               <div className="space-y-2">
                 <Label>Usuario</Label>
-                <Input type="text" placeholder="abogado.user" required />
+                <Input type="text" placeholder="dev.user" required />
               </div>
               <div className="space-y-2 relative">
                 <Label>Contraseña</Label>
@@ -93,8 +93,8 @@ export default function EscritorioJuridicoPage() {
                 <Link href="/login-juridico" className="font-medium text-primary hover:underline flex items-center gap-1">
                     <Building className="h-4 w-4"/> Admin
                 </Link>
-                <Link href="/login-natural" className="font-medium text-primary hover:underline flex items-center gap-1">
-                    <User className="h-4 w-4"/> Personal
+                <Link href="/login-ventas" className="font-medium text-primary hover:underline flex items-center gap-1">
+                    <ShoppingCart className="h-4 w-4"/> Ventas
                 </Link>
               </div>
             </CardFooter>

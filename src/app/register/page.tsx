@@ -10,7 +10,10 @@ import {
   ShieldCheck,
   Briefcase,
   Users,
-  Cpu
+  Cpu,
+  Gavel,
+  ShoppingCart,
+  Megaphone
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -55,11 +58,14 @@ export default function RegisterPage() {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
-                         <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
-                         <DropdownMenuItem asChild><Link href="/login-informatica"><Cpu className="mr-2"/>Acceso Informática</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-juridico">Admin y Finanzas</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/escritorio-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
                 </div>
@@ -115,11 +121,14 @@ export default function RegisterPage() {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Admin y Finanzas</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-informatica"><Cpu className="mr-2"/>Acceso Informática</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-juridico">Admin y Finanzas</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/escritorio-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -292,7 +301,7 @@ export default function RegisterPage() {
             </Tabs>
              <p className="mt-8 text-center text-sm text-muted-foreground">
               ¿Ya tienes una cuenta?{" "}
-              <Link href="/login" className="font-semibold text-primary hover:underline">
+              <Link href="/login-natural" className="font-semibold text-primary hover:underline">
                 Inicia sesión aquí
               </Link>
             </p>
