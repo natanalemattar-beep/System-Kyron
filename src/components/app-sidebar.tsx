@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
@@ -258,9 +257,17 @@ const sociosNavGroups = [
 ];
 
 const informaticaNavGroups = [
-    { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
-    { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
-    { title: "Arquitectura", icon: Puzzle, items: [ { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle } ] },
+  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
+  { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
+  { title: "Arquitectura", icon: Puzzle, items: [ 
+      { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
+      { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 }
+  ]},
+  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
+];
+
+const ventasNavGroups = [
+    { title: "Ventas y Caja", icon: ShoppingCart, items: ventasMenuItems },
 ];
 
 
@@ -809,6 +816,12 @@ function AppSidebarInformatica() {
     const allInformaticaGroups = [
       { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
       { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
+      { title: "Arquitectura", icon: Puzzle, items: [ 
+        { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
+        { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
+        { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Rocket },
+      ]},
+      { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
     ];
     
     return (
@@ -877,6 +890,3 @@ function AppSidebarInformatica() {
         </Sidebar>
     );
 }
-
-
-  
