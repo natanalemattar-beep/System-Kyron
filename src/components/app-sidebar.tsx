@@ -175,6 +175,8 @@ const analisisCrecimientoMenuItems = [
     { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
     { href: "/ingenieria-ia", label: "Ingeniería y Planos con IA", icon: Cpu },
     { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
+    { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto vs Estrategia", icon: Megaphone},
+    { href: "/marketing-ventas", label: "Marketing y Ventas", icon: ShoppingCart},
 ];
 
 const facturacionGeneralMenuItems = [
@@ -194,6 +196,10 @@ const facturacionGeneralMenuItems = [
     { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
     { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
     { href: "/registro-comprador", label: "Registro de Comprador", icon: UserCheck },
+];
+
+const internationalOperationsMenuItems = [
+    { href: "/gestion-global", label: "Centro de Gestión Global", icon: Globe },
     { href: "/facturacion-internacional", label: "Facturación Internacional", icon: Globe },
 ];
 
@@ -286,6 +292,7 @@ const juridicoNavGroups = [
     { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
     { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+    { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
     { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
@@ -451,6 +458,7 @@ export function AppSidebar() {
     { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
     { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+    { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
     { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
@@ -471,7 +479,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General']}>
+          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General', 'Operaciones Internacionales']}>
             {allJuridicoGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">

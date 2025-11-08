@@ -7,50 +7,79 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Globe, Database, Scale, Code, GitBranch, Shield, Server, CheckCircle, Smartphone } from "lucide-react";
 
 const countryModules = {
-    "Argentina": {
-        currency: "ARS",
-        tax_rates: { "IVA": 0.21, "IIBB": "variable", "GANANCIAS": "variable" },
-        legal_requirements: { "Campos Obligatorios": ["CUIT", "Condición IVA", "CAE"], "Series de Factura": ["A", "B", "C"], "Firma Digital": true }
+    // North America
+    "USA": {
+        currency: "USD",
+        tax_rates: { "Sales Tax": "Variable por estado" },
+        legal_requirements: { "Campos Obligatorios": ["EIN (si aplica)", "Dirección de facturación"], "W-9/W-8BEN": "Requerido para proveedores" }
     },
-    "México": {
+    "Canada": {
+        currency: "CAD",
+        tax_rates: { "GST/HST/PST": "Variable por provincia" },
+        legal_requirements: { "Campos Obligatorios": ["Business Number (BN)", "Número de GST/HST"] }
+    },
+    // Latin America
+    "Mexico": {
         currency: "MXN",
-        tax_rates: { "IVA": 0.16, "ISR": "variable", "IEPS": "variable" },
-        legal_requirements: { "Campos Obligatorios": ["RFC", "Uso CFDI", "Forma de pago"], "Requiere CFDI": true, "Validación SAT": true }
-    },
-    "España": {
-        currency: "EUR",
-        tax_rates: { "IVA": "21% (General), 10% (Reducido), 4% (Superreducido)", "IRPF": "variable" },
-        legal_requirements: { "Campos Obligatorios": ["NIF", "Régimen IVA"], "Obligación SII": true, "Formato FacturaE": "Opcional" }
+        tax_rates: { "IVA": "16%", "ISR": "Variable", "IEPS": "Variable" },
+        legal_requirements: { "Campos Obligatorios": ["RFC", "Uso CFDI", "Forma de pago"], "Requiere CFDI 4.0": true, "Validación SAT": true }
     },
      "Colombia": {
         currency: "COP",
         tax_rates: { "IVA": "19% (General)", "Retefuente": "variable" },
         legal_requirements: { "Campos Obligatorios": ["NIT", "CUFE", "Resolución DIAN"], "Facturación Electrónica": true }
     },
-    "Chile": {
+    "Brazil": {
+        currency: "BRL",
+        tax_rates: { "ICMS": "Variable", "IPI": "Variable", "PIS/COFINS": "Variable" },
+        legal_requirements: { "Campos Obligatorios": ["CNPJ/CPF", "Nota Fiscal Eletrônica (NF-e)"], "CFOP (Código Fiscal)": true }
+    },
+     "Argentina": {
+        currency: "ARS",
+        tax_rates: { "IVA": "21%", "IIBB": "Variable", "GANANCIAS": "Variable" },
+        legal_requirements: { "Campos Obligatorios": ["CUIT", "Condición IVA", "CAE"], "Series de Factura": ["A", "B", "C"], "Firma Digital": true }
+    },
+     "Chile": {
         currency: "CLP",
         tax_rates: { "IVA": "19%" },
         legal_requirements: { "Campos Obligatorios": ["RUT", "Folio Sii"], "Documento Electrónico (DTE)": true, "Boleta Electrónica": true }
     },
-    "Brasil": {
-        currency: "BRL",
-        tax_rates: { "ICMS": "variable", "IPI": "variable", "PIS/COFINS": "variable" },
-        legal_requirements: { "Campos Obligatorios": ["CNPJ/CPF", "Nota Fiscal Eletrônica (NF-e)"], "CFOP (Código Fiscal)": true }
+    // Europe
+    "Spain": {
+        currency: "EUR",
+        tax_rates: { "IVA": "21% (General), 10% (Reducido), 4% (Superreducido)", "IRPF": "Variable" },
+        legal_requirements: { "Campos Obligatorios": ["NIF", "Régimen IVA"], "Obligación SII": true, "Formato FacturaE": "Opcional" }
     },
-    "Alemania": {
+     "Germany": {
         currency: "EUR",
         tax_rates: { "Umsatzsteuer (VAT)": "19% (General), 7% (Reducido)" },
         legal_requirements: { "Campos Obligatorios": ["Steuernummer/USt-IdNr."], "GoBD Compliant": true }
     },
-    "Francia": {
+     "France": {
         currency: "EUR",
         tax_rates: { "TVA": "20% (General), 10%, 5.5%, 2.1%" },
         legal_requirements: { "Campos Obligatorios": ["Numéro de TVA", "SIREN/SIRET"], "Chorus Pro (B2G)": true }
     },
-     "Italia": {
+     "Italy": {
         currency: "EUR",
         tax_rates: { "IVA": "22% (Ordinaria), 10%, 5%, 4%" },
         legal_requirements: { "Campos Obligatorios": ["Partita IVA/Codice Fiscale"], "Fattura Elettronica (SdI)": true }
+    },
+    "Netherlands": {
+        currency: "EUR",
+        tax_rates: { "BTW": "21% (Standard), 9% (Reduced), 0% (Zero)" },
+        legal_requirements: { "Campos Obligatorios": ["BTW-nummer", "KvK-nummer"] }
+    },
+    // Asia & Middle East
+    "China": {
+        currency: "CNY",
+        tax_rates: { "VAT": "13% (General), 9%, 6%" },
+        legal_requirements: { "Fapiao System": true, "Golden Tax System Integration": true }
+    },
+    "UAE": {
+        currency: "AED",
+        tax_rates: { "VAT": "5%" },
+        legal_requirements: { "TRN (Tax Registration Number)": true, "e-Invoicing (Peppol)": "Obligatorio desde 2026" }
     },
 };
 
@@ -124,7 +153,7 @@ CREATE TABLE invoices (
         </CardHeader>
         <CardContent>
             <Tabs defaultValue="Argentina">
-                <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 lg:grid-cols-9">
+                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8">
                     {Object.keys(countryModules).map(country => (
                          <TabsTrigger key={country} value={country}>{country}</TabsTrigger>
                     ))}
@@ -137,7 +166,7 @@ CREATE TABLE invoices (
                                 <ul className="list-disc pl-5 text-sm space-y-1">
                                     <li><strong>Moneda:</strong> {data.currency}</li>
                                     {Object.entries(data.tax_rates).map(([tax, rate]) => (
-                                        <li key={tax}><strong>{tax}:</strong> {Array.isArray(rate) ? rate.join(' / ') : rate}</li>
+                                        <li key={tax}><strong>{tax}:</strong> {typeof rate === 'string' ? rate : rate.join(' / ')}</li>
                                     ))}
                                 </ul>
                             </div>
