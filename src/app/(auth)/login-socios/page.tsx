@@ -15,9 +15,10 @@ export default function LoginSociosPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-     <div className="flex flex-col min-h-screen relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
+     <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-background">
+        <div className="absolute inset-0 z-0 opacity-40">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute inset-0 bg-gradient-to-bl from-accent/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
         </div>
         
       <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-md border-b">
@@ -28,7 +29,7 @@ export default function LoginSociosPage() {
           </Link>
           <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost">
+                    <Button variant="ghost" className="hover:bg-primary/20">
                         Acceder
                         <User className="ml-2 h-4 w-4"/>
                     </Button>
@@ -61,12 +62,12 @@ export default function LoginSociosPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4 z-10">
-        <Card className="w-full max-w-md mx-auto shadow-xl">
+        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-border/50">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 h-16 w-16 flex items-center justify-center rounded-full bg-primary/10">
-              <Users className="h-8 w-8 text-primary"/>
+            <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
+              <Users className="h-8 w-8"/>
             </div>
-            <CardTitle className="text-2xl tracking-wider">Portal de Socios</CardTitle>
+            <CardTitle className="text-2xl">Portal de Socios</CardTitle>
             <CardDescription>Acceso exclusivo para socios y directivos.</CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-6">
@@ -85,18 +86,18 @@ export default function LoginSociosPage() {
                 {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
             </div>
-            <Button asChild className="w-full h-11 text-base font-bold tracking-widest">
+            <Button asChild className="w-full h-11 text-base">
               <Link href="/dashboard-socios">Acceder</Link>
             </Button>
           </CardContent>
-           <CardFooter className="flex-col gap-2 p-6 border-t text-sm">
+           <CardFooter className="flex-col gap-2 p-6 border-t border-border/50 text-sm">
                 <p className="text-muted-foreground">¿No eres socio?</p>
                 <div className="flex gap-4">
                     <Button asChild variant="link" className="p-0">
-                        <Link href="/login-juridico" className="flex items-center gap-1"><Building className="h-4 w-4"/>Admin</Link>
+                        <Link href="/login-juridico" className="flex items-center gap-1"><Building className="h-4 w-4"/>Acceso Admin</Link>
                     </Button>
                      <Button asChild variant="link" className="p-0">
-                        <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4"/>Ventas</Link>
+                        <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4"/>Acceso Ventas</Link>
                     </Button>
                 </div>
             </CardFooter>
