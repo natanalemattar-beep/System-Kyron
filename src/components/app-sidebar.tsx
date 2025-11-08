@@ -88,7 +88,8 @@ import {
   CandlestickChart,
   Swords,
   Search,
-  HardHat
+  HardHat,
+  Network
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -124,9 +125,9 @@ const juridicoMainMenuItems = [
 ];
 
 const finanzasContabilidadMenuItems = [
+  { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/reports", label: "Reportes Financieros", icon: BarChart },
   { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
-  { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
   { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileText },
   { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
@@ -173,11 +174,11 @@ const analisisCrecimientoMenuItems = [
     { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
     { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
     { href: "/ingenieria-ia", label: "Ingeniería y Planos con IA", icon: Cpu },
-    { href: "/importaciones", label: "Proveedores", icon: Ship },
     { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
 ];
 
 const facturacionGeneralMenuItems = [
+    { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
@@ -281,11 +282,17 @@ const sociosNavGroups = [
 
 
 const juridicoNavGroups = [
-    { title: "Jurídico", icon: Gavel, items: juridicoMainMenuItems },
+    { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
-    { title: "Análisis y Crecimiento", icon: TrendingUp, items: analisisCrecimientoMenuItems },
-    { title: "Facturación General", icon: FileText, items: facturacionGeneralMenuItems },
-    { title: "Soluciones con IA", icon: BrainCircuit, items: iaMenuItems },
+    { title: "Impuestos y Fiscal", icon: Percent, items: [
+      { href: "/declaracion-iva", label: "Declaración de IVA", icon: FileText },
+      { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
+      { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
+      { href: "/igtf", label: "IGTF", icon: Percent },
+    ]},
+    { title: "Gestión de Ventas", icon: ShoppingCart, items: facturacionGeneralMenuItems.concat(ventasMenuItems) },
+    { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
+    { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
 
@@ -445,6 +452,15 @@ export function AppSidebar() {
     return <AppSidebarInformatica />;
   }
 
+  const allJuridicoGroups = [
+    { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
+    { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+    { title: "Gestión de Ventas", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+    { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
+    { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
+    { title: "General", icon: Cog, items: generalMenuItems },
+  ]
+
 
   return (
     <Sidebar variant="floating">
@@ -461,7 +477,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent className="p-2">
           <Accordion type="multiple" className="w-full">
-            {juridicoNavGroups.map((group) => (
+            {allJuridicoGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                    <div className="flex items-center gap-2">
