@@ -13,10 +13,10 @@
       "imageHint": "serious accounting"
     },
     {
-      "id": "about-us-image",
-      "description": "A placeholder image for the about us section, showing a diverse team working collaboratively.",
-      "imageUrl": "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx0ZWFtJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NTk0NDUxNzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "team collaboration"
+      "id": "team-meeting-photo",
+      "description": "A group of professionals in a meeting, representing a collaborative team.",
+      "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "team meeting"
     },
     {
       "id": "testimonial-avatar-1",
@@ -33,37 +33,37 @@
     {
       "id": "notebook-design-1",
       "description": "A modern notebook design with geometric patterns.",
-      "imageUrl": "https://picsum.photos/seed/notebook1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1762222678255-d04695ebed98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBub3RlYm9va3xlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "modern notebook"
     },
     {
       "id": "notebook-design-2",
       "description": "A minimalist notebook design in pastel colors.",
-      "imageUrl": "https://picsum.photos/seed/notebook2/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1661169398798-a91a4eb3ee08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwbm90ZWJvb2t8ZW58MHx8fHwxNzYyNjI5MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "minimalist notebook"
     },
     {
       "id": "notebook-design-3",
       "description": "A professional notebook design with a corporate logo mockup.",
-      "imageUrl": "https://picsum.photos/seed/notebook3/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1762341111756-caf184156fa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb3Jwb3JhdGUlMjBub3RlYm9va3xlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "corporate notebook"
     },
     {
       "id": "presentation-template-1",
       "description": "A template for a business presentation slide with dark theme.",
-      "imageUrl": "https://picsum.photos/seed/prez1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1650802218103-6bb0ac6b98eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcmVzZW50YXRpb24lMjBzbGlkZXxlbnwwfHx8fDE3NjI1ODIwNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "presentation slide"
     },
     {
       "id": "presentation-template-2",
       "description": "A vibrant presentation template with bold colors.",
-      "imageUrl": "https://picsum.photos/seed/prez2/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1712293176507-deee4f255380?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx2aWJyYW50JTIwcHJlc2VudGF0aW9ufGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "vibrant presentation"
     },
     {
       "id": "presentation-template-3",
       "description": "A clean and minimalist presentation slide layout.",
-      "imageUrl": "https://picsum.photos/seed/prez3/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1505468726633-0069fc52f4b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwcHJlc2VudGF0aW9ufGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "minimalist presentation"
     },
     {
@@ -75,85 +75,85 @@
     {
       "id": "presentation-template-5",
       "description": "Template de presentación con fondo de video.",
-      "imageUrl": "https://picsum.photos/seed/prez5/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1673767297241-f072cfefa0cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx2aWRlbyUyMHByZXNlbnRhdGlvbnxlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "video presentation"
     },
     {
       "id": "letterhead-template-1",
       "description": "A template for a corporate letterhead with a classic header.",
-      "imageUrl": "https://picsum.photos/seed/letter1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1602629978879-e7ed887988d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb3Jwb3JhdGUlMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "corporate letterhead"
     },
     {
       "id": "letterhead-template-2",
       "description": "A modern letterhead design with a sidebar for contact info.",
-      "imageUrl": "https://picsum.photos/seed/letter2/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1576859933856-c07ec7ddfe92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtb2Rlcm4lMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "modern letterhead"
     },
     {
       "id": "letterhead-template-3",
       "description": "An elegant letterhead with a watermark logo.",
-      "imageUrl": "https://picsum.photos/seed/letter3/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1735050871569-4cb29aae3a30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbGVnYW50JTIwbGV0dGVyaGVhZHxlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "elegant letterhead"
     },
     {
       "id": "letterhead-template-4",
       "description": "Papelería con diseño eco-amigable.",
-      "imageUrl": "https://picsum.photos/seed/letter4/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1577563820627-bc12aa2139de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlY28lMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "eco letterhead"
     },
     {
       "id": "letterhead-template-5",
       "description": "Papelería creativa con formas abstractas.",
-      "imageUrl": "https://picsum.photos/seed/letter5/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1616912174939-405ed717a290?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMGxldHRlcmhlYWR8ZW58MHx8fHwxNzYyNjI5MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "creative letterhead"
     },
     {
       "id": "corporate-box-1",
       "description": "Caja corporativa con logo estampado.",
-      "imageUrl": "https://picsum.photos/seed/box1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1625552187662-ac3fac11fcf1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y29ycG9yYXRlJTIwYm94fGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "corporate box"
     },
     {
       "id": "corporate-box-2",
       "description": "Diseño de empaque para productos.",
-      "imageUrl": "https://picsum.photos/seed/box2/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1760804876161-ba0337e998fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwcGFja2FnaW5nfGVufDB8fHx8MTc2MjU3NDg4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product packaging"
     },
     {
       "id": "shopping-bag-1",
       "description": "Bolsa de compras con branding.",
-      "imageUrl": "https://picsum.photos/seed/bag1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1654783858479-346aaa6480a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxicmFuZGVkJTIwYmFnfGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "branded bag"
     },
     {
       "id": "pen-design-1",
       "description": "Bolígrafo corporativo metálico.",
-      "imageUrl": "https://picsum.photos/seed/pen1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1581474859688-82ea214f852c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb3Jwb3JhdGUlMjBwZW58ZW58MHx8fHwxNzYyNjI5MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "corporate pen"
     },
     {
       "id": "pen-design-2",
       "description": "Set de bolígrafos de colores.",
-      "imageUrl": "https://picsum.photos/seed/pen2/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1523292643061-ed55f8c45178?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2xvcmVkJTIwcGVuc3xlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "colored pens"
     },
     {
       "id": "book-aumenta-ventas",
       "description": "Portada del libro Aumenta tus Ventas.",
-      "imageUrl": "https://picsum.photos/seed/book12/300/400",
+      "imageUrl": "https://images.unsplash.com/photo-1542919901-ce575ee6e6e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzYWxlcyUyMGJvb2t8ZW58MHx8fHwxNzYyNjI5MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sales book"
     },
     {
       "id": "book-padre-rico",
       "description": "Portada del libro Padre Rico, Padre Pobre.",
-      "imageUrl": "https://picsum.photos/seed/book13/300/400",
+      "imageUrl": "https://images.unsplash.com/photo-1761735485999-f3e7e531e149?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxmaW5hbmNlJTIwYm9va3xlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "finance book"
     },
     {
       "id": "book-quien-queso",
       "description": "Portada del libro ¿Quién se ha llevado mi queso?.",
-      "imageUrl": "https://picsum.photos/seed/book14/300/400",
+      "imageUrl": "https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjaGFuZ2UlMjBtYW5hZ2VtZW50fGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "change management"
     },
     {
@@ -161,12 +161,6 @@
       "description": "A satellite dish pointing to a clear sky, representing technology and connectivity.",
       "imageUrl": "https://images.unsplash.com/photo-1518364538800-6bae3c2ea5f2?q=80&w=1920&auto=format&fit=crop",
       "imageHint": "satellite dish"
-    },
-    {
-      "id": "team-meeting-photo",
-      "description": "A group of professionals in a meeting, representing a collaborative team.",
-      "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1920&auto=format&fit=crop",
-      "imageHint": "team meeting"
     }
   ]
 }

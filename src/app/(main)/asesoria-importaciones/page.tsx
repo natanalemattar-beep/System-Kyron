@@ -9,6 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const importSteps = [
     {
@@ -57,6 +58,24 @@ const keyDocuments = [
         description: "Es el contrato de transporte entre el exportador y la naviera. Funciona como un título de propiedad de la mercancía durante su tránsito.",
     },
 ];
+
+const proveedoresSugeridos = {
+    china: [
+        { nombre: "Alibaba", especialidad: "Plataforma B2B para encontrar fabricantes de prácticamente cualquier producto. Ideal para buscar precios competitivos." },
+        { nombre: "Shenzhen Tech-Innovate Co.", especialidad: "Especialistas en componentes electrónicos, gadgets y tecnología de consumo." },
+        { nombre: "Guangzhou Furniture Direct", especialidad: "Fabricantes de mobiliario de oficina y para el hogar, con opciones de personalización." },
+    ],
+    espana: [
+        { nombre: "Cerámicas Castellón, S.A.", especialidad: "Líderes en la producción de baldosas de cerámica y porcelanato de alta calidad." },
+        { nombre: "Bodegas Rioja Alta", especialidad: "Exportadores de vinos con denominación de origen, ideales para el mercado gourmet." },
+        { nombre: "Textiles del Mediterráneo", especialidad: "Productores de tejidos y textiles para la industria de la moda y decoración." },
+    ],
+    italia: [
+        { nombre: "Milano Moda Group", especialidad: "Proveedores de artículos de cuero de lujo, como carteras, calzado y accesorios." },
+        { nombre: "Bologna Food Exports", especialidad: "Especialistas en la exportación de productos alimenticios italianos auténticos (pastas, aceites, quesos)." },
+        { nombre: "Turin Machinery Solutions", especialidad: "Fabricantes de maquinaria industrial para los sectores de automoción y empaquetado." },
+    ]
+};
 
 export default function AsesoriaImportacionesPage() {
     const [peso, setPeso] = useState<number | "">("");
@@ -135,6 +154,63 @@ export default function AsesoriaImportacionesPage() {
                     </CardContent>
                 </Card>
             </div>
+
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Sugerencias de Proveedores Internacionales</CardTitle>
+                    <CardDescription>
+                        Explora proveedores recomendados por país y especialidad para obtener ideas de productos a importar.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Tabs defaultValue="china">
+                        <TabsList className="grid w-full grid-cols-3">
+                            <TabsTrigger value="china">China</TabsTrigger>
+                            <TabsTrigger value="espana">España</TabsTrigger>
+                            <TabsTrigger value="italia">Italia</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="china" className="mt-6">
+                            <div className="space-y-4">
+                                {proveedoresSugeridos.china.map(p => (
+                                    <div key={p.nombre} className="p-4 bg-secondary/50 rounded-lg flex items-center justify-between">
+                                        <div>
+                                            <h4 className="font-semibold">{p.nombre}</h4>
+                                            <p className="text-sm text-muted-foreground">{p.especialidad}</p>
+                                        </div>
+                                        <Button variant="outline">Contactar Proveedor</Button>
+                                    </div>
+                                ))}
+                            </div>
+                        </TabsContent>
+                         <TabsContent value="espana" className="mt-6">
+                            <div className="space-y-4">
+                                {proveedoresSugeridos.espana.map(p => (
+                                    <div key={p.nombre} className="p-4 bg-secondary/50 rounded-lg flex items-center justify-between">
+                                        <div>
+                                            <h4 className="font-semibold">{p.nombre}</h4>
+                                            <p className="text-sm text-muted-foreground">{p.especialidad}</p>
+                                        </div>
+                                        <Button variant="outline">Contactar Proveedor</Button>
+                                    </div>
+                                ))}
+                            </div>
+                        </TabsContent>
+                         <TabsContent value="italia" className="mt-6">
+                            <div className="space-y-4">
+                                {proveedoresSugeridos.italia.map(p => (
+                                    <div key={p.nombre} className="p-4 bg-secondary/50 rounded-lg flex items-center justify-between">
+                                        <div>
+                                            <h4 className="font-semibold">{p.nombre}</h4>
+                                            <p className="text-sm text-muted-foreground">{p.especialidad}</p>
+                                        </div>
+                                        <Button variant="outline">Contactar Proveedor</Button>
+                                    </div>
+                                ))}
+                            </div>
+                        </TabsContent>
+                    </Tabs>
+                </CardContent>
+            </Card>
 
              <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
