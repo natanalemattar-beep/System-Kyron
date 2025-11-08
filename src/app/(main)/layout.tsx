@@ -3,6 +3,7 @@
 
 import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
@@ -15,6 +16,7 @@ import { cn } from "@/lib/utils";
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Simulate loading
@@ -24,6 +26,16 @@ export default function AppLayout({ children }: { children: ReactNode }) {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Don't show sidebar on the main landing page
+  if (pathname === "/") {
+    return (
+        <>
+            {children}
+            <Toaster />
+        </>
+    );
+  }
 
   return (
     <SidebarProvider>
