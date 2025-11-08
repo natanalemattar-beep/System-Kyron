@@ -183,8 +183,7 @@ export default function LandingPage() {
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
-    const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
-
+    
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
@@ -194,12 +193,12 @@ export default function LandingPage() {
     }, []);
     
   return (
-    <div className="flex flex-col min-h-dvh bg-background">
+    <div className="flex flex-col min-h-dvh bg-background text-foreground">
       {/* Header */}
        <header className={cn(
         "fixed top-0 z-50 w-full transition-all duration-300 ease-in-out"
       )}>
-        <div className={cn("container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300", isScrolled && "bg-background/80 backdrop-blur-lg rounded-xl shadow-lg border")}>
+        <div className={cn("container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300", isScrolled && "bg-background/80 backdrop-blur-lg rounded-b-xl shadow-lg border-x border-b")}>
           <Link href="/" className="flex items-center gap-3">
             <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
@@ -267,65 +266,54 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-24 md:py-48">
-          <div className="absolute inset-0 z-0 opacity-10">
+        <section className="relative py-24 md:py-48 overflow-hidden">
+            <div className="absolute inset-0 z-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_10%,transparent_50%)] dark:bg-grid-slate-700/30"></div>
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
-          </div>
-          <div className="container px-4 md:px-6 grid lg:grid-cols-2 gap-8 items-center relative z-10">
-            <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
-                La Gestión Empresarial, Reinventada para Venezuela
-              </h1>
-              <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 text-balance">
-                Simplificamos la burocracia para que puedas enfocarte en crecer. Automatiza tu contabilidad, gestiona permisos y cumple con el SENIAT sin esfuerzo.
-              </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Button size="lg" asChild>
-                      <Link href="/register">
-                      Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
-                      </Link>
-                  </Button>
-                  <Button size="lg" variant="outline">
-                      <SmoothScrollLink href="#servicios">
-                      Explorar Servicios
-                      </SmoothScrollLink>
-                  </Button>
-              </div>
+            
+            <div className="container px-4 md:px-6 relative z-10 text-center">
+                <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
+                        La Gestión Empresarial, Reinventada para Venezuela
+                    </h1>
+                    <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
+                        Simplificamos la burocracia para que puedas enfocarte en crecer. Automatiza tu contabilidad, gestiona permisos y cumple con el SENIAT sin esfuerzo.
+                    </p>
+                    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                        <Button size="lg" asChild>
+                            <Link href="/register">
+                            Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
+                            </Link>
+                        </Button>
+                        <Button size="lg" variant="outline" asChild>
+                            <SmoothScrollLink href="#servicios">
+                            Explorar Servicios
+                            </SmoothScrollLink>
+                        </Button>
+                    </div>
+                </div>
             </div>
-            <div className="relative h-64 lg:h-auto lg:aspect-square">
-              {heroImage && 
-                <Image 
-                  src={heroImage.imageUrl} 
-                  alt={heroImage.description} 
-                  data-ai-hint={heroImage.imageHint}
-                  fill
-                  className="object-cover rounded-3xl shadow-2xl" 
-                />
-              }
-            </div>
-          </div>
         </section>
 
         {/* Impact Section */}
-        <section className="py-20 bg-secondary/30">
-          <div className="container px-4 md:px-6">
+        <section className="py-20 bg-background">
+          <div className="container px-4 md:px-6 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
              <div className="text-center max-w-3xl mx-auto mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold">Impacto y Confianza</h2>
                 <p className="mt-4 text-lg text-muted-foreground">Cientos de empresas confían en nosotros para optimizar su gestión y garantizar su tranquilidad.</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
-                <div className="flex flex-col items-center gap-2">
+                <div className="flex flex-col items-center gap-2 p-6 rounded-xl border bg-card/50">
                     <Smile className="h-10 w-10 text-primary"/>
                     <p className="text-3xl font-bold">98%</p>
                     <p className="text-muted-foreground">Clientes Satisfechos</p>
                 </div>
-                <div className="flex flex-col items-center gap-2">
+                <div className="flex flex-col items-center gap-2 p-6 rounded-xl border bg-card/50">
                     <Clock className="h-10 w-10 text-primary"/>
                     <p className="text-3xl font-bold">10k+</p>
                     <p className="text-muted-foreground">Horas Ahorradas en Gestión</p>
                 </div>
-                <div className="flex flex-col items-center gap-2 col-span-2 md:col-span-1">
-                    <CheckCircleIcon className="h-10 w-10 text-green-500"/>
+                <div className="flex flex-col items-center gap-2 p-6 rounded-xl border bg-card/50 col-span-2 md:col-span-1">
+                    <CheckCircleIcon className="h-10 w-10 text-primary"/>
                     <p className="text-3xl font-bold">100%</p>
                     <p className="text-muted-foreground">Cumplimiento Garantizado</p>
                 </div>
@@ -334,28 +322,31 @@ export default function LandingPage() {
         </section>
         
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-background">
+        <section id="servicios" className="py-20 md:py-28 bg-secondary/30">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                     {services.map((item) => (
-                        <Card key={item.title} className="text-center p-8 bg-card shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 border">
-                            <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
-                                <item.icon className="h-8 w-8" />
+                     {services.map((item, index) => (
+                        <div key={item.title} className="relative p-8 overflow-hidden rounded-xl border bg-card shadow-sm animate-in fade-in slide-in-from-bottom-12 duration-1000" style={{animationDelay: `${index * 150}ms`}}>
+                            <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div className="relative">
+                                <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
+                                    <item.icon className="h-8 w-8" />
+                                </div>
+                                <h3 className="text-xl font-semibold ">{item.title}</h3>
+                                <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
                             </div>
-                            <h3 className="text-xl font-semibold ">{item.title}</h3>
-                            <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
-                        </Card>
+                        </div>
                     ))}
                 </div>
             </div>
         </section>
         
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/30 border-y">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
@@ -390,7 +381,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-background">
+        <section id="nosotros" className="py-20 md:py-28 bg-secondary/30">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
@@ -400,9 +391,9 @@ export default function LandingPage() {
                     {testimonials.map((testimonial, index) => {
                       const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
                       return (
-                        <Card key={index} className="p-6 md:p-8 shadow-lg border bg-card">
+                        <Card key={index} className="p-6 md:p-8 shadow-sm border bg-card">
                             <CardContent className="p-0">
-                                <p className="text-muted-foreground italic md:text-lg mb-6">{testimonial.text}</p>
+                                <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
                                 <div className="flex items-center gap-4">
                                   {avatar && (
                                     <Avatar>
@@ -424,13 +415,15 @@ export default function LandingPage() {
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-primary/10">
+        <section className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
-                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con System C.M.S.</p>
-                <Button size="lg" asChild className="mt-8">
-                   <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
-                </Button>
+                 <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border">
+                    <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
+                    <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con System C.M.S.</p>
+                    <Button size="lg" asChild className="mt-8">
+                    <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
+                    </Button>
+                </div>
             </div>
         </section>
       </main>

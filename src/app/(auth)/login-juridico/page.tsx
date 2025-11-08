@@ -47,12 +47,10 @@ export default function LoginJuridicoPage() {
 
   return (
     <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-background">
-      <div className="absolute inset-0 z-0 opacity-40">
-        <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '20s' }}></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-accent/30 via-transparent to-transparent animate-gradient-animation" style={{ animationDuration: '25s', animationDelay: '5s' }}></div>
-      </div>
+      <div className="absolute inset-0 z-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_10%,transparent_50%)] dark:bg-grid-slate-700/30"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
 
-      <header className="sticky top-0 z-50 w-full bg-background/50 backdrop-blur-md border-b">
+      <header className="sticky top-0 z-50 w-full bg-transparent">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
@@ -80,7 +78,7 @@ export default function LoginJuridicoPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4 z-10">
-        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-border/50">
+        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
           <CardHeader className="text-center">
              <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
                 <Building className="h-8 w-8 text-primary"/>
@@ -126,7 +124,7 @@ export default function LoginJuridicoPage() {
               </Button>
             </CardContent>
           </form>
-           <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t border-border/50">
+           <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
               <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
               <div className="flex justify-center gap-4">
                 <Link href="/login-natural" className="font-medium text-primary hover:underline flex items-center gap-1">
