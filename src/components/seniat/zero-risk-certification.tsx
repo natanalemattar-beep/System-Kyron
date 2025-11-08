@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -50,26 +51,26 @@ export const ZeroRiskCertification = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="text-center mb-8">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full mb-4">
           <span className="text-2xl font-bold text-white">✓</span>
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Certificación Matemática de Cero Riesgo</h2>
-        <p className="text-gray-600 dark:text-gray-300">
+        <h2 className="text-2xl font-bold mb-2">Certificación Matemática de Cero Riesgo</h2>
+        <p className="text-muted-foreground">
           Demostraciones que prueban la imposibilidad de riesgo fiscal.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Teoremas Matemáticos Comprobados</h3>
+          <h3 className="font-semibold mb-4">Teoremas Matemáticos Comprobados</h3>
           <div className="space-y-4">
             {proofs.map((proof) => (
-              <div key={proof.id} className="border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/50 rounded-lg p-4">
-                <h4 className="font-semibold text-yellow-900 dark:text-yellow-200">{proof.theorem}</h4>
-                <p className="text-sm text-yellow-700 dark:text-yellow-300 mt-1">{proof.description}</p>
-                <div className="text-xs text-yellow-600 dark:text-yellow-400 mt-2">
+              <div key={proof.id} className="border border-yellow-800 bg-yellow-900/50 rounded-lg p-4">
+                <h4 className="font-semibold text-yellow-200">{proof.theorem}</h4>
+                <p className="text-sm text-yellow-300 mt-1">{proof.description}</p>
+                <div className="text-xs text-yellow-400 mt-2">
                   <strong>Verificado por:</strong> {proof.verifiedBy.join(', ')}
                 </div>
               </div>
@@ -78,19 +79,19 @@ export const ZeroRiskCertification = () => {
         </div>
 
         <div>
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Certificaciones Internacionales</h3>
+          <h3 className="font-semibold mb-4">Certificaciones Internacionales</h3>
           <div className="space-y-4">
-             <div className="border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white">ISO 9001-ZR</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Calidad de Cero Riesgo</p>
+             <div className="border border-blue-800 rounded-lg p-4">
+                <h4 className="font-semibold">ISO 9001-ZR</h4>
+                <p className="text-sm text-muted-foreground">Calidad de Cero Riesgo</p>
             </div>
-             <div className="border border-purple-200 dark:border-purple-800 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white">Quantum Safe Certified</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Resistente a Computación Cuántica</p>
+             <div className="border border-purple-800 rounded-lg p-4">
+                <h4 className="font-semibold">Quantum Safe Certified</h4>
+                <p className="text-sm text-muted-foreground">Resistente a Computación Cuántica</p>
             </div>
-             <div className="border border-green-200 dark:border-green-800 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white">Blockchain Immutable</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Inmutabilidad Certificada</p>
+             <div className="border border-green-800 rounded-lg p-4">
+                <h4 className="font-semibold">Blockchain Immutable</h4>
+                <p className="text-sm text-muted-foreground">Inmutabilidad Certificada</p>
             </div>
              <div className="mt-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-6 text-white text-center">
               <div className="text-3xl font-bold mb-2">🏆</div>

@@ -135,9 +135,9 @@ export const ProfitabilityAnalyzer = () => {
   }, [timeFrame]);
 
   const getProfitabilityColor = (index: number) => {
-    if (index >= 70) return 'text-green-600 dark:text-green-400';
-    if (index >= 40) return 'text-yellow-600 dark:text-yellow-400';
-    return 'text-red-600 dark:text-red-400';
+    if (index >= 70) return 'text-green-400';
+    if (index >= 40) return 'text-yellow-400';
+    return 'text-red-400';
   };
 
   const getTrendIcon = (trend: string) => {
@@ -145,8 +145,8 @@ export const ProfitabilityAnalyzer = () => {
   };
 
   const getTrendColor = (trend: string) => {
-    return trend === 'up' ? 'text-green-600 dark:text-green-400' : 
-           trend === 'down' ? 'text-red-600 dark:text-red-400' : 'text-gray-600 dark:text-gray-400';
+    return trend === 'up' ? 'text-green-400' : 
+           trend === 'down' ? 'text-red-400' : 'text-gray-400';
   };
 
   const filteredMetrics = selectedCategory === 'all' 
@@ -154,17 +154,17 @@ export const ProfitabilityAnalyzer = () => {
     : metrics.filter(metric => metric.category === selectedCategory);
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Analizador de Rentabilidad</h2>
+          <h2 className="text-xl font-bold">Analizador de Rentabilidad</h2>
           <p className="text-muted-foreground">Análisis detallado de márgenes y contribución por segmento</p>
         </div>
         <div className="flex gap-3">
           <select 
             value={timeFrame}
             onChange={(e) => setTimeFrame(e.target.value as any)}
-            className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-lg px-3 py-2 text-sm"
+            className="border-input bg-background rounded-lg px-3 py-2 text-sm"
           >
             <option value="month">Mes Actual</option>
             <option value="quarter">Trimestre</option>
@@ -173,7 +173,7 @@ export const ProfitabilityAnalyzer = () => {
           <select 
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-lg px-3 py-2 text-sm"
+            className="border-input bg-background rounded-lg px-3 py-2 text-sm"
           >
             <option value="all">Todas las categorías</option>
             <option value="producto">Productos</option>
@@ -186,44 +186,44 @@ export const ProfitabilityAnalyzer = () => {
 
       {analysis && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-green-50 dark:bg-green-900/50 p-4 rounded-lg border border-green-200 dark:border-green-800">
-            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+          <div className="bg-green-900/50 p-4 rounded-lg border border-green-800">
+            <div className="text-2xl font-bold text-green-400">
               {formatPercentage(analysis.overallMargin)}
             </div>
-            <div className="text-sm text-green-800 dark:text-green-300">Margen Neto</div>
+            <div className="text-sm text-green-300">Margen Neto</div>
           </div>
-          <div className="bg-blue-50 dark:bg-blue-900/50 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+          <div className="bg-blue-900/50 p-4 rounded-lg border border-blue-800">
+            <div className="text-2xl font-bold text-blue-400">
               {formatCurrency(analysis.netProfit)}
             </div>
-            <div className="text-sm text-blue-800 dark:text-blue-300">Utilidad Neta</div>
+            <div className="text-sm text-blue-300">Utilidad Neta</div>
           </div>
-          <div className="bg-purple-50 dark:bg-purple-900/50 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-            <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+          <div className="bg-purple-900/50 p-4 rounded-lg border border-purple-800">
+            <div className="text-2xl font-bold text-purple-400">
               {formatPercentage(analysis.roi)}
             </div>
-            <div className="text-sm text-purple-800 dark:text-purple-300">ROI</div>
+            <div className="text-sm text-purple-300">ROI</div>
           </div>
-          <div className="bg-orange-50 dark:bg-orange-900/50 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
-            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+          <div className="bg-orange-900/50 p-4 rounded-lg border border-orange-800">
+            <div className="text-2xl font-bold text-orange-400">
               {formatCurrency(analysis.breakEvenPoint)}
             </div>
-            <div className="text-sm text-orange-800 dark:text-orange-300">Punto Equilibrio</div>
+            <div className="text-sm text-orange-300">Punto Equilibrio</div>
           </div>
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Análisis de Rentabilidad</h3>
+          <h3 className="font-semibold mb-4">Análisis de Rentabilidad</h3>
           <div className="space-y-4">
             {filteredMetrics.map((metric) => (
-              <div key={metric.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <div key={metric.id} className="border border-border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h4 className="font-medium text-gray-900 dark:text-white">{metric.name}</h4>
+                    <h4 className="font-medium">{metric.name}</h4>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-1 rounded-full text-xs capitalize">
+                      <span className="bg-blue-900/50 text-blue-300 px-2 py-1 rounded-full text-xs capitalize">
                         {metric.category}
                       </span>
                       <span className={`px-2 py-1 rounded-full text-xs ${getTrendColor(metric.trend)}`}>
@@ -246,7 +246,7 @@ export const ProfitabilityAnalyzer = () => {
                   </div>
                   <div>
                     <span className="text-muted-foreground">Contribución:</span>
-                    <div className="font-medium text-green-600 dark:text-green-400">
+                    <div className="font-medium text-green-400">
                       {formatCurrency(metric.contribution)}
                     </div>
                   </div>
@@ -266,7 +266,7 @@ export const ProfitabilityAnalyzer = () => {
                       <span className='text-muted-foreground'>Rentabilidad</span>
                       <span>{metric.profitabilityIndex}/100</span>
                     </div>
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div className="w-full bg-gray-700 rounded-full h-2">
                       <div 
                         className={`h-2 rounded-full ${
                           metric.profitabilityIndex >= 70 ? 'bg-green-500' :
@@ -284,15 +284,15 @@ export const ProfitabilityAnalyzer = () => {
 
         <div className="space-y-6">
           {analysis?.bestPerformers && (
-            <div className="bg-green-50 dark:bg-green-900/50 border border-green-200 dark:border-green-800 rounded-lg p-4">
-              <h3 className="font-semibold text-green-900 dark:text-green-200 mb-3">🏆 Mejores Performers</h3>
+            <div className="bg-green-900/50 border border-green-800 rounded-lg p-4">
+              <h3 className="font-semibold text-green-200 mb-3">🏆 Mejores Performers</h3>
               <div className="space-y-3">
                 {analysis.bestPerformers.map((performer) => (
                   <div key={performer.id} className="flex justify-between items-center">
-                    <span className="text-sm text-green-800 dark:text-green-300">{performer.name}</span>
+                    <span className="text-sm text-green-300">{performer.name}</span>
                     <div className="text-right">
-                      <div className="font-bold text-green-600 dark:text-green-400">{performer.profitabilityIndex}</div>
-                      <div className="text-xs text-green-600 dark:text-green-400">Índice</div>
+                      <div className="font-bold text-green-400">{performer.profitabilityIndex}</div>
+                      <div className="text-xs text-green-400">Índice</div>
                     </div>
                   </div>
                 ))}
@@ -301,20 +301,20 @@ export const ProfitabilityAnalyzer = () => {
           )}
 
           {analysis?.improvementOpportunities && (
-            <div className="bg-yellow-50 dark:bg-yellow-900/50 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
-              <h3 className="font-semibold text-yellow-900 dark:text-yellow-200 mb-3">💡 Oportunidades de Mejora</h3>
+            <div className="bg-yellow-900/50 border border-yellow-800 rounded-lg p-4">
+              <h3 className="font-semibold text-yellow-200 mb-3">💡 Oportunidades de Mejora</h3>
               <div className="space-y-3">
                 {analysis.improvementOpportunities.map((opportunity) => (
                   <div key={opportunity.id} className="flex justify-between items-center">
                     <div>
-                      <div className="text-sm text-yellow-800 dark:text-yellow-300">{opportunity.name}</div>
-                      <div className="text-xs text-yellow-600 dark:text-yellow-400">
+                      <div className="text-sm text-yellow-300">{opportunity.name}</div>
+                      <div className="text-xs text-yellow-400">
                         Margen: {opportunity.netMargin}%
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-bold text-yellow-600 dark:text-yellow-400">{opportunity.profitabilityIndex}</div>
-                      <div className="text-xs text-yellow-600 dark:text-yellow-400">Índice</div>
+                      <div className="font-bold text-yellow-400">{opportunity.profitabilityIndex}</div>
+                      <div className="text-xs text-yellow-400">Índice</div>
                     </div>
                   </div>
                 ))}
@@ -323,24 +323,24 @@ export const ProfitabilityAnalyzer = () => {
           )}
 
           {analysis && (
-            <div className="bg-blue-50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-3">📊 Análisis de Sensibilidad</h3>
+            <div className="bg-blue-900/50 border border-blue-800 rounded-lg p-4">
+                <h3 className="font-semibold text-blue-200 mb-3">📊 Análisis de Sensibilidad</h3>
                 <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                    <span className="text-blue-700 dark:text-blue-300">+10% Precio → Utilidad:</span>
-                    <span className="font-medium text-green-600 dark:text-green-400">
+                    <span className="text-blue-300">+10% Precio → Utilidad:</span>
+                    <span className="font-medium text-green-400">
                     +{formatPercentage(0.15)}
                     </span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-blue-700 dark:text-blue-300">-10% Costos → Utilidad:</span>
-                    <span className="font-medium text-green-600 dark:text-green-400">
+                    <span className="text-blue-300">-10% Costos → Utilidad:</span>
+                    <span className="font-medium text-green-400">
                     +{formatPercentage(0.12)}
                     </span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-blue-700 dark:text-blue-300">+15% Volumen → Utilidad:</span>
-                    <span className="font-medium text-green-600 dark:text-green-400">
+                    <span className="text-blue-300">+15% Volumen → Utilidad:</span>
+                    <span className="font-medium text-green-400">
                     +{formatPercentage(0.18)}
                     </span>
                 </div>
@@ -348,9 +348,9 @@ export const ProfitabilityAnalyzer = () => {
             </div>
             )}
 
-          <div className="bg-purple-50 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
-            <h3 className="font-semibold text-purple-900 dark:text-purple-200 mb-3">🎯 Recomendaciones Estratégicas</h3>
-            <ul className="space-y-2 text-sm text-purple-800 dark:text-purple-300">
+          <div className="bg-purple-900/50 border border-purple-800 rounded-lg p-4">
+            <h3 className="font-semibold text-purple-200 mb-3">🎯 Recomendaciones Estratégicas</h3>
+            <ul className="space-y-2 text-sm text-purple-300">
               <li className="flex items-start">
                 <span className="mr-2">•</span>
                 <span>Enfocar recursos en productos con índice > 70</span>

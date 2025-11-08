@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -64,36 +65,36 @@ export const ContinuousAudit = () => {
   
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'verified': return 'bg-green-100 text-green-800';
-      case 'warning': return 'bg-yellow-100 text-yellow-800';
-      case 'error': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'verified': return 'bg-green-900/50 text-green-300';
+      case 'warning': return 'bg-yellow-900/50 text-yellow-300';
+      case 'error': return 'bg-red-900/50 text-red-300';
+      default: return 'bg-gray-700 text-gray-300';
     }
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Auditoría Continua 24/7</h2>
-          <p className="text-gray-600 dark:text-gray-300">Monitoreo y corrección automática de transacciones</p>
+          <h2 className="text-xl font-bold">Auditoría Continua 24/7</h2>
+          <p className="text-muted-foreground">Monitoreo y corrección automática de transacciones</p>
         </div>
         <div className="text-right">
-          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalTransactions.toLocaleString()}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">Transacciones Verificadas</div>
+          <div className="text-2xl font-bold text-blue-400">{totalTransactions.toLocaleString()}</div>
+          <div className="text-sm text-muted-foreground">Transacciones Verificadas</div>
         </div>
       </div>
       
       <div>
-        <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Registro de Auditoría en Vivo</h3>
+        <h3 className="font-semibold mb-4">Registro de Auditoría en Vivo</h3>
         <div className="space-y-3">
           {auditLogs.map((log) => (
-            <div key={log.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+            <div key={log.id} className="border border-border rounded-lg p-3">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{log.timestamp.toLocaleTimeString()}</span>
-                  <span className="font-mono text-xs text-gray-700 dark:text-gray-300">{log.transaction}</span>
-                  <span className="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded-full text-xs">
+                  <span className="text-xs text-muted-foreground">{log.timestamp.toLocaleTimeString()}</span>
+                  <span className="font-mono text-xs text-gray-300">{log.transaction}</span>
+                  <span className="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded-full text-xs">
                     {log.type}
                   </span>
                 </div>
@@ -101,9 +102,9 @@ export const ContinuousAudit = () => {
                   {log.status === 'verified' ? 'Verificado' : log.status === 'warning' ? 'Advertencia' : 'Error'}
                 </span>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{log.details}</p>
+              <p className="text-sm text-gray-400 mt-2">{log.details}</p>
               {log.correctionAction && (
-                <p className="text-xs text-green-600 dark:text-green-400 mt-1">
+                <p className="text-xs text-green-400 mt-1">
                   <strong>Acción:</strong> {log.correctionAction}
                 </p>
               )}

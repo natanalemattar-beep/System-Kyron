@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -73,47 +74,47 @@ export const AIPredictiveShield = () => {
 
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Escudo Predictivo con IA Cuántica</h2>
-          <p className="text-gray-600 dark:text-gray-300">Prevención de riesgos 30 días antes de que ocurran</p>
+          <h2 className="text-xl font-bold">Escudo Predictivo con IA Cuántica</h2>
+          <p className="text-muted-foreground">Prevención de riesgos 30 días antes de que ocurran</p>
         </div>
         <div className="text-right">
-          <div className="text-2xl font-bold text-green-600 dark:text-green-400">{preventionRate}%</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">Tasa de Prevención</div>
+          <div className="text-2xl font-bold text-green-400">{preventionRate}%</div>
+          <div className="text-sm text-muted-foreground">Tasa de Prevención</div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Riesgos Predictivos */}
         <div>
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Riesgos Neutralizados Proactivamente</h3>
+          <h3 className="font-semibold mb-4">Riesgos Neutralizados Proactivamente</h3>
           <div className="space-y-4">
             {predictiveRisks.map((risk) => (
-              <div key={risk.id} className="border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/50 rounded-lg p-4">
+              <div key={risk.id} className="border border-green-800 bg-green-900/50 rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h4 className="font-medium text-green-900 dark:text-green-200">{risk.riskType}</h4>
-                    <p className="text-sm text-green-700 dark:text-green-300 mt-1">{risk.preventionAction}</p>
+                    <h4 className="font-medium text-green-200">{risk.riskType}</h4>
+                    <p className="text-sm text-green-300 mt-1">{risk.preventionAction}</p>
                   </div>
-                  <span className="bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200 px-2 py-1 rounded-full text-xs font-medium">
+                  <span className="bg-green-800 text-green-200 px-2 py-1 rounded-full text-xs font-medium">
                     Prevenido
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-3 text-xs">
                   <div>
-                    <span className="text-green-600 dark:text-green-400">Probabilidad original:</span>
+                    <span className="text-green-400">Probabilidad original:</span>
                     <div className="font-medium">{(risk.probability * 100).toFixed(1)}%</div>
                   </div>
                   <div>
-                    <span className="text-green-600 dark:text-green-400">Impacto potencial:</span>
+                    <span className="text-green-400">Impacto potencial:</span>
                     <div className="font-medium">{(risk.impact * 100).toFixed(0)}%</div>
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center text-xs text-green-600 dark:text-green-400">
+                <div className="flex justify-between items-center text-xs text-green-400">
                   <span>Detectado: {risk.detectionTime.toLocaleDateString()}</span>
                   <span>Confianza: {risk.confidence.toFixed(1)}%</span>
                 </div>
@@ -124,46 +125,46 @@ export const AIPredictiveShield = () => {
 
         {/* Modelos Predictivos */}
         <div>
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Modelos de IA en Tiempo Real</h3>
+          <h3 className="font-semibold mb-4">Modelos de IA en Tiempo Real</h3>
           
           <div className="space-y-4">
-            <div className="border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Análisis Normativo Predictivo</h4>
+            <div className="border border-blue-800 rounded-lg p-4">
+              <h4 className="font-medium mb-2">Análisis Normativo Predictivo</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Precisión:</span>
-                  <span className="font-medium text-green-600 dark:text-green-400">99.7%</span>
+                  <span className="text-muted-foreground">Precisión:</span>
+                  <span className="font-medium text-green-400">99.7%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Horizonte Predictivo:</span>
+                  <span className="text-muted-foreground">Horizonte Predictivo:</span>
                   <span className="font-medium">45 días</span>
                 </div>
               </div>
             </div>
 
-            <div className="border border-purple-200 dark:border-purple-800 rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Detección de Patrones Anómalos</h4>
+            <div className="border border-purple-800 rounded-lg p-4">
+              <h4 className="font-medium mb-2">Detección de Patrones Anómalos</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Sensibilidad:</span>
-                  <span className="font-medium text-green-600 dark:text-green-400">100%</span>
+                  <span className="text-muted-foreground">Sensibilidad:</span>
+                  <span className="font-medium text-green-400">100%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Falsos Positivos:</span>
-                  <span className="font-medium text-green-600 dark:text-green-400">0%</span>
+                  <span className="text-muted-foreground">Falsos Positivos:</span>
+                  <span className="font-medium text-green-400">0%</span>
                 </div>
               </div>
             </div>
 
-            <div className="border border-orange-200 dark:border-orange-800 rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Simulación de Escenarios Futuros</h4>
+            <div className="border border-orange-800 rounded-lg p-4">
+              <h4 className="font-medium mb-2">Simulación de Escenarios Futuros</h4>
               <div className="space-y-2 text-sm">
                  <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Cobertura de Casos:</span>
-                  <span className="font-medium text-green-600 dark:text-green-400">100%</span>
+                  <span className="text-muted-foreground">Cobertura de Casos:</span>
+                  <span className="font-medium text-green-400">100%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Tiempo de Simulación:</span>
+                  <span className="text-muted-foreground">Tiempo de Simulación:</span>
                   <span className="font-medium">2.3ms</span>
                 </div>
               </div>

@@ -7,35 +7,35 @@ import { GrowthStrategies } from '@/components/rentabilidad/growth-strategies';
 
 export default function SustainableProfitabilityDashboard() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-black p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold mb-2">
             💰 Sistema de Sostenibilidad Rentable
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
+          <p className="text-xl text-muted-foreground">
             Estrategias integradas para crecimiento sostenible y rentabilidad a largo plazo
           </p>
         </div>
 
         {/* KPIs Principales */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-green-600 dark:text-green-400">24.8%</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Margen Neto</div>
+          <div className="bg-card/50 backdrop-blur-sm rounded-2xl border p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-green-400">24.8%</div>
+            <div className="text-sm text-muted-foreground font-medium">Margen Neto</div>
           </div>
-          <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">18.5%</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Crecimiento Anual</div>
+          <div className="bg-card/50 backdrop-blur-sm rounded-2xl border p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-blue-400">18.5%</div>
+            <div className="text-sm text-muted-foreground font-medium">Crecimiento Anual</div>
           </div>
-          <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">42%</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">ROI</div>
+          <div className="bg-card/50 backdrop-blur-sm rounded-2xl border p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-purple-400">42%</div>
+            <div className="text-sm text-muted-foreground font-medium">ROI</div>
           </div>
-          <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">85%</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Eficiencia Operativa</div>
+          <div className="bg-card/50 backdrop-blur-sm rounded-2xl border p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-orange-400">85%</div>
+            <div className="text-sm text-muted-foreground font-medium">Eficiencia Operativa</div>
           </div>
         </div>
 

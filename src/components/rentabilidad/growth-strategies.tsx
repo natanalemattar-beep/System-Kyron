@@ -135,28 +135,19 @@ export const GrowthStrategies = () => {
 
   const getImpactColor = (impact: string) => {
     switch (impact) {
-      case 'high': return 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300';
-      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300';
-      case 'low': return 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300';
-      default: return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
+      case 'high': return 'bg-red-900/50 text-red-300';
+      case 'medium': return 'bg-yellow-900/50 text-yellow-300';
+      case 'low': return 'bg-green-900/50 text-green-300';
+      default: return 'bg-gray-700 text-gray-300';
     }
   };
-
-  const getTimelineColor = (timeline: string) => {
-    switch (timeline) {
-      case 'short': return 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300';
-      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300';
-      case 'long': return 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300';
-      default: return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
-    }
-  };
-
+  
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300';
-      case 'in_progress': return 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300';
-      case 'planned': return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
-      default: return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
+      case 'completed': return 'bg-green-900/50 text-green-300';
+      case 'in_progress': return 'bg-blue-900/50 text-blue-300';
+      case 'planned': return 'bg-gray-700 text-gray-300';
+      default: return 'bg-gray-700 text-gray-300';
     }
   };
 
@@ -169,16 +160,16 @@ export const GrowthStrategies = () => {
   const totalROI = ((totalPotentialRevenue - totalImplementationCost) / totalImplementationCost) * 100;
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Estrategias de Crecimiento</h2>
+          <h2 className="text-xl font-bold">Estrategias de Crecimiento</h2>
           <p className="text-muted-foreground">Planes para incrementar rentabilidad y mercado</p>
         </div>
         <select 
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
-          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-lg px-3 py-2 text-sm"
+          className="border-input bg-background rounded-lg px-3 py-2 text-sm"
         >
           <option value="all">Todas</option>
           <option value="upselling">Upselling</option>
@@ -189,35 +180,35 @@ export const GrowthStrategies = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-green-50 dark:bg-green-900/50 p-4 rounded-lg border border-green-200 dark:border-green-800">
-          <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+        <div className="bg-green-900/50 p-4 rounded-lg border border-green-800">
+          <div className="text-2xl font-bold text-green-400">
             {formatCurrency(totalPotentialRevenue)}
           </div>
-          <div className="text-sm text-green-800 dark:text-green-300">Potencial Ingresos</div>
+          <div className="text-sm text-green-300">Potencial Ingresos</div>
         </div>
-        <div className="bg-blue-50 dark:bg-blue-900/50 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        <div className="bg-blue-900/50 p-4 rounded-lg border border-blue-800">
+          <div className="text-2xl font-bold text-blue-400">
             {totalROI.toFixed(0)}%
           </div>
-          <div className="text-sm text-blue-800 dark:text-blue-300">ROI Esperado</div>
+          <div className="text-sm text-blue-300">ROI Esperado</div>
         </div>
-        <div className="bg-purple-50 dark:bg-purple-900/50 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-          <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+        <div className="bg-purple-900/50 p-4 rounded-lg border border-purple-800">
+          <div className="text-2xl font-bold text-purple-400">
             {strategies.filter(s => s.status === 'in_progress').length}
           </div>
-          <div className="text-sm text-purple-800 dark:text-purple-300">En Ejecución</div>
+          <div className="text-sm text-purple-300">En Ejecución</div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Estrategias de Crecimiento</h3>
+          <h3 className="font-semibold mb-4">Estrategias de Crecimiento</h3>
           <div className="space-y-4">
             {filteredStrategies.map((strategy) => (
-              <div key={strategy.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+              <div key={strategy.id} className="border border-border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h4 className="font-medium text-gray-900 dark:text-white">{strategy.name}</h4>
+                    <h4 className="font-medium">{strategy.name}</h4>
                     <p className="text-sm text-muted-foreground mt-1">{strategy.description}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1">
@@ -233,7 +224,7 @@ export const GrowthStrategies = () => {
                 <div className="grid grid-cols-2 gap-4 mb-3 text-sm">
                   <div>
                     <span className="text-muted-foreground">Pot. Ingresos:</span>
-                    <div className="font-medium text-green-600 dark:text-green-400">
+                    <div className="font-medium text-green-400">
                       {formatCurrency(strategy.potentialRevenue)}
                     </div>
                   </div>
@@ -260,7 +251,7 @@ export const GrowthStrategies = () => {
                       Completar
                     </button>
                   )}
-                   <button className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700">
+                   <button className="flex-1 border border-border text-foreground py-2 rounded text-sm hover:bg-accent">
                     Detalles
                   </button>
                 </div>
@@ -271,11 +262,11 @@ export const GrowthStrategies = () => {
 
         <div className="space-y-6">
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Optimización de Precios</h3>
+            <h3 className="font-semibold mb-4">Optimización de Precios</h3>
             <div className="space-y-4">
               {pricingStrategies.map((strategy) => (
-                <div key={strategy.product} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-3">{strategy.product}</h4>
+                <div key={strategy.product} className="border border-border rounded-lg p-4">
+                  <h4 className="font-medium mb-3">{strategy.product}</h4>
                   
                   <div className="grid grid-cols-2 gap-4 mb-3 text-sm">
                     <div>
@@ -284,17 +275,17 @@ export const GrowthStrategies = () => {
                     </div>
                     <div>
                       <span className="text-muted-foreground">Precio Propuesto:</span>
-                      <div className="font-medium text-green-600 dark:text-green-400">{formatCurrency(strategy.proposedPrice)}</div>
+                      <div className="font-medium text-green-400">{formatCurrency(strategy.proposedPrice)}</div>
                     </div>
                     <div>
                       <span className="text-muted-foreground">Cambio Volumen:</span>
-                      <div className={`font-medium ${strategy.expectedVolumeChange < 0 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
+                      <div className={`font-medium ${strategy.expectedVolumeChange < 0 ? 'text-red-400' : 'text-green-400'}`}>
                         {strategy.expectedVolumeChange}%
                       </div>
                     </div>
                     <div>
                       <span className="text-muted-foreground">Impacto Ingresos:</span>
-                      <div className="font-medium text-green-600 dark:text-green-400">
+                      <div className="font-medium text-green-400">
                         +{formatCurrency(strategy.revenueImpact)}
                       </div>
                     </div>

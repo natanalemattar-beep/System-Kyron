@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -73,11 +74,11 @@ export const QuantumVerification = () => {
 
   const getValidationColor = (type: string) => {
     switch (type) {
-      case 'quantum': return 'bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300';
-      case 'blockchain': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300';
-      case 'biometric': return 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300';
-      case 'ai': return 'bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+      case 'quantum': return 'bg-purple-900/50 text-purple-300';
+      case 'blockchain': return 'bg-blue-900/50 text-blue-300';
+      case 'biometric': return 'bg-green-900/50 text-green-300';
+      case 'ai': return 'bg-orange-900/50 text-orange-300';
+      default: return 'bg-gray-700 text-gray-300';
     }
   };
   
@@ -92,33 +93,33 @@ export const QuantumVerification = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Verificación Cuántica & Blockchain</h2>
-          <p className="text-gray-600 dark:text-gray-300">Garantía absoluta de integridad</p>
+          <h2 className="text-xl font-bold">Verificación Cuántica & Blockchain</h2>
+          <p className="text-muted-foreground">Garantía absoluta de integridad</p>
         </div>
         <div className="flex items-center gap-2">
           <div className={`w-3 h-3 rounded-full ${
             quantumStatus === 'optimal' ? 'bg-green-500' : 'bg-yellow-500'
           }`}></div>
-          <span className="text-sm text-gray-600 dark:text-gray-400">
+          <span className="text-sm text-muted-foreground">
             {quantumStatus === 'optimal' ? 'Óptimo' : 'Calibrando'}
           </span>
         </div>
       </div>
       
       <div>
-        <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Validaciones en Tiempo Real</h3>
+        <h3 className="font-semibold mb-4">Validaciones en Tiempo Real</h3>
         <div className="space-y-3">
           {validations.map((validation) => (
-            <div key={validation.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+            <div key={validation.id} className="border border-border rounded-lg p-4">
                <div className="flex justify-between items-start mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{getValidationIcon(validation.validationType)}</span>
                     <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">{validation.process}</h4>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <h4 className="font-medium">{validation.process}</h4>
+                      <p className="text-xs text-muted-foreground">
                         {validation.timestamp.toLocaleTimeString()}
                       </p>
                     </div>
@@ -129,20 +130,20 @@ export const QuantumVerification = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-xs mt-2">
                   <div>
-                    <span className="text-gray-500 dark:text-gray-400">Confianza:</span>
-                    <div className="font-medium text-green-600 dark:text-green-400">
+                    <span className="text-muted-foreground">Confianza:</span>
+                    <div className="font-medium text-green-400">
                       {validation.confidence.toFixed(4)}%
                     </div>
                   </div>
                    <div>
-                    <span className="text-gray-500 dark:text-gray-400">Capas:</span>
+                    <span className="text-muted-foreground">Capas:</span>
                     <div className="font-medium">{validation.verificationLayers}</div>
                   </div>
                 </div>
                  {validation.hash && (
                   <div className="mt-2">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">Hash:</span>
-                    <div className="text-xs font-mono text-gray-600 dark:text-gray-300 truncate">
+                    <span className="text-xs text-muted-foreground">Hash:</span>
+                    <div className="text-xs font-mono text-gray-300 truncate">
                       {validation.hash}
                     </div>
                   </div>

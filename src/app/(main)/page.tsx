@@ -3,7 +3,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -391,8 +390,8 @@ export default function LandingPage() {
                     {testimonials.map((testimonial, index) => {
                       const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
                       return (
-                        <Card key={index} className="p-6 md:p-8 shadow-sm border bg-card">
-                            <CardContent className="p-0">
+                        <div key={index} className="p-6 md:p-8 shadow-sm border bg-card rounded-xl">
+                            <div className="p-0">
                                 <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
                                 <div className="flex items-center gap-4">
                                   {avatar && (
@@ -406,8 +405,8 @@ export default function LandingPage() {
                                         <p className="text-sm text-muted-foreground">{testimonial.company}</p>
                                     </div>
                                 </div>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
                       )
                     })}
                 </div>

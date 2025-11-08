@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -45,10 +46,10 @@ export const FiscalAlerts = () => {
 
   const getAlertColor = (type: string) => {
     switch (type) {
-      case 'critical': return 'bg-red-100 border-red-500 text-red-800';
-      case 'warning': return 'bg-yellow-100 border-yellow-500 text-yellow-800';
-      case 'info': return 'bg-blue-100 border-blue-500 text-blue-800';
-      default: return 'bg-gray-100';
+      case 'critical': return 'bg-red-900/50 border-red-500 text-red-200';
+      case 'warning': return 'bg-yellow-900/50 border-yellow-500 text-yellow-200';
+      case 'info': return 'bg-blue-900/50 border-blue-500 text-blue-200';
+      default: return 'bg-gray-700';
     }
   };
   
