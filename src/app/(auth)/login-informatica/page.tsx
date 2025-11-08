@@ -18,7 +18,7 @@ export default function LoginInformaticaPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/seguridad');
+    router.push('/dashboard-informatica');
   };
 
   return (

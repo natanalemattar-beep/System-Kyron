@@ -259,6 +259,7 @@ const sociosNavGroups = [
 ];
 
 const informaticaNavGroups = [
+  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ] },
   { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
   { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
   { title: "Arquitectura", icon: Puzzle, items: [ 
@@ -393,7 +394,7 @@ export function AppSidebar() {
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
-  const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
+  const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || path.startsWith('/dashboard-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
 
 
   if (isHrPath(pathname)) {
@@ -809,17 +810,6 @@ function AppSidebarSocios() {
 function AppSidebarInformatica() {
     const pathname = usePathname();
     const { state } = useSidebar();
-
-    const allInformaticaGroups = [
-      { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
-      { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
-      { title: "Arquitectura", icon: Puzzle, items: [ 
-        { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
-        { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
-        { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Rocket },
-      ]},
-      { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
-    ];
     
     return (
         <Sidebar variant="floating">
@@ -835,8 +825,8 @@ function AppSidebarInformatica() {
             </div>
         </SidebarHeader>
         <SidebarContent className="p-2">
-            <Accordion type="multiple" className="w-full" defaultValue={['Seguridad', 'Soluciones IA', 'Arquitectura', 'Ingeniería y Proyectos']}>
-                {allInformaticaGroups.map((group) => (
+            <Accordion type="multiple" className="w-full" defaultValue={['Dashboard','Seguridad', 'Soluciones IA', 'Arquitectura', 'Ingeniería y Proyectos']}>
+                {informaticaNavGroups.map((group) => (
                 <AccordionItem value={group.title} key={group.title} className="border-none">
                     <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
                     <div className="flex items-center gap-2">
