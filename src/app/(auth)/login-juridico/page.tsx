@@ -12,24 +12,38 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/logo";
 import { useRouter } from "next/navigation";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { countries } from "@/lib/countries";
+
+const taxIdByCountry: Record<string, { label: string, placeholder: string }> = {
+    "VEN": { label: "RIF Empresarial", placeholder: "J-12345678-9" },
+    "USA": { label: "Employer Identification Number (EIN)", placeholder: "12-3456789" },
+    "ESP": { label: "Número de Identificación Fiscal (NIF)", placeholder: "A12345678" },
+    "MEX": { label: "Registro Federal de Contribuyentes (RFC)", placeholder: "ABC123456XYZ" },
+    "COL": { label: "Número de Identificación Tributaria (NIT)", placeholder: "123.456.789-0" },
+    "ARG": { label: "Clave Única de Identificación Tributaria (CUIT)", placeholder: "20-12345678-9" },
+    "BRA": { label: "Cadastro Nacional da Pessoa Jurídica (CNPJ)", placeholder: "12.345.678/0001-90" },
+    "CHL": { label: "Rol Único Tributario (RUT)", placeholder: "76.123.456-K" },
+    "DEU": { label: "Steuernummer / USt-IdNr.", placeholder: "DE123456789" },
+    "FRA": { label: "Numéro de TVA / SIREN", placeholder: "FR12345678901" },
+    "ITA": { label: "Partita IVA", placeholder: "IT12345678901" },
+    "NLD": { label: "BTW-nummer / KvK-nummer", placeholder: "NL123456789B01" },
+    "CHN": { label: "Unified Social Credit Code", placeholder: "91310000123456789A" },
+    "ARE": { label: "Tax Registration Number (TRN)", placeholder: "100123456700003" },
+};
 
 export default function LoginJuridicoPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [rif, setRif] = useState("");
+  const [country, setCountry] = useState("VEN");
+  const [taxIdValue, setTaxIdValue] = useState("");
   const router = useRouter();
-
-  const handleRifChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.toUpperCase();
-    if (value.length === 1 && !["J", "G", "V", "E"].includes(value)) {
-        value = "J-" + value;
-    }
-    setRif(value);
-  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     router.push('/dashboard-juridico');
   };
+  
+  const currentTaxId = taxIdByCountry[country] || { label: "Identificación Fiscal", placeholder: "" };
 
   return (
     <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-background">
@@ -73,6 +87,9 @@ export default function LoginJuridicoPage() {
                     <DropdownMenuItem asChild>
                         <Link href="/login-marketing">Productos, Asesoría y Marketing</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login-informatica">Informática y Tecnología</Link>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
@@ -85,13 +102,24 @@ export default function LoginJuridicoPage() {
                 <Building className="h-8 w-8 text-primary"/>
             </div>
             <CardTitle className="text-2xl">Acceso Administrativo</CardTitle>
-            <CardDescription>Inicia sesión con tu RIF empresarial y usuario.</CardDescription>
+            <CardDescription>Inicia sesión con la identificación fiscal de tu empresa.</CardDescription>
           </CardHeader>
           <form onSubmit={handleLogin}>
             <CardContent className="p-6 space-y-6">
+               <div className="space-y-2">
+                  <Label>País</Label>
+                  <Select value={country} onValueChange={setCountry}>
+                      <SelectTrigger>
+                          <SelectValue placeholder="Seleccionar país..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                          {countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}
+                      </SelectContent>
+                  </Select>
+              </div>
               <div className="space-y-2">
-                <Label>RIF Empresarial</Label>
-                <Input type="text" placeholder="J-12345678-9" value={rif} onChange={handleRifChange} required />
+                <Label>{currentTaxId.label}</Label>
+                <Input type="text" placeholder={currentTaxId.placeholder} value={taxIdValue} onChange={(e) => setTaxIdValue(e.target.value)} required />
               </div>
                <div className="space-y-2">
                 <Label>Usuario</Label>

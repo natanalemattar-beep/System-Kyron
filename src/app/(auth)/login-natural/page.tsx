@@ -11,9 +11,33 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/logo";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { countries } from "@/lib/countries";
+
+const idByCountry: Record<string, { label: string, placeholder: string }> = {
+    "VEN": { label: "Cédula de Identidad", placeholder: "V-12345678" },
+    "USA": { label: "Email / Username", placeholder: "user@email.com" },
+    "ESP": { label: "DNI / NIE", placeholder: "12345678A" },
+    "COL": { label: "Cédula de Ciudadanía", placeholder: "1234567890" },
+    "ARG": { label: "Documento Nacional de Identidad (DNI)", placeholder: "12.345.678" },
+    "MEX": { label: "Clave Única de Registro de Población (CURP)", placeholder: "ABCD123456HOMBRE12" },
+    "CHL": { label: "Rol Único Nacional (RUN)", placeholder: "12.345.678-K" },
+    "BRA": { label: "Cadastro de Pessoas Físicas (CPF)", placeholder: "123.456.789-00" },
+    "DEU": { label: "Personalausweisnummer", placeholder: "L01X00T29" },
+    "FRA": { label: "Numéro de Carte Nationale d'Identité", placeholder: "123456789012" },
+    "ITA": { label: "Codice Fiscale", placeholder: "ABCDEF12G34H567I" },
+    "NLD": { label: "Burgerservicenummer (BSN)", placeholder: "123456789" },
+    "CHN": { label: "Resident Identity Card Number", placeholder: "110101199003071234" },
+    "ARE": { label: "Emirates ID Number", placeholder: "784-1980-1234567-1" },
+    "CAN": { label: "Social Insurance Number (SIN)", placeholder: "123-456-789" },
+};
 
 export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [country, setCountry] = useState("VEN");
+  const [idValue, setIdValue] = useState("");
+
+  const currentId = idByCountry[country] || { label: "Identificación Personal", placeholder: "" };
 
   return (
     <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-background">
@@ -57,6 +81,9 @@ export default function LoginNaturalPage() {
                     <DropdownMenuItem asChild>
                         <Link href="/login-marketing">Productos, Asesoría y Marketing</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login-informatica">Informática y Tecnología</Link>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
@@ -69,12 +96,23 @@ export default function LoginNaturalPage() {
               <User className="h-8 w-8 text-primary"/>
             </div>
             <CardTitle className="text-2xl">Acceso Personal</CardTitle>
-            <CardDescription>Inicia sesión con tu Cédula de Identidad.</CardDescription>
+            <CardDescription>Inicia sesión con tu documento de identidad.</CardDescription>
           </CardHeader>
           <CardContent className="p-6 space-y-6">
+             <div className="space-y-2">
+                <Label>País</Label>
+                <Select value={country} onValueChange={setCountry}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar país..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}
+                    </SelectContent>
+                </Select>
+            </div>
             <div className="space-y-2">
-              <Label>Cédula de Identidad</Label>
-              <Input type="text" placeholder="V-12345678"/>
+              <Label>{currentId.label}</Label>
+              <Input type="text" placeholder={currentId.placeholder} value={idValue} onChange={(e) => setIdValue(e.target.value)} />
             </div>
             <div className="space-y-2 relative">
               <Label>Contraseña</Label>

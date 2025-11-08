@@ -56,6 +56,9 @@ export default function LoginMarketingPage() {
                      <DropdownMenuItem asChild>
                         <Link href="/login-marketing">Productos, Asesoría y Marketing</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/login-informatica">Informática y Tecnología</Link>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

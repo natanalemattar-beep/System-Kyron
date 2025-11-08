@@ -9,7 +9,8 @@ import {
   EyeOff,
   ShieldCheck,
   Briefcase,
-  Users
+  Users,
+  Cpu
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -58,6 +59,7 @@ export default function RegisterPage() {
                         <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Acceso Jurídico</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
                          <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
+                         <DropdownMenuItem asChild><Link href="/login-informatica"><Cpu className="mr-2"/>Acceso Informática</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
                 </div>
@@ -117,6 +119,7 @@ export default function RegisterPage() {
                 <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Admin y Finanzas</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-informatica"><Cpu className="mr-2"/>Acceso Informática</Link></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
