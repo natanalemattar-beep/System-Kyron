@@ -209,6 +209,12 @@ const corporativoMenuItems = [
     { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
 ];
 
+const ingenieriaMenuItems = [
+    { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
+    { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
+    { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
+];
+
 const generalMenuItems = [
   { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
@@ -249,19 +255,6 @@ const sociosNavGroups = [
         { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/organigrama", label: "Organigrama", icon: Sitemap },
     ] },
-];
-
-const juridicoNavGroups = [
-    { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
-    { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
-    { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-    { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
-    { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
-    { title: "General", icon: Cog, items: generalMenuItems },
-];
-
-const ventasNavGroups = [
-    { title: "Ventas y Caja", icon: ShoppingCart, items: ventasMenuItems },
 ];
 
 const informaticaNavGroups = [
@@ -418,6 +411,7 @@ export function AppSidebar() {
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
     { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
     { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
+    { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
   ]
@@ -437,7 +431,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General', 'Operaciones Internacionales']}>
+          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General', 'Ingeniería y Proyectos']}>
             {allJuridicoGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">

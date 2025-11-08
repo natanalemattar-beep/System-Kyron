@@ -61,9 +61,6 @@ const quickAccessModules = [
   { href: "/libro-compra-venta", label: "Libro Compra/Venta", icon: Landmark },
   { href: "/nominas", label: "Gestión de Nómina", icon: Users },
   { href: "/permisos", label: "Control de Permisos", icon: ShieldAlert },
-  { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
-  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
-  { href: "/importaciones", label: "Proveedores", icon: Ship },
 ];
 
 export function JuridicoDashboard() {
@@ -157,34 +154,29 @@ export function JuridicoDashboard() {
                         </ul>
                     </CardContent>
                 </Card>
-                <Card className="bg-card/80 backdrop-blur-sm">
+                 <Card className="lg:col-span-1 bg-card/80 backdrop-blur-sm">
                     <CardHeader>
-                        <CardTitle>Acciones Rápidas</CardTitle>
+                        <CardTitle>Centro de Mando de Ingeniería</CardTitle>
+                         <CardDescription>Planificación y documentación técnica.</CardDescription>
                     </CardHeader>
-                     <CardContent className="grid grid-cols-2 gap-4">
-                        <Button asChild variant="outline" className="h-20 flex-col gap-1">
-                          <Link href="/libros-contables">
-                            <BookOpen className="h-6 w-6"/>
-                            <span className="text-xs">Registrar Asiento</span>
+                     <CardContent className="space-y-4">
+                        <Button asChild variant="outline" className="w-full justify-start h-14 text-base">
+                          <Link href="/ingenieria-ia">
+                            <Cpu className="mr-3 h-5 w-5"/>
+                            Generación de Planos con IA
                           </Link>
                         </Button>
-                         <Button asChild variant="outline" className="h-20 flex-col gap-1">
-                          <Link href="/facturacion">
-                            <FilePlus className="h-6 w-6"/>
-                            <span className="text-xs">Nueva Factura</span>
-                           </Link>
+                         <Button asChild variant="outline" className="w-full justify-start h-14 text-base">
+                          <Link href="/analisis-suelo-foto">
+                            <Search className="mr-3 h-5 w-5"/>
+                            Análisis de Suelos
+                          </Link>
                         </Button>
-                         <Button asChild variant="outline" className="h-20 flex-col gap-1">
-                          <Link href="/nominas">
-                            <Calculator className="h-6 w-6"/>
-                            <span className="text-xs">Calcular Nómina</span>
-                           </Link>
-                        </Button>
-                        <Button asChild variant="outline" className="h-20 flex-col gap-1">
-                           <Link href="/declaracion-iva">
-                            <Percent className="h-6 w-6"/>
-                            <span className="text-xs">Declarar IVA</span>
-                           </Link>
+                         <Button asChild variant="outline" className="w-full justify-start h-14 text-base">
+                          <Link href="/carta-aval-ingenieria">
+                            <Gavel className="mr-3 h-5 w-5"/>
+                            Permisología y Avales
+                          </Link>
                         </Button>
                     </CardContent>
                 </Card>
