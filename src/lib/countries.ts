@@ -4,20 +4,20 @@ export const countries = [
     { name: "United States", code: "USA", flag: "https://flagcdn.com/w320/us.png", taxInfo: "Sales Tax (Variable)" },
     { name: "Canada", code: "CAN", flag: "https://flagcdn.com/w320/ca.png", taxInfo: "GST/HST/PST" },
     // Latin America
-    { name: "Mexico", code: "MEX", flag: "https://flagcdn.com/w320/mx.png", taxInfo: "IVA, ISR" },
-    { name: "Brazil", code: "BRA", flag: "https://flagcdn.com/w320/br.png", taxInfo: "ICMS, IPI, PIS/COFINS" },
+    { name: "México", code: "MEX", flag: "https://flagcdn.com/w320/mx.png", taxInfo: "IVA, ISR" },
+    { name: "Brasil", code: "BRA", flag: "https://flagcdn.com/w320/br.png", taxInfo: "ICMS, IPI, PIS/COFINS" },
     { name: "Argentina", code: "ARG", flag: "https://flagcdn.com/w320/ar.png", taxInfo: "IVA, IIBB, Ganancias" },
     { name: "Colombia", code: "COL", flag: "https://flagcdn.com/w320/co.png", taxInfo: "IVA, Retefuente" },
     { name: "Chile", code: "CHL", flag: "https://flagcdn.com/w320/cl.png", taxInfo: "IVA (DTE)" },
     // Europe
-    { name: "Spain", code: "ESP", flag: "https://flagcdn.com/w320/es.png", taxInfo: "IVA, IRPF" },
-    { name: "Germany", code: "DEU", flag: "https://flagcdn.com/w320/de.png", taxInfo: "Umsatzsteuer (VAT)" },
+    { name: "España", code: "ESP", flag: "https://flagcdn.com/w320/es.png", taxInfo: "IVA, IRPF" },
+    { name: "Deutschland", code: "DEU", flag: "https://flagcdn.com/w320/de.png", taxInfo: "Umsatzsteuer (VAT)" },
     { name: "France", code: "FRA", flag: "https://flagcdn.com/w320/fr.png", taxInfo: "TVA" },
-    { name: "Italy", code: "ITA", flag: "https://flagcdn.com/w320/it.png", taxInfo: "IVA (Fattura Elettronica)" },
-    { name: "Netherlands", code: "NLD", flag: "https://flagcdn.com/w320/nl.png", taxInfo: "BTW" },
+    { name: "Italia", code: "ITA", flag: "https://flagcdn.com/w320/it.png", taxInfo: "IVA (Fattura Elettronica)" },
+    { name: "Nederland", code: "NLD", flag: "https://flagcdn.com/w320/nl.png", taxInfo: "BTW" },
     // Asia & Middle East
-    { name: "China", code: "CHN", flag: "https://flagcdn.com/w320/cn.png", taxInfo: "VAT (Fapiao System)" },
-    { name: "UAE", code: "ARE", flag: "https://flagcdn.com/w320/ae.png", taxInfo: "VAT (e-Invoicing)" },
+    { name: "中国 (China)", code: "CHN", flag: "https://flagcdn.com/w320/cn.png", taxInfo: "VAT (Fapiao System)" },
+    { name: "الإمارات (UAE)", code: "ARE", flag: "https://flagcdn.com/w320/ae.png", taxInfo: "VAT (e-Invoicing)" },
 ];
 
 type CountryModule = {
@@ -29,13 +29,13 @@ type CountryModule = {
 export const countryModules: Record<string, CountryModule> = {
     "USA": {
         currency: "USD",
-        tax_rates: { "Sales Tax": "Variable por estado" },
-        legal_requirements: { "Campos Obligatorios": ["EIN (si aplica)", "Dirección de facturación"], "W-9/W-8BEN": "Requerido para proveedores" }
+        tax_rates: { "Sales Tax": "Variable by state" },
+        legal_requirements: { "Required Fields": ["EIN (if applicable)", "Billing Address"], "W-9/W-8BEN Form": "Required for vendors" }
     },
     "CAN": {
         currency: "CAD",
-        tax_rates: { "GST/HST/PST": "Variable por provincia" },
-        legal_requirements: { "Campos Obligatorios": ["Business Number (BN)", "Número de GST/HST"] }
+        tax_rates: { "GST/HST/PST": "Variable by province" },
+        legal_requirements: { "Required Fields": ["Business Number (BN)", "GST/HST Number"] }
     },
     "MEX": {
         currency: "MXN",
@@ -44,23 +44,23 @@ export const countryModules: Record<string, CountryModule> = {
     },
     "COL": {
         currency: "COP",
-        tax_rates: { "IVA": "19% (General)", "Retefuente": "variable" },
+        tax_rates: { "IVA": "19% (General)", "Retefuente": "Variable" },
         legal_requirements: { "Campos Obligatorios": ["NIT", "CUFE", "Resolución DIAN"], "Facturación Electrónica": true }
     },
     "BRA": {
         currency: "BRL",
-        tax_rates: { "ICMS": "Variable", "IPI": "Variable", "PIS/COFINS": "Variable" },
-        legal_requirements: { "Campos Obligatorios": ["CNPJ/CPF", "Nota Fiscal Eletrônica (NF-e)"], "CFOP (Código Fiscal)": true }
+        tax_rates: { "ICMS": "Variável", "IPI": "Variável", "PIS/COFINS": "Variável" },
+        legal_requirements: { "Campos Obrigatórios": ["CNPJ/CPF", "Nota Fiscal Eletrônica (NF-e)"], "CFOP (Código Fiscal)": true }
     },
     "ARG": {
         currency: "ARS",
-        tax_rates: { "IVA": "21%", "IIBB": "Variable", "GANANCIAS": "Variable" },
-        legal_requirements: { "Campos Obligatorios": ["CUIT", "Condición IVA", "CAE"], "Series de Factura": ["A", "B", "C"], "Firma Digital": true }
+        tax_rates: { "IVA": "21%", "IIBB": "Variable", "Ganancias": "Variable" },
+        legal_requirements: { "Campos Obligatorios": ["CUIT", "Condición frente al IVA", "CAE"], "Tipos de Factura": ["A", "B", "C"], "Firma Digital": true }
     },
     "CHL": {
         currency: "CLP",
         tax_rates: { "IVA": "19%" },
-        legal_requirements: { "Campos Obligatorios": ["RUT", "Folio Sii"], "Documento Electrónico (DTE)": true, "Boleta Electrónica": true }
+        legal_requirements: { "Campos Obligatorios": ["RUT", "Folio Sii"], "Documento Tributario Electrónico (DTE)": true, "Boleta Electrónica": true }
     },
     "ESP": {
         currency: "EUR",
@@ -69,32 +69,32 @@ export const countryModules: Record<string, CountryModule> = {
     },
     "DEU": {
         currency: "EUR",
-        tax_rates: { "Umsatzsteuer (VAT)": "19% (General), 7% (Reducido)" },
-        legal_requirements: { "Campos Obligatorios": ["Steuernummer/USt-IdNr."], "GoBD Compliant": true }
+        tax_rates: { "Umsatzsteuer (VAT)": "19% (Standard), 7% (Reduced)" },
+        legal_requirements: { "Pflichtfelder": ["Steuernummer/USt-IdNr."], "GoBD-Konformität": true }
     },
     "FRA": {
         currency: "EUR",
-        tax_rates: { "TVA": "20% (General), 10%, 5.5%, 2.1%" },
-        legal_requirements: { "Campos Obligatorios": ["Numéro de TVA", "SIREN/SIRET"], "Chorus Pro (B2G)": true }
+        tax_rates: { "TVA": "20% (Standard), 10%, 5.5%, 2.1%" },
+        legal_requirements: { "Champs Obligatoires": ["Numéro de TVA", "SIREN/SIRET"], "Chorus Pro (B2G)": true }
     },
     "ITA": {
         currency: "EUR",
         tax_rates: { "IVA": "22% (Ordinaria), 10%, 5%, 4%" },
-        legal_requirements: { "Campos Obligatorios": ["Partita IVA/Codice Fiscale"], "Fattura Elettronica (SdI)": true }
+        legal_requirements: { "Campi Obbligatori": ["Partita IVA/Codice Fiscale"], "Fattura Elettronica (SdI)": true }
     },
     "NLD": {
         currency: "EUR",
-        tax_rates: { "BTW": "21% (Standard), 9% (Reduced), 0% (Zero)" },
-        legal_requirements: { "Campos Obligatorios": ["BTW-nummer", "KvK-nummer"] }
+        tax_rates: { "BTW": "21% (Standaard), 9% (Verlaagd), 0% (Nul)" },
+        legal_requirements: { "Verplichte Velden": ["BTW-nummer", "KvK-nummer"] }
     },
     "CHN": {
         currency: "CNY",
-        tax_rates: { "VAT": "13% (General), 9%, 6%" },
-        legal_requirements: { "Fapiao System": true, "Golden Tax System Integration": true }
+        tax_rates: { "增值税 (VAT)": "13% (标准), 9%, 6%" },
+        legal_requirements: { "发票系统 (Fapiao System)": true, "金税三期集成 (Golden Tax System)": true }
     },
     "ARE": {
         currency: "AED",
-        tax_rates: { "VAT": "5%" },
-        legal_requirements: { "TRN (Tax Registration Number)": true, "e-Invoicing (Peppol)": "Obligatorio desde 2026" }
+        tax_rates: { "ضريبة القيمة المضافة (VAT)": "5%" },
+        legal_requirements: { "رقم التسجيل الضريبي (TRN)": true, "الفواتير الإلكترونية (Peppol)": "إلزامي اعتبارًا من 2026" }
     },
 };
