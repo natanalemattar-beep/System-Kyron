@@ -6,27 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Globe, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-const countries = [
-    // North America
-    { name: "United States", flag: "https://flagcdn.com/w320/us.png", taxInfo: "Sales Tax (Variable)", href: "/facturacion-internacional" },
-    { name: "Canada", flag: "https://flagcdn.com/w320/ca.png", taxInfo: "GST/HST/PST", href: "/facturacion-internacional" },
-    // Latin America
-    { name: "Mexico", flag: "https://flagcdn.com/w320/mx.png", taxInfo: "IVA, ISR", href: "/facturacion-internacional" },
-    { name: "Brazil", flag: "https://flagcdn.com/w320/br.png", taxInfo: "ICMS, IPI, PIS/COFINS", href: "/facturacion-internacional" },
-    { name: "Argentina", flag: "https://flagcdn.com/w320/ar.png", taxInfo: "IVA, IIBB, Ganancias", href: "/facturacion-internacional" },
-    { name: "Colombia", flag: "https://flagcdn.com/w320/co.png", taxInfo: "IVA, Retefuente", href: "/facturacion-internacional" },
-    { name: "Chile", flag: "https://flagcdn.com/w320/cl.png", taxInfo: "IVA (DTE)", href: "/facturacion-internacional" },
-    // Europe
-    { name: "Spain", flag: "https://flagcdn.com/w320/es.png", taxInfo: "IVA, IRPF", href: "/facturacion-internacional" },
-    { name: "Germany", flag: "https://flagcdn.com/w320/de.png", taxInfo: "Umsatzsteuer (VAT)", href: "/facturacion-internacional" },
-    { name: "France", flag: "https://flagcdn.com/w320/fr.png", taxInfo: "TVA", href: "/facturacion-internacional" },
-    { name: "Italy", flag: "https://flagcdn.com/w320/it.png", taxInfo: "IVA (Fattura Elettronica)", href: "/facturacion-internacional" },
-    { name: "Netherlands", flag: "https://flagcdn.com/w320/nl.png", taxInfo: "BTW", href: "/facturacion-internacional" },
-    // Asia & Middle East
-    { name: "China", flag: "https://flagcdn.com/w320/cn.png", taxInfo: "VAT (Fapiao System)", href: "/facturacion-internacional" },
-    { name: "UAE", flag: "https://flagcdn.com/w320/ae.png", taxInfo: "VAT (e-Invoicing)", href: "/facturacion-internacional" },
-];
+import { countries } from "@/lib/countries";
 
 export default function GestionGlobalPage() {
     return (
@@ -52,7 +32,7 @@ export default function GestionGlobalPage() {
                         </CardHeader>
                         <CardFooter className="mt-auto">
                             <Button asChild className="w-full">
-                                <Link href={country.href}>
+                                <Link href={`/facturacion-internacional?pais=${country.code}`}>
                                     Acceder al Módulo <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
                             </Button>
