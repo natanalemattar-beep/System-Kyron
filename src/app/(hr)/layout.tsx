@@ -2,29 +2,16 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useState, useEffect } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { Button } from "@/components/ui/button";
-import { Bell, LogOut, Settings, User, Loader2 } from "lucide-react";
+import { Bell, LogOut, Settings, User } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
-
 
 export default function HrLayout({ children }: { children: ReactNode }) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -64,17 +51,11 @@ export default function HrLayout({ children }: { children: ReactNode }) {
              </div>
           </header>
           <main className="flex-1 p-4 md:p-8">
-             {loading ? (
-                <div className="flex items-center justify-center h-[calc(100vh-200px)]">
-                    <Loader2 className="h-12 w-12 animate-spin text-primary" />
+            <div className="w-full">
+                <div className="animate-in fade-in-50 slide-in-from-bottom-8 duration-700">
+                    {children}
                 </div>
-            ) : (
-                <div className="w-full">
-                    <div className="animate-in fade-in-50 slide-in-from-bottom-8 duration-700">
-                        {children}
-                    </div>
-                </div>
-            )}
+            </div>
           </main>
         </SidebarInset>
       </div>
