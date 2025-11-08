@@ -101,6 +101,8 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   useSidebar,
+  SidebarGroup,
+  SidebarGroupLabel
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -261,7 +263,8 @@ const informaticaNavGroups = [
   { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
   { title: "Arquitectura", icon: Puzzle, items: [ 
       { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
-      { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 }
+      { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
+      { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Rocket },
   ]},
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
 ];
@@ -525,37 +528,31 @@ function AppSidebarNatural() {
         </div>
       </SidebarHeader>
        <SidebarContent className="p-2">
-          <Accordion type="multiple" className="w-full">
-            {naturalNavGroups.map((group) => (
-              <AccordionItem value={group.title} key={group.title} className="border-none">
-                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
-                   <div className="flex items-center gap-2">
-                      <group.icon className="h-4 w-4" />
-                      {state === 'expanded' && <span>{group.title}</span>}
-                    </div>
-                </AccordionTrigger>
-                <AccordionContent className="pb-0">
-                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
-                    {group.items.map((item) => (
-                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
-                        <SidebarMenuButton
-                          asChild
-                          isActive={isActive(item.href)}
-                          tooltip={item.label}
-                          className="justify-start h-8"
-                        >
-                          <Link href={item.href}>
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.label}</span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-        </Accordion>
+         {naturalNavGroups.map((group) => (
+            <SidebarGroup key={group.title}>
+              <SidebarGroupLabel className="flex items-center gap-2">
+                <group.icon className="h-4 w-4" />
+                {group.title}
+              </SidebarGroupLabel>
+              <SidebarMenu>
+                {group.items.map((item) => (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive(item.href)}
+                      tooltip={item.label}
+                      className="justify-start h-9"
+                    >
+                      <Link href={item.href}>
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroup>
+          ))}
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
@@ -890,3 +887,5 @@ function AppSidebarInformatica() {
         </Sidebar>
     );
 }
+
+    
