@@ -282,11 +282,10 @@ const sociosNavGroups = [
     ] },
 ];
 
-
 const juridicoNavGroups = [
     { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
-    { title: "Gestión de Ventas", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+    { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
     { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
@@ -451,7 +450,7 @@ export function AppSidebar() {
   const allJuridicoGroups = [
     { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
-    { title: "Gestión de Ventas", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+    { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
     { title: "Análisis y Estrategia", icon: TrendingUp, items: analisisCrecimientoMenuItems },
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
@@ -472,7 +471,7 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-          <Accordion type="multiple" className="w-full">
+          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General']}>
             {allJuridicoGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
