@@ -87,7 +87,8 @@ import {
   DollarSign as DollarSignIcon,
   CandlestickChart,
   Swords,
-  Search
+  Search,
+  HardHat
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -119,6 +120,7 @@ const juridicoMainMenuItems = [
   { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
   { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
+  { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
 ];
 
 const finanzasContabilidadMenuItems = [
@@ -171,7 +173,6 @@ const analisisCrecimientoMenuItems = [
     { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
     { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
     { href: "/ingenieria-ia", label: "Ingeniería y Planos con IA", icon: Cpu },
-    { href: "/demografia", label: "Análisis Demográfico", icon: Users },
 ];
 
 const facturacionGeneralMenuItems = [
