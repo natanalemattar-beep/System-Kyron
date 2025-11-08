@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -306,18 +306,29 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Featured Logos */}
-        <section className="py-12 bg-secondary/30">
+        {/* Impact Section */}
+        <section className="py-20 bg-secondary/30">
           <div className="container px-4 md:px-6">
-            <h3 className="text-center text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-8">
-              CON LA CONFIANZA DE EMPRESAS LÍDERES EN VENEZUELA
-            </h3>
-            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 md:gap-x-12">
-               <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26.46,14a13.4,13.4,0,0,1-4,9.45,13.4,13.4,0,0,1-9.45,4,13.4,13.4,0,0,1-9.45-4,13.4,13.4,0,0,1-4-9.45,13.4,13.4,0,0,1,4-9.45,13.4,13.4,0,0,1,9.45-4,13.4,13.4,0,0,1,9.45,4,13.4,13.4,0,0,1,4,9.45Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-              <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10,13V4a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V27a1,1,0,0,1-1,1H11a1,1,0,0,1-1-1V17h4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-              <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2,10,15,2,28,10V22L15,30,2,22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-              <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.11,25.56,21.36,24l5.29-5.29a1,1,0,0,0,0-1.42l-2.12-2.12a1,1,0,0,0-1.42,0L17.82,21l-2-2.22-4.47,4.46a1,1,0,0,0,0,1.42l2.12,2.12a1,1,0,0,0,1.42,0L20.18,22l1.6,1.6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-              <svg className="h-7 text-muted-foreground" viewBox="0 0 114 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2,16H8v2a4,4,0,0,0,8,0V16h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+             <div className="text-center max-w-3xl mx-auto mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold">Impacto y Confianza</h2>
+                <p className="mt-4 text-lg text-muted-foreground">Cientos de empresas confían en nosotros para optimizar su gestión y garantizar su tranquilidad.</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
+                <div className="flex flex-col items-center gap-2">
+                    <Smile className="h-10 w-10 text-primary"/>
+                    <p className="text-3xl font-bold">98%</p>
+                    <p className="text-muted-foreground">Clientes Satisfechos</p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                    <Clock className="h-10 w-10 text-primary"/>
+                    <p className="text-3xl font-bold">10k+</p>
+                    <p className="text-muted-foreground">Horas Ahorradas en Gestión</p>
+                </div>
+                <div className="flex flex-col items-center gap-2 col-span-2 md:col-span-1">
+                    <CheckCircleIcon className="h-10 w-10 text-green-500"/>
+                    <p className="text-3xl font-bold">100%</p>
+                    <p className="text-muted-foreground">Cumplimiento Garantizado</p>
+                </div>
             </div>
           </div>
         </section>
