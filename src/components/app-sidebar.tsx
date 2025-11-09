@@ -112,167 +112,22 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Input } from "@/components/ui/input";
 import { chat } from "@/ai/flows/chat";
 import { Button } from "@/components/ui/button";
-
-const juridicoMainMenuItems = [
-  { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
-  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
-  { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
-  { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
-  { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
-  { href: "/multas", label: "Multas", icon: AlertTriangle },
-  { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
-];
-
-const finanzasContabilidadMenuItems = [
-  { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
-  { href: "/reports", label: "Reportes Financieros", icon: BarChart },
-  { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
-  { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
-  { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileText },
-  { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
-  { href: "/inventario", label: "Inventario", icon: Archive },
-  { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
-  { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
-  { href: "/seguros", label: "Seguros", icon: ShieldCheck },
-  { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
-  { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
-  { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
-  { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
-  { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
-];
-
-const facturacionGeneralMenuItems = [
-    { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
-    { href: "/proformas", label: "Proformas", icon: Receipt },
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
-    { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-    { href: "/cobranza", label: "Gestión de Cobranza", icon: HandCoins },
-    { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
-    { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: FileText },
-    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
-    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
-    { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
-    { href: "/importaciones", label: "Proveedores", icon: Ship },
-    { href: "/registro-proveedores", label: "Registro de Proveedores", icon: UserCog },
-    { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
-    { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
-    { href: "/registro-comprador", label: "Registro de Comprador", icon: UserCheck },
-];
-
-const internationalOperationsMenuItems = [
-    { href: "/gestion-global", label: "Centro de Gestión Global", icon: Globe },
-    { href: "/facturacion-internacional", label: "Facturación Internacional", icon: Globe },
-];
-
-const ventasMenuItems = [
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
-    { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
-    { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
-    { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
-    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
-    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-];
-
-const recursosHumanosGestionItems = [
-    { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
-    { href: "/nominas", label: "Nóminas", icon: Users },
-    { href: "/contratos", label: "Contratos", icon: FileSignature },
-    { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
-    { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
-    { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
-    { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
-    { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
-    { href: "/poderes-representacion", label: "Gestión de Empresas del Holding", icon: Building },
-    { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
-    { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
-    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
-    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
-    { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
-    { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
-    { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
-];
-
-const librosRegistroMenuItems = [
-    { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
-    { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
-    { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
-    { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
-    { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
-    { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
-    { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
-];
-
-const corporativoMenuItems = [
-    { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
-    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
-];
-
-const ingenieriaMenuItems = [
-    { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
-    { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
-    { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
-];
-
-const generalMenuItems = [
-  { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
-  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
-  { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
-  { href: "/organigrama", label: "Organigrama", icon: Sitemap },
-  { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
-];
-
-const iaMenuItems = [
-  { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
-];
-
-const naturalMenuItems = {
-    principal: [
-        { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-        { href: "/tarjeta-digital", label: "Tarjeta Digital", icon: Contact },
-        { href: "/seguridad", label: "Seguridad", icon: Shield },
-        { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-    ],
-    tramites: [
-        { href: "/documentos", label: "Mis Documentos", icon: File },
-        { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
-        { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
-        { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
-        { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
-    ],
-    crs: [
-        { href: "/manutencion", label: "Obligación de Manutención", icon: Gavel },
-    ],
-    parental: [
-        { href: "/registro-rif", label: "Registro RIF (Hijos)", icon: FileEdit },
-    ]
-};
-
-const sociosNavGroups = [
-    { title: "Socios y Holding", icon: Briefcase, items: [
-        { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
-        { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
-        { href: "/organigrama", label: "Organigrama", icon: Sitemap },
-    ] },
-];
-
-const informaticaNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ] },
-  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
-  { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
-  { title: "Arquitectura", icon: Puzzle, items: [ 
-      { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
-      { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
-      { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Rocket },
-  ]},
-  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
-];
-
-const ventasNavGroups = [
-    { title: "Ventas y Caja", icon: ShoppingCart, items: ventasMenuItems },
-];
+import {
+  juridicoMainMenuItems,
+  finanzasContabilidadMenuItems,
+  facturacionGeneralMenuItems,
+  internationalOperationsMenuItems,
+  ingenieriaMenuItems,
+  iaMenuItems,
+  generalMenuItems,
+  corporativoMenuItems,
+  ventasMenuItems,
+  recursosHumanosGestionItems,
+  librosRegistroMenuItems,
+  naturalMenuItems,
+  sociosNavGroups,
+  informaticaNavGroups,
+} from "./app-sidebar-nav-items";
 
 
 type Message = {
@@ -391,7 +246,7 @@ export function AppSidebar() {
   const { state } = useSidebar();
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
-  const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
+  const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasMenuItems.some(item => path.startsWith(item.href));
   const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
   const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || path.startsWith('/dashboard-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));

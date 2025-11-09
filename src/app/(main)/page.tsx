@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { chat } from "@/ai/flows/chat";
+import { QuickAccess } from "@/components/dashboard/quick-access";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -46,6 +47,7 @@ const services = [
     { title: "Gestión Fiscal y Contable", description: "Automatiza tu contabilidad, desde libros oficiales hasta la declaración de impuestos, todo homologado por el SENIAT.", icon: Layers },
     { title: "Administración de Nómina", description: "Calcula y gestiona la nómina, beneficios y obligaciones parafiscales de tus empleados sin complicaciones.", icon: Users },
     { title: "Permisología y Cumplimiento", description: "Centraliza y mantén al día todas las licencias y permisos necesarios para operar en Venezuela.", icon: ShieldCheck },
+     { title: "Asesoría Legal y Estratégica", description: "Accede a herramientas de análisis, modelos de contratos y guías para una toma de decisiones informada.", icon: Gavel },
 ];
 
 const features = [
@@ -266,8 +268,6 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative py-24 md:py-48 overflow-hidden">
-            <div className="absolute inset-0 z-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_10%,transparent_50%)] dark:bg-grid-slate-700/30"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
             
             <div className="container px-4 md:px-6 relative z-10 text-center">
                 <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
@@ -294,8 +294,8 @@ export default function LandingPage() {
         </section>
 
         {/* Impact Section */}
-        <section className="py-20 bg-background">
-          <div className="container px-4 md:px-6 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-300">
+        <section className="py-20 bg-secondary/30">
+          <div className="container px-4 md:px-6">
              <div className="text-center max-w-3xl mx-auto mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold">Impacto y Confianza</h2>
                 <p className="mt-4 text-lg text-muted-foreground">Cientos de empresas confían en nosotros para optimizar su gestión y garantizar su tranquilidad.</p>
@@ -321,16 +321,15 @@ export default function LandingPage() {
         </section>
         
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-secondary/30">
+        <section id="servicios" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                      {services.map((item, index) => (
-                        <div key={item.title} className="relative p-8 overflow-hidden rounded-xl border bg-card shadow-sm animate-in fade-in slide-in-from-bottom-12 duration-1000" style={{animationDelay: `${index * 150}ms`}}>
-                            <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div key={item.title} className="relative p-8 overflow-hidden rounded-xl border bg-card shadow-sm">
                             <div className="relative">
                                 <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
                                     <item.icon className="h-8 w-8" />
@@ -341,6 +340,17 @@ export default function LandingPage() {
                         </div>
                     ))}
                 </div>
+            </div>
+        </section>
+
+        {/* Modules Section */}
+        <section id="modulos" className="py-20 md:py-28 bg-secondary/30">
+            <div className="container mx-auto px-4 md:px-6">
+                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Todos tus Módulos en un Solo Lugar</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Explora la amplitud de nuestra plataforma. Cada departamento de tu empresa, cubierto.</p>
+                </div>
+                <QuickAccess />
             </div>
         </section>
         

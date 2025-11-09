@@ -32,6 +32,7 @@ import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
+import { QuickAccess } from "./quick-access";
 
 
 const kpiData = [
@@ -55,12 +56,6 @@ const upcomingDeadlines = [
   { days: 3, description: "Declaración y pago de IVA (Julio)" },
   { days: 8, description: "Renovación de 'Licencia de Actividades Económicas'" },
   { days: 12, description: "Vencimiento de la Factura #FAC-C-001 de 'Tech Solutions'" },
-];
-
-const quickAccessModules = [
-  { href: "/libro-compra-venta", label: "Libro Compra/Venta", icon: Landmark },
-  { href: "/nominas", label: "Gestión de Nómina", icon: Users },
-  { href: "/permisos", label: "Control de Permisos", icon: ShieldAlert },
 ];
 
 export function JuridicoDashboard() {
@@ -131,9 +126,15 @@ export function JuridicoDashboard() {
             </Card>
         </div>
 
+        {/* Quick Access Modules */}
+        <div className="space-y-2">
+          <h2 className="text-2xl font-semibold tracking-tight">Módulos de Acceso Rápido</h2>
+          <QuickAccess />
+        </div>
+
         {/* Operational Streams */}
          <div className="space-y-2">
-            <h2 className="text-2xl font-semibold tracking-tight">Flujos de Trabajo</h2>
+            <h2 className="text-2xl font-semibold tracking-tight">Flujos de Trabajo Operativos</h2>
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                  <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
                     <CardHeader>
