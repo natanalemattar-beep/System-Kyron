@@ -158,7 +158,6 @@ export const recursosHumanosGestionItems = [
     { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
     { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
     { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
-    { href: "/poderes-representacion", label: "Gestión de Empresas del Holding", icon: BuildingIcon },
     { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
     { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
@@ -241,4 +240,15 @@ export const informaticaNavGroups = [
       { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Rocket },
   ]},
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
+];
+
+export const legalNavGroups = [
+  { title: "Departamento Jurídico", icon: Gavel, items: [
+    { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: LayoutDashboard },
+    { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
+    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
+    { href: "/legalizacion-empresa", label: "Legalización de Empresa", icon: Stamp },
+    { href: "/cumplimiento", label: "Cumplimiento Normativo", icon: ShieldCheck },
+    { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
+  ] },
 ];

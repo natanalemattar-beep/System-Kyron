@@ -18,7 +18,7 @@ export default function EscritorioJuridicoPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/dashboard-juridico');
+    router.push('/escritorio-juridico');
   };
 
   return (

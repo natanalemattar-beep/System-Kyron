@@ -127,6 +127,7 @@ import {
   naturalMenuItems,
   sociosNavGroups,
   informaticaNavGroups,
+  legalNavGroups,
 } from "./app-sidebar-nav-items";
 
 
@@ -245,12 +246,16 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
   
-  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || corporativoMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
+  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasMenuItems.some(item => path.startsWith(item.href));
   const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !juridicoMainMenuItems.some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
+  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
   const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || path.startsWith('/dashboard-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
+  const isLegalPath = (path: string) => path.startsWith('/escritorio-juridico') || legalNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
 
+  if (isLegalPath(pathname)) {
+    return <AppSidebarLegal />;
+  }
 
   if (isHrPath(pathname)) {
     return <AppSidebarHr />;
@@ -445,7 +450,6 @@ function AppSidebarHr() {
   const navGroups = [
     { title: "Gestión de RR.HH.", icon: Briefcase, items: recursosHumanosGestionItems },
     { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems },
-    { title: "Trámites Corporativos", icon: BuildingIcon, items: corporativoMenuItems },
   ]
 
   return (
@@ -733,6 +737,77 @@ function AppSidebarInformatica() {
     );
 }
 
+function AppSidebarLegal() {
+  const pathname = usePathname();
+  const { state } = useSidebar();
+
+  return (
+    <Sidebar variant="floating">
+      <SidebarHeader>
+        <div className="flex items-center gap-3 p-2 justify-center">
+           <Logo />
+            {state === 'expanded' && (
+                <div className="flex flex-col">
+                    <span className="text-sm font-semibold leading-tight">System</span>
+                    <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                </div>
+            )}
+        </div>
+      </SidebarHeader>
+       <SidebarContent className="p-2">
+        <Accordion type="multiple" className="w-full" defaultValue={['Departamento Jurídico']}>
+            {legalNavGroups.map((group) => (
+              <AccordionItem value={group.title} key={group.title} className="border-none">
+                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
+                   <div className="flex items-center gap-2">
+                       <group.icon className="h-4 w-4" />
+                       {state === 'expanded' && <span>{group.title}</span>}
+                    </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                    {group.items.map((item) => (
+                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(item.href)}
+                          tooltip={item.label}
+                          className="justify-start h-8"
+                        >
+                          <Link href={item.href}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+        </Accordion>
+      </SidebarContent>
+      <SidebarFooter className="p-2">
+        <Separator className="my-2" />
+        <ChatDialog />
+        <div className="flex items-center gap-3 px-2 py-1">
+          <Avatar className="h-9 w-9">
+            <AvatarFallback>L</AvatarFallback>
+          </Avatar>
+           {state === 'expanded' && (
+            <div className="flex flex-col">
+                <span className="text-sm font-medium">Usuario Jurídico</span>
+                <span className="text-xs text-muted-foreground">
+                Departamento Legal
+                </span>
+            </div>
+           )}
+        </div>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}
     
 
     
+
