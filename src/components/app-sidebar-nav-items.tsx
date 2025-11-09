@@ -87,7 +87,7 @@ import {
 
 
 export const juridicoMainMenuItems = [
-  { href: "/dashboard-juridico", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: LayoutDashboard },
   { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
   { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
   { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
@@ -141,10 +141,10 @@ export const internationalOperationsMenuItems = [
 ];
 
 export const ventasMenuItems = [
+    { href: "/analisis-ventas", label: "Dashboard de Ventas", icon: LayoutDashboard },
     { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
     { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
@@ -244,12 +244,5 @@ export const informaticaNavGroups = [
 ];
 
 export const legalNavGroups = [
-  { title: "Departamento Jurídico", icon: Gavel, items: [
-    { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: LayoutDashboard },
-    { href: "/modelo-contrato", label: "Modelo de Contrato", icon: FileSignature },
-    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
-    { href: "/legalizacion-empresa", label: "Legalización de Empresa", icon: Stamp },
-    { href: "/cumplimiento", label: "Cumplimiento Normativo", icon: ShieldCheck },
-    { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
-  ] },
+  { title: "Departamento Jurídico", icon: Gavel, items: juridicoMainMenuItems },
 ];

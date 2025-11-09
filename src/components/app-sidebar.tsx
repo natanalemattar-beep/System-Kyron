@@ -248,11 +248,17 @@ export function AppSidebar() {
   const { state } = useSidebar();
   
   const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
-  const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasMenuItems.some(item => path.startsWith(item.href));
+  const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/analisis-ventas');
   const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
   const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || path.startsWith('/dashboard-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isLegalPath = (path: string) => path.startsWith('/escritorio-juridico') || legalNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
+  const isLegalPath = (path: string) => path.startsWith('/login-juridico') && path !== '/login-juridico' || legalNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
+  const isMainDashboard = pathname === '/dashboard-juridico';
+  
+  // Condición para el dashboard jurídico principal
+  if (isMainDashboard) {
+    return <AppSidebarJuridicoPrincipal />;
+  }
 
   if (isLegalPath(pathname)) {
     return <AppSidebarLegal />;
@@ -278,16 +284,22 @@ export function AppSidebar() {
     return <AppSidebarInformatica />;
   }
 
-  const allJuridicoGroups = [
-    { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
-    { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
-    { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-    { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
-    { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
-    { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
-    { title: "General", icon: Cog, items: generalMenuItems },
-  ]
+  return <AppSidebarJuridicoPrincipal />;
+}
 
+function AppSidebarJuridicoPrincipal() {
+    const pathname = usePathname();
+    const { state } = useSidebar();
+    
+    const allJuridicoGroups = [
+        { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
+        { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+        { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+        { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
+        { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
+        { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
+        { title: "General", icon: Cog, items: generalMenuItems },
+    ]
 
   return (
     <Sidebar variant="floating">
@@ -811,5 +823,6 @@ function AppSidebarLegal() {
     
 
     
+
 
 

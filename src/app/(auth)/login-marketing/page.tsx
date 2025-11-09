@@ -72,7 +72,7 @@ export default function LoginMarketingPage() {
               </button>
             </div>
             <Button asChild className="w-full h-11 text-base">
-              <Link href="/marketing-ventas">Acceder</Link>
+              <Link href="/asesoria-publicidad">Acceder</Link>
             </Button>
           </CardContent>
            <CardFooter className="flex-col gap-2 p-6 border-t text-sm">
