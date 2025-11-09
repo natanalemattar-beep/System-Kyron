@@ -357,7 +357,7 @@ export const ProfitabilityAnalyzer = () => {
               </li>
               <li className="flex items-start">
                 <span className="mr-2">•</span>
-                <span>Revisar estructura de costos en productos con índice {"<"} 40</span>
+                <span>Revisar estructura de costos en productos con índice < 40</span>
               </li>
               <li className="flex items-start">
                 <span className="mr-2">•</span>

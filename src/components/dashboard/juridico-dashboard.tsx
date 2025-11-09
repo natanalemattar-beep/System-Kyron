@@ -4,31 +4,17 @@
 import {
   Activity,
   ArrowRight,
-  BookOpen,
-  Calculator,
   CalendarClock,
   DollarSign,
   FilePlus,
-  FileText,
   Landmark,
-  Percent,
   ShieldAlert,
   Users,
-  FileSignature,
-  BookUser,
-  Cpu,
-  Ship,
-  Briefcase,
-  Network,
-  BarChart,
-  HardHat,
-  Search,
-  Gavel
+  FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
-import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { historicalFinancialData } from "@/lib/historical-financial-data";

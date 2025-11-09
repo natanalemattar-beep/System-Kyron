@@ -113,6 +113,7 @@ export const finanzasContabilidadMenuItems = [
   { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
   { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
   { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
+  { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
 ];
 
 export const facturacionGeneralMenuItems = [
