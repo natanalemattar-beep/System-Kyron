@@ -13,7 +13,7 @@ import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { usePathname } from "next/navigation";
 
-export default function AppLayout({ children }: { children: ReactNode }) {
+export default function MainAppLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   // Don't show sidebar on the main landing page

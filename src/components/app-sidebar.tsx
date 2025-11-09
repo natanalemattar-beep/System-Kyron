@@ -245,27 +245,15 @@ function ChatDialog() {
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const { state } = useSidebar();
   
-  const isHrPath = (path: string) => path.startsWith('/login-rrhh') || path.startsWith('/dashboard-rrhh') || librosRegistroMenuItems.some(item => path.startsWith(item.href)) || recursosHumanosGestionItems.some(item => path.startsWith(item.href)) || path.startsWith('/gestion-notificaciones') || path.startsWith('/prestaciones-sociales') || path.startsWith('/material-apoyo') || path.startsWith('/desarrollo-profesional') || path.startsWith('/modelo-contrato-trabajo') || path.startsWith('/resumen-anual-empleados');
   const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/analisis-ventas');
   const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !isHrPath(path) && !isVentasPath(path) && !isSociosPath(path);
+  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !isVentasPath(path) && !isSociosPath(path);
   const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || path.startsWith('/dashboard-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isLegalPath = (path: string) => path.startsWith('/login-juridico') && path !== '/login-juridico' || legalNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isMainDashboard = pathname === '/dashboard-juridico';
+  const isLegalPath = (path: string) => path.startsWith('/escritorio-juridico') || legalNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
   
-  // Condición para el dashboard jurídico principal
-  if (isMainDashboard) {
-    return <AppSidebarJuridicoPrincipal />;
-  }
-
   if (isLegalPath(pathname)) {
     return <AppSidebarLegal />;
-  }
-
-  if (isHrPath(pathname)) {
-    return <AppSidebarHr />;
   }
 
   if (isVentasPath(pathname)) {
@@ -295,6 +283,8 @@ function AppSidebarJuridicoPrincipal() {
         { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
         { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
         { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+        { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
+        { title: "Ventas y Marketing", icon: Megaphone, items: ventasMenuItems },
         { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
         { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
         { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
@@ -315,7 +305,7 @@ function AppSidebarJuridicoPrincipal() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General', 'Ingeniería y Proyectos']}>
+          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General']}>
             {allJuridicoGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
                 <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
@@ -349,7 +339,11 @@ function AppSidebarJuridicoPrincipal() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
-        <ChatDialog />
+         <SidebarMenu>
+          <SidebarMenuItem>
+            <ChatDialog />
+          </SidebarMenuItem>
+        </SidebarMenu>
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>E</AvatarFallback>
@@ -430,7 +424,11 @@ function AppSidebarNatural() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
-        <ChatDialog />
+         <SidebarMenu>
+          <SidebarMenuItem>
+            <ChatDialog />
+          </SidebarMenuItem>
+        </SidebarMenu>
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             {userAvatar && (
@@ -513,7 +511,11 @@ function AppSidebarHr() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
-        <ChatDialog />
+         <SidebarMenu>
+          <SidebarMenuItem>
+            <ChatDialog />
+          </SidebarMenuItem>
+        </SidebarMenu>
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>RH</AvatarFallback>
@@ -589,7 +591,11 @@ function AppSidebarVentas() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
-        <ChatDialog />
+         <SidebarMenu>
+          <SidebarMenuItem>
+            <ChatDialog />
+          </SidebarMenuItem>
+        </SidebarMenu>
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>V</AvatarFallback>
@@ -660,7 +666,11 @@ function AppSidebarSocios() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
-        <ChatDialog />
+         <SidebarMenu>
+          <SidebarMenuItem>
+            <ChatDialog />
+          </SidebarMenuItem>
+        </SidebarMenu>
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>S</AvatarFallback>
@@ -731,7 +741,11 @@ function AppSidebarInformatica() {
         </SidebarContent>
         <SidebarFooter className="p-2">
             <Separator className="my-2" />
-            <ChatDialog />
+             <SidebarMenu>
+                <SidebarMenuItem>
+                    <ChatDialog />
+                </SidebarMenuItem>
+            </SidebarMenu>
             <div className="flex items-center gap-3 px-2 py-1">
             <Avatar className="h-9 w-9">
                 <AvatarFallback>TI</AvatarFallback>
@@ -802,7 +816,11 @@ function AppSidebarLegal() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
-        <ChatDialog />
+         <SidebarMenu>
+          <SidebarMenuItem>
+            <ChatDialog />
+          </SidebarMenuItem>
+        </SidebarMenu>
         <div className="flex items-center gap-3 px-2 py-1">
           <Avatar className="h-9 w-9">
             <AvatarFallback>L</AvatarFallback>
@@ -823,6 +841,7 @@ function AppSidebarLegal() {
     
 
     
+
 
 
 
