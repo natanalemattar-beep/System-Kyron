@@ -60,6 +60,7 @@ import {
   FilePlus,
   FileMinus,
   HelpCircle,
+  Building,
   Send,
   Loader2,
   Contact,
@@ -121,7 +122,7 @@ export const facturacionGeneralMenuItems = [
     { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
     { href: "/cobranza", label: "Gestión de Cobranza", icon: HandCoins },
     { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
-    { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: FileText },
+    { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: Receipt },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
@@ -241,5 +242,3 @@ export const informaticaNavGroups = [
   ]},
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
 ];
-
-    
