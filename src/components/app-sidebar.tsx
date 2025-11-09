@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
@@ -173,10 +174,10 @@ function ChatDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-          <Button variant="ghost" className="w-full justify-start h-10 text-base">
-                <Bot className="mr-3 h-5 w-5"/>
-                Chat IA
-          </Button>
+        <SidebarMenuButton className="w-full justify-start h-10 text-base" variant="ghost">
+          <Bot className="mr-3 h-5 w-5"/>
+          <span>Chat IA</span>
+        </SidebarMenuButton>
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg flex flex-col h-[80vh]">
         <DialogHeader>
@@ -810,4 +811,5 @@ function AppSidebarLegal() {
     
 
     
+
 
