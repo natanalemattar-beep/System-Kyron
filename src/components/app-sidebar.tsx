@@ -431,7 +431,7 @@ export function AppSidebar() {
   return (
     <Sidebar variant="floating">
       <SidebarHeader>
-        <div className="flex items-center gap-3 p-2">
+        <div className="flex items-center gap-3 p-2 justify-center">
           <Logo />
            {state === 'expanded' && (
             <div className="flex flex-col">
@@ -518,7 +518,7 @@ function AppSidebarNatural() {
   return (
     <Sidebar variant="floating">
       <SidebarHeader>
-        <div className="flex items-center gap-3 p-2">
+        <div className="flex items-center gap-3 p-2 justify-center">
            <Logo />
            {state === 'expanded' && (
             <div className="flex flex-col">
@@ -596,7 +596,7 @@ function AppSidebarHr() {
   return (
     <Sidebar variant="floating">
       <SidebarHeader>
-        <div className="flex items-center gap-3 p-2">
+        <div className="flex items-center gap-3 p-2 justify-center">
            <Logo />
            {state === 'expanded' && (
             <div className="flex flex-col">
@@ -672,7 +672,7 @@ function AppSidebarVentas() {
   return (
     <Sidebar variant="floating">
       <SidebarHeader>
-        <div className="flex items-center gap-3 p-2">
+        <div className="flex items-center gap-3 p-2 justify-center">
            <Logo />
             {state === 'expanded' && (
                 <div className="flex flex-col">
@@ -743,7 +743,7 @@ function AppSidebarSocios() {
   return (
     <Sidebar variant="floating">
       <SidebarHeader>
-        <div className="flex items-center gap-3 p-2">
+        <div className="flex items-center gap-3 p-2 justify-center">
            <Logo />
             {state === 'expanded' && (
                 <div className="flex flex-col">
@@ -814,7 +814,7 @@ function AppSidebarInformatica() {
     return (
         <Sidebar variant="floating">
         <SidebarHeader>
-            <div className="flex items-center gap-3 p-2">
+            <div className="flex items-center gap-3 p-2 justify-center">
             <Logo />
                 {state === 'expanded' && (
                     <div className="flex flex-col">
@@ -877,5 +877,7 @@ function AppSidebarInformatica() {
         </Sidebar>
     );
 }
+
+    
 
     
