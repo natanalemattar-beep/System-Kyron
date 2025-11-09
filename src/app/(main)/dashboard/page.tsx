@@ -16,33 +16,24 @@ const actions = [
     description: 'Solicita y gestiona partidas de nacimiento de forma digital y segura.',
     icon: Heart,
     href: '/partidas-nacimiento',
-    features: ['Solicitud online', 'Entrega digital', 'Verificación oficial'],
-    buttonText: 'Solicitar',
   },
   {
     title: 'Actas de Matrimonio',
     description: 'Accede a actas de matrimonio y gestiona trámites relacionados.',
     icon: FileText,
     href: '/actas-matrimonio',
-    features: ['Consulta rápida', 'Certificaciones', 'Actualizaciones'],
-    buttonText: 'Solicitar',
   },
   {
     title: 'Documentos Judiciales',
     description: 'Gestiona documentos judiciales y mantén un registro organizado.',
     icon: Gavel,
     href: '/documentos-judiciales',
-    features: ['Archivo digital', 'Seguimiento legal', 'Notificaciones'],
-    buttonText: 'Gestionar',
   },
   {
     title: 'Antecedentes Penales',
     description: 'Sube tu currículum y obtén automáticamente tu certificado de antecedentes penales.',
     icon: Shield,
     href: '/antecedentes-penales',
-    features: ['Procesamiento automático', 'Certificado oficial', 'Integración con CV'],
-    buttonText: 'Subir CV',
-    buttonIcon: Upload,
   },
 ];
 
@@ -78,33 +69,16 @@ export default function DashboardPersonalPage() {
                 </div>
                 <div>
                   <CardTitle className="text-lg font-semibold">{action.title}</CardTitle>
-                  <p className="text-muted-foreground text-sm mt-2">{action.description}</p>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="flex-grow flex flex-col justify-between">
-              <ul className="space-y-2 mb-6">
-                {action.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              {action.buttonIcon ? (
-                 <FileInputTrigger onFileSelect={handleFileSelect}>
-                    <Button variant="outline" className="w-full" asChild>
-                      <Link href={action.href}>
-                        <action.buttonIcon className="mr-2 h-4 w-4" />
-                        {action.buttonText}
-                      </Link>
-                    </Button>
-                </FileInputTrigger>
-              ) : (
+            <CardContent className="flex-grow">
+                 <p className="text-muted-foreground text-sm">{action.description}</p>
+            </CardContent>
+            <CardContent>
                 <Button asChild className="w-full">
-                  <a href={action.href}>{action.buttonText}</a>
+                  <Link href={action.href}>Acceder al Módulo</Link>
                 </Button>
-              )}
             </CardContent>
           </Card>
         ))}

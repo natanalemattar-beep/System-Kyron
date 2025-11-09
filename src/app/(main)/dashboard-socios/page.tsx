@@ -3,10 +3,12 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Building, Eye, PlusCircle, Download, BookOpen, HandCoins, ShoppingCart, Gavel } from "lucide-react";
+import { Users, Building, Eye, PlusCircle, Download, BookOpen, HandCoins, ShoppingCart, Gavel, DollarSign, TrendingUp, BarChart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
+import { QuickAccess } from "@/components/dashboard/quick-access";
+import { formatCurrency } from "@/lib/utils";
 
 const holdingData = [
     { id: 1, nombre: "Ana Pérez", rol: "Socio / Director", cedula: "V-12.345.678", participacion: "50%" },
@@ -19,32 +21,12 @@ const holdingCompanies = [
     { id: 3, nombre: "International Holdings LLC", rif: "N/A", rol: "Casa Matriz", jurisdiccion: "Internacional" },
 ];
 
-const systemModules = [
-    {
-        title: "Finanzas y Contabilidad",
-        icon: BookOpen,
-        description: "Acceso completo a libros contables, estados financieros, declaraciones de impuestos, cuentas por cobrar/pagar y análisis de rentabilidad.",
-        qrData: "reporte-completo-finanzas"
-    },
-    {
-        title: "Recursos Humanos",
-        icon: Users,
-        description: "Visión total de la nómina, contratos, gestión de personal, libros de registro laboral y cumplimiento de obligaciones parafiscales.",
-        qrData: "reporte-completo-rrhh"
-    },
-    {
-        title: "Ventas y Marketing",
-        icon: ShoppingCart,
-        description: "Análisis de ventas por producto/sucursal, rendimiento del TPV, estructura de costos y estrategias de marketing.",
-        qrData: "reporte-completo-ventas"
-    },
-    {
-        title: "Gestión Jurídica y Cumplimiento",
-        icon: Gavel,
-        description: "Control de permisos y licencias, gestión de contratos, poderes de representación y seguimiento de trámites legales.",
-        qrData: "reporte-completo-legal"
-    },
-]
+const kpiData = [
+    { title: "Ingresos Consolidados (YTD)", value: formatCurrency(1250000, 'Bs.'), icon: DollarSign },
+    { title: "Margen Neto Consolidado", value: "18.5%", icon: TrendingUp },
+    { title: "Activos Totales del Holding", value: formatCurrency(2800000, 'Bs.'), icon: BarChart },
+];
+
 
 export default function DashboardSociosPage() {
 
@@ -60,37 +42,34 @@ export default function DashboardSociosPage() {
                 </p>
             </header>
             
+            {/* KPIs Consolidados */}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {kpiData.map(kpi => (
+                    <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
+                            <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">{kpi.value}</div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+
              <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Building className="h-6 w-6 text-primary" />
-                        Visión General de la Empresa
+                        Visión General del Sistema
                     </CardTitle>
                     <CardDescription>
                        Acceso y descarga de reportes consolidados de todos los departamentos y módulos del sistema.
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="grid md:grid-cols-2 gap-6">
-                    {systemModules.map(mod => (
-                        <Card key={mod.title} className="bg-secondary/50">
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-3">
-                                    <mod.icon className="h-6 w-6 text-primary"/>
-                                    {mod.title}
-                                </CardTitle>
-                                <CardDescription>{mod.description}</CardDescription>
-                            </CardHeader>
-                            <CardFooter className="flex items-center justify-between gap-4">
-                                <Button className="w-full">
-                                    <Download className="mr-2 h-4 w-4"/>
-                                    Ver Reporte Completo
-                                </Button>
-                                <div className="p-1 bg-white rounded-md">
-                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=${mod.qrData}`} alt={`QR for ${mod.title}`} width={40} height={40} />
-                                </div>
-                            </CardFooter>
-                        </Card>
-                    ))}
+                <CardContent>
+                    <QuickAccess />
                 </CardContent>
             </Card>
 

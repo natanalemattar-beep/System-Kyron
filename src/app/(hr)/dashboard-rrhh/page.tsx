@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Users, Briefcase, DollarSign, ArrowRight, UserPlus, FileSignature, BookOpen, CalendarClock, TrendingUp } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import Link from "next/link";
+import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
+import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const kpiData = [
     { title: "Total Empleados Activos", value: "85", icon: Users },
@@ -25,6 +27,19 @@ const upcomingDeadlines = [
     { days: 10, description: "Fin de período de prueba de 'Jorge Vivas'" },
     { days: 25, description: "Vencimiento de contrato de 'María Rodriguez'" },
 ];
+
+const recentHires = [
+    { name: "Jorge Vivas", department: "Tecnología", date: "2024-07-15" },
+    { name: "Laura Méndez", department: "Diseño", date: "2024-07-10" },
+];
+
+const employeeDistribution = [
+    { name: 'Ventas', count: 25 },
+    { name: 'Tecnología', count: 18 },
+    { name: 'Admin', count: 12 },
+    { name: 'Marketing', count: 10 },
+    { name: 'Soporte', count: 20 },
+]
 
 export default function RecursosHumanosPage() {
   return (
@@ -54,9 +69,69 @@ export default function RecursosHumanosPage() {
         ))}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        {/* Próximos Vencimientos */}
-        <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+      <div className="grid gap-8 lg:grid-cols-5">
+        <Card className="lg:col-span-3 bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Distribución de Empleados por Departamento</CardTitle>
+            </CardHeader>
+            <CardContent className="h-72">
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={employeeDistribution}>
+                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
+                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
+                        <Tooltip
+                            content={<ChartTooltipContent formatter={(value) => `${value} empleados`}/>}
+                            cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }}
+                        />
+                        <Bar dataKey="count" name="Empleados" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                </ResponsiveContainer>
+            </CardContent>
+        </Card>
+         <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Acceso Rápido</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                {quickAccessModules.map((mod, index) => (
+                    <Button key={index} asChild variant="outline" className="w-full justify-start h-14 text-base">
+                        <Link href={mod.href}>
+                            <mod.icon className="mr-3 h-5 w-5"/>
+                            {mod.label}
+                        </Link>
+                    </Button>
+                ))}
+            </CardContent>
+        </Card>
+      </div>
+
+       <div className="grid gap-8 lg:grid-cols-3">
+         <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Últimas Contrataciones</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Nombre</TableHead>
+                            <TableHead>Departamento</TableHead>
+                            <TableHead>Fecha de Ingreso</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {recentHires.map(hire => (
+                            <TableRow key={hire.name}>
+                                <TableCell className="font-medium">{hire.name}</TableCell>
+                                <TableCell>{hire.department}</TableCell>
+                                <TableCell>{formatDate(hire.date)}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
+        <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Vencimientos y Fechas Clave</CardTitle>
             </CardHeader>
@@ -75,25 +150,7 @@ export default function RecursosHumanosPage() {
                 </ul>
             </CardContent>
         </Card>
-        
-        {/* Acceso Rápido */}
-        <Card className="bg-card/80 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle>Acceso Rápido</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-                {quickAccessModules.map((mod, index) => (
-                    <Button key={index} asChild variant="outline" className="w-full justify-start h-14 text-base">
-                        <Link href={mod.href}>
-                            <mod.icon className="mr-3 h-5 w-5"/>
-                            {mod.label}
-                        </Link>
-                    </Button>
-                ))}
-            </CardContent>
-        </Card>
       </div>
-
     </div>
   );
 }
