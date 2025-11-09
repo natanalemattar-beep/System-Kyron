@@ -60,7 +60,6 @@ import {
   FilePlus,
   FileMinus,
   HelpCircle,
-  Building,
   Send,
   Loader2,
   Contact,
@@ -158,7 +157,7 @@ export const recursosHumanosGestionItems = [
     { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
     { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
     { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
-    { href: "/poderes-representacion", label: "Gestión de Empresas del Holding", icon: Building },
+    { href: "/poderes-representacion", label: "Gestión de Empresas del Holding", icon: BuildingIcon },
     { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
     { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
@@ -242,3 +241,5 @@ export const informaticaNavGroups = [
   ]},
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
 ];
+
+    

@@ -32,7 +32,7 @@ import Link from "next/link";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
-import { QuickAccess } from "./quick-access";
+import { QuickAccess } from "@/components/dashboard/quick-access";
 
 
 const kpiData = [
@@ -187,3 +187,5 @@ export function JuridicoDashboard() {
     </div>
   );
 }
+
+    
