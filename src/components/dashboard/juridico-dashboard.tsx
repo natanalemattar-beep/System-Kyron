@@ -10,7 +10,11 @@ import {
   Landmark,
   ShieldAlert,
   Users,
-  FileText
+  FileText,
+  TrendingUp,
+  Wallet,
+  ShieldCheck,
+  Percent,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -23,9 +27,10 @@ import { ActivityCard } from "./activity-card";
 
 
 const kpiData = [
-  { title: "Ingresos Totales (Mes)", value: formatCurrency(62000, 'Bs.'), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
-  { title: "Ticket Promedio", value: formatCurrency(185.30, 'Bs.'), icon: FileText, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
-  { title: "Rotación de Inventario", value: "4.2", icon: Activity, trend: "ciclos este mes", trendColor: "text-green-500" },
+  { title: "Ingresos del Mes", value: formatCurrency(62000, 'Bs.'), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
+  { title: "Margen Neto", value: "18.5%", icon: Percent, trend: "+2.1% vs mes anterior", trendColor: "text-green-500" },
+  { title: "Salud de Cartera (CxC)", value: "92%", icon: Wallet, trend: "3 facturas vencidas", trendColor: "text-orange-400" },
+  { title: "Estado de Cumplimiento", value: "99%", icon: ShieldCheck, trend: "1 permiso por vencer", trendColor: "text-green-500" },
 ];
 
 const recentActivities = [
@@ -55,17 +60,17 @@ const upcomingDeadlines = [
 
 export function JuridicoDashboard() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Bienvenido al Centro de Mando</h1>
-        <p className="text-muted-foreground">Tu resumen ejecutivo para una gestión inteligente.</p>
+      <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-tight">Centro de Mando Empresarial</h1>
+        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Visión general de las operaciones, finanzas y cumplimiento de la empresa.</p>
       </div>
 
       <div className="space-y-8">
         {/* KPIs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {kpiData.map(kpi => (
               <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
                   <CardHeader className="pb-2">
@@ -75,7 +80,7 @@ export function JuridicoDashboard() {
                       </CardTitle>
                   </CardHeader>
                   <CardContent>
-                      <p className="text-2xl font-bold">{kpi.value}</p>
+                      <p className="text-3xl font-bold">{kpi.value}</p>
                       <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
                   </CardContent>
               </Card>
