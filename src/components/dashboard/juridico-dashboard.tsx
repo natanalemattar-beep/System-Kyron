@@ -33,6 +33,7 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Ca
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 import { QuickAccess } from "@/components/dashboard/quick-access";
+import { ActivityCard } from "./activity-card";
 
 
 const kpiData = [
@@ -40,6 +41,14 @@ const kpiData = [
   { title: "Ticket Promedio", value: formatCurrency(185.30, 'Bs.'), icon: FileText, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
   { title: "Rotación de Inventario", value: "4.2", icon: Activity, trend: "ciclos este mes", trendColor: "text-green-500" },
 ];
+
+const recentActivities = [
+  { description: "Nueva factura a crédito creada para 'Tech Solutions'", time: "Hace 5 minutos", icon: FilePlus, iconColor: "text-blue-500" },
+  { description: "Pago de nómina de la 1ra quincena de Julio procesado", time: "Hace 1 hora", icon: Users, iconColor: "text-green-500" },
+  { description: "Declaración de IVA de Junio presentada", time: "Hace 3 horas", icon: Landmark, iconColor: "text-purple-500" },
+  { description: "Alerta: Póliza de 'Flota de Vehículos' vencida", time: "Hace 1 día", icon: ShieldAlert, iconColor: "text-red-500" },
+];
+
 
 const chartConfig = {
   ingresos: {
@@ -87,105 +96,80 @@ export function JuridicoDashboard() {
           ))}
         </div>
 
-        {/* Financial Pulse */}
-        <div className="space-y-2">
-            <h2 className="text-2xl font-semibold tracking-tight">Pulso Financiero</h2>
-            <Card className="bg-card/80 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle>Ingresos vs. Gastos (Últimos 12 meses)</CardTitle>
-                </CardHeader>
-                <CardContent className="h-80">
-                      <ChartContainer config={chartConfig} className="w-full h-full">
-                        <AreaChart data={historicalFinancialData.slice(-12)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                            <defs>
-                                <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                                </linearGradient>
-                                <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
-                                    <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
-                                </linearGradient>
-                            </defs>
-                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
-                            <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${(value as number) / 1000}k`} />
-                            <ChartTooltip 
-                                cursor={false}
-                                content={<ChartTooltipContent 
-                                    indicator="dot" 
-                                    formatter={(value) => formatCurrency(value as number, 'Bs.')} 
-                                />} 
-                            />
-                            <Legend />
-                            <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
-                            <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
-                        </AreaChart>
-                    </ChartContainer>
-                </CardContent>
-            </Card>
-        </div>
-
-        {/* Quick Access Modules */}
-        <div className="space-y-2">
-          <h2 className="text-2xl font-semibold tracking-tight">Módulos de Acceso Rápido</h2>
-          <QuickAccess />
-        </div>
-
-        {/* Operational Streams */}
-         <div className="space-y-2">
-            <h2 className="text-2xl font-semibold tracking-tight">Flujos de Trabajo Operativos</h2>
-             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                 <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            {/* Financial Pulse */}
+            <div className="space-y-2 xl:col-span-3">
+                <h2 className="text-2xl font-semibold tracking-tight">Pulso Financiero</h2>
+                <Card className="bg-card/80 backdrop-blur-sm">
                     <CardHeader>
-                        <CardTitle>Vencimientos Próximos</CardTitle>
+                        <CardTitle>Ingresos vs. Gastos (Últimos 12 meses)</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                        <ul className="space-y-4">
-                            {upcomingDeadlines.map((deadline, index) => (
-                                <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
-                                    <CalendarClock className="h-6 w-6 text-orange-400 shrink-0" />
-                                    <div className="flex-1">
-                                        <p className="text-sm font-semibold truncate">{deadline.description}</p>
-                                        <p className="text-xs">Vence en {deadline.days} días</p>
-                                    </div>
-                                    <Button size="sm" variant="ghost"><ArrowRight className="h-4 w-4"/></Button>
-                                </li>
-                            ))}
-                        </ul>
+                    <CardContent className="h-80">
+                        <ChartContainer config={chartConfig} className="w-full h-full">
+                            <AreaChart data={historicalFinancialData.slice(-12)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                <defs>
+                                    <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                                    </linearGradient>
+                                    <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
+                                        <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
+                                    </linearGradient>
+                                </defs>
+                                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+                                <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                                <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickFormatter={(value) => `${(value as number) / 1000}k`} />
+                                <ChartTooltip 
+                                    cursor={false}
+                                    content={<ChartTooltipContent 
+                                        indicator="dot" 
+                                        formatter={(value) => formatCurrency(value as number, 'Bs.')} 
+                                    />} 
+                                />
+                                <Legend />
+                                <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
+                                <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
+                            </AreaChart>
+                        </ChartContainer>
                     </CardContent>
                 </Card>
-                 <Card className="lg:col-span-1 bg-card/80 backdrop-blur-sm">
-                    <CardHeader>
-                        <CardTitle>Centro de Mando de Ingeniería</CardTitle>
-                         <CardDescription>Planificación y documentación técnica.</CardDescription>
-                    </CardHeader>
-                     <CardContent className="space-y-4">
-                        <Button asChild variant="outline" className="w-full justify-start h-14 text-base">
-                          <Link href="/ingenieria-ia">
-                            <Cpu className="mr-3 h-5 w-5"/>
-                            Generación de Planos con IA
-                          </Link>
-                        </Button>
-                         <Button asChild variant="outline" className="w-full justify-start h-14 text-base">
-                          <Link href="/analisis-suelo-foto">
-                            <Search className="mr-3 h-5 w-5"/>
-                            Análisis de Suelos
-                          </Link>
-                        </Button>
-                         <Button asChild variant="outline" className="w-full justify-start h-14 text-base">
-                          <Link href="/carta-aval-ingenieria">
-                            <Gavel className="mr-3 h-5 w-5"/>
-                            Permisología y Avales
-                          </Link>
-                        </Button>
-                    </CardContent>
-                </Card>
-             </div>
+            </div>
+
+            {/* Quick Access Modules */}
+            <div className="space-y-2 xl:col-span-3">
+              <h2 className="text-2xl font-semibold tracking-tight">Módulos de Acceso Rápido</h2>
+              <QuickAccess />
+            </div>
+
+            {/* Operational Streams */}
+            <div className="space-y-2 xl:col-span-3">
+                <h2 className="text-2xl font-semibold tracking-tight">Flujos de Trabajo Operativos</h2>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+                        <CardHeader>
+                            <CardTitle>Vencimientos Próximos</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ul className="space-y-4">
+                                {upcomingDeadlines.map((deadline, index) => (
+                                    <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
+                                        <CalendarClock className="h-6 w-6 text-orange-400 shrink-0" />
+                                        <div className="flex-1">
+                                            <p className="text-sm font-semibold truncate">{deadline.description}</p>
+                                            <p className="text-xs">Vence en {deadline.days} días</p>
+                                        </div>
+                                        <Button size="sm" variant="ghost"><ArrowRight className="h-4 w-4"/></Button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                    </Card>
+                    <ActivityCard recentActivities={recentActivities} />
+                </div>
+            </div>
         </div>
       </div>
     </div>
   );
 }
-
-    
