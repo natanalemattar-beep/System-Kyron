@@ -265,7 +265,7 @@ export const AutomatedCollectionSystem = () => {
                     </div>
                   </div>
                   <div className="text-right text-xs text-muted-foreground">
-                    {comm.timestamp.toLocaleTimeString()}
+                    {typeof comm.timestamp.toLocaleTimeString === 'function' ? comm.timestamp.toLocaleTimeString() : ''}
                   </div>
                 </div>
 
