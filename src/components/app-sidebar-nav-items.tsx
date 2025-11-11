@@ -99,6 +99,7 @@ export const juridicoMainMenuItems = [
   { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
   { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
   { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
+  { href: "/carta-exposicion-motivos", label: "Carta Exposición de Motivos", icon: Lightbulb },
 ];
 
 export const finanzasContabilidadMenuItems = [
