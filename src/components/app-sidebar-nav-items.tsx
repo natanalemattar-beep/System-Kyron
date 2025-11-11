@@ -90,6 +90,7 @@ import {
   SlidersHorizontal,
   School,
   UserPlus,
+  Package,
 } from "lucide-react";
 
 
