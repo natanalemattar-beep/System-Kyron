@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Gavel, FileSignature, ShieldCheck, Scale, ArrowRight, Building, Sitemap } from "lucide-react";
+import { Gavel, FileSignature, ShieldCheck, Scale, ArrowRight, Building, Network } from "lucide-react";
 import Link from "next/link";
 
 const responsabilidades = [
@@ -32,7 +32,7 @@ const responsabilidades = [
         href: "/analisis-estrategico"
     },
     {
-        icon: Sitemap,
+        icon: Network,
         titulo: "Holding y Estructura Organizativa",
         descripcion: "Gestionar la estructura de socios, empresas del holding y la organización de los departamentos clave para el cumplimiento y la operación.",
         href: "/poderes-representacion"
