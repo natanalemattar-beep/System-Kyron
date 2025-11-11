@@ -84,6 +84,20 @@ const feriasInternacionales = [
         descripcion: "Anticipa las tecnologías que definirán el futuro en el evento de electrónica de consumo más influyente del mundo.",
         imagen: "https://picsum.photos/seed/expo8/600/400"
     },
+    {
+        titulo: "Mobile World Congress (MWC) 2026",
+        fecha: "Marzo, 2026 (Fechas por confirmar)",
+        lugar: "Barcelona, España",
+        descripcion: "La cita indispensable para la industria móvil, la conectividad 6G y las tecnologías emergentes.",
+        imagen: "https://picsum.photos/seed/mwc2026/600/400"
+    },
+    {
+        titulo: "Web Summit 2026",
+        fecha: "Noviembre, 2026 (Fechas por confirmar)",
+        lugar: "Lisboa, Portugal",
+        descripcion: "El punto de encuentro para la comunidad tecnológica global, desde startups hasta los gigantes de la industria.",
+        imagen: "https://picsum.photos/seed/websummit2026/600/400"
+    },
 ];
 
 export default function FeriasEventosPage() {
