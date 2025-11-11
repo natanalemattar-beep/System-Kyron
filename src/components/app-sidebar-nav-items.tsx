@@ -87,8 +87,10 @@ import {
   MessageSquare,
   HeartPulse,
   School,
-  UserPlus,
   Home,
+  SlidersHorizontal,
+  UserPlus,
+  Package,
 } from "lucide-react";
 
 
