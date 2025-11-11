@@ -13,14 +13,14 @@ import {
   Cpu,
   Gavel,
   ShoppingCart,
-  Megaphone
+  Megaphone,
+  Hash,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   InputOTP,
@@ -29,11 +29,14 @@ import {
 } from "@/components/ui/input-otp";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/logo";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 export default function RegisterPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [step, setStep] = useState(1); // 1 for form, 2 for verification
+  const [step, setStep] = useState(1);
+  const [accountType, setAccountType] = useState("juridica");
 
   const handleRegistration = (e: React.FormEvent) => {
     e.preventDefault();
@@ -147,19 +150,35 @@ export default function RegisterPage() {
                   Regístrate para simplificar la gestión de tu empresa o tus trámites personales.
                 </p>
             </div>
-
-            <Tabs defaultValue="juridica" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-muted h-auto md:h-12 p-1 mb-6">
-                <TabsTrigger value="juridica" className="h-full data-[state=active]:bg-card data-[state=active]:shadow-sm flex gap-2 py-2 md:py-0">
-                    <Building className="h-5 w-5"/> Persona Jurídica
-                </TabsTrigger>
-                <TabsTrigger value="natural" className="h-full data-[state=active]:bg-card data-[state=active]:shadow-sm flex gap-2 py-2 md:py-0">
-                    <User className="h-5 w-5"/> Persona Natural
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="juridica" className="text-left">
-                <form onSubmit={handleRegistration} className="space-y-6">
+            
+            <form onSubmit={handleRegistration} className="space-y-6">
+                 <div className="space-y-2">
+                    <Label>Tipo de Cuenta</Label>
+                    <Select value={accountType} onValueChange={setAccountType}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Selecciona un tipo de cuenta..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="juridica">
+                                <div className="flex items-center gap-2">
+                                    <Building className="h-4 w-4"/> Persona Jurídica (Empresa)
+                                </div>
+                            </SelectItem>
+                            <SelectItem value="natural">
+                                <div className="flex items-center gap-2">
+                                    <User className="h-4 w-4"/> Persona Natural
+                                </div>
+                            </SelectItem>
+                             <SelectItem value="personal">
+                                <div className="flex items-center gap-2">
+                                    <Briefcase className="h-4 w-4"/> Personal de la Empresa (Ventas, RRHH, etc.)
+                                </div>
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+            
+                <div className={cn("space-y-6", accountType === "juridica" ? "block" : "hidden")}>
                     <h3 className="font-semibold text-lg border-b pb-2">Datos de la Empresa</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
@@ -171,68 +190,9 @@ export default function RegisterPage() {
                             <Input type="text" placeholder="J-12345678-9"/>
                         </div>
                     </div>
-                    
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Datos de Contacto</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                            <Label>Correo Electrónico</Label>
-                            <Input type="email" placeholder="contacto@empresa.com"/>
-                        </div>
-                         <div className="space-y-2">
-                            <Label>Teléfono</Label>
-                            <Input type="tel" placeholder="0414-1234567"/>
-                        </div>
-                    </div>
+                </div>
 
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Seguridad</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2 relative">
-                            <Label>Contraseña</Label>
-                            <Input 
-                                type={passwordVisible ? "text" : "password"} 
-                                placeholder="••••••••" 
-                                className="pr-10"
-                            />
-                            <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-                                {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
-                            </button>
-                        </div>
-                        <div className="space-y-2 relative">
-                            <Label>Confirmar Contraseña</Label>
-                            <Input 
-                                type={confirmPasswordVisible ? "text" : "password"} 
-                                placeholder="••••••••" 
-                                className="pr-10"
-                            />
-                            <button type="button" onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-                                {confirmPasswordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
-                            </button>
-                        </div>
-                    </div>
-                    
-
-                    <div className="flex items-center space-x-2 pt-4">
-                        <Checkbox id="terms-juridica" />
-                        <Label htmlFor="terms-juridica" className="text-sm text-muted-foreground">
-                            Acepto los{" "}
-                            <Link href="/terms" className="underline text-primary hover:text-primary/80">
-                                Términos de Servicio
-                            </Link>
-                            {" y la "}
-                            <Link href="/politica-privacidad" className="underline text-primary hover:text-primary/80">
-                                Política de Privacidad
-                            </Link>.
-                        </Label>
-                    </div>
-
-                    <Button type="submit" className="w-full h-12 text-lg font-bold">
-                        Registrar Empresa
-                    </Button>
-                </form>
-              </TabsContent>
-
-               <TabsContent value="natural" className="text-left">
-                 <form onSubmit={handleRegistration} className="space-y-6">
+                <div className={cn("space-y-6", accountType === "natural" || accountType === "personal" ? "block" : "hidden")}>
                     <h3 className="font-semibold text-lg border-b pb-2">Datos Personales</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
@@ -244,65 +204,70 @@ export default function RegisterPage() {
                             <Input type="text" placeholder="V-12345678"/>
                         </div>
                     </div>
-                    
-                    <h3 className="font-semibold text-lg border-b pb-2 pt-4">Datos de Contacto</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                </div>
+
+                <div className={cn("space-y-4 animate-in fade-in", accountType === "personal" ? "block" : "hidden")}>
+                    <div className="p-4 bg-secondary/50 rounded-lg border">
+                         <h3 className="font-semibold text-lg border-b pb-2">Datos de Empleado</h3>
+                        <div className="mt-4 space-y-2">
+                            <Label htmlFor="employee-id">Código de Empleado / ID de Vendedor</Label>
+                            <Input id="employee-id" type="text" placeholder="Introduzca su código de empleado"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 className="font-semibold text-lg border-b pb-2 pt-4">Datos de Contacto y Seguridad</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                        <Label>Correo Electrónico</Label>
+                        <Input type="email" placeholder="contacto@email.com"/>
+                    </div>
                         <div className="space-y-2">
-                            <Label>Correo Electrónico</Label>
-                            <Input type="email" placeholder="juan.perez@email.com"/>
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Teléfono</Label>
-                            <Input type="tel" placeholder="0412-1234567"/>
-                        </div>
+                        <Label>Teléfono</Label>
+                        <Input type="tel" placeholder="0414-1234567"/>
                     </div>
-
-                     <h3 className="font-semibold text-lg border-b pb-2 pt-4">Seguridad</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2 relative">
-                            <Label>Contraseña</Label>
-                            <Input 
-                                type={passwordVisible ? "text" : "password"} 
-                                placeholder="••••••••" 
-                                className="pr-10"
-                            />
-                            <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-                                {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
-                            </button>
-                        </div>
-                        <div className="space-y-2 relative">
-                            <Label>Confirmar Contraseña</Label>
-                            <Input 
-                                type={confirmPasswordVisible ? "text" : "password"} 
-                                placeholder="••••••••" 
-                                className="pr-10"
-                            />
-                            <button type="button" onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-                                {confirmPasswordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
-                            </button>
-                        </div>
+                    <div className="space-y-2 relative">
+                        <Label>Contraseña</Label>
+                        <Input 
+                            type={passwordVisible ? "text" : "password"} 
+                            placeholder="••••••••" 
+                            className="pr-10"
+                        />
+                        <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
+                            {passwordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                        </button>
                     </div>
-
-                    <div className="flex items-center space-x-2 pt-4">
-                        <Checkbox id="terms-natural" />
-                        <Label htmlFor="terms-natural" className="text-sm text-muted-foreground">
-                             Acepto los{" "}
-                            <Link href="/terms" className="underline text-primary hover:text-primary/80">
-                                Términos de Servicio
-                            </Link>
-                            {" y la "}
-                            <Link href="/politica-privacidad" className="underline text-primary hover:text-primary/80">
-                                Política de Privacidad
-                            </Link>.
-                        </Label>
+                    <div className="space-y-2 relative">
+                        <Label>Confirmar Contraseña</Label>
+                        <Input 
+                            type={confirmPasswordVisible ? "text" : "password"} 
+                            placeholder="••••••••" 
+                            className="pr-10"
+                        />
+                        <button type="button" onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)} className="absolute right-3 top-8 text-muted-foreground">
+                            {confirmPasswordVisible ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                        </button>
                     </div>
+                </div>
+                
+                <div className="flex items-center space-x-2 pt-4">
+                    <Checkbox id="terms-juridica" />
+                    <Label htmlFor="terms-juridica" className="text-sm text-muted-foreground">
+                        Acepto los{" "}
+                        <Link href="/terms" className="underline text-primary hover:text-primary/80">
+                            Términos de Servicio
+                        </Link>
+                        {" y la "}
+                        <Link href="/politica-privacidad" className="underline text-primary hover:text-primary/80">
+                            Política de Privacidad
+                        </Link>.
+                    </Label>
+                </div>
 
-                    <Button type="submit" className="w-full h-12 text-lg font-bold">
-                        Registrarme
-                    </Button>
-                 </form>
-               </TabsContent>
-            </Tabs>
+                <Button type="submit" className="w-full h-12 text-lg font-bold">
+                    Registrar Cuenta
+                </Button>
+            </form>
              <p className="mt-8 text-center text-sm text-muted-foreground">
               ¿Ya tienes una cuenta?{" "}
               <Link href="/login-natural" className="font-semibold text-primary hover:underline">
