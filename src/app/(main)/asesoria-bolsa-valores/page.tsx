@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
-import { AreaChart, LineChart, CandlestickChart, ArrowRight, TrendingUp, Zap, Send, Bell, CheckCircle, Activity, DollarSign } from "lucide-react";
+import { AreaChart, LineChart, CandlestickChart, ArrowRight, TrendingUp, Zap, Send, Bell, CheckCircle, Activity, DollarSign, MessageSquare } from "lucide-react";
 import { Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 const marketData = [
   { date: "Ene '24", value: 4800 },
@@ -175,6 +176,27 @@ export default function AsesoriaBolsaPage() {
         </CardContent>
       </Card>
       
+       <Card className="bg-primary/10 border-primary/20">
+        <CardHeader>
+          <CardTitle>Obtener Asesoría Personalizada para Venezuela</CardTitle>
+          <CardDescription>
+            Contacta a nuestro equipo para discutir cuáles de estas oportunidades son más convenientes en el contexto venezolano.
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button asChild>
+            <a
+              href="https://wa.me/584242465142?text=Hola,%20me%20gustaría%20recibir%20asesoría%20personalizada%20sobre%20las%20acciones%20más%20convenientes%20para%20el%20país,%20según%20la%20información%20de%20su%20plataforma."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Contactar por WhatsApp
+            </a>
+          </Button>
+        </CardFooter>
+      </Card>
+
       <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
