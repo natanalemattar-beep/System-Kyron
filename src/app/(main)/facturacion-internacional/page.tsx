@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Globe, Database, Scale, Code, GitBranch, Shield, Server, CheckCircle } from "lucide-react";
 import { countries, countryModules } from "@/lib/countries";
+import Image from "next/image";
 
 const implementationConsiderations = [
     { title: "Seguridad y Privacidad", description: "Cumplimiento con GDPR para Europa, LOPD para España y leyes de protección de datos específicas de cada país." },

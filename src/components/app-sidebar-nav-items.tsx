@@ -102,9 +102,6 @@ export const juridicoMainMenuItems = [
   { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
   { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
-  { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
-  { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
-  { href: "/carta-exposicion-motivos", label: "Carta Exposición de Motivos", icon: Lightbulb },
   { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
   { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
 ];
