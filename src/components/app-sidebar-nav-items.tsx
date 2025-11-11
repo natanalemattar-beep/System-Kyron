@@ -1,4 +1,5 @@
 
+
 import {
   FileText,
   Bell,
@@ -88,6 +89,7 @@ import {
   Home,
   UserPlus,
   HeartPulse,
+  School,
 } from "lucide-react";
 
 
@@ -123,6 +125,7 @@ export const finanzasContabilidadMenuItems = [
   { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
   { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
   { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
+  { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
 ];
 
 export const facturacionGeneralMenuItems = [
@@ -200,7 +203,7 @@ export const ingenieriaMenuItems = [
   { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
   { href: "/presentacion-startup", label: "Presentación de Startup", icon: Presentation },
   { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
-  { href: "/analisis-empresa-hibrida", label: "Análisis de Startup Híbrida", icon: Rocket },
+  { href: "/analisis-empresa-hibrida", label: "Análisis de Modelos de Negocio", icon: Rocket },
 ];
 
 export const iaMenuItems = [
