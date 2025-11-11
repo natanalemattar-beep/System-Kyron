@@ -106,6 +106,7 @@ export const juridicoMainMenuItems = [
   { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
   { href: "/carta-exposicion-motivos", label: "Carta Exposición de Motivos", icon: Lightbulb },
   { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
+  { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
 ];
 
 export const finanzasContabilidadMenuItems = [
@@ -201,7 +202,7 @@ export const ingenieriaMenuItems = [
   { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
   { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
-  { href: "/presentacion-startup", label: "Presentación de Startup", icon: Presentation },
+  { href: "/presentacion-startup", label: "Guía para Presentar Startup", icon: Presentation },
   { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
   { href: "/analisis-empresa-hibrida", label: "Análisis de Modelos de Negocio", icon: Rocket },
 ];
