@@ -88,8 +88,9 @@ import {
   HeartPulse,
   Home,
   SlidersHorizontal,
-  UserPlus,
+  School,
   Package,
+  UserPlus,
 } from "lucide-react";
 
 
