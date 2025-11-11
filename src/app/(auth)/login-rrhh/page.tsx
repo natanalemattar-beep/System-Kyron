@@ -8,9 +8,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Aquí iría la lógica de autenticación
+    router.push('/dashboard-rrhh');
+  };
 
   return (
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
@@ -21,26 +29,30 @@ export default function LoginRrhhPage() {
         <CardTitle className="text-2xl">Acceso RR.HH.</CardTitle>
         <CardDescription>Inicia sesión con tu usuario de Recursos Humanos.</CardDescription>
       </CardHeader>
-      <CardContent className="p-6 space-y-6">
-        <div className="space-y-2">
-          <Label>Usuario</Label>
-          <Input type="text" placeholder="usuario.rrhh" />
-        </div>
-        <div className="space-y-2 relative">
-          <Label>Contraseña</Label>
-          <Input
-            type={passwordVisible ? "text" : "password"}
-            placeholder="••••••••"
-            className="pr-10"
-          />
-          <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-            {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-          </button>
-        </div>
-        <Button asChild className="w-full h-11 text-base">
-          <Link href="/dashboard-rrhh">Acceder</Link>
-        </Button>
-      </CardContent>
+      <form onSubmit={handleLogin}>
+        <CardContent className="p-6 space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="username">Usuario</Label>
+            <Input id="username" type="text" placeholder="usuario.rrhh" required />
+          </div>
+          <div className="space-y-2 relative">
+            <Label htmlFor="password">Contraseña</Label>
+            <Input
+              id="password"
+              type={passwordVisible ? "text" : "password"}
+              placeholder="••••••••"
+              className="pr-10"
+              required
+            />
+            <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
+              {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
+          <Button type="submit" className="w-full h-11 text-base">
+            Acceder
+          </Button>
+        </CardContent>
+      </form>
       <CardFooter className="flex-col gap-2 p-6 border-t text-sm">
         <p className="text-muted-foreground">¿No perteneces a RR.HH.?</p>
         <div className="flex gap-4">
