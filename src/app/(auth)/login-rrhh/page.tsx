@@ -2,13 +2,14 @@
 "use client";
 
 import { useState } from "react";
-import { Briefcase, Eye, EyeOff, User, Building, ShoppingCart } from "lucide-react";
+import { Briefcase, Eye, EyeOff, User, Building, ShoppingCart, Users, Megaphone, Cpu } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import { Separator } from "@/components/ui/separator";
 
 export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -53,9 +54,9 @@ export default function LoginRrhhPage() {
           </Button>
         </CardContent>
       </form>
-      <CardFooter className="flex-col gap-2 p-6 border-t text-sm">
+      <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
         <p className="text-muted-foreground">¿No perteneces a RR.HH.?</p>
-        <div className="flex gap-4">
+        <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
           <Button asChild variant="link" className="p-0">
             <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
           </Button>
@@ -64,6 +65,15 @@ export default function LoginRrhhPage() {
           </Button>
           <Button asChild variant="link" className="p-0">
             <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4" />Ventas</Link>
+          </Button>
+          <Button asChild variant="link" className="p-0">
+            <Link href="/login-socios" className="flex items-center gap-1"><Users className="h-4 w-4" />Socios</Link>
+          </Button>
+          <Button asChild variant="link" className="p-0">
+            <Link href="/login-marketing" className="flex items-center gap-1"><Megaphone className="h-4 w-4" />Marketing</Link>
+          </Button>
+          <Button asChild variant="link" className="p-0">
+            <Link href="/login-informatica" className="flex items-center gap-1"><Cpu className="h-4 w-4" />IT</Link>
           </Button>
         </div>
       </CardFooter>
