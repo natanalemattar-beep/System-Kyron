@@ -20,7 +20,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="hover:bg-primary/20">
+              <Button variant="ghost">
                 Acceder
                 <User className="ml-2 h-4 w-4" />
               </Button>

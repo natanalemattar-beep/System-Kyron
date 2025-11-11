@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Building, User, Briefcase, ArrowRight } from "lucide-react";
+import { Building, User, Briefcase, ArrowRight, ShoppingCart, Gavel, Users, Megaphone, Cpu } from "lucide-react";
 import Link from "next/link";
 import {
   Card,
@@ -24,17 +24,52 @@ const accountTypes = [
   },
   {
     type: "juridica",
-    title: "Persona Jurídica",
-    description: "Para registrar una nueva empresa y acceder a todos los módulos de gestión.",
+    title: "Admin y Finanzas",
+    description: "Para registrar la empresa principal y acceder a los módulos de gestión.",
     icon: Building,
     href: "/register/juridica",
   },
   {
-    type: "personal",
-    title: "Personal de la Empresa",
-    description: "Para empleados (ventas, RR.HH.) que se unen a una empresa ya registrada.",
+    type: "ventas",
+    title: "Ventas y Facturación",
+    description: "Para personal de ventas y cajeros que operan el punto de venta.",
+    icon: ShoppingCart,
+    href: "/login-ventas", // Should be register, but using login for now
+  },
+  {
+    type: "rrhh",
+    title: "Recursos Humanos",
+    description: "Para el personal encargado de la gestión de nóminas y empleados.",
     icon: Briefcase,
-    href: "/register/personal",
+    href: "/login-rrhh", // Should be register, but using login for now
+  },
+  {
+    type: "socios",
+    title: "Socios y Directivos",
+    description: "Acceso al dashboard consolidado del holding empresarial.",
+    icon: Users,
+    href: "/login-socios", // Should be register, but using login for now
+  },
+   {
+    type: "marketing",
+    title: "Marketing y Asesoría",
+    description: "Para el equipo de productos, consultoría y marketing.",
+    icon: Megaphone,
+    href: "/login-marketing",
+  },
+  {
+    type: "informatica",
+    title: "Ingeniería e Informática",
+    description: "Acceso para el equipo de desarrollo, seguridad y tecnología.",
+    icon: Cpu,
+    href: "/login-informatica",
+  },
+  {
+    type: "juridico",
+    title: "Escritorio Jurídico",
+    description: "Para el equipo legal y de cumplimiento normativo.",
+    icon: Gavel,
+    href: "/escritorio-juridico",
   },
 ];
 
@@ -60,14 +95,14 @@ export default function RegisterPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">Elige tu Tipo de Cuenta</h1>
             <p className="text-muted-foreground text-lg">
-              Selecciona el perfil que mejor se adapte a tus necesidades.
+              Selecciona el perfil que mejor se adapte a tus necesidades para comenzar.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {accountTypes.map((account) => (
               <Card
                 key={account.type}
@@ -85,7 +120,7 @@ export default function RegisterPage() {
                 <CardFooter>
                   <Button asChild className="w-full">
                     <Link href={account.href}>
-                      Registrarme <ArrowRight className="ml-2 h-4 w-4" />
+                      Seleccionar <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                 </CardFooter>
