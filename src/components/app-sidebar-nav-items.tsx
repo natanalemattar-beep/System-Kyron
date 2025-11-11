@@ -91,6 +91,7 @@ import {
   School,
   UserPlus,
   Package,
+  Zap,
 } from "lucide-react";
 
 
@@ -230,6 +231,7 @@ export const marketingMenuItems = [
     { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto", icon: Package },
     { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
     { href: "/demografia", label: "Análisis de Mercado", icon: Search },
+    { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: Zap },
 ];
 
 export const naturalMenuItems = {
