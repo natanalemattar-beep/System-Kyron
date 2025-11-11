@@ -232,7 +232,7 @@ export const marketingMenuItems = [
     { href: "/app-aliada-recompensa", label: "Alianzas y Recompensas", icon: Award },
     { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto", icon: Package },
     { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
-    { href: "/demografia", label: "Análisis de Mercado", icon: Search },
+    { href: "/analisis-mercado", label: "Análisis de Mercado", icon: Search },
     { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: Zap },
 ];
 
