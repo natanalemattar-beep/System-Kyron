@@ -97,6 +97,7 @@ export const juridicoMainMenuItems = [
   { href: "/multas", label: "Multas", icon: AlertTriangle },
   { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
   { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+  { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
 ];
 
 export const finanzasContabilidadMenuItems = [
