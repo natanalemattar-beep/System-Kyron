@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Archive, PlusCircle, Download, Eye, Trash2, CheckCircle } from "lucide-react";
+import { Archive, PlusCircle, Download, Eye, Trash2, CheckCircle, FileUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -16,11 +16,11 @@ import { FileInputTrigger } from "@/components/file-input-trigger";
 import Image from "next/image";
 
 const initialDocuments = [
-    { id: "DOC-001", nombre: "Acta Constitutiva Original", categoria: "Documentos Legales", fechaCarga: new Date(2012, 5, 15), fechaVencimiento: addYears(new Date(2012, 5, 15), 12) },
-    { id: "DOC-002", nombre: "RIF de la Empresa", categoria: "Fiscal", fechaCarga: new Date(2023, 0, 20), fechaVencimiento: addYears(new Date(2023, 0, 20), 12) },
-    { id: "DOC-003", nombre: "Cédula del Socio A", categoria: "Identificación Socios", fechaCarga: new Date(2022, 1, 10), fechaVencimiento: addYears(new Date(2022, 1, 10), 12) },
-    { id: "DOC-004", nombre: "Estado de Cuenta - Enero 2024", categoria: "Financiero", fechaCarga: new Date(2024, 0, 31), fechaVencimiento: addYears(new Date(2024, 0, 31), 12) },
-    { id: "DOC-005", nombre: "RIF de Empresa Relacionada B", categoria: "Fiscal", fechaCarga: new Date(2021, 8, 5), fechaVencimiento: addYears(new Date(2021, 8, 5), 12) },
+    { id: "DOC-001", nombre: "Acta Constitutiva Original", categoria: "Documentos Legales", fechaCarga: new Date(2012, 5, 15), fechaVencimiento: addYears(new Date(2012, 5, 15), 12), facturaAsociada: null, imagenUrl: null },
+    { id: "DOC-002", nombre: "RIF de la Empresa", categoria: "Fiscal", fechaCarga: new Date(2023, 0, 20), fechaVencimiento: addYears(new Date(2023, 0, 20), 12), facturaAsociada: null, imagenUrl: null },
+    { id: "DOC-003", nombre: "Factura de Compra de OficinaTech", categoria: "Compras", fechaCarga: new Date(2024, 6, 18), fechaVencimiento: addYears(new Date(2024, 6, 18), 12), facturaAsociada: "F-2024-00123", imagenUrl: "https://picsum.photos/seed/invoice-photo1/100/100" },
+    { id: "DOC-004", nombre: "Estado de Cuenta - Enero 2024", categoria: "Financiero", fechaCarga: new Date(2024, 0, 31), fechaVencimiento: addYears(new Date(2024, 0, 31), 12), facturaAsociada: null, imagenUrl: null },
+    { id: "DOC-005", nombre: "Factura de Compra de Suministros", categoria: "Compras", fechaCarga: new Date(2024, 6, 19), fechaVencimiento: addYears(new Date(2024, 6, 19), 12), facturaAsociada: "F-2024-00890", imagenUrl: "https://picsum.photos/seed/invoice-photo2/100/100" },
 ];
 
 type Documento = typeof initialDocuments[0];
@@ -32,6 +32,7 @@ const getStatus = (fechaVencimiento: Date) => {
 export default function ArchivoDigitalPage() {
     const [documents, setDocuments] = useState(initialDocuments);
     const [file, setFile] = useState<File | null>(null);
+    const [newDocInfo, setNewDocInfo] = useState({ categoria: "", facturaAsociada: ""});
     const { toast } = useToast();
 
     const handleFileUpload = (selectedFile: File) => {
@@ -43,16 +44,22 @@ export default function ArchivoDigitalPage() {
     };
 
     const handleSaveDocument = () => {
-         if (!file) return;
+         if (!file) {
+            toast({ variant: "destructive", title: "Error", description: "Por favor, selecciona un archivo." });
+            return;
+         };
         const newDoc: Documento = {
             id: `DOC-${String(documents.length + 1).padStart(3, '0')}`,
             nombre: file.name,
-            categoria: "General",
+            categoria: newDocInfo.categoria || "General",
             fechaCarga: new Date(),
-            fechaVencimiento: addYears(new Date(), 12)
+            fechaVencimiento: addYears(new Date(), 12),
+            facturaAsociada: newDocInfo.facturaAsociada || null,
+            imagenUrl: URL.createObjectURL(file)
         };
-        setDocuments(prev => [...prev, newDoc]);
+        setDocuments(prev => [newDoc, ...prev]);
         setFile(null);
+        setNewDocInfo({ categoria: "", facturaAsociada: "" });
         toast({
             title: "Documento Archivado Exitosamente",
             description: "El archivo ha sido guardado y su período de retención de 12 años ha comenzado.",
@@ -75,13 +82,13 @@ export default function ArchivoDigitalPage() {
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Archive className="h-8 w-8" />
-                        Archivo Digital y Fiscalización
+                        Archivo Digital y Fiscal
                     </h1>
                     <p className="text-muted-foreground mt-2">
-                        Gestiona y almacena documentos críticos con un período de retención de 12 años.
+                        Gestiona y almacena documentos críticos, asociando fotos de facturas a sus registros para fiscalización.
                     </p>
                 </div>
-                <Dialog>
+                <Dialog onOpenChange={(open) => !open && (setFile(null), setNewDocInfo({ categoria: "", facturaAsociada: ""}))}>
                     <DialogTrigger asChild>
                         <Button>
                             <PlusCircle className="mr-2" />
@@ -92,22 +99,26 @@ export default function ArchivoDigitalPage() {
                         <DialogHeader>
                             <DialogTitle>Archivar Nuevo Documento</DialogTitle>
                             <DialogDescription>
-                               Sube el archivo y clasifícalo para su almacenamiento a largo plazo.
+                               Sube el archivo, clasifícalo y asócialo a una factura si es necesario.
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
+                             <div className="space-y-2">
+                                <Label htmlFor="categoria">Categoría</Label>
+                                <Input id="categoria" placeholder="Ej: Compras, Documentos Legales, Fiscal" value={newDocInfo.categoria} onChange={(e) => setNewDocInfo({...newDocInfo, categoria: e.target.value})} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="facturaAsociada">Nro. de Factura Asociada (Opcional)</Label>
+                                <Input id="facturaAsociada" placeholder="Ej: F-2024-00123" value={newDocInfo.facturaAsociada} onChange={(e) => setNewDocInfo({...newDocInfo, facturaAsociada: e.target.value})} />
+                            </div>
                             <div className="space-y-2">
                                 <Label>Archivo</Label>
                                 <FileInputTrigger onFileSelect={handleFileUpload}>
                                     <Button variant="outline" className="w-full">
-                                        Seleccionar Archivo (PDF, JPG, etc.)
+                                        <FileUp className="mr-2 h-4 w-4" />
+                                        {file ? file.name : "Seleccionar Archivo (PDF, JPG, etc.)"}
                                     </Button>
                                 </FileInputTrigger>
-                                {file && <p className="text-sm text-center text-green-500 pt-2">Archivo: {file.name}</p>}
-                            </div>
-                             <div className="space-y-2">
-                                <Label htmlFor="categoria">Categoría</Label>
-                                <Input id="categoria" placeholder="Ej: Documentos Legales, Fiscal, Identificación" />
                             </div>
                         </div>
                         <DialogFooter>
@@ -121,14 +132,16 @@ export default function ArchivoDigitalPage() {
                 <CardHeader>
                     <CardTitle>Repositorio de Documentos</CardTitle>
                     <CardDescription>
-                        Listado de documentos archivados para cumplimiento fiscal.
+                        Listado de documentos archivados para cumplimiento fiscal y gestión interna.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
+                                <TableHead>Imagen</TableHead>
                                 <TableHead>Documento</TableHead>
+                                <TableHead>Factura Asociada</TableHead>
                                 <TableHead>Categoría</TableHead>
                                 <TableHead>Fecha de Carga</TableHead>
                                 <TableHead>Vencimiento del Archivo</TableHead>
@@ -141,7 +154,17 @@ export default function ArchivoDigitalPage() {
                                 const status = getStatus(doc.fechaVencimiento);
                                 return (
                                 <TableRow key={doc.id}>
+                                     <TableCell>
+                                        {doc.imagenUrl ? (
+                                            <Image src={doc.imagenUrl} alt={`Vista previa de ${doc.nombre}`} width={40} height={40} className="rounded-md object-cover" />
+                                        ) : (
+                                            <div className="w-10 h-10 bg-secondary rounded-md flex items-center justify-center">
+                                                <FileText className="h-5 w-5 text-muted-foreground"/>
+                                            </div>
+                                        )}
+                                    </TableCell>
                                     <TableCell className="font-medium">{doc.nombre}</TableCell>
+                                    <TableCell className="font-mono text-xs">{doc.facturaAsociada || 'N/A'}</TableCell>
                                     <TableCell>{doc.categoria}</TableCell>
                                     <TableCell>{format(doc.fechaCarga, "dd/MM/yyyy")}</TableCell>
                                     <TableCell>{format(doc.fechaVencimiento, "dd/MM/yyyy")}</TableCell>
