@@ -89,9 +89,7 @@ import {
   Home,
   SlidersHorizontal,
   School,
-  Package,
   UserPlus,
-  Scaling,
 } from "lucide-react";
 
 
@@ -228,6 +226,7 @@ export const marketingMenuItems = [
     { href: "/app-aliada-recompensa", label: "Alianzas y Recompensas", icon: Award },
     { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto", icon: Package },
     { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
+    { href: "/demografia", label: "Análisis de Mercado", icon: Search },
 ];
 
 export const naturalMenuItems = {
