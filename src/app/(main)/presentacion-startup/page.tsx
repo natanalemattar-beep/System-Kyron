@@ -4,8 +4,9 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Presentation, Lightbulb, CheckCircle } from "lucide-react";
+import { Presentation, Lightbulb, CheckCircle, Trophy, ArrowRight } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import Link from "next/link";
 
 const pitchDeckSections = [
     {
@@ -55,13 +56,27 @@ export default function PresentacionStartupPage() {
     <div className="space-y-12">
       <header className="mb-8 text-center">
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
-            <Presentation className="h-12 w-12" />
+            <Trophy className="h-12 w-12" />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">Guía Definitiva para una Presentación de Startup</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Guía para Ganar un Concurso de Startups</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-            Los recaudos esenciales que todo emprendedor debe incluir en su "pitch deck" para captar la atención de inversores y socios.
+            Los recaudos esenciales que todo emprendedor debe incluir en su "pitch deck" para destacar y captar la atención de jurados e inversores.
         </p>
       </header>
+
+       <Card className="bg-primary/10 border-primary/20">
+            <CardHeader>
+                <CardTitle>Prepárate para el "Startup Venezuela Summit"</CardTitle>
+                <CardDescription>Eventos como el Startup Venezuela Summit tienen un "Pitch Competition" donde las mejores startups compiten. Un pitch deck sólido, que siga los 10 recaudos de esta guía, es tu herramienta clave para destacar, comunicar tu valor y ganar.</CardDescription>
+            </CardHeader>
+            <CardFooter>
+                 <Button asChild>
+                    <Link href="/ferias-eventos">
+                        Ver Detalles del Evento <ArrowRight className="ml-2"/>
+                    </Link>
+                </Button>
+            </CardFooter>
+        </Card>
 
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
