@@ -1,4 +1,3 @@
-
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
@@ -28,7 +27,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
               <DropdownMenuItem asChild><Link href="/login-juridico">Admin y Finanzas</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/escritorio-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
+              <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
               <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
               <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
               <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>

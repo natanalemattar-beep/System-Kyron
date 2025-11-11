@@ -1,8 +1,7 @@
-
 "use client";
 
 import { useState } from "react";
-import { Building, Eye, EyeOff, User, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Gavel } from "lucide-react";
+import { Gavel, Eye, EyeOff, Building, ShoppingCart, Briefcase, Users, Megaphone, Cpu, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,16 +22,16 @@ export default function LoginJuridicoPage() {
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
       <CardHeader className="text-center">
         <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
-          <Building className="h-8 w-8 text-primary" />
+          <Gavel className="h-8 w-8 text-primary" />
         </div>
-        <CardTitle className="text-2xl">Acceso Corporativo</CardTitle>
-        <CardDescription>Portal de Administración y Finanzas.</CardDescription>
+        <CardTitle className="text-2xl">Escritorio Jurídico</CardTitle>
+        <CardDescription>Acceso para el departamento legal y de cumplimiento.</CardDescription>
       </CardHeader>
       <form onSubmit={handleLogin}>
         <CardContent className="p-6 space-y-6">
           <div className="space-y-2">
-            <Label>Usuario (Admin)</Label>
-            <Input type="text" placeholder="admin.user" required />
+            <Label>Usuario (Legal)</Label>
+            <Input type="text" placeholder="legal.user" required />
           </div>
           <div className="space-y-2 relative">
             <Label>Contraseña</Label>
@@ -52,10 +51,13 @@ export default function LoginJuridicoPage() {
         </CardContent>
       </form>
        <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
-        <p className="text-muted-foreground">¿No eres administrador? Accede a otro portal:</p>
+        <p className="text-muted-foreground">¿No eres del departamento legal? Accede a otro portal:</p>
         <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
             <Button asChild variant="link" className="p-0">
                 <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
+            </Button>
+             <Button asChild variant="link" className="p-0">
+                <Link href="/login-juridico" className="flex items-center gap-1"><Building className="h-4 w-4" />Admin</Link>
             </Button>
             <Button asChild variant="link" className="p-0">
                 <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4" />Ventas</Link>
@@ -71,9 +73,6 @@ export default function LoginJuridicoPage() {
             </Button>
             <Button asChild variant="link" className="p-0">
                 <Link href="/login-informatica" className="flex items-center gap-1"><Cpu className="h-4 w-4" />IT</Link>
-            </Button>
-             <Button asChild variant="link" className="p-0">
-                <Link href="/escritorio-juridico" className="flex items-center gap-1"><Gavel className="h-4 w-4" />Jurídico</Link>
             </Button>
         </div>
       </CardFooter>

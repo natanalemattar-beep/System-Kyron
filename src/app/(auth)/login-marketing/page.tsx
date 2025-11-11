@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -73,7 +72,7 @@ export default function LoginMarketingPage() {
                 <Link href="/login-informatica" className="flex items-center gap-1"><Cpu className="h-4 w-4" />IT</Link>
             </Button>
              <Button asChild variant="link" className="p-0">
-                <Link href="/escritorio-juridico" className="flex items-center gap-1"><Gavel className="h-4 w-4" />Jurídico</Link>
+                <Link href="/login-juridico" className="flex items-center gap-1"><Gavel className="h-4 w-4" />Jurídico</Link>
             </Button>
         </div>
       </CardFooter>

@@ -1,15 +1,12 @@
-
 "use client";
 
 import { useState } from "react";
-import { Building, Eye, EyeOff } from "lucide-react";
+import { Gavel, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { countries } from "@/lib/countries";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function RegisterJuridicaPage() {
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -18,23 +15,19 @@ export default function RegisterJuridicaPage() {
         <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
             <CardHeader className="text-center">
                 <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
-                    <Building className="h-8 w-8 text-primary" />
+                    <Gavel className="h-8 w-8 text-primary" />
                 </div>
-                <CardTitle className="text-2xl">Registro de Empresa</CardTitle>
-                <CardDescription>Crea una cuenta para tu persona jurídica.</CardDescription>
+                <CardTitle className="text-2xl">Registro del Equipo Legal</CardTitle>
+                <CardDescription>Crea una cuenta para el personal del departamento jurídico.</CardDescription>
             </CardHeader>
             <CardContent className="p-6 space-y-6">
                 <div className="space-y-2">
-                    <Label htmlFor="company-name">Razón Social</Label>
-                    <Input id="company-name" placeholder="Tu Empresa, C.A." required />
+                    <Label htmlFor="employee-id">ID de Empleado / Usuario</Label>
+                    <Input id="employee-id" placeholder="legal.user" required />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="rif">Número de RIF</Label>
-                    <Input id="rif" placeholder="J-12345678-9" required />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="email">Correo Electrónico Corporativo</Label>
-                    <Input id="email" type="email" placeholder="admin@tuempresa.com" required />
+                    <Label htmlFor="email">Correo Electrónico</Label>
+                    <Input id="email" type="email" placeholder="legal@tuempresa.com" required />
                 </div>
                 <div className="space-y-2 relative">
                     <Label htmlFor="password">Contraseña</Label>
@@ -49,7 +42,7 @@ export default function RegisterJuridicaPage() {
                         {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
                 </div>
-                <Button type="submit" className="w-full h-11 text-base">Crear Cuenta de Empresa</Button>
+                <Button type="submit" className="w-full h-11 text-base">Crear Cuenta Legal</Button>
             </CardContent>
             <CardFooter className="flex-col p-6 border-t text-sm">
                  <p className="text-muted-foreground">¿Ya tienes una cuenta?</p>

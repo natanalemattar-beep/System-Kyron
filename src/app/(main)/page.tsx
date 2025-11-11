@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -227,7 +226,7 @@ export default function LandingPage() {
                 <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Admin y Finanzas</Link></DropdownMenuItem>
-                    <DropdownMenuItem asChild><Link href="/escritorio-juridico"><Gavel className="mr-2"/>Escritorio Jurídico</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-juridico"><Gavel className="mr-2"/>Escritorio Jurídico</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link href="/login-ventas"><ShoppingCart className="mr-2"/>Ventas y Facturación</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link href="/login-socios"><Users className="mr-2"/>Acceso Socios</Link></DropdownMenuItem>
