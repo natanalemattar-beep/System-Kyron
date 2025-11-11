@@ -360,9 +360,3 @@ export default function ArqueoCajaPage() {
         </div>
     );
 }
-
-    
-
-    
-
-    
