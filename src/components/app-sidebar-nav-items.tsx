@@ -222,6 +222,7 @@ export const generalMenuItems = [
 
 export const marketingMenuItems = [
     { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
+    { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
     { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
     { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
     { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
