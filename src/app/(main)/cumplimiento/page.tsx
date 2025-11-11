@@ -54,6 +54,15 @@ export default function CumplimientoPage() {
         </p>
       </header>
 
+      <Alert variant="destructive" className="mb-8">
+        <FileWarning className="h-4 w-4" />
+        <AlertTitle>Omisión de Pago de Impuestos</AlertTitle>
+        <AlertDescription>
+          Se ha detectado una omisión en el pago de la declaración de IVA del período anterior.
+          <Button size="sm" className="ml-4">Pagar Ahora</Button>
+        </AlertDescription>
+      </Alert>
+
        <Alert variant="destructive" className="mb-8">
             <FileWarning className="h-4 w-4" />
             <AlertTitle>Alerta de Incumplimiento Potencial</AlertTitle>
