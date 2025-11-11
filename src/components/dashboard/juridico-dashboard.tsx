@@ -90,10 +90,9 @@ export function JuridicoDashboard() {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
             {/* Financial Pulse */}
             <div className="space-y-2 xl:col-span-3">
-                <h2 className="text-2xl font-semibold tracking-tight">Pulso Financiero</h2>
                 <Card className="bg-card/80 backdrop-blur-sm">
                     <CardHeader>
-                        <CardTitle>Ingresos vs. Gastos (Últimos 12 meses)</CardTitle>
+                        <CardTitle>Pulso Financiero (Últimos 12 meses)</CardTitle>
                     </CardHeader>
                     <CardContent className="h-80">
                         <ChartContainer config={chartConfig} className="w-full h-full">

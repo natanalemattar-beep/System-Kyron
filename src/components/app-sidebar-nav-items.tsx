@@ -66,7 +66,7 @@ import {
   Contact,
   Calculator,
   Paintbrush,
-  Sitemap,
+  Network,
   Rocket,
   Mail,
   Award,
@@ -82,7 +82,6 @@ import {
   Swords,
   Search,
   HardHat,
-  Network
 } from "lucide-react";
 
 
@@ -193,7 +192,7 @@ export const generalMenuItems = [
   { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
-  { href: "/organigrama", label: "Organigrama", icon: Sitemap },
+  { href: "/organigrama", label: "Organigrama", icon: Network },
   { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
 ];
 
@@ -227,7 +226,7 @@ export const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
         { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
         { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
-        { href: "/organigrama", label: "Organigrama", icon: Sitemap },
+        { href: "/organigrama", label: "Organigrama", icon: Network },
     ] },
 ];
 

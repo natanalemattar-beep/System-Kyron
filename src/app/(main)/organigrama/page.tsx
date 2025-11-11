@@ -1,8 +1,9 @@
+
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sitemap, Users, Scale, Building, CheckCircle, Briefcase } from "lucide-react";
+import { Network, Users, Scale, Building, CheckCircle, Briefcase } from "lucide-react";
 
 const componentes = [
     "Cargos y Roles: Cada cuadro o casilla representa un puesto o departamento dentro de la empresa, indicando el nombre del puesto y, a veces, la persona que lo ocupa.",
@@ -63,7 +64,7 @@ export default function OrganigramaPage() {
     <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-            <Sitemap className="h-8 w-8" />
+            <Network className="h-8 w-8" />
             Organigrama y Estructura Empresarial
         </h1>
         <p className="text-muted-foreground mt-2">

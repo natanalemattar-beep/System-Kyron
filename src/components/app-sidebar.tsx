@@ -73,7 +73,7 @@ import {
   Contact,
   Calculator,
   Paintbrush,
-  Sitemap,
+  Network,
   Rocket,
   Mail,
   Award,
@@ -89,7 +89,6 @@ import {
   Swords,
   Search,
   HardHat,
-  Network
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -841,6 +840,7 @@ function AppSidebarLegal() {
     
 
     
+
 
 
 

@@ -26,6 +26,7 @@ import {
   LogOut,
   Moon,
   MoreVertical,
+  Network,
   PieChart,
   Pizza,
   Plus,
@@ -36,7 +37,6 @@ import {
   Settings,
   ShieldCheck,
   ShoppingBag,
-  Sitemap,
   Star,
   Sun,
   Trash,
@@ -112,5 +112,5 @@ export const Icons = {
   calendar: Calendar,
   trendingUp: TrendingUp,
   pieChart: PieChart,
-  sitemap: Sitemap,
+  sitemap: Network,
 };
