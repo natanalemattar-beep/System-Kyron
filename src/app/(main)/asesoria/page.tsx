@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Megaphone, Ship, CandlestickChart, Gavel } from "lucide-react";
+import { ArrowRight, Megaphone, Ship, CandlestickChart, Gavel, FileText } from "lucide-react";
 import Link from "next/link";
 
 const advisoryModules = [
@@ -31,6 +31,12 @@ const advisoryModules = [
         icon: Gavel,
         href: "/departamento-juridico"
     },
+    {
+        title: "Propuesta de Proyecto y Consultoría",
+        description: "Modelos para la elaboración de propuestas de proyectos, estudios de mercado y planes de negocio.",
+        icon: FileText,
+        href: "/propuesta-proyecto"
+    },
 ];
 
 export default function AsesoriaPage() {
@@ -45,7 +51,7 @@ export default function AsesoriaPage() {
           Potencia tu toma de decisiones con nuestras herramientas de análisis y consultoría.
         </p>
       </header>
-       <div className="grid gap-6 md:grid-cols-2">
+       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {advisoryModules.map((module) => (
             <Card key={module.title} className="flex flex-col bg-card/50 backdrop-blur-sm">
                 <CardHeader>

@@ -90,7 +90,6 @@ import {
   SlidersHorizontal,
   School,
   Package,
-  UserPlus,
 } from "lucide-react";
 
 
@@ -221,6 +220,7 @@ export const generalMenuItems = [
 
 export const marketingMenuItems = [
     { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
+    { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
     { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
     { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
     { href: "/app-aliada-recompensa", label: "Alianzas y Recompensas", icon: Award },
