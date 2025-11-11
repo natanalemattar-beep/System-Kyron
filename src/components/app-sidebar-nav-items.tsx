@@ -1,3 +1,4 @@
+
 import {
   FileText,
   Bell,
@@ -84,6 +85,7 @@ import {
   HardHat,
   MessageSquare,
   SlidersHorizontal,
+  Home,
   UserPlus,
 } from "lucide-react";
 
@@ -100,6 +102,7 @@ export const juridicoMainMenuItems = [
   { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
   { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
   { href: "/carta-exposicion-motivos", label: "Carta Exposición de Motivos", icon: Lightbulb },
+  { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
 ];
 
 export const finanzasContabilidadMenuItems = [
