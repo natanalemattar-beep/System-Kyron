@@ -1,83 +1,40 @@
 
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Check, CheckCircle, HelpCircle, Puzzle, ThumbsUp, ShieldCheck, ArrowRight, FileWarning, X } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { FileWarning, ShieldCheck } from "lucide-react";
 
-
-const faqItems = [
-    {
-        question: "¿Qué es un sistema administrativo en Venezuela?",
-        answer: "Es un software que gestiona procesos contables y de facturación, adaptado a la normativa del país, especialmente a las exigencias del SENIAT."
-    },
-    {
-        question: "¿Cuál es el mejor software administrativo homologado por el SENIAT?",
-        answer: "Depende de cada negocio, pero opciones como Hybrid LiteOS, Galac y Profit Plus destacan por cumplir con la providencia vigente. La elección debe basarse en el tamaño de la empresa y sus necesidades específicas."
-    },
-    {
-        question: "¿Qué beneficios tiene para una PYME?",
-        answer: "Ordena la facturación, controla inventarios, reduce errores humanos y, lo más importante, asegura el cumplimiento fiscal, lo que se traduce en tranquilidad."
-    },
-    {
-        question: "¿Cuánto cuesta implementar un sistema administrativo?",
-        answer: "Los precios varían según licencias, usuarios y soporte, pero lo importante es ver el costo como una inversión en seguridad y tranquilidad."
-    },
-    {
-        question: "¿Se puede usar a distancia?",
-        answer: "Sí, cada vez más soluciones ofrecen acceso remoto o son basadas en la nube, ideal para gerentes que necesitan revisar reportes desde cualquier lugar."
-    }
+const softwareList = [
+    { rif: "J000126518", empresa: "COMPAÑÍA ANÓNIMA EMPRESA CINES UNIDOS", sistema: "VISTA", version: "5.0.12.26", categoria: "Gestión de cines y salas de entretenimiento." },
+    { rif: "J001871985", empresa: "ALIMENTOS ARCOS DORADOS C.A.", sistema: "NEWPOS", version: "3.5", categoria: "Punto de venta (POS) para cadenas de comida rápida McDonald's." },
+    { rif: "J301850971", empresa: "PAPELERÍA LA NUBE AZUL, C.A.", sistema: "SISTEMA ADMINISTRATIVO OFIMANIA (SAP)", version: "1.0", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
+    { rif: "J305125430", empresa: "INFOTAX INFORMÁTICA TRIBUTARIA S.A.", sistema: "GALAC SISTEMA ADMINISTRATIVO SAW", version: "30.0", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
+    { rif: "J506491060", empresa: "SAINT ENTERPRISE 2.0 C.A.", sistema: "SAINT ENTERPRISE ADMINISTRATIVO", version: "9.7.5.0", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
+    { rif: "J296717508", empresa: "TECNOLAB SISTEMAS 21", sistema: "INFOLAB", version: "2.0.a", categoria: "Gestión operativa de laboratorios, incluyendo facturación, control de muestras y resultados." },
+    { rif: "J308016284", empresa: "A2SOFTWAY C.A.", sistema: "A2 PUNTO DE VENTA", version: "10.00.0ALX", categoria: "Gestión de punto de venta (POS) para ventas directas." },
+    { rif: "J308016284", empresa: "A2SOFTWAY C.A.", sistema: "A2 HERRAMIENTA ADMINISTRATIVA CONFIGURABLE MODULO DE VENTA (HAC)", version: "13.01.0ALX", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
+    { rif: "J308016284", empresa: "A2SOFTWAY C.A.", sistema: "A2 ADMINISTRATIVO BASICO MODULO DE VENTAS", version: "10.0.1ALX", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
+    { rif: "J309827316", empresa: "SMS CONSULTORES C.A.", sistema: "SISTEMA OASIS", version: "12.0.2.5", categoria: "Sistema integral para la administración empresarial, gestión de operaciones, facturación (POS) e inventario." },
+    { rif: "J294813488", empresa: "SISTEMAS D3XD C.A.", sistema: "D3XD CLÍNICAS ADMINISTRATIVO", version: "1.1.18", categoria: "Gestión administrativa integral (ERP) para clinicas y centros de salud." },
+    { rif: "J294813488", empresa: "SISTEMAS D3XD C.A.", sistema: "D3Xd Gym", version: "1.0.10", categoria: "Gestión administrativa integral (ERP) para gimnasios." },
+    { rif: "J294813488", empresa: "SISTEMAS D3XD C.A.", sistema: "GISIN3", version: "1.1.35", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
+    { rif: "J307928220", empresa: "KLK SISTEMAS, C.A.", sistema: "KLK POS", version: "4.0.1.7", categoria: "Sistema integral para la administración empresarial, gestión de operaciones, facturación (POS) e inventario." },
+    { rif: "J299295760", empresa: "WINLEDGER INTERNACIONAL C.A.", sistema: "SOFTWARE WINLEDGER FACTURACIÓN Y PRODUCTOS", version: "2025.2.405", categoria: "Gestión administrativa integral (ERP) para ventas directas." },
+    { rif: "J297059172", empresa: "CORPORACION VNET C.A.", sistema: "BUSINESS CENTRAL", version: "25.3.28755.29171", categoria: "Gestión administrativa integral (ERP) para proveedores de servicios de Internet, incluyendo administración de clientes, planes y facturación." },
+    { rif: "J505724347", empresa: "TOTAL APLICACIONES L.C.A.", sistema: "SIMPLITPOS", version: "4.2.06.04", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
+    { rif: "J402385358", empresa: "THE FACTORY HKA VENEZUELA C.A.", sistema: "HKA FE (PORTAL WEB Y API DE EMISION DE DOCUMENTOS)", version: "1.1", categoria: "Portal web y API para emisión de facturas y otros documentos Fiscales." },
+    { rif: "J316353737", empresa: "PROCERT ITFB, C.A.", sistema: "SIGECE (PORTAL WEB DE EMISION DE DOCUMENTOS)", version: "1.2", categoria: "Portal web para emisión de facturas y otros documentos Fiscales." },
+    { rif: "J314584855", empresa: "INSITE VENEZUELA, C.A.", sistema: "HYBRID LITEPRO", version: "4", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
+    { rif: "J314584855", empresa: "INSITE VENEZUELA, C.A.", sistema: "HYBRID LITEOS", version: "3", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
 ];
-
-const nationalSystems = [
-  { 
-    name: "Saint", 
-    description: "Muy popular por su versatilidad, usado en PYMES. Ofrece módulos administrativos y contables.",
-    advantages: ["Muy conocido en el mercado", "Gran cantidad de contadores lo dominan."],
-    disadvantages: ["Versiones más populares no homologadas", "Interfaz considerada anticuada", "Rígido para adaptarse."]
-  },
-  { 
-    name: "Gálac Software", 
-    description: "Soluciones robustas y completas (Contabilidad, Nómina, Administrativo) con fuerte enfoque en cumplimiento.",
-    advantages: ["Ecosistema integrado", "Homologado", "Fuerte enfoque en NIIF."],
-    disadvantages: ["Puede ser complejo para PYMES", "Costo de implementación más elevado."]
-  },
-  { 
-    name: "Profit Plus", 
-    description: "Muy escalable y adaptable, con fuerte presencia en el país.",
-    advantages: ["Altamente personalizable", "Homologado", "Ideal para negocios en crecimiento."],
-    disadvantages: ["Curva de aprendizaje pronunciada", "Requiere inversión en personalización."]
-  },
-   { 
-    name: "A2 Softway", 
-    description: "Amplia gama de módulos con gran presencia en comercios minoristas (POS).",
-    advantages: ["Fuerte en punto de venta", "Modular", "Buena red de distribución."],
-    disadvantages: ["La integración entre módulos puede ser compleja."]
-  },
-];
-
-const internationalSystems = [
-    { name: "SAP Business One", description: "ERP de clase mundial para empresas medianas y grandes que buscan una integración total.", advantages: ["Extremadamente potente", "Personalizable", "Reconocimiento global."], disadvantages: ["Costo muy elevado en licencias e implementación", "Excesivo para la mayoría de PYMES."] },
-    { name: "Odoo", description: "ERP de código abierto con una gran cantidad de módulos que se adapta a diversas necesidades.", advantages: ["Modular y flexible", "Comunidad activa", "Costo inicial puede ser bajo."], disadvantages: ["Requiere un 'partner' local para la localización fiscal", "La personalización puede volverse costosa."] },
-    { name: "QuickBooks Online", description: "Plataforma en la nube popular para la gestión de PYMES a nivel global.", advantages: ["Interfaz muy amigable", "Fácil de usar", "Basado 100% en la nube."], disadvantages: ["No está adaptado a la normativa venezolana", "Requiere herramientas complementarias para reportes fiscales."] },
-];
-
-const ourSystem = {
-    name: "Hybrid LiteOS (System C.M.S)",
-    description: "La solución moderna diseñada para PYMES y comerciantes en Venezuela, que combina facilidad de uso con cumplimiento fiscal garantizado.",
-    advantages: ["Diseño moderno e intuitivo", "Enfocado en la facilidad de uso", "Homologado (Providencia 121)", "Asesoría y soporte local incluidos."],
-    disadvantages: ["Más nuevo en el mercado en comparación con sistemas tradicionales."]
-};
 
 
 export default function SoftwareContablePage() {
-  return (
-    <div className="p-4 md:p-8 space-y-12">
-       <header className="mb-8 text-center">
+    return (
+        <div className="p-4 md:p-8 space-y-12">
+           <header className="mb-8 text-center">
         <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
             <Puzzle className="h-10 w-10 text-primary"/>
             Guía para Elegir tu Sistema Administrativo en Venezuela
@@ -94,113 +51,40 @@ export default function SoftwareContablePage() {
             Según la <strong>Providencia Administrativa N° SNAT/2024/000121</strong> (Gaceta Oficial N° 43.032), solo están autorizados los Software Homologados y sus versiones específicas. El uso de software no homologado puede acarrear severas sanciones.
           </AlertDescription>
       </Alert>
-      
-        <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle>Sistemas Contables Populares de Desarrollo Nacional</CardTitle>
-                <CardDescription>Sistemas adaptados a la normativa venezolana, multimoneda y reportes SENIAT.</CardDescription>
-            </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-6">
-                {nationalSystems.map(system => (
-                    <Card key={system.name}>
-                        <CardHeader>
-                            <CardTitle>{system.name}</CardTitle>
-                            <CardDescription>{system.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-3">
-                            <div>
-                                <h4 className="font-semibold text-green-500 mb-2">Ventajas</h4>
-                                <ul className="list-disc pl-5 text-sm space-y-1">
-                                    {system.advantages.map(adv => <li key={adv}>{adv}</li>)}
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-red-500 mb-2">Desventajas</h4>
-                                <ul className="list-disc pl-5 text-sm space-y-1">
-                                    {system.disadvantages.map(dis => <li key={dis}>{dis}</li>)}
-                                </ul>
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
-            </CardContent>
-        </Card>
+            
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Listado de Software de Facturación Homologado</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>RIF</TableHead>
+                                    <TableHead>Empresa</TableHead>
+                                    <TableHead>Sistema</TableHead>
+                                    <TableHead>Versión</TableHead>
+                                    <TableHead>Categoría</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {softwareList.map((item) => (
+                                    <TableRow key={item.rif + item.sistema + item.version}>
+                                        <TableCell className="font-mono">{item.rif}</TableCell>
+                                        <TableCell className="font-medium">{item.empresa}</TableCell>
+                                        <TableCell>{item.sistema}</TableCell>
+                                        <TableCell className="font-semibold">{item.version}</TableCell>
+                                        <TableCell className="text-sm text-muted-foreground">{item.categoria}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
+                </CardContent>
+            </Card>
 
-        <Card className="bg-primary/10 border-primary/20">
-            <CardHeader>
-                <CardTitle className="text-primary flex items-center gap-2"><ShieldCheck/> Nuestra Solución Recomendada: {ourSystem.name}</CardTitle>
-                <CardDescription>{ourSystem.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-6">
-                <div>
-                    <h4 className="font-semibold text-green-500 mb-2">Ventajas Clave</h4>
-                    <ul className="list-disc pl-5 text-sm space-y-1">
-                        {ourSystem.advantages.map(adv => <li key={adv}>{adv}</li>)}
-                    </ul>
-                </div>
-                 <div>
-                    <h4 className="font-semibold text-red-500 mb-2">Desventajas</h4>
-                    <ul className="list-disc pl-5 text-sm space-y-1">
-                        {ourSystem.disadvantages.map(dis => <li key={dis}>{dis}</li>)}
-                    </ul>
-                </div>
-            </CardContent>
-             <CardFooter>
-                <Button>Solicitar un Demo <ArrowRight className="ml-2"/></Button>
-            </CardFooter>
-        </Card>
-
-       <Card className="bg-card/50 backdrop-blur-sm">
-        <CardHeader>
-            <CardTitle>Soluciones Internacionales con Presencia en Venezuela</CardTitle>
-            <CardDescription>Sistemas ERP que requieren configuración especial para cumplir con la normativa fiscal local.</CardDescription>
-        </CardHeader>
-        <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {internationalSystems.map(system => (
-                <Card key={system.name}>
-                    <CardHeader>
-                        <CardTitle>{system.name}</CardTitle>
-                        <CardDescription>{system.description}</CardDescription>
-                    </CardHeader>
-                     <CardContent className="space-y-3">
-                        <div>
-                            <h4 className="font-semibold text-green-500 mb-2">Ventajas</h4>
-                            <ul className="list-disc pl-5 text-sm space-y-1">
-                                {system.advantages.map(adv => <li key={adv}>{adv}</li>)}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-semibold text-red-500 mb-2">Desventajas</h4>
-                            <ul className="list-disc pl-5 text-sm space-y-1">
-                                {system.disadvantages.map(dis => <li key={dis}>{dis}</li>)}
-                            </ul>
-                        </div>
-                    </CardContent>
-                </Card>
-            ))}
-        </CardContent>
-       </Card>
-
-      {/* FAQ */}
-      <section>
-         <h2 className="text-2xl font-semibold mb-8 text-center">Preguntas Frecuentes</h2>
-         <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
-            {faqItems.map((item, index) => (
-                 <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 backdrop-blur-sm border rounded-lg mb-2 px-4">
-                    <AccordionTrigger>
-                        <div className="flex items-center gap-3">
-                            <HelpCircle className="h-5 w-5 text-primary" />
-                            <span>{item.question}</span>
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pl-10 text-muted-foreground">
-                        {item.answer}
-                    </AccordionContent>
-                </AccordionItem>
-            ))}
-        </Accordion>
-      </section>
-
-    </div>
-  );
+        </div>
+    );
 }
+
