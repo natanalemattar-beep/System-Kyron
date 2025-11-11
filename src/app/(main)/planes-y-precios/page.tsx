@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { CheckCircle, HelpCircle, BarChart, ArrowRight, DollarSign, Users, Briefcase } from "lucide-react";
+import { CheckCircle, HelpCircle, BarChart, ArrowRight, DollarSign, Users, Briefcase, HeartHandshake } from "lucide-react";
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
@@ -36,6 +36,21 @@ const planes = [
             "Soporte Prioritario (WhatsApp)",
         ],
         popular: true,
+    },
+    {
+        nombre: "Plan Aliado Estratégico",
+        precio: "Cortesía",
+        periodo: "",
+        descripcion: "Invitación para empresas seleccionadas que serán nuestro modelo de aprobación.",
+        icon: HeartHandshake,
+        features: [
+            "Todos los beneficios del Plan Profesional",
+            "Acceso anticipado a nuevas funcionalidades",
+            "Soporte y consultoría personalizada",
+            "Acceso a módulos de Inteligencia Artificial",
+        ],
+        popular: false,
+        cta: "Postularse como Aliado"
     },
     {
         nombre: "Plan Corporativo",
@@ -93,11 +108,12 @@ export default function PlanesPreciosPage() {
         </p>
       </header>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
         {planes.map(plan => (
             <Card key={plan.nombre} className={`flex flex-col bg-card/50 backdrop-blur-sm ${plan.popular ? 'border-primary shadow-lg shadow-primary/10' : ''}`}>
                 {plan.popular && <div className="bg-primary text-primary-foreground text-xs font-bold text-center py-1 rounded-t-xl">MÁS POPULAR</div>}
                 <CardHeader className="text-center">
+                    {plan.icon && <div className="inline-block p-3 bg-primary/10 rounded-full mb-2 mx-auto"><plan.icon className="h-6 w-6 text-primary"/></div>}
                     <CardTitle className="text-2xl">{plan.nombre}</CardTitle>
                     <CardDescription>{plan.descripcion}</CardDescription>
                 </CardHeader>
@@ -117,7 +133,7 @@ export default function PlanesPreciosPage() {
                 </CardContent>
                 <CardFooter>
                     <Button className={`w-full text-lg h-12 ${plan.popular ? '' : 'btn-secondary'}`}>
-                        Seleccionar Plan
+                        {plan.cta || 'Seleccionar Plan'}
                     </Button>
                 </CardFooter>
             </Card>
