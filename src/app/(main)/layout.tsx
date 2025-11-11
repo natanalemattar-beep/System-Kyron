@@ -27,51 +27,9 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <div id="main-content-container" className="w-full overflow-y-auto">
-        <SidebarInset>
-           <header className="p-4 flex justify-between items-center border-b border-border/50 bg-background/80 backdrop-blur-lg sticky top-0 z-10 h-16 px-6 md:px-8">
-             <div className="flex items-center gap-4">
-              <SidebarTrigger />
-             </div>
-             <div className="flex items-center gap-4">
-              <Link href="/notificaciones">
-                <Button variant="ghost" size="icon"><Bell className="h-5 w-5"/></Button>
-              </Link>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
-                    <Avatar>
-                      <AvatarFallback>E</AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                      <Link href="/dashboard-juridico"><User className="mr-2"/>Perfil</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                      <Link href="/seguridad"><Settings className="mr-2"/>Ajustes</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                     <Link href="/"><LogOut className="mr-2"/>Cerrar Sesión</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-             </div>
-          </header>
-          <main className="flex-1 p-4 md:p-8">
-            <div className="w-full">
-                {children}
-            </div>
-          </main>
-        </SidebarInset>
-      </div>
-      <Toaster />
-    </SidebarProvider>
+    <>
+        {children}
+        <Toaster />
+    </>
   );
 }
