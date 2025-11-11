@@ -1,10 +1,11 @@
 
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Layers, Rocket, ThumbsUp, ThumbsDown, CheckCircle, ArrowRight } from "lucide-react";
+import { Layers, Rocket, ThumbsUp, ThumbsDown, CheckCircle, ArrowRight, Cloud } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 
@@ -22,6 +23,18 @@ const hybridModelChallenges = [
     "Marketing y Ventas Doble: Necesitas estrategias para vender tanto un producto físico como una suscripción digital."
 ];
 
+const saasAdvantages = [
+    { title: "Escalabilidad Global", description: "Un software puede ser distribuido a miles de usuarios en todo el mundo sin un aumento significativo en los costos de producción." },
+    { title: "Ingresos Recurrentes", description: "El modelo de suscripción (mensual o anual) genera un flujo de caja predecible y estable." },
+    { title: "Márgenes Altos", description: "Una vez desarrollado, el costo de servir a un nuevo cliente es marginal, lo que lleva a márgenes de beneficio muy altos." },
+];
+
+const saasIdeas = [
+    "Plataforma de Telemedicina: Conecta a médicos venezolanos con pacientes dentro y fuera del país.",
+    "Software de Gestión para Condominios: Automatiza el cobro de cuotas, la reserva de áreas comunes y la comunicación con los residentes.",
+    "Herramienta de Marketing Automation para Redes Sociales: Ayuda a las PYMES a programar contenido y analizar su rendimiento en Instagram, X, etc.",
+];
+
 
 export default function AnalisisEmpresaHibridaPage() {
 
@@ -30,7 +43,7 @@ export default function AnalisisEmpresaHibridaPage() {
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
             <Rocket className="h-8 w-8 text-primary"/>
-            Análisis de Modelos de Negocio: Startup Híbrida
+            Análisis de Modelos de Negocio para Startups
         </h1>
         <p className="text-muted-foreground mt-2">
           Comprendiendo el potencial de combinar hardware, software y servicios en un ecosistema integrado.
@@ -57,7 +70,7 @@ export default function AnalisisEmpresaHibridaPage() {
         
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Layers className="h-6 w-6"/> El Modelo Híbrido: Hardware + Software</CardTitle>
+                <CardTitle className="flex items-center gap-3"><Layers className="h-6 w-6"/> Modelo Híbrido: Hardware + Software</CardTitle>
             </CardHeader>
             <CardContent>
                 <p className="text-muted-foreground">
@@ -69,6 +82,42 @@ export default function AnalisisEmpresaHibridaPage() {
             </CardContent>
         </Card>
       </div>
+      
+      <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3"><Cloud className="h-6 w-6"/> Modelo 100% Online (Software as a Service - SaaS)</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-muted-foreground mb-6">
+                    Este es el modelo más común para startups tecnológicas. El producto es enteramente digital y se accede a él a través de internet, generalmente mediante una suscripción.
+                </p>
+                 <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 className="font-semibold mb-2">Ventajas Clave:</h4>
+                        <ul className="space-y-4">
+                            {saasAdvantages.map(item => (
+                                <li key={item.title} className="flex items-start gap-3 text-sm">
+                                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0"/>
+                                    <div>
+                                        <strong>{item.title}:</strong> {item.description}
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                     <div>
+                        <h4 className="font-semibold mb-2">Ideas de Negocio SaaS para Venezuela:</h4>
+                        <ul className="space-y-2">
+                           {saasIdeas.map(item => (
+                                <li key={item} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg">
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
 
        <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
@@ -145,3 +194,5 @@ export default function AnalisisEmpresaHibridaPage() {
     </div>
   );
 }
+
+    
