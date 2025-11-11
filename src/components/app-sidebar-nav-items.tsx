@@ -83,6 +83,7 @@ import {
   Search,
   HardHat,
   MessageSquare,
+  SlidersHorizontal,
 } from "lucide-react";
 
 
@@ -197,6 +198,7 @@ export const generalMenuItems = [
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
   { href: "/organigrama", label: "Organigrama", icon: Network },
   { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
+  { href: "/analisis-empresas-no-digitales", label: "Empresas No Digitalizadas", icon: SlidersHorizontal },
 ];
 
 export const iaMenuItems = [
