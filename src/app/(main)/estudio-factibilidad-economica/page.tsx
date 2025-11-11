@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -64,10 +65,103 @@ export default function EstudioFactibilidadEconomicaPage() {
     const { toast } = useToast();
 
     const handleDownloadStudy = () => {
-        // ... (download logic remains the same)
+        const content = `
+ESTUDIO DE FACTIBILIDAD ECONÓMICA: System C.M.S.
+==================================================
+
+1. INTRODUCCIÓN
+----------------
+1.1. Planteamiento del Problema:
+Las empresas en Venezuela enfrentan un doble desafío: una creciente presión por adoptar prácticas sostenibles y la abrumadora complejidad del entorno fiscal y administrativo. La gestión ineficiente de residuos y la carga burocrática representan costos y riesgos.
+
+1.2. Justificación:
+Este proyecto ofrece una solución dual: la Papelera Inteligente promueve la economía circular y el Software de Gestión garantiza la tranquilidad fiscal y la eficiencia operativa.
+
+1.3. Objetivos del Estudio:
+- General: Determinar la factibilidad técnica, económica, legal y operativa del ecosistema "System C.M.S.".
+- Específicos: Analizar mercado, evaluar requerimientos técnicos, definir estructura y estimar la rentabilidad.
+
+2. ESTUDIO DE MERCADO
+---------------------
+Público Objetivo (Papelera Inteligente):
+- Municipios: Optimizar gestión de residuos.
+- Centros Comerciales: Mejorar experiencia del visitante.
+- Empresas con RSE: Cumplir metas ambientales.
+
+Público Objetivo (Software Contable):
+- PYMES: Automatizar contabilidad.
+- Emprendedores: Solución todo-en-uno.
+- Firmas de Contadores: Herramienta eficiente.
+
+Tamaño y Competencia:
+Mercado potencial estimado en > $80 millones anuales. La competencia es fragmentada y sin soluciones integradas.
+
+3. ESTUDIO TÉCNICO
+-------------------
+Producto 1: Papelera Inteligente
+- Clasificación por IA con sensores ópticos y de peso.
+- Automatización de compartimentos internos.
+- Conectividad IoT para monitoreo en tiempo real.
+
+Producto 2: Software de Automatización
+- Automatización de Procesos (RPA) para facturas, conciliaciones, etc.
+- IA para cumplimiento de normativas SENIAT.
+- API para integración con bancos, CRMs, etc.
+
+4. ESTUDIO ORGANIZACIONAL Y LEGAL
+---------------------------------
+Estructura Organizacional:
+- Dirección General (CEO)
+- Dpto. de Tecnología (CTO)
+- Dpto. de Operaciones (COO)
+- Dpto. Comercial
+- Dpto. Administrativo y Legal
+
+Marco Legal:
+- Constitución como C.A. o S.A.
+- Homologación del software ante el SENIAT.
+- Registro de marca (SAPI) y patentes.
+- Cumplimiento de normativas ambientales (MINEC).
+
+5. ESTUDIO FINANCIERO
+---------------------
+Modelo de Negocio:
+${modeloNegocio.map(item => `- ${item}`).join('\n')}
+
+Proyecciones Financieras Anuales (Estimadas):
+- Ingresos por Papeleras: ${formatCurrency(proyecciones.ingresosPapeleras)}
+- Ingresos por Software: ${formatCurrency(proyecciones.ingresosSoftware)}
+- Ingresos por Soporte: ${formatCurrency(proyecciones.ingresosSoporte)}
+- TOTAL INGRESOS: ${formatCurrency(totalIngresos)}
+- Costos Variables: ${formatCurrency(proyecciones.costosVariables)}
+- UTILIDAD BRUTA: ${formatCurrency(utilidadBruta)}
+- Costos Fijos: ${formatCurrency(proyecciones.costosFijos)}
+- UTILIDAD NETA (EBITDA): ${formatCurrency(utilidadNeta)}
+- PUNTO DE EQUILIBRIO (Ingresos): ${formatCurrency(puntoEquilibrio)}
+
+6. ANÁLISIS DE RIESGOS (FODA)
+-----------------------------
+- Fortalezas: ${foda.fortalezas.join(', ')}.
+- Oportunidades: ${foda.oportunidades.join(', ')}.
+- Debilidades: ${foda.debilidades.join(', ')}.
+- Amenazas: ${foda.amenazas.join(', ')}.
+
+7. CONCLUSIÓN
+---------------
+El proyecto "System C.M.S." se considera altamente factible. La combinación de hardware innovador con un modelo SaaS recurrente crea una propuesta de valor sólida. Se recomienda proceder con la fase de prototipado y búsqueda de capital semilla.
+`;
+
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Estudio_Factibilidad_SystemCMS.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
         toast({
             title: "Descarga Completa",
-            description: "El estudio de factibilidad detallado ha sido descargado.",
+            description: "El estudio de factibilidad ha sido guardado como 'Estudio_Factibilidad_SystemCMS.txt'.",
         });
     };
 
@@ -290,3 +384,5 @@ export default function EstudioFactibilidadEconomicaPage() {
     </div>
   );
 }
+
+    
