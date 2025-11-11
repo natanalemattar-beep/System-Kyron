@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FileWarning, ShieldCheck } from "lucide-react";
+import { FileWarning, Puzzle, ShieldCheck } from "lucide-react";
 
 const softwareList = [
     { rif: "J000126518", empresa: "COMPAÑÍA ANÓNIMA EMPRESA CINES UNIDOS", sistema: "VISTA", version: "5.0.12.26", categoria: "Gestión de cines y salas de entretenimiento." },
@@ -30,6 +30,11 @@ const softwareList = [
     { rif: "J314584855", empresa: "INSITE VENEZUELA, C.A.", sistema: "HYBRID LITEOS", version: "3", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
 ];
 
+const internationalSystems = [
+    { name: "Odoo", description: "Un ERP de código abierto muy popular y personalizable. Su fortaleza es su modularidad (CRM, Ventas, Contabilidad, etc.), pero requiere una implementación y adaptación significativa para cumplir con las regulaciones fiscales específicas de Venezuela (como el SENIAT), lo que implica costos de consultoría adicionales." },
+    { name: "SAP Business One", description: "Una solución robusta de un líder mundial, diseñada para PYMES. Es potente y escalable, pero su costo de licenciamiento e implementación es considerablemente más alto que las soluciones locales." },
+    { name: "Oracle NetSuite", description: "Un ERP 100% en la nube que unifica contabilidad, CRM y comercio electrónico. Al igual que SAP, su principal desafío en Venezuela es el alto costo y la necesidad de localización para cumplir con la normativa fiscal." }
+];
 
 export default function SoftwareContablePage() {
     return (
@@ -84,7 +89,20 @@ export default function SoftwareContablePage() {
                 </CardContent>
             </Card>
 
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Alternativas Internacionales y su Contexto en Venezuela</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    {internationalSystems.map(system => (
+                        <div key={system.name} className="p-4 bg-secondary/50 rounded-lg">
+                            <h4 className="font-semibold">{system.name}</h4>
+                            <p className="text-sm text-muted-foreground mt-1">{system.description}</p>
+                        </div>
+                    ))}
+                </CardContent>
+            </Card>
+
         </div>
     );
 }
-
