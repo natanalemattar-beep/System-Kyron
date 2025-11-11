@@ -91,6 +91,7 @@ import {
   School,
   Package,
   UserPlus,
+  Scaling,
 } from "lucide-react";
 
 
@@ -259,6 +260,7 @@ export const sociosNavGroups = [
         { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
         { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/organigrama", label: "Organigrama", icon: Network },
+        { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
     ] },
 ];
 

@@ -3,12 +3,13 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Building, Eye, PlusCircle, Download, BookOpen, HandCoins, ShoppingCart, Gavel, DollarSign, TrendingUp, BarChart } from "lucide-react";
+import { Users, Building, Eye, PlusCircle, Download, BookOpen, HandCoins, ShoppingCart, Gavel, DollarSign, TrendingUp, BarChart, Rocket, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import { QuickAccess } from "@/components/dashboard/quick-access";
 import { formatCurrency } from "@/lib/utils";
+import Link from "next/link";
 
 const holdingData = [
     { id: 1, nombre: "Ana Pérez", rol: "Socio / Director", cedula: "V-12.345.678", participacion: "50%" },
@@ -56,6 +57,22 @@ export default function DashboardSociosPage() {
                     </Card>
                 ))}
             </div>
+
+            <Card className="bg-primary/10 border-primary/20">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-primary"><Rocket/>Planes de Crecimiento</CardTitle>
+                    <CardDescription>
+                       Accede a la hoja de ruta estratégica con las iniciativas clave para la expansión y rentabilidad de la empresa.
+                    </CardDescription>
+                </CardHeader>
+                 <CardFooter>
+                    <Button asChild>
+                        <Link href="/planes-crecimiento">
+                            Ver Planes de Crecimiento <ArrowRight className="ml-2"/>
+                        </Link>
+                    </Button>
+                </CardFooter>
+            </Card>
 
 
              <Card className="bg-card/50 backdrop-blur-sm">
