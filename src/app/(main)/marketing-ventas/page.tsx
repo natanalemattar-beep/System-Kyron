@@ -3,7 +3,11 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Megaphone, Search, Newspaper, Share2, Bot, ArrowRight, CheckCircle, BarChart, Globe, Mail, Users, Video, Gift, Star, Link as LinkIcon } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 
 const strategies = [
