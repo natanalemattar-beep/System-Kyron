@@ -129,6 +129,7 @@ export const finanzasContabilidadMenuItems = [
   { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
   { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
   { href: "/software-contable", label: "Guía de Software Contable", icon: Puzzle },
+  { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
 ];
 
 export const facturacionGeneralMenuItems = [
