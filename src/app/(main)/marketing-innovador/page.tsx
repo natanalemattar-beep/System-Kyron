@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Sparkles, Bot, Video, UserCheck, Package, Lightbulb, ArrowRight } from "lucide-react";

@@ -86,7 +86,6 @@ import {
   HardHat,
   MessageSquare,
   HeartPulse,
-  School,
   Home,
   SlidersHorizontal,
   UserPlus,
