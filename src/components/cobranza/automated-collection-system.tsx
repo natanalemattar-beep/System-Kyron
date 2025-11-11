@@ -173,10 +173,10 @@ export const AutomatedCollectionSystem = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Sistema de Cobranza Automatizada</h2>
+          <h2 className="text-xl font-bold">Sistema de Cobranza Automatizada</h2>
           <p className="text-muted-foreground">Comunicación omnicanal y campañas inteligentes</p>
         </div>
         <Button variant="default">+ Nueva Campaña</Button>
@@ -184,28 +184,28 @@ export const AutomatedCollectionSystem = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
-          <h3 className="font-semibold text-gray-900 mb-4">Campañas de Cobranza</h3>
+          <h3 className="font-semibold mb-4">Campañas de Cobranza</h3>
           <div className="space-y-4">
             {campaigns.map((campaign) => (
-              <div key={campaign.id} className="border border-gray-200 rounded-lg p-4">
+              <div key={campaign.id} className="border border-border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h4 className="font-medium text-gray-900">{campaign.name}</h4>
+                    <h4 className="font-medium">{campaign.name}</h4>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                      <span className="bg-blue-900/50 text-blue-300 px-2 py-1 rounded-full text-xs">
                         {campaign.targetSegment}
                       </span>
                       <span className={`px-2 py-1 rounded-full text-xs ${
                         campaign.status === 'active' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-gray-100 text-gray-800'
+                          ? 'bg-green-900/50 text-green-300' 
+                          : 'bg-gray-700 text-gray-300'
                       }`}>
                         {campaign.status === 'active' ? 'Activa' : 'Pausada'}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-green-600">
+                    <div className="text-lg font-bold text-green-400">
                       {campaign.results.conversionRate}%
                     </div>
                     <div className="text-xs text-muted-foreground">Conversión</div>
@@ -239,26 +239,26 @@ export const AutomatedCollectionSystem = () => {
           </div>
         </div>
         <div>
-          <h3 className="font-semibold text-gray-900 mb-4">Comunicaciones Recientes</h3>
+          <h3 className="font-semibold mb-4">Comunicaciones Recientes</h3>
           <div className="space-y-3">
             {communications.map((comm) => (
-              <div key={comm.id} className="border border-gray-200 rounded-lg p-4">
+              <div key={comm.id} className="border border-border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <h4 className="font-medium text-gray-900">{comm.clientName}</h4>
+                    <h4 className="font-medium">{comm.clientName}</h4>
                     <div className="flex items-center gap-2 mt-1">
                       <span className={`px-2 py-1 rounded-full text-xs ${
-                        comm.channel === 'email' ? 'bg-blue-100 text-blue-800' :
-                        comm.channel === 'sms' ? 'bg-gray-100 text-gray-800' :
-                        comm.channel === 'whatsapp' ? 'bg-green-100 text-green-800' :
-                        'bg-purple-100 text-purple-800'
+                        comm.channel === 'email' ? 'bg-blue-900/50 text-blue-300' :
+                        comm.channel === 'sms' ? 'bg-gray-700 text-gray-300' :
+                        comm.channel === 'whatsapp' ? 'bg-green-900/50 text-green-300' :
+                        'bg-purple-900/50 text-purple-300'
                       }`}>
                         {comm.channel}
                       </span>
                       <span className={`px-2 py-1 rounded-full text-xs ${
-                        comm.status === 'read' ? 'bg-green-100 text-green-800' :
-                        comm.status === 'responded' ? 'bg-blue-100 text-blue-800' :
-                        'bg-gray-100 text-gray-800'
+                        comm.status === 'read' ? 'bg-green-900/50 text-green-300' :
+                        comm.status === 'responded' ? 'bg-blue-900/50 text-blue-300' :
+                        'bg-gray-700 text-gray-300'
                       }`}>
                         {comm.status}
                       </span>
@@ -269,12 +269,12 @@ export const AutomatedCollectionSystem = () => {
                   </div>
                 </div>
 
-                <div className="text-sm text-gray-700 mb-2">
+                <div className="text-sm text-gray-400 mb-2">
                   {comm.message}
                 </div>
 
                 {comm.response && (
-                  <div className="bg-gray-50 rounded-lg p-2 text-sm">
+                  <div className="bg-background rounded-lg p-2 text-sm">
                     <strong>Respuesta:</strong> {comm.response}
                   </div>
                 )}
@@ -282,11 +282,11 @@ export const AutomatedCollectionSystem = () => {
                 <div className="flex gap-2 mt-2">
                   <button 
                     onClick={() => sendImmediateCommunication(comm.clientId, 'whatsapp')}
-                    className="text-green-600 text-sm"
+                    className="text-green-400 text-sm"
                   >
                     Reenviar
                   </button>
-                  <button className="text-blue-600 text-sm">
+                  <button className="text-blue-400 text-sm">
                     Llamar
                   </button>
                 </div>

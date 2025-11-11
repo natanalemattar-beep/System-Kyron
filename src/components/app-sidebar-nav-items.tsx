@@ -105,6 +105,7 @@ export const juridicoMainMenuItems = [
   { href: "/multas", label: "Multas", icon: AlertTriangle },
   { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
   { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
+  { href: "/activos-inmobiliarios", label: "Gestión de Activos", icon: Building },
   { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
 ];
 

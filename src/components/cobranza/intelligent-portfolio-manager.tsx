@@ -184,17 +184,17 @@ export const IntelligentPortfolioManager = () => {
     : clients.filter(client => client.segment === selectedSegment);
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Gestor Inteligente de Cartera</h2>
+          <h2 className="text-xl font-bold">Gestor Inteligente de Cartera</h2>
           <p className="text-muted-foreground">Análisis predictivo y gestión proactiva de cobranza</p>
         </div>
         <div className="flex gap-3">
           <select 
             value={selectedSegment}
             onChange={(e) => setSelectedSegment(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+            className="border-input bg-background rounded-lg px-3 py-2 text-sm"
           >
             <option value="all">Todos los segmentos</option>
             <option value="premium">Premium</option>
@@ -202,13 +202,13 @@ export const IntelligentPortfolioManager = () => {
             <option value="pyme">PYME</option>
             <option value="individual">Individual</option>
           </select>
-          <div className="flex bg-gray-100 rounded-lg p-1">
+          <div className="flex bg-muted rounded-lg p-1">
             <button
               onClick={() => setViewMode('grid')}
               className={`px-3 py-1 rounded text-sm ${
                 viewMode === 'grid' 
-                  ? 'bg-white shadow-sm text-gray-900' 
-                  : 'text-gray-600'
+                  ? 'bg-background shadow-sm' 
+                  : 'text-muted-foreground'
               }`}
             >
               Lista
@@ -217,8 +217,8 @@ export const IntelligentPortfolioManager = () => {
               onClick={() => setViewMode('analytics')}
               className={`px-3 py-1 rounded text-sm ${
                 viewMode === 'analytics' 
-                  ? 'bg-white shadow-sm text-gray-900' 
-                  : 'text-gray-600'
+                  ? 'bg-background shadow-sm' 
+                  : 'text-muted-foreground'
               }`}
             >
               Analytics
@@ -231,43 +231,43 @@ export const IntelligentPortfolioManager = () => {
         <>
           {metrics && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <div className="text-2xl font-bold text-blue-600">
+              <div className="bg-blue-900/50 p-4 rounded-lg border border-blue-800">
+                <div className="text-2xl font-bold text-blue-400">
                   ${(metrics.totalPortfolio / 1000).toFixed(0)}K
                 </div>
-                <div className="text-sm text-blue-800">Cartera Total</div>
+                <div className="text-sm text-blue-300">Cartera Total</div>
               </div>
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <div className="text-2xl font-bold text-green-600">
+              <div className="bg-green-900/50 p-4 rounded-lg border border-green-800">
+                <div className="text-2xl font-bold text-green-400">
                   {metrics.collectionEfficiency.toFixed(0)}%
                 </div>
-                <div className="text-sm text-green-800">Eficiencia Cobranza</div>
+                <div className="text-sm text-green-300">Eficiencia Cobranza</div>
               </div>
-              <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
-                <div className="text-2xl font-bold text-orange-600">
+              <div className="bg-orange-900/50 p-4 rounded-lg border border-orange-800">
+                <div className="text-2xl font-bold text-orange-400">
                   ${(metrics.overdueDebt / 1000).toFixed(0)}K
                 </div>
-                <div className="text-sm text-orange-800">En Mora</div>
+                <div className="text-sm text-orange-300">En Mora</div>
               </div>
-              <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                <div className="text-2xl font-bold text-purple-600">
+              <div className="bg-purple-900/50 p-4 rounded-lg border border-purple-800">
+                <div className="text-2xl font-bold text-purple-400">
                   {metrics.averageCollectionTime}d
                 </div>
-                <div className="text-sm text-purple-800">Promedio Cobro</div>
+                <div className="text-sm text-purple-300">Promedio Cobro</div>
               </div>
             </div>
           )}
 
           <div className="space-y-4">
             {filteredClients.map((client) => (
-              <div key={client.id} className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition-colors">
+              <div key={client.id} className="border border-border rounded-lg p-4 hover:border-blue-700 transition-colors">
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex items-start gap-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
                       {client.name.charAt(0)}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{client.name}</h3>
+                      <h3 className="font-semibold">{client.name}</h3>
                       <div className="flex items-center gap-2 mt-1">
                         <span className={`px-2 py-1 rounded-full text-xs ${getSegmentColor(client.segment)}`}>
                           {client.segment}
@@ -279,7 +279,7 @@ export const IntelligentPortfolioManager = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-gray-900">
+                    <div className="text-lg font-bold">
                       ${client.currentDebt.toLocaleString()}
                     </div>
                     <div className="text-sm text-muted-foreground">Deuda actual</div>
@@ -299,8 +299,8 @@ export const IntelligentPortfolioManager = () => {
                     <span className="text-muted-foreground">Próximo pago:</span>
                     <div className={`font-medium ${
                       new Date(client.nextPayment) < new Date() 
-                        ? 'text-red-600' 
-                        : 'text-gray-900'
+                        ? 'text-red-400' 
+                        : 'text-foreground'
                     }`}>
                       {client.nextPayment.toLocaleDateString()}
                     </div>
@@ -326,15 +326,15 @@ export const IntelligentPortfolioManager = () => {
         </>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Distribución de Riesgo</h3>
+          <div className="bg-background rounded-lg p-6">
+            <h3 className="font-semibold mb-4">Distribución de Riesgo</h3>
             {metrics && (
               <div className="space-y-3">
                 {Object.entries(metrics.riskDistribution).map(([risk, count]) => (
                   <div key={risk} className="flex items-center justify-between">
-                    <span className="capitalize text-gray-700">{risk}:</span>
+                    <span className="capitalize text-muted-foreground">{risk}:</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div className="w-32 bg-gray-700 rounded-full h-2">
                         <div 
                           className={`h-2 rounded-full ${
                             risk === 'bajo' ? 'bg-green-500' :
@@ -352,8 +352,8 @@ export const IntelligentPortfolioManager = () => {
             )}
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Eficiencia por Segmento</h3>
+          <div className="bg-background rounded-lg p-6">
+            <h3 className="font-semibold mb-4">Eficiencia por Segmento</h3>
             <div className="space-y-4">
               {['premium', 'empresarial', 'pyme', 'individual'].map(segment => {
                 const segmentClients = clients.filter(c => c.segment === segment);
@@ -363,9 +363,9 @@ export const IntelligentPortfolioManager = () => {
                 
                 return (
                   <div key={segment} className="flex items-center justify-between">
-                    <span className="capitalize text-gray-700">{segment}:</span>
+                    <span className="capitalize text-muted-foreground">{segment}:</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div className="w-32 bg-gray-700 rounded-full h-2">
                         <div 
                           className="h-2 rounded-full bg-blue-500"
                           style={{ width: `${efficiency}%` }}

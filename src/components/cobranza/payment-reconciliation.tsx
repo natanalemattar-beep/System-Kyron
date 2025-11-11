@@ -108,11 +108,11 @@ export const PaymentReconciliation = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'reconciled': return 'bg-green-100 text-green-800';
-      case 'completed': return 'bg-blue-100 text-blue-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'failed': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'reconciled': return 'bg-green-900/50 text-green-300';
+      case 'completed': return 'bg-blue-900/50 text-blue-300';
+      case 'pending': return 'bg-yellow-900/50 text-yellow-300';
+      case 'failed': return 'bg-red-900/50 text-red-300';
+      default: return 'bg-gray-700 text-gray-300';
     }
   };
 
@@ -135,17 +135,17 @@ export const PaymentReconciliation = () => {
   const pendingReconciliation = payments.filter(p => p.status === 'completed').reduce((sum, p) => sum + p.amount, 0);
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Sistema de Pagos y Conciliación</h2>
+          <h2 className="text-xl font-bold">Sistema de Pagos y Conciliación</h2>
           <p className="text-muted-foreground">Gestión automatizada de cobros y conciliación bancaria</p>
         </div>
         <div className="flex gap-2">
           <select 
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+            className="border-input bg-background rounded-lg px-3 py-2 text-sm"
           >
             <option value="all">Todos los estados</option>
             <option value="reconciled">Conciliados</option>
@@ -157,36 +157,36 @@ export const PaymentReconciliation = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-          <div className="text-2xl font-bold text-green-600">${(totalCollected / 1000).toFixed(0)}K</div>
-          <div className="text-sm text-green-800">Total Cobrado</div>
+        <div className="bg-green-900/50 p-4 rounded-lg border border-green-800">
+          <div className="text-2xl font-bold text-green-400">${(totalCollected / 1000).toFixed(0)}K</div>
+          <div className="text-sm text-green-300">Total Cobrado</div>
         </div>
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <div className="text-2xl font-bold text-blue-600">${(pendingReconciliation / 1000).toFixed(0)}K</div>
-          <div className="text-sm text-blue-800">Por Conciliar</div>
+        <div className="bg-blue-900/50 p-4 rounded-lg border border-blue-800">
+          <div className="text-2xl font-bold text-blue-400">${(pendingReconciliation / 1000).toFixed(0)}K</div>
+          <div className="text-sm text-blue-300">Por Conciliar</div>
         </div>
-        <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-          <div className="text-2xl font-bold text-purple-600">{payments.filter(p => p.status === 'reconciled').length}</div>
-          <div className="text-sm text-purple-800">Pagos Conciliados</div>
+        <div className="bg-purple-900/50 p-4 rounded-lg border border-purple-800">
+          <div className="text-2xl font-bold text-purple-400">{payments.filter(p => p.status === 'reconciled').length}</div>
+          <div className="text-sm text-purple-300">Pagos Conciliados</div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
-          <h3 className="font-semibold text-gray-900 mb-4">Transacciones Recientes</h3>
+          <h3 className="font-semibold mb-4">Transacciones Recientes</h3>
           <div className="space-y-4">
             {filteredPayments.map((payment) => (
-              <div key={payment.id} className="border border-gray-200 rounded-lg p-4">
+              <div key={payment.id} className="border border-border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex items-start gap-3">
                     <div className="text-2xl">{getMethodIcon(payment.method)}</div>
                     <div>
-                      <h4 className="font-medium text-gray-900">{payment.clientName}</h4>
+                      <h4 className="font-medium">{payment.clientName}</h4>
                       <p className="text-sm text-muted-foreground">{payment.reference}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-gray-900">${payment.amount.toLocaleString()}</div>
+                    <div className="text-lg font-bold">${payment.amount.toLocaleString()}</div>
                     <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(payment.status)}`}>
                       {payment.status}
                     </span>
@@ -214,25 +214,25 @@ export const PaymentReconciliation = () => {
           </div>
         </div>
         <div>
-          <h3 className="font-semibold text-gray-900 mb-4">Métodos de Pago</h3>
+          <h3 className="font-semibold mb-4">Métodos de Pago</h3>
           <div className="space-y-4">
             {paymentMethods.map((method) => (
-              <div key={method.method} className="border border-gray-200 rounded-lg p-4">
+              <div key={method.method} className="border border-border rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-xl">{getMethodIcon(method.method)}</span>
-                    <h4 className="font-medium text-gray-900 capitalize">{method.method}</h4>
+                    <h4 className="font-medium capitalize">{method.method}</h4>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-gray-900">{method.count}</div>
+                    <div className="text-lg font-bold">{method.count}</div>
                     <div className="text-xs text-muted-foreground">transacciones</div>
                   </div>
                 </div>
 
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between"><span className="text-muted-foreground">Monto Total:</span><span className="font-medium">${method.amount.toLocaleString()}</span></div>
-                  <div className="flex justify-between"><span className="text-muted-foreground">Comisiones:</span><span className="font-medium text-red-600">-${method.fee.toLocaleString()}</span></div>
-                  <div className="flex justify-between border-t pt-2"><span className="text-muted-foreground font-medium">Neto:</span><span className="font-bold text-green-600">${method.netAmount.toLocaleString()}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Comisiones:</span><span className="font-medium text-red-400">-${method.fee.toLocaleString()}</span></div>
+                  <div className="flex justify-between border-t border-border pt-2"><span className="text-muted-foreground font-medium">Neto:</span><span className="font-bold text-green-400">${method.netAmount.toLocaleString()}</span></div>
                 </div>
               </div>
             ))}
