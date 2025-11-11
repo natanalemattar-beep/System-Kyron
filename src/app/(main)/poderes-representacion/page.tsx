@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Gavel, PlusCircle, CheckCircle, Edit, Users, Building, Eye } from "lucide-react";
+import { Gavel, PlusCircle, CheckCircle, Edit, Users, Building, Eye, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const initialPoderes = [
     { id: "POD-001", tipo: "Poder General de Administración", apoderado: "Ana Pérez (V-12.345.678)", registro: "Reg. Mercantil 1ro, N° 45, Tomo 2-A", expediente: "N/A", estado: "Activo" },
@@ -272,6 +273,44 @@ export default function PoderesRepresentacionPage() {
                     </div>
                 </CardContent>
             </Card>
+
+             <Card className="mt-8 bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Info className="h-6 w-6 text-primary" />
+                        Vencimiento y Extinción de Poderes
+                    </CardTitle>
+                    <CardDescription>
+                        Información clave sobre la vigencia de los poderes otorgados.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="extincion-general">
+                            <AccordionTrigger>Causas de Extinción de un Poder</AccordionTrigger>
+                            <AccordionContent>
+                                <p className="text-muted-foreground">Un poder notariado, ya sea general o especial, se extingue por varias causas, entre las que destacan:</p>
+                                <ul className="list-disc pl-6 mt-2 space-y-1 text-muted-foreground">
+                                    <li><strong>Revocación:</strong> El poderdante (quien otorga el poder) puede revocarlo en cualquier momento mediante un documento ante la misma notaría o registro.</li>
+                                    <li><strong>Renuncia del Apoderado:</strong> La persona que recibe el poder puede renunciar a él.</li>
+                                    <li><strong>Muerte o Incapacidad:</strong> El fallecimiento o incapacidad legal del poderdante o del apoderado extingue el poder.</li>
+                                    <li><strong>Conclusión del Negocio:</strong> Si el poder fue otorgado para un acto específico, se extingue una vez que dicho acto se ha completado.</li>
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="extincion-menores">
+                            <AccordionTrigger>Poder para Representar a un Menor de Edad</AccordionTrigger>
+                            <AccordionContent>
+                                <p className="text-muted-foreground">La representación legal de los hijos menores de edad, ejercida por el padre y la madre, se conoce como **Patria Potestad**. Esta no es un poder que se otorga, sino una obligación y un derecho derivado de la filiación.</p>
+                                <p className="mt-2 text-muted-foreground">
+                                    Según la Ley Orgánica para la Protección de Niños, Niñas y Adolescentes (LOPNNA), la Patria Potestad y, por ende, la representación legal del menor, **se extingue automáticamente cuando el hijo o hija alcanza la mayoría de edad (18 años)**. En ese momento, la persona adquiere plena capacidad para ejercer sus derechos y obligaciones por sí misma.
+                                </p>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </CardContent>
+            </Card>
+
         </div>
     );
 }
