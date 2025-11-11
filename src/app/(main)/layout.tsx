@@ -12,6 +12,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { usePathname } from "next/navigation";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function MainAppLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -36,6 +37,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
               <SidebarTrigger />
              </div>
              <div className="flex items-center gap-4">
+              <LanguageSwitcher />
               <Link href="/notificaciones">
                 <Button variant="ghost" size="icon"><Bell className="h-5 w-5"/></Button>
               </Link>

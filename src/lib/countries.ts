@@ -15,6 +15,7 @@ export const countries = [
     { name: "France", code: "FRA", flag: "https://flagcdn.com/w320/fr.png", taxInfo: "TVA" },
     { name: "Italia", code: "ITA", flag: "https://flagcdn.com/w320/it.png", taxInfo: "IVA (Fattura Elettronica)" },
     { name: "Nederland", code: "NLD", flag: "https://flagcdn.com/w320/nl.png", taxInfo: "BTW" },
+    { name: "Portugal", code: "PRT", flag: "https://flagcdn.com/w320/pt.png", taxInfo: "IVA" },
     // Asia & Middle East
     { name: "中国 (China)", code: "CHN", flag: "https://flagcdn.com/w320/cn.png", taxInfo: "VAT (Fapiao System)" },
     { name: "الإمارات (UAE)", code: "ARE", flag: "https://flagcdn.com/w320/ae.png", taxInfo: "VAT (e-Invoicing)" },

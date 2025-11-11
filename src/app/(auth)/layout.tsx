@@ -1,9 +1,11 @@
+
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Building, User, ShoppingCart, Briefcase, Megaphone, Gavel, Cpu, Users } from "lucide-react";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -17,24 +19,27 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
             <Logo />
             <span className="text-lg font-bold">System C.M.S</span>
           </Link>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost">
-                Acceder
-                <User className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/login-empresa">Admin y Finanzas</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost">
+                  Acceder
+                  <User className="ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-empresa">Admin y Finanzas</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </header>
 
