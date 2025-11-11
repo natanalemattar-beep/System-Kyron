@@ -84,6 +84,7 @@ import {
   HardHat,
   MessageSquare,
   SlidersHorizontal,
+  UserPlus,
 } from "lucide-react";
 
 
@@ -170,6 +171,7 @@ export const recursosHumanosGestionItems = [
     { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
     { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
     { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
+    { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
 ];
 
 export const librosRegistroMenuItems = [
@@ -193,6 +195,10 @@ export const ingenieriaMenuItems = [
   { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
 ];
 
+export const iaMenuItems = [
+  { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
+];
+
 export const generalMenuItems = [
   { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
   { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
@@ -200,10 +206,6 @@ export const generalMenuItems = [
   { href: "/organigrama", label: "Organigrama", icon: Network },
   { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
   { href: "/analisis-empresas-no-digitales", label: "Empresas No Digitalizadas", icon: SlidersHorizontal },
-];
-
-export const iaMenuItems = [
-  { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
 ];
 
 export const naturalMenuItems = {
