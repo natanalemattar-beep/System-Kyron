@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FileWarning, Puzzle, ShieldCheck } from "lucide-react";
+import { FileWarning, Puzzle, ShieldCheck, Trophy } from "lucide-react";
 
 const softwareList = [
     { rif: "J000126518", empresa: "COMPAÑÍA ANÓNIMA EMPRESA CINES UNIDOS", sistema: "VISTA", version: "5.0.12.26", categoria: "Gestión de cines y salas de entretenimiento." },
@@ -30,11 +30,44 @@ const softwareList = [
     { rif: "J314584855", empresa: "INSITE VENEZUELA, C.A.", sistema: "HYBRID LITEOS", version: "3", categoria: "Gestión administrativa integral (ERP) con módulo de punto de venta (POS) para ventas directas." },
 ];
 
+
 const internationalSystems = [
     { name: "Odoo", description: "Un ERP de código abierto muy popular y personalizable. Su fortaleza es su modularidad (CRM, Ventas, Contabilidad, etc.), pero requiere una implementación y adaptación significativa para cumplir con las regulaciones fiscales específicas de Venezuela (como el SENIAT), lo que implica costos de consultoría adicionales." },
     { name: "SAP Business One", description: "Una solución robusta de un líder mundial, diseñada para PYMES. Es potente y escalable, pero su costo de licenciamiento e implementación es considerablemente más alto que las soluciones locales." },
     { name: "Oracle NetSuite", description: "Un ERP 100% en la nube que unifica contabilidad, CRM y comercio electrónico. Al igual que SAP, su principal desafío en Venezuela es el alto costo y la necesidad de localización para cumplir con la normativa fiscal." }
 ];
+
+const competitorAnalysis = [
+    {
+        system: "Saint",
+        target: "PYMES y grandes empresas",
+        robustness: "Muy alta. Considerado uno de los más robustos y estables para manejar grandes volúmenes de transacciones y operaciones complejas.",
+        easeOfUse: "Moderada a Baja. Su interfaz es tradicionalmente menos intuitiva y requiere personal con experiencia o capacitación específica.",
+        ecosystem: "Fuerte. Posee una amplia red de canales de distribución y consultores, aunque su capacidad de integración vía API puede ser más limitada que sistemas modernos."
+    },
+    {
+        system: "a2 (A2 Softway)",
+        target: "PYMES, especialmente en el sector retail.",
+        robustness: "Alta. Es un sistema muy popular y probado en el mercado venezolano, con buena capacidad para gestionar puntos de venta.",
+        easeOfUse: "Moderada. Su interfaz es más amigable que la de sistemas más antiguos, pero aún puede tener una curva de aprendizaje.",
+        ecosystem: "Fuerte. Amplia red de distribución y soporte técnico en todo el país. Buenas capacidades para puntos de venta."
+    },
+    {
+        system: "Profit Plus",
+        target: "PYMES y grandes empresas.",
+        robustness: "Alta. Similar a Saint en cuanto a robustez, es una solución muy completa para la gestión administrativa y contable.",
+        easeOfUse: "Moderada. La interfaz es funcional pero puede ser considerada densa para nuevos usuarios.",
+        ecosystem: "Fuerte. Cuenta con una comunidad de consultores bien establecida y módulos que cubren diversas áreas del negocio."
+    },
+    {
+        system: "Galac",
+        target: "PYMES y corporaciones, con un enfoque fuerte en el cumplimiento fiscal.",
+        robustness: "Alta. Conocido por su fiabilidad en el ámbito contable y su rápida adaptación a los cambios del SENIAT.",
+        easeOfUse: "Moderada. Tradicionalmente enfocado en el contador, su interfaz prioriza la funcionalidad fiscal sobre la experiencia de usuario moderna.",
+        ecosystem: "Moderado. Buena reputación en el nicho fiscal, pero puede tener menos integraciones que otros sistemas más abiertos."
+    }
+];
+
 
 export default function SoftwareContablePage() {
     return (
@@ -56,6 +89,45 @@ export default function SoftwareContablePage() {
             Según la <strong>Providencia Administrativa N° SNAT/2024/000121</strong> (Gaceta Oficial N° 43.032), solo están autorizados los Software Homologados y sus versiones específicas. El uso de software no homologado puede acarrear severas sanciones.
           </AlertDescription>
       </Alert>
+
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-3"><Trophy className="text-primary"/>Análisis Competitivo: ¿Cuál es el Sistema Más Robusto?</CardTitle>
+                    <CardDescription>Aunque la elección del "mejor" sistema depende de las necesidades específicas de cada empresa, aquí comparamos los jugadores más consolidados del mercado venezolano.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-[15%]">Sistema</TableHead>
+                                    <TableHead className="w-[20%]">Mercado Objetivo</TableHead>
+                                    <TableHead className="w-[25%]">Robustez y Escalabilidad</TableHead>
+                                    <TableHead className="w-[20%]">Facilidad de Uso</TableHead>
+                                    <TableHead className="w-[20%]">Ecosistema e Integraciones</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {competitorAnalysis.map((item) => (
+                                    <TableRow key={item.system}>
+                                        <TableCell className="font-bold text-lg">{item.system}</TableCell>
+                                        <TableCell className="text-sm">{item.target}</TableCell>
+                                        <TableCell className="text-sm">{item.robustness}</TableCell>
+                                        <TableCell className="text-sm">{item.easeOfUse}</TableCell>
+                                        <TableCell className="text-sm">{item.ecosystem}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
+                     <Alert className="mt-6">
+                        <AlertTitle>Conclusión del Análisis</AlertTitle>
+                        <AlertDescription>
+                            Sistemas como **Saint** y **Profit Plus** son tradicionalmente considerados los más robustos para operaciones complejas y grandes volúmenes, aunque con una curva de aprendizaje más pronunciada. **A2** destaca por su fuerte presencia en el sector retail y puntos de venta. **Galac** es reconocido por su enfoque en el cumplimiento fiscal. **System C.M.S.** busca combinar la robustez de los sistemas tradicionales con una interfaz moderna, facilidad de uso y un ecosistema de IA integrado que ninguno de los competidores ofrece de forma nativa.
+                        </AlertDescription>
+                    </Alert>
+                </CardContent>
+            </Card>
             
             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
