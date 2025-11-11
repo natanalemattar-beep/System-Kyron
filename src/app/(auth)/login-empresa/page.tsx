@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Users, Eye, EyeOff, Building, ShoppingCart, Briefcase, Megaphone, Cpu, Gavel, User } from "lucide-react";
+import { Building, Eye, EyeOff, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,29 +9,29 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 
-export default function LoginSociosPage() {
+export default function LoginEmpresaPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/dashboard-socios');
+    router.push('/escritorio-juridico');
   };
 
   return (
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
       <CardHeader className="text-center">
         <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
-          <Users className="h-8 w-8" />
+          <Building className="h-8 w-8 text-primary" />
         </div>
-        <CardTitle className="text-2xl">Portal de Socios</CardTitle>
-        <CardDescription>Acceso exclusivo para socios y directivos.</CardDescription>
+        <CardTitle className="text-2xl">Administración y Finanzas</CardTitle>
+        <CardDescription>Acceso al panel de control principal de la empresa.</CardDescription>
       </CardHeader>
       <form onSubmit={handleLogin}>
         <CardContent className="p-6 space-y-6">
           <div className="space-y-2">
-            <Label>Usuario</Label>
-            <Input type="text" placeholder="usuario.socio" required />
+            <Label>Usuario (Admin)</Label>
+            <Input type="text" placeholder="admin.user" required />
           </div>
           <div className="space-y-2 relative">
             <Label>Contraseña</Label>
@@ -51,13 +51,13 @@ export default function LoginSociosPage() {
         </CardContent>
       </form>
        <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
-        <p className="text-muted-foreground">¿No eres socio? Accede a otro portal:</p>
+        <p className="text-muted-foreground">¿No eres administrador? Accede a otro portal:</p>
         <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
             <Button asChild variant="link" className="p-0">
                 <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
             </Button>
             <Button asChild variant="link" className="p-0">
-                <Link href="/login-empresa" className="flex items-center gap-1"><Building className="h-4 w-4" />Admin</Link>
+                <Link href="/login-juridico" className="flex items-center gap-1"><Gavel className="h-4 w-4" />Jurídico</Link>
             </Button>
             <Button asChild variant="link" className="p-0">
                 <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4" />Ventas</Link>
@@ -66,13 +66,13 @@ export default function LoginSociosPage() {
                 <Link href="/login-rrhh" className="flex items-center gap-1"><Briefcase className="h-4 w-4" />RR.HH.</Link>
             </Button>
             <Button asChild variant="link" className="p-0">
+                <Link href="/login-socios" className="flex items-center gap-1"><Users className="h-4 w-4" />Socios</Link>
+            </Button>
+            <Button asChild variant="link" className="p-0">
                 <Link href="/login-marketing" className="flex items-center gap-1"><Megaphone className="h-4 w-4" />Marketing</Link>
             </Button>
             <Button asChild variant="link" className="p-0">
                 <Link href="/login-informatica" className="flex items-center gap-1"><Cpu className="h-4 w-4" />IT</Link>
-            </Button>
-             <Button asChild variant="link" className="p-0">
-                <Link href="/login-juridico" className="flex items-center gap-1"><Gavel className="h-4 w-4" />Jurídico</Link>
             </Button>
         </div>
       </CardFooter>
