@@ -246,32 +246,26 @@ function ChatDialog() {
 export function AppSidebar() {
   const pathname = usePathname();
   
-  const isVentasPath = (path: string) => path.startsWith('/login-ventas') || ventasMenuItems.some(item => path.startsWith(item.href)) || path.startsWith('/analisis-ventas');
-  const isSociosPath = (path: string) => path.startsWith('/login-socios') || sociosNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isNaturalPath = (path: string) => Object.values(naturalMenuItems).flat().some(item => path.startsWith(item.href)) && !isVentasPath(path) && !isSociosPath(path);
-  const isInformaticaPath = (path: string) => path.startsWith('/login-informatica') || path.startsWith('/dashboard-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  const isLegalPath = (path: string) => path.startsWith('/escritorio-juridico') || legalNavGroups.flatMap(g => g.items).some(item => path.startsWith(item.href));
-  
-  if (isLegalPath(pathname)) {
-    return <AppSidebarLegal />;
-  }
+  const checkPathPrefix = (prefixes: string[]) => prefixes.some(prefix => pathname.startsWith(prefix));
 
-  if (isVentasPath(pathname)) {
-    return <AppSidebarVentas />;
-  }
+  const isVentasPath = checkPathPrefix(['/login-ventas', '/analisis-ventas', '/punto-de-venta', '/arqueo-caja', '/analisis-caja', '/estrategias-ventas']);
+  const isSociosPath = checkPathPrefix(['/login-socios', '/dashboard-socios']);
+  const isHrPath = checkPathPrefix(['/login-rrhh', '/dashboard-rrhh', '/nominas', '/contratos', '/prestaciones-sociales']);
+  const isInformaticaPath = checkPathPrefix(['/login-informatica', '/dashboard-informatica', '/seguridad', '/soluciones-ia', '/arquitectura-software-contable', '/ingenieria-ia']);
+  const isMarketingPath = checkPathPrefix(['/login-marketing', '/asesoria-publicidad', '/marketing-innovador']);
+  const isLegalPath = checkPathPrefix(['/escritorio-juridico', '/departamento-juridico', '/legalizacion-empresa']);
+  const isNaturalPath = checkPathPrefix(['/login-natural', '/dashboard', '/tarjeta-digital']);
 
-  if (isSociosPath(pathname)) {
-    return <AppSidebarSocios />;
-  }
-  
-  if (isNaturalPath(pathname)) {
-    return <AppSidebarNatural />;
-  }
 
-  if (isInformaticaPath(pathname)) {
-    return <AppSidebarInformatica />;
-  }
+  if (isVentasPath) return <AppSidebarVentas />;
+  if (isSociosPath) return <AppSidebarSocios />;
+  if (isHrPath) return <AppSidebarHr />;
+  if (isInformaticaPath) return <AppSidebarInformatica />;
+  if (isMarketingPath) return <AppSidebarMarketing />;
+  if (isLegalPath) return <AppSidebarLegal />;
+  if (isNaturalPath) return <AppSidebarNatural />;
 
+  // Default sidebar for main corporate management
   return <AppSidebarJuridicoPrincipal />;
 }
 
@@ -838,9 +832,14 @@ function AppSidebarLegal() {
     </Sidebar>
   );
 }
+
+function AppSidebarMarketing() {
+  return null;
+}
     
 
     
+
 
 
 
