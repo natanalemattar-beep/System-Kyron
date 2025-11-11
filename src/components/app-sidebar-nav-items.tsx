@@ -82,6 +82,7 @@ import {
   Swords,
   Search,
   HardHat,
+  MessageSquare,
 } from "lucide-react";
 
 
@@ -147,6 +148,7 @@ export const ventasMenuItems = [
     { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
     { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+    { href: "/atencion-online", label: "Centro de Atención Online", icon: MessageSquare },
 ];
 
 export const recursosHumanosGestionItems = [
