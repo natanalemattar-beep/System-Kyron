@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { JuridicoDashboard } from "@/components/dashboard/juridico-dashboard";
