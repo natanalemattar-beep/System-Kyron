@@ -199,6 +199,7 @@ export const corporativoMenuItems = [
 
 export const ingenieriaMenuItems = [
   { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
+  { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
   { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
   { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
   { href: "/presentacion-startup", label: "Guía para Presentar Startup", icon: Presentation },
@@ -278,3 +279,5 @@ export const informaticaNavGroups = [
 export const legalNavGroups = [
   { title: "Departamento Jurídico", icon: Gavel, items: juridicoMainMenuItems },
 ];
+
+    
