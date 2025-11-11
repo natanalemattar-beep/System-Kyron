@@ -10,9 +10,16 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/logo";
+import { useRouter } from "next/navigation";
 
 export default function LoginVentasPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push('/analisis-ventas');
+  };
 
   return (
      <div className="flex flex-col min-h-screen text-foreground relative overflow-hidden bg-background">
@@ -55,26 +62,29 @@ export default function LoginVentasPage() {
             <CardTitle className="text-2xl">Acceso a Ventas</CardTitle>
             <CardDescription>Inicia sesión con tu usuario de cajero o vendedor.</CardDescription>
           </CardHeader>
-          <CardContent className="p-6 space-y-6">
-            <div className="space-y-2">
-              <Label>Usuario</Label>
-              <Input type="text" placeholder="cajero.1"/>
-            </div>
-            <div className="space-y-2 relative">
-              <Label>Contraseña</Label>
-              <Input
-                type={passwordVisible ? "text" : "password"}
-                placeholder="••••••••"
-                className="pr-10"
-              />
-              <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-                {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-              </button>
-            </div>
-            <Button asChild className="w-full h-11 text-base">
-              <Link href="/analisis-ventas">Acceder al Dashboard de Ventas</Link>
-            </Button>
-          </CardContent>
+          <form onSubmit={handleLogin}>
+            <CardContent className="p-6 space-y-6">
+              <div className="space-y-2">
+                <Label>Usuario</Label>
+                <Input type="text" placeholder="cajero.1" required/>
+              </div>
+              <div className="space-y-2 relative">
+                <Label>Contraseña</Label>
+                <Input
+                  type={passwordVisible ? "text" : "password"}
+                  placeholder="••••••••"
+                  className="pr-10"
+                  required
+                />
+                <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
+                  {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
+              <Button type="submit" className="w-full h-11 text-base">
+                Acceder al Dashboard de Ventas
+              </Button>
+            </CardContent>
+          </form>
            <CardFooter className="flex-col gap-2 p-6 border-t text-sm">
                 <p className="text-muted-foreground">¿No eres vendedor?</p>
                 <div className="flex gap-4">
