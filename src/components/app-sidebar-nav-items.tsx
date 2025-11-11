@@ -87,6 +87,7 @@ import {
   SlidersHorizontal,
   Home,
   UserPlus,
+  HeartPulse,
 } from "lucide-react";
 
 
@@ -228,6 +229,9 @@ export const naturalMenuItems = {
         { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
         { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
         { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
+    ],
+    salud: [
+        { href: "/directorio-medico", label: "Directorio Médico", icon: HeartPulse },
     ],
     crs: [
         { href: "/manutencion", label: "Obligación de Manutención", icon: Gavel },

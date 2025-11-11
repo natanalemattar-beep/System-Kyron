@@ -90,6 +90,7 @@ import {
   Search,
   HardHat,
   MessageSquare,
+  HeartPulse,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -254,7 +255,7 @@ export function AppSidebar() {
   const isInformaticaPath = checkPathPrefix(['/login-informatica', '/dashboard-informatica', '/seguridad', '/soluciones-ia', '/arquitectura-software-contable', '/ingenieria-ia']);
   const isMarketingPath = checkPathPrefix(['/login-marketing', '/asesoria-publicidad', '/marketing-innovador']);
   const isLegalPath = checkPathPrefix(['/escritorio-juridico', '/departamento-juridico', '/legalizacion-empresa']);
-  const isNaturalPath = checkPathPrefix(['/login-natural', '/dashboard', '/tarjeta-digital']);
+  const isNaturalPath = checkPathPrefix(['/login-natural', '/dashboard', '/tarjeta-digital', '/directorio-medico']);
 
 
   if (isVentasPath) return <AppSidebarVentas />;
@@ -365,6 +366,7 @@ function AppSidebarNatural() {
   const naturalNavGroups = [
       { title: "Principal", icon: User, items: naturalMenuItems.principal },
       { title: "Trámites Civiles", icon: Gavel, items: naturalMenuItems.tramites },
+      { title: "Salud", icon: HeartPulse, items: naturalMenuItems.salud },
       { title: "Gestión CRS", icon: HeartHandshake, items: naturalMenuItems.crs },
       { title: "Gestión Parental", icon: Users, items: naturalMenuItems.parental },
   ];
@@ -839,6 +841,7 @@ function AppSidebarMarketing() {
     
 
     
+
 
 
 
