@@ -130,6 +130,7 @@ import {
   sociosNavGroups,
   informaticaNavGroups,
   legalNavGroups,
+  marketingMenuItems,
 } from "./app-sidebar-nav-items";
 
 
@@ -253,7 +254,7 @@ export function AppSidebar() {
   const isSociosPath = checkPathPrefix(['/login-socios', '/dashboard-socios']);
   const isHrPath = checkPathPrefix(['/login-rrhh', '/dashboard-rrhh', '/nominas', '/contratos', '/prestaciones-sociales']);
   const isInformaticaPath = checkPathPrefix(['/login-informatica', '/dashboard-informatica', '/seguridad', '/soluciones-ia', '/arquitectura-software-contable', '/ingenieria-ia']);
-  const isMarketingPath = checkPathPrefix(['/login-marketing', '/asesoria-publicidad', '/marketing-innovador']);
+  const isMarketingPath = checkPathPrefix(['/login-marketing', '/asesoria-publicidad', '/marketing-innovador', '/app-aliada-recompensa', '/marketing-productos-vs-estrategias', '/marketing-ventas']);
   const isLegalPath = checkPathPrefix(['/escritorio-juridico', '/departamento-juridico', '/legalizacion-empresa']);
   const isNaturalPath = checkPathPrefix(['/login-natural', '/dashboard', '/tarjeta-digital', '/directorio-medico']);
 
@@ -836,17 +837,81 @@ function AppSidebarLegal() {
 }
 
 function AppSidebarMarketing() {
-  return null;
+  const pathname = usePathname();
+  const { state } = useSidebar();
+
+  const navGroups = [
+    { title: "Marketing y Asesoría", icon: Megaphone, items: marketingMenuItems },
+  ]
+  return (
+    <Sidebar variant="floating">
+      <SidebarHeader>
+        <div className="flex items-center gap-3 p-2 justify-center">
+           <Logo />
+            {state === 'expanded' && (
+                <div className="flex flex-col">
+                    <span className="text-sm font-semibold leading-tight">System</span>
+                    <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                </div>
+            )}
+        </div>
+      </SidebarHeader>
+       <SidebarContent className="p-2">
+        <Accordion type="multiple" className="w-full" defaultValue={['Marketing y Asesoría']}>
+            {navGroups.map((group) => (
+              <AccordionItem value={group.title} key={group.title} className="border-none">
+                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
+                   <div className="flex items-center gap-2">
+                       <group.icon className="h-4 w-4" />
+                       {state === 'expanded' && <span>{group.title}</span>}
+                    </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
+                    {group.items.map((item) => (
+                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(item.href)}
+                          tooltip={item.label}
+                          className="justify-start h-8"
+                        >
+                          <Link href={item.href}>
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+        </Accordion>
+      </SidebarContent>
+      <SidebarFooter className="p-2">
+        <Separator className="my-2" />
+         <SidebarMenu>
+          <SidebarMenuItem>
+            <ChatDialog />
+          </SidebarMenuItem>
+        </SidebarMenu>
+        <div className="flex items-center gap-3 px-2 py-1">
+          <Avatar className="h-9 w-9">
+            <AvatarFallback>M</AvatarFallback>
+          </Avatar>
+           {state === 'expanded' && (
+            <div className="flex flex-col">
+                <span className="text-sm font-medium">Usuario Marketing</span>
+                <span className="text-xs text-muted-foreground">
+                Asesoría y Publicidad
+                </span>
+            </div>
+           )}
+        </div>
+      </SidebarFooter>
+    </Sidebar>
+  );
 }
-    
 
     
-
-
-
-
-
-
-
-
-

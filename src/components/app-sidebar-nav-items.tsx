@@ -85,11 +85,10 @@ import {
   Search,
   HardHat,
   MessageSquare,
-  SlidersHorizontal,
-  Home,
-  UserPlus,
   HeartPulse,
   School,
+  UserPlus,
+  Home,
 } from "lucide-react";
 
 
@@ -215,6 +214,15 @@ export const generalMenuItems = [
   { href: "/organigrama", label: "Organigrama", icon: Network },
   { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
   { href: "/analisis-empresas-no-digitales", label: "Empresas No Digitalizadas", icon: SlidersHorizontal },
+];
+
+export const marketingMenuItems = [
+    { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
+    { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
+    { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
+    { href: "/app-aliada-recompensa", label: "Alianzas y Recompensas", icon: Award },
+    { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto", icon: Package },
+    { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
 ];
 
 export const naturalMenuItems = {
