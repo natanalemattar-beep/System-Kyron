@@ -34,42 +34,42 @@ const accountTypes = [
     title: "Ventas y Facturación",
     description: "Para personal de ventas y cajeros que operan el punto de venta.",
     icon: ShoppingCart,
-    href: "/login-ventas", // Should be register, but using login for now
+    href: "/register/ventas",
   },
   {
     type: "rrhh",
     title: "Recursos Humanos",
     description: "Para el personal encargado de la gestión de nóminas y empleados.",
     icon: Briefcase,
-    href: "/login-rrhh", // Should be register, but using login for now
+    href: "/register/rrhh",
   },
   {
     type: "socios",
     title: "Socios y Directivos",
     description: "Acceso al dashboard consolidado del holding empresarial.",
     icon: Users,
-    href: "/login-socios", // Should be register, but using login for now
+    href: "/register/socios",
   },
    {
     type: "marketing",
     title: "Marketing y Asesoría",
     description: "Para el equipo de productos, consultoría y marketing.",
     icon: Megaphone,
-    href: "/login-marketing",
+    href: "/register/marketing",
   },
   {
     type: "informatica",
     title: "Ingeniería e Informática",
     description: "Acceso para el equipo de desarrollo, seguridad y tecnología.",
     icon: Cpu,
-    href: "/login-informatica",
+    href: "/register/informatica",
   },
   {
     type: "juridico",
     title: "Escritorio Jurídico",
     description: "Para el equipo legal y de cumplimiento normativo.",
     icon: Gavel,
-    href: "/escritorio-juridico",
+    href: "/register/juridico", // Legal team might register under the main company account
   },
 ];
 
