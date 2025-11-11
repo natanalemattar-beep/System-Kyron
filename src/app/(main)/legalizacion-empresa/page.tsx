@@ -4,12 +4,11 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, FileText, Newspaper, Search, Stamp, Users, ArrowRight, ShieldCheck, Upload, DollarSign, Globe } from "lucide-react";
+import { CheckCircle, Clock, FileText, Newspaper, Search, Stamp, Users, ArrowRight, ShieldCheck, Upload, DollarSign, Globe, Printer, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FileInputTrigger } from "@/components/file-input-trigger";
-import { formatCurrency } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
+import { formatCurrency, formatDate } from "@/lib/utils";
 
 const initialPasos = [
     { 
@@ -108,9 +107,39 @@ export default function LegalizacionEmpresaPage() {
         });
     }
 
+    const handleActaAction = (action: string) => {
+        toast({
+            title: `Acta Constitutiva ${action}`,
+            description: `El modelo de acta ha sido ${action === 'impresa' ? 'enviado a la impresora' : 'descargado como archivo de texto'}.`,
+        });
+        if (action === 'impresa') {
+            const printableArea = document.getElementById('acta-constitutiva');
+            if (printableArea) {
+                const printWindow = window.open('', '', 'height=800,width=800');
+                printWindow?.document.write('<html><head><title>Acta Constitutiva</title>');
+                printWindow?.document.write('<style>body { font-family: serif; line-height: 1.5; margin: 2in; } h4 { text-align: center; } p { text-align: justify; margin-bottom: 1rem; }</style>');
+                printWindow?.document.write('</head><body>');
+                printWindow?.document.write(printableArea.innerHTML);
+                printWindow?.document.write('</body></html>');
+                printWindow?.document.close();
+                printWindow?.print();
+            }
+        } else {
+             const content = document.getElementById('acta-constitutiva')?.innerText || '';
+             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+             const link = document.createElement('a');
+             link.href = URL.createObjectURL(blob);
+             link.download = 'Modelo_Acta_Constitutiva.txt';
+             document.body.appendChild(link);
+             link.click();
+             document.body.removeChild(link);
+        }
+    };
+
+
   return (
-    <div>
-      <header className="mb-8">
+    <div className="space-y-12">
+      <header className="mb-8 print:hidden">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Stamp className="h-8 w-8" />
             Legalización de Empresa
@@ -120,14 +149,13 @@ export default function LegalizacionEmpresaPage() {
         </p>
       </header>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card className="bg-card/50 backdrop-blur-sm print:hidden">
         <CardHeader>
             <CardTitle>Flujo de Legalización</CardTitle>
             <CardDescription>Sigue este flujo de trabajo para registrar formalmente tu empresa.</CardDescription>
         </CardHeader>
         <CardContent>
             <div className="relative pl-6">
-                {/* Vertical line */}
                 <div className="absolute left-9 top-0 h-full w-0.5 bg-border -z-10"></div>
                 
                 {pasos.map((paso) => {
@@ -136,12 +164,10 @@ export default function LegalizacionEmpresaPage() {
 
                      return (
                         <div key={paso.paso} className="relative flex items-start gap-6 pb-12">
-                            {/* Step Circle */}
                             <div className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full shrink-0 ${paso.estado === 'Completado' ? 'bg-green-500' : 'bg-secondary'}`}>
                                 <paso.icon className={`h-6 w-6 ${paso.estado === 'Completado' ? 'text-white' : 'text-primary'}`} />
                             </div>
 
-                            {/* Step Content */}
                             <div className="flex-1 pt-2">
                                 <h3 className="text-lg font-semibold">{paso.titulo}</h3>
                                 <p className="text-sm text-muted-foreground mt-1 mb-3">Ente responsable: <span className="font-medium">{paso.ente}</span></p>
@@ -206,6 +232,59 @@ export default function LegalizacionEmpresaPage() {
             </div>
         </CardContent>
       </Card>
+      
+      <Card className="bg-card/50 backdrop-blur-sm print:shadow-none print:border-none">
+        <CardHeader>
+            <CardTitle>Modelo de Acta Constitutiva (Compañía Anónima)</CardTitle>
+            <CardDescription>Utiliza esta plantilla como base para redactar el documento de tu empresa. Este formato está diseñado para adaptarse a papel de tamaño legal.</CardDescription>
+        </CardHeader>
+        <CardContent id="acta-constitutiva" className="prose prose-sm dark:prose-invert max-w-none text-justify p-8 border rounded-lg bg-background">
+                <h4>ACTA CONSTITUTIVA Y ESTATUTOS SOCIALES DE LA COMPAÑÍA ANÓNIMA<br/>"[NOMBRE DE LA EMPRESA], C.A."</h4>
+                <p>Nosotros, [NOMBRE DEL SOCIO 1], [nacionalidad], mayor de edad, de este domicilio, titular de la Cédula de Identidad N° [CI del Socio 1], y [NOMBRE DEL SOCIO 2], [nacionalidad], mayor de edad, de este domicilio, titular de la Cédula de Identidad N° [CI del Socio 2], por medio del presente documento declaramos que hemos convenido en constituir, como en efecto lo hacemos, una Compañía Anónima que se regirá por las disposiciones contenidas en este documento y por las demás leyes aplicables.</p>
+                
+                <h4>TÍTULO I: DENOMINACIÓN, DOMICILIO, OBJETO Y DURACIÓN</h4>
+                <p><strong>CLÁUSULA PRIMERA:</strong> La compañía se denominará "[NOMBRE DE LA EMPRESA], C.A.".</p>
+                <p><strong>CLÁUSULA SEGUNDA:</strong> El domicilio de la compañía estará en la ciudad de [Ciudad], Estado [Estado], República Bolivariana de Venezuela, pudiendo establecer sucursales o agencias en cualquier otro lugar del país o del extranjero.</p>
+                <p><strong>CLÁUSULA TERCERA:</strong> El objeto de la compañía es [Descripción detallada del objeto social, ej: el desarrollo de software, consultoría tecnológica, importación y exportación de equipos electrónicos...].</p>
+                <p><strong>CLÁUSULA CUARTA:</strong> La duración de la compañía será de cincuenta (50) años, contados a partir de la fecha de su inscripción en el Registro Mercantil.</p>
+
+                <h4>TÍTULO II: DEL CAPITAL SOCIAL Y LAS ACCIONES</h4>
+                <p><strong>CLÁUSULA QUINTA:</strong> El Capital Social es de [MONTO DEL CAPITAL EN LETRAS] ([Bs. MONTO EN NÚMEROS]), dividido en [NÚMERO DE ACCIONES] acciones nominativas no convertibles al portador, con un valor nominal de [VALOR NOMINAL] cada una.</p>
+                <p><strong>CLÁUSULA SEXTA:</strong> El capital ha sido suscrito y pagado en su totalidad por los socios de la siguiente manera: [NOMBRE DEL SOCIO 1] ha suscrito y pagado [NÚMERO DE ACCIONES SOCIO 1] acciones; y [NOMBRE DEL SOCIO 2] ha suscrito y pagado [NÚMERO DE ACCIONES SOCIO 2] acciones.</p>
+
+                <h4>TÍTULO III: DE LA ADMINISTRACIÓN DE LA COMPAÑÍA</h4>
+                <p><strong>CLÁUSULA SÉPTIMA:</strong> La administración de la compañía estará a cargo de una Junta Directiva compuesta por un (1) Presidente y un (1) Vicepresidente, que serán los mismos socios fundadores. [NOMBRE DEL SOCIO 1] ejercerá el cargo de Presidente y [NOMBRE DEL SOCIO 2] el cargo de Vicepresidente.</p>
+                
+                <h4>TÍTULO IV: DE LAS ASAMBLEAS</h4>
+                <p><strong>CLÁUSULA OCTAVA:</strong> Las Asambleas de Accionistas serán Ordinarias o Extraordinarias y sus decisiones, tomadas dentro de los límites de sus facultades, son obligatorias para todos los accionistas.</p>
+
+                <h4>TÍTULO V: DEL EJERCICIO ECONÓMICO Y BALANCES</h4>
+                <p><strong>CLÁUSULA NOVENA:</strong> El ejercicio económico de la compañía comenzará el primero (1°) de Enero y terminará el treinta y uno (31) de Diciembre de cada año, con excepción del primer ejercicio que comenzará con la inscripción de la compañía en el Registro Mercantil.</p>
+
+                <h4>TÍTULO VI: DEL COMISARIO</h4>
+                <p><strong>CLÁUSULA DÉCIMA:</strong> La compañía tendrá un Comisario, con su respectivo suplente, que será elegido por la Asamblea de Accionistas y durará en sus funciones [período].</p>
+
+                <h4>TÍTULO VII: DE LA DISOLUCIÓN Y LIQUIDACIÓN</h4>
+                <p><strong>CLÁUSULA UNDÉCIMA:</strong> La compañía se disolverá por las causas previstas en el Código de Comercio o por decisión de una Asamblea Extraordinaria de Accionistas.</p>
+
+                <p>Se designa como Comisario al Licenciado(a) [Nombre del Comisario], de nacionalidad [nacionalidad], titular de la C.I. N° [CI del Comisario] e inscrito en el Colegio de Contadores Públicos bajo el N° [CPC del Comisario].</p>
+                
+                <p>En la ciudad de [Ciudad], a la fecha de su presentación.</p>
+        </CardContent>
+        <CardFooter className="print:hidden p-4">
+             <div className="flex w-full gap-2 justify-end">
+                <Button variant="outline" onClick={() => handleActaAction('impresa')}>
+                    <Printer className="mr-2"/> Imprimir Acta
+                </Button>
+                <Button onClick={() => handleActaAction('descargado')}>
+                    <Download className="mr-2"/> Descargar (.txt)
+                </Button>
+            </div>
+        </CardFooter>
+      </Card>
+
     </div>
   );
 }
+
+    
