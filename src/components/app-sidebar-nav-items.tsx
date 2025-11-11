@@ -194,6 +194,9 @@ export const ingenieriaMenuItems = [
   { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
   { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
+  { href: "/presentacion-startup", label: "Presentación de Startup", icon: Presentation },
+  { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+  { href: "/analisis-empresa-hibrida", label: "Análisis de Startup Híbrida", icon: Rocket },
 ];
 
 export const iaMenuItems = [
@@ -246,7 +249,6 @@ export const informaticaNavGroups = [
   { title: "Arquitectura", icon: Puzzle, items: [ 
       { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
       { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
-      { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Rocket },
   ]},
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
 ];
