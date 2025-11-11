@@ -130,7 +130,7 @@ export default function FacturacionCreditoPage() {
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto pr-4">
-                            <div className="grid md:grid-cols-3 gap-4">
+                            <div className="grid md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="cliente">Cliente</Label>
                                     <Select>
@@ -158,7 +158,8 @@ export default function FacturacionCreditoPage() {
                                         </SelectContent>
                                     </Select>
                                 </div>
-                               {metodoCredito === 'cashea' && (
+                            </div>
+                             {metodoCredito === 'cashea' && (
                                 <div className="space-y-2 animate-in fade-in">
                                     <Label htmlFor="cashea-level">Nivel de Cliente en Cashea</Label>
                                     <Select>
@@ -173,8 +174,6 @@ export default function FacturacionCreditoPage() {
                                     </Select>
                                 </div>
                                 )}
-                            </div>
-                            
                             <div className="space-y-2 pt-4">
                                 <Label>Items de la Factura</Label>
                                 <div className="space-y-2">
@@ -256,7 +255,7 @@ export default function FacturacionCreditoPage() {
                                                         <TableCell className="text-xs">{level.requirements}</TableCell>
                                                         <TableCell className="text-xs">{level.initialPayment}</TableCell>
                                                         <TableCell>
-                                                            <Badge variant={level.moreQuotas === 'SÍ' ? 'default' : 'outline'}>{level.moreQuotas}</Badge>
+                                                            <Badge variant={level.moreQuotas ? 'default' : 'outline'}>{level.moreQuotas ? "SÍ" : "No"}</Badge>
                                                         </TableCell>
                                                     </TableRow>
                                                 ))}
@@ -396,3 +395,4 @@ export default function FacturacionCreditoPage() {
         </div>
     );
 }
+
