@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Cpu, Eye, EyeOff, Building, ShoppingCart } from "lucide-react";
+import { Cpu, Eye, EyeOff, Building, ShoppingCart, Briefcase, Users, Megaphone, User, Gavel } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,15 +51,30 @@ export default function LoginInformaticaPage() {
           </Button>
         </CardContent>
       </form>
-      <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
-        <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
-        <div className="flex justify-center gap-4">
-          <Link href="/login-juridico" className="font-medium text-primary hover:underline flex items-center gap-1">
-            <Building className="h-4 w-4" /> Admin
-          </Link>
-          <Link href="/login-ventas" className="font-medium text-primary hover:underline flex items-center gap-1">
-            <ShoppingCart className="h-4 w-4" /> Ventas
-          </Link>
+      <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
+        <p className="text-muted-foreground">¿No eres de IT? Accede a otro portal:</p>
+        <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
+            <Button asChild variant="link" className="p-0">
+                <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
+            </Button>
+            <Button asChild variant="link" className="p-0">
+                <Link href="/login-juridico" className="flex items-center gap-1"><Building className="h-4 w-4" />Admin</Link>
+            </Button>
+            <Button asChild variant="link" className="p-0">
+                <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4" />Ventas</Link>
+            </Button>
+             <Button asChild variant="link" className="p-0">
+                <Link href="/login-rrhh" className="flex items-center gap-1"><Briefcase className="h-4 w-4" />RR.HH.</Link>
+            </Button>
+            <Button asChild variant="link" className="p-0">
+                <Link href="/login-socios" className="flex items-center gap-1"><Users className="h-4 w-4" />Socios</Link>
+            </Button>
+            <Button asChild variant="link" className="p-0">
+                <Link href="/login-marketing" className="flex items-center gap-1"><Megaphone className="h-4 w-4" />Marketing</Link>
+            </Button>
+            <Button asChild variant="link" className="p-0">
+                <Link href="/escritorio-juridico" className="flex items-center gap-1"><Gavel className="h-4 w-4" />Jurídico</Link>
+            </Button>
         </div>
       </CardFooter>
     </Card>
