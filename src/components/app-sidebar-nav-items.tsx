@@ -115,6 +115,7 @@ export const finanzasContabilidadMenuItems = [
   { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
   { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileText },
   { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
+  { href: "/billetera-cambio", label: "Billetera de Cambio", icon: Wallet },
   { href: "/inventario", label: "Inventario", icon: Archive },
   { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
   { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
