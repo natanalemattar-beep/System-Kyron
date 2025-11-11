@@ -125,6 +125,7 @@ export const finanzasContabilidadMenuItems = [
   { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
   { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
   { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
+  { href: "/software-contable", label: "Guía de Software Contable", icon: Puzzle },
 ];
 
 export const facturacionGeneralMenuItems = [

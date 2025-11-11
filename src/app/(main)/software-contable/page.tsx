@@ -186,7 +186,7 @@ export default function SoftwareContablePage() {
          <h2 className="text-2xl font-semibold mb-8 text-center">Preguntas Frecuentes</h2>
          <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
             {faqItems.map((item, index) => (
-                 <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 backdrop-blur-sm border rounded-lg px-4">
+                 <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 backdrop-blur-sm border rounded-lg mb-2 px-4">
                     <AccordionTrigger>
                         <div className="flex items-center gap-3">
                             <HelpCircle className="h-5 w-5 text-primary" />
