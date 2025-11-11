@@ -234,6 +234,8 @@ export const marketingMenuItems = [
     { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: Search },
     { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: Zap },
+    { href: "/nivel-competencia", label: "Competencia y Cadena de Valor", icon: Swords },
+    { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
 ];
 
 export const naturalMenuItems = {
@@ -284,5 +286,3 @@ export const informaticaNavGroups = [
 export const legalNavGroups = [
   { title: "Departamento Jurídico", icon: Gavel, items: juridicoMainMenuItems },
 ];
-
-    
