@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Megaphone, Ship, CandlestickChart, Gavel, FileText } from "lucide-react";
+import { ArrowRight, Megaphone, Ship, CandlestickChart, Gavel, FileText, Briefcase } from "lucide-react";
 import Link from "next/link";
 
 const advisoryModules = [
@@ -36,6 +36,12 @@ const advisoryModules = [
         description: "Modelos para la elaboración de propuestas de proyectos, estudios de mercado y planes de negocio.",
         icon: FileText,
         href: "/propuesta-proyecto"
+    },
+    {
+        title: "Análisis Estratégico",
+        description: "Diagnóstico FODA, CAME y PESTLE para la toma de decisiones y planificación estratégica.",
+        icon: Briefcase,
+        href: "/analisis-estrategico"
     },
 ];
 
