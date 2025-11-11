@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone, Lock, Unlock, Mail, Bot } from "lucide-react";
+import { FilePlus, PlusCircle, Trash2, CreditCard, CheckCircle, Download, Smartphone, Lock, Unlock, Mail, Bot, Loader2 } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -17,9 +17,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const initialClientes = [
-    { id: "CLI-001", nombre: "Tech Solutions LLC", bloqueado: false, email: "billing@techsolutions.com" },
-    { id: "CLI-002", nombre: "Innovate Corp", bloqueado: true, email: "accounts@innovatecorp.com" },
-    { id: "CLI-003", nombre: "Marketing Pro", bloqueado: false, email: "contact@marketingpro.net" },
+    { id: "CLI-001", nombre: "Tech Solutions LLC", bloqueado: false, email: "billing@techsolutions.com", telefono: "+1 (555) 123-4567" },
+    { id: "CLI-002", nombre: "Innovate Corp", bloqueado: true, email: "accounts@innovatecorp.com", telefono: "+44 20 7946 0958" },
+    { id: "CLI-003", nombre: "Marketing Pro", bloqueado: false, email: "contact@marketingpro.net", telefono: "+58 (412) 555-1234" },
 ];
 
 const initialFacturas = [
@@ -73,12 +73,28 @@ export default function FacturacionCreditoPage() {
         });
     }
 
-    const handleRegisterPayment = (facturaId: string) => {
-        setFacturas(facturas.map(f => f.id === facturaId ? { ...f, estado: "Pagada" } : f));
-        toast({
-            title: "Pago Registrado",
-            description: `Se ha marcado la factura ${facturaId} como pagada.`,
+    const handleRegisterPayment = (facturaId: string, clienteId: string) => {
+        const cliente = clientes.find(c => c.id === clienteId);
+        if (!cliente) return;
+
+        const { dismiss } = toast({
+            title: "Verificando pago...",
+            description: "Estamos confirmando la transacción con la entidad bancaria.",
+            action: <Loader2 className="h-5 w-5 animate-spin" />,
         });
+
+        // Simulate verification delay
+        setTimeout(() => {
+            dismiss();
+
+            setFacturas(facturas.map(f => f.id === facturaId ? { ...f, estado: "Pagada" } : f));
+            
+            toast({
+                title: "Pago Verificado y Registrado",
+                description: `Constancia de pago enviada a ${cliente.nombre} por correo y WhatsApp.`,
+                action: <CheckCircle className="text-green-500" />
+            });
+        }, 2000);
     }
     
     const toggleBlockCustomer = (clienteId: string, nombreCliente: string) => {
@@ -361,7 +377,7 @@ export default function FacturacionCreditoPage() {
                                     </TableCell>
                                     <TableCell className="text-right space-x-1">
                                         {factura.estado !== "Pagada" && (
-                                            <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id)}>
+                                            <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id, factura.clienteId)}>
                                                 Registrar Pago
                                             </Button>
                                         )}
@@ -395,4 +411,3 @@ export default function FacturacionCreditoPage() {
         </div>
     );
 }
-
