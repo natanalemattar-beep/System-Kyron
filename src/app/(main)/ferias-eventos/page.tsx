@@ -9,11 +9,11 @@ import { Calendar, MapPin, Globe, ArrowRight, Ticket, Users, Mic, Presentation, 
 import Image from "next/image";
 
 const featuredEvent = {
-    title: "Venezuela Startup Summit 2024",
-    date: "Por Anunciar",
+    title: "Venezuela Startup Summit 2025",
+    date: "Primer Trimestre 2025 (Por Anunciar)",
     location: "Caracas, Venezuela",
-    description: "Un día completo de conferencias abiertas al público, diseñado para más de 600 asistentes y con la participación de más de 50 speakers de primer nivel. Este espacio único reunirá a fundadores, inversionistas, líderes y visionarios venezolanos que están marcando historia a nivel global.",
-    image: "https://picsum.photos/seed/summit2024/1200/400"
+    description: "La principal vitrina para la innovación en Venezuela. Un día completo de conferencias, talleres y competencias de pitch para conectar a fundadores, inversionistas y corporaciones que están definiendo el futuro del país.",
+    image: "https://picsum.photos/seed/summit2025/1200/400"
 };
 
 const workshops = [
@@ -26,42 +26,63 @@ const workshops = [
 
 const feriasNacionales = [
     {
-        titulo: "ExpoVenta Caracas 2024",
-        fecha: "15-18 de Agosto, 2024",
+        titulo: "ExpoVenta Caracas 2025",
+        fecha: "Agosto, 2025",
         lugar: "CIEC, Caracas",
         descripcion: "El mayor encuentro de emprendedores y empresas de Venezuela. Una oportunidad única para conectar, vender y aprender.",
         imagen: "https://picsum.photos/seed/expo1/600/400"
     },
     {
-        titulo: "Feria Internacional de Turismo de Venezuela (FITVEN)",
-        fecha: "23-26 de Noviembre, 2024",
-        lugar: "La Guaira",
+        titulo: "Feria Internacional de Turismo de Venezuela (FITVEN) 2025",
+        fecha: "Noviembre, 2025",
+        lugar: "Por definir",
         descripcion: "Plataforma de promoción turística que reúne a operadores nacionales e internacionales para mostrar el potencial de Venezuela.",
         imagen: "https://picsum.photos/seed/expo2/600/400"
     },
     {
-        titulo: "Congreso Nacional de Construcción",
-        fecha: "10-12 de Octubre, 2024",
+        titulo: "Feria de Tecnología e Innovación 2025",
+        fecha: "Octubre, 2025",
         lugar: "Hotel Eurobuilding, Caracas",
-        descripcion: "Evento que reúne a los líderes del sector construcción para discutir sobre innovación, sostenibilidad y nuevas tecnologías.",
+        descripcion: "Evento enfocado en las últimas tendencias tecnológicas, desde IA y blockchain hasta soluciones de software para empresas.",
         imagen: "https://picsum.photos/seed/expo3/600/400"
     },
 ];
 
 const feriasInternacionales = [
     {
-        titulo: "Web Summit 2024",
-        fecha: "11-14 de Noviembre, 2024",
-        lugar: "Lisboa, Portugal",
-        descripcion: "La conferencia de tecnología más grande del mundo. Conecta con startups, inversores y gigantes tecnológicos.",
-        imagen: "https://picsum.photos/seed/expo4/600/400"
-    },
-    {
         titulo: "CES 2025",
         fecha: "7-10 de Enero, 2025",
         lugar: "Las Vegas, EE.UU.",
-        descripcion: "El escenario global para la innovación. Descubre las últimas tendencias en electrónica de consumo y tecnología emergente.",
+        descripcion: "El escenario global para la innovación. Descubre las últimas tendencias en electrónica de consumo, IA, y tecnología automotriz.",
+        imagen: "https://picsum.photos/seed/expo4/600/400"
+    },
+    {
+        titulo: "Mobile World Congress (MWC) 2025",
+        fecha: "3-6 de Marzo, 2025",
+        lugar: "Barcelona, España",
+        descripcion: "El evento más grande del mundo para la industria de la conectividad y la tecnología móvil.",
         imagen: "https://picsum.photos/seed/expo5/600/400"
+    },
+     {
+        titulo: "Web Summit 2025",
+        fecha: "Noviembre, 2025",
+        lugar: "Lisboa, Portugal",
+        descripcion: "Una de las conferencias de tecnología más importantes del mundo, que reúne a startups, inversores y gigantes tecnológicos.",
+        imagen: "https://picsum.photos/seed/expo6/600/400"
+    },
+    {
+        titulo: "GITEX GLOBAL 2025",
+        fecha: "Octubre, 2025",
+        lugar: "Dubai, EAU",
+        descripcion: "El evento tecnológico más grande de Medio Oriente, enfocado en IA, ciberseguridad, y ciudades inteligentes.",
+        imagen: "https://picsum.photos/seed/expo7/600/400"
+    },
+    {
+        titulo: "CES 2026",
+        fecha: "Enero, 2026",
+        lugar: "Las Vegas, EE.UU.",
+        descripcion: "Anticipa las tecnologías que definirán el futuro en el evento de electrónica de consumo más influyente del mundo.",
+        imagen: "https://picsum.photos/seed/expo8/600/400"
     },
 ];
 
