@@ -15,7 +15,7 @@ export default function LoginEmpresaPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/escritorio-juridico');
+    router.push('/dashboard-empresa');
   };
 
   return (
