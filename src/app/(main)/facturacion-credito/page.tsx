@@ -37,6 +37,35 @@ const casheaLevels = [
     { level: 6, name: "Araguaney", requirements: "80 cuotas pagadas a tiempo o $4000 en compras", initialPayment: "40% (Desde 20% en aliados sel. y pronto desde 0%)", moreQuotas: "SÍ" },
 ];
 
+const kreceLevels = [
+    { level: 'Azul', name: "Azul (Base)", initialPayment: "40% Inicial" },
+    { level: 'Plata', name: "Plata", initialPayment: "35% Inicial" },
+    { level: 'Oro', name: "Oro", initialPayment: "30% Inicial" },
+    { level: 'Platino', name: "Platino", initialPayment: "25% Inicial" },
+];
+
+const rapikomLines = [
+  { id: 'clasica', name: 'Línea Clásica (3 cuotas)' },
+  { id: 'express', name: 'Línea Express (1-2 cuotas)' },
+];
+
+const internationalOptions = {
+    europe: [
+        { name: "Klarna", description: "Ofrece servicios BNPL en varios países europeos como el Reino Unido, Alemania, Suecia y España." },
+        { name: "Afterpay", description: "Ampliamente disponible en Europa, con opciones de pago fraccionado para compras en línea." },
+        { name: "PayPal", description: 'Incluye su opción "Paga en 4" en algunos países europeos.' },
+    ],
+    arab_world: [
+        { name: "Tarjetas de crédito y débito", description: "Son el método de pago más común, permitiendo pagos a plazos según el banco emisor." },
+        { name: "Plataformas de financiamiento", description: "Existen plataformas de financiamiento locales y regionales que permiten la compra de productos y servicios en cuotas." },
+    ],
+    how_to_find: [
+        "Buscar en tiendas: Pregunta en tiendas de ropa, electrónica y otros comercios si ofrecen financiamiento o pago a plazos.",
+        "Usar filtros de búsqueda: Utiliza los filtros de búsqueda en tiendas en línea o en las aplicaciones de tus comercios favoritos para encontrar opciones de pago en cuotas.",
+    ]
+}
+
+
 type Item = { id: number; descripcion: string; cantidad: number; precio: number };
 type Factura = typeof initialFacturas[0];
 type Cliente = typeof initialClientes[0];
@@ -337,6 +366,49 @@ export default function FacturacionCreditoPage() {
                             </Card>
                         </TabsContent>
                     </Tabs>
+                </CardContent>
+            </Card>
+
+             <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Alternativas de Financiamiento Internacional</CardTitle>
+                    <CardDescription>
+                        Información sobre servicios "Compra Ahora, Paga Después" (BNPL) en Europa, el mundo árabe y otras regiones.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>Europa</AccordionTrigger>
+                            <AccordionContent className="pt-2">
+                                <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                                    {internationalOptions.europe.map(opt => (
+                                        <li key={opt.name}><strong>{opt.name}:</strong> {opt.description}</li>
+                                    ))}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger>Mundo Árabe y Otras Regiones</AccordionTrigger>
+                            <AccordionContent className="pt-2">
+                                 <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                                    {internationalOptions.arab_world.map(opt => (
+                                        <li key={opt.name}><strong>{opt.name}:</strong> {opt.description}</li>
+                                    ))}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                         <AccordionItem value="item-3">
+                            <AccordionTrigger>¿Cómo encontrar estas alternativas?</AccordionTrigger>
+                            <AccordionContent className="pt-2">
+                                 <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
+                                    {internationalOptions.how_to_find.map((tip, index) => (
+                                        <li key={index}>{tip}</li>
+                                    ))}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </CardContent>
             </Card>
 
