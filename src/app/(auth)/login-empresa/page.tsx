@@ -8,9 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { countries } from "@/lib/countries";
 
 export default function LoginEmpresaPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [country, setCountry] = useState("VEN");
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
@@ -29,6 +32,17 @@ export default function LoginEmpresaPage() {
       </CardHeader>
       <form onSubmit={handleLogin}>
         <CardContent className="p-6 space-y-6">
+           <div className="space-y-2">
+            <Label>País</Label>
+            <Select value={country} onValueChange={setCountry}>
+                <SelectTrigger>
+                <SelectValue placeholder="Seleccionar país..." />
+                </SelectTrigger>
+                <SelectContent>
+                {countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}
+                </SelectContent>
+            </Select>
+            </div>
           <div className="space-y-2">
             <Label>Usuario (Admin)</Label>
             <Input type="text" placeholder="admin.user" required />
