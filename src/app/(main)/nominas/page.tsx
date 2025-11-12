@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase, Download } from "lucide-react";
+import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase, Download, QrCode } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -145,6 +145,7 @@ export default function NominasPage() {
                             <TableHead>Cargo</TableHead>
                             <TableHead className="text-right">Salario Base</TableHead>
                             <TableHead className="text-center">Estado</TableHead>
+                            <TableHead className="text-right">QR</TableHead>
                             <TableHead className="text-right">Acciones</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -157,6 +158,9 @@ export default function NominasPage() {
                                 <TableCell className="text-right">{formatCurrency(emp.salarioBase, 'Bs.')}</TableCell>
                                 <TableCell className="text-center">
                                     <Badge variant={statusVariant[emp.estado]}>{emp.estado}</Badge>
+                                </TableCell>
+                                 <TableCell className="text-right">
+                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=empleado-id-${emp.id}`} alt={`QR for ${emp.id}`} width={24} height={24} />
                                 </TableCell>
                                 <TableCell className="text-right space-x-1">
                                     <Button asChild variant="ghost" size="sm">
