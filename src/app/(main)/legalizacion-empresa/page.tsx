@@ -246,7 +246,7 @@ export default function LegalizacionEmpresaPage() {
                 <h4>TÍTULO I: DENOMINACIÓN, DOMICILIO, OBJETO Y DURACIÓN</h4>
                 <p><strong>CLÁUSULA PRIMERA:</strong> La compañía se denominará "[NOMBRE DE LA EMPRESA], C.A.".</p>
                 <p><strong>CLÁUSULA SEGUNDA:</strong> El domicilio de la compañía estará en la ciudad de [Ciudad], Estado [Estado], República Bolivariana de Venezuela, pudiendo establecer sucursales o agencias en cualquier otro lugar del país o del extranjero.</p>
-                <p><strong>CLÁUSULA TERCERA:</strong> El objeto de la compañía es la asesoría contable, sistema de financiamiento, asesoría de publicidad y marketing, con sistema de app digital de cambio de moneda, asesoría de clases de materia contable, app de todas las carrera con asesoria de profesionales de la materia, venta de productos online, una línea de productos fiscales, y papeleras con distribución de su propia marca.</p>
+                <p><strong>CLÁUSULA TERCERA:</strong> El objeto de la compañía es la asesoría contable, sistema de financiamiento, asesoría de publicidad y marketing, con sistema de app digital de cambio de moneda, asesoría de clases de materia contable, app de todas las carrera con asesoria de profesionales de la materia, venta de productos online, una línea de productos fiscales, y papeleras con distribución de su propia marca. realizar convenio y alianza para hacer canje de productos de plastico por dinero y alianza con empresas y tramites de documentos y asesorias juridicay todos los servicios administrativos, juridicos, ingenieria y marketing.</p>
                 <p><strong>CLÁUSULA CUARTA:</strong> La duración de la compañía será de cincuenta (50) años, contados a partir de la fecha de su inscripción en el Registro Mercantil.</p>
 
                 <h4>TÍTULO II: DEL CAPITAL SOCIAL Y LAS ACCIONES</h4>
@@ -287,3 +287,5 @@ export default function LegalizacionEmpresaPage() {
     </div>
   );
 }
+
+    
