@@ -257,8 +257,9 @@ export default function FacturacionCreditoPage() {
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="cashea">
-                        <TabsList className="grid w-full grid-cols-5">
+                        <TabsList className="grid w-full grid-cols-6">
                             <TabsTrigger value="cashea">Cashea</TabsTrigger>
+                            <TabsTrigger value="lysto">Lysto</TabsTrigger>
                             <TabsTrigger value="zueno">Zueño</TabsTrigger>
                             <TabsTrigger value="krece">Krece</TabsTrigger>
                             <TabsTrigger value="rapikom">Rapikom</TabsTrigger>
@@ -328,6 +329,18 @@ export default function FacturacionCreditoPage() {
                                      </div>
                                 </CardContent>
                            </Card>
+                        </TabsContent>
+                        <TabsContent value="lysto" className="mt-6">
+                            <Card className="bg-secondary/30">
+                                <CardHeader>
+                                    <CardTitle>Lysto</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">
+                                        Lysto funciona como una plataforma de pago en cuotas sin intereses que permite a los usuarios comprar bienes y servicios y pagarlos en plazos fijos. Para usarla, debes descargar la aplicación, registrarte con tus datos y subir tu identificación para obtener una línea de compra aprobada. Al hacer una compra en un comercio aliado, escaneas el código QR, eliges el plan de pago en cuotas sin interés y haces un pago inicial. El resto del monto se pagará en las cuotas acordadas, con fechas de pago fijas los días 1 y 16 de cada mes, coincidiendo con la quincena para facilitar las finanzas.
+                                    </p>
+                                </CardContent>
+                            </Card>
                         </TabsContent>
                          <TabsContent value="zueno" className="mt-6">
                              <Card className="bg-secondary/30">
