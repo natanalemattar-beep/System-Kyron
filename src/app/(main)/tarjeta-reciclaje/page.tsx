@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -32,7 +33,7 @@ export default function TarjetaReciclajePage() {
                 </div>
                 <h1 className="text-4xl font-bold tracking-tight">Tarjeta de Reciclaje: Transforma Plástico en Recompensas</h1>
                 <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-                    Nuestra iniciativa para incentivar el reciclaje de envases plásticos, reducir la contaminación y promover una economía circular. Por cada envase, acumulas puntos para canjear por beneficios.
+                    Nuestra iniciativa, impulsada por la <strong>Fundación C.M.S.</strong>, para incentivar el reciclaje de envases plásticos, reducir la contaminación y promover una economía circular. Por cada envase, acumulas puntos para canjear por beneficios.
                 </p>
             </header>
 

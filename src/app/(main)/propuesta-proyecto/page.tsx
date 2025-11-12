@@ -1,8 +1,8 @@
 
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { FileText, Download, Printer, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
@@ -42,6 +42,8 @@ Reconocemos dos grandes desafíos en el entorno actual:
 Nuestro proyecto se basa en dos pilares fundamentales que funcionan de manera sinérgica:
 a) Papelera Inteligente para Reciclaje: Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen. Esta tecnología no solo mejora la calidad de los materiales recuperados, sino que también genera datos valiosos para optimizar las rutas de recolección y fomentar una economía circular.
 b) Software de Automatización Contable y Administrativa: Una plataforma en la nube que automatiza el 100% de los procesos de su empresa: facturación homologada por el SENIAT, gestión de inventario, cuentas por cobrar/pagar, conciliación bancaria y generación de reportes fiscales. Este sistema es el mismo que utilizamos internamente para gestionar la venta y el soporte de nuestras papeleras, demostrando su robustez y fiabilidad.
+c) Ecosistema de Productos y Servicios: Además del hardware y software, ofrecemos una línea completa de productos fiscales (desde factureros manuales hasta impresoras fiscales), una plataforma de e-commerce y un sistema de financiamiento para facilitar la adquisición de nuestras soluciones en Venezuela y otros países.
+d) Fundación C.M.S.: Nuestra fundación se encarga de la logística de recolección del plástico y de gestionar alianzas con empresas para convertir los residuos en valor, cerrando el ciclo de la economía circular.
 
 3. BENEFICIOS CLAVE
 - Sostenibilidad y Responsabilidad Social: Mejora radicalmente la gestión de residuos y posiciona a su organización como líder en sostenibilidad.
@@ -120,19 +122,25 @@ El Equipo de System C.M.S, C.A.
 
             <h4>2. SOLUCIÓN PROPUESTA</h4>
             <p>
-                Nuestro proyecto se basa en dos pilares fundamentales que funcionan de manera sinérgica:
+                Nuestro proyecto se basa en un ecosistema de pilares fundamentales que funcionan de manera sinérgica:
             </p>
             <p>
-                <strong>a) Papelera Inteligente para Reciclaje:</strong> Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen. Esta tecnología no solo mejora la calidad de los materiales recuperados, sino que también genera datos valiosos para optimizar las rutas de recolección y fomentar una economía circular.
+                <strong>a) Papelera Inteligente para Reciclaje:</strong> Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen.
             </p>
             <p>
-                <strong>b) Software de Automatización Contable y Administrativa:</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa: facturación homologada por el SENIAT, gestión de inventario, cuentas por cobrar/pagar, conciliación bancaria y generación de reportes fiscales. Este sistema es el mismo que utilizamos internamente para gestionar la venta y el soporte de nuestras papeleras, demostrando su robustez y fiabilidad.
+                <strong>b) Software de Automatización (SaaS):</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa: facturación homologada, gestión de inventario, cuentas por cobrar/pagar, y generación de reportes fiscales.
+            </p>
+             <p>
+                <strong>c) Ecosistema de Productos y Servicios:</strong> Además del hardware y software, ofrecemos una línea completa de productos fiscales (desde factureros manuales hasta impresoras fiscales), una plataforma de e-commerce, y un sistema de financiamiento para facilitar la adquisición de nuestras soluciones en Venezuela y otros países.
+            </p>
+             <p>
+                <strong>d) Fundación C.M.S.:</strong> Nuestra fundación se encarga de la logística de recolección del plástico y de gestionar alianzas con empresas para convertir los residuos en valor, cerrando el ciclo de la economía circular.
             </p>
 
             <h4>3. BENEFICIOS CLAVE</h4>
              <ul className="list-disc pl-5 space-y-2">
                 <li><strong>Sostenibilidad y Responsabilidad Social:</strong> Mejora radicalmente la gestión de residuos y posiciona a su organización como líder en sostenibilidad.</li>
-                <li><strong>Eficiencia Operativa:</strong> Reduce los costos de recolección de residuos y automatiza tareas administrativas, liberando a su equipo para que se enfoque en actividades de mayor valor.</li>
+                <li><strong>Eficiencia Operativa:</strong> Reduce costos y automatiza tareas administrativas, liberando a su equipo para que se enfoque en actividades de mayor valor.</li>
                 <li><strong>Cumplimiento y Tranquilidad:</strong> Garantiza el cumplimiento de las normativas fiscales venezolanas, minimizando el riesgo de sanciones.</li>
                 <li><strong>Toma de Decisiones Basada en Datos:</strong> Obtenga informes en tiempo real sobre la generación de residuos y el rendimiento financiero de su empresa.</li>
             </ul>

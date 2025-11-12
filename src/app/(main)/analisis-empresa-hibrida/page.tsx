@@ -172,15 +172,15 @@ export default function AnalisisEmpresaHibridaPage() {
                     </p>
                 </div>
                  <div>
-                    <h4 className="font-semibold mb-2">Pilar de Software: El Sistema de Gestión</h4>
+                    <h4 className="font-semibold mb-2">Pilar de Software y Servicios (SaaS)</h4>
                     <p className="text-sm text-muted-foreground">
-                        Es el cerebro del ecosistema. No solo gestiona los datos de las papeleras (IoT), sino que también es un producto en sí mismo: un software de automatización contable y administrativa que resuelve un problema clave en Venezuela.
+                        Es el cerebro del ecosistema. Incluye el software de gestión (contabilidad, finanzas, cumplimiento), una plataforma de e-commerce para vender productos fiscales, y un sistema de financiamiento, creando múltiples flujos de ingreso recurrentes.
                     </p>
                 </div>
             </CardContent>
             <CardContent>
                  <p className="text-center text-sm font-medium p-4 bg-background rounded-lg border">
-                    <strong>La Sinergia:</strong> Vendes la papelera (Hardware) y la gestionas con tu sistema (Software), que a su vez vendes como un servicio a otras empresas. Este es un ejemplo claro de un modelo de negocio híbrido, robusto y diversificado.
+                    <strong>La Sinergia:</strong> Vendes la papelera (Hardware) y la gestionas con tu sistema (Software), que a su vez vendes como un servicio a otras empresas junto con productos fiscales y opciones de financiamiento. Este es un ejemplo claro de un modelo de negocio híbrido, robusto y diversificado.
                 </p>
             </CardContent>
             <CardContent>
