@@ -267,20 +267,29 @@ export default function FacturacionCreditoPage() {
                         <TabsContent value="cashea" className="mt-6">
                            <Card className="bg-secondary/30">
                                 <CardHeader>
-                                    <CardTitle className="flex items-center gap-2"><Smartphone/> ¿Cómo funciona Cashea?</CardTitle>
+                                    <CardTitle className="flex items-center gap-2"><Smartphone/> Guía Completa de Cashea</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-6">
-                                     <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
-                                        <li><strong>Descarga la app y regístrate:</strong> El usuario debe validar su identidad con su cédula y una selfie.</li>
-                                        <li><strong>Obtén una línea de compra:</strong> Cashea preaprueba un monto en minutos.</li>
-                                        <li><strong>Realiza la compra:</strong> El cliente paga un porcentaje inicial en la tienda y se lleva el producto.</li>
-                                        <li><strong>Paga las cuotas:</strong> El resto se divide en cuotas fijas (generalmente 3) sin intereses, que se pagan cada 14 días desde la app.</li>
-                                    </ol>
-                                     <h4 className="font-semibold pt-2">Beneficios Clave:</h4>
-                                     <ul className="space-y-2">
-                                        <li className="flex items-start gap-2"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5"/> <span><strong>Sin Intereses:</strong> El precio final es el mismo que el precio de contado.</span></li>
-                                        <li className="flex items-start gap-2"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5"/> <span><strong>Club Cashea Más:</strong> Pagar a tiempo acumula puntos para subir de nivel y obtener mejores beneficios (más línea de crédito, más cuotas).</span></li>
-                                     </ul>
+                                     <div>
+                                        <h4 className="font-semibold mb-2">Proceso de Compra:</h4>
+                                        <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                                            <li><strong>Registro:</strong> Descarga la aplicación, completa tus datos (nombre, cédula, fecha de nacimiento) y verifica tu identidad con una foto de tu cédula y una selfie.</li>
+                                            <li><strong>Línea de compra:</strong> La aplicación te asigna una línea de compra inicial que varía según tu perfil.</li>
+                                            <li><strong>Compra en tienda:</strong> Al pagar, escaneas un código QR en la caja y pagas el inicial en el punto de venta.</li>
+                                            <li><strong>Compra en línea:</strong> Seleccionas Cashea como método de pago al hacer la compra en la aplicación.</li>
+                                            <li><strong>Pago de cuotas:</strong> El resto del monto se divide en cuotas sin intereses que se cancelan cada 14 días.</li>
+                                        </ol>
+                                     </div>
+                                     <div>
+                                        <h4 className="font-semibold mb-2">Características Principales:</h4>
+                                        <ul className="space-y-2 text-sm text-muted-foreground">
+                                            <li className="flex items-start gap-2"><CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5"/> <span><strong>Sin intereses:</strong> La suma del pago inicial y las cuotas es igual al precio del producto.</span></li>
+                                            <li className="flex items-start gap-2"><CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5"/> <span><strong>Compra inmediata:</strong> Disfrutas del producto desde el primer momento.</span></li>
+                                            <li className="flex items-start gap-2"><CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5"/> <span><strong>Flexibilidad:</strong> El "Modo Más Cuotas" permite financiar en 6, 9 o 12 cuotas.</span></li>
+                                            <li className="flex items-start gap-2"><CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5"/> <span><strong>Línea Cotidiana:</strong> Úsalo para compras del día a día en supermercados y farmacias.</span></li>
+                                             <li className="flex items-start gap-2"><CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5"/> <span><strong>Expansión de crédito:</strong> Solicita un aumento de tu línea de compra desde la app.</span></li>
+                                        </ul>
+                                     </div>
                                      
                                     <div>
                                         <h4 className="font-semibold pt-4">Club Cashea Más: Niveles y Beneficios</h4>
@@ -308,11 +317,6 @@ export default function FacturacionCreditoPage() {
                                         </Table>
                                     </div>
                                     
-                                     <div>
-                                        <h4 className="font-semibold pt-4">¿Qué es el "Modo Más Cuotas"?</h4>
-                                        <p className="text-sm text-muted-foreground mt-2">Es un beneficio para usuarios de nivel 3 o superior que permite financiar compras en 6, 9 o hasta 12 cuotas sin interés en tiendas y productos seleccionados, comprando exclusivamente desde la app de Cashea.</p>
-                                     </div>
-
                                      <div>
                                         <h4 className="font-semibold pt-4">Comisiones por Servicio para el Comercio:</h4>
                                           <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
