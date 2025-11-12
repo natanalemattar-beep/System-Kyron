@@ -91,7 +91,6 @@ import {
   School,
   UserPlus,
   Package,
-  Zap,
 } from "lucide-react";
 
 
@@ -154,51 +153,6 @@ export const facturacionGeneralMenuItems = [
 export const internationalOperationsMenuItems = [
     { href: "/gestion-global", label: "Centro de Gestión Global", icon: Globe },
     { href: "/facturacion-internacional", label: "Facturación Internacional", icon: Globe },
-];
-
-export const ventasMenuItems = [
-    { href: "/analisis-ventas", label: "Dashboard de Ventas", icon: LayoutDashboard },
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
-    { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
-    { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
-    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
-    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/atencion-online", label: "Centro de Atención Online", icon: MessageSquare },
-];
-
-export const recursosHumanosGestionItems = [
-    { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
-    { href: "/nominas", label: "Nóminas", icon: Users },
-    { href: "/contratos", label: "Contratos", icon: FileSignature },
-    { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
-    { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
-    { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
-    { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
-    { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
-    { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
-    { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
-    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
-    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
-    { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
-    { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
-    { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
-    { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
-];
-
-export const librosRegistroMenuItems = [
-    { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
-    { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
-    { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
-    { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
-    { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
-    { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
-    { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
-];
-
-export const corporativoMenuItems = [
-    { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
-    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
 ];
 
 export const ingenieriaMenuItems = [
@@ -287,3 +241,50 @@ export const informaticaNavGroups = [
 export const legalNavGroups = [
   { title: "Departamento Jurídico", icon: Gavel, items: juridicoMainMenuItems },
 ];
+
+export const ventasMenuItems = [
+    { href: "/analisis-ventas", label: "Dashboard de Ventas", icon: LayoutDashboard },
+    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+    { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
+    { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+    { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
+    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+    { href: "/atencion-online", label: "Centro de Atención Online", icon: MessageSquare },
+];
+
+export const recursosHumanosGestionItems = [
+    { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
+    { href: "/nominas", label: "Nóminas", icon: Users },
+    { href: "/contratos", label: "Contratos", icon: FileSignature },
+    { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
+    { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
+    { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
+    { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
+    { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
+    { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
+    { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
+    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
+    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
+    { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
+    { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
+    { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
+    { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
+];
+
+export const librosRegistroMenuItems = [
+    { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
+    { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
+    { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
+    { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
+    { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
+    { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
+    { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
+];
+
+export const corporativoMenuItems = [
+    { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
+    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
+];
+
+    
