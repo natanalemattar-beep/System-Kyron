@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FileInputTrigger } from "@/components/file-input-trigger";
 import { formatCurrency, formatDate } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
 
 const initialPasos = [
     { 
@@ -286,5 +287,3 @@ export default function LegalizacionEmpresaPage() {
     </div>
   );
 }
-
-    
