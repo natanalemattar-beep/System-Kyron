@@ -1,203 +1,132 @@
 
 "use client";
 
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FileSignature, Download, Printer, HardHat, CheckCircle, Store, Building } from "lucide-react";
+import { Stamp, CheckCircle, FileText, Download, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { formatDate } from "@/lib/utils";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Logo } from "@/components/logo";
+import { Separator } from "@/components/ui/separator";
 
-const permisosPorTipo = [
+const pasosLegalizacion = [
     {
-        tipo: "Obras Civiles y Construcción",
-        icon: HardHat,
-        permisos: [
-            "Permiso de Construcción de Obra Civil",
-            "Permiso de Desmantelamiento de Instalaciones",
-            "Conformidad de Uso de Bomberos",
-            "Estudio de Impacto Ambiental (si aplica)"
-        ]
+        paso: 1,
+        titulo: "Reserva de Nombre y Denominación Social (SAREN)",
+        descripcion: "El primer paso es verificar la disponibilidad del nombre de la empresa y reservarlo a través del sistema del Servicio Autónomo de Registros y Notarías (SAREN)."
     },
     {
-        tipo: "Restaurantes y Locales de Comida",
-        icon: Store,
-        permisos: [
-            "Permiso Sanitario de Funcionamiento",
-            "Conformidad de Uso de Bomberos",
-            "Certificado de Manipulación de Alimentos para todo el personal",
-            "Conformidad Sanitaria de Habitabilidad"
-        ]
+        paso: 2,
+        titulo: "Redacción y Visado del Acta Constitutiva",
+        descripcion: "Se debe redactar el documento constitutivo de la empresa, detallando su objeto, capital, socios y estructura. Este documento debe ser visado por un abogado colegiado."
     },
-    {
-        tipo: "Oficinas y Locales Comerciales",
-        icon: Building,
-        permisos: [
-            "Conformidad de Uso de Bomberos",
-            "Licencia de Actividades Económicas",
-            "Certificado de Uso Conforme (Zonificación)",
-        ]
-    }
-]
+     {
+        paso: 3,
+        titulo: "Inscripción en el Registro Mercantil",
+        descripcion: "El acta constitutiva se presenta y se inscribe en el Registro Mercantil correspondiente a la jurisdicción del domicilio de la empresa para darle personalidad jurídica."
+    },
+     {
+        paso: 4,
+        titulo: "Publicación en Periódico Mercantil",
+        descripcion: "Una vez registrada, el acta debe ser publicada en un periódico mercantil para dar fe pública de la constitución de la empresa."
+    },
+     {
+        paso: 5,
+        titulo: "Inscripción en el SENIAT (Obtención del RIF)",
+        descripcion: "Finalmente, se debe registrar la empresa ante el Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT) para obtener el Registro Único de Información Fiscal (RIF)."
+    },
+];
 
 export default function LegalizacionEmpresaPage() {
     const { toast } = useToast();
-    const [formData, setFormData] = useState({
-        ingeniero: "Nombre del Ingeniero",
-        civ: "123.456",
-        proyecto: "Nombre del Proyecto",
-        cliente: "Nombre del Cliente/Empresa",
-        direccion: "Dirección Completa del Proyecto",
-        fecha: new Date().toISOString().split('T')[0],
-    });
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, value } = e.target;
-        setFormData(prev => ({ ...prev, [id]: value }));
-    };
 
     const handleAction = (action: string) => {
         toast({
-            title: `Carta de Aval ${action}`,
-            description: `El documento ha sido ${action === 'impresa' ? 'enviado a la impresora' : 'descargado en formato PDF'}.`,
+            title: `Documento ${action}`,
+            description: `El modelo de Acta Constitutiva ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado'}.`,
         });
-        if (action === 'impresa') {
+        if (action === 'impreso') {
             window.print();
         }
     };
+
 
   return (
     <div className="p-4 md:p-8">
       <header className="mb-8 flex items-center justify-between print:hidden">
         <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-                <HardHat className="h-8 w-8" />
-                Carta Aval de Ingeniería y Permisos
+                <Stamp className="h-8 w-8" />
+                Guía de Legalización de Empresas
             </h1>
             <p className="text-muted-foreground mt-2">
-              Genera la carta aval de un proyecto y consulta los permisos necesarios según el tipo de comercio.
+              Proceso paso a paso para la constitución y registro de tu empresa en Venezuela.
             </p>
-        </div>
-        <div className="flex gap-2">
-            <Button variant="outline" onClick={() => handleAction('impresa')}>
-                <Printer className="mr-2"/> Imprimir
-            </Button>
-            <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar PDF
-            </Button>
         </div>
       </header>
 
-      <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-1 print:hidden">
-             <Card className="bg-card/50 backdrop-blur-sm sticky top-24">
-                <CardHeader>
-                    <CardTitle>Datos de la Carta Aval</CardTitle>
-                    <CardDescription>Completa la información para generar el documento.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="ingeniero">Nombre del Ingeniero Responsable</Label>
-                        <Input id="ingeniero" value={formData.ingeniero} onChange={handleInputChange} />
-                    </div>
-                     <div className="space-y-2">
-                        <Label htmlFor="civ">N° de Colegiado (C.I.V.)</Label>
-                        <Input id="civ" value={formData.civ} onChange={handleInputChange} />
-                    </div>
-                     <div className="space-y-2">
-                        <Label htmlFor="proyecto">Nombre del Proyecto</Label>
-                        <Input id="proyecto" value={formData.proyecto} onChange={handleInputChange} />
-                    </div>
-                     <div className="space-y-2">
-                        <Label htmlFor="cliente">Cliente / Empresa</Label>
-                        <Input id="cliente" value={formData.cliente} onChange={handleInputChange} />
-                    </div>
-                     <div className="space-y-2">
-                        <Label htmlFor="direccion">Dirección del Proyecto</Label>
-                        <Input id="direccion" value={formData.direccion} onChange={handleInputChange} />
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
-        <div className="lg:col-span-2">
-            <Card className="bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
-                <CardHeader className="text-center p-8">
-                    <CardTitle className="text-2xl">CARTA DE AVAL DE PROYECTO DE INGENIERÍA</CardTitle>
-                </CardHeader>
-                <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
-                    <p>
-                        <strong>Fecha:</strong> {formatDate(formData.fecha)}
-                    </p>
-                    <p>
-                        <strong>A quien pueda interesar,</strong>
-                    </p>
-                    <p>
-                        Por medio de la presente, yo, <strong>{formData.ingeniero}</strong>, Ingeniero [Especialidad], titular de la Cédula de Identidad N° [C.I. del Ingeniero] e inscrito en el Colegio de Ingenieros de Venezuela (C.I.V.) bajo el N° <strong>{formData.civ}</strong>, en pleno uso de mis facultades profesionales, certifico y doy fe de lo siguiente:
-                    </p>
-
-                    <h4>1. OBJETO DEL AVAL</h4>
-                    <p>
-                        He supervisado y revisado exhaustivamente el proyecto denominado "<strong>{formData.proyecto}</strong>", a ser ejecutado para nuestro cliente <strong>{formData.cliente}</strong>, ubicado en la siguiente dirección: <strong>{formData.direccion}</strong>.
-                    </p>
-
-                    <h4>2. CUMPLIMIENTO TÉCNICO Y NORMATIVO</h4>
-                    <p>
-                        El proyecto cumple a cabalidad con todas las normativas técnicas, códigos de construcción, leyes de ordenación urbanística y regulaciones de seguridad vigentes en la República Bolivariana de Venezuela aplicables a su naturaleza. Se han considerado todos los estándares de calidad y buenas prácticas de la ingeniería para garantizar su correcta ejecución, estabilidad y seguridad.
-                    </p>
-                    
-                    <h4>3. CONCLUSIÓN</h4>
-                    <p>
-                       En virtud de lo anteriormente expuesto, avalo técnicamente la viabilidad y correcta formulación del proyecto "<strong>{formData.proyecto}</strong>". Esta certificación se expide a solicitud de la parte interesada para los fines que estime convenientes.
-                    </p>
-
-                    <div className="pt-24 text-center">
-                        <p className="border-t-2 border-foreground inline-block px-12 pt-2">Firma del Ingeniero</p>
-                        <p className="font-semibold mt-1">{formData.ingeniero}</p>
-                        <p className="text-xs">C.I.V. N° {formData.civ}</p>
-                    </div>
-
-                </CardContent>
-                 <CardFooter className="p-6 justify-center border-t print:hidden">
-                    <p className="text-xs text-muted-foreground">Este documento es un modelo. Debe ser firmado por un profesional colegiado para tener validez.</p>
-                </CardFooter>
-            </Card>
-        </div>
-      </div>
-      
-       <section className="mt-12">
+      <div className="grid lg:grid-cols-2 gap-8">
             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
-                    <CardTitle>Guía de Permisos por Tipo de Comercio</CardTitle>
-                    <CardDescription>Consulta los permisos de ingeniería y funcionamiento más comunes según tu actividad económica.</CardDescription>
+                    <CardTitle>Pasos para la Constitución de una Empresa</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Accordion type="single" collapsible className="w-full">
-                        {permisosPorTipo.map((tipo) => (
-                            <AccordionItem value={tipo.tipo} key={tipo.tipo}>
-                                <AccordionTrigger>
-                                    <div className="flex items-center gap-3 font-semibold text-lg">
-                                        <tipo.icon className="h-5 w-5 text-primary"/>
-                                        <span>{tipo.tipo}</span>
-                                    </div>
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    <ul className="pl-10 space-y-3 text-muted-foreground list-disc">
-                                        {tipo.permisos.map(permiso => (
-                                            <li key={permiso}>{permiso}</li>
-                                        ))}
-                                    </ul>
-                                </AccordionContent>
-                            </AccordionItem>
+                    <ol className="relative border-l border-border ml-4 space-y-10">
+                        {pasosLegalizacion.map((paso) => (
+                            <li key={paso.paso} className="ml-8">
+                                <span className="absolute -left-4 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold">
+                                    {paso.paso}
+                                </span>
+                                <h3 className="font-semibold">{paso.titulo}</h3>
+                                <p className="mt-1 text-sm text-muted-foreground">{paso.descripcion}</p>
+                            </li>
                         ))}
-                    </Accordion>
+                    </ol>
                 </CardContent>
             </Card>
-       </section>
+
+            <Card className="bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
+                 <CardHeader className="text-center p-6">
+                    <CardTitle className="text-xl flex items-center justify-center gap-2"><FileText/>Modelo de Acta Constitutiva</CardTitle>
+                    <CardDescription>Utiliza este modelo como base para tu documento.</CardDescription>
+                </CardHeader>
+                <CardContent className="p-6 prose prose-sm dark:prose-invert max-w-none text-justify h-[60vh] overflow-y-auto">
+                    <p>
+                        Nosotros, [NOMBRES Y APELLIDOS DE LOS SOCIOS], mayores de edad, de nacionalidad [Nacionalidad], titulares de la Cédula de Identidad N° V-[C.I. Socio 1] y V-[C.I. Socio 2], domiciliados en la ciudad de Caracas, por medio del presente documento declaramos que hemos convenido en constituir, como en efecto lo hacemos, una Compañía Anónima que se regirá por las cláusulas que se detallan a continuación.
+                    </p>
+
+                    <h4>CLÁUSULA PRIMERA: DENOMINACIÓN</h4>
+                    <p>La compañía se denominará <strong>SYSTEM C.M.S, C.A.</strong></p>
+
+                    <h4>CLÁUSULA SEGUNDA: DOMICILIO</h4>
+                    <p>El domicilio de la compañía estará en la ciudad de Caracas, pudiendo establecer sucursales o agencias en cualquier otro lugar del territorio nacional o en el extranjero.</p>
+
+                    <h4>CLÁUSULA TERCERA: OBJETO</h4>
+                    <p>El objeto de la compañía es la asesoría contable, sistema de financiamiento, asesoría de publicidad y marketing, con sistema de app digital de cambio de moneda, asesoría de clases de materia contable, app de todas las carrera con asesoria de profesionales de la materia, venta de productos online, una línea de productos fiscales, y papeleras con distribución de su propia marca. Realizar convenios y alianzas para el canje de productos plásticos por dinero y alianzas con empresas. Tramitación de documentos y asesorías jurídicas, y todos los servicios administrativos, jurídicos, de ingeniería y marketing. En general, la sociedad podrá realizar cualquier otra actividad de lícito comercio conexa o no con su objeto principal.</p>
+
+                    <h4>CLÁUSULA CUARTA: CAPITAL SOCIAL</h4>
+                    <p>El capital social es de [MONTO DEL CAPITAL] (Bs. X.XXX,XX), dividido en [NÚMERO DE ACCIONES] (XX) acciones nominativas no convertibles al portador, con un valor nominal de [VALOR NOMINAL] (Bs. X.XXX,XX) cada una, las cuales han sido suscritas y pagadas en su totalidad por los socios de la siguiente manera: [Socio 1] suscribe y paga [Número] acciones, y [Socio 2] suscribe y paga [Número] acciones.</p>
+                    
+                    <h4>CLÁUSULA QUINTA: AUTORIZACIÓN ESPECIAL</h4>
+                    <p>Se autoriza ampliamente al ciudadano(a) <strong>[NOMBRE DEL AUTORIZADO]</strong>, titular de la Cédula de Identidad N° V-[C.I. AUTORIZADO], para que realice todos los trámites necesarios para el registro, inscripción y publicación de la presente Acta Constitutiva, así como para la obtención del Registro Único de Información Fiscal (RIF) y cualquier otra gestión requerida para la plena legalización de la empresa.</p>
+                    
+                    <div className="grid grid-cols-2 gap-12 pt-16">
+                        <div className="text-center">
+                            <p className="border-t-2 border-foreground pt-2">[Firma Socio 1]</p>
+                        </div>
+                        <div className="text-center">
+                            <p className="border-t-2 border-foreground pt-2">[Firma Socio 2]</p>
+                        </div>
+                    </div>
+                </CardContent>
+                <CardFooter className="p-4 border-t flex justify-end gap-2">
+                     <Button variant="outline" onClick={() => handleAction('impreso')}>
+                        <Printer className="mr-2"/> Imprimir Modelo
+                    </Button>
+                    <Button onClick={() => handleAction('descargado')}>
+                        <Download className="mr-2"/> Descargar Modelo
+                    </Button>
+                </CardFooter>
+            </Card>
+      </div>
 
     </div>
   );
