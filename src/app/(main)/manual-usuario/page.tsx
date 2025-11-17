@@ -7,6 +7,7 @@ import { BookUser, Download, ChevronsRight, User, Building, FileText, Printer, S
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Logo } from "@/components/logo";
 
 const juridicoFeatures = [
     "Legalización de Empresa: Guía paso a paso para constituir tu empresa.",
@@ -35,6 +36,65 @@ export default function ManualUsuarioPage() {
         toast({
             title: "Impresión Iniciada",
             description: "El manual se está preparando para la impresión.",
+        });
+    }
+
+    const handleDownload = () => {
+        const manualContent = `
+MANUAL DE USUARIO Y PROCEDIMIENTOS - SYSTEM C.M.S
+==================================================
+
+Bienvenido a System C.M.S, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.
+Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.
+
+--- PRIMEROS PASOS: REGISTRO E INICIO DE SESIÓN ---
+1. Registro:
+   En la página de inicio, haz clic en "Registrarse". Selecciona si eres Persona Jurídica o Natural y completa los datos solicitados. Recibirás un código de verificación en tu correo para activar tu cuenta.
+
+2. Inicio de Sesión:
+   Una vez registrado, ve a "Iniciar Sesión". Ingresa tu RIF (para empresas) o Cédula (para personas) y tu contraseña para acceder a tu dashboard personalizado.
+
+--- MÓDULOS CLAVE (PERSONA JURÍDICA) ---
+- ${juridicoFeatures.join("\n- ")}
+
+--- MÓDULOS CLAVE (PERSONA NATURAL) ---
+- ${naturalFeatures.join("\n- ")}
+
+--- MANUAL DE PROCEDIMIENTOS CLAVE ---
+
+1. Gestión de Devoluciones:
+   - Para anular una factura original, navega a 'Nota de Crédito', crea un nuevo documento y referencia la factura afectada.
+   - Una vez emitida la nota de crédito, el sistema te guiará para registrar el reingreso del producto al inventario.
+   - Si el cliente ya había pagado, el sistema registrará un saldo a su favor en 'Cuentas por Cobrar'.
+
+2. Legalización de Empresas:
+   - Reserva de Nombre (SAREN): Verifica la disponibilidad del nombre de la empresa.
+   - Acta Constitutiva: Redacta y visa el documento con un abogado.
+   - Registro Mercantil: Inscribe el acta para legalizar la empresa.
+   - Publicación: Publica el acta en un periódico mercantil.
+   - Inscripción Fiscal (RIF): Registra la empresa en el SENIAT.
+
+3. Proceso de Importación:
+   - Verificación del Proveedor: Encuentra y negocia con un proveedor confiable.
+   - Consolidación de Carga: Agrupa mercancía de varios proveedores en un solo envío.
+   - Embarque y Transporte: La carga se envía y se emite el Bill of Lading (BL).
+   - Gestión Aduanal: Nuestros agentes se encargan de la nacionalización.
+   - Entrega Final: Se transporta la mercancía liberada a tu negocio.
+`;
+        
+        const blob = new Blob([manualContent.trim()], { type: 'text/plain;charset=utf-8;' });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "Manual_System_CMS.txt");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        toast({
+            title: "Descarga Iniciada",
+            description: "El manual de usuario ha sido descargado.",
         });
     }
 
@@ -68,10 +128,16 @@ export default function ManualUsuarioPage() {
                     Tu guía completa para aprovechar al máximo la plataforma y estandarizar operaciones.
                 </p>
             </div>
-            <Button onClick={handlePrint}>
-                <Printer className="mr-2" />
-                Imprimir Manual
-            </Button>
+            <div className="flex gap-2">
+                <Button variant="outline" onClick={handleDownload}>
+                    <Download className="mr-2" />
+                    Descargar
+                </Button>
+                <Button onClick={handlePrint}>
+                    <Printer className="mr-2" />
+                    Imprimir Manual
+                </Button>
+            </div>
         </header>
 
         <div id="printable-manual">
