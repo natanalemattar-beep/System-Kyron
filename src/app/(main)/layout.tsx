@@ -17,13 +17,13 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 export default function MainAppLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
-  // Don't show sidebar on the main landing page
+  // Don't show sidebar on the main landing page, but keep the layout structure
   if (pathname === "/") {
     return (
-        <>
-            {children}
-            <Toaster />
-        </>
+      <>
+        {children}
+        <Toaster />
+      </>
     );
   }
 
