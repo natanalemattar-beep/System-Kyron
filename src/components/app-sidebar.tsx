@@ -9,11 +9,6 @@ import {
   naturalMenuItems,
   allAdminGroups,
   allJuridicoGroups,
-  ventasMenuItems,
-  recursosHumanosGestionItems,
-  librosRegistroMenuItems,
-  sociosNavGroups,
-  informaticaNavGroups,
 } from "@/components/app-sidebar-nav-items";
 import { Badge } from "./ui/badge";
 import { Logo } from "./logo";
@@ -28,45 +23,15 @@ const AppSidebarCorporate = () => {
 
     // Determine current user profile and navigation groups based on path
     const getCorporateProfile = () => {
-        if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas') || pathname.startsWith('/dashboard-rrhh')) {
-            return {
-                navGroups: allAdminGroups,
-                user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }
-            };
-        }
-        if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/departamento-juridico')) {
-            return {
+        const isLegalPath = allJuridicoGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href));
+        
+        if (isLegalPath) {
+             return {
                 navGroups: allJuridicoGroups,
                 user: { name: "Equipo Legal", email: "legal@kyron.com", fallback: "L" }
             };
         }
-         if (pathname.startsWith('/analisis-ventas')) {
-             return {
-                navGroups: [{ title: 'Ventas', icon: Gavel, items: ventasMenuItems }],
-                user: { name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V"}
-            }
-        }
-         if (pathname.startsWith('/dashboard-rrhh')) {
-             return {
-                navGroups: [
-                    { title: 'Gestión de RR.HH.', icon: Gavel, items: recursosHumanosGestionItems},
-                    { title: 'Libros de Registro', icon: Gavel, items: librosRegistroMenuItems},
-                ],
-                user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH"}
-            }
-        }
-        if (pathname.startsWith('/dashboard-socios')) {
-             return {
-                navGroups: sociosNavGroups,
-                user: { name: "Socio / Directivo", email: "socio@kyron.com", fallback: "S"}
-            }
-        }
-         if (pathname.startsWith('/dashboard-informatica')) {
-             return {
-                navGroups: informaticaNavGroups,
-                user: { name: "Equipo de IT", email: "it@kyron.com", fallback: "IT"}
-            }
-        }
+
         // Fallback to a default corporate profile if no specific path matches
         return {
             navGroups: allAdminGroups,
@@ -210,20 +175,12 @@ export function AppSidebar() {
       return null;
   }
 
-  const corporatePaths = [
-    '/dashboard-empresa',
-    '/analisis-ventas',
-    '/dashboard-rrhh',
-    '/escritorio-juridico',
-    '/dashboard-socios',
-    '/dashboard-informatica',
-    '/asesoria-publicidad',
-    '/departamento-juridico',
+  const allCorporateHrefs = [
     ...allAdminGroups.flatMap(g => g.items.map(i => i.href)),
     ...allJuridicoGroups.flatMap(g => g.items.map(i => i.href)),
   ];
-  
-  const isCorporatePath = corporatePaths.some(p => pathname.startsWith(p) && p !== '/');
+
+  const isCorporatePath = allCorporateHrefs.some(p => pathname.startsWith(p) && p !== '/');
 
   if (isCorporatePath) {
     return <AppSidebarCorporate />;

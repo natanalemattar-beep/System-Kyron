@@ -252,21 +252,6 @@ export const informaticaNavGroups = [
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
 ];
 
-export const legalNavGroups = [
-  { title: "Jurídico y Corporativo", icon: Gavel, items: [
-      { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
-      ...juridicoMainMenuItems,
-    ]},
-];
-
-export const adminFinanzasNavGroups = [
-  { title: "Dashboards", icon: LayoutDashboard, items: [
-      { href: "/dashboard-empresa", label: "Admin y Finanzas", icon: LayoutDashboard },
-  ]},
-  { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
-  { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-];
-
 export const ventasMenuItems = [
     { href: "/analisis-ventas", label: "Dashboard de Ventas", icon: LayoutDashboard },
     { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
@@ -320,12 +305,15 @@ export const allJuridicoGroups = [
 ];
 
 export const allAdminGroups = [
-    ...adminFinanzasNavGroups,
-    { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-    { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
-    { title: "Ventas y Marketing", icon: Megaphone, items: ventasMenuItems },
-    { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
-    { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
-    { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
-    { title: "General", icon: Cog, items: generalMenuItems },
+  { title: "Dashboards", icon: LayoutDashboard, items: [
+      { href: "/dashboard-empresa", label: "Admin y Finanzas", icon: LayoutDashboard },
+  ]},
+  { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+  { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+  { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
+  { title: "Ventas y Marketing", icon: Megaphone, items: ventasMenuItems.concat(marketingMenuItems) },
+  { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
+  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
+  { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
+  { title: "General", icon: Cog, items: generalMenuItems },
 ];
