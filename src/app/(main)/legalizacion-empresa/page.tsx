@@ -1,53 +1,132 @@
 
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Stamp, CheckCircle, FileText, Download, Printer } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { FileSignature, Download, Printer, HardHat, CheckCircle, Store, Building, Stamp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Separator } from "@/components/ui/separator";
+import { formatDate } from "@/lib/utils";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Logo } from "@/components/logo";
 
-const pasosLegalizacion = [
+const permisosPorTipo = [
     {
-        paso: 1,
-        titulo: "Reserva de Nombre y Denominación Social (SAREN)",
-        descripcion: "El primer paso es verificar la disponibilidad del nombre de la empresa y reservarlo a través del sistema del Servicio Autónomo de Registros y Notarías (SAREN)."
+        tipo: "Obras Civiles y Construcción",
+        icon: HardHat,
+        permisos: [
+            "Permiso de Construcción de Obra Civil",
+            "Permiso de Desmantelamiento de Instalaciones",
+            "Conformidad de Uso de Bomberos",
+            "Estudio de Impacto Ambiental (si aplica)"
+        ]
     },
     {
-        paso: 2,
-        titulo: "Redacción y Visado del Acta Constitutiva",
-        descripcion: "Se debe redactar el documento constitutivo de la empresa, detallando su objeto, capital, socios y estructura. Este documento debe ser visado por un abogado colegiado."
+        tipo: "Restaurantes y Locales de Comida",
+        icon: Store,
+        permisos: [
+            "Permiso Sanitario de Funcionamiento",
+            "Conformidad de Uso de Bomberos",
+            "Certificado de Manipulación de Alimentos para todo el personal",
+            "Conformidad Sanitaria de Habitabilidad"
+        ]
     },
-     {
-        paso: 3,
-        titulo: "Inscripción en el Registro Mercantil",
-        descripcion: "El acta constitutiva se presenta y se inscribe en el Registro Mercantil correspondiente a la jurisdicción del domicilio de la empresa para darle personalidad jurídica."
-    },
-     {
-        paso: 4,
-        titulo: "Publicación en Periódico Mercantil",
-        descripcion: "Una vez registrada, el acta debe ser publicada en un periódico mercantil para dar fe pública de la constitución de la empresa."
-    },
-     {
-        paso: 5,
-        titulo: "Inscripción en el SENIAT (Obtención del RIF)",
-        descripcion: "Finalmente, se debe registrar la empresa ante el Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT) para obtener el Registro Único de Información Fiscal (RIF)."
-    },
-];
+    {
+        tipo: "Oficinas y Locales Comerciales",
+        icon: Building,
+        permisos: [
+            "Conformidad de Uso de Bomberos",
+            "Licencia de Actividades Económicas",
+            "Certificado de Uso Conforme (Zonificación)",
+        ]
+    }
+]
 
 export default function LegalizacionEmpresaPage() {
     const { toast } = useToast();
+    const [formData, setFormData] = useState({
+        ingeniero: "Nombre del Ingeniero",
+        civ: "123.456",
+        proyecto: "Nombre del Proyecto",
+        cliente: "Nombre del Cliente/Empresa",
+        direccion: "Dirección Completa del Proyecto",
+        fecha: new Date().toISOString().split('T')[0],
+    });
+    
+    const getActaContent = () => `
+Nosotros, [NOMBRES Y APELLIDOS DE LOS SOCIOS], mayores de edad, de nacionalidad [Nacionalidad], titulares de la Cédula de Identidad N° V-[C.I. Socio 1] y V-[C.I. Socio 2], domiciliados en la ciudad de Caracas, por medio del presente documento declaramos que hemos convenido en constituir, como en efecto lo hacemos, una Compañía Anónima que se regirá por las cláusulas que se detallan a continuación.
+
+CLÁUSULA PRIMERA: DENOMINACIÓN
+La compañía se denominará Kyron, C.A.
+
+CLÁUSULA SEGUNDA: DOMICILIO
+El domicilio de la compañía estará en la ciudad de Caracas, pudiendo establecer sucursales o agencias en cualquier otro lugar del territorio nacional o en el extranjero.
+
+CLÁUSULA TERCERA: OBJETO
+El objeto de la compañía es la asesoría contable, sistema de financiamiento, asesoría de publicidad y marketing, con sistema de app digital de cambio de moneda, asesoría de clases de materia contable, app de todas las carrera con asesoria de profesionales de la materia, venta de productos online, una línea de productos fiscales, y papeleras con distribución de su propia marca. Realizar convenios y alianzas para el canje de productos plásticos por dinero y alianzas con empresas. Tramitación de documentos y asesorías jurídicas, y todos los servicios administrativos, jurídicos, de ingeniería y marketing. En general, la sociedad podrá realizar cualquier otra actividad de lícito comercio conexa o no con su objeto principal.
+
+CLÁUSULA CUARTA: CAPITAL SOCIAL
+El capital social es de [MONTO DEL CAPITAL] (Bs. X.XXX,XX), dividido en [NÚMERO DE ACCIONES] (XX) acciones nominativas no convertibles al portador, con un valor nominal de [VALOR NOMINAL] (Bs. X.XXX,XX) cada una, las cuales han sido suscritas y pagadas en su totalidad por los socios de la siguiente manera: [Socio 1] suscribe y paga [Número] acciones, y [Socio 2] suscribe y paga [Número] acciones.
+
+CLÁUSULA QUINTA: AUTORIZACIÓN ESPECIAL
+Se autoriza ampliamente al ciudadano(a) [NOMBRE DEL AUTORIZADO], titular de la Cédula de Identidad N° V-[C.I. AUTORIZADO], para que realice todos los trámites necesarios para el registro, inscripción y publicación de la presente Acta Constitutiva, así como para la obtención del Registro Único de Información Fiscal (RIF) y cualquier otra gestión requerida para la plena legalización de la empresa.
+`;
 
     const handleAction = (action: string) => {
-        toast({
-            title: `Documento ${action}`,
-            description: `El modelo de Acta Constitutiva ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado'}.`,
-        });
-        if (action === 'impreso') {
+        if (action === 'impresa') {
+             toast({
+                title: "Iniciando Impresión",
+                description: `El modelo de Acta Constitutiva ha sido enviado a la impresora.`,
+            });
             window.print();
+        } else if (action === 'descargado') {
+            const content = getActaContent();
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "Acta_Constitutiva.txt");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            toast({
+                title: `Acta Constitutiva Descargada`,
+                description: `El documento ha sido descargado como archivo de texto.`,
+            });
         }
     };
 
+    const pasosLegalizacion = [
+        {
+            paso: 1,
+            titulo: "Reserva de Nombre y Denominación Social (SAREN)",
+            descripcion: "El primer paso es verificar la disponibilidad del nombre de la empresa y reservarlo a través del sistema del Servicio Autónomo de Registros y Notarías (SAREN)."
+        },
+        {
+            paso: 2,
+            titulo: "Redacción y Visado del Acta Constitutiva",
+            descripcion: "Se debe redactar el documento constitutivo de la empresa, detallando su objeto, capital, socios y estructura. Este documento debe ser visado por un abogado colegiado."
+        },
+         {
+            paso: 3,
+            titulo: "Inscripción en el Registro Mercantil",
+            descripcion: "El acta constitutiva se presenta y se inscribe en el Registro Mercantil correspondiente a la jurisdicción del domicilio de la empresa para darle personalidad jurídica."
+        },
+         {
+            paso: 4,
+            titulo: "Publicación en Periódico Mercantil",
+            descripcion: "Una vez registrada, el acta debe ser publicada en un periódico mercantil para dar fe pública de la constitución de la empresa."
+        },
+         {
+            paso: 5,
+            titulo: "Inscripción en el SENIAT (Obtención del RIF)",
+            descripcion: "Finalmente, se debe registrar la empresa ante el Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT) para obtener el Registro Único de Información Fiscal (RIF)."
+        },
+    ];
 
   return (
     <div className="p-4 md:p-8">
@@ -118,7 +197,7 @@ export default function LegalizacionEmpresaPage() {
                     </div>
                 </CardContent>
                 <CardFooter className="p-4 border-t flex justify-end gap-2">
-                     <Button variant="outline" onClick={() => handleAction('impreso')}>
+                     <Button variant="outline" onClick={() => handleAction('impresa')}>
                         <Printer className="mr-2"/> Imprimir Modelo
                     </Button>
                     <Button onClick={() => handleAction('descargado')}>
