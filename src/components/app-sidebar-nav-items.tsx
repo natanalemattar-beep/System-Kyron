@@ -96,7 +96,7 @@ import {
 
 
 export const juridicoMainMenuItems = [
-  { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: LayoutDashboard },
+  { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
   { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
   { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
   { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
@@ -303,6 +303,9 @@ export const corporativoMenuItems = [
 ];
 
 export const allJuridicoGroups = [
+    { title: "Dashboard", icon: LayoutDashboard, items: [
+      { href: "/dashboard-empresa", label: "Admin y Finanzas", icon: LayoutDashboard },
+    ]},
     { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
     { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
     { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
@@ -313,5 +316,3 @@ export const allJuridicoGroups = [
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
-
-    

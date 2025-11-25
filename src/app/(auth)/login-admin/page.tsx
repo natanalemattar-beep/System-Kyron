@@ -67,17 +67,13 @@ export default function LoginAdminPage() {
             </div>
             <Link href="#" className="text-primary hover:underline">¿Olvidaste tu contraseña?</Link>
           </div>
+        </CardContent>
+        <CardFooter className="p-6 pt-0">
           <Button type="submit" className="w-full h-11 text-base">
             Acceder
           </Button>
-        </CardContent>
+        </CardFooter>
       </form>
-       <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
-        <p className="text-muted-foreground">¿No eres administrador?</p>
-         <Button asChild variant="link" className="p-0">
-            <Link href="/register" className="font-medium">Regístrate en otro portal</Link>
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
