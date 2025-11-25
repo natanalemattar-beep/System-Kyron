@@ -267,7 +267,9 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-24 md:py-48 overflow-hidden">
+        <section className="relative py-20 md:py-32">
+            <div className="absolute -z-10 inset-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_10%,transparent_50%)] dark:bg-grid-slate-700/30"></div>
+            <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
             
             <div className="container px-4 md:px-6 relative z-10 text-center">
                 <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
