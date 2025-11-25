@@ -232,6 +232,54 @@ export default function PermisosPage() {
     });
     setSelectedPermit(null);
   };
+  
+  const handleDownloadLetter = (permiso: Permiso | null, tipo: 'solicitud' | 'renovacion') => {
+    if (!permiso) return;
+    let content = '';
+    let filename = '';
+
+    if (tipo === 'solicitud') {
+        content = getLetterContent(permiso);
+        filename = `Solicitud_${permiso.tipo.replace(/ /g, '_')}.txt`;
+    } else {
+        content = `
+Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
+
+Señores
+${permiso.emisor}
+Presente.-
+
+Asunto: Solicitud de Renovación de Permiso - ${permiso.tipo}
+
+Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${permiso.tipo}", con referencia N° ${permiso.id}, próximo a vencer.
+
+Adjuntamos los recaudos correspondientes para la renovación.
+
+Atentamente,
+
+_________________________
+[Nombre del Representante Legal]
+C.I: [C.I. del Representante]
+`;
+        filename = `Renovacion_${permiso.tipo.replace(/ /g, '_')}.txt`;
+    }
+    
+    const blob = new Blob([content.trim()], { type: 'text/plain;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast({
+        title: 'Descarga Iniciada',
+        description: `El modelo de carta se está descargando como ${filename}.`
+    });
+};
+
 
   const groupedPermisos = permisos.reduce((acc, permiso) => {
     const emisor = permiso.emisor;
@@ -341,24 +389,36 @@ export default function PermisosPage() {
                                                                     {getLetterContent(selectedPermit)}
                                                                 </div>
                                                                 <div className="flex gap-2 mt-2">
-                                                                    <Button size="sm" variant="outline">Copiar</Button>
-                                                                    <Button size="sm" variant="outline">Imprimir</Button>
+                                                                    <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(getLetterContent(selectedPermit))}>Copiar</Button>
+                                                                    <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'solicitud')}>Descargar</Button>
                                                                 </div>
                                                             </div>
                                                             <div className="p-4 border rounded-lg">
                                                                 <h4 className="font-semibold mb-2">Modelo de Carta de Renovación</h4>
-                                                                <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto">
-                                                                    Ciudad y Fecha,<br/><br/>
-                                                                    <strong>Señores {permiso.emisor},</strong><br/>
-                                                                    Presente.-<br/><br/>
-                                                                    Yo, [Su Nombre], en mi carácter de Representante Legal de [Su Empresa], C.A., RIF [Su RIF], me dirijo a ustedes para solicitar la renovación del permiso de <strong>{permiso.tipo}</strong>, con referencia N° <strong>{permiso.id}</strong>, próximo a vencer.<br/><br/>
-                                                                    Adjuntamos los recaudos correspondientes para la renovación.<br/><br/>
-                                                                    Atentamente,<br/>
-                                                                    [Su Nombre y C.I.]
+                                                                <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto whitespace-pre-wrap">
+                                                                    {`
+Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
+
+Señores
+${permiso.emisor}
+Presente.-
+
+Asunto: Solicitud de Renovación de Permiso - ${permiso.tipo}
+
+Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${permiso.tipo}", con referencia N° ${permiso.id}, próximo a vencer.
+
+Adjuntamos los recaudos correspondientes para la renovación.
+
+Atentamente,
+
+_________________________
+[Nombre del Representante Legal]
+C.I: [C.I. del Representante]
+                                                                    `}
                                                                 </div>
                                                                 <div className="flex gap-2 mt-2">
                                                                     <Button size="sm" variant="outline">Copiar</Button>
-                                                                    <Button size="sm" variant="outline">Imprimir</Button>
+                                                                    <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'renovacion')}>Descargar</Button>
                                                                 </div>
                                                             </div>
                                                         </div>
