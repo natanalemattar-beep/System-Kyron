@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Gavel, User } from "lucide-react";
@@ -145,7 +146,7 @@ const AppSidebarNatural = () => {
     );
 };
 
-export function AppSidebar() {
+export const AppSidebar = () => {
   const pathname = usePathname();
   
   // No render sidebar on the main landing page
