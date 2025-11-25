@@ -313,3 +313,5 @@ export const allJuridicoGroups = [
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
+
+    
