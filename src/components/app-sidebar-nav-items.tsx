@@ -94,105 +94,6 @@ import {
 } from "lucide-react";
 
 
-export const juridicoMainMenuItems = [
-  { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
-  { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
-  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
-  { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
-  { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
-  { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
-  { href: "/multas", label: "Multas", icon: AlertTriangle },
-  { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
-  { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
-  { href: "/activos-inmobiliarios", label: "Gestión de Activos", icon: Building },
-  { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
-];
-
-export const finanzasContabilidadMenuItems = [
-  { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
-  { href: "/reports", label: "Reportes Financieros", icon: BarChart },
-  { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
-  { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
-  { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileText },
-  { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
-  { href: "/billetera-cambio", label: "Billetera de Cambio", icon: Wallet },
-  { href: "/inventario", label: "Inventario", icon: Archive },
-  { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
-  { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
-  { href: "/seguros", label: "Seguros", icon: ShieldCheck },
-  { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
-  { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
-  { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
-  { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
-  { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
-  { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
-  { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
-  { href: "/software-contable", label: "Guía de Software Contable", icon: Puzzle },
-  { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
-];
-
-export const facturacionGeneralMenuItems = [
-    { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
-    { href: "/proformas", label: "Proformas", icon: Receipt },
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
-    { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-    { href: "/cobranza", label: "Gestión de Cobranza", icon: HandCoins },
-    { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
-    { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: Receipt },
-    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
-    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
-    { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
-    { href: "/importaciones", label: "Proveedores", icon: Ship },
-    { href: "/registro-proveedores", label: "Registro de Proveedores", icon: UserCog },
-    { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
-    { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
-    { href: "/registro-comprador", label: "Registro de Comprador", icon: UserCheck },
-];
-
-export const internationalOperationsMenuItems = [
-    { href: "/gestion-global", label: "Centro de Gestión Global", icon: Globe },
-    { href: "/facturacion-internacional", label: "Facturación Internacional", icon: Globe },
-];
-
-export const ingenieriaMenuItems = [
-  { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
-  { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
-  { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
-  { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
-  { href: "/presentacion-startup", label: "Guía para Presentar Startup", icon: Presentation },
-  { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
-  { href: "/analisis-empresa-hibrida", label: "Análisis de Modelos de Negocio", icon: Rocket },
-];
-
-export const iaMenuItems = [
-  { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
-];
-
-export const generalMenuItems = [
-  { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
-  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
-  { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
-  { href: "/organigrama", label: "Organigrama", icon: Network },
-  { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
-  { href: "/analisis-empresas-no-digitales", label: "Empresas No Digitalizadas", icon: SlidersHorizontal },
-];
-
-export const marketingMenuItems = [
-    { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
-    { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
-    { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
-    { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
-    { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
-    { href: "/app-aliada-recompensa", label: "Alianzas y Recompensas", icon: Award },
-    { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto", icon: Package },
-    { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
-    { href: "/analisis-mercado", label: "Análisis de Mercado", icon: Search },
-    { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: Zap },
-    { href: "/nivel-competencia", label: "Competencia y Cadena de Valor", icon: Swords },
-    { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
-];
-
 export const naturalMenuItems = {
     principal: {
         title: "Principal",
@@ -232,24 +133,112 @@ export const naturalMenuItems = {
     }
 };
 
-export const sociosNavGroups = [
-    { title: "Socios y Holding", icon: Briefcase, items: [
-        { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
-        { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
-        { href: "/organigrama", label: "Organigrama", icon: Network },
-        { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
-    ] },
+// --- START: JURIDICO / LEGAL ---
+const legalNavItems = [
+  { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
+  { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
+  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
+  { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
+  { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
+  { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
+  { href: "/multas", label: "Multas", icon: AlertTriangle },
+  { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
+  { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
+  { href: "/activos-inmobiliarios", label: "Gestión de Activos", icon: Building },
+  { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
+  { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
+  { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
 ];
 
-export const informaticaNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ] },
-  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
-  { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
-  { title: "Arquitectura", icon: Puzzle, items: [ 
-      { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
-      { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
-  ]},
-  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
+export const legalNavGroups = [
+    { title: "Jurídico y Corporativo", icon: Gavel, items: legalNavItems },
+];
+// --- END: JURIDICO / LEGAL ---
+
+
+// --- START: ADMIN & FINANZAS ---
+const finanzasContabilidadMenuItems = [
+  { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
+  { href: "/reports", label: "Reportes Financieros", icon: BarChart },
+  { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
+  { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
+  { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileText },
+  { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
+  { href: "/billetera-cambio", label: "Billetera de Cambio", icon: Wallet },
+  { href: "/inventario", label: "Inventario", icon: Archive },
+  { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
+  { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
+  { href: "/seguros", label: "Seguros", icon: ShieldCheck },
+  { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
+  { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
+  { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
+  { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
+  { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
+  { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
+  { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
+  { href: "/software-contable", label: "Guía de Software Contable", icon: Puzzle },
+  { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+];
+
+const facturacionGeneralMenuItems = [
+    { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
+    { href: "/proformas", label: "Proformas", icon: Receipt },
+    { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
+    { href: "/cobranza", label: "Gestión de Cobranza", icon: HandCoins },
+    { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
+    { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: Receipt },
+    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
+    { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
+    { href: "/importaciones", label: "Proveedores", icon: Ship },
+    { href: "/registro-proveedores", label: "Registro de Proveedores", icon: UserCog },
+    { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
+    { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
+    { href: "/registro-comprador", label: "Registro de Comprador", icon: UserCheck },
+];
+
+const internationalOperationsMenuItems = [
+    { href: "/gestion-global", label: "Centro de Gestión Global", icon: Globe },
+    { href: "/facturacion-internacional", label: "Facturación Internacional", icon: Globe },
+];
+
+const ingenieriaMenuItems = [
+  { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
+  { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
+  { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
+  { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
+  { href: "/presentacion-startup", label: "Guía para Presentar Startup", icon: Presentation },
+  { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+  { href: "/analisis-empresa-hibrida", label: "Análisis de Modelos de Negocio", icon: Rocket },
+];
+
+const iaMenuItems = [
+  { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
+];
+
+const generalMenuItems = [
+  { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
+  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
+  { href: "/tipos-empresa", label: "Tipos de Empresa", icon: BuildingIcon },
+  { href: "/organigrama", label: "Organigrama", icon: Network },
+  { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
+  { href: "/analisis-empresas-no-digitales", label: "Empresas No Digitalizadas", icon: SlidersHorizontal },
+];
+
+const marketingMenuItems = [
+    { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
+    { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
+    { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
+    { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
+    { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
+    { href: "/app-aliada-recompensa", label: "Alianzas y Recompensas", icon: Award },
+    { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto", icon: Package },
+    { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
+    { href: "/analisis-mercado", label: "Análisis de Mercado", icon: Search },
+    { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: Zap },
+    { href: "/nivel-competencia", label: "Competencia y Cadena de Valor", icon: Swords },
+    { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
 ];
 
 export const ventasMenuItems = [
@@ -292,19 +281,27 @@ export const librosRegistroMenuItems = [
     { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
 ];
 
-export const corporativoMenuItems = [
-    { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
-    { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
+export const sociosNavGroups = [
+    { title: "Socios y Holding", icon: Briefcase, items: [
+        { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
+        { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
+        { href: "/organigrama", label: "Organigrama", icon: Network },
+        { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
+    ] },
 ];
 
-export const allJuridicoGroups = [
-    { title: "Jurídico y Corporativo", icon: Gavel, items: [
-        ...juridicoMainMenuItems,
-        ...corporativoMenuItems,
-    ]},
+export const informaticaNavGroups = [
+  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ] },
+  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
+  { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
+  { title: "Arquitectura", icon: Puzzle, items: [ 
+      { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
+      { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
+  ]},
+  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
 ];
 
-export const allAdminGroups = [
+export const adminNavGroups = [
   { title: "Dashboards", icon: LayoutDashboard, items: [
       { href: "/dashboard-empresa", label: "Admin y Finanzas", icon: LayoutDashboard },
   ]},
@@ -317,3 +314,4 @@ export const allAdminGroups = [
   { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
   { title: "General", icon: Cog, items: generalMenuItems },
 ];
+// --- END: ADMIN & FINANZAS ---

@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
 import { Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarFooter, useSidebar } from "@/components/ui/sidebar";
 import {
   naturalMenuItems,
-  allAdminGroups,
-  allJuridicoGroups,
+  adminNavGroups,
+  legalNavGroups,
 } from "@/components/app-sidebar-nav-items";
 import { Badge } from "./ui/badge";
 import { Logo } from "./logo";
@@ -17,30 +17,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { LanguageSwitcher } from "./language-switcher";
 import { cn } from "@/lib/utils";
 
-const AppSidebarCorporate = () => {
+const CorporateSidebarContent = ({ navGroups, user }: { navGroups: any[], user: any }) => {
     const pathname = usePathname();
     const { state } = useSidebar();
-
-    // Determine current user profile and navigation groups based on path
-    const getCorporateProfile = () => {
-        const isLegalPath = allJuridicoGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href));
-        
-        if (isLegalPath) {
-             return {
-                navGroups: allJuridicoGroups,
-                user: { name: "Equipo Legal", email: "legal@kyron.com", fallback: "L" }
-            };
-        }
-
-        // Fallback to a default corporate profile if no specific path matches
-        return {
-            navGroups: allAdminGroups,
-            user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }
-        };
-    };
-
-    const { navGroups, user } = getCorporateProfile();
-
+    
     return (
         <Sidebar>
             <SidebarHeader>
@@ -55,7 +35,7 @@ const AppSidebarCorporate = () => {
                     {navGroups.map((group) => (
                         <div key={group.title}>
                             <p className={cn("p-2 text-xs font-semibold text-muted-foreground", state === 'collapsed' && 'hidden')}>{group.title}</p>
-                            {group.items.map((item) => (
+                            {group.items.map((item: any) => (
                                 <SidebarMenuItem key={`${item.href}-${item.label}`}>
                                     <SidebarMenuButton
                                         asChild
@@ -168,24 +148,25 @@ export function AppSidebar() {
   const noSidebarPaths = ['/', '/register'];
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/register');
 
-  if (isAuthPage) {
+  if (isAuthPage || noSidebarPaths.includes(pathname)) {
     return null;
   }
-  if (noSidebarPaths.includes(pathname)) {
-      return null;
+
+  // Define routes for each corporate profile
+  const legalPaths = legalNavGroups.flatMap(g => g.items.map(i => i.href));
+  const adminPaths = adminNavGroups.flatMap(g => g.items.map(i => i.href));
+  
+  const isLegalPath = legalPaths.some(p => pathname.startsWith(p));
+  const isAdminPath = adminPaths.some(p => pathname.startsWith(p));
+
+  if (isLegalPath) {
+    return <CorporateSidebarContent navGroups={legalNavGroups} user={{ name: "Equipo Legal", email: "legal@kyron.com", fallback: "L" }} />;
   }
 
-  const allCorporateHrefs = [
-    ...allAdminGroups.flatMap(g => g.items.map(i => i.href)),
-    ...allJuridicoGroups.flatMap(g => g.items.map(i => i.href)),
-  ];
-
-  const isCorporatePath = allCorporateHrefs.some(p => pathname.startsWith(p) && p !== '/');
-
-  if (isCorporatePath) {
-    return <AppSidebarCorporate />;
+  if (isAdminPath) {
+     return <CorporateSidebarContent navGroups={adminNavGroups} user={{ name: "Admin", email: "admin@kyron.com", fallback: "A" }} />;
   }
-
-  // Fallback to natural person sidebar for any other path that is not corporate or landing/auth
+  
+  // Fallback to natural person sidebar for any other path
   return <AppSidebarNatural />;
 }
