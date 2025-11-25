@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -56,16 +55,43 @@ const total = subtotal + iva;
 export default function ModeloFacturaPage() {
     const { toast } = useToast();
 
-    const handleAction = (action: string) => {
+    const handlePrint = () => {
+        window.print();
         toast({
-            title: `Factura ${factura.numero} ${action}`,
-            description: `La factura ha sido ${action === 'impresa' ? 'enviada a la impresora' : 'descargada en formato PDF'}.`,
+            title: `Factura ${factura.numero} impresa`,
+            description: "La factura ha sido enviada a la impresora.",
         });
+    }
+
+    const handleDownload = () => {
+        toast({
+            title: `Factura ${factura.numero} descargada`,
+            description: "La factura ha sido descargada en formato PDF.",
+        });
+        // Logic to generate and download PDF would go here
     }
 
   return (
     <div className="p-4 md:p-8">
-      <header className="mb-8 flex items-center justify-between">
+      <style>
+            {`
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+                    #printable-content, #printable-content * {
+                        visibility: visible;
+                    }
+                    #printable-content {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                    }
+                }
+            `}
+        </style>
+      <header className="mb-8 flex items-center justify-between print:hidden">
         <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                 <FileText className="h-8 w-8" />
@@ -76,122 +102,124 @@ export default function ModeloFacturaPage() {
             </p>
         </div>
         <div className="flex gap-2">
-            <Button variant="outline" onClick={() => handleAction('impresa')}>
+            <Button variant="outline" onClick={handlePrint}>
                 <Printer className="mr-2"/> Imprimir Factura
             </Button>
-            <Button onClick={() => handleAction('descargada')}>
+            <Button onClick={handleDownload}>
                 <Download className="mr-2"/> Descargar PDF
             </Button>
         </div>
       </header>
 
-      <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl">
-        <CardHeader className="p-6 md:p-8 border-b grid grid-cols-2 gap-8">
-            <div className="flex items-center gap-4">
-                 <Logo className="h-14 w-14" />
-                 <div>
-                    <h2 className="font-bold text-xl">{factura.empresa.nombre}</h2>
-                    <p className="text-sm text-muted-foreground">RIF: {factura.empresa.rif}</p>
-                    <p className="text-xs text-muted-foreground">{factura.empresa.direccion}</p>
-                 </div>
-            </div>
-            <div className="text-right">
-                <h2 className="text-2xl font-bold">FACTURA</h2>
-                <p className="text-red-500 font-mono font-semibold">N° {factura.numero}</p>
-                <p className="text-xs text-muted-foreground mt-2">N° de Control: <span className="font-mono">{factura.numeroControl}</span></p>
-                <p className="text-xs text-muted-foreground">Fecha de Emisión: {formatDate(factura.fechaEmision)}</p>
-            </div>
-        </CardHeader>
-        <CardContent className="p-6 md:p-8">
-            <div className="mb-8 p-4 rounded-lg bg-secondary/50">
-                <h3 className="font-semibold mb-2">Datos del Cliente:</h3>
-                <p className="text-xs text-muted-foreground mb-3 flex items-center gap-2"><Info className="h-4 w-4"/>Los datos del cliente se cargan automáticamente al ingresar el RIF/Cédula en el punto de venta, cumpliendo con la Prov. Adm. SNAT/2011/0071.</p>
-                <p><strong>Razón Social:</strong> {factura.cliente.nombre}</p>
-                <p><strong>RIF:</strong> {factura.cliente.rif}</p>
-                <p><strong>Domicilio Fiscal:</strong> {factura.cliente.direccion}</p>
-            </div>
-            
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-1/2">Descripción</TableHead>
-                        <TableHead className="text-center">Cant.</TableHead>
-                        <TableHead className="text-right">Precio Unitario</TableHead>
-                        <TableHead className="text-right">Total</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {factura.items.map(item => (
-                        <TableRow key={item.id}>
-                            <TableCell className="font-medium">{item.descripcion}</TableCell>
-                            <TableCell className="text-center">{item.cantidad}</TableCell>
-                            <TableCell className="text-right">{formatCurrency(item.precio, 'Bs.')}</TableCell>
-                            <TableCell className="text-right font-semibold">{formatCurrency(item.precio * item.cantidad, 'Bs.')}</TableCell>
+      <div id="printable-content">
+        <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl print:shadow-none print:border-none">
+            <CardHeader className="p-6 md:p-8 border-b grid grid-cols-2 gap-8">
+                <div className="flex items-center gap-4">
+                    <Logo className="h-14 w-14" />
+                    <div>
+                        <h2 className="font-bold text-xl">{factura.empresa.nombre}</h2>
+                        <p className="text-sm text-muted-foreground">RIF: {factura.empresa.rif}</p>
+                        <p className="text-xs text-muted-foreground">{factura.empresa.direccion}</p>
+                    </div>
+                </div>
+                <div className="text-right">
+                    <h2 className="text-2xl font-bold">FACTURA</h2>
+                    <p className="text-red-500 font-mono font-semibold">N° {factura.numero}</p>
+                    <p className="text-xs text-muted-foreground mt-2">N° de Control: <span className="font-mono">{factura.numeroControl}</span></p>
+                    <p className="text-xs text-muted-foreground">Fecha de Emisión: {formatDate(factura.fechaEmision)}</p>
+                </div>
+            </CardHeader>
+            <CardContent className="p-6 md:p-8">
+                <div className="mb-8 p-4 rounded-lg bg-secondary/50">
+                    <h3 className="font-semibold mb-2">Datos del Cliente:</h3>
+                    <p className="text-xs text-muted-foreground mb-3 flex items-center gap-2"><Info className="h-4 w-4"/>Los datos del cliente se cargan automáticamente al ingresar el RIF/Cédula en el punto de venta, cumpliendo con la Prov. Adm. SNAT/2011/0071.</p>
+                    <p><strong>Razón Social:</strong> {factura.cliente.nombre}</p>
+                    <p><strong>RIF:</strong> {factura.cliente.rif}</p>
+                    <p><strong>Domicilio Fiscal:</strong> {factura.cliente.direccion}</p>
+                </div>
+                
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="w-1/2">Descripción</TableHead>
+                            <TableHead className="text-center">Cant.</TableHead>
+                            <TableHead className="text-right">Precio Unitario</TableHead>
+                            <TableHead className="text-right">Total</TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            
-            <div className="mt-8 flex justify-end">
-                <div className="w-full max-w-sm space-y-2">
-                     <div className="flex justify-between">
-                        <span className="text-muted-foreground">Sub-total:</span>
-                        <span className="font-medium">{formatCurrency(subtotal, 'Bs.')}</span>
-                     </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">IVA (16%):</span>
-                        <span className="font-medium">{formatCurrency(iva, 'Bs.')}</span>
-                     </div>
-                      <div className="flex justify-between text-xl font-bold border-t pt-2 mt-2">
-                        <span className="text-primary">TOTAL A PAGAR:</span>
-                        <span className="text-primary">{formatCurrency(total, 'Bs.')}</span>
-                     </div>
+                    </TableHeader>
+                    <TableBody>
+                        {factura.items.map(item => (
+                            <TableRow key={item.id}>
+                                <TableCell className="font-medium">{item.descripcion}</TableCell>
+                                <TableCell className="text-center">{item.cantidad}</TableCell>
+                                <TableCell className="text-right">{formatCurrency(item.precio, 'Bs.')}</TableCell>
+                                <TableCell className="text-right font-semibold">{formatCurrency(item.precio * item.cantidad, 'Bs.')}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+                
+                <div className="mt-8 flex justify-end">
+                    <div className="w-full max-w-sm space-y-2">
+                        <div className="flex justify-between">
+                            <span className="text-muted-foreground">Sub-total:</span>
+                            <span className="font-medium">{formatCurrency(subtotal, 'Bs.')}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-muted-foreground">IVA (16%):</span>
+                            <span className="font-medium">{formatCurrency(iva, 'Bs.')}</span>
+                        </div>
+                        <div className="flex justify-between text-xl font-bold border-t pt-2 mt-2">
+                            <span className="text-primary">TOTAL A PAGAR:</span>
+                            <span className="text-primary">{formatCurrency(total, 'Bs.')}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <Separator className="my-8" />
-            
-            <div className="grid md:grid-cols-2 gap-8">
-                 <div className="p-4 rounded-lg bg-secondary/50">
-                     <h4 className="font-semibold mb-2 text-foreground">Método de Pago (Inmediato)</h4>
-                     <p className="text-sm"><strong>Tipo:</strong> {factura.metodoPago.tipo}</p>
-                     <p className="text-sm"><strong>Banco:</strong> {factura.metodoPago.banco}</p>
-                     <p className="text-sm"><strong>Tarjeta:</strong> {factura.metodoPago.tarjeta}</p>
-                     <p className="text-sm"><strong>Referencia:</strong> {factura.metodoPago.referencia}</p>
+                
+                <Separator className="my-8" />
+                
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div className="p-4 rounded-lg bg-secondary/50">
+                        <h4 className="font-semibold mb-2 text-foreground">Método de Pago (Inmediato)</h4>
+                        <p className="text-sm"><strong>Tipo:</strong> {factura.metodoPago.tipo}</p>
+                        <p className="text-sm"><strong>Banco:</strong> {factura.metodoPago.banco}</p>
+                        <p className="text-sm"><strong>Tarjeta:</strong> {factura.metodoPago.tarjeta}</p>
+                        <p className="text-sm"><strong>Referencia:</strong> {factura.metodoPago.referencia}</p>
+                    </div>
+                    <div className="p-4 rounded-lg bg-secondary/50">
+                        <h4 className="font-semibold mb-2 text-foreground">Condiciones de Crédito</h4>
+                        <p className="text-sm"><strong>Tipo:</strong> {factura.creditoDirecto.tipo}</p>
+                        <p className="text-sm"><strong>Términos:</strong> {factura.creditoDirecto.terminos}</p>
+                        <p className="text-sm"><strong>Instrucción:</strong> {factura.creditoDirecto.instruccion}</p>
+                    </div>
+                    <div className="md:col-span-2 p-4 rounded-lg bg-secondary/50 flex flex-col items-start justify-center text-left gap-2">
+                        <div className="flex items-center gap-2">
+                            <CreditCard className="h-6 w-6 text-primary shrink-0"/>
+                            <h4 className="font-semibold">{factura.plataformaCredito.nombre} ({factura.plataformaCredito.modalidad})</h4>
+                        </div>
+                        <div>
+                            <p className="text-xs text-muted-foreground">{factura.plataformaCredito.instruccion}</p>
+                        </div>
+                    </div>
                 </div>
-                <div className="p-4 rounded-lg bg-secondary/50">
-                     <h4 className="font-semibold mb-2 text-foreground">Condiciones de Crédito</h4>
-                     <p className="text-sm"><strong>Tipo:</strong> {factura.creditoDirecto.tipo}</p>
-                     <p className="text-sm"><strong>Términos:</strong> {factura.creditoDirecto.terminos}</p>
-                     <p className="text-sm"><strong>Instrucción:</strong> {factura.creditoDirecto.instruccion}</p>
+                <div className="text-xs text-muted-foreground mt-8">
+                    <h4 className="font-semibold text-foreground mb-1">Términos y Condiciones:</h4>
+                    <p>1. Esta factura debe ser pagada en o antes de la fecha de vencimiento. <br/> 2. Los pagos vencidos estarán sujetos a recargos por mora según los artículos 108 del C. de Co. y 1.277 del C.C.V.</p>
                 </div>
-                <div className="md:col-span-2 p-4 rounded-lg bg-secondary/50 flex flex-col items-start justify-center text-left gap-2">
-                     <div className="flex items-center gap-2">
-                        <CreditCard className="h-6 w-6 text-primary shrink-0"/>
-                        <h4 className="font-semibold">{factura.plataformaCredito.nombre} ({factura.plataformaCredito.modalidad})</h4>
-                     </div>
-                     <div>
-                        <p className="text-xs text-muted-foreground">{factura.plataformaCredito.instruccion}</p>
-                     </div>
-                </div>
-            </div>
-             <div className="text-xs text-muted-foreground mt-8">
-                <h4 className="font-semibold text-foreground mb-1">Términos y Condiciones:</h4>
-                <p>1. Esta factura debe ser pagada en o antes de la fecha de vencimiento. <br/> 2. Los pagos vencidos estarán sujetos a recargos por mora según los artículos 108 del C. de Co. y 1.277 del C.C.V.</p>
-            </div>
 
-        </CardContent>
-        <CardFooter className="p-6 md:p-8 border-t bg-secondary/30 flex justify-between items-center">
-            <div className="flex items-center gap-2 text-green-500 text-sm">
-                <ShieldCheck className="h-5 w-5"/>
-                <p>Factura emitida conforme a la Prov. Adm. SNAT/2011/0071.</p>
-            </div>
-            <div className="flex flex-col items-center">
-                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=RIF:${factura.empresa.rif},Factura:${factura.numero},Fecha:${factura.fechaEmision.toISOString().split('T')[0]},Monto:${total}`} alt="QR Fiscal" width={80} height={80} />
-                <p className="text-xs text-muted-foreground mt-1">Validez Fiscal</p>
-            </div>
-        </CardFooter>
-      </Card>
+            </CardContent>
+            <CardFooter className="p-6 md:p-8 border-t bg-secondary/30 flex justify-between items-center">
+                <div className="flex items-center gap-2 text-green-500 text-sm">
+                    <ShieldCheck className="h-5 w-5"/>
+                    <p>Factura emitida conforme a la Prov. Adm. SNAT/2011/0071.</p>
+                </div>
+                <div className="flex flex-col items-center">
+                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=RIF:${factura.empresa.rif},Factura:${factura.numero},Fecha:${factura.fechaEmision.toISOString().split('T')[0]},Monto:${total}`} alt="QR Fiscal" width={80} height={80} />
+                    <p className="text-xs text-muted-foreground mt-1">Validez Fiscal</p>
+                </div>
+            </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 }

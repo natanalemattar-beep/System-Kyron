@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -25,18 +24,77 @@ export default function ModeloContratoTrabajoPage() {
         setEmployeeData(prev => ({ ...prev, [id]: value }));
     };
 
-    const handleAction = (action: string) => {
+    const getContractContent = () => {
+        return `
+CONTRATO DE TRABAJO A TIEMPO INDETERMINADO
+
+Entre EMPRESA, C.A., RIF J-12345678-9, (en adelante “EL EMPLEADOR”), y por la otra parte, ${employeeData.nombre}, titular de la Cédula de Identidad N° ${employeeData.cedula}, (en adelante “EL TRABAJADOR”), se ha convenido en celebrar el presente Contrato de Trabajo, de conformidad con la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT) y las siguientes cláusulas:
+
+CLÁUSULA PRIMERA: OBJETO
+EL TRABAJADOR se compromete a prestar sus servicios personales lícitos y remunerados a EL EMPLEADOR, desempeñando el cargo de ${employeeData.cargo}. Las funciones principales incluyen, pero no se limitan a: [Descripción genérica de las funciones del cargo, ej: planificar y ejecutar proyectos, gestionar equipos, etc.].
+
+CLÁUSULA SEGUNDA: DURACIÓN
+La presente relación de trabajo se celebra a tiempo indeterminado, a partir del ${formatDate(employeeData.fechaIngreso)}. Los primeros treinta (30) días se considerarán como período de prueba, de conformidad con el artículo 61 de la LOTTT.
+
+CLÁUSULA TERCERA: JORNADA DE TRABAJO
+La jornada de trabajo será de ocho (8) horas diarias, de lunes a viernes, para un total de cuarenta (40) horas semanales, dentro de los límites establecidos por la LOTTT.
+
+CLÁUSULA CUARTA: SALARIO Y BENEFICIOS
+EL TRABAJADOR devengará un salario mensual fijo de ${formatCurrency(employeeData.salario, 'Bs.')}. Adicionalmente, recibirá todos los beneficios establecidos en la LOTTT (utilidades, vacaciones, bono vacacional) y los beneficios socioeconómicos otorgados por la empresa, como el Cestaticket Socialista, seguro de salud, entre otros detallados en la política de beneficios de la compañía.
+
+CLÁUSULA QUINTA: LUGAR DE PRESTACIÓN DE SERVICIO
+EL TRABAJADOR prestará sus servicios en las oficinas de EL EMPLEADOR, ubicadas en [Dirección de la Empresa], Caracas, Venezuela, pudiendo ser trasladado a otras dependencias si la naturaleza del servicio así lo requiere.
+
+CLÁUSULA SEXTA: LEY APLICABLE
+Todo lo no previsto en este contrato se regirá por las disposiciones de la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT) y su Reglamento.
+        `;
+    }
+
+    const handlePrint = () => {
+        window.print();
         toast({
-            title: `Contrato ${action}`,
-            description: `El modelo de contrato ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado en formato PDF'}.`,
+            title: `Contrato impreso`,
+            description: `El modelo de contrato ha sido enviado a la impresora.`,
         });
-        if (action === 'impreso') {
-            window.print();
-        }
-    };
+    }
+
+    const handleDownload = () => {
+        const content = getContractContent();
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8;' });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "Contrato_Trabajo.txt");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+         toast({
+            title: "Descarga Iniciada",
+            description: "El modelo de contrato se está descargando como un archivo de texto.",
+        });
+    }
 
   return (
     <div className="p-4 md:p-8">
+      <style>
+            {`
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+                    #printable-content, #printable-content * {
+                        visibility: visible;
+                    }
+                    #printable-content {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                    }
+                }
+            `}
+        </style>
       <header className="mb-8 flex items-center justify-between print:hidden">
         <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
@@ -48,11 +106,11 @@ export default function ModeloContratoTrabajoPage() {
             </p>
         </div>
         <div className="flex gap-2">
-            <Button variant="outline" onClick={() => handleAction('impreso')}>
+            <Button variant="outline" onClick={handlePrint}>
                 <Printer className="mr-2"/> Imprimir
             </Button>
-            <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar PDF
+            <Button onClick={handleDownload}>
+                <Download className="mr-2"/> Descargar
             </Button>
         </div>
       </header>
@@ -88,7 +146,7 @@ export default function ModeloContratoTrabajoPage() {
                 </CardContent>
             </Card>
         </div>
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2" id="printable-content">
             <Card className="bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
                 <CardHeader className="text-center p-8">
                     <CardTitle className="text-2xl">CONTRATO DE TRABAJO A TIEMPO INDETERMINADO</CardTitle>

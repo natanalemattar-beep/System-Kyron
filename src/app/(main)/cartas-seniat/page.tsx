@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -114,7 +113,7 @@ export default function CartasSeniatPage() {
         const link = document.createElement("a");
         const url = URL.createObjectURL(blob);
         link.setAttribute("href", url);
-        link.setAttribute("download", `${modelos[selectedModelo].titulo}.txt`);
+        link.setAttribute("download", `${modelos[selectedModelo].titulo.replace(/ /g, '_')}.txt`);
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
@@ -122,6 +121,17 @@ export default function CartasSeniatPage() {
          toast({
             title: "Descarga Iniciada",
             description: "El modelo de carta se está descargando como un archivo de texto.",
+        });
+    }
+
+    const handlePrint = () => {
+        const printWindow = window.open('', '_blank');
+        printWindow?.document.write(`<pre>${contenido}</pre>`);
+        printWindow?.document.close();
+        printWindow?.print();
+        toast({
+            title: "Imprimiendo Carta",
+            description: "Se ha abierto la ventana de impresión.",
         });
     }
 
@@ -172,6 +182,10 @@ export default function CartasSeniatPage() {
                          <Button variant="outline" onClick={handleCopy}>
                             <Copy className="mr-2"/>
                             Copiar Texto
+                        </Button>
+                         <Button variant="outline" onClick={handlePrint}>
+                            <Printer className="mr-2"/>
+                            Imprimir
                         </Button>
                          <Button onClick={handleDownload}>
                             <Download className="mr-2"/>
