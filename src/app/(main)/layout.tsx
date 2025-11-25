@@ -10,12 +10,10 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen bg-background">
         <AppSidebar />
         <SidebarInset>
-          <main className="flex-1 p-4 md:p-8">
             {children}
-          </main>
         </SidebarInset>
         <Toaster />
       </div>
