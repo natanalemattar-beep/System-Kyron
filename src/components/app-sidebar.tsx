@@ -1,12 +1,13 @@
 
 'use client';
 
-import { Gavel, User } from "lucide-react";
+import { Gavel, User, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarFooter, useSidebar } from "@/components/ui/sidebar";
 import {
   naturalMenuItems,
+  allAdminGroups,
   allJuridicoGroups,
 } from "@/components/app-sidebar-nav-items";
 import { Badge } from "./ui/badge";
@@ -21,10 +22,18 @@ const AppSidebarCorporate = () => {
     const { state } = useSidebar();
 
     const isLegalPath = pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/departamento-juridico') || pathname.startsWith('/login-juridico');
+    const isAdminPath = pathname.startsWith('/dashboard-empresa');
 
-    const userProfile = isLegalPath
-      ? { name: "Equipo Legal", email: "legal@tramitex.com", fallback: "L" }
-      : { name: "Admin", email: "admin@tramitex.com", fallback: "A" };
+    let userProfile;
+    let navGroups;
+
+    if (isLegalPath) {
+      userProfile = { name: "Equipo Legal", email: "legal@tramitex.com", fallback: "L" };
+      navGroups = allJuridicoGroups;
+    } else { // Default to Admin
+      userProfile = { name: "Admin", email: "admin@tramitex.com", fallback: "A" };
+      navGroups = allAdminGroups;
+    }
 
     return (
         <Sidebar>
@@ -37,7 +46,7 @@ const AppSidebarCorporate = () => {
             </SidebarHeader>
             <SidebarContent>
                 <SidebarMenu>
-                    {allJuridicoGroups.map((group) => (
+                    {navGroups.map((group) => (
                         <div key={group.title}>
                             <p className={cn("p-2 text-xs font-semibold text-muted-foreground", state === 'collapsed' && 'hidden')}>{group.title}</p>
                             {group.items.map((item) => (
@@ -172,9 +181,11 @@ export function AppSidebar() {
     '/dashboard-informatica',
     '/asesoria-publicidad',
     '/departamento-juridico',
+    ...allAdminGroups.flatMap(g => g.items.map(i => i.href)),
+    ...allJuridicoGroups.flatMap(g => g.items.map(i => i.href)),
   ];
   
-  const isCorporatePath = corporatePaths.some(p => pathname.startsWith(p)) || allJuridicoGroups.flatMap(g => g.items).some(i => pathname.startsWith(i.href));
+  const isCorporatePath = corporatePaths.some(p => pathname.startsWith(p));
   const isNaturalPath = Object.values(naturalMenuItems).flatMap(g => g.items).some(i => pathname.startsWith(i.href));
 
   if (isNaturalPath && !isCorporatePath) {

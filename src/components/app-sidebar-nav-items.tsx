@@ -253,7 +253,18 @@ export const informaticaNavGroups = [
 ];
 
 export const legalNavGroups = [
-  { title: "Departamento Jurídico", icon: Gavel, items: juridicoMainMenuItems },
+  { title: "Jurídico y Corporativo", icon: Gavel, items: [
+      { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
+      ...juridicoMainMenuItems,
+    ]},
+];
+
+export const adminFinanzasNavGroups = [
+  { title: "Dashboards", icon: LayoutDashboard, items: [
+      { href: "/dashboard-empresa", label: "Admin y Finanzas", icon: LayoutDashboard },
+  ]},
+  { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+  { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
 ];
 
 export const ventasMenuItems = [
@@ -302,11 +313,14 @@ export const corporativoMenuItems = [
 ];
 
 export const allJuridicoGroups = [
-    { title: "Dashboards", icon: LayoutDashboard, items: [
-      { href: "/dashboard-empresa", label: "Admin y Finanzas", icon: LayoutDashboard },
+    { title: "Jurídico y Corporativo", icon: Gavel, items: [
+        ...juridicoMainMenuItems,
+        ...corporativoMenuItems,
     ]},
-    { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
-    { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+];
+
+export const allAdminGroups = [
+    ...adminFinanzasNavGroups,
     { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
     { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
     { title: "Ventas y Marketing", icon: Megaphone, items: ventasMenuItems },
@@ -315,5 +329,3 @@ export const allJuridicoGroups = [
     { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
     { title: "General", icon: Cog, items: generalMenuItems },
 ];
-
-    
