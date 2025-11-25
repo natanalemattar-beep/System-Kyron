@@ -196,11 +196,8 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
         {/* Header */}
-        <header className={cn(
-            "sticky top-0 z-50 w-full transition-all duration-300", 
-            isScrolled ? "bg-background/80 backdrop-blur-lg border-b" : "bg-transparent"
-        )}>
-            <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+        <header className="fixed top-4 inset-x-0 z-50 max-w-7xl mx-auto animate-in fade-in slide-in-from-top-8 duration-1000">
+          <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300 rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg">
                 <Link href="/" className="flex items-center gap-3">
                     <Logo />
                     <span className="text-lg font-bold">Kyron</span>
@@ -258,7 +255,7 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-20 pb-20 md:pt-32 md:pb-32 -mt-16">
+        <section className="relative pt-20 pb-20 md:pt-32 md:pb-32">
             <div className="absolute -z-10 inset-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_10%,transparent_50%)] dark:bg-grid-slate-700/30"></div>
             <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
             
