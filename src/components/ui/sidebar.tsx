@@ -285,17 +285,18 @@ const SidebarInset = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"main">
 >(({ className, ...props }, ref) => {
-  return (
-    <main
-      ref={ref}
-      className={cn(
-        "relative flex min-h-svh flex-1 flex-col bg-transparent transition-[padding] duration-300 ease-in-out md:pl-[var(--sidebar-width)]",
-        "md:peer-data-[state=collapsed]:peer-data-[collapsible=icon]:pl-[var(--sidebar-width-icon)]",
-        className
-      )}
-      {...props}
-    />
-  )
+    const { state } = useSidebar();
+    return (
+        <main
+        ref={ref}
+        className={cn(
+            "relative flex min-h-svh flex-1 flex-col bg-transparent transition-all duration-300 ease-in-out md:ml-[var(--sidebar-width)]",
+            state === 'collapsed' && 'md:ml-[var(--sidebar-width-icon)]',
+            className
+        )}
+        {...props}
+        />
+    )
 })
 SidebarInset.displayName = "SidebarInset"
 
