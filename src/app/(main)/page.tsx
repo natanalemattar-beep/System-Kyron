@@ -339,20 +339,9 @@ export default function LandingPage() {
                 </div>
             </div>
         </section>
-
-        {/* Modules Section */}
-        <section id="modulos" className="py-20 md:py-28 bg-secondary/30">
-            <div className="container mx-auto px-4 md:px-6">
-                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold">Todos tus Módulos en un Solo Lugar</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Explora la amplitud de nuestra plataforma. Cada departamento de tu empresa, cubierto.</p>
-                </div>
-                <QuickAccess />
-            </div>
-        </section>
         
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-background">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/30">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
@@ -387,7 +376,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-secondary/30">
+        <section id="nosotros" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
@@ -421,7 +410,7 @@ export default function LandingPage() {
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-background">
+        <section className="py-20 md:py-28 bg-secondary/30">
             <div className="container mx-auto px-4 md:px-6 text-center">
                  <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border">
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
@@ -435,7 +424,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer id="contacto" className="py-16 bg-secondary/30 border-t">
+      <footer id="contacto" className="py-16 bg-background border-t">
         <div className="container px-4 md:px-6 grid md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
