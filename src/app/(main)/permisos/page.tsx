@@ -83,8 +83,8 @@ const initialPermisos = [
     { id: "PERM-SAPI-004", tipo: "Habilitación de Renovaciones y Cambios", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Solicitud de renovación/cambio", "Documento de registro original", "Pago de tasas"], requisitosRenovacion: [] },
     { id: "PERM-SAPI-005", tipo: "Consulta de Expedientes", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de expediente", "Identificación del solicitante", "Pago de tasa de consulta"], requisitosRenovacion: [] },
     { id: "PERM-SAPI-006", tipo: "Actualización de Agentes de Propiedad Industrial", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Planilla de actualización de datos", "Documentos que soporten los cambios"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-007", tipo: "Solicitud de Estado Administrativo Actualizado", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Identificación del expediente", "Pago de tasa"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-008", tipo: "Contestación a Devolución de Forma", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito de subsanación", "Documentos corregidos"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-007", tipo: "Solicitud del Estado Administrativo Actualizado", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Identificación del expediente", "Pago de tasa"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-008", tipo: "Contestación a devolución de forma", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito de subsanación", "Documentos corregidos"], requisitosRenovacion: [] },
     { id: "PERM-SAPI-009", tipo: "Recurso de Reconsideración", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito del recurso", "Argumentos y pruebas", "Pago de tasa"], requisitosRenovacion: [] },
     { id: "PERM-SAPI-010", tipo: "Certificado de Registro de Marca", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de registro de la marca", "Pago de tasa de certificación"], requisitosRenovacion: [] },
     { id: "PERM-SAPI-011", tipo: "Pago de Derechos de Registro", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de solicitud o registro", "Monto a pagar según tarifa", "Comprobante de pago"], requisitosRenovacion: [] },
@@ -197,6 +197,46 @@ C.I: [C.I. del Representante]
 `;
 };
 
+const getPlanillaResguardoTemporalContent = () => `
+----------------------------------------------------------------------
+        SOLICITUD DE RESGUARDO TEMPORAL DE LA INVENCIÓN (FP-01)
+----------------------------------------------------------------------
+Servicio Autónomo de la Propiedad Intelectual (SAPI)
+
+FECHA DE SOLICITUD: ${new Date().toLocaleDateString('es-ES')}
+
+1. DATOS DEL SOLICITANTE:
+   Nombre/Razón Social: Kyron, C.A.
+   RIF: J-12345678-9
+   Domicilio: Av. Principal, Edif. Centro, Piso 1, Caracas, Venezuela
+   Teléfono: +58 212-1234567
+   Email: legal@kyron.com
+
+2. DATOS DEL INVENTOR (si es distinto al solicitante):
+   Nombre: _________________________
+   C.I./Pasaporte: _________________________
+   Domicilio: _________________________
+
+3. TÍTULO DE LA INVENCIÓN:
+   [Título claro y conciso de la invención, ej: "Sistema de Clasificación Automatizada de Residuos Sólidos mediante Visión por Computadora"]
+
+4. DESCRIPCIÓN SUCINTA DE LA INVENCIÓN:
+   [Breve descripción del propósito y funcionamiento de la invención. Este campo debe ser llenado por el solicitante.]
+   ______________________________________________________________________
+   ______________________________________________________________________
+   ______________________________________________________________________
+
+5. RECAUDOS CONSIGNADOS:
+   [X] Formulario de solicitud.
+   [X] Descripción detallada de la invención.
+   [X] Comprobante de pago de la tasa administrativa.
+
+DECLARACIÓN:
+Declaro bajo juramento que la información aquí suministrada es cierta y que soy el inventor/representante legal con derecho sobre esta invención.
+
+_________________________
+Firma del Solicitante / Representante Legal
+`;
 
 export default function PermisosPage() {
   const [permisos, setPermisos] = useState(initialPermisos);
@@ -276,7 +316,7 @@ export default function PermisosPage() {
     setSelectedPermit(null);
   };
   
-  const handleDownloadLetter = (permiso: Permiso | null, tipo: 'solicitud' | 'renovacion') => {
+  const handleDownloadLetter = (permiso: Permiso | null, tipo: 'solicitud' | 'renovacion' | 'planilla_resguardo') => {
     if (!permiso) return;
     let content = '';
     let filename = '';
@@ -284,7 +324,7 @@ export default function PermisosPage() {
     if (tipo === 'solicitud') {
         content = getLetterContent(permiso);
         filename = `Solicitud_${permiso.tipo.replace(/ /g, '_')}.txt`;
-    } else {
+    } else if (tipo === 'renovacion') {
         content = `
 Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
 
@@ -305,6 +345,9 @@ _________________________
 C.I: [C.I. del Representante]
 `;
         filename = `Renovacion_${permiso.tipo.replace(/ /g, '_')}.txt`;
+    } else if (tipo === 'planilla_resguardo') {
+        content = getPlanillaResguardoTemporalContent();
+        filename = `Planilla_Resguardo_Temporal.txt`;
     }
     
     const blob = new Blob([content.trim()], { type: 'text/plain;charset=utf-8;' });
@@ -319,7 +362,7 @@ C.I: [C.I. del Representante]
 
     toast({
         title: 'Descarga Iniciada',
-        description: `El modelo de carta se está descargando como ${filename}.`
+        description: `El documento se está descargando como ${filename}.`
     });
 };
 
@@ -395,7 +438,6 @@ C.I: [C.I. del Representante]
                                    <AccordionTrigger>Tarifas y Cuentas Bancarias</AccordionTrigger>
                                    <AccordionContent className="text-muted-foreground">
                                        <p className="text-sm">Las tarifas del SAPI varían según el trámite y se actualizan periódicamente. Deben ser pagadas en Petro (PTR) o su equivalente en Bolívares. Los pagos se realizan en las cuentas bancarias designadas por el SAPI.</p>
-                                       {/* A button to a modal with bank details could go here */}
                                    </AccordionContent>
                                </AccordionItem>
                            </Accordion>
@@ -461,44 +503,59 @@ C.I: [C.I. del Representante]
                                                     </TabsContent>
                                                     <TabsContent value="cartas" className="mt-4">
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                            <div className="p-4 border rounded-lg">
-                                                                <h4 className="font-semibold mb-2">Modelo de Carta de Solicitud</h4>
-                                                                <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto whitespace-pre-wrap">
-                                                                    {getLetterContent(selectedPermit)}
+                                                            {permiso.id === 'PERM-SAPI-002' ? (
+                                                                 <div className="p-4 border rounded-lg md:col-span-2">
+                                                                    <h4 className="font-semibold mb-2">Planilla de Solicitud de Resguardo Temporal (Pre-llenada)</h4>
+                                                                    <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-64 overflow-auto whitespace-pre-wrap">
+                                                                        {getPlanillaResguardoTemporalContent()}
+                                                                    </div>
+                                                                    <div className="flex gap-2 mt-2">
+                                                                        <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(getPlanillaResguardoTemporalContent())}>Copiar</Button>
+                                                                        <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'planilla_resguardo')}>Descargar Planilla</Button>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="flex gap-2 mt-2">
-                                                                    <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(getLetterContent(selectedPermit))}>Copiar</Button>
-                                                                    <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'solicitud')}>Descargar</Button>
-                                                                </div>
-                                                            </div>
-                                                            <div className="p-4 border rounded-lg">
-                                                                <h4 className="font-semibold mb-2">Modelo de Carta de Renovación</h4>
-                                                                <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto whitespace-pre-wrap">
-                                                                    {`
-Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
+                                                            ) : (
+                                                                <>
+                                                                    <div className="p-4 border rounded-lg">
+                                                                        <h4 className="font-semibold mb-2">Modelo de Carta de Solicitud</h4>
+                                                                        <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto whitespace-pre-wrap">
+                                                                            {getLetterContent(selectedPermit)}
+                                                                        </div>
+                                                                        <div className="flex gap-2 mt-2">
+                                                                            <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(getLetterContent(selectedPermit))}>Copiar</Button>
+                                                                            <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'solicitud')}>Descargar</Button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="p-4 border rounded-lg">
+                                                                        <h4 className="font-semibold mb-2">Modelo de Carta de Renovación</h4>
+                                                                        <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto whitespace-pre-wrap">
+                                                                            {`
+                                                                            Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
 
-Señores
-${permiso.emisor}
-Presente.-
+                                                                            Señores
+                                                                            ${permiso.emisor}
+                                                                            Presente.-
 
-Asunto: Solicitud de Renovación de Permiso - ${permiso.tipo}
+                                                                            Asunto: Solicitud de Renovación de Permiso - ${permiso.tipo}
 
-Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${permiso.tipo}", con referencia N° ${permiso.id}, próximo a vencer.
+                                                                            Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${permiso.tipo}", con referencia N° ${permiso.id}, próximo a vencer.
 
-Adjuntamos los recaudos correspondientes para la renovación.
+                                                                            Adjuntamos los recaudos correspondientes para la renovación.
 
-Atentamente,
+                                                                            Atentamente,
 
-_________________________
-[Nombre del Representante Legal]
-C.I: [C.I. del Representante]
-                                                                    `}
-                                                                </div>
-                                                                <div className="flex gap-2 mt-2">
-                                                                    <Button size="sm" variant="outline">Copiar</Button>
-                                                                    <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'renovacion')}>Descargar</Button>
-                                                                </div>
-                                                            </div>
+                                                                            _________________________
+                                                                            [Nombre del Representante Legal]
+                                                                            C.I: [C.I. del Representante]
+                                                                            `}
+                                                                        </div>
+                                                                        <div className="flex gap-2 mt-2">
+                                                                            <Button size="sm" variant="outline">Copiar</Button>
+                                                                            <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'renovacion')}>Descargar</Button>
+                                                                        </div>
+                                                                    </div>
+                                                                </>
+                                                            )}
                                                         </div>
                                                     </TabsContent>
                                                     <TabsContent value="documentos" className="mt-4">
