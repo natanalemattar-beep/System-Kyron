@@ -14,6 +14,7 @@ import { Logo } from "./logo";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { LanguageSwitcher } from "./language-switcher";
+import { cn } from "@/lib/utils";
 
 const AppSidebarCorporate = () => {
     const pathname = usePathname();
@@ -151,36 +152,35 @@ export function AppSidebar() {
   
   // No mostrar la barra lateral en la landing page o en páginas de registro/login sin layout.
   const noSidebarPaths = ['/', '/register'];
-  if (noSidebarPaths.includes(pathname) || pathname.startsWith('/login')) {
-      if(pathname === '/login-natural') return <AppSidebarNatural/>
-      if(pathname === '/register/natural') return <AppSidebarNatural/>
-      if(pathname === '/register' || pathname === '/') return null
-      return <AppSidebarCorporate/>
+  if (noSidebarPaths.includes(pathname) || pathname.startsWith('/login') || pathname.startsWith('/register')) {
+      if(pathname === '/login-natural' || pathname === '/register/natural' || pathname.startsWith('/(auth)')) {
+          // No sidebar needed for these auth pages as they have their own layout
+          return null;
+      }
+      if (pathname.startsWith('/register') && pathname !== '/register/natural') {
+        return null;
+      }
+      if (pathname === '/') return null;
   }
 
-  const checkPathPrefix = (prefixes: string[]) => prefixes.some(prefix => pathname.startsWith(prefix));
-
-  const naturalPaths = [
-    '/dashboard', 
-    '/tarjeta-digital', 
-    '/seguridad', // Asumiendo que es seguridad de persona natural
-    '/notificaciones', // Asumiendo que es notificaciones de persona natural
-    '/documentos', 
-    '/partidas-nacimiento', 
-    '/actas-matrimonio', 
-    '/documentos-judiciales',
-    '/antecedentes-penales',
-    '/manutencion',
-    '/registro-rif',
-    '/directorio-medico'
+  const corporatePaths = [
+    '/dashboard-empresa',
+    '/analisis-ventas',
+    '/dashboard-rrhh',
+    '/escritorio-juridico',
+    '/dashboard-socios',
+    '/dashboard-informatica',
+    '/asesoria-publicidad',
+    '/departamento-juridico',
   ];
-
-  if (checkPathPrefix(naturalPaths)) {
-    return <AppSidebarNatural />;
-  }
   
+  const isCorporatePath = corporatePaths.some(p => pathname.startsWith(p)) || allJuridicoGroups.flatMap(g => g.items).some(i => pathname.startsWith(i.href));
+  const isNaturalPath = Object.values(naturalMenuItems).flatMap(g => g.items).some(i => pathname.startsWith(i.href));
+
+  if (isNaturalPath && !isCorporatePath) {
+       return <AppSidebarNatural />;
+  }
+
   // Por defecto, mostrar el sidebar corporativo para el resto de las rutas del dashboard
   return <AppSidebarCorporate />;
 }
-
-    
