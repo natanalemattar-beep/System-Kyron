@@ -195,68 +195,6 @@ export default function LandingPage() {
     
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
-        {/* Header */}
-      <header className={cn(
-            "sticky top-0 z-50 w-full transition-all duration-300",
-            isScrolled ? "py-2" : "py-4"
-        )}>
-            <div className={cn(
-                "container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
-                isScrolled && "rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
-            )}>
-                <Link href="/" className="flex items-center gap-3">
-                    <Logo />
-                    <span className="text-lg font-bold">Kyron</span>
-                </Link>
-                <nav className="hidden md:flex gap-6">
-                    {navLinks.map((link) => (
-                        <SmoothScrollLink key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-                            {link.label}
-                        </SmoothScrollLink>
-                    ))}
-                </nav>
-                <div className="hidden md:flex items-center gap-4">
-                    <Button variant="outline" asChild>
-                        <Link href="/register">Registrarse</Link>
-                    </Button>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button>
-                            Acceder
-                            <User className="ml-2 h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuItem asChild><Link href="/login-natural">Persona Natural</Link></DropdownMenuItem>
-                            <DropdownMenuItem asChild><Link href="/login-empresa">Admin y Finanzas</Link></DropdownMenuItem>
-                            <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
-                            <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
-                            <DropdownMenuItem asChild><Link href="/login-rrhh">Recursos Humanos</Link></DropdownMenuItem>
-                            <DropdownMenuItem asChild><Link href="/login-socios">Socios y Directivos</Link></DropdownMenuItem>
-                            <DropdownMenuItem asChild><Link href="/login-marketing">Marketing y Asesoría</Link></DropdownMenuItem>
-                             <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e IT</Link></DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-                 <Sheet>
-                    <SheetTrigger asChild>
-                        <Button variant="ghost" size="icon" className="md:hidden">
-                        <Menu className="h-6 w-6" />
-                        <span className="sr-only">Abrir menú</span>
-                        </Button>
-                    </SheetTrigger>
-                    <SheetContent side="right">
-                        <nav className="grid gap-6 text-lg font-medium mt-8">
-                             {navLinks.map((link) => (
-                                <SmoothScrollLink key={link.href} href={link.href} className="text-muted-foreground hover:text-primary">
-                                    {link.label}
-                                </SmoothScrollLink>
-                            ))}
-                        </nav>
-                    </SheetContent>
-                </Sheet>
-            </div>
-        </header>
 
       {/* Main Content */}
       <main className="flex-1">
