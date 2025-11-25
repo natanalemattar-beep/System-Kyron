@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { FileText, Gavel, Heart, Shield, ArrowRight } from 'lucide-react';
+import { FileText, Gavel, Heart, Shield, ArrowRight, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
 
 const actions = [
@@ -36,12 +36,13 @@ const actions = [
 export default function DashboardPersonalPage() {
   return (
     <div className="space-y-8">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard de Trámites Personales</h1>
-        <p className="text-muted-foreground mt-2">
-            Gestiona tus documentos y solicitudes desde un solo lugar.
-        </p>
-      </header>
+       <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
+            <LayoutDashboard className="h-10 w-10 text-primary" />
+            Dashboard de Trámites Personales
+        </h1>
+        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Gestiona tus documentos y solicitudes desde un solo lugar.</p>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {actions.map((action, index) => (
