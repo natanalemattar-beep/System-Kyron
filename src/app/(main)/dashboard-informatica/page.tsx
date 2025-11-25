@@ -121,5 +121,3 @@ export default function DashboardInformaticaPage() {
     </div>
   );
 }
-
-    
