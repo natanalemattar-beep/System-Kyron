@@ -58,9 +58,9 @@ export default function PresentacionStartupPage() {
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
             <Trophy className="h-12 w-12" />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">Pitch Deck 10X: De la Idea al Financiamiento</h1>
+        <h1 className="text-4xl font-bold tracking-tight">El Pitch Deck Estratégico: De la Propuesta de Valor a la Captación de Capital</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          La guía definitiva para construir una presentación que no solo explica tu idea, sino que cautiva a inversores y gana competencias.
+          Una guía metodológica sobre la estructura y contenido esencial para la elaboración de presentaciones profesionales dirigidas a inversores y rondas de financiamiento.
         </p>
       </header>
 
