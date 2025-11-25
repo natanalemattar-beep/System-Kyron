@@ -288,4 +288,14 @@ export const corporativoMenuItems = [
     { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
 ];
 
-    
+export const allJuridicoGroups = [
+    { title: "Jurídico y Corporativo", icon: Gavel, items: juridicoMainMenuItems.concat(corporativoMenuItems) },
+    { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+    { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+    { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
+    { title: "Ventas y Marketing", icon: Megaphone, items: ventasMenuItems },
+    { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
+    { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
+    { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
+    { title: "General", icon: Cog, items: generalMenuItems },
+];

@@ -10,7 +10,7 @@ import {
   naturalMenuItems,
   allJuridicoGroups
 } from "@/components/app-sidebar-nav-items";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "./ui/badge";
 import { Logo } from "./logo";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
@@ -74,7 +74,7 @@ const AppSidebarCorporate = () => {
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="mb-2">
-                             <DropdownMenuItem asChild><Link href="/settings">Configuración</Link></DropdownMenuItem>
+                             <DropdownMenuItem asChild><Link href="/general">Configuración</Link></DropdownMenuItem>
                              <DropdownMenuItem asChild><Link href="/">Cerrar Sesión</Link></DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -180,8 +180,7 @@ export function AppSidebar() {
   const checkPathPrefix = (prefixes: string[]) => prefixes.some(prefix => pathname.startsWith(prefix));
 
   const naturalPaths = ['/login-natural', '/dashboard', '/tarjeta-digital', '/directorio-medico', '/partidas-nacimiento', '/actas-matrimonio', '/documentos-judiciales', '/antecedentes-penales', '/documentos', '/manutencion', '/registro-rif'];
-  const corporatePaths = ['/escritorio-juridico', '/departamento-juridico', '/legalizacion-empresa', '/dashboard-empresa', '/dashboard-informatica', '/dashboard-rrhh', '/dashboard-socios', '/analisis-ventas'];
-
+  
   if (checkPathPrefix(naturalPaths)) {
     return <AppSidebarNatural />;
   }
