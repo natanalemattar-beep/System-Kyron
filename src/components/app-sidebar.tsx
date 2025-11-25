@@ -2,44 +2,117 @@
 
 'use client';
 
+import { Gavel, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 import {
-  Gavel,
-  User,
-} from "lucide-react";
+  naturalMenuItems
+} from "@/components/app-sidebar-nav-items";
+import { Badge } from "@/components/ui/badge";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  useSidebar,
-  SidebarGroup,
-} from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
+const AppSidebarJuridicoPrincipal = () => (
+  <Sidebar>
+  </Sidebar>
+);
+
+const AppSidebarNatural = () => {
+    const pathname = usePathname();
+    return (
+        <Sidebar>
+            <SidebarMenu>
+              {naturalMenuItems.principal.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname.startsWith(item.href)}
+                  >
+                    <Link href={item.href}>
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+
+             <SidebarMenu>
+                <div className="px-2 font-semibold text-muted-foreground text-sm">Trámites Civiles</div>
+                {naturalMenuItems.tramites.map((item) => (
+                    <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton
+                            asChild
+                            isActive={pathname.startsWith(item.href)}
+                        >
+                            <Link href={item.href}>
+                            <item.icon />
+                            <span>{item.label}</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                ))}
+             </SidebarMenu>
+             <SidebarMenu>
+                <div className="px-2 font-semibold text-muted-foreground text-sm">Salud</div>
+                 {naturalMenuItems.salud.map((item) => (
+                    <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton
+                            asChild
+                            isActive={pathname.startsWith(item.href)}
+                        >
+                            <Link href={item.href}>
+                            <item.icon />
+                            <span>{item.label}</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+            <SidebarMenu>
+                <div className="px-2 font-semibold text-muted-foreground text-sm">Obligaciones (LOPNNA)</div>
+                 {naturalMenuItems.crs.map((item) => (
+                    <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton
+                            asChild
+                            isActive={pathname.startsWith(item.href)}
+                        >
+                            <Link href={item.href}>
+                            <item.icon />
+                            <span>{item.label}</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                ))}
+                 {naturalMenuItems.parental.map((item) => (
+                    <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton
+                            asChild
+                            isActive={pathname.startsWith(item.href)}
+                        >
+                            <Link href={item.href}>
+                            <item.icon />
+                            <span>{item.label}</span>
+                             <Badge variant="outline" className="ml-auto">Nuevo</Badge>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </Sidebar>
+    );
+};
 
 export function AppSidebar() {
   const pathname = usePathname();
   
   const checkPathPrefix = (prefixes: string[]) => prefixes.some(prefix => pathname.startsWith(prefix));
 
-  const isVentasPath = checkPathPrefix(['/login-ventas', '/analisis-ventas', '/punto-de-venta', '/arqueo-caja', '/analisis-caja', '/estrategias-ventas']);
-  const isSociosPath = checkPathPrefix(['/login-socios', '/dashboard-socios']);
-  const isHrPath = checkPathPrefix(['/login-rrhh', '/dashboard-rrhh', '/nominas', '/contratos', '/prestaciones-sociales']);
-  const isInformaticaPath = checkPathPrefix(['/login-informatica', '/dashboard-informatica', '/seguridad', '/soluciones-ia', '/arquitectura-software-contable', '/ingenieria-ia']);
-  const isMarketingPath = checkPathPrefix(['/login-marketing', '/asesoria-publicidad', '/marketing-innovador', '/app-aliada-recompensa', '/marketing-productos-vs-estrategias', '/marketing-ventas']);
-  const isLegalPath = checkPathPrefix(['/escritorio-juridico', '/departamento-juridico', '/legalizacion-empresa']);
-  const isNaturalPath = checkPathPrefix(['/login-natural', '/dashboard', '/tarjeta-digital', '/directorio-medico']);
+  const isNaturalPath = checkPathPrefix(['/login-natural', '/dashboard', '/tarjeta-digital', '/directorio-medico', '/partidas-nacimiento', '/actas-matrimonio', '/documentos-judiciales', '/antecedentes-penales', '/documentos', '/manutencion', '/registro-rif']);
 
+  const isJuridicoPath = checkPathPrefix(['/escritorio-juridico', '/departamento-juridico', '/legalizacion-empresa']);
 
-  if (isVentasPath) return null;
-  if (isSociosPath) return null;
-  if (isHrPath) return null;
-  if (isInformaticaPath) return null;
-  if (isMarketingPath) return null;
-  if (isLegalPath) return null;
-  if (isNaturalPath) return null;
+  if (isNaturalPath) return <AppSidebarNatural />;
+  if (isJuridicoPath) return <AppSidebarJuridicoPrincipal />;
 
   // Default sidebar for main corporate management
   return null;
