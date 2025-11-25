@@ -1,5 +1,4 @@
 
-
 import type { ReactNode } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
