@@ -146,6 +146,7 @@ const legalNavItems = [
   { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
   { href: "/activos-inmobiliarios", label: "Gestión de Activos", icon: Building },
   { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
+  { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
   { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
   { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
 ];
