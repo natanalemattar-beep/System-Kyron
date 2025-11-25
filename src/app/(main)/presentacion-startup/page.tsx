@@ -58,9 +58,9 @@ export default function PresentacionStartupPage() {
         <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-4">
             <Trophy className="h-12 w-12" />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">Guía para Ganar un Concurso de Startups</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Pitch Deck Ganador: Los 10 Recaudos Esenciales</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-            Los recaudos esenciales que todo emprendedor debe incluir en su "pitch deck" para destacar y captar la atención de jurados e inversores.
+          Una guía con la estructura probada que toda startup necesita para destacar y captar la atención de jurados e inversores en eventos como el Startup Venezuela Summit.
         </p>
       </header>
 
