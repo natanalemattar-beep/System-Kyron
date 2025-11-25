@@ -9,6 +9,11 @@ import {
   naturalMenuItems,
   allAdminGroups,
   allJuridicoGroups,
+  ventasMenuItems,
+  recursosHumanosGestionItems,
+  librosRegistroMenuItems,
+  sociosNavGroups,
+  informaticaNavGroups,
 } from "@/components/app-sidebar-nav-items";
 import { Badge } from "./ui/badge";
 import { Logo } from "./logo";
@@ -21,26 +26,62 @@ const AppSidebarCorporate = () => {
     const pathname = usePathname();
     const { state } = useSidebar();
 
-    const isLegalPath = pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/departamento-juridico') || pathname.startsWith('/login-juridico');
-    const isAdminPath = pathname.startsWith('/dashboard-empresa');
+    // Determine current user profile and navigation groups based on path
+    const getCorporateProfile = () => {
+        if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas') || pathname.startsWith('/dashboard-rrhh')) {
+            return {
+                navGroups: allAdminGroups,
+                user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }
+            };
+        }
+        if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/departamento-juridico')) {
+            return {
+                navGroups: allJuridicoGroups,
+                user: { name: "Equipo Legal", email: "legal@kyron.com", fallback: "L" }
+            };
+        }
+         if (pathname.startsWith('/analisis-ventas')) {
+             return {
+                navGroups: [{ title: 'Ventas', icon: Gavel, items: ventasMenuItems }],
+                user: { name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V"}
+            }
+        }
+         if (pathname.startsWith('/dashboard-rrhh')) {
+             return {
+                navGroups: [
+                    { title: 'Gestión de RR.HH.', icon: Gavel, items: recursosHumanosGestionItems},
+                    { title: 'Libros de Registro', icon: Gavel, items: librosRegistroMenuItems},
+                ],
+                user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH"}
+            }
+        }
+        if (pathname.startsWith('/dashboard-socios')) {
+             return {
+                navGroups: sociosNavGroups,
+                user: { name: "Socio / Directivo", email: "socio@kyron.com", fallback: "S"}
+            }
+        }
+         if (pathname.startsWith('/dashboard-informatica')) {
+             return {
+                navGroups: informaticaNavGroups,
+                user: { name: "Equipo de IT", email: "it@kyron.com", fallback: "IT"}
+            }
+        }
+        // Fallback to a default corporate profile if no specific path matches
+        return {
+            navGroups: allAdminGroups,
+            user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }
+        };
+    };
 
-    let userProfile;
-    let navGroups;
-
-    if (isLegalPath) {
-      userProfile = { name: "Equipo Legal", email: "legal@tramitex.com", fallback: "L" };
-      navGroups = allJuridicoGroups;
-    } else { // Default to Admin
-      userProfile = { name: "Admin", email: "admin@tramitex.com", fallback: "A" };
-      navGroups = allAdminGroups;
-    }
+    const { navGroups, user } = getCorporateProfile();
 
     return (
         <Sidebar>
             <SidebarHeader>
                  <div className="flex items-center gap-3">
                     <Logo />
-                    <span className={cn("text-xl font-bold", state === 'collapsed' && 'hidden')}>TRAMITEX C.A</span>
+                    <span className={cn("text-xl font-bold", state === 'collapsed' && 'hidden')}>Kyron</span>
                 </div>
                 <SidebarTrigger />
             </SidebarHeader>
@@ -73,11 +114,11 @@ const AppSidebarCorporate = () => {
                     <DropdownMenuTrigger asChild>
                         <div className={cn("flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary", state === 'collapsed' && 'justify-center')}>
                             <Avatar className="h-9 w-9">
-                                <AvatarFallback>{userProfile.fallback}</AvatarFallback>
+                                <AvatarFallback>{user.fallback}</AvatarFallback>
                             </Avatar>
                             <div className={cn("flex-1 overflow-hidden", state === 'collapsed' && 'hidden')}>
-                                <p className="text-sm font-semibold truncate">{userProfile.name}</p>
-                                <p className="text-xs text-muted-foreground truncate">{userProfile.email}</p>
+                                <p className="text-sm font-semibold truncate">{user.name}</p>
+                                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                             </div>
                         </div>
                     </DropdownMenuTrigger>
@@ -101,7 +142,7 @@ const AppSidebarNatural = () => {
              <SidebarHeader>
                 <div className="flex items-center gap-3">
                     <Logo />
-                    <span className={cn("text-xl font-bold", state === 'collapsed' && 'hidden')}>TRAMITEX</span>
+                    <span className={cn("text-xl font-bold", state === 'collapsed' && 'hidden')}>Kyron</span>
                 </div>
                 <SidebarTrigger />
             </SidebarHeader>
@@ -159,17 +200,14 @@ const AppSidebarNatural = () => {
 export function AppSidebar() {
   const pathname = usePathname();
   
-  // No mostrar la barra lateral en la landing page o en páginas de registro/login sin layout.
   const noSidebarPaths = ['/', '/register'];
-  if (noSidebarPaths.includes(pathname) || pathname.startsWith('/login') || pathname.startsWith('/register')) {
-      if(pathname === '/login-natural' || pathname === '/register/natural' || pathname.startsWith('/(auth)')) {
-          // No sidebar needed for these auth pages as they have their own layout
-          return null;
-      }
-      if (pathname.startsWith('/register') && pathname !== '/register/natural') {
-        return null;
-      }
-      if (pathname === '/') return null;
+  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/register');
+
+  if (isAuthPage) {
+    return null;
+  }
+  if (noSidebarPaths.includes(pathname)) {
+      return null;
   }
 
   const corporatePaths = [
@@ -185,13 +223,12 @@ export function AppSidebar() {
     ...allJuridicoGroups.flatMap(g => g.items.map(i => i.href)),
   ];
   
-  const isCorporatePath = corporatePaths.some(p => pathname.startsWith(p));
-  const isNaturalPath = Object.values(naturalMenuItems).flatMap(g => g.items).some(i => pathname.startsWith(i.href));
+  const isCorporatePath = corporatePaths.some(p => pathname.startsWith(p) && p !== '/');
 
-  if (isNaturalPath && !isCorporatePath) {
-       return <AppSidebarNatural />;
+  if (isCorporatePath) {
+    return <AppSidebarCorporate />;
   }
 
-  // Por defecto, mostrar el sidebar corporativo para el resto de las rutas del dashboard
-  return <AppSidebarCorporate />;
+  // Fallback to natural person sidebar for any other path that is not corporate or landing/auth
+  return <AppSidebarNatural />;
 }
