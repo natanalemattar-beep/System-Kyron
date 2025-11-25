@@ -80,7 +80,7 @@ export default function LoginNaturalPage() {
       <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
         <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
         <div className="flex justify-center gap-4">
-          <Link href="/login-juridico" className="font-medium text-primary hover:underline flex items-center gap-1">
+          <Link href="/login-admin" className="font-medium text-primary hover:underline flex items-center gap-1">
             <Building className="h-4 w-4" /> Admin
           </Link>
           <Link href="/login-ventas" className="font-medium text-primary hover:underline flex items-center gap-1">

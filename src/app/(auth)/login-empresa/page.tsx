@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import { useState } from "react";
@@ -10,8 +12,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { countries } from "@/lib/countries";
+import { Checkbox } from "@/components/ui/checkbox";
 
-export default function LoginEmpresaPage() {
+export default function LoginAdminPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
   const router = useRouter();
@@ -59,36 +62,23 @@ export default function LoginEmpresaPage() {
               {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2">
+                <Checkbox id="remember-me" />
+                <Label htmlFor="remember-me" className="font-normal">Recuérdame</Label>
+            </div>
+            <Link href="#" className="text-primary hover:underline">¿Olvidaste tu contraseña?</Link>
+          </div>
           <Button type="submit" className="w-full h-11 text-base">
             Acceder
           </Button>
         </CardContent>
       </form>
        <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
-        <p className="text-muted-foreground">¿No eres administrador? Accede a otro portal:</p>
-        <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
-            <Button asChild variant="link" className="p-0">
-                <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
-            </Button>
-            <Button asChild variant="link" className="p-0">
-                <Link href="/login-juridico" className="flex items-center gap-1"><Gavel className="h-4 w-4" />Jurídico</Link>
-            </Button>
-            <Button asChild variant="link" className="p-0">
-                <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4" />Ventas</Link>
-            </Button>
-             <Button asChild variant="link" className="p-0">
-                <Link href="/login-rrhh" className="flex items-center gap-1"><Briefcase className="h-4 w-4" />RR.HH.</Link>
-            </Button>
-            <Button asChild variant="link" className="p-0">
-                <Link href="/login-socios" className="flex items-center gap-1"><Users className="h-4 w-4" />Socios</Link>
-            </Button>
-            <Button asChild variant="link" className="p-0">
-                <Link href="/login-marketing" className="flex items-center gap-1"><Megaphone className="h-4 w-4" />Marketing</Link>
-            </Button>
-            <Button asChild variant="link" className="p-0">
-                <Link href="/login-informatica" className="flex items-center gap-1"><Cpu className="h-4 w-4" />IT</Link>
-            </Button>
-        </div>
+        <p className="text-muted-foreground">¿No eres administrador?</p>
+         <Button asChild variant="link" className="p-0">
+            <Link href="/register" className="font-medium">Regístrate en otro portal</Link>
+        </Button>
       </CardFooter>
     </Card>
   );

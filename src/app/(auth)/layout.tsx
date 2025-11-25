@@ -29,8 +29,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild><Link href="/login-natural">Acceso Natural</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-empresa">Admin y Finanzas</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-natural">Acceso Personal</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-admin">Admin y Finanzas</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>

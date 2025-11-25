@@ -57,7 +57,7 @@ export default function LoginVentasPage() {
                 <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
             </Button>
             <Button asChild variant="link" className="p-0">
-                <Link href="/login-empresa" className="flex items-center gap-1"><Building className="h-4 w-4" />Admin</Link>
+                <Link href="/login-admin" className="flex items-center gap-1"><Building className="h-4 w-4" />Admin</Link>
             </Button>
              <Button asChild variant="link" className="p-0">
                 <Link href="/login-rrhh" className="flex items-center gap-1"><Briefcase className="h-4 w-4" />RR.HH.</Link>
