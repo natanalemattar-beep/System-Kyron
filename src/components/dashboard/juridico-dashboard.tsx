@@ -16,6 +16,7 @@ import {
   Wallet,
   ShieldCheck,
   Percent,
+  Building,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -59,13 +60,16 @@ const upcomingDeadlines = [
   { days: 12, description: "Vencimiento de la Factura #FAC-C-001 de 'Tech Solutions'" },
 ];
 
-export function JuridicoDashboard() {
+export function EscritorioJuridicoPage() {
   return (
     <div className="space-y-12">
       
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Centro de Mando Empresarial</h1>
+        <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
+            <Building className="h-10 w-10 text-primary" />
+            Dashboard de Administración y Finanzas
+        </h1>
         <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Visión general de las operaciones, finanzas y cumplimiento de la empresa.</p>
       </div>
 
