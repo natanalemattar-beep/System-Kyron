@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -93,9 +94,11 @@ export default function LoginPage() {
        <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
         <p className="text-muted-foreground">¿No tienes una cuenta?</p>
          <Button asChild variant="link" className="p-0">
-            <Link href="/register" className="font-medium">Crea una cuenta aquí</Link>
+            <Link href="/register/natural" className="font-medium">Crea una cuenta aquí</Link>
         </Button>
       </CardFooter>
     </Card>
   );
 }
+
+    

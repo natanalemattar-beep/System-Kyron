@@ -1,11 +1,10 @@
 
-
 'use client';
 
 import { Gavel, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarFooter } from "@/components/ui/sidebar";
+import { Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarFooter, useSidebar } from "@/components/ui/sidebar";
 import {
   naturalMenuItems,
   allJuridicoGroups,
@@ -15,10 +14,10 @@ import { Logo } from "./logo";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { LanguageSwitcher } from "./language-switcher";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
 const AppSidebarCorporate = () => {
     const pathname = usePathname();
+    const { state } = useSidebar();
 
     const isLegalPath = pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/departamento-juridico') || pathname.startsWith('/login-juridico');
 
@@ -31,50 +30,42 @@ const AppSidebarCorporate = () => {
             <SidebarHeader>
                  <div className="flex items-center gap-3">
                     <Logo />
-                    <span className="text-xl font-bold">TRAMITEX C.A</span>
+                    <span className={cn("text-xl font-bold", state === 'collapsed' && 'hidden')}>TRAMITEX C.A</span>
                 </div>
                 <SidebarTrigger />
             </SidebarHeader>
             <SidebarContent>
-                <Accordion type="multiple" className="w-full">
+                <SidebarMenu>
                     {allJuridicoGroups.map((group) => (
-                    <AccordionItem value={group.title} key={group.title} className="border-none">
-                        <AccordionTrigger className="px-2 hover:no-underline font-semibold text-muted-foreground text-sm hover:bg-accent rounded-md">
-                        <div className="flex items-center gap-2">
-                            <group.icon className="h-4 w-4" />
-                            <span>{group.title}</span>
-                        </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="pb-0 pt-1">
-                        <SidebarMenu>
+                        <div key={group.title}>
+                            <p className={cn("p-2 text-xs font-semibold text-muted-foreground", state === 'collapsed' && 'hidden')}>{group.title}</p>
                             {group.items.map((item) => (
-                            <SidebarMenuItem key={`${item.href}-${item.label}`}>
-                                <SidebarMenuButton
-                                asChild
-                                isActive={pathname.startsWith(item.href)}
-                                className="justify-start h-9"
-                                >
-                                <Link href={item.href}>
-                                    <item.icon className="h-4 w-4 mr-2" />
-                                    <span>{item.label}</span>
-                                </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                                <SidebarMenuItem key={`${item.href}-${item.label}`}>
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={pathname.startsWith(item.href)}
+                                        className="justify-start h-9"
+                                        tooltip={item.label}
+                                    >
+                                        <Link href={item.href}>
+                                            <item.icon className="h-4 w-4" />
+                                            <span className={cn(state === 'collapsed' && 'hidden')}>{item.label}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
                             ))}
-                        </SidebarMenu>
-                        </AccordionContent>
-                    </AccordionItem>
+                        </div>
                     ))}
-                </Accordion>
+                </SidebarMenu>
             </SidebarContent>
             <SidebarFooter>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <div className="flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary">
+                        <div className={cn("flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary", state === 'collapsed' && 'justify-center')}>
                             <Avatar className="h-9 w-9">
                                 <AvatarFallback>{userProfile.fallback}</AvatarFallback>
                             </Avatar>
-                            <div className="flex-1 overflow-hidden">
+                            <div className={cn("flex-1 overflow-hidden", state === 'collapsed' && 'hidden')}>
                                 <p className="text-sm font-semibold truncate">{userProfile.name}</p>
                                 <p className="text-xs text-muted-foreground truncate">{userProfile.email}</p>
                             </div>
@@ -92,6 +83,7 @@ const AppSidebarCorporate = () => {
 
 const AppSidebarNatural = () => {
     const pathname = usePathname();
+    const { state } = useSidebar();
     const groupTitles = Object.keys(naturalMenuItems) as (keyof typeof naturalMenuItems)[];
 
     return (
@@ -99,7 +91,7 @@ const AppSidebarNatural = () => {
              <SidebarHeader>
                 <div className="flex items-center gap-3">
                     <Logo />
-                    <span className="text-xl font-bold">TRAMITEX</span>
+                    <span className={cn("text-xl font-bold", state === 'collapsed' && 'hidden')}>TRAMITEX</span>
                 </div>
                 <SidebarTrigger />
             </SidebarHeader>
@@ -108,7 +100,7 @@ const AppSidebarNatural = () => {
                     const group = naturalMenuItems[groupKey];
                     return (
                         <SidebarMenu key={group.title}>
-                            <div className="px-2 font-semibold text-muted-foreground text-sm flex items-center gap-2 mb-2">
+                            <div className={cn("px-2 font-semibold text-muted-foreground text-sm flex items-center gap-2 mb-2", state === 'collapsed' && 'hidden')}>
                                <group.icon className="h-4 w-4" />
                                <span>{group.title}</span>
                             </div>
@@ -117,11 +109,12 @@ const AppSidebarNatural = () => {
                                 <SidebarMenuButton
                                     asChild
                                     isActive={pathname.startsWith(item.href)}
+                                    tooltip={item.label}
                                 >
                                     <Link href={item.href}>
-                                    <item.icon className="h-4 w-4 mr-2" />
-                                    <span>{item.label}</span>
-                                     {item.isNew && <Badge variant="outline" className="ml-auto">Nuevo</Badge>}
+                                    <item.icon className="h-4 w-4" />
+                                    <span className={cn(state === 'collapsed' && 'hidden')}>{item.label}</span>
+                                     {item.isNew && <Badge variant="outline" className={cn("ml-auto", state === 'collapsed' && 'hidden')}>Nuevo</Badge>}
                                     </Link>
                                 </SidebarMenuButton>
                                 </SidebarMenuItem>
@@ -133,11 +126,11 @@ const AppSidebarNatural = () => {
              <SidebarFooter>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <div className="flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary">
+                        <div className={cn("flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary", state === 'collapsed' && 'justify-center')}>
                             <Avatar className="h-9 w-9">
                                 <AvatarFallback>UN</AvatarFallback>
                             </Avatar>
-                            <div className="flex-1 overflow-hidden">
+                            <div className={cn("flex-1 overflow-hidden", state === 'collapsed' && 'hidden')}>
                                 <p className="text-sm font-semibold truncate">Usuario Natural</p>
                                 <p className="text-xs text-muted-foreground truncate">usuario@email.com</p>
                             </div>
@@ -156,17 +149,22 @@ const AppSidebarNatural = () => {
 export function AppSidebar() {
   const pathname = usePathname();
   
-  if (pathname === '/') return null;
+  // No mostrar la barra lateral en la landing page o en páginas de registro/login sin layout.
+  const noSidebarPaths = ['/', '/register'];
+  if (noSidebarPaths.includes(pathname) || pathname.startsWith('/login')) {
+      if(pathname === '/login-natural') return <AppSidebarNatural/>
+      if(pathname === '/register/natural') return <AppSidebarNatural/>
+      if(pathname === '/register' || pathname === '/') return null
+      return <AppSidebarCorporate/>
+  }
 
   const checkPathPrefix = (prefixes: string[]) => prefixes.some(prefix => pathname.startsWith(prefix));
 
   const naturalPaths = [
-    '/login-natural', 
-    '/register/natural', 
     '/dashboard', 
     '/tarjeta-digital', 
-    '/seguridad',
-    '/notificaciones',
+    '/seguridad', // Asumiendo que es seguridad de persona natural
+    '/notificaciones', // Asumiendo que es notificaciones de persona natural
     '/documentos', 
     '/partidas-nacimiento', 
     '/actas-matrimonio', 
@@ -181,5 +179,8 @@ export function AppSidebar() {
     return <AppSidebarNatural />;
   }
   
+  // Por defecto, mostrar el sidebar corporativo para el resto de las rutas del dashboard
   return <AppSidebarCorporate />;
 }
+
+    

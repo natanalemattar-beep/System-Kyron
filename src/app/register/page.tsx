@@ -69,7 +69,7 @@ const accountTypes = [
     title: "Escritorio Jurídico",
     description: "Para el equipo legal y de cumplimiento normativo.",
     icon: Gavel,
-    href: "/register/juridica", // Legal team might register under the main company account
+    href: "/login-juridico",
   },
 ];
 
@@ -138,3 +138,5 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+    
