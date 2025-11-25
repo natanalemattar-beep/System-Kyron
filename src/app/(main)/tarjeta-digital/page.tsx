@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -11,6 +12,13 @@ import Image from "next/image";
 export default function TarjetaDigitalPage() {
     const userAvatar = PlaceHolderImages.find((img) => img.id === "user-avatar");
     const { toast } = useToast();
+    const [qrCodeUrl, setQrCodeUrl] = useState("");
+
+    useEffect(() => {
+        // This code runs only on the client, after the component has mounted.
+        const currentUrl = window.location.href;
+        setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`);
+    }, []);
 
     const handleShare = () => {
         if (navigator.share) {
@@ -76,7 +84,11 @@ export default function TarjetaDigitalPage() {
             </div>
              <div className="flex justify-center pt-6">
                 <div className="bg-white p-3 rounded-lg shadow-md">
-                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${typeof window !== 'undefined' ? window.location.href : ''}`} alt="QR Code del Perfil" width={150} height={150}/>
+                    {qrCodeUrl ? (
+                        <Image src={qrCodeUrl} alt="QR Code del Perfil" width={150} height={150}/>
+                    ) : (
+                        <div className="h-[150px] w-[150px] bg-gray-200 animate-pulse rounded-md" />
+                    )}
                 </div>
             </div>
             <p className="text-xs text-muted-foreground text-center pt-2">Escanea para compartir</p>
