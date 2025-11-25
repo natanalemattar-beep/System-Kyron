@@ -72,7 +72,7 @@ Todo lo no previsto en este contrato se regirá por las disposiciones de la Ley 
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Contrato_Trabajo.doc';
+        fileDownload.download = 'Contrato_Trabajo.docx';
         fileDownload.click();
         document.body.removeChild(fileDownload);
          toast({
@@ -116,7 +116,7 @@ Todo lo no previsto en este contrato se regirá por las disposiciones de la Ley 
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={handleDownload}>
-                <Download className="mr-2"/> Descargar
+                <Download className="mr-2"/> Descargar (.docx)
             </Button>
         </div>
       </header>

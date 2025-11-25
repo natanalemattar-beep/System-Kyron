@@ -95,7 +95,7 @@ Se autoriza ampliamente al ciudadano(a) [NOMBRE DEL AUTORIZADO], titular de la C
             const fileDownload = document.createElement("a");
             document.body.appendChild(fileDownload);
             fileDownload.href = source;
-            fileDownload.download = 'Acta_Constitutiva.doc';
+            fileDownload.download = 'Acta_Constitutiva.docx';
             fileDownload.click();
             document.body.removeChild(fileDownload);
             toast({
@@ -206,7 +206,7 @@ Se autoriza ampliamente al ciudadano(a) [NOMBRE DEL AUTORIZADO], titular de la C
                         <Printer className="mr-2"/> Imprimir Modelo
                     </Button>
                     <Button onClick={() => handleAction('descargado')}>
-                        <Download className="mr-2"/> Descargar Modelo
+                        <Download className="mr-2"/> Descargar (.docx)
                     </Button>
                 </CardFooter>
             </Card>

@@ -57,7 +57,7 @@ El presente contrato tendrá una duración de un (1) año, contado a partir de l
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Contrato_Prestacion_Servicios.doc';
+        fileDownload.download = 'Contrato_Prestacion_Servicios.docx';
         fileDownload.click();
         document.body.removeChild(fileDownload);
          toast({
@@ -101,7 +101,7 @@ El presente contrato tendrá una duración de un (1) año, contado a partir de l
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={handleDownload}>
-                <Download className="mr-2"/> Descargar
+                <Download className="mr-2"/> Descargar (.docx)
             </Button>
         </div>
       </header>

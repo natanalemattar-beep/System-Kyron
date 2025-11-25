@@ -87,7 +87,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
         const link = document.createElement("a");
         const url = URL.createObjectURL(blob);
         link.setAttribute("href", url);
-        link.setAttribute("download", "Manual_Kyron.txt");
+        link.setAttribute("download", "Manual_Kyron.docx");
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
@@ -132,7 +132,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
             <div className="flex gap-2">
                 <Button variant="outline" onClick={handleDownload}>
                     <Download className="mr-2" />
-                    Descargar
+                    Descargar (.docx)
                 </Button>
                 <Button onClick={handlePrint}>
                     <Printer className="mr-2" />

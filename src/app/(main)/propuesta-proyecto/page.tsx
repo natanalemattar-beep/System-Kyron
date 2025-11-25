@@ -70,7 +70,7 @@ El Equipo de Kyron, C.A.
             const fileDownload = document.createElement("a");
             document.body.appendChild(fileDownload);
             fileDownload.href = source;
-            fileDownload.download = 'Propuesta_Proyecto_Kyron.doc';
+            fileDownload.download = 'Propuesta_Proyecto_Kyron.docx';
             fileDownload.click();
             document.body.removeChild(fileDownload);
         }
@@ -93,7 +93,7 @@ El Equipo de Kyron, C.A.
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar
+                <Download className="mr-2"/> Descargar (.docx)
             </Button>
         </div>
       </header>

@@ -50,7 +50,7 @@ Ambas partes se comprometen a mantener estricta confidencialidad sobre la inform
             const fileDownload = document.createElement("a");
             document.body.appendChild(fileDownload);
             fileDownload.href = source;
-            fileDownload.download = 'Contrato_Licencia_Software.doc';
+            fileDownload.download = 'Contrato_Licencia_Software.docx';
             fileDownload.click();
             document.body.removeChild(fileDownload);
         }
@@ -73,7 +73,7 @@ Ambas partes se comprometen a mantener estricta confidencialidad sobre la inform
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar PDF
+                <Download className="mr-2"/> Descargar (.docx)
             </Button>
         </div>
       </header>

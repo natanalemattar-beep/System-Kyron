@@ -121,7 +121,7 @@ export default function CartasSeniatPage() {
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = `${modelos[selectedModelo].titulo.replace(/ /g, '_')}.doc`;
+        fileDownload.download = `${modelos[selectedModelo].titulo.replace(/ /g, '_')}.docx`;
         fileDownload.click();
         document.body.removeChild(fileDownload);
          toast({
@@ -195,7 +195,7 @@ export default function CartasSeniatPage() {
                         </Button>
                          <Button onClick={handleDownload}>
                             <Download className="mr-2"/>
-                            Descargar
+                            Descargar (.docx)
                         </Button>
                     </CardFooter>
                 </Card>

@@ -100,7 +100,7 @@ export default function CartasAutorizacionPage() {
             const fileDownload = document.createElement("a");
             document.body.appendChild(fileDownload);
             fileDownload.href = source;
-            fileDownload.download = `${titulo.replace(/ /g, '_')}.doc`;
+            fileDownload.download = `${titulo.replace(/ /g, '_')}.docx`;
             fileDownload.click();
             document.body.removeChild(fileDownload);
             toast({ title: "Descarga Iniciada", description: `El modelo de carta se está descargando como un archivo de Word.` });
@@ -144,7 +144,7 @@ export default function CartasAutorizacionPage() {
                                     <Printer className="mr-2" /> Imprimir
                                 </Button>
                                 <Button onClick={() => handleAction(key as keyof typeof modelos, 'descargar')}>
-                                    <Download className="mr-2" /> Descargar
+                                    <Download className="mr-2" /> Descargar (.docx)
                                 </Button>
                             </CardFooter>
                         </Card>

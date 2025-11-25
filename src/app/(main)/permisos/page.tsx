@@ -323,7 +323,7 @@ export default function PermisosPage() {
 
     if (tipo === 'solicitud') {
         content = getLetterContent(permiso);
-        filename = `Solicitud_${permiso.tipo.replace(/ /g, '_')}.txt`;
+        filename = `Solicitud_${permiso.tipo.replace(/ /g, '_')}.docx`;
     } else if (tipo === 'renovacion') {
         content = `
 Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
@@ -344,21 +344,26 @@ _________________________
 [Nombre del Representante Legal]
 C.I: [C.I. del Representante]
 `;
-        filename = `Renovacion_${permiso.tipo.replace(/ /g, '_')}.txt`;
+        filename = `Renovacion_${permiso.tipo.replace(/ /g, '_')}.docx`;
     } else if (tipo === 'planilla_resguardo') {
         content = getPlanillaResguardoTemporalContent();
-        filename = `Planilla_Resguardo_Temporal.txt`;
+        filename = `Planilla_Resguardo_Temporal.docx`;
     }
     
-    const blob = new Blob([content.trim()], { type: 'text/plain;charset=utf-8;' });
-    const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-    link.setAttribute("href", url);
-    link.setAttribute("download", filename);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+        "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+        "xmlns='http://www.w3.org/TR/REC-html40'>"+
+        "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
+    const footer = "</body></html>";
+    const sourceHTML = header + `<pre>${content}</pre>` + footer;
+
+    const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+    const fileDownload = document.createElement("a");
+    document.body.appendChild(fileDownload);
+    fileDownload.href = source;
+    fileDownload.download = filename;
+    fileDownload.click();
+    document.body.removeChild(fileDownload);
 
     toast({
         title: 'Descarga Iniciada',
@@ -511,7 +516,7 @@ C.I: [C.I. del Representante]
                                                                     </div>
                                                                     <div className="flex gap-2 mt-2">
                                                                         <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(getPlanillaResguardoTemporalContent())}>Copiar</Button>
-                                                                        <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'planilla_resguardo')}>Descargar Planilla</Button>
+                                                                        <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'planilla_resguardo')}>Descargar (.docx)</Button>
                                                                     </div>
                                                                 </div>
                                                             ) : (
@@ -523,7 +528,7 @@ C.I: [C.I. del Representante]
                                                                         </div>
                                                                         <div className="flex gap-2 mt-2">
                                                                             <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(getLetterContent(selectedPermit))}>Copiar</Button>
-                                                                            <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'solicitud')}>Descargar</Button>
+                                                                            <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'solicitud')}>Descargar (.docx)</Button>
                                                                         </div>
                                                                     </div>
                                                                     <div className="p-4 border rounded-lg">
@@ -551,7 +556,7 @@ C.I: [C.I. del Representante]
                                                                         </div>
                                                                         <div className="flex gap-2 mt-2">
                                                                             <Button size="sm" variant="outline">Copiar</Button>
-                                                                            <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'renovacion')}>Descargar</Button>
+                                                                            <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'renovacion')}>Descargar (.docx)</Button>
                                                                         </div>
                                                                     </div>
                                                                 </>
