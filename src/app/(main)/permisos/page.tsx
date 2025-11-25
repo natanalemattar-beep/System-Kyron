@@ -114,6 +114,55 @@ type Payment = {
 
 type Permiso = typeof initialPermisos[0];
 
+// Function to generate specific letter content
+const getLetterContent = (permiso: Permiso | null): string => {
+    if (!permiso) return "";
+
+    const fechaActual = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+    const baseContent = `
+Ciudad, ${fechaActual}
+
+Señores
+${permiso.emisor}
+Presente.-
+
+Asunto: Solicitud de Permiso - ${permiso.tipo}
+
+Por medio de la presente, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes con el debido respeto para solicitar formalmente la tramitación y otorgamiento del permiso de "${permiso.tipo}".
+`;
+
+    if (permiso.id === 'PERM-NAC-009') { // Registro de Marca
+        return baseContent + `
+Adjunto a la presente, consignamos los siguientes recaudos:
+- Resultados de la búsqueda de antecedentes fonéticos.
+- Resultados de la búsqueda de antecedentes gráficos.
+- Diseño del logo propuesto en formato digital (JPG/PNG).
+- Comprobante de pago de las tasas correspondientes.
+
+Agradeciendo de antemano su atención, quedamos a su disposición.
+
+Atentamente,
+
+_________________________
+[Nombre del Representante Legal]
+C.I: [C.I. del Representante]
+`;
+    }
+
+    return baseContent + `
+Adjuntamos todos los recaudos necesarios para procesar dicha solicitud.
+
+Sin otro particular al que hacer referencia,
+
+Atentamente,
+
+_________________________
+[Nombre del Representante Legal]
+C.I: [C.I. del Representante]
+`;
+};
+
+
 export default function PermisosPage() {
   const [permisos, setPermisos] = useState(initialPermisos);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -248,7 +297,7 @@ export default function PermisosPage() {
                                     <TableCell className="text-right space-x-1">
                                         <Dialog>
                                             <DialogTrigger asChild>
-                                                <Button variant="ghost" size="icon" title="Ver Detalles">
+                                                <Button variant="ghost" size="icon" title="Ver Detalles" onClick={() => setSelectedPermit(permiso)}>
                                                     <Eye className="h-4 w-4" />
                                                 </Button>
                                             </DialogTrigger>
@@ -288,14 +337,8 @@ export default function PermisosPage() {
                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                             <div className="p-4 border rounded-lg">
                                                                 <h4 className="font-semibold mb-2">Modelo de Carta de Solicitud</h4>
-                                                                <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto">
-                                                                    Ciudad y Fecha,<br/><br/>
-                                                                    <strong>Señores {permiso.emisor},</strong><br/>
-                                                                    Presente.-<br/><br/>
-                                                                    Yo, [Su Nombre], en mi carácter de Representante Legal de [Su Empresa], C.A., RIF [Su RIF], me dirijo a ustedes para solicitar formalmente el permiso de <strong>{permiso.tipo}</strong>.<br/><br/>
-                                                                    Adjuntamos los recaudos correspondientes.<br/><br/>
-                                                                    Atentamente,<br/>
-                                                                    [Su Nombre y C.I.]
+                                                                <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto whitespace-pre-wrap">
+                                                                    {getLetterContent(selectedPermit)}
                                                                 </div>
                                                                 <div className="flex gap-2 mt-2">
                                                                     <Button size="sm" variant="outline">Copiar</Button>
@@ -435,4 +478,3 @@ export default function PermisosPage() {
   );
 }
 
-    
