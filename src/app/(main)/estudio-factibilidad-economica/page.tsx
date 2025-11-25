@@ -66,7 +66,7 @@ export default function EstudioFactibilidadEconomicaPage() {
 
     const handleDownloadStudy = () => {
         const content = `
-ESTUDIO DE FACTIBILIDAD ECONÓMICA: System C.M.S.
+ESTUDIO DE FACTIBILIDAD ECONÓMICA: Kyron
 ==================================================
 
 1. INTRODUCCIÓN
@@ -78,7 +78,7 @@ Las empresas en Venezuela enfrentan un doble desafío: una creciente presión po
 Este proyecto ofrece una solución dual: la Papelera Inteligente promueve la economía circular y el Software de Gestión garantiza la tranquilidad fiscal y la eficiencia operativa.
 
 1.3. Objetivos del Estudio:
-- General: Determinar la factibilidad técnica, económica, legal y operativa del ecosistema "System C.M.S.".
+- General: Determinar la factibilidad técnica, económica, legal y operativa del ecosistema "Kyron".
 - Específicos: Analizar mercado, evaluar requerimientos técnicos, definir estructura y estimar la rentabilidad.
 
 2. ESTUDIO DE MERCADO
@@ -148,20 +148,20 @@ Proyecciones Financieras Anuales (Estimadas):
 
 7. CONCLUSIÓN
 ---------------
-El proyecto "System C.M.S." se considera altamente factible. La combinación de hardware innovador con un modelo SaaS recurrente crea una propuesta de valor sólida. Se recomienda proceder con la fase de prototipado y búsqueda de capital semilla.
+El proyecto "Kyron" se considera altamente factible. La combinación de hardware innovador con un modelo SaaS recurrente crea una propuesta de valor sólida. Se recomienda proceder con la fase de prototipado y búsqueda de capital semilla.
 `;
 
         const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'Estudio_Factibilidad_SystemCMS.txt';
+        link.download = 'Estudio_Factibilidad_Kyron.txt';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
 
         toast({
             title: "Descarga Completa",
-            description: "El estudio de factibilidad ha sido guardado como 'Estudio_Factibilidad_SystemCMS.txt'.",
+            description: "El estudio de factibilidad ha sido guardado como 'Estudio_Factibilidad_Kyron.txt'.",
         });
     };
 
@@ -173,7 +173,7 @@ El proyecto "System C.M.S." se considera altamente factible. La combinación de 
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Estudio de Factibilidad Económica</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Análisis integral del proyecto "System C.M.S." bajo la Metodología de Proyectos de Inversión.
+          Análisis integral del proyecto "Kyron" bajo la Metodología de Proyectos de Inversión.
         </p>
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={handleDownloadStudy}>
@@ -194,11 +194,11 @@ El proyecto "System C.M.S." se considera altamente factible. La combinación de 
                 </div>
                  <div>
                     <h3 className="font-semibold text-foreground">1.2. Justificación</h3>
-                    <p>Este proyecto se justifica por su capacidad para ofrecer una solución dual a problemas reales y urgentes. Al integrar hardware (Papelera Inteligente) y software (Sistema de Gestión), System C.M.S. no solo promueve un modelo de economía circular, sino que también proporciona una herramienta de automatización que garantiza la tranquilidad fiscal y la eficiencia operativa, generando un impacto positivo tanto ambiental como económico.</p>
+                    <p>Este proyecto se justifica por su capacidad para ofrecer una solución dual a problemas reales y urgentes. Al integrar hardware (Papelera Inteligente) y software (Sistema de Gestión), Kyron no solo promueve un modelo de economía circular, sino que también proporciona una herramienta de automatización que garantiza la tranquilidad fiscal y la eficiencia operativa, generando un impacto positivo tanto ambiental como económico.</p>
                 </div>
                  <div>
                     <h3 className="font-semibold text-foreground">1.3. Objetivos del Estudio</h3>
-                    <p><strong>Objetivo General:</strong> Determinar la factibilidad técnica, económica, legal y operativa para la implementación del ecosistema integrado "System C.M.S." en el mercado venezolano.</p>
+                    <p><strong>Objetivo General:</strong> Determinar la factibilidad técnica, económica, legal y operativa para la implementación del ecosistema integrado "Kyron" en el mercado venezolano.</p>
                     <ul className="list-disc pl-5 mt-2 space-y-1">
                         <li><strong>Específicos:</strong></li>
                         <li>Analizar el mercado potencial para ambas líneas de producto.</li>
@@ -260,7 +260,7 @@ El proyecto "System C.M.S." se considera altamente factible. La combinación de 
                 </div>
                  <div>
                     <h3 className="font-semibold mb-3">Tamaño y Competencia</h3>
-                    <p className="text-muted-foreground">Se estima un mercado potencial combinado de más de **$80 millones anuales**. La competencia es fragmentada y, en su mayoría, no ofrece una solución integrada, lo que representa una ventaja competitiva clave para System C.M.S.</p>
+                    <p className="text-muted-foreground">Se estima un mercado potencial combinado de más de **$80 millones anuales**. La competencia es fragmentada y, en su mayoría, no ofrece una solución integrada, lo que representa una ventaja competitiva clave para Kyron.</p>
                 </div>
             </CardContent>
         </Card>
@@ -375,7 +375,7 @@ El proyecto "System C.M.S." se considera altamente factible. La combinación de 
                 <CardTitle>8. Conclusión y Recomendaciones</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className="text-lg font-semibold">El proyecto "System C.M.S." se considera **altamente factible y con un potencial de mercado significativo**.</p>
+                <p className="text-lg font-semibold">El proyecto "Kyron" se considera **altamente factible y con un potencial de mercado significativo**.</p>
                 <p className="text-muted-foreground mt-2">
                     La combinación de un producto de hardware innovador con un modelo de negocio SaaS recurrente crea una propuesta de valor sólida y sostenible. Aunque la inversión inicial es considerable, las proyecciones financieras y las ventajas competitivas justifican el riesgo. El éxito dependerá de una ejecución técnica impecable y una estrategia de comercialización agresiva. Se recomienda proceder con la fase de desarrollo de prototipos y la búsqueda de capital semilla.
                 </p>
@@ -384,5 +384,3 @@ El proyecto "System C.M.S." se considera altamente factible. La combinación de 
     </div>
   );
 }
-
-    

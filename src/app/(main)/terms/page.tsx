@@ -21,12 +21,12 @@ export default function TermsOfServicePage() {
         <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
             <h4>1. Aceptación de los Términos</h4>
             <p>
-                Al acceder y utilizar los servicios de System C.M.S, C.A. ("la Plataforma"), usted ("el Usuario") acepta y se compromete a cumplir con los presentes Términos y Condiciones de Servicio. Si no está de acuerdo con alguno de los términos, no debe utilizar la Plataforma.
+                Al acceder y utilizar los servicios de Kyron, C.A. ("la Plataforma"), usted ("el Usuario") acepta y se compromete a cumplir con los presentes Términos y Condiciones de Servicio. Si no está de acuerdo con alguno de los términos, no debe utilizar la Plataforma.
             </p>
 
             <h4>2. Descripción del Servicio</h4>
             <p>
-                System C.M.S. es una plataforma de software como servicio (SaaS) diseñada para la gestión empresarial, contable, fiscal y de cumplimiento en la República Bolivariana de Venezuela. Los servicios incluyen, pero no se limitan a, facturación, gestión de nómina, control de inventario, y generación de reportes fiscales.
+                Kyron es una plataforma de software como servicio (SaaS) diseñada para la gestión empresarial, contable, fiscal y de cumplimiento en la República Bolivariana de Venezuela. Los servicios incluyen, pero no se limitan a, facturación, gestión de nómina, control de inventario, y generación de reportes fiscales.
             </p>
 
             <h4>3. Cuentas de Usuario</h4>
@@ -46,17 +46,17 @@ export default function TermsOfServicePage() {
 
             <h4>6. Propiedad Intelectual</h4>
             <p>
-                La Plataforma y su contenido original, características y funcionalidad son y seguirán siendo propiedad exclusiva de System C.M.S, C.A. y sus licenciantes. El software está protegido por derechos de autor y otras leyes de propiedad intelectual.
+                La Plataforma y su contenido original, características y funcionalidad son y seguirán siendo propiedad exclusiva de Kyron, C.A. y sus licenciantes. El software está protegido por derechos de autor y otras leyes de propiedad intelectual.
             </p>
 
             <h4>7. Confidencialidad</h4>
              <p>
-                System C.M.S. se compromete a tratar toda la información financiera y empresarial cargada por el Usuario como estrictamente confidencial. No accederemos, compartiremos ni utilizaremos sus datos para ningún propósito que no sea la prestación y mejora del servicio, el soporte técnico o el cumplimiento de obligaciones legales.
+                Kyron se compromete a tratar toda la información financiera y empresarial cargada por el Usuario como estrictamente confidencial. No accederemos, compartiremos ni utilizaremos sus datos para ningún propósito que no sea la prestación y mejora del servicio, el soporte técnico o el cumplimiento de obligaciones legales.
             </p>
 
             <h4>8. Limitación de Responsabilidad</h4>
             <p>
-                En ningún caso System C.M.S, C.A., ni sus directores, empleados o afiliados, serán responsables de ningún daño indirecto, incidental, especial, consecuente o punitivo, incluyendo, sin limitación, la pérdida de beneficios, datos, uso, buena voluntad u otras pérdidas intangibles, resultantes del uso o la incapacidad de usar el servicio.
+                En ningún caso Kyron, C.A., ni sus directores, empleados o afiliados, serán responsables de ningún daño indirecto, incidental, especial, consecuente o punitivo, incluyendo, sin limitación, la pérdida de beneficios, datos, uso, buena voluntad u otras pérdidas intangibles, resultantes del uso o la incapacidad de usar el servicio.
             </p>
 
             <h4>9. Terminación</h4>

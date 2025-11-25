@@ -161,7 +161,7 @@ export default function AnalisisEmpresaHibridaPage() {
 
         <Card className="bg-primary/10 border-primary/20">
             <CardHeader>
-                <CardTitle>Aplicación al Proyecto "System C.M.S"</CardTitle>
+                <CardTitle>Aplicación al Proyecto "Kyron"</CardTitle>
                 <CardDescription>Cómo tu empresa encarna perfectamente el modelo de startup híbrida.</CardDescription>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-6">

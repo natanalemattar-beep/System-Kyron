@@ -9,7 +9,7 @@ const fodaData = {
     fortalezas: [
         { icon: Zap, text: "Marca reconocida en el sector de papelería y suministros." },
         { icon: Zap, text: "Cartera de clientes corporativos leales y recurrentes." },
-        { icon: Zap, text: "Sistema de gestión integrado (System C.R.S) que optimiza operaciones." },
+        { icon: Zap, text: "Sistema de gestión integrado (Kyron) que optimiza operaciones." },
     ],
     oportunidades: [
         { icon: TrendingUp, text: "Crecimiento del sector e-commerce para ventas B2B." },

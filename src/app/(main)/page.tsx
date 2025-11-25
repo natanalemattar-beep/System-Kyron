@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -59,7 +60,7 @@ const testimonials = [
   {
     name: "Carlos Rodríguez",
     company: "Constructora XYZ",
-    text: "System C.M.S ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
+    text: "Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
   },
   {
     name: "Ana Pérez",
@@ -95,7 +96,7 @@ function ChatDialog() {
     setIsLoading(true);
 
     try {
-      const pageContext = `El usuario está en la página de inicio de System C.M.S. 
+      const pageContext = `El usuario está en la página de inicio de Kyron. 
       La página describe una plataforma de gestión empresarial para el mercado venezolano.
       - Servicios ofrecidos: Gestión Fiscal y Contable (automatización, libros, impuestos, homologado por SENIAT), Administración de Nómina (cálculo, beneficios, parafiscales), y Permisología y Cumplimiento (gestión de licencias).
       - Características destacadas: Inteligencia Artificial (conciliación, análisis predictivo), Seguridad de Nivel Superior (cifrado, 2FA), y Análisis y Reportes (dashboards).
@@ -201,7 +202,7 @@ export default function LandingPage() {
         <div className={cn("container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300", isScrolled && "bg-background/80 backdrop-blur-lg rounded-b-xl shadow-lg border-x border-b")}>
           <Link href="/" className="flex items-center gap-3">
             <Logo />
-            <span className="text-lg font-bold">System C.M.S</span>
+            <span className="text-lg font-bold">Kyron</span>
           </Link>
           
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -225,7 +226,7 @@ export default function LandingPage() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild><Link href="/login-natural"><User className="mr-2"/>Acceso Natural</Link></DropdownMenuItem>
-                    <DropdownMenuItem asChild><Link href="/login-juridico"><Building className="mr-2"/>Admin y Finanzas</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link href="/login-empresa"><Building className="mr-2"/>Admin y Finanzas</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link href="/login-juridico"><Gavel className="mr-2"/>Escritorio Jurídico</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link href="/login-ventas"><ShoppingCart className="mr-2"/>Ventas y Facturación</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link href="/login-rrhh"><Briefcase className="mr-2"/>Acceso RR.HH.</Link></DropdownMenuItem>
@@ -274,7 +275,7 @@ export default function LandingPage() {
                         La Gestión Empresarial, Reinventada para Venezuela
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-                        Simplificamos la burocracia para que puedas enfocarte en crecer. Automatiza tu contabilidad, gestiona permisos y cumple con el SENIAT sin esfuerzo.
+                       Con Kyron, simplificamos la burocracia para que puedas enfocarte en crecer. Automatiza tu contabilidad, gestiona permisos y cumple con el SENIAT sin esfuerzo.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild>
@@ -427,7 +428,7 @@ export default function LandingPage() {
             <div className="container mx-auto px-4 md:px-6 text-center">
                  <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border">
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
-                    <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con System C.M.S.</p>
+                    <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con Kyron.</p>
                     <Button size="lg" asChild className="mt-8">
                     <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
                     </Button>
@@ -442,7 +443,7 @@ export default function LandingPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Logo />
-              <span className="text-xl font-bold">System C.M.S</span>
+              <span className="text-xl font-bold">Kyron</span>
             </div>
             <p className="text-sm text-muted-foreground">La solución definitiva para la gestión empresarial en Venezuela.</p>
           </div>
@@ -451,7 +452,7 @@ export default function LandingPage() {
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-3">
                 <Mail className="h-5 w-5 text-muted-foreground mt-0.5"/>
-                <a href="mailto:contacto@systemcms.com" className="hover:text-primary">contacto@systemcms.com</a>
+                <a href="mailto:contacto@kyron.com" className="hover:text-primary">contacto@kyron.com</a>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="h-5 w-5 text-muted-foreground mt-0.5"/>
@@ -468,7 +469,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="container px-4 md:px-6 mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} System C.M.S. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} Kyron. Todos los derechos reservados.
         </div>
       </footer>
       <ChatDialog />

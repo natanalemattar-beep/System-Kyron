@@ -44,12 +44,12 @@ export default function LicenciaSoftwarePage() {
         </CardHeader>
         <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
             <p>
-                Entre <strong>SYSTEM C.M.S, C.A.</strong>, (en adelante “EL LICENCIANTE”), RIF J-XXXXXXX, domiciliada en Caracas, y por la otra parte, <strong>[NOMBRE DEL CLIENTE]</strong>, (en adelante “EL LICENCIATARIO”), RIF [RIF DEL CLIENTE], domiciliada en [DOMICILIO DEL CLIENTE], se ha convenido en celebrar el presente Contrato de Licencia de Uso de Software, el cual se regirá por las siguientes cláusulas:
+                Entre <strong>Kyron, C.A.</strong>, (en adelante “EL LICENCIANTE”), RIF J-XXXXXXX, domiciliada en Caracas, y por la otra parte, <strong>[NOMBRE DEL CLIENTE]</strong>, (en adelante “EL LICENCIATARIO”), RIF [RIF DEL CLIENTE], domiciliada en [DOMICILIO DEL CLIENTE], se ha convenido en celebrar el presente Contrato de Licencia de Uso de Software, el cual se regirá por las siguientes cláusulas:
             </p>
 
             <h4>CLÁUSULA PRIMERA: OBJETO DEL CONTRATO</h4>
             <p>
-                EL LICENCIANTE otorga a EL LICENCIATARIO una licencia no exclusiva, intransferible y revocable para utilizar el sistema informático denominado "System C.M.S" (en adelante, "EL SOFTWARE"), específicamente en sus módulos de Contabilidad, Nómina, y Seguros Jurídicos y Fianzas.
+                EL LICENCIANTE otorga a EL LICENCIATARIO una licencia no exclusiva, intransferible y revocable para utilizar el sistema informático denominado "Kyron" (en adelante, "EL SOFTWARE"), específicamente en sus módulos de Contabilidad, Nómina, y Seguros Jurídicos y Fianzas.
             </p>
 
             <h4>CLÁUSULA SEGUNDA: ALCANCE Y DURACIÓN DE LA LICENCIA</h4>
@@ -74,13 +74,13 @@ export default function LicenciaSoftwarePage() {
             
             <h4>CLÁUSULA SEXTA: CONFIDENCIALIDAD</h4>
             <p>
-                Ambas partes se comprometen a mantener estricta confidencialidad sobre la información técnica, comercial y financiera a la que tengan acceso en virtud del presente contrato.
+                Ambas partes se comprometen a mantener estricta confidencialidad sobre la información técnica, comercial y financiera a la que tengan acceso en virtud del presente contrato. Esta obligación subsistirá aún después de finalizado el mismo.
             </p>
 
             <div className="grid grid-cols-2 gap-24 pt-24">
                 <div className="text-center">
                     <p className="border-t-2 border-foreground pt-2">EL LICENCIANTE</p>
-                    <p className="text-xs">(System C.M.S, C.A.)</p>
+                    <p className="text-xs">(Kyron, C.A.)</p>
                 </div>
                 <div className="text-center">
                     <p className="border-t-2 border-foreground pt-2">EL LICENCIATARIO</p>

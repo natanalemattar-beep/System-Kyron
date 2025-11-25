@@ -1,6 +1,6 @@
 
 
-"use client";
+'use client';
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
@@ -96,6 +96,7 @@ import {
   School,
   UserPlus,
   Package,
+  Zap,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -299,8 +300,7 @@ function AppSidebarJuridicoPrincipal() {
           <Logo />
            {state === 'expanded' && (
             <div className="flex flex-col">
-              <span className="text-sm font-semibold leading-tight">System</span>
-              <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+              <span className="text-sm font-semibold leading-tight">Kyron</span>
             </div>
           )}
         </div>
@@ -391,8 +391,7 @@ function AppSidebarNatural() {
            <Logo />
            {state === 'expanded' && (
             <div className="flex flex-col">
-                <span className="text-sm font-semibold leading-tight">System</span>
-                <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                <span className="text-sm font-semibold leading-tight">Kyron</span>
             </div>
            )}
         </div>
@@ -472,8 +471,7 @@ function AppSidebarHr() {
            <Logo />
            {state === 'expanded' && (
             <div className="flex flex-col">
-                <span className="text-sm font-semibold leading-tight">System</span>
-                <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                <span className="text-sm font-semibold leading-tight">Kyron</span>
             </div>
            )}
         </div>
@@ -552,8 +550,7 @@ function AppSidebarVentas() {
            <Logo />
             {state === 'expanded' && (
                 <div className="flex flex-col">
-                    <span className="text-sm font-semibold leading-tight">System</span>
-                    <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                    <span className="text-sm font-semibold leading-tight">Kyron</span>
                 </div>
             )}
         </div>
@@ -627,8 +624,7 @@ function AppSidebarSocios() {
            <Logo />
             {state === 'expanded' && (
                 <div className="flex flex-col">
-                    <span className="text-sm font-semibold leading-tight">System</span>
-                    <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                    <span className="text-sm font-semibold leading-tight">Kyron</span>
                 </div>
             )}
         </div>
@@ -702,8 +698,7 @@ function AppSidebarInformatica() {
             <Logo />
                 {state === 'expanded' && (
                     <div className="flex flex-col">
-                        <span className="text-sm font-semibold leading-tight">System</span>
-                        <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                        <span className="text-sm font-semibold leading-tight">Kyron</span>
                     </div>
                 )}
             </div>
@@ -777,8 +772,7 @@ function AppSidebarLegal() {
            <Logo />
             {state === 'expanded' && (
                 <div className="flex flex-col">
-                    <span className="text-sm font-semibold leading-tight">System</span>
-                    <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                    <span className="text-sm font-semibold leading-tight">Kyron</span>
                 </div>
             )}
         </div>
@@ -855,8 +849,7 @@ function AppSidebarMarketing() {
            <Logo />
             {state === 'expanded' && (
                 <div className="flex flex-col">
-                    <span className="text-sm font-semibold leading-tight">System</span>
-                    <span className="text-lg font-bold leading-tight -mt-1">C.M.S</span>
+                    <span className="text-sm font-semibold leading-tight">Kyron</span>
                 </div>
             )}
         </div>

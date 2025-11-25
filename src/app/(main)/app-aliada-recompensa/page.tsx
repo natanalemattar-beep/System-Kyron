@@ -32,7 +32,7 @@ export default function AppAliadaRecompensaPage() {
                 </div>
                 <h1 className="text-4xl font-bold tracking-tight">App Aliada: Puntos que Valen</h1>
                 <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-                    Recicla, gana y disfruta. Convierte tus acciones sostenibles en recompensas reales gracias a nuestra alianza con System C.M.S.
+                    Recicla, gana y disfruta. Convierte tus acciones sostenibles en recompensas reales gracias a nuestra alianza con Kyron.
                 </p>
             </header>
 
@@ -193,5 +193,3 @@ export default function AppAliadaRecompensaPage() {
         </div>
     );
 }
-
-    

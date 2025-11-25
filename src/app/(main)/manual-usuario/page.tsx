@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Logo } from "@/components/logo";
+import { formatDate } from "@/lib/utils";
 
 const juridicoFeatures = [
     "Legalización de Empresa: Guía paso a paso para constituir tu empresa.",
@@ -41,10 +42,10 @@ export default function ManualUsuarioPage() {
 
     const handleDownload = () => {
         const manualContent = `
-MANUAL DE USUARIO Y PROCEDIMIENTOS - SYSTEM C.M.S
+MANUAL DE USUARIO Y PROCEDIMIENTOS - Kyron
 ==================================================
 
-Bienvenido a System C.M.S, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.
+Bienvenido a Kyron, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.
 Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.
 
 --- PRIMEROS PASOS: REGISTRO E INICIO DE SESIÓN ---
@@ -86,7 +87,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
         const link = document.createElement("a");
         const url = URL.createObjectURL(blob);
         link.setAttribute("href", url);
-        link.setAttribute("download", "Manual_System_CMS.txt");
+        link.setAttribute("download", "Manual_Kyron.txt");
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
@@ -144,7 +145,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
             <Card className="bg-card/50 backdrop-blur-sm print:shadow-none print:border-none">
                 <CardHeader className="text-center">
                     <CardTitle className="text-3xl">Manual de Usuario y Procedimientos del Sistema</CardTitle>
-                    <CardDescription>Bienvenido a System C.M.S, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.</CardDescription>
+                    <CardDescription>Bienvenido a Kyron, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <p className="text-center">Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.</p>
@@ -250,11 +251,11 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
                 </Card>
                  <CardFooter className="mt-8 flex justify-between items-end p-6 border-t print:pt-12">
                     <div>
-                        <p className="font-semibold">System C.M.S, C.A.</p>
+                        <p className="font-semibold">Kyron, C.A.</p>
                         <p className="text-sm text-muted-foreground">RIF: J-12345678-9</p>
                     </div>
                     <div className="text-center">
-                        <Image src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://systemcms.com/manual" alt="QR Code para el manual" width={80} height={80} />
+                        <Image src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://kyron.com/manual" alt="QR Code para el manual" width={80} height={80} />
                         <p className="text-xs text-muted-foreground mt-1">Escanear para ver en línea</p>
                     </div>
                 </CardFooter>

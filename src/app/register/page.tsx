@@ -69,7 +69,7 @@ const accountTypes = [
     title: "Escritorio Jurídico",
     description: "Para el equipo legal y de cumplimiento normativo.",
     icon: Gavel,
-    href: "/register/juridico", // Legal team might register under the main company account
+    href: "/register/juridica", // Legal team might register under the main company account
   },
 ];
 
@@ -83,7 +83,7 @@ export default function RegisterPage() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
-            <span className="text-lg font-bold">System C.M.S</span>
+            <span className="text-lg font-bold">Kyron</span>
           </Link>
           <Button variant="ghost" asChild>
             <Link href="/login-natural">

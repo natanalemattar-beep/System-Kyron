@@ -156,7 +156,7 @@ export default function PlanesPreciosPage() {
                             <TableCell className="text-center text-red-500">{formatCurrency(totalCostosTradicionales.large, 'USD')}</TableCell>
                         </TableRow>
                         <TableRow className="bg-primary/10 font-bold text-primary">
-                            <TableCell>Costo Mensual con System C.M.S.</TableCell>
+                            <TableCell>Costo Mensual con Kyron</TableCell>
                             <TableCell className="text-center">{formatCurrency(37.5, 'USD')}</TableCell>
                             <TableCell className="text-center">{formatCurrency(100, 'USD')}</TableCell>
                             <TableCell className="text-center">Personalizado</TableCell>

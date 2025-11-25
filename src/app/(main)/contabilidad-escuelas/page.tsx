@@ -46,7 +46,7 @@ export default function ContabilidadEscuelasPage() {
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Contabilidad para Instituciones Educativas</h1>
         <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Cómo adaptar System C.M.S. para la gestión financiera integral de colegios, liceos y universidades.
+          Cómo adaptar Kyron para la gestión financiera integral de colegios, liceos y universidades.
         </p>
       </header>
 
@@ -120,7 +120,7 @@ export default function ContabilidadEscuelasPage() {
         <CardHeader>
             <CardTitle>¿Listo para Modernizar la Gestión de tu Institución?</CardTitle>
             <CardDescription>
-                Descubre cómo System C.M.S. puede aportar transparencia, eficiencia y cumplimiento a tu institución educativa.
+                Descubre cómo Kyron puede aportar transparencia, eficiencia y cumplimiento a tu institución educativa.
             </CardDescription>
         </CardHeader>
         <CardFooter>

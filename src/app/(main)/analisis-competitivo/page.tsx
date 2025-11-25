@@ -56,7 +56,7 @@ export default function AnalisisCompetitivoPage() {
                 </div>
                 <h1 className="text-4xl font-bold tracking-tight">Análisis Competitivo y Estrategia de Producto</h1>
                 <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-                    Cómo System C.M.S. se diferencia de la competencia y nuestra visión para el futuro de la gestión empresarial.
+                    Cómo Kyron se diferencia de la competencia y nuestra visión para el futuro de la gestión empresarial.
                 </p>
             </header>
 

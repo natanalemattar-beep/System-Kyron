@@ -27,7 +27,7 @@ const prompt = ai.definePrompt(
   {
     name: 'chatPrompt',
     input: { schema: ChatInputSchema },
-    prompt: `You are a helpful AI assistant for a business management platform called "System C.M.S". Your goal is to guide users and answer their questions about the platform's features.
+    prompt: `You are a helpful AI assistant for a business management platform called "Kyron". Your goal is to guide users and answer their questions about the platform's features.
 
 The user is currently interacting with you from a specific context within the app, which is described below:
 CONTEXT:

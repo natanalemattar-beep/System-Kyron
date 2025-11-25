@@ -94,7 +94,7 @@ export default function LegalizacionEmpresaPage() {
                     </p>
 
                     <h4>CLÁUSULA PRIMERA: DENOMINACIÓN</h4>
-                    <p>La compañía se denominará <strong>SYSTEM C.M.S, C.A.</strong></p>
+                    <p>La compañía se denominará <strong>Kyron, C.A.</strong></p>
 
                     <h4>CLÁUSULA SEGUNDA: DOMICILIO</h4>
                     <p>El domicilio de la compañía estará en la ciudad de Caracas, pudiendo establecer sucursales o agencias en cualquier otro lugar del territorio nacional o en el extranjero.</p>

@@ -132,7 +132,7 @@ export default function EncuestaPage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
-                            <Label>En una escala del 1 al 10, ¿qué tan probable es que recomiendes System C.M.S. a un colega?</Label>
+                            <Label>En una escala del 1 al 10, ¿qué tan probable es que recomiendes Kyron a un colega?</Label>
                             <Slider defaultValue={[8]} max={10} step={1} />
                         </div>
                         <div className="space-y-2">

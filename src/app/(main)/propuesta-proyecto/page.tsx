@@ -25,13 +25,13 @@ PROPUESTA DE PROYECTO: INNOVACIÓN SOSTENIBLE Y EFICIENCIA ADMINISTRATIVA
 
 Fecha: ${formatDate(new Date())}
 Para: [Nombre del Destinatario / Empresa Cliente]
-De: System C.M.S, C.A.
+De: Kyron, C.A.
 
 ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN DE RESIDUOS Y AUTOMATIZACIÓN EMPRESARIAL
 
 Estimados señores de [Nombre de la Empresa Cliente],
 
-Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En System C.M.S, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.
+Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.
 
 1. ENTENDIMIENTO DEL PROBLEMA
 Reconocemos dos grandes desafíos en el entorno actual:
@@ -43,7 +43,7 @@ Nuestro proyecto se basa en dos pilares fundamentales que funcionan de manera si
 a) Papelera Inteligente para Reciclaje: Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen. Esta tecnología no solo mejora la calidad de los materiales recuperados, sino que también genera datos valiosos para optimizar las rutas de recolección y fomentar una economía circular.
 b) Software de Automatización Contable y Administrativa: Una plataforma en la nube que automatiza el 100% de los procesos de su empresa: facturación homologada por el SENIAT, gestión de inventario, cuentas por cobrar/pagar, conciliación bancaria y generación de reportes fiscales. Este sistema es el mismo que utilizamos internamente para gestionar la venta y el soporte de nuestras papeleras, demostrando su robustez y fiabilidad.
 c) Ecosistema de Productos y Servicios: Además del hardware y software, ofrecemos una línea completa de productos fiscales (desde factureros manuales hasta impresoras fiscales), una plataforma de e-commerce y un sistema de financiamiento para facilitar la adquisición de nuestras soluciones en Venezuela y otros países.
-d) Fundación C.M.S.: Nuestra fundación se encarga de la logística de recolección del plástico y de gestionar alianzas con empresas para convertir los residuos en valor, cerrando el ciclo de la economía circular.
+d) Fundación Kyron: Nuestra fundación se encarga de la logística de recolección del plástico y de gestionar alianzas con empresas para convertir los residuos en valor, cerrando el ciclo de la economía circular.
 
 3. BENEFICIOS CLAVE
 - Sostenibilidad y Responsabilidad Social: Mejora radicalmente la gestión de residuos y posiciona a su organización como líder en sostenibilidad.
@@ -57,12 +57,12 @@ Nos encantaría tener la oportunidad de presentarles una demostración en vivo d
 Agradecemos de antemano su tiempo y consideración.
 
 Atentamente,
-El Equipo de System C.M.S, C.A.
+El Equipo de Kyron, C.A.
             `;
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = 'Propuesta_Proyecto_SystemCMS.txt';
+            link.download = 'Propuesta_Proyecto_Kyron.txt';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -98,7 +98,7 @@ El Equipo de System C.M.S, C.A.
         <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
             <p><strong>Fecha:</strong> {formatDate(new Date())}</p>
             <p><strong>Para:</strong> [Nombre del Destinatario / Empresa Cliente]</p>
-            <p><strong>De:</strong> System C.M.S, C.A.</p>
+            <p><strong>De:</strong> Kyron, C.A.</p>
             
             <Separator className="my-6" />
 
@@ -108,7 +108,7 @@ El Equipo de System C.M.S, C.A.
                 Estimados señores de [Nombre de la Empresa Cliente],
             </p>
             <p>
-                Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En System C.M.S, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.
+                Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.
             </p>
 
             <h4>1. ENTENDIMIENTO DEL PROBLEMA</h4>
@@ -134,7 +134,7 @@ El Equipo de System C.M.S, C.A.
                 <strong>c) Ecosistema de Productos y Servicios:</strong> Además del hardware y software, ofrecemos una línea completa de productos fiscales (desde factureros manuales hasta impresoras fiscales), una plataforma de e-commerce, y un sistema de financiamiento para facilitar la adquisición de nuestras soluciones en Venezuela y otros países.
             </p>
              <p>
-                <strong>d) Fundación C.M.S.:</strong> Nuestra fundación se encarga de la logística de recolección del plástico y de gestionar alianzas con empresas para convertir los residuos en valor, cerrando el ciclo de la economía circular.
+                <strong>d) Fundación Kyron:</strong> Nuestra fundación se encarga de la logística de recolección del plástico y de gestionar alianzas con empresas para convertir los residuos en valor, cerrando el ciclo de la economía circular.
             </p>
 
             <h4>3. BENEFICIOS CLAVE</h4>
@@ -155,7 +155,7 @@ El Equipo de System C.M.S, C.A.
 
             <div className="pt-24 text-center">
                 <p className="border-t-2 border-foreground inline-block px-12 pt-2">Atentamente,</p>
-                <p className="font-semibold mt-2">El Equipo de System C.M.S, C.A.</p>
+                <p className="font-semibold mt-2">El Equipo de Kyron, C.A.</p>
             </div>
 
         </CardContent>

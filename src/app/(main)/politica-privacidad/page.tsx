@@ -21,7 +21,7 @@ export default function PoliticaPrivacidadPage() {
         <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
             <h4>1. Introducción</h4>
             <p>
-                Bienvenido a System C.M.S, C.A. ("nosotros", "nuestro"). Nos comprometemos a proteger su privacidad. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y salvaguardamos su información cuando utiliza nuestra plataforma.
+                Bienvenido a Kyron, C.A. ("nosotros", "nuestro"). Nos comprometemos a proteger su privacidad. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y salvaguardamos su información cuando utiliza nuestra plataforma.
             </p>
 
             <h4>2. Información que Recopilamos</h4>
@@ -69,7 +69,7 @@ export default function PoliticaPrivacidadPage() {
 
             <h4>7. Contacto</h4>
             <p>
-                Si tiene preguntas o comentarios sobre esta Política de Privacidad, por favor contáctenos en: <a href="mailto:privacidad@systemcms.com">privacidad@systemcms.com</a>.
+                Si tiene preguntas o comentarios sobre esta Política de Privacidad, por favor contáctenos en: <a href="mailto:privacidad@kyron.com">privacidad@kyron.com</a>.
             </p>
         </CardContent>
       </Card>

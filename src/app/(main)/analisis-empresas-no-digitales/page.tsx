@@ -65,7 +65,7 @@ export default function AnalisisEmpresasNoDigitalesPage() {
                 </div>
                 <h1 className="text-4xl font-bold tracking-tight">Análisis de Empresas No Digitalizadas</h1>
                 <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-                    Diagnóstico de los riesgos y costos ocultos de operar con métodos tradicionales y cómo System C.M.S. ofrece la solución.
+                    Diagnóstico de los riesgos y costos ocultos de operar con métodos tradicionales y cómo Kyron ofrece la solución.
                 </p>
             </header>
 
@@ -111,7 +111,7 @@ export default function AnalisisEmpresasNoDigitalesPage() {
 
             <Card className="bg-gradient-to-r from-primary/80 to-cyan-500/80 text-primary-foreground">
                 <CardHeader>
-                    <CardTitle>La Solución: System C.M.S.</CardTitle>
+                    <CardTitle>La Solución: Kyron</CardTitle>
                     <CardDescription className="text-primary-foreground/80">Un ecosistema integrado que reemplaza el caos manual con orden y automatización.</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -120,7 +120,7 @@ export default function AnalisisEmpresasNoDigitalesPage() {
                             <TableRow className="border-b-white/20">
                                 <TableHead className="w-1/4 text-white">Aspecto</TableHead>
                                 <TableHead className="w-2/5 text-white">Antes (Sin Sistema)</TableHead>
-                                <TableHead className="w-2/5 text-white">Después (Con System C.M.S.)</TableHead>
+                                <TableHead className="w-2/5 text-white">Después (Con Kyron)</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
