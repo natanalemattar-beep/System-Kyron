@@ -73,6 +73,14 @@ const initialPermisos = [
     { id: "PERM-PRO-002", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario", "Inscripción en el INPRECONTAD"], requisitosRenovacion: ["Solvencia anual del colegio y del INPRECONTAD"] },
     { id: "PERM-PRO-003", tipo: "Inscripción en INPREABOGADO", emisor: "Colegios Profesionales", fechaEmision: "2018-05-30", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de abogado registrado", "Inscripción en el Colegio de Abogados respectivo"], requisitosRenovacion: ["Pago de cuotas de sostenimiento"] },
 
+    // --- SAPI ---
+    { id: "PERM-SAPI-001", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente", requisitosInscripcion: ["Búsqueda fonética y gráfica de antecedentes", "Diseño del logo en formato JPG/PNG", "Pago de tasas"], requisitosRenovacion: ["Pago de tasa de renovación cada 10 años"] },
+    { id: "PERM-SAPI-INV-001", tipo: "Examen de Solicitud de Patente de Invención", emisor: "SAPI", fechaEmision: "2023-05-20", fechaVencimiento: "2024-11-20", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud (FP-01)", "Memoria descriptiva del invento", "Reivindicaciones", "Dibujos técnicos", "Resumen", "Comprobante de pago de la tasa"], requisitosRenovacion: ["Pago de anualidades para mantener la patente vigente"] },
+    { id: "PERM-SAPI-MOD-001", tipo: "Patente de Modelo de Utilidad", emisor: "SAPI", fechaEmision: "2023-08-15", fechaVencimiento: "2033-08-15", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud", "Descripción del modelo", "Dibujos del modelo", "Comprobante de pago"], requisitosRenovacion: ["Pago de anualidades"] },
+    { id: "PERM-SAPI-DIS-001", tipo: "Patente de Diseño Industrial", emisor: "SAPI", fechaEmision: "2024-02-10", fechaVencimiento: "2034-02-10", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud", "Reproducciones gráficas o fotográficas del diseño", "Descripción", "Comprobante de pago"], requisitosRenovacion: ["Pago de anualidades"] },
+    { id: "PERM-SAPI-DA-001", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "2023-03-05", fechaVencimiento: "Vitalicio", estado: "Vigente", requisitosInscripcion: ["Ejemplar de la obra a registrar", "Formulario de solicitud", "Comprobante de pago de tasas"], requisitosRenovacion: [] },
+
+
     // --- Entes Nacionales y Registros Obligatorios ---
     { id: "PERM-NAC-001", tipo: "Inscripción Patronal en el IVSS", emisor: "IVSS", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Formulario 14-01", "RIF de la empresa", "Cédula del representante legal"], requisitosRenovacion: [] },
     { id: "PERM-NAC-002", tipo: "Inscripción en BANAVIH (FAOV)", emisor: "BANAVIH", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Registro en el sistema FAOV en Línea", "RIF", "Carga de la nómina de trabajadores"], requisitosRenovacion: [] },
@@ -82,8 +90,6 @@ const initialPermisos = [
     { id: "PERM-NAC-006", tipo: "Inscripción en el RESQUIMC", emisor: "ONA", fechaEmision: "2024-05-15", fechaVencimiento: "2025-05-15", estado: "Vigente", requisitosInscripcion: ["Listado de sustancias químicas controladas a utilizar", "Plan de manejo y seguridad"], requisitosRenovacion: ["Declaración de uso y existencias"] },
     { id: "PERM-NAC-007", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "Min. Comunas", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer", requisitosInscripcion: ["Acta constitutiva de la EPS", "Proyecto socio-productivo"], requisitosRenovacion: ["Informe de gestión y reinversión social"] },
     { id: "PERM-NAC-008", tipo: "Inscripción en el RUPDAE", emisor: "SUNDDE", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitosInscripcion: ["Estructura de costos de los productos", "RIF"], requisitosRenovacion: ["Actualización de estructuras de costos"] },
-    { id: "PERM-NAC-009", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente", requisitosInscripcion: ["Búsqueda fonética y gráfica de antecedentes", "Diseño del logo en formato JPG", "Pago de tasas"], requisitosRenovacion: ["Pago de tasa de renovación cada 10 años"] },
-    { id: "PERM-NAC-010", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "2023-03-05", fechaVencimiento: "Vitalicio", estado: "Vigente", requisitosInscripcion: ["Ejemplar de la obra a registrar", "Formulario de solicitud"], requisitosRenovacion: [] },
     { id: "PERM-NAC-011", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "2024-07-25", fechaVencimiento: "N/A", estado: "Vigente", requisitosInscripcion: ["Factura Comercial", "Documento de Transporte (BL/AWB)", "Licencia de Importación (si aplica)", "Certificado de Origen"], requisitosRenovacion: [] },
     { id: "PERM-NAC-012", tipo: "Inscripción Militar Obligatoria (Empresa)", emisor: "Min. Defensa", fechaEmision: "2020-01-15", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["RIF", "Nómina de trabajadores en edad militar"], requisitosRenovacion: ["Actualización anual de la nómina"] },
     { id: "PERM-NAC-013", tipo: "Inscripción y Aporte a FONACIT", emisor: "FONACIT", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitosInscripcion: ["Declaración de Ingresos Brutos del ejercicio anterior", "Pago del aporte correspondiente"], requisitosRenovacion: ["Nueva declaración y pago anual"] },
@@ -131,27 +137,45 @@ Asunto: Solicitud de Permiso - ${permiso.tipo}
 Por medio de la presente, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes con el debido respeto para solicitar formalmente la tramitación y otorgamiento del permiso de "${permiso.tipo}".
 `;
 
-    if (permiso.id === 'PERM-NAC-009') { // Registro de Marca
-        return baseContent + `
+    let recaudosContent = '';
+    switch (permiso.id) {
+        case 'PERM-SAPI-001': // Registro de Marca
+            recaudosContent = `
 Adjunto a la presente, consignamos los siguientes recaudos:
 - Resultados de la búsqueda de antecedentes fonéticos.
 - Resultados de la búsqueda de antecedentes gráficos.
 - Diseño del logo propuesto en formato digital (JPG/PNG).
 - Comprobante de pago de las tasas correspondientes.
-
-Agradeciendo de antemano su atención, quedamos a su disposición.
-
-Atentamente,
-
-_________________________
-[Nombre del Representante Legal]
-C.I: [C.I. del Representante]
 `;
+            break;
+        case 'PERM-SAPI-INV-001': // Patente de Invención
+            recaudosContent = `
+Adjunto a la presente, consignamos los siguientes recaudos técnicos y administrativos:
+- Formulario de solicitud (FP-01) debidamente cumplimentado.
+- Memoria descriptiva detallada del invento.
+- Pliego de reivindicaciones que define el alcance de la protección solicitada.
+- Dibujos técnicos, si son necesarios para la comprensión del invento.
+- Resumen de la invención.
+- Comprobante de pago de la tasa de presentación.
+`;
+            break;
+         case 'PERM-SAPI-DA-001': // Derecho de Autor
+            recaudosContent = `
+Adjunto a la presente, consignamos los siguientes recaudos para el registro de la obra:
+- Un (1) ejemplar de la obra a registrar.
+- Formulario de solicitud de registro debidamente llenado.
+- Comprobante de pago de las tasas administrativas correspondientes.
+`;
+            break;
+        default:
+            recaudosContent = `
+Adjuntamos todos los recaudos necesarios para procesar dicha solicitud.
+`;
+            break;
     }
 
-    return baseContent + `
-Adjuntamos todos los recaudos necesarios para procesar dicha solicitud.
 
+    return baseContent + recaudosContent + `
 Sin otro particular al que hacer referencia,
 
 Atentamente,
@@ -178,6 +202,14 @@ export default function PermisosPage() {
   const handleRenew = (permisoId: string) => {
     setPermisos(permisos.map(p => {
         if (p.id === permisoId) {
+            if (!p.fechaVencimiento || ["N/A", "Indefinido", "Vitalicio"].includes(p.fechaVencimiento)) {
+                 toast({
+                    title: "No requiere renovación",
+                    description: `El permiso ${p.id} no tiene una fecha de vencimiento definida.`,
+                });
+                return p;
+            }
+            
             const currentVencimiento = new Date(p.fechaVencimiento);
             const newVencimiento = new Date(currentVencimiento.setFullYear(currentVencimiento.getFullYear() + 1));
             
@@ -537,4 +569,3 @@ C.I: [C.I. del Representante]
     </div>
   );
 }
-
