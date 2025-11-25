@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info, DollarSign, Mail, MessageSquare, Send } from "lucide-react";
+import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info, DollarSign, Mail, MessageSquare, Send, Gavel, Stamp, FileEdit, BookOpen, Link as LinkIcon, Newspaper, UserCog, Calendar, AlertTriangle } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -16,7 +16,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
 import {
-    AlertTriangle,
     Clock,
     Route,
 } from "lucide-react";
@@ -79,6 +78,17 @@ const initialPermisos = [
     { id: "PERM-SAPI-MOD-001", tipo: "Patente de Modelo de Utilidad", emisor: "SAPI", fechaEmision: "2023-08-15", fechaVencimiento: "2033-08-15", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud", "Descripción del modelo", "Dibujos del modelo", "Comprobante de pago"], requisitosRenovacion: ["Pago de anualidades"] },
     { id: "PERM-SAPI-DIS-001", tipo: "Patente de Diseño Industrial", emisor: "SAPI", fechaEmision: "2024-02-10", fechaVencimiento: "2034-02-10", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud", "Reproducciones gráficas o fotográficas del diseño", "Descripción", "Comprobante de pago"], requisitosRenovacion: ["Pago de anualidades"] },
     { id: "PERM-SAPI-DA-001", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "2023-03-05", fechaVencimiento: "Vitalicio", estado: "Vigente", requisitosInscripcion: ["Ejemplar de la obra a registrar", "Formulario de solicitud", "Comprobante de pago de tasas"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-002", tipo: "Solicitud de Resguardo Temporal de la Invención", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Formulario de solicitud", "Descripción de la invención", "Comprobante de pago"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-003", tipo: "Habilitación de Respuesta de Oposiciones", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito de contestación a la oposición", "Pruebas que sustenten la contestación", "Pago de la tasa correspondiente"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-004", tipo: "Habilitación de Renovaciones y Cambios", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Solicitud de renovación/cambio", "Documento de registro original", "Pago de tasas"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-005", tipo: "Consulta de Expedientes", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de expediente", "Identificación del solicitante", "Pago de tasa de consulta"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-006", tipo: "Actualización de Agentes de Propiedad Industrial", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Planilla de actualización de datos", "Documentos que soporten los cambios"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-007", tipo: "Solicitud de Estado Administrativo Actualizado", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Identificación del expediente", "Pago de tasa"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-008", tipo: "Contestación a Devolución de Forma", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito de subsanación", "Documentos corregidos"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-009", tipo: "Recurso de Reconsideración", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito del recurso", "Argumentos y pruebas", "Pago de tasa"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-010", tipo: "Certificado de Registro de Marca", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de registro de la marca", "Pago de tasa de certificación"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-011", tipo: "Pago de Derechos de Registro", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de solicitud o registro", "Monto a pagar según tarifa", "Comprobante de pago"], requisitosRenovacion: [] },
+    { id: "PERM-SAPI-012", tipo: "Publicación en Prensa Digital SAPI", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Extracto de la marca o patente", "Pago de la tarifa de publicación"], requisitosRenovacion: [] },
 
 
     // --- Entes Nacionales y Registros Obligatorios ---
@@ -101,6 +111,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
   "Por Vencer": "secondary",
   Vencido: "destructive",
   "En Renovación": "outline",
+  "Nuevo": "outline",
 };
 
 const formatDate = (dateString: string) => {
@@ -346,7 +357,7 @@ C.I: [C.I. del Representante]
         </CardHeader>
         <CardContent>
             <Accordion type="single" collapsible className="w-full">
-              {Object.entries(groupedPermisos).map(([emisor, listaPermisos]) => (
+              {Object.entries(groupedPermisos).sort(([a], [b]) => a.localeCompare(b)).map(([emisor, listaPermisos]) => (
                 <AccordionItem value={emisor} key={emisor}>
                   <AccordionTrigger>
                     <div className="flex justify-between w-full pr-4">
@@ -355,6 +366,41 @@ C.I: [C.I. del Representante]
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
+                     {emisor === 'SAPI' && (
+                        <div className="border-l-4 border-blue-500 pl-4 py-4 my-4 bg-blue-500/5">
+                           <h3 className="font-semibold mb-2">Guías y Recursos del SAPI</h3>
+                           <Accordion type="single" collapsible className="w-full">
+                               <AccordionItem value="paso-a-paso-marca">
+                                   <AccordionTrigger>Paso a Paso para Solicitar el Registro de una Marca</AccordionTrigger>
+                                   <AccordionContent className="text-muted-foreground">
+                                       <ol className="list-decimal list-inside space-y-2 text-sm">
+                                           <li>Búsqueda de Antecedentes: Verificar en la base de datos del SAPI que la marca no esté ya registrada.</li>
+                                           <li>Clasificación de NIZA: Determinar la clase (o clases) a la que pertenecen los productos o servicios.</li>
+                                           <li>Pago de Tasas: Realizar el pago de la tasa inicial de solicitud.</li>
+                                           <li>Llenado de Planilla: Completar la planilla de solicitud con todos los datos del solicitante y la marca.</li>
+                                           <li>Consignación de Recaudos: Presentar la solicitud junto con el logo (si aplica), timbres fiscales y comprobante de pago.</li>
+                                           <li>Publicación en Boletín: Una vez admitida, la solicitud se publica en el Boletín de la Propiedad Industrial.</li>
+                                           <li>Periodo de Oposición: Se abre un lapso para que terceros puedan oponerse al registro.</li>
+                                           <li>Examen de Fondo y Concesión: Si no hay oposiciones, el SAPI realiza un examen final y, si procede, concede el registro.</li>
+                                       </ol>
+                                   </AccordionContent>
+                               </AccordionItem>
+                               <AccordionItem value="clasificador-niza">
+                                   <AccordionTrigger>Clasificador Internacional NIZA</AccordionTrigger>
+                                   <AccordionContent className="text-muted-foreground">
+                                       <p className="text-sm">El Clasificador de Niza es un sistema internacional para clasificar productos y servicios para el registro de marcas. Consta de 45 clases (34 para productos y 11 para servicios). Es crucial seleccionar la clase correcta para asegurar la protección adecuada de tu marca. Nuestro sistema puede autocompletar la planilla basándose en la descripción de tu negocio.</p>
+                                   </AccordionContent>
+                               </AccordionItem>
+                               <AccordionItem value="tarifas-cuentas">
+                                   <AccordionTrigger>Tarifas y Cuentas Bancarias</AccordionTrigger>
+                                   <AccordionContent className="text-muted-foreground">
+                                       <p className="text-sm">Las tarifas del SAPI varían según el trámite y se actualizan periódicamente. Deben ser pagadas en Petro (PTR) o su equivalente en Bolívares. Los pagos se realizan en las cuentas bancarias designadas por el SAPI.</p>
+                                       {/* A button to a modal with bank details could go here */}
+                                   </AccordionContent>
+                               </AccordionItem>
+                           </Accordion>
+                        </div>
+                     )}
                     <Table>
                         <TableHeader>
                             <TableRow>
@@ -473,7 +519,7 @@ C.I: [C.I. del Representante]
                                                                 }
                                                             </div>
                                                             <CardFooter className="p-0 pt-2">
-                                                               <p className="text-xs text-muted-foreground flex items-center gap-2"><Info className="h-4 w-4"/>Los documentos se archivarán de forma segura por 10 años.</p>
+                                                               <p className="text-xs text-muted-foreground flex items-center gap-2"><Info className="h-4 w-4 shrink-0"/>Los documentos se archivarán de forma segura por 10 años.</p>
                                                             </CardFooter>
                                                         </div>
                                                     </TabsContent>
