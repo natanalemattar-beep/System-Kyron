@@ -196,8 +196,14 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
         {/* Header */}
-        <header className="fixed top-4 inset-x-0 z-50 max-w-7xl mx-auto animate-in fade-in slide-in-from-top-8 duration-1000">
-          <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300 rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg">
+      <header className={cn(
+            "sticky top-0 z-50 w-full transition-all duration-300",
+            isScrolled ? "py-2" : "py-4"
+        )}>
+            <div className={cn(
+                "container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
+                isScrolled && "rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
+            )}>
                 <Link href="/" className="flex items-center gap-3">
                     <Logo />
                     <span className="text-lg font-bold">Kyron</span>
