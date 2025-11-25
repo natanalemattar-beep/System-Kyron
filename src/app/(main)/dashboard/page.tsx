@@ -1,13 +1,9 @@
 
 "use client";
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, FileText, Gavel, Heart, Shield, Upload } from 'lucide-react';
-import { useState } from 'react';
-import { FileInputTrigger } from '@/components/file-input-trigger';
-import { useToast } from '@/hooks/use-toast';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { FileText, Gavel, Heart, Shield, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 const actions = [
@@ -38,33 +34,21 @@ const actions = [
 ];
 
 export default function DashboardPersonalPage() {
-    const [file, setFile] = useState<File | null>(null);
-    const { toast } = useToast();
-
-    const handleFileSelect = (selectedFile: File) => {
-        setFile(selectedFile);
-        toast({
-            title: "Archivo Seleccionado",
-            description: `CV "${selectedFile.name}" listo para ser procesado.`,
-        });
-    };
-
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Dashboard Personal</h1>
-        <Badge variant="secondary" className="text-green-400 border-green-500/50 bg-green-500/10">
-          <CheckCircle className="w-4 h-4 mr-2" />
-          Cuenta Verificada
-        </Badge>
-      </div>
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard de Trámites Personales</h1>
+        <p className="text-muted-foreground mt-2">
+            Gestiona tus documentos y solicitudes desde un solo lugar.
+        </p>
+      </header>
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {actions.map((action, index) => (
           <Card key={index} className="flex flex-col hover:shadow-lg transition-shadow duration-300 bg-card/80 backdrop-blur-sm">
             <CardHeader>
               <div className="flex items-start gap-4">
-                <div className={'p-3 rounded-lg bg-secondary'}>
+                <div className={'p-3 rounded-lg bg-primary/10'}>
                   <action.icon className={'h-6 w-6 text-primary'} />
                 </div>
                 <div>
@@ -75,11 +59,11 @@ export default function DashboardPersonalPage() {
             <CardContent className="flex-grow">
                  <p className="text-muted-foreground text-sm">{action.description}</p>
             </CardContent>
-            <CardContent>
+            <CardFooter>
                 <Button asChild className="w-full">
-                  <Link href={action.href}>Acceder al Módulo</Link>
+                  <Link href={action.href}>Acceder al Módulo <ArrowRight className="ml-2 h-4 w-4"/></Link>
                 </Button>
-            </CardContent>
+            </CardFooter>
           </Card>
         ))}
       </div>
