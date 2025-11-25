@@ -19,6 +19,13 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./
 
 const AppSidebarCorporate = () => {
     const pathname = usePathname();
+
+    const isLegalPath = pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/departamento-juridico') || pathname.startsWith('/login-juridico');
+
+    const userProfile = isLegalPath
+      ? { name: "Equipo Legal", email: "legal@tramitex.com", fallback: "L" }
+      : { name: "Admin", email: "admin@tramitex.com", fallback: "A" };
+
     return (
         <Sidebar>
             <SidebarHeader>
@@ -65,11 +72,11 @@ const AppSidebarCorporate = () => {
                     <DropdownMenuTrigger asChild>
                         <div className="flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary">
                             <Avatar className="h-9 w-9">
-                                <AvatarFallback>A</AvatarFallback>
+                                <AvatarFallback>{userProfile.fallback}</AvatarFallback>
                             </Avatar>
                             <div className="flex-1 overflow-hidden">
-                                <p className="text-sm font-semibold truncate">Admin</p>
-                                <p className="text-xs text-muted-foreground truncate">admin@tramitex.com</p>
+                                <p className="text-sm font-semibold truncate">{userProfile.name}</p>
+                                <p className="text-xs text-muted-foreground truncate">{userProfile.email}</p>
                             </div>
                         </div>
                     </DropdownMenuTrigger>
@@ -146,15 +153,13 @@ const AppSidebarNatural = () => {
     );
 };
 
-export const AppSidebar = () => {
+export function AppSidebar() {
   const pathname = usePathname();
   
-  // No render sidebar on the main landing page
   if (pathname === '/') return null;
 
   const checkPathPrefix = (prefixes: string[]) => prefixes.some(prefix => pathname.startsWith(prefix));
 
-  // Define paths for the "Persona Natural" profile
   const naturalPaths = [
     '/login-natural', 
     '/register/natural', 
@@ -172,43 +177,9 @@ export const AppSidebar = () => {
     '/directorio-medico'
   ];
 
-  // Define paths for corporate/business profiles
-  const corporatePaths = [
-    // Auth for corporate
-    '/login-admin',
-    '/login-empresa',
-    '/login-juridico',
-    '/login-ventas',
-    '/login-rrhh',
-    '/login-socios',
-    '/login-marketing',
-    '/login-informatica',
-    '/register/juridica',
-    '/register/ventas',
-    '/register/rrhh',
-    '/register/socios',
-    '/register/marketing',
-    '/register/informatica',
-    '/register/personal',
-    // Dashboards & functional modules
-    '/dashboard-empresa',
-    '/analisis-ventas',
-    '/dashboard-rrhh',
-    '/escritorio-juridico',
-    '/dashboard-informatica',
-    '/dashboard-socios',
-    '/asesoria-publicidad',
-  ];
-
   if (checkPathPrefix(naturalPaths)) {
     return <AppSidebarNatural />;
   }
-
-  // Check if it's any of the corporate paths, or a sub-path of them.
-  // We check for corporate paths after natural paths.
-  if (checkPathPrefix(corporatePaths) || !checkPathPrefix(naturalPaths)) {
-      return <AppSidebarCorporate />;
-  }
-
-  return null;
+  
+  return <AppSidebarCorporate />;
 }
