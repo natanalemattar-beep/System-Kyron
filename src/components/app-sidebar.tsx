@@ -295,39 +295,6 @@ function AppSidebarJuridicoPrincipal() {
 
   return (
     <Sidebar variant="floating">
-      <SidebarContent className="p-2">
-          <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General']}>
-            {allJuridicoGroups.map((group) => (
-              <AccordionItem value={group.title} key={group.title} className="border-none">
-                <AccordionTrigger className="px-2 hover:no-underline text-muted-foreground font-medium text-sm hover:bg-accent rounded-md">
-                   <div className="flex items-center gap-2">
-                      <group.icon className="h-4 w-4" />
-                      {state === 'expanded' && <span>{group.title}</span>}
-                    </div>
-                </AccordionTrigger>
-                <AccordionContent className="pb-0">
-                   <SidebarMenu className="pl-4 border-l ml-4 py-2">
-                    {group.items.map((item) => (
-                      <SidebarMenuItem key={`${item.href}-${item.label}`}>
-                        <SidebarMenuButton
-                          asChild
-                          isActive={pathname.startsWith(item.href)}
-                          tooltip={item.label}
-                          className="justify-start h-8"
-                        >
-                          <Link href={item.href}>
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.label}</span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-        </Accordion>
-      </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
          <SidebarMenu>
@@ -376,33 +343,6 @@ function AppSidebarNatural() {
 
   return (
     <Sidebar variant="floating">
-       <SidebarContent className="p-2">
-         {naturalNavGroups.map((group) => (
-            <SidebarGroup key={group.title}>
-              <SidebarGroupLabel className="flex items-center gap-2">
-                <group.icon className="h-4 w-4" />
-                {group.title}
-              </SidebarGroupLabel>
-              <SidebarMenu>
-                {group.items.map((item) => (
-                  <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={isActive(item.href)}
-                      tooltip={item.label}
-                      className="justify-start h-9"
-                    >
-                      <Link href={item.href}>
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroup>
-          ))}
-      </SidebarContent>
       <SidebarFooter className="p-2">
         <Separator className="my-2" />
          <SidebarMenu>
@@ -446,7 +386,7 @@ function AppSidebarHr() {
 
   return (
     <Sidebar variant="floating">
-       <SidebarContent className="p-2">
+      <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Gestión de RR.HH.']}>
             {navGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
@@ -515,7 +455,7 @@ function AppSidebarVentas() {
 
   return (
     <Sidebar variant="floating">
-       <SidebarContent className="p-2">
+      <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Ventas y Caja']}>
             {navGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
@@ -579,7 +519,7 @@ function AppSidebarSocios() {
   
   return (
     <Sidebar variant="floating">
-       <SidebarContent className="p-2">
+      <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Socios y Holding']}>
             {sociosNavGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
@@ -707,7 +647,7 @@ function AppSidebarLegal() {
 
   return (
     <Sidebar variant="floating">
-       <SidebarContent className="p-2">
+      <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Departamento Jurídico']}>
             {legalNavGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
@@ -774,7 +714,7 @@ function AppSidebarMarketing() {
   ]
   return (
     <Sidebar variant="floating">
-       <SidebarContent className="p-2">
+      <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Marketing y Asesoría']}>
             {navGroups.map((group) => (
               <AccordionItem value={group.title} key={group.title} className="border-none">
