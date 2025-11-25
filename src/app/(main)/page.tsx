@@ -17,6 +17,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Input } from "@/components/ui/input";
 import { chat } from "@/ai/flows/chat";
 import { QuickAccess } from "@/components/dashboard/quick-access";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -181,6 +182,7 @@ function ChatDialog() {
 
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
@@ -195,11 +197,72 @@ export default function LandingPage() {
     
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
+     
+      <header className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          isScrolled ? "top-4" : "top-0"
+      )}>
+          <div className={cn(
+              "container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
+              isScrolled && "rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
+          )}>
+              <Link href="/" className="flex items-center gap-3">
+                  <Logo />
+                  <span className="text-xl font-bold">Kyron</span>
+              </Link>
+              <nav className="hidden md:flex gap-6">
+                  {navLinks.map((link) => (
+                  <SmoothScrollLink key={link.href} href={link.href} className="text-sm font-medium hover:text-primary transition-colors">
+                      {link.label}
+                  </SmoothScrollLink>
+                  ))}
+              </nav>
+              <div className="hidden md:flex items-center gap-2">
+                 <LanguageSwitcher/>
+                 <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline">
+                        Acceder
+                        <User className="ml-2 h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem asChild><Link href="/login-natural">Acceso Personal</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-empresa">Admin y Finanzas</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+                 <Button asChild>
+                    <Link href="/register">Registrarse</Link>
+                </Button>
+              </div>
+              <Sheet>
+                  <SheetTrigger asChild>
+                      <Button variant="ghost" size="icon" className="md:hidden">
+                          <Menu />
+                          <span className="sr-only">Abrir menú</span>
+                      </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left">
+                      <nav className="grid gap-6 text-lg font-medium mt-8">
+                          {navLinks.map((link) => (
+                              <SmoothScrollLink key={link.href} href={link.href}>{link.label}</SmoothScrollLink>
+                          ))}
+                      </nav>
+                  </SheetContent>
+              </Sheet>
+          </div>
+      </header>
 
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-20 pb-20 md:pt-32 md:pb-32">
+        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32">
             <div className="absolute -z-10 inset-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_10%,transparent_50%)] dark:bg-grid-slate-700/30"></div>
             <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
             
