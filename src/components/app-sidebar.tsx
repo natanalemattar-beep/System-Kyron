@@ -295,16 +295,6 @@ function AppSidebarJuridicoPrincipal() {
 
   return (
     <Sidebar variant="floating">
-      <SidebarHeader>
-        <div className="flex items-center gap-3 p-2 justify-center">
-          <Logo />
-           {state === 'expanded' && (
-            <div className="flex flex-col">
-              <span className="text-sm font-semibold leading-tight">Kyron</span>
-            </div>
-          )}
-        </div>
-      </SidebarHeader>
       <SidebarContent className="p-2">
           <Accordion type="multiple" className="w-full" defaultValue={['Jurídico y Corporativo', 'Finanzas y Contabilidad', 'Facturación General']}>
             {allJuridicoGroups.map((group) => (
@@ -386,16 +376,6 @@ function AppSidebarNatural() {
 
   return (
     <Sidebar variant="floating">
-      <SidebarHeader>
-        <div className="flex items-center gap-3 p-2 justify-center">
-           <Logo />
-           {state === 'expanded' && (
-            <div className="flex flex-col">
-                <span className="text-sm font-semibold leading-tight">Kyron</span>
-            </div>
-           )}
-        </div>
-      </SidebarHeader>
        <SidebarContent className="p-2">
          {naturalNavGroups.map((group) => (
             <SidebarGroup key={group.title}>
@@ -466,16 +446,6 @@ function AppSidebarHr() {
 
   return (
     <Sidebar variant="floating">
-      <SidebarHeader>
-        <div className="flex items-center gap-3 p-2 justify-center">
-           <Logo />
-           {state === 'expanded' && (
-            <div className="flex flex-col">
-                <span className="text-sm font-semibold leading-tight">Kyron</span>
-            </div>
-           )}
-        </div>
-      </SidebarHeader>
        <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Gestión de RR.HH.']}>
             {navGroups.map((group) => (
@@ -545,16 +515,6 @@ function AppSidebarVentas() {
 
   return (
     <Sidebar variant="floating">
-      <SidebarHeader>
-        <div className="flex items-center gap-3 p-2 justify-center">
-           <Logo />
-            {state === 'expanded' && (
-                <div className="flex flex-col">
-                    <span className="text-sm font-semibold leading-tight">Kyron</span>
-                </div>
-            )}
-        </div>
-      </SidebarHeader>
        <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Ventas y Caja']}>
             {navGroups.map((group) => (
@@ -619,16 +579,6 @@ function AppSidebarSocios() {
   
   return (
     <Sidebar variant="floating">
-      <SidebarHeader>
-        <div className="flex items-center gap-3 p-2 justify-center">
-           <Logo />
-            {state === 'expanded' && (
-                <div className="flex flex-col">
-                    <span className="text-sm font-semibold leading-tight">Kyron</span>
-                </div>
-            )}
-        </div>
-      </SidebarHeader>
        <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Socios y Holding']}>
             {sociosNavGroups.map((group) => (
@@ -693,16 +643,6 @@ function AppSidebarInformatica() {
     
     return (
         <Sidebar variant="floating">
-        <SidebarHeader>
-            <div className="flex items-center gap-3 p-2 justify-center">
-            <Logo />
-                {state === 'expanded' && (
-                    <div className="flex flex-col">
-                        <span className="text-sm font-semibold leading-tight">Kyron</span>
-                    </div>
-                )}
-            </div>
-        </SidebarHeader>
         <SidebarContent className="p-2">
             <Accordion type="multiple" className="w-full" defaultValue={['Dashboard','Seguridad', 'Soluciones IA', 'Arquitectura', 'Ingeniería y Proyectos']}>
                 {informaticaNavGroups.map((group) => (
@@ -767,16 +707,6 @@ function AppSidebarLegal() {
 
   return (
     <Sidebar variant="floating">
-      <SidebarHeader>
-        <div className="flex items-center gap-3 p-2 justify-center">
-           <Logo />
-            {state === 'expanded' && (
-                <div className="flex flex-col">
-                    <span className="text-sm font-semibold leading-tight">Kyron</span>
-                </div>
-            )}
-        </div>
-      </SidebarHeader>
        <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Departamento Jurídico']}>
             {legalNavGroups.map((group) => (
@@ -844,16 +774,6 @@ function AppSidebarMarketing() {
   ]
   return (
     <Sidebar variant="floating">
-      <SidebarHeader>
-        <div className="flex items-center gap-3 p-2 justify-center">
-           <Logo />
-            {state === 'expanded' && (
-                <div className="flex flex-col">
-                    <span className="text-sm font-semibold leading-tight">Kyron</span>
-                </div>
-            )}
-        </div>
-      </SidebarHeader>
        <SidebarContent className="p-2">
         <Accordion type="multiple" className="w-full" defaultValue={['Marketing y Asesoría']}>
             {navGroups.map((group) => (
