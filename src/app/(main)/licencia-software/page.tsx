@@ -12,8 +12,48 @@ export default function LicenciaSoftwarePage() {
     const handleAction = (action: string) => {
         toast({
             title: `Contrato ${action}`,
-            description: `El modelo de contrato de licencia ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado en formato PDF'}.`,
+            description: `El modelo de contrato de licencia ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado como archivo Word'}.`,
         });
+
+        if (action === 'descargado') {
+             const content = `
+CONTRATO DE LICENCIA DE USO DE SOFTWARE
+
+Entre KYRON, C.A., (en adelante “EL LICENCIANTE”), RIF J-XXXXXXX, domiciliada en Caracas, y por la otra parte, [NOMBRE DEL CLIENTE], (en adelante “EL LICENCIATARIO”), RIF [RIF DEL CLIENTE], domiciliada en [DOMICILIO DEL CLIENTE], se ha convenido en celebrar el presente Contrato de Licencia de Uso de Software, el cual se regirá por las siguientes cláusulas:
+
+CLÁUSULA PRIMERA: OBJETO DEL CONTRATO
+EL LICENCIANTE otorga a EL LICENCIATARIO una licencia no exclusiva, intransferible y revocable para utilizar el sistema informático denominado "Kyron" (en adelante, "EL SOFTWARE"), específicamente en sus módulos de Contabilidad, Nómina, y Seguros Jurídicos y Fianzas.
+
+CLÁUSULA SEGUNDA: ALCANCE Y DURACIÓN DE LA LICENCIA
+La presente licencia tendrá una duración de un (1) año, contado a partir de la fecha de firma de este contrato, renovable automáticamente por períodos iguales, salvo notificación por escrito de alguna de las partes con al menos treinta (30) días de antelación a la fecha de vencimiento. La licencia es válida para [NÚMERO] usuarios dentro de la organización de EL LICENCIATARIO.
+
+CLÁUSULA TERCERA: HONORARIOS Y FORMA DE PAGO
+EL LICENCIATARIO se compromete a pagar a EL LICENCIANTE la suma de [MONTO DEL PAGO] por el primer año de licencia. Los pagos subsecuentes por renovación se ajustarán de acuerdo a las tarifas vigentes de EL LICENCIANTE.
+
+CLÁUSULA CUARTA: SOPORTE Y MANTENIMIENTO
+EL LICENCIANTE proveerá a EL LICENCIATARIO soporte técnico y actualizaciones periódicas de EL SOFTWARE durante la vigencia de este contrato. El soporte se limitará a la corrección de errores y la asistencia en el uso de las funcionalidades existentes.
+
+CLÁUSULA QUINTA: PROPIEDAD INTELECTUAL
+EL LICENCIANTE declara ser el único y exclusivo titular de todos los derechos de propiedad intelectual sobre EL SOFTWARE. EL LICENCIATARIO se compromete a no copiar, modificar, descompilar, o realizar ingeniería inversa sobre EL SOFTWARE.
+
+CLÁUSULA SEXTA: CONFIDENCIALIDAD
+Ambas partes se comprometen a mantener estricta confidencialidad sobre la información técnica, comercial y financiera a la que tengan acceso en virtud del presente contrato. Esta obligación subsistirá aún después de finalizado el mismo.
+            `;
+            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+                "xmlns='http://www.w3.org/TR/REC-html40'>"+
+                "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
+            const footer = "</body></html>";
+            const sourceHTML = header + `<pre>${content}</pre>` + footer;
+            
+            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            const fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'Contrato_Licencia_Software.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
     };
 
   return (

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -60,18 +61,23 @@ Todo lo no previsto en este contrato se regirá por las disposiciones de la Ley 
 
     const handleDownload = () => {
         const content = getContractContent();
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8;' });
-        const link = document.createElement("a");
-        const url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", "Contrato_Trabajo.txt");
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+            "xmlns='http://www.w3.org/TR/REC-html40'>"+
+            "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + `<pre>${content}</pre>` + footer;
+        
+        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'Contrato_Trabajo.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
          toast({
             title: "Descarga Iniciada",
-            description: "El modelo de contrato se está descargando como un archivo de texto.",
+            description: "El modelo de contrato se está descargando como un archivo de Word.",
         });
     }
 
