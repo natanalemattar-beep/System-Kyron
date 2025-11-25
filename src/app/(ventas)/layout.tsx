@@ -10,13 +10,11 @@ export default function VentasLayout({ children }: { children: ReactNode }) {
 
   return (
     <SidebarProvider>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex min-h-screen">
         <AppSidebar />
         <SidebarInset>
             <main className="flex-1 p-4 md:p-8">
-                <div className="w-full">
-                    {children}
-                </div>
+                {children}
             </main>
         </SidebarInset>
         <Toaster />
