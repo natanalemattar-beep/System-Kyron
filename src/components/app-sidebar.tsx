@@ -148,21 +148,64 @@ const AppSidebarNatural = () => {
 export function AppSidebar() {
   const pathname = usePathname();
   
-  const isLandingPage = pathname === '/';
-  if (isLandingPage) return null;
+  // No render sidebar on the main landing page
+  if (pathname === '/') return null;
 
   const checkPathPrefix = (prefixes: string[]) => prefixes.some(prefix => pathname.startsWith(prefix));
 
-  const naturalPaths = ['/login-natural', '/register/natural', '/dashboard', '/tarjeta-digital', '/directorio-medico', '/partidas-nacimiento', '/actas-matrimonio', '/documentos-judiciales', '/antecedentes-penales', '/documentos', '/manutencion', '/registro-rif'];
-  
+  // Define paths for the "Persona Natural" profile
+  const naturalPaths = [
+    '/login-natural', 
+    '/register/natural', 
+    '/dashboard', 
+    '/tarjeta-digital', 
+    '/seguridad',
+    '/notificaciones',
+    '/documentos', 
+    '/partidas-nacimiento', 
+    '/actas-matrimonio', 
+    '/documentos-judiciales',
+    '/antecedentes-penales',
+    '/manutencion',
+    '/registro-rif',
+    '/directorio-medico'
+  ];
+
+  // Define paths for corporate/business profiles
+  const corporatePaths = [
+    // Auth for corporate
+    '/login-admin',
+    '/login-empresa',
+    '/login-juridico',
+    '/login-ventas',
+    '/login-rrhh',
+    '/login-socios',
+    '/login-marketing',
+    '/login-informatica',
+    '/register/juridica',
+    '/register/ventas',
+    '/register/rrhh',
+    '/register/socios',
+    '/register/marketing',
+    '/register/informatica',
+    '/register/personal',
+    // Dashboards & functional modules
+    '/dashboard-empresa',
+    '/analisis-ventas',
+    '/dashboard-rrhh',
+    '/escritorio-juridico',
+    '/dashboard-informatica',
+    '/dashboard-socios',
+    '/asesoria-publicidad',
+  ];
+
   if (checkPathPrefix(naturalPaths)) {
     return <AppSidebarNatural />;
   }
 
-  // All other corporate dashboards will use this sidebar
-  const isCorporatePath = !isLandingPage && !checkPathPrefix(naturalPaths);
-
-  if(isCorporatePath) {
+  // Check if it's any of the corporate paths, or a sub-path of them.
+  // We check for corporate paths after natural paths.
+  if (checkPathPrefix(corporatePaths) || !checkPathPrefix(naturalPaths)) {
       return <AppSidebarCorporate />;
   }
 

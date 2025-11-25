@@ -1,9 +1,7 @@
-
-
 "use client";
 
 import { useState } from "react";
-import { Building, Eye, EyeOff, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, User } from "lucide-react";
+import { Building, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
