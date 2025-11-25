@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon } from "lucide-react";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -249,10 +249,6 @@ export default function LandingPage() {
                       </Button>
                   </SheetTrigger>
                   <SheetContent side="left">
-                    <SheetHeader className="sr-only">
-                        <SheetTitle>Menu</SheetTitle>
-                        <SheetDescription>Main navigation links</SheetDescription>
-                    </SheetHeader>
                       <nav className="grid gap-6 text-lg font-medium mt-8">
                           {navLinks.map((link) => (
                               <SmoothScrollLink key={link.href} href={link.href}>{link.label}</SmoothScrollLink>
@@ -466,3 +462,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    

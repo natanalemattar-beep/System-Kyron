@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetClose } from "@/components/ui/sheet"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
@@ -199,10 +199,6 @@ const Sidebar = React.forwardRef<
             }
             side={side}
           >
-            <SheetHeader className="sr-only">
-              <SheetTitle>Navigation Menu</SheetTitle>
-              <SheetDescription>Main navigation for the application.</SheetDescription>
-            </SheetHeader>
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContent>
         </Sheet>
@@ -285,18 +281,24 @@ const SidebarInset = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"main">
 >(({ className, ...props }, ref) => {
-    const { state } = useSidebar();
-    return (
-        <main
-        ref={ref}
-        className={cn(
-            "relative flex min-h-svh flex-1 flex-col bg-transparent transition-all duration-300 ease-in-out md:ml-[var(--sidebar-width)]",
-            state === 'collapsed' && 'md:ml-[var(--sidebar-width-icon)]',
-            className
-        )}
-        {...props}
-        />
-    )
+  const { state, isMobile } = useSidebar();
+  
+  if (isMobile) {
+    return <main ref={ref} className={cn("relative flex min-h-svh flex-1 flex-col bg-transparent", className)} {...props} />
+  }
+
+  return (
+    <main
+      ref={ref}
+      className={cn(
+        "relative flex min-h-svh flex-1 flex-col bg-transparent transition-all duration-300 ease-in-out",
+        "md:ml-[var(--sidebar-width)]",
+        state === 'collapsed' && 'md:ml-[var(--sidebar-width-icon)]',
+        className
+      )}
+      {...props}
+    />
+  )
 })
 SidebarInset.displayName = "SidebarInset"
 
