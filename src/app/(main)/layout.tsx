@@ -13,7 +13,9 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
       <div className="flex min-h-screen bg-background">
         <AppSidebar />
         <SidebarInset>
-            {children}
+            <main className="flex-1 p-4 md:p-8">
+                {children}
+            </main>
         </SidebarInset>
         <Toaster />
       </div>

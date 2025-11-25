@@ -195,28 +195,42 @@ export const marketingMenuItems = [
 ];
 
 export const naturalMenuItems = {
-    principal: [
-        { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-        { href: "/tarjeta-digital", label: "Tarjeta Digital", icon: Contact },
-        { href: "/seguridad", label: "Seguridad", icon: Shield },
-        { href: "/notificaciones", label: "Notificaciones", icon: Bell },
-    ],
-    tramites: [
-        { href: "/documentos", label: "Mis Documentos", icon: File },
-        { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
-        { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
-        { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
-        { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
-    ],
-    salud: [
-        { href: "/directorio-medico", label: "Directorio Médico", icon: HeartPulse },
-    ],
-    crs: [
-        { href: "/manutencion", label: "Obligación de Manutención", icon: Gavel },
-    ],
-    parental: [
-        { href: "/registro-rif", label: "Registro RIF (Hijos)", icon: FileEdit },
-    ]
+    principal: {
+        title: "Principal",
+        icon: LayoutDashboard,
+        items: [
+            { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+            { href: "/tarjeta-digital", label: "Tarjeta Digital", icon: Contact },
+            { href: "/seguridad", label: "Seguridad", icon: Shield },
+            { href: "/notificaciones", label: "Notificaciones", icon: Bell },
+        ],
+    },
+    tramites: {
+        title: "Trámites Civiles",
+        icon: FileText,
+        items: [
+            { href: "/documentos", label: "Mis Documentos", icon: File },
+            { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
+            { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
+            { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
+            { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
+        ]
+    },
+    salud: {
+        title: "Salud",
+        icon: HeartPulse,
+        items: [
+            { href: "/directorio-medico", label: "Directorio Médico", icon: HeartPulse },
+        ]
+    },
+    lopnna: {
+        title: "Obligaciones (LOPNNA)",
+        icon: Gavel,
+        items: [
+            { href: "/manutencion", label: "Obligación de Manutención", icon: Gavel },
+            { href: "/registro-rif", label: "Registro RIF (Hijos)", icon: FileEdit, isNew: true },
+        ]
+    }
 };
 
 export const sociosNavGroups = [
