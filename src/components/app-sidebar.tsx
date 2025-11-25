@@ -196,16 +196,16 @@ export function AppSidebar() {
 
   const checkPathPrefix = (prefixes: string[]) => prefixes.some(prefix => pathname.startsWith(prefix));
 
-  const naturalPaths = ['/login-natural', '/dashboard', '/tarjeta-digital', '/directorio-medico', '/partidas-nacimiento', '/actas-matrimonio', '/documentos-judiciales', '/antecedentes-penales', '/documentos', '/manutencion', '/registro-rif'];
+  const naturalPaths = ['/login-natural', '/register/natural', '/dashboard', '/tarjeta-digital', '/directorio-medico', '/partidas-nacimiento', '/actas-matrimonio', '/documentos-judiciales', '/antecedentes-penales', '/documentos', '/manutencion', '/registro-rif'];
   
   if (checkPathPrefix(naturalPaths)) {
     return <AppSidebarNatural />;
   }
 
   // All other corporate dashboards will use this sidebar
-  const isCorporateDashboard = !isLandingPage && !checkPathPrefix(naturalPaths);
+  const isCorporatePath = !isLandingPage && !checkPathPrefix(naturalPaths);
 
-  if(isCorporateDashboard) {
+  if(isCorporatePath) {
       return <AppSidebarCorporate />;
   }
 
