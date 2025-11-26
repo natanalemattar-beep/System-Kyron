@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -228,7 +228,7 @@ export default function LandingPage() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem asChild><Link href="/login-natural">Acceso Personal</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-admin">Admin y Finanzas</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-fintech">FinTech y Banca Digital</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>

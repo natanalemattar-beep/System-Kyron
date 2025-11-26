@@ -179,6 +179,7 @@ const finanzasContabilidadMenuItems = [
   { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
   { href: "/software-contable", label: "Guía de Software Contable", icon: Puzzle },
   { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+  { href: "/fintech-banca", label: "Modelo FinTech y Banca", icon: Banknote },
 ];
 
 const facturacionGeneralMenuItems = [

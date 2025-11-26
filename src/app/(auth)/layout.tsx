@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Building, User, ShoppingCart, Briefcase, Megaphone, Gavel, Cpu, Users } from "lucide-react";
+import { Building, User, ShoppingCart, Briefcase, Megaphone, Gavel, Cpu, Users, Banknote } from "lucide-react";
 import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -30,7 +30,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild><Link href="/login-natural">Acceso Personal</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-admin">Admin y Finanzas</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-fintech">FinTech y Banca Digital</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>

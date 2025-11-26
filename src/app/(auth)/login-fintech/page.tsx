@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { countries } from "@/lib/countries";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export default function LoginAdminPage() {
+export default function LoginFintechPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
   const router = useRouter();
