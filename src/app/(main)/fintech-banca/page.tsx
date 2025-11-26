@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Banknote, Rocket, CheckCircle, Smartphone, Globe, Cpu, ShieldCheck, GitBranch } from "lucide-react";
+import { Banknote, Rocket, CheckCircle, Smartphone, Globe, Cpu, ShieldCheck, GitBranch, Mail } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const fintechServices = [
@@ -11,6 +11,13 @@ const fintechServices = [
     { title: "Software de Cumplimiento (Compliance)", description: "Herramientas para controlar el cumplimiento de regulaciones financieras, especialmente en la prevención de legitimación de capitales.", icon: ShieldCheck },
     { title: "Banca como Servicio (BaaS)", description: "Modelo donde un banco abre sus servicios a otros proveedores, generalmente no bancarios, para crear nuevas ofertas financieras.", icon: GitBranch }
 ];
+
+const chinchinServices = [
+    "Apertura de cuenta bancaria a través de nuevas tecnologías.",
+    "Soluciones bancarias multiplataforma.",
+    "Plataformas de conexión FINTECH y de instituciones bancarias.",
+    "Integración de redes sociales-pagos-finanzas-venta al por menor."
+]
 
 export default function FintechBancaPage() {
 
@@ -67,6 +74,29 @@ export default function FintechBancaPage() {
                 ))}
             </CardContent>
        </Card>
+
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Ejemplo de Competidor en el Mercado Venezolano</CardTitle>
+                 <CardDescription>Análisis de una Institución de Tecnología Financiera autorizada por la SUDEBAN.</CardDescription>
+            </CardHeader>
+            <CardContent className="p-6 bg-secondary/30 rounded-lg">
+                <h3 className="text-xl font-bold">Soluciones Financieras ChinChin, C.A.</h3>
+                <p className="text-sm text-muted-foreground">RIF: J-41319828-2</p>
+                <p className="text-xs text-muted-foreground mt-1">Av. Venezuela, El Rosal, Caracas, Municipio Chacao, estado Miranda, Condominio Torre Empresarial K, piso 2.</p>
+                <a href="mailto:info@pagochinchin.com" className="text-xs text-primary flex items-center gap-2 mt-2"><Mail className="h-4 w-4"/>info@pagochinchin.com</a>
+
+                <h4 className="font-semibold mt-4 mb-2">Servicios Autorizados:</h4>
+                 <ul className="space-y-2">
+                    {chinchinServices.map((servicio, index) => (
+                        <li key={index} className="flex items-start gap-2 text-sm">
+                            <CheckCircle className="h-4 w-4 text-green-500 shrink-0 mt-0.5"/>
+                            <span>{servicio}</span>
+                        </li>
+                    ))}
+                </ul>
+            </CardContent>
+        </Card>
 
         <Alert>
             <CheckCircle className="h-4 w-4"/>
