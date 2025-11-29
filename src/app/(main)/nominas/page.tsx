@@ -6,13 +6,16 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase, Download, QrCode } from "lucide-react";
+import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, FileText, Printer, Briefcase, Download, QrCode, HelpCircle, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Logo } from "@/components/logo";
+
 
 // Simple Telegram Icon
 const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -40,6 +43,24 @@ const empleados = [
     { id: 4, nombre: "Carlos Sanchez", cedula: "E-8.999.000", cargo: "Analista de Calidad", salarioBase: 8500, estado: "Activo", email: "carlos.sanchez@email.com", telefono: "0424-0001122", fechaIngreso: "01/11/2023", departamento: "Calidad" },
 ];
 
+const tutorialSteps = [
+    {
+        icon: Calculator,
+        title: "Paso 1: Calcular la Nómina",
+        description: "Haz clic en 'Calcular Nómina' para procesar todos los pagos de la quincena actual. El sistema calculará sueldos, asignaciones y deducciones automáticamente.",
+    },
+    {
+        icon: Eye,
+        title: "Paso 2: Visualizar Recibo Individual",
+        description: "Una vez calculada, puedes hacer clic en el ícono del ojo (👁️) al lado de cualquier empleado para ver el desglose detallado de su recibo de pago.",
+    },
+    {
+        icon: Send,
+        title: "Paso 3: Enviar Recibos",
+        description: "Usa el ícono de enviar (➤) para mandar el recibo de pago directamente al empleado por correo o WhatsApp. Una copia se guarda automáticamente en la nube.",
+    },
+];
+
 const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
   Activo: "default",
   "De Vacaciones": "secondary",
@@ -49,6 +70,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
 export default function NominasPage() {
   const [isSendDialogOpen, setIsSendDialogOpen] = useState(false);
   const [isCartaDialogOpen, setIsCartaDialogOpen] = useState(false);
+  const [isTutorialOpen, setIsTutorialOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<(typeof empleados)[0] | null>(null);
   const { toast } = useToast();
 
@@ -62,18 +84,20 @@ export default function NominasPage() {
     setIsCartaDialogOpen(true);
   };
 
-  const handleSend = (method: 'whatsapp' | 'email') => {
+  const handleSend = (method: 'WhatsApp' | 'Correo Electrónico') => {
+    if (!selectedEmployee) return;
     toast({
       title: "Recibo Enviado Exitosamente",
-      description: `El recibo de ${selectedEmployee?.nombre} fue enviado por ${method} y archivado en la nube.`,
+      description: `El recibo de ${selectedEmployee.nombre} fue enviado por ${method} y archivado en la nube.`,
     });
     setIsSendDialogOpen(false);
   };
 
-  const handleSendCarta = (method: 'whatsapp' | 'email' | 'telegram') => {
+  const handleSendCarta = (method: 'WhatsApp' | 'Correo Electrónico' | 'Telegram') => {
+    if (!selectedEmployee) return;
     toast({
       title: "Carta de Trabajo Enviada",
-      description: `La carta de trabajo de ${selectedEmployee?.nombre} fue enviada por ${method}.`,
+      description: `La carta de trabajo de ${selectedEmployee.nombre} fue enviada por ${method}.`,
     });
     setIsCartaDialogOpen(false);
   };
@@ -122,6 +146,10 @@ export default function NominasPage() {
                 </p>
             </div>
             <div className="flex gap-2">
+                 <Button variant="outline" onClick={() => setIsTutorialOpen(true)}>
+                    <HelpCircle className="mr-2"/>
+                    Ver Tutorial
+                </Button>
                 <Button variant="outline" onClick={handleExportContacts}>
                     <Download className="mr-2"/>
                     Exportar Contactos
@@ -199,11 +227,11 @@ export default function NominasPage() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="py-4 space-y-4">
-                        <Button className="w-full justify-start" onClick={() => handleSend('whatsapp')}>
+                        <Button className="w-full justify-start" onClick={() => handleSend('WhatsApp')}>
                             <MessageCircle className="mr-2" />
                             Enviar a WhatsApp ({selectedEmployee.telefono})
                         </Button>
-                        <Button className="w-full justify-start" onClick={() => handleSend('email')}>
+                        <Button className="w-full justify-start" onClick={() => handleSend('Correo Electrónico')}>
                             <Mail className="mr-2" />
                             Enviar a Correo Electrónico ({selectedEmployee.email})
                         </Button>
@@ -252,15 +280,15 @@ export default function NominasPage() {
                     </Card>
                     <DialogFooter className="sm:justify-between">
                          <div className="flex gap-2">
-                            <Button className="w-full justify-start" onClick={() => handleSendCarta('whatsapp')}>
+                            <Button className="w-full justify-start" onClick={() => handleSendCarta('WhatsApp')}>
                                 <MessageCircle className="mr-2" />
                                 WhatsApp
                             </Button>
-                            <Button className="w-full justify-start" onClick={() => handleSendCarta('email')}>
+                            <Button className="w-full justify-start" onClick={() => handleSendCarta('Correo Electrónico')}>
                                 <Mail className="mr-2" />
                                 Email
                             </Button>
-                             <Button className="w-full justify-start" onClick={() => handleSendCarta('telegram')}>
+                             <Button className="w-full justify-start" onClick={() => handleSendCarta('Telegram')}>
                                 <TelegramIcon className="mr-2" />
                                 Telegram
                             </Button>
@@ -273,6 +301,41 @@ export default function NominasPage() {
                 </DialogContent>
             </Dialog>
         )}
+        
+         {/* Payroll Tutorial Dialog */}
+        <Dialog open={isTutorialOpen} onOpenChange={setIsTutorialOpen}>
+            <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="sr-only">Tutorial de Nómina</DialogTitle>
+                </DialogHeader>
+                <Carousel>
+                    <CarouselContent>
+                        {tutorialSteps.map((step, index) => (
+                            <CarouselItem key={index}>
+                                <div className="p-1">
+                                    <Card>
+                                        <CardContent className="flex flex-col aspect-square items-center justify-center p-6 text-center">
+                                            <div className="p-4 bg-primary/10 rounded-full mb-6">
+                                               <step.icon className="h-12 w-12 text-primary" />
+                                            </div>
+                                            <h3 className="text-2xl font-semibold mb-2">{step.title}</h3>
+                                            <p className="text-muted-foreground">{step.description}</p>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </Carousel>
+                <DialogFooter className="sm:justify-center">
+                     <Button onClick={() => setIsTutorialOpen(false)}>
+                        Entendido <ArrowRight className="ml-2 h-4 w-4"/>
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     </div>
   );
 }

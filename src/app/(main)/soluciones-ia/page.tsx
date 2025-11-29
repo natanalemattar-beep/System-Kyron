@@ -57,11 +57,11 @@ export default function SolucionesIAPage() {
                     description: (result as any).error || "No se pudo obtener una respuesta válida del servicio de IA.",
                 });
             }
-        } catch (error) {
+        } catch (error: any) {
              toast({
                 variant: "destructive",
                 title: "Error inesperado",
-                description: "Ocurrió un problema al conectar con el servicio de IA.",
+                description: error.message || "Ocurrió un problema al conectar con el servicio de IA.",
             });
         }
         
