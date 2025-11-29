@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { chat } from "@/ai/flows/chat";
 import { QuickAccess } from "@/components/dashboard/quick-access";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { WelcomeTutorial } from "@/components/welcome-tutorial";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -182,6 +183,7 @@ function ChatDialog() {
 
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [showTutorial, setShowTutorial] = useState(false);
     const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
@@ -192,6 +194,13 @@ export default function LandingPage() {
             setIsScrolled(window.scrollY > 10);
         };
         window.addEventListener('scroll', handleScroll);
+
+        const hasSeenTutorial = localStorage.getItem("hasSeenKyronTutorial");
+        if (!hasSeenTutorial) {
+            setShowTutorial(true);
+            localStorage.setItem("hasSeenKyronTutorial", "true");
+        }
+
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
     
@@ -489,6 +498,9 @@ export default function LandingPage() {
         </div>
       </footer>
       <ChatDialog />
+      <WelcomeTutorial open={showTutorial} onOpenChange={setShowTutorial} />
     </div>
   );
 }
+
+    
