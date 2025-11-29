@@ -248,15 +248,42 @@ export default function LandingPage() {
                           <span className="sr-only">Abrir menú</span>
                       </Button>
                   </SheetTrigger>
-                  <SheetContent side="left">
-                    <SheetHeader className="sr-only">
-                        <SheetTitle>Menú de Navegación</SheetTitle>
-                    </SheetHeader>
-                      <nav className="grid gap-6 text-lg font-medium mt-8">
+                  <SheetContent side="left" className="flex flex-col">
+                      <SheetHeader>
+                          <SheetTitle className="flex items-center gap-3">
+                            <Logo />
+                            <span className="text-xl font-bold">Kyron</span>
+                          </SheetTitle>
+                      </SheetHeader>
+                      <nav className="grid gap-4 text-lg font-medium mt-8">
                           {navLinks.map((link) => (
                               <SmoothScrollLink key={link.href} href={link.href}>{link.label}</SmoothScrollLink>
                           ))}
                       </nav>
+                       <div className="mt-auto space-y-4">
+                          <LanguageSwitcher/>
+                           <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                  <Button variant="outline" className="w-full justify-start">
+                                  <User className="mr-2 h-4 w-4" />
+                                  Acceder
+                                  </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" side="top" className="w-56 mb-2">
+                                  <DropdownMenuItem asChild><Link href="/login-natural">Acceso Personal</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/login-fintech">FinTech y Banca Digital</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
+                              </DropdownMenuContent>
+                          </DropdownMenu>
+                          <Button asChild className="w-full">
+                              <Link href="/register">Registrarse</Link>
+                          </Button>
+                      </div>
                   </SheetContent>
               </Sheet>
           </div>
