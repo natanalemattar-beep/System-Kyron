@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState } from "react";
@@ -79,6 +78,13 @@ export default function NominasPage() {
     setIsCartaDialogOpen(false);
   };
   
+  const handleCalculatePayroll = () => {
+    toast({
+      title: "Nómina Calculada (1ra Quincena)",
+      description: "La nómina ha sido calculada y los pagos están listos para ser procesados.",
+    });
+  };
+
   const handleExportContacts = () => {
     const headers = ["Nombre", "Cargo", "Departamento", "Teléfono", "Email"];
     const csvContent = [
@@ -124,9 +130,9 @@ export default function NominasPage() {
                     <PlusCircle className="mr-2" />
                     Agregar Empleado
                 </Button>
-                <Button>
+                <Button onClick={handleCalculatePayroll}>
                     <Calculator className="mr-2" />
-                    Calcular Nómina
+                    Calcular Nómina (Q1)
                 </Button>
             </div>
         </header>

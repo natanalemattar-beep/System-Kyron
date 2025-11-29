@@ -48,14 +48,13 @@ export default function SolucionesIAPage() {
 
         try {
             const result = await analyzeSentiment({ textToAnalyze });
-            // Type guard to check if result is not an error
             if (result && 'sentiment' in result && 'confidence' in result) {
                 setAnalysisResult(result);
             } else {
                  toast({
                     variant: "destructive",
                     title: "Error en el Análisis",
-                    description: (result as any).error || "No se pudo obtener un resultado válido.",
+                    description: (result as any).error || "No se pudo obtener una respuesta válida del servicio de IA.",
                 });
             }
         } catch (error) {

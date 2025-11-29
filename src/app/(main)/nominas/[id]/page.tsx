@@ -25,13 +25,10 @@ const nomina = {
         { concepto: "Bono de Alimentación (Cestaticket)", monto: 1460 },
         { concepto: "Bono de Productividad", monto: 1500 },
         { concepto: "Pago de Horas Extras", monto: 800 },
-        { concepto: "Bono por Día Feriado", monto: 500 },
-        { concepto: "Bono Vacacional", monto: 2200 },
     ],
     deduccionesBase: [ // Deducciones fijas o que no se calculan como % del sueldo base
         { concepto: "Retención ISLR", monto: 450 },
         { concepto: "Aporte Caja de Ahorro", monto: 300 },
-        { concepto: "Adelanto de Quincena", monto: 1000 },
     ],
     deduccionesPorcentuales: [ // Deducciones calculadas como % del sueldo base
         { concepto: "Seguro Social Obligatorio (SSO) - 4%", porcentaje: 0.04 },
