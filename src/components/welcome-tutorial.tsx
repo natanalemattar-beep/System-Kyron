@@ -38,6 +38,12 @@ export function WelcomeTutorial({ open, onOpenChange }: { open: boolean, onOpenC
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-md">
+                 <DialogHeader>
+                    <DialogTitle className="sr-only">Tutorial de Bienvenida</DialogTitle>
+                    <DialogDescription className="sr-only">
+                        Un rápido recorrido por las características principales de Kyron.
+                    </DialogDescription>
+                </DialogHeader>
                 <Carousel>
                     <CarouselContent>
                         {tutorialSteps.map((step, index) => (
