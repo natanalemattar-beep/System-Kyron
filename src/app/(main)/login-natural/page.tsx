@@ -2,27 +2,15 @@
 "use client";
 
 import { useState } from "react";
-import { User, Eye, EyeOff } from "lucide-react";
+import { User, Eye, EyeOff, Building, Briefcase, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { countries } from "@/lib/countries";
+import { Separator } from "@/components/ui/separator";
 
 const idByCountry: Record<string, { label: string, placeholder: string }> = {
     "VEN": { label: "Cédula de Identidad", placeholder: "V-12345678" },
@@ -42,10 +30,10 @@ const idByCountry: Record<string, { label: string, placeholder: string }> = {
     "CAN": { label: "Social Insurance Number (SIN)", placeholder: "123-456-789" },
 };
 
-
-export default function LoginPage() {
+export default function LoginNaturalPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
+  const [idValue, setIdValue] = useState("");
 
   const currentId = idByCountry[country] || { label: "Identificación Personal", placeholder: "" };
 
@@ -53,28 +41,26 @@ export default function LoginPage() {
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
       <CardHeader className="text-center">
         <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
-            <User className="h-8 w-8 text-primary" />
+          <User className="h-8 w-8 text-primary" />
         </div>
         <CardTitle className="text-2xl">Acceso Personal</CardTitle>
-        <CardDescription>
-          Inicia sesión con tu documento de identidad.
-        </CardDescription>
+        <CardDescription>Inicia sesión con tu documento de identidad.</CardDescription>
       </CardHeader>
       <CardContent className="p-6 space-y-6">
         <div className="space-y-2">
-            <Label>País</Label>
-            <Select value={country} onValueChange={setCountry}>
-                <SelectTrigger>
-                <SelectValue placeholder="Seleccionar país..." />
-                </SelectTrigger>
-                <SelectContent>
-                {countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}
-                </SelectContent>
-            </Select>
+          <Label>País</Label>
+          <Select value={country} onValueChange={setCountry}>
+            <SelectTrigger>
+              <SelectValue placeholder="Seleccionar país..." />
+            </SelectTrigger>
+            <SelectContent>
+              {countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}
+            </SelectContent>
+          </Select>
         </div>
         <div className="space-y-2">
           <Label>{currentId.label}</Label>
-          <Input type="text" placeholder={currentId.placeholder} />
+          <Input type="text" placeholder={currentId.placeholder} value={idValue} onChange={(e) => setIdValue(e.target.value)} />
         </div>
         <div className="space-y-2 relative">
           <Label>Contraseña</Label>
@@ -84,18 +70,30 @@ export default function LoginPage() {
             className="pr-10"
           />
           <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-              {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           </button>
         </div>
         <Button asChild className="w-full h-11 text-base">
-            <Link href="/dashboard">Acceder</Link>
+          <Link href="/dashboard">Acceder</Link>
         </Button>
       </CardContent>
-       <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
-        <p className="text-muted-foreground">¿No tienes una cuenta?</p>
-         <Button asChild variant="link" className="p-0">
-            <Link href="/register/natural" className="font-medium">Crea una cuenta aquí</Link>
-        </Button>
+      <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
+        <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
+        <div className="flex justify-center gap-4">
+          <Link href="/login-fintech" className="font-medium text-primary hover:underline flex items-center gap-1">
+            <Building className="h-4 w-4" /> FinTech
+          </Link>
+          <Link href="/login-ventas" className="font-medium text-primary hover:underline flex items-center gap-1">
+            <ShoppingCart className="h-4 w-4" /> Ventas
+          </Link>
+          <Link href="/login-rrhh" className="font-medium text-primary hover:underline flex items-center gap-1">
+            <Briefcase className="h-4 w-4" /> RR.HH.
+          </Link>
+        </div>
+        <Separator className="my-2" />
+        <Link href="/register/natural" className="font-medium text-primary hover:underline">
+          Crear una cuenta nueva
+        </Link>
       </CardFooter>
     </Card>
   );
