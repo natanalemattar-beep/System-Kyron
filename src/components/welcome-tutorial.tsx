@@ -76,4 +76,3 @@ export function WelcomeTutorial({ open, onOpenChange }: { open: boolean, onOpenC
         </Dialog>
     );
 }
-
