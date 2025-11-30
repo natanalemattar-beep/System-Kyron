@@ -17,7 +17,7 @@ const statusInfo = {
 
 export default function AutorizacionesPage() {
   return (
-    <div>
+    <div className="space-y-8">
       <header className="mb-8 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
@@ -37,7 +37,7 @@ export default function AutorizacionesPage() {
         {autorizaciones.map(auth => {
             const status = statusInfo[auth.estado as keyof typeof statusInfo];
             return (
-                <Card key={auth.id} className="bg-card/80 backdrop-blur-sm">
+                <Card key={auth.id}>
                     <CardHeader>
                         <CardTitle className="flex items-center justify-between">
                             <span>{auth.ente}</span>

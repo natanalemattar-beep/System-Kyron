@@ -17,7 +17,7 @@ export default function SistemaLegalContablePage() {
         </p>
       </header>
 
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
         <CardHeader>
           <CardTitle>Sistema Tributario Venezolano y Tributos Internos</CardTitle>
         </CardHeader>
@@ -44,7 +44,7 @@ export default function SistemaLegalContablePage() {
         </CardContent>
       </Card>
       
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-3"><Gavel className="text-primary"/>Fuentes del Derecho Tributario</CardTitle>
           <CardDescription>Según el artículo 2 del Código Orgánico Tributario (G.O. N° 37.305).</CardDescription>
@@ -64,7 +64,7 @@ export default function SistemaLegalContablePage() {
       </Card>
 
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Interconexión de Normativas</CardTitle>
           <CardDescription>
@@ -79,7 +79,7 @@ export default function SistemaLegalContablePage() {
       </Card>
 
       <div className="grid md:grid-cols-2 gap-8">
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-3"><Book className="text-primary"/> Código Orgánico Tributario (COT)</CardTitle>
             </CardHeader>
@@ -98,7 +98,7 @@ export default function SistemaLegalContablePage() {
                 </div>
             </CardContent>
         </Card>
-         <Card className="bg-card/50 backdrop-blur-sm">
+         <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-3"><Book className="text-primary"/> Código de Comercio</CardTitle>
             </CardHeader>
@@ -115,7 +115,7 @@ export default function SistemaLegalContablePage() {
         </Card>
       </div>
 
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-3"><LinkIcon className="text-primary"/> Interconexión y Procedimiento Penal</CardTitle>
         </CardHeader>

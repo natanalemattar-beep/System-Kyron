@@ -106,7 +106,7 @@ export default function RegistroCompradorPage() {
 
             <form onSubmit={handleSubmit}>
                 <div className="grid lg:grid-cols-2 gap-8">
-                    <Card className="bg-card/50 backdrop-blur-sm">
+                    <Card>
                         <CardHeader>
                             <CardTitle>Datos de Facturación</CardTitle>
                             <CardDescription>Completa la información fiscal del cliente.</CardDescription>
@@ -135,7 +135,7 @@ export default function RegistroCompradorPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="bg-card/50 backdrop-blur-sm">
+                    <Card>
                         <CardHeader>
                             <CardTitle>Verificación Facial</CardTitle>
                             <CardDescription>Captura una foto del rostro del cliente para mayor seguridad.</CardDescription>
@@ -180,7 +180,7 @@ export default function RegistroCompradorPage() {
             </form>
             
             <section className="mt-12">
-                <Card className="bg-card/50 backdrop-blur-sm">
+                <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3"><Cpu className="text-primary"/> Proceso Automatizado: Pre-Registro de Clientes</CardTitle>
                         <CardDescription>Esta funcionalidad, conocida como Pre-registro o Facturación Rápida (Quick Billing), agiliza las ventas y asegura el cumplimiento con el SENIAT.</CardDescription>

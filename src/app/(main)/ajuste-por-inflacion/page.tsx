@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -15,7 +16,7 @@ const calculoSimplificado = [
 export default function AjustePorInflacionPage() {
 
   return (
-    <div className="p-4 md:p-8">
+    <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <TrendingUp className="h-8 w-8" />
@@ -28,7 +29,7 @@ export default function AjustePorInflacionPage() {
 
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-            <Card className="bg-card/50 backdrop-blur-sm">
+            <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3"><HelpCircle className="text-primary"/>¿Qué es el Ajuste por Inflación Fiscal?</CardTitle>
                 </CardHeader>
@@ -38,7 +39,7 @@ export default function AjustePorInflacionPage() {
                     </p>
                 </CardContent>
             </Card>
-             <Card className="bg-card/50 backdrop-blur-sm">
+             <Card>
                 <CardHeader>
                     <CardTitle>¿Quiénes Deben Realizar el Ajuste?</CardTitle>
                 </CardHeader>
@@ -71,7 +72,7 @@ export default function AjustePorInflacionPage() {
         </div>
       </div>
       
-       <Card className="mt-8 bg-card/50 backdrop-blur-sm">
+       <Card className="mt-8">
         <CardHeader>
             <CardTitle className="flex items-center gap-3"><ListOrdered/>Proceso de Cálculo Simplificado</CardTitle>
         </CardHeader>
@@ -93,4 +94,3 @@ export default function AjustePorInflacionPage() {
     </div>
   );
 }
-

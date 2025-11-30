@@ -21,14 +21,14 @@ export default function AntecedentesPenalesPage() {
     };
 
   return (
-    <div>
+    <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Certificado de Antecedentes Penales</h1>
         <p className="text-muted-foreground">
           Sube tu currículum para obtener tu certificado automáticamente.
         </p>
       </header>
-      <Card className="text-center p-8 bg-card/80 backdrop-blur-sm">
+      <Card className="text-center p-8 max-w-lg mx-auto">
         <CardHeader>
             <CardTitle>Sube tu CV</CardTitle>
             <CardDescription>Nuestro sistema extraerá la información necesaria para generar el certificado.</CardDescription>
@@ -46,5 +46,3 @@ export default function AntecedentesPenalesPage() {
     </div>
   );
 }
-
-    

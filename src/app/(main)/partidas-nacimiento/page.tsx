@@ -1,5 +1,5 @@
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, FileDown, Eye } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -29,7 +29,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function PartidasNacimientoPage() {
   return (
-    <div className="p-4 md:p-8">
+    <div className="space-y-8">
         <header className="mb-8 flex items-center justify-between">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Partidas de Nacimiento</h1>
@@ -42,8 +42,12 @@ export default function PartidasNacimientoPage() {
                 Solicitar Partida
             </Button>
         </header>
-      <Card className="bg-card/50 backdrop-blur-sm">
-        <CardContent className="pt-6">
+      <Card>
+        <CardHeader>
+            <CardTitle>Mis Solicitudes</CardTitle>
+            <CardDescription>Seguimiento de las solicitudes de partidas de nacimiento.</CardDescription>
+        </CardHeader>
+        <CardContent>
            <Table>
                 <TableHeader>
                     <TableRow>

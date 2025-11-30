@@ -118,7 +118,7 @@ export default function RecursosFiscalesPage() {
     }
 
   return (
-    <div className="p-4 md:p-8 space-y-8">
+    <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Scale className="h-8 w-8" />
@@ -140,7 +140,7 @@ export default function RecursosFiscalesPage() {
         </div>
       </div>
       
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-3"><FileEdit className="h-5 w-5" /> Normas sobre la Información Fiscal del Contribuyente (RIF)</CardTitle>
           <CardDescription>
@@ -170,107 +170,9 @@ export default function RecursosFiscalesPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
-            <CardTitle>Sistema Tributario Venezolano y Tributos Internos</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 text-muted-foreground">
-            <p>
-                La República Bolivariana de Venezuela es un estado federal con 22 estados, un Distrito Capital y dependencias federales. El sistema tributario se basa en los principios constitucionales de legalidad, progresividad, equidad, justicia, capacidad contributiva, no retroactividad y no confiscación.
-            </p>
-            <p>
-                La potestad tributaria se distribuye en tres niveles: nacional, estadal y municipal.
-            </p>
-            <p className="font-semibold text-foreground">
-                Actualmente, el SENIAT tiene jurisdicción sobre los siguientes impuestos a nivel nacional:
-            </p>
-            <ul className="list-disc list-inside pl-4 space-y-2">
-                <li>Impuesto sobre la Renta (ISLR)</li>
-                <li>Impuesto al Valor Agregado (IVA)</li>
-                <li>Impuesto sobre Sucesiones y Donaciones</li>
-                <li>Impuestos sobre Cigarrillos, Licores y Especies Alcohólicas</li>
-                <li>Impuestos sobre actividades de juegos de envite y azar</li>
-            </ul>
-            <p className="text-sm italic pt-2">
-                ¡Cumple con tu deber constitucional de contribuir con las cargas públicas, para que así el Gobierno Nacional pueda disponer de los recursos necesarios para propiciar el bienestar de la colectividad!
-            </p>
-        </CardContent>
-      </Card>
-      
-       <Card className="bg-card/50 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-3"><Gavel className="text-primary"/>Fuentes del Derecho Tributario</CardTitle>
-          <CardDescription>Según el artículo 2 del Código Orgánico Tributario (G.O. N° 37.305).</CardDescription>
-        </CardHeader>
-        <CardContent>
-            <p className="text-muted-foreground mb-4">
-               Constituyen fuentes del Derecho Tributario las siguientes disposiciones:
-            </p>
-            <ol className="list-decimal list-inside space-y-3 text-muted-foreground">
-                <li>Las disposiciones constitucionales.</li>
-                <li>Los tratados, convenios o acuerdos internacionales celebrados por la República.</li>
-                <li>Las leyes y los actos con fuerza de ley.</li>
-                <li>Los contratos relativos a la estabilidad jurídica de regímenes de tributos nacionales, estadales y municipales.</li>
-                <li>Las reglamentaciones y demás disposiciones de carácter general establecidas por los órganos administrativos facultados al efecto.</li>
-            </ol>
-        </CardContent>
-      </Card>
-
-
-      <Card className="bg-card/50 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle>Interconexión de Normativas</CardTitle>
-          <CardDescription>
-            Un sistema contable y tributario se rige por el Código Orgánico Tributario (COT) de Venezuela, que establece las obligaciones y procedimientos para la recaudación de impuestos, mientras que el Código de Comercio regula la organización y las operaciones comerciales de las empresas.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-            <p className="text-muted-foreground">
-                El sistema se integra con la ley del impuesto sobre la renta y la normativa de la administración tributaria, y en caso de incumplimiento, puede derivar en un procedimiento penal que aborda infracciones tributarias.
-            </p>
-        </CardContent>
-      </Card>
-
-      <div className="grid md:grid-cols-2 gap-8">
-        <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-3"><BookOpen className="text-primary"/> Código Orgánico Tributario (COT)</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-                <div>
-                    <h4 className="font-semibold">Propósito</h4>
-                    <p className="text-sm text-muted-foreground">Es la ley principal que rige el sistema tributario venezolano, detallando los derechos, obligaciones y procedimientos para los contribuyentes.</p>
-                </div>
-                 <div>
-                    <h4 className="font-semibold">Regula</h4>
-                    <p className="text-sm text-muted-foreground">Los tributos (impuestos, tasas, contribuciones) y la actuación de la Administración Tributaria.</p>
-                </div>
-                 <div>
-                    <h4 className="font-semibold">Aspectos Clave</h4>
-                    <p className="text-sm text-muted-foreground">Establece deberes formales de los contribuyentes, como la presentación de información y la colaboración en fiscalizaciones, según el artículo 145 del COT.</p>
-                </div>
-            </CardContent>
-        </Card>
-         <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-3"><BookOpen className="text-primary"/> Código de Comercio</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-                 <div>
-                    <h4 className="font-semibold">Función</h4>
-                    <p className="text-sm text-muted-foreground">Determina la estructura de las empresas, los tipos de actos de comercio y cómo se deben llevar a cabo, incluyendo la contabilidad y la elaboración de estados financieros.</p>
-                </div>
-                <div>
-                    <h4 className="font-semibold">Contabilidad</h4>
-                    <p className="text-sm text-muted-foreground">Regula los libros de comercio y los principios generales para registrar las operaciones mercantiles, lo cual es la base para el cálculo de los impuestos.</p>
-                </div>
-            </CardContent>
-        </Card>
-      </div>
-
-       <Card className="bg-card/50 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-3"><LinkIcon className="text-primary"/> Interconexión y Procedimiento Penal</CardTitle>
+          <CardTitle>Interconexión y Procedimiento Penal</CardTitle>
         </CardHeader>
         <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="p-4 bg-secondary/50 rounded-lg">
@@ -293,7 +195,7 @@ export default function RecursosFiscalesPage() {
         </CardContent>
        </Card>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-3"><UserCog className="h-5 w-5" />Regulación Profesional del Contador Público</CardTitle>
           <CardDescription>
@@ -334,7 +236,7 @@ export default function RecursosFiscalesPage() {
         </CardContent>
       </Card>
 
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
         <CardHeader>
           <CardTitle>Gacetas Oficiales de Interés</CardTitle>
           <CardDescription>
@@ -371,7 +273,7 @@ export default function RecursosFiscalesPage() {
         </CardContent>
       </Card>
       
-       <Card className="bg-card/50 backdrop-blur-sm">
+       <Card>
         <CardHeader>
           <CardTitle>Providencias Administrativas del SENIAT</CardTitle>
           <CardDescription>
@@ -405,7 +307,7 @@ export default function RecursosFiscalesPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
           <CardHeader>
             <CardTitle>Calendarios Fiscales Anteriores (Histórico)</CardTitle>
             <CardDescription>Consulta los calendarios de Sujetos Pasivos de años anteriores.</CardDescription>
@@ -428,7 +330,7 @@ export default function RecursosFiscalesPage() {
           </CardContent>
       </Card>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Jurisprudencia del TSJ (Materia Mercantil)</CardTitle>
           <CardDescription>

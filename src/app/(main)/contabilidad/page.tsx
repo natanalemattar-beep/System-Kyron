@@ -4,7 +4,7 @@ import { BookOpen } from "lucide-react";
 
 export default function ContabilidadPage() {
   return (
-    <div>
+    <div className="space-y-8">
        <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <BookOpen className="h-8 w-8" />
@@ -14,7 +14,7 @@ export default function ContabilidadPage() {
           Módulo de reportes contables.
         </p>
       </header>
-      <Card className="bg-card/80 backdrop-blur-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Módulo de Reportes Contables</CardTitle>
           <CardDescription>

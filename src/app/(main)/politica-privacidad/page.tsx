@@ -17,7 +17,7 @@ export default function PoliticaPrivacidadPage() {
         </p>
       </header>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
             <h4>1. Introducción</h4>
             <p>

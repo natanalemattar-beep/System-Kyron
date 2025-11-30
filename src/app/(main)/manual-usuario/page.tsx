@@ -142,7 +142,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
         </header>
 
         <div id="printable-manual">
-            <Card className="bg-card/50 backdrop-blur-sm print:shadow-none print:border-none">
+            <Card className="print:shadow-none print:border-none">
                 <CardHeader className="text-center">
                     <CardTitle className="text-3xl">Manual de Usuario y Procedimientos del Sistema</CardTitle>
                     <CardDescription>Bienvenido a Kyron, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.</CardDescription>
@@ -152,7 +152,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
                 </CardContent>
             
 
-                 <Card className="bg-card/50 backdrop-blur-sm mt-8 print:shadow-none print:border">
+                 <Card className="mt-8 print:shadow-none print:border">
                     <CardHeader>
                         <CardTitle>Primeros Pasos: Registro e Inicio de Sesión</CardTitle>
                     </CardHeader>
@@ -175,7 +175,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
                 </Card>
 
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
-                     <Card className="bg-card/50 backdrop-blur-sm print:shadow-none print:border">
+                     <Card className="print:shadow-none print:border">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><Building className="h-5 w-5" /> Módulos Clave (Persona Jurídica)</CardTitle>
                         </CardHeader>
@@ -190,7 +190,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
                             </ul>
                         </CardContent>
                     </Card>
-                     <Card className="bg-card/50 backdrop-blur-sm print:shadow-none print:border">
+                     <Card className="print:shadow-none print:border">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><User className="h-5 w-5" /> Módulos Clave (Persona Natural)</CardTitle>
                         </CardHeader>
@@ -206,7 +206,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
                         </CardContent>
                     </Card>
                 </div>
-                 <Card className="bg-card/50 backdrop-blur-sm mt-8 print:shadow-none print:border">
+                 <Card className="mt-8 print:shadow-none print:border">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2"><FileText className="h-5 w-5" /> Manual de Procedimientos Clave</CardTitle>
                     </CardHeader>

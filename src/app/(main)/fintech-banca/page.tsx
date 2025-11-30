@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -33,7 +34,7 @@ export default function FintechBancaPage() {
       </header>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-3"><Rocket className="h-6 w-6"/> ¿Qué es una FinTech?</CardTitle>
             </CardHeader>
@@ -44,7 +45,7 @@ export default function FintechBancaPage() {
             </CardContent>
         </Card>
         
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-3"><Cpu className="h-6 w-6"/> Kyron como ITFB en Venezuela</CardTitle>
             </CardHeader>
@@ -56,7 +57,7 @@ export default function FintechBancaPage() {
         </Card>
       </div>
       
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
             <CardHeader>
                 <CardTitle>Servicios FinTech Ofrecidos por Kyron a la Banca</CardTitle>
                 <CardDescription>Estos son algunos de los servicios que Kyron, como ITFB, puede proveer al sector bancario:</CardDescription>
@@ -74,7 +75,7 @@ export default function FintechBancaPage() {
             </CardContent>
        </Card>
 
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle>Ejemplo de Competidor en el Mercado Venezolano</CardTitle>
                  <CardDescription>Análisis de una Institución de Tecnología Financiera autorizada por la SUDEBAN.</CardDescription>

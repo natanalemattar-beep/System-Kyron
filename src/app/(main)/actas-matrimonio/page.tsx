@@ -1,5 +1,5 @@
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, FileDown, Eye, QrCode } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -30,7 +30,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function ActasMatrimonioPage() {
   return (
-    <div>
+    <div className="space-y-8">
         <header className="mb-8 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Actas de Matrimonio</h1>
@@ -43,8 +43,12 @@ export default function ActasMatrimonioPage() {
                 Solicitar Acta
             </Button>
         </header>
-      <Card className="bg-card/80 backdrop-blur-sm">
-        <CardContent className="pt-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Mis Solicitudes</CardTitle>
+          <CardDescription>Seguimiento de las solicitudes de actas de matrimonio.</CardDescription>
+        </CardHeader>
+        <CardContent>
             <Table>
                 <TableHeader>
                     <TableRow>

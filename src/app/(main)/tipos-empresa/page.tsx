@@ -1,3 +1,4 @@
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Building, Scale, Activity, Globe, CheckCircle, Briefcase } from "lucide-react";
 
@@ -57,7 +58,7 @@ export default function TiposEmpresaPage() {
 
       <div className="grid gap-8 md:grid-cols-2">
         {Object.values(tipos).map(tipo => (
-            <Card key={tipo.title} className="bg-card/50 backdrop-blur-sm">
+            <Card key={tipo.title}>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3">
                         <tipo.icon className="h-6 w-6 text-primary" />
@@ -76,7 +77,7 @@ export default function TiposEmpresaPage() {
                 </CardContent>
             </Card>
         ))}
-        <Card className="md:col-span-2 bg-card/50 backdrop-blur-sm">
+        <Card className="md:col-span-2">
             <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                     <Briefcase className="h-6 w-6 text-primary" />

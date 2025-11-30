@@ -112,7 +112,7 @@ export default function SeguridadPage() {
         </p>
       </header>
 
-       <Card className="bg-card/80 backdrop-blur-sm">
+       <Card>
             <CardHeader>
                 <CardTitle>Cambiar Contraseña</CardTitle>
             </CardHeader>
@@ -138,7 +138,7 @@ export default function SeguridadPage() {
             </CardFooter>
         </Card>
 
-        <Card className="bg-card/80 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle>Verificación en Dos Pasos (2FA)</CardTitle>
                 <CardDescription>
@@ -178,7 +178,7 @@ export default function SeguridadPage() {
             </CardContent>
         </Card>
 
-        <Card className="bg-card/80 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle>Guía de Prevención de Fraude</CardTitle>
             </CardHeader>
@@ -220,7 +220,7 @@ export default function SeguridadPage() {
             </CardContent>
         </Card>
 
-         <Card className="bg-card/80 backdrop-blur-sm">
+         <Card>
             <CardHeader>
                 <CardTitle>Sesiones Activas</CardTitle>
                 <CardDescription>
@@ -249,7 +249,7 @@ export default function SeguridadPage() {
             </CardContent>
          </Card>
 
-         <Card className="bg-card/80 backdrop-blur-sm">
+         <Card>
             <CardHeader>
                 <CardTitle>Historial de Inicio de Sesión</CardTitle>
                 <CardDescription>
