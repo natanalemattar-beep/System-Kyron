@@ -80,12 +80,12 @@ export default function DashboardEmpresaPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
          {/* Financial Chart */}
-         <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm h-[400px] flex flex-col">
+         <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm flex flex-col h-[400px]">
           <CardHeader>
               <CardTitle>Pulso Financiero (Últimos 12 meses)</CardTitle>
               <CardDescription>Evolución de ingresos, gastos y rentabilidad.</CardDescription>
           </CardHeader>
-          <CardContent className="flex-grow">
+          <CardContent className="flex-grow min-h-0">
                 <ChartContainer config={chartConfig} className="w-full h-full">
                   <AreaChart data={rentabilidadData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
                       <defs>
