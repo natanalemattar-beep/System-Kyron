@@ -29,7 +29,7 @@ import Link from "next/link";
 import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Menu } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 

@@ -20,11 +20,17 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
       fallback: "A"
   };
 
-  if (pathname.startsWith('/dashboard')) {
+  // This logic is simplified; in a real app, you'd have a proper user context
+  if (pathname.startsWith('/dashboard-empresa')) {
+      user.name = "Admin";
+      user.email = "admin@kyron.com";
+      user.fallback = "A";
+  } else if (pathname.startsWith('/dashboard')) {
       user.name = "Usuario Natural";
       user.email = "usuario@email.com";
       user.fallback = "UN";
   }
+
 
   useEffect(() => {
     // Only show tutorial on main dashboard pages after login
