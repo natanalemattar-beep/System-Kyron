@@ -2,7 +2,7 @@
 "use client";
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { FileText, Gavel, Heart, Shield, ArrowRight, LayoutDashboard, CheckCircle, Clock, FileWarning } from 'lucide-react';
 import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -37,17 +37,17 @@ const quickActions = [
 export default function DashboardPersonalPage() {
   return (
     <div className="space-y-8">
-      <header className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
-            <LayoutDashboard className="h-10 w-10 text-primary" />
+      <header className="mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
+            <LayoutDashboard className="h-8 w-8 md:h-10 md:w-10 text-primary" />
             Dashboard de Trámites Personales
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Tu centro de mando para gestionar documentos y solicitudes de forma fácil y segura.</p>
+        <p className="text-muted-foreground mt-2 max-w-2xl">Tu centro de mando para gestionar documentos y solicitudes de forma fácil y segura.</p>
       </header>
       
       <div className="grid gap-6 md:grid-cols-3">
          {kpiData.map(kpi => (
-            <Card key={kpi.title} className="bg-card/50 backdrop-blur-sm">
+            <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
                 <CardHeader className="pb-2 flex-row items-center justify-between">
                     <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
                     <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
@@ -62,10 +62,11 @@ export default function DashboardPersonalPage() {
        <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
             <CardTitle>Acciones Rápidas</CardTitle>
+            <CardDescription>Inicia un nuevo trámite con un solo clic.</CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {quickActions.map(action => (
-                <Button key={action.href} asChild variant="outline" className="h-24 flex-col gap-2">
+                <Button key={action.href} asChild variant="outline" className="h-24 flex-col gap-2 text-base">
                     <Link href={action.href}>
                         <action.icon className="h-6 w-6"/>
                         <span>{action.label}</span>
@@ -101,7 +102,9 @@ export default function DashboardPersonalPage() {
                                 <Badge variant={statusVariant[activity.status]}>{activity.status}</Badge>
                             </TableCell>
                             <TableCell className="text-right">
-                                <Button variant="outline" size="sm">Ver Detalles</Button>
+                                <Button variant="outline" size="sm" asChild>
+                                    <Link href="#">Ver Detalles</Link>
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}

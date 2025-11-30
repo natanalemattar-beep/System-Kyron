@@ -13,7 +13,6 @@ import {
   LayoutDashboard
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { informaticaNavGroups } from "@/components/app-sidebar-nav-items";
 import Link from "next/link";
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
@@ -32,24 +31,24 @@ const securityEvents = [
 
 export default function DashboardInformaticaPage() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       
       {/* Header */}
-      <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight flex items-center justify-center gap-3">
-            <Cpu className="h-10 w-10 text-primary" />
+      <header className="mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
+            <Cpu className="h-8 w-8 md:h-10 md:w-10 text-primary" />
             Dashboard de Ingeniería e Informática
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">Centro de control para la gestión de la infraestructura tecnológica, seguridad y desarrollo.</p>
-      </div>
+        <p className="text-muted-foreground mt-2 max-w-2xl">Centro de control para la gestión de la infraestructura tecnológica, seguridad y desarrollo.</p>
+      </header>
 
-      <div className="space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            <Card className="col-span-1 md:col-span-2 bg-card/80 backdrop-blur-sm">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Estado del Sistema en Tiempo Real</CardTitle>
                 </CardHeader>
-                <CardContent className="grid grid-cols-2 gap-4">
+                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {servicesStatus.map(service => (
                         <div key={service.name} className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
                             <div className="flex items-center gap-3">
@@ -64,7 +63,8 @@ export default function DashboardInformaticaPage() {
                     ))}
                 </CardContent>
             </Card>
-            <Card className="col-span-1 md:col-span-2 bg-card/80 backdrop-blur-sm">
+
+            <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Registro de Eventos de Seguridad</CardTitle>
                 </CardHeader>
@@ -85,35 +85,37 @@ export default function DashboardInformaticaPage() {
         </div>
 
         {/* Quick Access Modules */}
-        <div className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-tight">Módulos de Gestión de IT</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-1 space-y-4">
+            <h2 className="text-xl font-semibold tracking-tight">Módulos de Gestión</h2>
+            <div className="space-y-4">
                 {informaticaNavGroups.map((group) => (
-                    <Card key={group.title} className="bg-card/80 backdrop-blur-sm">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-3">
-                                <group.icon className="h-6 w-6 text-primary"/>
-                                {group.title}
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                             <SidebarMenu>
-                                {group.items.map((item) => (
-                                <SidebarMenuItem key={`${item.href}-${item.label}`}>
-                                    <SidebarMenuButton
-                                    asChild
-                                    className="justify-start h-10 w-full mb-2 bg-secondary/50"
-                                    >
-                                    <Link href={item.href}>
-                                        <item.icon className="h-4 w-4 mr-2" />
-                                        <span>{item.label}</span>
-                                    </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                                ))}
-                            </SidebarMenu>
-                        </CardContent>
-                    </Card>
+                    group.items.length > 0 && group.title !== "Dashboard" && (
+                        <Card key={group.title} className="bg-card/50 backdrop-blur-sm">
+                            <CardHeader className="p-4">
+                                <CardTitle className="text-base flex items-center gap-3">
+                                    <group.icon className="h-5 w-5 text-primary"/>
+                                    {group.title}
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-4 pt-0">
+                                <SidebarMenu>
+                                    {group.items.map((item) => (
+                                    <SidebarMenuItem key={`${item.href}-${item.label}`}>
+                                        <SidebarMenuButton
+                                        asChild
+                                        className="justify-start h-9 w-full mb-1 bg-secondary/50"
+                                        >
+                                        <Link href={item.href}>
+                                            <item.icon className="h-4 w-4 mr-2" />
+                                            <span>{item.label}</span>
+                                        </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                    ))}
+                                </SidebarMenu>
+                            </CardContent>
+                        </Card>
+                    )
                 ))}
             </div>
         </div>
