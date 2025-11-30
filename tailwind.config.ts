@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 const config: Config = {
@@ -110,7 +111,7 @@ const config: Config = {
           "to": { transform: "translateX(0)" },
         },
         "slide-out-to-left": {
-          "from": { transform: "translateX(-100%)" },
+          "from": { transform: "translateX(0)" },
           "to": { transform: "translateX(-100%)" },
         },
         "slide-in-from-right": {
