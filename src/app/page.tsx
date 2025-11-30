@@ -1,15 +1,15 @@
+
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FC, type AnchorHTMLAttributes } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Briefcase, Gavel, Megaphone, Banknote } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Briefcase, Gavel, Megaphone, Banknote, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import type { FC, AnchorHTMLAttributes } from 'react';
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
@@ -98,7 +98,7 @@ export default function LandingPage() {
      
       <header className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "bg-background/80 backdrop-blur-lg border-b" : "bg-transparent"
+          isScrolled ? "bg-background/80 backdrop-blur-lg border-b border-border" : "bg-transparent"
       )}>
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
               <Link href="/" className="flex items-center gap-3">
@@ -197,7 +197,7 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center text-center overflow-hidden">
+        <section className="relative min-h-[80vh] flex items-center justify-center text-center overflow-hidden">
              {heroImage && <Image 
                 src={heroImage.imageUrl}
                 alt={heroImage.description}
@@ -207,15 +207,15 @@ export default function LandingPage() {
                 className="absolute inset-0 -z-20"
                 priority
              />}
-            <div className="absolute inset-0 bg-black/60 -z-10"></div>
+            <div className="absolute inset-0 bg-background/80 -z-10"></div>
             
             <div className="container px-4 md:px-6 relative z-10">
                 <div className="animate-fade-up space-y-6">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance text-white">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance text-foreground">
                         Gestión Empresarial Inteligente, <br />
                         <span className="text-primary">Tranquilidad Fiscal Garantizada.</span>
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-slate-300 max-w-3xl mx-auto text-balance">
+                    <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
                        System Kyron es el ecosistema todo-en-uno que automatiza tu contabilidad, asegura tu cumplimiento con el SENIAT y te da las herramientas para crecer con confianza en Venezuela.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -224,7 +224,7 @@ export default function LandingPage() {
                             Empezar ahora <ArrowRight className="ml-2 h-4 w-4"/>
                             </Link>
                         </Button>
-                        <Button size="lg" variant="secondary" asChild>
+                        <Button size="lg" variant="outline" asChild>
                             <SmoothScrollLink href="#servicios">
                             Explorar servicios
                             </SmoothScrollLink>
@@ -243,7 +243,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                      {services.map((item) => (
-                        <div key={item.title} className="p-8 rounded-xl border bg-background shadow-sm transition-all hover:shadow-lg hover:-translate-y-1">
+                        <div key={item.title} className="p-8 rounded-xl border bg-background shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
                             <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
@@ -337,7 +337,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-       <footer id="contacto" className="py-16 bg-card border-t">
+       <footer id="contacto" className="py-16 bg-card border-t border-border">
         <div className="container px-4 md:px-6 grid md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -350,11 +350,11 @@ export default function LandingPage() {
             <h4 className="font-semibold">Contacto</h4>
             <div className="space-y-2 text-sm">
                <a href="mailto:contacto@kyron.com" className="flex items-start gap-3 hover:text-primary">
-                 <Bot className="h-5 w-5 text-muted-foreground mt-0.5"/>
+                 <Mail className="h-5 w-5 text-muted-foreground mt-0.5"/>
                  <span>contacto@kyron.com</span>
               </a>
                <a href="tel:+584141234567" className="flex items-start gap-3 hover:text-primary">
-                <Bot className="h-5 w-5 text-muted-foreground mt-0.5"/>
+                <Phone className="h-5 w-5 text-muted-foreground mt-0.5"/>
                 <span>+58 414-1234567</span>
               </a>
             </div>
@@ -367,7 +367,7 @@ export default function LandingPage() {
             </nav>
           </div>
         </div>
-        <div className="container px-4 md:px-6 mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+        <div className="container px-4 md:px-6 mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System Kyron. Todos los derechos reservados.
         </div>
       </footer>
