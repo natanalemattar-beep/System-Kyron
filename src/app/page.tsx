@@ -98,14 +98,14 @@ export default function LandingPage() {
     }, []);
     
   return (
-    <div className="flex flex-col min-h-dvh bg-background text-foreground">
+    <div className="flex flex-col min-h-dvh text-foreground">
      
       <header className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled && "bg-background/80 backdrop-blur-lg"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       )}>
           <div className={cn(
-              "container mx-auto flex h-20 items-center justify-between px-4 md:px-6 transition-all duration-300"
+              "container mx-auto flex h-20 items-center justify-between px-4 md:px-6 transition-all duration-300",
+              isScrolled && "h-16 mt-2 rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
           )}>
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
@@ -230,7 +230,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-secondary/30">
+        <section id="nosotros" className="py-20 md:py-28 bg-secondary">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
@@ -262,7 +262,7 @@ export default function LandingPage() {
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-background">
+        <section id="servicios" className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -283,7 +283,7 @@ export default function LandingPage() {
         </section>
         
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/30">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-secondary">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
@@ -318,9 +318,9 @@ export default function LandingPage() {
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-background">
+        <section className="py-20 md:py-28">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                 <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border">
+                 <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-card border">
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
                     <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con Kyron.</p>
                     <Button size="lg" asChild className="mt-8">
@@ -332,7 +332,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer id="contacto" className="py-16 bg-background border-t">
+      <footer id="contacto" className="py-16 border-t">
         <div className="container px-4 md:px-6 grid md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
