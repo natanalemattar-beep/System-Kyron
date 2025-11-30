@@ -103,7 +103,7 @@ export default function LandingPage() {
       )}>
           <div className={cn(
               "container mx-auto flex h-20 items-center justify-between px-4 md:px-6 transition-all duration-300",
-              isScrolled && "h-16 mt-2 rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
+              isScrolled && "h-16 mt-2 rounded-2xl border border-border/50 bg-background/80 backdrop-blur-lg shadow-lg"
           )}>
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
