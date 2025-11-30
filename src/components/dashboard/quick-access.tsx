@@ -5,9 +5,9 @@ import {
   adminNavGroups,
 } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { Button } from "../ui/button";
 
 export function QuickAccess() {
     return (
@@ -24,21 +24,22 @@ export function QuickAccess() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <SidebarMenu>
+                            <div className="flex flex-col gap-2">
                                 {group.items.slice(0, 5).map((item) => ( // Show first 5 items
-                                <SidebarMenuItem key={`${item.href}-${item.label}`}>
-                                    <SidebarMenuButton
+                                <div key={`${item.href}-${item.label}`}>
+                                    <Button
                                     asChild
-                                    className="justify-start h-10 w-full mb-2 bg-secondary/50"
+                                    variant="secondary"
+                                    className="justify-start h-10 w-full"
                                     >
                                     <Link href={item.href}>
                                         <item.icon className="h-4 w-4 mr-2" />
                                         <span>{item.label}</span>
                                     </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
+                                    </Button>
+                                </div>
                                 ))}
-                            </SidebarMenu>
+                            </div>
                         </CardContent>
                     </Card>
                 </div>
