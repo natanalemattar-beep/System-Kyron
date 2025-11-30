@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  experimental: {
+    outputFileTracingRoot: __dirname,
+  },
   images: {
     remotePatterns: [
       {
