@@ -178,7 +178,10 @@ export function AppSidebar() {
    if (informaticaPaths.some(p => pathname.startsWith(p))) {
       return <CorporateSidebarContent navGroups={informaticaNavGroups} user={{ name: "Ingeniería y TI", email: "it@kyron.com", fallback: "IT" }} />;
   }
-  if (pathname.startsWith('/dashboard-empresa') || adminNavGroups.flatMap(g => g.items).some(i => pathname.startsWith(i.href))) {
+
+  // Check for admin routes last as it's the most comprehensive
+  const adminPaths = adminNavGroups.flatMap(g => g.items.map(i => i.href));
+  if (adminPaths.some(p => pathname.startsWith(p))) {
      return <CorporateSidebarContent navGroups={adminNavGroups} user={{ name: "Admin", email: "admin@kyron.com", fallback: "A" }} />;
   }
   

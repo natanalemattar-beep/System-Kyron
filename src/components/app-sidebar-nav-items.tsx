@@ -158,6 +158,7 @@ export const legalNavGroups = [
 
 // --- START: ADMIN & FINANZAS ---
 const finanzasContabilidadMenuItems = [
+  { href: "/dashboard-empresa", label: "Dashboard Principal", icon: LayoutDashboard },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
   { href: "/reports", label: "Reportes Financieros", icon: BarChart },
   { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
@@ -209,9 +210,6 @@ const ingenieriaMenuItems = [
   { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
   { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
   { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
-  { href: "/presentacion-startup", label: "Guía para Presentar Startup", icon: Presentation },
-  { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
-  { href: "/analisis-empresa-hibrida", label: "Análisis de Modelos de Negocio", icon: Rocket },
 ];
 
 const iaMenuItems = [
@@ -234,12 +232,20 @@ const marketingMenuItems = [
     { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
     { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
     { href: "/app-aliada-recompensa", label: "Alianzas y Recompensas", icon: Award },
+    { href: "/tarjeta-reciclaje", label: "Tarjeta de Reciclaje", icon: Recycle },
     { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto", icon: Package },
     { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
     { href: "/analisis-mercado", label: "Análisis de Mercado", icon: Search },
     { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: Zap },
     { href: "/nivel-competencia", label: "Competencia y Cadena de Valor", icon: Swords },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
+    { href: "/presentacion-startup", label: "Guía para Presentar Startup", icon: Presentation },
+    { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+    { href: "/analisis-empresa-hibrida", label: "Análisis de Modelos de Negocio", icon: Rocket },
+    { href: "/carta-exposicion-motivos", label: "Carta de Exposición de Motivos", icon: Lightbulb },
+    { href: "/demografia", label: "Demografía y Mercado", icon: Users },
+    { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
+    { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
 ];
 
 export const ventasMenuItems = [
@@ -248,21 +254,14 @@ export const ventasMenuItems = [
     { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
     { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
-    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
-    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/atencion-online", label: "Centro de Atención Online", icon: MessageSquare },
 ];
 
 export const recursosHumanosGestionItems = [
     { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
     { href: "/nominas", label: "Nóminas", icon: Users },
-    { href: "/contratos", label: "Contratos", icon: FileSignature },
     { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
     { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
     { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
-    { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
-    { href: "/islr-arc", label: "ISLR / AR-C", icon: Banknote },
-    { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Users },
     { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
     { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
     { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
@@ -270,6 +269,8 @@ export const recursosHumanosGestionItems = [
     { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
     { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
     { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
+    { href: "/ivss", label: "IVSS", icon: Briefcase },
+    { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Award },
 ];
 
 export const librosRegistroMenuItems = [
@@ -322,5 +323,6 @@ export const allAdminGroups = [
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
   { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
   { title: "General", icon: Cog, items: generalMenuItems },
+  { title: "Jurídico y Corporativo", icon: Gavel, items: legalNavItems },
 ];
 // --- END: ADMIN & FINANZAS ---

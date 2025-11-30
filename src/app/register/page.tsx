@@ -52,7 +52,7 @@ const accountTypes = [
   },
    {
     type: "marketing",
-    title: "Marketing y Asesoría",
+    title: "Productos y Marketing",
     description: "Para el equipo de productos, consultoría y marketing.",
     icon: Megaphone,
     href: "/register/marketing",
@@ -69,7 +69,7 @@ const accountTypes = [
     title: "Escritorio Jurídico",
     description: "Para el equipo legal y de cumplimiento normativo.",
     icon: Gavel,
-    href: "/login-juridico",
+    href: "/register/juridico",
   },
 ];
 
@@ -138,5 +138,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-
-    

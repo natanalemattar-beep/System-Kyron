@@ -57,7 +57,7 @@ export default function LoginJuridicoPage() {
                 <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
             </Button>
              <Button asChild variant="link" className="p-0">
-                <Link href="/login-admin" className="flex items-center gap-1"><Building className="h-4 w-4" />Admin</Link>
+                <Link href="/login-fintech" className="flex items-center gap-1"><Building className="h-4 w-4" />FinTech</Link>
             </Button>
             <Button asChild variant="link" className="p-0">
                 <Link href="/login-ventas" className="flex items-center gap-1"><ShoppingCart className="h-4 w-4" />Ventas</Link>

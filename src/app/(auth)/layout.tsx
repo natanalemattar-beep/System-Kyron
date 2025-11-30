@@ -1,3 +1,4 @@
+
 'use client';
 import type { ReactNode } from "react";
 import Link from "next/link";
@@ -35,7 +36,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/login-marketing">Productos y Marketing</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
