@@ -1,9 +1,9 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Layers, Cpu, Users, BarChart, ShieldCheck, Gavel, Mail, Phone } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -13,6 +13,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { FC, AnchorHTMLAttributes } from 'react';
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { chat } from "@/ai/flows/chat";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import dynamic from "next/dynamic";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(mod => mod.WelcomeTutorial), { ssr: false });
@@ -103,7 +107,7 @@ export default function LandingPage() {
       )}>
           <div className={cn(
               "container mx-auto flex h-20 items-center justify-between px-4 md:px-6 transition-all duration-300",
-              isScrolled && "h-16 mt-2 rounded-2xl border border-border/50 bg-background/80 backdrop-blur-lg shadow-lg"
+              isScrolled && "h-16 mt-2 rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
           )}>
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
@@ -117,6 +121,7 @@ export default function LandingPage() {
                   ))}
               </nav>
               <div className="hidden md:flex items-center gap-2">
+                 <LanguageSwitcher/>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline">
@@ -131,7 +136,7 @@ export default function LandingPage() {
                         <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/asesoria-publicidad">Productos y Marketing</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/login-marketing">Productos y Marketing</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -159,6 +164,7 @@ export default function LandingPage() {
                           ))}
                       </nav>
                        <div className="mt-auto space-y-4">
+                          <LanguageSwitcher/>
                            <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                   <Button variant="outline" className="w-full justify-start">
@@ -173,7 +179,7 @@ export default function LandingPage() {
                                   <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
                                   <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
                                   <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/asesoria-publicidad">Productos y Marketing</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/login-marketing">Productos y Marketing</Link></DropdownMenuItem>
                                   <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
                               </DropdownMenuContent>
                           </DropdownMenu>
