@@ -56,3 +56,4 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
