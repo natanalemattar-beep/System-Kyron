@@ -132,30 +132,80 @@ export const naturalMenuItems = {
     }
 };
 
-const finanzasContabilidadMenuItems = [
-  { href: "/dashboard-empresa", label: "Dashboard Principal", icon: LayoutDashboard },
-  { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
-  { href: "/reports", label: "Reportes Financieros", icon: BarChart },
-  { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
-  { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
-  { href: "/tramites-fiscales", label: "Trámites Fiscales", icon: FileText },
-  { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
-  { href: "/billetera-cambio", label: "Billetera de Cambio", icon: Wallet },
-  { href: "/inventario", label: "Inventario", icon: Archive },
-  { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
-  { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
-  { href: "/seguros", label: "Seguros", icon: ShieldCheck },
-  { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
-  { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
-  { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
-  { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
-  { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
-  { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
-  { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
-  { href: "/software-contable", label: "Guía de Software Contable", icon: Puzzle },
-  { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
-  { href: "/fintech-banca", label: "Modelo FinTech y Banca", icon: Banknote },
-];
+const finanzasContabilidadNavGroups = {
+  title: "Finanzas y Contabilidad",
+  icon: BookOpen,
+  subGroups: [
+    {
+      title: "Reportes Clave",
+      icon: BarChart,
+      items: [
+        { href: "/dashboard-empresa", label: "Dashboard Principal", icon: LayoutDashboard },
+        { href: "/reports", label: "Reportes Financieros", icon: BarChart },
+        { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
+      ],
+    },
+    {
+      title: "Gestión de Cuentas",
+      icon: Wallet,
+      items: [
+        { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
+        { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
+        { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
+        { href: "/billetera-cambio", label: "Billetera de Cambio", icon: Wallet },
+      ],
+    },
+    {
+      title: "Impuestos y Fiscal",
+      icon: FileText,
+      items: [
+        { href: "/tramites-fiscales", label: "Centro de Trámites Fiscales", icon: FileText },
+        { href: "/declaracion-iva", label: "Declaración de IVA", icon: FileText },
+        { href: "/islr-arc", label: "Declaración Estimada (ISLR)", icon: Banknote },
+        { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
+        { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
+      ],
+    },
+     {
+      title: "Libros Oficiales",
+      icon: BookOpen,
+      items: [
+        { href: "/libros-contables", label: "Libros Contables Principales", icon: BookOpen },
+        { href: "/libro-compra-venta", label: "Libro de Compras y Ventas", icon: Landmark },
+        { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
+      ],
+    },
+    {
+      title: "Análisis y Cumplimiento",
+      icon: ShieldCheck,
+      items: [
+        { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
+        { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
+        { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
+        { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+      ],
+    },
+    {
+      title: "Conceptos y Guías",
+      icon: HelpCircle,
+      items: [
+        { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
+        { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
+        { href: "/software-contable", label: "Guía de Software Contable", icon: Puzzle },
+      ],
+    },
+    {
+      title: "Varios",
+      icon: Layers,
+      items: [
+        { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
+        { href: "/seguros", label: "Seguros", icon: ShieldCheck },
+        { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
+      ],
+    },
+  ],
+};
+
 
 const facturacionGeneralMenuItems = [
     { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
@@ -296,7 +346,7 @@ export const informaticaNavGroups = [
 ];
 
 export const adminNavGroups = [
-  { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+  finanzasContabilidadNavGroups,
   { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
   { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
   { title: "General", icon: Cog, items: generalMenuItems },

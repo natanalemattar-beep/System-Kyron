@@ -76,14 +76,35 @@ export function AppHeader({ user }: { user: User }) {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            {group.items.map((item) => (
+                          {group.subGroups ? (
+                            group.subGroups.map((subGroup) => (
+                              <DropdownMenuSub key={subGroup.title}>
+                                <DropdownMenuSubTrigger>
+                                  <subGroup.icon className="mr-2 h-4 w-4" />
+                                  <span>{subGroup.title}</span>
+                                </DropdownMenuSubTrigger>
+                                <DropdownMenuSubContent>
+                                  {subGroup.items.map((item) => (
+                                    <DropdownMenuItem key={item.href} asChild>
+                                      <Link href={item.href} className={cn("flex items-center", pathname === item.href && "font-bold text-primary")}>
+                                          <item.icon className="mr-2 h-4 w-4" />
+                                          {item.label}
+                                      </Link>
+                                    </DropdownMenuItem>
+                                  ))}
+                                </DropdownMenuSubContent>
+                              </DropdownMenuSub>
+                            ))
+                          ) : (
+                            group.items.map((item) => (
                                 <DropdownMenuItem key={item.href} asChild>
                                     <Link href={item.href} className={cn("flex items-center", pathname === item.href && "font-bold text-primary")}>
                                         <item.icon className="mr-2 h-4 w-4" />
                                         {item.label}
                                     </Link>
                                 </DropdownMenuItem>
-                            ))}
+                            ))
+                          )}
                         </DropdownMenuContent>
                     </DropdownMenu>
                 ))}
@@ -110,7 +131,7 @@ export function AppHeader({ user }: { user: User }) {
                       {navGroups.map((group) => (
                         <div key={group.title}>
                           <h4 className="font-semibold text-sm text-muted-foreground px-2 py-1">{group.title}</h4>
-                           {group.items.map((item) => (
+                          {group.items.map((item) => (
                               <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start">
                                 <Link href={item.href}>
                                   <item.icon className="mr-2 h-4 w-4" />
