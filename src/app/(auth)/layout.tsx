@@ -26,7 +26,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
-            <span className="text-lg font-bold">Kyron</span>
+            <span className="text-lg font-bold">System Kyron</span>
           </Link>
           <div className="flex items-center gap-2">
             <LanguageSwitcher />

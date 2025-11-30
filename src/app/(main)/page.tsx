@@ -74,7 +74,7 @@ const testimonials = [
   {
     name: "Carlos Rodríguez",
     company: "Constructora XYZ",
-    text: "Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
+    text: "System Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
   },
   {
     name: "Ana Pérez",
@@ -98,20 +98,20 @@ export default function LandingPage() {
     }, []);
     
   return (
-    <div className="flex flex-col min-h-dvh bg-slate-950 text-white">
+    <div className="flex flex-col min-h-dvh bg-background text-foreground">
      
       <header className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "bg-slate-950/80 backdrop-blur-lg" : "bg-transparent"
+          isScrolled ? "bg-background/80 backdrop-blur-lg border-b" : "bg-transparent"
       )}>
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
-                  <span className="text-xl font-bold">Kyron</span>
+                  <span className="text-xl font-bold">System Kyron</span>
               </Link>
               <nav className="hidden md:flex gap-6">
                   {navLinks.map((link) => (
-                  <SmoothScrollLink key={link.href} href={link.href} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                  <SmoothScrollLink key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                       {link.label}
                   </SmoothScrollLink>
                   ))}
@@ -120,7 +120,7 @@ export default function LandingPage() {
                  <LanguageSwitcher/>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline">
+                        <Button variant="ghost">
                         Acceder
                         <User className="ml-2 h-4 w-4" />
                         </Button>
@@ -152,16 +152,16 @@ export default function LandingPage() {
                           <span className="sr-only">Abrir menú</span>
                       </Button>
                   </SheetTrigger>
-                  <SheetContent side="left" className="flex flex-col bg-slate-950">
+                  <SheetContent side="left" className="flex flex-col">
                       <SheetHeader>
                           <SheetTitle className="flex items-center gap-3">
                             <Logo />
-                            <span className="text-xl font-bold">Kyron</span>
+                            <span className="text-xl font-bold">System Kyron</span>
                           </SheetTitle>
                       </SheetHeader>
                       <nav className="grid gap-4 text-lg font-medium mt-8">
                           {navLinks.map((link) => (
-                              <SmoothScrollLink key={link.href} href={link.href} className="text-slate-300 hover:text-white">{link.label}</SmoothScrollLink>
+                              <SmoothScrollLink key={link.href} href={link.href}>{link.label}</SmoothScrollLink>
                           ))}
                       </nav>
                        <div className="mt-auto space-y-4">
@@ -202,8 +202,8 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-            <div className="absolute -z-10 inset-0 bg-grid-slate-700/30 [mask-image:linear-gradient(to_bottom,white_10%,transparent_70%)]"></div>
-            <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(124,58,237,0.3),transparent)]"></div>
+            <div className="absolute -z-10 inset-0 bg-grid-slate-200 dark:bg-grid-slate-700/30 [mask-image:linear-gradient(to_bottom,white_10%,transparent_70%)]"></div>
+            <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),transparent)]"></div>
             
             <div className="container px-4 md:px-6 relative z-10 text-center">
                 <div className="animate-fade-up">
@@ -211,8 +211,8 @@ export default function LandingPage() {
                         Gestión Empresarial Inteligente, <br />
                         <span className="text-primary">Tranquilidad Fiscal Garantizada.</span>
                     </h1>
-                    <p className="mt-6 text-lg md:text-xl text-slate-400 max-w-3xl mx-auto text-balance">
-                       Kyron es el ecosistema todo-en-uno que automatiza tu contabilidad, asegura tu cumplimiento con el SENIAT y te da las herramientas para crecer con confianza en Venezuela.
+                    <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
+                       System Kyron es el ecosistema todo-en-uno que automatiza tu contabilidad, asegura tu cumplimiento con el SENIAT y te da las herramientas para crecer con confianza en Venezuela.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild>
@@ -230,65 +230,33 @@ export default function LandingPage() {
             </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-slate-900">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
-                    <p className="mt-4 text-lg text-slate-400">La tranquilidad de nuestros clientes es nuestro mayor activo.</p>
-                </div>
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    {testimonials.map((testimonial, index) => {
-                      const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
-                      return (
-                        <div key={index} className="p-6 md:p-8 border border-slate-800 bg-slate-900 rounded-xl shadow-sm">
-                            <p className="text-slate-300 italic md:text-lg mb-6">"{testimonial.text}"</p>
-                            <div className="flex items-center gap-4">
-                              {avatar && (
-                                <Avatar>
-                                    <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
-                                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                                </Avatar>
-                              )}
-                                <div>
-                                    <p className="font-semibold">{testimonial.name}</p>
-                                    <p className="text-sm text-slate-400">{testimonial.company}</p>
-                                </div>
-                            </div>
-                        </div>
-                      )
-                    })}
-                </div>
-            </div>
-        </section>
-
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28">
+        <section id="servicios" className="py-20 md:py-28 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
-                    <p className="mt-4 text-lg text-slate-400">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
+                    <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                      {services.map((item) => (
-                        <div key={item.title} className="p-8 rounded-xl border border-slate-800 bg-slate-900/50 shadow-sm transition-all hover:shadow-lg hover:border-primary/50 hover:-translate-y-1">
+                        <div key={item.title} className="p-8 rounded-xl border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
                             <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
                             <h3 className="text-xl font-semibold ">{item.title}</h3>
-                            <p className="text-slate-400 mt-2 flex-grow">{item.description}</p>
+                            <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
                         </div>
                     ))}
                 </div>
             </div>
         </section>
-        
+
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-slate-900">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
-                <p className="text-lg text-slate-400">
+                <p className="text-lg text-muted-foreground">
                   Nuestra plataforma integra tecnologías de vanguardia para darte una ventaja competitiva.
                 </p>
                 <div className="space-y-6">
@@ -299,7 +267,7 @@ export default function LandingPage() {
                         </div>
                         <div>
                           <h4 className="font-semibold text-lg">{feature.title}</h4>
-                          <p className="text-slate-400 text-sm">{feature.description}</p>
+                          <p className="text-muted-foreground text-sm">{feature.description}</p>
                         </div>
                     </div>
                     ))}
@@ -318,12 +286,44 @@ export default function LandingPage() {
           </div>
         </section>
         
+        {/* Testimonials Section */}
+        <section id="nosotros" className="py-20 md:py-28 bg-muted/30">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">La tranquilidad de nuestros clientes es nuestro mayor activo.</p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    {testimonials.map((testimonial, index) => {
+                      const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
+                      return (
+                        <div key={index} className="p-6 md:p-8 border bg-card rounded-xl shadow-sm">
+                            <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
+                            <div className="flex items-center gap-4">
+                              {avatar && (
+                                <Avatar>
+                                    <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
+                                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                              )}
+                                <div>
+                                    <p className="font-semibold">{testimonial.name}</p>
+                                    <p className="text-sm text-muted-foreground">{testimonial.company}</p>
+                                </div>
+                            </div>
+                        </div>
+                      )
+                    })}
+                </div>
+            </div>
+        </section>
+        
         {/* CTA Section */}
-        <section className="py-20 md:py-28">
+        <section className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                 <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-slate-900 border border-slate-800">
+                 <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-card border">
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
-                    <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con Kyron.</p>
+                    <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con Kyron.</p>
                     <Button size="lg" asChild className="mt-8">
                       <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
                     </Button>
@@ -333,38 +333,38 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer id="contacto" className="py-16 bg-slate-900 border-t border-slate-800">
+      <footer id="contacto" className="py-16 bg-card border-t">
         <div className="container px-4 md:px-6 grid md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Logo />
-              <span className="text-xl font-bold">Kyron</span>
+              <span className="text-xl font-bold">System Kyron</span>
             </div>
-            <p className="text-sm text-slate-400">La solución definitiva para la gestión empresarial en Venezuela.</p>
+            <p className="text-sm text-muted-foreground">La solución definitiva para la gestión empresarial en Venezuela.</p>
           </div>
           <div className="space-y-4">
             <h4 className="font-semibold">Contacto</h4>
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-3">
-                <Mail className="h-5 w-5 text-slate-400 mt-0.5"/>
-                <a href="mailto:contacto@kyron.com" className="text-slate-300 hover:text-white">contacto@kyron.com</a>
+                <Mail className="h-5 w-5 text-muted-foreground mt-0.5"/>
+                <a href="mailto:contacto@kyron.com" className="hover:text-primary">contacto@kyron.com</a>
               </div>
               <div className="flex items-start gap-3">
-                <Phone className="h-5 w-5 text-slate-400 mt-0.5"/>
-                <a href="tel:+584141234567" className="text-slate-300 hover:text-white">+58 414-1234567</a>
+                <Phone className="h-5 w-5 text-muted-foreground mt-0.5"/>
+                <a href="tel:+584141234567" className="hover:text-primary">+58 414-1234567</a>
               </div>
             </div>
           </div>
           <div className="space-y-4">
             <h4 className="font-semibold">Legal</h4>
             <nav className="flex flex-col gap-2 text-sm">
-                <Link href="/terms" className="text-slate-300 hover:text-white">Términos de Servicio</Link>
-                <Link href="/politica-privacidad" className="text-slate-300 hover:text-white">Política de Privacidad</Link>
+                <Link href="/terms" className="text-muted-foreground hover:text-primary">Términos de Servicio</Link>
+                <Link href="/politica-privacidad" className="text-muted-foreground hover:text-primary">Política de Privacidad</Link>
             </nav>
           </div>
         </div>
-        <div className="container px-4 md:px-6 mt-8 pt-8 border-t border-slate-800 text-center text-sm text-slate-400">
-          &copy; {new Date().getFullYear()} Kyron. Todos los derechos reservados.
+        <div className="container px-4 md:px-6 mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()} System Kyron. Todos los derechos reservados.
         </div>
       </footer>
       

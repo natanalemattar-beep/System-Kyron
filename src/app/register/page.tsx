@@ -80,7 +80,7 @@ export default function RegisterPage() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <Logo />
-            <span className="text-lg font-bold">Kyron</span>
+            <span className="text-lg font-bold">System Kyron</span>
           </Link>
           <Button variant="ghost" asChild>
             <Link href="/login-natural">
@@ -103,7 +103,7 @@ export default function RegisterPage() {
             {accountTypes.map((account) => (
               <Card
                 key={account.type}
-                className="flex flex-col text-center bg-card border hover:border-primary hover:shadow-lg transition-all backdrop-blur-sm"
+                className="flex flex-col text-center bg-card border hover:border-primary hover:shadow-lg transition-all"
               >
                 <CardHeader className="items-center">
                   <div className="p-4 bg-primary/10 rounded-full mb-4">
