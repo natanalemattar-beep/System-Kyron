@@ -1,7 +1,9 @@
 
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, FileDown, Eye, QrCode } from "lucide-react";
+import { PlusCircle, FileDown, Eye, QrCode, FileText } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
@@ -33,7 +35,10 @@ export default function ActasMatrimonioPage() {
     <div className="space-y-8">
         <header className="mb-8 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight">Actas de Matrimonio</h1>
+                <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                    <FileText className="h-8 w-8"/>
+                    Actas de Matrimonio
+                </h1>
                 <p className="text-muted-foreground">
                     Solicita y gestiona tus actas de matrimonio.
                 </p>
@@ -43,7 +48,7 @@ export default function ActasMatrimonioPage() {
                 Solicitar Acta
             </Button>
         </header>
-      <Card>
+      <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle>Mis Solicitudes</CardTitle>
           <CardDescription>Seguimiento de las solicitudes de actas de matrimonio.</CardDescription>
