@@ -75,7 +75,7 @@ const accountTypes = [
 
 export default function RegisterPage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full bg-transparent">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
@@ -103,7 +103,7 @@ export default function RegisterPage() {
             {accountTypes.map((account) => (
               <Card
                 key={account.type}
-                className="flex flex-col text-center bg-card/80 border border-slate-800 hover:border-primary hover:shadow-lg transition-all backdrop-blur-sm"
+                className="flex flex-col text-center bg-card/80 border hover:border-primary hover:shadow-lg transition-all backdrop-blur-sm"
               >
                 <CardHeader className="items-center">
                   <div className="p-4 bg-primary/10 rounded-full mb-4">

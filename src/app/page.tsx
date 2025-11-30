@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -97,7 +98,7 @@ export default function LandingPage() {
     }, []);
     
   return (
-    <div className="flex flex-col min-h-dvh text-foreground">
+    <div className="flex flex-col min-h-dvh bg-background text-foreground">
      
       <header className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
