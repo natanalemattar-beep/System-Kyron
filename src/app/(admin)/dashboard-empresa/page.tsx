@@ -9,8 +9,11 @@ import {
   HandCoins,
   FileWarning,
   ArrowRight,
+  Users,
+  UserCheck,
+  Mail
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
