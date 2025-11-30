@@ -31,8 +31,8 @@ const kpiData = [
 ];
 
 const recentActivities = [
-    { description: "Cálculo de nómina de la 1ra quincena completado.", time: "Hace 30 minutos", icon: Users, iconColor: "text-blue-500" },
-    { description: "Nueva solicitud de crédito recibida de 'Innovate Corp'.", time: "Hace 1 hora", icon: UserCheck, iconColor: "text-green-500" },
+    { description: "Cálculo de nómina de la 1ra quincena completado.", time: "Hace 30 minutos", icon: Users, iconColor: "text-blue-400" },
+    { description: "Nueva solicitud de crédito recibida de 'Innovate Corp'.", time: "Hace 1 hora", icon: UserCheck, iconColor: "text-green-400" },
     { description: "Alerta: Licencia de Actividades Económicas vence en 15 días.", time: "Hace 3 horas", icon: FileWarning, iconColor: "text-orange-400" },
     { description: "Factura FAC-0892 enviada a 'Tech Solutions LLC'.", time: "Hace 5 horas", icon: Mail, iconColor: "text-gray-400" },
 ];
@@ -62,8 +62,8 @@ export default function DashboardEmpresaPage() {
       {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiData.map(kpi => (
-             <Link href={kpi.href || "#"} key={kpi.title}>
-                <Card className="bg-card/50 backdrop-blur-sm h-full transition-all hover:shadow-lg">
+             <Link href={kpi.href || "#"} key={kpi.title} className="hover:shadow-lg transition-shadow">
+                <Card className="bg-card/50 backdrop-blur-sm h-full">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
                         <kpi.icon className="h-4 w-4 text-muted-foreground" />

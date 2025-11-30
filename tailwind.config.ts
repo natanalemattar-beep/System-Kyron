@@ -1,4 +1,3 @@
-
 import type {Config} from 'tailwindcss';
 
 const config: Config = {
@@ -82,17 +81,13 @@ const config: Config = {
           "from": { opacity: "0", transform: "translateY(10px)"},
           "to": { opacity: "1", transform: "translateY(0)"},
         },
-        "fade-down": {
-          "from": { opacity: "0", transform: "translateY(-10px)"},
-          "to": { opacity: "1", transform: "translateY(0)"},
+        "fade-in-and-zoom": {
+            from: { opacity: "0", transform: "scale(0.95)" },
+            to: { opacity: "1", transform: "scale(1)" },
         },
-        "zoom-in": {
-          "from": { opacity: "0", transform: "scale(0.95)"},
-          "to": { opacity: "1", transform: "scale(1)"},
-        },
-        "zoom-out": {
-          "from": { opacity: "1", transform: "scale(1)"},
-          "to": { opacity: "0", transform: "scale(0.95)"},
+        "fade-out-and-zoom": {
+            from: { opacity: "1", transform: "scale(1)" },
+            to: { opacity: "0", transform: "scale(0.95)" },
         },
         "slide-in-from-top": {
           "from": { transform: "translateY(-100%)" },
@@ -137,7 +132,6 @@ const config: Config = {
         "fade-in": "fade-in 0.3s ease-out",
         "fade-out": "fade-out 0.3s ease-in",
         "fade-up": "fade-up 0.4s ease-out",
-        "fade-down": "fade-down 0.4s ease-out",
         "fade-in-and-zoom": "fade-in 0.2s ease-out, zoom-in 0.2s ease-out",
         "fade-out-and-zoom": "fade-out 0.2s ease-in, zoom-out 0.2s ease-in",
         "slide-in-from-top": "slide-in-from-top 0.3s ease-out",

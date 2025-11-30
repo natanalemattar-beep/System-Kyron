@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,7 +23,7 @@ type Activity = {
 
 export function ActivityCard({ recentActivities }: { recentActivities: Activity[] }) {
   return (
-    <Card className="lg:col-span-1 bg-card/80 backdrop-blur-sm flex flex-col">
+    <Card className="lg:col-span-1 bg-card/50 backdrop-blur-sm flex flex-col">
       <CardHeader>
         <CardTitle>Actividad Reciente</CardTitle>
       </CardHeader>
