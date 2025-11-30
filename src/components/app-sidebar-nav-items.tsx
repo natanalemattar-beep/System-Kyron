@@ -204,6 +204,7 @@ const finanzasContabilidadNavGroups = {
       ],
     },
   ],
+  items: [], // Ensure items property exists
 };
 
 
@@ -325,46 +326,46 @@ export const legalNavItems = [
   { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
 ];
 
+export const adminNavGroups = [
+  finanzasContabilidadNavGroups,
+  { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
+  { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems, subGroups: [] },
+  { title: "General", icon: Cog, items: generalMenuItems, subGroups: [] },
+];
+
+export const legalNavGroups = [
+    { title: "Jurídico y Corporativo", icon: Gavel, items: legalNavItems, subGroups: [] },
+];
+
+export const marketingNavGroups = [
+    { title: "Ventas y Marketing", icon: Megaphone, items: marketingMenuItems, subGroups: [] }
+];
+
+export const rrhhNavGroups = [
+    { title: "Gestión de RR.HH.", icon: Briefcase, items: recursosHumanosGestionItems, subGroups: [] },
+    { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems, subGroups: [] },
+];
+
+export const ventasNavGroups = [
+    { title: "Ventas y Caja", icon: ShoppingCart, items: ventasMenuItems, subGroups: [] },
+];
+
 export const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
         { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
         { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/organigrama", label: "Organigrama", icon: Network },
         { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
-    ] },
+    ], subGroups: [] },
 ];
 
 export const informaticaNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ] },
-  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ] },
-  { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems },
+  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ], subGroups: [] },
+  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ], subGroups: [] },
+  { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems, subGroups: [] },
   { title: "Arquitectura", icon: Puzzle, items: [ 
       { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
       { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
-  ]},
-  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
-];
-
-export const adminNavGroups = [
-  finanzasContabilidadNavGroups,
-  { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-  { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
-  { title: "General", icon: Cog, items: generalMenuItems },
-];
-
-export const legalNavGroups = [
-    { title: "Jurídico y Corporativo", icon: Gavel, items: legalNavItems },
-];
-
-export const marketingNavGroups = [
-    { title: "Ventas y Marketing", icon: Megaphone, items: marketingMenuItems }
-];
-
-export const rrhhNavGroups = [
-    { title: "Gestión de RR.HH.", icon: Briefcase, items: recursosHumanosGestionItems },
-    { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems },
-];
-
-export const ventasNavGroups = [
-    { title: "Ventas y Caja", icon: ShoppingCart, items: ventasMenuItems },
+  ], subGroups: [] },
+  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems, subGroups: [] },
 ];
