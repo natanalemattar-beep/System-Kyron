@@ -4,7 +4,7 @@
 import { Gavel, User, LayoutDashboard, Briefcase, ShoppingCart, Users, Megaphone, Cpu, Building } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarFooter, useSidebar } from "@/components/ui/sidebar";
+import { Sidebar, SidebarHeader, SidebarTrigger, SidebarContent, SidebarFooter, useSidebar } from "@/components/ui/sidebar";
 import {
   naturalMenuItems,
   adminNavGroups,
@@ -15,11 +15,9 @@ import {
   informaticaNavGroups,
   marketingNavGroups,
 } from "@/components/app-sidebar-nav-items";
-import { Badge } from "./ui/badge";
 import { Logo } from "./logo";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { LanguageSwitcher } from "./language-switcher";
 import { cn } from "@/lib/utils";
 
 const CorporateSidebarContent = ({ navGroups, user }: { navGroups: any[], user: any }) => {
@@ -37,23 +35,24 @@ const CorporateSidebarContent = ({ navGroups, user }: { navGroups: any[], user: 
             </SidebarHeader>
             <SidebarContent>
                 {navGroups.map((group) => (
-                    <div key={group.title}>
+                    <div key={group.title} className="mb-4">
                         <p className={cn("p-2 text-xs font-semibold text-muted-foreground", state === 'collapsed' && 'hidden')}>{group.title}</p>
-                        {group.items.map((item: any) => (
-                            <SidebarMenuItem key={`${item.href}-${item.label}`}>
-                                <SidebarMenuButton
-                                    asChild
-                                    isActive={pathname === item.href}
-                                    className="justify-start h-9"
-                                    tooltip={item.label}
+                        <div className="space-y-1">
+                            {group.items.map((item: any) => (
+                                <Link
+                                    key={`${item.href}-${item.label}`}
+                                    href={item.href}
+                                    className={cn(
+                                        "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-accent",
+                                        pathname === item.href && "bg-accent text-primary font-semibold",
+                                        state === 'collapsed' && "justify-center"
+                                    )}
                                 >
-                                    <Link href={item.href}>
-                                        <item.icon className="h-4 w-4" />
-                                        <span className={cn(state === 'collapsed' && 'hidden')}>{item.label}</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        ))}
+                                    <item.icon className="h-4 w-4" />
+                                    <span className={cn(state === 'collapsed' && 'hidden')}>{item.label}</span>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
                 ))}
             </SidebarContent>
@@ -98,27 +97,28 @@ const AppSidebarNatural = () => {
                 {groupTitles.map((groupKey) => {
                     const group = naturalMenuItems[groupKey];
                     return (
-                        <SidebarMenu key={group.title}>
-                            <div className={cn("px-2 font-semibold text-muted-foreground text-sm flex items-center gap-2 mb-2", state === 'collapsed' && 'hidden')}>
+                        <div key={group.title} className="mb-4">
+                            <p className={cn("px-3 py-2 text-xs font-semibold text-muted-foreground flex items-center gap-2", state === 'collapsed' && 'hidden')}>
                                <group.icon className="h-4 w-4" />
                                <span>{group.title}</span>
-                            </div>
-                            {group.items.map((item) => (
-                                <SidebarMenuItem key={item.href}>
-                                <SidebarMenuButton
-                                    asChild
-                                    isActive={pathname === item.href}
-                                    tooltip={item.label}
-                                >
-                                    <Link href={item.href}>
-                                    <item.icon className="h-4 w-4" />
-                                    <span className={cn(state === 'collapsed' && 'hidden')}>{item.label}</span>
-                                     {item.isNew && <Badge variant="outline" className={cn("ml-auto", state === 'collapsed' && 'hidden')}>Nuevo</Badge>}
+                            </p>
+                            <div className="space-y-1">
+                                {group.items.map((item) => (
+                                     <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        className={cn(
+                                            "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-accent",
+                                            pathname === item.href && "bg-accent text-primary font-semibold",
+                                            state === 'collapsed' && "justify-center"
+                                        )}
+                                    >
+                                        <item.icon className="h-4 w-4" />
+                                        <span className={cn(state === 'collapsed' && 'hidden')}>{item.label}</span>
                                     </Link>
-                                </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            ))}
-                        </SidebarMenu>
+                                ))}
+                            </div>
+                        </div>
                     )
                 })}
              </SidebarContent>
@@ -136,7 +136,7 @@ const AppSidebarNatural = () => {
                         </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="mb-2 w-56">
-                         <DropdownMenuItem asChild><Link href="/general">Configuración</Link></DropdownMenuItem>
+                         <DropdownMenuItem asChild><Link href="/seguridad">Seguridad</Link></DropdownMenuItem>
                          <DropdownMenuItem asChild><Link href="/">Cerrar Sesión</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -156,27 +156,26 @@ export function AppSidebar() {
   }
 
   // Determine which sidebar to render based on the URL prefix
-  if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/departamento-juridico') || legalNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+  if (pathname.startsWith('/escritorio-juridico')) {
       return <CorporateSidebarContent navGroups={legalNavGroups} user={{ name: "Escritorio Jurídico", email: "legal@kyron.com", fallback: "L" }} />;
   }
-  if (pathname.startsWith('/analisis-ventas') || pathname.startsWith('/punto-de-venta')) {
+  if (pathname.startsWith('/analisis-ventas')) {
       return <CorporateSidebarContent navGroups={ventasNavGroups} user={{ name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" }} />;
   }
-  if (pathname.startsWith('/dashboard-rrhh') || rrhhNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+  if (pathname.startsWith('/dashboard-rrhh')) {
       return <CorporateSidebarContent navGroups={rrhhNavGroups} user={{ name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }} />;
   }
-  if (pathname.startsWith('/dashboard-socios') || sociosNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+  if (pathname.startsWith('/dashboard-socios')) {
       return <CorporateSidebarContent navGroups={sociosNavGroups} user={{ name: "Portal de Socios", email: "socios@kyron.com", fallback: "S" }} />;
   }
-   if (pathname.startsWith('/dashboard-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+   if (pathname.startsWith('/dashboard-informatica')) {
       return <CorporateSidebarContent navGroups={informaticaNavGroups} user={{ name: "Ingeniería y TI", email: "it@kyron.com", fallback: "IT" }} />;
   }
-  if (pathname.startsWith('/asesoria-publicidad') || marketingNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+  if (pathname.startsWith('/asesoria-publicidad')) {
     return <CorporateSidebarContent navGroups={marketingNavGroups} user={{ name: "Marketing", email: "marketing@kyron.com", fallback: "M" }} />;
   }
   
-  // Admin dashboard has a more general path, so we check it last
-  if (pathname.startsWith('/dashboard-empresa') || adminNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+  if (pathname.startsWith('/dashboard-empresa')) {
      return <CorporateSidebarContent navGroups={adminNavGroups} user={{ name: "Admin", email: "admin@kyron.com", fallback: "A" }} />;
   }
   

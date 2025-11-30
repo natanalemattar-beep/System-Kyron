@@ -1,9 +1,9 @@
 
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Layers, Cpu, Users, BarChart, ShieldCheck, Gavel, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -13,10 +13,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { FC, AnchorHTMLAttributes } from 'react';
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { chat } from "@/ai/flows/chat";
-import { LanguageSwitcher } from "@/components/language-switcher";
 import dynamic from "next/dynamic";
 
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(mod => mod.WelcomeTutorial), { ssr: false });
@@ -77,7 +73,6 @@ const testimonials = [
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [showTutorial, setShowTutorial] = useState(false);
-    const heroImage = PlaceHolderImages.find((img) => img.id === "hero-image");
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
@@ -122,7 +117,6 @@ export default function LandingPage() {
                   ))}
               </nav>
               <div className="hidden md:flex items-center gap-2">
-                 <LanguageSwitcher/>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline">
@@ -165,7 +159,6 @@ export default function LandingPage() {
                           ))}
                       </nav>
                        <div className="mt-auto space-y-4">
-                          <LanguageSwitcher/>
                            <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                   <Button variant="outline" className="w-full justify-start">
