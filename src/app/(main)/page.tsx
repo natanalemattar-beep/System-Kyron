@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -40,6 +40,16 @@ const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, .
     return <a href={href} onClick={handleClick} {...props} />;
 };
 
+const loginOptions = [
+    { href: "/login-natural", label: "Acceso Personal", icon: User, description: "Para clientes individuales." },
+    { href: "/login-fintech", label: "FinTech y Banca Digital", icon: Banknote, description: "Panel de control principal de la empresa." },
+    { href: "/login-juridico", label: "Escritorio Jurídico", icon: Gavel, description: "Acceso para el departamento legal." },
+    { href: "/login-ventas", label: "Ventas y Facturación", icon: ShoppingCart, description: "Acceso para cajeros y vendedores." },
+    { href: "/login-rrhh", label: "Acceso RR.HH.", icon: Briefcase, description: "Portal para gestión de personal." },
+    { href: "/login-socios", label: "Acceso Socios", icon: Users, description: "Dashboard para socios y directivos." },
+    { href: "/login-marketing", label: "Productos y Marketing", icon: Megaphone, description: "Portal de marketing y asesoría." },
+    { href: "/login-informatica", label: "Ingeniería e Informática", icon: Cpu, description: "Acceso para el equipo de IT." },
+];
 
 const navLinks = [
   { href: "#servicios", label: "Servicios" },
@@ -129,15 +139,20 @@ export default function LandingPage() {
                         <User className="ml-2 h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem asChild><Link href="/login-natural">Acceso Personal</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-fintech">FinTech y Banca Digital</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-marketing">Productos y Marketing</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
+                    <DropdownMenuContent align="end" className="w-64">
+                      <DropdownMenuLabel>Selecciona un Portal</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      {loginOptions.map((opt) => (
+                        <DropdownMenuItem key={opt.href} asChild>
+                           <Link href={opt.href} className="flex items-center justify-start">
+                              <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                              <div>
+                                <p>{opt.label}</p>
+                                <p className="text-xs text-muted-foreground">{opt.description}</p>
+                              </div>
+                            </Link>
+                        </DropdownMenuItem>
+                      ))}
                     </DropdownMenuContent>
                 </DropdownMenu>
                  <Button asChild>
@@ -172,15 +187,20 @@ export default function LandingPage() {
                                   Acceder
                                   </Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" side="top" className="w-56 mb-2">
-                                  <DropdownMenuItem asChild><Link href="/login-natural">Acceso Personal</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/login-fintech">FinTech y Banca Digital</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/login-marketing">Productos y Marketing</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
+                               <DropdownMenuContent align="end" side="top" className="w-64 mb-2">
+                                <DropdownMenuLabel>Selecciona un Portal</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                {loginOptions.map((opt) => (
+                                    <DropdownMenuItem key={opt.href} asChild>
+                                      <Link href={opt.href} className="flex items-center justify-start">
+                                          <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                                           <div>
+                                            <p>{opt.label}</p>
+                                            <p className="text-xs text-muted-foreground">{opt.description}</p>
+                                          </div>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                  ))}
                               </DropdownMenuContent>
                           </DropdownMenu>
                           <Button asChild className="w-full">
@@ -200,7 +220,7 @@ export default function LandingPage() {
             <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
             
             <div className="container px-4 md:px-6 relative z-10 text-center">
-                <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                <div className="animate-fade-up">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
                         Gestión Empresarial Inteligente, <br />
                         <span className="text-primary">Tranquilidad Fiscal Garantizada.</span>
@@ -279,7 +299,7 @@ export default function LandingPage() {
         
         {/* Features Section */}
         <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/30">
-          <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
                 <p className="text-lg text-muted-foreground">
@@ -299,7 +319,7 @@ export default function LandingPage() {
                     ))}
                 </div>
             </div>
-             <div className="p-4 rounded-xl flex items-center justify-center">
+             <div className="p-4 md:p-8 rounded-xl flex items-center justify-center">
                  {aboutImage && <Image 
                     src={aboutImage.imageUrl}
                     alt={aboutImage.description}
