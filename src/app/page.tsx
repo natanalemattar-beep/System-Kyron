@@ -74,7 +74,7 @@ const testimonials = [
   {
     name: "Carlos Rodríguez",
     company: "Constructora XYZ",
-    text: "Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
+    text: "System Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
   },
   {
     name: "Ana Pérez",
@@ -107,7 +107,7 @@ export default function LandingPage() {
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
-                  <span className="text-xl font-bold">Kyron</span>
+                  <span className="text-xl font-bold">System Kyron</span>
               </Link>
               <nav className="hidden md:flex gap-6">
                   {navLinks.map((link) => (
@@ -156,7 +156,7 @@ export default function LandingPage() {
                       <SheetHeader>
                           <SheetTitle className="flex items-center gap-3">
                             <Logo />
-                            <span className="text-xl font-bold">Kyron</span>
+                            <span className="text-xl font-bold">System Kyron</span>
                           </SheetTitle>
                       </SheetHeader>
                       <nav className="grid gap-4 text-lg font-medium mt-8">
@@ -212,7 +212,7 @@ export default function LandingPage() {
                         <span className="text-primary">Tranquilidad Fiscal Garantizada.</span>
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-                       Kyron es el ecosistema todo-en-uno que automatiza tu contabilidad, asegura tu cumplimiento con el SENIAT y te da las herramientas para crecer con confianza en Venezuela.
+                       System Kyron es el ecosistema todo-en-uno que automatiza tu contabilidad, asegura tu cumplimiento con el SENIAT y te da las herramientas para crecer con confianza en Venezuela.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild>
@@ -338,7 +338,7 @@ export default function LandingPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Logo />
-              <span className="text-xl font-bold">Kyron</span>
+              <span className="text-xl font-bold">System Kyron</span>
             </div>
             <p className="text-sm text-muted-foreground">La solución definitiva para la gestión empresarial en Venezuela.</p>
           </div>
@@ -364,7 +364,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="container px-4 md:px-6 mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Kyron. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} System Kyron. Todos los derechos reservados.
         </div>
       </footer>
       
