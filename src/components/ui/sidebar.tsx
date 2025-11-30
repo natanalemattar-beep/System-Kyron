@@ -291,7 +291,7 @@ const SidebarInset = React.forwardRef<
     <main
       ref={ref}
       className={cn(
-        "relative flex min-h-svh flex-1 flex-col bg-transparent transition-all duration-300 ease-in-out",
+        "relative flex min-h-svh flex-1 flex-col bg-transparent transition-all duration-300 ease-in-out overflow-hidden",
         "md:ml-[var(--sidebar-width)]",
         state === 'collapsed' && 'md:ml-[var(--sidebar-width-icon)]',
         className

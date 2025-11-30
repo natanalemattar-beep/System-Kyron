@@ -12,6 +12,9 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen bg-background">
+        <div className="absolute inset-0 -z-10 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_1%,transparent_50%)] dark:bg-grid-slate-700/30"></div>
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
+        
         <AppSidebar />
         <SidebarInset>
            <div className="bg-yellow-600/10 border-b border-yellow-500/20 py-2">
@@ -22,7 +25,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
                     </p>
                 </div>
             </div>
-            <main className="flex-1 p-4 md:p-8">
+            <main className="flex-1 p-4 md:p-8 overflow-y-auto">
                 {children}
             </main>
         </SidebarInset>
@@ -31,3 +34,4 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
     </SidebarProvider>
   );
 }
+
