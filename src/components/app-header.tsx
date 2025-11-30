@@ -65,7 +65,7 @@ export function AppHeader({ user }: { user: User }) {
         <div className="flex items-center gap-6">
             <Link href={dashboardHref} className="flex items-center gap-3">
                 <Logo />
-                <span className="text-xl font-bold hidden sm:inline-block">Kyron</span>
+                <span className="text-xl font-bold hidden sm:inline-block">System Kyron</span>
             </Link>
             <nav className="hidden md:flex items-center gap-2">
                  {navGroups.map((group) => (
@@ -123,7 +123,7 @@ export function AppHeader({ user }: { user: User }) {
                 <SheetHeader>
                     <Link href={dashboardHref} className="flex items-center gap-3 mb-4">
                         <Logo />
-                        <span className="text-xl font-bold">Kyron</span>
+                        <span className="text-xl font-bold">System Kyron</span>
                     </Link>
                 </SheetHeader>
                  <ScrollArea className="h-[calc(100%-4rem)]">

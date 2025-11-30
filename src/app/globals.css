@@ -14,8 +14,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
  
-    --primary: 221.2 83.2% 53.3%;
-    --primary-rgb: 37, 99, 235;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-rgb: 139, 92, 246;
     --primary-foreground: 210 40% 98%;
  
     --secondary: 210 40% 96.1%;
@@ -32,7 +32,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 262.1 83.3% 57.8%;
  
     --radius: 0.5rem;
   }
@@ -47,7 +47,7 @@
     --popover: 224 71% 4%;
     --popover-foreground: 213 31% 91%;
  
-    --primary: 259 92% 66%;
+    --primary: 263.4 95.2% 66.3%;
     --primary-rgb: 139, 92, 246;
     --primary-foreground: 213 31% 91%;
  
@@ -65,7 +65,7 @@
  
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 259 92% 76%;
+    --ring: 263.4 95.2% 66.3%;
   }
 }
  
@@ -79,7 +79,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
    .bg-grid-slate-700\/30 {
-    background-image: linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px);
+    background-image: linear-gradient(hsl(var(--muted-foreground)) 1px, transparent 1px), linear-gradient(to right, hsl(var(--muted-foreground)) 1px, transparent 1px);
     background-size: 4rem 4rem;
     background-color: transparent;
     opacity: 0.05;

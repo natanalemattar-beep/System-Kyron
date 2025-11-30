@@ -102,7 +102,7 @@ export default function LandingPage() {
      
       <header className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "bg-background/80 backdrop-blur-lg" : "bg-transparent"
+          isScrolled ? "bg-background/80 backdrop-blur-lg border-b" : "bg-transparent"
       )}>
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
               <Link href="/" className="flex items-center gap-3">
@@ -230,40 +230,8 @@ export default function LandingPage() {
             </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-muted/30">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">La tranquilidad de nuestros clientes es nuestro mayor activo.</p>
-                </div>
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    {testimonials.map((testimonial, index) => {
-                      const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
-                      return (
-                        <div key={index} className="p-6 md:p-8 border bg-card rounded-xl shadow-sm">
-                            <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
-                            <div className="flex items-center gap-4">
-                              {avatar && (
-                                <Avatar>
-                                    <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
-                                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                                </Avatar>
-                              )}
-                                <div>
-                                    <p className="font-semibold">{testimonial.name}</p>
-                                    <p className="text-sm text-muted-foreground">{testimonial.company}</p>
-                                </div>
-                            </div>
-                        </div>
-                      )
-                    })}
-                </div>
-            </div>
-        </section>
-
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-background">
+        <section id="servicios" className="py-20 md:py-28 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -282,9 +250,9 @@ export default function LandingPage() {
                 </div>
             </div>
         </section>
-        
+
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-muted/30">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
@@ -316,6 +284,38 @@ export default function LandingPage() {
                  />}
             </div>
           </div>
+        </section>
+        
+        {/* Testimonials Section */}
+        <section id="nosotros" className="py-20 md:py-28 bg-muted/30">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">La tranquilidad de nuestros clientes es nuestro mayor activo.</p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    {testimonials.map((testimonial, index) => {
+                      const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
+                      return (
+                        <div key={index} className="p-6 md:p-8 border bg-card rounded-xl shadow-sm">
+                            <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
+                            <div className="flex items-center gap-4">
+                              {avatar && (
+                                <Avatar>
+                                    <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
+                                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                              )}
+                                <div>
+                                    <p className="font-semibold">{testimonial.name}</p>
+                                    <p className="text-sm text-muted-foreground">{testimonial.company}</p>
+                                </div>
+                            </div>
+                        </div>
+                      )
+                    })}
+                </div>
+            </div>
         </section>
         
         {/* CTA Section */}

@@ -35,8 +35,8 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Only show tutorial on main dashboard pages after login
     if (pathname === '/dashboard-empresa' || pathname === '/dashboard') {
-        const hasSeenTutorial = localStorage.getItem("hasSeenKyronTutorial");
-        if (!hasSeenTutorial) {
+        const hasSeenKyronTutorial = localStorage.getItem("hasSeenKyronTutorial");
+        if (!hasSeenKyronTutorial) {
             setTimeout(() => {
                 setShowTutorial(true);
                 localStorage.setItem("hasSeenKyronTutorial", "true");
