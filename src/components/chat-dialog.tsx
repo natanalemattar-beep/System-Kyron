@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -15,11 +16,29 @@ type Message = {
   text: string;
 };
 
+// This function determines the context based on the current URL
+const getPageContext = (pathname: string) => {
+  if (pathname.startsWith('/dashboard-empresa')) return "el dashboard principal de administración y finanzas";
+  if (pathname.startsWith('/dashboard-rrhh')) return "el dashboard de Recursos Humanos";
+  if (pathname.startsWith('/nominas')) return "el módulo de gestión de nóminas";
+  if (pathname.startsWith('/analisis-ventas')) return "el dashboard de análisis de ventas";
+  if (pathname.startsWith('/escritorio-juridico')) return "el dashboard del escritorio jurídico";
+  if (pathname.startsWith('/dashboard-socios')) return "el dashboard para socios y directivos";
+  if (pathname.startsWith('/dashboard-informatica')) return "el dashboard de ingeniería e informática";
+  if (pathname.startsWith('/asesoria-publicidad')) return "el dashboard de marketing y publicidad";
+  if (pathname.startsWith('/dashboard')) return "el dashboard personal para trámites civiles";
+  if (pathname.startsWith('/cuentas-por-cobrar')) return "el módulo de Cuentas por Cobrar";
+  if (pathname === '/') return "la página de inicio de Kyron. Describe los servicios, características y testimonios.";
+  return "una página general de la aplicación";
+};
+
+
 export function ChatDialog() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -37,11 +56,7 @@ export function ChatDialog() {
     setIsLoading(true);
 
     try {
-      const pageContext = `El usuario está en la página de inicio de Kyron. 
-      La página describe una plataforma de gestión empresarial para el mercado venezolano.
-      - Servicios ofrecidos: Gestión Fiscal y Contable (automatización, libros, impuestos, homologado por SENIAT), Administración de Nómina (cálculo, beneficios, parafiscales), y Permisología y Cumplimiento (gestión de licencias).
-      - Características destacadas: Inteligencia Artificial (conciliación, análisis predictivo), Seguridad de Nivel Superior (cifrado, 2FA), y Análisis y Reportes (dashboards).
-      - La página también tiene testimonios de clientes y explica cómo funciona el sistema en 3 pasos: 1. Regístrate, 2. Automatiza, 3. Analiza y Crece.`;
+      const pageContext = getPageContext(pathname);
       const botResponse = await chat({ message: input, context: pageContext });
       const botMessage: Message = { role: 'bot', text: botResponse };
       setMessages(prev => [...prev, botMessage]);
@@ -66,7 +81,7 @@ export function ChatDialog() {
             <Bot className="h-5 w-5" /> Asistente IA
           </DialogTitle>
           <DialogDescription>
-            Hazme una pregunta sobre nuestros servicios, características o cualquier otra duda.
+            Hazme una pregunta sobre la página actual o cualquier otra duda.
           </DialogDescription>
         </DialogHeader>
         <div ref={chatContainerRef} className="flex-grow flex flex-col p-4 bg-secondary rounded-lg min-h-0 overflow-y-auto space-y-4">
@@ -119,5 +134,3 @@ export function ChatDialog() {
     </Dialog>
   );
 }
-
-    
