@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { ReactNode } from "react";
@@ -21,7 +20,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   };
 
   // This logic is simplified; in a real app, you'd have a proper user context
-  if (pathname.startsWith('/dashboard-empresa')) {
+  if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas')) {
       user.name = "Admin";
       user.email = "admin@kyron.com";
       user.fallback = "A";
@@ -29,6 +28,10 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
       user.name = "Usuario Natural";
       user.email = "usuario@email.com";
       user.fallback = "UN";
+  } else if (pathname.startsWith('/dashboard-rrhh')) {
+      user.name = "Recursos Humanos";
+      user.email = "rrhh@kyron.com";
+      user.fallback = "RH";
   }
 
 
@@ -56,4 +59,3 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-

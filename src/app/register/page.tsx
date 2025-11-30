@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Building, User, Briefcase, ArrowRight, ShoppingCart, Gavel, Users, Megaphone, Cpu } from "lucide-react";
@@ -91,7 +90,7 @@ export default function RegisterPage() {
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center p-4">
+      <main className="flex-1 flex flex-col items-center justify-center p-4">
         <div className="w-full max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">Elige tu Tipo de Cuenta</h1>
@@ -103,7 +102,7 @@ export default function RegisterPage() {
             {accountTypes.map((account) => (
               <Card
                 key={account.type}
-                className="flex flex-col text-center bg-card border hover:border-primary hover:shadow-lg transition-all"
+                className="flex flex-col text-center bg-card/80 border hover:border-primary hover:shadow-lg transition-all backdrop-blur-sm"
               >
                 <CardHeader className="items-center">
                   <div className="p-4 bg-primary/10 rounded-full mb-4">
