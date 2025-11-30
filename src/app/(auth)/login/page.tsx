@@ -50,7 +50,7 @@ export default function LoginPage() {
   const currentId = idByCountry[country] || { label: "Identificación Personal", placeholder: "" };
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
+    <Card className="w-full max-w-md mx-auto bg-card border">
       <CardHeader className="text-center">
         <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
             <User className="h-8 w-8 text-primary" />

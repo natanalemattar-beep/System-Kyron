@@ -57,10 +57,6 @@ const CorporateSidebarContent = ({ navGroups, user }: { navGroups: any[], user: 
                 ))}
             </SidebarContent>
             <SidebarFooter>
-                 <div className={cn("p-2 text-xs text-yellow-400 bg-yellow-500/10 rounded-lg flex items-center gap-2", state === 'collapsed' && 'justify-center')}>
-                    <AlertTriangle className="h-4 w-4 shrink-0"/>
-                    <span className={cn(state === 'collapsed' && 'hidden')}>Versión de Prueba</span>
-                </div>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <div className={cn("flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary", state === 'collapsed' && 'justify-center')}>
@@ -127,10 +123,6 @@ const AppSidebarNatural = () => {
                 })}
              </SidebarContent>
              <SidebarFooter>
-                <div className={cn("p-2 text-xs text-yellow-400 bg-yellow-500/10 rounded-lg flex items-center gap-2", state === 'collapsed' && 'justify-center')}>
-                    <AlertTriangle className="h-4 w-4 shrink-0"/>
-                    <span className={cn(state === 'collapsed' && 'hidden')}>Versión de Prueba</span>
-                </div>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <div className={cn("flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary", state === 'collapsed' && 'justify-center')}>
@@ -170,7 +162,7 @@ export function AppSidebar() {
   if (pathname.startsWith('/analisis-ventas')) {
       return <CorporateSidebarContent navGroups={ventasNavGroups} user={{ name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" }} />;
   }
-  if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
+  if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas') || pathname.startsWith('/libro-')) {
       return <CorporateSidebarContent navGroups={rrhhNavGroups} user={{ name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }} />;
   }
   if (pathname.startsWith('/dashboard-socios')) {
@@ -183,7 +175,7 @@ export function AppSidebar() {
     return <CorporateSidebarContent navGroups={marketingNavGroups} user={{ name: "Marketing", email: "marketing@kyron.com", fallback: "M" }} />;
   }
   
-  if (pathname.startsWith('/dashboard-empresa')) {
+  if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/financiero') || pathname.startsWith('/cuentas-') || pathname.startsWith('/facturacion')) {
      return <CorporateSidebarContent navGroups={adminNavGroups} user={{ name: "Admin", email: "admin@kyron.com", fallback: "A" }} />;
   }
   

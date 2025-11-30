@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, CheckCircle, Clock, FileWarning, ArrowRight } from 'lucide-react';
+import { CheckCircle, Clock, FileWarning, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -39,7 +39,7 @@ export default function DashboardPersonalPage() {
       
       <div className="grid gap-6 md:grid-cols-3">
          {kpiData.map(kpi => (
-            <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
+            <Card key={kpi.title}>
                 <CardHeader className="pb-2 flex-row items-center justify-between">
                     <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
                     <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
@@ -51,7 +51,7 @@ export default function DashboardPersonalPage() {
         ))}
       </div>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Actividad Reciente de Trámites</CardTitle>
           <CardDescription>Un resumen de tus últimas solicitudes y su estado actual.</CardDescription>

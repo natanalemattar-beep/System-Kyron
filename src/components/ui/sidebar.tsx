@@ -174,7 +174,7 @@ const Sidebar = React.forwardRef<
       return (
         <div
           className={cn(
-            "flex h-full w-[--sidebar-width] flex-col bg-card/80 backdrop-blur-sm border-r text-foreground",
+            "flex h-full w-[--sidebar-width] flex-col bg-card border-r text-foreground",
             className
           )}
           ref={ref}
@@ -191,7 +191,7 @@ const Sidebar = React.forwardRef<
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-card/80 backdrop-blur-sm p-0 text-foreground [&>button]:hidden border-r z-[60]"
+            className="w-[--sidebar-width] bg-card p-0 text-foreground [&>button]:hidden border-r z-[60]"
             style={
               {
                 "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -239,7 +239,7 @@ const Sidebar = React.forwardRef<
         >
           <div
             data-sidebar="sidebar"
-            className="flex h-full w-full flex-col bg-card/80 backdrop-blur-lg group-data-[variant=floating]:rounded-xl group-data-[variant=floating]:border group-data-[variant=floating]:border-border/50 group-data-[variant=floating]:shadow"
+            className="flex h-full w-full flex-col bg-card group-data-[variant=floating]:rounded-xl group-data-[variant=floating]:border group-data-[variant=floating]:border-border/50 group-data-[variant=floating]:shadow"
           >
             {children}
           </div>
@@ -284,7 +284,7 @@ const SidebarInset = React.forwardRef<
   const { state, isMobile } = useSidebar();
   
   if (isMobile) {
-    return <main ref={ref} className={cn("relative flex min-h-svh flex-1 flex-col bg-transparent", className)} {...props} />
+    return <main ref={ref} className={cn("relative flex min-h-svh flex-1 flex-col bg-transparent overflow-hidden", className)} {...props} />
   }
 
   return (
@@ -480,5 +480,3 @@ export {
   SidebarTrigger,
   useSidebar,
 }
-
-    

@@ -113,11 +113,11 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
      
       <header className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          isScrolled && "bg-background/80 backdrop-blur-lg"
       )}>
           <div className={cn(
-              "container mx-auto flex h-20 items-center justify-between px-4 md:px-6 transition-all duration-300",
-              isScrolled && "h-16 mt-2 rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
+              "container mx-auto flex h-20 items-center justify-between px-4 md:px-6 transition-all duration-300"
           )}>
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
@@ -216,11 +216,8 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-32">
-            <div className="absolute -z-10 inset-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_10%,transparent_50%)] dark:bg-grid-slate-700/30"></div>
-            <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),rgba(255,255,255,0))]"></div>
-            
             <div className="container px-4 md:px-6 relative z-10 text-center">
-                <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                <div className="animate-fade-up">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
                         Gestión Empresarial Inteligente, <br />
                         <span className="text-primary">Tranquilidad Fiscal Garantizada.</span>
