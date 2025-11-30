@@ -45,12 +45,22 @@ const chartConfig = {
 export default function AnalisisVentasPage() {
   return (
     <div className="space-y-8">
-      <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
-            <TrendingUp className="h-8 w-8 md:h-10 md:w-10 text-primary" />
-            Dashboard de Análisis de Ventas
-        </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl">Métricas y KPIs clave para tu rendimiento comercial.</p>
+      <header className="mb-8 flex flex-col md:flex-row justify-between md:items-center gap-4">
+        <div>
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                <TrendingUp className="h-8 w-8" />
+                Análisis de Ventas
+            </h1>
+            <p className="text-muted-foreground mt-2">
+            Dashboard con métricas y KPIs clave para tu rendimiento comercial.
+            </p>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="outline"><Download className="mr-2"/>Exportar Reporte</Button>
+          <Button asChild>
+            <Link href="/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
+          </Button>
+        </div>
       </header>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -71,17 +81,9 @@ export default function AnalisisVentasPage() {
       </div>
 
        <Card className="bg-card/80 backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between">
-              <div>
-                <CardTitle>Pulso Financiero (Últimos 12 meses)</CardTitle>
-                <CardDescription>Evolución de ingresos vs. gastos para medir la rentabilidad.</CardDescription>
-              </div>
-               <div className="flex gap-2">
-                  <Button variant="outline"><Download className="mr-2 h-4 w-4"/>Exportar</Button>
-                  <Button asChild>
-                    <Link href="/estrategias-ventas">Generar Estrategias <ArrowRight className="ml-2 h-4 w-4"/></Link>
-                  </Button>
-                </div>
+          <CardHeader>
+              <CardTitle>Pulso Financiero (Últimos 12 meses)</CardTitle>
+              <CardDescription>Evolución de ingresos vs. gastos para medir la rentabilidad.</CardDescription>
           </CardHeader>
           <CardContent className="h-80">
                 <ChartContainer config={chartConfig} className="w-full h-full">
@@ -166,6 +168,11 @@ export default function AnalisisVentasPage() {
                         ))}
                     </TableBody>
                 </Table>
+            </CardContent>
+            <CardContent>
+                 <Button asChild variant="outline" className="w-full">
+                    <Link href="/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
+                </Button>
             </CardContent>
         </Card>
       </div>

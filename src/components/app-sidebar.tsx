@@ -9,11 +9,11 @@ import {
   naturalMenuItems,
   adminNavGroups,
   legalNavGroups,
-  ventasMenuItems,
-  recursosHumanosGestionItems,
-  librosRegistroMenuItems,
+  ventasNavGroups,
+  rrhhNavGroups,
   sociosNavGroups,
   informaticaNavGroups,
+  marketingNavGroups,
 } from "@/components/app-sidebar-nav-items";
 import { Badge } from "./ui/badge";
 import { Logo } from "./logo";
@@ -155,36 +155,31 @@ export function AppSidebar() {
     return null;
   }
 
-  // Define routes for each corporate profile
-  const legalPaths = legalNavGroups.flatMap(g => g.items.map(i => i.href));
-  const ventasPaths = ventasMenuItems.map(i => i.href);
-  const rrhhPaths = [...recursosHumanosGestionItems, ...librosRegistroMenuItems].map(i => i.href);
-  const sociosPaths = sociosNavGroups.flatMap(g => g.items.map(i => i.href));
-  const informaticaPaths = informaticaNavGroups.flatMap(g => g.items.map(i => i.href));
-
-  // Determine which sidebar to render
-  if (legalPaths.some(p => pathname.startsWith(p))) {
-    return <CorporateSidebarContent navGroups={legalNavGroups} user={{ name: "Escritorio Jurídico", email: "legal@kyron.com", fallback: "L" }} />;
+  // Determine which sidebar to render based on the URL prefix
+  if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/departamento-juridico') || legalNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+      return <CorporateSidebarContent navGroups={legalNavGroups} user={{ name: "Escritorio Jurídico", email: "legal@kyron.com", fallback: "L" }} />;
   }
-  if (ventasPaths.some(p => pathname.startsWith(p))) {
-    return <CorporateSidebarContent navGroups={[{ title: "Ventas y Facturación", icon: ShoppingCart, items: ventasMenuItems }]} user={{ name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" }} />;
+  if (pathname.startsWith('/analisis-ventas') || pathname.startsWith('/punto-de-venta')) {
+      return <CorporateSidebarContent navGroups={ventasNavGroups} user={{ name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" }} />;
   }
-  if (rrhhPaths.some(p => pathname.startsWith(p))) {
-    return <CorporateSidebarContent navGroups={[{ title: "Gestión de RR.HH.", icon: Briefcase, items: recursosHumanosGestionItems }, { title: "Libros de Registro", icon: Briefcase, items: librosRegistroMenuItems }]} user={{ name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }} />;
+  if (pathname.startsWith('/dashboard-rrhh') || rrhhNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+      return <CorporateSidebarContent navGroups={rrhhNavGroups} user={{ name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }} />;
   }
-  if (sociosPaths.some(p => pathname.startsWith(p))) {
+  if (pathname.startsWith('/dashboard-socios') || sociosNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
       return <CorporateSidebarContent navGroups={sociosNavGroups} user={{ name: "Portal de Socios", email: "socios@kyron.com", fallback: "S" }} />;
   }
-   if (informaticaPaths.some(p => pathname.startsWith(p))) {
+   if (pathname.startsWith('/dashboard-informatica') || informaticaNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
       return <CorporateSidebarContent navGroups={informaticaNavGroups} user={{ name: "Ingeniería y TI", email: "it@kyron.com", fallback: "IT" }} />;
   }
-
-  // Check for admin routes last as it's the most comprehensive
-  const adminPaths = adminNavGroups.flatMap(g => g.items.map(i => i.href));
-  if (adminPaths.some(p => pathname.startsWith(p))) {
+  if (pathname.startsWith('/asesoria-publicidad') || marketingNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
+    return <CorporateSidebarContent navGroups={marketingNavGroups} user={{ name: "Marketing", email: "marketing@kyron.com", fallback: "M" }} />;
+  }
+  
+  // Admin dashboard has a more general path, so we check it last
+  if (pathname.startsWith('/dashboard-empresa') || adminNavGroups.flatMap(g => g.items).some(item => pathname.startsWith(item.href))) {
      return <CorporateSidebarContent navGroups={adminNavGroups} user={{ name: "Admin", email: "admin@kyron.com", fallback: "A" }} />;
   }
   
-  // Fallback to natural person sidebar for any other path
+  // Fallback to natural person sidebar for any other path in the main app
   return <AppSidebarNatural />;
 }

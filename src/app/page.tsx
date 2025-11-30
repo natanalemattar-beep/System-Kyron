@@ -137,7 +137,7 @@ export default function LandingPage() {
                         <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-                        <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="/asesoria-publicidad">Productos y Marketing</Link></DropdownMenuItem>
                         <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -180,7 +180,7 @@ export default function LandingPage() {
                                   <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
                                   <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
                                   <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-                                  <DropdownMenuItem asChild><Link href="/login-marketing">Productos, Asesoría y Marketing</Link></DropdownMenuItem>
+                                  <DropdownMenuItem asChild><Link href="/asesoria-publicidad">Productos y Marketing</Link></DropdownMenuItem>
                                   <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
                               </DropdownMenuContent>
                           </DropdownMenu>
@@ -203,23 +203,56 @@ export default function LandingPage() {
             <div className="container px-4 md:px-6 relative z-10 text-center">
                 <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
-                        La Gestión Empresarial, Reinventada para Venezuela
+                        Gestión Empresarial Inteligente, <br />
+                        <span className="text-primary">Tranquilidad Fiscal Garantizada.</span>
                     </h1>
                     <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-                       Con Kyron, simplificamos la burocracia para que puedas enfocarte en crecer. Automatiza tu contabilidad, gestiona permisos y cumple con el SENIAT sin esfuerzo.
+                       Kyron es el ecosistema todo-en-uno que automatiza tu contabilidad, asegura tu cumplimiento con el SENIAT y te da las herramientas para crecer con confianza en Venezuela.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" asChild>
                             <Link href="/register">
-                            Comenzar Ahora <ArrowRight className="ml-2 h-4 w-4"/>
+                            Empezar ahora <ArrowRight className="ml-2 h-4 w-4"/>
                             </Link>
                         </Button>
                         <Button size="lg" variant="outline" asChild>
                             <SmoothScrollLink href="#servicios">
-                            Explorar Servicios
+                            Explorar servicios
                             </SmoothScrollLink>
                         </Button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section id="nosotros" className="py-20 md:py-28 bg-secondary/30">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">La tranquilidad de nuestros clientes es nuestro mayor activo.</p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    {testimonials.map((testimonial, index) => {
+                      const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
+                      return (
+                        <div key={index} className="p-6 md:p-8 border bg-card rounded-xl shadow-sm">
+                            <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
+                            <div className="flex items-center gap-4">
+                              {avatar && (
+                                <Avatar>
+                                    <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
+                                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                              )}
+                                <div>
+                                    <p className="font-semibold">{testimonial.name}</p>
+                                    <p className="text-sm text-muted-foreground">{testimonial.company}</p>
+                                </div>
+                            </div>
+                        </div>
+                      )
+                    })}
                 </div>
             </div>
         </section>
@@ -232,7 +265,7 @@ export default function LandingPage() {
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                     {services.map((item, index) => (
+                     {services.map((item) => (
                         <div key={item.title} className="p-8 rounded-xl border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
                             <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
@@ -254,14 +287,14 @@ export default function LandingPage() {
                   Nuestra plataforma integra tecnologías de vanguardia para darte una ventaja competitiva.
                 </p>
                 <div className="space-y-6">
-                    {features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-4">
+                    {features.map((feature) => (
+                    <div key={feature.title} className="flex items-start gap-4">
                         <div className="p-3 bg-primary/10 text-primary rounded-lg mt-1">
-                        <feature.icon className="h-6 w-6 shrink-0" />
+                          <feature.icon className="h-6 w-6 shrink-0" />
                         </div>
                         <div>
-                        <h4 className="font-semibold text-lg">{feature.title}</h4>
-                        <p className="text-muted-foreground text-sm">{feature.description}</p>
+                          <h4 className="font-semibold text-lg">{feature.title}</h4>
+                          <p className="text-muted-foreground text-sm">{feature.description}</p>
                         </div>
                     </div>
                     ))}
@@ -279,49 +312,15 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-
-        {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-background">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold">Lo que Dicen Nuestros Clientes</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">La confianza de nuestros clientes es nuestro mayor activo.</p>
-                </div>
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    {testimonials.map((testimonial, index) => {
-                      const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
-                      return (
-                        <div key={index} className="p-6 md:p-8 shadow-sm border bg-card rounded-xl">
-                            <div className="p-0">
-                                <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
-                                <div className="flex items-center gap-4">
-                                  {avatar && (
-                                    <Avatar>
-                                        <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
-                                        <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                                    </Avatar>
-                                  )}
-                                    <div>
-                                        <p className="font-semibold">{testimonial.name}</p>
-                                        <p className="text-sm text-muted-foreground">{testimonial.company}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      )
-                    })}
-                </div>
-            </div>
-        </section>
         
         {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-secondary/30">
+        <section className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6 text-center">
                  <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border">
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
                     <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con Kyron.</p>
                     <Button size="lg" asChild className="mt-8">
-                    <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
+                      <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
                     </Button>
                 </div>
             </div>

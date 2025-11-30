@@ -2,7 +2,7 @@
 'use client';
 
 import {
-  allAdminGroups,
+  adminNavGroups,
 } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
@@ -12,9 +12,9 @@ import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 export function QuickAccess() {
     return (
       <div className="relative">
-        <ScrollArea className="w-full whitespace-nowrap">
-            <div className="flex w-max space-x-4 pb-4">
-                {allAdminGroups.map((group) => (
+        <ScrollArea>
+            <div className="flex space-x-4 pb-4">
+                {adminNavGroups.map((group) => (
                 <div key={group.title} className="w-[320px]">
                     <Card className="bg-card/50 backdrop-blur-sm h-full">
                         <CardHeader>

@@ -132,31 +132,6 @@ export const naturalMenuItems = {
     }
 };
 
-// --- START: JURIDICO / LEGAL ---
-const legalNavItems = [
-  { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
-  { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
-  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
-  { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
-  { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
-  { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
-  { href: "/multas", label: "Multas", icon: AlertTriangle },
-  { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
-  { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
-  { href: "/activos-inmobiliarios", label: "Gestión de Activos", icon: Building },
-  { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
-  { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
-  { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
-  { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
-];
-
-export const legalNavGroups = [
-    { title: "Jurídico y Corporativo", icon: Gavel, items: legalNavItems },
-];
-// --- END: JURIDICO / LEGAL ---
-
-
-// --- START: ADMIN & FINANZAS ---
 const finanzasContabilidadMenuItems = [
   { href: "/dashboard-empresa", label: "Dashboard Principal", icon: LayoutDashboard },
   { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
@@ -283,6 +258,23 @@ export const librosRegistroMenuItems = [
     { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
 ];
 
+export const legalNavItems = [
+  { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
+  { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
+  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
+  { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
+  { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
+  { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
+  { href: "/multas", label: "Multas", icon: AlertTriangle },
+  { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
+  { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
+  { href: "/activos-inmobiliarios", label: "Gestión de Activos", icon: Building },
+  { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
+  { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
+  { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
+  { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
+];
+
 export const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
         { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
@@ -306,23 +298,23 @@ export const informaticaNavGroups = [
 export const adminNavGroups = [
   { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
   { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-  { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
-  { title: "Ventas y Marketing", icon: Megaphone, items: ventasMenuItems.concat(marketingMenuItems) },
   { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
-  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
-  { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
   { title: "General", icon: Cog, items: generalMenuItems },
 ];
 
-export const allAdminGroups = [
-  { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
-  { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
-  { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
-  { title: "Ventas y Marketing", icon: Megaphone, items: ventasMenuItems.concat(marketingMenuItems) },
-  { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
-  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
-  { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
-  { title: "General", icon: Cog, items: generalMenuItems },
-  { title: "Jurídico y Corporativo", icon: Gavel, items: legalNavItems },
+export const legalNavGroups = [
+    { title: "Jurídico y Corporativo", icon: Gavel, items: legalNavItems },
 ];
-// --- END: ADMIN & FINANZAS ---
+
+export const marketingNavGroups = [
+    { title: "Ventas y Marketing", icon: Megaphone, items: marketingMenuItems }
+];
+
+export const rrhhNavGroups = [
+    { title: "Gestión de RR.HH.", icon: Briefcase, items: recursosHumanosGestionItems },
+    { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems },
+];
+
+export const ventasNavGroups = [
+    { title: "Ventas y Caja", icon: ShoppingCart, items: ventasMenuItems },
+];
