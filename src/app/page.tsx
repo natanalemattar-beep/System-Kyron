@@ -224,30 +224,6 @@ export default function LandingPage() {
             </div>
         </section>
 
-        {/* Impact Section */}
-        <section className="py-20 bg-secondary/30">
-          <div className="container px-4 md:px-6">
-             <div className="text-center max-w-3xl mx-auto mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold">Impacto y Confianza</h2>
-                <p className="mt-4 text-lg text-muted-foreground">Cientos de empresas confían en nosotros para optimizar su gestión y garantizar su tranquilidad.</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
-                <div className="p-6 rounded-xl border bg-background/50">
-                    <p className="text-4xl font-bold text-primary">98%</p>
-                    <p className="text-muted-foreground mt-2">Clientes Satisfechos</p>
-                </div>
-                <div className="p-6 rounded-xl border bg-background/50">
-                    <p className="text-4xl font-bold text-primary">10k+</p>
-                    <p className="text-muted-foreground mt-2">Horas Ahorradas en Gestión</p>
-                </div>
-                <div className="p-6 rounded-xl border bg-background/50">
-                    <p className="text-4xl font-bold text-primary">100%</p>
-                    <p className="text-muted-foreground mt-2">Cumplimiento Garantizado</p>
-                </div>
-            </div>
-          </div>
-        </section>
-        
         {/* Services Section */}
         <section id="servicios" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
@@ -392,5 +368,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    

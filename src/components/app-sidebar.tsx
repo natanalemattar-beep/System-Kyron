@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Gavel, User, LayoutDashboard, Briefcase, ShoppingCart, Users, Megaphone, Cpu } from "lucide-react";
+import { Gavel, User, LayoutDashboard, Briefcase, ShoppingCart, Users, Megaphone, Cpu, Building } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarInset, SidebarHeader, SidebarTrigger, SidebarContent, SidebarFooter, useSidebar } from "@/components/ui/sidebar";
