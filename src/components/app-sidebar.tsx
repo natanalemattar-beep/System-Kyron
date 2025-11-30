@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Gavel, User, LayoutDashboard, Briefcase, ShoppingCart, Users, Megaphone, Cpu, Building } from "lucide-react";
+import { Gavel, User, LayoutDashboard, Briefcase, ShoppingCart, Users, Megaphone, Cpu, Building, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sidebar, SidebarHeader, SidebarTrigger, SidebarContent, SidebarFooter, useSidebar } from "@/components/ui/sidebar";
@@ -57,6 +57,10 @@ const CorporateSidebarContent = ({ navGroups, user }: { navGroups: any[], user: 
                 ))}
             </SidebarContent>
             <SidebarFooter>
+                 <div className={cn("p-2 text-xs text-yellow-400 bg-yellow-500/10 rounded-lg flex items-center gap-2", state === 'collapsed' && 'justify-center')}>
+                    <AlertTriangle className="h-4 w-4 shrink-0"/>
+                    <span className={cn(state === 'collapsed' && 'hidden')}>Versión de Prueba</span>
+                </div>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <div className={cn("flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary", state === 'collapsed' && 'justify-center')}>
@@ -123,6 +127,10 @@ const AppSidebarNatural = () => {
                 })}
              </SidebarContent>
              <SidebarFooter>
+                <div className={cn("p-2 text-xs text-yellow-400 bg-yellow-500/10 rounded-lg flex items-center gap-2", state === 'collapsed' && 'justify-center')}>
+                    <AlertTriangle className="h-4 w-4 shrink-0"/>
+                    <span className={cn(state === 'collapsed' && 'hidden')}>Versión de Prueba</span>
+                </div>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <div className={cn("flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-secondary", state === 'collapsed' && 'justify-center')}>
@@ -162,7 +170,7 @@ export function AppSidebar() {
   if (pathname.startsWith('/analisis-ventas')) {
       return <CorporateSidebarContent navGroups={ventasNavGroups} user={{ name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" }} />;
   }
-  if (pathname.startsWith('/dashboard-rrhh')) {
+  if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
       return <CorporateSidebarContent navGroups={rrhhNavGroups} user={{ name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }} />;
   }
   if (pathname.startsWith('/dashboard-socios')) {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Building, User, ShoppingCart, Briefcase, Megaphone, Gavel, Cpu, Users, Banknote } from "lucide-react";
+import { Building, User, ShoppingCart, Briefcase, Megaphone, Gavel, Cpu, Users, Banknote, AlertTriangle } from "lucide-react";
 import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -43,8 +43,16 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
+       <div className="absolute top-16 left-0 right-0 z-40 bg-yellow-500/10 border-y border-yellow-500/20 py-2">
+            <div className="container mx-auto text-center text-xs text-yellow-300 flex items-center justify-center gap-2">
+                <AlertTriangle className="h-4 w-4" />
+                <p>
+                    <strong>Atención:</strong> Esta es una versión de prueba. La información y las funcionalidades están sujetas a cambios.
+                </p>
+            </div>
+        </div>
 
-      <main className="flex-1 flex items-center justify-center p-4 z-10">
+      <main className="flex-1 flex items-center justify-center p-4 z-10 pt-24">
         {children}
       </main>
     </div>
