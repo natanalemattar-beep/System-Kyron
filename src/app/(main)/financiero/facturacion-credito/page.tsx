@@ -256,7 +256,7 @@ export default function FacturacionCreditoPage() {
                                                         <TableCell className="text-xs">{level.requirements}</TableCell>
                                                         <TableCell className="text-xs">{level.initialPayment}</TableCell>
                                                         <TableCell>
-                                                            <Badge variant={level.moreQuotas === 'SÍ' ? 'default' : 'outline'}>{level.moreQuotas}</Badge>
+                                                            <Badge variant={level.moreQuotas ? 'default' : 'outline'}>{level.moreQuotas ? "SÍ" : "No"}</Badge>
                                                         </TableCell>
                                                     </TableRow>
                                                 ))}

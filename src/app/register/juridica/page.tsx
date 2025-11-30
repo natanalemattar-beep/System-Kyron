@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -23,7 +24,7 @@ export default function RegisterJuridicaPage() {
     };
 
     return (
-        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
+        <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
                 <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
                     <Building className="h-8 w-8 text-primary" />

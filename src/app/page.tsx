@@ -102,7 +102,7 @@ export default function LandingPage() {
      
       <header className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-           isScrolled ? "bg-background/80 backdrop-blur-lg" : "bg-transparent"
+          isScrolled ? "bg-background/80 backdrop-blur-lg" : "bg-transparent"
       )}>
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
               <Link href="/" className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export default function LandingPage() {
               </Link>
               <nav className="hidden md:flex gap-6">
                   {navLinks.map((link) => (
-                  <SmoothScrollLink key={link.href} href={link.href} className="text-sm font-medium hover:text-primary transition-colors">
+                  <SmoothScrollLink key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                       {link.label}
                   </SmoothScrollLink>
                   ))}
@@ -120,7 +120,7 @@ export default function LandingPage() {
                  <LanguageSwitcher/>
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline">
+                        <Button variant="ghost">
                         Acceder
                         <User className="ml-2 h-4 w-4" />
                         </Button>
@@ -201,8 +201,8 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32">
-             <div className="absolute -z-10 inset-0 bg-grid-zinc-500/10 [mask-image:linear-gradient(to_bottom,white_10%,transparent_50%)]"></div>
+        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+            <div className="absolute -z-10 inset-0 bg-grid-slate-200 dark:bg-grid-slate-700/30 [mask-image:linear-gradient(to_bottom,white_10%,transparent_70%)]"></div>
             <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),transparent)]"></div>
             
             <div className="container px-4 md:px-6 relative z-10 text-center">
@@ -231,7 +231,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-secondary/30">
+        <section id="nosotros" className="py-20 md:py-28 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
@@ -284,7 +284,7 @@ export default function LandingPage() {
         </section>
         
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-secondary/30">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-muted/30">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
