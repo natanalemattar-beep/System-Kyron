@@ -5,22 +5,19 @@ import {
   Building,
   DollarSign,
   TrendingUp,
-  Users,
   Wallet,
   HandCoins,
   FileWarning,
-  CheckCircle,
-  Clock,
   ArrowRight,
-  TrendingDown,
-  Mail,
-  UserCheck
+  Users,
+  UserCheck,
+  Mail
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 import { QuickAccess } from "@/components/dashboard/quick-access";
@@ -29,8 +26,8 @@ import { ActivityCard } from "@/components/dashboard/activity-card";
 const kpiData = [
   { title: "Ingresos Totales (Mes)", value: formatCurrency(250000, 'Bs.'), icon: DollarSign, trend: "+15.2% vs mes anterior" },
   { title: "Rentabilidad Neta", value: "22.5%", icon: TrendingUp, trend: "+1.8% vs mes anterior" },
-  { title: "Cuentas por Pagar", value: formatCurrency(42000, 'Bs.'), icon: HandCoins, trend: "3 facturas vencidas" },
-  { title: "Cuentas por Cobrar", value: formatCurrency(75000, 'Bs.'), icon: Wallet, trend: "1 factura en mora" },
+  { title: "Cuentas por Pagar", value: formatCurrency(42000, 'Bs.'), icon: HandCoins, trend: "3 facturas vencidas", href: "/cuentas-por-pagar" },
+  { title: "Cuentas por Cobrar", value: formatCurrency(75000, 'Bs.'), icon: Wallet, trend: "1 factura en mora", href: "/cuentas-por-cobrar" },
 ];
 
 const recentActivities = [
@@ -65,22 +62,24 @@ export default function DashboardEmpresaPage() {
       {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiData.map(kpi => (
-             <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                    <kpi.icon className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                    <div className="text-2xl font-bold">{kpi.value}</div>
-                    <p className="text-xs text-muted-foreground">{kpi.trend}</p>
-                </CardContent>
-            </Card>
+             <Link href={kpi.href || "#"} key={kpi.title} className="hover:shadow-lg transition-shadow">
+                <Card className="bg-card/50 backdrop-blur-sm h-full">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
+                        <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{kpi.value}</div>
+                        <p className="text-xs text-muted-foreground">{kpi.trend}</p>
+                    </CardContent>
+                </Card>
+            </Link>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
          {/* Financial Chart */}
-         <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm flex flex-col h-[400px]">
+         <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm flex flex-col min-h-[400px]">
           <CardHeader>
               <CardTitle>Pulso Financiero (Últimos 12 meses)</CardTitle>
               <CardDescription>Evolución de ingresos, gastos y rentabilidad.</CardDescription>
