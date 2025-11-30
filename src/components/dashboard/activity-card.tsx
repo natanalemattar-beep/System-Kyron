@@ -22,7 +22,7 @@ type Activity = {
 
 export function ActivityCard({ recentActivities }: { recentActivities: Activity[] }) {
   return (
-    <Card className="lg:col-span-1 flex flex-col">
+    <Card className="lg:col-span-1 flex flex-col bg-card/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Actividad Reciente</CardTitle>
       </CardHeader>

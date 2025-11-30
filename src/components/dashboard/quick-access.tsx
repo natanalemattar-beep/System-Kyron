@@ -16,7 +16,7 @@ export function QuickAccess() {
             <div className="flex space-x-4 pb-4">
                 {adminNavGroups.map((group) => (
                 <div key={group.title} className="w-[320px]">
-                    <Card className="bg-card h-full">
+                    <Card className="bg-card/50 backdrop-blur-sm h-full">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-3">
                                 <group.icon className="h-6 w-6 text-primary"/>
