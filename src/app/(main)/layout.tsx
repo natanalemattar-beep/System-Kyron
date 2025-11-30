@@ -14,28 +14,24 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   const [showTutorial, setShowTutorial] = useState(false);
   const pathname = usePathname();
 
-  const user = {
-      name: "Admin",
-      email: "admin@kyron.com",
-      fallback: "A"
-  };
-
-  // This logic is simplified; in a real app, you'd have a proper user context
+  // Determine user based on path
+  let user;
   if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas')) {
-      user.name = "Admin";
-      user.email = "admin@kyron.com";
-      user.fallback = "A";
-  } else if (pathname.startsWith('/dashboard')) {
-      user.name = "Usuario Natural";
-      user.email = "usuario@email.com";
-      user.fallback = "UN";
+    user = { name: "Admin", email: "admin@kyron.com", fallback: "A" };
   } else if (pathname.startsWith('/dashboard-rrhh')) {
-      user.name = "Recursos Humanos";
-      user.email = "rrhh@kyron.com";
-      user.fallback = "RH";
+    user = { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" };
+  } else if (pathname.startsWith('/dashboard-socios')) {
+    user = { name: "Socio Director", email: "socio@kyron.com", fallback: "S" };
+  } else if (pathname.startsWith('/dashboard-informatica')) {
+    user = { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" };
+  } else if (pathname.startsWith('/asesoria-publicidad')) {
+    user = { name: "Marketing", email: "mkt@kyron.com", fallback: "M" };
+  } else if (pathname.startsWith('/escritorio-juridico')) {
+    user = { name: "Legal", email: "legal@kyron.com", fallback: "L" };
+  } else {
+    user = { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
   }
-
-
+  
   useEffect(() => {
     // Only show tutorial on main dashboard pages after login
     if (pathname === '/dashboard-empresa' || pathname === '/dashboard') {
@@ -50,7 +46,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   }, [pathname]);
   
   return (
-     <div className="flex flex-col min-h-screen bg-slate-950">
+     <div className="flex flex-col min-h-screen bg-background text-foreground">
         <AppHeader user={user} />
         <main className="flex-1 container mx-auto p-4 md:p-8">
             {children}

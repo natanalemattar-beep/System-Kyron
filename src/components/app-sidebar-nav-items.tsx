@@ -103,6 +103,7 @@ export const naturalMenuItems = {
             { href: "/seguridad", label: "Seguridad", icon: Shield },
             { href: "/notificaciones", label: "Notificaciones", icon: Bell },
         ],
+        subGroups: [],
     },
     tramites: {
         title: "Trámites Civiles",
@@ -113,14 +114,16 @@ export const naturalMenuItems = {
             { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
             { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
             { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
-        ]
+        ],
+        subGroups: [],
     },
     salud: {
         title: "Salud",
         icon: HeartPulse,
         items: [
             { href: "/directorio-medico", label: "Directorio Médico", icon: HeartPulse },
-        ]
+        ],
+        subGroups: [],
     },
     lopnna: {
         title: "Obligaciones (LOPNNA)",
@@ -128,7 +131,8 @@ export const naturalMenuItems = {
         items: [
             { href: "/manutencion", label: "Obligación de Manutención", icon: Gavel },
             { href: "/registro-rif", label: "Registro RIF (Hijos)", icon: FileEdit, isNew: true },
-        ]
+        ],
+        subGroups: [],
     }
 };
 
@@ -204,7 +208,7 @@ const finanzasContabilidadNavGroups = {
       ],
     },
   ],
-  items: [], // Keep items for consistency, even if empty
+  items: [],
 };
 
 
@@ -328,8 +332,8 @@ export const legalNavItems = [
 
 export const adminNavGroups = [
   finanzasContabilidadNavGroups,
-  { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
-  { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems, subGroups: [] },
+  { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
+  { title: "Internacional", icon: Globe, items: internationalOperationsMenuItems, subGroups: [] },
   { title: "General", icon: Cog, items: generalMenuItems, subGroups: [] },
 ];
 
