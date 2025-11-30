@@ -39,15 +39,17 @@ export default function DocumentosPage() {
       </header>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {documents.map((doc) => (
-            <Card key={doc.title} className="flex flex-col">
+            <Card key={doc.title} className="flex flex-col bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3">
                         <doc.icon className="h-6 w-6 text-primary"/>
                         {doc.title}
                     </CardTitle>
-                    <CardDescription>{doc.description}</CardDescription>
                 </CardHeader>
-                <CardFooter className="mt-auto">
+                <CardContent className="flex-grow">
+                    <CardDescription>{doc.description}</CardDescription>
+                </CardContent>
+                <CardFooter>
                     <Button asChild variant="outline" className="w-full">
                         <Link href={doc.href}>
                             Gestionar Documento <ArrowRight className="ml-2 h-4 w-4"/>
