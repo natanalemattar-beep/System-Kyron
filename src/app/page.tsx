@@ -207,7 +207,7 @@ export default function LandingPage() {
                 className="absolute inset-0 -z-20"
                 priority
              />}
-            <div className="absolute inset-0 bg-background/80 -z-10"></div>
+            <div className="absolute inset-0 bg-background/60 dark:bg-background/80 -z-10"></div>
             
             <div className="container px-4 md:px-6 relative z-10">
                 <div className="animate-fade-up space-y-6">

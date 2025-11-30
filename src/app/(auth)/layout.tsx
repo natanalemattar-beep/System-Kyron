@@ -32,7 +32,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
             <LanguageSwitcher />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost">
+                <Button>
                   Acceder
                   <User className="ml-2 h-4 w-4" />
                 </Button>

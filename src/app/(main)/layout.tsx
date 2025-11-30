@@ -46,7 +46,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   }, [pathname]);
   
   return (
-     <div className="flex flex-col min-h-screen bg-background text-foreground">
+     <div className="flex flex-col min-h-screen bg-secondary text-foreground">
         <AppHeader user={user} />
         <main className="flex-1 container mx-auto p-4 md:p-8">
             {children}
