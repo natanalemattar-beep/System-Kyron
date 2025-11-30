@@ -2,12 +2,27 @@
 'use client';
 
 import type { ReactNode } from "react";
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AlertTriangle } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(mod => mod.WelcomeTutorial), { ssr: false });
 
 export default function MainAppLayout({ children }: { children: ReactNode }) {
+  const [showTutorial, setShowTutorial] = useState(false);
+  
+  useEffect(() => {
+    const hasSeenTutorial = localStorage.getItem("hasSeenKyronTutorial");
+    if (!hasSeenTutorial) {
+        setTimeout(() => {
+            setShowTutorial(true);
+            localStorage.setItem("hasSeenKyronTutorial", "true");
+        }, 500);
+    }
+  }, []);
   
   return (
     <SidebarProvider>
@@ -28,6 +43,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
         </SidebarInset>
         <Toaster />
       </div>
+      {showTutorial && <WelcomeTutorial open={showTutorial} onOpenChange={setShowTutorial} />}
     </SidebarProvider>
   );
 }

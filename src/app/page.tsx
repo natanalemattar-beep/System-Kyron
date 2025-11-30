@@ -19,7 +19,6 @@ import { chat } from "@/ai/flows/chat";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import dynamic from "next/dynamic";
 
-const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(mod => mod.WelcomeTutorial), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
 
 
@@ -86,7 +85,6 @@ const testimonials = [
 
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [showTutorial, setShowTutorial] = useState(false);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
@@ -96,16 +94,6 @@ export default function LandingPage() {
             setIsScrolled(window.scrollY > 10);
         };
         window.addEventListener('scroll', handleScroll);
-
-        const hasSeenTutorial = localStorage.getItem("hasSeenKyronTutorial");
-        if (!hasSeenTutorial) {
-            // Use a timeout to prevent hydration issues and give the page a moment to settle
-            setTimeout(() => {
-                setShowTutorial(true);
-                localStorage.setItem("hasSeenKyronTutorial", "true");
-            }, 500);
-        }
-
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
     
@@ -378,7 +366,7 @@ export default function LandingPage() {
           &copy; {new Date().getFullYear()} Kyron. Todos los derechos reservados.
         </div>
       </footer>
-      {showTutorial && <WelcomeTutorial open={showTutorial} onOpenChange={setShowTutorial} />}
+      
       <ChatDialog />
     </div>
   );

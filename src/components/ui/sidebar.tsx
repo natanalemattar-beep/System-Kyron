@@ -134,7 +134,7 @@ const SidebarProvider = React.forwardRef<
               } as React.CSSProperties
             }
             className={cn(
-              "group/sidebar-wrapper flex min-h-dvh w-full has-[[data-variant=inset]]:bg-sidebar",
+              "group/sidebar-wrapper flex min-h-dvh w-full",
               className
             )}
             ref={ref}
@@ -281,19 +281,15 @@ const SidebarInset = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"main">
 >(({ className, ...props }, ref) => {
-  const { state, isMobile } = useSidebar();
-  
-  if (isMobile) {
-    return <main ref={ref} className={cn("relative flex min-h-svh flex-1 flex-col bg-transparent overflow-hidden", className)} {...props} />
-  }
+  const { state } = useSidebar();
 
   return (
-    <div
+    <main
       ref={ref}
       className={cn(
-        "relative flex min-h-svh flex-1 flex-col bg-transparent transition-all duration-300 ease-in-out",
+        "relative flex min-h-svh flex-1 flex-col bg-transparent transition-all duration-300 ease-in-out overflow-hidden",
         "md:ml-[var(--sidebar-width)]",
-        state === 'collapsed' && 'md:ml-[var(--sidebar-width-icon)]',
+        "group-data-[[data-state=collapsed]]/sidebar-wrapper:md:ml-[var(--sidebar-width-icon)]",
         className
       )}
       {...props}

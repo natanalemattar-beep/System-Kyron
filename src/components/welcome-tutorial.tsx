@@ -1,8 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { Layers, Bot, UserCheck, ArrowRight } from "lucide-react";
@@ -28,7 +27,7 @@ const tutorialSteps = [
     {
         icon: UserCheck,
         title: "¡Estás Listo para Empezar!",
-        description: "Explora los servicios, registra tu empresa o contáctanos si necesitas ayuda. Estamos aquí para ti.",
+        description: "Explora los servicios en el menú lateral y comienza a gestionar tu empresa de forma más inteligente.",
     }
 ];
 
@@ -55,16 +54,12 @@ export function WelcomeTutorial({ open, onOpenChange }: { open: boolean, onOpenC
                     <CarouselPrevious className="left-4" />
                     <CarouselNext className="right-4" />
                 </Carousel>
-                <DialogFooter className="sm:justify-center p-6 pt-0">
-                     <Button asChild onClick={() => onOpenChange(false)}>
-                        <Link href="/register">
-                            Comenzar <ArrowRight className="ml-2 h-4 w-4"/>
-                        </Link>
+                <div className="flex justify-center p-6 pt-0">
+                     <Button onClick={() => onOpenChange(false)}>
+                        Comenzar a Explorar <ArrowRight className="ml-2 h-4 w-4"/>
                     </Button>
-                </DialogFooter>
+                </div>
             </DialogContent>
         </Dialog>
     );
 }
-
-    
