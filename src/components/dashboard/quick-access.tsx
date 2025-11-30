@@ -25,7 +25,7 @@ export function QuickAccess() {
                         </CardHeader>
                         <CardContent>
                             <div className="flex flex-col gap-2">
-                                {group.items.slice(0, 5).map((item) => ( // Show first 5 items
+                                {(group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items) : group.items).slice(0, 4).map((item) => (
                                 <div key={`${item.href}-${item.label}`}>
                                     <Button
                                     asChild
