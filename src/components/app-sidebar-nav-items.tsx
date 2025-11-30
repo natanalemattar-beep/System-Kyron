@@ -303,9 +303,17 @@ export const informaticaNavGroups = [
 ];
 
 export const adminNavGroups = [
-  { title: "Dashboards", icon: LayoutDashboard, items: [
-      { href: "/dashboard-empresa", label: "Admin y Finanzas", icon: LayoutDashboard },
-  ]},
+  { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
+  { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
+  { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
+  { title: "Ventas y Marketing", icon: Megaphone, items: ventasMenuItems.concat(marketingMenuItems) },
+  { title: "Operaciones Internacionales", icon: Globe, items: internationalOperationsMenuItems },
+  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems },
+  { title: "Inteligencia Artificial", icon: BrainCircuit, items: iaMenuItems },
+  { title: "General", icon: Cog, items: generalMenuItems },
+];
+
+export const allAdminGroups = [
   { title: "Finanzas y Contabilidad", icon: BookOpen, items: finanzasContabilidadMenuItems },
   { title: "Facturación General", icon: ShoppingCart, items: facturacionGeneralMenuItems },
   { title: "Recursos Humanos", icon: Briefcase, items: recursosHumanosGestionItems.concat(librosRegistroMenuItems) },
