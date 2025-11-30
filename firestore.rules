@@ -1,0 +1,148 @@
+/**
+ * Core Philosophy: This ruleset enforces a strict user-ownership model. All user-generated
+ * data, including financial documents, transactions, and invoices, is stored within a
+ * private data tree specific to that user. Access is granted only to the authenticated
+ * owner of that data tree.
+ *
+ * Data Structure: All data is hierarchically nested under the /users/{userId} path. This
+ * path-based ownership is the cornerstone of the security model, making authorization
+ * checks simple, performant, and independent of other data lookups.
+ * - /users/{userId} - The user's own profile document.
+ * - /users/{userId}/financialDocuments/{docId} - Financial documents owned by the user.
+ * - /users/{userId}/invoices/{invoiceId} - Invoices owned by the user.
+ *
+ * Key Security Decisions:
+ * - User Isolation: Users can only access documents where the {userId} in the path matches
+ *   their own authentication UID. They cannot see, list, or modify data belonging to any
+ *   other user.
+ * - No User Listing: It is not possible to list all documents in the top-level /users
+ *   collection, protecting user privacy.
+ * - Relational Integrity: On document creation, the rules enforce that internal ID fields
+ *   (like `userId`) correctly match the IDs in the document path. These fields are then
+ *   enforced as immutable to prevent re-associating data with a different owner.
+ * - No `get()` for Authorization: The path-based structure avoids the need for cross-document
+ *   `get()` calls for authorization, leading to faster and more scalable rules. An `exists()`
+ *   call is used only for data integrity to prevent orphaned transaction documents.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions to promote readable, secure, and maintainable rules.
+
+    /**
+     * isSignedIn
+     * @description Checks if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * isOwner
+     * @description Checks if the requesting user's UID matches the given userId.
+     * @param userId The user ID to check against the request's auth UID.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /**
+     * isExistingOwner
+     * @description Checks if a document exists and if the requester is the owner.
+     *              Crucial for safe update and delete operations.
+     * @param userId The user ID to check for ownership.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * canCreateOwnDocument
+     * @description Validates that a user is creating a document for themselves,
+     *              enforcing that the internal userId matches the path.
+     * @param userId The user ID from the path.
+     */
+    function canCreateOwnDocument(userId) {
+      return isOwner(userId) && request.resource.data.userId == userId;
+    }
+    
+    /**
+     * isOwnerDataImmutable
+     * @description On update, ensures the internal userId field cannot be changed,
+     *              preventing documents from being reassigned to other users.
+     */
+    function isOwnerDataImmutable() {
+      return request.resource.data.userId == resource.data.userId;
+    }
+
+    /**
+     * @description   User profile data. A user can create their own profile, and can only read,
+     *                update, or delete their own document. Listing all users is disabled.
+     * @path          /users/{userId}
+     * @allow         (create) An authenticated user with UID 'user_abc' creating their own profile at /users/user_abc.
+     * @deny          (list) Any user trying to get a list of all documents at /users.
+     * @principle     Restricts access to a user's own data tree and enforces self-creation.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isExistingOwner(userId);
+
+      /**
+       * @description   Financial documents owned by the user. The user has full control over their
+       *                own documents but cannot access anyone else's.
+       * @path          /users/{userId}/financialDocuments/{financialDocumentId}
+       * @allow         (get, list, create, update, delete) User 'user_abc' accessing their own documents at /users/user_abc/financialDocuments/...
+       * @deny          (get) User 'user_xyz' trying to read a document at /users/user_abc/financialDocuments/doc123.
+       * @principle     Enforces document ownership for all operations within a user's private subcollection.
+       */
+      match /financialDocuments/{financialDocumentId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if canCreateOwnDocument(userId);
+        allow update: if isExistingOwner(userId) && isOwnerDataImmutable();
+        allow delete: if isExistingOwner(userId);
+
+        /**
+         * @description   Transactions associated with a specific financial document. Access is
+         *                granted based on ownership of the parent user profile.
+         * @path          /users/{userId}/financialDocuments/{financialDocumentId}/transactions/{transactionId}
+         * @allow         (create) User 'user_abc' creating a transaction under their own financial document.
+         * @deny          (create) User 'user_abc' creating a transaction where the internal `userId` is 'user_xyz'.
+         * @principle     Validates relational integrity by ensuring transactions are only created under existing parent documents and owned by the correct user.
+         */
+        match /transactions/{transactionId} {
+          allow get: if isOwner(userId);
+          allow list: if isOwner(userId);
+          allow create: if isOwner(userId)
+                          && request.resource.data.userId == userId
+                          && request.resource.data.financialDocumentId == financialDocumentId
+                          && exists(/databases/$(database)/documents/users/$(userId)/financialDocuments/$(financialDocumentId));
+          allow update: if isExistingOwner(userId)
+                          && request.resource.data.userId == resource.data.userId
+                          && request.resource.data.financialDocumentId == resource.data.financialDocumentId;
+          allow delete: if isExistingOwner(userId);
+        }
+      }
+
+      /**
+       * @description   Invoices created by the user. The user has full control over their own
+       *                invoices but cannot access anyone else's.
+       * @path          /users/{userId}/invoices/{invoiceId}
+       * @allow         (get, list, create, update, delete) User 'user_abc' accessing their own invoices at /users/user_abc/invoices/...
+       * @deny          (update) User 'user_xyz' trying to modify an invoice at /users/user_abc/invoices/inv456.
+       * @principle     Enforces document ownership for all operations within a user's private subcollection.
+       */
+      match /invoices/{invoiceId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if canCreateOwnDocument(userId);
+        allow update: if isExistingOwner(userId) && isOwnerDataImmutable();
+        allow delete: if isExistingOwner(userId);
+      }
+    }
+  }
+}
