@@ -80,8 +80,8 @@ export default function LoginNaturalPage() {
       <CardFooter className="flex flex-col gap-4 text-center text-sm p-6 border-t">
         <p className="text-muted-foreground">¿No eres el tipo de usuario correcto?</p>
         <div className="flex justify-center gap-4">
-          <Link href="/login-admin" className="font-medium text-primary hover:underline flex items-center gap-1">
-            <Building className="h-4 w-4" /> Admin
+          <Link href="/login-fintech" className="font-medium text-primary hover:underline flex items-center gap-1">
+            <Building className="h-4 w-4" /> FinTech
           </Link>
           <Link href="/login-ventas" className="font-medium text-primary hover:underline flex items-center gap-1">
             <ShoppingCart className="h-4 w-4" /> Ventas
@@ -91,7 +91,7 @@ export default function LoginNaturalPage() {
           </Link>
         </div>
         <Separator className="my-2" />
-        <Link href="/register" className="font-medium text-primary hover:underline">
+        <Link href="/register/natural" className="font-medium text-primary hover:underline">
           Crear una cuenta nueva
         </Link>
       </CardFooter>

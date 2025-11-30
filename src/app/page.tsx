@@ -104,12 +104,11 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
      
       <header className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "top-4" : "top-0"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       )}>
           <div className={cn(
-              "container mx-auto flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
-              isScrolled && "rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
+              "container mx-auto flex h-20 items-center justify-between px-4 md:px-6 transition-all duration-300",
+              isScrolled && "h-16 mt-2 rounded-2xl border bg-background/80 backdrop-blur-lg shadow-lg"
           )}>
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
@@ -232,21 +231,18 @@ export default function LandingPage() {
                 <h2 className="text-3xl md:text-4xl font-bold">Impacto y Confianza</h2>
                 <p className="mt-4 text-lg text-muted-foreground">Cientos de empresas confían en nosotros para optimizar su gestión y garantizar su tranquilidad.</p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
-                <div className="flex flex-col items-center gap-2 p-6 rounded-xl border bg-card/50">
-                    <Smile className="h-10 w-10 text-primary"/>
-                    <p className="text-3xl font-bold">98%</p>
-                    <p className="text-muted-foreground">Clientes Satisfechos</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
+                <div className="p-6 rounded-xl border bg-background/50">
+                    <p className="text-4xl font-bold text-primary">98%</p>
+                    <p className="text-muted-foreground mt-2">Clientes Satisfechos</p>
                 </div>
-                <div className="flex flex-col items-center gap-2 p-6 rounded-xl border bg-card/50">
-                    <Clock className="h-10 w-10 text-primary"/>
-                    <p className="text-3xl font-bold">10k+</p>
-                    <p className="text-muted-foreground">Horas Ahorradas en Gestión</p>
+                <div className="p-6 rounded-xl border bg-background/50">
+                    <p className="text-4xl font-bold text-primary">10k+</p>
+                    <p className="text-muted-foreground mt-2">Horas Ahorradas en Gestión</p>
                 </div>
-                <div className="flex flex-col items-center gap-2 p-6 rounded-xl border bg-card/50 col-span-2 md:col-span-1">
-                    <CheckCircleIcon className="h-10 w-10 text-primary"/>
-                    <p className="text-3xl font-bold">100%</p>
-                    <p className="text-muted-foreground">Cumplimiento Garantizado</p>
+                <div className="p-6 rounded-xl border bg-background/50">
+                    <p className="text-4xl font-bold text-primary">100%</p>
+                    <p className="text-muted-foreground mt-2">Cumplimiento Garantizado</p>
                 </div>
             </div>
           </div>
@@ -261,14 +257,12 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                      {services.map((item, index) => (
-                        <div key={item.title} className="relative p-8 overflow-hidden rounded-xl border bg-card shadow-sm">
-                            <div className="relative">
-                                <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
-                                    <item.icon className="h-8 w-8" />
-                                </div>
-                                <h3 className="text-xl font-semibold ">{item.title}</h3>
-                                <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
+                        <div key={item.title} className="p-8 rounded-xl border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                            <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
+                                <item.icon className="h-8 w-8" />
                             </div>
+                            <h3 className="text-xl font-semibold ">{item.title}</h3>
+                            <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
                         </div>
                     ))}
                 </div>
