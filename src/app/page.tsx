@@ -25,6 +25,7 @@ const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, .
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
+        // Close sheet if it's open (for mobile)
         const sheetCloseButton = document.querySelector('[data-radix-dialog-close]');
         if (sheetCloseButton instanceof HTMLElement) {
             sheetCloseButton.click();
@@ -56,7 +57,7 @@ const services = [
     { title: "Gestión Fiscal y Contable", description: "Automatiza tu contabilidad, desde libros oficiales hasta la declaración de impuestos, todo homologado por el SENIAT.", icon: Layers },
     { title: "Administración de Nómina", description: "Calcula y gestiona la nómina, beneficios y obligaciones parafiscales de tus empleados sin complicaciones.", icon: Users },
     { title: "Permisología y Cumplimiento", description: "Centraliza y mantén al día todas las licencias y permisos necesarios para operar en Venezuela.", icon: ShieldCheck },
-     { title: "Asesoría Legal y Estratégica", description: "Accede a herramientas de análisis, modelos de contratos y guías para una toma de decisiones informada.", icon: Gavel },
+    { title: "Asesoría Legal y Estratégica", description: "Accede a herramientas de análisis, modelos de contratos y guías para una toma de decisiones informada.", icon: Gavel },
 ];
 
 const features = [
