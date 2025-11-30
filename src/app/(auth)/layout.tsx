@@ -4,9 +4,20 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
 import { Building, User, ShoppingCart, Briefcase, Megaphone, Gavel, Cpu, Users, Banknote, AlertTriangle } from "lucide-react";
 import { LanguageSwitcher } from "@/components/language-switcher";
+
+const loginOptions = [
+    { href: "/login-natural", label: "Acceso Personal", icon: User, description: "Para clientes individuales." },
+    { href: "/login-fintech", label: "FinTech y Banca Digital", icon: Banknote, description: "Panel de control principal de la empresa." },
+    { href: "/login-juridico", label: "Escritorio Jurídico", icon: Gavel, description: "Acceso para el departamento legal." },
+    { href: "/login-ventas", label: "Ventas y Facturación", icon: ShoppingCart, description: "Acceso para cajeros y vendedores." },
+    { href: "/login-rrhh", label: "Acceso RR.HH.", icon: Briefcase, description: "Portal para gestión de personal." },
+    { href: "/login-socios", label: "Acceso Socios", icon: Users, description: "Dashboard para socios y directivos." },
+    { href: "/login-marketing", label: "Productos y Marketing", icon: Megaphone, description: "Portal de marketing y asesoría." },
+    { href: "/login-informatica", label: "Ingeniería e Informática", icon: Cpu, description: "Acceso para el equipo de IT." },
+];
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -29,21 +40,26 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                   <User className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild><Link href="/login-natural">Acceso Personal</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-fintech">FinTech y Banca Digital</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-juridico">Escritorio Jurídico</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-ventas">Ventas y Facturación</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-rrhh">Acceso RR.HH.</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-socios">Acceso Socios</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-marketing">Productos y Marketing</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/login-informatica">Ingeniería e Informática</Link></DropdownMenuItem>
+              <DropdownMenuContent align="end" className="w-64">
+                <DropdownMenuLabel>Selecciona un Portal</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {loginOptions.map((opt) => (
+                    <DropdownMenuItem key={opt.href} asChild>
+                        <Link href={opt.href} className="flex items-center justify-start">
+                          <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                          <div>
+                            <p>{opt.label}</p>
+                            <p className="text-xs text-muted-foreground">{opt.description}</p>
+                          </div>
+                        </Link>
+                    </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
       </header>
-       <div className="absolute top-16 left-0 right-0 z-40 bg-yellow-500/10 border-y border-yellow-500/20 py-2">
+       <div className="absolute top-16 left-0 right-0 z-40 bg-yellow-600/10 border-y border-yellow-500/20 py-2">
             <div className="container mx-auto text-center text-xs text-yellow-300 flex items-center justify-center gap-2">
                 <AlertTriangle className="h-4 w-4" />
                 <p>
