@@ -6,7 +6,7 @@ import { Shield } from "lucide-react";
 
 export default function PoliticaPrivacidadPage() {
   return (
-    <div className="p-4 md:p-8 max-w-4xl mx-auto">
+    <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <Shield className="h-8 w-8" />

@@ -100,7 +100,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
     }
 
   return (
-    <div className="p-4 md:p-8">
+    <div className="space-y-8">
         <style>
             {`
                 @media print {
