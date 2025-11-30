@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { ReactNode } from "react";
@@ -6,7 +7,7 @@ import { AppHeader } from "@/components/app-header";
 
 export default function VentasLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-slate-950">
       <AppHeader user={{ name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" }} />
       <main className="flex-1 p-4 md:p-8 container mx-auto">
             {children}

@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { ReactNode } from "react";
@@ -6,7 +7,7 @@ import { AppHeader } from "@/components/app-header";
 
 export default function LegalLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-slate-950">
       <AppHeader user={{ name: "Escritorio Jurídico", email: "legal@kyron.com", fallback: "L" }} />
       <main className="flex-1 p-4 md:p-8 container mx-auto">
         {children}
