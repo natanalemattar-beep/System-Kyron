@@ -14,6 +14,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogFooter,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 
 type Notificacion = {
     id: number;
@@ -31,7 +40,7 @@ const initialNotificaciones: Notificacion[] = [
         tipo: "Alerta de Cumplimiento",
         fecha: "Hace 5 minutos",
         estado: "No Leído",
-        descripcion: "La Póliza de 'Flota de Vehículos' ha vencido. Se requiere acción inmediata.",
+        descripcion: "La Póliza de 'Flota de Vehículos' ha vencido. Se requiere acción inmediata para renovar la cobertura y evitar riesgos operativos. Por favor, contacte a su corredor de seguros.",
     },
     {
         id: 2,
@@ -39,7 +48,7 @@ const initialNotificaciones: Notificacion[] = [
         tipo: "Solicitud de Aprobación",
         fecha: "Hace 1 hora",
         estado: "No Leído",
-        descripcion: "Solicitud de aprobación para descuento del 15% en factura FAC-0892.",
+        descripcion: "Solicitud de aprobación para descuento del 15% en factura FAC-0892 para el cliente 'Innovate Corp'. El cliente tiene un historial de pagos excelente y un alto volumen de compra.",
     },
     {
         id: 3,
@@ -47,7 +56,7 @@ const initialNotificaciones: Notificacion[] = [
         tipo: "Análisis Financiero",
         fecha: "Hace 3 horas",
         estado: "Leído",
-        descripcion: "El reporte de rentabilidad del Q2 ha sido generado exitosamente.",
+        descripcion: "El reporte de rentabilidad del Q2 ha sido generado exitosamente. Se observa un incremento del 5% en el margen neto en comparación con el Q1, impulsado por la optimización de costos en la categoría de suministros.",
     },
 ];
 
@@ -97,7 +106,7 @@ export default function NotificacionesPage() {
         </DropdownMenu>
       </header>
 
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
             <CardTitle>Bandeja de Entrada</CardTitle>
         </CardHeader>
@@ -115,23 +124,45 @@ export default function NotificacionesPage() {
                 </TableHeader>
                 <TableBody>
                     {notificaciones.map((notificacion) => (
-                        <TableRow key={notificacion.id} className={notificacion.estado === 'No Leído' ? 'bg-primary/5' : ''}>
-                            <TableCell className="font-medium">{notificacion.remitente}</TableCell>
-                            <TableCell>{notificacion.tipo}</TableCell>
-                            <TableCell className="text-sm text-muted-foreground max-w-xs truncate">{notificacion.descripcion}</TableCell>
-                            <TableCell>{notificacion.fecha}</TableCell>
-                            <TableCell>
-                                <Badge variant={statusVariant[notificacion.estado]}>{notificacion.estado}</Badge>
-                            </TableCell>
-                            <TableCell className="text-right">
-                                {notificacion.estado === 'No Leído' && (
-                                    <Button variant="ghost" size="sm" onClick={() => handleMarkAsRead(notificacion.id)}>
-                                        <Check className="mr-2 h-4 w-4" />
-                                        Marcar como leído
-                                    </Button>
-                                )}
-                            </TableCell>
-                        </TableRow>
+                        <Dialog key={notificacion.id}>
+                            <DialogTrigger asChild>
+                                <TableRow className={`cursor-pointer hover:bg-muted/50 ${notificacion.estado === 'No Leído' ? 'bg-primary/5' : ''}`}>
+                                    <TableCell className="font-medium">{notificacion.remitente}</TableCell>
+                                    <TableCell>{notificacion.tipo}</TableCell>
+                                    <TableCell className="text-sm text-muted-foreground max-w-xs truncate">{notificacion.descripcion}</TableCell>
+                                    <TableCell>{notificacion.fecha}</TableCell>
+                                    <TableCell>
+                                        <Badge variant={statusVariant[notificacion.estado]}>{notificacion.estado}</Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        {notificacion.estado === 'No Leído' && (
+                                            <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleMarkAsRead(notificacion.id); }}>
+                                                <Check className="mr-2 h-4 w-4" />
+                                                Marcar como leído
+                                            </Button>
+                                        )}
+                                    </TableCell>
+                                </TableRow>
+                            </DialogTrigger>
+                             <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle className="text-xl">{notificacion.tipo}</DialogTitle>
+                                    <DialogDescription>
+                                        <strong>De:</strong> {notificacion.remitente} <br/>
+                                        <strong>Fecha:</strong> {notificacion.fecha}
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="py-4 text-muted-foreground">
+                                    <p>{notificacion.descripcion}</p>
+                                </div>
+                                <DialogFooter>
+                                    {notificacion.estado === 'No Leído' && (
+                                        <Button variant="outline" onClick={() => handleMarkAsRead(notificacion.id)}>Marcar como Leído</Button>
+                                    )}
+                                    <Button>Cerrar</Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
                     ))}
                 </TableBody>
             </Table>

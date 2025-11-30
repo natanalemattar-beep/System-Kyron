@@ -3,7 +3,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Eye } from 'lucide-react';
 import {
     Dialog,
     DialogContent,
@@ -23,40 +22,39 @@ type Activity = {
 
 export function ActivityCard({ recentActivities }: { recentActivities: Activity[] }) {
   return (
-    <Card className="lg:col-span-1 bg-card/50 backdrop-blur-sm flex flex-col">
+    <Card className="lg:col-span-1 flex flex-col">
       <CardHeader>
         <CardTitle>Actividad Reciente</CardTitle>
       </CardHeader>
       <CardContent className="flex-grow">
-        <ul className="space-y-4">
+        <ul className="space-y-2">
           {recentActivities.map((activity, index) => (
-            <li key={index} className="flex items-center gap-4 p-3 rounded-lg bg-secondary/50">
-              <activity.icon className={`h-5 w-5 ${activity.iconColor}`} />
-              <div className="flex-1">
-                <p className="font-medium text-sm">{activity.description}</p>
-                <p className="text-xs text-muted-foreground">{activity.time}</p>
-              </div>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Detalle de la Actividad</DialogTitle>
-                        <DialogDescription>{activity.description}</DialogDescription>
-                    </DialogHeader>
-                    <div className="py-4">
-                        <p><strong>Fecha:</strong> {activity.time}</p>
-                        <p><strong>Estado:</strong> Completado</p>
-                    </div>
-                    <DialogFooter>
-                        <Button>Cerrar</Button>
-                    </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </li>
+            <Dialog key={index}>
+              <DialogTrigger asChild>
+                <li className="flex items-start gap-4 p-3 rounded-lg bg-secondary/50 cursor-pointer hover:bg-secondary">
+                  <div className="p-2 bg-background rounded-full mt-1">
+                    <activity.icon className={`h-5 w-5 ${activity.iconColor}`} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-sm leading-tight">{activity.description}</p>
+                    <p className="text-xs text-muted-foreground">{activity.time}</p>
+                  </div>
+                </li>
+              </DialogTrigger>
+              <DialogContent>
+                  <DialogHeader>
+                      <DialogTitle>Detalle de la Actividad</DialogTitle>
+                      <DialogDescription>{activity.description}</DialogDescription>
+                  </DialogHeader>
+                  <div className="py-4">
+                      <p><strong>Fecha:</strong> {activity.time}</p>
+                      <p><strong>Estado:</strong> Completado</p>
+                  </div>
+                  <DialogFooter>
+                      <Button>Cerrar</Button>
+                  </DialogFooter>
+              </DialogContent>
+            </Dialog>
           ))}
         </ul>
       </CardContent>
