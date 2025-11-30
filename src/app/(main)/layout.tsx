@@ -37,7 +37,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
                     </p>
                 </div>
             </div>
-            <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+            <main className="flex-1 p-4 md:p-8">
                 {children}
             </main>
         </SidebarInset>

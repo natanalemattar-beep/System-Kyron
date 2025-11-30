@@ -126,6 +126,10 @@ const config: Config = {
           "from": { transform: "translateX(0)" },
           "to": { transform: "translateX(100%)" },
         },
+         "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -144,6 +148,7 @@ const config: Config = {
         "slide-out-to-left": "slide-out-to-left 0.3s ease-in",
         "slide-in-from-right": "slide-in-from-right 0.3s ease-out",
         "slide-out-to-right": "slide-out-to-right 0.3s ease-in",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
     },
   },
