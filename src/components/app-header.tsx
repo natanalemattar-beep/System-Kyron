@@ -76,7 +76,7 @@ export function AppHeader({ user }: { user: User }) {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          {group.subGroups ? (
+                          {group.subGroups && group.subGroups.length > 0 ? (
                             group.subGroups.map((subGroup) => (
                               <DropdownMenuSub key={subGroup.title}>
                                 <DropdownMenuSubTrigger>
@@ -134,7 +134,7 @@ export function AppHeader({ user }: { user: User }) {
                             <group.icon className="h-4 w-4" />
                             {group.title}
                           </h4>
-                          {group.subGroups ? (
+                          {group.subGroups && group.subGroups.length > 0 ? (
                             group.subGroups.map(subGroup => (
                               <div key={subGroup.title} className="pl-2">
                                 <h5 className="font-semibold text-xs text-muted-foreground px-2 py-1 mt-2 flex items-center gap-2">

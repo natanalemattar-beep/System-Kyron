@@ -204,7 +204,7 @@ const finanzasContabilidadNavGroups = {
       ],
     },
   ],
-  items: [], // Ensure items property exists
+  items: [], // Keep items for consistency, even if empty
 };
 
 
