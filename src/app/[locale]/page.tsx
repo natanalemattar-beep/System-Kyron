@@ -291,7 +291,7 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section ref={targetRef} className="h-screen grid place-items-center relative overflow-hidden">
+        <section ref={targetRef} className="h-screen grid place-items-center relative overflow-hidden pt-16">
              {/* Fondo animado */}
             <motion.div 
                 className="absolute inset-0 -z-10"
