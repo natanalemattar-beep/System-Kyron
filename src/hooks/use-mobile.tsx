@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 const MOBILE_BREAKPOINT = 768
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false) // Default to false on the server
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // This effect runs only on the client

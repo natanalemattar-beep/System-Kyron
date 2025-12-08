@@ -19,6 +19,7 @@ import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
@@ -104,7 +105,12 @@ const navModules = [
   { name: "¿Quiénes Somos?", angle: 345, href: "#nosotros" },
 ];
 
-const ModuleOrb = memo(({ module, radius }: { module: typeof navModules[0], radius: number }) => {
+const getModuleDescription = (name: string) => {
+    const option = loginOptions.find(opt => opt.label.includes(name));
+    return option ? option.description : "Accede al módulo especializado.";
+};
+
+const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module: typeof navModules[0], radius: number, onMouseEnter: () => void, onMouseLeave: () => void }) => {
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
     
@@ -115,10 +121,10 @@ const ModuleOrb = memo(({ module, radius }: { module: typeof navModules[0], radi
                 top: '50%',
                 left: '50%',
             }}
-            initial={{ x: 0, y: 0}}
+            initial={{ x: -40, y: -40 }} // Start at center (half of w-20, h-20)
             animate={{
-                x: [0, x],
-                y: [0, y],
+                x: x - 40, // Adjust for half size
+                y: y - 40,
             }}
             transition={{ type: "spring", stiffness: 50, damping: 15 }}
         >
@@ -128,6 +134,8 @@ const ModuleOrb = memo(({ module, radius }: { module: typeof navModules[0], radi
                     style={{
                         boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
                     }}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
                     whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
                     transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -144,8 +152,10 @@ ModuleOrb.displayName = 'ModuleOrb';
 
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [hoveredModule, setHoveredModule] = useState<{name: string, description: string} | null>(null);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
-    const [radius, setRadius] = useState(130);
+    const isMobile = useIsMobile();
+    const radius = isMobile ? 130 : 260;
 
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -161,17 +171,6 @@ export default function LandingPage() {
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 640) setRadius(140);
-            else if (window.innerWidth < 768) setRadius(220);
-            else setRadius(260);
-        };
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
     }, []);
     
   return (
@@ -292,7 +291,7 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section ref={targetRef} className="h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <section ref={targetRef} className="h-screen grid place-items-center relative overflow-hidden">
              {/* Fondo animado */}
             <motion.div 
                 className="absolute inset-0 -z-10"
@@ -305,31 +304,49 @@ export default function LandingPage() {
 
             {/* Contenido Central */}
             <motion.div 
-              className="relative flex flex-col items-center justify-center w-full h-full"
+              className="relative grid place-items-center w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] aspect-square"
               style={{ opacity }}
             >
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="absolute z-10 text-center"
-                >
-                    <h1 className="text-4xl md:text-5xl font-bold">System Kyron</h1>
-                    <p className="text-base md:text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
-                </motion.div>
-
-                <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] aspect-square">
-                    <Orb />
-                     {navModules.map(module => (
-                        <ModuleOrb
-                            key={module.name}
-                            module={module}
-                            radius={radius}
-                        />
-                    ))}
+                {/* Central Text/Orb */}
+                <div className="absolute z-10 grid place-items-center w-full h-full">
+                     <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="text-center"
+                    >
+                         {hoveredModule ? (
+                            <>
+                                <h2 className="text-2xl font-bold text-primary">{hoveredModule.name}</h2>
+                                <p className="text-muted-foreground max-w-xs">{hoveredModule.description}</p>
+                            </>
+                            ) : (
+                            <>
+                                <h1 className="text-4xl md:text-5xl font-bold">System Kyron</h1>
+                                <p className="text-base md:text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
+                            </>
+                        )}
+                    </motion.div>
                 </div>
+
+                {/* Orb */}
+                <div className="absolute inset-0">
+                    <Orb />
+                </div>
+
+                {/* Orbiting Modules */}
+                 {navModules.map(module => (
+                    <ModuleOrb
+                        key={module.name}
+                        module={module}
+                        radius={radius}
+                        onMouseEnter={() => setHoveredModule({ name: module.name, description: getModuleDescription(module.name) })}
+                        onMouseLeave={() => setHoveredModule(null)}
+                    />
+                ))}
+
                 <motion.div 
-                  className="absolute bottom-10"
+                  className="absolute bottom-[-40px] md:bottom-[-60px]"
                   animate={{ y: [0, 10, 0]}}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                 >
