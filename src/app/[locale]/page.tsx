@@ -268,16 +268,9 @@ export default function LandingPage() {
                 className="absolute inset-0 -z-10"
                 style={{ opacity }}
             >
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute top-0 left-0 w-full h-full object-cover opacity-20"
-                >
-                    <source src="https://cdn.coverr.co/videos/coverr-a-digital-background-of-plexus-and-dots-5673/1080p.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/50"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-background/80"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent"></div>
+                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent"></div>
             </motion.div>
 
             {/* Contenido Central */}

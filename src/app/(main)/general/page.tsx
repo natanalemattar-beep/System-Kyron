@@ -38,7 +38,7 @@ export default function GeneralPage() {
             <CardContent className="space-y-4">
                 <div className="space-y-2">
                     <Label htmlFor="company-name">Nombre de la Empresa</Label>
-                    <Input id="company-name" defaultValue="System C.M.S, C.A."/>
+                    <Input id="company-name" defaultValue="System Kyron, C.A."/>
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="company-rif">RIF</Label>
@@ -57,7 +57,7 @@ export default function GeneralPage() {
             <CardContent className="space-y-4">
                 <div className="space-y-2">
                     <Label htmlFor="primary-color">Color Primario</Label>
-                    <Input id="primary-color" type="color" defaultValue="#6d28d9" className="h-12"/>
+                    <Input id="primary-color" type="color" defaultValue="#43a047" className="h-12"/>
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="logo-upload">Logo de la Empresa</Label>

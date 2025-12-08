@@ -46,7 +46,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
                   </p>
               </div>
           </div>
-          <main className="flex-1 container mx-auto p-4 md:p-8 flex flex-col items-center">
+          <main className="flex-1 container mx-auto p-4 md:p-8 flex justify-center">
               <div className="w-full max-w-7xl">
                 {children}
               </div>
