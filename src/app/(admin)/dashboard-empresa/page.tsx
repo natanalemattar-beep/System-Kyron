@@ -24,10 +24,10 @@ import { QuickAccess } from "@/components/dashboard/quick-access";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 
 const kpiData = [
-  { title: "Ingresos Totales (Mes)", value: formatCurrency(250000, 'Bs.'), icon: DollarSign, trend: "+15.2% vs mes anterior" },
+  { title: "Ingresos Totales (Mes)", value: formatCurrency(250000), icon: DollarSign, trend: "+15.2% vs mes anterior" },
   { title: "Rentabilidad Neta", value: "22.5%", icon: TrendingUp, trend: "+1.8% vs mes anterior" },
-  { title: "Cuentas por Pagar", value: formatCurrency(42000, 'Bs.'), icon: HandCoins, trend: "3 facturas vencidas", href: "/cuentas-por-pagar" },
-  { title: "Cuentas por Cobrar", value: formatCurrency(75000, 'Bs.'), icon: Wallet, trend: "1 factura en mora", href: "/cuentas-por-cobrar" },
+  { title: "Cuentas por Pagar", value: formatCurrency(42000), icon: HandCoins, trend: "3 facturas vencidas", href: "/cuentas-por-pagar" },
+  { title: "Cuentas por Cobrar", value: formatCurrency(75000), icon: Wallet, trend: "1 factura en mora", href: "/cuentas-por-cobrar" },
 ];
 
 const recentActivities = [
@@ -105,7 +105,7 @@ export default function DashboardEmpresaPage() {
                           cursor={false}
                           content={<ChartTooltipContent 
                               indicator="dot" 
-                              formatter={(value, name) => name === 'rentabilidad' ? `${(value as number).toFixed(1)}%` : formatCurrency(value as number, 'Bs.')} 
+                              formatter={(value, name) => name === 'rentabilidad' ? `${(value as number).toFixed(1)}%` : formatCurrency(value as number)} 
                           />} 
                       />
                       <Legend />

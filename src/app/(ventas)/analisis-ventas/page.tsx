@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -11,22 +12,22 @@ import { historicalFinancialData } from "@/lib/historical-financial-data";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 
 const kpiData = [
-    { title: "Ingresos Totales (Mes)", value: formatCurrency(62000, 'Bs.'), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
+    { title: "Ingresos Totales (Mes)", value: formatCurrency(62000), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
     { title: "Ventas Totales (Mes)", value: "335", icon: ShoppingCart, trend: "+18% vs mes anterior", trendColor: "text-green-500" },
-    { title: "Ticket Promedio", value: formatCurrency(185.30, 'Bs.'), icon: DollarSign, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
+    { title: "Ticket Promedio", value: formatCurrency(185.30), icon: DollarSign, trend: "-1.5% vs mes anterior", trendColor: "text-red-500" },
     { title: "Rotación de Inventario", value: "4.2", icon: RefreshCw, trend: "ciclos este mes", trendColor: "text-green-500" },
 ];
 
 const topProducts = [
-    { id: "PROD-002", name: "Impresora Fiscal", sales: 45, revenue: formatCurrency(15750, 'Bs.') },
-    { id: "PROD-003", name: "Punto de Venta Inalámbrico", sales: 50, revenue: formatCurrency(14000, 'Bs.') },
-    { id: "PROD-005", name: "Tóner para Impresora", sales: 110, revenue: formatCurrency(9350, 'Bs.') },
+    { id: "PROD-002", name: "Impresora Fiscal", sales: 45, revenue: formatCurrency(15750) },
+    { id: "PROD-003", name: "Punto de Venta Inalámbrico", sales: 50, revenue: formatCurrency(14000) },
+    { id: "PROD-005", name: "Tóner para Impresora", sales: 110, revenue: formatCurrency(9350) },
 ];
 
 const bottomProducts = [
-    { id: "PROD-008", name: "Calculadora de Escritorio", sales: 5, revenue: formatCurrency(90, 'Bs.') },
-    { id: "PROD-007", name: "Rollo de Etiquetas para Precios", sales: 12, revenue: formatCurrency(144, 'Bs.') },
-    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: formatCurrency(75, 'Bs.') },
+    { id: "PROD-008", name: "Calculadora de Escritorio", sales: 5, revenue: formatCurrency(90) },
+    { id: "PROD-007", name: "Rollo de Etiquetas para Precios", sales: 12, revenue: formatCurrency(144) },
+    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: formatCurrency(75) },
 ];
 
 const chartConfig = {
@@ -104,7 +105,7 @@ export default function AnalisisVentasPage() {
                           cursor={false}
                           content={<ChartTooltipContent 
                               indicator="dot" 
-                              formatter={(value) => formatCurrency(value as number, 'Bs.')} 
+                              formatter={(value) => formatCurrency(value as number)} 
                           />} 
                       />
                       <Legend />

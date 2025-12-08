@@ -295,7 +295,7 @@ export default function LandingPage() {
                     </>
                     ) : (
                     <>
-                        <h1 className="text-5xl font-bold">Kyron Core</h1>
+                        <h1 className="text-5xl font-bold">System Kyron</h1>
                         <p className="text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
                     </>
                     )}
@@ -306,7 +306,7 @@ export default function LandingPage() {
                     <motion.div 
                         className="absolute inset-0"
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
                     >
                         {navModules.map(module => (
                         <ModuleText

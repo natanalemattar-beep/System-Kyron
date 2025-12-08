@@ -8,7 +8,7 @@ import {
   UserPlus
 } from "lucide-react";
 import { QuickAccess } from "@/components/dashboard/quick-access";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { ChartTooltipContent } from "@/components/ui/chart";
@@ -19,7 +19,7 @@ import { ArrowRight } from "lucide-react";
 const kpiData = [
     { title: "Total de Empleados", value: "58", icon: Users },
     { title: "Nuevas Contrataciones (Mes)", value: "4", icon: UserPlus },
-    { title: "Costo de Nómina (Mes)", value: formatCurrency(28500, 'Bs.'), icon: DollarSign },
+    { title: "Costo de Nómina (Mes)", value: formatCurrency(28500), icon: DollarSign },
 ];
 
 const employeeDistribution = [
