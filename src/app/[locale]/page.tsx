@@ -30,6 +30,7 @@ const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, .
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
+        // This is a bit of a hack to close the mobile sheet menu
         const sheetCloseButton = document.querySelector('[data-radix-dialog-close]');
         if (sheetCloseButton instanceof HTMLElement) {
             sheetCloseButton.click();
@@ -84,7 +85,7 @@ const navModules = [
 ];
 
 
-const ModuleOrb = memo(({ module, radius, onHover }: { module: typeof navModules[0], radius: number, onHover: (desc: {name: string, description: string} | null) => void }) => {
+const ModuleOrb = memo(({ module, radius }: { module: typeof navModules[0], radius: number }) => {
     const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon || User;
     
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
@@ -129,7 +130,6 @@ export default function LandingPage() {
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
-    const [hoveredModule, setHoveredModule] = useState<{name: string, description: string} | null>(null);
     const [radius, setRadius] = useState(130);
 
     const targetRef = useRef(null);
@@ -310,7 +310,6 @@ export default function LandingPage() {
                             key={module.name}
                             module={module}
                             radius={radius}
-                            onHover={setHoveredModule}
                         />
                     ))}
                 </div>
@@ -510,3 +509,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
