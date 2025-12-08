@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
@@ -73,60 +73,55 @@ const testimonials = [
 ];
 
 const navModules = [
-  { name: "¿De qué trata?", angle: 30, href: "#servicios" },
-  { name: "Funciones Clave", angle: 75, href: "#caracteristicas" },
-  { name: "Tecnología IA", angle: 120, href: "/soluciones-ia" },
-  { name: "¿Quiénes Somos?", angle: 165, href: "#nosotros" },
-  { name: "Planes y Precios", angle: 210, href: "/planes-y-precios" },
-  { name: "Seguridad", angle: 255, href: "/seguridad" },
+  { name: "¿Qué es Kyron?", angle: 30, href: "#nosotros" },
+  { name: "Nuestros Servicios", angle: 75, href: "#servicios" },
+  { name: "Funciones Clave", angle: 120, href: "#caracteristicas" },
+  { name: "Tecnología IA", angle: 165, href: "/soluciones-ia" },
+  { name: "Seguridad Garantizada", angle: 210, href: "/seguridad" },
+  { name: "Planes y Precios", angle: 255, href: "/planes-y-precios" },
   { name: "Contacto Directo", angle: 300, href: "#contacto" },
-  { name: "Demo", angle: 345, href: "/register" },
+  { name: "¿Quiénes Somos?", angle: 345, href: "#nosotros" },
 ];
 
-const getModuleDescription = (name: string) => {
-    const descriptions: { [key: string]: string } = {
-        "¿De qué trata?": "Descubre los servicios integrales que ofrecemos para potenciar tu empresa.",
-        "Funciones Clave": "Explora las características que hacen de Kyron una plataforma única y poderosa.",
-        "Tecnología IA": "Nuestra inteligencia artificial trabaja para ti, automatizando y analizando.",
-        "¿Quiénes Somos?": "Conoce al equipo detrás de Kyron y nuestra misión.",
-        "Planes y Precios": "Encuentra el plan perfecto que se ajusta a las necesidades de tu negocio.",
-        "Seguridad": "Tu tranquilidad es nuestra prioridad. Conoce nuestras capas de seguridad.",
-        "Contacto Directo": "Hablemos. Estamos aquí para resolver tus dudas y ayudarte a empezar.",
-        "Demo": "Regístrate y prueba por ti mismo el poder de nuestra plataforma.",
-    };
-    return descriptions[name] || "Explora este módulo para más información.";
-};
 
-const ModuleText = memo(({ module, radius, onHover }: { module: typeof navModules[0], radius: number, onHover: (desc: {name: string, description: string} | null) => void }) => {
-    const description = getModuleDescription(module.name);
+const ModuleOrb = memo(({ module, radius, onHover }: { module: typeof navModules[0], radius: number, onHover: (desc: {name: string, description: string} | null) => void }) => {
+    const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon || User;
+    
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
-
+    
     return (
-        <SmoothScrollLink href={module.href} key={module.name}>
-            <motion.div
-                className="absolute text-sm md:text-base cursor-pointer font-semibold text-muted-foreground"
-                style={{
-                    top: '50%',
-                    left: '50%',
-                    translateX: '-50%',
-                    translateY: '-50%',
-                }}
-                animate={{
-                    x: x,
-                    y: y,
-                }}
-                onMouseEnter={() => onHover({ name: module.name, description })}
-                onMouseLeave={() => onHover(null)}
-                whileHover={{ scale: 1.2, color: 'hsl(var(--primary))' }}
-                transition={{ type: "spring", stiffness: 300 }}
-            >
-                {module.name}
-            </motion.div>
-        </SmoothScrollLink>
+        <motion.div
+            className="absolute"
+            style={{
+                top: '50%',
+                left: '50%',
+            }}
+            initial={{ x: 0, y: 0}}
+            animate={{
+                x: [0, x],
+                y: [0, y],
+            }}
+            transition={{ type: "spring", stiffness: 50, damping: 15 }}
+        >
+            <Link href={module.href}>
+                <motion.div
+                    className="w-14 h-14 md:w-16 md:h-16 bg-card/80 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
+                    style={{
+                        boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
+                    }}
+                    whileHover={{ scale: 1.2, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                >
+                     <div className="text-center">
+                        <p className="text-xs font-bold text-primary px-2 leading-tight">{module.name}</p>
+                     </div>
+                </motion.div>
+            </Link>
+        </motion.div>
     );
 });
-ModuleText.displayName = 'ModuleText';
+ModuleOrb.displayName = 'ModuleOrb';
 
 
 export default function LandingPage() {
@@ -142,6 +137,7 @@ export default function LandingPage() {
         target: targetRef,
         offset: ["start end", "end start"],
     });
+
     const opacity = useTransform(scrollYProgress, [0, 0.5, 0.9], [1, 1, 0]);
     
     useEffect(() => {
@@ -149,33 +145,39 @@ export default function LandingPage() {
             setIsScrolled(window.scrollY > 10);
         };
         window.addEventListener('scroll', handleScroll);
-        
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 640) {
-                setRadius(130);
-            } else if (window.innerWidth < 768) {
-                setRadius(220);
-            } else {
-                setRadius(260);
-            }
+            if (window.innerWidth < 640) setRadius(130);
+            else if (window.innerWidth < 768) setRadius(220);
+            else setRadius(260);
         };
-
-        handleResize(); // Set initial radius
+        handleResize();
         window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleResize);
-        }
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
     
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
-     
-      <header className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "bg-background/80 backdrop-blur-lg border-b" : "bg-transparent"
-      )}>
+      <motion.header 
+        className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
+        style={{
+             backgroundColor: isScrolled ? 'hsl(var(--background) / 0.8)' : 'transparent',
+             backdropFilter: isScrolled ? 'blur(10px)' : 'none',
+             borderBottom: isScrolled ? '1px solid hsl(var(--border))' : '1px solid transparent',
+        }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+            type: 'spring',
+            stiffness: 70,
+            damping: 20,
+            mass: 1,
+            delay: 0.5
+        }}
+    >
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
@@ -269,13 +271,13 @@ export default function LandingPage() {
                       </div>
                   </SheetContent>
               </Sheet>
-          </div>
-      </header>
+        </div>
+    </motion.header>
 
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section ref={targetRef} className="h-screen flex items-center justify-center relative overflow-hidden">
+        <section ref={targetRef} className="h-screen flex items-center justify-center relative overflow-hidden pt-16">
              {/* Fondo animado */}
             <motion.div 
                 className="absolute inset-0 -z-10"
@@ -297,39 +299,28 @@ export default function LandingPage() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="absolute z-10 text-center"
                 >
-                    {hoveredModule ? (
-                    <>
-                        <h2 className="text-2xl font-bold text-primary">{hoveredModule.name}</h2>
-                        <p className="text-muted-foreground max-w-xs">{hoveredModule.description}</p>
-                    </>
-                    ) : (
-                    <>
-                        <h1 className="text-5xl font-bold">System Kyron</h1>
-                        <p className="text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
-                    </>
-                    )}
+                    <h1 className="text-5xl font-bold">System Kyron</h1>
+                    <p className="text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
                 </motion.div>
 
                 <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px]">
                     <Orb />
-                    <motion.div 
-                        className="absolute inset-0"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-                    >
-                        {navModules.map(module => (
-                        <ModuleText
+                     {navModules.map(module => (
+                        <ModuleOrb
                             key={module.name}
                             module={module}
                             radius={radius}
                             onHover={setHoveredModule}
-                            />
-                        ))}
-                    </motion.div>
+                        />
+                    ))}
                 </div>
-                <div className="absolute bottom-10 animate-bounce">
+                <motion.div 
+                  className="absolute bottom-10"
+                  animate={{ y: [0, 10, 0]}}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
                     <ChevronDown className="w-8 h-8 text-muted-foreground" />
-                </div>
+                </motion.div>
             </motion.div>
         </section>
 

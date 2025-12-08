@@ -126,6 +126,12 @@ const config: Config = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        "jelly-bounce": {
+          "0%, 100%": { transform: "translateY(0) scale(1, 1)" },
+          "25%": { transform: "translateY(5px) scale(1.05, 0.95)" },
+          "50%": { transform: "translateY(0) scale(0.98, 1.02)" },
+          "75%": { transform: "translateY(-2px) scale(1.01, 0.99)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -144,6 +150,7 @@ const config: Config = {
         "slide-in-from-right": "slide-in-from-right 0.3s ease-out",
         "slide-out-to-right": "slide-out-to-right 0.3s ease-in",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "jelly-bounce": "jelly-bounce 0.5s ease-out",
       },
     },
   },

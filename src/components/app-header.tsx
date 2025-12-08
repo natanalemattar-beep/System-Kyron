@@ -35,6 +35,7 @@ import { Menu } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { loginOptions } from "@/lib/login-options";
 import { ThemeToggle } from "./theme-toggle";
+import { motion } from "framer-motion";
 
 type User = {
   name: string;
@@ -76,8 +77,19 @@ export function AppHeader({ user }: { user: User }) {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+    <motion.header 
+      className="sticky top-0 left-0 right-0 z-50"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{
+        type: 'spring',
+        stiffness: 70,
+        damping: 20,
+        mass: 1,
+      }}
+    >
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex h-16 items-center justify-between px-4 md:px-6 rounded-none md:rounded-full mt-0 md:mt-4 border-b md:border bg-background/80 backdrop-blur-sm">
         <div className="flex items-center gap-6">
             <Link href={dashboardHref} className="flex items-center gap-3">
                 <Logo />
@@ -221,7 +233,8 @@ export function AppHeader({ user }: { user: User }) {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+        </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
