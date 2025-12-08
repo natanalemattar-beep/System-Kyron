@@ -106,7 +106,7 @@ export default function DashboardInformaticaPage() {
                                         className="justify-start h-9 w-full mb-1 bg-secondary/50"
                                         >
                                         <Link href={item.href}>
-                                            <item.icon className="h-4 w-4 mr-2" />
+                                            <item.icon className="mr-2 h-4 w-4" />
                                             <span>{item.label}</span>
                                         </Link>
                                         </SidebarMenuButton>

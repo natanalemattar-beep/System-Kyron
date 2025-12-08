@@ -24,10 +24,10 @@ import { ActivityCard } from "@/components/dashboard/activity-card";
 import { motion } from 'framer-motion';
 
 const kpiData = [
-  { title: "Ingresos Totales (Mes)", value: formatCurrency(250000), icon: DollarSign, trend: "+15.2% vs mes anterior" },
+  { title: "Ingresos Totales (Mes)", value: formatCurrency(250000, 'Bs.'), icon: DollarSign, trend: "+15.2% vs mes anterior" },
   { title: "Rentabilidad Neta", value: "22.5%", icon: TrendingUp, trend: "+1.8% vs mes anterior" },
-  { title: "Cuentas por Pagar", value: formatCurrency(42000), icon: HandCoins, trend: "3 facturas vencidas", href: "/cuentas-por-pagar" },
-  { title: "Cuentas por Cobrar", value: formatCurrency(75000), icon: Wallet, trend: "1 factura en mora", href: "/cuentas-por-cobrar" },
+  { title: "Cuentas por Pagar", value: formatCurrency(42000, 'Bs.'), icon: HandCoins, trend: "3 facturas vencidas", href: "/cuentas-por-pagar" },
+  { title: "Cuentas por Cobrar", value: formatCurrency(75000, 'Bs.'), icon: Wallet, trend: "1 factura en mora", href: "/cuentas-por-cobrar" },
 ];
 
 const recentActivities = [
@@ -113,7 +113,7 @@ export default function DashboardEmpresaPage() {
                           contentStyle={{backgroundColor: 'hsl(var(--background) / 0.8)', backdropFilter: 'blur(4px)', border: '1px solid hsl(var(--border))'}}
                           content={<ChartTooltipContent 
                               indicator="dot" 
-                              formatter={(value, name) => name === 'rentabilidad' ? `${(value as number).toFixed(1)}%` : formatCurrency(value as number)} 
+                              formatter={(value, name) => name === 'rentabilidad' ? `${(value as number).toFixed(1)}%` : formatCurrency(value as number, 'Bs.')} 
                           />} 
                       />
                       <Legend />
@@ -133,11 +133,11 @@ export default function DashboardEmpresaPage() {
                 <CardContent className="space-y-4">
                     <div className="flex items-center justify-between p-3 rounded-lg bg-green-500/10">
                         <span className="font-medium text-green-400">Total por Cobrar</span>
-                        <span className="font-bold text-lg text-green-300">{formatCurrency(75000)}</span>
+                        <span className="font-bold text-lg text-green-300">{formatCurrency(75000, 'Bs.')}</span>
                     </div>
                      <div className="flex items-center justify-between p-3 rounded-lg bg-red-500/10">
                         <span className="font-medium text-red-400">Total por Pagar</span>
-                        <span className="font-bold text-lg text-red-300">{formatCurrency(42000)}</span>
+                        <span className="font-bold text-lg text-red-300">{formatCurrency(42000, 'Bs.')}</span>
                     </div>
                 </CardContent>
             </Card>

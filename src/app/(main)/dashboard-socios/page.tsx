@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 
 const kpiData = [
   { title: "Empresas en el Holding", value: "5", icon: Building },
-  { title: "Ingresos Consolidados (Mes)", value: formatCurrency(250000), icon: DollarSign },
+  { title: "Ingresos Consolidados (Mes)", value: formatCurrency(250000, 'Bs.'), icon: DollarSign },
   { title: "Rentabilidad Neta (Grupo)", value: "22.5%", icon: TrendingUp },
 ];
 

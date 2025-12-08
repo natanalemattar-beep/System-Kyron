@@ -21,7 +21,7 @@ import { motion } from "framer-motion";
 const kpiData = [
     { title: "Total de Empleados", value: "58", icon: Users },
     { title: "Nuevas Contrataciones (Mes)", value: "4", icon: UserPlus },
-    { title: "Costo de Nómina (Mes)", value: formatCurrency(28500), icon: DollarSign },
+    { title: "Costo de Nómina (Mes)", value: formatCurrency(28500, 'Bs.'), icon: DollarSign },
 ];
 
 const employeeDistribution = [
