@@ -78,6 +78,18 @@ const teamMembers = [
   },
 ];
 
+const testimonials = [
+  {
+    name: "Carlos Rodríguez",
+    company: "Constructora XYZ",
+    text: "System Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
+  },
+  {
+    name: "Ana Pérez",
+    company: "Inversiones ABC",
+    text: "La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.",
+  },
+];
 
 const faqItems = [
     {
@@ -123,14 +135,14 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
             }}
             initial={{ x: -40, y: -40 }} // Start at center (half of w-20, h-20)
             animate={{
-                x: x - 40, // Adjust for half size
-                y: y - 40,
+                x: x - 48,
+                y: y - 48,
             }}
             transition={{ type: "spring", stiffness: 50, damping: 15 }}
         >
             <Link href={module.href}>
                 <motion.div
-                    className="w-20 h-20 md:w-24 md:h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-2xl flex items-center justify-center p-2 cursor-pointer"
+                    className="w-24 h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-2xl flex items-center justify-center p-2 cursor-pointer"
                     style={{
                         boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
                     }}
@@ -154,6 +166,8 @@ export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [hoveredModule, setHoveredModule] = useState<{name: string, description: string} | null>(null);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
+    const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
+    const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const isMobile = useIsMobile();
     const radius = isMobile ? 130 : 260;
 
@@ -291,8 +305,10 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section ref={targetRef} className="h-screen grid place-items-center relative overflow-hidden pt-16">
-             {/* Fondo animado */}
+        <section ref={targetRef} className="relative overflow-hidden">
+            <div className="flex flex-col items-center justify-center min-h-screen pt-24 pb-12">
+            
+            {/* Fondo animado */}
             <motion.div 
                 className="absolute inset-0 -z-10"
                 style={{ opacity }}
@@ -353,10 +369,11 @@ export default function LandingPage() {
                     <ChevronDown className="w-8 h-8 text-muted-foreground" />
                 </motion.div>
             </motion.div>
+          </div>
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="pt-32 md:pt-40 pb-20 md:pb-28 bg-background">
+        <section id="servicios" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                  <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
@@ -458,6 +475,31 @@ export default function LandingPage() {
                          <div>
                             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Eye className="text-primary"/>Nuestra Visión</h3>
                             <p className="text-muted-foreground">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso con el éxito de nuestros clientes.</p>
+                        </div>
+                         <div className="pt-4">
+                            <h3 className="text-xl font-semibold mb-4">Testimonios</h3>
+                             <div className="space-y-6">
+                                {testimonials.map((testimonial, index) => {
+                                const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
+                                return (
+                                    <blockquote key={index} className="p-4 border-l-4">
+                                        <p className="italic text-muted-foreground">"{testimonial.text}"</p>
+                                        <footer className="flex items-center gap-3 mt-4">
+                                            {avatar && (
+                                                <Avatar className="h-10 w-10">
+                                                <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
+                                                <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                                </Avatar>
+                                            )}
+                                            <div>
+                                                <p className="font-semibold text-sm">{testimonial.name}</p>
+                                                <p className="text-xs text-muted-foreground">{testimonial.company}</p>
+                                            </div>
+                                        </footer>
+                                    </blockquote>
+                                );
+                                })}
+                            </div>
                         </div>
                     </div>
                      <div className="lg:col-span-3">
