@@ -1,9 +1,8 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
@@ -13,14 +12,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { FC, AnchorHTMLAttributes } from 'react';
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { chat } from "@/ai/flows/chat";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
+import { motion, useScroll, useTransform } from "framer-motion";
 
+const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
-
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -38,17 +36,6 @@ const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, .
 
     return <a href={href} onClick={handleClick} {...props} />;
 };
-
-const loginOptions = [
-    { href: "/login-natural", label: "Acceso Personal", icon: User, description: "Para clientes individuales." },
-    { href: "/login-fintech", label: "FinTech y Banca Digital", icon: Banknote, description: "Panel de control principal de la empresa." },
-    { href: "/login-juridico", label: "Escritorio Jurídico", icon: Gavel, description: "Acceso para el departamento legal." },
-    { href: "/login-ventas", label: "Ventas y Facturación", icon: ShoppingCart, description: "Acceso para cajeros y vendedores." },
-    { href: "/login-rrhh", label: "Acceso RR.HH.", icon: Briefcase, description: "Portal para gestión de personal." },
-    { href: "/login-socios", label: "Acceso Socios", icon: Users, description: "Dashboard para socios y directivos." },
-    { href: "/login-marketing", label: "Productos y Marketing", icon: Megaphone, description: "Portal de marketing y asesoría." },
-    { href: "/login-informatica", label: "Ingeniería e Informática", icon: Cpu, description: "Acceso para el equipo de IT." },
-];
 
 const navLinks = [
   { href: "#servicios", label: "Servicios" },
@@ -83,11 +70,31 @@ const testimonials = [
   },
 ];
 
+const navModules = [
+  { name: "Finanzas", angle: 30, href: "/dashboard-empresa" },
+  { name: "Legal", angle: 75, href: "/escritorio-juridico" },
+  { name: "Ventas", angle: 120, href: "/analisis-ventas" },
+  { name: "RR.HH.", angle: 165, href: "/dashboard-rrhh" },
+  { name: "Marketing", angle: 210, href: "/asesoria-publicidad" },
+  { name: "Tecnología", angle: 255, href: "/dashboard-informatica" },
+  { name: "Telecom", angle: 300, href: "/dashboard-telecom" },
+  { name: "Socios", angle: 345, href: "/dashboard-socios" },
+];
+
+
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
+    const [hoveredModule, setHoveredModule] = useState<{name: string, description: string} | null>(null);
+
+    const targetRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: targetRef,
+        offset: ["start end", "end start"],
+    });
+    const opacity = useTransform(scrollYProgress, [0, 0.5, 0.9], [1, 1, 0]);
     
     useEffect(() => {
         const handleScroll = () => {
@@ -96,6 +103,11 @@ export default function LandingPage() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const getModuleDescription = (name: string) => {
+        const option = loginOptions.find(opt => opt.label.includes(name));
+        return option ? option.description : "Accede al módulo especializado.";
+    }
     
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
@@ -201,60 +213,127 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-            <div className="absolute -z-10 inset-0 bg-grid-slate-200 dark:bg-grid-slate-700/30 [mask-image:linear-gradient(to_bottom,white_10%,transparent_70%)]"></div>
-            <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),transparent)]"></div>
-            
-            <div className="container px-4 md:px-6 relative z-10 text-center">
-                <div className="animate-fade-up">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
-                        Gestión Empresarial Inteligente, <br />
-                        <span className="text-primary">Tranquilidad Fiscal Garantizada.</span>
-                    </h1>
-                    <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-                       System Kyron es el ecosistema todo-en-uno que automatiza tu contabilidad, asegura tu cumplimiento con el SENIAT y te da las herramientas para crecer con confianza en Venezuela.
-                    </p>
-                    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button size="lg" asChild>
-                            <Link href="/register">
-                            Empezar ahora <ArrowRight className="ml-2 h-4 w-4"/>
+        <section ref={targetRef} className="h-screen flex items-center justify-center relative overflow-hidden">
+             {/* Fondo animado */}
+            <motion.div 
+                className="absolute inset-0 -z-10"
+                style={{ opacity }}
+            >
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute top-0 left-0 w-full h-full object-cover opacity-20"
+                >
+                    <source src="https://cdn.coverr.co/videos/coverr-a-digital-background-of-plexus-and-dots-5673/1080p.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/50"></div>
+            </motion.div>
+
+            {/* Contenido Central */}
+            <motion.div 
+              className="relative flex flex-col items-center justify-center w-full h-full"
+              style={{ opacity }}
+            >
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="absolute z-10 text-center"
+                >
+                    {hoveredModule ? (
+                    <>
+                        <h2 className="text-2xl font-bold text-primary">{hoveredModule.name}</h2>
+                        <p className="text-muted-foreground max-w-xs">{hoveredModule.description}</p>
+                    </>
+                    ) : (
+                    <>
+                        <h1 className="text-5xl font-bold">Kyron Core</h1>
+                        <p className="text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
+                    </>
+                    )}
+                </motion.div>
+
+                <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px]">
+                    <Orb />
+                    {navModules.map(module => {
+                        const radius = window.innerWidth < 640 ? 130 : window.innerWidth < 768 ? 220 : 260;
+                        const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
+                        const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
+                        const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon;
+
+                        return (
+                            <Link href={module.href} key={module.name}>
+                            <motion.div
+                                className="absolute w-14 h-14 md:w-16 md:h-16 bg-card/80 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
+                                style={{ 
+                                top: '50%', 
+                                left: '50%',
+                                transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+                                boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
+                                }}
+                                onMouseEnter={() => setHoveredModule({ name: module.name, description: getModuleDescription(module.name) })}
+                                onMouseLeave={() => setHoveredModule(null)}
+                                whileHover={{ scale: 1.2, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                {Icon && <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />}
+                            </motion.div>
                             </Link>
-                        </Button>
-                        <Button size="lg" variant="outline" asChild>
-                            <SmoothScrollLink href="#servicios">
-                            Explorar servicios
-                            </SmoothScrollLink>
-                        </Button>
-                    </div>
+                        );
+                    })}
                 </div>
-            </div>
+                <div className="absolute bottom-10 animate-bounce">
+                    <ChevronDown className="w-8 h-8 text-muted-foreground" />
+                </div>
+            </motion.div>
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-muted/30">
+        <section id="servicios" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
-                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                 <motion.div 
+                    className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.6 }}
+                 >
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
-                </div>
+                </motion.div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                     {services.map((item) => (
-                        <div key={item.title} className="p-8 rounded-xl border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                     {services.map((item, index) => (
+                        <motion.div 
+                            key={item.title} 
+                            className="p-8 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm transition-all hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.5 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                        >
                             <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
                             <h3 className="text-xl font-semibold ">{item.title}</h3>
                             <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
         </section>
 
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-background">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-muted/30">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="space-y-6">
+            <motion.div 
+                className="space-y-6"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6 }}
+            >
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
                 <p className="text-lg text-muted-foreground">
                   Nuestra plataforma integra tecnologías de vanguardia para darte una ventaja competitiva.
@@ -272,8 +351,14 @@ export default function LandingPage() {
                     </div>
                     ))}
                 </div>
-            </div>
-             <div className="p-4 md:p-8 rounded-xl flex items-center justify-center">
+            </motion.div>
+             <motion.div 
+                className="p-4 md:p-8 rounded-xl flex items-center justify-center"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6 }}
+            >
                  {aboutImage && <Image 
                     src={aboutImage.imageUrl}
                     alt={aboutImage.description}
@@ -282,22 +367,35 @@ export default function LandingPage() {
                     height={400}
                     className="rounded-xl object-cover shadow-2xl"
                  />}
-            </div>
+            </motion.div>
           </div>
         </section>
         
         {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-muted/30">
+        <section id="nosotros" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                <motion.div 
+                    className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.6 }}
+                >
                     <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
                     <p className="mt-4 text-lg text-muted-foreground">La tranquilidad de nuestros clientes es nuestro mayor activo.</p>
-                </div>
+                </motion.div>
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {testimonials.map((testimonial, index) => {
                       const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
                       return (
-                        <div key={index} className="p-6 md:p-8 border bg-card rounded-xl shadow-sm">
+                        <motion.div 
+                            key={index} 
+                            className="p-6 md:p-8 border bg-card/50 backdrop-blur-sm rounded-xl shadow-sm"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.5 }}
+                            transition={{ duration: 0.6, delay: index * 0.15 }}
+                        >
                             <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
                             <div className="flex items-center gap-4">
                               {avatar && (
@@ -311,7 +409,7 @@ export default function LandingPage() {
                                     <p className="text-sm text-muted-foreground">{testimonial.company}</p>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                       )
                     })}
                 </div>
@@ -319,15 +417,21 @@ export default function LandingPage() {
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-background">
+        <section className="py-20 md:py-28 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                 <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-card border">
+                 <motion.div 
+                    className="max-w-2xl mx-auto p-8 rounded-2xl bg-card border"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.6 }}
+                 >
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
                     <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con Kyron.</p>
                     <Button size="lg" asChild className="mt-8">
                       <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
                     </Button>
-                </div>
+                </motion.div>
             </div>
         </section>
       </main>

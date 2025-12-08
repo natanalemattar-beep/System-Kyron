@@ -27,7 +27,7 @@ const tutorialSteps = [
     {
         icon: UserCheck,
         title: "¡Estás Listo para Empezar!",
-        description: "Explora los servicios en el menú lateral y comienza a gestionar tu empresa de forma más inteligente.",
+        description: "Explora los servicios en el menú superior y comienza a gestionar tu empresa de forma más inteligente.",
     }
 ];
 
@@ -41,10 +41,6 @@ export function WelcomeTutorial() {
             localStorage.setItem("hasSeenKyronTutorial", "true");
         }
     }, []);
-
-    if (!open) {
-        return null;
-    }
     
     return (
         <Dialog open={open} onOpenChange={setOpen}>

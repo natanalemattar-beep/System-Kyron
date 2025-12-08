@@ -2,18 +2,15 @@
 'use client';
 
 import type { ReactNode } from "react";
-import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import dynamic from "next/dynamic";
 import { usePathname } from 'next/navigation';
 import { AlertTriangle } from "lucide-react";
 
-// Use dynamic import with ssr: false to ensure this component only renders on the client
-const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(mod => mod.WelcomeTutorial), { ssr: false });
+const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial'), { ssr: false });
 
 export default function MainAppLayout({ children }: { children: ReactNode }) {
-  const [showTutorial, setShowTutorial] = useState(false);
   const pathname = usePathname();
 
   // Determine user based on path
@@ -36,18 +33,6 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
     user = { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
   }
   
-  useEffect(() => {
-    const hasSeenKyronTutorial = localStorage.getItem("hasSeenKyronTutorial");
-    if (!hasSeenKyronTutorial) {
-        // Only show tutorial on main dashboard pages after login
-        const mainDashboards = ['/dashboard-empresa', '/dashboard', '/dashboard-rrhh', '/dashboard-socios', '/dashboard-informatica', '/dashboard-telecom'];
-        if (mainDashboards.includes(pathname)) {
-            setShowTutorial(true);
-            localStorage.setItem("hasSeenKyronTutorial", "true");
-        }
-    }
-  }, [pathname]);
-  
   return (
      <div className="flex flex-col min-h-screen bg-background text-foreground">
         <AppHeader user={user} />
@@ -63,7 +48,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
             {children}
         </main>
         <Toaster />
-        {showTutorial && <WelcomeTutorial open={showTutorial} onOpenChange={setShowTutorial} />}
+        <WelcomeTutorial />
     </div>
   );
 }

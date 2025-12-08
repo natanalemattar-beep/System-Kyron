@@ -148,33 +148,33 @@ export function AppHeader({ user }: { user: User }) {
                             <group.icon className="h-4 w-4" />
                             {group.title}
                           </h4>
-                          {group.subGroups && group.subGroups.length > 0 ? (
-                            group.subGroups.map(subGroup => (
-                              <div key={subGroup.title} className="pl-2">
-                                <h5 className="font-semibold text-xs text-muted-foreground px-2 py-1 mt-2 flex items-center gap-2">
-                                  <subGroup.icon className="h-4 w-4" />
-                                  {subGroup.title}
-                                </h5>
-                                {subGroup.items.map(item => (
-                                  <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
+                           {group.subGroups && group.subGroups.length > 0 ? (
+                                group.subGroups.map(subGroup => (
+                                <div key={subGroup.title} className="pl-2">
+                                    <h5 className="font-semibold text-xs text-muted-foreground px-2 py-1 mt-2 flex items-center gap-2">
+                                    <subGroup.icon className="h-4 w-4" />
+                                    {subGroup.title}
+                                    </h5>
+                                    {subGroup.items.map(item => (
+                                    <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
+                                        <Link href={item.href}>
+                                        <item.icon className="mr-2 h-4 w-4" />
+                                        {item.label}
+                                        </Link>
+                                    </Button>
+                                    ))}
+                                </div>
+                                ))
+                            ) : (
+                                group.items.map((item) => (
+                                    <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
                                     <Link href={item.href}>
-                                      <item.icon className="mr-2 h-4 w-4" />
-                                      {item.label}
+                                        <item.icon className="mr-2 h-4 w-4" />
+                                        {item.label}
                                     </Link>
-                                  </Button>
-                                ))}
-                              </div>
-                            ))
-                          ) : (
-                            group.items.map((item) => (
-                                <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
-                                  <Link href={item.href}>
-                                    <item.icon className="mr-2 h-4 w-4" />
-                                    {item.label}
-                                  </Link>
-                                </Button>
-                            ))
-                          )}
+                                    </Button>
+                                ))
+                            )}
                         </div>
                       ))}
                     </nav>

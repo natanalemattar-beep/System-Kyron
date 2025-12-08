@@ -1,5 +1,4 @@
 
-
 import LandingPage from "./[locale]/page";
 
 // This component is now just a wrapper.
