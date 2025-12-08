@@ -20,11 +20,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Dialog } from "@/components/ui/dialog";
-import { DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { planes, faqItems as plansFaq } from '@/lib/page-data';
-import { securityFeatures, zeroRiskGuarantees } from "@/lib/page-data';
+import { securityFeatures } from "@/lib/page-data";
 import { iaSolutions } from "@/lib/page-data";
 
 
