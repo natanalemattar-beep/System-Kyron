@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Briefcase, Eye, EyeOff, User, Building, ShoppingCart, Users, Megaphone, Cpu } from "lucide-react";
+import { Briefcase, Eye, EyeOff, User, Building, ShoppingCart, Users, Megaphone, Cpu, Copy } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,37 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
+
+const Credentials = ({ user, password }: { user: string; password?: string }) => {
+    const { toast } = useToast();
+    const copyToClipboard = (text: string, field: string) => {
+        navigator.clipboard.writeText(text);
+        toast({
+            title: `${field} copiado`,
+            description: `${text} ha sido copiado al portapapeles.`,
+        });
+    };
+
+    return (
+        <div className="mt-6 w-full space-y-3 text-sm">
+            <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-md">
+                <span className="text-muted-foreground">Usuario: <strong className="text-foreground font-mono">{user}</strong></span>
+                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(user, 'Usuario')}>
+                    <Copy className="h-4 w-4"/>
+                </Button>
+            </div>
+            {password && (
+                <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-md">
+                    <span className="text-muted-foreground">Contraseña: <strong className="text-foreground font-mono">{password}</strong></span>
+                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(password, 'Contraseña')}>
+                        <Copy className="h-4 w-4"/>
+                    </Button>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -17,7 +48,6 @@ export default function LoginRrhhPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica de autenticación
     router.push('/dashboard-rrhh');
   };
 
@@ -34,7 +64,7 @@ export default function LoginRrhhPage() {
         <CardContent className="p-6 space-y-6">
           <div className="space-y-2">
             <Label htmlFor="username">Usuario</Label>
-            <Input id="username" type="text" placeholder="usuario.rrhh" required />
+            <Input id="username" type="text" placeholder="usuario.rrhh" required defaultValue="usuario.rrhh"/>
           </div>
           <div className="space-y-2 relative">
             <Label htmlFor="password">Contraseña</Label>
@@ -44,6 +74,7 @@ export default function LoginRrhhPage() {
               placeholder="••••••••"
               className="pr-10"
               required
+              defaultValue="password123"
             />
             <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
               {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -52,6 +83,7 @@ export default function LoginRrhhPage() {
           <Button type="submit" className="w-full h-11 text-base">
             Acceder
           </Button>
+          <Credentials user="usuario.rrhh" password="password123" />
         </CardContent>
       </form>
       <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
