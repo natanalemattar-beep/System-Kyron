@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef, memo } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown, HelpCircle } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown, HelpCircle, Target, Book, Eye } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
@@ -62,18 +62,21 @@ const features = [
     { title: "Análisis y Reportes", description: "Visualiza la salud de tu negocio con dashboards intuitivos y reportes personalizables.", icon: BarChart },
 ];
 
-const testimonials = [
+const teamMembers = [
   {
     name: "Carlos Rodríguez",
-    company: "Constructora XYZ",
-    text: "System Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
+    role: "CEO & Fundador",
+    avatarId: "testimonial-avatar-1",
+    description: "Experto en finanzas y tecnología, con la misión de simplificar la vida del empresario venezolano."
   },
   {
     name: "Ana Pérez",
-    company: "Inversiones ABC",
-    text: "La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.",
+    role: "CTO & Co-Fundadora",
+    avatarId: "testimonial-avatar-2",
+    description: "Líder de desarrollo, apasionada por crear soluciones robustas, seguras y fáciles de usar."
   },
 ];
+
 
 const faqItems = [
     {
@@ -144,8 +147,6 @@ ModuleOrb.displayName = 'ModuleOrb';
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
-    const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
-    const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const [radius, setRadius] = useState(130);
 
     const targetRef = useRef(null);
@@ -420,7 +421,7 @@ export default function LandingPage() {
           </div>
         </section>
         
-        {/* Testimonials Section */}
+        {/* About Us Section */}
         <section id="nosotros" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div 
@@ -430,37 +431,40 @@ export default function LandingPage() {
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">La tranquilidad de nuestros clientes es nuestro mayor activo.</p>
+                    <h2 className="text-3xl md:text-4xl font-bold">Conoce a Kyron</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Nacimos de la necesidad de crear orden en el caos administrativo venezolano, fusionando tecnología, cumplimiento y visión de futuro.</p>
                 </motion.div>
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    {testimonials.map((testimonial, index) => {
-                      const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
-                      return (
-                        <motion.div 
-                            key={index} 
-                            className="p-6 md:p-8 border bg-card/50 backdrop-blur-sm rounded-xl shadow-sm"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.5 }}
-                            transition={{ duration: 0.6, delay: index * 0.15 }}
-                        >
-                            <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
-                            <div className="flex items-center gap-4">
-                              {avatar && (
-                                <Avatar>
-                                    <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
-                                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                                </Avatar>
-                              )}
-                                <div>
-                                    <p className="font-semibold">{testimonial.name}</p>
-                                    <p className="text-sm text-muted-foreground">{testimonial.company}</p>
-                                </div>
-                            </div>
-                        </motion.div>
-                      )
-                    })}
+                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+                    <div className="lg:col-span-2 space-y-6">
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Target className="text-primary"/>Nuestra Misión</h3>
+                            <p className="text-muted-foreground">Empoderar a las empresas venezolanas con herramientas inteligentes que garanticen su tranquilidad fiscal y potencien su crecimiento sostenible.</p>
+                        </div>
+                         <div>
+                            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Eye className="text-primary"/>Nuestra Visión</h3>
+                            <p className="text-muted-foreground">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso con el éxito de nuestros clientes.</p>
+                        </div>
+                    </div>
+                     <div className="lg:col-span-3">
+                         <h3 className="text-xl font-semibold mb-4 text-center">Equipo Fundador</h3>
+                         <p className="text-xs text-muted-foreground text-center mb-6">(Nota: Las imágenes y nombres son representativos para la demostración)</p>
+                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            {teamMembers.map((member) => {
+                                const avatar = PlaceHolderImages.find(img => img.id === member.avatarId);
+                                return (
+                                    <div key={member.name} className="flex flex-col items-center text-center p-6 border rounded-lg bg-card/50">
+                                        {avatar && <Avatar className="w-24 h-24 mb-4">
+                                            <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
+                                            <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                                        </Avatar>}
+                                        <h4 className="font-semibold text-lg">{member.name}</h4>
+                                        <p className="text-primary font-medium text-sm">{member.role}</p>
+                                        <p className="text-xs text-muted-foreground mt-2">{member.description}</p>
+                                    </div>
+                                );
+                            })}
+                         </div>
+                    </div>
                 </div>
             </div>
         </section>
