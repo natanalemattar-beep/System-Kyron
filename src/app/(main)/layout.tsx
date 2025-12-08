@@ -37,7 +37,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   return (
      <div className="flex flex-col min-h-screen bg-background text-foreground">
         <AppHeader user={user} />
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col pt-16">
           <div className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-16 z-40">
               <div className="container mx-auto text-center text-xs text-yellow-500 flex items-center justify-center gap-2">
                   <AlertTriangle className="h-4 w-4" />

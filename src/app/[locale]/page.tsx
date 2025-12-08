@@ -17,6 +17,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
@@ -90,9 +91,9 @@ const getModuleDescription = (name: string) => {
 // Memoized ModuleButton to prevent re-renders
 const ModuleButton = memo(({ module, radius, onHover }: { module: typeof navModules[0], radius: number, onHover: (desc: {name: string, description: string} | null) => void }) => {
     const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon;
+    const description = getModuleDescription(module.name);
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
-    const description = getModuleDescription(module.name);
 
     return (
         <Link href={module.href} key={module.name}>
@@ -109,7 +110,7 @@ const ModuleButton = memo(({ module, radius, onHover }: { module: typeof navModu
             whileHover={{ scale: 1.2, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
             transition={{ type: "spring", stiffness: 300 }}
         >
-            {Icon && <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />}
+            {Icon && <Icon className="h-5 w-5 md:h-6 md:h-6 text-primary" />}
         </motion.div>
         </Link>
     );
@@ -123,8 +124,7 @@ export default function LandingPage() {
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const [hoveredModule, setHoveredModule] = useState<{name: string, description: string} | null>(null);
-
-    const [radius, setRadius] = useState(130); // Default radius
+    const [radius, setRadius] = useState(130);
 
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -179,6 +179,7 @@ export default function LandingPage() {
               </nav>
               <div className="hidden md:flex items-center gap-2">
                  <LanguageSwitcher/>
+                 <ThemeToggle />
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost">
@@ -227,6 +228,7 @@ export default function LandingPage() {
                       </nav>
                        <div className="mt-auto space-y-4">
                           <LanguageSwitcher/>
+                          <ThemeToggle />
                            <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                   <Button variant="outline" className="w-full justify-start">
@@ -269,8 +271,8 @@ export default function LandingPage() {
                 style={{ opacity }}
             >
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-background/80"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent"></div>
-                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent dark:from-blue-900/40"></div>
+                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent dark:from-green-900/40"></div>
             </motion.div>
 
             {/* Contenido Central */}
