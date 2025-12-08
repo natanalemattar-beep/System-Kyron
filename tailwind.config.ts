@@ -79,7 +79,7 @@ const config: Config = {
             "to": { opacity: "0" },
         },
         "fade-up": {
-          "from": { opacity: "0", transform: "translateY(10px)"},
+          "from": { opacity: "0", transform: "translateY(20px)"},
           "to": { opacity: "1", transform: "translateY(0)"},
         },
         "fade-in-and-zoom": {
@@ -132,7 +132,7 @@ const config: Config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.3s ease-out",
         "fade-out": "fade-out 0.3s ease-in",
-        "fade-up": "fade-up 0.4s ease-out",
+        "fade-up": "fade-up 0.5s ease-out forwards",
         "fade-in-and-zoom": "fade-in-and-zoom 0.3s ease-out",
         "fade-out-and-zoom": "fade-out-and-zoom 0.3s ease-in",
         "slide-in-from-top": "slide-in-from-top 0.3s ease-out",
