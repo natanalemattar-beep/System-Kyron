@@ -30,15 +30,18 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
     user = { name: "Marketing", email: "mkt@kyron.com", fallback: "M" };
   } else if (pathname.startsWith('/escritorio-juridico')) {
     user = { name: "Legal", email: "legal@kyron.com", fallback: "L" };
+  } else if (pathname.startsWith('/dashboard-telecom')) {
+    user = { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
   } else {
     user = { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
   }
   
   useEffect(() => {
-    // Only show tutorial on main dashboard pages after login
-    if (pathname === '/dashboard-empresa' || pathname === '/dashboard') {
-        const hasSeenKyronTutorial = localStorage.getItem("hasSeenKyronTutorial");
-        if (!hasSeenKyronTutorial) {
+    const hasSeenKyronTutorial = localStorage.getItem("hasSeenKyronTutorial");
+    if (!hasSeenKyronTutorial) {
+        // Only show tutorial on main dashboard pages after login
+        const mainDashboards = ['/dashboard-empresa', '/dashboard', '/dashboard-rrhh', '/dashboard-socios', '/dashboard-informatica', '/dashboard-telecom'];
+        if (mainDashboards.includes(pathname)) {
             setShowTutorial(true);
             localStorage.setItem("hasSeenKyronTutorial", "true");
         }

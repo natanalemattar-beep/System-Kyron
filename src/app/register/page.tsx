@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Building, User, Briefcase, ArrowRight, ShoppingCart, Gavel, Users, Megaphone, Cpu } from "lucide-react";
+import { Building, User, Briefcase, ArrowRight, ShoppingCart, Gavel, Users, Megaphone, Cpu, Signal } from "lucide-react";
 import Link from "next/link";
 import {
   Card,
@@ -58,6 +58,13 @@ const accountTypes = [
     href: "/register/marketing",
   },
   {
+    type: "telecom",
+    title: "Telecomunicaciones",
+    description: "Portal para gestión de redes, infraestructura y servicios de telecom.",
+    icon: Signal,
+    href: "/register/telecom",
+  },
+  {
     type: "informatica",
     title: "Ingeniería e Informática",
     description: "Acceso para el equipo de desarrollo, seguridad y tecnología.",
@@ -99,7 +106,7 @@ export default function RegisterPage() {
               Selecciona el perfil que mejor se adapte a tus necesidades para comenzar.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {accountTypes.map((account) => (
               <Card
                 key={account.type}

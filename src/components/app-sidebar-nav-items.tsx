@@ -90,6 +90,7 @@ import {
   UserPlus,
   Package,
   Zap,
+  Signal,
 } from "lucide-react";
 
 
@@ -361,6 +362,10 @@ export const sociosNavGroups = [
         { href: "/organigrama", label: "Organigrama", icon: Network },
         { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
     ], subGroups: [] },
+];
+
+export const telecomNavGroups = [
+  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal } ], subGroups: [] },
 ];
 
 export const informaticaNavGroups = [

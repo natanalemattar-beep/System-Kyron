@@ -3,7 +3,7 @@
 
 import { useState, useEffect, type FC, type AnchorHTMLAttributes } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
@@ -44,6 +44,7 @@ const loginOptions = [
     { href: "/login-rrhh", label: "Acceso RR.HH.", icon: Briefcase, description: "Portal para gestión de personal." },
     { href: "/login-socios", label: "Acceso Socios", icon: Users, description: "Dashboard para socios y directivos." },
     { href: "/login-marketing", label: "Productos y Marketing", icon: Megaphone, description: "Portal de marketing y asesoría." },
+    { href: "/login-telecom", label: "Telecomunicaciones", icon: Signal, description: "Portal para gestión de redes y servicios." },
     { href: "/login-informatica", label: "Ingeniería e Informática", icon: Cpu, description: "Acceso para el equipo de IT." },
 ];
 
@@ -199,21 +200,13 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative min-h-[80vh] flex items-center justify-center text-center overflow-hidden">
-             {heroImage && <Image 
-                src={heroImage.imageUrl}
-                alt={heroImage.description}
-                data-ai-hint={heroImage.imageHint}
-                layout="fill"
-                objectFit="cover"
-                className="absolute inset-0 -z-20"
-                priority
-             />}
-            <div className="absolute inset-0 bg-background/60 dark:bg-background/80 -z-10"></div>
+        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+            <div className="absolute -z-10 inset-0 bg-grid-slate-200 dark:bg-grid-slate-700/30 [mask-image:linear-gradient(to_bottom,white_10%,transparent_70%)]"></div>
+            <div className="absolute -z-10 inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(var(--primary-rgb),0.1),transparent)]"></div>
             
-            <div className="container px-4 md:px-6 relative z-10">
-                <div className="animate-fade-up space-y-6">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance text-foreground">
+            <div className="container px-4 md:px-6 relative z-10 text-center">
+                <div className="animate-fade-up">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-balance">
                         Gestión Empresarial Inteligente, <br />
                         <span className="text-primary">Tranquilidad Fiscal Garantizada.</span>
                     </h1>
@@ -237,7 +230,7 @@ export default function LandingPage() {
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-card">
+        <section id="servicios" className="py-20 md:py-28 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -245,7 +238,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                      {services.map((item) => (
-                        <div key={item.title} className="p-8 rounded-xl border bg-background shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                        <div key={item.title} className="p-8 rounded-xl border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
                             <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
@@ -293,7 +286,7 @@ export default function LandingPage() {
         </section>
         
         {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-card">
+        <section id="nosotros" className="py-20 md:py-28 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
@@ -303,7 +296,7 @@ export default function LandingPage() {
                     {testimonials.map((testimonial, index) => {
                       const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
                       return (
-                        <div key={index} className="p-6 md:p-8 border bg-background rounded-xl shadow-sm">
+                        <div key={index} className="p-6 md:p-8 border bg-card rounded-xl shadow-sm">
                             <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
                             <div className="flex items-center gap-4">
                               {avatar && (
@@ -339,7 +332,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-       <footer id="contacto" className="py-16 bg-card border-t border-border">
+      <footer id="contacto" className="py-16 bg-card border-t">
         <div className="container px-4 md:px-6 grid md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -351,14 +344,14 @@ export default function LandingPage() {
           <div className="space-y-4">
             <h4 className="font-semibold">Contacto</h4>
             <div className="space-y-2 text-sm">
-               <a href="mailto:contacto@kyron.com" className="flex items-start gap-3 hover:text-primary">
-                 <Mail className="h-5 w-5 text-muted-foreground mt-0.5"/>
-                 <span>contacto@kyron.com</span>
-              </a>
-               <a href="tel:+584141234567" className="flex items-start gap-3 hover:text-primary">
+              <div className="flex items-start gap-3">
+                <Mail className="h-5 w-5 text-muted-foreground mt-0.5"/>
+                <a href="mailto:contacto@kyron.com" className="hover:text-primary">contacto@kyron.com</a>
+              </div>
+              <div className="flex items-start gap-3">
                 <Phone className="h-5 w-5 text-muted-foreground mt-0.5"/>
-                <span>+58 414-1234567</span>
-              </a>
+                <a href="tel:+584141234567" className="hover:text-primary">+58 414-1234567</a>
+              </div>
             </div>
           </div>
           <div className="space-y-4">
@@ -369,7 +362,7 @@ export default function LandingPage() {
             </nav>
           </div>
         </div>
-        <div className="container px-4 md:px-6 mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
+        <div className="container px-4 md:px-6 mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} System Kyron. Todos los derechos reservados.
         </div>
       </footer>

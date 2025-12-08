@@ -9,6 +9,7 @@ import {
   sociosNavGroups,
   informaticaNavGroups,
   marketingNavGroups,
+  telecomNavGroups,
   naturalMenuItems,
 } from "@/components/app-sidebar-nav-items";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -48,6 +49,7 @@ const getNavGroupsForUser = (user: User) => {
         case "S": return sociosNavGroups;
         case "IT": return informaticaNavGroups;
         case "M": return marketingNavGroups;
+        case "T": return telecomNavGroups;
         case "UN": return Object.values(naturalMenuItems);
         default: return [];
     }
@@ -57,7 +59,19 @@ export function AppHeader({ user }: { user: User }) {
   const pathname = usePathname();
   const navGroups = getNavGroupsForUser(user);
 
-  const dashboardHref = user.fallback === "UN" ? "/dashboard" : "/dashboard-empresa";
+  let dashboardHref;
+  switch (user.fallback) {
+    case "A": dashboardHref = "/dashboard-empresa"; break;
+    case "L": dashboardHref = "/escritorio-juridico"; break;
+    case "V": dashboardHref = "/analisis-ventas"; break;
+    case "RH": dashboardHref = "/dashboard-rrhh"; break;
+    case "S": dashboardHref = "/dashboard-socios"; break;
+    case "IT": dashboardHref = "/dashboard-informatica"; break;
+    case "M": dashboardHref = "/asesoria-publicidad"; break;
+    case "T": dashboardHref = "/dashboard-telecom"; break;
+    default: dashboardHref = "/dashboard";
+  }
+
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

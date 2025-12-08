@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel } from "@/components/ui/dropdown-menu";
-import { Building, User, ShoppingCart, Briefcase, Megaphone, Gavel, Cpu, Users, Banknote, AlertTriangle } from "lucide-react";
+import { Building, User, ShoppingCart, Briefcase, Megaphone, Gavel, Cpu, Users, Banknote, AlertTriangle, Signal } from "lucide-react";
 import { LanguageSwitcher } from "@/components/language-switcher";
 
 const loginOptions = [
@@ -16,6 +16,7 @@ const loginOptions = [
     { href: "/login-rrhh", label: "Acceso RR.HH.", icon: Briefcase, description: "Portal para gestión de personal." },
     { href: "/login-socios", label: "Acceso Socios", icon: Users, description: "Dashboard para socios y directivos." },
     { href: "/login-marketing", label: "Productos y Marketing", icon: Megaphone, description: "Portal de marketing y asesoría." },
+    { href: "/login-telecom", label: "Telecomunicaciones", icon: Signal, description: "Portal para gestión de redes y servicios." },
     { href: "/login-informatica", label: "Ingeniería e Informática", icon: Cpu, description: "Acceso para el equipo de IT." },
 ];
 
