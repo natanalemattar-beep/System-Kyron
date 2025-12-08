@@ -130,7 +130,7 @@ export default function LandingPage() {
                       ))}
                     </DropdownMenuContent>
                 </DropdownMenu>
-                 <Button asChild>
+                 <Button asChild className="btn-3d-primary">
                     <Link href="/register">Registrarse</Link>
                 </Button>
               </div>
@@ -178,7 +178,7 @@ export default function LandingPage() {
                                   ))}
                               </DropdownMenuContent>
                           </DropdownMenu>
-                          <Button asChild className="w-full">
+                          <Button asChild className="w-full btn-3d-primary">
                               <Link href="/register">Registrarse</Link>
                           </Button>
                       </div>
@@ -212,7 +212,7 @@ export default function LandingPage() {
                        System Kyron es el ecosistema todo-en-uno que automatiza tu contabilidad, asegura tu cumplimiento con el SENIAT y te da las herramientas para crecer con confianza en Venezuela.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button size="lg" asChild>
+                        <Button size="lg" asChild className="btn-3d-primary">
                             <Link href="/register">
                             Empezar ahora <ArrowRight className="ml-2 h-4 w-4"/>
                             </Link>
@@ -228,7 +228,7 @@ export default function LandingPage() {
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-background">
+        <section id="servicios" className="py-20 md:py-28 aurora-bg">
             <div className="container mx-auto px-4 md:px-6">
                  <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -236,7 +236,7 @@ export default function LandingPage() {
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                      {services.map((item) => (
-                        <div key={item.title} className="p-8 rounded-xl border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                        <div key={item.title} className="p-8 rounded-xl border bg-card/80 backdrop-blur-sm shadow-sm transition-all hover:shadow-lg hover:-translate-y-1">
                             <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
                                 <item.icon className="h-8 w-8" />
                             </div>
@@ -249,7 +249,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="caracteristicas" className="py-20 md:py-28 bg-muted/30">
+        <section id="caracteristicas" className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
@@ -284,7 +284,7 @@ export default function LandingPage() {
         </section>
         
         {/* Testimonials Section */}
-        <section id="nosotros" className="py-20 md:py-28 bg-background">
+        <section id="nosotros" className="py-20 md:py-28 aurora-bg">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold">Confían en Nosotros</h2>
@@ -294,7 +294,7 @@ export default function LandingPage() {
                     {testimonials.map((testimonial, index) => {
                       const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
                       return (
-                        <div key={index} className="p-6 md:p-8 border bg-card rounded-xl shadow-sm">
+                        <div key={index} className="p-6 md:p-8 border bg-card/80 backdrop-blur-sm rounded-xl shadow-sm">
                             <p className="text-muted-foreground italic md:text-lg mb-6">"{testimonial.text}"</p>
                             <div className="flex items-center gap-4">
                               {avatar && (
@@ -316,12 +316,12 @@ export default function LandingPage() {
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-muted/30">
+        <section className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                 <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-card border">
+                 <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-card/80 backdrop-blur-sm border">
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
                     <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con Kyron.</p>
-                    <Button size="lg" asChild className="mt-8">
+                    <Button size="lg" asChild className="mt-8 btn-3d-primary">
                       <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
                     </Button>
                 </div>

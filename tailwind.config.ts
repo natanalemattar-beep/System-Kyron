@@ -111,7 +111,7 @@ const config: Config = {
           "to": { transform: "translateX(0)" },
         },
         "slide-out-to-left": {
-          "from": { transform: "translateX(0)" },
+          "from": { transform: "translateX(-100%)" },
           "to": { transform: "translateX(-100%)" },
         },
         "slide-in-from-right": {
@@ -130,9 +130,9 @@ const config: Config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.3s ease-in-out",
-        "fade-out": "fade-out 0.3s ease-in-out",
-        "fade-up": "fade-up 0.5s ease-out forwards",
+        "fade-in": "fade-in 0.3s ease-out",
+        "fade-out": "fade-out 0.3s ease-in",
+        "fade-up": "fade-up 0.4s ease-out",
         "fade-in-and-zoom": "fade-in 0.3s ease-out, scale-in 0.3s ease-out",
         "fade-out-and-zoom": "fade-out 0.3s ease-in, scale-out 0.3s ease-in",
         "slide-in-from-top": "slide-in-from-top 0.3s ease-out",
