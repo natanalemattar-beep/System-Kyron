@@ -3,23 +3,34 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Layers, Cpu, Users, BarChart, ShieldCheck, Gavel, ShoppingCart, Briefcase, Megaphone, Banknote, Signal } from "lucide-react";
+import { User, Menu, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { FC, AnchorHTMLAttributes } from 'react';
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { chat } from "@/ai/flows/chat";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import dynamic from "next/dynamic";
 import { loginOptions } from "@/lib/login-options";
 
+
 const modules = [
-  { name: "Finanzas", icon: Layers, description: "Gestión contable, fiscal y de tesorería." },
-  { name: "Legal", icon: Gavel, description: "Cumplimiento normativo y gestión de contratos." },
-  { name: "Ventas", icon: ShoppingCart, description: "Punto de venta y análisis de rendimiento comercial." },
-  { name: "RR.HH.", icon: Briefcase, description: "Administración de personal, nóminas y beneficios." },
-  { name: "Marketing", icon: Megaphone, description: "Estrategias de producto y crecimiento de mercado." },
-  { name: "Tecnología", icon: Cpu, description: "Infraestructura, seguridad y desarrollo de IA." },
+  { name: "Finanzas", icon: Layers, description: "Gestión contable, fiscal y de tesorería.", href: "/dashboard-empresa" },
+  { name: "Legal", icon: Gavel, description: "Cumplimiento normativo y gestión de contratos.", href: "/escritorio-juridico" },
+  { name: "Ventas", icon: ShoppingCart, description: "Punto de venta y análisis de rendimiento comercial.", href: "/analisis-ventas" },
+  { name: "RR.HH.", icon: Briefcase, description: "Administración de personal, nóminas y beneficios.", href: "/dashboard-rrhh" },
+  { name: "Marketing", icon: Megaphone, description: "Estrategias de producto y crecimiento de mercado.", href: "/asesoria-publicidad" },
+  { name: "Tecnología", icon: Cpu, description: "Infraestructura, seguridad y desarrollo de IA.", href: "/dashboard-informatica" },
+  { name: "Telecom", icon: Signal, description: "Gestión de redes, infraestructura y servicios.", href: "/dashboard-telecom" },
 ];
+
 
 export default function ImmersiveLandingPage() {
   const [activeModule, setActiveModule] = useState<string | null>(null);
@@ -111,7 +122,7 @@ export default function ImmersiveLandingPage() {
                         onMouseEnter={() => setActiveModule(module.name)}
                         onMouseLeave={() => setActiveModule(null)}
                     >
-                        <Link href="#">
+                        <Link href={module.href}>
                             <div className="w-full h-full flex items-center justify-center rounded-full bg-background/50 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-300 hover:border-primary hover:scale-110 hover:shadow-primary/20">
                                 <module.icon className="h-8 w-8 text-white" />
                             </div>
