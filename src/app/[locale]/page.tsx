@@ -105,8 +105,6 @@ const navModules = [
 ];
 
 const ModuleOrb = memo(({ module, radius }: { module: typeof navModules[0], radius: number }) => {
-    const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon || User;
-    
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
     
@@ -126,15 +124,15 @@ const ModuleOrb = memo(({ module, radius }: { module: typeof navModules[0], radi
         >
             <Link href={module.href}>
                 <motion.div
-                    className="w-14 h-14 md:w-16 md:h-16 bg-card/80 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
+                    className="w-20 h-20 md:w-24 md:h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-2xl flex items-center justify-center p-2 cursor-pointer"
                     style={{
                         boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
                     }}
-                    whileHover={{ scale: 1.2, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
+                    whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
                     transition={{ type: "spring", stiffness: 300 }}
                 >
                      <div className="text-center">
-                        <p className="text-xs font-bold text-primary px-2 leading-tight">{module.name}</p>
+                        <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
                      </div>
                 </motion.div>
             </Link>
@@ -147,6 +145,8 @@ ModuleOrb.displayName = 'ModuleOrb';
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
+    const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
+    const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const [radius, setRadius] = useState(130);
 
     const targetRef = useRef(null);
@@ -167,7 +167,7 @@ export default function LandingPage() {
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 640) setRadius(130);
+            if (window.innerWidth < 640) setRadius(140);
             else if (window.innerWidth < 768) setRadius(220);
             else setRadius(260);
         };
