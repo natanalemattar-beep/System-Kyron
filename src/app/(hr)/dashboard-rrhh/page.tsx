@@ -5,16 +5,16 @@ import {
   Briefcase,
   Users,
   DollarSign,
-  UserPlus
+  UserPlus,
+  ArrowRight,
 } from "lucide-react";
-import { QuickAccess } from "@/components/dashboard/quick-access";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { ChartTooltipContent } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const kpiData = [
     { title: "Total de Empleados", value: "58", icon: Users },
@@ -51,18 +51,25 @@ export default function RecursosHumanosPage() {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {kpiData.map(kpi => (
-            <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
-                <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium flex items-center gap-2">
-                        <kpi.icon className="h-4 w-4 text-muted-foreground" />
-                        {kpi.title}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-3xl font-bold">{kpi.value}</p>
-                </CardContent>
-            </Card>
+          {kpiData.map((kpi, index) => (
+            <motion.div
+              key={kpi.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Card className="bg-card/80 backdrop-blur-sm h-full">
+                  <CardHeader className="pb-2">
+                      <CardTitle className="text-sm font-medium flex items-center gap-2">
+                          <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                          {kpi.title}
+                      </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                      <p className="text-3xl font-bold">{kpi.value}</p>
+                  </CardContent>
+              </Card>
+            </motion.div>
         ))}
       </div>
 

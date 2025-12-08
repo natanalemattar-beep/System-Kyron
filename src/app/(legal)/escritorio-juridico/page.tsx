@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { motion } from "framer-motion";
 
 const kpiData = [
   { title: "Contratos Activos", value: "28", icon: FileSignature, color: "text-blue-400" },
@@ -56,18 +57,25 @@ export default function EscritorioJuridicoPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {kpiData.map(kpi => (
-              <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
-                  <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium flex items-center gap-2">
-                          <kpi.icon className="h-4 w-4 text-muted-foreground" />
-                          {kpi.title}
-                      </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                      <p className={`text-3xl font-bold ${kpi.color}`}>{kpi.value}</p>
-                  </CardContent>
-              </Card>
+          {kpiData.map((kpi, index) => (
+              <motion.div
+                key={kpi.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className="bg-card/80 backdrop-blur-sm h-full">
+                    <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-medium flex items-center gap-2">
+                            <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                            {kpi.title}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className={`text-3xl font-bold ${kpi.color}`}>{kpi.value}</p>
+                    </CardContent>
+                </Card>
+              </motion.div>
           ))}
       </div>
 

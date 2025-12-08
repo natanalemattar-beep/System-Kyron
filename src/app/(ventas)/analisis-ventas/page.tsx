@@ -10,6 +10,7 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Ca
 import Link from "next/link";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import { motion } from "framer-motion";
 
 const kpiData = [
     { title: "Ingresos Totales (Mes)", value: formatCurrency(62000), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
@@ -64,8 +65,14 @@ export default function AnalisisVentasPage() {
       </header>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {kpiData.map(kpi => (
-            <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
+        {kpiData.map((kpi, index) => (
+          <motion.div
+            key={kpi.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          >
+            <Card className="bg-card/80 backdrop-blur-sm h-full">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-sm font-medium flex items-center justify-between">
                       <span>{kpi.title}</span>
@@ -77,6 +84,7 @@ export default function AnalisisVentasPage() {
                     <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
                 </CardContent>
             </Card>
+          </motion.div>
         ))}
       </div>
 

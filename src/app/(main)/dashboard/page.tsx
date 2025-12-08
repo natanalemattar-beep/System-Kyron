@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import Link from 'next/link';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
+import { motion } from 'framer-motion';
 
 const kpiData = [
   { title: "Trámites en Proceso", value: "2", icon: Clock, color: "text-yellow-500", href: "/#tramites" },
@@ -38,18 +38,25 @@ export default function DashboardPersonalPage() {
       </header>
       
       <div className="grid gap-6 md:grid-cols-3">
-         {kpiData.map(kpi => (
-            <Link href={kpi.href} key={kpi.title}>
-                <Card className="hover:shadow-lg transition-shadow">
-                    <CardHeader className="pb-2 flex-row items-center justify-between">
-                        <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                        <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-3xl font-bold">{kpi.value}</p>
-                    </CardContent>
-                </Card>
-            </Link>
+         {kpiData.map((kpi, index) => (
+            <motion.div
+              key={kpi.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Link href={kpi.href}>
+                  <Card className="hover:shadow-lg transition-shadow">
+                      <CardHeader className="pb-2 flex-row items-center justify-between">
+                          <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
+                          <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
+                      </CardHeader>
+                      <CardContent>
+                          <p className="text-3xl font-bold">{kpi.value}</p>
+                      </CardContent>
+                  </Card>
+              </Link>
+            </motion.div>
         ))}
       </div>
 
