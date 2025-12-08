@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import { Button } from "@/components/ui/button";
 import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown } from "lucide-react";
 import Link from "next/link";
@@ -82,6 +82,40 @@ const navModules = [
   { name: "Socios", angle: 345, href: "/dashboard-socios" },
 ];
 
+const getModuleDescription = (name: string) => {
+    const option = loginOptions.find(opt => opt.label.includes(name));
+    return option ? option.description : "Accede al módulo especializado.";
+};
+
+// Memoized ModuleButton to prevent re-renders
+const ModuleButton = memo(({ module, radius, onHover }: { module: typeof navModules[0], radius: number, onHover: (desc: {name: string, description: string} | null) => void }) => {
+    const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon;
+    const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
+    const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
+    const description = getModuleDescription(module.name);
+
+    return (
+        <Link href={module.href} key={module.name}>
+        <motion.div
+            className="absolute w-14 h-14 md:w-16 md:h-16 bg-card/80 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
+            style={{ 
+            top: '50%', 
+            left: '50%',
+            transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+            boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
+            }}
+            onMouseEnter={() => onHover({ name: module.name, description })}
+            onMouseLeave={() => onHover(null)}
+            whileHover={{ scale: 1.2, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
+            transition={{ type: "spring", stiffness: 300 }}
+        >
+            {Icon && <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />}
+        </motion.div>
+        </Link>
+    );
+});
+ModuleButton.displayName = 'ModuleButton';
+
 
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -123,11 +157,6 @@ export default function LandingPage() {
             window.removeEventListener('resize', handleResize);
         }
     }, []);
-
-    const getModuleDescription = (name: string) => {
-        const option = loginOptions.find(opt => opt.label.includes(name));
-        return option ? option.description : "Accede al módulo especializado.";
-    }
     
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
@@ -277,31 +306,14 @@ export default function LandingPage() {
 
                 <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px]">
                     <Orb />
-                    {navModules.map(module => {
-                        const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
-                        const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
-                        const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon;
-
-                        return (
-                            <Link href={module.href} key={module.name}>
-                            <motion.div
-                                className="absolute w-14 h-14 md:w-16 md:h-16 bg-card/80 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
-                                style={{ 
-                                top: '50%', 
-                                left: '50%',
-                                transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
-                                boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
-                                }}
-                                onMouseEnter={() => setHoveredModule({ name: module.name, description: getModuleDescription(module.name) })}
-                                onMouseLeave={() => setHoveredModule(null)}
-                                whileHover={{ scale: 1.2, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                            >
-                                {Icon && <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />}
-                            </motion.div>
-                            </Link>
-                        );
-                    })}
+                    {navModules.map(module => (
+                       <ModuleButton
+                          key={module.name}
+                          module={module}
+                          radius={radius}
+                          onHover={setHoveredModule}
+                        />
+                    ))}
                 </div>
                 <div className="absolute bottom-10 animate-bounce">
                     <ChevronDown className="w-8 h-8 text-muted-foreground" />
@@ -495,5 +507,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
