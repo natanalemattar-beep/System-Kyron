@@ -86,7 +86,7 @@ export const ExecutiveAnalytics = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Gráfico */}
-        <div className="lg:col-span-2 bg-gray-900/50 rounded-lg p-4">
+        <div className="lg:col-span-2 bg-background rounded-lg p-4">
           <h3 className="font-semibold mb-4">Evolución Riesgo vs Optimización</h3>
           <ResponsiveContainer width="100%" height={250}>
             <AreaChart data={chartData}>
