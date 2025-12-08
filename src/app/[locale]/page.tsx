@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef, memo } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown, HelpCircle, Target, Book, Eye } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle, Banknote, Signal, ChevronDown, HelpCircle, Target, Book, Eye } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
@@ -16,10 +16,17 @@ import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Dialog } from "@/components/ui/dialog";
+import { DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { planes, faqItems as plansFaq } from '@/lib/page-data';
+import { securityFeatures, zeroRiskGuarantees } from "@/lib/page-data';
+import { iaSolutions } from "@/lib/page-data";
+
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
@@ -107,25 +114,144 @@ const faqItems = [
 ];
 
 const navModules = [
-  { name: "¿Qué es Kyron?", angle: 30, href: "#nosotros" },
-  { name: "Nuestros Servicios", angle: 75, href: "#servicios" },
-  { name: "Funciones Clave", angle: 120, href: "#caracteristicas" },
-  { name: "Tecnología IA", angle: 165, href: "/soluciones-ia" },
-  { name: "Seguridad Garantizada", angle: 210, href: "/seguridad" },
-  { name: "Planes y Precios", angle: 255, href: "/planes-y-precios" },
-  { name: "Contacto Directo", angle: 300, href: "#contacto" },
-  { name: "¿Quiénes Somos?", angle: 345, href: "#nosotros" },
+  { name: "¿Qué es Kyron?", angle: 30, href: "#nosotros", type: 'scroll' },
+  { name: "Nuestros Servicios", angle: 75, href: "#servicios", type: 'scroll' },
+  { name: "Funciones Clave", angle: 120, href: "#caracteristicas", type: 'scroll' },
+  { name: "Tecnología IA", angle: 165, href: "/soluciones-ia", type: 'dialog' },
+  { name: "Seguridad Garantizada", angle: 210, href: "/seguridad", type: 'dialog' },
+  { name: "Planes y Precios", angle: 255, href: "/planes-y-precios", type: 'dialog' },
+  { name: "Contacto Directo", angle: 300, href: "#contacto", type: 'scroll' },
+  { name: "¿Quiénes Somos?", angle: 345, href: "#nosotros", type: 'scroll' },
 ];
 
 const getModuleDescription = (name: string) => {
-    const option = loginOptions.find(opt => opt.label.includes(name));
-    return option ? option.description : "Accede al módulo especializado.";
+    switch (name) {
+        case '¿Qué es Kyron?': return "Descubre nuestra misión, visión y el equipo detrás de la plataforma.";
+        case 'Nuestros Servicios': return "Explora las soluciones que ofrecemos para tu empresa.";
+        case 'Funciones Clave': return "Conoce las características principales que hacen a Kyron único.";
+        case 'Tecnología IA': return "Ve cómo la IA puede automatizar y potenciar tu negocio.";
+        case 'Seguridad Garantizada': return "Aprende sobre nuestras capas de seguridad para proteger tus datos.";
+        case 'Planes y Precios': return "Encuentra el plan perfecto que se ajusta a tus necesidades.";
+        case 'Contacto Directo': return "Comunícate con nuestro equipo para más información.";
+        case '¿Quiénes Somos?': return "Nuestra historia y los valores que nos impulsan.";
+        default: return "Accede al módulo especializado.";
+    }
 };
+
+const PlansContent = () => (
+  <>
+    <DialogHeader>
+      <DialogTitle>Planes y Precios</DialogTitle>
+      <DialogDescription>Elige el plan que se adapta al tamaño y las necesidades de tu negocio.</DialogDescription>
+    </DialogHeader>
+    <div className="grid gap-4 md:grid-cols-3">
+        {planes.map(plan => (
+            <Card key={plan.nombre} className={`flex flex-col ${plan.popular ? 'border-primary' : ''}`}>
+                {plan.popular && <div className="bg-primary text-primary-foreground text-xs font-bold text-center py-1 rounded-t-lg">MÁS POPULAR</div>}
+                <CardHeader className="text-center">
+                    <CardTitle className="text-xl">{plan.nombre}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                    <div className="text-center mb-4">
+                        <span className="text-3xl font-bold">{plan.precio}</span>
+                        <span className="text-muted-foreground">{plan.periodo}</span>
+                    </div>
+                    <ul className="space-y-2 text-sm">
+                        {plan.features.map(feature => (
+                             <li key={feature} className="flex items-start gap-2">
+                                <CheckCircle className="h-4 w-4 text-green-500 mt-1 shrink-0" />
+                                <span className="text-muted-foreground">{feature}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </CardContent>
+                <CardFooter>
+                    <Button className="w-full" variant={plan.popular ? 'default' : 'outline'}>
+                      {plan.precio === "Contáctanos" ? "Contactar" : "Seleccionar"}
+                    </Button>
+                </CardFooter>
+            </Card>
+        ))}
+    </div>
+  </>
+);
+
+const SecurityContent = () => (
+    <>
+        <DialogHeader>
+            <DialogTitle>Seguridad de Nivel Empresarial</DialogTitle>
+            <DialogDescription>Tu tranquilidad es nuestra prioridad. Así protegemos tus datos.</DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4">
+            {securityFeatures.map(feature => (
+                <div key={feature.title} className="flex items-start gap-4">
+                    <div className="p-2 bg-primary/10 text-primary rounded-lg mt-1">
+                        <feature.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                        <h4 className="font-semibold">{feature.title}</h4>
+                        <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+        <DialogFooter>
+            <p className="text-xs text-muted-foreground">Kyron cumple con los más altos estándares de seguridad para garantizar la integridad y confidencialidad de tu información.</p>
+        </DialogFooter>
+    </>
+);
+
+const IaContent = () => (
+     <>
+        <DialogHeader>
+          <DialogTitle>Soluciones con Inteligencia Artificial</DialogTitle>
+          <DialogDescription>Automatiza tareas, obtén análisis y toma decisiones más rápidas.</DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4">
+            {iaSolutions.map(solution => (
+                <Card key={solution.title} className="bg-secondary">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-3 text-base">
+                            <solution.icon className="h-5 w-5 text-primary"/>
+                            {solution.title}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground">{solution.description}</p>
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+        <DialogFooter>
+            <Button asChild>
+                <Link href="/soluciones-ia">Explorar todas las soluciones de IA <ArrowRight className="ml-2 h-4 w-4"/></Link>
+            </Button>
+        </DialogFooter>
+    </>
+);
+
 
 const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module: typeof navModules[0], radius: number, onMouseEnter: () => void, onMouseLeave: () => void }) => {
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
     
+    const content = (
+        <motion.div
+            className="w-24 h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-2xl flex items-center justify-center p-2 cursor-pointer"
+            style={{
+                boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
+            }}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
+            transition={{ type: "spring", stiffness: 300 }}
+        >
+                <div className="text-center">
+                <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
+                </div>
+        </motion.div>
+    );
+
     return (
         <motion.div
             className="absolute"
@@ -133,29 +259,26 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
                 top: '50%',
                 left: '50%',
             }}
-            initial={{ x: -40, y: -40 }} // Start at center (half of w-20, h-20)
-            animate={{
-                x: x - 48,
-                y: y - 48,
-            }}
+            initial={{ x: -48, y: -48 }} 
+            animate={{ x: x - 48, y: y - 48 }}
             transition={{ type: "spring", stiffness: 50, damping: 15 }}
         >
-            <Link href={module.href}>
-                <motion.div
-                    className="w-24 h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-2xl flex items-center justify-center p-2 cursor-pointer"
-                    style={{
-                        boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
-                    }}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                >
-                     <div className="text-center">
-                        <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
-                     </div>
-                </motion.div>
-            </Link>
+            {module.type === 'scroll' ? (
+                 <SmoothScrollLink href={module.href}>
+                    {content}
+                </SmoothScrollLink>
+            ) : (
+                <Dialog>
+                    <DialogTrigger asChild>
+                        {content}
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-2xl">
+                       {module.name === 'Planes y Precios' && <PlansContent />}
+                       {module.name === 'Seguridad Garantizada' && <SecurityContent />}
+                       {module.name === 'Tecnología IA' && <IaContent />}
+                    </DialogContent>
+                </Dialog>
+            )}
         </motion.div>
     );
 });

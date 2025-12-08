@@ -13,6 +13,7 @@ import Image from "next/image";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { securityFeatures } from "@/lib/page-data";
 
 
 const activeSessions = [
@@ -111,6 +112,22 @@ export default function SeguridadPage() {
           Gestiona la seguridad de tu cuenta y aprende a proteger tu negocio y tus finanzas.
         </p>
       </header>
+
+      <Card>
+        <CardHeader>
+            <CardTitle>Centro de Seguridad</CardTitle>
+            <CardDescription>Funcionalidades clave para proteger tu cuenta.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid md:grid-cols-3 gap-4">
+            {securityFeatures.map(feature => (
+                <div key={feature.title} className="p-4 bg-secondary/50 rounded-lg">
+                     <feature.icon className="h-6 w-6 text-primary mb-2"/>
+                    <h4 className="font-semibold">{feature.title}</h4>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
+                </div>
+            ))}
+        </CardContent>
+      </Card>
 
        <Card>
             <CardHeader>
