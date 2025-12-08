@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from 'next/navigation';
 import { AlertTriangle } from "lucide-react";
 
+// Use dynamic import with ssr: false to ensure this component only renders on the client
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial').then(mod => mod.WelcomeTutorial), { ssr: false });
 
 export default function MainAppLayout({ children }: { children: ReactNode }) {
@@ -38,10 +39,8 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
     if (pathname === '/dashboard-empresa' || pathname === '/dashboard') {
         const hasSeenKyronTutorial = localStorage.getItem("hasSeenKyronTutorial");
         if (!hasSeenKyronTutorial) {
-            setTimeout(() => {
-                setShowTutorial(true);
-                localStorage.setItem("hasSeenKyronTutorial", "true");
-            }, 500);
+            setShowTutorial(true);
+            localStorage.setItem("hasSeenKyronTutorial", "true");
         }
     }
   }, [pathname]);
