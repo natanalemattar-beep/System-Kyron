@@ -15,7 +15,7 @@ export default function RegisterPersonalPage() {
     return (
         <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
             <CardHeader className="text-center">
-                <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
+                <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
                     <Briefcase className="h-8 w-8 text-primary" />
                 </div>
                 <CardTitle className="text-2xl">Registro de Personal</CardTitle>
@@ -58,5 +58,3 @@ export default function RegisterPersonalPage() {
         </Card>
     );
 }
-
-    

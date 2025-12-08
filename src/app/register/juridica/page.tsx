@@ -16,7 +16,7 @@ export default function RegisterJuridicaPage() {
     return (
         <Card className="w-full max-w-lg mx-auto bg-card/80 backdrop-blur-md border">
             <CardHeader className="text-center">
-                <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
+                <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
                     <Building className="h-8 w-8 text-primary" />
                 </div>
                 <CardTitle className="text-2xl">Registro de Persona Jurídica</CardTitle>
@@ -85,5 +85,3 @@ export default function RegisterJuridicaPage() {
         </Card>
     );
 }
-
-    

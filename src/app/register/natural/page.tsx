@@ -38,7 +38,7 @@ export default function RegisterNaturalPage() {
     return (
         <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
             <CardHeader className="text-center">
-                <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
+                <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
                     <User className="h-8 w-8 text-primary" />
                 </div>
                 <CardTitle className="text-2xl">Registro Personal</CardTitle>
@@ -81,7 +81,7 @@ export default function RegisterNaturalPage() {
             </CardContent>
             <CardFooter className="flex-col p-6 border-t text-sm">
                 <p className="text-muted-foreground">¿Ya tienes una cuenta?</p>
-                <Link href="/login-natural" className="font-medium text-primary hover:underline">
+                <Link href="/login" className="font-medium text-primary hover:underline">
                     Inicia sesión aquí
                 </Link>
             </CardFooter>

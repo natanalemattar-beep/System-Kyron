@@ -43,14 +43,14 @@ const Credentials = ({ user, password }: { user: string; password?: string }) =>
 
     return (
         <div className="mt-6 w-full space-y-3 text-sm">
-            <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-md">
+            <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
                 <span className="text-muted-foreground">ID: <strong className="text-foreground font-mono">{user}</strong></span>
                 <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(user, 'ID')}>
                     <Copy className="h-4 w-4"/>
                 </Button>
             </div>
             {password && (
-                <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-md">
+                <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
                     <span className="text-muted-foreground">Contraseña: <strong className="text-foreground font-mono">{password}</strong></span>
                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(password, 'Contraseña')}>
                         <Copy className="h-4 w-4"/>
@@ -70,7 +70,7 @@ export default function LoginNaturalPage() {
   return (
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
       <CardHeader className="text-center">
-        <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
+        <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
           <User className="h-8 w-8 text-primary" />
         </div>
         <CardTitle className="text-2xl">Acceso Personal</CardTitle>

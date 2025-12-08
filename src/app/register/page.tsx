@@ -48,7 +48,7 @@ export default function RegisterPage() {
             <span className="text-lg font-bold">System Kyron</span>
           </Link>
           <Button variant="ghost" asChild>
-            <Link href="/login-natural">
+            <Link href="/login">
               Acceder
               <User className="ml-2 h-4 w-4" />
             </Link>
@@ -71,7 +71,7 @@ export default function RegisterPage() {
                 className="flex flex-col text-center bg-card border hover:border-primary hover:shadow-lg transition-all"
               >
                 <CardHeader className="items-center">
-                  <div className="p-4 bg-primary/10 rounded-full mb-4">
+                  <div className="p-4 bg-primary/10 rounded-xl mb-4">
                     <account.icon className="h-8 w-8 text-primary" />
                   </div>
                   <CardTitle>{account.title}</CardTitle>
@@ -91,7 +91,7 @@ export default function RegisterPage() {
           </div>
            <p className="mt-10 text-center text-sm text-muted-foreground">
               ¿Ya tienes una cuenta?{" "}
-              <Link href="/login-natural" className="font-semibold text-primary hover:underline">
+              <Link href="/login" className="font-semibold text-primary hover:underline">
                 Inicia sesión aquí
               </Link>
             </p>
@@ -100,5 +100,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-
-    

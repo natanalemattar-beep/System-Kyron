@@ -75,7 +75,12 @@ export default function DashboardSociosPage() {
 
        <Card className="bg-card/80 backdrop-blur-sm">
           <CardHeader>
-              <CardTitle className="flex items-center gap-3"><Network/>Organigrama del Holding</CardTitle>
+              <CardTitle className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Network className="h-6 w-6 text-primary"/>
+                </div>
+                Organigrama del Holding
+              </CardTitle>
               <CardDescription>Vista de la estructura de propiedad y rendimiento de cada entidad.</CardDescription>
           </CardHeader>
           <CardContent>

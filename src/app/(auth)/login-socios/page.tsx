@@ -23,14 +23,14 @@ const Credentials = ({ user, password }: { user: string; password?: string }) =>
 
     return (
         <div className="mt-6 w-full space-y-3 text-sm">
-            <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-md">
+            <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
                 <span className="text-muted-foreground">Usuario: <strong className="text-foreground font-mono">{user}</strong></span>
                 <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(user, 'Usuario')}>
                     <Copy className="h-4 w-4"/>
                 </Button>
             </div>
             {password && (
-                <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-md">
+                <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
                     <span className="text-muted-foreground">Contraseña: <strong className="text-foreground font-mono">{password}</strong></span>
                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(password, 'Contraseña')}>
                         <Copy className="h-4 w-4"/>
@@ -47,7 +47,7 @@ export default function LoginSociosPage() {
   return (
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
       <CardHeader className="text-center">
-        <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
+        <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
           <Users className="h-8 w-8" />
         </div>
         <CardTitle className="text-2xl">Portal de Socios</CardTitle>
@@ -83,7 +83,7 @@ export default function LoginSociosPage() {
         <p className="text-muted-foreground">¿No eres socio? Accede a otro portal:</p>
         <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
             <Button asChild variant="link" className="p-0">
-                <Link href="/login-natural" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
+                <Link href="/login" className="flex items-center gap-1"><User className="h-4 w-4" />Personal</Link>
             </Button>
             <Button asChild variant="link" className="p-0">
                 <Link href="/login-admin" className="flex items-center gap-1"><Building className="h-4 w-4" />Admin</Link>

@@ -93,7 +93,9 @@ export default function DashboardInformaticaPage() {
                         <Card key={group.title} className="bg-card/50 backdrop-blur-sm">
                             <CardHeader className="p-4">
                                 <CardTitle className="text-base flex items-center gap-3">
+                                  <div className="p-2 bg-primary/10 rounded-lg">
                                     <group.icon className="h-5 w-5 text-primary"/>
+                                  </div>
                                     {group.title}
                                 </CardTitle>
                             </CardHeader>
