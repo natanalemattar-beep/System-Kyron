@@ -87,7 +87,7 @@ const config: Config = {
             to: { opacity: "1", transform: "scale(1)" },
         },
         "fade-out-and-zoom": {
-            from: { opacity: "1", transform: "scale(1)" },
+            from: { opacity: "1", transform: "scale(0.95)" },
             to: { opacity: "0", transform: "scale(0.95)" },
         },
         "slide-in-from-top": {
@@ -145,7 +145,7 @@ const config: Config = {
         "slide-out-to-top": "slide-out-to-top 0.3s ease-in",
         "slide-in-from-bottom": "slide-in-from-bottom 0.3s ease-out",
         "slide-out-to-bottom": "slide-out-to-bottom 0.3s ease-in",
-        "slide-in-from-left": "slide-in-from-left 0.3s ease-out",
+         "slide-in-from-left": "slide-in-from-left 0.3s ease-out",
         "slide-out-to-left": "slide-out-to-left 0.3s ease-in",
         "slide-in-from-right": "slide-in-from-right 0.3s ease-out",
         "slide-out-to-right": "slide-out-to-right 0.3s ease-in",

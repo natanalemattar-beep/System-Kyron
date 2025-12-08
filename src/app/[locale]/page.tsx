@@ -101,7 +101,6 @@ const navModules = [
   { name: "¿Quiénes Somos?", angle: 345, href: "#nosotros" },
 ];
 
-
 const ModuleOrb = memo(({ module, radius }: { module: typeof navModules[0], radius: number }) => {
     const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon || User;
     
@@ -316,8 +315,8 @@ export default function LandingPage() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="absolute z-10 text-center"
                 >
-                    <h1 className="text-5xl font-bold">System Kyron</h1>
-                    <p className="text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
+                    <h1 className="text-4xl md:text-5xl font-bold">System Kyron</h1>
+                    <p className="text-base md:text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
                 </motion.div>
 
                 <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px]">
@@ -565,4 +564,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
