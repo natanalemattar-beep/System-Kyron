@@ -24,7 +24,7 @@ export default function LoginFintechPage() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
+    <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-sm border-border">
       <CardHeader className="text-center">
         <div className="inline-block bg-primary/10 text-primary p-3 rounded-full mb-4 mx-auto">
           <Banknote className="h-8 w-8 text-primary" />
