@@ -356,7 +356,7 @@ export default function LandingPage() {
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-background">
+        <section id="servicios" className="pt-32 md:pt-40 pb-20 md:pb-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                  <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
