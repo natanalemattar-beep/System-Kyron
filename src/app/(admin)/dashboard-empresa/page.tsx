@@ -7,14 +7,8 @@ import {
   TrendingUp,
   Wallet,
   HandCoins,
-  FileWarning,
-  ArrowRight,
-  Users,
-  UserCheck,
-  Mail
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
@@ -22,6 +16,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } f
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 import { QuickAccess } from "@/components/dashboard/quick-access";
 import { ActivityCard } from "@/components/dashboard/activity-card";
+import { motion } from 'framer-motion';
 
 const kpiData = [
   { title: "Ingresos Totales (Mes)", value: formatCurrency(250000), icon: DollarSign, trend: "+15.2% vs mes anterior" },
@@ -61,19 +56,26 @@ export default function DashboardEmpresaPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {kpiData.map(kpi => (
-             <Link href={kpi.href || "#"} key={kpi.title} className="hover:shadow-lg transition-shadow">
-                <Card className="bg-card/50 backdrop-blur-sm h-full">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                        <kpi.icon className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{kpi.value}</div>
-                        <p className="text-xs text-muted-foreground">{kpi.trend}</p>
-                    </CardContent>
-                </Card>
-            </Link>
+        {kpiData.map((kpi, index) => (
+            <motion.div
+              key={kpi.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Link href={kpi.href || "#"} className="hover:shadow-lg transition-shadow">
+                  <Card className="bg-card/50 backdrop-blur-sm h-full">
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                          <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
+                          <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                          <div className="text-2xl font-bold">{kpi.value}</div>
+                          <p className="text-xs text-muted-foreground">{kpi.trend}</p>
+                      </CardContent>
+                  </Card>
+              </Link>
+            </motion.div>
         ))}
       </div>
 
@@ -85,7 +87,7 @@ export default function DashboardEmpresaPage() {
               <CardDescription>Evolución de ingresos, gastos y rentabilidad.</CardDescription>
           </CardHeader>
           <CardContent className="flex-grow min-h-0">
-                <ChartContainer config={chartConfig} className="w-full h-full">
+              <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={rentabilidadData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
                       <defs>
                           <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
@@ -102,7 +104,8 @@ export default function DashboardEmpresaPage() {
                       <YAxis yAxisId="left" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value as number) / 1000}k`} />
                       <YAxis yAxisId="right" orientation="right" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${value}%`} />
                       <ChartTooltip 
-                          cursor={false}
+                          cursor={{fill: 'hsl(var(--accent))', opacity: 0.3}}
+                          contentStyle={{backgroundColor: 'hsl(var(--background) / 0.8)', backdropFilter: 'blur(4px)', border: '1px solid hsl(var(--border))'}}
                           content={<ChartTooltipContent 
                               indicator="dot" 
                               formatter={(value, name) => name === 'rentabilidad' ? `${(value as number).toFixed(1)}%` : formatCurrency(value as number)} 
@@ -113,7 +116,7 @@ export default function DashboardEmpresaPage() {
                        <Area yAxisId="left" type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
                        <Area yAxisId="right" type="monotone" dataKey="rentabilidad" stroke="hsl(var(--accent-foreground))" fill="transparent" />
                   </AreaChart>
-              </ChartContainer>
+              </ResponsiveContainer>
           </CardContent>
         </Card>
       
@@ -128,3 +131,5 @@ export default function DashboardEmpresaPage() {
     </div>
   );
 }
+
+    

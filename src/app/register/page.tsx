@@ -16,67 +16,25 @@ import { Logo } from "@/components/logo";
 
 const accountTypes = [
   {
+    type: "juridica",
+    title: "Persona Jurídica (Empresa)",
+    description: "Para registrar la empresa principal y obtener acceso como administrador.",
+    icon: Building,
+    href: "/register/juridica",
+  },
+   {
+    type: "personal",
+    title: "Personal (Empleado)",
+    description: "Para empleados que se unirán a una empresa ya registrada.",
+    icon: Briefcase,
+    href: "/register/personal",
+  },
+  {
     type: "natural",
     title: "Persona Natural",
     description: "Para clientes individuales que gestionan sus trámites personales.",
     icon: User,
     href: "/register/natural",
-  },
-  {
-    type: "juridica",
-    title: "Admin y Finanzas",
-    description: "Para registrar la empresa principal y acceder a los módulos de gestión.",
-    icon: Building,
-    href: "/register/juridica",
-  },
-  {
-    type: "ventas",
-    title: "Ventas y Facturación",
-    description: "Para personal de ventas y cajeros que operan el punto de venta.",
-    icon: ShoppingCart,
-    href: "/register/ventas",
-  },
-  {
-    type: "rrhh",
-    title: "Recursos Humanos",
-    description: "Para el personal encargado de la gestión de nóminas y empleados.",
-    icon: Briefcase,
-    href: "/register/rrhh",
-  },
-  {
-    type: "socios",
-    title: "Socios y Directivos",
-    description: "Acceso al dashboard consolidado del holding empresarial.",
-    icon: Users,
-    href: "/register/socios",
-  },
-   {
-    type: "marketing",
-    title: "Productos y Marketing",
-    description: "Para el equipo de productos, consultoría y marketing.",
-    icon: Megaphone,
-    href: "/register/marketing",
-  },
-  {
-    type: "telecom",
-    title: "Telecomunicaciones",
-    description: "Portal para gestión de redes, infraestructura y servicios de telecom.",
-    icon: Signal,
-    href: "/register/telecom",
-  },
-  {
-    type: "informatica",
-    title: "Ingeniería e Informática",
-    description: "Acceso para el equipo de desarrollo, seguridad y tecnología.",
-    icon: Cpu,
-    href: "/register/informatica",
-  },
-  {
-    type: "juridico",
-    title: "Escritorio Jurídico",
-    description: "Para el equipo legal y de cumplimiento normativo.",
-    icon: Gavel,
-    href: "/register/juridico",
   },
 ];
 
@@ -142,3 +100,5 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+    

@@ -64,8 +64,12 @@ export default function RegisterSociosPage() {
             </CardHeader>
             <CardContent className="p-6 space-y-6">
                 <div className="space-y-2">
-                    <Label htmlFor="invite-code">Código de Invitación</Label>
+                    <Label htmlFor="invite-code">Código de Invitación del Holding</Label>
                     <Input id="invite-code" placeholder="Código exclusivo para socios" required defaultValue="SOCIO-KYRON-2024"/>
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="full-name">Nombres y Apellidos</Label>
+                    <Input id="full-name" placeholder="Ej: Ana Pérez" required />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="email">Correo Electrónico</Label>
@@ -97,3 +101,5 @@ export default function RegisterSociosPage() {
         </Card>
     );
 }
+
+    

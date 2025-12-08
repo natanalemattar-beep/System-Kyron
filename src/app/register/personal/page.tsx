@@ -27,8 +27,8 @@ export default function RegisterPersonalPage() {
                     <Input id="invite-code" placeholder="Ej: ABC-123-XYZ" required />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="employee-id">Código de Empleado / ID de Vendedor</Label>
-                    <Input id="employee-id" placeholder="Ej: EMP-0045" required />
+                    <Label htmlFor="employee-id">Cédula de Identidad</Label>
+                    <Input id="employee-id" placeholder="Ej: V-12345678" required />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="email">Correo Electrónico Personal</Label>
@@ -58,3 +58,5 @@ export default function RegisterPersonalPage() {
         </Card>
     );
 }
+
+    
