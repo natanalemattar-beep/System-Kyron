@@ -145,8 +145,6 @@ ModuleOrb.displayName = 'ModuleOrb';
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
-    const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
-    const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const [radius, setRadius] = useState(130);
 
     const targetRef = useRef(null);
@@ -320,7 +318,7 @@ export default function LandingPage() {
                     <p className="text-base md:text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
                 </motion.div>
 
-                <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px]">
+                <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] aspect-square">
                     <Orb />
                      {navModules.map(module => (
                         <ModuleOrb
