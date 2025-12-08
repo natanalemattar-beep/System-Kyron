@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from 'next/navigation';
 import { AlertTriangle } from "lucide-react";
 
+// Dynamically import WelcomeTutorial with SSR turned off
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial'), { ssr: false });
 
 export default function MainAppLayout({ children }: { children: ReactNode }) {

@@ -33,6 +33,7 @@ import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Menu } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
+import { loginOptions } from "@/lib/login-options";
 
 type User = {
   name: string;
@@ -194,6 +195,20 @@ export function AppHeader({ user }: { user: User }) {
                  <p className="font-semibold">{user.name}</p>
                  <p className="text-xs text-muted-foreground font-normal">{user.email}</p>
               </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+               <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>Portales de Acceso</DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent>
+                    {loginOptions.map((opt) => (
+                        <DropdownMenuItem key={opt.href} asChild>
+                           <Link href={opt.href} className="flex items-center justify-start">
+                              <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                              <p>{opt.label}</p>
+                            </Link>
+                        </DropdownMenuItem>
+                      ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/general">Configuración</Link>

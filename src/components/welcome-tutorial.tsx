@@ -31,10 +31,11 @@ const tutorialSteps = [
     }
 ];
 
-export function WelcomeTutorial() {
+export default function WelcomeTutorial() {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
+        // This effect runs only on the client
         const hasSeenTutorial = localStorage.getItem("hasSeenKyronTutorial");
         if (!hasSeenTutorial) {
             setOpen(true);
