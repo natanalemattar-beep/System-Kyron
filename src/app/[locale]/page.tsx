@@ -88,34 +88,36 @@ const getModuleDescription = (name: string) => {
     return option ? option.description : "Accede al módulo especializado.";
 };
 
-// Memoized ModuleButton to prevent re-renders
-const ModuleButton = memo(({ module, radius, onHover }: { module: typeof navModules[0], radius: number, onHover: (desc: {name: string, description: string} | null) => void }) => {
-    const Icon = loginOptions.find(opt => opt.label.includes(module.name))?.icon;
+const ModuleText = memo(({ module, radius, onHover }: { module: typeof navModules[0], radius: number, onHover: (desc: {name: string, description: string} | null) => void }) => {
     const description = getModuleDescription(module.name);
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
 
     return (
         <Link href={module.href} key={module.name}>
-        <motion.div
-            className="absolute w-14 h-14 md:w-16 md:h-16 bg-card/80 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
-            style={{ 
-            top: '50%', 
-            left: '50%',
-            transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
-            boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
-            }}
-            onMouseEnter={() => onHover({ name: module.name, description })}
-            onMouseLeave={() => onHover(null)}
-            whileHover={{ scale: 1.2, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
-            transition={{ type: "spring", stiffness: 300 }}
-        >
-            {Icon && <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />}
-        </motion.div>
+            <motion.div
+                className="absolute text-sm md:text-base cursor-pointer font-semibold text-muted-foreground"
+                style={{
+                    top: '50%',
+                    left: '50%',
+                    translateX: '-50%',
+                    translateY: '-50%',
+                }}
+                animate={{
+                    x: x,
+                    y: y,
+                }}
+                onMouseEnter={() => onHover({ name: module.name, description })}
+                onMouseLeave={() => onHover(null)}
+                whileHover={{ scale: 1.2, color: 'hsl(var(--primary))' }}
+                transition={{ type: "spring", stiffness: 300 }}
+            >
+                {module.name}
+            </motion.div>
         </Link>
     );
 });
-ModuleButton.displayName = 'ModuleButton';
+ModuleText.displayName = 'ModuleText';
 
 
 export default function LandingPage() {
@@ -301,14 +303,20 @@ export default function LandingPage() {
 
                 <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px]">
                     <Orb />
-                    {navModules.map(module => (
-                       <ModuleButton
-                          key={module.name}
-                          module={module}
-                          radius={radius}
-                          onHover={setHoveredModule}
-                        />
-                    ))}
+                    <motion.div 
+                        className="absolute inset-0"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                    >
+                        {navModules.map(module => (
+                        <ModuleText
+                            key={module.name}
+                            module={module}
+                            radius={radius}
+                            onHover={setHoveredModule}
+                            />
+                        ))}
+                    </motion.div>
                 </div>
                 <div className="absolute bottom-10 animate-bounce">
                     <ChevronDown className="w-8 h-8 text-muted-foreground" />
