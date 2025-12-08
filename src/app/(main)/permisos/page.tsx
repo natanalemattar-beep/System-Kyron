@@ -100,6 +100,8 @@ const initialPermisos = [
     { id: "PERM-NAC-006", tipo: "Inscripción en el RESQUIMC", emisor: "ONA", fechaEmision: "2024-05-15", fechaVencimiento: "2025-05-15", estado: "Vigente", requisitosInscripcion: ["Listado de sustancias químicas controladas a utilizar", "Plan de manejo y seguridad"], requisitosRenovacion: ["Declaración de uso y existencias"] },
     { id: "PERM-NAC-007", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "Min. Comunas", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer", requisitosInscripcion: ["Acta constitutiva de la EPS", "Proyecto socio-productivo"], requisitosRenovacion: ["Informe de gestión y reinversión social"] },
     { id: "PERM-NAC-008", tipo: "Inscripción en el RUPDAE", emisor: "SUNDDE", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitosInscripcion: ["Estructura de costos de los productos", "RIF"], requisitosRenovacion: ["Actualización de estructuras de costos"] },
+    { id: "PERM-NAC-009", tipo: "Concesión de Espectro Radioeléctrico", emisor: "CONATEL", fechaEmision: "2023-03-20", fechaVencimiento: "2028-03-20", estado: "Vigente", requisitosInscripcion: ["Proyecto técnico de la red a desplegar", "Estudio de factibilidad económica", "Garantía de cumplimiento"], requisitosRenovacion: ["Pago de tasas anuales", "Informe de uso del espectro"] },
+    { id: "PERM-NAC-010", tipo: "Licencia de Proveedor de Servicios de Internet (ISP)", emisor: "CONATEL", fechaEmision: "2023-04-01", fechaVencimiento: "2028-04-01", estado: "Vigente", requisitosInscripcion: ["Acta Constitutiva con objeto social adecuado", "Proyecto técnico detallado", "Solvencia fiscal"], requisitosRenovacion: ["Actualización de la información técnica", "Pago de tasas regulatorias"] },
     { id: "PERM-NAC-011", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "2024-07-25", fechaVencimiento: "N/A", estado: "Vigente", requisitosInscripcion: ["Factura Comercial", "Documento de Transporte (BL/AWB)", "Licencia de Importación (si aplica)", "Certificado de Origen"], requisitosRenovacion: [] },
     { id: "PERM-NAC-012", tipo: "Inscripción Militar Obligatoria (Empresa)", emisor: "Min. Defensa", fechaEmision: "2020-01-15", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["RIF", "Nómina de trabajadores en edad militar"], requisitosRenovacion: ["Actualización anual de la nómina"] },
     { id: "PERM-NAC-013", tipo: "Inscripción y Aporte a FONACIT", emisor: "FONACIT", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitosInscripcion: ["Declaración de Ingresos Brutos del ejercicio anterior", "Pago del aporte correspondiente"], requisitosRenovacion: ["Nueva declaración y pago anual"] },
@@ -137,7 +139,7 @@ const getLetterContent = (permiso: Permiso | null): string => {
 
     const fechaActual = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
     const baseContent = `
-Ciudad, ${fechaActual}
+Ciudad, ${'fechaActual'}
 
 Señores
 ${permiso.emisor}
@@ -535,23 +537,23 @@ C.I: [C.I. del Representante]
                                                                         <h4 className="font-semibold mb-2">Modelo de Carta de Renovación</h4>
                                                                         <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto whitespace-pre-wrap">
                                                                             {`
-                                                                            Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
+Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
 
-                                                                            Señores
-                                                                            ${permiso.emisor}
-                                                                            Presente.-
+Señores
+${permiso.emisor}
+Presente.-
 
-                                                                            Asunto: Solicitud de Renovación de Permiso - ${permiso.tipo}
+Asunto: Solicitud de Renovación de Permiso - ${permiso.tipo}
 
-                                                                            Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${permiso.tipo}", con referencia N° ${permiso.id}, próximo a vencer.
+Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${permiso.tipo}", con referencia N° ${permiso.id}, próximo a vencer.
 
-                                                                            Adjuntamos los recaudos correspondientes para la renovación.
+Adjuntamos los recaudos correspondientes para la renovación.
 
-                                                                            Atentamente,
+Atentamente,
 
-                                                                            _________________________
-                                                                            [Nombre del Representante Legal]
-                                                                            C.I: [C.I. del Representante]
+_________________________
+[Nombre del Representante Legal]
+C.I: [C.I. del Representante]
                                                                             `}
                                                                         </div>
                                                                         <div className="flex gap-2 mt-2">
@@ -677,3 +679,5 @@ C.I: [C.I. del Representante]
     </div>
   );
 }
+
+    
