@@ -7,6 +7,11 @@ import {
   TrendingUp,
   Wallet,
   HandCoins,
+  ArrowRight,
+  UserCheck,
+  FileWarning,
+  Mail,
+  Users
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import Link from "next/link";
@@ -49,9 +54,9 @@ export default function DashboardEmpresaPage() {
       <header className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
             <Building className="h-8 w-8 md:h-10 md:w-10 text-primary" />
-            Dashboard de Administración y Finanzas
+            Sala de Situación Financiera
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl">Visión general de las operaciones, finanzas y cumplimiento de la empresa.</p>
+        <p className="text-muted-foreground mt-2 max-w-2xl">Visión de 360° sobre las operaciones, finanzas y cumplimiento de la empresa.</p>
       </header>
 
       {/* KPIs */}
@@ -120,7 +125,24 @@ export default function DashboardEmpresaPage() {
           </CardContent>
         </Card>
       
-         <ActivityCard recentActivities={recentActivities} />
+         <div className="space-y-8">
+            <Card className="bg-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Resumen de Flujo de Caja</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-green-500/10">
+                        <span className="font-medium text-green-400">Total por Cobrar</span>
+                        <span className="font-bold text-lg text-green-300">{formatCurrency(75000)}</span>
+                    </div>
+                     <div className="flex items-center justify-between p-3 rounded-lg bg-red-500/10">
+                        <span className="font-medium text-red-400">Total por Pagar</span>
+                        <span className="font-bold text-lg text-red-300">{formatCurrency(42000)}</span>
+                    </div>
+                </CardContent>
+            </Card>
+            <ActivityCard recentActivities={recentActivities} />
+         </div>
       </div>
 
        <div className="space-y-4">
@@ -131,5 +153,3 @@ export default function DashboardEmpresaPage() {
     </div>
   );
 }
-
-    
