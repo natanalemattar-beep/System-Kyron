@@ -43,12 +43,6 @@ const Credentials = ({ user, password }: { user: string; password?: string }) =>
 
 export default function LoginVentasPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const router = useRouter();
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push('/analisis-ventas');
-  };
 
   return (
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-sm border-border">
@@ -59,7 +53,7 @@ export default function LoginVentasPage() {
         <CardTitle className="text-2xl">Acceso a Ventas</CardTitle>
         <CardDescription>Inicia sesión con tu usuario de cajero o vendedor.</CardDescription>
       </CardHeader>
-      <form onSubmit={handleLogin}>
+      <form>
         <CardContent className="p-6 space-y-6">
           <div className="space-y-2">
             <Label>Usuario</Label>
@@ -79,8 +73,8 @@ export default function LoginVentasPage() {
               {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
-          <Button type="submit" className="w-full h-11 text-base">
-            Acceder al Dashboard de Ventas
+          <Button asChild type="submit" className="w-full h-11 text-base">
+            <Link href="/analisis-ventas">Acceder al Dashboard de Ventas</Link>
           </Button>
           <Credentials user="cajero.1" password="password123" />
         </CardContent>

@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { countries } from "@/lib/countries";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 const Credentials = ({ user, password }: { user: string; password?: string }) => {
     const { toast } = useToast();
@@ -46,12 +47,6 @@ const Credentials = ({ user, password }: { user: string; password?: string }) =>
 export default function LoginFintechPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
-  const router = useRouter();
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push('/dashboard-empresa');
-  };
 
   return (
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-sm border-border">
@@ -62,7 +57,7 @@ export default function LoginFintechPage() {
         <CardTitle className="text-2xl">FinTech y Banca Digital</CardTitle>
         <CardDescription>Acceso al panel de control principal de la empresa.</CardDescription>
       </CardHeader>
-      <form onSubmit={handleLogin}>
+      <form>
         <CardContent className="p-6 space-y-6">
            <div className="space-y-2">
             <Label>País</Label>
@@ -102,8 +97,8 @@ export default function LoginFintechPage() {
           </div>
         </CardContent>
         <CardFooter className="p-6 pt-0 flex-col">
-          <Button type="submit" className="w-full h-11 text-base">
-            Acceder
+          <Button asChild type="submit" className="w-full h-11 text-base">
+            <Link href="/dashboard-empresa">Acceder</Link>
           </Button>
            <Credentials user="admin.user" password="password123" />
         </CardFooter>

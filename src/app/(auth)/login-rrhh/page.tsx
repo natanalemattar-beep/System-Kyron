@@ -44,12 +44,6 @@ const Credentials = ({ user, password }: { user: string; password?: string }) =>
 
 export default function LoginRrhhPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const router = useRouter();
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push('/dashboard-rrhh');
-  };
 
   return (
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-sm border-border">
@@ -60,7 +54,7 @@ export default function LoginRrhhPage() {
         <CardTitle className="text-2xl">Acceso RR.HH.</CardTitle>
         <CardDescription>Inicia sesión con tu usuario de Recursos Humanos.</CardDescription>
       </CardHeader>
-      <form onSubmit={handleLogin}>
+      <form>
         <CardContent className="p-6 space-y-6">
           <div className="space-y-2">
             <Label htmlFor="username">Usuario</Label>
@@ -80,8 +74,8 @@ export default function LoginRrhhPage() {
               {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
-          <Button type="submit" className="w-full h-11 text-base">
-            Acceder
+          <Button asChild type="submit" className="w-full h-11 text-base">
+            <Link href="/dashboard-rrhh">Acceder</Link>
           </Button>
           <Credentials user="usuario.rrhh" password="password123" />
         </CardContent>

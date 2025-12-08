@@ -43,12 +43,6 @@ const Credentials = ({ user, password }: { user: string; password?: string }) =>
 
 export default function LoginSociosPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const router = useRouter();
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push('/dashboard-socios');
-  };
 
   return (
     <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
@@ -59,7 +53,7 @@ export default function LoginSociosPage() {
         <CardTitle className="text-2xl">Portal de Socios</CardTitle>
         <CardDescription>Acceso exclusivo para socios y directivos.</CardDescription>
       </CardHeader>
-      <form onSubmit={handleLogin}>
+      <form>
         <CardContent className="p-6 space-y-6">
           <div className="space-y-2">
             <Label>Usuario</Label>
@@ -79,8 +73,8 @@ export default function LoginSociosPage() {
               {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
-          <Button type="submit" className="w-full h-11 text-base">
-            Acceder
+          <Button asChild type="submit" className="w-full h-11 text-base">
+            <Link href="/dashboard-socios">Acceder</Link>
           </Button>
           <Credentials user="usuario.socio" password="password123" />
         </CardContent>

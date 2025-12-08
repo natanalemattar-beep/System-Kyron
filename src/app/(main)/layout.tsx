@@ -11,28 +11,29 @@ import { AlertTriangle } from "lucide-react";
 // Dynamically import WelcomeTutorial with SSR turned off
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial'), { ssr: false });
 
+const getUserForPath = (pathname: string) => {
+    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas')) {
+        return { name: "Admin", email: "admin@kyron.com", fallback: "A" };
+    } else if (pathname.startsWith('/dashboard-rrhh')) {
+        return { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" };
+    } else if (pathname.startsWith('/dashboard-socios')) {
+        return { name: "Socio Director", email: "socio@kyron.com", fallback: "S" };
+    } else if (pathname.startsWith('/dashboard-informatica')) {
+        return { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" };
+    } else if (pathname.startsWith('/asesoria-publicidad')) {
+        return { name: "Marketing", email: "mkt@kyron.com", fallback: "M" };
+    } else if (pathname.startsWith('/escritorio-juridico')) {
+        return { name: "Legal", email: "legal@kyron.com", fallback: "L" };
+    } else if (pathname.startsWith('/dashboard-telecom')) {
+        return { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
+    } else {
+        return { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
+    }
+}
+
 export default function MainAppLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-
-  // Determine user based on path
-  let user;
-  if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas')) {
-    user = { name: "Admin", email: "admin@kyron.com", fallback: "A" };
-  } else if (pathname.startsWith('/dashboard-rrhh')) {
-    user = { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" };
-  } else if (pathname.startsWith('/dashboard-socios')) {
-    user = { name: "Socio Director", email: "socio@kyron.com", fallback: "S" };
-  } else if (pathname.startsWith('/dashboard-informatica')) {
-    user = { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" };
-  } else if (pathname.startsWith('/asesoria-publicidad')) {
-    user = { name: "Marketing", email: "mkt@kyron.com", fallback: "M" };
-  } else if (pathname.startsWith('/escritorio-juridico')) {
-    user = { name: "Legal", email: "legal@kyron.com", fallback: "L" };
-  } else if (pathname.startsWith('/dashboard-telecom')) {
-    user = { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
-  } else {
-    user = { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
-  }
+  const user = getUserForPath(pathname);
   
   return (
      <div className="flex flex-col min-h-screen bg-background text-foreground">
