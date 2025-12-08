@@ -34,6 +34,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui
 import { Menu } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { loginOptions } from "@/lib/login-options";
+import { ThemeToggle } from "./theme-toggle";
 
 type User = {
   name: string;
@@ -182,6 +183,7 @@ export function AppHeader({ user }: { user: User }) {
                  </ScrollArea>
               </SheetContent>
             </Sheet>
+            <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-9 w-9 rounded-full">
