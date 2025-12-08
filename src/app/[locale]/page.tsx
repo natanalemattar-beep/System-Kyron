@@ -73,19 +73,28 @@ const testimonials = [
 ];
 
 const navModules = [
-  { name: "Finanzas", angle: 30, href: "/dashboard-empresa" },
-  { name: "Legal", angle: 75, href: "/escritorio-juridico" },
-  { name: "Ventas", angle: 120, href: "/analisis-ventas" },
-  { name: "RR.HH.", angle: 165, href: "/dashboard-rrhh" },
-  { name: "Marketing", angle: 210, href: "/asesoria-publicidad" },
-  { name: "Tecnología", angle: 255, href: "/dashboard-informatica" },
-  { name: "Telecom", angle: 300, href: "/dashboard-telecom" },
-  { name: "Socios", angle: 345, href: "/dashboard-socios" },
+  { name: "¿De qué trata?", angle: 30, href: "#servicios" },
+  { name: "Funciones Clave", angle: 75, href: "#caracteristicas" },
+  { name: "Tecnología IA", angle: 120, href: "/soluciones-ia" },
+  { name: "¿Quiénes Somos?", angle: 165, href: "#nosotros" },
+  { name: "Planes y Precios", angle: 210, href: "/planes-y-precios" },
+  { name: "Seguridad", angle: 255, href: "/seguridad" },
+  { name: "Contacto Directo", angle: 300, href: "#contacto" },
+  { name: "Demo", angle: 345, href: "/register" },
 ];
 
 const getModuleDescription = (name: string) => {
-    const option = loginOptions.find(opt => opt.label.includes(name));
-    return option ? option.description : "Accede al módulo especializado.";
+    const descriptions: { [key: string]: string } = {
+        "¿De qué trata?": "Descubre los servicios integrales que ofrecemos para potenciar tu empresa.",
+        "Funciones Clave": "Explora las características que hacen de Kyron una plataforma única y poderosa.",
+        "Tecnología IA": "Nuestra inteligencia artificial trabaja para ti, automatizando y analizando.",
+        "¿Quiénes Somos?": "Conoce al equipo detrás de Kyron y nuestra misión.",
+        "Planes y Precios": "Encuentra el plan perfecto que se ajusta a las necesidades de tu negocio.",
+        "Seguridad": "Tu tranquilidad es nuestra prioridad. Conoce nuestras capas de seguridad.",
+        "Contacto Directo": "Hablemos. Estamos aquí para resolver tus dudas y ayudarte a empezar.",
+        "Demo": "Regístrate y prueba por ti mismo el poder de nuestra plataforma.",
+    };
+    return descriptions[name] || "Explora este módulo para más información.";
 };
 
 const ModuleText = memo(({ module, radius, onHover }: { module: typeof navModules[0], radius: number, onHover: (desc: {name: string, description: string} | null) => void }) => {
@@ -94,7 +103,7 @@ const ModuleText = memo(({ module, radius, onHover }: { module: typeof navModule
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
 
     return (
-        <Link href={module.href} key={module.name}>
+        <SmoothScrollLink href={module.href} key={module.name}>
             <motion.div
                 className="absolute text-sm md:text-base cursor-pointer font-semibold text-muted-foreground"
                 style={{
@@ -114,7 +123,7 @@ const ModuleText = memo(({ module, radius, onHover }: { module: typeof navModule
             >
                 {module.name}
             </motion.div>
-        </Link>
+        </SmoothScrollLink>
     );
 });
 ModuleText.displayName = 'ModuleText';
