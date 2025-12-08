@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef, memo } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown, HelpCircle } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
@@ -18,6 +18,7 @@ import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
@@ -44,6 +45,7 @@ const navLinks = [
   { href: "#servicios", label: "Servicios" },
   { href: "#caracteristicas", label: "Características" },
   { href: "#nosotros", label: "Nosotros" },
+  { href: "#faq", label: "FAQ" },
   { href: "#contacto", label: "Contacto" },
 ];
 
@@ -71,6 +73,21 @@ const testimonials = [
     company: "Inversiones ABC",
     text: "La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.",
   },
+];
+
+const faqItems = [
+    {
+        question: "¿Puedo cambiar de plan en cualquier momento?",
+        answer: "Sí, puedes mejorar o ajustar tu plan en cualquier momento desde el panel de tu cuenta. La facturación se ajustará de forma prorrateada."
+    },
+    {
+        question: "¿El sistema está homologado por el SENIAT?",
+        answer: "Absolutamente. Nuestro sistema de facturación cumple con todas las providencias administrativas vigentes del SENIAT, garantizando tu tranquilidad fiscal."
+    },
+    {
+        question: "¿Qué tipo de soporte técnico ofrecen?",
+        answer: "Ofrecemos soporte por correo electrónico para el Plan Básico y soporte prioritario vía WhatsApp y teléfono para los planes Profesional y Corporativo."
+    },
 ];
 
 const navModules = [
@@ -448,9 +465,48 @@ export default function LandingPage() {
                 </div>
             </div>
         </section>
+
+        {/* FAQ Section */}
+        <section id="faq" className="py-20 md:py-28 bg-muted/30">
+            <div className="container mx-auto px-4 md:px-6">
+                <motion.div 
+                    className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <h2 className="text-3xl md:text-4xl font-bold">Preguntas Frecuentes</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Resolvemos tus dudas más comunes para que tomes la mejor decisión.</p>
+                </motion.div>
+                <motion.div 
+                    className="max-w-3xl mx-auto"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    <Accordion type="single" collapsible className="w-full">
+                        {faqItems.map((item, index) => (
+                            <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 backdrop-blur-sm border rounded-lg mb-2 px-4">
+                                <AccordionTrigger>
+                                    <div className="flex items-center gap-3 text-left">
+                                        <HelpCircle className="h-5 w-5 text-primary shrink-0" />
+                                        <span>{item.question}</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="pl-10 text-muted-foreground">
+                                    {item.answer}
+                                </AccordionContent>
+                            </AccordionItem>
+                        ))}
+                    </Accordion>
+                </motion.div>
+            </div>
+        </section>
         
         {/* CTA Section */}
-        <section className="py-20 md:py-28 bg-muted/30">
+        <section className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6 text-center">
                  <motion.div 
                     className="max-w-2xl mx-auto p-8 rounded-2xl bg-card border"
@@ -510,4 +566,3 @@ export default function LandingPage() {
   );
 }
 
-    
