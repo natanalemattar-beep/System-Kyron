@@ -1,11 +1,11 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { Layers, Bot, UserCheck, ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { Logo } from "./logo";
 
 const tutorialSteps = [
@@ -31,9 +31,23 @@ const tutorialSteps = [
     }
 ];
 
-export function WelcomeTutorial({ open, onOpenChange }: { open: boolean, onOpenChange: (open: boolean) => void }) {
+export function WelcomeTutorial() {
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        const hasSeenTutorial = localStorage.getItem("hasSeenKyronTutorial");
+        if (!hasSeenTutorial) {
+            setOpen(true);
+            localStorage.setItem("hasSeenKyronTutorial", "true");
+        }
+    }, []);
+
+    if (!open) {
+        return null;
+    }
+    
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="sm:max-w-md p-0 border-0">
                  <Carousel className="w-full">
                     <CarouselContent>
@@ -55,7 +69,7 @@ export function WelcomeTutorial({ open, onOpenChange }: { open: boolean, onOpenC
                     <CarouselNext className="right-4" />
                 </Carousel>
                 <div className="flex justify-center p-6 pt-0">
-                     <Button onClick={() => onOpenChange(false)}>
+                     <Button onClick={() => setOpen(false)}>
                         Comenzar a Explorar <ArrowRight className="ml-2 h-4 w-4"/>
                     </Button>
                 </div>
