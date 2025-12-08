@@ -110,7 +110,7 @@ const ModuleButton = memo(({ module, radius, onHover }: { module: typeof navModu
             whileHover={{ scale: 1.2, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
             transition={{ type: "spring", stiffness: 300 }}
         >
-            {Icon && <Icon className="h-5 w-5 md:h-6 md:h-6 text-primary" />}
+            {Icon && <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />}
         </motion.div>
         </Link>
     );
