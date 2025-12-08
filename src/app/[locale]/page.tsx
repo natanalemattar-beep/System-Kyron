@@ -428,7 +428,7 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section ref={targetRef} className="relative overflow-hidden">
-            <div className="flex flex-col items-center justify-center min-h-screen pt-24 pb-12">
+             <div className="flex flex-col items-center justify-center min-h-screen pt-24 pb-12">
             
             {/* Fondo animado */}
             <motion.div 
