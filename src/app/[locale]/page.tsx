@@ -22,7 +22,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { planes, faqItems, securityFeatures, iaSolutions } from '@/lib/page-data';
+import { securityFeatures, iaSolutions, faqItems } from '@/lib/page-data';
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
@@ -119,69 +119,6 @@ const getModuleDescription = (name: string) => {
     }
 };
 
-const PlansContent = () => (
-  <>
-    <DialogHeader>
-      <DialogTitle>Planes y Precios</DialogTitle>
-      <DialogDescription>Elige el plan que se adapta al tamaño y las necesidades de tu negocio.</DialogDescription>
-    </DialogHeader>
-    <div className="grid gap-4 md:grid-cols-3">
-        {planes.map(plan => (
-            <Card key={plan.nombre} className={`flex flex-col ${plan.popular ? 'border-primary' : ''}`}>
-                {plan.popular && <div className="bg-primary text-primary-foreground text-xs font-bold text-center py-1 rounded-t-lg">MÁS POPULAR</div>}
-                <CardHeader className="text-center">
-                    <CardTitle className="text-xl">{plan.nombre}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                    <div className="text-center mb-4">
-                        <span className="text-3xl font-bold">{plan.precio}</span>
-                        <span className="text-muted-foreground">{plan.periodo}</span>
-                    </div>
-                    <ul className="space-y-2 text-sm">
-                        {plan.features.map(feature => (
-                             <li key={feature} className="flex items-start gap-2">
-                                <CheckCircle className="h-4 w-4 text-green-500 mt-1 shrink-0" />
-                                <span className="text-muted-foreground">{feature}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </CardContent>
-                <CardFooter>
-                    <Button className="w-full" variant={plan.popular ? 'default' : 'outline'}>
-                      {plan.precio === "Contáctanos" ? "Contactar" : "Seleccionar"}
-                    </Button>
-                </CardFooter>
-            </Card>
-        ))}
-    </div>
-  </>
-);
-
-const SecurityContent = () => (
-    <>
-        <DialogHeader>
-            <DialogTitle>Seguridad de Nivel Empresarial</DialogTitle>
-            <DialogDescription>Tu tranquilidad es nuestra prioridad. Así protegemos tus datos.</DialogDescription>
-        </DialogHeader>
-        <div className="space-y-4">
-            {securityFeatures.map(feature => (
-                <div key={feature.title} className="flex items-start gap-4">
-                    <div className="p-2 bg-primary/10 text-primary rounded-lg mt-1">
-                        <feature.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                        <h4 className="font-semibold">{feature.title}</h4>
-                        <p className="text-sm text-muted-foreground">{feature.description}</p>
-                    </div>
-                </div>
-            ))}
-        </div>
-        <DialogFooter>
-            <p className="text-xs text-muted-foreground">Kyron cumple con los más altos estándares de seguridad para garantizar la integridad y confidencialidad de tu información.</p>
-        </DialogFooter>
-    </>
-);
-
 const IaContent = () => (
      <>
         <DialogHeader>
@@ -266,8 +203,6 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave, index }: {
                         {content}
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-2xl">
-                       {module.name === 'Planes y Precios' && <PlansContent />}
-                       {module.name === 'Seguridad Garantizada' && <SecurityContent />}
                        {module.name === 'Tecnología IA' && <IaContent />}
                     </DialogContent>
                 </Dialog>

@@ -1,5 +1,4 @@
 
-
 import {
   FileText,
   Bell,
@@ -339,8 +338,8 @@ export const adminNavGroups = [
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   { title: "Internacional", icon: Globe, items: internationalOperationsMenuItems, subGroups: [] },
-  { title: "General", icon: Cog, items: generalMenuItems, subGroups: [] },
   { title: "Recursos", icon: BookUser, items: recursosMenuItems, subGroups: [] },
+  { title: "General", icon: Cog, items: generalMenuItems, subGroups: [] },
 ];
 
 export const legalNavGroups = [
@@ -383,5 +382,3 @@ export const informaticaNavGroups = [
   ], subGroups: [] },
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems, subGroups: [] },
 ];
-
-    
