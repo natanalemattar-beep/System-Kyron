@@ -219,10 +219,26 @@ export default function EstudioFactibilidadEconomicaPage() {
                 </div>
             </CardContent>
         </Card>
+        
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3"><FileSignature className="h-6 w-6"/>4. Propuesta de Valor: El Ecosistema Kyron</CardTitle>
+            </CardHeader>
+            <CardContent className="grid md:grid-cols-2 gap-6">
+                <div className="p-4 bg-secondary/50 rounded-lg">
+                    <h4 className="font-semibold text-lg mb-2">Pilar 1: Software de Automatización y Suministros</h4>
+                    <p className="text-sm text-muted-foreground">Plataforma en la nube para automatizar procesos, integrada con una oferta comercial que incluye: equipos fiscales, impresoras, material de oficina y servicios de telecomunicaciones.</p>
+                </div>
+                <div className="p-4 bg-secondary/50 rounded-lg">
+                    <h4 className="font-semibold text-lg mb-2">Pilar 2: Implementación Financiera con Billetera Blockchain</h4>
+                    <p className="text-sm text-muted-foreground">Solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.</p>
+                </div>
+            </CardContent>
+        </Card>
 
          <Card className="bg-card/50 backdrop-blur-sm">
              <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Briefcase className="h-6 w-6"/>4. Estudio Organizacional y Legal</CardTitle>
+                <CardTitle className="flex items-center gap-3"><Briefcase className="h-6 w-6"/>5. Estudio Organizacional y Legal</CardTitle>
             </CardHeader>
             <CardContent>
                 <p>La factibilidad operativa se basa en una estructura organizacional ágil y un estricto cumplimiento del marco regulatorio venezolano. Se recomienda la constitución como C.A. o S.A. y es mandatorio que el Software de Gestión sea homologado ante el SENIAT.</p>
@@ -231,7 +247,7 @@ export default function EstudioFactibilidadEconomicaPage() {
         
          <Card className="bg-card/50 backdrop-blur-sm">
              <CardHeader>
-                <CardTitle className="flex items-center gap-3"><DollarSign className="h-6 w-6"/>5. Estudio Financiero</CardTitle>
+                <CardTitle className="flex items-center gap-3"><DollarSign className="h-6 w-6"/>6. Estudio Financiero</CardTitle>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -246,14 +262,14 @@ export default function EstudioFactibilidadEconomicaPage() {
              <CardFooter>
                 <Button size="sm" variant="outline" onClick={handleExportCSV}>
                     <Download className="mr-2 h-4 w-4"/>
-                    Exportar a Hojas de cálculo
+                    Exportar Proyecciones a Hojas de cálculo
                 </Button>
             </CardFooter>
         </Card>
         
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><ShieldAlert className="h-6 w-6"/>6. Análisis de Riesgos (FODA)</CardTitle>
+                <CardTitle className="flex items-center gap-3"><ShieldAlert className="h-6 w-6"/>7. Análisis de Riesgos (FODA)</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -277,12 +293,12 @@ export default function EstudioFactibilidadEconomicaPage() {
         
          <Card className="bg-primary/10 border-primary/20">
             <CardHeader>
-                <CardTitle>7. Conclusión y Recomendación Final</CardTitle>
+                <CardTitle>8. Conclusión y Recomendación Final</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className="text-lg font-semibold">El proyecto Kyron se considera ALTAMENTE FACTIBLE. La combinación de hardware y SaaS es una ventaja competitiva única.</p>
+                <p className="text-lg font-semibold">El proyecto Kyron se considera ALTAMENTE FACTIBLE. La combinación de hardware innovador con un modelo SaaS recurrente crea una propuesta de valor única, sólida y sostenible que resuelve problemas críticos de mercado.</p>
                 <p className="text-muted-foreground mt-2">
-                    Se recomienda proceder inmediatamente con la Fase de Prototipado y la Búsqueda de Capital Semilla para financiar la I+D y la producción. Kyron no es solo viable, sino una inversión estratégica en el futuro digital y sostenible de las empresas en Venezuela.
+                    Se recomienda proceder inmediatamente con la Fase de Prototipado y la Búsqueda de Capital Semilla para financiar la I+D y la escala operativa. Kyron no es solo viable, sino una inversión estratégica en el futuro digital y sostenible de las empresas en Venezuela.
                 </p>
             </CardContent>
         </Card>
