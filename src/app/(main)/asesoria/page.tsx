@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Megaphone, Ship, CandlestickChart, Gavel, FileText, Briefcase } from "lucide-react";
+import { ArrowRight, Megaphone, Ship, CandlestickChart, Gavel, FileText, Briefcase, Bot } from "lucide-react";
 import Link from "next/link";
 
 const advisoryModules = [
@@ -42,6 +42,12 @@ const advisoryModules = [
         description: "Diagnóstico FODA, CAME y PESTLE para la toma de decisiones y planificación estratégica.",
         icon: Briefcase,
         href: "/analisis-estrategico"
+    },
+    {
+        title: "Estudio de Factibilidad Económica",
+        description: "Análisis integral de proyectos de inversión, incluyendo viabilidad técnica, de mercado, legal y financiera.",
+        icon: Bot,
+        href: "/estudio-factibilidad-economica"
     },
 ];
 
