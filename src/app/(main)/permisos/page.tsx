@@ -19,6 +19,7 @@ import {
     Clock,
     Route,
 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 
 const initialPermisos = [
@@ -141,7 +142,7 @@ const getLetterContent = (permiso: Permiso | null): string => {
 
     const fechaActual = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
     const baseContent = `
-Ciudad, ${fechaActual}
+Ciudad, ${'fechaActual'}
 
 Señores
 ${permiso.emisor}
@@ -251,6 +252,8 @@ export default function PermisosPage() {
       ]
   });
   const [selectedPermit, setSelectedPermit] = useState<Permiso | null>(null);
+  const [isAlertConfigOpen, setIsAlertConfigOpen] = useState(false);
+  const [alertEmail, setAlertEmail] = useState("maitehdez37@gmail.com");
 
   const { toast } = useToast();
 
@@ -312,12 +315,19 @@ export default function PermisosPage() {
       form.reset();
   };
 
-  const handleSendNotification = (permiso: Permiso) => {
+  const handleSendNotification = (permiso: Permiso | null, isManual: boolean = false) => {
+    if(!permiso && !isManual) return;
+    
+    const description = isManual 
+        ? `Se ha enviado un correo a ${alertEmail} con los permisos vencidos y por vencer.`
+        : `Se ha enviado una alerta de renovación para el permiso "${permiso?.tipo}" a ${alertEmail}.`;
+        
     toast({
         title: `Notificación Enviada`,
-        description: `Se ha enviado una alerta de renovación para el permiso "${permiso.tipo}" a maitehdez37@gmail.com.`,
+        description: description,
     });
-    setSelectedPermit(null);
+    
+    if(selectedPermit) setSelectedPermit(null);
   };
   
   const handleDownloadLetter = (permiso: Permiso | null, tipo: 'solicitud' | 'renovacion' | 'planilla_resguardo') => {
@@ -384,6 +394,8 @@ C.I: [C.I. del Representante]
     acc[emisor].push(permiso);
     return acc;
   }, {} as Record<string, typeof initialPermisos>);
+  
+  const permisosPorVencer = permisos.filter(p => p.estado === 'Por Vencer' || p.estado === 'Vencido');
 
   return (
     <div className="p-4 md:p-8">
@@ -398,19 +410,61 @@ C.I: [C.I. del Representante]
             </p>
         </div>
         <div className="flex items-center gap-2">
-            <Button variant="destructive" onClick={() => toast({
-                title: "Alertas Enviadas",
-                description: "Se ha enviado un correo a maitehdez37@gmail.com con los permisos vencidos y por vencer."
-            })}>
-                <Mail className="mr-2"/>
-                Notificar Alertas a Administración
-            </Button>
+             <Dialog open={isAlertConfigOpen} onOpenChange={setIsAlertConfigOpen}>
+                <DialogTrigger asChild>
+                    <Button variant="outline">Configurar Alertas</Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Sistema de Notificación Automatizada</DialogTitle>
+                        <DialogDescription>
+                            Configura el sistema para recibir alertas automáticas sobre vencimientos de permisos.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 py-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="alert-email">Correo para Notificaciones</Label>
+                            <Input id="alert-email" type="email" value={alertEmail} onChange={(e) => setAlertEmail(e.target.value)} />
+                        </div>
+                         <div className="space-y-2">
+                            <Label htmlFor="alert-frequency">Frecuencia de Avisos</Label>
+                            <Select defaultValue="weekly">
+                                <SelectTrigger id="alert-frequency">
+                                    <SelectValue placeholder="Seleccionar frecuencia..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="daily">Diaria</SelectItem>
+                                    <SelectItem value="weekly">Semanal</SelectItem>
+                                    <SelectItem value="monthly">Mensual</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button onClick={() => {toast({title: "Configuración Guardada", description: `Las alertas se enviarán a ${alertEmail}.`}); setIsAlertConfigOpen(false);}}>
+                            Guardar Configuración
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
             <Button>
                 <PlusCircle className="mr-2" />
                 Solicitar Nuevo Permiso
             </Button>
         </div>
       </header>
+
+       {permisosPorVencer.length > 0 && (
+          <Alert variant="destructive" className="mb-8">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>Alerta de Vencimiento</AlertTitle>
+            <AlertDescription>
+              Tienes {permisosPorVencer.length} permiso(s) vencido(s) o por vencer. Revisa la tabla para más detalles.
+              <Button size="sm" className="ml-4" onClick={() => handleSendNotification(null, true)}>Notificar a Administración</Button>
+            </AlertDescription>
+          </Alert>
+        )}
+
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
             <CardTitle>Permisos y Licencias por Ente Emisor</CardTitle>
@@ -482,7 +536,7 @@ C.I: [C.I. del Representante]
                                     </TableCell>
                                     <TableCell className="text-right space-x-1">
                                         {permiso.id === 'REG-MERC-001' ? (
-                                             <Button variant="outline" size="sm" onClick={() => handleAction(`Descarga de Registro Mercantil iniciada.`)}>
+                                             <Button variant="outline" size="sm" onClick={() => toast({title: "Descarga Iniciada", description: "El Registro Mercantil se está descargando."})}>
                                                 <Download className="mr-2 h-4 w-4" />
                                                 Descargar Documento
                                             </Button>
@@ -666,7 +720,7 @@ C.I: [C.I. del Representante]
                                                     <DialogHeader>
                                                         <DialogTitle>Notificar Renovación</DialogTitle>
                                                         <DialogDescription>
-                                                            Se enviará una alerta de renovación para el permiso <strong>{permiso.tipo}</strong> a maitehdez37@gmail.com.
+                                                            Se enviará una alerta de renovación para el permiso <strong>{permiso.tipo}</strong> a {alertEmail}.
                                                         </DialogDescription>
                                                     </DialogHeader>
                                                     <DialogFooter>
@@ -692,5 +746,3 @@ C.I: [C.I. del Representante]
     </div>
   );
 }
-
-    
