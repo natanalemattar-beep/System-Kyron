@@ -92,36 +92,37 @@ export default function DashboardEmpresaPage() {
               <CardDescription>Evolución de ingresos, gastos y rentabilidad.</CardDescription>
           </CardHeader>
           <CardContent className="flex-grow min-h-0">
-              <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={rentabilidadData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-                      <defs>
-                          <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                          </linearGradient>
-                           <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
-                              <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
-                          </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
-                      <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
-                      <YAxis yAxisId="left" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value as number) / 1000}k`} />
-                      <YAxis yAxisId="right" orientation="right" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${value}%`} />
-                      <ChartTooltip 
-                          cursor={{fill: 'hsl(var(--accent))', opacity: 0.3}}
-                          contentStyle={{backgroundColor: 'hsl(var(--background) / 0.8)', backdropFilter: 'blur(4px)', border: '1px solid hsl(var(--border))'}}
-                          content={<ChartTooltipContent 
-                              indicator="dot" 
-                              formatter={(value, name) => name === 'rentabilidad' ? `${(value as number).toFixed(1)}%` : formatCurrency(value as number, 'Bs.')} 
-                          />} 
-                      />
-                      <Legend />
-                      <Area yAxisId="left" type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
-                       <Area yAxisId="left" type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
-                       <Area yAxisId="right" type="monotone" dataKey="rentabilidad" stroke="hsl(var(--accent-foreground))" fill="transparent" />
-                  </AreaChart>
-              </ResponsiveContainer>
+             <ChartContainer config={chartConfig} className="h-full w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={rentabilidadData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                        <defs>
+                            <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                            </linearGradient>
+                            <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
+                            </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+                        <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
+                        <YAxis yAxisId="left" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value as number) / 1000}k`} />
+                        <YAxis yAxisId="right" orientation="right" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${value}%`} />
+                        <ChartTooltip 
+                            cursor={{fill: 'hsl(var(--accent))', opacity: 0.3}}
+                            content={<ChartTooltipContent 
+                                indicator="dot" 
+                                formatter={(value, name) => name === 'rentabilidad' ? `${(value as number).toFixed(1)}%` : formatCurrency(value as number, 'Bs.')} 
+                            />} 
+                        />
+                        <Legend />
+                        <Area yAxisId="left" type="monotone" dataKey="ingresos" name="Ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
+                        <Area yAxisId="left" type="monotone" dataKey="gastos" name="Gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
+                        <Area yAxisId="right" type="monotone" dataKey="rentabilidad" name="Rentabilidad" stroke="hsl(var(--accent-foreground))" fill="transparent" />
+                    </AreaChart>
+                </ResponsiveContainer>
+              </ChartContainer>
           </CardContent>
         </Card>
       
