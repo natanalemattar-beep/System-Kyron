@@ -92,6 +92,7 @@ import {
   Package,
   Zap,
   Signal,
+  Book,
 } from "lucide-react";
 
 
@@ -250,7 +251,6 @@ const iaMenuItems = [
 
 const generalMenuItems = [
   { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
-  { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
   { href: "/organigrama", label: "Organigrama", icon: Network },
   { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
@@ -272,12 +272,16 @@ const marketingMenuItems = [
     { href: "/nivel-competencia", label: "Competencia y Cadena de Valor", icon: Swords },
     { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
     { href: "/presentacion-startup", label: "Guía para Presentar Startup", icon: Presentation },
-    { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
-    { href: "/analisis-empresa-hibrida", label: "Análisis de Modelos de Negocio", icon: Rocket },
     { href: "/carta-exposicion-motivos", label: "Carta de Exposición de Motivos", icon: Lightbulb },
     { href: "/demografia", label: "Demografía y Mercado", icon: Users },
     { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
     { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
+];
+
+const recursosMenuItems = [
+    { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
+    { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+    { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
 ];
 
 export const ventasMenuItems = [
@@ -323,7 +327,6 @@ export const legalNavItems = [
   { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
   { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
   { href: "/multas", label: "Multas", icon: AlertTriangle },
-  { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
   { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
   { href: "/activos-inmobiliarios", label: "Gestión de Activos", icon: Building },
   { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
@@ -337,6 +340,7 @@ export const adminNavGroups = [
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   { title: "Internacional", icon: Globe, items: internationalOperationsMenuItems, subGroups: [] },
   { title: "General", icon: Cog, items: generalMenuItems, subGroups: [] },
+  { title: "Recursos", icon: Book, items: recursosMenuItems, subGroups: [] },
 ];
 
 export const legalNavGroups = [
