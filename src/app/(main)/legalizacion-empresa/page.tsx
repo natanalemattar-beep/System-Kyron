@@ -107,23 +107,16 @@ Se autoriza ampliamente al ciudadano(a) [NOMBRE DEL AUTORIZADO], titular de la C
             window.print();
         } else if (action === 'descargado') {
             const content = getActaContent();
-            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-                "xmlns='http://www.w3.org/TR/REC-html40'>"+
-                "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
-            const footer = "</body></html>";
-            const sourceHTML = header + `<pre>${content}</pre>` + footer;
-            
-            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-            const fileDownload = document.createElement("a");
-            document.body.appendChild(fileDownload);
-            fileDownload.href = source;
-            fileDownload.download = 'Acta_Constitutiva.docx';
-            fileDownload.click();
-            document.body.removeChild(fileDownload);
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement("a");
+            document.body.appendChild(link);
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Acta_Constitutiva.txt';
+            link.click();
+            document.body.removeChild(link);
             toast({
                 title: `Acta Constitutiva Descargada`,
-                description: `El documento ha sido descargado como archivo Word.`,
+                description: `El documento ha sido descargado como archivo de texto.`,
             });
         }
     };
@@ -254,7 +247,7 @@ Se autoriza ampliamente al ciudadano(a) [NOMBRE DEL AUTORIZADO], titular de la C
                         <Printer className="mr-2"/> Imprimir Modelo
                     </Button>
                     <Button onClick={() => handleAction('descargado')}>
-                        <Download className="mr-2"/> Descargar (.docx)
+                        <Download className="mr-2"/> Descargar (.txt)
                     </Button>
                 </CardFooter>
             </Card>
@@ -263,5 +256,3 @@ Se autoriza ampliamente al ciudadano(a) [NOMBRE DEL AUTORIZADO], titular de la C
     </div>
   );
 }
-
-    

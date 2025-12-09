@@ -45,9 +45,9 @@ Ambas partes se comprometen a mantener estricta confidencialidad sobre la inform
              const content = getContractContent();
              const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
              const link = document.createElement('a');
+             document.body.appendChild(link);
              link.href = URL.createObjectURL(blob);
              link.download = `Contrato_Licencia_Software.txt`;
-             document.body.appendChild(link);
              link.click();
              document.body.removeChild(link);
         }

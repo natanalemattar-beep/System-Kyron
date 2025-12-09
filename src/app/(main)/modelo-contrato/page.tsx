@@ -48,9 +48,9 @@ El presente contrato tendrá una duración de un (1) año, contado a partir de l
         const content = getContractContent();
         const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
         const link = document.createElement('a');
+        document.body.appendChild(link);
         link.href = URL.createObjectURL(blob);
         link.download = `Contrato_Prestacion_Servicios.txt`;
-        document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
          toast({

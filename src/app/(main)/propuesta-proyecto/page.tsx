@@ -62,10 +62,10 @@ El Equipo de Kyron, C.A.
         } else if (action === 'descargado') {
             const content = getProposalContent();
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement('a');
+            const link = document.createElement("a");
+            document.body.appendChild(link);
             link.href = URL.createObjectURL(blob);
             link.download = `Propuesta_Proyecto_Kyron.txt`;
-            document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             toast({

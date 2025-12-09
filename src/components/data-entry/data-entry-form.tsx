@@ -84,20 +84,13 @@ MÉTODO DE PAGO: ${result.paymentMethod || 'N/A'}
 ----------------------------------
 `;
     
-    const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-            "xmlns='http://www.w3.org/TR/REC-html40'>"+
-            "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
-    const footer = "</body></html>";
-    const sourceHTML = header + `<pre>${content}</pre>` + footer;
-
-    const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-    const fileDownload = document.createElement("a");
-    document.body.appendChild(fileDownload);
-    fileDownload.href = source;
-    fileDownload.download = `Recaudo_${result.vendorName.replace(/ /g, '_')}.docx`;
-    fileDownload.click();
-    document.body.removeChild(fileDownload);
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const link = document.createElement('a');
+    document.body.appendChild(link);
+    link.href = URL.createObjectURL(blob);
+    link.download = `Recaudo_${result.vendorName.replace(/ /g, '_')}.txt`;
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -206,7 +199,7 @@ MÉTODO DE PAGO: ${result.paymentMethod || 'N/A'}
                 <Button className="w-full">Guardar Transacción</Button>
                 <Button variant="outline" className="w-full" onClick={handleDownload}>
                     <Download className="mr-2 h-4 w-4"/>
-                    Descargar Recaudo (.docx)
+                    Descargar Recaudo (.txt)
                 </Button>
             </CardFooter>
         )}

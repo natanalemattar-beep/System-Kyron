@@ -1,3 +1,6 @@
+
+"use client";
+
 import { DataEntryForm } from "@/components/data-entry/data-entry-form";
 
 export default function DataEntryPage() {

@@ -63,9 +63,9 @@ Todo lo no previsto en este contrato se regirá por las disposiciones de la Ley 
         const content = getContractContent();
         const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
         const link = document.createElement('a');
+        document.body.appendChild(link);
         link.href = URL.createObjectURL(blob);
         link.download = `Contrato_Trabajo.txt`;
-        document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
          toast({
