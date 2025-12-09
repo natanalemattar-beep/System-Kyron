@@ -1,8 +1,8 @@
 
 "use client";
 
-import { LoginForm } from "@/components/auth/login-form";
 import { User } from "lucide-react";
+import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginPage() {
   const loginProps = {

@@ -49,6 +49,7 @@ interface LoginFormProps {
     mainLink: { href: string; label: string };
     secondaryLinks?: LinkGroup;
   };
+  footerContent?: React.ReactNode;
 }
 
 const idByCountry: Record<string, { label: string, placeholder: string, defaultValue: string }> = {
@@ -70,7 +71,7 @@ const idByCountry: Record<string, { label: string, placeholder: string, defaultV
 };
 
 
-export function LoginForm({ icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks }: LoginFormProps) {
+export function LoginForm({ icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks, footerContent }: LoginFormProps) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
 
@@ -156,7 +157,11 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
           {credentials && <Credentials user={title.includes("Personal") ? currentId.defaultValue : credentials.user} password={credentials.password} />}
         </CardFooter>
       </form>
-      {footerLinks && (
+       {footerContent ? (
+        <CardFooter className="flex-col gap-4 p-6 border-t text-sm text-center">
+          {footerContent}
+        </CardFooter>
+      ) : footerLinks && (
         <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
           {footerLinks.text && <p className="text-muted-foreground">{footerLinks.text}</p>}
            {footerLinks.secondaryLinks ? (

@@ -29,29 +29,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
               <div className="flex items-center gap-2">
                 <LanguageSwitcher />
                 <ThemeToggle />
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button>
-                      Acceder
-                      <User className="ml-2 h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-64">
-                    <DropdownMenuLabel>Selecciona un Portal</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {loginOptions.map((opt) => (
-                        <DropdownMenuItem key={opt.href} asChild>
-                            <Link href={opt.href} className="flex items-center justify-start">
-                              <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                              <div>
-                                <p>{opt.label}</p>
-                                <p className="text-xs text-muted-foreground">{opt.description}</p>
-                              </div>
-                            </Link>
-                        </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Button asChild>
+                  <Link href="/">Acceder</Link>
+                </Button>
               </div>
             </div>
         </div>

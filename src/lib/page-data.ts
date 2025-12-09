@@ -58,6 +58,14 @@ export const faqItems = [
         question: "¿Qué tipo de soporte técnico ofrecen?",
         answer: "Ofrecemos soporte por correo electrónico para el Plan Básico y soporte prioritario vía WhatsApp y teléfono para los planes Profesional y Corporativo."
     },
+     {
+        question: "¿Mis datos están seguros en la plataforma?",
+        answer: "La seguridad es nuestra máxima prioridad. Utilizamos cifrado de extremo a extremo, autenticación de dos factores y auditorías constantes para proteger tu información."
+    },
+     {
+        question: "¿Kyron funciona para cualquier tipo de empresa?",
+        answer: "Sí, Kyron es una plataforma modular diseñada para adaptarse a una amplia gama de sectores, desde pequeños comercios y PYMES hasta grandes corporaciones y empresas de servicios."
+    },
 ];
 
 export const securityFeatures = [

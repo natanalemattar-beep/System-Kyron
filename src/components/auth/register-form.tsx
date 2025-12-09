@@ -72,7 +72,7 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
                 </CardContent>
                  <CardFooter className="p-6 pt-0 flex-col">
                     <Button asChild type="submit" className="w-full h-11 text-base">
-                        <Link href={footerLinkHref}>{submitButtonText}</Link>
+                        <Link href="/">{submitButtonText}</Link>
                     </Button>
                     {credentials && <Credentials {...credentials} />}
                 </CardFooter>
