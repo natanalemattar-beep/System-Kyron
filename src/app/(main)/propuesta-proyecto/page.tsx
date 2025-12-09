@@ -20,24 +20,25 @@ export default function PropuestaProyectoPage() {
         <br/>
         <h2>ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN, TELECOMUNICACIONES Y FINANZAS BLOCKCHAIN</h2>
         <p>Estimados señores de [Nombre de la Empresa Cliente],</p>
-        <p>Nos dirigimos a ustedes para presentar una propuesta que consideramos transformadora. En Kyron, hemos desarrollado una solución integral que combina una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain.</p>
+        <p>En Kyron, hemos desarrollado una solución integral que combina una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain, junto con el suministro de equipos y material de oficina.</p>
         <br/>
         <h3>1. ENTENDIMIENTO DEL PROBLEMA</h3>
         <p>Reconocemos los desafíos del entorno actual:</p>
         <ul>
             <li>La complejidad administrativa y fiscal en Venezuela.</li>
-            <li>La necesidad de soluciones de comunicación eficientes.</li>
+            <li>La necesidad de soluciones de comunicación eficientes y confiables.</li>
             <li>La búsqueda de transacciones financieras seguras, transparentes y modernas.</li>
+            <li>La gestión de compras de equipos y suministros de múltiples proveedores.</li>
         </ul>
         <br/>
-        <h3>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA DE DOS PILARES</h3>
+        <h3>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA INTEGRAL</h3>
         <p>Nuestro proyecto se basa en dos pilares que funcionan de manera sinérgica:</p>
-        <p><strong>a) Pilar 1: Software de Automatización y Telecomunicaciones (SaaS + TaaS):</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa (facturación, inventario, contabilidad), integrada con una oferta de servicios que incluye <strong>línea telefónica y venta de equipos (teléfonos, televisores)</strong>.</p>
+        <p><strong>a) Pilar 1: Software de Automatización y Venta de Equipos:</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa (facturación, inventario, contabilidad), integrada con una oferta comercial que incluye: <strong>equipos fiscales, impresoras, material de oficina</strong>, línea telefónica y venta de equipos de telecomunicaciones (teléfonos, televisores).</p>
         <p><strong>b) Pilar 2: Implementación Financiera con Billetera Blockchain:</strong> Una solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.</p>
         <br/>
         <h3>3. BENEFICIOS CLAVE</h3>
         <ul>
-            <li><strong>Eficiencia Operativa Integral:</strong> Automatiza tareas administrativas y unifica las comunicaciones.</li>
+            <li><strong>Gestión 360°:</strong> Centraliza software, hardware, consumibles y finanzas en un único proveedor.</li>
             <li><strong>Cumplimiento y Seguridad Financiera:</strong> Garantiza el cumplimiento fiscal y ofrece transacciones seguras con tecnología Blockchain.</li>
             <li><strong>Toma de Decisiones Basada en Datos:</strong> Informes en tiempo real sobre finanzas y operaciones.</li>
         </ul>
@@ -130,7 +131,7 @@ export default function PropuestaProyectoPage() {
                 Estimados señores de [Nombre de la Empresa Cliente],
             </p>
             <p>
-                Nos dirigimos a ustedes para presentar una propuesta que consideramos transformadora. En Kyron, hemos desarrollado una solución integral que combina una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain.
+                En Kyron, hemos desarrollado una solución integral que combina una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain, junto con el suministro de equipos y material de oficina.
             </p>
 
             <h4>1. ENTENDIMIENTO DEL PROBLEMA</h4>
@@ -141,14 +142,15 @@ export default function PropuestaProyectoPage() {
                 <li>La complejidad administrativa y fiscal en Venezuela, que consume tiempo y recursos valiosos.</li>
                 <li>La necesidad de soluciones de comunicación eficientes y confiables.</li>
                 <li>La búsqueda de transacciones financieras seguras, transparentes y modernas.</li>
+                <li>La gestión de compras de equipos y suministros de múltiples proveedores.</li>
             </ul>
 
-            <h4>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA DE DOS PILARES</h4>
+            <h4>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA INTEGRAL</h4>
             <p>
                 Nuestro proyecto se basa en dos pilares fundamentales que funcionan de manera sinérgica:
             </p>
             <p>
-                <strong>a) Pilar 1: Software de Automatización y Telecomunicaciones (SaaS + TaaS):</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa (facturación, inventario, contabilidad), integrada con una oferta de servicios que incluye <strong>línea telefónica y venta de equipos (teléfonos, televisores)</strong>.
+                <strong>a) Pilar 1: Software de Automatización y Venta de Equipos:</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa (facturación, inventario, contabilidad), integrada con una oferta comercial que incluye: <strong>equipos fiscales, impresoras, material de oficina</strong>, línea telefónica y venta de equipos de telecomunicaciones (teléfonos, televisores).
             </p>
              <p>
                 <strong>b) Pilar 2: Implementación Financiera con Billetera Blockchain:</strong> Una solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.
@@ -156,7 +158,7 @@ export default function PropuestaProyectoPage() {
 
             <h4>3. BENEFICIOS CLAVE</h4>
              <ul className="list-disc pl-5 space-y-2">
-                <li><strong>Eficiencia Operativa Integral:</strong> Automatiza tareas administrativas y unifica las comunicaciones.</li>
+                <li><strong>Gestión 360°:</strong> Centraliza software, hardware, consumibles y finanzas en un único proveedor.</li>
                 <li><strong>Cumplimiento y Seguridad Financiera:</strong> Garantiza el cumplimiento fiscal y ofrece transacciones seguras con tecnología Blockchain.</li>
                 <li><strong>Toma de Decisiones Basada en Datos:</strong> Obtenga informes en tiempo real sobre el rendimiento financiero y operativo de su empresa.</li>
             </ul>
