@@ -400,10 +400,13 @@ export default function LandingPage() {
                                 <p className="text-muted-foreground max-w-xs">{hoveredModule.description}</p>
                             </>
                             ) : (
-                            <>
-                                <h1 className="text-4xl md:text-5xl font-bold">System Kyron</h1>
-                                <p className="text-base md:text-lg text-muted-foreground">Inteligencia en Cada Transacción</p>
-                            </>
+                            <div className="flex flex-col items-center gap-4">
+                                <h1 className="text-4xl md:text-5xl font-bold text-balance">Inteligencia en Cada Transacción</h1>
+                                <p className="text-base md:text-lg text-muted-foreground max-w-sm">La solución definitiva para la gestión empresarial en Venezuela.</p>
+                                <Button size="lg" asChild className="mt-4 btn-3d-primary">
+                                    <Link href="/register">¡Regístrate Ya!</Link>
+                                </Button>
+                            </div>
                         )}
                     </motion.div>
                 </div>
@@ -641,7 +644,7 @@ export default function LandingPage() {
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
                     <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Únete a cientos de empresas que ya están transformando su gestión con Kyron.</p>
                     <Button size="lg" asChild className="mt-8 btn-3d-primary">
-                      <Link href="/register">¡Regístrate Gratis! <ArrowRight className="ml-2"/></Link>
+                      <Link href="/register">¡Regístrate Ya! <ArrowRight className="ml-2"/></Link>
                     </Button>
                 </motion.div>
             </div>

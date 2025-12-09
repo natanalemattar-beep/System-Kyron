@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Inter } from 'next/font/google';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import { SplashScreen } from '@/components/splash-screen';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
                 enableSystem
                 disableTransitionOnChange
             >
+                <SplashScreen />
                 {children}
             </ThemeProvider>
         </FirebaseClientProvider>

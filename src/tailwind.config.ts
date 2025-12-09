@@ -87,7 +87,7 @@ const config: Config = {
             to: { opacity: "1", transform: "scale(1)" },
         },
         "fade-out-and-zoom": {
-            from: { opacity: "1", transform: "scale(0.95)" },
+            from: { opacity: "1", transform: "scale(1)" },
             to: { opacity: "0", transform: "scale(0.95)" },
         },
         "slide-in-from-top": {
