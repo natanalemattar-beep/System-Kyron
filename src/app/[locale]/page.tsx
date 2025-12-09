@@ -22,7 +22,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { planes, faqItems as plansFaq } from '@/lib/page-data';
+import { planes } from '@/lib/page-data';
 import { securityFeatures } from "@/lib/page-data";
 import { iaSolutions } from "@/lib/page-data";
 
@@ -766,3 +766,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
