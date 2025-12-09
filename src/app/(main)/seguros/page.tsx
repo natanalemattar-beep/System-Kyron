@@ -20,6 +20,7 @@ const polizasGenerales = [
     { id: "POL-INC-002", tipo: "Incendio y Líneas Aliadas", aseguradora: "Mercantil Seguros", monto: 500000, vencimiento: "2024-09-15", estado: "Por Vencer" },
     { id: "POL-VEH-003", tipo: "Flota de Vehículos", aseguradora: "Mapfre Seguros", monto: 80000, vencimiento: "2024-07-30", estado: "Vencida" },
     { id: "POL-VIDA-004", tipo: "Colectivo de Vida y Salud", aseguradora: "Banesco Seguros", monto: 0, vencimiento: "2025-01-31", estado: "Vigente" },
+    { id: "POL-ELEC-005", tipo: "Seguro para Equipos Electrónicos (Alta Gama)", aseguradora: "Liberty Seguros", monto: 1500, vencimiento: "2025-07-20", estado: "Vigente" },
 ];
 
 const polizasFianza = [
