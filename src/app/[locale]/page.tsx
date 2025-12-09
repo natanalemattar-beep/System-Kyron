@@ -313,11 +313,6 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
       <motion.header 
         className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
-        style={{
-             backgroundColor: isScrolled ? 'hsl(var(--background) / 0.8)' : 'transparent',
-             backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-             borderBottom: isScrolled ? '1px solid hsl(var(--border))' : '1px solid transparent',
-        }}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
@@ -328,7 +323,11 @@ export default function LandingPage() {
             delay: 0.5
         }}
     >
-          <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className={cn(
+                "flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
+                isScrolled ? "bg-background/80 backdrop-blur-lg border rounded-full mt-4" : "bg-transparent border-transparent"
+            )}>
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
                   <span className="text-xl font-bold">System Kyron</span>
@@ -421,6 +420,7 @@ export default function LandingPage() {
                       </div>
                   </SheetContent>
               </Sheet>
+            </div>
         </div>
     </motion.header>
 
@@ -495,7 +495,7 @@ export default function LandingPage() {
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="py-20 md:py-28 bg-background">
+        <section id="servicios" className="pt-32 md:pt-40 pb-20 md:pb-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                  <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
