@@ -20,9 +20,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { iaSolutions, faqItems } from '@/lib/page-data';
+import { iaSolutions, faqItems, securityFeatures } from '@/lib/page-data';
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
@@ -148,6 +148,35 @@ const IaContent = () => (
     </>
 );
 
+const SecurityContent = () => (
+    <>
+        <DialogHeader>
+          <DialogTitle>Seguridad Garantizada</DialogTitle>
+          <DialogDescription>Tu tranquilidad es nuestra prioridad. Conoce nuestras capas de protección.</DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4">
+            {securityFeatures.map(feature => (
+                <Card key={feature.title} className="bg-secondary">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-3 text-base">
+                            <feature.icon className="h-5 w-5 text-primary"/>
+                            {feature.title}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+        <DialogFooter>
+            <Button asChild>
+                <Link href="/seguridad">Administrar mi seguridad <ArrowRight className="ml-2 h-4 w-4"/></Link>
+            </Button>
+        </DialogFooter>
+    </>
+);
+
 
 const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module: typeof navModules[0], radius: number, onMouseEnter: () => void, onMouseLeave: () => void }) => {
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
@@ -170,26 +199,22 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
         </motion.div>
     );
 
-    const Wrapper = ({ children, href }: { children: React.ReactNode, href: string }) => {
-        if (module.type === 'scroll') {
-            return <SmoothScrollLink href={href}>{children}</SmoothScrollLink>;
-        }
-        return <Link href={href}>{children}</Link>;
-    };
-
     const OrbContent = () => {
-        if (module.type === 'dialog') {
-            return (
-                <Dialog>
-                    <DialogTrigger asChild>{content}</DialogTrigger>
-                    <DialogContent className="sm:max-w-2xl">
-                       {module.name === 'Tecnología IA' && <IaContent />}
-                       {/* You can add more dialog content checks here, e.g., for 'Seguridad Garantizada' */}
-                    </DialogContent>
-                </Dialog>
-            );
-        }
-        return <Wrapper href={module.href}>{content}</Wrapper>;
+      if (module.type === 'scroll') {
+        return <SmoothScrollLink href={module.href}>{content}</SmoothScrollLink>;
+      }
+      if (module.type === 'dialog') {
+        return (
+          <Dialog>
+              <DialogTrigger asChild>{content}</DialogTrigger>
+              <DialogContent className="sm:max-w-2xl">
+                  {module.name === 'Tecnología IA' && <IaContent />}
+                  {module.name === 'Seguridad Garantizada' && <SecurityContent />}
+              </DialogContent>
+          </Dialog>
+        );
+      }
+      return <Link href={module.href}>{content}</Link>;
     };
 
     return (
@@ -407,7 +432,7 @@ export default function LandingPage() {
                                 <p className="text-muted-foreground max-w-xs">{hoveredModule.description}</p>
                             </>
                             ) : (
-                            <h1 className="text-8xl md:text-9xl font-bold text-foreground/90 text-shadow-glow">
+                            <h1 className="text-7xl md:text-8xl font-bold text-foreground/90 text-shadow-glow">
                                 Kyron
                             </h1>
                         )}

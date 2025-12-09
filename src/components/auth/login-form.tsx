@@ -68,6 +68,7 @@ const idByCountry: Record<string, { label: string, placeholder: string, defaultV
     "CHN": { label: "Resident Identity Card Number", placeholder: "110101199003071234", defaultValue: "110101199003071234" },
     "ARE": { label: "Emirates ID Number", placeholder: "784-1980-1234567-1", defaultValue: "784-1980-1234567-1" },
     "CAN": { label: "Social Insurance Number (SIN)", placeholder: "123-456-789", defaultValue: "123-456-789" },
+    "PRT": { label: "Cartão de Cidadão", placeholder: "12345678 9 ZZ1", defaultValue: "12345678 9 ZZ1" },
 };
 
 
