@@ -6,10 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
 import { TrendingUp, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw } from "lucide-react";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
 import Link from "next/link";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import { motion } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
+
 
 const kpiData = [
     { title: "Ingresos Totales (Mes)", value: formatCurrency(62000, 'Bs.'), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
@@ -43,6 +46,15 @@ const chartConfig = {
 
 
 export default function AnalisisVentasPage() {
+  const { toast } = useToast();
+
+  const handleExport = () => {
+      toast({
+          title: "Reporte Generado",
+          description: "El reporte de ventas ha sido exportado exitosamente.",
+      });
+  };
+  
   return (
     <div className="space-y-8">
       <header className="mb-8 flex flex-col md:flex-row justify-between md:items-center gap-4">
@@ -56,7 +68,7 @@ export default function AnalisisVentasPage() {
             </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline"><Download className="mr-2"/>Exportar Reporte</Button>
+          <Button variant="outline" onClick={handleExport}><Download className="mr-2"/>Exportar Reporte</Button>
           <Button asChild>
             <Link href="/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
           </Button>
@@ -64,19 +76,26 @@ export default function AnalisisVentasPage() {
       </header>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {kpiData.map(kpi => (
-            <Card key={kpi.title} className="bg-card/80 backdrop-blur-sm">
-                <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium flex items-center justify-between">
-                      <span>{kpi.title}</span>
-                      <kpi.icon className="h-4 w-4 text-muted-foreground" />
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-2xl font-bold">{kpi.value}</div>
-                    <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
-                </CardContent>
-            </Card>
+        {kpiData.map((kpi, index) => (
+            <motion.div
+              key={kpi.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+                <Card className="bg-card/80 backdrop-blur-sm h-full">
+                    <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-medium flex items-center justify-between">
+                        <span>{kpi.title}</span>
+                        <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{kpi.value}</div>
+                        <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
+                    </CardContent>
+                </Card>
+             </motion.div>
         ))}
       </div>
 
@@ -98,6 +117,7 @@ export default function AnalisisVentasPage() {
                               <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
                           </linearGradient>
                       </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
                       <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
                       <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value as number) / 1000}k`} />
                       <ChartTooltip 
