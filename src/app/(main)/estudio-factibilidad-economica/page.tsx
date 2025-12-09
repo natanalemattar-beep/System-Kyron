@@ -136,6 +136,32 @@ export default function EstudioFactibilidadEconomicaPage() {
             description: "El estudio de factibilidad ha sido guardado como 'Estudio_Factibilidad_Kyron.doc'.",
         });
     };
+    
+    const handleExportCSV = () => {
+        const headers = ["Indicador", "Monto Estimado (Bs.)", "Métrica de Riesgo"];
+        const rows = [
+            ["TOTAL INGRESOS", totalIngresos, "Fuerte tracción inicial."],
+            ["UTILIDAD NETA (EBITDA)", utilidadNeta, "Margen robusto (~29.4%)."],
+            ["PUNTO DE EQUILIBRIO", puntoEquilibrio.toFixed(2), "Se alcanza con solo el 50% de los ingresos."]
+        ];
+
+        let csvContent = "data:text/csv;charset=utf-8," 
+            + headers.join(",") + "\n" 
+            + rows.map(e => e.join(",")).join("\n");
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "proyecciones_financieras_kyron.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        toast({
+            title: "Exportación Completa",
+            description: "Las proyecciones financieras se han descargado como un archivo CSV.",
+        });
+    };
 
   return (
     <div className="p-4 md:p-8 space-y-12">
@@ -150,7 +176,11 @@ export default function EstudioFactibilidadEconomicaPage() {
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={handleDownloadStudy}>
                 <Download className="mr-2" />
-                Descargar Estudio en Word
+                Descargar Informe en Word
+            </Button>
+            <Button size="lg" variant="outline" onClick={handleExportCSV}>
+                <Download className="mr-2" />
+                Exportar Proyecciones a Hoja de Cálculo
             </Button>
         </div>
       </header>
@@ -173,9 +203,9 @@ export default function EstudioFactibilidadEconomicaPage() {
                     <p><strong>Objetivo General:</strong> Determinar la factibilidad técnica, económica, legal y operativa para la implementación del ecosistema integrado "Kyron" en el mercado venezolano.</p>
                     <ul className="list-disc pl-5 mt-2 space-y-1">
                         <li><strong>Específicos:</strong></li>
-                        <li>Analizar el mercado potencial para ambas líneas de producto.</li>
-                        <li>Evaluar los requerimientos técnicos para el desarrollo y producción.</li>
-                        <li>Definir la estructura organizacional y legal necesaria.</li>
+                        <li>Analizar rigurosamente el mercado potencial y la competencia.</li>
+                        <li>Evaluar los requerimientos tecnológicos para ambos productos (hardware y software).</li>
+                        <li>Definir una estructura organizacional funcional.</li>
                         <li>Estimar la inversión requerida, los costos, los ingresos y la rentabilidad del proyecto.</li>
                     </ul>
                 </div>
@@ -351,7 +381,7 @@ export default function EstudioFactibilidadEconomicaPage() {
             <CardContent>
                 <p className="text-lg font-semibold">El proyecto "Kyron" se considera **altamente factible y con un potencial de mercado significativo**.</p>
                 <p className="text-muted-foreground mt-2">
-                    La combinación de un producto de hardware innovador con un modelo de negocio SaaS recurrente crea una propuesta de valor sólida y sostenible. Aunque la inversión inicial es considerable, las proyecciones financieras y las ventajas competitivas justifican el riesgo. El éxito dependerá de una ejecución técnica impecable y una estrategia de comercialización agresiva. Se recomienda proceder con la fase de desarrollo de prototipos y la búsqueda de capital semilla.
+                    La combinación de un producto de hardware innovador con un modelo de negocio SaaS recurrente crea una propuesta de valor única, sólida y sostenible que resuelve problemas críticos de mercado. Aunque la inversión inicial es considerable, las proyecciones financieras y las ventajas competitivas justifican el riesgo. El éxito dependerá de una ejecución técnica impecable y una estrategia de comercialización agresiva. Se recomienda proceder con la fase de desarrollo de prototipos y la búsqueda de capital semilla.
                 </p>
             </CardContent>
         </Card>
