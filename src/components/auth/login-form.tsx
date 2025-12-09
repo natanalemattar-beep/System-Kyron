@@ -122,7 +122,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
         let placeholder = field.placeholder;
         let defaultValue = field.defaultValue;
 
-        if (field.id === 'idValue' && country) {
+        if (field.id === 'idValue') {
             label = currentId.label;
             placeholder = currentId.placeholder;
             defaultValue = currentId.defaultValue;
@@ -154,7 +154,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
           <Button asChild type="submit" className="w-full h-11 text-base">
             <Link href={submitButtonHref}>{submitButtonText}</Link>
           </Button>
-          {credentials && <Credentials user={title.includes("Personal") ? currentId.defaultValue : credentials.user} password={credentials.password} />}
+          {credentials && <Credentials user={fields.some(f => f.id === 'idValue') ? currentId.defaultValue : credentials.user} password={credentials.password} />}
         </CardFooter>
       </form>
        {footerContent ? (

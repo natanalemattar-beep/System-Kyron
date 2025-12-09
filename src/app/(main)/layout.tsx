@@ -12,11 +12,8 @@ import { motion } from "framer-motion";
 // Dynamically import WelcomeTutorial with SSR turned off
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial'), { ssr: false });
 
-export default function MainAppLayout({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
-  
-  const getUserForPath = (pathname: string) => {
-    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion')) {
+const getUserForPath = (pathname: string) => {
+    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion')) {
         return { name: "Admin", email: "admin@kyron.com", fallback: "A" };
     }
     if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
@@ -28,7 +25,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
     if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/seguridad') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
         return { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" };
     }
-    if (pathname.startsWith('/asesoria') || pathname.startsWith('/analisis-ventas')) {
+    if (pathname.startsWith('/asesoria')) {
         return { name: "Marketing", email: "mkt@kyron.com", fallback: "M" };
     }
      if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos')) {
@@ -41,6 +38,9 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
     return { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
   }
 
+
+export default function MainAppLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const user = getUserForPath(pathname);
   
   return (
@@ -50,7 +50,13 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
            <motion.div 
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 80 }}
+            transition={{
+                delay: 0.5,
+                type: 'spring',
+                stiffness: 80,
+                damping: 15,
+                mass: 1,
+            }}
             className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-16 md:top-24 z-40"
           >
               <div className="container mx-auto text-center text-xs text-yellow-500 flex items-center justify-center gap-2">

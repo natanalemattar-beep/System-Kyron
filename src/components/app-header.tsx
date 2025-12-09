@@ -22,7 +22,6 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
   DropdownMenuLabel,
-  DropdownMenuGroup,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger
@@ -37,6 +36,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import { loginOptions } from "@/lib/login-options";
 import { ThemeToggle } from "./theme-toggle";
 import { motion } from "framer-motion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
 type User = {
   name: string;
@@ -45,10 +45,10 @@ type User = {
 };
 
 const getNavInfoForPath = (pathname: string) => {
-    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion')) {
+    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion') || pathname.startsWith('/contabilidad') || pathname.startsWith('/tramites-fiscales') || pathname.startsWith('/reports') || pathname.startsWith('/inventario')) {
         return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
     }
-    if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
+    if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas') || pathname.startsWith('/libro-')) {
         return { user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }, navGroups: rrhhNavGroups, dashboardHref: "/dashboard-rrhh" };
     }
     if (pathname.startsWith('/dashboard-socios')) {
@@ -57,14 +57,17 @@ const getNavInfoForPath = (pathname: string) => {
     if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/seguridad') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
         return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" };
     }
-    if (pathname.startsWith('/asesoria') || pathname.startsWith('/analisis-ventas')) {
-        return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria-publicidad" };
+    if (pathname.startsWith('/asesoria')) {
+        return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria" };
     }
      if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos')) {
         return { user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" };
     }
     if (pathname.startsWith('/dashboard-telecom')) {
         return { user: { name: "Telecom", email: "telecom@kyron.com", fallback: "T" }, navGroups: telecomNavGroups, dashboardHref: "/dashboard-telecom" };
+    }
+     if (pathname.startsWith('/analisis-ventas')) {
+        return { user: { name: "Ventas", email: "ventas@kyron.com", fallback: "V" }, navGroups: ventasNavGroups, dashboardHref: "/analisis-ventas" };
     }
     // Default case for personal user
     return { user: { name: "Usuario", email: "usuario@email.com", fallback: "UN" }, navGroups: naturalMenuItems, dashboardHref: "/dashboard" };
@@ -146,52 +149,56 @@ export function AppHeader({ user }: { user: User }) {
                     <span className="sr-only">Abrir Menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-full max-w-sm">
-                <SheetHeader>
-                    <Link href={dashboardHref} className="flex items-center gap-3 mb-4">
+              <SheetContent side="left" className="w-full max-w-sm p-0">
+                <SheetHeader className="p-4 border-b">
+                    <Link href={dashboardHref} className="flex items-center gap-3">
                         <Logo />
                         <span className="text-xl font-bold">System Kyron</span>
                     </Link>
                 </SheetHeader>
-                 <ScrollArea className="h-[calc(100%-4rem)]">
-                    <nav className="flex flex-col gap-2 p-4">
+                 <ScrollArea className="h-[calc(100%-80px)]">
+                    <Accordion type="multiple" className="w-full px-4 py-2">
                       {navGroups.map((group) => (
-                        <div key={group.title}>
-                          <h4 className="font-semibold text-sm text-muted-foreground px-2 py-1 flex items-center gap-2">
-                            <group.icon className="h-4 w-4" />
-                            {group.title}
-                          </h4>
-                           {group.subGroups && group.subGroups.length > 0 ? (
-                                group.subGroups.map(subGroup => (
-                                <div key={subGroup.title} className="pl-2">
-                                    <h5 className="font-semibold text-xs text-muted-foreground px-2 py-1 mt-2 flex items-center gap-2">
-                                    <subGroup.icon className="h-4 w-4" />
-                                    {subGroup.title}
-                                    </h5>
-                                    {subGroup.items.map(item => (
-                                    <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
-                                        <Link href={item.href}>
-                                        <item.icon className="mr-2 h-4 w-4" />
-                                        {item.label}
-                                        </Link>
-                                    </Button>
-                                    ))}
-                                </div>
-                                ))
-                            ) : (
-                                group.items.map((item) => (
-                                    <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
+                        <AccordionItem value={group.title} key={group.title}>
+                           <AccordionTrigger className="text-sm font-semibold text-muted-foreground hover:no-underline">
+                              <div className="flex items-center gap-2">
+                                <group.icon className="h-4 w-4" />
+                                {group.title}
+                              </div>
+                           </AccordionTrigger>
+                           <AccordionContent className="pb-2">
+                                {(group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items) : group.items).map((item) => (
+                                <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
                                     <Link href={item.href}>
                                         <item.icon className="mr-2 h-4 w-4" />
                                         {item.label}
                                     </Link>
-                                    </Button>
-                                ))
-                            )}
-                        </div>
+                                </Button>
+                                ))}
+                           </AccordionContent>
+                        </AccordionItem>
                       ))}
-                    </nav>
+                    </Accordion>
                  </ScrollArea>
+                  <div className="p-4 border-t">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                           <Button variant="outline" className="w-full justify-start">
+                                Portales de Acceso
+                           </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent side="top" align="start" className="w-64">
+                             {loginOptions.map((opt) => (
+                                <DropdownMenuItem key={opt.href} asChild>
+                                  <Link href={opt.href} className="flex items-center justify-start">
+                                      <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                                      <p>{opt.label}</p>
+                                    </Link>
+                                </DropdownMenuItem>
+                              ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
               </SheetContent>
             </Sheet>
             <ThemeToggle />

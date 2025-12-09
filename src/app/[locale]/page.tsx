@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef, memo } from "react";
 import { Button } from "@/components/ui/button";
-import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown, HelpCircle, Target, Book, Eye } from "lucide-react";
+import { User, Menu, Shield, ArrowRight, Bot, Mail, Phone, Layers, Cpu, Users, BarChart, ShieldCheck, ShoppingCart, Send, Loader2, Building, Megaphone, Briefcase, Gavel, Smile, Clock, CheckCircle as CheckCircleIcon, Banknote, Signal, ChevronDown, HelpCircle, Target, Book, Eye, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
@@ -401,11 +401,21 @@ export default function LandingPage() {
                             </>
                             ) : (
                             <div className="flex flex-col items-center gap-4">
-                                <h1 className="text-4xl md:text-5xl font-bold text-balance">Inteligencia en Cada Transacción</h1>
-                                <p className="text-base md:text-lg text-muted-foreground max-w-sm">La solución definitiva para la gestión empresarial en Venezuela.</p>
-                                <Button size="lg" asChild className="mt-4 btn-3d-primary">
-                                    <Link href="/register">¡Regístrate Ya!</Link>
-                                </Button>
+                                <motion.div
+                                    animate={{
+                                        scale: [1, 1.05, 1],
+                                        opacity: [0.8, 1, 0.8]
+                                    }}
+                                    transition={{
+                                        duration: 4,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                    }}
+                                >
+                                    <Logo className="h-24 w-24 mb-4"/>
+                                </motion.div>
+                                <h1 className="text-4xl md:text-5xl font-bold text-balance">Kyron Core</h1>
+                                <p className="text-base md:text-lg text-muted-foreground max-w-sm">Inteligencia en Cada Transacción</p>
                             </div>
                         )}
                     </motion.div>
@@ -691,5 +701,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
