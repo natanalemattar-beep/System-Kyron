@@ -152,9 +152,22 @@ const config: Config = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "jelly-bounce": "jelly-bounce 0.5s ease-out",
       },
+       textShadow: {
+        glow: '0 0 15px hsl(var(--primary) / 0.5), 0 0 30px hsl(var(--primary) / 0.3)',
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+      require("tailwindcss-animate"),
+      function ({ theme, addUtilities }: { theme: (path: string) => any; addUtilities: (utilities: any) => void; }) {
+        const newUtilities = {
+          '.text-shadow-glow': {
+            textShadow: theme('textShadow.glow'),
+          },
+        };
+        addUtilities(newUtilities);
+      },
+    ],
 }
 
 export default config;

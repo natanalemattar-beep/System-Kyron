@@ -13,10 +13,10 @@ import { motion } from "framer-motion";
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial'), { ssr: false });
 
 const getUserForPath = (pathname: string) => {
-    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion')) {
+    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion') || pathname.startsWith('/contabilidad') || pathname.startsWith('/tramites-fiscales') || pathname.startsWith('/reports') || pathname.startsWith('/inventario')) {
         return { name: "Admin", email: "admin@kyron.com", fallback: "A" };
     }
-    if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
+    if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas') || pathname.startsWith('/libro-')) {
         return { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" };
     }
     if (pathname.startsWith('/dashboard-socios')) {
@@ -46,7 +46,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   return (
      <div className="flex flex-col min-h-screen bg-background text-foreground">
         <AppHeader user={user} />
-        <div className="flex-1 flex flex-col pt-16 md:pt-24">
+        <div className="flex-1 flex flex-col pt-16 md:pt-[calc(4rem+1rem)]">
            <motion.div 
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -57,7 +57,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
                 damping: 15,
                 mass: 1,
             }}
-            className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-16 md:top-24 z-40"
+            className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-16 md:top-[calc(4rem+1rem)] z-40"
           >
               <div className="container mx-auto text-center text-xs text-yellow-500 flex items-center justify-center gap-2">
                   <AlertTriangle className="h-4 w-4" />

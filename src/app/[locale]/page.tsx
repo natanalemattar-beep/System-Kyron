@@ -175,27 +175,25 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
             return <SmoothScrollLink href={module.href}>{children}</SmoothScrollLink>;
         }
         if (module.type === 'link') {
-            return <Link href={module.href}>{children}</Link>
+            return <Link href={module.href}>{children}</Link>;
         }
-        // for dialog
-        return <>{children}</>
-    }
+        return <>{children}</>;
+    };
 
-    const OrbContent = () => (
-        <Wrapper>
-            {module.type === 'dialog' ? (
-                <Dialog>
+    const OrbContent = () => {
+        if (module.type === 'dialog') {
+            return (
+                 <Dialog>
                     <DialogTrigger asChild>{content}</DialogTrigger>
                     <DialogContent className="sm:max-w-2xl">
                        {module.name === 'Tecnología IA' && <IaContent />}
-                       {/* Add other dialog contents here */}
+                       {/* You can add more dialog content checks here, e.g., for 'Seguridad Garantizada' */}
                     </DialogContent>
                 </Dialog>
-            ) : (
-                content
-            )}
-        </Wrapper>
-    )
+            );
+        }
+        return <Wrapper>{content}</Wrapper>
+    };
 
     return (
         <motion.div
@@ -383,7 +381,7 @@ export default function LandingPage() {
                         ease: "easeInOut",
                     }}
                 >
-                    <Logo className="h-[40vmin] w-[40vmin] text-primary" />
+                    <Logo className="h-[70vmin] w-[70vmin] text-primary" />
                 </motion.div>
             </motion.div>
 
@@ -699,3 +697,4 @@ export default function LandingPage() {
     </div>
   );
 }
+

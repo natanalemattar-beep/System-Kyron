@@ -117,23 +117,21 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
                 {field.link && <Link href={field.link.href} className="text-primary hover:underline">{field.link.label}</Link>}
             </div>
         );
-      default:
-        let label = field.label;
-        let placeholder = field.placeholder;
-        let defaultValue = field.defaultValue;
-
+      default: {
+        let currentField = {...field};
         if (field.id === 'idValue') {
-            label = currentId.label;
-            placeholder = currentId.placeholder;
-            defaultValue = currentId.defaultValue;
+            currentField.label = currentId.label;
+            currentField.placeholder = currentId.placeholder;
+            currentField.defaultValue = currentId.defaultValue;
         }
 
         return (
-          <div key={field.id} className="space-y-2">
-            <Label htmlFor={field.id}>{label}</Label>
-            <Input id={field.id} type={field.type} placeholder={placeholder} defaultValue={defaultValue} required/>
+          <div key={currentField.id} className="space-y-2">
+            <Label htmlFor={currentField.id}>{currentField.label}</Label>
+            <Input id={currentField.id} type={currentField.type} placeholder={currentField.placeholder} defaultValue={currentField.defaultValue} required/>
           </div>
         );
+      }
     }
   };
 
