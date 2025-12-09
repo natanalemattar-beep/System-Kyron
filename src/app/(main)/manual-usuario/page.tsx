@@ -42,56 +42,70 @@ export default function ManualUsuarioPage() {
 
     const handleDownload = () => {
         const manualContent = `
-MANUAL DE USUARIO Y PROCEDIMIENTOS - Kyron
-==================================================
+            <h1>Manual de Usuario y Procedimientos - Kyron</h1>
+            <p><strong>Fecha:</strong> ${formatDate(new Date())}</p>
+            <br/>
+            <h2>Bienvenido a Kyron</h2>
+            <p>La plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela. Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar.</p>
+            
+            <br/>
+            <h2>Primeros Pasos: Registro e Inicio de Sesión</h2>
+            <ol>
+                <li><strong>Registro:</strong> En la página de inicio, haz clic en "Registrarse". Selecciona si eres Persona Jurídica o Natural y completa los datos. Recibirás un código de verificación en tu correo.</li>
+                <li><strong>Inicio de Sesión:</strong> Una vez registrado, ingresa tu RIF (empresas) o Cédula (personas) y tu contraseña.</li>
+            </ol>
 
-Bienvenido a Kyron, la plataforma digital oficial para la gestión integral de trámites para personas jurídicas y naturales en Venezuela.
-Nuestra misión es simplificar la burocracia, centralizando todos tus documentos y procesos en un solo lugar. Con nuestra plataforma, puedes registrar tu empresa, gestionar permisos, cumplir con tus obligaciones fiscales, administrar a tu personal y mucho más.
+            <br/>
+            <h2>Módulos Clave (Persona Jurídica)</h2>
+            <ul>
+                ${juridicoFeatures.map(f => `<li>${f}</li>`).join('')}
+            </ul>
+            
+            <br/>
+            <h2>Módulos Clave (Persona Natural)</h2>
+            <ul>
+                ${naturalFeatures.map(f => `<li>${f}</li>`).join('')}
+            </ul>
 
---- PRIMEROS PASOS: REGISTRO E INICIO DE SESIÓN ---
-1. Registro:
-   En la página de inicio, haz clic en "Registrarse". Selecciona si eres Persona Jurídica o Natural y completa los datos solicitados. Recibirás un código de verificación en tu correo para activar tu cuenta.
+            <br/>
+            <h2>Manual de Procedimientos Clave</h2>
+            <h3>Gestión de Devoluciones</h3>
+            <ol>
+                <li>Para anular una factura, navega a 'Nota de Crédito' y referencia la factura afectada.</li>
+                <li>El sistema te guiará para registrar el reingreso del producto al inventario.</li>
+                <li>Si el cliente ya había pagado, el sistema registrará un saldo a su favor en 'Cuentas por Cobrar'.</li>
+            </ol>
+            
+            <h3>Legalización de Empresas</h3>
+            <ol>
+                <li><strong>Reserva de Nombre (SAREN):</strong> Verifica la disponibilidad del nombre.</li>
+                <li><strong>Acta Constitutiva:</strong> Redacta y visa el documento con un abogado.</li>
+                <li><strong>Registro Mercantil:</strong> Inscribe el acta para legalizar la empresa.</li>
+                <li><strong>Publicación:</strong> Publica el acta en un periódico mercantil.</li>
+                <li><strong>Inscripción Fiscal (RIF):</strong> Registra la empresa en el SENIAT.</li>
+            </ol>
 
-2. Inicio de Sesión:
-   Una vez registrado, ve a "Iniciar Sesión". Ingresa tu RIF (para empresas) o Cédula (para personas) y tu contraseña para acceder a tu dashboard personalizado.
-
---- MÓDULOS CLAVE (PERSONA JURÍDICA) ---
-- ${juridicoFeatures.join("\n- ")}
-
---- MÓDULOS CLAVE (PERSONA NATURAL) ---
-- ${naturalFeatures.join("\n- ")}
-
---- MANUAL DE PROCEDIMIENTOS CLAVE ---
-
-1. Gestión de Devoluciones:
-   - Para anular una factura original, navega a 'Nota de Crédito', crea un nuevo documento y referencia la factura afectada.
-   - Una vez emitida la nota de crédito, el sistema te guiará para registrar el reingreso del producto al inventario.
-   - Si el cliente ya había pagado, el sistema registrará un saldo a su favor en 'Cuentas por Cobrar'.
-
-2. Legalización de Empresas:
-   - Reserva de Nombre (SAREN): Verifica la disponibilidad del nombre de la empresa.
-   - Acta Constitutiva: Redacta y visa el documento con un abogado.
-   - Registro Mercantil: Inscribe el acta para legalizar la empresa.
-   - Publicación: Publica el acta en un periódico mercantil.
-   - Inscripción Fiscal (RIF): Registra la empresa en el SENIAT.
-
-3. Proceso de Importación:
-   - Verificación del Proveedor: Encuentra y negocia con un proveedor confiable.
-   - Consolidación de Carga: Agrupa mercancía de varios proveedores en un solo envío.
-   - Embarque y Transporte: La carga se envía y se emite el Bill of Lading (BL).
-   - Gestión Aduanal: Nuestros agentes se encargan de la nacionalización.
-   - Entrega Final: Se transporta la mercancía liberada a tu negocio.
-`;
+            <h3>Proceso de Importación</h3>
+            <ol>
+                <li><strong>Verificación del Proveedor:</strong> Encuentra y negocia con un proveedor confiable.</li>
+                <li><strong>Consolidación de Carga:</strong> Agrupa mercancía de varios proveedores.</li>
+                <li><strong>Embarque y Transporte:</strong> La carga se envía y se emite el Bill of Lading (BL).</li>
+                <li><strong>Gestión Aduanal:</strong> Nuestros agentes se encargan de la nacionalización.</li>
+                <li><strong>Entrega Final:</strong> Se transporta la mercancía liberada a tu negocio.</li>
+            </ol>
+        `;
         
-        const blob = new Blob([manualContent.trim()], { type: 'text/plain;charset=utf-8;' });
-        const link = document.createElement("a");
-        const url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", "Manual_Kyron.docx");
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + manualContent + footer;
+
+        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'Manual_Kyron.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
 
         toast({
             title: "Descarga Iniciada",
@@ -132,7 +146,7 @@ Nuestra misión es simplificar la burocracia, centralizando todos tus documentos
             <div className="flex gap-2">
                 <Button variant="outline" onClick={handleDownload}>
                     <Download className="mr-2" />
-                    Descargar (.docx)
+                    Descargar (.doc)
                 </Button>
                 <Button onClick={handlePrint}>
                     <Printer className="mr-2" />

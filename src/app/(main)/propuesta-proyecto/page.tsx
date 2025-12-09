@@ -13,64 +13,82 @@ export default function PropuestaProyectoPage() {
     const { toast } = useToast();
 
     const getProposalContent = () => `
-PROPUESTA DE PROYECTO: INNOVACIÓN SOSTENIBLE Y EFICIENCIA ADMINISTRATIVA
-
-Fecha: ${formatDate(new Date())}
-Para: [Nombre del Destinatario / Empresa Cliente]
-De: Kyron, C.A.
-
-ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN DE RESIDUOS Y AUTOMATIZACIÓN EMPRESARIAL
-
-Estimados señores de [Nombre de la Empresa Cliente],
-
-Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.
-
-1. ENTENDIMIENTO DEL PROBLEMA
-Reconocemos dos grandes desafíos en el entorno actual:
-- La gestión ineficiente de residuos sólidos, que resulta en bajos índices de reciclaje y altos costos operativos para municipios y empresas.
-- La complejidad administrativa y fiscal en Venezuela, que consume tiempo y recursos valiosos que podrían dedicarse a la innovación y el crecimiento.
-
-2. SOLUCIÓN PROPUESTA
-Nuestro proyecto se basa en dos pilares fundamentales que funcionan de manera sinérgica:
-a) Papelera Inteligente para Reciclaje: Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen. Esta tecnología no solo mejora la calidad de los materiales recuperados, sino que también genera datos valiosos para optimizar las rutas de recolección y fomentar una economía circular.
-b) Software de Automatización Contable y Administrativa: Una plataforma en la nube que automatiza el 100% de los procesos de su empresa: facturación homologada por el SENIAT, gestión de inventario, cuentas por cobrar/pagar, conciliación bancaria y generación de reportes fiscales. Este sistema es el mismo que utilizamos internamente para gestionar la venta y el soporte de nuestras papeleras, demostrando su robustez y fiabilidad.
-c) Ecosistema de Productos y Servicios: Además del hardware y software, ofrecemos una línea completa de productos fiscales (desde factureros manuales hasta impresoras fiscales), una plataforma de e-commerce y un sistema de financiamiento para facilitar la adquisición de nuestras soluciones en Venezuela y otros países.
-d) Fundación Kyron: Nuestra fundación se encarga de la logística de recolección del plástico y de gestionar alianzas con empresas para convertir los residuos en valor, cerrando el ciclo de la economía circular.
-
-3. BENEFICIOS CLAVE
-- Sostenibilidad y Responsabilidad Social: Mejora radicalmente la gestión de residuos y posiciona a su organización como líder en sostenibilidad.
-- Eficiencia Operativa: Reduce los costos de recolección de residuos y automatiza tareas administrativas, liberando a su equipo para que se enfoque en actividades de mayor valor.
-- Cumplimiento y Tranquilidad: Garantiza el cumplimiento de las normativas fiscales venezolanas, minimizando el riesgo de sanciones.
-- Toma de Decisiones Basada en Datos: Obtenga informes en tiempo real sobre la generación de residuos y el rendimiento financiero de su empresa.
-
-4. PRÓXIMOS PASOS
-Nos encantaría tener la oportunidad de presentarles una demostración en vivo de nuestra solución y discutir cómo podemos adaptarla a sus necesidades específicas. Proponemos una reunión la próxima semana para explorar esta colaboración.
-
-Agradecemos de antemano su tiempo y consideración.
-
-Atentamente,
-El Equipo de Kyron, C.A.
+        <h1>PROPUESTA DE PROYECTO: INNOVACIÓN SOSTENIBLE Y EFICIENCIA ADMINISTRATIVA</h1>
+        <p><strong>Fecha:</strong> ${formatDate(new Date())}</p>
+        <p><strong>Para:</strong> [Nombre del Destinatario / Empresa Cliente]</p>
+        <p><strong>De:</strong> Kyron, C.A.</p>
+        <br/>
+        <h2>ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN DE RESIDUOS Y AUTOMATIZACIÓN EMPRESARIAL</h2>
+        <p>Estimados señores de [Nombre de la Empresa Cliente],</p>
+        <p>Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.</p>
+        <br/>
+        <h3>1. ENTENDIMIENTO DEL PROBLEMA</h3>
+        <p>Reconocemos dos grandes desafíos en el entorno actual:</p>
+        <ul>
+            <li>La gestión ineficiente de residuos sólidos, que resulta en bajos índices de reciclaje y altos costos operativos.</li>
+            <li>La complejidad administrativa y fiscal en Venezuela, que consume tiempo y recursos valiosos.</li>
+        </ul>
+        <br/>
+        <h3>2. SOLUCIÓN PROPUESTA</h3>
+        <p>Nuestro proyecto se basa en un ecosistema de pilares que funcionan de manera sinérgica:</p>
+        <p><strong>a) Papelera Inteligente para Reciclaje:</strong> Dispositivo con IA que clasifica automáticamente los residuos, optimizando el reciclaje.</p>
+        <p><strong>b) Software de Automatización (SaaS):</strong> Plataforma en la nube para automatizar facturación, inventario, y contabilidad, cumpliendo con normativas del SENIAT.</p>
+        <p><strong>c) Ecosistema de Productos y Servicios:</strong> Línea completa de productos fiscales, e-commerce y sistema de financiamiento.</p>
+        <p><strong>d) Fundación Kyron:</strong> Logística para la recolección de plástico y alianzas para convertir residuos en valor.</p>
+        <br/>
+        <h3>3. BENEFICIOS CLAVE</h3>
+        <ul>
+            <li><strong>Sostenibilidad y Responsabilidad Social:</strong> Mejora la gestión de residuos y la imagen corporativa.</li>
+            <li><strong>Eficiencia Operativa:</strong> Reduce costos y automatiza tareas administrativas.</li>
+            <li><strong>Cumplimiento y Tranquilidad:</strong> Garantiza el cumplimiento fiscal, minimizando el riesgo de sanciones.</li>
+            <li><strong>Toma de Decisiones Basada en Datos:</strong> Informes en tiempo real sobre residuos y rendimiento financiero.</li>
+        </ul>
+        <br/>
+        <h3>4. PRÓXIMOS PASOS</h3>
+        <p>Nos encantaría presentarles una demostración en vivo y discutir cómo podemos adaptar nuestra solución a sus necesidades. Proponemos una reunión la próxima semana.</p>
+        <p>Agradecemos su tiempo y consideración.</p>
+        <br/><br/>
+        <p>Atentamente,</p>
+        <p>El Equipo de Kyron, C.A.</p>
     `;
     
     const handleAction = (action: string) => {
+        const content = getProposalContent();
+        const filename = 'Propuesta_Proyecto_Kyron.doc';
+        const sourceHTML = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset='utf-8'>
+                <title>Export HTML to Word</title>
+            </head>
+            <body>${content}</body>
+            </html>`;
+        
         if (action === 'impresa') {
-            toast({
+            const printWindow = window.open('', '_blank');
+            if (printWindow) {
+                printWindow.document.write(sourceHTML);
+                printWindow.document.close();
+                printWindow.focus();
+                printWindow.print();
+                printWindow.close();
+            }
+             toast({
                 title: "Iniciando Impresión",
                 description: `El modelo de propuesta ha sido enviado a la impresora.`,
             });
-            window.print();
         } else if (action === 'descargado') {
-            const content = getProposalContent();
-            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement("a");
-            document.body.appendChild(link);
-            link.href = URL.createObjectURL(blob);
-            link.download = `Propuesta_Proyecto_Kyron.txt`;
-            link.click();
-            document.body.removeChild(link);
+            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            const fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = filename;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
             toast({
                 title: `Propuesta Descargada`,
-                description: `El documento ha sido descargado como archivo de texto.`,
+                description: `El documento ha sido descargado como ${filename}.`,
             });
         }
     };
@@ -92,7 +110,7 @@ El Equipo de Kyron, C.A.
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar (.txt)
+                <Download className="mr-2"/> Descargar (.doc)
             </Button>
         </div>
       </header>
@@ -102,7 +120,7 @@ El Equipo de Kyron, C.A.
             <CardTitle className="text-2xl">PROPUESTA DE PROYECTO: INNOVACIÓN SOSTENIBLE Y EFICIENCIA ADMINISTRATIVA</CardTitle>
         </CardHeader>
         <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
-            <p><strong>Fecha:</strong> {formatDate(new Date())}</p>
+            <p><strong>Fecha:</strong> ${formatDate(new Date())}</p>
             <p><strong>Para:</strong> [Nombre del Destinatario / Empresa Cliente]</p>
             <p><strong>De:</strong> Kyron, C.A.</p>
             
