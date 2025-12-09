@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -12,11 +13,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const proformas = [
+type Proforma = {
+  id: string;
+  fecha: string;
+  cliente: string;
+  total: number;
+  estado: "Enviada" | "Aprobada" | "Borrador" | "Rechazada";
+};
+
+const proformas: Proforma[] = [
     { id: "PRO-2024-001", fecha: "19/07/2024", cliente: "Constructora XYZ", total: 15000, estado: "Enviada" },
     { id: "PRO-2024-002", fecha: "20/07/2024", cliente: "Eventos Festivos C.A.", total: 8500, estado: "Aprobada" },
     { id: "PRO-2024-003", fecha: "21/07/2024", cliente: "Inversiones ABC", total: 22000, estado: "Borrador" },
+    { id: "PRO-2024-004", fecha: "15/07/2024", cliente: "Global Tech", total: 18000, estado: "Rechazada" },
+    { id: "PRO-2024-005", fecha: "23/07/2024", cliente: "Servicios Creativos", total: 5000, estado: "Enviada" },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -28,6 +40,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function ProformasPage() {
     const { toast } = useToast();
+    const [filter, setFilter] = useState("todos");
 
     const handleCreateProforma = () => {
         toast({
@@ -42,6 +55,12 @@ export default function ProformasPage() {
             description: `La proforma ${proformaId} se está descargando.`,
         });
     }
+
+    const filteredProformas = proformas.filter(p => {
+        if (filter === "todos") return true;
+        return p.estado.toLowerCase() === filter;
+    });
+
 
   return (
     <div className="p-4 md:p-8">
@@ -92,55 +111,71 @@ export default function ProformasPage() {
                 <CardDescription>Listado de las últimas proformas generadas.</CardDescription>
             </CardHeader>
             <CardContent>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Nro. Proforma</TableHead>
-                            <TableHead>Fecha</TableHead>
-                            <TableHead>Cliente</TableHead>
-                            <TableHead className="text-right">Monto Total</TableHead>
-                            <TableHead>Estado</TableHead>
-                            <TableHead className="text-right">Acciones</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {proformas.map((proforma) => (
-                            <TableRow key={proforma.id}>
-                                <TableCell className="font-medium">{proforma.id}</TableCell>
-                                <TableCell>{proforma.fecha}</TableCell>
-                                <TableCell>{proforma.cliente}</TableCell>
-                                <TableCell className="text-right">{formatCurrency(proforma.total, 'Bs.')}</TableCell>
-                                <TableCell>
-                                    <Badge variant={statusVariant[proforma.estado]}>{proforma.estado}</Badge>
-                                </TableCell>
-                                <TableCell className="text-right">
-                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=proforma-${proforma.id}`} alt={`QR for ${proforma.id}`} width={24} height={24} className="inline-block mr-2" />
-                                    <Dialog>
-                                        <DialogTrigger asChild>
-                                            <Button variant="ghost" size="icon" className="mr-2">
-                                                <Eye className="h-4 w-4" />
+                <Tabs defaultValue="todos" onValueChange={setFilter} className="w-full">
+                    <TabsList className="grid w-full grid-cols-5 max-w-xl mb-4">
+                        <TabsTrigger value="todos">Todas</TabsTrigger>
+                        <TabsTrigger value="borrador">Borrador</TabsTrigger>
+                        <TabsTrigger value="enviada">Enviadas</TabsTrigger>
+                        <TabsTrigger value="aprobada">Aprobadas</TabsTrigger>
+                        <TabsTrigger value="rechazada">Rechazadas</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value={filter}>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Nro. Proforma</TableHead>
+                                    <TableHead>Fecha</TableHead>
+                                    <TableHead>Cliente</TableHead>
+                                    <TableHead className="text-right">Monto Total</TableHead>
+                                    <TableHead>Estado</TableHead>
+                                    <TableHead className="text-right">Acciones</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {filteredProformas.map((proforma) => (
+                                    <TableRow key={proforma.id}>
+                                        <TableCell className="font-medium">{proforma.id}</TableCell>
+                                        <TableCell>{proforma.fecha}</TableCell>
+                                        <TableCell>{proforma.cliente}</TableCell>
+                                        <TableCell className="text-right">{formatCurrency(proforma.total, 'Bs.')}</TableCell>
+                                        <TableCell>
+                                            <Badge variant={statusVariant[proforma.estado]}>{proforma.estado}</Badge>
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=proforma-${proforma.id}`} alt={`QR for ${proforma.id}`} width={24} height={24} className="inline-block mr-2" />
+                                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <Button variant="ghost" size="icon" className="mr-2">
+                                                        <Eye className="h-4 w-4" />
+                                                    </Button>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogHeader>
+                                                        <DialogTitle>Detalles de Proforma: {proforma.id}</DialogTitle>
+                                                    </DialogHeader>
+                                                    <div className="py-4 space-y-2">
+                                                        <p><strong>Cliente:</strong> {proforma.cliente}</p>
+                                                        <p><strong>Fecha:</strong> {proforma.fecha}</p>
+                                                        <p><strong>Monto:</strong> {formatCurrency(proforma.total, "Bs.")}</p>
+                                                        <p><strong>Estado:</strong> {proforma.estado}</p>
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog>
+                                            <Button variant="ghost" size="icon" onClick={() => handleDownload(proforma.id)}>
+                                                <FileDown className="h-4 w-4" />
                                             </Button>
-                                        </DialogTrigger>
-                                        <DialogContent>
-                                            <DialogHeader>
-                                                <DialogTitle>Detalles de Proforma: {proforma.id}</DialogTitle>
-                                            </DialogHeader>
-                                            <div className="py-4 space-y-2">
-                                                <p><strong>Cliente:</strong> {proforma.cliente}</p>
-                                                <p><strong>Fecha:</strong> {proforma.fecha}</p>
-                                                <p><strong>Monto:</strong> {formatCurrency(proforma.total, "Bs.")}</p>
-                                                <p><strong>Estado:</strong> {proforma.estado}</p>
-                                            </div>
-                                        </DialogContent>
-                                    </Dialog>
-                                    <Button variant="ghost" size="icon" onClick={() => handleDownload(proforma.id)}>
-                                        <FileDown className="h-4 w-4" />
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                 {filteredProformas.length === 0 && (
+                                    <TableRow>
+                                        <TableCell colSpan={6} className="text-center text-muted-foreground">No hay proformas en este estado.</TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TabsContent>
+                </Tabs>
             </CardContent>
         </Card>
     </div>
