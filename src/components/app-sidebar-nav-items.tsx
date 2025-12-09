@@ -159,6 +159,7 @@ const finanzasContabilidadNavGroups = {
         { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
         { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
         { href: "/billetera-cambio", label: "Billetera de Cambio", icon: Wallet },
+        { href: "/pago-servicios", label: "Pago de Servicios", icon: CreditCard },
       ],
     },
     {
