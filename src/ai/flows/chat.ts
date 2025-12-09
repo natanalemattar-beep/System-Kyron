@@ -23,11 +23,7 @@ export async function chat(input: ChatInput): Promise<ChatOutput> {
   return chatFlow(input);
 }
 
-const prompt = ai.definePrompt(
-  {
-    name: 'chatPrompt',
-    input: { schema: ChatInputSchema },
-    prompt: `You are a helpful AI assistant for a business management platform called "Kyron". Your goal is to guide users and answer their questions about the platform's features.
+const chatPrompt = `You are a helpful AI assistant for a business management platform called "Kyron". Your goal is to guide users and answer their questions about the platform's features.
 
 The user is currently interacting with you from a specific context within the app, which is described below:
 CONTEXT:
@@ -39,9 +35,7 @@ If the user's message seems unrelated to the provided context, you can act as a 
 
 The user says:
 {{{message}}}
-`,
-  },
-);
+`;
 
 const chatFlow = ai.defineFlow(
   {
@@ -50,7 +44,11 @@ const chatFlow = ai.defineFlow(
     outputSchema: z.string(),
   },
   async (input) => {
-    const { text } = await prompt(input);
+    const { text } = await ai.generate({
+      prompt: chatPrompt,
+      model: 'googleai/gemini-1.5-flash-latest',
+      input,
+    });
     return text;
   }
 );
