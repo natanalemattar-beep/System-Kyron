@@ -1,9 +1,16 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { FileText } from "lucide-react";
 
 export default function TermsOfServicePage() {
+  const lastUpdatedDate = new Date().toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+  
   return (
     <div className="space-y-8 max-w-4xl w-full">
       <header className="mb-8 text-center">
@@ -12,7 +19,7 @@ export default function TermsOfServicePage() {
             Términos y Condiciones de Servicio
         </h1>
         <p className="text-muted-foreground mt-2">
-          Última actualización: 26 de Julio de 2024
+          Última actualización: {lastUpdatedDate}
         </p>
       </header>
 
