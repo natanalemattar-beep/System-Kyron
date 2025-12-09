@@ -250,11 +250,11 @@ const iaMenuItems = [
 ];
 
 const generalMenuItems = [
-  { href: "/integraciones", label: "Integraciones", icon: RefreshCw },
   { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
   { href: "/organigrama", label: "Organigrama", icon: Network },
   { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
   { href: "/analisis-empresas-no-digitales", label: "Empresas No Digitalizadas", icon: SlidersHorizontal },
+  { href: "/integraciones", label: "Integraciones y Parafiscales", icon: RefreshCw },
 ];
 
 const marketingMenuItems = [
@@ -340,7 +340,7 @@ export const adminNavGroups = [
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   { title: "Internacional", icon: Globe, items: internationalOperationsMenuItems, subGroups: [] },
   { title: "General", icon: Cog, items: generalMenuItems, subGroups: [] },
-  { title: "Recursos", icon: Book, items: recursosMenuItems, subGroups: [] },
+  { title: "Recursos", icon: BookUser, items: recursosMenuItems, subGroups: [] },
 ];
 
 export const legalNavGroups = [
@@ -383,3 +383,5 @@ export const informaticaNavGroups = [
   ], subGroups: [] },
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems, subGroups: [] },
 ];
+
+    
