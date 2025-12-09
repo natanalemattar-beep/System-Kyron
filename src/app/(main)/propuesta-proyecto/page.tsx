@@ -18,30 +18,30 @@ export default function PropuestaProyectoPage() {
         <p><strong>Para:</strong> [Nombre del Destinatario / Empresa Cliente]</p>
         <p><strong>De:</strong> Kyron, C.A.</p>
         <br/>
-        <h2>ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN DE RESIDUOS Y AUTOMATIZACIÓN EMPRESARIAL</h2>
+        <h2>ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN, TELECOMUNICACIONES Y FINANZAS BLOCKCHAIN</h2>
         <p>Estimados señores de [Nombre de la Empresa Cliente],</p>
-        <p>Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.</p>
+        <p>Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos, una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain.</p>
         <br/>
         <h3>1. ENTENDIMIENTO DEL PROBLEMA</h3>
-        <p>Reconocemos dos grandes desafíos en el entorno actual:</p>
+        <p>Reconocemos los desafíos del entorno actual:</p>
         <ul>
-            <li>La gestión ineficiente de residuos sólidos, que resulta en bajos índices de reciclaje y altos costos operativos.</li>
-            <li>La complejidad administrativa y fiscal en Venezuela, que consume tiempo y recursos valiosos.</li>
+            <li>La gestión ineficiente de residuos sólidos.</li>
+            <li>La complejidad administrativa y fiscal en Venezuela.</li>
+            <li>La necesidad de soluciones de comunicación y transacciones financieras seguras y modernas.</li>
         </ul>
         <br/>
-        <h3>2. SOLUCIÓN PROPUESTA</h3>
-        <p>Nuestro proyecto se basa en un ecosistema de pilares que funcionan de manera sinérgica:</p>
-        <p><strong>a) Papelera Inteligente para Reciclaje:</strong> Dispositivo con IA que clasifica automáticamente los residuos, optimizando el reciclaje.</p>
-        <p><strong>b) Software de Automatización (SaaS):</strong> Plataforma en la nube para automatizar facturación, inventario, y contabilidad, cumpliendo con normativas del SENIAT.</p>
-        <p><strong>c) Ecosistema de Productos y Servicios:</strong> Línea completa de productos fiscales, e-commerce y sistema de financiamiento.</p>
-        <p><strong>d) Fundación Kyron:</strong> Logística para la recolección de plástico y alianzas para convertir residuos en valor.</p>
+        <h3>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA DE TRES PILARES</h3>
+        <p>Nuestro proyecto se basa en tres pilares que funcionan de manera sinérgica:</p>
+        <p><strong>a) Pilar 1: Sostenibilidad y Hardware Inteligente (Papelera Inteligente):</strong> Dispositivo con IA que clasifica automáticamente los residuos, optimizando el reciclaje y generando datos valiosos para la economía circular.</p>
+        <p><strong>b) Pilar 2: Software de Automatización y Telecomunicaciones (SaaS + TaaS):</strong> Plataforma en la nube para automatizar facturación, inventario y contabilidad (cumpliendo con normativas SENIAT), integrada con una oferta de servicios de telecomunicaciones que incluye línea telefónica y venta de equipos (teléfonos, televisores).</p>
+        <p><strong>c) Pilar 3: Implementación Contable y Financiera con Billetera Blockchain:</strong> Una solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.</p>
         <br/>
         <h3>3. BENEFICIOS CLAVE</h3>
         <ul>
             <li><strong>Sostenibilidad y Responsabilidad Social:</strong> Mejora la gestión de residuos y la imagen corporativa.</li>
-            <li><strong>Eficiencia Operativa:</strong> Reduce costos y automatiza tareas administrativas.</li>
-            <li><strong>Cumplimiento y Tranquilidad:</strong> Garantiza el cumplimiento fiscal, minimizando el riesgo de sanciones.</li>
-            <li><strong>Toma de Decisiones Basada en Datos:</strong> Informes en tiempo real sobre residuos y rendimiento financiero.</li>
+            <li><strong>Eficiencia Operativa Integral:</strong> Automatiza tareas administrativas y unifica las comunicaciones.</li>
+            <li><strong>Cumplimiento y Seguridad Financiera:</strong> Garantiza el cumplimiento fiscal y ofrece transacciones seguras con tecnología Blockchain.</li>
+            <li><strong>Toma de Decisiones Basada en Datos:</strong> Informes en tiempo real sobre residuos, finanzas y operaciones.</li>
         </ul>
         <br/>
         <h3>4. PRÓXIMOS PASOS</h3>
@@ -126,46 +126,44 @@ export default function PropuestaProyectoPage() {
             
             <Separator className="my-6" />
 
-            <h4>ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN DE RESIDUOS Y AUTOMATIZACIÓN EMPRESARIAL</h4>
+            <h4>ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN, TELECOMUNICACIONES Y FINANZAS BLOCKCHAIN</h4>
 
             <p>
                 Estimados señores de [Nombre de la Empresa Cliente],
             </p>
             <p>
-                Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora, tanto desde una perspectiva de sostenibilidad ambiental como de eficiencia operativa. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos con una plataforma de automatización administrativa diseñada para el mercado venezolano.
+                Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos, una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain.
             </p>
 
             <h4>1. ENTENDIMIENTO DEL PROBLEMA</h4>
             <p>
-                Reconocemos dos grandes desafíos en el entorno actual:
+                Reconocemos los desafíos del entorno actual:
             </p>
             <ul className="list-disc pl-5 space-y-2">
-                <li>La gestión ineficiente de residuos sólidos, que resulta en bajos índices de reciclaje y altos costos operativos para municipios y empresas.</li>
-                <li>La complejidad administrativa y fiscal en Venezuela, que consume tiempo y recursos valiosos que podrían dedicarse a la innovación y el crecimiento.</li>
+                <li>La gestión ineficiente de residuos sólidos, que resulta en bajos índices de reciclaje y altos costos operativos.</li>
+                <li>La complejidad administrativa y fiscal en Venezuela, que consume tiempo y recursos valiosos.</li>
+                <li>La necesidad de soluciones de comunicación y transacciones financieras seguras y modernas.</li>
             </ul>
 
-            <h4>2. SOLUCIÓN PROPUESTA</h4>
+            <h4>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA DE TRES PILARES</h4>
             <p>
-                Nuestro proyecto se basa en un ecosistema de pilares fundamentales que funcionan de manera sinérgica:
+                Nuestro proyecto se basa en tres pilares fundamentales que funcionan de manera sinérgica:
             </p>
             <p>
-                <strong>a) Papelera Inteligente para Reciclaje:</strong> Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen.
+                <strong>a) Pilar 1: Sostenibilidad y Hardware Inteligente (Papelera Inteligente):</strong> Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen.
             </p>
             <p>
-                <strong>b) Software de Automatización (SaaS):</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa: facturación homologada, gestión de inventario, cuentas por cobrar/pagar, y generación de reportes fiscales.
+                <strong>b) Pilar 2: Software de Automatización y Telecomunicaciones (SaaS + TaaS):</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa (facturación, inventario, contabilidad), integrada con una oferta de servicios que incluye <strong>línea telefónica y venta de equipos (teléfonos, televisores)</strong>.
             </p>
              <p>
-                <strong>c) Ecosistema de Productos y Servicios:</strong> Además del hardware y software, ofrecemos una línea completa de productos fiscales (desde factureros manuales hasta impresoras fiscales), una plataforma de e-commerce, y un sistema de financiamiento para facilitar la adquisición de nuestras soluciones en Venezuela y otros países.
-            </p>
-             <p>
-                <strong>d) Fundación Kyron:</strong> Nuestra fundación se encarga de la logística de recolección del plástico y de gestionar alianzas con empresas para convertir los residuos en valor, cerrando el ciclo de la economía circular.
+                <strong>c) Pilar 3: Implementación Contable y Financiera con Billetera Blockchain:</strong> Una solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.
             </p>
 
             <h4>3. BENEFICIOS CLAVE</h4>
              <ul className="list-disc pl-5 space-y-2">
                 <li><strong>Sostenibilidad y Responsabilidad Social:</strong> Mejora radicalmente la gestión de residuos y posiciona a su organización como líder en sostenibilidad.</li>
-                <li><strong>Eficiencia Operativa:</strong> Reduce costos y automatiza tareas administrativas, liberando a su equipo para que se enfoque en actividades de mayor valor.</li>
-                <li><strong>Cumplimiento y Tranquilidad:</strong> Garantiza el cumplimiento de las normativas fiscales venezolanas, minimizando el riesgo de sanciones.</li>
+                <li><strong>Eficiencia Operativa Integral:</strong> Automatiza tareas administrativas y unifica las comunicaciones y servicios tecnológicos.</li>
+                <li><strong>Cumplimiento y Seguridad Financiera:</strong> Garantiza el cumplimiento fiscal y ofrece transacciones seguras con tecnología Blockchain.</li>
                 <li><strong>Toma de Decisiones Basada en Datos:</strong> Obtenga informes en tiempo real sobre la generación de residuos y el rendimiento financiero de su empresa.</li>
             </ul>
 
