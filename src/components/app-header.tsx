@@ -11,6 +11,7 @@ import {
   marketingNavGroups,
   telecomNavGroups,
   naturalMenuItems,
+  advisoryNavGroups
 } from "@/components/app-sidebar-nav-items";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -43,38 +44,39 @@ type User = {
   fallback: string;
 };
 
-const getNavGroupsForUser = (user: User) => {
-    switch (user.fallback) {
-        case "A": return adminNavGroups;
-        case "L": return legalNavGroups;
-        case "V": return ventasNavGroups;
-        case "RH": return rrhhNavGroups;
-        case "S": return sociosNavGroups;
-        case "IT": return informaticaNavGroups;
-        case "M": return marketingNavGroups;
-        case "T": return telecomNavGroups;
-        case "UN": return naturalMenuItems;
-        default: return [];
+const getNavInfoForPath = (pathname: string) => {
+    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas') || pathname.startsWith('/facturacion')) {
+        return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
     }
+     if (pathname.startsWith('/cuentas-por-pagar') || pathname.startsWith('/cuentas-por-cobrar')) {
+        return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
+    }
+    if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
+        return { user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }, navGroups: rrhhNavGroups, dashboardHref: "/dashboard-rrhh" };
+    }
+    if (pathname.startsWith('/dashboard-socios')) {
+        return { user: { name: "Socio Director", email: "socio@kyron.com", fallback: "S" }, navGroups: sociosNavGroups, dashboardHref: "/dashboard-socios" };
+    }
+    if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/seguridad') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
+        return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" };
+    }
+    if (pathname.startsWith('/asesoria')) {
+        return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria-publicidad" };
+    }
+     if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos')) {
+        return { user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" };
+    }
+    if (pathname.startsWith('/dashboard-telecom')) {
+        return { user: { name: "Telecom", email: "telecom@kyron.com", fallback: "T" }, navGroups: telecomNavGroups, dashboardHref: "/dashboard-telecom" };
+    }
+    // Default case for personal user
+    return { user: { name: "Usuario", email: "usuario@email.com", fallback: "UN" }, navGroups: naturalMenuItems, dashboardHref: "/dashboard" };
 }
+
 
 export function AppHeader({ user }: { user: User }) {
   const pathname = usePathname();
-  const navGroups = getNavGroupsForUser(user);
-
-  let dashboardHref;
-  switch (user.fallback) {
-    case "A": dashboardHref = "/dashboard-empresa"; break;
-    case "L": dashboardHref = "/escritorio-juridico"; break;
-    case "V": dashboardHref = "/analisis-ventas"; break;
-    case "RH": dashboardHref = "/dashboard-rrhh"; break;
-    case "S": dashboardHref = "/dashboard-socios"; break;
-    case "IT": dashboardHref = "/dashboard-informatica"; break;
-    case "M": dashboardHref = "/asesoria-publicidad"; break;
-    case "T": dashboardHref = "/dashboard-telecom"; break;
-    default: dashboardHref = "/dashboard";
-  }
-
+  const { navGroups, dashboardHref } = getNavInfoForPath(pathname);
 
   return (
     <motion.header 
@@ -238,5 +240,3 @@ export function AppHeader({ user }: { user: User }) {
     </motion.header>
   );
 }
-
-    

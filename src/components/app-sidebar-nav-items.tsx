@@ -165,6 +165,7 @@ const finanzasContabilidadNavGroups = {
         { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
         { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
         { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+        { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
       ],
     },
     {
@@ -291,6 +292,7 @@ const legalNavGroupsData = {
             { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/multas", label: "Multas", icon: AlertTriangle },
             { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
+            { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
           ]
         },
         {
@@ -302,6 +304,7 @@ const legalNavGroupsData = {
             { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
             { href: "/modelo-contrato-trabajo", label: "Contrato de Trabajo", icon: FileSignature },
             { href: "/modelo-contrato", label: "Contrato de Servicios", icon: FileSignature },
+            { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
           ]
         },
         {
@@ -320,21 +323,52 @@ const legalNavGroupsData = {
 };
 
 
-const advisoryNavGroups = { 
-    title: "Asesoría", 
+export const advisoryNavGroups = { 
+    title: "Asesoría y Estrategia", 
     icon: Megaphone, 
-    items: [
-        { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
-        { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
-        { href: "/asesoria-importaciones", label: "Asesoría de Importaciones", icon: Ship },
-        { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
-        { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
-        { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
-        { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
-        { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
-        { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
-    ], 
-    subGroups: [] 
+    subGroups: [
+        {
+            title: "Consultoría y Análisis",
+            icon: Megaphone,
+            items: [
+                { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
+                { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+                { href: "/asesoria-importaciones", label: "Asesoría de Importaciones", icon: Ship },
+                { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
+                { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
+                { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
+            ]
+        },
+        {
+            title: "Inteligencia de Negocio",
+            icon: Lightbulb,
+            items: [
+                { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
+                { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+                { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
+                { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+                { href: "/nivel-competencia", label: "Nivel de Competencia", icon: Swords },
+                { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: BarChart },
+                { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
+                { href: "/demografia", label: "Demografía", icon: Users },
+            ]
+        },
+         {
+            title: "Guías de Negocio",
+            icon: Book,
+            items: [
+                { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Layers },
+                { href: "/analisis-empresas-no-digitales", label: "Análisis Empresas No Digitales", icon: SlidersHorizontal },
+                { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
+                { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
+                { href: "/marketing-productos-vs-estrategias", label: "Marketing: Producto vs Estrategia", icon: Package },
+                { href: "/marketing-innovador", label: "Marketing Innovador", icon: Zap },
+                { href: "/marketing-ventas", label: "Marketing y Ventas", icon: Megaphone },
+                { href: "/presentacion-startup", label: "Presentación de Startup", icon: Presentation },
+            ]
+        }
+    ],
+    items: [] 
 };
 
 export const adminNavGroups = [
@@ -371,6 +405,7 @@ export const sociosNavGroups = [
         { href: "/organigrama", label: "Organigrama", icon: Network },
         { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
     ], subGroups: [] },
+    advisoryNavGroups
 ];
 
 export const telecomNavGroups = [
@@ -380,10 +415,14 @@ export const telecomNavGroups = [
 export const informaticaNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ], subGroups: [] },
   { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ], subGroups: [] },
-  { title: "Soluciones IA", icon: BrainCircuit, items: [ { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit } ], subGroups: [] },
+  { title: "Soluciones IA", icon: BrainCircuit, items: [ 
+      { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
+      { href: "/analisis-suelo-foto", label: "Análisis de Suelo (IA)", icon: Search },
+   ], subGroups: [] },
   { title: "Arquitectura", icon: Puzzle, items: [ 
       { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
       { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
+      { href: "/facturacion-internacional", label: "Facturación Internacional", icon: Globe },
   ], subGroups: [] },
   { title: "Ingeniería y Proyectos", icon: HardHat, items: [
       { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },

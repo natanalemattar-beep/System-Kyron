@@ -24,8 +24,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               </p>
           </div>
       </motion.div>
-      <main className="flex-1 container mx-auto p-4 md:p-8">
-        {children}
+      <main className="flex-1 container mx-auto p-4 md:p-8 flex justify-center">
+        <div className="w-full max-w-7xl">
+            {children}
+        </div>
       </main>
       <Toaster />
     </div>
