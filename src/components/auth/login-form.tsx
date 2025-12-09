@@ -82,7 +82,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
       case 'select':
         if (field.id === 'country') {
             return (
-                <div className="space-y-2">
+                <div key={field.id} className="space-y-2">
                     <Label>{field.label}</Label>
                     <Select value={country} onValueChange={setCountry}>
                         <SelectTrigger><SelectValue placeholder="Seleccionar país..." /></SelectTrigger>
@@ -92,14 +92,14 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
             );
         }
         return (
-            <div className="space-y-2">
+            <div key={field.id} className="space-y-2">
                 <Label htmlFor={field.id}>{field.label}</Label>
                 <Select defaultValue={field.defaultValue}><SelectTrigger id={field.id}><SelectValue placeholder={field.placeholder} /></SelectTrigger><SelectContent>{field.options?.map(opt => <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>)}</SelectContent></Select>
             </div>
         );
       case 'password':
         return (
-          <div className="space-y-2 relative">
+          <div key={field.id} className="space-y-2 relative">
             <Label htmlFor={field.id}>{field.label}</Label>
             <Input id={field.id} type={passwordVisible ? "text" : "password"} placeholder={field.placeholder} defaultValue={field.defaultValue} className="pr-10" required/>
             <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
@@ -107,7 +107,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
         );
       case 'checkbox':
         return (
-             <div className="flex items-center justify-between text-sm">
+             <div key={field.id} className="flex items-center justify-between text-sm">
                 {field.rememberMe && (
                     <div className="flex items-center gap-2">
                         <Checkbox id="remember-me" />
@@ -129,7 +129,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
         }
 
         return (
-          <div className="space-y-2">
+          <div key={field.id} className="space-y-2">
             <Label htmlFor={field.id}>{label}</Label>
             <Input id={field.id} type={field.type} placeholder={placeholder} defaultValue={defaultValue} required/>
           </div>
