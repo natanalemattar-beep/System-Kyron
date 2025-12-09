@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -6,9 +5,9 @@ import { Shield } from "lucide-react";
 
 export default function PoliticaPrivacidadPage() {
   return (
-    <div className="space-y-8">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+    <div className="space-y-8 max-w-4xl w-full">
+      <header className="mb-8 text-center">
+        <h1 className="text-3xl font-bold tracking-tight flex items-center justify-center gap-2">
             <Shield className="h-8 w-8" />
             Política de Privacidad
         </h1>
@@ -43,7 +42,6 @@ export default function PoliticaPrivacidadPage() {
                 <li>Proveer, operar y mantener nuestros servicios.</li>
                 <li>Procesar sus transacciones y gestionar sus pagos.</li>
                 <li>Cumplir con las obligaciones legales y fiscales en su nombre.</li>
-                <li>Mejorar, personalizar y ampliar nuestros servicios.</li>
                  <li>Enviarle correos electrónicos administrativos, técnicos o de marketing, de los cuales puede optar por no recibirlos.</li>
             </ul>
 
