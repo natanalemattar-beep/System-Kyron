@@ -69,8 +69,9 @@ const initialPermisos = [
     { id: "PERM-REG-002", tipo: "Autorización de Empresa de Seguros", emisor: "SUDEASEG", fechaEmision: "2023-05-10", fechaVencimiento: "2025-05-10", estado: "Vigente", requisitosInscripcion: ["Capital mínimo suscrito y pagado", "Estatutos sociales de la empresa", "Nómina de directores y credenciales"], requisitosRenovacion: ["Publicación de Estados Financieros auditados"] },
     { id: "PERM-REG-003", tipo: "Licencia de Institución Financiera", emisor: "SUDEBAN", fechaEmision: "2022-11-15", fechaVencimiento: "2027-11-15", estado: "Vigente", requisitosInscripcion: ["Estudio de viabilidad económica", "Manuales de organización, procedimientos y control interno", "Origen de los fondos del capital"], requisitosRenovacion: ["Auditorías periódicas de SUDEBAN"] },
     { id: "PERM-PRO-001", tipo: "Inscripción en Colegio de Médicos", emisor: "Colegios Profesionales", fechaEmision: "2020-02-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario registrado y protocolizado", "Cédula de identidad", "Pago de aranceles de inscripción"], requisitosRenovacion: ["Solvencia anual"] },
-    { id: "PERM-PRO-002", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario", "Inscripción en el INPRECONTAD"], requisitosRenovacion: ["Solvencia anual del colegio y del INPRECONTAD"] },
-    { id: "PERM-PRO-003", tipo: "Inscripción en INPREABOGADO", emisor: "Colegios Profesionales", fechaEmision: "2018-05-30", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de abogado registrado", "Inscripción en el Colegio de Abogados respectivo"], requisitosRenovacion: ["Pago de cuotas de sostenimiento"] },
+    { id: "PERM-PRO-002", tipo: "Inscripción en Colegio de Ingenieros (CIV)", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de Ingeniero registrado", "Cédula de identidad", "Pago de tasas"], requisitosRenovacion: ["Solvencia anual"] },
+    { id: "PERM-PRO-003", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario", "Inscripción en el INPRECONTAD"], requisitosRenovacion: ["Solvencia anual del colegio y del INPRECONTAD"] },
+    { id: "PERM-PRO-004", tipo: "Inscripción en INPREABOGADO", emisor: "Colegios Profesionales", fechaEmision: "2018-05-30", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de abogado registrado", "Inscripción en el Colegio de Abogados respectivo"], requisitosRenovacion: ["Pago de cuotas de sostenimiento"] },
 
     // --- SAPI ---
     { id: "PERM-SAPI-001", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente", requisitosInscripcion: ["Búsqueda fonética y gráfica de antecedentes", "Diseño del logo en formato JPG/PNG", "Pago de tasas"], requisitosRenovacion: ["Pago de tasa de renovación cada 10 años"] },
@@ -92,6 +93,7 @@ const initialPermisos = [
 
 
     // --- Entes Nacionales y Registros Obligatorios ---
+    { id: "REG-MERC-001", tipo: "Registro Mercantil", emisor: "SAREN", fechaEmision: "2020-01-05", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Acta Constitutiva Visada", "Cédulas de los socios", "Pago de tasas"], requisitosRenovacion: ["Actualización de Actas de Asamblea"] },
     { id: "PERM-NAC-001", tipo: "Inscripción Patronal en el IVSS", emisor: "IVSS", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Formulario 14-01", "RIF de la empresa", "Cédula del representante legal"], requisitosRenovacion: [] },
     { id: "PERM-NAC-002", tipo: "Inscripción en BANAVIH (FAOV)", emisor: "BANAVIH", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Registro en el sistema FAOV en Línea", "RIF", "Carga de la nómina de trabajadores"], requisitosRenovacion: [] },
     { id: "PERM-NAC-003", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "2021-06-01", fechaVencimiento: "2024-06-01", estado: "Vencido", requisitosInscripcion: ["Registro como operador postal", "Descripción de los servicios a prestar"], requisitosRenovacion: ["Solvencia de pago de tasas postales"] },
@@ -139,7 +141,7 @@ const getLetterContent = (permiso: Permiso | null): string => {
 
     const fechaActual = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
     const baseContent = `
-Ciudad, ${'fechaActual'}
+Ciudad, ${fechaActual}
 
 Señores
 ${permiso.emisor}
@@ -310,10 +312,10 @@ export default function PermisosPage() {
       form.reset();
   };
 
-  const handleSendNotification = (permiso: Permiso, method: string) => {
+  const handleSendNotification = (permiso: Permiso) => {
     toast({
-        title: `Notificación Enviada por ${method}`,
-        description: `Se ha enviado una alerta de renovación para el permiso "${permiso.tipo}" al responsable.`,
+        title: `Notificación Enviada`,
+        description: `Se ha enviado una alerta de renovación para el permiso "${permiso.tipo}" a maitehdez37@gmail.com.`,
     });
     setSelectedPermit(null);
   };
@@ -395,10 +397,19 @@ C.I: [C.I. del Representante]
                 Consulta y gestiona todos los permisos y licencias de tu empresa.
             </p>
         </div>
-        <Button>
-            <PlusCircle className="mr-2" />
-            Solicitar Nuevo Permiso
-        </Button>
+        <div className="flex items-center gap-2">
+            <Button variant="destructive" onClick={() => toast({
+                title: "Alertas Enviadas",
+                description: "Se ha enviado un correo a maitehdez37@gmail.com con los permisos vencidos y por vencer."
+            })}>
+                <Mail className="mr-2"/>
+                Notificar Alertas a Administración
+            </Button>
+            <Button>
+                <PlusCircle className="mr-2" />
+                Solicitar Nuevo Permiso
+            </Button>
+        </div>
       </header>
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
@@ -470,6 +481,12 @@ C.I: [C.I. del Representante]
                                         <Badge variant={statusVariant[permiso.estado]}>{permiso.estado}</Badge>
                                     </TableCell>
                                     <TableCell className="text-right space-x-1">
+                                        {permiso.id === 'REG-MERC-001' ? (
+                                             <Button variant="outline" size="sm" onClick={() => handleAction(`Descarga de Registro Mercantil iniciada.`)}>
+                                                <Download className="mr-2 h-4 w-4" />
+                                                Descargar Documento
+                                            </Button>
+                                        ) : (
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <Button variant="ghost" size="icon" title="Ver Detalles" onClick={() => setSelectedPermit(permiso)}>
@@ -637,6 +654,7 @@ C.I: [C.I. del Representante]
                                                 </DialogFooter>
                                             </DialogContent>
                                         </Dialog>
+                                         )}
                                          {(permiso.estado === "Por Vencer" || permiso.estado === "Vencido") && (
                                             <Dialog onOpenChange={() => setSelectedPermit(permiso)}>
                                                 <DialogTrigger asChild>
@@ -648,20 +666,15 @@ C.I: [C.I. del Representante]
                                                     <DialogHeader>
                                                         <DialogTitle>Notificar Renovación</DialogTitle>
                                                         <DialogDescription>
-                                                            Enviar un recordatorio para iniciar el proceso de renovación del permiso: <br/><strong>{permiso.tipo}</strong>.
+                                                            Se enviará una alerta de renovación para el permiso <strong>{permiso.tipo}</strong> a maitehdez37@gmail.com.
                                                         </DialogDescription>
                                                     </DialogHeader>
-                                                    <div className="flex flex-col gap-2 py-4">
-                                                        <Button onClick={() => handleSendNotification(permiso, "Correo")}>
-                                                            <Mail className="mr-2"/> Enviar por Correo Electrónico
+                                                    <DialogFooter>
+                                                        <Button variant="outline" onClick={() => setSelectedPermit(null)}>Cancelar</Button>
+                                                        <Button onClick={() => handleSendNotification(permiso)}>
+                                                            <Send className="mr-2"/> Enviar Notificación
                                                         </Button>
-                                                        <Button onClick={() => handleSendNotification(permiso, "WhatsApp")}>
-                                                            <MessageSquare className="mr-2"/> Enviar por WhatsApp
-                                                        </Button>
-                                                         <Button onClick={() => handleSendNotification(permiso, "SMS")}>
-                                                            <Send className="mr-2"/> Enviar por SMS
-                                                        </Button>
-                                                    </div>
+                                                    </DialogFooter>
                                                 </DialogContent>
                                             </Dialog>
                                         )}
@@ -679,3 +692,5 @@ C.I: [C.I. del Representante]
     </div>
   );
 }
+
+    
