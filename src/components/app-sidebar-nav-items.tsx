@@ -229,7 +229,7 @@ const impuestosCumplimientoNavGroups = {
   items: []
 };
 
-const rrhhNavGroups = {
+const rrhhNavGroupsData = {
     title: "Recursos Humanos",
     icon: Briefcase,
     subGroups: [
@@ -277,7 +277,7 @@ const rrhhNavGroups = {
     items: []
 }
 
-const legalNavGroups = {
+const legalNavGroupsData = {
     title: "Jurídico y Corporativo", 
     icon: Gavel, 
     subGroups: [
@@ -341,16 +341,16 @@ export const adminNavGroups = [
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
-  rrhhNavGroups,
-  legalNavGroups,
+  rrhhNavGroupsData,
+  legalNavGroupsData,
   advisoryNavGroups
 ];
 
-export const legalNavGroups = [legalNavGroups];
+export const legalNavGroups = [legalNavGroupsData];
 
 export const marketingNavGroups = [advisoryNavGroups];
 
-export const rrhhNavGroups = [rrhhNavGroups];
+export const rrhhNavGroups = [rrhhNavGroupsData];
 
 export const ventasNavGroups = [
     { title: "Ventas y Caja", icon: ShoppingCart, items: [
