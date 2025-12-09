@@ -13,35 +13,33 @@ export default function PropuestaProyectoPage() {
     const { toast } = useToast();
 
     const getProposalContent = () => `
-        <h1>PROPUESTA DE PROYECTO: INNOVACIÓN SOSTENIBLE Y EFICIENCIA ADMINISTRATIVA</h1>
+        <h1>PROPUESTA DE PROYECTO: EFICIENCIA Y FINANZAS DEL FUTURO</h1>
         <p><strong>Fecha:</strong> ${formatDate(new Date())}</p>
         <p><strong>Para:</strong> [Nombre del Destinatario / Empresa Cliente]</p>
         <p><strong>De:</strong> Kyron, C.A.</p>
         <br/>
         <h2>ASUNTO: PROPUESTA PARA LA IMPLEMENTACIÓN DE UN ECOSISTEMA INTEGRADO DE GESTIÓN, TELECOMUNICACIONES Y FINANZAS BLOCKCHAIN</h2>
         <p>Estimados señores de [Nombre de la Empresa Cliente],</p>
-        <p>Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos, una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain.</p>
+        <p>Nos dirigimos a ustedes para presentar una propuesta que consideramos transformadora. En Kyron, hemos desarrollado una solución integral que combina una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain.</p>
         <br/>
         <h3>1. ENTENDIMIENTO DEL PROBLEMA</h3>
         <p>Reconocemos los desafíos del entorno actual:</p>
         <ul>
-            <li>La gestión ineficiente de residuos sólidos.</li>
             <li>La complejidad administrativa y fiscal en Venezuela.</li>
-            <li>La necesidad de soluciones de comunicación y transacciones financieras seguras y modernas.</li>
+            <li>La necesidad de soluciones de comunicación eficientes.</li>
+            <li>La búsqueda de transacciones financieras seguras, transparentes y modernas.</li>
         </ul>
         <br/>
-        <h3>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA DE TRES PILARES</h3>
-        <p>Nuestro proyecto se basa en tres pilares que funcionan de manera sinérgica:</p>
-        <p><strong>a) Pilar 1: Sostenibilidad y Hardware Inteligente (Papelera Inteligente):</strong> Dispositivo con IA que clasifica automáticamente los residuos, optimizando el reciclaje y generando datos valiosos para la economía circular.</p>
-        <p><strong>b) Pilar 2: Software de Automatización y Telecomunicaciones (SaaS + TaaS):</strong> Plataforma en la nube para automatizar facturación, inventario y contabilidad (cumpliendo con normativas SENIAT), integrada con una oferta de servicios de telecomunicaciones que incluye línea telefónica y venta de equipos (teléfonos, televisores).</p>
-        <p><strong>c) Pilar 3: Implementación Contable y Financiera con Billetera Blockchain:</strong> Una solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.</p>
+        <h3>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA DE DOS PILARES</h3>
+        <p>Nuestro proyecto se basa en dos pilares que funcionan de manera sinérgica:</p>
+        <p><strong>a) Pilar 1: Software de Automatización y Telecomunicaciones (SaaS + TaaS):</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa (facturación, inventario, contabilidad), integrada con una oferta de servicios que incluye <strong>línea telefónica y venta de equipos (teléfonos, televisores)</strong>.</p>
+        <p><strong>b) Pilar 2: Implementación Financiera con Billetera Blockchain:</strong> Una solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.</p>
         <br/>
         <h3>3. BENEFICIOS CLAVE</h3>
         <ul>
-            <li><strong>Sostenibilidad y Responsabilidad Social:</strong> Mejora la gestión de residuos y la imagen corporativa.</li>
             <li><strong>Eficiencia Operativa Integral:</strong> Automatiza tareas administrativas y unifica las comunicaciones.</li>
             <li><strong>Cumplimiento y Seguridad Financiera:</strong> Garantiza el cumplimiento fiscal y ofrece transacciones seguras con tecnología Blockchain.</li>
-            <li><strong>Toma de Decisiones Basada en Datos:</strong> Informes en tiempo real sobre residuos, finanzas y operaciones.</li>
+            <li><strong>Toma de Decisiones Basada en Datos:</strong> Informes en tiempo real sobre finanzas y operaciones.</li>
         </ul>
         <br/>
         <h3>4. PRÓXIMOS PASOS</h3>
@@ -102,7 +100,7 @@ export default function PropuestaProyectoPage() {
                 Carta de Propuesta de Proyecto
             </h1>
             <p className="text-muted-foreground mt-2">
-              Modelo para presentar tu proyecto de Papelera Inteligente y Automatización a clientes o inversores.
+              Modelo para presentar tu ecosistema de gestión, telecomunicaciones y finanzas a clientes o inversores.
             </p>
         </div>
         <div className="flex gap-2">
@@ -117,10 +115,10 @@ export default function PropuestaProyectoPage() {
 
       <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-xl">
         <CardHeader className="text-center p-8">
-            <CardTitle className="text-2xl">PROPUESTA DE PROYECTO: INNOVACIÓN SOSTENIBLE Y EFICIENCIA ADMINISTRATIVA</CardTitle>
+            <CardTitle className="text-2xl">PROPUESTA DE PROYECTO: EFICIENCIA Y FINANZAS DEL FUTURO</CardTitle>
         </CardHeader>
         <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
-            <p><strong>Fecha:</strong> ${formatDate(new Date())}</p>
+            <p><strong>Fecha:</strong> {formatDate(new Date())}</p>
             <p><strong>Para:</strong> [Nombre del Destinatario / Empresa Cliente]</p>
             <p><strong>De:</strong> Kyron, C.A.</p>
             
@@ -132,7 +130,7 @@ export default function PropuestaProyectoPage() {
                 Estimados señores de [Nombre de la Empresa Cliente],
             </p>
             <p>
-                Nos dirigimos a ustedes con gran entusiasmo para presentar una propuesta que consideramos transformadora. En Kyron, hemos desarrollado una solución integral que combina tecnología de punta para la gestión de residuos, una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain.
+                Nos dirigimos a ustedes para presentar una propuesta que consideramos transformadora. En Kyron, hemos desarrollado una solución integral que combina una plataforma de automatización administrativa, servicios de telecomunicaciones y una innovadora billetera financiera basada en Blockchain.
             </p>
 
             <h4>1. ENTENDIMIENTO DEL PROBLEMA</h4>
@@ -140,31 +138,27 @@ export default function PropuestaProyectoPage() {
                 Reconocemos los desafíos del entorno actual:
             </p>
             <ul className="list-disc pl-5 space-y-2">
-                <li>La gestión ineficiente de residuos sólidos, que resulta en bajos índices de reciclaje y altos costos operativos.</li>
                 <li>La complejidad administrativa y fiscal en Venezuela, que consume tiempo y recursos valiosos.</li>
-                <li>La necesidad de soluciones de comunicación y transacciones financieras seguras y modernas.</li>
+                <li>La necesidad de soluciones de comunicación eficientes y confiables.</li>
+                <li>La búsqueda de transacciones financieras seguras, transparentes y modernas.</li>
             </ul>
 
-            <h4>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA DE TRES PILARES</h4>
+            <h4>2. SOLUCIÓN PROPUESTA: UN ECOSISTEMA DE DOS PILARES</h4>
             <p>
-                Nuestro proyecto se basa en tres pilares fundamentales que funcionan de manera sinérgica:
+                Nuestro proyecto se basa en dos pilares fundamentales que funcionan de manera sinérgica:
             </p>
             <p>
-                <strong>a) Pilar 1: Sostenibilidad y Hardware Inteligente (Papelera Inteligente):</strong> Un dispositivo innovador equipado con sensores e Inteligencia Artificial que clasifica automáticamente los residuos (papel, plástico, vidrio, etc.), optimizando el proceso de reciclaje desde el origen.
-            </p>
-            <p>
-                <strong>b) Pilar 2: Software de Automatización y Telecomunicaciones (SaaS + TaaS):</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa (facturación, inventario, contabilidad), integrada con una oferta de servicios que incluye <strong>línea telefónica y venta de equipos (teléfonos, televisores)</strong>.
+                <strong>a) Pilar 1: Software de Automatización y Telecomunicaciones (SaaS + TaaS):</strong> Una plataforma en la nube que automatiza el 100% de los procesos de su empresa (facturación, inventario, contabilidad), integrada con una oferta de servicios que incluye <strong>línea telefónica y venta de equipos (teléfonos, televisores)</strong>.
             </p>
              <p>
-                <strong>c) Pilar 3: Implementación Contable y Financiera con Billetera Blockchain:</strong> Una solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.
+                <strong>b) Pilar 2: Implementación Financiera con Billetera Blockchain:</strong> Una solución de tercera generación para la gestión de activos y transacciones seguras, transparentes e inmutables, ideal para el comercio y las finanzas del futuro.
             </p>
 
             <h4>3. BENEFICIOS CLAVE</h4>
              <ul className="list-disc pl-5 space-y-2">
-                <li><strong>Sostenibilidad y Responsabilidad Social:</strong> Mejora radicalmente la gestión de residuos y posiciona a su organización como líder en sostenibilidad.</li>
-                <li><strong>Eficiencia Operativa Integral:</strong> Automatiza tareas administrativas y unifica las comunicaciones y servicios tecnológicos.</li>
+                <li><strong>Eficiencia Operativa Integral:</strong> Automatiza tareas administrativas y unifica las comunicaciones.</li>
                 <li><strong>Cumplimiento y Seguridad Financiera:</strong> Garantiza el cumplimiento fiscal y ofrece transacciones seguras con tecnología Blockchain.</li>
-                <li><strong>Toma de Decisiones Basada en Datos:</strong> Obtenga informes en tiempo real sobre la generación de residuos y el rendimiento financiero de su empresa.</li>
+                <li><strong>Toma de Decisiones Basada en Datos:</strong> Obtenga informes en tiempo real sobre el rendimiento financiero y operativo de su empresa.</li>
             </ul>
 
             <h4>4. PRÓXIMOS PASOS</h4>
