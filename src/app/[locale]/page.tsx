@@ -230,7 +230,7 @@ const IaContent = () => (
 );
 
 
-const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module: typeof navModules[0], radius: number, onMouseEnter: () => void, onMouseLeave: () => void }) => {
+const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave, index }: { module: typeof navModules[0], radius: number, onMouseEnter: () => void, onMouseLeave: () => void, index: number }) => {
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
     
@@ -244,10 +244,14 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
             onMouseLeave={onMouseLeave}
             whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
             transition={{ type: "spring", stiffness: 300 }}
+            variants={{
+                hidden: { opacity: 0, scale: 0.5 },
+                visible: { opacity: 1, scale: 1 },
+            }}
         >
-                <div className="text-center">
-                <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
-                </div>
+            <div className="text-center">
+            <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
+            </div>
         </motion.div>
     );
 
@@ -257,10 +261,18 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
             style={{
                 top: '50%',
                 left: '50%',
+                x: -48,
+                y: -48
             }}
-            initial={{ x: -48, y: -48 }} 
-            animate={{ x: x - 48, y: y - 48 }}
+            animate={{
+                x: x - 48,
+                y: y - 48,
+            }}
             transition={{ type: "spring", stiffness: 50, damping: 15 }}
+            variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1 },
+            }}
         >
             {module.type === 'scroll' ? (
                  <SmoothScrollLink href={module.href}>
@@ -444,6 +456,12 @@ export default function LandingPage() {
             <motion.div 
               className="relative grid place-items-center w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] aspect-square"
               style={{ opacity }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.1 } },
+                hidden: {},
+              }}
+              initial="hidden"
+              animate="visible"
             >
                 {/* Central Text/Orb */}
                 <div className="absolute z-10 grid place-items-center w-full h-full">
@@ -473,11 +491,12 @@ export default function LandingPage() {
                 </div>
 
                 {/* Orbiting Modules */}
-                 {navModules.map(module => (
+                 {navModules.map((module, index) => (
                     <ModuleOrb
                         key={module.name}
                         module={module}
                         radius={radius}
+                        index={index}
                         onMouseEnter={() => setHoveredModule({ name: module.name, description: getModuleDescription(module.name) })}
                         onMouseLeave={() => setHoveredModule(null)}
                     />
@@ -495,7 +514,7 @@ export default function LandingPage() {
         </section>
 
         {/* Services Section */}
-        <section id="servicios" className="pt-32 md:pt-40 pb-20 md:pb-28 bg-background">
+        <section id="servicios" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                  <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
