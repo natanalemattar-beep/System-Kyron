@@ -9,6 +9,7 @@ export function SplashScreen() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        // This effect runs only on the client
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 2000); // Show splash for 2 seconds
@@ -57,3 +58,5 @@ export function SplashScreen() {
         </AnimatePresence>
     );
 }
+
+    
