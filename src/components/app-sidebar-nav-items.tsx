@@ -382,5 +382,3 @@ export const informaticaNavGroups = [
   ], subGroups: [] },
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems, subGroups: [] },
 ];
-
-    
