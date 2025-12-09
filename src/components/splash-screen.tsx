@@ -58,5 +58,3 @@ export function SplashScreen() {
         </AnimatePresence>
     );
 }
-
-    

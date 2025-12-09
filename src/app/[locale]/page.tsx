@@ -373,6 +373,18 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-background/80"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent dark:from-blue-900/40"></div>
                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent dark:from-green-900/40"></div>
+                 
+                 <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    animate={{ scale: [1, 1.05, 1], opacity: [0.05, 0.1, 0.05] }}
+                    transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    }}
+                >
+                    <Logo className="h-[40vmin] w-[40vmin] text-primary" />
+                </motion.div>
             </motion.div>
 
             {/* Contenido Central */}
@@ -386,7 +398,7 @@ export default function LandingPage() {
               initial="hidden"
               animate="visible"
             >
-                {/* Central Text/Orb */}
+                {/* Central Text */}
                 <div className="absolute z-10 grid place-items-center w-full h-full">
                      <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -400,23 +412,9 @@ export default function LandingPage() {
                                 <p className="text-muted-foreground max-w-xs">{hoveredModule.description}</p>
                             </>
                             ) : (
-                            <div className="flex flex-col items-center gap-4">
-                                <motion.div
-                                    animate={{
-                                        scale: [1, 1.05, 1],
-                                        opacity: [0.8, 1, 0.8]
-                                    }}
-                                    transition={{
-                                        duration: 4,
-                                        repeat: Infinity,
-                                        ease: "easeInOut",
-                                    }}
-                                >
-                                    <Logo className="h-24 w-24 mb-4"/>
-                                </motion.div>
-                                <h1 className="text-4xl md:text-5xl font-bold text-balance">Kyron Core</h1>
-                                <p className="text-base md:text-lg text-muted-foreground max-w-sm">Inteligencia en Cada Transacción</p>
-                            </div>
+                            <h1 className="text-8xl md:text-9xl font-bold text-foreground/90 text-shadow-glow">
+                                Kyron
+                            </h1>
                         )}
                     </motion.div>
                 </div>
