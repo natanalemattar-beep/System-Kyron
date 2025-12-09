@@ -184,7 +184,7 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
     
     const content = (
         <motion.div
-            className="w-24 h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-2xl flex items-center justify-center p-2 cursor-pointer"
+            className="w-24 h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-full grid place-items-center p-2 cursor-pointer"
             style={{
                 boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
             }}
@@ -246,7 +246,7 @@ export default function LandingPage() {
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
     const isMobile = useIsMobile();
-    const radius = isMobile ? 130 : 260;
+    const radius = isMobile ? 150 : 300;
 
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -393,23 +393,11 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-background/80"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent dark:from-blue-900/40"></div>
                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent dark:from-green-900/40"></div>
-                 
-                 <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
-                    animate={{ scale: [1, 1.05, 1], opacity: [0.05, 0.1, 0.05] }}
-                    transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                >
-                    <Logo className="h-[80vmin] w-[80vmin] text-primary" />
-                </motion.div>
             </motion.div>
 
             {/* Central Content */}
             <motion.div 
-              className="relative grid place-items-center w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] aspect-square"
+              className="relative grid place-items-center w-[350px] h-[350px] sm:w-[550px] sm:h-[550px] md:w-[650px] md:h-[650px] aspect-square"
               style={{ opacity }}
               variants={{
                 visible: { transition: { staggerChildren: 0.1 } },
@@ -419,7 +407,7 @@ export default function LandingPage() {
               animate="visible"
             >
                 {/* Central Text */}
-                <div className="absolute z-10 grid place-items-center w-full h-full">
+                <div className="absolute z-10 grid place-items-center w-full h-full text-center">
                      <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -432,9 +420,14 @@ export default function LandingPage() {
                                 <p className="text-muted-foreground max-w-xs">{hoveredModule.description}</p>
                             </>
                             ) : (
-                            <h1 className="text-7xl md:text-8xl font-bold text-foreground/90 text-shadow-glow">
-                                Kyron
-                            </h1>
+                            <div className="flex flex-col items-center gap-4">
+                                <h1 className="text-5xl md:text-7xl font-bold text-foreground/90 text-shadow-glow">
+                                    Inteligencia en Cada Transacción
+                                </h1>
+                                <Button size="lg" asChild className="mt-4 btn-3d-primary">
+                                    <Link href="/register">¡Regístrate Ahora! <ArrowRight className="ml-2"/></Link>
+                                </Button>
+                            </div>
                         )}
                     </motion.div>
                 </div>

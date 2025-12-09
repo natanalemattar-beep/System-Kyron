@@ -22,7 +22,7 @@ export function Orb() {
 
       {/* Main Orb Sphere */}
       <motion.div
-        className="w-[200px] h-[200px] md:w-[250px] md:h-[250px] bg-background/50 backdrop-blur-sm rounded-full relative overflow-hidden border border-primary/10"
+        className="w-full h-full bg-background/50 backdrop-blur-sm rounded-full relative overflow-hidden border border-primary/10"
         animate={{ rotate: 360 }}
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       >
