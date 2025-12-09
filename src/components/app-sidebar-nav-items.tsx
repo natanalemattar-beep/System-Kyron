@@ -138,6 +138,20 @@ export const naturalMenuItems = [
     }
 ];
 
+const facturacionGeneralMenuItems = [
+    { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
+    { href: "/punto-de-venta", label: "Punto de Venta (TPV)", icon: TabletSmartphone },
+    { href: "/proformas", label: "Proformas", icon: Receipt },
+    { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
+    { href: "/cobranza", label: "Gestión de Cobranza", icon: HandCoins },
+    { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
+    { href: "/modelo-presupuesto", label: "Modelo de Presupuesto", icon: Receipt },
+    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
+    { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
+];
+
 const finanzasContabilidadNavGroups = {
   title: "Finanzas y Contabilidad",
   icon: BookOpen,
@@ -149,6 +163,8 @@ const finanzasContabilidadNavGroups = {
         { href: "/dashboard-empresa", label: "Dashboard Principal", icon: LayoutDashboard },
         { href: "/reports", label: "Reportes Financieros", icon: BarChart },
         { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
+        { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
+        { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
       ],
     },
     {
@@ -163,18 +179,7 @@ const finanzasContabilidadNavGroups = {
       ],
     },
     {
-      title: "Impuestos y Fiscal",
-      icon: FileText,
-      items: [
-        { href: "/tramites-fiscales", label: "Centro de Trámites Fiscales", icon: FileText },
-        { href: "/declaracion-iva", label: "Declaración de IVA", icon: FileText },
-        { href: "/islr-arc", label: "Declaración Estimada (ISLR)", icon: Banknote },
-        { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
-        { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
-      ],
-    },
-     {
-      title: "Libros Oficiales",
+      title: "Libros Oficiales y Auxiliares",
       icon: BookOpen,
       items: [
         { href: "/libros-contables", label: "Libros Contables Principales", icon: BookOpen },
@@ -182,187 +187,181 @@ const finanzasContabilidadNavGroups = {
         { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
       ],
     },
-    {
-      title: "Análisis y Cumplimiento",
-      icon: ShieldCheck,
+     {
+      title: "Activos",
+      icon: Building,
       items: [
-        { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
-        { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
-        { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
-        { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
-        { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
-      ],
-    },
-    {
-      title: "Conceptos y Guías",
-      icon: HelpCircle,
-      items: [
-        { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
-        { href: "/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
-        { href: "/software-contable", label: "Guía de Software Contable", icon: Puzzle },
-      ],
-    },
-    {
-      title: "Varios",
-      icon: Layers,
-      items: [
-        { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
-        { href: "/seguros", label: "Seguros", icon: ShieldCheck },
-        { href: "/cartas-seniat", label: "Cartas para SENIAT", icon: Mail },
-      ],
+        { href: "/inventario", label: "Inventario", icon: Archive },
+        { href: "/activos-inmobiliarios", label: "Activos Inmobiliarios", icon: Building },
+      ]
     },
   ],
   items: [],
 };
 
+const impuestosCumplimientoNavGroups = {
+  title: "Impuestos y Cumplimiento",
+  icon: ShieldCheck,
+  subGroups: [
+    {
+      title: "Centro de Cumplimiento",
+      icon: ShieldCheck,
+      items: [
+        { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
+        { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
+        { href: "/cumplimiento", label: "Prevención de Sanciones", icon: AlertTriangle },
+        { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
+      ]
+    },
+    {
+      title: "Declaraciones y Pagos",
+      icon: FileText,
+      items: [
+        { href: "/tramites-fiscales", label: "Centro de Trámites Fiscales", icon: FileText },
+        { href: "/declaracion-iva", label: "Declaración de IVA", icon: FileText },
+        { href: "/islr-arc", label: "Declaración Estimada (ISLR)", icon: Banknote },
+        { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
+        { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
+        { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
+      ]
+    }
+  ],
+  items: []
+};
 
-const facturacionGeneralMenuItems = [
-    { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
-    { href: "/proformas", label: "Proformas", icon: Receipt },
-    { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-    { href: "/cobranza", label: "Gestión de Cobranza", icon: HandCoins },
-    { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
-    { href: "/modelo-presupuesto", label: "Factura de Presupuesto", icon: Receipt },
-    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
-    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
-    { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
-    { href: "/importaciones", label: "Proveedores", icon: Ship },
-    { href: "/registro-proveedores", label: "Registro de Proveedores", icon: UserCog },
-    { href: "/creditos", label: "Líneas de Crédito", icon: CreditCard },
-    { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
-    { href: "/registro-comprador", label: "Registro de Comprador", icon: UserCheck },
-];
+const rrhhNavGroups = {
+    title: "Recursos Humanos",
+    icon: Briefcase,
+    subGroups: [
+      {
+        title: "Gestión de Personal",
+        icon: Users,
+        items: [
+            { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
+            { href: "/nominas", label: "Nóminas", icon: Users },
+            { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
+            { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
+            { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
+            { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
+            { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
+            { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
+            { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
+            { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
+            { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
+            { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
+            { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Award },
+        ]
+      },
+      {
+        title: "Aportes Parafiscales",
+        icon: Landmark,
+        items: [
+          { href: "/ivss", label: "IVSS y FAOV", icon: Briefcase },
+          { href: "/integraciones", label: "Otros Parafiscales", icon: RefreshCw },
+        ]
+      },
+      {
+        title: "Libros de Registro",
+        icon: BookOpen,
+        items: [
+            { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
+            { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
+            { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
+            { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
+            { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
+            { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
+            { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
+        ]
+      }
+    ],
+    items: []
+}
 
-const internationalOperationsMenuItems = [
-    { href: "/gestion-global", label: "Centro de Gestión Global", icon: Globe },
-    { href: "/facturacion-internacional", label: "Facturación Internacional", icon: Globe },
-];
+const legalNavGroups = {
+    title: "Jurídico y Corporativo", 
+    icon: Gavel, 
+    subGroups: [
+        {
+          title: "Gestión Legal",
+          icon: Gavel,
+          items: [
+            { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
+            { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
+            { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
+            { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
+            { href: "/multas", label: "Multas", icon: AlertTriangle },
+            { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
+          ]
+        },
+        {
+          title: "Contratos y Documentos",
+          icon: FileSignature,
+          items: [
+            { href: "/contratos", label: "Gestión de Contratos", icon: FileSignature },
+            { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
+            { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
+            { href: "/modelo-contrato-trabajo", label: "Contrato de Trabajo", icon: FileSignature },
+            { href: "/modelo-contrato", label: "Contrato de Servicios", icon: FileSignature },
+          ]
+        },
+        {
+          title: "Estructura Corporativa",
+          icon: Building,
+          items: [
+            { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
+            { href: "/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
+            { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
+            { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
+            { href: "/organigrama", label: "Organigrama", icon: Network },
+          ]
+        }
+    ], 
+    items: []
+};
 
-const ingenieriaMenuItems = [
-  { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
-  { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
-  { href: "/analisis-suelo-foto", label: "Análisis de Suelo por Foto", icon: Search },
-  { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
-];
 
-const iaMenuItems = [
-  { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
-];
-
-const generalMenuItems = [
-  { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
-  { href: "/organigrama", label: "Organigrama", icon: Network },
-  { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
-  { href: "/analisis-empresas-no-digitales", label: "Empresas No Digitalizadas", icon: SlidersHorizontal },
-  { href: "/integraciones", label: "Integraciones y Parafiscales", icon: RefreshCw },
-];
-
-const marketingMenuItems = [
-    { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
-    { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
-    { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
-    { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
-    { href: "/app-aliada-recompensa", label: "Alianzas y Recompensas", icon: Award },
-    { href: "/tarjeta-reciclaje", label: "Tarjeta de Reciclaje", icon: Recycle },
-    { href: "/marketing-productos-vs-estrategias", label: "Marketing de Producto", icon: Package },
-    { href: "/marketing-ventas", label: "Estrategias de Marketing", icon: TrendingUp },
-    { href: "/analisis-mercado", label: "Análisis de Mercado", icon: Search },
-    { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: Zap },
-    { href: "/nivel-competencia", label: "Competencia y Cadena de Valor", icon: Swords },
-    { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
-    { href: "/presentacion-startup", label: "Guía para Presentar Startup", icon: Presentation },
-    { href: "/carta-exposicion-motivos", label: "Carta de Exposición de Motivos", icon: Lightbulb },
-    { href: "/demografia", label: "Demografía y Mercado", icon: Users },
-    { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
-    { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
-];
-
-const advisoryMenuItems = [
-    { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
-    { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
-];
-
-const recursosMenuItems = [
-    { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
-    { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
-];
-
-export const ventasMenuItems = [
-    { href: "/analisis-ventas", label: "Dashboard de Ventas", icon: LayoutDashboard },
-    { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
-    { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
-    { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-    { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
-];
-
-export const recursosHumanosGestionItems = [
-    { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
-    { href: "/nominas", label: "Nóminas", icon: Users },
-    { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
-    { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
-    { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
-    { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
-    { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
-    { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
-    { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
-    { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
-    { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
-    { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
-    { href: "/ivss", label: "IVSS", icon: Briefcase },
-    { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Award },
-];
-
-export const librosRegistroMenuItems = [
-    { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
-    { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
-    { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
-    { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
-    { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
-    { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
-    { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
-];
-
-export const legalNavItems = [
-  { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
-  { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
-  { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
-  { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
-  { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
-  { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
-  { href: "/multas", label: "Multas", icon: AlertTriangle },
-  { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
-  { href: "/activos-inmobiliarios", label: "Gestión de Activos", icon: Building },
-  { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
-  { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
-  { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
-  { href: "/poderes-representacion", label: "Poderes y Representación", icon: Gavel },
-];
+const advisoryNavGroups = { 
+    title: "Asesoría", 
+    icon: Megaphone, 
+    items: [
+        { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
+        { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+        { href: "/asesoria-importaciones", label: "Asesoría de Importaciones", icon: Ship },
+        { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
+        { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
+        { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
+        { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
+        { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+        { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
+    ], 
+    subGroups: [] 
+};
 
 export const adminNavGroups = [
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
-  { title: "Asesoría y Marketing", icon: Megaphone, items: marketingMenuItems, subGroups: [] },
-  { title: "Recursos", icon: BookUser, items: recursosMenuItems, subGroups: [] },
-  { title: "General", icon: Cog, items: generalMenuItems, subGroups: [] },
+  impuestosCumplimientoNavGroups,
+  rrhhNavGroups,
+  legalNavGroups,
+  advisoryNavGroups
 ];
 
-export const legalNavGroups = [
-    { title: "Jurídico y Corporativo", icon: Gavel, items: legalNavItems, subGroups: [] },
-];
+export const legalNavGroups = [legalNavGroups];
 
-export const marketingNavGroups = [
-    { title: "Asesoría", icon: Megaphone, items: advisoryMenuItems, subGroups: [] },
-    { title: "Marketing y Estrategia", icon: TrendingUp, items: marketingMenuItems, subGroups: [] }
-];
+export const marketingNavGroups = [advisoryNavGroups];
 
-export const rrhhNavGroups = [
-    { title: "Gestión de RR.HH.", icon: Briefcase, items: recursosHumanosGestionItems, subGroups: [] },
-    { title: "Libros de Registro", icon: BookOpen, items: librosRegistroMenuItems, subGroups: [] },
-];
+export const rrhhNavGroups = [rrhhNavGroups];
 
 export const ventasNavGroups = [
-    { title: "Ventas y Caja", icon: ShoppingCart, items: ventasMenuItems, subGroups: [] },
+    { title: "Ventas y Caja", icon: ShoppingCart, items: [
+        { href: "/analisis-ventas", label: "Dashboard de Ventas", icon: LayoutDashboard },
+        { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+        { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
+        { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+    ], subGroups: [] },
+     { title: "Estrategias", icon: Lightbulb, items: [
+        { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
+    ], subGroups: [] }
 ];
 
 export const sociosNavGroups = [
@@ -381,10 +380,12 @@ export const telecomNavGroups = [
 export const informaticaNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ], subGroups: [] },
   { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ], subGroups: [] },
-  { title: "Soluciones IA", icon: BrainCircuit, items: iaMenuItems, subGroups: [] },
+  { title: "Soluciones IA", icon: BrainCircuit, items: [ { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit } ], subGroups: [] },
   { title: "Arquitectura", icon: Puzzle, items: [ 
       { href: "/arquitectura-software-contable", label: "Arquitectura de Software", icon: Puzzle },
       { href: "/facturacion-futurista", label: "UI/UX Futurista", icon: Wand2 },
   ], subGroups: [] },
-  { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems, subGroups: [] },
+  { title: "Ingeniería y Proyectos", icon: HardHat, items: [
+      { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
+  ], subGroups: [] },
 ];
