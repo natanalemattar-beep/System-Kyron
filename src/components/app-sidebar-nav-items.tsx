@@ -259,7 +259,6 @@ const generalMenuItems = [
 ];
 
 const marketingMenuItems = [
-    { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
     { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
     { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
     { href: "/marketing-innovador", label: "Marketing Innovador", icon: Sparkles },
@@ -279,9 +278,13 @@ const marketingMenuItems = [
     { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
 ];
 
+const advisoryMenuItems = [
+    { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
+    { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+];
+
 const recursosMenuItems = [
     { href: "/manual-usuario", label: "Manual de Usuario", icon: BookUser },
-    { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
     { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
 ];
 
@@ -339,7 +342,7 @@ export const legalNavItems = [
 export const adminNavGroups = [
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
-  { title: "Internacional", icon: Globe, items: internationalOperationsMenuItems, subGroups: [] },
+  { title: "Asesoría y Marketing", icon: Megaphone, items: marketingMenuItems, subGroups: [] },
   { title: "Recursos", icon: BookUser, items: recursosMenuItems, subGroups: [] },
   { title: "General", icon: Cog, items: generalMenuItems, subGroups: [] },
 ];
@@ -349,7 +352,8 @@ export const legalNavGroups = [
 ];
 
 export const marketingNavGroups = [
-    { title: "Ventas y Marketing", icon: Megaphone, items: marketingMenuItems, subGroups: [] }
+    { title: "Asesoría", icon: Megaphone, items: advisoryMenuItems, subGroups: [] },
+    { title: "Marketing y Estrategia", icon: TrendingUp, items: marketingMenuItems, subGroups: [] }
 ];
 
 export const rrhhNavGroups = [
