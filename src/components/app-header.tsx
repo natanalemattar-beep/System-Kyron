@@ -240,5 +240,3 @@ export function AppHeader({ user }: { user: User }) {
     </motion.header>
   );
 }
-
-    
