@@ -165,25 +165,22 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
             transition={{ type: "spring", stiffness: 300 }}
         >
             <div className="text-center">
-            <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
+                <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
             </div>
         </motion.div>
     );
 
-    const Wrapper = ({ children }: { children: React.ReactNode }) => {
+    const Wrapper = ({ children, href }: { children: React.ReactNode, href: string }) => {
         if (module.type === 'scroll') {
-            return <SmoothScrollLink href={module.href}>{children}</SmoothScrollLink>;
+            return <SmoothScrollLink href={href}>{children}</SmoothScrollLink>;
         }
-        if (module.type === 'link') {
-            return <Link href={module.href}>{children}</Link>;
-        }
-        return <>{children}</>;
+        return <Link href={href}>{children}</Link>;
     };
 
     const OrbContent = () => {
         if (module.type === 'dialog') {
             return (
-                 <Dialog>
+                <Dialog>
                     <DialogTrigger asChild>{content}</DialogTrigger>
                     <DialogContent className="sm:max-w-2xl">
                        {module.name === 'Tecnología IA' && <IaContent />}
@@ -192,7 +189,7 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
                 </Dialog>
             );
         }
-        return <Wrapper>{content}</Wrapper>
+        return <Wrapper href={module.href}>{content}</Wrapper>;
     };
 
     return (
@@ -363,7 +360,7 @@ export default function LandingPage() {
         <section ref={targetRef} className="relative overflow-hidden">
              <div className="flex flex-col items-center justify-center min-h-screen pt-24 pb-12">
             
-            {/* Fondo animado */}
+            {/* Background elements */}
             <motion.div 
                 className="absolute inset-0 -z-10"
                 style={{ opacity }}
@@ -381,11 +378,11 @@ export default function LandingPage() {
                         ease: "easeInOut",
                     }}
                 >
-                    <Logo className="h-[70vmin] w-[70vmin] text-primary" />
+                    <Logo className="h-[80vmin] w-[80vmin] text-primary" />
                 </motion.div>
             </motion.div>
 
-            {/* Contenido Central */}
+            {/* Central Content */}
             <motion.div 
               className="relative grid place-items-center w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] aspect-square"
               style={{ opacity }}
@@ -697,4 +694,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
