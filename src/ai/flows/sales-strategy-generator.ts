@@ -31,30 +31,6 @@ export async function generateSalesStrategies(input: SalesStrategyInput): Promis
   return generateSalesStrategiesFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'generateSalesStrategiesPrompt',
-  input: { schema: SalesStrategyInputSchema },
-  output: { schema: SalesStrategyOutputSchema },
-  prompt: `You are a world-class sales and marketing strategist for a Venezuelan company selling office supplies, tech, and furniture.
-  
-  Analyze the following sales data:
-  - Top Selling Products: {{{json topProducts}}}
-  - Bottom Selling Products: {{{json bottomProducts}}}
-
-  Based on this data, generate exactly 3 creative, actionable, and impactful sales strategies. For each strategy, provide a title, a description, an estimated impact, and an appropriate icon ('Package' for bundling, 'Tag' for discounts, 'Users' for loyalty programs).
-  
-  Example Strategy:
-  {
-    "icon": "Package",
-    "titulo": "Crear un Combo 'Kit de Oficina Esencial'",
-    "descripcion": "Agrupa 'Resma de Papel', 'Caja de Bolígrafos' y 'Tóner' con un 10% de descuento. Esto incrementa el ticket promedio y rota productos de alta demanda.",
-    "impacto": "Aumento del 15% en ventas de productos de papelería."
-  }
-  
-  Focus on strategies like bundling (combos), cross-selling (promociones), and loyalty programs. Be specific and tailor the strategies to the provided products.
-  `,
-});
-
 const generateSalesStrategiesFlow = ai.defineFlow(
   {
     name: 'generateSalesStrategiesFlow',
@@ -62,7 +38,29 @@ const generateSalesStrategiesFlow = ai.defineFlow(
     outputSchema: SalesStrategyOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
+    const { output } = await ai.generate({
+        model: 'googleai/gemini-1.5-flash-latest',
+        prompt: `You are a world-class sales and marketing strategist for a Venezuelan company selling office supplies, tech, and furniture.
+  
+        Analyze the following sales data:
+        - Top Selling Products: {{{json topProducts}}}
+        - Bottom Selling Products: {{{json bottomProducts}}}
+
+        Based on this data, generate exactly 3 creative, actionable, and impactful sales strategies. For each strategy, provide a title, a description, an estimated impact, and an appropriate icon ('Package' for bundling, 'Tag' for discounts, 'Users' for loyalty programs).
+        
+        Example Strategy:
+        {
+          "icon": "Package",
+          "titulo": "Crear un Combo 'Kit de Oficina Esencial'",
+          "descripcion": "Agrupa 'Resma de Papel', 'Caja de Bolígrafos' y 'Tóner' con un 10% de descuento. Esto incrementa el ticket promedio y rota productos de alta demanda.",
+          "impacto": "Aumento del 15% en ventas de productos de papelería."
+        }
+        
+        Focus on strategies like bundling (combos), cross-selling (promociones), and loyalty programs. Be specific and tailor the strategies to the provided products.
+        `,
+        input,
+        output: { schema: SalesStrategyOutputSchema },
+    });
     return output!;
   }
 );

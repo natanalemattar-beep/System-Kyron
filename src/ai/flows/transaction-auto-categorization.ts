@@ -38,22 +38,6 @@ export async function categorizeTransaction(
   return categorizeTransactionFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'categorizeTransactionPrompt',
-  input: {schema: CategorizeTransactionInputSchema},
-  output: {schema: CategorizeTransactionOutputSchema},
-  prompt: `You are a financial expert. Categorize the given transaction based on its description and amount.
-
-Transaction Description: {{{transactionDescription}}}
-Transaction Amount: {{{transactionAmount}}}
-
-Respond with the category of the transaction and your confidence level in the categorization.
-Ensure that the "confidence" is between 0 and 1.
-
-Category: {{category}}
-Confidence: {{confidence}}`,
-});
-
 const categorizeTransactionFlow = ai.defineFlow(
   {
     name: 'categorizeTransactionFlow',
@@ -61,7 +45,18 @@ const categorizeTransactionFlow = ai.defineFlow(
     outputSchema: CategorizeTransactionOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await ai.generate({
+      model: 'googleai/gemini-1.5-flash-latest',
+      prompt: `You are a financial expert. Categorize the given transaction based on its description and amount.
+
+      Transaction Description: {{{transactionDescription}}}
+      Transaction Amount: {{{transactionAmount}}}
+      
+      Respond with the category of the transaction and your confidence level in the categorization.
+      Ensure that the "confidence" is between 0 and 1.`,
+      input,
+      output: { schema: CategorizeTransactionOutputSchema },
+    });
     return output!;
   }
 );

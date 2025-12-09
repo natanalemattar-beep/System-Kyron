@@ -37,18 +37,6 @@ export async function analyzeSentiment(
   return analyzeSentimentFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'analyzeSentimentPrompt',
-  input: { schema: AnalyzeSentimentInputSchema },
-  output: { schema: AnalyzeSentimentOutputSchema },
-  prompt: `You are a sentiment analysis expert. Analyze the sentiment of the following text and classify it as "Positivo", "Negativo", or "Neutral".
-
-Text to analyze: {{{textToAnalyze}}}
-
-Respond with the sentiment and your confidence level.
-Ensure that the "confidence" is between 0 and 1.`,
-});
-
 const analyzeSentimentFlow = ai.defineFlow(
   {
     name: 'analyzeSentimentFlow',
@@ -56,7 +44,17 @@ const analyzeSentimentFlow = ai.defineFlow(
     outputSchema: AnalyzeSentimentOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
+    const { output } = await ai.generate({
+      model: 'googleai/gemini-1.5-flash-latest',
+      prompt: `You are a sentiment analysis expert. Analyze the sentiment of the following text and classify it as "Positivo", "Negativo", or "Neutral".
+
+      Text to analyze: {{{textToAnalyze}}}
+      
+      Respond with the sentiment and your confidence level.
+      Ensure that the "confidence" is between 0 and 1.`,
+      input,
+      output: { schema: AnalyzeSentimentOutputSchema },
+    });
     return output!;
   }
 );

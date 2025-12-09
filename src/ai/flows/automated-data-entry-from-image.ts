@@ -39,25 +39,6 @@ export async function automatedDataEntry(input: AutomatedDataEntryInput): Promis
   return automatedDataEntryFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'automatedDataEntryPrompt',
-  input: {schema: AutomatedDataEntryInputSchema},
-  output: {schema: AutomatedDataEntryOutputSchema},
-  prompt: `You are an expert financial data extraction specialist.
-
-  You will extract data from the given receipt or invoice image and description, and output in JSON format. You must always populate all the fields with the extracted information. If some information is not available, populate the field with default values (e.g., empty string, 0, or null, where appropriate based on the field's data type. Do not guess or invent data if it's not present in the document.)
-
-  The date MUST be in YYYY-MM-DD format.
-
-  Description: {{{description}}}
-  Photo: {{media url=photoDataUri}}
-
-  Make sure you return a valid JSON. If a field is not present, populate the field with default values (e.g., empty string, 0, or null, where appropriate based on the field's data type).
-  Make sure the totalAmount reflects the total amount shown in the image.
-  Make sure you populate the items array with all the items in the image, listing its description, quantity and unitPrice. If there are not line items, populate with an empty array.
-`,
-});
-
 const automatedDataEntryFlow = ai.defineFlow(
   {
     name: 'automatedDataEntryFlow',
@@ -65,7 +46,24 @@ const automatedDataEntryFlow = ai.defineFlow(
     outputSchema: AutomatedDataEntryOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const { output } = await ai.generate({
+      model: 'googleai/gemini-1.5-flash-latest',
+      prompt: `You are an expert financial data extraction specialist.
+
+      You will extract data from the given receipt or invoice image and description, and output in JSON format. You must always populate all the fields with the extracted information. If some information is not available, populate the field with default values (e.g., empty string, 0, or null, where appropriate based on the field's data type. Do not guess or invent data if it's not present in the document.)
+
+      The date MUST be in YYYY-MM-DD format.
+
+      Description: {{{description}}}
+      Photo: {{media url=photoDataUri}}
+
+      Make sure you return a valid JSON. If a field is not present, populate the field with default values (e.g., empty string, 0, or null, where appropriate based on the field's data type).
+      Make sure the totalAmount reflects the total amount shown in the image.
+      Make sure you populate the items array with all the items in the image, listing its description, quantity and unitPrice. If there are not line items, populate with an empty array.
+    `,
+      input,
+      output: { schema: AutomatedDataEntryOutputSchema },
+    });
     return output!;
   }
 );
