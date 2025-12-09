@@ -47,24 +47,32 @@ export const planes = [
 
 export const faqItems = [
     {
-        question: "¿Puedo cambiar de plan en cualquier momento?",
-        answer: "Sí, puedes mejorar o ajustar tu plan en cualquier momento desde el panel de tu cuenta. La facturación se ajustará de forma prorrateada."
+        question: "¿Qué es Kyron?",
+        answer: "Kyron es una plataforma digital integral diseñada para simplificar la burocracia y la gestión empresarial en Venezuela. Centralizamos todos tus procesos, desde la contabilidad y facturación hasta la gestión de permisos y recursos humanos, en un solo lugar, utilizando tecnología e inteligencia artificial para garantizar el cumplimiento y la eficiencia."
     },
     {
-        question: "¿El sistema está homologado por el SENIAT?",
-        answer: "Absolutamente. Nuestro sistema de facturación cumple con todas las providencias administrativas vigentes del SENIAT, garantizando tu tranquilidad fiscal."
-    },
-    {
-        question: "¿Qué tipo de soporte técnico ofrecen?",
-        answer: "Ofrecemos soporte por correo electrónico para el Plan Básico y soporte prioritario vía WhatsApp y teléfono para los planes Profesional y Corporativo."
+        question: "¿Qué servicios ofrecen?",
+        answer: "Ofrecemos un ecosistema completo de soluciones que incluyen: Gestión Fiscal y Contable (homologada por el SENIAT), Administración de Nómina, Gestión de Permisos y Cumplimiento, y un módulo de Asesoría Legal y Estratégica con herramientas de análisis y modelos de documentos."
     },
      {
+        question: "¿Cuáles son sus funciones clave?",
+        answer: "Nuestras funciones clave son la automatización de procesos mediante Inteligencia Artificial (para conciliación, análisis, etc.), seguridad de nivel superior con cifrado de extremo a extremo, y un potente sistema de análisis y reportes con dashboards intuitivos para visualizar la salud de tu negocio en tiempo real."
+    },
+    {
         question: "¿Mis datos están seguros en la plataforma?",
-        answer: "La seguridad es nuestra máxima prioridad. Utilizamos cifrado de extremo a extremo, autenticación de dos factores y auditorías constantes para proteger tu información."
+        answer: "La seguridad es nuestra máxima prioridad. Utilizamos cifrado de extremo a extremo, autenticación de dos factores (2FA), monitoreo de sesiones activas y auditorías constantes para proteger tu información de forma robusta."
     },
      {
-        question: "¿Kyron funciona para cualquier tipo de empresa?",
-        answer: "Sí, Kyron es una plataforma modular diseñada para adaptarse a una amplia gama de sectores, desde pequeños comercios y PYMES hasta grandes corporaciones y empresas de servicios."
+        question: "¿Qué tipo de soporte técnico ofrecen?",
+        answer: "Ofrecemos soporte por correo electrónico para nuestro Plan Básico. Para los planes Profesional y Corporativo, ofrecemos soporte prioritario a través de WhatsApp y teléfono, con un equipo dedicado a resolver tus dudas de manera rápida y eficiente."
+    },
+     {
+        question: "¿Puedo cambiar de plan en cualquier momento?",
+        answer: "Sí, puedes mejorar o ajustar tu plan en cualquier momento directamente desde el panel de configuración de tu cuenta. La facturación se ajustará automáticamente de forma prorrateada para que solo pagues por lo que usas."
+    },
+    {
+        question: "¿Cómo puedo contactarlos?",
+        answer: "Puedes contactarnos a través de nuestro correo electrónico contacto@kyron.com, llamando al +58 414-1234567, o iniciando una conversación con nuestro Asistente de IA directamente en la página. ¡Estamos aquí para ayudarte!"
     },
 ];
 

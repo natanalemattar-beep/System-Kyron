@@ -190,6 +190,7 @@ const finanzasContabilidadNavGroups = {
         { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
         { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
         { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+        { href: "/recursos-fiscales", label: "Recursos Fiscales y Gacetas", icon: Scale },
       ],
     },
     {
