@@ -22,7 +22,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { securityFeatures, iaSolutions, faqItems } from '@/lib/page-data';
+import { iaSolutions, faqItems } from '@/lib/page-data';
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
@@ -100,7 +100,7 @@ const navModules = [
   { name: "Funciones Clave", angle: 120, href: "#caracteristicas", type: 'scroll' },
   { name: "Tecnología IA", angle: 165, href: "/soluciones-ia", type: 'dialog' },
   { name: "Seguridad Garantizada", angle: 210, href: "/seguridad", type: 'dialog' },
-  { name: "Planes y Precios", angle: 255, href: "/planes-y-precios", type: 'dialog' },
+  { name: "Planes y Precios", angle: 255, href: "/planes-y-precios", type: 'link' },
   { name: "Contacto Directo", angle: 300, href: "#contacto", type: 'scroll' },
   { name: "¿Quiénes Somos?", angle: 345, href: "#nosotros", type: 'scroll' },
 ];
@@ -149,7 +149,7 @@ const IaContent = () => (
 );
 
 
-const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave, index }: { module: typeof navModules[0], radius: number, onMouseEnter: () => void, onMouseLeave: () => void, index: number }) => {
+const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module: typeof navModules[0], radius: number, onMouseEnter: () => void, onMouseLeave: () => void }) => {
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
     
@@ -163,16 +163,39 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave, index }: {
             onMouseLeave={onMouseLeave}
             whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
             transition={{ type: "spring", stiffness: 300 }}
-            variants={{
-                hidden: { opacity: 0, scale: 0.5 },
-                visible: { opacity: 1, scale: 1 },
-            }}
         >
             <div className="text-center">
             <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
             </div>
         </motion.div>
     );
+
+    const Wrapper = ({ children }: { children: React.ReactNode }) => {
+        if (module.type === 'scroll') {
+            return <SmoothScrollLink href={module.href}>{children}</SmoothScrollLink>;
+        }
+        if (module.type === 'link') {
+            return <Link href={module.href}>{children}</Link>
+        }
+        // for dialog
+        return <>{children}</>
+    }
+
+    const OrbContent = () => (
+        <Wrapper>
+            {module.type === 'dialog' ? (
+                <Dialog>
+                    <DialogTrigger asChild>{content}</DialogTrigger>
+                    <DialogContent className="sm:max-w-2xl">
+                       {module.name === 'Tecnología IA' && <IaContent />}
+                       {/* Add other dialog contents here */}
+                    </DialogContent>
+                </Dialog>
+            ) : (
+                content
+            )}
+        </Wrapper>
+    )
 
     return (
         <motion.div
@@ -188,25 +211,8 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave, index }: {
                 y: y - 48,
             }}
             transition={{ type: "spring", stiffness: 50, damping: 15 }}
-            variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1 },
-            }}
         >
-            {module.type === 'scroll' ? (
-                 <SmoothScrollLink href={module.href}>
-                    {content}
-                </SmoothScrollLink>
-            ) : (
-                <Dialog>
-                    <DialogTrigger asChild>
-                        {content}
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-2xl">
-                       {module.name === 'Tecnología IA' && <IaContent />}
-                    </DialogContent>
-                </Dialog>
-            )}
+            <OrbContent />
         </motion.div>
     );
 });
@@ -408,12 +414,11 @@ export default function LandingPage() {
                 </div>
 
                 {/* Orbiting Modules */}
-                 {navModules.map((module, index) => (
+                 {navModules.map((module) => (
                     <ModuleOrb
                         key={module.name}
                         module={module}
                         radius={radius}
-                        index={index}
                         onMouseEnter={() => setHoveredModule({ name: module.name, description: getModuleDescription(module.name) })}
                         onMouseLeave={() => setHoveredModule(null)}
                     />
@@ -683,3 +688,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    
