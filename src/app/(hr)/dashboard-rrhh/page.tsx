@@ -78,7 +78,12 @@ export default function RecursosHumanosPage() {
          <div className="lg:col-span-2">
             <Card className="bg-card/80 backdrop-blur-sm h-full">
                 <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Users className="h-6 w-6 text-primary"/>
+                    </div>
                     <CardTitle>Distribución de Empleados por Departamento</CardTitle>
+                  </div>
                 </CardHeader>
                 <CardContent className="h-80">
                     <ResponsiveContainer width="100%" height="100%">

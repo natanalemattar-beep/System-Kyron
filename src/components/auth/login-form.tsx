@@ -123,7 +123,6 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
         if (field.id === 'idValue') {
             currentField.label = currentId.label;
             currentField.placeholder = currentId.placeholder;
-            currentField.defaultValue = currentId.defaultValue;
         }
 
         return (
