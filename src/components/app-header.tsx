@@ -45,10 +45,7 @@ type User = {
 };
 
 const getNavInfoForPath = (pathname: string) => {
-    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas') || pathname.startsWith('/facturacion')) {
-        return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
-    }
-     if (pathname.startsWith('/cuentas-por-pagar') || pathname.startsWith('/cuentas-por-cobrar')) {
+    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion')) {
         return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
     }
     if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
@@ -60,7 +57,7 @@ const getNavInfoForPath = (pathname: string) => {
     if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/seguridad') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
         return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" };
     }
-    if (pathname.startsWith('/asesoria')) {
+    if (pathname.startsWith('/asesoria') || pathname.startsWith('/analisis-ventas')) {
         return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria-publicidad" };
     }
      if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos')) {

@@ -12,28 +12,35 @@ import { motion } from "framer-motion";
 // Dynamically import WelcomeTutorial with SSR turned off
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial'), { ssr: false });
 
-const getUserForPath = (pathname: string) => {
-    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis-ventas') || pathname.startsWith('/cuentas-por-pagar') || pathname.startsWith('/cuentas-por-cobrar') || pathname.startsWith('/facturacion')) {
-        return { name: "Admin", email: "admin@kyron.com", fallback: "A" };
-    } else if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
-        return { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" };
-    } else if (pathname.startsWith('/dashboard-socios')) {
-        return { name: "Socio Director", email: "socio@kyron.com", fallback: "S" };
-    } else if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/seguridad') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
-        return { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" };
-    } else if (pathname.startsWith('/asesoria')) {
-        return { name: "Marketing", email: "mkt@kyron.com", fallback: "M" };
-    } else if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos')) {
-        return { name: "Legal", email: "legal@kyron.com", fallback: "L" };
-    } else if (pathname.startsWith('/dashboard-telecom')) {
-        return { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
-    } else {
-        return { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
-    }
-}
-
 export default function MainAppLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  
+  const getUserForPath = (pathname: string) => {
+    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion')) {
+        return { name: "Admin", email: "admin@kyron.com", fallback: "A" };
+    }
+    if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas')) {
+        return { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" };
+    }
+    if (pathname.startsWith('/dashboard-socios')) {
+        return { name: "Socio Director", email: "socio@kyron.com", fallback: "S" };
+    }
+    if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/seguridad') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
+        return { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" };
+    }
+    if (pathname.startsWith('/asesoria') || pathname.startsWith('/analisis-ventas')) {
+        return { name: "Marketing", email: "mkt@kyron.com", fallback: "M" };
+    }
+     if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos')) {
+        return { name: "Legal", email: "legal@kyron.com", fallback: "L" };
+    }
+    if (pathname.startsWith('/dashboard-telecom')) {
+        return { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
+    }
+    // Default case for personal user
+    return { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
+  }
+
   const user = getUserForPath(pathname);
   
   return (
