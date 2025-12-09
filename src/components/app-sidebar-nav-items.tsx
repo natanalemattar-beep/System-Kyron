@@ -95,8 +95,8 @@ import {
 } from "lucide-react";
 
 
-export const naturalMenuItems = {
-    principal: {
+export const naturalMenuItems = [
+    {
         title: "Principal",
         icon: LayoutDashboard,
         items: [
@@ -107,7 +107,7 @@ export const naturalMenuItems = {
         ],
         subGroups: [],
     },
-    tramites: {
+    {
         title: "Trámites Civiles",
         icon: FileText,
         items: [
@@ -119,7 +119,7 @@ export const naturalMenuItems = {
         ],
         subGroups: [],
     },
-    salud: {
+    {
         title: "Salud",
         icon: HeartPulse,
         items: [
@@ -127,7 +127,7 @@ export const naturalMenuItems = {
         ],
         subGroups: [],
     },
-    lopnna: {
+    {
         title: "Obligaciones (LOPNNA)",
         icon: Gavel,
         items: [
@@ -136,7 +136,7 @@ export const naturalMenuItems = {
         ],
         subGroups: [],
     }
-};
+];
 
 const finanzasContabilidadNavGroups = {
   title: "Finanzas y Contabilidad",
@@ -382,3 +382,5 @@ export const informaticaNavGroups = [
   ], subGroups: [] },
   { title: "Ingeniería y Proyectos", icon: HardHat, items: ingenieriaMenuItems, subGroups: [] },
 ];
+
+    

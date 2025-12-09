@@ -53,7 +53,7 @@ const getNavGroupsForUser = (user: User) => {
         case "IT": return informaticaNavGroups;
         case "M": return marketingNavGroups;
         case "T": return telecomNavGroups;
-        case "UN": return Object.values(naturalMenuItems);
+        case "UN": return naturalMenuItems;
         default: return [];
     }
 }
@@ -238,3 +238,5 @@ export function AppHeader({ user }: { user: User }) {
     </motion.header>
   );
 }
+
+    
