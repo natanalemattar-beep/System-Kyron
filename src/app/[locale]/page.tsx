@@ -415,7 +415,7 @@ export default function LandingPage() {
                   </SheetContent>
               </Sheet>
             </div>
-        </div>
+        </motion.div>
     </header>
 
       {/* Main Content */}
