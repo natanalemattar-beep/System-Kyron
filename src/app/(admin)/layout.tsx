@@ -12,7 +12,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <AppHeader user={{ name: "Admin", email: "admin@kyron.com", fallback: "A" }} />
       <motion.div 
-        className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-20 z-40"
+        className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-[4.5rem] md:top-[5.5rem] z-40"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, type: 'spring', stiffness: 80 }}

@@ -11,8 +11,7 @@ import { formatDate } from "@/lib/utils";
 const modelos = {
     conatel: {
         titulo: "Autorización para CONATEL",
-        contenido: `
-Ciudad y Fecha: ${formatDate(new Date())}
+        contenido: `Ciudad y Fecha: ${formatDate(new Date())}
 
 Señores
 Comisión Nacional de Telecomunicaciones (CONATEL)
@@ -33,8 +32,7 @@ _________________________
     },
     sudeban: {
         titulo: "Autorización para SUDEBAN",
-        contenido: `
-Ciudad y Fecha: ${formatDate(new Date())}
+        contenido: `Ciudad y Fecha: ${formatDate(new Date())}
 
 Señores
 Superintendencia de las Instituciones del Sector Bancario (SUDEBAN)
@@ -55,8 +53,7 @@ _________________________
     },
     seniat: {
         titulo: "Autorización para el SENIAT",
-        contenido: `
-Ciudad y Fecha: ${formatDate(new Date())}
+        contenido: `Ciudad y Fecha: ${formatDate(new Date())}
 
 Señores
 Servicio Nacional Integrado de Administración Aduanera y Tributaria (SENIAT)
@@ -72,7 +69,8 @@ Atentamente,
 
 _________________________
 [NOMBRE DEL REPRESENTANTE LEGAL]
-[CARGO DEL REPRESENTANTE LEGAL]
+[TU CÉDULA]
+[CARGO]
 `
     }
 };
@@ -89,21 +87,14 @@ export default function CartasAutorizacionPage() {
             printWindow?.print();
             toast({ title: "Impresión Iniciada", description: `El modelo de carta para ${titulo} ha sido enviado a la impresora.` });
         } else {
-             const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-                "xmlns='http://www.w3.org/TR/REC-html40'>"+
-                "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
-            const footer = "</body></html>";
-            const sourceHTML = header + `<pre>${contenido}</pre>` + footer;
-
-            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-            const fileDownload = document.createElement("a");
-            document.body.appendChild(fileDownload);
-            fileDownload.href = source;
-            fileDownload.download = `${titulo.replace(/ /g, '_')}.docx`;
-            fileDownload.click();
-            document.body.removeChild(fileDownload);
-            toast({ title: "Descarga Iniciada", description: `El modelo de carta se está descargando como un archivo de Word.` });
+            const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${titulo.replace(/ /g, '_')}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            toast({ title: "Descarga Iniciada", description: `El modelo de carta se está descargando como un archivo de texto.` });
         }
     };
 
@@ -144,7 +135,7 @@ export default function CartasAutorizacionPage() {
                                     <Printer className="mr-2" /> Imprimir
                                 </Button>
                                 <Button onClick={() => handleAction(key as keyof typeof modelos, 'descargar')}>
-                                    <Download className="mr-2" /> Descargar (.docx)
+                                    <Download className="mr-2" /> Descargar (.txt)
                                 </Button>
                             </CardFooter>
                         </Card>

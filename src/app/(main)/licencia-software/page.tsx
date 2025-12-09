@@ -9,14 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 export default function LicenciaSoftwarePage() {
     const { toast } = useToast();
 
-    const handleAction = (action: string) => {
-        toast({
-            title: `Contrato ${action}`,
-            description: `El modelo de contrato de licencia ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado como archivo Word'}.`,
-        });
-
-        if (action === 'descargado') {
-             const content = `
+    const getContractContent = () => {
+        return `
 CONTRATO DE LICENCIA DE USO DE SOFTWARE
 
 Entre KYRON, C.A., (en adelante “EL LICENCIANTE”), RIF J-XXXXXXX, domiciliada en Caracas, y por la otra parte, [NOMBRE DEL CLIENTE], (en adelante “EL LICENCIATARIO”), RIF [RIF DEL CLIENTE], domiciliada en [DOMICILIO DEL CLIENTE], se ha convenido en celebrar el presente Contrato de Licencia de Uso de Software, el cual se regirá por las siguientes cláusulas:
@@ -38,21 +32,24 @@ EL LICENCIANTE declara ser el único y exclusivo titular de todos los derechos d
 
 CLÁUSULA SEXTA: CONFIDENCIALIDAD
 Ambas partes se comprometen a mantener estricta confidencialidad sobre la información técnica, comercial y financiera a la que tengan acceso en virtud del presente contrato. Esta obligación subsistirá aún después de finalizado el mismo.
-            `;
-            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-                "xmlns='http://www.w3.org/TR/REC-html40'>"+
-                "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
-            const footer = "</body></html>";
-            const sourceHTML = header + `<pre>${content}</pre>` + footer;
-            
-            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-            const fileDownload = document.createElement("a");
-            document.body.appendChild(fileDownload);
-            fileDownload.href = source;
-            fileDownload.download = 'Contrato_Licencia_Software.docx';
-            fileDownload.click();
-            document.body.removeChild(fileDownload);
+        `;
+    };
+
+    const handleAction = (action: string) => {
+        toast({
+            title: `Contrato ${action}`,
+            description: `El modelo de contrato ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado como archivo de texto'}.`,
+        });
+
+        if (action === 'descargado') {
+             const content = getContractContent();
+             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+             const link = document.createElement('a');
+             link.href = URL.createObjectURL(blob);
+             link.download = `Contrato_Licencia_Software.txt`;
+             document.body.appendChild(link);
+             link.click();
+             document.body.removeChild(link);
         }
     };
 
@@ -73,7 +70,7 @@ Ambas partes se comprometen a mantener estricta confidencialidad sobre la inform
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar (.docx)
+                <Download className="mr-2"/> Descargar (.txt)
             </Button>
         </div>
       </header>

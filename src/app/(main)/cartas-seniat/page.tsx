@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Copy, Download, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { formatDate } from "@/lib/utils";
 
 const modelos = {
     anulacionMulta: {
@@ -110,23 +109,16 @@ export default function CartasSeniatPage() {
     };
     
     const handleDownload = () => {
-        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-            "xmlns='http://www.w3.org/TR/REC-html40'>"+
-            "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
-        const footer = "</body></html>";
-        const sourceHTML = header + `<pre>${contenido}</pre>` + footer;
-        
-        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-        const fileDownload = document.createElement("a");
-        document.body.appendChild(fileDownload);
-        fileDownload.href = source;
-        fileDownload.download = `${modelos[selectedModelo].titulo.replace(/ /g, '_')}.docx`;
-        fileDownload.click();
-        document.body.removeChild(fileDownload);
-         toast({
+        const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${modelos[selectedModelo].titulo.replace(/ /g, '_')}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast({
             title: "Descarga Iniciada",
-            description: "El modelo de carta se está descargando como un archivo de Word.",
+            description: "El modelo de carta se está descargando como un archivo de texto.",
         });
     }
 
@@ -195,7 +187,7 @@ export default function CartasSeniatPage() {
                         </Button>
                          <Button onClick={handleDownload}>
                             <Download className="mr-2"/>
-                            Descargar (.docx)
+                            Descargar (.txt)
                         </Button>
                     </CardFooter>
                 </Card>

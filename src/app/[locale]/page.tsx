@@ -22,10 +22,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { planes } from '@/lib/page-data';
-import { securityFeatures } from "@/lib/page-data";
-import { iaSolutions } from "@/lib/page-data";
-
+import { planes, faqItems, securityFeatures, iaSolutions } from '@/lib/page-data';
 
 const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
@@ -95,21 +92,6 @@ const testimonials = [
     company: "Inversiones ABC",
     text: "La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.",
   },
-];
-
-const faqItems = [
-    {
-        question: "¿Puedo cambiar de plan en cualquier momento?",
-        answer: "Sí, puedes mejorar o ajustar tu plan en cualquier momento desde el panel de tu cuenta. La facturación se ajustará de forma prorrateada."
-    },
-    {
-        question: "¿El sistema está homologado por el SENIAT?",
-        answer: "Absolutamente. Nuestro sistema de facturación cumple con todas las providencias administrativas vigentes del SENIAT, garantizando tu tranquilidad fiscal."
-    },
-    {
-        question: "¿Qué tipo de soporte técnico ofrecen?",
-        answer: "Ofrecemos soporte por correo electrónico para el Plan Básico y soporte prioritario vía WhatsApp y teléfono para los planes Profesional y Corporativo."
-    },
 ];
 
 const navModules = [
@@ -323,22 +305,22 @@ export default function LandingPage() {
     
   return (
     <div className="flex flex-col min-h-dvh bg-background text-foreground">
-      <motion.header 
-        className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-            type: 'spring',
-            stiffness: 70,
-            damping: 20,
-            mass: 1,
-            delay: 0.5
-        }}
-    >
-          <div className="container mx-auto px-4 md:px-6">
+      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+          <motion.div 
+            className="container mx-auto px-4 md:px-6"
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+                type: 'spring',
+                stiffness: 70,
+                damping: 20,
+                mass: 1,
+                delay: 0.5
+            }}
+          >
             <div className={cn(
                 "flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
-                isScrolled ? "bg-background/80 backdrop-blur-lg border rounded-full mt-4" : "bg-transparent border-transparent"
+                isScrolled ? "bg-background/80 backdrop-blur-lg border rounded-full mt-4" : "bg-transparent mt-0 md:mt-4"
             )}>
               <Link href="/" className="flex items-center gap-3">
                   <Logo />
@@ -434,7 +416,7 @@ export default function LandingPage() {
               </Sheet>
             </div>
         </div>
-    </motion.header>
+    </header>
 
       {/* Main Content */}
       <main className="flex-1">
@@ -766,5 +748,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    

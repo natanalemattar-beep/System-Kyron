@@ -12,15 +12,7 @@ import { formatDate } from "@/lib/utils";
 export default function PropuestaProyectoPage() {
     const { toast } = useToast();
 
-    const handleAction = (action: string) => {
-        toast({
-            title: `Propuesta ${action}`,
-            description: `El documento de propuesta ha sido ${action === 'impresa' ? 'enviado a la impresora' : 'descargado como archivo Word'}.`,
-        });
-        if (action === 'impresa') {
-            window.print();
-        } else {
-             const content = `
+    const getProposalContent = () => `
 PROPUESTA DE PROYECTO: INNOVACIÓN SOSTENIBLE Y EFICIENCIA ADMINISTRATIVA
 
 Fecha: ${formatDate(new Date())}
@@ -58,21 +50,28 @@ Agradecemos de antemano su tiempo y consideración.
 
 Atentamente,
 El Equipo de Kyron, C.A.
-            `;
-            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-                "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-                "xmlns='http://www.w3.org/TR/REC-html40'>"+
-                "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
-            const footer = "</body></html>";
-            const sourceHTML = header + `<pre>${content}</pre>` + footer;
-            
-            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-            const fileDownload = document.createElement("a");
-            document.body.appendChild(fileDownload);
-            fileDownload.href = source;
-            fileDownload.download = 'Propuesta_Proyecto_Kyron.docx';
-            fileDownload.click();
-            document.body.removeChild(fileDownload);
+    `;
+    
+    const handleAction = (action: string) => {
+        if (action === 'impresa') {
+            toast({
+                title: "Iniciando Impresión",
+                description: `El modelo de propuesta ha sido enviado a la impresora.`,
+            });
+            window.print();
+        } else if (action === 'descargado') {
+            const content = getProposalContent();
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Propuesta_Proyecto_Kyron.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            toast({
+                title: `Propuesta Descargada`,
+                description: `El documento ha sido descargado como archivo de texto.`,
+            });
         }
     };
 
@@ -93,7 +92,7 @@ El Equipo de Kyron, C.A.
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar (.docx)
+                <Download className="mr-2"/> Descargar (.txt)
             </Button>
         </div>
       </header>
