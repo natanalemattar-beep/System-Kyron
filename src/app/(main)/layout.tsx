@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial'), { ssr: false });
 
 const getUserForPath = (pathname: string) => {
-    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion') || pathname.startsWith('/contabilidad') || pathname.startsWith('/tramites-fiscales') || pathname.startsWith('/reports') || pathname.startsWith('/inventario')) {
+    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion') || pathname.startsWith('/contabilidad') || pathname.startsWith('/tramites-fiscales') || pathname.startsWith('/reports') || pathname.startsWith('/inventario') || pathname.startsWith('/zero-risk')) {
         return { name: "Admin", email: "admin@kyron.com", fallback: "A" };
     }
     if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas') || pathname.startsWith('/libro-')) {
