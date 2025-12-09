@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import { TrendingUp, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw } from "lucide-react";
+import { TrendingUp, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw, Star } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
 import Link from "next/link";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
@@ -98,6 +98,22 @@ export default function AnalisisVentasPage() {
              </motion.div>
         ))}
       </div>
+      
+       <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3"><Star className="text-yellow-400 fill-yellow-400"/>Producto Estrella del Día</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <p className="text-2xl font-bold">Impresora Fiscal Térmica</p>
+                    <p className="text-muted-foreground">El producto más vendido hoy.</p>
+                </div>
+                <div className="text-center md:text-right">
+                    <p className="text-lg font-semibold">12 Unidades Vendidas</p>
+                    <p className="text-xl font-bold text-primary">{formatCurrency(4200, 'Bs.')} en ingresos hoy</p>
+                </div>
+            </CardContent>
+        </Card>
 
        <Card className="bg-card/80 backdrop-blur-sm">
           <CardHeader>
@@ -199,3 +215,5 @@ export default function AnalisisVentasPage() {
     </div>
   );
 }
+
+    

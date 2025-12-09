@@ -111,6 +111,27 @@ export default function AsesoriaBolsaPage() {
         </Card>
       </div>
 
+       <Card className="bg-primary/10 border-primary/20">
+        <CardHeader>
+          <CardTitle>Oportunidad Estratégica: Mercado Venezolano</CardTitle>
+          <CardDescription>
+            Contacta a nuestro equipo para analizar cómo estas oportunidades de inversión internacionales se pueden adaptar al contexto y regulaciones de Venezuela.
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button asChild>
+            <a
+              href="https://wa.me/584242465142?text=Hola,%20me%20gustaría%20recibir%20asesoría%20personalizada%20sobre%20inversiones%20para%20el%20mercado%20venezolano."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Contactar Asesor por WhatsApp
+            </a>
+          </Button>
+        </CardFooter>
+      </Card>
+
        <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Tendencia del Mercado (S&P 500 YTD)</CardTitle>
@@ -175,27 +196,6 @@ export default function AsesoriaBolsaPage() {
             </Table>
         </CardContent>
       </Card>
-      
-       <Card className="bg-primary/10 border-primary/20">
-        <CardHeader>
-          <CardTitle>Obtener Asesoría Personalizada para Venezuela</CardTitle>
-          <CardDescription>
-            Contacta a nuestro equipo para discutir cuáles de estas oportunidades son más convenientes en el contexto venezolano.
-          </CardDescription>
-        </CardHeader>
-        <CardFooter>
-          <Button asChild>
-            <a
-              href="https://wa.me/584242465142?text=Hola,%20me%20gustaría%20recibir%20asesoría%20personalizada%20sobre%20las%20acciones%20más%20convenientes%20para%20el%20país,%20según%20la%20información%20de%20su%20plataforma."
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageSquare className="mr-2 h-4 w-4" />
-              Contactar por WhatsApp
-            </a>
-          </Button>
-        </CardFooter>
-      </Card>
 
       <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-card/80 backdrop-blur-sm">
@@ -248,3 +248,5 @@ export default function AsesoriaBolsaPage() {
     </div>
   );
 }
+
+    
