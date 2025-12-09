@@ -6,8 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Bot, Download, FileText, DollarSign, ShieldAlert, TrendingUp, Search, Users, Cpu, Recycle, Workflow, ShieldCheck, Scale, Info, Briefcase, Network, Target, CheckCircle, Lightbulb, Activity, FileSignature, Gavel } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Image from "next/image";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Logo } from "@/components/logo";
 
 
 const modeloNegocio = [
@@ -63,105 +66,74 @@ const puntoEquilibrio = Math.abs(proyecciones.costosFijos) / (utilidadBruta / to
 
 export default function EstudioFactibilidadEconomicaPage() {
     const { toast } = useToast();
+    const smartBinImage = PlaceHolderImages.find(img => img.id === 'smart-bin');
+    const accountingSoftwareImage = PlaceHolderImages.find(img => img.id === 'accounting-software');
+    
+    const getWordDocumentContent = () => {
+    return `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+        <div style="text-align: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px;">
+          <h1 style="font-size: 24px; margin: 0; color: #333;">Kyron, C.A.</h1>
+          <h2 style="font-size: 20px; margin: 5px 0; color: #555;">Estudio de Factibilidad Económica</h2>
+          <p style="font-size: 12px; color: #777;">Fecha: ${formatDate(new Date())}</p>
+        </div>
+        
+        <h3>1. INTRODUCCIÓN</h3>
+        <h4>1.1. Planteamiento del Problema:</h4>
+        <p>Las empresas en Venezuela enfrentan un doble desafío: una creciente presión por adoptar prácticas sostenibles y la abrumadora complejidad del entorno fiscal y administrativo.</p>
+        
+        <h4>1.2. Justificación:</h4>
+        <p>Este proyecto ofrece una solución dual: la Papelera Inteligente promueve la economía circular y el Software de Gestión garantiza la tranquilidad fiscal y la eficiencia operativa.</p>
+        
+        <h4>1.3. Objetivos del Estudio:</h4>
+        <p><strong>General:</strong> Determinar la factibilidad técnica, económica, legal y operativa del ecosistema "Kyron".</p>
+        <p><strong>Específicos:</strong> Analizar mercado, evaluar requerimientos técnicos, definir estructura y estimar la rentabilidad.</p>
+        
+        <h3>2. ESTUDIO DE MERCADO</h3>
+        <p><strong>Público Objetivo (Papelera Inteligente):</strong> Municipios, Centros Comerciales, Empresas con RSE.</p>
+        <p><strong>Público Objetivo (Software Contable):</strong> PYMES, Emprendedores, Firmas de Contadores.</p>
+
+        <h3>3. ESTUDIO TÉCNICO</h3>
+        <p><strong>Producto 1: Papelera Inteligente</strong><br/>Clasificación por IA, Automatización de compartimentos, Conectividad IoT.</p>
+        <p><strong>Producto 2: Software de Automatización</strong><br/>RPA, IA para cumplimiento SENIAT, API para integraciones.</p>
+
+        <h3>4. ESTUDIO FINANCIERO</h3>
+        <p><strong>Modelo de Negocio:</strong> Venta de Hardware, Licenciamiento SaaS, Soporte, Análisis de Datos.</p>
+        <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+          <tr><td colspan="2"><strong>Proyecciones Financieras Anuales (Estimadas)</strong></td></tr>
+          <tr><td>Ingresos por Papeleras:</td><td>${formatCurrency(proyecciones.ingresosPapeleras)}</td></tr>
+          <tr><td>Ingresos por Software:</td><td>${formatCurrency(proyecciones.ingresosSoftware)}</td></tr>
+          <tr><td>Ingresos por Soporte:</td><td>${formatCurrency(proyecciones.ingresosSoporte)}</td></tr>
+          <tr><td><strong>Total Ingresos:</strong></td><td><strong>${formatCurrency(totalIngresos)}</strong></td></tr>
+          <tr><td>Costos Variables:</td><td>${formatCurrency(proyecciones.costosVariables)}</td></tr>
+          <tr><td><strong>Utilidad Bruta:</strong></td><td><strong>${formatCurrency(utilidadBruta)}</strong></td></tr>
+          <tr><td>Costos Fijos:</td><td>${formatCurrency(proyecciones.costosFijos)}</td></tr>
+          <tr style="font-weight: bold; background-color: #f2f2f2;"><td>Utilidad Neta (EBITDA):</td><td>${formatCurrency(utilidadNeta)}</td></tr>
+        </table>
+        
+        <h3>5. CONCLUSIÓN</h3>
+        <p>El proyecto "Kyron" se considera altamente factible. La combinación de hardware innovador con un modelo SaaS recurrente crea una propuesta de valor sólida. Se recomienda proceder con la fase de prototipado y búsqueda de capital semilla.</p>
+      </div>
+    `;
+    };
 
     const handleDownloadStudy = () => {
-        const content = `
-ESTUDIO DE FACTIBILIDAD ECONÓMICA: Kyron
-==================================================
+        const content = getWordDocumentContent();
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + content + footer;
 
-1. INTRODUCCIÓN
-----------------
-1.1. Planteamiento del Problema:
-Las empresas en Venezuela enfrentan un doble desafío: una creciente presión por adoptar prácticas sostenibles y la abrumadora complejidad del entorno fiscal y administrativo. La gestión ineficiente de residuos y la carga burocrática representan costos y riesgos.
-
-1.2. Justificación:
-Este proyecto ofrece una solución dual: la Papelera Inteligente promueve la economía circular y el Software de Gestión garantiza la tranquilidad fiscal y la eficiencia operativa.
-
-1.3. Objetivos del Estudio:
-- General: Determinar la factibilidad técnica, económica, legal y operativa del ecosistema "Kyron".
-- Específicos: Analizar mercado, evaluar requerimientos técnicos, definir estructura y estimar la rentabilidad.
-
-2. ESTUDIO DE MERCADO
----------------------
-Público Objetivo (Papelera Inteligente):
-- Municipios: Optimizar gestión de residuos.
-- Centros Comerciales: Mejorar experiencia del visitante.
-- Empresas con RSE: Cumplir metas ambientales.
-
-Público Objetivo (Software Contable):
-- PYMES: Automatizar contabilidad.
-- Emprendedores: Solución todo-en-uno.
-- Firmas de Contadores: Herramienta eficiente.
-
-Tamaño y Competencia:
-Mercado potencial estimado en > $80 millones anuales. La competencia es fragmentada y sin soluciones integradas.
-
-3. ESTUDIO TÉCNICO
--------------------
-Producto 1: Papelera Inteligente
-- Clasificación por IA con sensores ópticos y de peso.
-- Automatización de compartimentos internos.
-- Conectividad IoT para monitoreo en tiempo real.
-
-Producto 2: Software de Automatización
-- Automatización de Procesos (RPA) para facturas, conciliaciones, etc.
-- IA para cumplimiento de normativas SENIAT.
-- API para integración con bancos, CRMs, etc.
-
-4. ESTUDIO ORGANIZACIONAL Y LEGAL
----------------------------------
-Estructura Organizacional:
-- Dirección General (CEO)
-- Dpto. de Tecnología (CTO)
-- Dpto. de Operaciones (COO)
-- Dpto. Comercial
-- Dpto. Administrativo y Legal
-
-Marco Legal:
-- Constitución como C.A. o S.A.
-- Homologación del software ante el SENIAT.
-- Registro de marca (SAPI) y patentes.
-- Cumplimiento de normativas ambientales (MINEC).
-
-5. ESTUDIO FINANCIERO
----------------------
-Modelo de Negocio:
-${modeloNegocio.map(item => `- ${item}`).join('\n')}
-
-Proyecciones Financieras Anuales (Estimadas):
-- Ingresos por Papeleras: ${formatCurrency(proyecciones.ingresosPapeleras)}
-- Ingresos por Software: ${formatCurrency(proyecciones.ingresosSoftware)}
-- Ingresos por Soporte: ${formatCurrency(proyecciones.ingresosSoporte)}
-- TOTAL INGRESOS: ${formatCurrency(totalIngresos)}
-- Costos Variables: ${formatCurrency(proyecciones.costosVariables)}
-- UTILIDAD BRUTA: ${formatCurrency(utilidadBruta)}
-- Costos Fijos: ${formatCurrency(proyecciones.costosFijos)}
-- UTILIDAD NETA (EBITDA): ${formatCurrency(utilidadNeta)}
-- PUNTO DE EQUILIBRIO (Ingresos): ${formatCurrency(puntoEquilibrio)}
-
-6. ANÁLISIS DE RIESGOS (FODA)
------------------------------
-- Fortalezas: ${foda.fortalezas.join(', ')}.
-- Oportunidades: ${foda.oportunidades.join(', ')}.
-- Debilidades: ${foda.debilidades.join(', ')}.
-- Amenazas: ${foda.amenazas.join(', ')}.
-
-7. CONCLUSIÓN
----------------
-El proyecto "Kyron" se considera altamente factible. La combinación de hardware innovador con un modelo SaaS recurrente crea una propuesta de valor sólida. Se recomienda proceder con la fase de prototipado y búsqueda de capital semilla.
-`;
-
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'Estudio_Factibilidad_Kyron.txt';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'Estudio_Factibilidad_Kyron.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
 
         toast({
             title: "Descarga Completa",
-            description: "El estudio de factibilidad ha sido guardado como 'Estudio_Factibilidad_Kyron.txt'.",
+            description: "El estudio de factibilidad ha sido guardado como 'Estudio_Factibilidad_Kyron.doc'.",
         });
     };
 
@@ -178,7 +150,7 @@ El proyecto "Kyron" se considera altamente factible. La combinación de hardware
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={handleDownloadStudy}>
                 <Download className="mr-2" />
-                Descargar Estudio Completo
+                Descargar Estudio en Word
             </Button>
         </div>
       </header>
@@ -272,6 +244,7 @@ El proyecto "Kyron" se considera altamente factible. La combinación de hardware
             <CardContent className="grid md:grid-cols-2 gap-8">
                  <div className="space-y-4">
                     <h3 className="font-semibold flex items-center gap-2"><Recycle className="text-green-500"/>Producto 1: Papelera Inteligente</h3>
+                    {smartBinImage && <Image src={smartBinImage.imageUrl} alt={smartBinImage.description} data-ai-hint={smartBinImage.imageHint} width={500} height={300} className="rounded-lg object-cover" />}
                     <p className="text-sm text-muted-foreground">Dispositivo de hardware diseñado para revolucionar la recolección y clasificación de residuos.</p>
                      <ul className="list-disc pl-5 space-y-2 text-sm">
                         {aspectosTecnicosPapelera.map(item => <li key={item}>{item}</li>)}
@@ -279,6 +252,7 @@ El proyecto "Kyron" se considera altamente factible. La combinación de hardware
                 </div>
                  <div className="space-y-4">
                     <h3 className="font-semibold flex items-center gap-2"><FileText className="text-blue-500"/>Producto 2: Software de Automatización</h3>
+                    {accountingSoftwareImage && <Image src={accountingSoftwareImage.imageUrl} alt={accountingSoftwareImage.description} data-ai-hint={accountingSoftwareImage.imageHint} width={500} height={300} className="rounded-lg object-cover" />}
                     <p className="text-sm text-muted-foreground">Plataforma SaaS para la gestión integral de procesos administrativos y contables.</p>
                     <ul className="list-disc pl-5 space-y-2 text-sm">
                         {aspectosTecnicosSoftware.map(item => <li key={item}>{item}</li>)}

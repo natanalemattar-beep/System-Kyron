@@ -161,6 +161,18 @@
       "description": "A satellite dish pointing to a clear sky, representing technology and connectivity.",
       "imageUrl": "https://images.unsplash.com/photo-1518364538800-6bae3c2ea5f2?q=80&w=1920&auto=format&fit=crop",
       "imageHint": "satellite dish"
+    },
+    {
+      "id": "smart-bin",
+      "description": "Una papelera inteligente en un entorno urbano moderno, mostrando su interfaz de usuario.",
+      "imageUrl": "https://images.unsplash.com/photo-1621371892332-6e2c342a34a8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzbWFydCUyMGJpbnxlbnwwfHx8fDE3NjQwOTYyNTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smart bin"
+    },
+    {
+      "id": "accounting-software",
+      "description": "Una interfaz de software de contabilidad en una pantalla de computadora, mostrando gráficos y datos.",
+      "imageUrl": "https://images.unsplash.com/photo-1633400584282-38a4d8db120e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhY2NvdW50aW5nJTIwc29mdHdhcmV8ZW58MHx8fHwxNzY0MDk2MjU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "accounting software"
     }
   ]
 }
