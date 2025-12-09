@@ -35,7 +35,6 @@ const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, .
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
-        // This is a bit of a hack to close the mobile sheet menu
         const sheetCloseButton = document.querySelector('[data-radix-dialog-close]');
         if (sheetCloseButton instanceof HTMLElement) {
             sheetCloseButton.click();
@@ -182,58 +181,63 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
     const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
     const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
     
+    const motionProps = {
+        className: "w-24 h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-full grid place-items-center p-2 cursor-pointer",
+        style: { boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)' },
+        onMouseEnter: onMouseEnter,
+        onMouseLeave: onMouseLeave,
+        whileHover: { scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' },
+        transition: { type: "spring", stiffness: 300 }
+    };
+    
     const content = (
+        <div className="text-center">
+            <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
+        </div>
+    );
+
+    const Wrapper = ({ children }: { children: React.ReactNode }) => (
         <motion.div
-            className="w-24 h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-full grid place-items-center p-2 cursor-pointer"
-            style={{
-                boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)'
-            }}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' }}
-            transition={{ type: "spring", stiffness: 300 }}
+            className="absolute"
+            style={{ top: '50%', left: '50%', x: -48, y: -48 }}
+            animate={{ x: x - 48, y: y - 48 }}
+            transition={{ type: "spring", stiffness: 50, damping: 15 }}
         >
-            <div className="text-center">
-                <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
-            </div>
+            {children}
         </motion.div>
     );
 
-    const OrbContent = () => {
-      if (module.type === 'scroll') {
-        return <SmoothScrollLink href={module.href}>{content}</SmoothScrollLink>;
-      }
-      if (module.type === 'dialog') {
+    if (module.type === 'scroll') {
         return (
-          <Dialog>
-              <DialogTrigger asChild>{content}</DialogTrigger>
-              <DialogContent className="sm:max-w-2xl">
-                  {module.name === 'Tecnología IA' && <IaContent />}
-                  {module.name === 'Seguridad Garantizada' && <SecurityContent />}
-              </DialogContent>
-          </Dialog>
+            <Wrapper>
+                <SmoothScrollLink href={module.href}>
+                    <motion.div {...motionProps}>{content}</motion.div>
+                </SmoothScrollLink>
+            </Wrapper>
         );
-      }
-      return <Link href={module.href}>{content}</Link>;
-    };
-
+    }
+    if (module.type === 'dialog') {
+        return (
+            <Wrapper>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <motion.div {...motionProps}>{content}</motion.div>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-2xl">
+                        {module.name === 'Tecnología IA' && <IaContent />}
+                        {module.name === 'Seguridad Garantizada' && <SecurityContent />}
+                    </DialogContent>
+                </Dialog>
+            </Wrapper>
+        );
+    }
+    
     return (
-        <motion.div
-            className="absolute"
-            style={{
-                top: '50%',
-                left: '50%',
-                x: -48,
-                y: -48
-            }}
-            animate={{
-                x: x - 48,
-                y: y - 48,
-            }}
-            transition={{ type: "spring", stiffness: 50, damping: 15 }}
-        >
-            <OrbContent />
-        </motion.div>
+        <Wrapper>
+            <Link href={module.href} passHref>
+                 <motion.div {...motionProps}>{content}</motion.div>
+            </Link>
+        </Wrapper>
     );
 });
 ModuleOrb.displayName = 'ModuleOrb';
@@ -421,21 +425,26 @@ export default function LandingPage() {
                             </>
                             ) : (
                             <div className="flex flex-col items-center gap-4">
-                                <h1 className="text-5xl md:text-7xl font-bold text-foreground/90 text-shadow-glow">
-                                    Inteligencia en Cada Transacción
-                                </h1>
-                                <Button size="lg" asChild className="mt-4 btn-3d-primary">
-                                    <Link href="/register">¡Regístrate Ahora! <ArrowRight className="ml-2"/></Link>
-                                </Button>
+                                <h1 className="text-5xl md:text-7xl font-bold text-foreground/90 text-shadow-glow">Kyron</h1>
                             </div>
                         )}
                     </motion.div>
                 </div>
-
-                {/* Orb */}
-                <div className="absolute inset-0">
-                    <Orb />
-                </div>
+                
+                {/* Background Logo */}
+                <motion.div 
+                  className="absolute inset-10 -z-10"
+                   animate={{
+                    scale: [1, 1.02, 1],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                    <Logo className="w-full h-full opacity-5" />
+                </motion.div>
 
                 {/* Orbiting Modules */}
                  {navModules.map((module) => (
@@ -712,3 +721,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    

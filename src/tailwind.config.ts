@@ -164,6 +164,25 @@ const config: Config = {
           '.text-shadow-glow': {
             textShadow: theme('textShadow.glow'),
           },
+          '.btn-3d-primary': {
+            '--btn-bg': theme('colors.primary.DEFAULT'),
+            '--btn-border': 'hsl(var(--primary) / 0.8)',
+            '--btn-shadow': 'hsl(var(--primary) / 0.4)',
+            'color': theme('colors.primary.foreground'),
+            'backgroundColor': 'var(--btn-bg)',
+            'borderBottom': '4px solid var(--btn-border)',
+            'boxShadow': '0 5px 15px -5px var(--btn-shadow)',
+            'transition': 'all 0.15s ease-in-out',
+            '&:hover': {
+              transform: 'translateY(-2px)',
+              boxShadow: '0 8px 20px -5px var(--btn-shadow)',
+            },
+            '&:active': {
+              transform: 'translateY(2px)',
+              borderBottomWidth: '2px',
+              boxShadow: '0 2px 5px -2px var(--btn-shadow)',
+            },
+          }
         };
         addUtilities(newUtilities);
       },
@@ -171,3 +190,5 @@ const config: Config = {
 }
 
 export default config;
+
+    
