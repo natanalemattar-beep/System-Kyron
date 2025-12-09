@@ -6,5 +6,3 @@ import LandingPage from "./[locale]/page";
 export default function Home() {
     return <LandingPage />;
 }
-
-    
