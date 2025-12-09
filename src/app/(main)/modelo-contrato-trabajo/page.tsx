@@ -6,9 +6,17 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FileSignature, Download, Printer } from "lucide-react";
+import { FileSignature, Download, Printer, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatDate } from "@/lib/utils";
+
+const legalProcedure = [
+    "Registro en Sistema Tiuna: Inscribir al empleado en el sistema Tiuna del IVSS dentro de los tres (3) primeros días hábiles de inicio de la relación laboral.",
+    "Notificación de Riesgos (LOPCYMAT): Entregar al trabajador una notificación por escrito de los principios de la prevención de las condiciones inseguras o insalubres, tanto al inicio de la relación laboral como cuando se produzca un cambio en las condiciones de trabajo.",
+    "Apertura de Cuenta Nómina: Gestionar la apertura de una cuenta bancaria para el pago del salario.",
+    "Archivo del Contrato: Conservar dos (2) ejemplares originales del contrato, uno para la empresa y otro para el trabajador.",
+];
+
 
 export default function ModeloContratoTrabajoPage() {
     const { toast } = useToast();
@@ -55,7 +63,7 @@ export default function ModeloContratoTrabajoPage() {
         const filename = `Contrato_Trabajo_${employeeData.nombre.replace(/ /g, '_')}.doc`;
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
         const footer = "</body></html>";
-        const sourceHTML = header + content + footer;
+        const sourceHTML = header + `<div class="oficio-document">${content}</div>` + footer;
 
         if (action === 'impreso') {
              const printWindow = window.open('', '_blank');
@@ -98,6 +106,9 @@ export default function ModeloContratoTrabajoPage() {
                         left: 0;
                         top: 0;
                         width: 100%;
+                    }
+                    .oficio-document {
+                        page: oficio;
                     }
                 }
             `}
@@ -154,56 +165,73 @@ export default function ModeloContratoTrabajoPage() {
             </Card>
         </div>
         <div className="lg:col-span-2" id="printable-content">
-            <Card className="bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
-                <CardHeader className="text-center p-8">
-                    <CardTitle className="text-2xl">CONTRATO DE TRABAJO A TIEMPO INDETERMINADO</CardTitle>
+            <div className="oficio-document">
+                <Card className="bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
+                    <CardHeader className="text-center p-8">
+                        <CardTitle className="text-2xl">CONTRATO DE TRABAJO A TIEMPO INDETERMINADO</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
+                        <p>
+                            Entre <strong>EMPRESA, C.A.</strong>, RIF J-12345678-9, (en adelante “EL EMPLEADOR”), y por la otra parte, <strong>{employeeData.nombre}</strong>, titular de la Cédula de Identidad N° <strong>{employeeData.cedula}</strong>, (en adelante “EL TRABAJADOR”), se ha convenido en celebrar el presente Contrato de Trabajo, de conformidad con la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT) y las siguientes cláusulas:
+                        </p>
+
+                        <h4>CLÁUSULA PRIMERA: OBJETO</h4>
+                        <p>
+                            EL TRABAJADOR se compromete a prestar sus servicios personales lícitos y remunerados a EL EMPLEADOR, desempeñando el cargo de <strong>{employeeData.cargo}</strong>. Las funciones principales incluyen, pero no se limitan a: [Descripción genérica de las funciones del cargo, ej: planificar y ejecutar proyectos, gestionar equipos, etc.].
+                        </p>
+
+                        <h4>CLÁUSULA SEGUNDA: DURACIÓN</h4>
+                        <p>
+                            La presente relación de trabajo se celebra a <strong>tiempo indeterminado</strong>, a partir del <strong>{formatDate(employeeData.fechaIngreso)}</strong>. Los primeros treinta (30) días se considerarán como período de prueba, de conformidad con el artículo 61 de la LOTTT.
+                        </p>
+                        
+                        <h4>CLÁUSULA TERCERA: JORNADA DE TRABAJO</h4>
+                        <p>
+                            La jornada de trabajo será de ocho (8) horas diarias, de lunes a viernes, para un total de cuarenta (40) horas semanales, dentro de los límites establecidos por la LOTTT.
+                        </p>
+
+                        <h4>CLÁUSULA CUARTA: SALARIO Y BENEFICIOS</h4>
+                        <p>
+                            EL TRABAJADOR devengará un salario mensual fijo de <strong>{formatCurrency(employeeData.salario, 'Bs.')}</strong>. Adicionalmente, recibirá todos los beneficios establecidos en la LOTTT (utilidades, vacaciones, bono vacacional) y los beneficios socioeconómicos otorgados por la empresa, como el Cestaticket Socialista, seguro de salud, entre otros detallados en la política de beneficios de la compañía.
+                        </p>
+
+                        <h4>CLÁUSULA QUINTA: LUGAR DE PRESTACIÓN DE SERVICIO</h4>
+                        <p>
+                            EL TRABAJADOR prestará sus servicios en las oficinas de EL EMPLEADOR, ubicadas en [Dirección de la Empresa], Caracas, Venezuela, pudiendo ser trasladado a otras dependencias si la naturaleza del servicio así lo requiere.
+                        </p>
+                        
+                        <h4>CLÁUSULA SEXTA: LEY APLICABLE</h4>
+                        <p>
+                        Todo lo no previsto en este contrato se regirá por las disposiciones de la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT) y su Reglamento.
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-24 pt-24">
+                            <div className="text-center">
+                                <p className="border-t-2 border-foreground pt-2">EL EMPLEADOR</p>
+                                <p className="text-xs">(Firma y Sello)</p>
+                            </div>
+                            <div className="text-center">
+                                <p className="border-t-2 border-foreground pt-2">EL TRABAJADOR</p>
+                                <p className="text-xs">(Firma)</p>
+                            </div>
+                        </div>
+
+                    </CardContent>
+                </Card>
+            </div>
+             <Card className="mt-8 print:hidden">
+                <CardHeader>
+                    <CardTitle>Procedimiento Legal Post-Firma</CardTitle>
                 </CardHeader>
-                <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
-                    <p>
-                        Entre <strong>EMPRESA, C.A.</strong>, RIF J-12345678-9, (en adelante “EL EMPLEADOR”), y por la otra parte, <strong>{employeeData.nombre}</strong>, titular de la Cédula de Identidad N° <strong>{employeeData.cedula}</strong>, (en adelante “EL TRABAJADOR”), se ha convenido en celebrar el presente Contrato de Trabajo, de conformidad con la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT) y las siguientes cláusulas:
-                    </p>
-
-                    <h4>CLÁUSULA PRIMERA: OBJETO</h4>
-                    <p>
-                        EL TRABAJADOR se compromete a prestar sus servicios personales lícitos y remunerados a EL EMPLEADOR, desempeñando el cargo de <strong>{employeeData.cargo}</strong>. Las funciones principales incluyen, pero no se limitan a: [Descripción genérica de las funciones del cargo, ej: planificar y ejecutar proyectos, gestionar equipos, etc.].
-                    </p>
-
-                    <h4>CLÁUSULA SEGUNDA: DURACIÓN</h4>
-                    <p>
-                        La presente relación de trabajo se celebra a <strong>tiempo indeterminado</strong>, a partir del <strong>{formatDate(employeeData.fechaIngreso)}</strong>. Los primeros treinta (30) días se considerarán como período de prueba, de conformidad con el artículo 61 de la LOTTT.
-                    </p>
-                    
-                    <h4>CLÁUSULA TERCERA: JORNADA DE TRABAJO</h4>
-                    <p>
-                        La jornada de trabajo será de ocho (8) horas diarias, de lunes a viernes, para un total de cuarenta (40) horas semanales, dentro de los límites establecidos por la LOTTT.
-                    </p>
-
-                    <h4>CLÁUSULA CUARTA: SALARIO Y BENEFICIOS</h4>
-                    <p>
-                        EL TRABAJADOR devengará un salario mensual fijo de <strong>{formatCurrency(employeeData.salario, 'Bs.')}</strong>. Adicionalmente, recibirá todos los beneficios establecidos en la LOTTT (utilidades, vacaciones, bono vacacional) y los beneficios socioeconómicos otorgados por la empresa, como el Cestaticket Socialista, seguro de salud, entre otros detallados en la política de beneficios de la compañía.
-                    </p>
-
-                    <h4>CLÁUSULA QUINTA: LUGAR DE PRESTACIÓN DE SERVICIO</h4>
-                    <p>
-                        EL TRABAJADOR prestará sus servicios en las oficinas de EL EMPLEADOR, ubicadas en [Dirección de la Empresa], Caracas, Venezuela, pudiendo ser trasladado a otras dependencias si la naturaleza del servicio así lo requiere.
-                    </p>
-                    
-                    <h4>CLÁUSULA SEXTA: LEY APLICABLE</h4>
-                    <p>
-                       Todo lo no previsto en este contrato se regirá por las disposiciones de la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT) y su Reglamento.
-                    </p>
-
-                    <div className="grid grid-cols-2 gap-24 pt-24">
-                        <div className="text-center">
-                            <p className="border-t-2 border-foreground pt-2">EL EMPLEADOR</p>
-                            <p className="text-xs">(Firma y Sello)</p>
-                        </div>
-                        <div className="text-center">
-                            <p className="border-t-2 border-foreground pt-2">EL TRABAJADOR</p>
-                            <p className="text-xs">(Firma)</p>
-                        </div>
-                    </div>
-
+                <CardContent>
+                    <ul className="space-y-3">
+                        {legalProcedure.map((item, index) => (
+                            <li key={index} className="flex items-start gap-3">
+                                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
+                                <span>{item}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </CardContent>
             </Card>
         </div>

@@ -96,3 +96,17 @@
       transform: translateY(2px);
   }
 }
+
+@page {
+  size: A4;
+  margin: 1in;
+}
+
+@page oficio {
+  size: 21.6cm 33cm;
+  margin: 2cm;
+}
+
+.oficio-document {
+  page: oficio;
+}
