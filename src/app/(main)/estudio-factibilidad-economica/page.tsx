@@ -1,4 +1,5 @@
 
+        
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -13,42 +14,11 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Logo } from "@/components/logo";
 
 
-const modeloNegocio = [
-    "Venta de Papeleras Inteligentes: Comercialización de los dispositivos a municipios, centros comerciales, empresas y condominios.",
-    "Licenciamiento de Software Contable: Venta de licencias del sistema de gestión administrativa y contable 100% automatizado.",
-    "Soporte Técnico y Mantenimiento: Contratos de soporte para garantizar el funcionamiento óptimo tanto del hardware (papeleras) como del software (sistema contable).",
-    "Análisis de Datos como Servicio: Monetización de los datos de residuos para ayudar a otras empresas a mejorar su gestión de desperdicios.",
-];
-
-const aspectosTecnicosPapelera = [
-    "Sensores y Clasificación por IA: Uso de sensores ópticos, de peso y visión por computadora para identificar y clasificar automáticamente papel, plástico, vidrio, metal y orgánicos.",
-    "Automatización de Compartimentos: Una vez clasificado, el residuo es dirigido al compartimento interno correcto de forma automática.",
-    "Conectividad IoT: Las papeleras se conectan a la nube para monitorear en tiempo real los niveles de llenado, optimizando las rutas de recolección y reduciendo costos."
-];
-
-const aspectosTecnicosSoftware = [
-    "Automatización de Procesos (RPA): El sistema automatiza tareas repetitivas como la entrada de datos de facturas, conciliaciones bancarias y generación de reportes.",
-    "Inteligencia Artificial para el Cumplimiento: La IA verifica que todas las operaciones cumplan con las normativas del SENIAT y otras regulaciones locales, minimizando el riesgo de sanciones.",
-    "Integración Total: Se conecta con bancos, sistemas de facturación de proveedores y plataformas de RR.HH. para centralizar toda la información financiera.",
-];
-
-const publicoObjetivoPapelera = [
-    { target: "Municipios y Entes Públicos", need: "Optimizar la gestión de residuos urbanos y promover la sostenibilidad." },
-    { target: "Centros Comerciales y Grandes Superficies", need: "Mejorar la experiencia del visitante y reducir costos operativos de limpieza." },
-    { target: "Empresas con Políticas de Sostenibilidad (RSE)", need: "Cumplir con metas ambientales y mejorar su imagen corporativa." },
-];
-
-const publicoObjetivoSoftware = [
-    { target: "Pequeñas y Medianas Empresas (PYMES)", need: "Automatizar su contabilidad y asegurar el cumplimiento fiscal sin necesidad de un gran equipo." },
-    { target: "Emprendedores y Nuevos Negocios", need: "Una solución todo-en-uno para empezar con el pie derecho, gestionando facturación y finanzas desde el día uno." },
-    { target: "Firmas de Contadores", need: "Una herramienta eficiente para gestionar la contabilidad de múltiples clientes desde una única plataforma." },
-];
-
 const foda = {
-    fortalezas: ["Doble línea de negocio (hardware + software) que crea un ecosistema robusto.", "Solución innovadora con alto impacto social y ambiental.", "Mercado con una necesidad clara y urgente de digitalización y cumplimiento."],
-    oportunidades: ["Creciente conciencia sobre la sostenibilidad y la economía circular.", "Digitalización acelerada de las PYMES en Venezuela.", "Altas sanciones del SENIAT que incentivan la adopción de sistemas homologados."],
-    debilidades: ["Alta inversión inicial en I+D para hardware y software.", "Dependencia de proveedores de tecnología y componentes.", "Curva de aprendizaje para la adopción de nuevas tecnologías por parte de los clientes."],
-    amenazas: ["Competencia de software administrativo tradicional ya establecido.", "Cambios regulatorios imprevistos en materia fiscal o ambiental.", "Inestabilidad económica que puede afectar la inversión en tecnología."],
+    fortalezas: ["Doble línea de negocio (ecosistema robusto)", "Solución innovadora con alto impacto social y ambiental", "Mercado con necesidad urgente de cumplimiento"],
+    oportunidades: ["Creciente conciencia sobre la sostenibilidad", "Digitalización acelerada de PYMES", "Altas sanciones del SENIAT que incentivan la adopción"],
+    debilidades: ["Alta inversión inicial en I+D", "Dependencia de proveedores de tecnología", "Curva de aprendizaje para el cliente"],
+    amenazas: ["Competencia de software tradicional", "Cambios regulatorios imprevistos", "Inestabilidad económica"],
 };
 
 const proyecciones = {
@@ -61,7 +31,7 @@ const proyecciones = {
 const totalIngresos = proyecciones.ingresosPapeleras + proyecciones.ingresosSoftware + proyecciones.ingresosSoporte;
 const utilidadBruta = totalIngresos + proyecciones.costosVariables;
 const utilidadNeta = utilidadBruta + proyecciones.costosFijos;
-const puntoEquilibrio = Math.abs(proyecciones.costosFijos) / (utilidadBruta / totalIngresos);
+const puntoEquilibrio = Math.abs(proyecciones.costosFijos) / ((totalIngresos + proyecciones.costosVariables) / totalIngresos);
 
 
 export default function EstudioFactibilidadEconomicaPage() {
@@ -71,49 +41,60 @@ export default function EstudioFactibilidadEconomicaPage() {
     
     const getWordDocumentContent = () => {
     return `
-      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-        <div style="text-align: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px;">
-          <h1 style="font-size: 24px; margin: 0; color: #333;">Kyron, C.A.</h1>
-          <h2 style="font-size: 20px; margin: 5px 0; color: #555;">Estudio de Factibilidad Económica</h2>
-          <p style="font-size: 12px; color: #777;">Fecha: ${formatDate(new Date())}</p>
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+            <div style="text-align: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px;">
+                <h1 style="font-size: 24px; margin: 0; color: #333;">Kyron, C.A.</h1>
+                <h2 style="font-size: 20px; margin: 5px 0; color: #555;">Estudio de Factibilidad Económica</h2>
+                <p style="font-size: 12px; color: #777;">Fecha: ${formatDate(new Date())}</p>
+            </div>
+            
+            <h3>Resumen Exhaustivo del Estudio de Factibilidad Económica: Ecosistema Kyron</h3>
+            <p>El presente documento resume en detalle el Estudio de Factibilidad Económica, Técnica, Legal y Operativa del proyecto Kyron, concluyendo su viabilidad con un alto grado de certeza...</p>
+
+            <h3>1. Introducción: El Doble Desafío y la Justificación de Kyron</h3>
+            <h4>1.1. Planteamiento del Problema: La Dualidad de la Ineficiencia</h4>
+            <p>Las empresas venezolanas operan en un entorno caracterizado por la volatilidad económica y, crucialmente, por una densa y a menudo cambiante carga fiscal y administrativa...</p>
+            <h4>1.2. Justificación: La Solución Dual y Sostenible</h4>
+            <p>Kyron justifica su existencia al ofrecer una solución dual que ataca ambos frentes con tecnología de vanguardia...</p>
+            <h4>1.3. Objetivos del Estudio de Factibilidad</h4>
+            <p><strong>Objetivo General:</strong> Determinar con precisión la factibilidad técnica, económica, legal y operativa del ecosistema "Kyron".</p>
+            <p><strong>Específicos:</strong> analizar rigurosamente el mercado potencial y la competencia, evaluar los requerimientos tecnológicos para ambos productos (hardware y software), definir una estructura organizacional funcional y, crucialmente, estimar la rentabilidad y el retorno de la inversión.</p>
+
+            <h3>2. Estudio de Mercado: Oportunidad y Segmentación</h3>
+            <p>El análisis de mercado revela una oportunidad significativa impulsada por la necesidad urgente de digitalización en el sector empresarial venezolano y la tendencia global hacia la sostenibilidad...</p>
+            
+            <h3>3. Estudio Técnico: Innovación y Tecnología</h3>
+            <h4>3.1. Producto 1: Papelera Inteligente (Hardware)</h4>
+            <p>Clasificación por IA... Conectividad IoT...</p>
+            <h4>3.2. Producto 2: Software de Automatización (SaaS)</h4>
+            <p>Automatización de Procesos (RPA)... IA para Cumplimiento SENIAT... APIs Robustas...</p>
+            
+            <h3>4. Estudio Organizacional y Legal: Estructura y Cumplimiento</h3>
+            <h4>4.1. Estructura Organizacional</h4>
+            <p>Dirección General (CEO)... Departamento de Tecnología (CTO)...</p>
+            <h4>4.2. Marco Legal y Regulatorio</h4>
+            <p>Estructura Corporativa... Homologación Fiscal... Propiedad Intelectual... Normativa Ambiental...</p>
+
+            <h3>5. Estudio Financiero: Modelo de Negocio y Rentabilidad</h3>
+            <h4>5.1. Modelo de Negocio Detallado</h4>
+            <p>Venta de Papeleras Inteligentes... Licenciamiento de Software Contable (SaaS)...</p>
+            <h4>5.2. Proyecciones Financieras y Métrica de Éxito</h4>
+            <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+              <tr><td colspan="2"><strong>Proyecciones Financieras Anuales (Estimadas)</strong></td></tr>
+              <tr><td>TOTAL INGRESOS:</td><td>${formatCurrency(totalIngresos)}</td></tr>
+              <tr><td>UTILIDAD NETA (EBITDA):</td><td>${formatCurrency(utilidadNeta)}</td></tr>
+              <tr><td>PUNTO DE EQUILIBRIO (Ingresos):</td><td>${formatCurrency(puntoEquilibrio)}</td></tr>
+            </table>
+
+            <h3>6. Análisis de Riesgos y Estrategia (FODA)</h3>
+            <p><strong>Fortalezas:</strong> ${foda.fortalezas.join(', ')}</p>
+            <p><strong>Oportunidades:</strong> ${foda.oportunidades.join(', ')}</p>
+            <p><strong>Debilidades:</strong> ${foda.debilidades.join(', ')}</p>
+            <p><strong>Amenazas:</strong> ${foda.amenazas.join(', ')}</p>
+            
+            <h3>7. Conclusión y Recomendación Final</h3>
+            <p>El proyecto Kyron se considera altamente factible. Se recomienda proceder sin dilación con la fase de prototipado de alta fidelidad y la búsqueda de capital semilla...</p>
         </div>
-        
-        <h3>1. INTRODUCCIÓN</h3>
-        <h4>1.1. Planteamiento del Problema:</h4>
-        <p>Las empresas en Venezuela enfrentan un doble desafío: una creciente presión por adoptar prácticas sostenibles y la abrumadora complejidad del entorno fiscal y administrativo.</p>
-        
-        <h4>1.2. Justificación:</h4>
-        <p>Este proyecto ofrece una solución dual: la Papelera Inteligente promueve la economía circular y el Software de Gestión garantiza la tranquilidad fiscal y la eficiencia operativa.</p>
-        
-        <h4>1.3. Objetivos del Estudio:</h4>
-        <p><strong>General:</strong> Determinar la factibilidad técnica, económica, legal y operativa del ecosistema "Kyron".</p>
-        <p><strong>Específicos:</strong> Analizar mercado, evaluar requerimientos técnicos, definir estructura y estimar la rentabilidad.</p>
-        
-        <h3>2. ESTUDIO DE MERCADO</h3>
-        <p><strong>Público Objetivo (Papelera Inteligente):</strong> Municipios, Centros Comerciales, Empresas con RSE.</p>
-        <p><strong>Público Objetivo (Software Contable):</strong> PYMES, Emprendedores, Firmas de Contadores.</p>
-
-        <h3>3. ESTUDIO TÉCNICO</h3>
-        <p><strong>Producto 1: Papelera Inteligente</strong><br/>Clasificación por IA, Automatización de compartimentos, Conectividad IoT.</p>
-        <p><strong>Producto 2: Software de Automatización</strong><br/>RPA, IA para cumplimiento SENIAT, API para integraciones.</p>
-
-        <h3>4. ESTUDIO FINANCIERO</h3>
-        <p><strong>Modelo de Negocio:</strong> Venta de Hardware, Licenciamiento SaaS, Soporte, Análisis de Datos.</p>
-        <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-          <tr><td colspan="2"><strong>Proyecciones Financieras Anuales (Estimadas)</strong></td></tr>
-          <tr><td>Ingresos por Papeleras:</td><td>${formatCurrency(proyecciones.ingresosPapeleras)}</td></tr>
-          <tr><td>Ingresos por Software:</td><td>${formatCurrency(proyecciones.ingresosSoftware)}</td></tr>
-          <tr><td>Ingresos por Soporte:</td><td>${formatCurrency(proyecciones.ingresosSoporte)}</td></tr>
-          <tr><td><strong>Total Ingresos:</strong></td><td><strong>${formatCurrency(totalIngresos)}</strong></td></tr>
-          <tr><td>Costos Variables:</td><td>${formatCurrency(proyecciones.costosVariables)}</td></tr>
-          <tr><td><strong>Utilidad Bruta:</strong></td><td><strong>${formatCurrency(utilidadBruta)}</strong></td></tr>
-          <tr><td>Costos Fijos:</td><td>${formatCurrency(proyecciones.costosFijos)}</td></tr>
-          <tr style="font-weight: bold; background-color: #f2f2f2;"><td>Utilidad Neta (EBITDA):</td><td>${formatCurrency(utilidadNeta)}</td></tr>
-        </table>
-        
-        <h3>5. CONCLUSIÓN</h3>
-        <p>El proyecto "Kyron" se considera altamente factible. La combinación de hardware innovador con un modelo SaaS recurrente crea una propuesta de valor sólida. Se recomienda proceder con la fase de prototipado y búsqueda de capital semilla.</p>
-      </div>
     `;
     };
 
@@ -140,9 +121,9 @@ export default function EstudioFactibilidadEconomicaPage() {
     const handleExportCSV = () => {
         const headers = ["Indicador", "Monto Estimado (Bs.)", "Métrica de Riesgo"];
         const rows = [
-            ["TOTAL INGRESOS", totalIngresos, "Fuerte tracción inicial."],
-            ["UTILIDAD NETA (EBITDA)", utilidadNeta, "Margen robusto (~29.4%)."],
-            ["PUNTO DE EQUILIBRIO", puntoEquilibrio.toFixed(2), "Se alcanza con solo el 50% de los ingresos."]
+            ["TOTAL INGRESOS", totalIngresos.toFixed(2), "Fuerte tracción inicial."],
+            ["UTILIDAD NETA (EBITDA)", utilidadNeta.toFixed(2), "Margen robusto (~29.4%)."],
+            ["PUNTO DE EQUILIBRIO (Ingresos)", puntoEquilibrio.toFixed(2), "Se alcanza con solo el 50% de los ingresos."]
         ];
 
         let csvContent = "data:text/csv;charset=utf-8," 
@@ -170,17 +151,15 @@ export default function EstudioFactibilidadEconomicaPage() {
             <Bot className="h-12 w-12" />
         </div>
         <h1 className="text-4xl font-bold tracking-tight">Estudio de Factibilidad Económica</h1>
-        <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">
-          Análisis integral del proyecto "Kyron" bajo la Metodología de Proyectos de Inversión.
+        <p className="text-muted-foreground mt-3 max-w-4xl mx-auto">
+          Ecosistema Integral Kyron: Solución Híbrida para la Economía Circular y el Cumplimiento Fiscal.
+          <br/>
+          <strong>Visión:</strong> Simplificar la burocracia y promover la sostenibilidad corporativa.
         </p>
          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={handleDownloadStudy}>
                 <Download className="mr-2" />
                 Descargar Informe en Word
-            </Button>
-            <Button size="lg" variant="outline" onClick={handleExportCSV}>
-                <Download className="mr-2" />
-                Exportar Proyecciones a Hoja de Cálculo
             </Button>
         </div>
       </header>
@@ -190,48 +169,24 @@ export default function EstudioFactibilidadEconomicaPage() {
                 <CardTitle>1. Introducción</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6 text-muted-foreground">
-                <div>
-                    <h3 className="font-semibold text-foreground">1.1. Planteamiento del Problema</h3>
-                    <p>Las empresas en Venezuela enfrentan un doble desafío: una creciente presión por adoptar prácticas sostenibles y la abrumadora complejidad del entorno fiscal y administrativo. La gestión ineficiente de residuos sólidos urbanos y la carga burocrática para el cumplimiento tributario representan costos operativos significativos y riesgos legales constantes, limitando el potencial de crecimiento e innovación.</p>
-                </div>
-                 <div>
-                    <h3 className="font-semibold text-foreground">1.2. Justificación</h3>
-                    <p>Este proyecto se justifica por su capacidad para ofrecer una solución dual a problemas reales y urgentes. Al integrar hardware (Papelera Inteligente) y software (Sistema de Gestión), Kyron no solo promueve un modelo de economía circular, sino que también proporciona una herramienta de automatización que garantiza la tranquilidad fiscal y la eficiencia operativa, generando un impacto positivo tanto ambiental como económico.</p>
-                </div>
-                 <div>
-                    <h3 className="font-semibold text-foreground">1.3. Objetivos del Estudio</h3>
-                    <p><strong>Objetivo General:</strong> Determinar la factibilidad técnica, económica, legal y operativa para la implementación del ecosistema integrado "Kyron" en el mercado venezolano.</p>
-                    <ul className="list-disc pl-5 mt-2 space-y-1">
-                        <li><strong>Específicos:</strong></li>
-                        <li>Analizar rigurosamente el mercado potencial y la competencia.</li>
-                        <li>Evaluar los requerimientos tecnológicos para ambos productos (hardware y software).</li>
-                        <li>Definir una estructura organizacional funcional.</li>
-                        <li>Estimar la inversión requerida, los costos, los ingresos y la rentabilidad del proyecto.</li>
-                    </ul>
-                </div>
-            </CardContent>
-        </Card>
-
-         <Card className="bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle>2. Marco Metodológico</CardTitle>
-                <CardDescription>La investigación se enmarca en una metodología de proyecto factible, con un enfoque descriptivo y documental.</CardDescription>
-            </CardHeader>
-            <CardContent>
                 <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1">
-                        <AccordionTrigger>Tipo y Diseño de la Investigación</AccordionTrigger>
+                        <AccordionTrigger className="font-semibold text-foreground">1.1. Planteamiento del Problema: La Dualidad de la Ineficiencia</AccordionTrigger>
                         <AccordionContent>
-                           <p>Se emplea un diseño de investigación descriptivo para caracterizar el mercado y documental para analizar el marco legal y normativo. El enfoque es de tipo "proyecto factible", ya que busca proponer una solución viable a una necesidad de mercado.</p>
+                            <p>Las empresas venezolanas operan en un entorno caracterizado por la volatilidad económica y, crucialmente, por una densa y a menudo cambiante carga fiscal y administrativa. La gestión ineficiente de trámites (desde la constitución legal hasta la declaración de impuestos ante el SENIAT) genera costos indirectos significativos y expone a las organizaciones a graves riesgos de sanciones. Paralelamente, la presión global y local, en parte impulsada por la conciencia sobre la Responsabilidad Social Empresarial (RSE), exige una gestión de residuos más efectiva y transparente. La ineficiencia en estos dos frentes —el escritorio administrativo y el manejo físico de desechos— limita la productividad y el crecimiento.</p>
                         </AccordionContent>
                     </AccordionItem>
-                    <AccordionItem value="item-2">
-                        <AccordionTrigger>Fuentes y Técnicas de Recolección de Datos</AccordionTrigger>
+                     <AccordionItem value="item-2">
+                        <AccordionTrigger className="font-semibold text-foreground">1.2. Justificación: La Solución Dual y Sostenible</AccordionTrigger>
                         <AccordionContent>
-                           <ul className="list-disc pl-5 space-y-2">
-                                <li><strong>Fuentes Primarias:</strong> Encuestas a PYMES y entrevistas con expertos en gestión de residuos y contabilidad.</li>
-                                <li><strong>Fuentes Secundarias:</strong> Análisis de gacetas oficiales, leyes tributarias, códigos de comercio, estudios de mercado existentes y documentación técnica de componentes de hardware y software.</li>
-                           </ul>
+                            <p>Kyron justifica su existencia al ofrecer una solución dual que ataca ambos frentes con tecnología de vanguardia. La Papelera Inteligente (Hardware) transforma un pasivo ambiental en un activo de datos, promoviendo la economía circular desde el punto de origen. Complementariamente, el Software de Gestión (SaaS) funge como el cerebro del ecosistema, garantizando la tranquilidad fiscal y la eficiencia operativa al automatizar el cumplimiento y la simplificación de la eficiencia operativa. Esta combinación mitiga los riesgos de sanciones fiscales y reduce la huella ambiental de los clientes, posicionando a Kyron como un socio estratégico para la sostenibilidad y el cumplimiento.</p>
+                        </AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="item-3">
+                        <AccordionTrigger className="font-semibold text-foreground">1.3. Objetivos del Estudio de Factibilidad</AccordionTrigger>
+                        <AccordionContent>
+                             <p><strong>Objetivo General:</strong> Determinar con precisión la factibilidad técnica, económica, legal y operativa del ecosistema "Kyron".</p>
+                            <p><strong>Específicos:</strong> analizar rigurosamente el mercado potencial y la competencia, evaluar los requerimientos tecnológicos para ambos productos (hardware y software), definir una estructura organizacional funcional y, crucialmente, estimar la rentabilidad y el retorno de la inversión.</p>
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
@@ -240,119 +195,65 @@ export default function EstudioFactibilidadEconomicaPage() {
 
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Search className="h-6 w-6"/>3. Estudio de Mercado</CardTitle>
+                <CardTitle className="flex items-center gap-3"><Search className="h-6 w-6"/>2. Estudio de Mercado</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-                <div>
-                    <h3 className="font-semibold mb-3">Público Objetivo</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                        <div className="p-4 bg-secondary/50 rounded-lg">
-                            <h4 className="font-medium text-foreground mb-2">Papelera Inteligente</h4>
-                             <ul className="space-y-2 text-sm">
-                                {publicoObjetivoPapelera.map(item => <li key={item.target}><strong>{item.target}:</strong> {item.need}</li>)}
-                            </ul>
-                        </div>
-                        <div className="p-4 bg-secondary/50 rounded-lg">
-                            <h4 className="font-medium text-foreground mb-2">Software Contable</h4>
-                            <ul className="space-y-2 text-sm">
-                                {publicoObjetivoSoftware.map(item => <li key={item.target}><strong>{item.target}:</strong> {item.need}</li>)}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                 <div>
-                    <h3 className="font-semibold mb-3">Tamaño y Competencia</h3>
-                    <p className="text-muted-foreground">Se estima un mercado potencial combinado de más de **$80 millones anuales**. La competencia es fragmentada y, en su mayoría, no ofrece una solución integrada, lo que representa una ventaja competitiva clave para Kyron.</p>
-                </div>
+            <CardContent>
+                <p className="text-muted-foreground">El análisis de mercado revela una oportunidad significativa impulsada por la necesidad urgente de digitalización en el sector empresarial venezolano y la tendencia global hacia la sostenibilidad. El mercado potencial estimado supera los $80 millones anuales, una cifra que subraya la escala de la demanda insatisfecha.</p>
             </CardContent>
         </Card>
 
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Cpu className="h-6 w-6"/>4. Estudio Técnico</CardTitle>
+                <CardTitle className="flex items-center gap-3"><Cpu className="h-6 w-6"/>3. Estudio Técnico</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-8">
                  <div className="space-y-4">
                     <h3 className="font-semibold flex items-center gap-2"><Recycle className="text-green-500"/>Producto 1: Papelera Inteligente</h3>
                     {smartBinImage && <Image src={smartBinImage.imageUrl} alt={smartBinImage.description} data-ai-hint={smartBinImage.imageHint} width={500} height={300} className="rounded-lg object-cover" />}
-                    <p className="text-sm text-muted-foreground">Dispositivo de hardware diseñado para revolucionar la recolección y clasificación de residuos.</p>
-                     <ul className="list-disc pl-5 space-y-2 text-sm">
-                        {aspectosTecnicosPapelera.map(item => <li key={item}>{item}</li>)}
-                    </ul>
+                     <p className="text-sm text-muted-foreground">Clasificación por IA, Sensores, Conectividad IoT para monitoreo en tiempo real.</p>
                 </div>
                  <div className="space-y-4">
                     <h3 className="font-semibold flex items-center gap-2"><FileText className="text-blue-500"/>Producto 2: Software de Automatización</h3>
                     {accountingSoftwareImage && <Image src={accountingSoftwareImage.imageUrl} alt={accountingSoftwareImage.description} data-ai-hint={accountingSoftwareImage.imageHint} width={500} height={300} className="rounded-lg object-cover" />}
-                    <p className="text-sm text-muted-foreground">Plataforma SaaS para la gestión integral de procesos administrativos y contables.</p>
-                    <ul className="list-disc pl-5 space-y-2 text-sm">
-                        {aspectosTecnicosSoftware.map(item => <li key={item}>{item}</li>)}
-                    </ul>
+                    <p className="text-sm text-muted-foreground">Automatización Robótica de Procesos (RPA), IA para cumplimiento SENIAT, APIs para integración bancaria.</p>
                 </div>
             </CardContent>
         </Card>
 
-        <Card className="bg-card/50 backdrop-blur-sm">
+         <Card className="bg-card/50 backdrop-blur-sm">
              <CardHeader>
-                <CardTitle className="flex items-center gap-3"><Briefcase className="h-6 w-6"/>5. Estudio Organizacional y Legal</CardTitle>
+                <CardTitle className="flex items-center gap-3"><Briefcase className="h-6 w-6"/>4. Estudio Organizacional y Legal</CardTitle>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 className="font-semibold mb-2">Estructura Organizacional Propuesta</h3>
-                    <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                        <li><strong className="text-foreground">Dirección General:</strong> CEO, responsable de la visión estratégica.</li>
-                        <li><strong className="text-foreground">Departamento de Tecnología:</strong> CTO, equipos de Hardware y Software.</li>
-                        <li><strong className="text-foreground">Departamento de Operaciones:</strong> COO, logística, producción y soporte.</li>
-                        <li><strong className="text-foreground">Departamento Comercial:</strong> Ventas y Marketing.</li>
-                        <li><strong className="text-foreground">Departamento Administrativo y Legal:</strong> Finanzas, Contabilidad y Cumplimiento.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 className="font-semibold mb-2">Marco Legal</h3>
-                     <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                        <li><strong>Constitución de Empresa:</strong> Registro como Compañía Anónima (C.A.) o Sociedad Anónima (S.A.).</li>
-                        <li><strong>Cumplimiento Tributario:</strong> Homologación del software ante el SENIAT (Providencia 121).</li>
-                        <li><strong>Propiedad Intelectual:</strong> Registro de marca (SAPI) y patentes de diseño de hardware.</li>
-                        <li><strong>Normativa Ambiental:</strong> Cumplimiento con leyes de gestión de residuos (MINEC).</li>
-                    </ul>
-                </div>
+            <CardContent>
+                <p>La factibilidad operativa se basa en una estructura organizacional ágil y un estricto cumplimiento del marco regulatorio venezolano. Se recomienda la constitución como C.A. o S.A. y es mandatorio que el Software de Gestión sea homologado ante el SENIAT.</p>
             </CardContent>
         </Card>
         
          <Card className="bg-card/50 backdrop-blur-sm">
              <CardHeader>
-                <CardTitle className="flex items-center gap-3"><DollarSign className="h-6 w-6"/>6. Estudio Financiero</CardTitle>
+                <CardTitle className="flex items-center gap-3"><DollarSign className="h-6 w-6"/>5. Estudio Financiero</CardTitle>
             </CardHeader>
             <CardContent>
-                <h3 className="font-semibold mb-3">Modelo de Negocio y Proyecciones</h3>
-                <p className="text-muted-foreground mb-4">La estrategia de monetización se basa en múltiples flujos de ingreso para garantizar la sostenibilidad y el crecimiento:</p>
-                 <ul className="grid md:grid-cols-2 gap-4 mb-6">
-                    {modeloNegocio.map((item, index) => (
-                        <li key={index} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg">
-                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
-                            <span className="text-sm">{item}</span>
-                        </li>
-                    ))}
-                </ul>
-                 <Table>
-                    <TableHeader><TableRow><TableHead colSpan={2}>Proyecciones Financieras Anuales (Estimadas)</TableHead></TableRow></TableHeader>
+                <Table>
+                    <TableHeader><TableRow><TableHead>Indicador</TableHead><TableHead>Monto Estimado (Bs.)</TableHead><TableHead>Métrica de Riesgo</TableHead></TableRow></TableHeader>
                     <TableBody>
-                        <TableRow><TableCell>Ingresos por Venta de Papeleras</TableCell><TableCell className="text-right">{formatCurrency(proyecciones.ingresosPapeleras)}</TableCell></TableRow>
-                        <TableRow><TableCell>Ingresos por Licencias de Software</TableCell><TableCell className="text-right">{formatCurrency(proyecciones.ingresosSoftware)}</TableCell></TableRow>
-                        <TableRow><TableCell>Ingresos por Soporte y Mantenimiento</TableCell><TableCell className="text-right">{formatCurrency(proyecciones.ingresosSoporte)}</TableCell></TableRow>
-                        <TableRow className="font-bold"><TableCell>Total Ingresos</TableCell><TableCell className="text-right">{formatCurrency(totalIngresos)}</TableCell></TableRow>
-                        <TableRow><TableCell>Costos Variables</TableCell><TableCell className="text-right text-red-500">{formatCurrency(proyecciones.costosVariables)}</TableCell></TableRow>
-                        <TableRow className="font-bold border-t"><TableCell>Utilidad Bruta</TableCell><TableCell className="text-right">{formatCurrency(utilidadBruta)}</TableCell></TableRow>
-                        <TableRow><TableCell>Costos Fijos</TableCell><TableCell className="text-right text-red-500">{formatCurrency(proyecciones.costosFijos)}</TableCell></TableRow>
-                        <TableRow className="font-bold text-lg text-primary border-t-2 border-primary"><TableCell>Utilidad Neta (EBITDA)</TableCell><TableCell className="text-right">{formatCurrency(utilidadNeta)}</TableCell></TableRow>
-                         <TableRow className="font-bold border-t"><TableCell>Punto de Equilibrio (Ingresos)</TableCell><TableCell className="text-right">{formatCurrency(puntoEquilibrio)}</TableCell></TableRow>
+                        <TableRow><TableCell>TOTAL INGRESOS</TableCell><TableCell>{formatCurrency(totalIngresos)}</TableCell><TableCell>Fuerte tracción inicial.</TableCell></TableRow>
+                        <TableRow><TableCell>UTILIDAD NETA (EBITDA)</TableCell><TableCell>{formatCurrency(utilidadNeta)}</TableCell><TableCell>Margen robusto (~29.4%).</TableCell></TableRow>
+                        <TableRow><TableCell>PUNTO DE EQUILIBRIO (Ingresos)</TableCell><TableCell>{formatCurrency(puntoEquilibrio)}</TableCell><TableCell>Se alcanza con solo el 50% de los ingresos.</TableCell></TableRow>
                     </TableBody>
                 </Table>
             </CardContent>
+             <CardFooter>
+                <Button size="sm" variant="outline" onClick={handleExportCSV}>
+                    <Download className="mr-2 h-4 w-4"/>
+                    Exportar a Hojas de cálculo
+                </Button>
+            </CardFooter>
         </Card>
         
         <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="flex items-center gap-3"><ShieldAlert className="h-6 w-6"/>7. Análisis de Riesgos (FODA)</CardTitle>
+                <CardTitle className="flex items-center gap-3"><ShieldAlert className="h-6 w-6"/>6. Análisis de Riesgos (FODA)</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -376,16 +277,17 @@ export default function EstudioFactibilidadEconomicaPage() {
         
          <Card className="bg-primary/10 border-primary/20">
             <CardHeader>
-                <CardTitle>8. Conclusión y Recomendaciones</CardTitle>
+                <CardTitle>7. Conclusión y Recomendación Final</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className="text-lg font-semibold">El proyecto "Kyron" se considera **altamente factible y con un potencial de mercado significativo**.</p>
+                <p className="text-lg font-semibold">El proyecto Kyron se considera ALTAMENTE FACTIBLE. La combinación de hardware y SaaS es una ventaja competitiva única.</p>
                 <p className="text-muted-foreground mt-2">
-                    La combinación de un producto de hardware innovador con un modelo de negocio SaaS recurrente crea una propuesta de valor única, sólida y sostenible que resuelve problemas críticos de mercado. Aunque la inversión inicial es considerable, las proyecciones financieras y las ventajas competitivas justifican el riesgo. El éxito dependerá de una ejecución técnica impecable y una estrategia de comercialización agresiva. Se recomienda proceder con la fase de desarrollo de prototipos y la búsqueda de capital semilla.
+                    Se recomienda proceder inmediatamente con la Fase de Prototipado y la Búsqueda de Capital Semilla para financiar la I+D y la producción. Kyron no es solo viable, sino una inversión estratégica en el futuro digital y sostenible de las empresas en Venezuela.
                 </p>
             </CardContent>
         </Card>
     </div>
   );
 }
+        
     
