@@ -17,8 +17,8 @@ export default function LoginMarketingPage() {
     submitButtonHref: "/asesoria-publicidad",
     credentials: { user: "usuario.marketing", password: "password123" },
     footerLinks: {
-      text: "¿No eres del área de marketing?",
-      mainLink: { href: "", label: "" },
+      text: "¿No tienes una cuenta?",
+      mainLink: { href: "/register/marketing", label: "Regístrate aquí" },
       secondaryLinks: {
         title: "Otros Portales",
         links: [

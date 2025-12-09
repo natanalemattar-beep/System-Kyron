@@ -17,8 +17,8 @@ export default function LoginRrhhPage() {
     submitButtonHref: "/dashboard-rrhh",
     credentials: { user: "usuario.rrhh", password: "password123" },
     footerLinks: {
-      text: "¿No perteneces a RR.HH.?",
-      mainLink: { href: "", label: "" },
+      text: "¿No tienes una cuenta?",
+      mainLink: { href: "/register/rrhh", label: "Regístrate aquí" },
       secondaryLinks: {
         title: "Otros Portales",
         links: [

@@ -17,8 +17,8 @@ export default function LoginVentasPage() {
     submitButtonHref: "/analisis-ventas",
     credentials: { user: "cajero.1", password: "password123" },
     footerLinks: {
-      text: "¿No eres vendedor? Accede a otro portal:",
-      mainLink: { href: "", label: "" },
+       text: "¿No tienes una cuenta?",
+      mainLink: { href: "/register/ventas", label: "Regístrate aquí" },
       secondaryLinks: {
         title: "Otros Portales",
         links: [

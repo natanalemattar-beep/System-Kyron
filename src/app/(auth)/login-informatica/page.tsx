@@ -17,8 +17,8 @@ export default function LoginInformaticaPage() {
     submitButtonHref: "/dashboard-informatica",
     credentials: { user: "dev.user", password: "password123" },
     footerLinks: {
-      text: "¿No eres de IT? Accede a otro portal:",
-      mainLink: { href: "", label: "" }, // Not used when secondaryLinks are present
+      text: "¿No tienes una cuenta?",
+      mainLink: { href: "/register/informatica", label: "Regístrate aquí" },
       secondaryLinks: {
         title: "Otros Portales",
         links: [
