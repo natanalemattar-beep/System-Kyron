@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { BookUser, Download, ChevronsRight, User, Building, FileText, Printer, Ship, Stamp, Gavel } from "lucide-react";
+import { BookUser, Download, ChevronsRight, User, Building, FileText, Printer, Ship, Stamp, Gavel, UserCog } from "lucide-react";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
