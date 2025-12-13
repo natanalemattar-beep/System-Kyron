@@ -1,9 +1,8 @@
-
 "use client";
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle, Shield, Download, FileText, PlusCircle, Eye, AlertTriangle, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -41,7 +40,7 @@ export default function AntecedentesPenalesPage() {
     const [status, setStatus] = useState<'idle' | 'processing' | 'success'>('idle');
     const [organismo, setOrganismo] = useState("");
     const [motivo, setMotivo] = useState("");
-    const [selectedSolicitud, setSelectedSolicitud] = useState<Solicitud | null>(null);
+    const [selectedSolicitud, setSelectedSolicitud] = useState<Solicitud | null>(solicitudes.find(s => s.id === 'AP-2024-001') || null);
     const { toast } = useToast();
 
     const getCertificateContent = (solicitud: Solicitud | null) => {
@@ -50,51 +49,60 @@ export default function AntecedentesPenalesPage() {
         return `
             <div style="font-family: 'Times New Roman', Times, serif; font-size: 11px; line-height: 1.5; max-width: 800px; margin: auto; padding: 2cm; border: 1px solid #ccc; position: relative; background: white; color: black; box-sizing: border-box;">
                 
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.08; pointer-events: none; width: 500px; height: 500px;">
-                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M42,48H6a2,2,0,0,1-2-2V30.5a1,1,0,0,1,1.5-.86l22,12.7a1,1,0,0,0,1,0l22-12.7a1,1,0,0,1,1.5.86V46A2,2,0,0,1,42,48ZM6,27.51V2H42V27.51l-18,10.39Z" fill="#e6e6e6"></path><path d="M2,24A1,1,0,0,1,1,23V2A1,1,0,0,1,2,1H46a1,1,0,0,1,1,1V23a1,1,0,0,1-1,1Z" fill="#ffce00"></path><path d="M2,16H46a1,1,0,0,1,1,1V23a1,1,0,0,1-1,1H2a1,1,0,0,1-1-1V17A1,1,0,0,1,2,16Z" fill="#00247d"></path><path d="M2,8H46a1,1,0,0,1,1,1V23a1,1,0,0,1-1,1H2a1,1,0,0,1-1-1V9A1,1,0,0,1,2,8Z" fill="#cf142b"></path><path d="M11,18a3.5,3.5,0,1,1-3.5-3.5A3.5,3.5,0,0,1,11,18Zm-6,0A2.5,2.5,0,1,0,7.5,15.5,2.5,2.5,0,0,0,5,18Z" fill="#ffffff"></path><path d="M7.5,12.5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,1,0v1A.5.5,0,0,1,7.5,12.5Z" fill="#ffffff"></path><path d="M3.1,14.2a.5.5,0,0,1-.35-.15l-.71-.71a.5.5,0,0,1,.71-.71l.71.71a.5.5,0,0,1-.35.86Z" fill="#ffffff"></path><path d="M7.5,24.5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,1,0v1A.5.5,0,0,1,7.5,24.5Z" fill="#ffffff"></path><path d="M11.9,14.2a.5.5,0,0,1-.35-.86l.71-.71a.5.5,0,0,1,.71.71l-.71.71A.5.5,0,0,1,11.9,14.2Z" fill="#ffffff"></path><path d="M13,18.5H2a.5.5,0,0,1,0-1H13a.5.5,0,0,1,0,1Z" fill="#ffffff"></path><path d="M4,18.5H2a.5.5,0,0,1,0-1H4a.5.5,0,0,1,0,1Z" fill="#ffffff"></path><path d="M13,18.5H11a.5.5,0,0,1,0-1h2a.5.5,0,0,1,0,1Z" fill="#ffffff"></path></g></svg>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.08; pointer-events: none; width: 400px; height: 400px;">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="48" fill="none" stroke="#000" stroke-width="1"/>
+                        <text x="50" y="15" text-anchor="middle" font-size="6" font-weight="bold">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES</text>
+                        <text x="50" y="88" text-anchor="middle" font-size="6" font-weight="bold">JUSTICIA Y PAZ</text>
+                    </svg>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 1rem;">
-                    <p style="margin: 0; font-weight: bold; font-size: 10px;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
-                    <div style="margin: 0.5rem 0;">
-                        <img src="/images/escudo.png" alt="Escudo de Venezuela" style="width: 60px; height: auto; margin: auto;"/>
+                    <p style="margin: 0; font-weight: bold; font-size: 12px;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                    <div style="margin: 1rem 0;">
+                        <img src="/images/escudo.png" alt="Escudo de Venezuela" style="width: 70px; height: auto; margin: auto;"/>
                     </div>
-                    <p style="margin: 0; font-size: 10px; line-height: 1.2;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
+                    <p style="margin: 0; font-size: 10px; line-height: 1.2;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ<br>DESPACHO DEL VICEMINISTERIO DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA<br>DIRECCIÓN GENERAL DE JUSTICIA, INSTITUCIONES RELIGIOSAS Y CULTOS<br>COORDINACIÓN DE ANTECEDENTES PENALES</p>
                 </div>
                 
-                <h1 style="text-align: center; font-size: 13px; font-weight: bold; margin: 1rem 0;">CERTIFICACIÓN DE ANTECEDENTES PENALES</h1>
+                <h1 style="text-align: center; font-size: 13px; font-weight: bold; margin: 2rem 0;">CERTIFICACIÓN DE ANTECEDENTES PENALES</h1>
                 
                 <p style="text-align: justify; margin-bottom: 1rem;">
-                    El Director General de las Oficinas Técnicas de Identificación y Control de Extranjeros, de conformidad con lo dispuesto en el artículo 15 del Reglamento de la Ley de Extranjeros, y en el artículo 7 de la Ley de Registro de Antecedentes Penales, a solicitud de parte interesada, CERTIFICA:
+                    En nombre del Ciudadano Ministro del Poder Popular para Relaciones Interiores, Justicia y Paz, la Dirección General de Justicia, Instituciones Religiosas y Cultos, en ejercicio de sus funciones y cumpliendo la Ley de Registro de Antecedentes Penales, publicada en la Gaceta Oficial de la República de Venezuela (hoy República Bolivariana de Venezuela) Nro. 31.791, de fecha 03 de agosto de 1979, a solicitud de parte interesada expide, certificado de antecedentes penales al ciudadano (a):
                 </p>
+
+                 <p style="text-align: center; margin: 1rem 0;">CI: V - ${solicitud.solicitante.cedula.replace('V-', '')}</p>
 
                 <p style="text-align: justify; margin-bottom: 1rem;">
-                    Que el ciudadano(a) <strong>${solicitud.solicitante.nombre.toUpperCase()}</strong>, titular de la Cédula de Identidad N° <strong>${solicitud.solicitante.cedula}</strong>, después de una minuciosa revisión en nuestros archivos, <strong>NO REGISTRA ANTECEDENTES PENALES EN LA REPÚBLICA BOLIVARIANA DE VENEZUELA</strong>.
+                    Se constata, luego de revisada la base de datos de la Oficina de Antecedentes Penales y hasta la emisión del presente documento, que el referido ciudadano(a) <strong>NO REGISTRA ANTECEDENTES PENALES EN LA REPÚBLICA BOLIVARIANA DE VENEZUELA</strong>.
                 </p>
-
+                
                 <div style="text-align: center; margin: 1rem 0;">
-                    <p style="margin:0; letter-spacing: 5px;">* * * * * * *</p>
+                     <p>*****</p>
                 </div>
                 
                 <p style="text-align: justify; margin-bottom: 1rem;">
-                    El presente certificado se emite para ser presentado ante las autoridades de <strong>${solicitud.organismo.toUpperCase()}</strong>.
+                    El presente certificado se emite a efectos de ser presentado ante las autoridades de REINO DE ESPAÑA.
                 </p>
 
                 <p style="text-align: justify;">
-                    Certificación que se expide en la ciudad de Caracas, a los ${new Date().toLocaleDateString('es-VE', { day: 'numeric', month: 'long', year: 'numeric' })}.
+                    Certificación que se expide en la ciudad de Caracas, el 13 de Julio del 2022.
                 </p>
                 
                 <div style="position: relative; text-align: center; margin-top: 2rem;">
                     <div style="display: inline-block; position: relative;">
-                        <img src="/images/sign-sample.png" alt="Firma Autorizada" style="width: 150px; height: auto;"/>
-                        <img src="/images/seal-sample.png" alt="Sello" style="width: 100px; height: auto; position: absolute; left: 50%; top: 30%; transform: translateX(-50%); opacity: 0.7;"/>
+                        <img src="/images/sign-sample.png" alt="Firma Autorizada" style="width: 180px; height: auto;"/>
+                        <img src="/images/seal-sample.png" alt="Sello" style="width: 120px; height: auto; position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); opacity: 0.7;"/>
                     </div>
-                    <p style="margin: 0; font-weight: bold; font-size: 11px;">(FIRMA Y SELLO DE LA AUTORIDAD)</p>
-                    <p style="margin: 0; font-size: 10px;">DIRECTOR GENERAL</p>
+                    <p style="margin: 0; font-weight: bold; font-size: 11px;">ALANA, VANESSA ZULOAGA RUIZ</p>
+                    <p style="margin: 0; font-size: 10px; font-weight: bold;">VICEMINISTRA DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
+                    <p style="margin: 0; font-size: 9px;">Designada según Decreto N° 4.294 de fecha 11 de Septiembre de 2020.</p>
+                    <p style="margin: 0; font-size: 9px;">Publicado en Gaceta Oficial de la República Bolivariana de Venezuela</p>
+                    <p style="margin: 0; font-size: 9px;">N° 6.574 Extraordinario en la misma fecha.</p>
                 </div>
                 
                 <div style="margin-top: 2rem; font-size: 8px; text-align: justify; border-top: 1px solid #ccc; padding-top: 0.5rem;">
-                    <strong>Atención:</strong> La autenticidad de este certificado puede ser verificada a través del portal www.mpprijp.gob.ve.
+                    <strong>Atención:</strong> Este documento consta de una (1) hoja, el cual no debe contener enmiendas, tachaduras, modificaciones o superposiciones. Los datos de identificación del solicitante son suministrados por el Servicio Administrativo de Identificación, Migración y Extranjería (SAIME). La autenticidad de este certificado lo puede verificar a través del portal www.mpprijp.gob.ve con el Nro. ******** o escaneando el código QR.
                 </div>
             </div>
       `;
