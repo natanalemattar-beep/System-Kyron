@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Bell, Check, Filter } from "lucide-react";
+import { Bell, Check, Filter, X } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -27,7 +27,7 @@ import {
 type Notificacion = {
     id: number;
     remitente: string;
-    tipo: string;
+    tipo: "Alerta de Cumplimiento" | "Solicitud de Aprobación" | "Análisis Financiero";
     fecha: string;
     estado: 'No Leído' | 'Leído';
     descripcion: string;
@@ -76,6 +76,14 @@ export default function NotificacionesPage() {
         toast({
             title: "Notificación Leída",
             description: `La notificación #${id} ha sido marcada como leída.`,
+        });
+    }
+
+    const handleApproval = (id: number, action: 'Aprobado' | 'Rechazado') => {
+        handleMarkAsRead(id);
+        toast({
+            title: `Solicitud ${action}`,
+            description: `La solicitud de descuento ha sido marcada como ${action.toLowerCase()}.`,
         });
     }
 
@@ -148,18 +156,28 @@ export default function NotificacionesPage() {
                                 <DialogHeader>
                                     <DialogTitle className="text-xl">{notificacion.tipo}</DialogTitle>
                                     <DialogDescription>
-                                        <strong>De:</strong> {notificacion.remitente} <br/>
-                                        <strong>Fecha:</strong> {notificacion.fecha}
+                                        <p><strong>De:</strong> {notificacion.remitente}</p>
+                                        <p><strong>Fecha:</strong> {notificacion.fecha}</p>
+                                        <p><strong>Estado:</strong> <Badge variant={statusVariant[notificacion.estado]}>{notificacion.estado}</Badge></p>
                                     </DialogDescription>
                                 </DialogHeader>
-                                <div className="py-4 text-muted-foreground">
+                                <div className="py-4 text-muted-foreground border-t border-b">
+                                    <p className="font-semibold text-foreground mb-2">Detalles:</p>
                                     <p>{notificacion.descripcion}</p>
                                 </div>
                                 <DialogFooter>
-                                    {notificacion.estado === 'No Leído' && (
+                                     {notificacion.tipo === 'Solicitud de Aprobación' && notificacion.estado === 'No Leído' && (
+                                        <div className="flex w-full justify-end gap-2">
+                                            <Button variant="destructive" onClick={() => handleApproval(notificacion.id, 'Rechazado')}><X className="mr-2 h-4 w-4"/> Rechazar</Button>
+                                            <Button variant="default" onClick={() => handleApproval(notificacion.id, 'Aprobado')}><Check className="mr-2 h-4 w-4"/> Aprobar</Button>
+                                        </div>
+                                     )}
+                                     {notificacion.tipo !== 'Solicitud de Aprobación' && notificacion.estado === 'No Leído' && (
                                         <Button variant="outline" onClick={() => handleMarkAsRead(notificacion.id)}>Marcar como Leído</Button>
                                     )}
-                                    <Button>Cerrar</Button>
+                                    <DialogTrigger asChild>
+                                        <Button>Cerrar</Button>
+                                    </DialogTrigger>
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>

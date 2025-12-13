@@ -15,20 +15,27 @@ import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+type Item = {
+  descripcion: string;
+  cantidad: number;
+  precio: number;
+};
+
 type Proforma = {
   id: string;
   fecha: string;
   cliente: string;
   total: number;
   estado: "Enviada" | "Aprobada" | "Borrador" | "Rechazada";
+  items: Item[];
 };
 
 const proformas: Proforma[] = [
-    { id: "PRO-2024-001", fecha: "19/07/2024", cliente: "Constructora XYZ", total: 15000, estado: "Enviada" },
-    { id: "PRO-2024-002", fecha: "20/07/2024", cliente: "Eventos Festivos C.A.", total: 8500, estado: "Aprobada" },
-    { id: "PRO-2024-003", fecha: "21/07/2024", cliente: "Inversiones ABC", total: 22000, estado: "Borrador" },
-    { id: "PRO-2024-004", fecha: "15/07/2024", cliente: "Global Tech", total: 18000, estado: "Rechazada" },
-    { id: "PRO-2024-005", fecha: "23/07/2024", cliente: "Servicios Creativos", total: 5000, estado: "Enviada" },
+    { id: "PRO-2024-001", fecha: "19/07/2024", cliente: "Constructora XYZ", total: 15000, estado: "Enviada", items: [{ descripcion: "Licencia Anual Software", cantidad: 1, precio: 12000 }, { descripcion: "Soporte Premium", cantidad: 1, precio: 3000 }] },
+    { id: "PRO-2024-002", fecha: "20/07/2024", cliente: "Eventos Festivos C.A.", total: 8500, estado: "Aprobada", items: [{ descripcion: "Punto de Venta Móvil", cantidad: 2, precio: 4250 }] },
+    { id: "PRO-2024-003", fecha: "21/07/2024", cliente: "Inversiones ABC", total: 22000, estado: "Borrador", items: [{ descripcion: "Servidores Dedicados", cantidad: 1, precio: 22000 }] },
+    { id: "PRO-2024-004", fecha: "15/07/2024", cliente: "Global Tech", total: 18000, estado: "Rechazada", items: [{ descripcion: "Consultoría de Sistemas", cantidad: 1, precio: 18000 }] },
+    { id: "PRO-2024-005", fecha: "23/07/2024", cliente: "Servicios Creativos", total: 5000, estado: "Enviada", items: [{ descripcion: "Diseño de Marca", cantidad: 1, precio: 5000 }] },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -149,16 +156,37 @@ export default function ProformasPage() {
                                                         <Eye className="h-4 w-4" />
                                                     </Button>
                                                 </DialogTrigger>
-                                                <DialogContent>
+                                                <DialogContent className="sm:max-w-xl">
                                                     <DialogHeader>
                                                         <DialogTitle>Detalles de Proforma: {proforma.id}</DialogTitle>
+                                                        <DialogDescription>
+                                                            Cliente: {proforma.cliente} | Fecha: {proforma.fecha}
+                                                        </DialogDescription>
                                                     </DialogHeader>
-                                                    <div className="py-4 space-y-2">
-                                                        <p><strong>Cliente:</strong> {proforma.cliente}</p>
-                                                        <p><strong>Fecha:</strong> {proforma.fecha}</p>
-                                                        <p><strong>Monto:</strong> {formatCurrency(proforma.total, "Bs.")}</p>
-                                                        <p><strong>Estado:</strong> {proforma.estado}</p>
+                                                    <div className="py-4">
+                                                        <Table>
+                                                            <TableHeader>
+                                                                <TableRow>
+                                                                    <TableHead>Descripción</TableHead>
+                                                                    <TableHead className="text-center">Cant.</TableHead>
+                                                                    <TableHead className="text-right">Total</TableHead>
+                                                                </TableRow>
+                                                            </TableHeader>
+                                                            <TableBody>
+                                                                {proforma.items.map((item, index) => (
+                                                                    <TableRow key={index}>
+                                                                        <TableCell>{item.descripcion}</TableCell>
+                                                                        <TableCell className="text-center">{item.cantidad}</TableCell>
+                                                                        <TableCell className="text-right">{formatCurrency(item.precio * item.cantidad, 'Bs.')}</TableCell>
+                                                                    </TableRow>
+                                                                ))}
+                                                            </TableBody>
+                                                        </Table>
                                                     </div>
+                                                    <DialogFooter className="border-t pt-4 flex justify-between items-center">
+                                                        <p><strong>Estado:</strong> <Badge variant={statusVariant[proforma.estado]}>{proforma.estado}</Badge></p>
+                                                        <p className="text-lg font-bold">Total: {formatCurrency(proforma.total, 'Bs.')}</p>
+                                                    </DialogFooter>
                                                 </DialogContent>
                                             </Dialog>
                                             <Button variant="ghost" size="icon" onClick={() => handleDownload(proforma.id)}>
