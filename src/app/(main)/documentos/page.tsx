@@ -1,4 +1,6 @@
 
+"use client";
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Heart, Gavel, ArrowRight } from "lucide-react";
@@ -22,6 +24,12 @@ const documents = [
         description: "Documento de la sentencia del caso EXP-001-2024.",
         icon: Gavel,
         href: "/documentos-judiciales"
+    },
+    {
+        title: "Certificado de Antecedentes Penales",
+        description: "Solicita y gestiona tu certificado de antecedentes penales.",
+        icon: Gavel,
+        href: "/antecedentes-penales"
     }
 ]
 
@@ -50,7 +58,7 @@ export default function DocumentosPage() {
                     <CardDescription>{doc.description}</CardDescription>
                 </CardContent>
                 <CardFooter>
-                    <Button asChild variant="outline" className="w-full">
+                    <Button asChild className="w-full">
                         <Link href={doc.href}>
                             Gestionar Documento <ArrowRight className="ml-2 h-4 w-4"/>
                         </Link>

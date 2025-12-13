@@ -9,7 +9,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 type Documento = {
   id: string;
@@ -51,11 +52,19 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function DocumentosJudicialesPage() {
     const [filter, setFilter] = useState("todos");
+    const { toast } = useToast();
 
     const filteredDocumentos = documentos.filter(d => {
         if (filter === "todos") return true;
         return d.estado.toLowerCase() === filter;
     });
+
+    const handleDownload = (id: string) => {
+        toast({
+            title: "Descarga Iniciada",
+            description: `El documento judicial ${id} se está descargando.`
+        });
+    }
 
   return (
     <div className="space-y-8">
@@ -86,50 +95,83 @@ export default function DocumentosJudicialesPage() {
                     <TabsTrigger value="activo">Activos</TabsTrigger>
                     <TabsTrigger value="archivado">Archivados</TabsTrigger>
                 </TabsList>
-                 <TabsContent value={filter}>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Nro. Documento</TableHead>
-                                <TableHead>Fecha</TableHead>
-                                <TableHead>Tipo</TableHead>
-                                <TableHead>Caso</TableHead>
-                                <TableHead>Estado</TableHead>
-                                <TableHead className="text-right">Acciones</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {filteredDocumentos.map((doc) => (
-                                <TableRow key={doc.id}>
-                                    <TableCell className="font-medium">{doc.id}</TableCell>
-                                    <TableCell>{doc.fecha}</TableCell>
-                                    <TableCell>{doc.tipo}</TableCell>
-                                    <TableCell>{doc.caso}</TableCell>
-                                    <TableCell>
-                                        <Badge variant={statusVariant[doc.estado]}>{doc.estado}</Badge>
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=doc-judicial-${doc.id}`} alt={`QR for ${doc.id}`} width={24} height={24} className="inline-block mr-2" />
-                                        <Button variant="ghost" size="icon" className="mr-2">
-                                            <Eye className="h-4 w-4" />
-                                        </Button>
-                                        <Button variant="ghost" size="icon">
-                                            <FileDown className="h-4 w-4" />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                            {filteredDocumentos.length === 0 && (
-                                <TableRow>
-                                    <TableCell colSpan={6} className="text-center text-muted-foreground">No hay documentos en este estado.</TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
+                <TabsContent value="todos">
+                    <DocumentsTable documentos={documentos} onDownload={handleDownload} />
+                </TabsContent>
+                <TabsContent value="activo">
+                     <DocumentsTable documentos={documentos.filter(d => d.estado === 'Activo')} onDownload={handleDownload} />
+                </TabsContent>
+                <TabsContent value="archivado">
+                     <DocumentsTable documentos={documentos.filter(d => d.estado === 'Archivado')} onDownload={handleDownload} />
                 </TabsContent>
             </Tabs>
         </CardContent>
       </Card>
     </div>
   );
+}
+
+function DocumentsTable({ documentos, onDownload }: { documentos: Documento[], onDownload: (id: string) => void }) {
+    return (
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableHead>Nro. Documento</TableHead>
+                    <TableHead>Fecha</TableHead>
+                    <TableHead>Tipo</TableHead>
+                    <TableHead>Caso</TableHead>
+                    <TableHead>Estado</TableHead>
+                    <TableHead className="text-right">Acciones</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {documentos.length > 0 ? (
+                    documentos.map((doc) => (
+                    <TableRow key={doc.id}>
+                        <TableCell className="font-medium">{doc.id}</TableCell>
+                        <TableCell>{doc.fecha}</TableCell>
+                        <TableCell>{doc.tipo}</TableCell>
+                        <TableCell>{doc.caso}</TableCell>
+                        <TableCell>
+                            <Badge variant={statusVariant[doc.estado]}>{doc.estado}</Badge>
+                        </TableCell>
+                        <TableCell className="text-right">
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="mr-2">
+                                        <Eye className="h-4 w-4" />
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Detalle del Documento: {doc.id}</DialogTitle>
+                                    </DialogHeader>
+                                    <div className="py-4 space-y-2">
+                                        <p><strong>Tipo:</strong> {doc.tipo}</p>
+                                        <p><strong>Caso:</strong> {doc.caso}</p>
+                                        <p><strong>Fecha:</strong> {doc.fecha}</p>
+                                        <p><strong>Estado:</strong> {doc.estado}</p>
+                                        <div className="flex justify-center pt-4">
+                                            <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=doc-judicial-${doc.id}`} alt={`QR for ${doc.id}`} width={100} height={100} />
+                                        </div>
+                                    </div>
+                                    <DialogFooter>
+                                        <Button>Cerrar</Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
+                            <Button variant="ghost" size="icon" onClick={() => onDownload(doc.id)}>
+                                <FileDown className="h-4 w-4" />
+                            </Button>
+                        </TableCell>
+                    </TableRow>
+                ))
+                ) : (
+                     <TableRow>
+                        <TableCell colSpan={6} className="text-center text-muted-foreground">No hay documentos en este estado.</TableCell>
+                    </TableRow>
+                )}
+            </TableBody>
+        </Table>
+    )
 }
