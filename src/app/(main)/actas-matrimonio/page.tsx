@@ -11,6 +11,8 @@ import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Solicitud = {
   id: string;
@@ -53,13 +55,19 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 };
 
 export default function ActasMatrimonioPage() {
-    const [filter, setFilter] = useState("todos");
     const { toast } = useToast();
 
     const handleDownload = (id: string) => {
         toast({
             title: "Descarga Iniciada",
             description: `El acta de matrimonio ${id} se está descargando.`
+        });
+    }
+
+    const handleCreate = () => {
+        toast({
+            title: "Solicitud Recibida",
+            description: "Tu solicitud de acta de matrimonio ha sido creada y está en proceso."
         });
     }
 
@@ -75,10 +83,39 @@ export default function ActasMatrimonioPage() {
                     Solicita y gestiona tus actas de matrimonio.
                 </p>
             </div>
-            <Button>
-                <PlusCircle className="mr-2" />
-                Solicitar Acta
-            </Button>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button>
+                        <PlusCircle className="mr-2" />
+                        Solicitar Acta
+                    </Button>
+                </DialogTrigger>
+                <DialogContent>
+                     <DialogHeader>
+                        <DialogTitle>Solicitar Nueva Acta de Matrimonio</DialogTitle>
+                        <DialogDescription>
+                            Completa los datos para iniciar el trámite.
+                        </DialogDescription>
+                    </DialogHeader>
+                     <div className="grid gap-4 py-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="conyuge1">Nombre Completo Cónyuge 1</Label>
+                            <Input id="conyuge1" placeholder="Ej: Ana Sofía Pérez" />
+                        </div>
+                         <div className="space-y-2">
+                            <Label htmlFor="conyuge2">Nombre Completo Cónyuge 2</Label>
+                            <Input id="conyuge2" placeholder="Ej: Carlos Gómez" />
+                        </div>
+                        <div className="space-y-2">
+                             <Label htmlFor="fecha-matrimonio">Fecha del Matrimonio</Label>
+                            <Input id="fecha-matrimonio" type="date" />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit" onClick={handleCreate}>Enviar Solicitud</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </header>
       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
