@@ -14,7 +14,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
+import { formatDate } from "@/lib/utils";
 
 type Solicitud = {
   id: string;
@@ -74,10 +74,48 @@ export default function ActasMatrimonioPage() {
     const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
     const [filter, setFilter] = useState("todos");
 
-    const handleDownload = (id: string) => {
+    const getDocumentContent = (solicitud: Solicitud) => `
+        <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.6; padding: 2cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black; box-sizing: border-box;">
+            <div style="text-align: center; margin-bottom: 2cm;">
+                <p style="margin:0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                <p style="margin:0; font-weight: bold;">REGISTRO CIVIL</p>
+            </div>
+            <h1 style="text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 2cm;">ACTA DE MATRIMONIO</h1>
+            <p><strong>NÚMERO DE ACTA:</strong> ${solicitud.detalles.acta}</p>
+            <p>En el día de hoy, ${new Date(solicitud.detalles.ano, 0, 1).toLocaleDateString('es-VE', { day: 'numeric', month: 'long', year: 'numeric' })}, comparecieron ante mí, [NOMBRE DEL REGISTRADOR CIVIL], en mi carácter de Registrador(a) Civil de la Parroquia ${solicitud.detalles.registro}, los ciudadanos:</p>
+            <br/>
+            <p><strong>Contrayente 1:</strong> ${solicitud.nombres.split(' y ')[0]}</p>
+            <p><strong>Contrayente 2:</strong> ${solicitud.nombres.split(' y ')[1]}</p>
+            <br/>
+            <p>Quienes manifestaron libre y voluntariamente su deseo de contraer matrimonio civil, en virtud de lo cual, y cumplidos los requisitos de ley, los declaro unidos en legítimo matrimonio en nombre de la República y por autoridad de la Ley.</p>
+            <br/>
+            <p><strong>Lugar del Registro:</strong> ${solicitud.detalles.registro}</p>
+            <p><strong>Libro/Tomo:</strong> ${solicitud.detalles.tomo} | <strong>Folio:</strong> ${solicitud.detalles.folio} | <strong>Año:</strong> ${solicitud.detalles.ano}</p>
+            <br/><br/><br/>
+            <div style="display: flex; justify-content: space-around; text-align: center; padding-top: 3cm;">
+                <div><p style="border-top: 1px solid black; padding-top: 5px;">Firma Registrador(a)</p></div>
+                <div><p style="border-top: 1px solid black; padding-top: 5px;">Sello del Registro</p></div>
+            </div>
+        </div>
+    `;
+
+    const handleDownload = (solicitud: Solicitud) => {
+        const content = getDocumentContent(solicitud);
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Acta de Matrimonio</title></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + content + footer;
+
+        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = `Acta_Matrimonio_${solicitud.id}.doc`;
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+
         toast({
             title: "Descarga Iniciada",
-            description: `El acta de matrimonio ${id} se está descargando.`
+            description: `El documento ${solicitud.id} se está descargando.`
         });
     }
 
@@ -109,8 +147,6 @@ export default function ActasMatrimonioPage() {
             title: "Solicitud Recibida",
             description: "Tu solicitud de acta de matrimonio ha sido creada y está en proceso."
         });
-
-        // Close dialog if possible, this logic would be inside the dialog component
     }
 
     const filteredSolicitudes = solicitudes.filter(s => {
@@ -196,7 +232,7 @@ export default function ActasMatrimonioPage() {
 }
 
 
-function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], onDownload: (id: string) => void }) {
+function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], onDownload: (solicitud: Solicitud) => void }) {
     return (
         <Table>
             <TableHeader>
@@ -261,7 +297,7 @@ function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], 
                                 </DialogContent>
                             </Dialog>
                             {solicitud.estado === "Aprobado" && (
-                                <Button variant="ghost" size="icon" onClick={() => onDownload(solicitud.id)}>
+                                <Button variant="ghost" size="icon" onClick={() => onDownload(solicitud)}>
                                     <FileDown className="h-4 w-4" />
                                 </Button>
                             )}

@@ -14,7 +14,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
+import { formatDate } from "@/lib/utils";
 
 type Documento = {
   id: string;
@@ -78,10 +78,47 @@ export default function DocumentosJudicialesPage() {
     const [documentos, setDocumentos] = useState(initialDocumentos);
     const [filter, setFilter] = useState("todos");
 
-    const handleDownload = (id: string) => {
+    const getDocumentContent = (doc: Documento) => `
+        <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.6; padding: 2cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black; box-sizing: border-box;">
+            <div style="text-align: center; margin-bottom: 2cm;">
+                <p style="margin:0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                <p style="margin:0; font-weight: bold;">PODER JUDICIAL</p>
+                <p style="margin:0;">${doc.detalles.tribunal.toUpperCase()}</p>
+            </div>
+            <h1 style="text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 2cm;">${doc.tipo.toUpperCase()}</h1>
+            <p><strong>EXPEDIENTE N°:</strong> ${doc.caso}</p>
+            <p><strong>FECHA:</strong> ${doc.fecha}</p>
+            <br/>
+            <p>Vistos, etc. Este Tribunal, administrando justicia en nombre de la República y por autoridad de la Ley, declara...</p>
+            <br/>
+            <p>[Contenido del dispositivo o de la decisión judicial]...</p>
+            <br/>
+            <p>Dada, firmada y sellada en la Sala de Despacho de este Tribunal.</p>
+            <br/><br/><br/>
+            <div style="text-align: center; padding-top: 3cm;">
+                <p style="border-top: 1px solid black; padding-top: 5px;">${doc.detalles.juez}</p>
+                <p style="font-weight: bold;">Juez(a)</p>
+            </div>
+        </div>
+    `;
+
+    const handleDownload = (doc: Documento) => {
+        const content = getDocumentContent(doc);
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Documento Judicial</title></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + content + footer;
+
+        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = `Documento_Judicial_${doc.id}.doc`;
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+
         toast({
             title: "Descarga Iniciada",
-            description: `El documento judicial ${id} se está descargando.`
+            description: `El documento judicial ${doc.id} se está descargando.`
         });
     }
 
@@ -182,7 +219,7 @@ export default function DocumentosJudicialesPage() {
   );
 }
 
-function DocumentsTable({ documentos, onDownload }: { documentos: Documento[], onDownload: (id: string) => void }) {
+function DocumentsTable({ documentos, onDownload }: { documentos: Documento[], onDownload: (doc: Documento) => void }) {
     return (
         <Table>
             <TableHeader>
@@ -246,7 +283,7 @@ function DocumentsTable({ documentos, onDownload }: { documentos: Documento[], o
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
-                            <Button variant="ghost" size="icon" onClick={() => onDownload(doc.id)}>
+                            <Button variant="ghost" size="icon" onClick={() => onDownload(doc)}>
                                 <FileDown className="h-4 w-4" />
                             </Button>
                         </TableCell>

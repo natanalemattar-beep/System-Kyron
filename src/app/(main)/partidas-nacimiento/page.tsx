@@ -14,6 +14,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { formatDate } from "@/lib/utils";
 
 type Solicitud = {
   id: string;
@@ -73,10 +74,48 @@ export default function PartidasNacimientoPage() {
     const [filter, setFilter] = useState("todos");
     const { toast } = useToast();
 
-    const handleDownload = (id: string) => {
+    const getDocumentContent = (solicitud: Solicitud) => `
+        <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.6; padding: 2cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black; box-sizing: border-box;">
+            <div style="text-align: center; margin-bottom: 2cm;">
+                <p style="margin:0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                <p style="margin:0; font-weight: bold;">REGISTRO CIVIL</p>
+            </div>
+            <h1 style="text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 2cm;">PARTIDA DE NACIMIENTO</h1>
+            <p><strong>NÚMERO DE ACTA:</strong> ${solicitud.detalles.acta}</p>
+            <p>En el día de hoy, ${new Date(solicitud.detalles.ano, 0, 1).toLocaleDateString('es-VE', { day: 'numeric', month: 'long', year: 'numeric' })}, se ha presentado ante este Despacho a un niño(a) a quien se le dio el nombre de:</p>
+            <br/>
+            <p style="text-align: center; font-size: 14px; font-weight: bold;">${solicitud.nombres.toUpperCase()}</p>
+            <br/>
+            <p>Hijo(a) de [Nombre del Padre] y [Nombre de la Madre].</p>
+            <br/>
+            <p><strong>Lugar del Registro:</strong> ${solicitud.detalles.registro}</p>
+            <p><strong>Libro/Tomo:</strong> ${solicitud.detalles.tomo} | <strong>Folio:</strong> ${solicitud.detalles.folio} | <strong>Año:</strong> ${solicitud.detalles.ano}</p>
+            <br/><br/><br/>
+            <div style="display: flex; justify-content: space-around; text-align: center; padding-top: 3cm;">
+                <div><p style="border-top: 1px solid black; padding-top: 5px;">Firma Registrador(a)</p></div>
+                <div><p style="border-top: 1px solid black; padding-top: 5px;">Sello del Registro</p></div>
+            </div>
+        </div>
+    `;
+
+
+    const handleDownload = (solicitud: Solicitud) => {
+        const content = getDocumentContent(solicitud);
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Partida de Nacimiento</title></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + content + footer;
+
+        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = `Partida_Nacimiento_${solicitud.id}.doc`;
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+        
         toast({
             title: "Descarga Iniciada",
-            description: `El documento ${id} se está descargando.`
+            description: `El documento ${solicitud.id} se está descargando.`
         });
     }
 
@@ -108,7 +147,6 @@ export default function PartidasNacimientoPage() {
             description: "Tu solicitud de partida de nacimiento ha sido creada y está en proceso."
         });
 
-        // This would ideally close the dialog, but requires more complex state management (e.g., passing setOpen)
     }
 
     const filteredSolicitudes = solicitudes.filter(s => {
@@ -189,7 +227,7 @@ export default function PartidasNacimientoPage() {
   );
 }
 
-function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], onDownload: (id: string) => void }) {
+function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], onDownload: (solicitud: Solicitud) => void }) {
     return (
         <Table>
             <TableHeader>
@@ -254,7 +292,7 @@ function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], 
                                 </DialogContent>
                             </Dialog>
                             {solicitud.estado === "Aprobado" && (
-                                <Button variant="ghost" size="icon" onClick={() => onDownload(solicitud.id)}>
+                                <Button variant="ghost" size="icon" onClick={() => onDownload(solicitud)}>
                                     <FileDown className="h-4 w-4" />
                                 </Button>
                             )}
