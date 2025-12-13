@@ -1,1 +1,328 @@
-https://firebasestorage.googleapis.com/v0/b/fintrack-automation2-534-c4c71.appspot.com/o/Certificado-Antecedentes-Penales-Oficial.png?alt=media&token=e6610098-b80c-444a-a430-b983d98782a9
+"use client";
+
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Loader2, CheckCircle, Shield, Download, FileText, PlusCircle, Eye, AlertTriangle, Printer } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/lib/utils";
+import Image from "next/image";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
+
+type Solicitud = {
+    id: string;
+    organismo: string;
+    fecha: string;
+    estado: "En Proceso" | "Generado" | "Rechazado";
+    motivoRechazo?: string;
+    solicitante: {
+        nombre: string;
+        cedula: string;
+    }
+};
+
+const initialSolicitudes: Solicitud[] = [
+    { id: "AP-2024-001", organismo: "Consulado de España en Caracas", fecha: "2024-07-15", estado: "Generado", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
+    { id: "AP-2024-002", organismo: "Embajada de Canadá", fecha: "2024-06-20", estado: "Generado", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
+    { id: "AP-2024-003", organismo: "Trámite de Visa para EE.UU.", fecha: "2024-07-20", estado: "En Proceso", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
+    { id: "AP-2024-004", fecha: "2024-07-22", organismo: "Universidad Central de Venezuela", estado: "Rechazado", motivoRechazo: "Falta copia de la cédula de identidad a color.", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
+];
+
+export default function AntecedentesPenalesPage() {
+    const [solicitudes, setSolicitudes] = useState<Solicitud[]>(initialSolicitudes);
+    const [status, setStatus] = useState<'idle' | 'processing' | 'success'>('idle');
+    const [organismo, setOrganismo] = useState("");
+    const [motivo, setMotivo] = useState("");
+    const [selectedSolicitud, setSelectedSolicitud] = useState<Solicitud | null>(null);
+    const { toast } = useToast();
+
+    const getCertificateContent = (solicitud: Solicitud | null) => {
+      if (!solicitud) return "";
+      return `
+        <div style="font-family: 'Times New Roman', Times, serif; font-size: 14px; line-height: 1.6; max-width: 800px; margin: auto; padding: 2rem; border: 1px solid #ccc; position: relative;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 8rem; color: rgba(0, 0, 0, 0.05); z-index: -1; font-weight: bold; pointer-events: none;">SISTEMA KYRON</div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <p style="margin: 0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                <p style="margin: 0; font-weight: bold;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
+                <p style="margin: 0; font-size: 12px;">Despacho del Viceministro del Sistema Integrado de Investigación Penal</p>
+                <p style="margin: 0; font-size: 12px;">Providencia Administrativa N° 001 de fecha 01/01/2023</p>
+                <p style="margin: 0; font-size: 12px;">Gaceta Oficial N° 42.548 de fecha 12/01/2023</p>
+            </div>
+            <h1 style="text-align: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem;">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</h1>
+            <p style="text-align: justify;">Quien suscribe, <strong>C/G MAITE CARIDAD HERNANDEZ DOMINGUEZ</strong>, en mi carácter de VICEMINISTRA DEL SISTEMA INTEGRADO DE INVESTIGACIÓN PENAL, designada mediante Decreto N° 4.908 de fecha 22 de enero de 2024, publicado en la Gaceta Oficial de la República Bolivariana de Venezuela N° 42.803 de fecha 22 de enero de 2024, en uso de las atribuciones que me confiere el numeral 1 del artículo 28 de la Ley Orgánica de Identificación, publicada en Gaceta Oficial N° 38.487 de fecha 27 de julio de 2006, hago constar que una vez consultadas las bases de datos del Sistema de Información Policial (SIPOL) y del Sistema Integrado de Información Policial (SIIPOL) llevadas por este Despacho, el ciudadano (a):</p>
+            <p style="text-align: center; font-size: 1.2rem; font-weight: bold; margin: 2rem 0;">${solicitud.solicitante.nombre.toUpperCase()}</p>
+            <p style="text-align: center; margin-top: -1rem; margin-bottom: 2rem;">Titular de la Cédula de Identidad N° <strong>${solicitud.solicitante.cedula}</strong></p>
+            <p style="text-align: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem;">NO POSEE REGISTROS DE ANTECEDENTES PENALES</p>
+            <p><strong>CÓDIGO DE VALIDACIÓN:</strong> ${solicitud.id}-${new Date().getFullYear()}</p>
+            <p><strong>FECHA DE EMISIÓN:</strong> ${formatDate(new Date().toISOString())}</p>
+            <br/><br/><br/>
+            <div style="text-align: center; padding-top: 2rem;">
+                <p style="font-weight: bold;">C/G MAITE CARIDAD HERNANDEZ DOMINGUEZ</p>
+                <p style="font-size: 12px;">Viceministra del Sistema Integrado de Investigación Penal</p>
+            </div>
+            <p style="text-align: center; font-size: 10px; color: #555; margin-top: 3rem;">Atención: Este documento es válido únicamente para el trámite solicitado ante "${solicitud.organismo}". La veracidad de este documento puede ser verificada a través del código QR.</p>
+        </div>
+      `;
+    };
+
+    const handlePrint = (solicitud: Solicitud) => {
+        const content = getCertificateContent(solicitud);
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+            printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title></head><body>' + content + '</body></html>');
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => { 
+                printWindow.print();
+                printWindow.close();
+            }, 500);
+        }
+    };
+
+    const handleDownload = (solicitud: Solicitud) => {
+        handlePrint(solicitud); // Re-utilizamos la función de impresión que permite "Guardar como PDF"
+        toast({
+            title: "Preparando Descarga",
+            description: "Se ha abierto el diálogo de impresión. Por favor, selecciona 'Guardar como PDF' para descargar el documento."
+        });
+    };
+    
+    const handleCreate = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!organismo || !motivo) {
+             toast({
+                variant: "destructive",
+                title: "Faltan Datos",
+                description: "Por favor, completa todos los campos del formulario.",
+            });
+            return;
+        }
+
+        setStatus('processing');
+        toast({
+            title: "Procesando Solicitud...",
+            description: "Estamos validando tu identidad y generando el certificado.",
+        });
+
+        setTimeout(() => {
+            const newId = `AP-2024-${String(solicitudes.length + 1).padStart(3, '0')}`;
+            const newSolicitud: Solicitud = {
+                id: newId,
+                organismo: organismo,
+                fecha: new Date().toISOString().split('T')[0],
+                estado: "Generado",
+                solicitante: {
+                    nombre: "Juan Pérez",
+                    cedula: "V-12.345.678"
+                }
+            };
+            setSolicitudes(prev => [newSolicitud, ...prev]);
+            setSelectedSolicitud(newSolicitud);
+            setStatus('success');
+            toast({
+                title: "¡Certificado Generado Exitosamente!",
+                description: "Tu certificado de antecedentes penales está listo.",
+                action: <CheckCircle className="text-green-500" />
+            });
+        }, 3000);
+    };
+    
+    const handleNewRequest = () => {
+        setStatus('idle');
+        setOrganismo("");
+        setMotivo("");
+        setSelectedSolicitud(null);
+    };
+
+    const statusVariant: { [key: string]: "default" | "secondary" | "destructive" } = {
+        Generado: "default",
+        "En Proceso": "secondary",
+        Rechazado: "destructive",
+    };
+
+    return (
+        <div className="space-y-8">
+            <style>
+                {`
+                    @media print {
+                        body * {
+                            visibility: hidden;
+                        }
+                        #printable-certificate, #printable-certificate * {
+                            visibility: visible;
+                        }
+                        #printable-certificate {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                `}
+            </style>
+
+            <header className="mb-8">
+                <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+                    <Shield className="h-8 w-8"/>
+                    Certificado de Antecedentes Penales
+                </h1>
+                <p className="text-muted-foreground mt-2">
+                    Solicita tu certificado internacional de antecedentes penales de forma segura.
+                </p>
+            </header>
+            
+            {status === 'success' && selectedSolicitud ? (
+                <div className="animate-in fade-in">
+                    <div className="flex justify-end gap-2 mb-4">
+                        <Button variant="outline" onClick={handleNewRequest}>
+                            <PlusCircle className="mr-2"/> Realizar Nueva Solicitud
+                        </Button>
+                        <Button variant="outline" onClick={() => handlePrint(selectedSolicitud)}>
+                            <Printer className="mr-2"/> Imprimir
+                        </Button>
+                        <Button onClick={() => handleDownload(selectedSolicitud)}>
+                            <Download className="mr-2"/> Descargar PDF
+                        </Button>
+                    </div>
+                     <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl overflow-hidden" id="printable-certificate">
+                         <CardContent className="p-0" dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
+                    </Card>
+                </div>
+            ) : (
+                <Card className="max-w-3xl mx-auto bg-card/50 backdrop-blur-sm">
+                    <CardHeader>
+                        <CardTitle>Nueva Solicitud de Certificado</CardTitle>
+                    </CardHeader>
+                    <form onSubmit={handleCreate}>
+                        <CardContent>
+                            {status === 'idle' ? (
+                                <div className="space-y-6 animate-in fade-in">
+                                    <Alert>
+                                      <AlertTriangle className="h-4 w-4" />
+                                      <AlertTitle>Importante</AlertTitle>
+                                      <AlertDescription>
+                                        Asegúrate de que tus datos (nombres, apellidos, cédula) estén correctamente registrados en tu perfil antes de continuar.
+                                      </AlertDescription>
+                                    </Alert>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="organismo">Organismo que solicita el certificado</Label>
+                                        <Select onValueChange={setOrganismo} value={organismo}>
+                                            <SelectTrigger id="organismo">
+                                                <SelectValue placeholder="Selecciona un organismo..." />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Consulado de España en Caracas">Consulado de España en Caracas</SelectItem>
+                                                <SelectItem value="Embajada de Canadá">Embajada de Canadá</SelectItem>
+                                                <SelectItem value="Trámite de Visa para EE.UU.">Trámite de Visa para EE.UU.</SelectItem>
+                                                <SelectItem value="Universidad Central de Venezuela">Universidad Central de Venezuela</SelectItem>
+                                                <SelectItem value="Otro">Otro (Especificar en Motivo)</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="motivo">Motivo de la Solicitud</Label>
+                                        <Input id="motivo" value={motivo} onChange={(e) => setMotivo(e.target.value)} placeholder="Ej: Solicitud de visa de estudios, trámite de residencia, etc." />
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="flex flex-col items-center justify-center h-48 text-center animate-in fade-in">
+                                    <Loader2 className="h-16 w-16 text-primary animate-spin mb-4" />
+                                    <p className="font-semibold">Validando y Procesando...</p>
+                                    <p className="text-sm text-muted-foreground">Esto puede tardar unos segundos.</p>
+                                </div>
+                            )}
+                        </CardContent>
+                        <CardFooter className="border-t pt-6">
+                            {status === 'idle' ? (
+                                <Button type="submit" className="w-full" disabled={!organismo || !motivo}>
+                                    <FileText className="mr-2"/>
+                                    Iniciar Solicitud
+                                </Button>
+                            ) : (
+                                <Button type="button" variant="outline" className="w-full" onClick={handleNewRequest}>
+                                    <PlusCircle className="mr-2"/>
+                                    Realizar Nueva Solicitud
+                                </Button>
+                            )}
+                        </CardFooter>
+                    </form>
+                </Card>
+            )}
+            
+            <Card className="mt-12 bg-card/50 backdrop-blur-sm print:hidden">
+                <CardHeader>
+                    <CardTitle>Historial de Solicitudes</CardTitle>
+                    <CardDescription>Consulta el estado y descarga tus certificados anteriores.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Nro. Solicitud</TableHead>
+                                <TableHead>Fecha</TableHead>
+                                <TableHead>Organismo Solicitante</TableHead>
+                                <TableHead>Estado</TableHead>
+                                <TableHead className="text-right">Acciones</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {solicitudes.map((solicitud) => (
+                                <TableRow key={solicitud.id}>
+                                    <TableCell className="font-mono">{solicitud.id}</TableCell>
+                                    <TableCell>{formatDate(solicitud.fecha)}</TableCell>
+                                    <TableCell>{solicitud.organismo}</TableCell>
+                                    <TableCell>
+                                        <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge>
+                                    </TableCell>
+                                    <TableCell className="text-right space-x-1">
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Button variant="ghost" size="icon">
+                                                    <Eye className="h-4 w-4" />
+                                                </Button>
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                <DialogHeader>
+                                                    <DialogTitle>Detalle de la Solicitud: {solicitud.id}</DialogTitle>
+                                                </DialogHeader>
+                                                <div className="py-4 space-y-4">
+                                                    {solicitud.estado === 'Rechazado' && solicitud.motivoRechazo && (
+                                                        <Alert variant="destructive">
+                                                            <AlertTriangle className="h-4 w-4" />
+                                                            <AlertTitle>Solicitud Rechazada</AlertTitle>
+                                                            <AlertDescription>{solicitud.motivoRechazo}</AlertDescription>
+                                                        </Alert>
+                                                    )}
+                                                     <div className="flex items-center gap-2"><strong>Estado:</strong> <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge></div>
+                                                    <p><strong>Solicitante:</strong> {solicitud.solicitante.nombre} ({solicitud.solicitante.cedula})</p>
+                                                    <p><strong>Organismo:</strong> {solicitud.organismo}</p>
+                                                    <p><strong>Fecha:</strong> {formatDate(solicitud.fecha)}</p>
+                                                </div>
+                                                <DialogFooter>
+                                                    <Button variant="outline">Cerrar</Button>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
+
+                                        {solicitud.estado === 'Generado' && (
+                                             <Button variant="ghost" size="icon" onClick={() => { setStatus('success'); setSelectedSolicitud(solicitud); }}>
+                                                <Download className="h-4 w-4" />
+                                            </Button>
+                                        )}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+        </div>
+    );
+}

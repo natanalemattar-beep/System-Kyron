@@ -43,30 +43,54 @@ export default function AntecedentesPenalesPage() {
     const [selectedSolicitud, setSelectedSolicitud] = useState<Solicitud | null>(null);
     const { toast } = useToast();
 
-    const handlePrint = () => {
+    const getCertificateContent = (solicitud: Solicitud | null) => {
+      if (!solicitud) return "";
+      return `
+        <div style="font-family: 'Times New Roman', Times, serif; font-size: 14px; line-height: 1.6; max-width: 800px; margin: auto; padding: 2rem; border: 1px solid #ccc; position: relative;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 8rem; color: rgba(0, 0, 0, 0.05); z-index: -1; font-weight: bold; pointer-events: none;">SISTEMA KYRON</div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <p style="margin: 0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                <p style="margin: 0; font-weight: bold;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
+                <p style="margin: 0; font-size: 12px;">Despacho del Viceministro del Sistema Integrado de Investigación Penal</p>
+                <p style="margin: 0; font-size: 12px;">Providencia Administrativa N° 001 de fecha 01/01/2023</p>
+                <p style="margin: 0; font-size: 12px;">Gaceta Oficial N° 42.548 de fecha 12/01/2023</p>
+            </div>
+            <h1 style="text-align: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem;">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</h1>
+            <p style="text-align: justify;">Quien suscribe, <strong>C/G MAITE CARIDAD HERNANDEZ DOMINGUEZ</strong>, en mi carácter de VICEMINISTRA DEL SISTEMA INTEGRADO DE INVESTIGACIÓN PENAL, designada mediante Decreto N° 4.908 de fecha 22 de enero de 2024, publicado en la Gaceta Oficial de la República Bolivariana de Venezuela N° 42.803 de fecha 22 de enero de 2024, en uso de las atribuciones que me confiere el numeral 1 del artículo 28 de la Ley Orgánica de Identificación, publicada en Gaceta Oficial N° 38.487 de fecha 27 de julio de 2006, hago constar que una vez consultadas las bases de datos del Sistema de Información Policial (SIPOL) y del Sistema Integrado de Información Policial (SIIPOL) llevadas por este Despacho, el ciudadano (a):</p>
+            <p style="text-align: center; font-size: 1.2rem; font-weight: bold; margin: 2rem 0;">${solicitud.solicitante.nombre.toUpperCase()}</p>
+            <p style="text-align: center; margin-top: -1rem; margin-bottom: 2rem;">Titular de la Cédula de Identidad N° <strong>${solicitud.solicitante.cedula}</strong></p>
+            <p style="text-align: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem;">NO POSEE REGISTROS DE ANTECEDENTES PENALES</p>
+            <p><strong>CÓDIGO DE VALIDACIÓN:</strong> ${solicitud.id}-${new Date().getFullYear()}</p>
+            <p><strong>FECHA DE EMISIÓN:</strong> ${formatDate(new Date().toISOString())}</p>
+            <br/><br/><br/>
+            <div style="text-align: center; padding-top: 2rem;">
+                <p style="font-weight: bold;">C/G MAITE CARIDAD HERNANDEZ DOMINGUEZ</p>
+                <p style="font-size: 12px;">Viceministra del Sistema Integrado de Investigación Penal</p>
+            </div>
+            <p style="text-align: center; font-size: 10px; color: #555; margin-top: 3rem;">Atención: Este documento es válido únicamente para el trámite solicitado ante "${solicitud.organismo}". La veracidad de este documento puede ser verificada a través del código QR.</p>
+        </div>
+      `;
+    };
+
+    const handlePrint = (solicitud: Solicitud) => {
+        const content = getCertificateContent(solicitud);
         const printWindow = window.open('', '_blank');
         if (printWindow) {
-            printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title><style>body { margin: 0; } img { width: 100%; }</style></head><body>');
-            printWindow.document.write('<img src="/images/Certificado-Antecedentes-Penales-Oficial.png" />');
-            printWindow.document.write('</body></html>');
+            printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title></head><body>' + content + '</body></html>');
             printWindow.document.close();
             printWindow.focus();
             setTimeout(() => { 
                 printWindow.print();
+                printWindow.close();
             }, 500);
         }
     };
 
-    const handleDownload = () => {
-        const link = document.createElement('a');
-        link.href = '/images/Certificado-Antecedentes-Penales-Oficial.png';
-        link.download = 'Certificado_Antecedentes_Penales.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    const handleDownload = (solicitud: Solicitud) => {
+        handlePrint(solicitud); // Re-utilizamos la función de impresión que permite "Guardar como PDF"
         toast({
-            title: "Descarga Iniciada",
-            description: "El certificado de antecedentes penales se está descargando."
+            title: "Preparando Descarga",
+            description: "Se ha abierto el diálogo de impresión. Por favor, selecciona 'Guardar como PDF' para descargar el documento."
         });
     };
     
@@ -125,6 +149,26 @@ export default function AntecedentesPenalesPage() {
 
     return (
         <div className="space-y-8">
+            <style>
+                {`
+                    @media print {
+                        body * {
+                            visibility: hidden;
+                        }
+                        #printable-certificate, #printable-certificate * {
+                            visibility: visible;
+                        }
+                        #printable-certificate {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                `}
+            </style>
+
             <header className="mb-8">
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <Shield className="h-8 w-8"/>
@@ -141,21 +185,15 @@ export default function AntecedentesPenalesPage() {
                         <Button variant="outline" onClick={handleNewRequest}>
                             <PlusCircle className="mr-2"/> Realizar Nueva Solicitud
                         </Button>
-                        <Button variant="outline" onClick={handlePrint}>
+                        <Button variant="outline" onClick={() => handlePrint(selectedSolicitud)}>
                             <Printer className="mr-2"/> Imprimir
                         </Button>
-                        <Button onClick={handleDownload}>
-                            <Download className="mr-2"/> Descargar PNG
+                        <Button onClick={() => handleDownload(selectedSolicitud)}>
+                            <Download className="mr-2"/> Descargar PDF
                         </Button>
                     </div>
-                     <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl overflow-hidden">
-                        <Image 
-                            src="/images/Certificado-Antecedentes-Penales-Oficial.png" 
-                            alt="Certificado de Antecedentes Penales" 
-                            width={1200} 
-                            height={1697} 
-                            layout="responsive"
-                        />
+                     <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl overflow-hidden" id="printable-certificate">
+                         <CardContent className="p-0" dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
                     </Card>
                 </div>
             ) : (
