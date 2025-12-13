@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle, Shield, Download, FileText, PlusCircle, Eye, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -95,6 +95,57 @@ export default function AntecedentesPenalesPage() {
         setMotivo("");
     };
 
+    const getCertificateContent = (solicitud: Solicitud): string => {
+    return `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; padding: 2rem; border: 1px solid #ccc; width: 21cm; height: 29.7cm; margin: auto;">
+            <div style="text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px;">
+                <h2 style="margin: 0;">REPÚBLICA BOLIVARIANA DE VENEZUELA</h2>
+                <h3 style="margin: 5px 0;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</h3>
+                <h1 style="font-size: 20px; margin: 10px 0;">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</h1>
+            </div>
+            <div style="margin-top: 40px; text-align: justify;">
+                <p>El Director General de Registros y Archivos Penales, de conformidad con lo establecido en el artículo 28 de la Ley Orgánica de Identificación, certifica que el ciudadano(a):</p>
+                <br/>
+                <p style="text-align: center; font-size: 18px; font-weight: bold;">${solicitud.solicitante.nombre.toUpperCase()}</p>
+                <p style="text-align: center; font-size: 16px;">Titular de la Cédula de Identidad N° ${solicitud.solicitante.cedula}</p>
+                <br/>
+                <p>Una vez consultada la base de datos del Sistema de Información Policial (SIPOL) y el Sistema de Investigación e Información Policial (SIIPOL), se deja constancia de que, hasta la fecha de emisión de este certificado, <strong>NO POSEE REGISTROS DE ANTECEDENTES PENALES</strong>.</p>
+                <br/>
+                <p>Esta certificación se expide a solicitud de la parte interesada, para ser presentada ante el <strong>${solicitud.organismo}</strong>.</p>
+                <br/>
+                <p style="text-align: center;">Válido por noventa (90) días a partir de su emisión.</p>
+                <p style="text-align: center; font-size: 12px;">Fecha de Emisión: ${formatDate(solicitud.fecha)}</p>
+                <p style="text-align: center; font-size: 12px;">Código de Validación: ${solicitud.id}-VALID</p>
+            </div>
+             <div style="position: absolute; bottom: 50px; right: 50px;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Certificado-Antecedentes-${solicitud.id}" alt="QR de Verificación"/>
+            </div>
+        </div>
+    `;
+    };
+
+    const handleDownload = (solicitud: Solicitud) => {
+        const content = getCertificateContent(solicitud);
+        const filename = `Certificado_Antecedentes_${solicitud.solicitante.nombre.replace(/ /g, '_')}.doc`;
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + content + footer;
+
+        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        const fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = filename;
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+
+        toast({
+            title: "Descarga Iniciada",
+            description: `El certificado para ${solicitud.solicitante.nombre} se está descargando.`,
+        });
+    };
+
+
     const statusVariant: { [key: string]: "default" | "secondary" | "destructive" } = {
         Generado: "default",
         "En Proceso": "secondary",
@@ -128,10 +179,10 @@ export default function AntecedentesPenalesPage() {
                                             <SelectValue placeholder="Selecciona un organismo..." />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="consulado-es">Consulado de España</SelectItem>
-                                            <SelectItem value="embajada-ca">Embajada de Canadá</SelectItem>
-                                            <SelectItem value="tramite-usa">Trámite de Visa para EE.UU.</SelectItem>
-                                            <SelectItem value="otro">Otro</SelectItem>
+                                            <SelectItem value="Consulado de España en Caracas">Consulado de España en Caracas</SelectItem>
+                                            <SelectItem value="Embajada de Canadá">Embajada de Canadá</SelectItem>
+                                            <SelectItem value="Trámite de Visa para EE.UU.">Trámite de Visa para EE.UU.</SelectItem>
+                                            <SelectItem value="Otro">Otro</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -153,7 +204,7 @@ export default function AntecedentesPenalesPage() {
                                 <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
                                 <p className="text-xl font-bold">¡Certificado Generado!</p>
                                 <p className="text-sm text-muted-foreground">Tu documento está listo para ser descargado.</p>
-                                <Button className="mt-6">
+                                 <Button className="mt-6" onClick={() => handleDownload(solicitudes[0])}>
                                     <Download className="mr-2"/>
                                     Descargar Certificado
                                 </Button>
@@ -235,7 +286,7 @@ export default function AntecedentesPenalesPage() {
                                         </Dialog>
 
                                         {solicitud.estado === 'Generado' && (
-                                            <Button variant="ghost" size="icon" onClick={() => toast({ title: `Descargando ${solicitud.id}`})}>
+                                             <Button variant="ghost" size="icon" onClick={() => handleDownload(solicitud)}>
                                                 <Download className="h-4 w-4" />
                                             </Button>
                                         )}
