@@ -231,7 +231,9 @@ export function HeroSection() {
                     />
                 ))}
                  <div className="absolute bottom-10 animate-bounce">
-                    <ChevronDown className="w-8 h-8 text-muted-foreground" />
+                    <SmoothScrollLink href="#servicios">
+                        <ChevronDown className="w-8 h-8 text-muted-foreground" />
+                    </SmoothScrollLink>
                 </div>
             </div>
         </section>

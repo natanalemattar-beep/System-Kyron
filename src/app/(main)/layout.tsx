@@ -4,10 +4,10 @@
 import type { ReactNode } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
-import dynamic from "next/dynamic";
 import { usePathname } from 'next/navigation';
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 
 // Dynamically import WelcomeTutorial with SSR turned off
 const WelcomeTutorial = dynamic(() => import('@/components/welcome-tutorial'), { ssr: false });
@@ -50,7 +50,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   const user = getUserForPath(pathname);
   
   return (
-     <div className="flex flex-col min-h-screen bg-transparent text-foreground">
+     <div className="flex flex-col min-h-screen bg-background text-foreground">
         <AppHeader user={user} />
         <div className="flex-1 flex flex-col pt-16 md:pt-[calc(4rem+1rem)]">
            <motion.div 
