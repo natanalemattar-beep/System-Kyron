@@ -325,7 +325,7 @@ export default function PuntoDeVentaPage() {
                     </Button>
                 </div>
             )}
-            <header className="flex items-center justify-between bg-background p-3 rounded-lg shadow-sm flex-wrap gap-4">
+            <header className="flex items-center justify-between bg-card/80 backdrop-blur-sm p-3 rounded-lg shadow-sm flex-wrap gap-4">
                  <div className="flex items-center gap-2">
                     <TabletSmartphone className="h-6 w-6" />
                     <h1 className="text-xl font-bold">Punto de Venta</h1>
@@ -399,7 +399,7 @@ export default function PuntoDeVentaPage() {
             </header>
 
             <div className="grid lg:grid-cols-3 gap-4">
-                <div className="lg:col-span-2 bg-background p-4 rounded-lg shadow-sm">
+                <div className="lg:col-span-2 bg-card/80 backdrop-blur-sm p-4 rounded-lg shadow-sm">
                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                          {filteredProducts.map(product => (
                             <Card key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:shadow-lg hover:border-primary transition-all flex flex-col">
@@ -417,7 +417,7 @@ export default function PuntoDeVentaPage() {
                     </div>
                 </div>
 
-                <Card className="lg:col-span-1 flex flex-col">
+                <Card className="lg:col-span-1 flex flex-col bg-card/80 backdrop-blur-sm">
                     <CardHeader>
                         <CardTitle>Resumen de Orden</CardTitle>
                     </CardHeader>
@@ -772,4 +772,3 @@ export default function PuntoDeVentaPage() {
         </div>
     );
 }
-

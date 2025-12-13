@@ -37,6 +37,9 @@ const getUserForPath = (pathname: string) => {
     if (pathname.startsWith('/dashboard-telecom')) {
         return { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
     }
+     if (pathname.startsWith('/analisis-ventas')) {
+        return { name: "Ventas", email: "ventas@kyron.com", fallback: "V" };
+    }
     // Default case for personal user
     return { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
   }
@@ -47,7 +50,7 @@ export default function MainAppLayout({ children }: { children: ReactNode }) {
   const user = getUserForPath(pathname);
   
   return (
-     <div className="flex flex-col min-h-screen bg-background text-foreground">
+     <div className="flex flex-col min-h-screen bg-transparent text-foreground">
         <AppHeader user={user} />
         <div className="flex-1 flex flex-col pt-16 md:pt-[calc(4rem+1rem)]">
            <motion.div 

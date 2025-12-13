@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-transparent text-foreground">
       <AppHeader user={{ name: "Admin", email: "admin@kyron.com", fallback: "A" }} />
       <motion.div 
         className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-[4.5rem] md:top-[5.5rem] z-40"

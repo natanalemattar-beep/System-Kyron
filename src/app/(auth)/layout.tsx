@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground relative">
+    <div className="flex flex-col min-h-screen bg-transparent text-foreground relative">
       <motion.header 
         className="sticky top-0 z-50 w-full"
         initial={{ y: -100, opacity: 0 }}
