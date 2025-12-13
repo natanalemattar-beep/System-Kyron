@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle, Shield, Download, FileText, PlusCircle, Eye, AlertTriangle, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -49,7 +49,14 @@ export default function AntecedentesPenalesPage() {
             <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.5; max-width: 800px; margin: auto; padding: 2cm; border: 1px solid #ccc; position: relative; background: white; color: black;">
                 
                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.08; pointer-events: none; width: 400px; height: 400px;">
-                    <img src="/images/Escudo_de_Venezuela.svg" style="width: 100%; height: 100%; object-fit: contain;"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" style="width: 100%; height: 100%; object-fit: contain;">
+                        <!-- Simplified SVG of Venezuela's Coat of Arms -->
+                        <g fill="#A9A9A9">
+                            <path d="M500 100 L900 300 L900 700 L500 900 L100 700 L100 300 Z" fill-opacity="0.5"/>
+                            <path d="M500 150 L850 325 L850 675 L500 850 L150 675 L150 325 Z" stroke="white" stroke-width="5" fill="none"/>
+                            <text x="500" y="550" font-size="100" text-anchor="middle" font-weight="bold">R B V</text>
+                        </g>
+                    </svg>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 1rem;">
@@ -363,6 +370,8 @@ export default function AntecedentesPenalesPage() {
         </div>
     );
 }
+
+    
 
     
 
