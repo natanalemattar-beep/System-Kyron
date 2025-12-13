@@ -13,6 +13,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+
 
 type Solicitud = {
     id: string;
@@ -36,7 +39,7 @@ const initialSolicitudes: Solicitud[] = [
 ];
 
 export default function AntecedentesPenalesPage() {
-    const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
+    const [solicitudes, setSolicitudes] = useState<Solicitud[]>(initialSolicitudes);
     const [status, setStatus] = useState<'idle' | 'processing' | 'success'>('idle');
     const [organismo, setOrganismo] = useState("");
     const [motivo, setMotivo] = useState("");
@@ -64,7 +67,7 @@ export default function AntecedentesPenalesPage() {
             const newSolicitud: Solicitud = {
                 id: newId,
                 organismo: organismo,
-                fecha: new Date().toISOString(),
+                fecha: new Date().toISOString().split('T')[0],
                 estado: "Generado"
             };
             setSolicitudes(prev => [newSolicitud, ...prev]);
@@ -83,7 +86,7 @@ export default function AntecedentesPenalesPage() {
         setMotivo("");
     };
 
-    const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
+    const statusVariant: { [key: string]: "default" | "secondary" | "destructive" } = {
         Generado: "default",
         "En Proceso": "secondary",
         Rechazado: "destructive",
@@ -190,7 +193,37 @@ export default function AntecedentesPenalesPage() {
                                         <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge>
                                     </TableCell>
                                     <TableCell className="text-right space-x-1">
-                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=antecedentes-${solicitud.id}`} alt={`QR for ${solicitud.id}`} width={24} height={24} className="inline-block mr-2" />
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Button variant="ghost" size="icon">
+                                                    <Eye className="h-4 w-4" />
+                                                </Button>
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                <DialogHeader>
+                                                    <DialogTitle>Detalle de la Solicitud: {solicitud.id}</DialogTitle>
+                                                </DialogHeader>
+                                                <div className="py-4 space-y-4">
+                                                    {solicitud.estado === 'Rechazado' && solicitud.motivoRechazo && (
+                                                        <Alert variant="destructive">
+                                                            <AlertTriangle className="h-4 w-4" />
+                                                            <AlertTitle>Solicitud Rechazada</AlertTitle>
+                                                            <AlertDescription>{solicitud.motivoRechazo}</AlertDescription>
+                                                        </Alert>
+                                                    )}
+                                                    <p><strong>Organismo:</strong> {solicitud.organismo}</p>
+                                                    <p><strong>Fecha:</strong> {formatDate(solicitud.fecha)}</p>
+                                                    <p><strong>Estado:</strong> <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge></p>
+                                                    <div className="flex justify-center pt-4">
+                                                        <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=antecedentes-${solicitud.id}`} alt={`QR for ${solicitud.id}`} width={100} height={100} />
+                                                    </div>
+                                                </div>
+                                                <DialogFooter>
+                                                    <Button variant="outline">Cerrar</Button>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
+
                                         {solicitud.estado === 'Generado' && (
                                             <Button variant="ghost" size="icon" onClick={() => toast({ title: `Descargando ${solicitud.id}`})}>
                                                 <Download className="h-4 w-4" />
@@ -206,3 +239,6 @@ export default function AntecedentesPenalesPage() {
         </div>
     );
 }
+
+
+    
