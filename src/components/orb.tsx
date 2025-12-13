@@ -50,7 +50,7 @@ export function Orb() {
           />
            <motion.div
             className="absolute inset-0 border-2 border-primary/5 rounded-full"
-            initial={{ scale: 0.5, opacity: 0 }}
+            initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 0.6, opacity: 1 }}
             transition={{ delay: 1, duration: 1 }}
           />

@@ -16,6 +16,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Credentials } from "./credentials";
+import { usePathname } from 'next/navigation';
 
 interface RegisterField {
     id: string;
@@ -39,6 +40,21 @@ interface RegisterFormProps {
 
 export function RegisterForm({ icon: Icon, title, description, fields, submitButtonText, footerLinkHref, footerLinkText, credentials }: RegisterFormProps) {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const pathname = usePathname();
+    
+    // Determine the dashboard href based on the registration page path
+    const getDashboardHref = () => {
+        if (pathname.includes('/register/informatica')) return '/dashboard-informatica';
+        if (pathname.includes('/register/marketing')) return '/asesoria-publicidad';
+        if (pathname.includes('/register/rrhh')) return '/dashboard-rrhh';
+        if (pathname.includes('/register/socios')) return '/dashboard-socios';
+        if (pathname.includes('/register/telecom')) return '/dashboard-telecom';
+        if (pathname.includes('/register/ventas')) return '/analisis-ventas';
+        if (pathname.includes('/register/juridico')) return '/escritorio-juridico';
+        if (pathname.includes('/register/natural')) return '/dashboard';
+        if (pathname.includes('/register/juridica')) return '/dashboard-empresa';
+        return '/'; // Fallback
+    }
 
     return (
         <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
@@ -72,7 +88,7 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
                 </CardContent>
                  <CardFooter className="p-6 pt-0 flex-col">
                     <Button asChild type="submit" className="w-full h-11 text-base">
-                        <Link href="/">{submitButtonText}</Link>
+                        <Link href={getDashboardHref()}>{submitButtonText}</Link>
                     </Button>
                     {credentials && <Credentials {...credentials} />}
                 </CardFooter>

@@ -44,41 +44,47 @@ export default function RegisterNaturalPage() {
                 <CardTitle className="text-2xl">Registro Personal</CardTitle>
                 <CardDescription>Crea tu cuenta para gestionar tus trámites personales.</CardDescription>
             </CardHeader>
-            <CardContent className="p-6 space-y-6">
-                <div className="space-y-2">
-                    <Label>País</Label>
-                    <Select value={country} onValueChange={setCountry}>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Seleccionar país..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="id-number">{currentId.label}</Label>
-                    <Input id="id-number" type="text" placeholder={currentId.placeholder} required />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="email">Correo Electrónico</Label>
-                    <Input id="email" type="email" placeholder="tu@correo.com" required />
-                </div>
-                <div className="space-y-2 relative">
-                    <Label htmlFor="password">Contraseña</Label>
-                    <Input
-                        id="password"
-                        type={passwordVisible ? "text" : "password"}
-                        placeholder="••••••••"
-                        className="pr-10"
-                        required
-                    />
-                    <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-                        {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
-                </div>
-                <Button type="submit" className="w-full h-11 text-base">Crear Cuenta</Button>
-            </CardContent>
+            <form>
+                <CardContent className="p-6 space-y-6">
+                    <div className="space-y-2">
+                        <Label>País</Label>
+                        <Select value={country} onValueChange={setCountry}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Seleccionar país..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="id-number">{currentId.label}</Label>
+                        <Input id="id-number" type="text" placeholder={currentId.placeholder} required />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="email">Correo Electrónico</Label>
+                        <Input id="email" type="email" placeholder="tu@correo.com" required />
+                    </div>
+                    <div className="space-y-2 relative">
+                        <Label htmlFor="password">Contraseña</Label>
+                        <Input
+                            id="password"
+                            type={passwordVisible ? "text" : "password"}
+                            placeholder="••••••••"
+                            className="pr-10"
+                            required
+                        />
+                        <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
+                            {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                        </button>
+                    </div>
+                </CardContent>
+                 <CardFooter className="p-6 pt-0">
+                    <Button asChild type="submit" className="w-full h-11 text-base">
+                        <Link href="/dashboard">Crear Cuenta</Link>
+                    </Button>
+                </CardFooter>
+            </form>
             <CardFooter className="flex-col p-6 border-t text-sm">
                 <p className="text-muted-foreground">¿Ya tienes una cuenta?</p>
                 <Link href="/login" className="font-medium text-primary hover:underline">

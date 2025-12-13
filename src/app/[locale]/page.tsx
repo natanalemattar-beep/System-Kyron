@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -252,14 +252,6 @@ export default function LandingPage() {
     const isMobile = useIsMobile();
     const radius = isMobile ? 150 : 300;
 
-    const targetRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: targetRef,
-        offset: ["start end", "end start"],
-    });
-
-    const opacity = useTransform(scrollYProgress, [0, 0.5, 0.9], [1, 1, 0]);
-    
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
@@ -386,23 +378,19 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section ref={targetRef} className="relative overflow-hidden">
+        <section className="relative overflow-hidden">
              <div className="flex flex-col items-center justify-center min-h-screen pt-24 pb-12">
             
             {/* Background elements */}
-            <motion.div 
-                className="absolute inset-0 -z-10"
-                style={{ opacity }}
-            >
+            <div className="absolute inset-0 -z-10">
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-background/80"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent dark:from-blue-900/40"></div>
-                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent dark:from-green-900/40"></div>
-            </motion.div>
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent dark:from-green-900/40"></div>
+            </div>
 
             {/* Central Content */}
             <motion.div 
               className="relative grid place-items-center w-[350px] h-[350px] sm:w-[550px] sm:h-[550px] md:w-[650px] md:h-[650px] aspect-square"
-              style={{ opacity }}
               variants={{
                 visible: { transition: { staggerChildren: 0.1 } },
                 hidden: {},
@@ -431,7 +419,7 @@ export default function LandingPage() {
                     </motion.div>
                 </div>
                 
-                {/* Background Logo */}
+                {/* Background Orb */}
                 <motion.div 
                   className="absolute inset-10 -z-10"
                    animate={{
@@ -443,7 +431,7 @@ export default function LandingPage() {
                     ease: "easeInOut",
                   }}
                 >
-                    <Logo className="w-full h-full opacity-5" />
+                    <Orb/>
                 </motion.div>
 
                 {/* Orbiting Modules */}

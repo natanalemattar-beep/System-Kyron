@@ -75,65 +75,64 @@ const idByCountry: Record<string, { label: string, placeholder: string, defaultV
 export function LoginForm({ icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks, footerContent }: LoginFormProps) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
+  const [idValue, setIdValue] = useState(idByCountry["VEN"].defaultValue);
 
   const currentIdInfo = idByCountry[country] || { label: "Identificación Personal", placeholder: "", defaultValue: "" };
   
+  const handleCountryChange = (newCountryCode: string) => {
+    setCountry(newCountryCode);
+    const newIdInfo = idByCountry[newCountryCode] || {defaultValue: ""};
+    setIdValue(newIdInfo.defaultValue);
+  };
+  
   const renderField = (field: Field) => {
-    let currentField = { ...field };
+    if (field.id === 'country') {
+      return (
+        <div key={field.id} className="space-y-2">
+          <Label>{field.label}</Label>
+          <Select value={country} onValueChange={handleCountryChange}>
+            <SelectTrigger><SelectValue placeholder="Seleccionar país..." /></SelectTrigger>
+            <SelectContent>{countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}</SelectContent>
+          </Select>
+        </div>
+      );
+    }
 
     if (field.id === 'idValue') {
-      currentField = {
-        ...field,
-        label: currentIdInfo.label,
-        placeholder: currentIdInfo.placeholder,
-        defaultValue: currentIdInfo.defaultValue
-      };
+      return (
+        <div key={field.id} className="space-y-2">
+          <Label htmlFor={field.id}>{currentIdInfo.label}</Label>
+          <Input id={field.id} type="text" placeholder={currentIdInfo.placeholder} value={idValue} onChange={(e) => setIdValue(e.target.value)} required />
+        </div>
+      );
     }
   
-    switch (currentField.type) {
-      case 'select':
-        if (currentField.id === 'country') {
-            return (
-                <div key={currentField.id} className="space-y-2">
-                    <Label>{currentField.label}</Label>
-                    <Select value={country} onValueChange={setCountry}>
-                        <SelectTrigger><SelectValue placeholder="Seleccionar país..." /></SelectTrigger>
-                        <SelectContent>{countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}</SelectContent>
-                    </Select>
-                </div>
-            );
-        }
-        return (
-            <div key={currentField.id} className="space-y-2">
-                <Label htmlFor={currentField.id}>{currentField.label}</Label>
-                <Select defaultValue={currentField.defaultValue}><SelectTrigger id={currentField.id}><SelectValue placeholder={currentField.placeholder} /></SelectTrigger><SelectContent>{currentField.options?.map(opt => <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>)}</SelectContent></Select>
-            </div>
-        );
+    switch (field.type) {
       case 'password':
         return (
-          <div key={currentField.id} className="space-y-2 relative">
-            <Label htmlFor={currentField.id}>{currentField.label}</Label>
-            <Input id={currentField.id} type={passwordVisible ? "text" : "password"} placeholder={currentField.placeholder} defaultValue={currentField.defaultValue} className="pr-10" required/>
+          <div key={field.id} className="space-y-2 relative">
+            <Label htmlFor={field.id}>{field.label}</Label>
+            <Input id={field.id} type={passwordVisible ? "text" : "password"} placeholder={field.placeholder} defaultValue={field.defaultValue} className="pr-10" required/>
             <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
           </div>
         );
       case 'checkbox':
         return (
-             <div key={currentField.id} className="flex items-center justify-between text-sm">
-                {currentField.rememberMe && (
+             <div key={field.id} className="flex items-center justify-between text-sm">
+                {field.rememberMe && (
                     <div className="flex items-center gap-2">
                         <Checkbox id="remember-me" />
                         <Label htmlFor="remember-me" className="font-normal">Recuérdame</Label>
                     </div>
                 )}
-                {currentField.link && <Link href={currentField.link.href} className="text-primary hover:underline">{currentField.link.label}</Link>}
+                {field.link && <Link href={field.link.href} className="text-primary hover:underline">{field.link.label}</Link>}
             </div>
         );
       default: {
         return (
-          <div key={currentField.id} className="space-y-2">
-            <Label htmlFor={currentField.id}>{currentField.label}</Label>
-            <Input id={currentField.id} type={currentField.type} placeholder={currentField.placeholder} defaultValue={currentField.defaultValue} required/>
+          <div key={field.id} className="space-y-2">
+            <Label htmlFor={field.id}>{field.label}</Label>
+            <Input id={field.id} type={field.type} placeholder={field.placeholder} defaultValue={field.defaultValue} required/>
           </div>
         );
       }
@@ -157,7 +156,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
           <Button asChild type="submit" className="w-full h-11 text-base">
             <Link href={submitButtonHref}>{submitButtonText}</Link>
           </Button>
-          {credentials && <Credentials user={fields.some(f => f.id === 'idValue') ? currentIdInfo.defaultValue : credentials.user} password={credentials.password} />}
+          {credentials && <Credentials user={fields.some(f => f.id === 'idValue') ? idValue : credentials.user} password={credentials.password} />}
         </CardFooter>
       </form>
        {footerContent ? (
