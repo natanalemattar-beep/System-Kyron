@@ -175,11 +175,12 @@ const SecurityContent = () => (
     </>
 );
 
-const ModuleOrb = memo(({ module, onMouseEnter, onMouseLeave }: { module: typeof navModules[0], onMouseEnter: () => void, onMouseLeave: () => void }) => {
+const ModuleOrb = memo(({ module, onMouseEnter, onMouseLeave, isMobile }: { module: typeof navModules[0], onMouseEnter: () => void, onMouseLeave: () => void, isMobile: boolean }) => {
+    const radius = isMobile ? 130 : 190;
     const motionProps = {
         className: "absolute w-28 h-12 bg-card/80 backdrop-blur-md border rounded-full flex items-center justify-center p-2 cursor-pointer",
         style: { 
-            transform: `rotate(${module.angle}deg) translateX(190px) rotate(-${module.angle}deg)`,
+            transform: `rotate(${module.angle}deg) translateX(${radius}px) rotate(-${module.angle}deg)`,
             transformOrigin: 'center',
         },
         onMouseEnter: onMouseEnter,
@@ -242,6 +243,7 @@ export default function LandingPage() {
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
+    const isMobile = useIsMobile();
     
     useEffect(() => {
         const handleScroll = () => {
@@ -375,9 +377,9 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent"></div>
             </div>
             
-            <div className="relative grid place-items-center w-[400px] h-[400px]">
+            <div className="relative w-full h-full grid place-items-center">
                 <div className="absolute inset-0 border-2 border-dashed border-primary/20 rounded-full animate-spin [animation-duration:40s] [animation-direction:reverse]"></div>
-                <div className="absolute inset-2 border border-dashed border-primary/20 rounded-full animate-spin [animation-duration:30s]"></div>
+                <div className="absolute w-[90%] h-[90%] border border-dashed border-primary/20 rounded-full animate-spin [animation-duration:30s]"></div>
                 
                 <div className="absolute z-10 grid place-items-center w-64 h-64 text-center">
                     <AnimatePresence mode="wait">
@@ -409,6 +411,7 @@ export default function LandingPage() {
                         module={module}
                         onMouseEnter={() => setHoveredModule({ name: module.name, description: getModuleDescription(module.name) })}
                         onMouseLeave={() => setHoveredModule(null)}
+                        isMobile={isMobile}
                     />
                 ))}
             </div>
