@@ -8,16 +8,28 @@ import { Target, Eye } from "lucide-react";
 
 const teamMembers = [
   {
-    name: "Carlos Rodríguez",
+    name: "Carlos Mattar",
     role: "CEO & Fundador",
     avatarId: "testimonial-avatar-1",
-    description: "Experto en finanzas y tecnología, con la misión de simplificar la vida del empresario venezolano."
+    description: "Líder visionario, impulsando la estrategia y el crecimiento global de Kyron."
   },
   {
-    name: "Ana Pérez",
-    role: "CTO & Co-Fundadora",
+    name: "Maria T. Hernandez",
+    role: "CEO & Fundadora",
     avatarId: "testimonial-avatar-2",
-    description: "Líder de desarrollo, apasionada por crear soluciones robustas, seguras y fáciles de usar."
+    description: "Experta en operaciones y finanzas, asegurando la excelencia y sostenibilidad del negocio."
+  },
+   {
+    name: "Jose Herrera",
+    role: "CEO & Fundador",
+    avatarId: "testimonial-avatar-3",
+    description: "Arquitecto de la tecnología, dirigiendo la innovación y el desarrollo de la plataforma."
+  },
+  {
+    name: "Omar Mattar",
+    role: "CEO",
+    avatarId: "testimonial-avatar-4",
+    description: "Responsable de la ejecución comercial y la expansión de mercado en Venezuela."
   },
 ];
 
@@ -69,24 +81,23 @@ export function AboutUsSection() {
                             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Eye className="text-primary"/>Nuestra Visión</h3>
                             <p className="text-muted-foreground">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso con el éxito de nuestros clientes.</p>
                         </div>
-                        <div className="pt-4 text-center sm:text-left">
-                            <h3 className="text-xl font-semibold mb-4">Equipo Fundador</h3>
-                            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-6">
+                        <div className="pt-4">
+                            <h3 className="text-xl font-semibold mb-4 text-center sm:text-left">Equipo Fundador</h3>
+                            <div className="flex flex-wrap items-start justify-center sm:justify-start gap-4">
                                 {teamMembers.map((member) => {
                                     const avatar = PlaceHolderImages.find(img => img.id === member.avatarId);
                                     return (
-                                        <div key={member.name} className="flex flex-col items-center text-center">
-                                            {avatar && <Avatar className="w-20 h-20 mb-3">
+                                        <div key={member.name} className="flex flex-col items-center text-center w-24">
+                                            {avatar && <Avatar className="w-20 h-20 mb-2">
                                                 <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
                                                 <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
                                             </Avatar>}
-                                            <h4 className="font-semibold">{member.name}</h4>
-                                            <p className="text-primary font-medium text-sm">{member.role}</p>
+                                            <h4 className="font-semibold text-sm">{member.name}</h4>
+                                            <p className="text-primary font-medium text-xs">{member.role}</p>
                                         </div>
                                     );
                                 })}
                             </div>
-                            <p className="text-xs text-muted-foreground mt-4 text-center sm:text-left">(Nota: Las imágenes y nombres son representativos)</p>
                         </div>
                     </motion.div>
                     <motion.div 

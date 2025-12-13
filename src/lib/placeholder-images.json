@@ -21,7 +21,7 @@
     {
       "id": "testimonial-avatar-1",
       "description": "A placeholder image for a testimonial avatar, showing a businessman.",
-      "imageUrl": "https://images.unsplash.com/photo-1724128191061-c89bcd6e6146?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxidXNpbmVzc21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2NDAzNzU1OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&q=80",
       "imageHint": "businessman portrait"
     },
     {
@@ -29,6 +29,18 @@
       "description": "A placeholder image for a testimonial avatar, showing a businesswoman.",
       "imageUrl": "https://images.unsplash.com/photo-1544725176-7c40e5a71c3e?w=400&q=80",
       "imageHint": "businesswoman portrait"
+    },
+    {
+      "id": "testimonial-avatar-3",
+      "description": "A placeholder image for a testimonial avatar, showing a professional man.",
+      "imageUrl": "https://images.unsplash.com/photo-1557862921-37829c790f19?w=400&q=80",
+      "imageHint": "professional man"
+    },
+    {
+      "id": "testimonial-avatar-4",
+      "description": "A placeholder image for a testimonial avatar, showing a smiling businessman.",
+      "imageUrl": "https://images.unsplash.com/photo-1531590878845-12627191e687?w=400&q=80",
+      "imageHint": "smiling businessman"
     },
     {
       "id": "notebook-design-1",
