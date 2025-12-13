@@ -1,144 +1,117 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, FileDown, Eye, QrCode, Gavel, AlertTriangle } from "lucide-react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
+import { PlusCircle, Gavel } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { formatDate } from "@/lib/utils";
+import { DocumentRequestTable, type Solicitud } from "@/components/document-request-table";
 
-type Documento = {
-  id: string;
-  fecha: string;
-  tipo: string;
-  caso: string;
-  estado: "Activo" | "Archivado" | "Rechazado";
-  motivoRechazo?: string;
-   detalles: {
-    tribunal: string;
-    sala?: string;
-    juez: string;
-  }
-};
 
-const initialDocumentos: Documento[] = [
+const initialDocumentos: Solicitud[] = [
     {
         id: "DJ-2024-001",
         fecha: "10/06/2024",
         tipo: "Sentencia Definitiva",
-        caso: "Expediente N° 123-456",
+        nombres: "Caso Expediente N° 123-456",
         estado: "Archivado",
-        detalles: { tribunal: "Tribunal Supremo de Justicia", sala: "Sala de Casación Civil", juez: "Dr. Juan Mendoza" }
+        detalles: { tribunal: "Tribunal Supremo de Justicia", sala: "Sala de Casación Civil", juez: "Dr. Juan Mendoza", acta: "N/A", folio: "N/A", tomo: "N/A", registro: "N/A", ano: 2024 }
     },
     {
         id: "DJ-2024-002",
         fecha: "20/07/2024",
         tipo: "Auto de Admisión",
-        caso: "Expediente N° 789-012",
+        nombres: "Caso Expediente N° 789-012",
         estado: "Activo",
-        detalles: { tribunal: "Tribunal 15 de Primera Instancia en lo Civil", juez: "Dra. Ana Pérez" }
+        detalles: { tribunal: "Tribunal 15 de Primera Instancia en lo Civil", juez: "Dra. Ana Pérez", acta: "N/A", folio: "N/A", tomo: "N/A", registro: "N/A", ano: 2024 }
     },
     {
         id: "DJ-2024-003",
         fecha: "25/07/2024",
         tipo: "Medida Cautelar",
-        caso: "Expediente N° 345-678",
+        nombres: "Caso Expediente N° 345-678",
         estado: "Activo",
-        detalles: { tribunal: "Tribunal Superior 3ro en lo Contencioso", juez: "Dr. Carlos Gómez" }
+        detalles: { tribunal: "Tribunal Superior 3ro en lo Contencioso", juez: "Dr. Carlos Gómez", acta: "N/A", folio: "N/A", tomo: "N/A", registro: "N/A", ano: 2024 }
     },
     {
         id: "DJ-2024-004",
         fecha: "28/07/2024",
         tipo: "Sentencia Interlocutoria",
-        caso: "Expediente N° 999-111",
+        nombres: "Caso Expediente N° 999-111",
         estado: "Rechazado",
         motivoRechazo: "Faltan documentos de respaldo para la solicitud.",
-        detalles: { tribunal: "Tribunal 4to de Mediación y Sustanciación", juez: "Dra. Luisa Rivas" }
+        detalles: { tribunal: "Tribunal 4to de Mediación y Sustanciación", juez: "Dra. Luisa Rivas", acta: "N/A", folio: "N/A", tomo: "N/A", registro: "N/A", ano: 2024 }
     },
 ];
 
-const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
-  Archivado: "outline",
-  Activo: "secondary",
-  Rechazado: "destructive",
-};
+const getDocumentoJudicialContent = (doc: Solicitud) => `
+    <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.6; padding: 2cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black; box-sizing: border-box;">
+        <div style="text-align: center; margin-bottom: 2cm;">
+            <p style="margin:0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+            <p style="margin:0; font-weight: bold;">PODER JUDICIAL</p>
+            <p style="margin:0;">${doc.detalles.tribunal.toUpperCase()}</p>
+        </div>
+        <h1 style="text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 2cm;">${doc.tipo.toUpperCase()}</h1>
+        <p><strong>EXPEDIENTE N°:</strong> ${doc.nombres}</p>
+        <p><strong>FECHA:</strong> ${doc.fecha}</p>
+        <br/>
+        <p>Vistos, etc. Este Tribunal, administrando justicia en nombre de la República y por autoridad de la Ley, declara...</p>
+        <br/>
+        <p>[Contenido del dispositivo o de la decisión judicial]...</p>
+        <br/>
+        <p>Dada, firmada y sellada en la Sala de Despacho de este Tribunal.</p>
+        <br/><br/><br/>
+        <div style="text-align: center; padding-top: 3cm;">
+            <p style="border-top: 1px solid black; padding-top: 5px;">${doc.detalles.juez}</p>
+            <p style="font-weight: bold;">Juez(a)</p>
+        </div>
+    </div>
+`;
 
 
 export default function DocumentosJudicialesPage() {
     const { toast } = useToast();
     const [documentos, setDocumentos] = useState(initialDocumentos);
     const [filter, setFilter] = useState("todos");
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const getDocumentContent = (doc: Documento) => `
-        <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.6; padding: 2cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black; box-sizing: border-box;">
-            <div style="text-align: center; margin-bottom: 2cm;">
-                <p style="margin:0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
-                <p style="margin:0; font-weight: bold;">PODER JUDICIAL</p>
-                <p style="margin:0;">${doc.detalles.tribunal.toUpperCase()}</p>
-            </div>
-            <h1 style="text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 2cm;">${doc.tipo.toUpperCase()}</h1>
-            <p><strong>EXPEDIENTE N°:</strong> ${doc.caso}</p>
-            <p><strong>FECHA:</strong> ${doc.fecha}</p>
-            <br/>
-            <p>Vistos, etc. Este Tribunal, administrando justicia en nombre de la República y por autoridad de la Ley, declara...</p>
-            <br/>
-            <p>[Contenido del dispositivo o de la decisión judicial]...</p>
-            <br/>
-            <p>Dada, firmada y sellada en la Sala de Despacho de este Tribunal.</p>
-            <br/><br/><br/>
-            <div style="text-align: center; padding-top: 3cm;">
-                <p style="border-top: 1px solid black; padding-top: 5px;">${doc.detalles.juez}</p>
-                <p style="font-weight: bold;">Juez(a)</p>
-            </div>
-        </div>
-    `;
+    const tipoDocRef = useRef<HTMLInputElement>(null);
+    const nroCasoRef = useRef<HTMLInputElement>(null);
 
-    const handleDownload = (doc: Documento) => {
-        const content = getDocumentContent(doc);
-        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Documento Judicial</title></head><body>";
-        const footer = "</body></html>";
-        const sourceHTML = header + content + footer;
+    const handleCreate = (e: React.FormEvent) => {
+        e.preventDefault();
+        const tipoDoc = tipoDocRef.current?.value;
+        const nroCaso = nroCasoRef.current?.value;
 
-        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-        const fileDownload = document.createElement("a");
-        document.body.appendChild(fileDownload);
-        fileDownload.href = source;
-        fileDownload.download = `Documento_Judicial_${doc.id}.doc`;
-        fileDownload.click();
-        document.body.removeChild(fileDownload);
-
-        toast({
-            title: "Descarga Iniciada",
-            description: `El documento judicial ${doc.id} se está descargando.`
-        });
-    }
-
-    const handleCreate = (formData: FormData) => {
-        const tipoDoc = formData.get('tipo-doc') as string;
-        const nroCaso = formData.get('nro-caso') as string;
+        if (!tipoDoc || !nroCaso) {
+            toast({ variant: "destructive", title: "Error", description: "Por favor, complete todos los campos." });
+            return;
+        }
         
-        const newDoc: Documento = {
+        const newDoc: Solicitud = {
             id: `DJ-${new Date().getFullYear()}-${String(documentos.length + 1).padStart(3, '0')}`,
             fecha: new Date().toLocaleDateString('es-VE'),
             tipo: tipoDoc,
-            caso: nroCaso,
+            nombres: `Caso ${nroCaso}`,
             estado: "Activo",
             detalles: {
                 tribunal: "Tribunal por Asignar",
-                juez: "Juez por Asignar"
+                juez: "Juez por Asignar",
+                acta: "N/A",
+                folio: "N/A",
+                tomo: "N/A",
+                registro: "N/A",
+                ano: new Date().getFullYear(),
             }
         };
 
         setDocumentos(prev => [newDoc, ...prev]);
+        setIsDialogOpen(false);
 
          toast({
             title: "Solicitud Recibida",
@@ -164,7 +137,7 @@ export default function DocumentosJudicialesPage() {
             Consulta y gestiona tus documentos judiciales.
           </p>
         </div>
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
                 <Button>
                   <PlusCircle className="mr-2" />
@@ -172,7 +145,7 @@ export default function DocumentosJudicialesPage() {
                 </Button>
             </DialogTrigger>
             <DialogContent>
-                <form action={handleCreate}>
+                <form onSubmit={handleCreate}>
                     <DialogHeader>
                         <DialogTitle>Solicitar Nuevo Documento Judicial</DialogTitle>
                         <DialogDescription>
@@ -182,11 +155,11 @@ export default function DocumentosJudicialesPage() {
                     <div className="grid gap-4 py-4">
                         <div className="space-y-2">
                             <Label htmlFor="tipo-doc">Tipo de Documento</Label>
-                            <Input id="tipo-doc" name="tipo-doc" placeholder="Ej: Copia Certificada de Sentencia" required />
+                            <Input ref={tipoDocRef} id="tipo-doc" name="tipo-doc" placeholder="Ej: Copia Certificada de Sentencia" required />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="nro-caso">Número de Expediente / Caso</Label>
-                            <Input id="nro-caso" name="nro-caso" placeholder="Ej: AP11-V-2024-000123" required />
+                            <Input ref={nroCasoRef} id="nro-caso" name="nro-caso" placeholder="Ej: AP11-V-2024-000123" required />
                         </div>
                     </div>
                     <DialogFooter>
@@ -210,91 +183,15 @@ export default function DocumentosJudicialesPage() {
                     <TabsTrigger value="rechazado">Rechazados</TabsTrigger>
                 </TabsList>
                 <TabsContent value={filter}>
-                    <DocumentsTable documentos={filteredDocumentos} onDownload={handleDownload} />
+                    <DocumentRequestTable 
+                        solicitudes={filteredDocumentos} 
+                        getDocumentContent={getDocumentoJudicialContent}
+                        docTypeForDownload="Documento_Judicial"
+                     />
                 </TabsContent>
             </Tabs>
         </CardContent>
       </Card>
     </div>
   );
-}
-
-function DocumentsTable({ documentos, onDownload }: { documentos: Documento[], onDownload: (doc: Documento) => void }) {
-    return (
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableHead>Nro. Documento</TableHead>
-                    <TableHead>Fecha</TableHead>
-                    <TableHead>Tipo</TableHead>
-                    <TableHead>Caso</TableHead>
-                    <TableHead>Estado</TableHead>
-                    <TableHead className="text-right">Acciones</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {documentos.length > 0 ? (
-                    documentos.map((doc) => (
-                    <TableRow key={doc.id}>
-                        <TableCell className="font-medium">{doc.id}</TableCell>
-                        <TableCell>{doc.fecha}</TableCell>
-                        <TableCell>{doc.tipo}</TableCell>
-                        <TableCell>{doc.caso}</TableCell>
-                        <TableCell>
-                            <Badge variant={statusVariant[doc.estado]}>{doc.estado}</Badge>
-                        </TableCell>
-                        <TableCell className="text-right">
-                            <Dialog>
-                                <DialogTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="mr-2">
-                                        <Eye className="h-4 w-4" />
-                                    </Button>
-                                </DialogTrigger>
-                                <DialogContent className="sm:max-w-md">
-                                    <DialogHeader>
-                                        <DialogTitle>Detalle del Documento: {doc.id}</DialogTitle>
-                                         <DialogDescription>
-                                            <span className="font-semibold">{doc.tipo}</span>
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                    <div className="py-4 space-y-4">
-                                        {doc.estado === 'Rechazado' && doc.motivoRechazo && (
-                                            <Alert variant="destructive">
-                                                <AlertTriangle className="h-4 w-4" />
-                                                <AlertTitle>Solicitud Rechazada</AlertTitle>
-                                                <AlertDescription>
-                                                    {doc.motivoRechazo}
-                                                </AlertDescription>
-                                            </Alert>
-                                        )}
-                                         <div className="space-y-3 text-sm">
-                                             <div className="space-y-1"><p className="text-muted-foreground">Nº de Caso/Expediente</p><p>{doc.caso}</p></div>
-                                             <div className="space-y-1"><p className="text-muted-foreground">Tribunal</p><p>{doc.detalles.tribunal}</p></div>
-                                             {doc.detalles.sala && <div className="space-y-1"><p className="text-muted-foreground">Sala</p><p>{doc.detalles.sala}</p></div>}
-                                             <div className="space-y-1"><p className="text-muted-foreground">Juez</p><p>{doc.detalles.juez}</p></div>
-                                             <div className="space-y-1"><p className="text-muted-foreground">Fecha</p><p>{doc.fecha}</p></div>
-                                        </div>
-                                        <div className="flex justify-center pt-4">
-                                            <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=doc-judicial-${doc.id}`} alt={`QR for ${doc.id}`} width={100} height={100} />
-                                        </div>
-                                    </div>
-                                    <DialogFooter>
-                                        <Button>Cerrar</Button>
-                                    </DialogFooter>
-                                </DialogContent>
-                            </Dialog>
-                            <Button variant="ghost" size="icon" onClick={() => onDownload(doc)}>
-                                <FileDown className="h-4 w-4" />
-                            </Button>
-                        </TableCell>
-                    </TableRow>
-                ))
-                ) : (
-                     <TableRow>
-                        <TableCell colSpan={6} className="text-center text-muted-foreground">No hay documentos en este estado.</TableCell>
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
-    )
 }
