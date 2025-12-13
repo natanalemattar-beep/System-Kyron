@@ -14,7 +14,7 @@ import { formatDate } from "@/lib/utils";
 import Image from "next/image";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Logo } from "@/components/logo";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
 
@@ -128,9 +128,9 @@ export default function AntecedentesPenalesPage() {
           </div>
         `;
     };
-
-    const handleDownload = () => {
-        const content = getCertificateContent(selectedSolicitud);
+    
+    const handleAction = (solicitud: Solicitud, action: 'print' | 'download') => {
+        const content = getCertificateContent(solicitud);
         const printWindow = window.open('', '_blank');
         if (printWindow) {
             printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title></head><body>');
@@ -140,14 +140,20 @@ export default function AntecedentesPenalesPage() {
             printWindow.focus();
             
             setTimeout(() => { 
-                 printWindow.print();
+                printWindow.print();
+                if (action === 'download') {
+                     toast({
+                        title: "Preparando Descarga",
+                        description: `Selecciona 'Guardar como PDF' para descargar el certificado de ${solicitud.solicitante.nombre}.`,
+                    });
+                } else {
+                     toast({
+                        title: "Preparando Impresión",
+                        description: `El certificado de ${solicitud.solicitante.nombre} se está enviando a la impresora.`,
+                    });
+                }
             }, 500);
         }
-
-        toast({
-            title: "Preparando Descarga/Impresión",
-            description: `Se ha abierto el diálogo de impresión para el certificado de ${selectedSolicitud?.solicitante.nombre}. Selecciona 'Guardar como PDF' para descargar.`,
-        });
     };
 
 
@@ -159,7 +165,7 @@ export default function AntecedentesPenalesPage() {
 
     return (
         <div className="space-y-8">
-             <style>
+            <style>
                 {`
                     @media print {
                         body * {
@@ -189,19 +195,22 @@ export default function AntecedentesPenalesPage() {
             </header>
             
             {status === 'success' && selectedSolicitud ? (
-                <div id="printable-content" className="animate-in fade-in">
-                    <div className="flex justify-end gap-2 mb-4 print:hidden">
+                <div className="animate-in fade-in">
+                    <div id="printable-content" className="hidden print:block">
+                        <div dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
+                    </div>
+                    <div className="flex justify-end gap-2 mb-4">
                         <Button variant="outline" onClick={handleNewRequest}>
                             <PlusCircle className="mr-2"/> Realizar Nueva Solicitud
                         </Button>
-                        <Button variant="outline" onClick={handleDownload}>
+                        <Button variant="outline" onClick={() => handleAction(selectedSolicitud, 'print')}>
                             <Printer className="mr-2"/> Imprimir
                         </Button>
-                        <Button onClick={handleDownload}>
+                        <Button onClick={() => handleAction(selectedSolicitud, 'download')}>
                             <Download className="mr-2"/> Descargar PDF
                         </Button>
                     </div>
-                     <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl print:shadow-none print:border-none">
+                     <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl">
                         <CardHeader className="text-center p-8 border-b">
                             <h2 className="font-bold text-lg">REPÚBLICA BOLIVARIANA DE VENEZUELA</h2>
                             <h3 className="text-md">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</h3>
@@ -244,7 +253,7 @@ export default function AntecedentesPenalesPage() {
                         <CardTitle>Nueva Solicitud de Certificado</CardTitle>
                     </CardHeader>
                     <form onSubmit={handleCreate}>
-                        <CardContent className="space-y-6">
+                        <CardContent>
                             {status === 'idle' && (
                                 <div className="space-y-4 animate-in fade-in">
                                     <div className="space-y-2">
@@ -310,7 +319,7 @@ export default function AntecedentesPenalesPage() {
                         </TableHeader>
                         <TableBody>
                             {solicitudes.map((solicitud) => (
-                                <TableRow key={solicitud.id} className="cursor-pointer hover:bg-muted/50" onClick={() => solicitud.estado === 'Generado' && setSelectedSolicitud(solicitud)}>
+                                <TableRow key={solicitud.id}>
                                     <TableCell className="font-mono">{solicitud.id}</TableCell>
                                     <TableCell>{formatDate(solicitud.fecha)}</TableCell>
                                     <TableCell>{solicitud.organismo}</TableCell>
@@ -351,7 +360,7 @@ export default function AntecedentesPenalesPage() {
                                         </Dialog>
 
                                         {solicitud.estado === 'Generado' && (
-                                             <Button variant="ghost" size="icon" onClick={() => setSelectedSolicitud(solicitud)}>
+                                             <Button variant="ghost" size="icon" onClick={() => handleAction(solicitud, 'download')}>
                                                 <Download className="h-4 w-4" />
                                             </Button>
                                         )}
@@ -365,5 +374,6 @@ export default function AntecedentesPenalesPage() {
         </div>
     );
 }
+
 
     
