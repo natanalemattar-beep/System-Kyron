@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -24,7 +24,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { iaSolutions, faqItems, securityFeatures } from '@/lib/page-data';
 
-const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
@@ -94,14 +93,14 @@ const testimonials = [
 ];
 
 const navModules = [
-  { name: "¿Qué es Kyron?", angle: 30, href: "#nosotros", type: 'scroll' },
-  { name: "Nuestros Servicios", angle: 75, href: "#servicios", type: 'scroll' },
-  { name: "Funciones Clave", angle: 120, href: "#caracteristicas", type: 'scroll' },
-  { name: "Tecnología IA", angle: 165, href: "/soluciones-ia", type: 'dialog' },
-  { name: "Seguridad Garantizada", angle: 210, href: "/seguridad", type: 'dialog' },
-  { name: "Planes y Precios", angle: 255, href: "/planes-y-precios", type: 'link' },
-  { name: "Contacto Directo", angle: 300, href: "#contacto", type: 'scroll' },
-  { name: "¿Quiénes Somos?", angle: 345, href: "#nosotros", type: 'scroll' },
+  { name: "¿Qué es Kyron?", angle: 30, href: "#nosotros", type: 'scroll', icon: HelpCircle },
+  { name: "Nuestros Servicios", angle: 75, href: "#servicios", type: 'scroll', icon: Layers },
+  { name: "Funciones Clave", angle: 120, href: "#caracteristicas", type: 'scroll', icon: Sparkles },
+  { name: "Tecnología IA", angle: 165, href: "/soluciones-ia", type: 'dialog', icon: Bot },
+  { name: "Seguridad", angle: 210, href: "/seguridad", type: 'dialog', icon: ShieldCheck },
+  { name: "Planes y Precios", angle: 255, href: "/planes-y-precios", type: 'link', icon: Banknote },
+  { name: "Contacto Directo", angle: 300, href: "#contacto", type: 'scroll', icon: Send },
+  { name: "Conócenos", angle: 345, href: "#nosotros", type: 'scroll', icon: Users },
 ];
 
 const getModuleDescription = (name: string) => {
@@ -110,10 +109,10 @@ const getModuleDescription = (name: string) => {
         case 'Nuestros Servicios': return "Explora las soluciones que ofrecemos para tu empresa.";
         case 'Funciones Clave': return "Conoce las características principales que hacen a Kyron único.";
         case 'Tecnología IA': return "Ve cómo la IA puede automatizar y potenciar tu negocio.";
-        case 'Seguridad Garantizada': return "Aprende sobre nuestras capas de seguridad para proteger tus datos.";
+        case 'Seguridad': return "Aprende sobre nuestras capas de seguridad para proteger tus datos.";
         case 'Planes y Precios': return "Encuentra el plan perfecto que se ajusta a tus necesidades.";
         case 'Contacto Directo': return "Comunícate con nuestro equipo para más información.";
-        case '¿Quiénes Somos?': return "Nuestra historia y los valores que nos impulsan.";
+        case 'Conócenos': return "Nuestra historia y los valores que nos impulsan.";
         default: return "Accede al módulo especializado.";
     }
 };
@@ -124,9 +123,9 @@ const IaContent = () => (
           <DialogTitle>Soluciones con Inteligencia Artificial</DialogTitle>
           <DialogDescription>Automatiza tareas, obtén análisis y toma decisiones más rápidas.</DialogDescription>
         </DialogHeader>
-        <div className="space-y-4">
+        <div className="space-y-4 py-4">
             {iaSolutions.map(solution => (
-                <Card key={solution.title} className="bg-secondary">
+                <Card key={solution.title} className="bg-secondary/50">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3 text-base">
                             <solution.icon className="h-5 w-5 text-primary"/>
@@ -153,9 +152,9 @@ const SecurityContent = () => (
           <DialogTitle>Seguridad Garantizada</DialogTitle>
           <DialogDescription>Tu tranquilidad es nuestra prioridad. Conoce nuestras capas de protección.</DialogDescription>
         </DialogHeader>
-        <div className="space-y-4">
+        <div className="space-y-4 py-4">
             {securityFeatures.map(feature => (
-                <Card key={feature.title} className="bg-secondary">
+                <Card key={feature.title} className="bg-secondary/50">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-3 text-base">
                             <feature.icon className="h-5 w-5 text-primary"/>
@@ -176,35 +175,30 @@ const SecurityContent = () => (
     </>
 );
 
-
-const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module: typeof navModules[0], radius: number, onMouseEnter: () => void, onMouseLeave: () => void }) => {
-    const x = radius * Math.cos((module.angle - 90) * (Math.PI / 180));
-    const y = radius * Math.sin((module.angle - 90) * (Math.PI / 180));
-    
+const ModuleOrb = memo(({ module, onMouseEnter, onMouseLeave }: { module: typeof navModules[0], onMouseEnter: () => void, onMouseLeave: () => void }) => {
     const motionProps = {
-        className: "w-24 h-24 aspect-square bg-card/80 backdrop-blur-sm border rounded-full grid place-items-center p-2 cursor-pointer",
-        style: { boxShadow: '0 0 20px rgba(var(--primary-rgb), 0)' },
+        className: "absolute w-28 h-12 bg-card/80 backdrop-blur-md border rounded-full flex items-center justify-center p-2 cursor-pointer",
+        style: { 
+            transform: `rotate(${module.angle}deg) translateX(190px) rotate(-${module.angle}deg)`,
+            transformOrigin: 'center',
+        },
         onMouseEnter: onMouseEnter,
         onMouseLeave: onMouseLeave,
-        whileHover: { scale: 1.1, boxShadow: '0 0 25px rgba(var(--primary-rgb), 0.7)' },
-        transition: { type: "spring", stiffness: 300 }
+        whileHover: { scale: 1.1, boxShadow: '0 0 25px hsl(var(--primary) / 0.5)' },
+        transition: { type: "spring", stiffness: 400, damping: 15 }
     };
     
     const content = (
-        <div className="text-center">
-            <p className="text-xs font-bold text-primary leading-tight">{module.name}</p>
+        <div className="flex items-center gap-2 text-center">
+            <module.icon className="h-4 w-4 text-primary shrink-0" />
+            <p className="text-xs font-semibold text-foreground leading-tight">{module.name}</p>
         </div>
     );
 
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
-        <motion.div
-            className="absolute"
-            style={{ top: '50%', left: '50%', x: -48, y: -48 }}
-            animate={{ x: x - 48, y: y - 48 }}
-            transition={{ type: "spring", stiffness: 50, damping: 15 }}
-        >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             {children}
-        </motion.div>
+        </div>
     );
 
     if (module.type === 'scroll') {
@@ -225,7 +219,7 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-2xl">
                         {module.name === 'Tecnología IA' && <IaContent />}
-                        {module.name === 'Seguridad Garantizada' && <SecurityContent />}
+                        {module.name === 'Seguridad' && <SecurityContent />}
                     </DialogContent>
                 </Dialog>
             </Wrapper>
@@ -242,23 +236,13 @@ const ModuleOrb = memo(({ module, radius, onMouseEnter, onMouseLeave }: { module
 });
 ModuleOrb.displayName = 'ModuleOrb';
 
-
 export default function LandingPage() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [hoveredModule, setHoveredModule] = useState<{name: string, description: string} | null>(null);
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
     const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
     const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
-    const isMobile = useIsMobile();
-    const radius = isMobile ? 150 : 300;
-
-    const heroRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: heroRef,
-        offset: ["start start", "end start"],
-    });
-    const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
+    
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
@@ -382,85 +366,52 @@ export default function LandingPage() {
         </motion.div>
     </header>
 
-      {/* Main Content */}
       <main className="flex-1">
-        {/* Hero Section */}
-        <section ref={heroRef} className="relative h-screen overflow-hidden">
-            <motion.div style={{ opacity }} className="sticky top-0 flex flex-col items-center justify-center min-h-screen pt-24 pb-12">
-            
-            {/* Background elements */}
+        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+             {/* Fondo animado */}
             <div className="absolute inset-0 -z-10">
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-background/80"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent dark:from-blue-900/40"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-green-400/20 via-transparent to-transparent dark:from-green-900/40"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent"></div>
             </div>
-
-            {/* Central Content */}
-            <motion.div 
-              className="relative grid place-items-center w-[350px] h-[350px] sm:w-[550px] sm:h-[550px] md:w-[650px] md:h-[650px] aspect-square"
-              variants={{
-                visible: { transition: { staggerChildren: 0.1 } },
-                hidden: {},
-              }}
-              initial="hidden"
-              animate="visible"
-            >
-                {/* Central Text */}
-                <div className="absolute z-10 grid place-items-center w-full h-full text-center">
-                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-center"
-                    >
-                         {hoveredModule ? (
-                            <>
-                                <h2 className="text-2xl font-bold text-primary">{hoveredModule.name}</h2>
-                                <p className="text-muted-foreground max-w-xs">{hoveredModule.description}</p>
-                            </>
-                            ) : (
-                            <div className="flex flex-col items-center gap-4">
-                                <h1 className="text-5xl md:text-7xl font-bold text-foreground/90 text-shadow-glow">Kyron</h1>
-                            </div>
-                        )}
-                    </motion.div>
+            
+            <div className="relative grid place-items-center w-[400px] h-[400px]">
+                <div className="absolute inset-0 border-2 border-dashed border-primary/20 rounded-full animate-spin [animation-duration:40s] [animation-direction:reverse]"></div>
+                <div className="absolute inset-2 border border-dashed border-primary/20 rounded-full animate-spin [animation-duration:30s]"></div>
+                
+                <div className="absolute z-10 grid place-items-center w-64 h-64 text-center">
+                    <AnimatePresence mode="wait">
+                         <motion.div
+                            key={hoveredModule ? hoveredModule.name : 'kyron'}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.2 }}
+                            className="w-full"
+                         >
+                             {hoveredModule ? (
+                                <div className="p-4">
+                                    <h2 className="text-xl font-bold text-primary">{hoveredModule.name}</h2>
+                                    <p className="text-muted-foreground text-sm max-w-xs">{hoveredModule.description}</p>
+                                </div>
+                                ) : (
+                                <div className="flex flex-col items-center">
+                                    <h1 className="text-6xl font-bold text-shadow-glow">Kyron</h1>
+                                </div>
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
                 
-                {/* Background Orb */}
-                <motion.div 
-                  className="absolute inset-10 -z-10"
-                   animate={{
-                    scale: [1, 1.02, 1],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                    <Orb/>
-                </motion.div>
-
-                {/* Orbiting Modules */}
-                 {navModules.map((module) => (
+                {navModules.map((module) => (
                     <ModuleOrb
                         key={module.name}
                         module={module}
-                        radius={radius}
                         onMouseEnter={() => setHoveredModule({ name: module.name, description: getModuleDescription(module.name) })}
                         onMouseLeave={() => setHoveredModule(null)}
                     />
                 ))}
-
-                <motion.div 
-                  className="absolute bottom-[-40px] md:bottom-[-60px]"
-                  animate={{ y: [0, 10, 0]}}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                    <ChevronDown className="w-8 h-8 text-muted-foreground" />
-                </motion.div>
-            </motion.div>
-          </motion.div>
+            </div>
         </section>
 
         {/* Services Section */}
@@ -468,9 +419,10 @@ export default function LandingPage() {
             <div className="container mx-auto px-4 md:px-6">
                  <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
+                    variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}
                     transition={{ duration: 0.6 }}
                  >
                     <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
@@ -478,19 +430,25 @@ export default function LandingPage() {
                 </motion.div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                      {services.map((item, index) => (
-                        <motion.div 
+                        <motion.div
                             key={item.title} 
-                            className="p-8 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm transition-all hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial="hidden"
+                            whileInView="visible"
                             viewport={{ once: true, amount: 0.5 }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            <div className="inline-block p-4 bg-primary/10 text-primary rounded-full mb-6">
-                                <item.icon className="h-8 w-8" />
-                            </div>
-                            <h3 className="text-xl font-semibold ">{item.title}</h3>
-                            <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
+                            <Card className="h-full bg-card/50 backdrop-blur-sm transition-all hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1">
+                               <CardHeader>
+                                  <div className="inline-block p-4 bg-primary/10 text-primary rounded-xl mb-4">
+                                      <item.icon className="h-8 w-8" />
+                                  </div>
+                                  <CardTitle className="text-xl">{item.title}</CardTitle>
+                               </CardHeader>
+                               <CardContent>
+                                   <p className="text-muted-foreground">{item.description}</p>
+                               </CardContent>
+                           </Card>
                         </motion.div>
                     ))}
                 </div>
@@ -502,9 +460,10 @@ export default function LandingPage() {
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div 
                 className="space-y-6"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
+                variants={{ visible: { opacity: 1, x: 0 }, hidden: { opacity: 0, x: -20 } }}
                 transition={{ duration: 0.6 }}
             >
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
@@ -527,9 +486,10 @@ export default function LandingPage() {
             </motion.div>
              <motion.div 
                 className="p-4 md:p-8 rounded-xl flex items-center justify-center"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
+                variants={{ visible: { opacity: 1, scale: 1 }, hidden: { opacity: 0, scale: 0.9 } }}
                 transition={{ duration: 0.6 }}
             >
                  {aboutImage && <Image 
@@ -544,21 +504,22 @@ export default function LandingPage() {
           </div>
         </section>
         
-        {/* About Us Section */}
+        {/* About Us & Testimonials Section */}
         <section id="nosotros" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
+                    variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}
                     transition={{ duration: 0.6 }}
                 >
                     <h2 className="text-3xl md:text-4xl font-bold">Conoce a Kyron</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Nacimos de la necesidad de crear orden en el caos administrativo venezolano, fusionando tecnología, cumplimiento y visión de futuro.</p>
                 </motion.div>
-                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
-                    <div className="lg:col-span-2 space-y-6">
+                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+                    <div className="lg:col-span-2 space-y-8">
                         <div>
                             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Target className="text-primary"/>Nuestra Misión</h3>
                             <p className="text-muted-foreground">Empoderar a las empresas venezolanas con herramientas inteligentes que garanticen su tranquilidad fiscal y potencien su crecimiento sostenible.</p>
@@ -567,51 +528,50 @@ export default function LandingPage() {
                             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Eye className="text-primary"/>Nuestra Visión</h3>
                             <p className="text-muted-foreground">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso con el éxito de nuestros clientes.</p>
                         </div>
-                         <div className="pt-4">
-                            <h3 className="text-xl font-semibold mb-4">Testimonios</h3>
-                             <div className="space-y-6">
-                                {testimonials.map((testimonial, index) => {
-                                const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
-                                return (
-                                    <blockquote key={index} className="p-4 border-l-4">
-                                        <p className="italic text-muted-foreground">"{testimonial.text}"</p>
-                                        <footer className="flex items-center gap-3 mt-4">
-                                            {avatar && (
-                                                <Avatar className="h-10 w-10">
+                        <div className="pt-4 text-center sm:text-left">
+                            <h3 className="text-xl font-semibold mb-4">Equipo Fundador</h3>
+                            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-6">
+                                {teamMembers.map((member) => {
+                                    const avatar = PlaceHolderImages.find(img => img.id === member.avatarId);
+                                    return (
+                                        <div key={member.name} className="flex flex-col items-center text-center">
+                                            {avatar && <Avatar className="w-20 h-20 mb-3">
                                                 <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
-                                                <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                                                </Avatar>
-                                            )}
-                                            <div>
-                                                <p className="font-semibold text-sm">{testimonial.name}</p>
-                                                <p className="text-xs text-muted-foreground">{testimonial.company}</p>
-                                            </div>
-                                        </footer>
-                                    </blockquote>
-                                );
+                                                <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                                            </Avatar>}
+                                            <h4 className="font-semibold">{member.name}</h4>
+                                            <p className="text-primary font-medium text-sm">{member.role}</p>
+                                        </div>
+                                    );
                                 })}
                             </div>
+                            <p className="text-xs text-muted-foreground mt-4 text-center sm:text-left">(Nota: Las imágenes y nombres son representativos)</p>
                         </div>
                     </div>
                      <div className="lg:col-span-3">
-                         <h3 className="text-xl font-semibold mb-4 text-center">Equipo Fundador</h3>
-                         <p className="text-xs text-muted-foreground text-center mb-6">(Nota: Las imágenes y nombres son representativos para la demostración)</p>
-                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            {teamMembers.map((member) => {
-                                const avatar = PlaceHolderImages.find(img => img.id === member.avatarId);
-                                return (
-                                    <div key={member.name} className="flex flex-col items-center text-center p-6 border rounded-lg bg-card/50">
-                                        {avatar && <Avatar className="w-24 h-24 mb-4">
+                         <h3 className="text-xl font-semibold mb-4 text-center">Lo que Dicen Nuestros Clientes</h3>
+                         <div className="space-y-6">
+                            {testimonials.map((testimonial, index) => {
+                            const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
+                            return (
+                                <blockquote key={index} className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm">
+                                    <p className="italic text-muted-foreground">"{testimonial.text}"</p>
+                                    <footer className="flex items-center gap-3 mt-4">
+                                        {avatar && (
+                                            <Avatar className="h-10 w-10">
                                             <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
-                                            <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                                        </Avatar>}
-                                        <h4 className="font-semibold text-lg">{member.name}</h4>
-                                        <p className="text-primary font-medium text-sm">{member.role}</p>
-                                        <p className="text-xs text-muted-foreground mt-2">{member.description}</p>
-                                    </div>
-                                );
+                                            <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                            </Avatar>
+                                        )}
+                                        <div>
+                                            <p className="font-semibold text-sm">{testimonial.name}</p>
+                                            <p className="text-xs text-muted-foreground">{testimonial.company}</p>
+                                        </div>
+                                    </footer>
+                                </blockquote>
+                            );
                             })}
-                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -622,9 +582,10 @@ export default function LandingPage() {
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
+                    variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}
                     transition={{ duration: 0.6 }}
                 >
                     <h2 className="text-3xl md:text-4xl font-bold">Preguntas Frecuentes</h2>
@@ -632,17 +593,18 @@ export default function LandingPage() {
                 </motion.div>
                 <motion.div 
                     className="max-w-3xl mx-auto"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
+                    variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     <Accordion type="single" collapsible className="w-full">
                         {faqItems.map((item, index) => (
                             <AccordionItem key={index} value={`item-${index}`} className="bg-card/50 backdrop-blur-sm border rounded-lg mb-2 px-4">
-                                <AccordionTrigger>
-                                    <div className="flex items-center gap-3 text-left">
-                                        <HelpCircle className="h-5 w-5 text-primary shrink-0" />
+                                <AccordionTrigger className="text-left">
+                                    <div className="flex items-start gap-3">
+                                        <HelpCircle className="h-5 w-5 text-primary shrink-0 mt-1" />
                                         <span>{item.question}</span>
                                     </div>
                                 </AccordionTrigger>
@@ -652,7 +614,8 @@ export default function LandingPage() {
                             </AccordionItem>
                         ))}
                     </Accordion>
-                </motion.div>
+                </Accordion>
+            </motion.div>
             </div>
         </section>
         
@@ -661,9 +624,10 @@ export default function LandingPage() {
             <div className="container mx-auto px-4 md:px-6 text-center">
                  <motion.div 
                     className="max-w-2xl mx-auto p-8 rounded-2xl bg-card border"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
+                    variants={{ visible: { opacity: 1, scale: 1 }, hidden: { opacity: 0, scale: 0.9 } }}
                     transition={{ duration: 0.6 }}
                  >
                     <h2 className="text-3xl md:text-4xl font-bold text-balance">Comienza a Optimizar tu Empresa Hoy</h2>
@@ -676,7 +640,6 @@ export default function LandingPage() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer id="contacto" className="py-16 bg-card border-t">
         <div className="container px-4 md:px-6 grid md:grid-cols-3 gap-8">
           <div className="space-y-4">

@@ -5,57 +5,23 @@ import { motion } from "framer-motion";
 
 export function Orb() {
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* Outer Glow */}
-      <motion.div
-        animate={{
-          scale: [1, 1.05, 1],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute w-full h-full rounded-full bg-primary/40 blur-3xl"
-      />
+    <div className="relative w-full h-full">
+      {/* Glow */}
+      <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse" />
+      
+      {/* Inner Core */}
+      <div className="absolute inset-[30%] bg-primary/20 rounded-full blur-xl" />
+      
+      {/* Rotating lines */}
+      <div className="absolute inset-0 animate-spin" style={{ animationDuration: '20s' }}>
+          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" style={{ transform: 'rotate(60deg)' }} />
+          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" style={{ transform: 'rotate(120deg)' }} />
+      </div>
 
-      {/* Main Orb Sphere */}
-      <motion.div
-        className="w-full h-full bg-transparent rounded-full relative overflow-hidden"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/20" />
-        
-        {/* Inner Lines */}
-        <div className="absolute inset-0">
-          <motion.div 
-            className="absolute top-1/2 left-0 w-full h-[1px] bg-primary/10" 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-          />
-          <motion.div 
-            className="absolute left-1/2 top-0 h-full w-[1px] bg-primary/10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-          />
-           <motion.div
-            className="absolute inset-0 border border-primary/5 rounded-full"
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 0.8, opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1 }}
-          />
-           <motion.div
-            className="absolute inset-0 border-2 border-primary/5 rounded-full"
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 0.6, opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
-          />
-        </div>
-      </motion.div>
+       {/* Static Rings */}
+       <div className="absolute inset-[15%] border border-primary/10 rounded-full" />
+       <div className="absolute inset-[40%] border border-primary/10 rounded-full" />
     </div>
   );
 }
