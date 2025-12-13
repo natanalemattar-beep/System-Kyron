@@ -4,17 +4,18 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { HelpCircle, Layers, Sparkles, Bot, ShieldCheck, Banknote, Send, Users, ChevronDown } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { HelpCircle, Layers, Sparkles, Bot, ShieldCheck, Banknote, Send, Users, ChevronDown, ArrowRight } from "lucide-react";
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { FC, AnchorHTMLAttributes } from 'react';
-
-// Dynamic import for client-only components
-const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
 import { iaSolutions, securityFeatures } from '@/lib/page-data';
-import { CtaSection } from './cta-section';
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
+
+
+const Orb = dynamic(() => import('@/components/orb').then(mod => mod.Orb), { ssr: false });
+
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
