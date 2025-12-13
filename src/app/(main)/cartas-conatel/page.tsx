@@ -4,12 +4,10 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Signal, Download, Printer, Users } from "lucide-react";
+import { Signal, Download, Printer, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatDate } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
-import { Logo } from "@/components/logo";
 
 const socios = [
     { nombre: "Carlos Alberto Natanale Mattar Hernandez", cedula: "V-32.855.496", rif: "V-32855496-4" },
@@ -17,6 +15,32 @@ const socios = [
     { nombre: "Jose Jesus Herrera Bozzo", cedula: "V-12.459.024", rif: "V-12459024-4" },
     { nombre: "Omar Antonio Mattar Fanianos", cedula: "V-9.488.296", rif: "V-09488296-2" },
 ];
+
+const requisitos = {
+    espectro: [
+        "Copia del Registro Mercantil y sus modificaciones.",
+        "Copia del RIF vigente de la empresa.",
+        "Copia de la Cédula de Identidad de los accionistas y representante legal.",
+        "Proyecto Técnico detallado (justificación, alcance, ingeniería de la red).",
+        "Estudio de factibilidad económica y financiera.",
+        "Comprobante de pago de la tasa de solicitud.",
+    ],
+    isp: [
+        "Copia del Registro Mercantil con objeto social adecuado para telecomunicaciones.",
+        "Copia del RIF vigente.",
+        "Copia de la Cédula de Identidad del representante legal.",
+        "Proyecto Técnico (topología de la red, descripción de equipos, planes de servicio).",
+        "Modelo de negocio y plan de inversión.",
+        "Solvencia fiscal (SENIAT).",
+    ],
+    postal: [
+        "Copia del Registro Mercantil de la empresa.",
+        "Copia del RIF vigente.",
+        "Descripción detallada de los servicios postales a ofrecer (mensajería, encomienda, etc.).",
+        "Prueba de capacidad logística y operativa.",
+        "Comprobante de pago de las tasas correspondientes.",
+    ]
+}
 
 const getModelos = () => {
     const fecha = formatDate(new Date());
@@ -115,22 +139,30 @@ export default function CartasConatelPage() {
     const modelos = getModelos();
 
     const handleAction = (organismo: keyof typeof modelos, action: 'imprimir' | 'descargar') => {
-        const { contenido } = modelos[organismo];
+        const { titulo, contenido } = modelos[organismo];
+        const filename = `${titulo.replace(/ /g, '_')}.docx`;
+
         if (action === 'imprimir') {
             const printWindow = window.open('', '_blank');
-            printWindow?.document.write(`<pre>${contenido}</pre>`);
+            printWindow?.document.write(`<html><head><title>${titulo}</title></head><body><pre>${contenido}</pre></body></html>`);
             printWindow?.document.close();
+            printWindow?.focus();
             printWindow?.print();
             toast({ title: "Impresión Iniciada", description: `El modelo de carta ha sido enviado a la impresora.` });
         } else {
-            const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `${modelos[organismo].titulo.replace(/ /g, '_')}.txt`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            toast({ title: "Descarga Iniciada", description: `El modelo de carta se está descargando como un archivo de texto.` });
+            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+            const footer = "</body></html>";
+            const sourceHTML = header + `<div style="font-family: Arial, sans-serif;">${contenido.replace(/\n/g, '<br/>')}</div>` + footer;
+            
+            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            const fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = filename;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+
+            toast({ title: "Descarga Iniciada", description: `El modelo de carta se está descargando como ${filename}.` });
         }
     };
 
@@ -166,15 +198,32 @@ export default function CartasConatelPage() {
                                     {modelo.contenido}
                                 </pre>
                             </CardContent>
-                            <CardFooter className="flex justify-end gap-2">
+                             <CardFooter className="flex justify-end gap-2">
                                 <Button variant="outline" onClick={() => handleAction(key as keyof typeof modelos, 'imprimir')}>
                                     <Printer className="mr-2" /> Imprimir
                                 </Button>
                                 <Button onClick={() => handleAction(key as keyof typeof modelos, 'descargar')}>
-                                    <Download className="mr-2" /> Descargar (.txt)
+                                    <Download className="mr-2" /> Descargar (.docx)
                                 </Button>
                             </CardFooter>
                         </Card>
+
+                        <Card className="mt-8 bg-card/80 backdrop-blur-sm">
+                          <CardHeader>
+                            <CardTitle>Requisitos Clave (Recaudos)</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                             <ul className="space-y-3">
+                                {(requisitos[key as keyof typeof requisitos] || []).map((req, index) => (
+                                    <li key={index} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg">
+                                        <CheckCircle className="h-5 w-5 text-green-500 mt-1 shrink-0" />
+                                        <span>{req}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                          </CardContent>
+                        </Card>
+
                     </TabsContent>
                 ))}
             </Tabs>
