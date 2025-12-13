@@ -16,7 +16,6 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 
-
 type Solicitud = {
     id: string;
     organismo: string;
@@ -33,14 +32,7 @@ const initialSolicitudes: Solicitud[] = [
     { id: "AP-2024-001", organismo: "Consulado de España en Caracas", fecha: "2024-07-15", estado: "Generado", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
     { id: "AP-2024-002", organismo: "Embajada de Canadá", fecha: "2024-06-20", estado: "Generado", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
     { id: "AP-2024-003", organismo: "Trámite de Visa para EE.UU.", fecha: "2024-07-20", estado: "En Proceso", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
-    {
-        id: "AP-2024-004",
-        fecha: "2024-07-22",
-        organismo: "Universidad Central de Venezuela",
-        estado: "Rechazado",
-        motivoRechazo: "Falta copia de la cédula de identidad a color.",
-        solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" }
-    },
+    { id: "AP-2024-004", fecha: "2024-07-22", organismo: "Universidad Central de Venezuela", estado: "Rechazado", motivoRechazo: "Falta copia de la cédula de identidad a color.", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
 ];
 
 export default function AntecedentesPenalesPage() {
@@ -51,77 +43,31 @@ export default function AntecedentesPenalesPage() {
     const [selectedSolicitud, setSelectedSolicitud] = useState<Solicitud | null>(null);
     const { toast } = useToast();
 
-    const getCertificateContent = (solicitud: Solicitud | null): string => {
-        if (!solicitud) return "";
-        const fechaEmision = new Date(solicitud.fecha);
-        return `
-            <div style="font-family: 'Times New Roman', Times, serif; font-size: 11px; line-height: 1.5; padding: 2cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black; box-sizing: border-box; position: relative;">
-                
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <p style="margin: 0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Escudo_de_la_República_Bolivariana_de_Venezuela.svg/80px-Escudo_de_la_República_Bolivariana_de_Venezuela.svg.png" alt="Escudo de Venezuela" style="height: 50px; margin: 10px 0;">
-                    <p style="margin: 2px 0; font-weight: bold;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
-                    <p style="margin: 2px 0; font-weight: bold;">DESPACHO DEL VICEMINISTERIO DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
-                    <p style="margin: 2px 0; font-weight: bold;">DIRECCIÓN GENERAL DE JUSTICIA, INSTITUCIONES RELIGIOSAS Y CULTOS</p>
-                    <p style="margin: 2px 0; font-weight: bold;">COORDINACIÓN DE ANTECEDENTES PENALES</p>
-                </div>
-                
-                <h1 style="text-align: center; font-size: 14px; font-weight: bold; margin: 40px 0;">CERTIFICACIÓN DE ANTECEDENTES PENALES</h1>
-                
-                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 0; pointer-events: none;">
-                    <img src="https://i.imgur.com/8Y4YvV3.png" alt="Sello de agua" style="opacity: 0.15; transform: rotate(-30deg); max-width: 80%;">
-                </div>
-
-                <div style="text-align: justify; position: relative; z-index: 1;">
-                    <p>En mi carácter de Viceministra de Política Interior y Seguridad Jurídica del Ministerio del Poder Popular para Relaciones Interiores, Justicia y Paz, de conformidad con lo establecido en el Decreto N° 4.294 de fecha 11 de septiembre de 2020, publicado en la Gaceta Oficial de la República Bolivariana de Venezuela N° 6.574 Extraordinario de la misma fecha, y en cumplimiento de lo previsto en el artículo 28 de la Ley Orgánica de Identificación, publicada en Gaceta Oficial de la República Bolivariana de Venezuela N° 38.459 de fecha 15 de junio de 2006; CERTIFICO, que una vez consultada la base de datos del Sistema de Información Policial (SIPOL) y del Sistema de Investigación e Información Policial (SIIPOL), el ciudadano(a):</p>
-                    <br/>
-                    <p style="text-align: center; font-size: 14px; font-weight: bold;">${solicitud.solicitante.nombre.toUpperCase()}</p>
-                    <p style="text-align: center; font-size: 12px;">C.I: ${solicitud.solicitante.cedula}</p>
-                    <br/>
-                    <p style="text-align: center; font-weight: bold; font-size: 12px;">NO POSEE REGISTROS DE ANTECEDENTES PENALES</p>
-                    <br/>
-                    <p>El presente certificado se emite a efectos de ser presentado ante las autoridades de: <strong>${solicitud.organismo.toUpperCase()}</strong>.</p>
-                    <p>Código de Validación: ${solicitud.id.replace(/-/g, '')}${new Date(solicitud.fecha).getTime().toString().slice(-4)}</p>
-                    <br/>
-                    <p>Certificación que se expide en la ciudad de Caracas, a los ${fechaEmision.getDate()} días del mes de ${fechaEmision.toLocaleString('es-ES', { month: 'long' })} del año ${fechaEmision.getFullYear()}.</p>
-                </div>
-                
-                <div style="position: absolute; bottom: 80px; width: calc(100% - 4cm); z-index: 1;">
-                     <div style="text-align: center; margin-bottom: 20px;">
-                        <img src="https://i.imgur.com/xO9yZ4w.png" alt="Firma Autorizada" style="height: 60px; margin-bottom: -10px;">
-                        <p style="margin: 0; font-weight: bold; font-size: 11px;">ALANA, VANESKA ZULOAGA RUIZ</p>
-                        <p style="margin: 0; font-weight: bold; font-size: 10px;">VICEMINISTRA DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
-                        <p style="margin: 0; font-size: 9px;">Designada según Decreto N° 4.294 de fecha 11 de Septiembre de 2020,</p>
-                        <p style="margin: 0; font-size: 9px;">Publicado en Gaceta Oficial de la República Bolivariana de Venezuela</p>
-                        <p style="margin: 0; font-size: 9px;">N° 6.574 Extraordinario en la misma fecha.</p>
-                    </div>
-                    <div style="text-align: justify; font-size: 8px; border-top: 1px solid #ccc; padding-top: 5px;">
-                         <strong>Atención:</strong> Este documento consta de una (1) hoja, el cual no debe contener enmiendas, tachaduras, modificaciones o superposiciones. Los datos de identificación del solicitante son suministrados por el Servicio Administrativo de Identificación, Migración y Extranjería (SAIME). La autenticidad de este certificado lo puede verificar a través del portal www.mpprijp.gob.ve con el Nro. de Certificado o escaneando el código QR.
-                    </div>
-                </div>
-            </div>
-        `;
-    };
-
-    const handleAction = (solicitud: Solicitud | null) => {
-        if (!solicitud) return;
-        const content = getCertificateContent(solicitud);
+    const handlePrint = () => {
         const printWindow = window.open('', '_blank');
         if (printWindow) {
-            printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title></head><body style="margin:0;">');
-            printWindow.document.write(content);
+            printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title><style>body { margin: 0; } img { width: 100%; }</style></head><body>');
+            printWindow.document.write('<img src="/images/Certificado-Antecedentes-Penales-Oficial.png" />');
             printWindow.document.write('</body></html>');
             printWindow.document.close();
             printWindow.focus();
-            
             setTimeout(() => { 
                 printWindow.print();
-                toast({
-                    title: "Impresión/Descarga",
-                    description: `Selecciona 'Guardar como PDF' para descargar o elige tu impresora.`,
-                });
             }, 500);
         }
+    };
+
+    const handleDownload = () => {
+        const link = document.createElement('a');
+        link.href = '/images/Certificado-Antecedentes-Penales-Oficial.png';
+        link.download = 'Certificado_Antecedentes_Penales.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast({
+            title: "Descarga Iniciada",
+            description: "El certificado de antecedentes penales se está descargando."
+        });
     };
     
     const handleCreate = (e: React.FormEvent) => {
@@ -179,17 +125,6 @@ export default function AntecedentesPenalesPage() {
 
     return (
         <div className="space-y-8">
-             <style>
-                {`
-                    @media print {
-                        body * { visibility: hidden; }
-                        #printable-content, #printable-content * { visibility: visible; }
-                        #printable-content { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
-                    }
-                `}
-            </style>
-            <div id="printable-content" className="hidden print:block" dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
-
             <header className="mb-8">
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <Shield className="h-8 w-8"/>
@@ -206,17 +141,21 @@ export default function AntecedentesPenalesPage() {
                         <Button variant="outline" onClick={handleNewRequest}>
                             <PlusCircle className="mr-2"/> Realizar Nueva Solicitud
                         </Button>
-                        <Button variant="outline" onClick={() => handleAction(selectedSolicitud)}>
+                        <Button variant="outline" onClick={handlePrint}>
                             <Printer className="mr-2"/> Imprimir
                         </Button>
-                        <Button onClick={() => handleAction(selectedSolicitud)}>
-                            <Download className="mr-2"/> Descargar PDF
+                        <Button onClick={handleDownload}>
+                            <Download className="mr-2"/> Descargar PNG
                         </Button>
                     </div>
-                     <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl">
-                        <div className="scale-[0.8] origin-top">
-                           <div dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
-                        </div>
+                     <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl overflow-hidden">
+                        <Image 
+                            src="/images/Certificado-Antecedentes-Penales-Oficial.png" 
+                            alt="Certificado de Antecedentes Penales" 
+                            width={1200} 
+                            height={1697} 
+                            layout="responsive"
+                        />
                     </Card>
                 </div>
             ) : (
@@ -336,7 +275,7 @@ export default function AntecedentesPenalesPage() {
                                         </Dialog>
 
                                         {solicitud.estado === 'Generado' && (
-                                             <Button variant="ghost" size="icon" onClick={() => handleAction(solicitud)}>
+                                             <Button variant="ghost" size="icon" onClick={() => { setStatus('success'); setSelectedSolicitud(solicitud); }}>
                                                 <Download className="h-4 w-4" />
                                             </Button>
                                         )}
@@ -350,5 +289,3 @@ export default function AntecedentesPenalesPage() {
         </div>
     );
 }
-
-    
