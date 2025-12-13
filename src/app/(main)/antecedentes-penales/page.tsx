@@ -45,49 +45,53 @@ export default function AntecedentesPenalesPage() {
 
     const getCertificateContent = (solicitud: Solicitud | null) => {
         if (!solicitud) return "";
-        const fechaEmision = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
-        
+        const fechaEmision = "13 de Julio del 2022";
+        const organismoSolicitante = "REINO DE ESPAÑA";
+
         return `
-            <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.5; max-width: 800px; margin: auto; padding: 2cm; border: 1px solid #ccc; position: relative; background: white; color: black;">
+            <div style="font-family: 'Times New Roman', Times, serif; font-size: 11px; line-height: 1.6; max-width: 800px; margin: auto; padding: 2cm; border: 1px solid #ccc; position: relative; background: white; color: black;">
                 
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.05; pointer-events: none; width: 400px; height: 400px;">
-                    <img src="/images/seal-sample.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Sello de Agua"/>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.08; pointer-events: none; width: 500px; height: 500px;">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M42,48H6a2,2,0,0,1-2-2V30.5a1,1,0,0,1,1.5-.86l22,12.7a1,1,0,0,0,1,0l22-12.7a1,1,0,0,1,1.5.86V46A2,2,0,0,1,42,48ZM6,27.51V2H42V27.51l-18,10.39Z" fill="#e6e6e6"></path><path d="M2,24A1,1,0,0,1,1,23V2A1,1,0,0,1,2,1H46a1,1,0,0,1,1,1V23a1,1,0,0,1-1,1Z" fill="#ffce00"></path><path d: "M2,16H46a1,1,0,0,1,1,1V23a1,1,0,0,1-1,1H2a1,1,0,0,1-1-1V17A1,1,0,0,1,2,16Z" fill="#00247d"></path><path d="M2,8H46a1,1,0,0,1,1,1V23a1,1,0,0,1-1,1H2a1,1,0,0,1-1-1V9A1,1,0,0,1,2,8Z" fill="#cf142b"></path><path d="M11,18a3.5,3.5,0,1,1-3.5-3.5A3.5,3.5,0,0,1,11,18Zm-6,0A2.5,2.5,0,1,0,7.5,15.5,2.5,2.5,0,0,0,5,18Z" fill="#ffffff"></path><path d="M7.5,12.5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,1,0v1A.5.5,0,0,1,7.5,12.5Z" fill="#ffffff"></path><path d="M3.1,14.2a.5.5,0,0,1-.35-.15l-.71-.71a.5.5,0,0,1,.71-.71l.71.71a.5.5,0,0,1-.35.86Z" fill="#ffffff"></path><path d="M7.5,24.5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,1,0v1A.5.5,0,0,1,7.5,24.5Z" fill="#ffffff"></path><path d="M11.9,14.2a.5.5,0,0,1-.35-.86l.71-.71a.5.5,0,0,1,.71.71l-.71.71A.5.5,0,0,1,11.9,14.2Z" fill="#ffffff"></path><path d="M13,18.5H2a.5.5,0,0,1,0-1H13a.5.5,0,0,1,0,1Z" fill="#ffffff"></path><path d="M4,18.5H2a.5.5,0,0,1,0-1H4a.5.5,0,0,1,0,1Z" fill="#ffffff"></path><path d="M13,18.5H11a.5.5,0,0,1,0-1h2a.5.5,0,0,1,0,1Z" fill="#ffffff"></path></g></svg>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 1rem;">
-                    <p style="margin: 0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
-                    <p style="margin: 0; font-weight: bold; font-size: 10px;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
-                    <p style="margin: 0; font-size: 10px;">DESPACHO DEL VICEMINISTERIO DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
-                    <p style="margin: 0; font-size: 10px;">DIRECCIÓN GENERAL DE JUSTICIA, INSTITUCIONES RELIGIOSAS Y CULTOS</p>
-                    <p style="margin: 0; font-size: 10px;">COORDINACIÓN DE ANTECEDENTES PENALES</p>
+                    <p style="margin: 0; font-weight: bold; font-size: 10px;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                    <div style="margin: 1rem 0;">
+                        <img src="/images/escudo.png" alt="Escudo de Venezuela" style="width: 60px; height: auto; margin: auto;"/>
+                    </div>
+                    <p style="margin: 0; font-size: 10px; line-height: 1.2;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
+                    <p style="margin: 0; font-size: 10px; line-height: 1.2;">DESPACHO DEL VICEMINISTERIO DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
+                    <p style="margin: 0; font-size: 10px; line-height: 1.2;">DIRECCIÓN GENERAL DE JUSTICIA, INSTITUCIONES RELIGIOSAS Y CULTOS</p>
+                    <p style="margin: 0; font-size: 10px; line-height: 1.2;">COORDINACIÓN DE ANTECEDENTES PENALES</p>
                 </div>
                 
-                <h1 style="text-align: center; font-size: 14px; font-weight: bold; margin: 2rem 0;">CERTIFICACIÓN DE ANTECEDENTES PENALES</h1>
+                <h1 style="text-align: center; font-size: 13px; font-weight: bold; margin: 2rem 0;">CERTIFICACIÓN DE ANTECEDENTES PENALES</h1>
                 
-                <p style="text-align: justify; text-indent: 2em; margin-bottom: 1rem;">
-                    Quien suscribe, ALANA VANESKA ZULOAGA RUIZ, Viceministra de Política Interior y Seguridad Jurídica, designada según Decreto N° 4.294 de fecha 11 de Septiembre de 2020, publicado en la Gaceta Oficial de la República Bolivariana de Venezuela N° 6.574 Extraordinario de esa misma fecha, en uso de las atribuciones conferidas en el Artículo 28 de la Ley Orgánica de Identificación, en concordancia con lo establecido en el Artículo 7 del Decreto N° 2.857 de fecha 24 de abril de 2017, publicado en Gaceta Oficial de la República Bolivariana de Venezuela N° 41.138 de fecha 24 de abril de 2017, por medio del presente documento, certifica que, luego de realizada la consulta en la base de datos del Sistema de Información Policial (SIPOL) y del Sistema Integrado de Información Policial (SIIPOL) administrada por el Cuerpo de Investigaciones Científicas, Penales y Criminalísticas (CICPC), el ciudadano(a):
+                <p style="text-align: justify; margin-bottom: 1rem;">
+                    En nombre del Ciudadano Ministro del Poder Popular para Relaciones Interiores, Justicia y Paz, la Dirección General de Justicia, Instituciones Religiosas y Cultos, en ejercicio de sus funciones y cumpliendo la Ley de Registro de Antecedentes Penales, publicada en la Gaceta Oficial de la República de Venezuela (hoy República Bolivariana de Venezuela) Nro. 31.791, de fecha 03 de agosto de 1979, a solicitud de parte interesada expide, certificado de antecedentes penales al ciudadano (a):
                 </p>
 
-                <p style="text-align: center; font-size: 14px; font-weight: bold; margin: 2rem 0;">
+                <p style="text-align: center; font-size: 14px; font-weight: bold; margin: 1.5rem 0;">
                     ${solicitud.solicitante.nombre.toUpperCase()}
                     <br/>
                     CI: ${solicitud.solicitante.cedula}
                 </p>
 
-                <p style="text-align: center; font-weight: bold; margin-bottom: 1rem;">
-                    NO REGISTRA ANTECEDENTES PENALES, SEGÚN DATOS APORTADOS POR EL SISTEMA DE INFORMACIÓN POLICIAL (SIPOL) Y EL SISTEMA INTEGRADO DE INFORMACIÓN POLICIAL (SIIPOL).
+                <p style="text-align: justify; margin-bottom: 1rem;">
+                    Se constata, luego de revisada la base de datos de la Oficina de Antecedentes Penales y hasta la emisión del presente documento, que el referido ciudadano(a) **NO REGISTRA ANTECEDENTES PENALES EN LA REPÚBLICA BOLIVARIANA DE VENEZUELA**.
                 </p>
 
                 <div style="text-align: center; margin: 2rem 0;">
-                    <p style="margin:0;">* * * * * * * * * * * *</p>
+                    <p style="margin:0; letter-spacing: 5px;">* * * * * * *</p>
                 </div>
                 
                 <p style="text-align: justify; margin-bottom: 1rem;">
-                    El presente certificado se emite a efectos de ser presentado ante las autoridades de <strong>${solicitud.organismo.toUpperCase()}</strong>.
+                    El presente certificado se emite a efectos de ser presentado ante las autoridades de **${organismoSolicitante}**.
                 </p>
-                
+
                 <p style="text-align: justify;">
-                    Certificación que se expide en la ciudad de Caracas, a la fecha de su generación.
+                    Certificación que se expide en la ciudad de Caracas, el ${fechaEmision}.
                 </p>
                 
                 <div style="position: relative; text-align: center; margin-top: 4rem;">
@@ -95,19 +99,19 @@ export default function AntecedentesPenalesPage() {
                         <img src="/images/sign-sample.png" alt="Firma" style="width: 150px; height: auto;"/>
                     </div>
                     <p style="margin: 0; font-weight: bold; font-size: 11px;">ALANA VANESKA ZULOAGA RUIZ</p>
-                    <p style="margin: 0; font-weight: bold; font-size: 10px;">VICEMINISTRA DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
+                    <p style="margin: 0; font-size: 10px;">VICEMINISTRA DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
                     <p style="margin: 0; font-size: 9px;">Designada según Decreto N° 4.294 de fecha 11 de Septiembre de 2020,</p>
                     <p style="margin: 0; font-size: 9px;">Publicado en Gaceta Oficial de la República Bolivariana de Venezuela</p>
                     <p style="margin: 0; font-size: 9px;">N° 6.574 Extraordinario en la misma fecha.</p>
                 </div>
                 
                 <div style="margin-top: 3rem; font-size: 8px; text-align: justify; border-top: 1px solid #ccc; padding-top: 0.5rem;">
-                    <strong>Atención:</strong> Este documento consta de una (1) hoja, el cual no debe contener enmiendas, tachaduras, modificaciones o superposiciones. Los datos de identificación del solicitante son suministrados por el Servicio Administrativo de Identificación, Migración y Extranjería (SAIME). La autenticidad de este certificado lo puede verificar a través del portal www.mpprijp.gob.ve con el Nro ******** o escaneando el código QR.
+                    <strong>Atención:</strong> Este documento consta de una (1) hoja, el cual no debe contener enmiendas, tachaduras, modificaciones o superposiciones. Los datos de identificación del solicitante son suministrados por el Servicio Administrativo de Identificación, Migración y Extranjería (SAIME). La autenticidad de este certificado lo puede verificar a través del portal www.mpprijp.gob.ve con el Nro. ******** o escaneando el código QR.
                 </div>
             </div>
       `;
     };
-
+    
     const handleAction = (solicitud: Solicitud, action: 'print' | 'download') => {
         const content = getCertificateContent(solicitud);
         const printWindow = window.open('', '_blank');
@@ -117,12 +121,19 @@ export default function AntecedentesPenalesPage() {
             printWindow.focus();
             setTimeout(() => { 
                 printWindow.print();
-                printWindow.close();
+                if (action === 'print') {
+                    printWindow.close();
+                }
             }, 500);
             if(action === 'download') {
                 toast({
                     title: "Preparando Descarga",
                     description: "Se ha abierto el diálogo de impresión. Por favor, selecciona 'Guardar como PDF' para descargar el documento."
+                });
+            } else {
+                 toast({
+                    title: "Imprimiendo...",
+                    description: "El certificado se está enviando a la impresora."
                 });
             }
         }
@@ -197,9 +208,14 @@ export default function AntecedentesPenalesPage() {
                             left: 0;
                             top: 0;
                             width: 100%;
-                            height: 100%;
+                            height: auto;
                             padding: 0;
                             margin: 0;
+                            border: none;
+                            box-shadow: none;
+                        }
+                         body {
+                            background-color: white !important;
                         }
                     }
                 `}
@@ -216,7 +232,7 @@ export default function AntecedentesPenalesPage() {
             </header>
             
             {status === 'success' && selectedSolicitud ? (
-                <div className="animate-in fade-in">
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="animate-in fade-in">
                     <div className="flex justify-end gap-2 mb-4">
                         <Button variant="outline" onClick={handleNewRequest}>
                             <PlusCircle className="mr-2"/> Realizar Nueva Solicitud
@@ -231,7 +247,7 @@ export default function AntecedentesPenalesPage() {
                      <Card className="max-w-4xl mx-auto shadow-2xl overflow-hidden printable-certificate" >
                          <CardContent className="p-0" dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
                     </Card>
-                </div>
+                </motion.div>
             ) : (
                 <Card className="max-w-3xl mx-auto">
                     <CardHeader>
@@ -349,7 +365,7 @@ export default function AntecedentesPenalesPage() {
                                         </Dialog>
 
                                         {solicitud.estado === 'Generado' && (
-                                             <Button variant="ghost" size="icon" onClick={() => { setStatus('success'); setSelectedSolicitud(solicitud); }}>
+                                             <Button variant="ghost" size="icon" onClick={() => { setStatus('success'); setSelectedSolicitud(solicitud); window.scrollTo({top: 0, behavior: 'smooth'}); }}>
                                                 <Download className="h-4 w-4" />
                                             </Button>
                                         )}
