@@ -49,14 +49,7 @@ export default function AntecedentesPenalesPage() {
             <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.5; max-width: 800px; margin: auto; padding: 2cm; border: 1px solid #ccc; position: relative; background: white; color: black;">
                 
                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.08; pointer-events: none; width: 400px; height: 400px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" style="width: 100%; height: 100%; object-fit: contain;">
-                        <!-- Simplified SVG of Venezuela's Coat of Arms -->
-                        <g fill="#A9A9A9">
-                            <path d="M500 100 L900 300 L900 700 L500 900 L100 700 L100 300 Z" fill-opacity="0.5"/>
-                            <path d="M500 150 L850 325 L850 675 L500 850 L150 675 L150 325 Z" stroke="white" stroke-width="5" fill="none"/>
-                            <text x="500" y="550" font-size="100" text-anchor="middle" font-weight="bold">R B V</text>
-                        </g>
-                    </svg>
+                    <img src="/images/seal-sample.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Sello de Agua"/>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 1rem;">
@@ -98,7 +91,6 @@ export default function AntecedentesPenalesPage() {
                 <div style="position: relative; text-align: center; margin-top: 4rem;">
                      <div style="display: inline-block; position: relative;">
                         <img src="/images/sign-sample.png" alt="Firma" style="width: 150px; height: auto;"/>
-                        <img src="/images/seal-sample.png" alt="Sello" style="position: absolute; top: -20px; left: -30px; width: 120px; height: auto; opacity: 0.8;"/>
                     </div>
                     <p style="margin: 0; font-weight: bold; font-size: 11px;">ALANA VANESKA ZULOAGA RUIZ</p>
                     <p style="margin: 0; font-weight: bold; font-size: 10px;">VICEMINISTRA DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
@@ -130,7 +122,7 @@ export default function AntecedentesPenalesPage() {
     };
 
     const handleDownload = (solicitud: Solicitud) => {
-        handlePrint(solicitud); // Re-utilizamos la función de impresión que permite "Guardar como PDF"
+        handlePrint(solicitud);
         toast({
             title: "Preparando Descarga",
             description: "Se ha abierto el diálogo de impresión. Por favor, selecciona 'Guardar como PDF' para descargar el documento."
@@ -198,10 +190,10 @@ export default function AntecedentesPenalesPage() {
                         body * {
                             visibility: hidden;
                         }
-                        #printable-certificate, #printable-certificate * {
+                        .printable-certificate, .printable-certificate * {
                             visibility: visible;
                         }
-                        #printable-certificate {
+                        .printable-certificate {
                             position: absolute;
                             left: 0;
                             top: 0;
@@ -235,12 +227,12 @@ export default function AntecedentesPenalesPage() {
                             <Download className="mr-2"/> Descargar PDF
                         </Button>
                     </div>
-                     <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl overflow-hidden" id="printable-certificate">
+                     <Card className="max-w-4xl mx-auto shadow-2xl overflow-hidden printable-certificate" >
                          <CardContent className="p-0" dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
                     </Card>
                 </div>
             ) : (
-                <Card className="max-w-3xl mx-auto bg-card/50 backdrop-blur-sm">
+                <Card className="max-w-3xl mx-auto">
                     <CardHeader>
                         <CardTitle>Nueva Solicitud de Certificado</CardTitle>
                     </CardHeader>
@@ -290,7 +282,7 @@ export default function AntecedentesPenalesPage() {
                                     Iniciar Solicitud
                                 </Button>
                             ) : (
-                                <Button type="button" variant="outline" className="w-full" onClick={handleNewRequest}>
+                                 <Button type="button" variant="outline" className="w-full" onClick={handleNewRequest}>
                                     <PlusCircle className="mr-2"/>
                                     Realizar Nueva Solicitud
                                 </Button>
@@ -300,7 +292,7 @@ export default function AntecedentesPenalesPage() {
                 </Card>
             )}
             
-            <Card className="mt-12 bg-card/50 backdrop-blur-sm print:hidden">
+            <Card className="mt-12 print:hidden">
                 <CardHeader>
                     <CardTitle>Historial de Solicitudes</CardTitle>
                     <CardDescription>Consulta el estado y descarga tus certificados anteriores.</CardDescription>
@@ -370,9 +362,5 @@ export default function AntecedentesPenalesPage() {
         </div>
     );
 }
-
-    
-
-    
 
     
