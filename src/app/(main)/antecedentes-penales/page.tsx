@@ -50,9 +50,9 @@ export default function AntecedentesPenalesPage() {
     const [motivo, setMotivo] = useState("");
     const { toast } = useToast();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleCreate = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!organismo || !motivo) {
+         if (!organismo || !motivo) {
              toast({
                 variant: "destructive",
                 title: "Faltan Datos",
@@ -97,51 +97,46 @@ export default function AntecedentesPenalesPage() {
 
     const getCertificateContent = (solicitud: Solicitud): string => {
     return `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6; padding: 2rem; border: 1px solid #ccc; width: 21cm; height: 29.7cm; margin: auto;">
-            <div style="text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px;">
-                <h2 style="margin: 0;">REPÚBLICA BOLIVARIANA DE VENEZUELA</h2>
-                <h3 style="margin: 5px 0;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</h3>
-                <h1 style="font-size: 20px; margin: 10px 0;">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</h1>
-            </div>
-            <div style="margin-top: 40px; text-align: justify;">
-                <p>El Director General de Registros y Archivos Penales, de conformidad con lo establecido en el artículo 28 de la Ley Orgánica de Identificación, certifica que el ciudadano(a):</p>
-                <br/>
-                <p style="text-align: center; font-size: 18px; font-weight: bold;">${solicitud.solicitante.nombre.toUpperCase()}</p>
-                <p style="text-align: center; font-size: 16px;">Titular de la Cédula de Identidad N° ${solicitud.solicitante.cedula}</p>
-                <br/>
-                <p>Una vez consultada la base de datos del Sistema de Información Policial (SIPOL) y el Sistema de Investigación e Información Policial (SIIPOL), se deja constancia de que, hasta la fecha de emisión de este certificado, <strong>NO POSEE REGISTROS DE ANTECEDENTES PENALES</strong>.</p>
-                <br/>
-                <p>Esta certificación se expide a solicitud de la parte interesada, para ser presentada ante el <strong>${solicitud.organismo}</strong>.</p>
-                <br/>
-                <p style="text-align: center;">Válido por noventa (90) días a partir de su emisión.</p>
-                <p style="text-align: center; font-size: 12px;">Fecha de Emisión: ${formatDate(solicitud.fecha)}</p>
-                <p style="text-align: center; font-size: 12px;">Código de Validación: ${solicitud.id}-VALID</p>
-            </div>
-             <div style="position: absolute; bottom: 50px; right: 50px;">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Certificado-Antecedentes-${solicitud.id}" alt="QR de Verificación"/>
-            </div>
-        </div>
+      <div style="font-family: 'Times New Roman', Times, serif; line-height: 1.8; padding: 2.5cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black;">
+          <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 15px;">
+              <p style="margin: 0; font-size: 14px; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+              <p style="margin: 5px 0; font-size: 16px; font-weight: bold;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
+              <h1 style="font-size: 18px; margin: 15px 0 5px 0;">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</h1>
+          </div>
+          <div style="margin-top: 50px; text-align: justify; font-size: 12pt;">
+              <p>El Director General de Registros y Archivos Penales, de conformidad con lo establecido en el artículo 28 de la Ley Orgánica de Identificación, certifica que el ciudadano(a):</p>
+              <br/>
+              <p style="text-align: center; font-size: 16px; font-weight: bold;">${solicitud.solicitante.nombre.toUpperCase()}</p>
+              <p style="text-align: center; font-size: 14px;">Titular de la Cédula de Identidad N° ${solicitud.solicitante.cedula}</p>
+              <br/>
+              <p>Una vez consultada la base de datos del Sistema de Información Policial (SIPOL) y el Sistema de Investigación e Información Policial (SIIPOL), se deja constancia de que, hasta la fecha de emisión de este certificado, <strong>NO POSEE REGISTROS DE ANTECEDENTES PENALES</strong>.</p>
+              <br/>
+              <p>Esta certificación se expide a solicitud de la parte interesada, para ser presentada ante el <strong>${solicitud.organismo}</strong>.</p>
+              <br/>
+              <p style="text-align: center;">Válido por noventa (90) días a partir de su emisión.</p>
+              <p style="text-align: center; font-size: 11px;">Fecha de Emisión: ${formatDate(solicitud.fecha)}</p>
+              <p style="text-align: center; font-size: 11px;">Código de Validación: ${solicitud.id}-VALID</p>
+          </div>
+           <div style="position: absolute; bottom: 50px; right: 50px;">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Certificado-Antecedentes-${solicitud.id}" alt="QR de Verificación"/>
+          </div>
+      </div>
     `;
     };
 
     const handleDownload = (solicitud: Solicitud) => {
         const content = getCertificateContent(solicitud);
-        const filename = `Certificado_Antecedentes_${solicitud.solicitante.nombre.replace(/ /g, '_')}.doc`;
-        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
-        const footer = "</body></html>";
-        const sourceHTML = header + content + footer;
-
-        const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-        const fileDownload = document.createElement("a");
-        document.body.appendChild(fileDownload);
-        fileDownload.href = source;
-        fileDownload.download = filename;
-        fileDownload.click();
-        document.body.removeChild(fileDownload);
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+            printWindow.document.write(content);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+        }
 
         toast({
-            title: "Descarga Iniciada",
-            description: `El certificado para ${solicitud.solicitante.nombre} se está descargando.`,
+            title: "Preparando Descarga/Impresión",
+            description: `Se ha abierto el diálogo de impresión para el certificado de ${solicitud.solicitante.nombre}. Selecciona 'Guardar como PDF' para descargar.`,
         });
     };
 
@@ -168,7 +163,7 @@ export default function AntecedentesPenalesPage() {
                 <CardHeader>
                     <CardTitle>Nueva Solicitud de Certificado</CardTitle>
                 </CardHeader>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleCreate}>
                     <CardContent className="space-y-6">
                         {status === 'idle' && (
                             <div className="space-y-4 animate-in fade-in">
