@@ -58,7 +58,7 @@ export default function RegistroRifPage() {
           Gestiona el RIF y las autorizaciones para que los menores puedan manejar instrumentos financieros, cumpliendo con las normativas de impuestos.
         </p>
       </header>
-      <Card className="w-full max-w-2xl mx-auto bg-card/50 backdrop-blur-sm">
+      <Card className="w-full max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle className="flex items-center gap-3">
              <div className="flex items-center gap-2">
@@ -135,7 +135,7 @@ export default function RegistroRifPage() {
         </CardFooter>
       </Card>
 
-       <Card className="w-full max-w-2xl mx-auto bg-card/50 backdrop-blur-sm mt-8">
+       <Card className="w-full max-w-2xl mx-auto mt-8">
         <CardHeader>
           <CardTitle>¿Quiénes deben tener RIF?</CardTitle>
           <CardDescription>

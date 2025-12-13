@@ -10,7 +10,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { formatDate } from "@/lib/utils";
 import { DocumentRequestTable, type Solicitud } from "@/components/document-request-table";
 
 const initialSolicitudes: Solicitud[] = [
@@ -187,7 +186,7 @@ export default function ActasMatrimonioPage() {
                 </DialogContent>
             </Dialog>
         </header>
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Mis Solicitudes</CardTitle>
           <CardDescription>Seguimiento de las solicitudes de actas de matrimonio.</CardDescription>

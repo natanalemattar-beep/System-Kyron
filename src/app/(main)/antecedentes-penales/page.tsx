@@ -45,10 +45,12 @@ export default function AntecedentesPenalesPage() {
 
     const getCertificateContent = (solicitud: Solicitud | null) => {
         if (!solicitud) return "";
+        const fechaEmision = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+        
         return `
             <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.5; max-width: 800px; margin: auto; padding: 2cm; border: 1px solid #ccc; position: relative; background: white; color: black;">
                 
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.08; pointer-events: none; width: 400px; height: 400px;">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.05; pointer-events: none; width: 400px; height: 400px;">
                     <img src="/images/seal-sample.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Sello de Agua"/>
                 </div>
 
@@ -69,11 +71,11 @@ export default function AntecedentesPenalesPage() {
                 <p style="text-align: center; font-size: 14px; font-weight: bold; margin: 2rem 0;">
                     ${solicitud.solicitante.nombre.toUpperCase()}
                     <br/>
-                    CI: V - ${solicitud.solicitante.cedula.replace('V-','')}
+                    CI: ${solicitud.solicitante.cedula}
                 </p>
 
                 <p style="text-align: center; font-weight: bold; margin-bottom: 1rem;">
-                    NO POSEE REGISTROS DE ANTECEDENTES PENALES.
+                    NO REGISTRA ANTECEDENTES PENALES, SEGÚN DATOS APORTADOS POR EL SISTEMA DE INFORMACIÓN POLICIAL (SIPOL) Y EL SISTEMA INTEGRADO DE INFORMACIÓN POLICIAL (SIIPOL).
                 </p>
 
                 <div style="text-align: center; margin: 2rem 0;">
@@ -85,7 +87,7 @@ export default function AntecedentesPenalesPage() {
                 </p>
                 
                 <p style="text-align: justify;">
-                    Certificación que se expide en la ciudad de Caracas, el 13 de Julio del 2022.
+                    Certificación que se expide en la ciudad de Caracas, a la fecha de su generación.
                 </p>
                 
                 <div style="position: relative; text-align: center; margin-top: 4rem;">
@@ -106,8 +108,7 @@ export default function AntecedentesPenalesPage() {
       `;
     };
 
-
-    const handlePrint = (solicitud: Solicitud) => {
+    const handleAction = (solicitud: Solicitud, action: 'print' | 'download') => {
         const content = getCertificateContent(solicitud);
         const printWindow = window.open('', '_blank');
         if (printWindow) {
@@ -118,15 +119,13 @@ export default function AntecedentesPenalesPage() {
                 printWindow.print();
                 printWindow.close();
             }, 500);
+            if(action === 'download') {
+                toast({
+                    title: "Preparando Descarga",
+                    description: "Se ha abierto el diálogo de impresión. Por favor, selecciona 'Guardar como PDF' para descargar el documento."
+                });
+            }
         }
-    };
-
-    const handleDownload = (solicitud: Solicitud) => {
-        handlePrint(solicitud);
-        toast({
-            title: "Preparando Descarga",
-            description: "Se ha abierto el diálogo de impresión. Por favor, selecciona 'Guardar como PDF' para descargar el documento."
-        });
     };
     
     const handleCreate = (e: React.FormEvent) => {
@@ -199,6 +198,8 @@ export default function AntecedentesPenalesPage() {
                             top: 0;
                             width: 100%;
                             height: 100%;
+                            padding: 0;
+                            margin: 0;
                         }
                     }
                 `}
@@ -220,10 +221,10 @@ export default function AntecedentesPenalesPage() {
                         <Button variant="outline" onClick={handleNewRequest}>
                             <PlusCircle className="mr-2"/> Realizar Nueva Solicitud
                         </Button>
-                        <Button variant="outline" onClick={() => handlePrint(selectedSolicitud)}>
+                        <Button variant="outline" onClick={() => handleAction(selectedSolicitud, 'print')}>
                             <Printer className="mr-2"/> Imprimir
                         </Button>
-                        <Button onClick={() => handleDownload(selectedSolicitud)}>
+                        <Button onClick={() => handleAction(selectedSolicitud, 'download')}>
                             <Download className="mr-2"/> Descargar PDF
                         </Button>
                     </div>
@@ -362,5 +363,3 @@ export default function AntecedentesPenalesPage() {
         </div>
     );
 }
-
-    

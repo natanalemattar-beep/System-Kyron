@@ -36,7 +36,7 @@ export default function ManutencionPage() {
         </p>
       </header>
       
-      <Card className="bg-card/50 backdrop-blur-sm">
+      <Card>
         <CardHeader>
             <CardTitle>¿Qué es la Obligación de Manutención?</CardTitle>
         </CardHeader>
@@ -52,7 +52,7 @@ export default function ManutencionPage() {
       </Card>
 
        <Accordion type="single" collapsible className="w-full space-y-4">
-            <AccordionItem value="casos-especiales" className="bg-card/50 backdrop-blur-sm border rounded-lg px-4">
+            <AccordionItem value="casos-especiales" className="border rounded-lg px-4">
                 <AccordionTrigger>
                     <div className="flex items-center gap-3">
                         <HelpCircle className="h-5 w-5 text-primary" />
@@ -69,7 +69,7 @@ export default function ManutencionPage() {
                 </AccordionContent>
             </AccordionItem>
             
-            <AccordionItem value="subsidiarios" className="bg-card/50 backdrop-blur-sm border rounded-lg px-4">
+            <AccordionItem value="subsidiarios" className="border rounded-lg px-4">
                 <AccordionTrigger>
                     <div className="flex items-center gap-3">
                         <Users className="h-5 w-5 text-primary" />
@@ -91,7 +91,7 @@ export default function ManutencionPage() {
                 </AccordionContent>
             </AccordionItem>
 
-             <AccordionItem value="duracion" className="bg-card/50 backdrop-blur-sm border rounded-lg px-4">
+             <AccordionItem value="duracion" className="border rounded-lg px-4">
                 <AccordionTrigger>
                     <div className="flex items-center gap-3">
                         <HelpCircle className="h-5 w-5 text-primary" />
@@ -107,7 +107,7 @@ export default function ManutencionPage() {
                 </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="incumplimiento" className="bg-card/50 backdrop-blur-sm border rounded-lg px-4">
+            <AccordionItem value="incumplimiento" className="border rounded-lg px-4">
                 <AccordionTrigger>
                     <div className="flex items-center gap-3">
                         <UserX className="h-5 w-5 text-destructive" />
@@ -120,7 +120,7 @@ export default function ManutencionPage() {
             </AccordionItem>
         </Accordion>
 
-        <Card className="bg-card/50 backdrop-blur-sm">
+        <Card>
             <CardHeader>
                 <CardTitle>Determinación y Solicitud Judicial</CardTitle>
                 <CardDescription>Todo lo relativo a la fijación, ofrecimiento y revisión del monto debe ser decidido por vía judicial.</CardDescription>

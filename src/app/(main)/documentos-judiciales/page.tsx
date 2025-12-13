@@ -54,7 +54,7 @@ const getDocumentoJudicialContent = (doc: Solicitud) => `
         <div style="text-align: center; margin-bottom: 2cm;">
             <p style="margin:0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
             <p style="margin:0; font-weight: bold;">PODER JUDICIAL</p>
-            <p style="margin:0;">${doc.detalles.tribunal.toUpperCase()}</p>
+            <p style="margin:0;">${doc.detalles.tribunal?.toUpperCase()}</p>
         </div>
         <h1 style="text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 2cm;">${doc.tipo.toUpperCase()}</h1>
         <p><strong>EXPEDIENTE N°:</strong> ${doc.nombres}</p>
@@ -121,7 +121,8 @@ export default function DocumentosJudicialesPage() {
 
     const filteredDocumentos = documentos.filter(d => {
         if (filter === "todos") return true;
-        return d.estado.toLowerCase() === filter;
+        const estadoNormalizado = d.estado.toLowerCase().replace(/\s+/g, '-');
+        return estadoNormalizado === filter;
     });
 
 
