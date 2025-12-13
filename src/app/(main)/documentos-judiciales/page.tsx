@@ -22,6 +22,11 @@ type Documento = {
   tipo: string;
   caso: string;
   estado: "Activo" | "Archivado";
+   detalles: {
+    tribunal: string;
+    sala?: string;
+    juez: string;
+  }
 };
 
 const documentos: Documento[] = [
@@ -31,6 +36,7 @@ const documentos: Documento[] = [
         tipo: "Sentencia Definitiva",
         caso: "Expediente N° 123-456",
         estado: "Archivado",
+        detalles: { tribunal: "Tribunal Supremo de Justicia", sala: "Sala de Casación Civil", juez: "Dr. Juan Mendoza" }
     },
     {
         id: "DJ-2024-002",
@@ -38,6 +44,7 @@ const documentos: Documento[] = [
         tipo: "Auto de Admisión",
         caso: "Expediente N° 789-012",
         estado: "Activo",
+        detalles: { tribunal: "Tribunal 15 de Primera Instancia en lo Civil", juez: "Dra. Ana Pérez" }
     },
     {
         id: "DJ-2024-003",
@@ -45,6 +52,7 @@ const documentos: Documento[] = [
         tipo: "Medida Cautelar",
         caso: "Expediente N° 345-678",
         estado: "Activo",
+        detalles: { tribunal: "Tribunal Superior 3ro en lo Contencioso", juez: "Dr. Carlos Gómez" }
     },
 ];
 
@@ -173,15 +181,19 @@ function DocumentsTable({ documentos, onDownload }: { documentos: Documento[], o
                                         <Eye className="h-4 w-4" />
                                     </Button>
                                 </DialogTrigger>
-                                <DialogContent>
+                                <DialogContent className="sm:max-w-md">
                                     <DialogHeader>
                                         <DialogTitle>Detalle del Documento: {doc.id}</DialogTitle>
+                                         <DialogDescription>
+                                            <span className="font-semibold">{doc.tipo}</span>
+                                        </DialogDescription>
                                     </DialogHeader>
-                                    <div className="py-4 space-y-2">
-                                        <p><strong>Tipo:</strong> {doc.tipo}</p>
-                                        <p><strong>Caso:</strong> {doc.caso}</p>
-                                        <p><strong>Fecha:</strong> {doc.fecha}</p>
-                                        <p><strong>Estado:</strong> {doc.estado}</p>
+                                    <div className="py-4 space-y-3 text-sm">
+                                         <div className="space-y-1"><p className="text-muted-foreground">Nº de Caso/Expediente</p><p>{doc.caso}</p></div>
+                                         <div className="space-y-1"><p className="text-muted-foreground">Tribunal</p><p>{doc.detalles.tribunal}</p></div>
+                                         {doc.detalles.sala && <div className="space-y-1"><p className="text-muted-foreground">Sala</p><p>{doc.detalles.sala}</p></div>}
+                                         <div className="space-y-1"><p className="text-muted-foreground">Juez</p><p>{doc.detalles.juez}</p></div>
+                                         <div className="space-y-1"><p className="text-muted-foreground">Fecha</p><p>{doc.fecha}</p></div>
                                         <div className="flex justify-center pt-4">
                                             <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=doc-judicial-${doc.id}`} alt={`QR for ${doc.id}`} width={100} height={100} />
                                         </div>

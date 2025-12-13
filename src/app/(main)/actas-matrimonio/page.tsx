@@ -22,6 +22,13 @@ type Solicitud = {
   nombres: string;
   estado: "Aprobado" | "En Proceso" | "Rechazado";
   motivoRechazo?: string;
+  detalles: {
+    acta: string;
+    folio: string;
+    tomo: string;
+    registro: string;
+    ano: number;
+  }
 };
 
 const solicitudes: Solicitud[] = [
@@ -30,25 +37,29 @@ const solicitudes: Solicitud[] = [
         fecha: "15/07/2024",
         nombres: "Ana Sofía Pérez y Carlos Gómez",
         estado: "Aprobado",
+        detalles: { acta: "1024", folio: "215", tomo: "3-A", registro: "Parroquia San Juan, Municipio Libertador, D.C.", ano: 2018 }
     },
     {
         id: "SOL-2024-002",
         fecha: "18/07/2024",
         nombres: "Luis Alberto Gómez y Ana García",
         estado: "En Proceso",
+        detalles: { acta: "550", folio: "112", tomo: "1-B", registro: "Parroquia Candelaria, Municipio Libertador, D.C.", ano: 2020 }
     },
     {
         id: "SOL-2024-003",
         fecha: "12/07/2024",
         nombres: "Marta Sánchez y Jorge Diaz",
         estado: "Rechazado",
-        motivoRechazo: "Número de acta inconsistente. Verifique el número y la fecha del matrimonio."
+        motivoRechazo: "Número de acta inconsistente. Verifique el número y la fecha del matrimonio.",
+        detalles: { acta: "987", folio: "45", tomo: "2-C", registro: "Parroquia El Recreo, Municipio Libertador, D.C.", ano: 2015 }
     },
      {
         id: "SOL-2024-004",
         fecha: "20/07/2024",
         nombres: "Laura Méndez y Pedro Alfonzo",
         estado: "En Proceso",
+        detalles: { acta: "123", folio: "88", tomo: "4-A", registro: "Parroquia Sucre, Municipio Libertador, D.C.", ano: 2022 }
     },
 ];
 
@@ -116,9 +127,15 @@ export default function ActasMatrimonioPage() {
                             <Label htmlFor="conyuge2">Nombre Completo Cónyuge 2</Label>
                             <Input id="conyuge2" placeholder="Ej: Carlos Gómez" />
                         </div>
-                        <div className="space-y-2">
-                             <Label htmlFor="fecha-matrimonio">Fecha del Matrimonio</Label>
-                            <Input id="fecha-matrimonio" type="date" />
+                        <div className="grid grid-cols-2 gap-4">
+                             <div className="space-y-2">
+                                 <Label htmlFor="fecha-matrimonio">Fecha del Matrimonio</Label>
+                                <Input id="fecha-matrimonio" type="date" />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="numero-acta">Número de Acta</Label>
+                                <Input id="numero-acta" placeholder="Ej: 1024" />
+                            </div>
                         </div>
                     </div>
                     <DialogFooter>
@@ -180,11 +197,14 @@ function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], 
                                         <Eye className="h-4 w-4" />
                                     </Button>
                                 </DialogTrigger>
-                                <DialogContent>
+                                <DialogContent className="sm:max-w-md">
                                     <DialogHeader>
                                         <DialogTitle>Detalle de la Solicitud: {solicitud.id}</DialogTitle>
+                                         <DialogDescription>
+                                            <span className="font-semibold">{solicitud.nombres}</span>
+                                        </DialogDescription>
                                     </DialogHeader>
-                                    <div className="py-4 space-y-2">
+                                    <div className="py-4 space-y-4">
                                         {solicitud.estado === 'Rechazado' && solicitud.motivoRechazo && (
                                             <Alert variant="destructive">
                                                 <AlertTriangle className="h-4 w-4" />
@@ -194,9 +214,15 @@ function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], 
                                                 </AlertDescription>
                                             </Alert>
                                         )}
-                                        <p><strong>Nombres:</strong> {solicitud.nombres}</p>
-                                        <p><strong>Fecha:</strong> {solicitud.fecha}</p>
-                                        <p><strong>Estado:</strong> {solicitud.estado}</p>
+                                        <div className="grid grid-cols-2 gap-4 text-sm">
+                                            <div className="space-y-1"><p className="text-muted-foreground">Estado</p><p><Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge></p></div>
+                                            <div className="space-y-1"><p className="text-muted-foreground">Fecha Solicitud</p><p>{solicitud.fecha}</p></div>
+                                            <div className="space-y-1"><p className="text-muted-foreground">Nº de Acta</p><p>{solicitud.detalles.acta}</p></div>
+                                            <div className="space-y-1"><p className="text-muted-foreground">Folio</p><p>{solicitud.detalles.folio}</p></div>
+                                            <div className="space-y-1"><p className="text-muted-foreground">Tomo</p><p>{solicitud.detalles.tomo}</p></div>
+                                            <div className="space-y-1"><p className="text-muted-foreground">Año</p><p>{solicitud.detalles.ano}</p></div>
+                                            <div className="col-span-2 space-y-1"><p className="text-muted-foreground">Registro Civil</p><p>{solicitud.detalles.registro}</p></div>
+                                        </div>
                                         <div className="flex justify-center pt-4">
                                             <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=acta-${solicitud.id}`} alt={`QR for ${solicitud.id}`} width={100} height={100} />
                                         </div>
