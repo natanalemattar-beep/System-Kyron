@@ -143,7 +143,7 @@ const getLetterContent = (permiso: Permiso | null): string => {
 
     const fechaActual = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
     const baseContent = `
-Ciudad, ${'fechaActual'}
+Ciudad, ${fechaActual}
 
 Señores
 ${permiso.emisor}
@@ -255,6 +255,7 @@ export default function PermisosPage() {
   const [selectedPermit, setSelectedPermit] = useState<Permiso | null>(null);
   const [isAlertConfigOpen, setIsAlertConfigOpen] = useState(false);
   const [alertEmail, setAlertEmail] = useState("maitehdez37@gmail.com");
+  const [alertPhone, setAlertPhone] = useState("+584121234567");
 
   const { toast } = useToast();
 
@@ -317,15 +318,21 @@ export default function PermisosPage() {
   };
 
   const handleSendNotification = (permiso: Permiso | null, isManual: boolean = false) => {
-    if(!permiso && !isManual) return;
+    let message = '';
+    if (isManual) {
+        message = `ALERTA DE CUMPLIMIENTO: Se ha detectado que existen permisos vencidos o por vencer. Por favor, revise el portal de gestión para tomar acción inmediata.`;
+    } else if (permiso) {
+        message = `ALERTA DE RENOVACIÓN: El permiso "${permiso.tipo}" (ID: ${permiso.id}) está próximo a vencer o ha vencido (${formatDate(permiso.fechaVencimiento)}). Se requiere acción inmediata.`;
+    } else {
+        return;
+    }
     
-    const description = isManual 
-        ? `Se ha enviado un correo a ${alertEmail} con los permisos vencidos y por vencer.`
-        : `Se ha enviado una alerta de renovación para el permiso "${permiso?.tipo}" a ${alertEmail}.`;
+    const whatsappUrl = `https://wa.me/${alertPhone}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
         
     toast({
-        title: `Notificación Enviada`,
-        description: description,
+        title: `Notificación de Alerta Enviada por WhatsApp`,
+        description: `Se ha enviado un mensaje al ${alertPhone}.`,
     });
     
     if(selectedPermit) setSelectedPermit(null);
@@ -370,7 +377,7 @@ C.I: [C.I. del Representante]
         "xmlns='http://www.w3.org/TR/REC-html40'>"+
         "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
     const footer = "</body></html>";
-    const sourceHTML = header + `<pre>${content}</pre>` + footer;
+    const sourceHTML = header + `<div style="font-family: Arial, sans-serif;">${content.replace(/\n/g, '<br/>')}</div>` + footer;
 
     const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
     const fileDownload = document.createElement("a");
@@ -427,6 +434,10 @@ C.I: [C.I. del Representante]
                             <Label htmlFor="alert-email">Correo para Notificaciones</Label>
                             <Input id="alert-email" type="email" value={alertEmail} onChange={(e) => setAlertEmail(e.target.value)} />
                         </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="alert-phone">Nro. WhatsApp para Alertas (+CódigoPaís)</Label>
+                            <Input id="alert-phone" type="tel" value={alertPhone} onChange={(e) => setAlertPhone(e.target.value)} placeholder="+584121234567" />
+                        </div>
                          <div className="space-y-2">
                             <Label htmlFor="alert-frequency">Frecuencia de Avisos</Label>
                             <Select defaultValue="weekly">
@@ -442,7 +453,7 @@ C.I: [C.I. del Representante]
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={() => {toast({title: "Configuración Guardada", description: `Las alertas se enviarán a ${alertEmail}.`}); setIsAlertConfigOpen(false);}}>
+                        <Button onClick={() => {toast({title: "Configuración Guardada", description: `Las alertas se enviarán a ${alertEmail} y ${alertPhone}.`}); setIsAlertConfigOpen(false);}}>
                             Guardar Configuración
                         </Button>
                     </DialogFooter>
@@ -459,9 +470,12 @@ C.I: [C.I. del Representante]
           <Alert variant="destructive" className="mb-8">
             <AlertTriangle className="h-4 w-4" />
             <AlertTitle>Alerta de Vencimiento</AlertTitle>
-            <AlertDescription>
-              Tienes {permisosPorVencer.length} permiso(s) vencido(s) o por vencer. Revisa la tabla para más detalles.
-              <Button size="sm" className="ml-4" onClick={() => handleSendNotification(null, true)}>Notificar a Administración</Button>
+            <AlertDescription className="flex justify-between items-center">
+              <span>Tienes {permisosPorVencer.length} permiso(s) vencido(s) o por vencer. Revisa la tabla para más detalles.</span>
+              <Button size="sm" variant="destructive" onClick={() => handleSendNotification(null, true)}>
+                <MessageSquare className="mr-2 h-4 w-4"/>
+                Notificar a Administración por WhatsApp
+              </Button>
             </AlertDescription>
           </Alert>
         )}
@@ -589,7 +603,7 @@ C.I: [C.I. del Representante]
                                                                         {getPlanillaResguardoTemporalContent()}
                                                                     </div>
                                                                     <div className="flex gap-2 mt-2">
-                                                                        <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(getPlanillaResguardoTemporalContent())}>Copiar</Button>
+                                                                        <Button size="sm" variant="outline" onClick={() => {navigator.clipboard.writeText(getPlanillaResguardoTemporalContent()); toast({title: "Copiado"})}}>Copiar</Button>
                                                                         <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'planilla_resguardo')}>Descargar (.docx)</Button>
                                                                     </div>
                                                                 </div>
@@ -601,37 +615,13 @@ C.I: [C.I. del Representante]
                                                                             {getLetterContent(selectedPermit)}
                                                                         </div>
                                                                         <div className="flex gap-2 mt-2">
-                                                                            <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(getLetterContent(selectedPermit))}>Copiar</Button>
+                                                                            <Button size="sm" variant="outline" onClick={() => {navigator.clipboard.writeText(getLetterContent(selectedPermit)); toast({title: "Copiado"})}}>Copiar</Button>
                                                                             <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'solicitud')}>Descargar (.docx)</Button>
                                                                         </div>
                                                                     </div>
                                                                     <div className="p-4 border rounded-lg">
                                                                         <h4 className="font-semibold mb-2">Modelo de Carta de Renovación</h4>
-                                                                        <div className="text-xs text-muted-foreground bg-secondary p-3 rounded-md font-mono h-48 overflow-auto whitespace-pre-wrap">
-                                                                            {`
-Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
-
-Señores
-${permiso.emisor}
-Presente.-
-
-Asunto: Solicitud de Renovación de Permiso - ${permiso.tipo}
-
-Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${permiso.tipo}", con referencia N° ${permiso.id}, próximo a vencer.
-
-Adjuntamos los recaudos correspondientes para la renovación.
-
-Atentamente,
-
-_________________________
-[Nombre del Representante Legal]
-C.I: [C.I. del Representante]
-                                                                            `}
-                                                                        </div>
-                                                                        <div className="flex gap-2 mt-2">
-                                                                            <Button size="sm" variant="outline">Copiar</Button>
-                                                                            <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'renovacion')}>Descargar (.docx)</Button>
-                                                                        </div>
+                                                                        <Button size="sm" variant="outline" onClick={() => handleDownloadLetter(selectedPermit, 'renovacion')}>Descargar (.docx)</Button>
                                                                     </div>
                                                                 </>
                                                             )}
@@ -711,27 +701,10 @@ C.I: [C.I. del Representante]
                                         </Dialog>
                                          )}
                                          {(permiso.estado === "Por Vencer" || permiso.estado === "Vencido") && (
-                                            <Dialog onOpenChange={() => setSelectedPermit(permiso)}>
-                                                <DialogTrigger asChild>
-                                                    <Button variant="outline" size="sm" className="text-orange-500 border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-600">
-                                                        Notificar
-                                                    </Button>
-                                                </DialogTrigger>
-                                                <DialogContent>
-                                                    <DialogHeader>
-                                                        <DialogTitle>Notificar Renovación</DialogTitle>
-                                                        <DialogDescription>
-                                                            Se enviará una alerta de renovación para el permiso <strong>{permiso.tipo}</strong> a {alertEmail}.
-                                                        </DialogDescription>
-                                                    </DialogHeader>
-                                                    <DialogFooter>
-                                                        <Button variant="outline" onClick={() => setSelectedPermit(null)}>Cancelar</Button>
-                                                        <Button onClick={() => handleSendNotification(permiso)}>
-                                                            <Send className="mr-2"/> Enviar Notificación
-                                                        </Button>
-                                                    </DialogFooter>
-                                                </DialogContent>
-                                            </Dialog>
+                                            <Button variant="outline" size="sm" className="text-orange-500 border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-600" onClick={() => handleSendNotification(permiso)}>
+                                                <MessageSquare className="mr-2 h-4 w-4"/>
+                                                Notificar por WhatsApp
+                                            </Button>
                                         )}
                                     </TableCell>
                                 </TableRow>
@@ -748,4 +721,3 @@ C.I: [C.I. del Representante]
   );
 }
 
-    
