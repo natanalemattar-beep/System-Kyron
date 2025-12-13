@@ -185,20 +185,27 @@ const ModuleOrb = memo(({ module, onMouseEnter, onMouseLeave, isMobile }: { modu
         },
         onMouseEnter: onMouseEnter,
         onMouseLeave: onMouseLeave,
-        whileHover: { scale: 1.1, boxShadow: '0 0 25px hsl(var(--primary) / 0.5)' },
-        transition: { type: "spring", stiffness: 400, damping: 15 }
     };
     
     const content = (
-        <div className="flex items-center gap-2 text-center">
+        <motion.div
+            className="flex items-center gap-2 text-center w-full h-full justify-center"
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+        >
             <module.icon className="h-4 w-4 text-primary shrink-0" />
             <p className="text-xs font-semibold text-foreground leading-tight">{module.name}</p>
-        </div>
+        </motion.div>
     );
 
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            {children}
+            <motion.div
+                 whileHover={{ boxShadow: '0 0 25px hsl(var(--primary) / 0.5)' }}
+                 className="rounded-full"
+            >
+             {children}
+            </motion.div>
         </div>
     );
 
@@ -377,7 +384,7 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent"></div>
             </div>
             
-            <div className="relative w-full h-full grid place-items-center">
+            <div className="relative grid w-full h-full place-items-center">
                 <div className="absolute inset-0 border-2 border-dashed border-primary/20 rounded-full animate-spin [animation-duration:40s] [animation-direction:reverse]"></div>
                 <div className="absolute w-[90%] h-[90%] border border-dashed border-primary/20 rounded-full animate-spin [animation-duration:30s]"></div>
                 
