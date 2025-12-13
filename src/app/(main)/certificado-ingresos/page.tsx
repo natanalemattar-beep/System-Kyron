@@ -60,13 +60,11 @@ export default function CertificadoIngresosPage() {
             });
             return;
         }
+        window.print();
         toast({
             title: `Certificado ${action}`,
-            description: `El certificado de ingresos ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado en formato PDF'}.`,
+            description: `El certificado de ingresos ha sido ${action === 'impreso' ? 'enviado a la impresora' : 'descargado como PDF'}.`,
         });
-         if (action === 'impreso') {
-            window.print();
-        }
     };
     
     const selectedEmployee = empleados.find(e => e.id === Number(selectedEmployeeId));
@@ -76,6 +74,24 @@ export default function CertificadoIngresosPage() {
 
   return (
     <div className="p-4 md:p-8">
+       <style>
+            {`
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+                    #printable-content, #printable-content * {
+                        visibility: visible;
+                    }
+                    #printable-content {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                    }
+                }
+            `}
+        </style>
       <header className="mb-8 flex flex-col md:flex-row items-center justify-between gap-4 print:hidden">
         <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
@@ -103,71 +119,73 @@ export default function CertificadoIngresosPage() {
         </div>
       </header>
 
-      <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
-        <CardHeader className="text-center p-8">
-            <CardTitle className="text-2xl">CERTIFICACIÓN DE INGRESOS</CardTitle>
-            <CardDescription>
-                (Elaborada de acuerdo con la Norma Internacional de Servicios Relacionados 4400, "Trabajos para realizar procedimientos previamente convenidos sobre información financiera")
-            </CardDescription>
-        </CardHeader>
-        <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify space-y-6">
-            <div>
-                <p className="font-semibold">Ciudad de Caracas, {formatDate(new Date())}</p>
-                <p className="font-semibold">A quien pueda interesar,</p>
-            </div>
-            <p>
-                Yo, <strong>{contador.nombre}</strong>, actuando en mi carácter de Contador Público Colegiado de la República Bolivariana de Venezuela, inscrito en el Colegio de Contadores Públicos del Distrito Capital bajo el N° <strong>{contador.cpc}</strong>, por medio de la presente certifico que he revisado los libros de contabilidad de la empresa <strong>Empresa, C.A.</strong> (RIF: J-12345678-9).
-            </p>
-            <p>
-                De acuerdo con la revisión de los registros contables y recibos de pago de nómina, se pudo constatar que el(la) ciudadano(a) <strong>{selectedEmployee?.nombre || "[Seleccione un empleado]"}</strong>, titular de la Cédula de Identidad <strong>{selectedEmployee?.cedula || "[N/A]"}</strong>, ha percibido durante los últimos seis (6) meses los ingresos que se detallan a continuación:
-            </p>
+      <div id="printable-content">
+        <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
+            <CardHeader className="text-center p-8">
+                <CardTitle className="text-2xl">CERTIFICACIÓN DE INGRESOS</CardTitle>
+                <CardDescription>
+                    (Elaborada de acuerdo con la Norma Internacional de Servicios Relacionados 4400, "Trabajos para realizar procedimientos previamente convenidos sobre información financiera")
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify space-y-6">
+                <div>
+                    <p className="font-semibold">Ciudad de Caracas, {formatDate(new Date())}</p>
+                    <p className="font-semibold">A quien pueda interesar,</p>
+                </div>
+                <p>
+                    Yo, <strong>{contador.nombre}</strong>, actuando en mi carácter de Contador Público Colegiado de la República Bolivariana de Venezuela, inscrito en el Colegio de Contadores Públicos del Distrito Capital bajo el N° <strong>{contador.cpc}</strong>, por medio de la presente certifico que he revisado los libros de contabilidad de la empresa <strong>Empresa, C.A.</strong> (RIF: J-12345678-9).
+                </p>
+                <p>
+                    De acuerdo con la revisión de los registros contables y recibos de pago de nómina, se pudo constatar que el(la) ciudadano(a) <strong>{selectedEmployee?.nombre || "[Seleccione un empleado]"}</strong>, titular de la Cédula de Identidad <strong>{selectedEmployee?.cedula || "[N/A]"}</strong>, ha percibido durante los últimos seis (6) meses los ingresos que se detallan a continuación:
+                </p>
 
-             {selectedEmployeeId && ingresos.length > 0 ? (
-                <div className="not-prose">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Mes</TableHead>
-                                <TableHead className="text-right">Salario Básico</TableHead>
-                                <TableHead className="text-right">Bonificaciones</TableHead>
-                                <TableHead className="text-right">Total Ingreso Mensual</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {ingresos.map(item => (
-                                <TableRow key={item.mes}>
-                                    <TableCell className="font-medium">{item.mes}</TableCell>
-                                    <TableCell className="text-right">{formatCurrency(item.salario, 'Bs.')}</TableCell>
-                                    <TableCell className="text-right">{formatCurrency(item.bonos, 'Bs.')}</TableCell>
-                                    <TableCell className="text-right font-bold">{formatCurrency(item.total, 'Bs.')}</TableCell>
+                {selectedEmployeeId && ingresos.length > 0 ? (
+                    <div className="not-prose">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Mes</TableHead>
+                                    <TableHead className="text-right">Salario Básico</TableHead>
+                                    <TableHead className="text-right">Bonificaciones</TableHead>
+                                    <TableHead className="text-right">Total Ingreso Mensual</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                        <TableFooter>
-                            <TableRow>
-                                <TableCell colSpan={3} className="text-right font-bold text-lg">PROMEDIO MENSUAL DE INGRESOS:</TableCell>
-                                <TableCell className="text-right font-bold text-lg">{formatCurrency(promedioMensual, 'Bs.')}</TableCell>
-                            </TableRow>
-                        </TableFooter>
-                    </Table>
-                </div>
-            ) : (
-                 <div className="text-center text-muted-foreground p-8 border-dashed border-2 rounded-lg">
-                    <p>Seleccione un empleado para ver el detalle de sus ingresos.</p>
-                </div>
-            )}
-            
-            <p>
-                La presente certificación se expide a solicitud de la parte interesada, para fines que estime convenientes.
-            </p>
+                            </TableHeader>
+                            <TableBody>
+                                {ingresos.map(item => (
+                                    <TableRow key={item.mes}>
+                                        <TableCell className="font-medium">{item.mes}</TableCell>
+                                        <TableCell className="text-right">{formatCurrency(item.salario, 'Bs.')}</TableCell>
+                                        <TableCell className="text-right">{formatCurrency(item.bonos, 'Bs.')}</TableCell>
+                                        <TableCell className="text-right font-bold">{formatCurrency(item.total, 'Bs.')}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                            <TableFooter>
+                                <TableRow>
+                                    <TableCell colSpan={3} className="text-right font-bold text-lg">PROMEDIO MENSUAL DE INGRESOS:</TableCell>
+                                    <TableCell className="text-right font-bold text-lg">{formatCurrency(promedioMensual, 'Bs.')}</TableCell>
+                                </TableRow>
+                            </TableFooter>
+                        </Table>
+                    </div>
+                ) : (
+                    <div className="text-center text-muted-foreground p-8 border-dashed border-2 rounded-lg">
+                        <p>Seleccione un empleado para ver el detalle de sus ingresos.</p>
+                    </div>
+                )}
+                
+                <p>
+                    La presente certificación se expide a solicitud de la parte interesada, para fines que estime convenientes.
+                </p>
 
-            <div className="pt-24 text-center">
-                <p className="border-t-2 border-foreground inline-block px-12 pt-2">{contador.nombre}</p>
-                <p className="font-semibold mt-1">Contador Público Colegiado</p>
-                <p className="text-xs">C.P.C. {contador.cpc}</p>
-            </div>
-        </CardContent>
-      </Card>
+                <div className="pt-24 text-center">
+                    <p className="border-t-2 border-foreground inline-block px-12 pt-2">{contador.nombre}</p>
+                    <p className="font-semibold mt-1">Contador Público Colegiado</p>
+                    <p className="text-xs">C.P.C. {contador.cpc}</p>
+                </div>
+            </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

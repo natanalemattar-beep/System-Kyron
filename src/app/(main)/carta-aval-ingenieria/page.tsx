@@ -62,17 +62,66 @@ export default function CartaAvalIngenieriaPage() {
     };
 
     const handleAction = (action: string) => {
-        toast({
-            title: `Carta de Aval ${action}`,
-            description: `El documento ha sido ${action === 'impresa' ? 'enviado a la impresora' : 'descargado en formato PDF'}.`,
-        });
+        const content = `
+            <h1>CARTA DE AVAL DE PROYECTO DE INGENIERÍA</h1>
+            <p><strong>Fecha:</strong> ${formatDate(formData.fecha)}</p>
+            <p><strong>A quien pueda interesar,</strong></p>
+            <p>Por medio de la presente, yo, <strong>${formData.ingeniero}</strong>, Ingeniero [Especialidad], titular de la Cédula de Identidad N° [C.I. del Ingeniero] e inscrito en el Colegio de Ingenieros de Venezuela (C.I.V.) bajo el N° <strong>${formData.civ}</strong>, en pleno uso de mis facultades profesionales, certifico y doy fe de lo siguiente:</p>
+            <h3>1. OBJETO DEL AVAL</h3>
+            <p>He supervisado y revisado exhaustivamente el proyecto denominado "<strong>${formData.proyecto}</strong>", a ser ejecutado para nuestro cliente <strong>${formData.cliente}</strong>, ubicado en la siguiente dirección: <strong>${formData.direccion}</strong>.</p>
+            <h3>2. CUMPLIMIENTO TÉCNICO Y NORMATIVO</h3>
+            <p>El proyecto cumple a cabalidad con todas las normativas técnicas, códigos de construcción, leyes de ordenación urbanística y regulaciones de seguridad vigentes en la República Bolivariana de Venezuela aplicables a su naturaleza. Se han considerado todos los estándares de calidad y buenas prácticas de la ingeniería para garantizar su correcta ejecución, estabilidad y seguridad.</p>
+            <h3>3. CONCLUSIÓN</h3>
+            <p>En virtud de lo anteriormente expuesto, avalo técnicamente la viabilidad y correcta formulación del proyecto "<strong>${formData.proyecto}</strong>". Esta certificación se expide a solicitud de la parte interesada para los fines que estime convenientes.</p>
+            <div style="padding-top: 5rem; text-align: center;">
+                <p style="border-top: 1px solid black; display: inline-block; padding: 0.5rem 3rem;">Firma del Ingeniero</p>
+                <p>${formData.ingeniero}</p>
+                <p>C.I.V. N° ${formData.civ}</p>
+            </div>
+        `;
+        const filename = 'Carta_Aval_Ingenieria.doc';
+        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
+        const footer = "</body></html>";
+        const sourceHTML = header + `<div style="font-family: Arial, sans-serif;">${content.replace(/\n/g, '<br/>')}</div>` + footer;
+
         if (action === 'impresa') {
             window.print();
+        } else if (action === 'descargado') {
+            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            const fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = filename;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
         }
+
+        toast({
+            title: `Carta de Aval ${action}`,
+            description: `El documento ha sido ${action === 'impresa' ? 'enviado a la impresora' : 'descargado como .doc'}.`,
+        });
     };
 
   return (
     <div className="p-4 md:p-8">
+      <style>
+            {`
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+                    #printable-content, #printable-content * {
+                        visibility: visible;
+                    }
+                    #printable-content {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                    }
+                }
+            `}
+        </style>
       <header className="mb-8 flex items-center justify-between print:hidden">
         <div>
             <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
@@ -88,7 +137,7 @@ export default function CartaAvalIngenieriaPage() {
                 <Printer className="mr-2"/> Imprimir
             </Button>
             <Button onClick={() => handleAction('descargado')}>
-                <Download className="mr-2"/> Descargar PDF
+                <Download className="mr-2"/> Descargar (.doc)
             </Button>
         </div>
       </header>
@@ -124,52 +173,54 @@ export default function CartaAvalIngenieriaPage() {
                 </CardContent>
             </Card>
         </div>
-        <div className="lg:col-span-2">
-            <Card className="bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
-                <CardHeader className="text-center p-8">
-                    <CardTitle className="text-2xl">CARTA DE AVAL DE PROYECTO DE INGENIERÍA</CardTitle>
-                </CardHeader>
-                <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
-                    <p>
-                        <strong>Fecha:</strong> {formatDate(formData.fecha)}
-                    </p>
-                    <p>
-                        <strong>A quien pueda interesar,</strong>
-                    </p>
-                    <p>
-                        Por medio de la presente, yo, <strong>{formData.ingeniero}</strong>, Ingeniero [Especialidad], titular de la Cédula de Identidad N° [C.I. del Ingeniero] e inscrito en el Colegio de Ingenieros de Venezuela (C.I.V.) bajo el N° <strong>{formData.civ}</strong>, en pleno uso de mis facultades profesionales, certifico y doy fe de lo siguiente:
-                    </p>
+        <div id="printable-content" className="lg:col-span-2">
+            <div className="oficio-document">
+                <Card className="bg-card/90 backdrop-blur-sm shadow-xl print:shadow-none print:border-none print:bg-white dark:print:bg-black">
+                    <CardHeader className="text-center p-8">
+                        <CardTitle className="text-2xl">CARTA DE AVAL DE PROYECTO DE INGENIERÍA</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
+                        <p>
+                            <strong>Fecha:</strong> {formatDate(formData.fecha)}
+                        </p>
+                        <p>
+                            <strong>A quien pueda interesar,</strong>
+                        </p>
+                        <p>
+                            Por medio de la presente, yo, <strong>{formData.ingeniero}</strong>, Ingeniero [Especialidad], titular de la Cédula de Identidad N° [C.I. del Ingeniero] e inscrito en el Colegio de Ingenieros de Venezuela (C.I.V.) bajo el N° <strong>{formData.civ}</strong>, en pleno uso de mis facultades profesionales, certifico y doy fe de lo siguiente:
+                        </p>
 
-                    <h4>1. OBJETO DEL AVAL</h4>
-                    <p>
-                        He supervisado y revisado exhaustivamente el proyecto denominado "<strong>{formData.proyecto}</strong>", a ser ejecutado para nuestro cliente <strong>{formData.cliente}</strong>, ubicado en la siguiente dirección: <strong>{formData.direccion}</strong>.
-                    </p>
+                        <h4>1. OBJETO DEL AVAL</h4>
+                        <p>
+                            He supervisado y revisado exhaustivamente el proyecto denominado "<strong>{formData.proyecto}</strong>", a ser ejecutado para nuestro cliente <strong>{formData.cliente}</strong>, ubicado en la siguiente dirección: <strong>{formData.direccion}</strong>.
+                        </p>
 
-                    <h4>2. CUMPLIMIENTO TÉCNICO Y NORMATIVO</h4>
-                    <p>
-                        El proyecto cumple a cabalidad con todas las normativas técnicas, códigos de construcción, leyes de ordenación urbanística y regulaciones de seguridad vigentes en la República Bolivariana de Venezuela aplicables a su naturaleza. Se han considerado todos los estándares de calidad y buenas prácticas de la ingeniería para garantizar su correcta ejecución, estabilidad y seguridad.
-                    </p>
-                    
-                    <h4>3. CONCLUSIÓN</h4>
-                    <p>
-                       En virtud de lo anteriormente expuesto, avalo técnicamente la viabilidad y correcta formulación del proyecto "<strong>{formData.proyecto}</strong>". Esta certificación se expide a solicitud de la parte interesada para los fines que estime convenientes.
-                    </p>
+                        <h4>2. CUMPLIMIENTO TÉCNICO Y NORMATIVO</h4>
+                        <p>
+                            El proyecto cumple a cabalidad con todas las normativas técnicas, códigos de construcción, leyes de ordenación urbanística y regulaciones de seguridad vigentes en la República Bolivariana de Venezuela aplicables a su naturaleza. Se han considerado todos los estándares de calidad y buenas prácticas de la ingeniería para garantizar su correcta ejecución, estabilidad y seguridad.
+                        </p>
+                        
+                        <h4>3. CONCLUSIÓN</h4>
+                        <p>
+                           En virtud de lo anteriormente expuesto, avalo técnicamente la viabilidad y correcta formulación del proyecto "<strong>{formData.proyecto}</strong>". Esta certificación se expide a solicitud de la parte interesada para los fines que estime convenientes.
+                        </p>
 
-                    <div className="pt-24 text-center">
-                        <p className="border-t-2 border-foreground inline-block px-12 pt-2">Firma del Ingeniero</p>
-                        <p className="font-semibold mt-1">{formData.ingeniero}</p>
-                        <p className="text-xs">C.I.V. N° {formData.civ}</p>
-                    </div>
+                        <div className="pt-24 text-center">
+                            <p className="border-t-2 border-foreground inline-block px-12 pt-2">Firma del Ingeniero</p>
+                            <p className="font-semibold mt-1">{formData.ingeniero}</p>
+                            <p className="text-xs">C.I.V. N° {formData.civ}</p>
+                        </div>
 
-                </CardContent>
-                 <CardFooter className="p-6 justify-center border-t print:hidden">
-                    <p className="text-xs text-muted-foreground">Este documento es un modelo. Debe ser firmado por un profesional colegiado para tener validez.</p>
-                </CardFooter>
-            </Card>
+                    </CardContent>
+                    <CardFooter className="p-6 justify-center border-t print:hidden">
+                        <p className="text-xs text-muted-foreground">Este documento es un modelo. Debe ser firmado por un profesional colegiado para tener validez.</p>
+                    </CardFooter>
+                </Card>
+            </div>
         </div>
       </div>
       
-       <section className="mt-12">
+       <section className="mt-12 print:hidden">
             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Guía de Permisos por Tipo de Comercio</CardTitle>

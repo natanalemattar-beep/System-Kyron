@@ -46,7 +46,7 @@ export default function LicenciaSoftwarePage() {
         const filename = 'Contrato_Licencia_Software.doc';
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
         const footer = "</body></html>";
-        const sourceHTML = header + `<div class="oficio-document">${content}</div>` + footer;
+        const sourceHTML = header + `<div class="oficio-document">${content.replace(/\n/g, '<br/>')}</div>` + footer;
 
         if (action === 'impreso') {
             const printWindow = window.open('', '_blank');

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -48,11 +49,11 @@ export default function ModeloPresupuestoPage() {
     }
 
     const handleDownload = () => {
+        window.print();
         toast({
             title: `Presupuesto ${presupuesto.numero} descargado`,
             description: `El documento se ha guardado como PDF.`,
         });
-         // Logic to generate and download PDF would go here
     }
 
   return (

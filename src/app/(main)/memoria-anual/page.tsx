@@ -84,6 +84,24 @@ export default function MemoriaAnualPage() {
 
   return (
     <div>
+        <style>
+            {`
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+                    #printable-content, #printable-content * {
+                        visibility: visible;
+                    }
+                    #printable-content {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                    }
+                }
+            `}
+        </style>
         <header className="mb-8 flex items-center justify-between print:hidden">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Memoria Anual</h1>
@@ -98,7 +116,7 @@ export default function MemoriaAnualPage() {
         </header>
 
          {/* A4-like container for printing */}
-        <div className="p-8 md:p-12 bg-white dark:bg-slate-950 shadow-lg rounded-lg print:shadow-none print:p-0">
+        <div id="printable-content" className="p-8 md:p-12 bg-white dark:bg-slate-950 shadow-lg rounded-lg print:shadow-none print:p-0">
 
             {/* Page 1: Cover */}
             <div className="h-[29.7cm] flex flex-col justify-between border-b-2 border-dashed print:border-none pb-12">
@@ -171,13 +189,13 @@ export default function MemoriaAnualPage() {
                     <CardContent>
                         <Table>
                             <TableBody>
-                                <TableRow><TableCell>Ingresos por Ventas</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.revenue, 'Bs.')}</TableCell></TableRow>
-                                <TableRow><TableCell>Costo de Ventas</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(incomeStatement.costOfSales), 'Bs.')})</TableCell></TableRow>
-                                <TableRow className="font-bold border-t"><TableCell>Ganancia Bruta</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.grossProfit, 'Bs.')}</TableCell></TableRow>
-                                <TableRow className="pt-4"><TableCell>Gastos Operativos</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(incomeStatement.operatingExpenses), 'Bs.')})</TableCell></TableRow>
-                                <TableRow className="font-bold"><TableCell>Ganancia en Operaciones</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.operatingIncome, 'Bs.')}</TableCell></TableRow>
-                                <TableRow><TableCell>Impuesto Sobre la Renta</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(incomeStatement.incomeTax), 'Bs.')})</TableCell></TableRow>
-                                <TableRow className="font-bold border-t text-xl text-primary"><TableCell>Utilidad Neta del Ejercicio</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.netIncome, 'Bs.')}</TableCell></TableRow>
+                                <TableRow><TableCell>Ingresos por Ventas</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.revenue)}</TableCell></TableRow>
+                                <TableRow><TableCell>Costo de Ventas</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(incomeStatement.costOfSales))})</TableCell></TableRow>
+                                <TableRow className="font-bold border-t"><TableCell>Ganancia Bruta</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.grossProfit)}</TableCell></TableRow>
+                                <TableRow className="pt-4"><TableCell>Gastos Operativos</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(incomeStatement.operatingExpenses))})</TableCell></TableRow>
+                                <TableRow className="font-bold"><TableCell>Ganancia en Operaciones</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.operatingIncome)}</TableCell></TableRow>
+                                <TableRow><TableCell>Impuesto Sobre la Renta</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(incomeStatement.incomeTax))})</TableCell></TableRow>
+                                <TableRow className="font-bold border-t text-xl text-primary"><TableCell>Utilidad Neta del Ejercicio</TableCell><TableCell className="text-right">{formatCurrency(incomeStatement.netIncome)}</TableCell></TableRow>
                             </TableBody>
                         </Table>
                     </CardContent>
@@ -192,22 +210,22 @@ export default function MemoriaAnualPage() {
                         <Table>
                             <TableBody>
                                 <TableRow><TableCell className="font-semibold">Flujo de Efectivo de Actividades Operativas</TableCell><TableCell></TableCell></TableRow>
-                                <TableRow><TableCell className="pl-8 text-muted-foreground">Utilidad Neta</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.netIncome, 'Bs.')}</TableCell></TableRow>
-                                <TableRow><TableCell className="pl-8 text-muted-foreground">Depreciación</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.depreciation, 'Bs.')}</TableCell></TableRow>
-                                <TableRow><TableCell className="pl-8 text-muted-foreground">Cambios en Cuentas por Cobrar/Pagar</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.changeInAccountsReceivable + cashFlowStatement.operatingActivities.changeInAccountsPayable, 'Bs.')}</TableCell></TableRow>
-                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Operaciones</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.netCash, 'Bs.')}</TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Utilidad Neta</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.netIncome)}</TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Depreciación</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.depreciation)}</TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Cambios en Cuentas por Cobrar/Pagar</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.changeInAccountsReceivable + cashFlowStatement.operatingActivities.changeInAccountsPayable)}</TableCell></TableRow>
+                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Operaciones</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.operatingActivities.netCash)}</TableCell></TableRow>
                                 
                                 <TableRow><TableCell className="font-semibold pt-4">Flujo de Efectivo de Actividades de Inversión</TableCell><TableCell></TableCell></TableRow>
-                                <TableRow><TableCell className="pl-8 text-muted-foreground">Compra de Equipo</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.investingActivities.purchaseOfEquipment), 'Bs.')})</TableCell></TableRow>
-                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Inversiones</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.investingActivities.netCash), 'Bs.')})</TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Compra de Equipo</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.investingActivities.purchaseOfEquipment))})</TableCell></TableRow>
+                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Inversiones</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.investingActivities.netCash))})</TableCell></TableRow>
                                 
                                 <TableRow><TableCell className="font-semibold pt-4">Flujo de Efectivo de Actividades de Financiación</TableCell><TableCell></TableCell></TableRow>
-                                <TableRow><TableCell className="pl-8 text-muted-foreground">Pago de Préstamos</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.financingActivities.loanRepayment), 'Bs.')})</TableCell></TableRow>
-                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Financiación</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.financingActivities.netCash), 'Bs.')})</TableCell></TableRow>
+                                <TableRow><TableCell className="pl-8 text-muted-foreground">Pago de Préstamos</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.financingActivities.loanRepayment))})</TableCell></TableRow>
+                                <TableRow className="font-medium border-t"><TableCell className="pl-4">Efectivo Neto de Financiación</TableCell><TableCell className="text-right">({formatCurrency(Math.abs(cashFlowStatement.financingActivities.netCash))})</TableCell></TableRow>
 
-                                <TableRow><TableCell className="font-bold pt-4">Aumento Neto de Efectivo</TableCell><TableCell className="text-right font-bold pt-4">{formatCurrency(cashFlowStatement.netIncrease, 'Bs.')}</TableCell></TableRow>
-                                <TableRow><TableCell className="text-muted-foreground">Efectivo al Inicio del Período</TableCell><TableCell className="text-right text-muted-foreground">{formatCurrency(cashFlowStatement.cashAtBeginning, 'Bs.')}</TableCell></TableRow>
-                                <TableRow className="font-bold text-lg border-t text-primary"><TableCell>Efectivo al Final del Período</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.cashAtEnd, 'Bs.')}</TableCell></TableRow>
+                                <TableRow><TableCell className="font-bold pt-4">Aumento Neto de Efectivo</TableCell><TableCell className="text-right font-bold pt-4">{formatCurrency(cashFlowStatement.netIncrease)}</TableCell></TableRow>
+                                <TableRow><TableCell className="text-muted-foreground">Efectivo al Inicio del Período</TableCell><TableCell className="text-right text-muted-foreground">{formatCurrency(cashFlowStatement.cashAtBeginning)}</TableCell></TableRow>
+                                <TableRow className="font-bold text-lg border-t text-primary"><TableCell>Efectivo al Final del Período</TableCell><TableCell className="text-right">{formatCurrency(cashFlowStatement.cashAtEnd)}</TableCell></TableRow>
                             </TableBody>
                         </Table>
                     </CardContent>

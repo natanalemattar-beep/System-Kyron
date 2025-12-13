@@ -105,7 +105,7 @@ export default function ManualUsuarioPage() {
         <h3>Proceso de Importación</h3>
         <ol>
             <li><strong>Verificación del Proveedor:</strong> Encuentra y negocia con un proveedor confiable.</li>
-            <li><strong>Consolidación de Carga:</strong> Agrupa mercancía de varios proveedores.</li>
+            <li><strong>Consolidación de Carga:</strong> Agrupa mercancía de varios proveedores en un solo envío.</li>
             <li><strong>Embarque y Transporte:</strong> La carga se envía y se emite el Bill of Lading (BL).</li>
             <li><strong>Gestión Aduanal:</strong> Nuestros agentes se encargan de la nacionalización.</li>
             <li><strong>Entrega Final:</strong> Se transporta la mercancía liberada a tu negocio.</li>
@@ -116,13 +116,26 @@ export default function ManualUsuarioPage() {
         const content = getManualContent();
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
         const footer = "</body></html>";
-        const sourceHTML = header + content + footer;
+        const sourceHTML = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset='utf-8'>
+                <title>Manual de Usuario - Kyron</title>
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; }
+                    h1, h2, h3 { color: #333; }
+                    ul, ol { margin-left: 20px; }
+                </style>
+            </head>
+            <body>${content}</body>
+            </html>`;
 
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Manual_Kyron.doc';
+        fileDownload.download = 'Manual_Usuario_Kyron.doc';
         fileDownload.click();
         document.body.removeChild(fileDownload);
 

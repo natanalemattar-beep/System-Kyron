@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -64,11 +65,11 @@ export default function ModeloFacturaPage() {
     }
 
     const handleDownload = () => {
+        window.print();
         toast({
             title: `Factura ${factura.numero} descargada`,
-            description: "La factura ha sido descargada en formato PDF.",
+            description: "La factura ha sido guardada como PDF.",
         });
-        // Logic to generate and download PDF would go here
     }
 
   return (
