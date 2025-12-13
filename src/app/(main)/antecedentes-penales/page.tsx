@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle, Shield, Download, FileText, PlusCircle, Eye, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -128,10 +128,15 @@ export default function AntecedentesPenalesPage() {
         const content = getCertificateContent(solicitud);
         const printWindow = window.open('', '_blank');
         if (printWindow) {
+            printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title></head><body>');
             printWindow.document.write(content);
+            printWindow.document.write('</body></html>');
             printWindow.document.close();
             printWindow.focus();
-            printWindow.print();
+            
+            setTimeout(() => { // Timeout to ensure content is loaded
+                 printWindow.print();
+            }, 500);
         }
 
         toast({
