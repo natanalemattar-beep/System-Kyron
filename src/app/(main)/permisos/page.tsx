@@ -21,6 +21,7 @@ import {
     Route,
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import Image from "next/image";
 
 
 const initialPermisos = [
@@ -317,23 +318,35 @@ export default function PermisosPage() {
       form.reset();
   };
 
-  const handleSendNotification = (permiso: Permiso | null, isManual: boolean = false) => {
+  const handleSendNotification = (permiso: Permiso | null, channel: 'whatsapp' | 'email', isManual: boolean = false) => {
     let message = '';
+    let subject = '';
+
     if (isManual) {
         message = `ALERTA DE CUMPLIMIENTO: Se ha detectado que existen permisos vencidos o por vencer. Por favor, revise el portal de gestión para tomar acción inmediata.`;
+        subject = 'Alerta de Cumplimiento Urgente: Permisos por Vencer';
     } else if (permiso) {
         message = `ALERTA DE RENOVACIÓN: El permiso "${permiso.tipo}" (ID: ${permiso.id}) está próximo a vencer o ha vencido (${formatDate(permiso.fechaVencimiento)}). Se requiere acción inmediata.`;
+        subject = `Alerta de Renovación: Permiso ${permiso.id} - ${permiso.tipo}`;
     } else {
         return;
     }
     
-    const whatsappUrl = `https://wa.me/${alertPhone}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-        
-    toast({
-        title: `Notificación de Alerta Enviada por WhatsApp`,
-        description: `Se ha enviado un mensaje al ${alertPhone}.`,
-    });
+    if (channel === 'whatsapp') {
+        const whatsappUrl = `https://wa.me/${alertPhone}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        toast({
+            title: `Notificación Enviada por WhatsApp`,
+            description: `Se ha enviado un mensaje al ${alertPhone}.`,
+        });
+    } else {
+        const mailtoUrl = `mailto:${alertEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        window.location.href = mailtoUrl;
+        toast({
+            title: `Notificación Enviada por Correo`,
+            description: `Se ha abierto el cliente de correo para enviar la alerta a ${alertEmail}.`,
+        });
+    }
     
     if(selectedPermit) setSelectedPermit(null);
   };
@@ -470,12 +483,18 @@ C.I: [C.I. del Representante]
           <Alert variant="destructive" className="mb-8">
             <AlertTriangle className="h-4 w-4" />
             <AlertTitle>Alerta de Vencimiento</AlertTitle>
-            <AlertDescription className="flex justify-between items-center">
-              <span>Tienes {permisosPorVencer.length} permiso(s) vencido(s) o por vencer. Revisa la tabla para más detalles.</span>
-              <Button size="sm" variant="destructive" onClick={() => handleSendNotification(null, true)}>
-                <MessageSquare className="mr-2 h-4 w-4"/>
-                Notificar a Administración por WhatsApp
-              </Button>
+            <AlertDescription className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+              <span>Tienes {permisosPorVencer.length} permiso(s) vencido(s) o por vencer. Revisa la tabla.</span>
+              <div className="flex gap-2 mt-2 sm:mt-0">
+                <Button size="sm" variant="destructive" onClick={() => handleSendNotification(null, 'whatsapp', true)}>
+                    <MessageSquare className="mr-2 h-4 w-4"/>
+                    Notificar por WhatsApp
+                </Button>
+                 <Button size="sm" variant="destructive" onClick={() => handleSendNotification(null, 'email', true)}>
+                    <Mail className="mr-2 h-4 w-4"/>
+                    Notificar por Email
+                </Button>
+              </div>
             </AlertDescription>
           </Alert>
         )}
@@ -686,9 +705,9 @@ C.I: [C.I. del Representante]
                                                     </TabsContent>
                                                 </Tabs>
                                                 <DialogFooter className="gap-2 sm:gap-0 sm:justify-between pt-4 border-t">
-                                                    <Button variant="secondary">
+                                                    <Button variant="secondary" onClick={() => handleDownloadLetter(selectedPermit, 'solicitud')}>
                                                         <Download className="mr-2 h-4 w-4" />
-                                                        Descargar Permiso
+                                                        Descargar Solicitud
                                                     </Button>
                                                     {(permiso.estado === "Por Vencer" || permiso.estado === "Vencido") && (
                                                         <Button onClick={() => handleRenew(permiso.id)}>
@@ -701,10 +720,16 @@ C.I: [C.I. del Representante]
                                         </Dialog>
                                          )}
                                          {(permiso.estado === "Por Vencer" || permiso.estado === "Vencido") && (
-                                            <Button variant="outline" size="sm" className="text-orange-500 border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-600" onClick={() => handleSendNotification(permiso)}>
-                                                <MessageSquare className="mr-2 h-4 w-4"/>
-                                                Notificar por WhatsApp
-                                            </Button>
+                                            <>
+                                                <Button variant="outline" size="sm" className="text-orange-500 border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-600" onClick={() => handleSendNotification(permiso, 'whatsapp')}>
+                                                    <MessageSquare className="mr-2 h-4 w-4"/>
+                                                    WhatsApp
+                                                </Button>
+                                                <Button variant="outline" size="sm" className="text-orange-500 border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-600" onClick={() => handleSendNotification(permiso, 'email')}>
+                                                    <Mail className="mr-2 h-4 w-4"/>
+                                                    Email
+                                                </Button>
+                                            </>
                                         )}
                                     </TableCell>
                                 </TableRow>
@@ -721,3 +746,4 @@ C.I: [C.I. del Representante]
   );
 }
 
+    
