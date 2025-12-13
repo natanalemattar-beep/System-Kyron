@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -252,6 +252,13 @@ export default function LandingPage() {
     const isMobile = useIsMobile();
     const radius = isMobile ? 150 : 300;
 
+    const heroRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: heroRef,
+        offset: ["start start", "end start"],
+    });
+    const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
@@ -324,7 +331,7 @@ export default function LandingPage() {
                   <SheetTrigger asChild>
                       <Button variant="ghost" size="icon" className="md:hidden">
                           <Menu />
-                          <span className="sr-only">Abrir menú</span>
+                          <span className="sr-only">Abrir Menú</span>
                       </Button>
                   </SheetTrigger>
                   <SheetContent side="left" className="flex flex-col">
@@ -378,8 +385,8 @@ export default function LandingPage() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden">
-             <div className="flex flex-col items-center justify-center min-h-screen pt-24 pb-12">
+        <section ref={heroRef} className="relative h-screen overflow-hidden">
+            <motion.div style={{ opacity }} className="sticky top-0 flex flex-col items-center justify-center min-h-screen pt-24 pb-12">
             
             {/* Background elements */}
             <div className="absolute inset-0 -z-10">
@@ -453,7 +460,7 @@ export default function LandingPage() {
                     <ChevronDown className="w-8 h-8 text-muted-foreground" />
                 </motion.div>
             </motion.div>
-          </div>
+          </motion.div>
         </section>
 
         {/* Services Section */}
