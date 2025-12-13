@@ -20,7 +20,24 @@ const registros = [
 export default function LibroHorasDiurnasPage() {
     const { toast } = useToast();
 
-    const handleExport = () => {
+    const handleExportCSV = () => {
+        const headers = ["Empleado", "Fecha", "Horas Diurnas", "Observación"];
+        const csvContent = [
+            headers.join(","),
+            ...registros.map(r => [`"${r.empleado}"`, r.fecha, r.horas, `"${r.observacion}"`].join(","))
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "libro_horas_diurnas.csv");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
         toast({
         title: "Reporte Exportado",
         description: "El libro de horas diurnas ha sido exportado.",
@@ -48,9 +65,9 @@ export default function LibroHorasDiurnasPage() {
                 </p>
             </div>
              <div className="flex gap-2">
-                <Button variant="outline" onClick={handleExport}>
+                <Button variant="outline" onClick={handleExportCSV}>
                     <Download className="mr-2" />
-                    Exportar
+                    Exportar a Excel
                 </Button>
                  <Dialog>
                     <DialogTrigger asChild>

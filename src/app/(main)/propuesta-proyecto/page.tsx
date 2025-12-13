@@ -60,6 +60,11 @@ export default function PropuestaProyectoPage() {
             <head>
                 <meta charset='utf-8'>
                 <title>Export HTML to Word</title>
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; }
+                    h1, h2, h3, h4 { color: #333; }
+                    ul { list-style-type: disc; margin-left: 20px; }
+                </style>
             </head>
             <body>${content}</body>
             </html>`;

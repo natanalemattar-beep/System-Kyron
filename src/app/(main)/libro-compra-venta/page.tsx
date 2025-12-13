@@ -1,11 +1,14 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Landmark, PlusCircle, QrCode } from "lucide-react";
+import { Landmark, PlusCircle, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
 
 const registros = [
     { id: 1, fecha: "15/07/2024", tipo: "Compra", proveedor: "OficinaTech C.A.", rif: "J-12345678-9", nroFactura: "F-2024-00123", base: 1200, iva: 192, total: 1392 },
@@ -14,6 +17,32 @@ const registros = [
 ];
 
 export default function LibroCompraVentaPage() {
+    const { toast } = useToast();
+
+    const handleExportCSV = () => {
+        const headers = ["Fecha", "Tipo", "Proveedor/Cliente", "RIF", "Nro. Factura", "Base Imponible", "IVA (16%)", "Total"];
+        const csvContent = [
+            headers.join(","),
+            ...registros.map(r => [r.fecha, r.tipo, `"${r.proveedor}"`, r.rif, r.nroFactura, r.base, r.iva, r.total].join(","))
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "libro_compras_ventas.csv");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        toast({
+            title: "Exportación Completa",
+            description: "El libro de compras y ventas ha sido exportado a un archivo CSV.",
+        });
+    };
+
   return (
     <div>
         <header className="mb-8 flex items-center justify-between">
@@ -26,10 +55,15 @@ export default function LibroCompraVentaPage() {
                     Registra y consulta tus operaciones fiscales.
                 </p>
             </div>
-            <Button>
-                <PlusCircle className="mr-2" />
-                Nuevo Registro
-            </Button>
+            <div className="flex gap-2">
+                <Button variant="outline" onClick={handleExportCSV}>
+                    <Download className="mr-2"/> Exportar a Excel
+                </Button>
+                <Button>
+                    <PlusCircle className="mr-2" />
+                    Nuevo Registro
+                </Button>
+            </div>
         </header>
 
         <Card className="bg-card/50 backdrop-blur-sm">

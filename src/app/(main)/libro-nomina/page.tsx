@@ -1,9 +1,12 @@
 
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Users, Download, Printer } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const registros = [
     { id: 1, empleado: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", totalAsignaciones: 12460, totalDeducciones: 2210, neto: 10250 },
@@ -13,6 +16,32 @@ const registros = [
 ];
 
 export default function LibroNominaPage() {
+    const { toast } = useToast();
+
+    const handleExportCSV = () => {
+        const headers = ["Cédula", "Nombres y Apellidos", "Cargo", "Total Asignaciones", "Total Deducciones", "Neto a Pagar"];
+        const csvContent = [
+            headers.join(","),
+            ...registros.map(r => [r.cedula, `"${r.empleado}"`, r.cargo, r.totalAsignaciones, r.totalDeducciones, r.neto].join(","))
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "libro_nomina.csv");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        toast({
+            title: "Exportación Completa",
+            description: "El libro de nómina ha sido exportado a un archivo CSV.",
+        });
+    };
+
   return (
     <div className="p-4 md:p-8">
         <header className="mb-8 flex items-center justify-between">
@@ -26,9 +55,9 @@ export default function LibroNominaPage() {
                 </p>
             </div>
              <div className="flex gap-2">
-                <Button variant="outline">
+                <Button variant="outline" onClick={handleExportCSV}>
                     <Download className="mr-2" />
-                    Exportar a PDF
+                    Exportar a Excel
                 </Button>
                  <Button onClick={() => window.print()}>
                     <Printer className="mr-2" />

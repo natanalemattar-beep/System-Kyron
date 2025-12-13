@@ -27,7 +27,24 @@ const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
 export default function LibroVacacionesPage() {
     const { toast } = useToast();
 
-    const handleExport = () => {
+    const handleExportCSV = () => {
+        const headers = ["Empleado", "Período", "Fecha de Inicio", "Fecha de Fin", "Días", "Bono Vacacional", "Estado"];
+        const csvContent = [
+            headers.join(","),
+            ...registros.map(r => [`"${r.empleado}"`, r.periodo, r.inicio, r.fin, r.dias, r.bono, r.estado].join(","))
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "libro_vacaciones.csv");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
         toast({
         title: "Reporte Exportado",
         description: "El libro de vacaciones ha sido exportado.",
@@ -54,9 +71,9 @@ export default function LibroVacacionesPage() {
                 </p>
             </div>
              <div className="flex gap-2">
-                <Button variant="outline" onClick={handleExport}>
+                <Button variant="outline" onClick={handleExportCSV}>
                     <Download className="mr-2" />
-                    Exportar
+                    Exportar a Excel
                 </Button>
                 <Dialog>
                     <DialogTrigger asChild>

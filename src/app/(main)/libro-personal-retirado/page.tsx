@@ -17,7 +17,24 @@ const registros = [
 export default function LibroPersonalRetiradoPage() {
   const { toast } = useToast();
 
-  const handleExport = () => {
+  const handleExportCSV = () => {
+    const headers = ["Empleado", "Fecha de Ingreso", "Fecha de Retiro", "Motivo"];
+    const csvContent = [
+        headers.join(","),
+        ...registros.map(r => [`"${r.empleado}"`, r.fechaIngreso, r.fechaRetiro, r.motivo].join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "libro_personal_retirado.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
     toast({
       title: "Historial Exportado",
       description: "El historial de personal retirado ha sido exportado.",
@@ -36,9 +53,9 @@ export default function LibroPersonalRetiradoPage() {
                     Historial de empleados que han cesado su relación laboral con la empresa.
                 </p>
             </div>
-            <Button variant="outline" onClick={handleExport}>
+            <Button variant="outline" onClick={handleExportCSV}>
                 <Download className="mr-2" />
-                Exportar Historial
+                Exportar a Excel
             </Button>
         </header>
 
