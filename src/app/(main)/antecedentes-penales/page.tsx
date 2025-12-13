@@ -44,31 +44,73 @@ export default function AntecedentesPenalesPage() {
     const { toast } = useToast();
 
     const getCertificateContent = (solicitud: Solicitud | null) => {
-      if (!solicitud) return "";
-      return `
-        <div style="font-family: 'Times New Roman', Times, serif; font-size: 14px; line-height: 1.6; max-width: 800px; margin: auto; padding: 2rem; border: 1px solid #ccc; position: relative;">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 8rem; color: rgba(0, 0, 0, 0.05); z-index: -1; font-weight: bold; pointer-events: none;">SISTEMA KYRON</div>
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <p style="margin: 0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
-                <p style="margin: 0; font-weight: bold;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
-                <p style="margin: 0; font-size: 12px;">Despacho del Viceministro del Sistema Integrado de Investigación Penal</p>
-                <p style="margin: 0; font-size: 12px;">Providencia Administrativa N° 001 de fecha 01/01/2023</p>
-                <p style="margin: 0; font-size: 12px;">Gaceta Oficial N° 42.548 de fecha 12/01/2023</p>
+        if (!solicitud) return "";
+        return `
+            <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.5; max-width: 800px; margin: auto; padding: 2cm; border: 1px solid #ccc; position: relative; background: white; color: black;">
+                
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.1; pointer-events: none; width: 400px; height: 400px;">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#000" stroke-width="2"/>
+                        <text x="50" y="30" font-size="8" text-anchor="middle" font-weight="bold">MINISTERIO DEL PODER POPULAR</text>
+                        <text x="50" y="40" font-size="8" text-anchor="middle">PARA RELACIONES INTERIORES</text>
+                         <text x="50" y="50" font-size="10" text-anchor="middle" font-weight="bold">Justicia y Paz</text>
+                         <text x="50" y="60" font-size="8" text-anchor="middle">República Bolivariana de Venezuela</text>
+                         <image href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Escudo_de_Venezuela.svg/103px-Escudo_de_Venezuela.svg.png" x="42" y="42" height="16" width="16"/>
+                    </svg>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <p style="margin: 0; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                    <p style="margin: 0; font-weight: bold; font-size: 10px;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
+                    <p style="margin: 0; font-size: 10px;">DESPACHO DEL VICEMINISTERIO DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
+                    <p style="margin: 0; font-size: 10px;">DIRECCIÓN GENERAL DE JUSTICIA, INSTITUCIONES RELIGIOSAS Y CULTOS</p>
+                    <p style="margin: 0; font-size: 10px;">COORDINACIÓN DE ANTECEDENTES PENALES</p>
+                </div>
+                
+                <h1 style="text-align: center; font-size: 14px; font-weight: bold; margin: 2rem 0;">CERTIFICACIÓN DE ANTECEDENTES PENALES</h1>
+                
+                <p style="text-align: justify; text-indent: 2em; margin-bottom: 1rem;">
+                    En nombre del Ciudadano Ministro del Poder Popular para Relaciones Interiores, Justicia y Paz, la Dirección General de Justicia, Instituciones Religiosas y Cultos, en ejercicio de sus funciones y cumpliendo la Ley de Registro de Antecedentes Penales, publicada en la Gaceta Oficial de la República de Venezuela (hoy República Bolivariana de Venezuela) Nro. 31.791, de fecha 03 de agosto de 1979, a solicitud de parte interesada expide, certificado de antecedentes penales al ciudadano (a):
+                </p>
+
+                <p style="text-align: center; font-size: 14px; font-weight: bold; margin: 2rem 0;">
+                    ${solicitud.solicitante.nombre.toUpperCase()}
+                    <br/>
+                    CI: V - ${solicitud.solicitante.cedula.replace('V-','')}
+                </p>
+
+                <p style="text-align: justify; text-indent: 2em; margin-bottom: 1rem;">
+                    Se constata, luego de revisada la base de datos de la Oficina de Antecedentes Penales y hasta la emisión del presente documento, que el referido ciudadano(a) <strong>NO REGISTRA ANTECEDENTES PENALES EN LA REPÚBLICA BOLIVARIANA DE VENEZUELA</strong>.
+                </p>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <p style="margin:0;">* * * * * * * * * * * *</p>
+                </div>
+                
+                <p style="text-align: justify; margin-bottom: 1rem;">
+                    El presente certificado se emite a efectos de ser presentado ante las autoridades de <strong>${solicitud.organismo.toUpperCase()}</strong>.
+                </p>
+                
+                <p style="text-align: justify;">
+                    Certificación que se expide en la ciudad de Caracas, el 13 de Julio del 2022.
+                </p>
+                
+                <div style="position: relative; text-align: center; margin-top: 4rem;">
+                     <div style="display: inline-block; position: relative;">
+                        <img src="https://i.ibb.co/7Qr0P4Y/sign-sample.png" alt="Firma" style="width: 150px; height: auto;"/>
+                        <img src="https://i.ibb.co/W2nCghM/seal-sample.png" alt="Sello" style="position: absolute; top: -20px; left: -30px; width: 120px; height: auto; opacity: 0.8;"/>
+                    </div>
+                    <p style="margin: 0; font-weight: bold; font-size: 11px;">ALANA VANESKA ZULOAGA RUIZ</p>
+                    <p style="margin: 0; font-weight: bold; font-size: 10px;">VICEMINISTRA DE POLÍTICA INTERIOR Y SEGURIDAD JURÍDICA</p>
+                    <p style="margin: 0; font-size: 9px;">Designada según Decreto N° 4.294 de fecha 11 de Septiembre de 2020,</p>
+                    <p style="margin: 0; font-size: 9px;">Publicado en Gaceta Oficial de la República Bolivariana de Venezuela</p>
+                    <p style="margin: 0; font-size: 9px;">N° 6.574 Extraordinario en la misma fecha.</p>
+                </div>
+                
+                <div style="margin-top: 3rem; font-size: 8px; text-align: justify; border-top: 1px solid #ccc; padding-top: 0.5rem;">
+                    <strong>Atención:</strong> Este documento consta de una (1) hoja, el cual no debe contener enmiendas, tachaduras, modificaciones o superposiciones. Los datos de identificación del solicitante son suministrados por el Servicio Administrativo de Identificación, Migración y Extranjería (SAIME). La autenticidad de este certificado lo puede verificar a través del portal www.mpprijp.gob.ve con el Nro ******** o escaneando el código QR.
+                </div>
             </div>
-            <h1 style="text-align: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem;">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</h1>
-            <p style="text-align: justify;">Quien suscribe, <strong>C/G MAITE CARIDAD HERNANDEZ DOMINGUEZ</strong>, en mi carácter de VICEMINISTRA DEL SISTEMA INTEGRADO DE INVESTIGACIÓN PENAL, designada mediante Decreto N° 4.908 de fecha 22 de enero de 2024, publicado en la Gaceta Oficial de la República Bolivariana de Venezuela N° 42.803 de fecha 22 de enero de 2024, en uso de las atribuciones que me confiere el numeral 1 del artículo 28 de la Ley Orgánica de Identificación, publicada en Gaceta Oficial N° 38.487 de fecha 27 de julio de 2006, hago constar que una vez consultadas las bases de datos del Sistema de Información Policial (SIPOL) y del Sistema Integrado de Información Policial (SIIPOL) llevadas por este Despacho, el ciudadano (a):</p>
-            <p style="text-align: center; font-size: 1.2rem; font-weight: bold; margin: 2rem 0;">${solicitud.solicitante.nombre.toUpperCase()}</p>
-            <p style="text-align: center; margin-top: -1rem; margin-bottom: 2rem;">Titular de la Cédula de Identidad N° <strong>${solicitud.solicitante.cedula}</strong></p>
-            <p style="text-align: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem;">NO POSEE REGISTROS DE ANTECEDENTES PENALES</p>
-            <p><strong>CÓDIGO DE VALIDACIÓN:</strong> ${solicitud.id}-${new Date().getFullYear()}</p>
-            <p><strong>FECHA DE EMISIÓN:</strong> ${formatDate(new Date().toISOString())}</p>
-            <br/><br/><br/>
-            <div style="text-align: center; padding-top: 2rem;">
-                <p style="font-weight: bold;">C/G MAITE CARIDAD HERNANDEZ DOMINGUEZ</p>
-                <p style="font-size: 12px;">Viceministra del Sistema Integrado de Investigación Penal</p>
-            </div>
-            <p style="text-align: center; font-size: 10px; color: #555; margin-top: 3rem;">Atención: Este documento es válido únicamente para el trámite solicitado ante "${solicitud.organismo}". La veracidad de este documento puede ser verificada a través del código QR.</p>
-        </div>
       `;
     };
 
