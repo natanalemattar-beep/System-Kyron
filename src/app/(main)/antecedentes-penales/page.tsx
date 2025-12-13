@@ -100,40 +100,57 @@ export default function AntecedentesPenalesPage() {
     };
 
     const getCertificateContent = (solicitud: Solicitud | null): string => {
-        if (!solicitud) return "";
-        return `
-          <div style="font-family: 'Times New Roman', Times, serif; line-height: 1.8; padding: 2.5cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black;">
-              <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 15px;">
-                  <p style="margin: 0; font-size: 14px; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
-                  <p style="margin: 5px 0; font-size: 16px; font-weight: bold;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
-                  <h1 style="font-size: 18px; margin: 15px 0 5px 0;">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</h1>
-              </div>
-              <div style="margin-top: 50px; text-align: justify; font-size: 12pt;">
-                  <p>El Director General de Registros y Archivos Penales, de conformidad con lo establecido en el artículo 28 de la Ley Orgánica de Identificación, certifica que el ciudadano(a):</p>
-                  <br/>
-                  <p style="text-align: center; font-size: 16px; font-weight: bold;">${solicitud.solicitante.nombre.toUpperCase()}</p>
-                  <p style="text-align: center; font-size: 14px;">Titular de la Cédula de Identidad N° ${solicitud.solicitante.cedula}</p>
-                  <br/>
-                  <p>Una vez consultada la base de datos del Sistema de Información Policial (SIPOL) y el Sistema de Investigación e Información Policial (SIIPOL), se deja constancia de que, hasta la fecha de emisión de este certificado, <strong>NO POSEE REGISTROS DE ANTECEDENTES PENALES</strong>.</p>
-                  <br/>
-                  <p>Esta certificación se expide a solicitud de la parte interesada, para ser presentada ante el <strong>${solicitud.organismo}</strong>.</p>
-                  <br/>
-                  <p style="text-align: center;">Válido por noventa (90) días a partir de su emisión.</p>
-                  <p style="text-align: center; font-size: 11px;">Fecha de Emisión: ${formatDate(solicitud.fecha)}</p>
-                  <p style="text-align: center; font-size: 11px;">Código de Validación: ${solicitud.id}-VALID</p>
-              </div>
-               <div style="position: absolute; bottom: 50px; right: 50px;">
-                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Certificado-Antecedentes-${solicitud.id}" alt="QR de Verificación"/>
-              </div>
-          </div>
-        `;
+    if (!solicitud) return "";
+    return `
+        <div style="font-family: 'Times New Roman', Times, serif; line-height: 1.6; padding: 2cm; width: 21cm; height: 29.7cm; margin: auto; border: 1px solid #ddd; background: white; color: black; box-sizing: border-box; position: relative;">
+            <div style="text-align: center; border-bottom: 1px solid #000; padding-bottom: 10px; margin-bottom: 30px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Escudo_de_la_República_Bolivariana_de_Venezuela.svg/100px-Escudo_de_la_República_Bolivariana_de_Venezuela.svg.png" alt="Escudo de Venezuela" style="height: 60px; margin-bottom: 10px;">
+                <p style="margin: 0; font-size: 12px; font-weight: bold;">REPÚBLICA BOLIVARIANA DE VENEZUELA</p>
+                <p style="margin: 2px 0; font-size: 12px; font-weight: bold;">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</p>
+                <p style="margin: 2px 0; font-size: 10px;">Despacho del Viceministro del Sistema Integrado de Investigación Penal</p>
+                <p style="margin: 2px 0; font-size: 10px;">Providencia Administrativa Nro. 001-2022 de fecha 01/01/2022</p>
+            </div>
+            <h1 style="text-align: center; font-size: 18px; font-weight: bold; margin: 40px 0;">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</h1>
+            <div style="text-align: justify; font-size: 12pt;">
+                <p>El Director General de Registros y Archivos Penales, en uso de las atribuciones conferidas en el Artículo 28 de la Ley Orgánica de Identificación, publicada en la Gaceta Oficial de la República Bolivariana de Venezuela N° 38.459 de fecha 15 de junio de 2006, certifica que el ciudadano(a):</p>
+                <br/>
+                <p style="text-align: center; font-size: 16px; font-weight: bold;">${solicitud.solicitante.nombre.toUpperCase()}</p>
+                <p style="text-align: center; font-size: 14px;">Titular de la Cédula de Identidad N° ${solicitud.solicitante.cedula}</p>
+                <br/>
+                <p>Una vez consultada la base de datos del Sistema de Información Policial (SIPOL) y el Sistema de Investigación e Información Policial (SIIPOL), se deja constancia de que, hasta la fecha de emisión de este certificado, <strong>NO POSEE REGISTROS DE ANTECEDENTES PENALES</strong>.</p>
+                <br/>
+                <p>Esta certificación se expide a solicitud de la parte interesada, para ser presentada ante el <strong>${solicitud.organismo}</strong>.</p>
+                <br/>
+                <p style="text-align: center; font-weight: bold;">Válido por noventa (90) días a partir de la fecha de su emisión.</p>
+            </div>
+            <div style="position: absolute; bottom: 80px; width: calc(100% - 4cm);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                     <div style="text-align: center;">
+                        <p style="font-size: 11px;">Fecha de Emisión: ${formatDate(solicitud.fecha)}</p>
+                        <p style="font-size: 11px;">Código de Validación: ${solicitud.id}-VALID</p>
+                    </div>
+                     <div style="text-align: center;">
+                        <img src="https://www.justiciaypaz.gob.ve/images/viceministerios/vsiip/firma_director.png" alt="Firma Autorizada" style="height: 60px; margin-bottom: -10px;">
+                        <p style="border-top: 1px solid #000; padding-top: 5px; font-size: 11px; font-weight: bold;">Director(a) General de Registros y Archivos Penales</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=Certificado-Antecedentes-${solicitud.id}" alt="QR de Verificación"/>
+                        <p style="font-size: 9px; margin-top: 5px;">Verificar Documento</p>
+                    </div>
+                </div>
+                 <div style="text-align: center; margin-top: 20px; border-top: 1px solid #000; padding-top: 5px;">
+                     <img src="https://www.justiciaypaz.gob.ve/images/logo-footer.png" alt="Sello del Ministerio" style="height: 40px;">
+                </div>
+            </div>
+        </div>
+    `;
     };
     
     const handleAction = (solicitud: Solicitud, action: 'print' | 'download') => {
         const content = getCertificateContent(solicitud);
         const printWindow = window.open('', '_blank');
         if (printWindow) {
-            printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title></head><body>');
+            printWindow.document.write('<html><head><title>Certificado de Antecedentes Penales</title></head><body style="margin:0;">');
             printWindow.document.write(content);
             printWindow.document.write('</body></html>');
             printWindow.document.close();
@@ -152,6 +169,8 @@ export default function AntecedentesPenalesPage() {
                         description: `El certificado de ${solicitud.solicitante.nombre} se está enviando a la impresora.`,
                     });
                 }
+                // No se puede cerrar automáticamente si se quiere que el usuario guarde como PDF
+                // printWindow.close();
             }, 500);
         }
     };
@@ -196,9 +215,7 @@ export default function AntecedentesPenalesPage() {
             
             {status === 'success' && selectedSolicitud ? (
                 <div className="animate-in fade-in">
-                    <div id="printable-content" className="hidden print:block">
-                        <div dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
-                    </div>
+                     <div id="printable-content" className="hidden print:block" dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
                     <div className="flex justify-end gap-2 mb-4">
                         <Button variant="outline" onClick={handleNewRequest}>
                             <PlusCircle className="mr-2"/> Realizar Nueva Solicitud
@@ -211,40 +228,9 @@ export default function AntecedentesPenalesPage() {
                         </Button>
                     </div>
                      <Card className="max-w-4xl mx-auto bg-card/90 backdrop-blur-sm shadow-2xl">
-                        <CardHeader className="text-center p-8 border-b">
-                            <h2 className="font-bold text-lg">REPÚBLICA BOLIVARIANA DE VENEZUELA</h2>
-                            <h3 className="text-md">MINISTERIO DEL PODER POPULAR PARA RELACIONES INTERIORES, JUSTICIA Y PAZ</h3>
-                            <CardTitle className="text-xl pt-4">CERTIFICADO INTERNACIONAL DE ANTECEDENTES PENALES</CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify space-y-6">
-                            <p>
-                                El Director General de Registros y Archivos Penales, de conformidad con lo establecido en el artículo 28 de la Ley Orgánica de Identificación, certifica que el ciudadano(a):
-                            </p>
-                            <div className="text-center space-y-1">
-                                <p className="text-lg font-bold tracking-wider">{selectedSolicitud.solicitante.nombre.toUpperCase()}</p>
-                                <p>Titular de la Cédula de Identidad N° {selectedSolicitud.solicitante.cedula}</p>
-                            </div>
-                            <p>
-                                Una vez consultada la base de datos del Sistema de Información Policial (SIPOL) y el Sistema de Investigación e Información Policial (SIIPOL), se deja constancia de que, hasta la fecha de emisión de este certificado, <strong>NO POSEE REGISTROS DE ANTECEDENTES PENALES</strong>.
-                            </p>
-                            <p>
-                                Esta certificación se expide a solicitud de la parte interesada, para ser presentada ante el <strong>{selectedSolicitud.organismo}</strong>.
-                            </p>
-                            <p className="text-center">Válido por noventa (90) días a partir de su emisión.</p>
-                        </CardContent>
-                         <CardFooter className="p-8 flex justify-between items-end border-t">
-                            <div className="text-xs text-muted-foreground">
-                                <p>Fecha de Emisión: {formatDate(selectedSolicitud.fecha)}</p>
-                                <p>Código de Validación: {selectedSolicitud.id}-VALID</p>
-                            </div>
-                             <div className="flex flex-col items-center">
-                                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Certificado-Antecedentes-${selectedSolicitud.id}`} alt="QR de Verificación" width={80} height={80} />
-                                <p className="text-xs text-muted-foreground mt-1">Escanear para verificar</p>
-                            </div>
-                            <div className="text-center">
-                                <p className="border-t-2 border-foreground inline-block px-8 pt-2">Firma Autorizada</p>
-                            </div>
-                        </CardFooter>
+                        <div className="scale-[0.8] origin-top">
+                           <div dangerouslySetInnerHTML={{ __html: getCertificateContent(selectedSolicitud) }} />
+                        </div>
                     </Card>
                 </div>
             ) : (
@@ -256,6 +242,12 @@ export default function AntecedentesPenalesPage() {
                         <CardContent>
                             {status === 'idle' && (
                                 <div className="space-y-4 animate-in fade-in">
+                                    <div className="p-4 bg-yellow-400/10 border-l-4 border-yellow-500 text-yellow-300">
+                                      <AlertTitle>Importante</AlertTitle>
+                                      <AlertDescription>
+                                        Asegúrate de que tus datos (nombres, apellidos, cédula) estén correctamente registrados en tu perfil antes de continuar.
+                                      </AlertDescription>
+                                    </div>
                                     <div className="space-y-2">
                                         <Label htmlFor="organismo">Organismo que solicita el certificado</Label>
                                         <Select onValueChange={setOrganismo} value={organismo}>
@@ -345,7 +337,7 @@ export default function AntecedentesPenalesPage() {
                                                             <AlertDescription>{solicitud.motivoRechazo}</AlertDescription>
                                                         </Alert>
                                                     )}
-                                                    <div className="flex items-center gap-2"><strong>Estado:</strong> <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge></div>
+                                                     <div className="flex items-center gap-2"><strong>Estado:</strong> <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge></div>
                                                     <p><strong>Solicitante:</strong> {solicitud.solicitante.nombre} ({solicitud.solicitante.cedula})</p>
                                                     <p><strong>Organismo:</strong> {solicitud.organismo}</p>
                                                     <p><strong>Fecha:</strong> {formatDate(solicitud.fecha)}</p>
@@ -375,5 +367,3 @@ export default function AntecedentesPenalesPage() {
     );
 }
 
-
-    
