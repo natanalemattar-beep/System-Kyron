@@ -29,7 +29,7 @@ type Documento = {
   }
 };
 
-const documentos: Documento[] = [
+const initialDocumentos: Documento[] = [
     {
         id: "DJ-2024-001",
         fecha: "10/06/2024",
@@ -64,6 +64,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function DocumentosJudicialesPage() {
     const { toast } = useToast();
+    const [documentos, setDocumentos] = useState(initialDocumentos);
     const [filter, setFilter] = useState("todos");
 
     const handleDownload = (id: string) => {
@@ -73,7 +74,26 @@ export default function DocumentosJudicialesPage() {
         });
     }
 
-    const handleCreate = () => {
+    const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const tipoDoc = formData.get('tipo-doc') as string;
+        const nroCaso = formData.get('nro-caso') as string;
+        
+        const newDoc: Documento = {
+            id: `DJ-${new Date().getFullYear()}-${String(documentos.length + 1).padStart(3, '0')}`,
+            fecha: new Date().toLocaleDateString('es-VE'),
+            tipo: tipoDoc,
+            caso: nroCaso,
+            estado: "Activo",
+            detalles: {
+                tribunal: "Tribunal por Asignar",
+                juez: "Juez por Asignar"
+            }
+        };
+
+        setDocumentos(prev => [newDoc, ...prev]);
+
          toast({
             title: "Solicitud Recibida",
             description: "Tu solicitud de documento judicial ha sido creada y está en proceso."
@@ -106,25 +126,27 @@ export default function DocumentosJudicialesPage() {
                 </Button>
             </DialogTrigger>
             <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Solicitar Nuevo Documento Judicial</DialogTitle>
-                    <DialogDescription>
-                        Completa los datos para iniciar el trámite.
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="tipo-doc">Tipo de Documento</Label>
-                        <Input id="tipo-doc" placeholder="Ej: Copia Certificada de Sentencia" />
+                <form onSubmit={handleCreate}>
+                    <DialogHeader>
+                        <DialogTitle>Solicitar Nuevo Documento Judicial</DialogTitle>
+                        <DialogDescription>
+                            Completa los datos para iniciar el trámite.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="tipo-doc">Tipo de Documento</Label>
+                            <Input id="tipo-doc" name="tipo-doc" placeholder="Ej: Copia Certificada de Sentencia" required />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="nro-caso">Número de Expediente / Caso</Label>
+                            <Input id="nro-caso" name="nro-caso" placeholder="Ej: AP11-V-2024-000123" required />
+                        </div>
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="nro-caso">Número de Expediente / Caso</Label>
-                        <Input id="nro-caso" placeholder="Ej: AP11-V-2024-000123" />
-                    </div>
-                </div>
-                <DialogFooter>
-                    <Button type="submit" onClick={handleCreate}>Enviar Solicitud</Button>
-                </DialogFooter>
+                    <DialogFooter>
+                        <Button type="submit">Enviar Solicitud</Button>
+                    </DialogFooter>
+                </form>
             </DialogContent>
         </Dialog>
       </header>

@@ -30,7 +30,7 @@ type Solicitud = {
   }
 };
 
-const solicitudes: Solicitud[] = [
+const initialSolicitudes: Solicitud[] = [
     {
         id: "PN-2024-001",
         fecha: "10/07/2024",
@@ -69,6 +69,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 };
 
 export default function PartidasNacimientoPage() {
+    const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
     const [filter, setFilter] = useState("todos");
     const { toast } = useToast();
 
@@ -79,11 +80,37 @@ export default function PartidasNacimientoPage() {
         });
     }
 
-    const handleCreate = () => {
+    const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const nombres = formData.get('nombres') as string;
+        const fechaNacimiento = formData.get('fecha-nacimiento') as string;
+        const numeroActa = formData.get('numero-acta') as string;
+
+        const newId = `PN-${new Date().getFullYear()}-${String(solicitudes.length + 1).padStart(3, '0')}`;
+        
+        const newSolicitud: Solicitud = {
+            id: newId,
+            fecha: new Date().toLocaleDateString('es-VE'),
+            nombres: nombres,
+            estado: "En Proceso",
+            detalles: {
+                acta: numeroActa,
+                folio: String(Math.floor(Math.random() * 200)),
+                tomo: `${Math.floor(Math.random() * 5)}-${['A', 'B', 'C'][Math.floor(Math.random() * 3)]}`,
+                registro: "Registro Civil por Determinar",
+                ano: new Date(fechaNacimiento).getFullYear(),
+            }
+        };
+
+        setSolicitudes(prev => [newSolicitud, ...prev]);
+
         toast({
             title: "Solicitud Recibida",
             description: "Tu solicitud de partida de nacimiento ha sido creada y está en proceso."
         });
+
+        // This would ideally close the dialog, but requires more complex state management (e.g., passing setOpen)
     }
 
     const filteredSolicitudes = solicitudes.filter(s => {
@@ -111,31 +138,33 @@ export default function PartidasNacimientoPage() {
                     </Button>
                 </DialogTrigger>
                 <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Solicitar Nueva Partida de Nacimiento</DialogTitle>
-                        <DialogDescription>
-                            Completa los datos para iniciar el trámite.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="nombres">Nombres y Apellidos Completos</Label>
-                            <Input id="nombres" placeholder="Ej: Juan Carlos Rodríguez" />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
+                    <form onSubmit={handleCreate}>
+                        <DialogHeader>
+                            <DialogTitle>Solicitar Nueva Partida de Nacimiento</DialogTitle>
+                            <DialogDescription>
+                                Completa los datos para iniciar el trámite.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
                             <div className="space-y-2">
-                                <Label htmlFor="fecha-nacimiento">Fecha de Nacimiento</Label>
-                                <Input id="fecha-nacimiento" type="date" />
+                                <Label htmlFor="nombres">Nombres y Apellidos Completos</Label>
+                                <Input id="nombres" name="nombres" placeholder="Ej: Juan Carlos Rodríguez" required />
                             </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="numero-acta">Número de Acta</Label>
-                                <Input id="numero-acta" placeholder="Ej: 1234" />
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="fecha-nacimiento">Fecha de Nacimiento</Label>
+                                    <Input id="fecha-nacimiento" name="fecha-nacimiento" type="date" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="numero-acta">Número de Acta</Label>
+                                    <Input id="numero-acta" name="numero-acta" placeholder="Ej: 1234" required/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <DialogFooter>
-                        <Button type="submit" onClick={handleCreate}>Enviar Solicitud</Button>
-                    </DialogFooter>
+                        <DialogFooter>
+                            <Button type="submit">Enviar Solicitud</Button>
+                        </DialogFooter>
+                    </form>
                 </DialogContent>
             </Dialog>
         </header>

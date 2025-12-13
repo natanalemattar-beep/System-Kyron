@@ -31,7 +31,7 @@ type Solicitud = {
   }
 };
 
-const solicitudes: Solicitud[] = [
+const initialSolicitudes: Solicitud[] = [
     {
         id: "SOL-2024-001",
         fecha: "15/07/2024",
@@ -71,6 +71,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function ActasMatrimonioPage() {
     const { toast } = useToast();
+    const [solicitudes, setSolicitudes] = useState(initialSolicitudes);
     const [filter, setFilter] = useState("todos");
 
     const handleDownload = (id: string) => {
@@ -80,11 +81,38 @@ export default function ActasMatrimonioPage() {
         });
     }
 
-    const handleCreate = () => {
+    const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const conyuge1 = formData.get('conyuge1') as string;
+        const conyuge2 = formData.get('conyuge2') as string;
+        const fechaMatrimonio = formData.get('fecha-matrimonio') as string;
+        const numeroActa = formData.get('numero-acta') as string;
+
+        const newId = `SOL-${new Date().getFullYear()}-${String(solicitudes.length + 1).padStart(3, '0')}`;
+        
+        const newSolicitud: Solicitud = {
+            id: newId,
+            fecha: new Date().toLocaleDateString('es-VE'),
+            nombres: `${conyuge1} y ${conyuge2}`,
+            estado: "En Proceso",
+            detalles: {
+                acta: numeroActa,
+                folio: String(Math.floor(Math.random() * 200)),
+                tomo: `${Math.floor(Math.random() * 5)}-${['A', 'B', 'C'][Math.floor(Math.random() * 3)]}`,
+                registro: "Registro Civil por Determinar",
+                ano: new Date(fechaMatrimonio).getFullYear(),
+            }
+        };
+
+        setSolicitudes(prev => [newSolicitud, ...prev]);
+
         toast({
             title: "Solicitud Recibida",
             description: "Tu solicitud de acta de matrimonio ha sido creada y está en proceso."
         });
+
+        // Close dialog if possible, this logic would be inside the dialog component
     }
 
     const filteredSolicitudes = solicitudes.filter(s => {
@@ -118,29 +146,31 @@ export default function ActasMatrimonioPage() {
                             Completa los datos para iniciar el trámite.
                         </DialogDescription>
                     </DialogHeader>
-                     <div className="grid gap-4 py-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="conyuge1">Nombre Completo Cónyuge 1</Label>
-                            <Input id="conyuge1" placeholder="Ej: Ana Sofía Pérez" />
-                        </div>
-                         <div className="space-y-2">
-                            <Label htmlFor="conyuge2">Nombre Completo Cónyuge 2</Label>
-                            <Input id="conyuge2" placeholder="Ej: Carlos Gómez" />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                             <div className="space-y-2">
-                                 <Label htmlFor="fecha-matrimonio">Fecha del Matrimonio</Label>
-                                <Input id="fecha-matrimonio" type="date" />
-                            </div>
+                    <form onSubmit={handleCreate}>
+                        <div className="grid gap-4 py-4">
                             <div className="space-y-2">
-                                <Label htmlFor="numero-acta">Número de Acta</Label>
-                                <Input id="numero-acta" placeholder="Ej: 1024" />
+                                <Label htmlFor="conyuge1">Nombre Completo Cónyuge 1</Label>
+                                <Input id="conyuge1" name="conyuge1" placeholder="Ej: Ana Sofía Pérez" required />
+                            </div>
+                             <div className="space-y-2">
+                                <Label htmlFor="conyuge2">Nombre Completo Cónyuge 2</Label>
+                                <Input id="conyuge2" name="conyuge2" placeholder="Ej: Carlos Gómez" required />
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                 <div className="space-y-2">
+                                     <Label htmlFor="fecha-matrimonio">Fecha del Matrimonio</Label>
+                                    <Input id="fecha-matrimonio" name="fecha-matrimonio" type="date" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="numero-acta">Número de Acta</Label>
+                                    <Input id="numero-acta" name="numero-acta" placeholder="Ej: 1024" required />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <DialogFooter>
-                        <Button type="submit" onClick={handleCreate}>Enviar Solicitud</Button>
-                    </DialogFooter>
+                        <DialogFooter>
+                            <Button type="submit">Enviar Solicitud</Button>
+                        </DialogFooter>
+                    </form>
                 </DialogContent>
             </Dialog>
         </header>
