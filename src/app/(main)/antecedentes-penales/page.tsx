@@ -1,10 +1,10 @@
 
 "use client";
 
+import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Upload, Loader2, CheckCircle, Shield } from "lucide-react";
-import { useState } from "react";
+import { Upload, Loader2, CheckCircle, Shield, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { FileInputTrigger } from "@/components/file-input-trigger";
 import { Progress } from "@/components/ui/progress";
@@ -69,7 +69,7 @@ export default function AntecedentesPenalesPage() {
                 <CardDescription>Nuestro sistema extraerá la información necesaria para generar el certificado de forma segura y rápida.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center gap-4">
-                 <FileInputTrigger onFileSelect={handleFileSelect} acceptedFileTypes=".pdf,.doc,.docx">
+                 <FileInputTrigger onFileSelect={handleFileSelect}>
                     <Button variant="outline" type="button">
                         <Upload className="mr-2" />
                         {file ? "Cambiar Archivo" : "Subir Archivo (.pdf, .doc)"}

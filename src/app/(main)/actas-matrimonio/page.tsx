@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, FileDown, Eye, QrCode, FileText } from "lucide-react";
+import { PlusCircle, FileDown, Eye, QrCode, FileText, AlertTriangle } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
@@ -13,12 +13,15 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 
 type Solicitud = {
   id: string;
   fecha: string;
   nombres: string;
   estado: "Aprobado" | "En Proceso" | "Rechazado";
+  motivoRechazo?: string;
 };
 
 const solicitudes: Solicitud[] = [
@@ -39,6 +42,7 @@ const solicitudes: Solicitud[] = [
         fecha: "12/07/2024",
         nombres: "Marta Sánchez y Jorge Diaz",
         estado: "Rechazado",
+        motivoRechazo: "Número de acta inconsistente. Verifique el número y la fecha del matrimonio."
     },
      {
         id: "SOL-2024-004",
@@ -56,6 +60,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function ActasMatrimonioPage() {
     const { toast } = useToast();
+    const [filter, setFilter] = useState("todos");
 
     const handleDownload = (id: string) => {
         toast({
@@ -70,6 +75,11 @@ export default function ActasMatrimonioPage() {
             description: "Tu solicitud de acta de matrimonio ha sido creada y está en proceso."
         });
     }
+
+    const filteredSolicitudes = solicitudes.filter(s => {
+        if (filter === "todos") return true;
+        return s.estado.toLowerCase().replace(" ", "-") === filter;
+    });
 
   return (
     <div className="space-y-8">
@@ -130,17 +140,8 @@ export default function ActasMatrimonioPage() {
                     <TabsTrigger value="en-proceso">En Proceso</TabsTrigger>
                     <TabsTrigger value="rechazado">Rechazadas</TabsTrigger>
                 </TabsList>
-                <TabsContent value="todos">
-                    <RequestsTable solicitudes={solicitudes} onDownload={handleDownload} />
-                </TabsContent>
-                <TabsContent value="aprobado">
-                     <RequestsTable solicitudes={solicitudes.filter(s => s.estado === 'Aprobado')} onDownload={handleDownload} />
-                </TabsContent>
-                 <TabsContent value="en-proceso">
-                     <RequestsTable solicitudes={solicitudes.filter(s => s.estado === 'En Proceso')} onDownload={handleDownload} />
-                </TabsContent>
-                 <TabsContent value="rechazado">
-                     <RequestsTable solicitudes={solicitudes.filter(s => s.estado === 'Rechazado')} onDownload={handleDownload} />
+                <TabsContent value={filter}>
+                    <RequestsTable solicitudes={filteredSolicitudes} onDownload={handleDownload} />
                 </TabsContent>
             </Tabs>
         </CardContent>
@@ -184,6 +185,15 @@ function RequestsTable({ solicitudes, onDownload }: { solicitudes: Solicitud[], 
                                         <DialogTitle>Detalle de la Solicitud: {solicitud.id}</DialogTitle>
                                     </DialogHeader>
                                     <div className="py-4 space-y-2">
+                                        {solicitud.estado === 'Rechazado' && solicitud.motivoRechazo && (
+                                            <Alert variant="destructive">
+                                                <AlertTriangle className="h-4 w-4" />
+                                                <AlertTitle>Solicitud Rechazada</AlertTitle>
+                                                <AlertDescription>
+                                                    {solicitud.motivoRechazo}
+                                                </AlertDescription>
+                                            </Alert>
+                                        )}
                                         <p><strong>Nombres:</strong> {solicitud.nombres}</p>
                                         <p><strong>Fecha:</strong> {solicitud.fecha}</p>
                                         <p><strong>Estado:</strong> {solicitud.estado}</p>

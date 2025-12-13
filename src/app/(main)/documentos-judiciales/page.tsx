@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, FileDown, Eye, QrCode, Gavel } from "lucide-react";
+import { PlusCircle, FileDown, Eye, QrCode, Gavel, AlertTriangle } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
@@ -13,6 +13,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 
 type Documento = {
   id: string;
@@ -54,6 +56,7 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 
 export default function DocumentosJudicialesPage() {
     const { toast } = useToast();
+    const [filter, setFilter] = useState("todos");
 
     const handleDownload = (id: string) => {
         toast({
@@ -68,6 +71,12 @@ export default function DocumentosJudicialesPage() {
             description: "Tu solicitud de documento judicial ha sido creada y está en proceso."
         });
     }
+
+    const filteredDocumentos = documentos.filter(d => {
+        if (filter === "todos") return true;
+        return d.estado.toLowerCase() === filter;
+    });
+
 
   return (
     <div className="space-y-8">
@@ -117,20 +126,14 @@ export default function DocumentosJudicialesPage() {
             <CardDescription>Historial de documentos asociados a tus casos.</CardDescription>
         </CardHeader>
         <CardContent>
-            <Tabs defaultValue="todos" className="w-full">
+            <Tabs defaultValue="todos" onValueChange={setFilter} className="w-full">
                  <TabsList className="grid w-full grid-cols-3 max-w-md mb-4">
                     <TabsTrigger value="todos">Todos</TabsTrigger>
                     <TabsTrigger value="activo">Activos</TabsTrigger>
                     <TabsTrigger value="archivado">Archivados</TabsTrigger>
                 </TabsList>
-                <TabsContent value="todos">
-                    <DocumentsTable documentos={documentos} onDownload={handleDownload} />
-                </TabsContent>
-                <TabsContent value="activo">
-                     <DocumentsTable documentos={documentos.filter(d => d.estado === 'Activo')} onDownload={handleDownload} />
-                </TabsContent>
-                <TabsContent value="archivado">
-                     <DocumentsTable documentos={documentos.filter(d => d.estado === 'Archivado')} onDownload={handleDownload} />
+                <TabsContent value={filter}>
+                    <DocumentsTable documentos={filteredDocumentos} onDownload={handleDownload} />
                 </TabsContent>
             </Tabs>
         </CardContent>
