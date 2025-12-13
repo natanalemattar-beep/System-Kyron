@@ -76,15 +76,26 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
 
-  const currentId = idByCountry[country] || { label: "Identificación Personal", placeholder: "", defaultValue: "" };
+  const currentIdInfo = idByCountry[country] || { label: "Identificación Personal", placeholder: "", defaultValue: "" };
   
   const renderField = (field: Field) => {
-    switch (field.type) {
+    let currentField = { ...field };
+
+    if (field.id === 'idValue') {
+      currentField = {
+        ...field,
+        label: currentIdInfo.label,
+        placeholder: currentIdInfo.placeholder,
+        defaultValue: currentIdInfo.defaultValue
+      };
+    }
+  
+    switch (currentField.type) {
       case 'select':
-        if (field.id === 'country') {
+        if (currentField.id === 'country') {
             return (
-                <div key={field.id} className="space-y-2">
-                    <Label>{field.label}</Label>
+                <div key={currentField.id} className="space-y-2">
+                    <Label>{currentField.label}</Label>
                     <Select value={country} onValueChange={setCountry}>
                         <SelectTrigger><SelectValue placeholder="Seleccionar país..." /></SelectTrigger>
                         <SelectContent>{countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}</SelectContent>
@@ -93,38 +104,32 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
             );
         }
         return (
-            <div key={field.id} className="space-y-2">
-                <Label htmlFor={field.id}>{field.label}</Label>
-                <Select defaultValue={field.defaultValue}><SelectTrigger id={field.id}><SelectValue placeholder={field.placeholder} /></SelectTrigger><SelectContent>{field.options?.map(opt => <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>)}</SelectContent></Select>
+            <div key={currentField.id} className="space-y-2">
+                <Label htmlFor={currentField.id}>{currentField.label}</Label>
+                <Select defaultValue={currentField.defaultValue}><SelectTrigger id={currentField.id}><SelectValue placeholder={currentField.placeholder} /></SelectTrigger><SelectContent>{currentField.options?.map(opt => <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>)}</SelectContent></Select>
             </div>
         );
       case 'password':
         return (
-          <div key={field.id} className="space-y-2 relative">
-            <Label htmlFor={field.id}>{field.label}</Label>
-            <Input id={field.id} type={passwordVisible ? "text" : "password"} placeholder={field.placeholder} defaultValue={field.defaultValue} className="pr-10" required/>
+          <div key={currentField.id} className="space-y-2 relative">
+            <Label htmlFor={currentField.id}>{currentField.label}</Label>
+            <Input id={currentField.id} type={passwordVisible ? "text" : "password"} placeholder={currentField.placeholder} defaultValue={currentField.defaultValue} className="pr-10" required/>
             <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
           </div>
         );
       case 'checkbox':
         return (
-             <div key={field.id} className="flex items-center justify-between text-sm">
-                {field.rememberMe && (
+             <div key={currentField.id} className="flex items-center justify-between text-sm">
+                {currentField.rememberMe && (
                     <div className="flex items-center gap-2">
                         <Checkbox id="remember-me" />
                         <Label htmlFor="remember-me" className="font-normal">Recuérdame</Label>
                     </div>
                 )}
-                {field.link && <Link href={field.link.href} className="text-primary hover:underline">{field.link.label}</Link>}
+                {currentField.link && <Link href={currentField.link.href} className="text-primary hover:underline">{currentField.link.label}</Link>}
             </div>
         );
       default: {
-        let currentField = {...field};
-        if (field.id === 'idValue') {
-            currentField.label = currentId.label;
-            currentField.placeholder = currentId.placeholder;
-        }
-
         return (
           <div key={currentField.id} className="space-y-2">
             <Label htmlFor={currentField.id}>{currentField.label}</Label>
@@ -152,7 +157,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
           <Button asChild type="submit" className="w-full h-11 text-base">
             <Link href={submitButtonHref}>{submitButtonText}</Link>
           </Button>
-          {credentials && <Credentials user={fields.some(f => f.id === 'idValue') ? currentId.defaultValue : credentials.user} password={credentials.password} />}
+          {credentials && <Credentials user={fields.some(f => f.id === 'idValue') ? currentIdInfo.defaultValue : credentials.user} password={credentials.password} />}
         </CardFooter>
       </form>
        {footerContent ? (

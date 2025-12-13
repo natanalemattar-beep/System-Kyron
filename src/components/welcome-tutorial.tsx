@@ -38,14 +38,19 @@ export default function WelcomeTutorial() {
         // This effect runs only on the client
         const hasSeenTutorial = localStorage.getItem("hasSeenKyronTutorial");
         if (!hasSeenTutorial) {
-            setOpen(true);
-            localStorage.setItem("hasSeenKyronTutorial", "true");
+            const timer = setTimeout(() => {
+                setOpen(true);
+                localStorage.setItem("hasSeenKyronTutorial", "true");
+            }, 2500); // Wait a bit after splash screen
+            return () => clearTimeout(timer);
         }
     }, []);
     
+    if (!open) return null;
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="sm:max-w-md p-0 border-0">
+            <DialogContent className="sm:max-w-md p-0 border-0 bg-transparent shadow-none">
                  <Carousel className="w-full">
                     <CarouselContent>
                         {tutorialSteps.map((step, index) => (
@@ -62,10 +67,10 @@ export default function WelcomeTutorial() {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="left-4" />
-                    <CarouselNext className="right-4" />
+                    <CarouselPrevious className="left-[-1.5rem] sm:left-[-3rem]" />
+                    <CarouselNext className="right-[-1.5rem] sm:right-[-3rem]" />
                 </Carousel>
-                <div className="flex justify-center p-6 pt-0">
+                <div className="flex justify-center p-6 pt-2">
                      <Button onClick={() => setOpen(false)}>
                         Comenzar a Explorar <ArrowRight className="ml-2 h-4 w-4"/>
                     </Button>
