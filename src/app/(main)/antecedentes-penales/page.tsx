@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { useState, useRef } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle, Shield, Download, FileText, PlusCircle, Eye, AlertTriangle, Printer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -48,15 +48,8 @@ export default function AntecedentesPenalesPage() {
         return `
             <div style="font-family: 'Times New Roman', Times, serif; font-size: 12px; line-height: 1.5; max-width: 800px; margin: auto; padding: 2cm; border: 1px solid #ccc; position: relative; background: white; color: black;">
                 
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.1; pointer-events: none; width: 400px; height: 400px;">
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="#000" stroke-width="2"/>
-                        <text x="50" y="30" font-size="8" text-anchor="middle" font-weight="bold">MINISTERIO DEL PODER POPULAR</text>
-                        <text x="50" y="40" font-size="8" text-anchor="middle">PARA RELACIONES INTERIORES</text>
-                         <text x="50" y="50" font-size="10" text-anchor="middle" font-weight="bold">Justicia y Paz</text>
-                         <text x="50" y="60" font-size="8" text-anchor="middle">República Bolivariana de Venezuela</text>
-                         <image href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Escudo_de_Venezuela.svg/103px-Escudo_de_Venezuela.svg.png" x="42" y="42" height="16" width="16"/>
-                    </svg>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.08; pointer-events: none; width: 400px; height: 400px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Escudo_de_Venezuela.svg/800px-Escudo_de_Venezuela.svg.png" style="width: 100%; height: 100%; object-fit: contain;"/>
                 </div>
 
                 <div style="text-align: center; margin-bottom: 1rem;">
@@ -113,6 +106,7 @@ export default function AntecedentesPenalesPage() {
             </div>
       `;
     };
+
 
     const handlePrint = (solicitud: Solicitud) => {
         const content = getCertificateContent(solicitud);
@@ -369,3 +363,5 @@ export default function AntecedentesPenalesPage() {
         </div>
     );
 }
+
+    
