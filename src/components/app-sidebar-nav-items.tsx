@@ -302,6 +302,8 @@ const legalNavGroupsData = {
             { href: "/contratos", label: "Gestión de Contratos", icon: FileSignature },
             { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
             { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
+            { href: "/cartas-seniat", label: "Comunicaciones al SENIAT", icon: Mail },
+            { href: "/cartas-conatel", label: "Comunicaciones a CONATEL", icon: Signal },
             { href: "/modelo-contrato-trabajo", label: "Contrato de Trabajo", icon: FileSignature },
             { href: "/modelo-contrato", label: "Contrato de Servicios", icon: FileSignature },
             { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
@@ -337,6 +339,7 @@ export const advisoryNavGroups = {
                 { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
                 { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
                 { href: "/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
+                { href: "/carta-exposicion-motivos", label: "Carta de Exposición de Motivos", icon: Lightbulb },
             ]
         },
         {
