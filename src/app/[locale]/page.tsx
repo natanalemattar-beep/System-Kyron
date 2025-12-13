@@ -614,8 +614,7 @@ export default function LandingPage() {
                             </AccordionItem>
                         ))}
                     </Accordion>
-                </Accordion>
-            </motion.div>
+                </motion.div>
             </div>
         </section>
         
