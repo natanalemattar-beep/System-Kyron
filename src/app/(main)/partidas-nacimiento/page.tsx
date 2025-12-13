@@ -80,9 +80,7 @@ export default function PartidasNacimientoPage() {
         });
     }
 
-    const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+    const handleCreate = (formData: FormData) => {
         const nombres = formData.get('nombres') as string;
         const fechaNacimiento = formData.get('fecha-nacimiento') as string;
         const numeroActa = formData.get('numero-acta') as string;
@@ -138,7 +136,7 @@ export default function PartidasNacimientoPage() {
                     </Button>
                 </DialogTrigger>
                 <DialogContent>
-                    <form onSubmit={handleCreate}>
+                    <form action={handleCreate}>
                         <DialogHeader>
                             <DialogTitle>Solicitar Nueva Partida de Nacimiento</DialogTitle>
                             <DialogDescription>

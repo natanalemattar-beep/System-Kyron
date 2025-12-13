@@ -81,9 +81,7 @@ export default function ActasMatrimonioPage() {
         });
     }
 
-    const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+    const handleCreate = (formData: FormData) => {
         const conyuge1 = formData.get('conyuge1') as string;
         const conyuge2 = formData.get('conyuge2') as string;
         const fechaMatrimonio = formData.get('fecha-matrimonio') as string;
@@ -146,7 +144,7 @@ export default function ActasMatrimonioPage() {
                             Completa los datos para iniciar el trámite.
                         </DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleCreate}>
+                    <form action={handleCreate}>
                         <div className="grid gap-4 py-4">
                             <div className="space-y-2">
                                 <Label htmlFor="conyuge1">Nombre Completo Cónyuge 1</Label>

@@ -21,7 +21,8 @@ type Documento = {
   fecha: string;
   tipo: string;
   caso: string;
-  estado: "Activo" | "Archivado";
+  estado: "Activo" | "Archivado" | "Rechazado";
+  motivoRechazo?: string;
    detalles: {
     tribunal: string;
     sala?: string;
@@ -54,11 +55,21 @@ const initialDocumentos: Documento[] = [
         estado: "Activo",
         detalles: { tribunal: "Tribunal Superior 3ro en lo Contencioso", juez: "Dr. Carlos Gómez" }
     },
+    {
+        id: "DJ-2024-004",
+        fecha: "28/07/2024",
+        tipo: "Sentencia Interlocutoria",
+        caso: "Expediente N° 999-111",
+        estado: "Rechazado",
+        motivoRechazo: "Faltan documentos de respaldo para la solicitud.",
+        detalles: { tribunal: "Tribunal 4to de Mediación y Sustanciación", juez: "Dra. Luisa Rivas" }
+    },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   Archivado: "outline",
   Activo: "secondary",
+  Rechazado: "destructive",
 };
 
 
@@ -74,9 +85,7 @@ export default function DocumentosJudicialesPage() {
         });
     }
 
-    const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+    const handleCreate = (formData: FormData) => {
         const tipoDoc = formData.get('tipo-doc') as string;
         const nroCaso = formData.get('nro-caso') as string;
         
@@ -126,7 +135,7 @@ export default function DocumentosJudicialesPage() {
                 </Button>
             </DialogTrigger>
             <DialogContent>
-                <form onSubmit={handleCreate}>
+                <form action={handleCreate}>
                     <DialogHeader>
                         <DialogTitle>Solicitar Nuevo Documento Judicial</DialogTitle>
                         <DialogDescription>
@@ -157,10 +166,11 @@ export default function DocumentosJudicialesPage() {
         </CardHeader>
         <CardContent>
             <Tabs defaultValue="todos" onValueChange={setFilter} className="w-full">
-                 <TabsList className="grid w-full grid-cols-3 max-w-md mb-4">
+                 <TabsList className="grid w-full grid-cols-4 max-w-lg mb-4">
                     <TabsTrigger value="todos">Todos</TabsTrigger>
                     <TabsTrigger value="activo">Activos</TabsTrigger>
                     <TabsTrigger value="archivado">Archivados</TabsTrigger>
+                    <TabsTrigger value="rechazado">Rechazados</TabsTrigger>
                 </TabsList>
                 <TabsContent value={filter}>
                     <DocumentsTable documentos={filteredDocumentos} onDownload={handleDownload} />
@@ -210,12 +220,23 @@ function DocumentsTable({ documentos, onDownload }: { documentos: Documento[], o
                                             <span className="font-semibold">{doc.tipo}</span>
                                         </DialogDescription>
                                     </DialogHeader>
-                                    <div className="py-4 space-y-3 text-sm">
-                                         <div className="space-y-1"><p className="text-muted-foreground">Nº de Caso/Expediente</p><p>{doc.caso}</p></div>
-                                         <div className="space-y-1"><p className="text-muted-foreground">Tribunal</p><p>{doc.detalles.tribunal}</p></div>
-                                         {doc.detalles.sala && <div className="space-y-1"><p className="text-muted-foreground">Sala</p><p>{doc.detalles.sala}</p></div>}
-                                         <div className="space-y-1"><p className="text-muted-foreground">Juez</p><p>{doc.detalles.juez}</p></div>
-                                         <div className="space-y-1"><p className="text-muted-foreground">Fecha</p><p>{doc.fecha}</p></div>
+                                    <div className="py-4 space-y-4">
+                                        {doc.estado === 'Rechazado' && doc.motivoRechazo && (
+                                            <Alert variant="destructive">
+                                                <AlertTriangle className="h-4 w-4" />
+                                                <AlertTitle>Solicitud Rechazada</AlertTitle>
+                                                <AlertDescription>
+                                                    {doc.motivoRechazo}
+                                                </AlertDescription>
+                                            </Alert>
+                                        )}
+                                         <div className="space-y-3 text-sm">
+                                             <div className="space-y-1"><p className="text-muted-foreground">Nº de Caso/Expediente</p><p>{doc.caso}</p></div>
+                                             <div className="space-y-1"><p className="text-muted-foreground">Tribunal</p><p>{doc.detalles.tribunal}</p></div>
+                                             {doc.detalles.sala && <div className="space-y-1"><p className="text-muted-foreground">Sala</p><p>{doc.detalles.sala}</p></div>}
+                                             <div className="space-y-1"><p className="text-muted-foreground">Juez</p><p>{doc.detalles.juez}</p></div>
+                                             <div className="space-y-1"><p className="text-muted-foreground">Fecha</p><p>{doc.fecha}</p></div>
+                                        </div>
                                         <div className="flex justify-center pt-4">
                                             <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=doc-judicial-${doc.id}`} alt={`QR for ${doc.id}`} width={100} height={100} />
                                         </div>
