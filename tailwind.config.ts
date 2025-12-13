@@ -19,7 +19,7 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'sans-serif'],
+        sans: ['var(--font-geist-sans)', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -152,9 +152,41 @@ const config: Config = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "jelly-bounce": "jelly-bounce 0.5s ease-out",
       },
+       textShadow: {
+        glow: '0 0 15px hsl(var(--primary) / 0.5), 0 0 30px hsl(var(--primary) / 0.3)',
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+      require("tailwindcss-animate"),
+      function ({ theme, addUtilities }: { theme: (path: string) => any; addUtilities: (utilities: any) => void; }) {
+        const newUtilities = {
+          '.text-shadow-glow': {
+            textShadow: theme('textShadow.glow'),
+          },
+          '.btn-3d-primary': {
+            '--btn-bg': theme('colors.primary.DEFAULT'),
+            '--btn-border': 'hsl(var(--primary) / 0.8)',
+            '--btn-shadow': 'hsl(var(--primary) / 0.4)',
+            'color': theme('colors.primary.foreground'),
+            'backgroundColor': 'var(--btn-bg)',
+            'borderBottom': '4px solid var(--btn-border)',
+            'boxShadow': '0 5px 15px -5px var(--btn-shadow)',
+            'transition': 'all 0.15s ease-in-out',
+            '&:hover': {
+              transform: 'translateY(-2px)',
+              boxShadow: '0 8px 20px -5px var(--btn-shadow)',
+            },
+            '&:active': {
+              transform: 'translateY(2px)',
+              borderBottomWidth: '2px',
+              boxShadow: '0 2px 5px -2px var(--btn-shadow)',
+            },
+          }
+        };
+        addUtilities(newUtilities);
+      },
+    ],
 }
 
 export default config;
