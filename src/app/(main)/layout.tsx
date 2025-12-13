@@ -22,7 +22,10 @@ const getUserForPath = (pathname: string) => {
     if (pathname.startsWith('/dashboard-socios')) {
         return { name: "Socio Director", email: "socio@kyron.com", fallback: "S" };
     }
-    if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/seguridad') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
+     if (pathname.startsWith('/seguridad')) {
+        return { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" };
+    }
+    if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
         return { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" };
     }
     if (pathname.startsWith('/asesoria')) {

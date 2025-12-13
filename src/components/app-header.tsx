@@ -11,7 +11,8 @@ import {
   marketingNavGroups,
   telecomNavGroups,
   naturalMenuItems,
-  advisoryNavGroups
+  advisoryNavGroups,
+  seguridadNavGroups
 } from "@/components/app-sidebar-nav-items";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -54,7 +55,10 @@ const getNavInfoForPath = (pathname: string) => {
     if (pathname.startsWith('/dashboard-socios')) {
         return { user: { name: "Socio Director", email: "socio@kyron.com", fallback: "S" }, navGroups: sociosNavGroups, dashboardHref: "/dashboard-socios" };
     }
-    if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/seguridad') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
+    if (pathname.startsWith('/seguridad')) {
+        return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: seguridadNavGroups, dashboardHref: "/dashboard-informatica" };
+    }
+    if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
         return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" };
     }
     if (pathname.startsWith('/asesoria')) {

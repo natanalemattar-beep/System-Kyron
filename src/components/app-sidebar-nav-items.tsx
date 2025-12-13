@@ -412,9 +412,12 @@ export const telecomNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal } ], subGroups: [] },
 ];
 
+export const seguridadNavGroups = [
+  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ], subGroups: [] },
+];
+
 export const informaticaNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ], subGroups: [] },
-  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ], subGroups: [] },
   { title: "Soluciones IA", icon: BrainCircuit, items: [ 
       { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
       { href: "/analisis-suelo-foto", label: "Análisis de Suelo (IA)", icon: Search },

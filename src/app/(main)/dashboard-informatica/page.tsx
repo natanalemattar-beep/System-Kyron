@@ -89,7 +89,7 @@ export default function DashboardInformaticaPage() {
             <h2 className="text-xl font-semibold tracking-tight">Módulos de Gestión</h2>
             <div className="space-y-4">
                 {informaticaNavGroups.map((group) => (
-                    group.items.length > 0 && group.title !== "Dashboard" && (
+                    group.items.length > 0 && group.title !== "Dashboard" && group.title !== "Seguridad" && (
                         <Card key={group.title} className="bg-card/50 backdrop-blur-sm">
                             <CardHeader className="p-4">
                                 <CardTitle className="text-base flex items-center gap-3">
@@ -100,21 +100,21 @@ export default function DashboardInformaticaPage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="p-4 pt-0">
-                                <SidebarMenu>
+                                <div className="flex flex-col gap-2">
                                     {group.items.map((item) => (
-                                    <SidebarMenuItem key={`${item.href}-${item.label}`}>
-                                        <SidebarMenuButton
+                                    <Button
+                                        key={`${item.href}-${item.label}`}
                                         asChild
-                                        className="justify-start h-9 w-full mb-1 bg-secondary/50"
-                                        >
+                                        variant="secondary"
+                                        className="justify-start h-9 w-full"
+                                    >
                                         <Link href={item.href}>
                                             <item.icon className="mr-2 h-4 w-4" />
                                             <span>{item.label}</span>
                                         </Link>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
+                                    </Button>
                                     ))}
-                                </SidebarMenu>
+                                </div>
                             </CardContent>
                         </Card>
                     )
