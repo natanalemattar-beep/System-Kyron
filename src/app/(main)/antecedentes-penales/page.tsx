@@ -23,18 +23,23 @@ type Solicitud = {
     fecha: string;
     estado: "En Proceso" | "Generado" | "Rechazado";
     motivoRechazo?: string;
+    solicitante: {
+        nombre: string;
+        cedula: string;
+    }
 };
 
 const initialSolicitudes: Solicitud[] = [
-    { id: "AP-2024-001", organismo: "Consulado de España en Caracas", fecha: "2024-07-15", estado: "Generado" },
-    { id: "AP-2024-002", organismo: "Embajada de Canadá", fecha: "2024-06-20", estado: "Generado" },
-    { id: "AP-2024-003", organismo: "Trámite de Visa para EE.UU.", fecha: "2024-07-20", estado: "En Proceso" },
+    { id: "AP-2024-001", organismo: "Consulado de España en Caracas", fecha: "2024-07-15", estado: "Generado", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
+    { id: "AP-2024-002", organismo: "Embajada de Canadá", fecha: "2024-06-20", estado: "Generado", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
+    { id: "AP-2024-003", organismo: "Trámite de Visa para EE.UU.", fecha: "2024-07-20", estado: "En Proceso", solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" } },
     {
         id: "AP-2024-004",
         fecha: "2024-07-22",
         organismo: "Universidad Central de Venezuela",
         estado: "Rechazado",
-        motivoRechazo: "Falta copia de la cédula de identidad a color."
+        motivoRechazo: "Falta copia de la cédula de identidad a color.",
+        solicitante: { nombre: "Juan Pérez", cedula: "V-12.345.678" }
     },
 ];
 
@@ -68,7 +73,11 @@ export default function AntecedentesPenalesPage() {
                 id: newId,
                 organismo: organismo,
                 fecha: new Date().toISOString().split('T')[0],
-                estado: "Generado"
+                estado: "Generado",
+                solicitante: {
+                    nombre: "Juan Pérez",
+                    cedula: "V-12.345.678"
+                }
             };
             setSolicitudes(prev => [newSolicitud, ...prev]);
             setStatus('success');
@@ -211,9 +220,10 @@ export default function AntecedentesPenalesPage() {
                                                             <AlertDescription>{solicitud.motivoRechazo}</AlertDescription>
                                                         </Alert>
                                                     )}
+                                                    <p><strong>Solicitante:</strong> {solicitud.solicitante.nombre} ({solicitud.solicitante.cedula})</p>
                                                     <p><strong>Organismo:</strong> {solicitud.organismo}</p>
                                                     <p><strong>Fecha:</strong> {formatDate(solicitud.fecha)}</p>
-                                                    <p><strong>Estado:</strong> <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge></p>
+                                                    <div className="flex items-center gap-2"><strong>Estado:</strong> <Badge variant={statusVariant[solicitud.estado]}>{solicitud.estado}</Badge></div>
                                                     <div className="flex justify-center pt-4">
                                                         <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=antecedentes-${solicitud.id}`} alt={`QR for ${solicitud.id}`} width={100} height={100} />
                                                     </div>
@@ -239,6 +249,3 @@ export default function AntecedentesPenalesPage() {
         </div>
     );
 }
-
-
-    
