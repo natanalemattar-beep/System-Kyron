@@ -46,33 +46,82 @@ type User = {
 };
 
 const getNavInfoForPath = (pathname: string) => {
-    if (pathname.startsWith('/dashboard-empresa') || pathname.startsWith('/analisis') || pathname.startsWith('/cuentas-por') || pathname.startsWith('/facturacion') || pathname.startsWith('/contabilidad') || pathname.startsWith('/tramites-fiscales') || pathname.startsWith('/reports') || pathname.startsWith('/inventario')) {
+    // Admin & Finanzas
+    const adminPaths = [
+        '/dashboard-empresa', '/analisis-caja', '/analisis-riesgo', '/analisis-ventas',
+        '/cuentas-bancarias', '/cuentas-por-cobrar', '/cuentas-por-pagar',
+        '/facturacion', '/facturacion-credito', '/modelo-factura', '/nota-credito', '/nota-debito', '/proformas',
+        '/contabilidad', '/libros-contables', '/reports', '/inventario', '/presupuesto',
+        '/tramites-fiscales', '/declaracion-iva', '/islr-arc', '/proteccion-pensiones', '/igtf',
+        '/libro-compra-venta', '/timbres-fiscales', '/recursos-fiscales',
+        '/punto-de-venta', '/arqueo-caja'
+    ];
+    if (adminPaths.some(p => pathname.startsWith(p))) {
         return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
     }
-    if (pathname.startsWith('/dashboard-rrhh') || pathname.startsWith('/nominas') || pathname.startsWith('/libro-')) {
+
+    // RR.HH.
+    const rrhhPaths = [
+        '/dashboard-rrhh', '/nominas', '/libro-', '/prestaciones-sociales',
+        '/resumen-anual-empleados', '/beneficios-empleados', '/modelos-cartas',
+        '/desarrollo-profesional', '/gestion-notificaciones', '/carnet-personal',
+        '/material-apoyo', '/reclutamiento', '/clasificacion-empleados', '/ivss'
+    ];
+    if (rrhhPaths.some(p => pathname.startsWith(p))) {
         return { user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }, navGroups: rrhhNavGroups, dashboardHref: "/dashboard-rrhh" };
     }
-    if (pathname.startsWith('/dashboard-socios')) {
+
+    // Socios
+    const sociosPaths = ['/dashboard-socios', '/planes-crecimiento', '/organigrama'];
+    if (sociosPaths.some(p => pathname.startsWith(p))) {
         return { user: { name: "Socio Director", email: "socio@kyron.com", fallback: "S" }, navGroups: sociosNavGroups, dashboardHref: "/dashboard-socios" };
     }
-    if (pathname.startsWith('/seguridad')) {
-        return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: seguridadNavGroups, dashboardHref: "/dashboard-informatica" };
-    }
-    if (pathname.startsWith('/dashboard-informatica') || pathname.startsWith('/arquitectura-software-contable') || pathname.startsWith('/facturacion-futurista') || pathname.startsWith('/ingenieria-ia')) {
+
+    // IT & Seguridad
+    const informaticaPaths = [
+        '/seguridad', '/dashboard-informatica', '/arquitectura-software-contable',
+        '/facturacion-futurista', '/ingenieria-ia', '/soluciones-ia', '/analisis-suelo-foto'
+    ];
+    if (informaticaPaths.some(p => pathname.startsWith(p))) {
         return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" };
     }
-    if (pathname.startsWith('/asesoria')) {
-        return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria" };
+    
+    // Marketing & Asesoría
+    const marketingPaths = [
+        '/asesoria', '/estudio-factibilidad-economica', '/asesoria-importaciones',
+        '/asesoria-publicidad', '/asesoria-bolsa-valores', '/propuesta-proyecto',
+        '/carta-exposicion-motivos', '/analisis-estrategico', '/analisis-mercado',
+        '/nivel-competencia', '/analisis-competitivo', '/visualizacion-datos', '/demografia',
+        '/analisis-empresa-hibrida', '/analisis-empresas-no-digitales', '/contabilidad-escuelas',
+        '/manual-usuario', '/marketing-productos-vs-estrategias', '/marketing-innovador',
+        '/marketing-ventas', '/presentacion-startup', '/planes-y-precios', '/estrategias-ventas'
+    ];
+    if (marketingPaths.some(p => pathname.startsWith(p))) {
+         return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria" };
     }
-     if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos') || pathname.startsWith('/memoria-anual')) {
+
+    // Legal
+    const legalPaths = [
+        '/escritorio-juridico', '/contratos', '/permisos', '/memoria-anual', '/legalizacion-empresa',
+        '/poderes-representacion', '/tramites-corporativos', '/tipos-empresa', '/modelo-contrato',
+        '/licencia-software', '/sistema-legal-contable', '/carta-aval-ingenieria',
+        '/cumplimiento-fiscal', '/homologacion-seniat', '/software-contable',
+        '/cartas-autorizacion', '/cartas-seniat', '/cartas-conatel'
+    ];
+    if (legalPaths.some(p => pathname.startsWith(p))) {
         return { user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" };
     }
+    
+    // Telecom
     if (pathname.startsWith('/dashboard-telecom')) {
         return { user: { name: "Telecom", email: "telecom@kyron.com", fallback: "T" }, navGroups: telecomNavGroups, dashboardHref: "/dashboard-telecom" };
     }
-     if (pathname.startsWith('/analisis-ventas')) {
+    
+    // Ventas
+    if (pathname.startsWith('/analisis-ventas')) {
         return { user: { name: "Ventas", email: "ventas@kyron.com", fallback: "V" }, navGroups: ventasNavGroups, dashboardHref: "/analisis-ventas" };
     }
+
     // Default case for personal user
     return { user: { name: "Usuario", email: "usuario@email.com", fallback: "UN" }, navGroups: naturalMenuItems, dashboardHref: "/dashboard" };
 }
