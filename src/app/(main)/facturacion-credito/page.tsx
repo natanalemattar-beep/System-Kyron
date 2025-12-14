@@ -81,6 +81,7 @@ export default function FacturacionCreditoPage() {
     const [clientes, setClientes] = useState<Cliente[]>(initialClientes);
     const [items, setItems] = useState<Item[]>([{ id: 1, descripcion: '', cantidad: 1, precio: 0 }]);
     const [metodoCredito, setMetodoCredito] = useState("");
+    const [isProcessing, setIsProcessing] = useState(false);
     const { toast } = useToast();
     
     const totalFactura = items.reduce((acc, item) => acc + (item.cantidad * item.precio), 0);
@@ -105,15 +106,16 @@ export default function FacturacionCreditoPage() {
     const handleRegisterPayment = (facturaId: string, clienteId: string) => {
         const cliente = clientes.find(c => c.id === clienteId);
         if (!cliente) return;
-
+        
+        setIsProcessing(true);
         const { dismiss } = toast({
             title: "Verificando pago...",
             description: "Estamos confirmando la transacción con la entidad bancaria.",
             action: <Loader2 className="h-5 w-5 animate-spin" />,
         });
 
-        // Simulate verification delay
         setTimeout(() => {
+            setIsProcessing(false);
             dismiss();
 
             setFacturas(facturas.map(f => f.id === facturaId ? { ...f, estado: "Pagada" } : f));
@@ -183,7 +185,7 @@ export default function FacturacionCreditoPage() {
                                             <SelectValue placeholder="Selecciona un cliente" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {clientes.map(c => <SelectItem key={c.id} value={c.id}>{c.nombre}</SelectItem>)}
+                                            {initialClientes.map(c => <SelectItem key={c.id} value={c.id}>{c.nombre}</SelectItem>)}
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -466,7 +468,8 @@ export default function FacturacionCreditoPage() {
                                     </TableCell>
                                     <TableCell className="text-right space-x-1">
                                         {factura.estado !== "Pagada" && (
-                                            <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id, factura.clienteId)}>
+                                            <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id, factura.clienteId)} disabled={isProcessing}>
+                                                {isProcessing ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
                                                 Registrar Pago
                                             </Button>
                                         )}

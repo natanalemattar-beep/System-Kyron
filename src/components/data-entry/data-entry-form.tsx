@@ -128,7 +128,7 @@ MÉTODO DE PAGO: ${result.paymentMethod || 'N/A'}
             <CardFooter>
                  <Button type="submit" disabled={!file || status === "uploading"} className="w-full">
                     {status === "uploading" ? (
-                        <Loader2 className="animate-spin" />
+                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Extrayendo datos...</>
                     ) : (
                         "Procesar Documento"
                     )}
