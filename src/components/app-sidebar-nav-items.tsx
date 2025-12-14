@@ -89,7 +89,8 @@ import {
   Sparkles,
   Paintbrush,
   Plane,
-  Signal, // Added Signal and others below
+  Signal,
+  Network,
 } from "lucide-react";
 
 
@@ -437,3 +438,5 @@ export const informaticaNavGroups = [
       { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
+
+    
