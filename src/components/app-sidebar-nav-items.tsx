@@ -92,6 +92,8 @@ import {
   Signal,
   Network,
   School,
+  Presentation,
+  Zap,
 } from "lucide-react";
 
 
