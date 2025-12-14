@@ -51,9 +51,9 @@ export default function EscritorioJuridicoPage() {
       <header className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
             <Gavel className="h-8 w-8 md:h-10 md:w-10 text-primary" />
-            Escritorio Jurídico
+            Centro de Mando Legal
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl">Centro de control para la gestión del cumplimiento, contratos y riesgos legales.</p>
+        <p className="text-muted-foreground mt-2 max-w-2xl">Dashboard estratégico para la gestión del cumplimiento, contratos y riesgos legales.</p>
       </header>
 
       {/* KPIs */}
@@ -85,7 +85,7 @@ export default function EscritorioJuridicoPage() {
         <div className="lg:col-span-2">
           <Card className="bg-card/80 backdrop-blur-sm h-full">
               <CardHeader>
-                  <CardTitle>Próximas Renovaciones y Vencimientos</CardTitle>
+                  <CardTitle>Matriz de Riesgo: Próximas Renovaciones</CardTitle>
               </CardHeader>
               <CardContent>
                   <Table>
@@ -122,12 +122,12 @@ export default function EscritorioJuridicoPage() {
         <div className="space-y-8">
           <Card className="bg-card/80 backdrop-blur-sm">
               <CardHeader>
-                  <CardTitle className="flex items-center gap-2"><Calculator/> Simulador de Costos</CardTitle>
+                  <CardTitle className="flex items-center gap-2"><Calculator/> Simulador de Costos Legales</CardTitle>
               </CardHeader>
               <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">Estima los costos de aranceles y timbres fiscales para un trámite.</p>
+                  <p className="text-sm text-muted-foreground mb-4">Estima los aranceles y timbres fiscales para un trámite específico.</p>
                    <Button className="w-full" variant="outline">
-                      Calcular Trámite
+                      Calcular Costos de Trámite
                    </Button>
               </CardContent>
           </Card>
@@ -150,7 +150,7 @@ export default function EscritorioJuridicoPage() {
           <h2 className="text-2xl font-semibold tracking-tight mb-4">Módulos de Gestión Jurídica</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                {juridicoModules.map((module) => (
-                  <Card key={module.title} className="bg-card/80 backdrop-blur-sm flex flex-col">
+                  <Card key={module.title} className="bg-card/80 backdrop-blur-sm flex flex-col hover:shadow-lg transition-shadow">
                       <CardHeader>
                           <CardTitle>{module.title}</CardTitle>
                           <CardDescription>{module.description}</CardDescription>
