@@ -92,6 +92,7 @@ import {
   Zap,
   Signal,
   Book,
+  GitBranch,
 } from "lucide-react";
 
 
@@ -354,6 +355,7 @@ export const advisoryNavGroups = {
                 { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: BarChart },
                 { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
                 { href: "/demografia", label: "Demografía", icon: Users },
+                { href: "/ecosistema-negocio", label: "Modelo de Negocio", icon: GitBranch },
             ]
         },
          {
