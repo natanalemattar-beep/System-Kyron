@@ -1,28 +1,36 @@
+
 import { cn } from "@/lib/utils";
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <div
-      className={cn(
-        "relative w-10 h-10 flex items-center justify-center",
-        className
-      )}
-    >
-      <div className="absolute inset-0 bg-primary/10 rounded-lg transform-gpu" style={{
-        transform: 'perspective(100px) rotateX(20deg) rotateY(-10deg) scale(0.9)',
-        boxShadow: '0 5px 15px hsl(var(--primary-rgb) / 0.1), 0 1px 3px hsl(var(--primary-rgb) / 0.2)',
-        border: '1px solid hsl(var(--primary-rgb) / 0.1)',
-        backdropFilter: 'blur(4px)',
-      }}></div>
-      
-      {/* Inner Orb */}
-      <div className="absolute w-4 h-4 bg-primary rounded-full blur-[6px] animate-pulse"></div>
-      <div className="absolute w-3 h-3 bg-white rounded-full"></div>
-      
-      {/* Rings */}
-      <div className="absolute w-full h-full border-2 border-primary/20 rounded-full animate-spin" style={{ animationDuration: '4s' }}></div>
-      <div className="absolute w-[70%] h-[70%] border border-primary/20 rounded-full animate-spin" style={{ animationDuration: '5s', animationDirection: 'reverse' }}></div>
-
+    <div className={cn("relative w-10 h-10", className)}>
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: "hsl(var(--primary) / 0.7)", stopOpacity: 1 }} />
+          </linearGradient>
+        </defs>
+        
+        {/* Shield/K shape */}
+        <path
+          d="M20 10 L50 10 L80 40 L80 60 L50 90 L20 90 Z"
+          fill="url(#logoGradient)"
+          transform="skewX(-10)"
+        />
+        
+        {/* Inner detail */}
+        <path
+          d="M50 30 L65 45 L65 55 L50 70 Z"
+          fill="hsl(var(--primary-foreground) / 0.5)"
+          transform="skewX(-10)"
+        />
+      </svg>
     </div>
   );
 }
