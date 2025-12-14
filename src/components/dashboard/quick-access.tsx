@@ -10,17 +10,17 @@ import { Button } from "../ui/button";
 
 export function QuickAccess() {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {adminNavGroups.map((group) => (
           <div key={group.title} className="w-full">
-              <Card className="bg-card/50 backdrop-blur-sm h-full">
+              <Card className="bg-card/50 backdrop-blur-sm h-full flex flex-col">
                   <CardHeader>
                       <CardTitle className="flex items-center gap-3">
                           <group.icon className="h-6 w-6 text-primary"/>
                           {group.title}
                       </CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex-grow">
                       <div className="flex flex-col gap-2">
                           {(group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items) : group.items).slice(0, 4).map((item) => (
                           <div key={`${item.href}-${item.label}`}>

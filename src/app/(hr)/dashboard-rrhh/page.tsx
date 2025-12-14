@@ -117,11 +117,11 @@ export default function RecursosHumanosPage() {
                     <CardTitle>Acciones Rápidas</CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-3">
-                    <Button asChild className="w-full">
-                        <Link href="/nominas">Gestionar Nóminas <ArrowRight className="ml-auto h-4 w-4"/></Link>
+                    <Button asChild className="w-full justify-start">
+                        <Link href="/nominas"><ArrowRight className="mr-2 h-4 w-4"/>Gestionar Nóminas</Link>
                     </Button>
-                     <Button asChild variant="outline" className="w-full">
-                        <Link href="/reclutamiento">Portal de Reclutamiento <ArrowRight className="ml-auto h-4 w-4"/></Link>
+                     <Button asChild variant="outline" className="w-full justify-start">
+                        <Link href="/reclutamiento"><ArrowRight className="mr-2 h-4 w-4"/>Portal de Reclutamiento</Link>
                     </Button>
                 </CardContent>
               </Card>

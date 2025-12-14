@@ -18,7 +18,6 @@ export default function LoginJuridicoPage() {
     credentials: { user: "legal.user", password: "password123" },
     footerLinks: {
       text: "¿No eres del departamento legal? Accede a otro portal:",
-      mainLink: { href: "", label: "" },
       secondaryLinks: {
         title: "Otros Portales",
         links: [

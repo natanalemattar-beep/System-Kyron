@@ -19,6 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { countries } from "@/lib/countries";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Credentials } from "./credentials";
+import { Separator } from "../ui/separator";
 
 interface Field {
   id: string;
@@ -46,10 +47,9 @@ interface LoginFormProps {
   credentials?: { user: string; password?: string };
   footerLinks?: {
     text?: string;
-    mainLink: { href: string; label: string };
+    mainLink?: { href: string; label: string };
     secondaryLinks?: LinkGroup;
   };
-  footerContent?: React.ReactNode;
 }
 
 const idByCountry: Record<string, { label: string, placeholder: string, defaultValue: string }> = {
@@ -72,7 +72,7 @@ const idByCountry: Record<string, { label: string, placeholder: string, defaultV
 };
 
 
-export function LoginForm({ icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks, footerContent }: LoginFormProps) {
+export function LoginForm({ icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks }: LoginFormProps) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
   const [idValue, setIdValue] = useState(idByCountry["VEN"].defaultValue);
@@ -159,11 +159,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
           {credentials && <Credentials user={fields.some(f => f.id === 'idValue') ? idValue : credentials.user} password={credentials.password} />}
         </CardFooter>
       </form>
-       {footerContent ? (
-        <CardFooter className="flex-col gap-4 p-6 border-t text-sm text-center">
-          {footerContent}
-        </CardFooter>
-      ) : footerLinks && (
+       {footerLinks && (
         <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
           {footerLinks.text && <p className="text-muted-foreground">{footerLinks.text}</p>}
            {footerLinks.secondaryLinks ? (
@@ -176,7 +172,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
                     </Button>
                 ))}
             </div>
-           ) : (
+           ) : footerLinks.mainLink?.href && (
              <Button asChild variant="link" className="p-0">
                 <Link href={footerLinks.mainLink.href} className="font-medium">{footerLinks.mainLink.label}</Link>
             </Button>
