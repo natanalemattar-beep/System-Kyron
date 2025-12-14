@@ -86,6 +86,7 @@ export default function EscritorioJuridicoPage() {
           <Card className="bg-card/80 backdrop-blur-sm h-full">
               <CardHeader>
                   <CardTitle>Matriz de Riesgo: Próximas Renovaciones</CardTitle>
+                  <CardDescription>Identifica y gestiona los documentos que requieren atención inmediata.</CardDescription>
               </CardHeader>
               <CardContent>
                   <Table>
@@ -99,12 +100,12 @@ export default function EscritorioJuridicoPage() {
                     </TableHeader>
                     <TableBody>
                        {upcomingRenewals.map(item => (
-                          <TableRow key={item.name}>
+                          <TableRow key={item.name} className={item.priority === "Alta" ? "bg-destructive/10" : ""}>
                               <TableCell className="font-medium">{item.name}</TableCell>
                               <TableCell className="text-center">
                                 <Badge variant={priorityVariant[item.priority]}>{item.priority}</Badge>
                               </TableCell>
-                              <TableCell className="text-center font-semibold">{item.daysLeft}</TableCell>
+                              <TableCell className={`text-center font-semibold ${item.daysLeft < 30 ? 'text-destructive' : 'text-muted-foreground'}`}>{item.daysLeft}</TableCell>
                               <TableCell className="text-right">
                                   <Button asChild variant="ghost" size="sm">
                                       <Link href="/permisos">Gestionar <ArrowRight className="ml-2 h-4 w-4"/></Link>
@@ -146,7 +147,7 @@ export default function EscritorioJuridicoPage() {
       </div>
 
       {/* Módulos de Gestión */}
-      <div>
+      <div className="pt-8">
           <h2 className="text-2xl font-semibold tracking-tight mb-4">Módulos de Gestión Jurídica</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                {juridicoModules.map((module) => (
