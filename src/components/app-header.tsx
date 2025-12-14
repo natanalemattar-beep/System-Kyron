@@ -54,26 +54,28 @@ const getNavInfoForPath = (pathname: string) => {
         '/contabilidad', '/libros-contables', '/reports', '/inventario', '/presupuesto',
         '/tramites-fiscales', '/declaracion-iva', '/islr-arc', '/proteccion-pensiones', '/igtf',
         '/libro-compra-venta', '/timbres-fiscales', '/recursos-fiscales',
-        '/punto-de-venta', '/arqueo-caja'
+        '/punto-de-venta', '/arqueo-caja', '/registro-proveedores', '/clasificacion-facturacion'
     ];
-    if (adminPaths.some(p => pathname.startsWith(p))) {
+    if (adminPaths.some(p => pathname.endsWith(p))) {
         return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
     }
 
     // RR.HH.
     const rrhhPaths = [
-        '/dashboard-rrhh', '/nominas', '/libro-', '/prestaciones-sociales',
+        '/dashboard-rrhh', '/nominas', '/libro-cesta-ticket', '/libro-horario-nocturno', 
+        '/libro-horas-diurnas', '/libro-horas-extras', '/libro-nomina', 
+        '/libro-personal-retirado', '/libro-vacaciones', '/prestaciones-sociales',
         '/resumen-anual-empleados', '/beneficios-empleados', '/modelos-cartas',
         '/desarrollo-profesional', '/gestion-notificaciones', '/carnet-personal',
         '/material-apoyo', '/reclutamiento', '/clasificacion-empleados', '/ivss'
     ];
-    if (rrhhPaths.some(p => pathname.startsWith(p))) {
+    if (rrhhPaths.some(p => pathname.endsWith(p))) {
         return { user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }, navGroups: rrhhNavGroups, dashboardHref: "/dashboard-rrhh" };
     }
 
     // Socios
     const sociosPaths = ['/dashboard-socios', '/planes-crecimiento', '/organigrama'];
-    if (sociosPaths.some(p => pathname.startsWith(p))) {
+    if (sociosPaths.some(p => pathname.endsWith(p))) {
         return { user: { name: "Socio Director", email: "socio@kyron.com", fallback: "S" }, navGroups: sociosNavGroups, dashboardHref: "/dashboard-socios" };
     }
 
@@ -82,7 +84,7 @@ const getNavInfoForPath = (pathname: string) => {
         '/seguridad', '/dashboard-informatica', '/arquitectura-software-contable',
         '/facturacion-futurista', '/ingenieria-ia', '/soluciones-ia', '/analisis-suelo-foto'
     ];
-    if (informaticaPaths.some(p => pathname.startsWith(p))) {
+    if (informaticaPaths.some(p => pathname.endsWith(p))) {
         return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" };
     }
     
@@ -96,7 +98,7 @@ const getNavInfoForPath = (pathname: string) => {
         '/manual-usuario', '/marketing-productos-vs-estrategias', '/marketing-innovador',
         '/marketing-ventas', '/presentacion-startup', '/planes-y-precios', '/estrategias-ventas'
     ];
-    if (marketingPaths.some(p => pathname.startsWith(p))) {
+    if (marketingPaths.some(p => pathname.endsWith(p))) {
          return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria" };
     }
 
@@ -108,18 +110,18 @@ const getNavInfoForPath = (pathname: string) => {
         '/cumplimiento-fiscal', '/homologacion-seniat', '/software-contable',
         '/cartas-autorizacion', '/cartas-seniat', '/cartas-conatel'
     ];
-    if (legalPaths.some(p => pathname.startsWith(p))) {
+    if (legalPaths.some(p => pathname.endsWith(p))) {
         return { user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" };
     }
     
     // Telecom
-    if (pathname.startsWith('/dashboard-telecom')) {
+    if (pathname.endsWith('/dashboard-telecom')) {
         return { user: { name: "Telecom", email: "telecom@kyron.com", fallback: "T" }, navGroups: telecomNavGroups, dashboardHref: "/dashboard-telecom" };
     }
     
-    // Ventas
-    if (pathname.startsWith('/analisis-ventas')) {
-        return { user: { name: "Ventas", email: "ventas@kyron.com", fallback: "V" }, navGroups: ventasNavGroups, dashboardHref: "/analisis-ventas" };
+    // Ventas - Specific check to avoid conflict with admin's /analisis-ventas
+    if (pathname.startsWith('/(ventas)/')) {
+      return { user: { name: "Ventas", email: "ventas@kyron.com", fallback: "V" }, navGroups: ventasNavGroups, dashboardHref: "/analisis-ventas" };
     }
 
     // Default case for personal user

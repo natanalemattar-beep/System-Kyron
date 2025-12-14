@@ -72,7 +72,7 @@ export default function TarjetaDigitalPage() {
             </div>
              <div className="flex items-center gap-4 text-sm">
                 <Phone className="h-5 w-5 text-muted-foreground"/>
-                <span>+58 412-1234567</span>
+                <span>+58 414-9377068</span>
             </div>
             <div className="flex items-center gap-4 text-sm">
                 <Home className="h-5 w-5 text-muted-foreground"/>
