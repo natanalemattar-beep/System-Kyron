@@ -6,11 +6,16 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
+import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
+
+const user = { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
+const dashboardHref = "/dashboard-telecom";
+
 
 export default function TelecomLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen bg-transparent text-foreground">
-      <AppHeader user={{ name: "Telecom", email: "telecom@kyron.com", fallback: "T" }} />
+      <AppHeader user={user} navGroups={telecomNavGroups} dashboardHref={dashboardHref} />
        <motion.div 
         className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-[4.5rem] md:top-[5.5rem] z-40"
         initial={{ y: -50, opacity: 0 }}

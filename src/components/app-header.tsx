@@ -8,11 +8,9 @@ import {
   rrhhNavGroups,
   sociosNavGroups,
   informaticaNavGroups,
-  marketingNavGroups,
-  telecomNavGroups,
-  naturalMenuItems,
   advisoryNavGroups,
-  seguridadNavGroups
+  naturalMenuItems,
+  telecomNavGroups,
 } from "@/components/app-sidebar-nav-items";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -45,44 +43,33 @@ type User = {
   fallback: string;
 };
 
-const pathConfig = [
-    { prefix: '/(admin)/', user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" },
-    { prefix: '/(hr)/', user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }, navGroups: rrhhNavGroups, dashboardHref: "/dashboard-rrhh" },
-    { prefix: '/(socios)/', user: { name: "Socio Director", email: "socio@kyron.com", fallback: "S" }, navGroups: sociosNavGroups, dashboardHref: "/dashboard-socios" },
-    { prefix: '/(it)/', user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" },
-    { prefix: '/(marketing)/', user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria" },
-    { prefix: '/(legal)/', user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" },
-    { prefix: '/(telecom)/', user: { name: "Telecom", email: "telecom@kyron.com", fallback: "T" }, navGroups: telecomNavGroups, dashboardHref: "/dashboard-telecom" },
-    { prefix: '/(ventas)/', user: { name: "Ventas", email: "ventas@kyron.com", fallback: "V" }, navGroups: ventasNavGroups, dashboardHref: "/ventas/dashboard" },
-];
+type NavGroup = {
+    title: string;
+    icon: React.ElementType;
+    items: {
+        href: string;
+        label: string;
+        icon: React.ElementType;
+    }[];
+    subGroups: {
+        title: string;
+        icon: React.ElementType;
+        items: {
+            href: string;
+            label: string;
+            icon: React.ElementType;
+        }[];
+    }[];
+};
 
-const getNavInfoForPath = (pathname: string) => {
-    // Check for specific page overrides first
-    if (pathname === '/analisis-ventas') {
-        return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
-    }
-
-    // Check route groups
-    for (const config of pathConfig) {
-        if (pathname.includes(config.prefix.replace(/\//g, ''))) {
-             return config;
-        }
-    }
-    
-    // Fallback for root-level pages that should have a specific context
-    const legalPages = ['/escritorio-juridico', '/contratos', '/cumplimiento', '/poderes-representacion', '/permisos', '/memoria-anual'];
-    if (legalPages.some(p => pathname.startsWith(p))) {
-        return { user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" };
-    }
-    
-    // Default case for personal user
-    return { user: { name: "Usuario", email: "usuario@email.com", fallback: "UN" }, navGroups: naturalMenuItems, dashboardHref: "/dashboard" };
+interface AppHeaderProps {
+    user: User;
+    navGroups: NavGroup[];
+    dashboardHref: string;
 }
 
-
-export function AppHeader({ user: initialUser }: { user: User }) {
+export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
   const pathname = usePathname();
-  const { user, navGroups, dashboardHref } = getNavInfoForPath(pathname);
 
   return (
     <motion.header 
