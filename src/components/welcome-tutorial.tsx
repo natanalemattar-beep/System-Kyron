@@ -2,34 +2,9 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Layers, Bot, UserCheck, ArrowRight, AlertTriangle } from "lucide-react";
-import { Logo } from "./logo";
-
-const tutorialSteps = [
-    {
-        icon: AlertTriangle,
-        title: "¡Bienvenido a la Versión de Prueba de Kyron!",
-        description: "Esta es una versión de desarrollo. Encontrarás funcionalidades incompletas y posibles errores. Agradecemos tu comprensión.",
-    },
-    {
-        icon: Layers,
-        title: "Todo en un Solo Lugar",
-        description: "Gestiona facturas, nóminas, impuestos y permisos. Todo integrado y automatizado para tu tranquilidad.",
-    },
-    {
-        icon: Bot,
-        title: "Asistente con IA",
-        description: "Usa nuestro asistente de IA (el ícono en la esquina inferior derecha) para hacer preguntas y obtener ayuda al instante.",
-    },
-    {
-        icon: UserCheck,
-        title: "¡Estás Listo para Empezar!",
-        description: "Explora los servicios en el menú superior y comienza a gestionar tu empresa de forma más inteligente.",
-    }
-];
+import { AlertTriangle, ArrowRight } from "lucide-react";
 
 export default function WelcomeTutorial() {
     const [open, setOpen] = useState(false);
@@ -50,31 +25,21 @@ export default function WelcomeTutorial() {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="sm:max-w-md p-0 border-0 bg-transparent shadow-none">
-                 <Carousel className="w-full">
-                    <CarouselContent>
-                        {tutorialSteps.map((step, index) => (
-                            <CarouselItem key={index}>
-                                <div className="p-1">
-                                    <div className="flex flex-col h-[28rem] items-center justify-center p-10 text-center bg-card rounded-lg">
-                                        <div className={`p-4 rounded-full mb-6 ${index === 0 ? 'bg-destructive/10' : 'bg-primary/10'}`}>
-                                           <step.icon className={`h-12 w-12 ${index === 0 ? 'text-destructive' : 'text-primary'}`} />
-                                        </div>
-                                        <h3 className="text-2xl font-semibold mb-2">{step.title}</h3>
-                                        <p className="text-muted-foreground">{step.description}</p>
-                                    </div>
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="left-[-1.5rem] sm:left-[-3rem]" />
-                    <CarouselNext className="right-[-1.5rem] sm:right-[-3rem]" />
-                </Carousel>
-                <div className="flex justify-center p-6 pt-2">
+            <DialogContent className="sm:max-w-md">
+                <DialogHeader className="text-center items-center">
+                    <div className="p-3 rounded-full bg-destructive/10 mb-4">
+                        <AlertTriangle className="h-10 w-10 text-destructive" />
+                    </div>
+                    <DialogTitle className="text-2xl">Atención: Esta es una Versión de Prueba</DialogTitle>
+                    <DialogDescription className="pt-2">
+                        Estás viendo un prototipo. La información y las funcionalidades pueden contener errores y están sujetas a cambios.
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="sm:justify-center pt-4">
                      <Button onClick={() => setOpen(false)}>
-                        Comenzar a Explorar <ArrowRight className="ml-2 h-4 w-4"/>
+                        Entendido y Continuar <ArrowRight className="ml-2 h-4 w-4"/>
                     </Button>
-                </div>
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     );

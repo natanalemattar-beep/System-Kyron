@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { User, Menu } from "lucide-react";
+import { User, Menu, AlertTriangle } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/logo";
@@ -170,9 +170,26 @@ export default function LandingPage() {
                         </Sheet>
                     </div>
                 </motion.div>
+                <motion.div 
+                  initial={{ y: -50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                      delay: 1,
+                      type: 'spring',
+                      stiffness: 80,
+                  }}
+                  className="bg-yellow-400/10 border-y border-yellow-400/20 py-2"
+                >
+                    <div className="container mx-auto text-center text-xs text-yellow-500 flex items-center justify-center gap-2">
+                        <AlertTriangle className="h-4 w-4" />
+                        <p>
+                            <strong>Atención:</strong> Esta es una versión de prueba. La información y las funcionalidades están sujetas a cambios.
+                        </p>
+                    </div>
+                </motion.div>
             </header>
 
-            <main className="flex-1">
+            <main className="flex-1 pt-24 md:pt-32">
                 <HeroSection />
                 <ServicesSection />
                 <FeaturesSection />

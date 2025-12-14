@@ -3,8 +3,8 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
-import { SplashScreen } from '@/components/splash-screen';
 import { GeistSans } from 'geist/font/sans';
+import WelcomeTutorial from '@/components/welcome-tutorial';
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +33,7 @@ export default function RootLayout({
                 enableSystem
                 disableTransitionOnChange
             >
-                <SplashScreen />
+                <WelcomeTutorial />
                 {children}
             </ThemeProvider>
         </FirebaseClientProvider>

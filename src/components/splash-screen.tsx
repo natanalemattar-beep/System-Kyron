@@ -7,19 +7,25 @@ import { Logo } from './logo';
 
 export function SplashScreen() {
     const [isLoading, setIsLoading] = useState(true);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        // This effect runs only on the client
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 2000); // Show splash for 2 seconds
-
-        return () => clearTimeout(timer);
+        setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        if (isClient) {
+            const timer = setTimeout(() => {
+                setIsLoading(false);
+            }, 2000); // Show splash for 2 seconds
+
+            return () => clearTimeout(timer);
+        }
+    }, [isClient]);
 
     return (
         <AnimatePresence>
-            {isLoading && (
+            {isClient && isLoading && (
                 <motion.div
                     className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-background"
                     exit={{ opacity: 0, scale: 1.05 }}
