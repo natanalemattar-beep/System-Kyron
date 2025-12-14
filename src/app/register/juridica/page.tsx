@@ -77,7 +77,7 @@ export default function RegisterJuridicaPage() {
                 </CardContent>
                  <CardFooter className="p-6 pt-0">
                     <Button asChild type="submit" className="w-full h-11 text-base">
-                        <Link href="/dashboard-empresa">Crear Cuenta Jurídica</Link>
+                        <Link href="/login-fintech">Crear Cuenta Jurídica</Link>
                     </Button>
                 </CardFooter>
             </form>
