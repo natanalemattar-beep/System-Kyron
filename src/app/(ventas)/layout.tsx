@@ -20,7 +20,7 @@ export default function VentasLayout({ children }: { children: ReactNode }) {
           <div className="container mx-auto text-center text-xs text-yellow-500 flex items-center justify-center gap-2">
               <AlertTriangle className="h-4 w-4" />
               <p>
-                  <strong>Atención:</strong> Esta es una versión de prueba. La información y las funcionalidades están sujetas a cambios.
+                  La página es un prototipo, puede tener errores.
               </p>
           </div>
       </motion.div>

@@ -32,7 +32,7 @@ export default function WelcomeTutorial() {
                     </div>
                     <DialogTitle className="text-2xl">Atención: Esta es una Versión de Prueba</DialogTitle>
                     <DialogDescription className="pt-2">
-                        Estás viendo un prototipo. La información y las funcionalidades pueden contener errores y están sujetas a cambios.
+                       La página es un prototipo, puede tener errores.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="sm:justify-center pt-4">
