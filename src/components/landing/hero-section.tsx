@@ -1,13 +1,12 @@
-
 'use client';
 
+import { useState, useEffect, useRef } from "react";
+import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, Layers, DollarSign } from "lucide-react";
 import { Logo } from "../logo";
-import { useState, useEffect, useRef } from "react";
-import * as React from "react";
 
 const orbFeatures = [
   { icon: Layers, title: "Gestión Fiscal" },
@@ -18,8 +17,8 @@ const orbFeatures = [
   { icon: Users, title: "RR.HH." },
 ];
 
-const ORB_SIZE = 400; // The size of the main orb
-const ICON_ORB_SIZE = 80; // The size of the feature orbs
+const ORB_SIZE = 400;
+const ICON_ORB_SIZE = 80;
 
 export function HeroSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -27,7 +26,6 @@ export function HeroSection() {
   const animationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // This effect runs only on the client, after the component has mounted.
     setIsClient(true);
   }, []);
 
@@ -83,8 +81,17 @@ export function HeroSection() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Orbiting Icons - Rendered only on the client */}
-        <div ref={animationRef} className="absolute w-full h-full" style={{ animation: 'spin 40s linear infinite' }}>
+        {/* Orbiting Icons */}
+        <motion.div 
+            ref={animationRef} 
+            className="absolute w-full h-full"
+            animate={{ rotate: 360 }}
+            transition={{
+                duration: 40,
+                ease: 'linear',
+                repeat: Infinity,
+            }}
+        >
             {isClient && orbFeatures.map((feature, index) => {
                 const angle = (index / orbFeatures.length) * 2 * Math.PI;
                 const x = (ORB_SIZE / 2 - ICON_ORB_SIZE / 2) * Math.cos(angle);
@@ -97,10 +104,17 @@ export function HeroSection() {
                     style={{
                         top: '50%',
                         left: '50%',
-                        transform: `translateX(${x}px) translateY(${y}px)`,
+                        x: x - ICON_ORB_SIZE / 2, // Center the orb on its position
+                        y: y - ICON_ORB_SIZE / 2,
                     }}
                     onMouseEnter={() => handleMouseEnter(index)}
                     onMouseLeave={handleMouseLeave}
+                    animate={{ rotate: -360 }}
+                    transition={{
+                        duration: 40,
+                        ease: 'linear',
+                        repeat: Infinity,
+                    }}
                 >
                     <motion.div
                         className="w-20 h-20 bg-card/50 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
@@ -112,13 +126,7 @@ export function HeroSection() {
                 </motion.div>
                 );
             })}
-        </div>
-        <style jsx>{`
-            @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-            }
-        `}</style>
+        </motion.div>
       </div>
       
        <div className="text-center mt-12">
