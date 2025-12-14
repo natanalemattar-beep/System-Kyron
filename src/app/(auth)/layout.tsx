@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { User } from "lucide-react";
+import { User, AlertTriangle } from "lucide-react";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion } from "framer-motion";
@@ -35,6 +35,20 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         </div>
       </motion.header>
       
+       <motion.div 
+        className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-[4.5rem] md:top-[5.5rem] z-40"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.2, type: 'spring', stiffness: 80 }}
+      >
+          <div className="container mx-auto text-center text-xs text-yellow-500 flex items-center justify-center gap-2">
+              <AlertTriangle className="h-4 w-4" />
+              <p>
+                  <strong>Atención:</strong> Esta es una versión de prueba. La información y las funcionalidades están sujetas a cambios.
+              </p>
+          </div>
+      </motion.div>
+
       <main className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto">
         {children}
       </main>
