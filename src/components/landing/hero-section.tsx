@@ -4,9 +4,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, BarChart, Layers, DollarSign } from "lucide-react";
+import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, Layers, DollarSign } from "lucide-react";
 import { Logo } from "../logo";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as React from "react";
 
 const orbFeatures = [
@@ -23,15 +23,28 @@ const ICON_ORB_SIZE = 80; // The size of the feature orbs
 
 export function HeroSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isClient, setIsClient] = useState(false);
+  const animationRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // This effect runs only on the client, after the component has mounted.
+    setIsClient(true);
+  }, []);
 
   const handleMouseEnter = (index: number) => {
     setHoveredIndex(index);
+    if (animationRef.current) {
+        animationRef.current.style.animationPlayState = 'paused';
+    }
   };
 
   const handleMouseLeave = () => {
     setHoveredIndex(null);
+     if (animationRef.current) {
+        animationRef.current.style.animationPlayState = 'running';
+    }
   };
-
+  
   return (
     <section className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-background py-24 sm:py-32">
       <div className="absolute inset-0 -z-10 h-full w-full">
@@ -70,60 +83,42 @@ export function HeroSection() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Orbiting Icons */}
-        <motion.div
-          className="absolute w-full h-full"
-          animate={{ rotate: 360 }}
-          transition={{
-            duration: 40,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "loop",
-          }}
-          style={{
-            animationPlayState: hoveredIndex !== null ? "paused" : "running",
-          }}
-        >
-          {orbFeatures.map((feature, index) => {
-            const angle = (index / orbFeatures.length) * 2 * Math.PI;
-            const x = (ORB_SIZE / 2 - ICON_ORB_SIZE / 2) * Math.cos(angle);
-            const y = (ORB_SIZE / 2 - ICON_ORB_SIZE / 2) * Math.sin(angle);
+        {/* Orbiting Icons - Rendered only on the client */}
+        <div ref={animationRef} className="absolute w-full h-full" style={{ animation: 'spin 40s linear infinite' }}>
+            {isClient && orbFeatures.map((feature, index) => {
+                const angle = (index / orbFeatures.length) * 2 * Math.PI;
+                const x = (ORB_SIZE / 2 - ICON_ORB_SIZE / 2) * Math.cos(angle);
+                const y = (ORB_SIZE / 2 - ICON_ORB_SIZE / 2) * Math.sin(angle);
 
-            return (
-              <motion.div
-                key={feature.title}
-                className="absolute"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  x: x,
-                  y: y,
-                  rotate: -360, // Counter-rotate the icon container
-                }}
-                animate={{ rotate: -360 }}
-                transition={{
-                  duration: 40,
-                  ease: "linear",
-                  repeat: Infinity,
-                  repeatType: "loop",
-                }}
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={handleMouseLeave}
-              >
+                return (
                 <motion.div
-                  className="w-20 h-20 bg-card/50 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
-                  whileHover={{ scale: 1.2, zIndex: 50, boxShadow: "0 0 20px hsl(var(--primary) / 0.5)" }}
-                  transition={{ duration: 0.2 }}
-                  style={{
-                    animationPlayState: hoveredIndex !== null ? "paused" : "running",
-                  }}
+                    key={feature.title}
+                    className="absolute"
+                    style={{
+                        top: '50%',
+                        left: '50%',
+                        transform: `translateX(${x}px) translateY(${y}px)`,
+                    }}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={handleMouseLeave}
                 >
-                  {React.createElement(feature.icon, { className: "h-8 w-8 text-muted-foreground" })}
+                    <motion.div
+                        className="w-20 h-20 bg-card/50 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
+                        whileHover={{ scale: 1.2, zIndex: 50, boxShadow: "0 0 20px hsl(var(--primary) / 0.5)" }}
+                        transition={{ duration: 0.2 }}
+                    >
+                    {React.createElement(feature.icon, { className: "h-8 w-8 text-muted-foreground" })}
+                    </motion.div>
                 </motion.div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                );
+            })}
+        </div>
+        <style jsx>{`
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `}</style>
       </div>
       
        <div className="text-center mt-12">
