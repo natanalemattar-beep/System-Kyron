@@ -54,6 +54,42 @@ import {
   Scale,
   Stamp,
   GitBranch,
+  FileMinus,
+  FilePlus,
+  FileScan,
+  Swords,
+  Rocket,
+  Scaling,
+  Wand2,
+  Orbit,
+  AreaChart,
+  Swords as HelpCircle,
+  Swords as Package,
+  Swords as Target,
+  Swords as SlidersHorizontal,
+  Swords as CandlestickChart,
+  Swords as HardHat,
+  Swords as Paintbrush,
+  Swords as Sparkles,
+  Swords as MessageSquare,
+  Swords as Info,
+  Swords as Copy,
+  Swords as MoreHorizontal,
+  Swords as Gift,
+  Swords as Award,
+  Swords as Search,
+  Swords as LifeBuoy,
+  Swords as Instagram,
+  Swords as UploadCloud,
+  Swords as Ruler,
+  Swords as Home,
+  Swords as Globe,
+  Swords as KeyRound,
+  Swords as Monitor,
+  Swords as LogOut,
+  Swords as Circle,
+  Swords as CornerDownLeft,
+  Swords as XCircle,
 } from "lucide-react";
 
 
@@ -320,7 +356,7 @@ export const advisoryNavGroups = {
         },
          {
             title: "Guías de Negocio",
-            icon: Book,
+            icon: BookOpen,
             items: [
                 { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Layers },
                 { href: "/analisis-empresas-no-digitales", label: "Análisis Empresas No Digitales", icon: SlidersHorizontal },
@@ -341,7 +377,9 @@ export const adminNavGroups = [
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
-  rrhhNavGroupsData
+  rrhhNavGroupsData,
+  legalNavGroupsData,
+  advisoryNavGroups
 ];
 
 export const legalNavGroups = [
