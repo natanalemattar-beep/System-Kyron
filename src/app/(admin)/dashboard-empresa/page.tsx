@@ -21,6 +21,7 @@ import {
   Users,
   Clock,
   BookOpen,
+  Building,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
