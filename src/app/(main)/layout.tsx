@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import type { ReactNode } from "react";
@@ -8,10 +7,10 @@ import { AppHeader } from "@/components/app-header";
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function VentasLayout({ children }: { children: ReactNode }) {
+export default function MainLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen bg-transparent text-foreground">
-      <AppHeader user={{ name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" }} />
+      <AppHeader user={{ name: "Usuario", email: "usuario@email.com", fallback: "UN" }} />
       <motion.div 
         className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-[4.5rem] md:top-[5.5rem] z-40"
         initial={{ y: -50, opacity: 0 }}
