@@ -5,12 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
-import { TrendingUp, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw } from "lucide-react";
+import { TrendingUp, ShoppingCart, DollarSign, ArrowRight, Download, TrendingDown, RefreshCw, Star } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
 import Link from "next/link";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { motion } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
+
 
 const kpiData = [
     { title: "Ingresos Totales (Mes)", value: formatCurrency(62000, 'Bs.'), icon: DollarSign, trend: "+12.7% vs mes anterior", trendColor: "text-green-500" },
@@ -44,6 +46,15 @@ const chartConfig = {
 
 
 export default function AnalisisVentasPage() {
+  const { toast } = useToast();
+
+  const handleExport = () => {
+      toast({
+          title: "Reporte Generado",
+          description: "El reporte de ventas ha sido exportado exitosamente.",
+      });
+  };
+  
   return (
     <div className="space-y-8">
       <header className="mb-8 flex flex-col md:flex-row justify-between md:items-center gap-4">
@@ -57,36 +68,52 @@ export default function AnalisisVentasPage() {
             </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline"><Download className="mr-2"/>Exportar Reporte</Button>
+          <Button variant="outline" onClick={handleExport}><Download className="mr-2"/>Exportar Reporte</Button>
           <Button asChild>
             <Link href="/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
           </Button>
         </div>
       </header>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiData.map((kpi, index) => (
-          <motion.div
-            key={kpi.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <Card className="bg-card/80 backdrop-blur-sm h-full">
-                <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium flex items-center justify-between">
-                      <span>{kpi.title}</span>
-                      <kpi.icon className="h-4 w-4 text-muted-foreground" />
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-2xl font-bold">{kpi.value}</div>
-                    <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
-                </CardContent>
-            </Card>
-          </motion.div>
+            <motion.div
+              key={kpi.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+                <Card className="bg-card/80 backdrop-blur-sm h-full">
+                    <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-medium flex items-center justify-between">
+                        <span>{kpi.title}</span>
+                        <kpi.icon className="h-4 w-4 text-muted-foreground" />
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-2xl font-bold">{kpi.value}</div>
+                        <p className={`text-xs ${kpi.trendColor}`}>{kpi.trend}</p>
+                    </CardContent>
+                </Card>
+             </motion.div>
         ))}
       </div>
+      
+       <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3"><Star className="text-yellow-400 fill-yellow-400"/>Producto Estrella del Día</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <p className="text-2xl font-bold">Impresora Fiscal Térmica</p>
+                    <p className="text-muted-foreground">El producto más vendido hoy.</p>
+                </div>
+                <div className="text-center md:text-right">
+                    <p className="text-lg font-semibold">12 Unidades Vendidas</p>
+                    <p className="text-xl font-bold text-primary">{formatCurrency(4200, 'Bs.')} en ingresos hoy</p>
+                </div>
+            </CardContent>
+        </Card>
 
        <Card className="bg-card/80 backdrop-blur-sm">
           <CardHeader>
@@ -125,7 +152,7 @@ export default function AnalisisVentasPage() {
       </Card>
 
 
-      <div className="grid gap-8 lg:grid-cols-5">
+      <div className="grid gap-8 lg:grid-cols-1">
           <Card className="lg:col-span-3 bg-card/80 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Productos Más Vendidos (Top 3)</CardTitle>
