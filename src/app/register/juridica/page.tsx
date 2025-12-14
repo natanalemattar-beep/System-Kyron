@@ -83,7 +83,7 @@ export default function RegisterJuridicaPage() {
             </form>
             <CardFooter className="flex-col p-6 border-t text-sm">
                  <p className="text-muted-foreground">¿Ya registraste tu empresa?</p>
-                <Link href="/login-admin" className="font-medium text-primary hover:underline">
+                <Link href="/login-fintech" className="font-medium text-primary hover:underline">
                     Inicia sesión aquí
                 </Link>
             </CardFooter>

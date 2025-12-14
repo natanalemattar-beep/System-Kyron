@@ -33,7 +33,6 @@ export default function MainLayout({ children }: { children: ReactNode }) {
             {children}
         </div>
       </main>
-      <Toaster />
     </div>
   );
 }
