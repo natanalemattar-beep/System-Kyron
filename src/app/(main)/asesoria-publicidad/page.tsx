@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Megaphone, ArrowRight, BarChart, Users, DollarSign, Lightbulb } from "lucide-react";
+import { ArrowRight, Megaphone, BarChart, Users, DollarSign, Lightbulb } from "lucide-react";
 import Link from "next/link";
 
 const kpiData = [

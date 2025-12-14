@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -31,7 +30,7 @@ const topProducts = [
 const bottomProducts = [
     { id: "PROD-008", name: "Calculadora de Escritorio", sales: 5, revenue: formatCurrency(90, 'Bs.') },
     { id: "PROD-007", name: "Rollo de Etiquetas para Precios", sales: 12, revenue: formatCurrency(144, 'Bs.') },
-    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: formatCurrency(75, 'Bs.') },
+    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: "Bs. 75" },
 ];
 
 const chartConfig = {
@@ -154,75 +153,65 @@ export default function AnalisisVentasPage() {
 
 
       <div className="grid gap-8 lg:grid-cols-5">
-          <div className="lg:col-span-3">
-            <Card className="bg-card/80 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle>Productos Más Vendidos (Top 3)</CardTitle>
-                    <CardDescription>Productos que generan mayores ingresos este mes.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="overflow-x-auto">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Producto</TableHead>
-                                    <TableHead className="text-center">Ventas (Uds.)</TableHead>
-                                    <TableHead className="text-right">Ingresos</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {topProducts.map((prod) => (
-                                    <TableRow key={prod.id}>
-                                        <TableCell className="font-medium whitespace-nowrap">{prod.name}</TableCell>
-                                        <TableCell className="text-center">{prod.sales}</TableCell>
-                                        <TableCell className="text-right whitespace-nowrap">{prod.revenue}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </div>
-                </CardContent>
-            </Card>
-          </div>
-        <div className="lg:col-span-2">
-            <Card className="bg-card/80 backdrop-blur-sm">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><TrendingDown className="text-red-500"/>Productos con Menor Demanda</CardTitle>
-                    <CardDescription>Productos con menores ingresos. Considera nuevas estrategias.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="overflow-x-auto">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Producto</TableHead>
-                                    <TableHead className="text-center">Ventas</TableHead>
-                                    <TableHead className="text-right">Ingresos</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {bottomProducts.map((prod) => (
-                                    <TableRow key={prod.id}>
-                                        <TableCell className="font-medium whitespace-nowrap">{prod.name}</TableCell>
-                                        <TableCell className="text-center">{prod.sales}</TableCell>
-                                        <TableCell className="text-right whitespace-nowrap">{prod.revenue}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </div>
-                </CardContent>
-                <CardContent>
-                    <Button asChild variant="outline" className="w-full">
-                        <Link href="/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
-                    </Button>
-                </CardContent>
-            </Card>
-        </div>
+          <Card className="lg:col-span-3 bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Productos Más Vendidos (Top 3)</CardTitle>
+                <CardDescription>Productos que generan mayores ingresos este mes.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Producto</TableHead>
+                            <TableHead className="text-center">Ventas (Uds.)</TableHead>
+                            <TableHead className="text-right">Ingresos</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {topProducts.map((prod) => (
+                            <TableRow key={prod.id}>
+                                <TableCell className="font-medium">{prod.name}</TableCell>
+                                <TableCell className="text-center">{prod.sales}</TableCell>
+                                <TableCell className="text-right">{prod.revenue}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
+        <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><TrendingDown className="text-red-500"/>Productos con Menor Demanda</CardTitle>
+                <CardDescription>Productos con menores ingresos. Considera nuevas estrategias.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Producto</TableHead>
+                            <TableHead className="text-center">Ventas</TableHead>
+                            <TableHead className="text-right">Ingresos</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {bottomProducts.map((prod) => (
+                            <TableRow key={prod.id}>
+                                <TableCell className="font-medium">{prod.name}</TableCell>
+                                <TableCell className="text-center">{prod.sales}</TableCell>
+                                <TableCell className="text-right">{prod.revenue}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </CardContent>
+            <CardContent>
+                 <Button asChild variant="outline" className="w-full">
+                    <Link href="/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
+                </Button>
+            </CardContent>
+        </Card>
       </div>
 
     </div>
   );
 }
-
-    

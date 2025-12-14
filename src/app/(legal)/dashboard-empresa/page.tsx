@@ -10,13 +10,13 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BarChart, BookOpen, Briefcase, Building, DollarSign, FileText, Gavel, HandCoins, Users } from "lucide-react";
+import { ArrowRight, BarChart, BookOpen, Building, DollarSign, Gavel, Users } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
 const managementModules = [
     {
-        category: "Finanzas y Ventas",
+        category: "Gestión Financiera",
         icon: DollarSign,
         items: [
             { title: "Análisis de Ventas", href: "/analisis-ventas", description: "Métricas y KPIs de rendimiento." },
@@ -26,7 +26,7 @@ const managementModules = [
         ]
     },
     {
-        category: "Recursos Humanos",
+        category: "Gestión de RR.HH.",
         icon: Users,
         items: [
             { title: "Gestión de Nóminas", href: "/nominas", description: "Cálculo y pago de la nómina." },
@@ -34,7 +34,7 @@ const managementModules = [
         ]
     },
     {
-        category: "Jurídico y Cumplimiento",
+        category: "Gestión Jurídica",
         icon: Gavel,
         items: [
             { title: "Gestión de Contratos", href: "/contratos", description: "Administra el ciclo de vida de los contratos." },
