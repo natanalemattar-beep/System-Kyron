@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
 
 const user = { name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" };
-const dashboardHref = "/analisis-ventas";
+const dashboardHref = "/ventas/dashboard";
 
 
 export default function VentasLayout({ children }: { children: ReactNode }) {

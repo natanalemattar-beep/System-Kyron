@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -45,7 +44,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 
-export default function AnalisisVentasPage() {
+export default function DashboardVentasPage() {
   const { toast } = useToast();
 
   const handleExport = () => {
@@ -70,12 +69,12 @@ export default function AnalisisVentasPage() {
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}><Download className="mr-2"/>Exportar Reporte</Button>
           <Button asChild>
-            <Link href="/asesoria/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
+            <Link href="/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
           </Button>
         </div>
       </header>
       
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {kpiData.map((kpi, index) => (
             <motion.div
               key={kpi.title}
@@ -152,8 +151,8 @@ export default function AnalisisVentasPage() {
       </Card>
 
 
-      <div className="grid gap-8 lg:grid-cols-1 xl:grid-cols-5">
-          <div className="xl:col-span-3">
+      <div className="grid gap-8 lg:grid-cols-5">
+          <div className="lg:col-span-3">
             <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Productos Más Vendidos (Top 3)</CardTitle>
@@ -183,7 +182,7 @@ export default function AnalisisVentasPage() {
                 </CardContent>
             </Card>
           </div>
-        <div className="xl:col-span-2">
+        <div className="lg:col-span-2">
             <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2"><TrendingDown className="text-red-500"/>Productos con Menor Demanda</CardTitle>
@@ -213,7 +212,7 @@ export default function AnalisisVentasPage() {
                 </CardContent>
                 <CardContent>
                     <Button asChild variant="outline" className="w-full">
-                        <Link href="/asesoria/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
+                        <Link href="/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
                     </Button>
                 </CardContent>
             </Card>

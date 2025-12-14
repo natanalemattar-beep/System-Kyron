@@ -378,16 +378,10 @@ export const adminNavGroups = [
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
-  rrhhNavGroupsData,
-  legalNavGroupsData,
-  advisoryNavGroups
+  rrhhNavGroupsData
 ];
 
 export const legalNavGroups = [
-  finanzasContabilidadNavGroups,
-  { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
-  impuestosCumplimientoNavGroups,
-  rrhhNavGroupsData,
   legalNavGroupsData,
   advisoryNavGroups
 ];
@@ -398,7 +392,7 @@ export const rrhhNavGroups = [rrhhNavGroupsData];
 
 export const ventasNavGroups = [
     { title: "Ventas y Caja", icon: ShoppingCart, items: [
-        { href: "/ventas/dashboard", label: "Dashboard de Ventas", icon: LayoutDashboard },
+        { href: "/dashboard", label: "Dashboard de Ventas", icon: LayoutDashboard },
         { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
         { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
