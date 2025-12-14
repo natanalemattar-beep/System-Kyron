@@ -45,31 +45,36 @@ type User = {
   fallback: string;
 };
 
+const pathConfig = [
+    { prefix: '/(admin)/', user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" },
+    { prefix: '/(hr)/', user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }, navGroups: rrhhNavGroups, dashboardHref: "/dashboard-rrhh" },
+    { prefix: '/(socios)/', user: { name: "Socio Director", email: "socio@kyron.com", fallback: "S" }, navGroups: sociosNavGroups, dashboardHref: "/dashboard-socios" },
+    { prefix: '/(it)/', user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" },
+    { prefix: '/(marketing)/', user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria" },
+    { prefix: '/(legal)/', user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" },
+    { prefix: '/(telecom)/', user: { name: "Telecom", email: "telecom@kyron.com", fallback: "T" }, navGroups: telecomNavGroups, dashboardHref: "/dashboard-telecom" },
+    { prefix: '/(ventas)/', user: { name: "Ventas", email: "ventas@kyron.com", fallback: "V" }, navGroups: ventasNavGroups, dashboardHref: "/ventas/dashboard" },
+];
+
 const getNavInfoForPath = (pathname: string) => {
-    if (pathname.startsWith('/(admin)')) {
+    // Check for specific page overrides first
+    if (pathname === '/analisis-ventas') {
         return { user: { name: "Admin", email: "admin@kyron.com", fallback: "A" }, navGroups: adminNavGroups, dashboardHref: "/dashboard-empresa" };
     }
-    if (pathname.startsWith('/(hr)')) {
-        return { user: { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" }, navGroups: rrhhNavGroups, dashboardHref: "/dashboard-rrhh" };
+
+    // Check route groups
+    for (const config of pathConfig) {
+        if (pathname.includes(config.prefix.replace(/\//g, ''))) {
+             return config;
+        }
     }
-    if (pathname.startsWith('/(socios)')) {
-        return { user: { name: "Socio Director", email: "socio@kyron.com", fallback: "S" }, navGroups: sociosNavGroups, dashboardHref: "/dashboard-socios" };
-    }
-    if (pathname.startsWith('/(it)')) {
-        return { user: { name: "Ingeniería", email: "it@kyron.com", fallback: "IT" }, navGroups: informaticaNavGroups, dashboardHref: "/dashboard-informatica" };
-    }
-    if (pathname.startsWith('/(marketing)')) {
-         return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria" };
-    }
-    if (pathname.startsWith('/(legal)')) {
+    
+    // Fallback for root-level pages that should have a specific context
+    const legalPages = ['/escritorio-juridico', '/contratos', '/cumplimiento', '/poderes-representacion', '/permisos', '/memoria-anual'];
+    if (legalPages.some(p => pathname.startsWith(p))) {
         return { user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" };
     }
-    if (pathname.startsWith('/(telecom)')) {
-        return { user: { name: "Telecom", email: "telecom@kyron.com", fallback: "T" }, navGroups: telecomNavGroups, dashboardHref: "/dashboard-telecom" };
-    }
-    if (pathname.startsWith('/(ventas)')) {
-      return { user: { name: "Ventas", email: "ventas@kyron.com", fallback: "V" }, navGroups: ventasNavGroups, dashboardHref: "/ventas/dashboard" };
-    }
+    
     // Default case for personal user
     return { user: { name: "Usuario", email: "usuario@email.com", fallback: "UN" }, navGroups: naturalMenuItems, dashboardHref: "/dashboard" };
 }
