@@ -10,7 +10,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BarChart, BookOpen, Briefcase, Building, DollarSign, FileText, Gavel, HandCoins, Users } from "lucide-react";
+import { ArrowRight, DollarSign, Users, Gavel, Building } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
