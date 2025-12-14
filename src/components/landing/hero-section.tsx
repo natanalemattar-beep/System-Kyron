@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useRef } from "react";
@@ -23,7 +24,6 @@ const ICON_ORB_SIZE = 80;
 export function HeroSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isClient, setIsClient] = useState(false);
-  const animationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -31,16 +31,10 @@ export function HeroSection() {
 
   const handleMouseEnter = (index: number) => {
     setHoveredIndex(index);
-    if (animationRef.current) {
-        animationRef.current.style.animationPlayState = 'paused';
-    }
   };
 
   const handleMouseLeave = () => {
     setHoveredIndex(null);
-     if (animationRef.current) {
-        animationRef.current.style.animationPlayState = 'running';
-    }
   };
   
   return (
@@ -81,21 +75,12 @@ export function HeroSection() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Orbiting Icons */}
-        <motion.div 
-            ref={animationRef} 
-            className="absolute w-full h-full"
-            animate={{ rotate: 360 }}
-            transition={{
-                duration: 40,
-                ease: 'linear',
-                repeat: Infinity,
-            }}
-        >
+        {/* Static Icons */}
+        <div className="absolute w-full h-full">
             {isClient && orbFeatures.map((feature, index) => {
                 const angle = (index / orbFeatures.length) * 2 * Math.PI;
-                const x = (ORB_SIZE / 2 - ICON_ORB_SIZE / 2) * Math.cos(angle);
-                const y = (ORB_SIZE / 2 - ICON_ORB_SIZE / 2) * Math.sin(angle);
+                const x = (ORB_SIZE / 2) * Math.cos(angle);
+                const y = (ORB_SIZE / 2) * Math.sin(angle);
 
                 return (
                 <motion.div
@@ -104,17 +89,11 @@ export function HeroSection() {
                     style={{
                         top: '50%',
                         left: '50%',
-                        x: x - ICON_ORB_SIZE / 2, // Center the orb on its position
+                        x: x - ICON_ORB_SIZE / 2,
                         y: y - ICON_ORB_SIZE / 2,
                     }}
                     onMouseEnter={() => handleMouseEnter(index)}
                     onMouseLeave={handleMouseLeave}
-                    animate={{ rotate: -360 }}
-                    transition={{
-                        duration: 40,
-                        ease: 'linear',
-                        repeat: Infinity,
-                    }}
                 >
                     <motion.div
                         className="w-20 h-20 bg-card/50 backdrop-blur-sm border rounded-full flex items-center justify-center cursor-pointer"
@@ -126,7 +105,7 @@ export function HeroSection() {
                 </motion.div>
                 );
             })}
-        </motion.div>
+        </div>
       </div>
       
        <div className="text-center mt-12">
@@ -144,7 +123,7 @@ export function HeroSection() {
              animate={{ opacity: 1, y: 0 }}
              transition={{ duration: 0.5, delay: 0.4 }}
            >
-             <Button size="lg" asChild className="w-full sm:w-auto text-base">
+             <Button size="lg" asChild className="w-full sm:w-auto text-base btn-3d-primary">
                <Link href="/register">Comienza Ahora</Link>
              </Button>
              <Button size="lg" variant="ghost" asChild className="w-full sm:w-auto text-base">
