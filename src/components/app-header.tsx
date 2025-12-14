@@ -155,6 +155,7 @@ export function AppHeader({ user }: { user: User }) {
               </SheetTrigger>
               <SheetContent side="left" className="w-full max-w-sm p-0">
                 <SheetHeader className="p-4 border-b">
+                    <SheetTitle className="sr-only">Menú Principal</SheetTitle>
                     <Link href={dashboardHref} className="flex items-center gap-3">
                         <Logo />
                         <span className="text-xl font-bold">System Kyron</span>
