@@ -391,7 +391,7 @@ export const rrhhNavGroups = [rrhhNavGroupsData];
 
 export const ventasNavGroups = [
     { title: "Ventas y Caja", icon: ShoppingCart, items: [
-        { href: "/analisis-ventas", label: "Dashboard de Ventas", icon: LayoutDashboard },
+        { href: "/ventas/dashboard", label: "Dashboard de Ventas", icon: LayoutDashboard },
         { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
         { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
