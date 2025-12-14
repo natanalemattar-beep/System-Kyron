@@ -89,6 +89,7 @@ import {
   Sparkles,
   Paintbrush,
   Plane,
+  Signal, // Added Signal and others below
 } from "lucide-react";
 
 
