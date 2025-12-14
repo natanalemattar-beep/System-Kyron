@@ -37,7 +37,6 @@ import {
   Sun,
   ShoppingCart,
   UserX,
-  Plane,
   Banknote,
   HandCoins,
   Wallet,
@@ -69,14 +68,6 @@ import {
   SlidersHorizontal,
   CandlestickChart,
   HardHat,
-  Paintbrush,
-  Sparkles,
-  MessageSquare,
-  Info,
-  Copy,
-  MoreHorizontal,
-  Gift,
-  Award,
   Search,
   LifeBuoy,
   Instagram,
@@ -92,6 +83,12 @@ import {
   XCircle,
   Calculator,
   Mail,
+  UserPlus,
+  Gift,
+  Award,
+  Sparkles,
+  Paintbrush,
+  Plane,
 } from "lucide-react";
 
 
@@ -439,5 +436,3 @@ export const informaticaNavGroups = [
       { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
-
-    
