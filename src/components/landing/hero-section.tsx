@@ -35,15 +35,6 @@ const featureCards: {
 ];
 
 export function HeroSection() {
-    const [featureIndex, setFeatureIndex] = React.useState(0);
-
-    React.useEffect(() => {
-        const interval = setInterval(() => {
-            setFeatureIndex((prevIndex) => (prevIndex + 1) % featureCards.length);
-        }, 3000); // Change card every 3 seconds
-        return () => clearInterval(interval);
-    }, []);
-
     return (
         <section className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-background">
             <div className="absolute inset-0 -z-10 h-full w-full">
@@ -74,33 +65,35 @@ export function HeroSection() {
                         </div>
                     </motion.div>
                      <motion.div
-                        className="relative h-96 w-full max-w-md mx-auto lg:max-w-none"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        className="grid grid-cols-2 gap-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.5 }}
+                        variants={{
+                            visible: {
+                                transition: {
+                                    staggerChildren: 0.2,
+                                },
+                            },
+                        }}
                      >
-                         {featureCards.map((feature, index) => (
+                         {featureCards.map((feature) => (
                             <motion.div
                                 key={feature.title}
-                                className="absolute inset-0"
-                                initial={{ opacity: 0, scale: 0.9, rotateY: -30 }}
-                                animate={{
-                                    opacity: index === featureIndex ? 1 : 0,
-                                    scale: index === featureIndex ? 1 : 0.9,
-                                    rotateY: index === featureIndex ? 0 : 30,
-                                    zIndex: index === featureIndex ? 10 : 1,
+                                variants={{
+                                    hidden: { opacity: 0, y: 20 },
+                                    visible: { opacity: 1, y: 0 },
                                 }}
-                                transition={{ duration: 0.5, ease: "easeInOut" }}
                             >
-                                <Card className="h-full w-full flex flex-col items-center justify-center bg-card/80 backdrop-blur-md shadow-2xl">
+                                <Card className="h-full w-full bg-card/60 backdrop-blur-md shadow-lg hover:shadow-primary/20 hover:-translate-y-1 transition-all duration-300">
                                     <CardHeader className="items-center text-center">
-                                        <div className="p-4 bg-primary/10 rounded-full mb-4">
-                                            {React.createElement(feature.icon, { className: "h-10 w-10 text-primary" })}
+                                        <div className="p-3 bg-primary/10 rounded-full mb-3">
+                                            <feature.icon className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl font-semibold">{feature.title}</h3>
+                                        <h3 className="text-base font-semibold">{feature.title}</h3>
                                     </CardHeader>
-                                    <CardContent className="text-center">
-                                        <p className="text-muted-foreground">{feature.description}</p>
+                                    <CardContent className="text-center text-xs text-muted-foreground">
+                                        <p>{feature.description}</p>
                                     </CardContent>
                                 </Card>
                             </motion.div>
