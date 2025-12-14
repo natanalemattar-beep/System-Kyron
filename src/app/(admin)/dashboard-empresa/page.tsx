@@ -60,7 +60,7 @@ export default function DashboardEmpresaPage() {
       </header>
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiData.map((kpi, index) => (
             <motion.div
               key={kpi.title}
@@ -85,14 +85,14 @@ export default function DashboardEmpresaPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-         <div className="lg:col-span-2 lg:order-2">
+         <div className="lg:col-span-2">
             {/* Financial Chart */}
             <Card className="bg-card/50 backdrop-blur-sm flex flex-col min-h-[400px]">
             <CardHeader>
                 <CardTitle>Pulso Financiero (Últimos 12 meses)</CardTitle>
                 <CardDescription>Evolución de ingresos, gastos y rentabilidad.</CardDescription>
             </CardHeader>
-            <CardContent className="flex-grow min-h-0">
+            <CardContent className="flex-grow min-h-[300px] md:min-h-0">
                 <ChartContainer config={chartConfig} className="h-full w-full">
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={rentabilidadData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
@@ -128,7 +128,7 @@ export default function DashboardEmpresaPage() {
             </Card>
          </div>
       
-         <div className="space-y-8 lg:col-span-1 lg:order-1">
+         <div className="space-y-8 lg:col-span-1">
             <Card className="bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Resumen de Flujo de Caja</CardTitle>

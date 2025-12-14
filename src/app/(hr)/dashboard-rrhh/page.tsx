@@ -76,13 +76,13 @@ export default function RecursosHumanosPage() {
 
        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
          <div className="lg:col-span-2">
-            <Card className="bg-card/80 backdrop-blur-sm h-full min-h-[400px]">
+            <Card className="bg-card/80 backdrop-blur-sm h-full">
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-primary/10 rounded-lg">
                       <Users className="h-6 w-6 text-primary"/>
                     </div>
-                    <CardTitle>Distribución de Empleados por Departamento</CardTitle>
+                    <CardTitle>Distribución de Empleados</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="h-80">

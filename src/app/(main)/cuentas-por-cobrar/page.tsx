@@ -55,7 +55,7 @@ export default function CuentasPorCobrarPage() {
     const diasPromedioCobro = 38;
 
     return (
-        <div>
+        <div className="space-y-8">
             <header className="mb-8">
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <Wallet className="h-8 w-8" />
@@ -99,42 +99,44 @@ export default function CuentasPorCobrarPage() {
                 </Card>
             </div>
 
-            <div className="grid gap-8 lg:grid-cols-5">
-                <div className="lg:col-span-3">
+            <div className="grid gap-8 lg:grid-cols-1 xl:grid-cols-5">
+                <div className="xl:col-span-3">
                     <Card className="bg-card/80 backdrop-blur-sm">
                         <CardHeader>
                             <CardTitle>Facturas Pendientes de Cobro</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Cliente</TableHead>
-                                        <TableHead>Vencimiento</TableHead>
-                                        <TableHead className="text-right">Monto</TableHead>
-                                        <TableHead>Estado</TableHead>
-                                        <TableHead className="text-right">Acciones</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {facturasPendientes.map((factura) => (
-                                        <TableRow key={factura.id} className={factura.estado === 'Vencida' ? 'bg-destructive/10' : ''}>
-                                            <TableCell className="font-medium">{factura.cliente}</TableCell>
-                                            <TableCell>{formatDate(factura.fechaVencimiento)}</TableCell>
-                                            <TableCell className="text-right">{formatCurrency(factura.monto, 'Bs.')}</TableCell>
-                                            <TableCell><Badge variant={getStatusVariant(factura.estado)}>{factura.estado}</Badge></TableCell>
-                                            <TableCell className="text-right">
-                                                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=factura-cobrar-${factura.id}`} alt={`QR for ${factura.id}`} width={24} height={24} className="inline-block mr-2" />
-                                                <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id)}>Registrar Cobro</Button>
-                                            </TableCell>
+                            <div className="overflow-x-auto">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead>Cliente</TableHead>
+                                            <TableHead>Vencimiento</TableHead>
+                                            <TableHead className="text-right">Monto</TableHead>
+                                            <TableHead>Estado</TableHead>
+                                            <TableHead className="text-right">Acciones</TableHead>
                                         </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {facturasPendientes.map((factura) => (
+                                            <TableRow key={factura.id} className={factura.estado === 'Vencida' ? 'bg-destructive/10' : ''}>
+                                                <TableCell className="font-medium whitespace-nowrap">{factura.cliente}</TableCell>
+                                                <TableCell className="whitespace-nowrap">{formatDate(factura.fechaVencimiento)}</TableCell>
+                                                <TableCell className="text-right whitespace-nowrap">{formatCurrency(factura.monto, 'Bs.')}</TableCell>
+                                                <TableCell><Badge variant={getStatusVariant(factura.estado)}>{factura.estado}</Badge></TableCell>
+                                                <TableCell className="text-right">
+                                                    <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=factura-cobrar-${factura.id}`} alt={`QR for ${factura.id}`} width={24} height={24} className="inline-block mr-2" />
+                                                    <Button size="sm" variant="outline" onClick={() => handleRegisterPayment(factura.id)}>Registrar Cobro</Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </CardContent>
                     </Card>
                 </div>
-                <div className="lg:col-span-2 space-y-8">
+                <div className="xl:col-span-2 space-y-8">
                      <Card className="bg-card/80 backdrop-blur-sm">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><BarChart />Análisis de Clientes</CardTitle>
@@ -144,7 +146,7 @@ export default function CuentasPorCobrarPage() {
                              <ResponsiveContainer width="100%" height="100%">
                                 <RechartsBarChart data={topDeudoresData} layout="vertical" margin={{ right: 30, left: 10 }}>
                                     <XAxis type="number" hide />
-                                    <YAxis dataKey="name" type="category" fontSize={12} tickLine={false} axisLine={false} />
+                                    <YAxis dataKey="name" type="category" fontSize={12} tickLine={false} axisLine={false} width={120} />
                                     <Tooltip cursor={{ fill: 'hsl(var(--secondary))' }} formatter={(value) => formatCurrency(value as number, 'Bs.')}/>
                                     <Bar dataKey="Deuda Total" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
                                 </RechartsBarChart>

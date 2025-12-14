@@ -69,28 +69,28 @@ export default function InventarioPage() {
     const totalProducts = inventory.length;
 
     return (
-        <div>
-            <header className="mb-8 flex items-center justify-between">
+        <div className="space-y-8">
+            <header className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                         <Archive className="h-8 w-8" />
                         Gestión de Inventario
                     </h1>
                     <p className="text-muted-foreground mt-2">
-                        Control de existencias y valoración según normativa SENIAT. Las existencias se actualizan en tiempo real con cada venta del Punto de Venta.
+                        Control de existencias y valoración. El stock se actualiza en tiempo real con cada venta del TPV.
                     </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 w-full sm:w-auto">
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button>
+                            <Button className="w-full">
                                 <PlusCircle className="mr-2" />
                                 Añadir Producto
                             </Button>
                         </DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
-                                <DialogTitle>Añadir Nuevo Producto al Inventario</DialogTitle>
+                                <DialogTitle>Añadir Nuevo Producto</DialogTitle>
                             </DialogHeader>
                             <div className="grid gap-4 py-4">
                                 <Input placeholder="Nombre del producto" />
@@ -107,14 +107,14 @@ export default function InventarioPage() {
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
-                    <Button variant="outline">
+                    <Button variant="outline" className="w-full">
                         <Download className="mr-2" />
-                        Exportar Inventario
+                        Exportar
                     </Button>
                 </div>
             </header>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
+            <div className="grid gap-4 md:grid-cols-2">
                  <Card className="bg-card/50 backdrop-blur-sm">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Valor Total del Inventario</CardTitle>
@@ -143,75 +143,79 @@ export default function InventarioPage() {
                     <CardDescription>Detalle de las existencias actuales, incluyendo fechas de vencimiento.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>SKU</TableHead>
-                                <TableHead>Producto</TableHead>
-                                <TableHead>Stock</TableHead>
-                                <TableHead className="text-right">Costo</TableHead>
-                                <TableHead className="text-right">Valor Total</TableHead>
-                                <TableHead className="text-center">Vencimiento</TableHead>
-                                <TableHead className="text-right">Acciones</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {inventory.map((item) => {
-                                const status = getStatus(item.fechaVencimiento);
-                                return (
-                                <TableRow key={item.sku} className={status.variant === 'destructive' ? 'bg-destructive/10' : status.variant === 'secondary' ? 'bg-secondary/60' : ''}>
-                                    <TableCell className="font-mono">{item.sku}</TableCell>
-                                    <TableCell className="font-medium">{item.nombre}</TableCell>
-                                    <TableCell className="text-center">{item.stock}</TableCell>
-                                    <TableCell className="text-right">{formatCurrency(item.costo, 'Bs.')}</TableCell>
-                                    <TableCell className="text-right font-semibold">{formatCurrency(item.valor, 'Bs.')}</TableCell>
-                                    <TableCell className="text-center">
-                                        <div className="flex flex-col items-center">
-                                            <span>{item.fechaVencimiento ? formatDate(item.fechaVencimiento) : 'N/A'}</span>
-                                            <Badge variant={status.variant} className="mt-1">{status.text}</Badge>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                         <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=product-${item.sku}`} alt={`QR for ${item.sku}`} width={24} height={24} className="inline-block mr-2" />
-                                         <Dialog>
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant="ghost" size="icon"><MoreHorizontal className="h-4 w-4" /></Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end">
-                                                    <DialogTrigger asChild>
-                                                        <DropdownMenuItem><Edit className="mr-2 h-4 w-4" /> Ajustar Stock</DropdownMenuItem>
-                                                    </DialogTrigger>
-                                                    {status.text === 'Próximo a Vencer' && (
-                                                        <DropdownMenuItem onSelect={() => handlePromote(item)}>
-                                                            <AlertTriangle className="mr-2 h-4 w-4 text-orange-500" /> Promocionar
-                                                        </DropdownMenuItem>
-                                                    )}
-                                                    {status.text === 'Vencido' && (
-                                                         <DropdownMenuItem onSelect={() => handleRemove(item.sku)} className="text-destructive">
-                                                            <Trash2 className="mr-2 h-4 w-4" /> Retirar y Desechar
-                                                        </DropdownMenuItem>
-                                                    )}
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                            <DialogContent>
-                                                <DialogHeader>
-                                                    <DialogTitle>Ajustar Stock para {item.nombre}</DialogTitle>
-                                                </DialogHeader>
-                                                <div className="grid gap-4 py-4">
-                                                    <Label htmlFor="new-stock">Nuevo Stock</Label>
-                                                    <Input id="new-stock" type="number" defaultValue={item.stock}/>
-                                                </div>
-                                                <DialogFooter>
-                                                    <Button onClick={() => handleAction("Stock ajustado")}>Ajustar Stock</Button>
-                                                </DialogFooter>
-                                            </DialogContent>
-                                        </Dialog>
-                                    </TableCell>
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>SKU</TableHead>
+                                    <TableHead>Producto</TableHead>
+                                    <TableHead>Stock</TableHead>
+                                    <TableHead className="text-right">Costo</TableHead>
+                                    <TableHead className="text-right">Valor Total</TableHead>
+                                    <TableHead className="text-center">Vencimiento</TableHead>
+                                    <TableHead className="text-right">Acciones</TableHead>
                                 </TableRow>
-                            )})}
-                        </TableBody>
-                    </Table>
+                            </TableHeader>
+                            <TableBody>
+                                {inventory.map((item) => {
+                                    const status = getStatus(item.fechaVencimiento);
+                                    return (
+                                    <TableRow key={item.sku} className={status.variant === 'destructive' ? 'bg-destructive/10' : status.variant === 'secondary' ? 'bg-secondary/60' : ''}>
+                                        <TableCell className="font-mono whitespace-nowrap">{item.sku}</TableCell>
+                                        <TableCell className="font-medium whitespace-nowrap">{item.nombre}</TableCell>
+                                        <TableCell className="text-center">{item.stock}</TableCell>
+                                        <TableCell className="text-right whitespace-nowrap">{formatCurrency(item.costo, 'Bs.')}</TableCell>
+                                        <TableCell className="text-right font-semibold whitespace-nowrap">{formatCurrency(item.valor, 'Bs.')}</TableCell>
+                                        <TableCell className="text-center">
+                                            <div className="flex flex-col items-center">
+                                                <span className="whitespace-nowrap">{item.fechaVencimiento ? formatDate(item.fechaVencimiento) : 'N/A'}</span>
+                                                <Badge variant={status.variant} className="mt-1">{status.text}</Badge>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            <div className="flex items-center justify-end gap-1">
+                                                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=product-${item.sku}`} alt={`QR for ${item.sku}`} width={24} height={24} className="inline-block" />
+                                                <Dialog>
+                                                    <DropdownMenu>
+                                                        <DropdownMenuTrigger asChild>
+                                                            <Button variant="ghost" size="icon"><MoreHorizontal className="h-4 w-4" /></Button>
+                                                        </DropdownMenuTrigger>
+                                                        <DropdownMenuContent align="end">
+                                                            <DialogTrigger asChild>
+                                                                <DropdownMenuItem><Edit className="mr-2 h-4 w-4" /> Ajustar Stock</DropdownMenuItem>
+                                                            </DialogTrigger>
+                                                            {status.text === 'Próximo a Vencer' && (
+                                                                <DropdownMenuItem onSelect={() => handlePromote(item)}>
+                                                                    <AlertTriangle className="mr-2 h-4 w-4 text-orange-500" /> Promocionar
+                                                                </DropdownMenuItem>
+                                                            )}
+                                                            {status.text === 'Vencido' && (
+                                                                <DropdownMenuItem onSelect={() => handleRemove(item.sku)} className="text-destructive">
+                                                                    <Trash2 className="mr-2 h-4 w-4" /> Retirar y Desechar
+                                                                </DropdownMenuItem>
+                                                            )}
+                                                        </DropdownMenuContent>
+                                                    </DropdownMenu>
+                                                    <DialogContent>
+                                                        <DialogHeader>
+                                                            <DialogTitle>Ajustar Stock para {item.nombre}</DialogTitle>
+                                                        </DialogHeader>
+                                                        <div className="grid gap-4 py-4">
+                                                            <Label htmlFor="new-stock">Nuevo Stock</Label>
+                                                            <Input id="new-stock" type="number" defaultValue={item.stock}/>
+                                                        </div>
+                                                        <DialogFooter>
+                                                            <Button onClick={() => handleAction("Stock ajustado")}>Ajustar Stock</Button>
+                                                        </DialogFooter>
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                )})}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </CardContent>
             </Card>
         </div>

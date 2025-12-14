@@ -256,5 +256,4 @@ export default function CuentasPorPagarPage() {
             </div>
         </div>
     );
-
-    
+}

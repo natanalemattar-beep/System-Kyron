@@ -48,7 +48,7 @@ export default function ContabilidadPage() {
         </p>
       </header>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {kpiData.map(kpi => (
             <Card key={kpi.title} className="bg-card/50 backdrop-blur-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -70,28 +70,30 @@ export default function ContabilidadPage() {
                     <CardDescription>Vista consolidada de la situación financiera de la empresa.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Cuenta</TableHead>
-                                <TableHead className="text-right">Monto</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            <TableRow className="font-semibold bg-secondary/30"><TableCell>Activos</TableCell><TableCell></TableCell></TableRow>
-                            {balanceSummary.activos.map(item => (
-                                <TableRow key={item.cuenta}><TableCell className="pl-8">{item.cuenta}</TableCell><TableCell className="text-right">{formatCurrency(item.monto, 'Bs.')}</TableCell></TableRow>
-                            ))}
-                             <TableRow className="font-bold border-t"><TableCell>Total Activos</TableCell><TableCell className="text-right">{formatCurrency(balanceSummary.totalActivos, 'Bs.')}</TableCell></TableRow>
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Cuenta</TableHead>
+                                    <TableHead className="text-right">Monto</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                <TableRow className="font-semibold bg-secondary/30"><TableCell>Activos</TableCell><TableCell></TableCell></TableRow>
+                                {balanceSummary.activos.map(item => (
+                                    <TableRow key={item.cuenta}><TableCell className="pl-8">{item.cuenta}</TableCell><TableCell className="text-right">{formatCurrency(item.monto, 'Bs.')}</TableCell></TableRow>
+                                ))}
+                                <TableRow className="font-bold border-t"><TableCell>Total Activos</TableCell><TableCell className="text-right">{formatCurrency(balanceSummary.totalActivos, 'Bs.')}</TableCell></TableRow>
 
-                            <TableRow className="font-semibold bg-secondary/30"><TableCell>Pasivos y Patrimonio</TableCell><TableCell></TableCell></TableRow>
-                             {balanceSummary.pasivosPatrimonio.map(item => (
-                                <TableRow key={item.cuenta}><TableCell className="pl-8">{item.cuenta}</TableCell><TableCell className="text-right">{formatCurrency(item.monto, 'Bs.')}</TableCell></TableRow>
-                            ))}
-                             <TableRow className="font-bold border-t"><TableCell>Total Pasivos y Patrimonio</TableCell><TableCell className="text-right">{formatCurrency(balanceSummary.totalPasivosPatrimonio, 'Bs.')}</TableCell></TableRow>
+                                <TableRow className="font-semibold bg-secondary/30"><TableCell>Pasivos y Patrimonio</TableCell><TableCell></TableCell></TableRow>
+                                {balanceSummary.pasivosPatrimonio.map(item => (
+                                    <TableRow key={item.cuenta}><TableCell className="pl-8">{item.cuenta}</TableCell><TableCell className="text-right">{formatCurrency(item.monto, 'Bs.')}</TableCell></TableRow>
+                                ))}
+                                <TableRow className="font-bold border-t"><TableCell>Total Pasivos y Patrimonio</TableCell><TableCell className="text-right">{formatCurrency(balanceSummary.totalPasivosPatrimonio, 'Bs.')}</TableCell></TableRow>
 
-                        </TableBody>
-                    </Table>
+                            </TableBody>
+                        </Table>
+                    </div>
                 </CardContent>
                  <CardFooter>
                     <Button asChild variant="outline">

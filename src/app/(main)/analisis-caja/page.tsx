@@ -60,7 +60,7 @@ export default function AnalisisCajaPage() {
         ))}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid gap-8 lg:grid-cols-1 xl:grid-cols-2">
         {/* Gráfico de Ventas Diarias */}
         <Card className="bg-card/80 backdrop-blur-sm">
             <CardHeader>
@@ -109,24 +109,26 @@ export default function AnalisisCajaPage() {
                 <CardDescription>Listado de las operaciones más recientes.</CardDescription>
             </CardHeader>
             <CardContent>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Hora</TableHead>
-                            <TableHead>Cajero</TableHead>
-                            <TableHead className="text-right">Monto</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {recentTransactions.map(tx => (
-                            <TableRow key={tx.id}>
-                                <TableCell>{tx.hora}</TableCell>
-                                <TableCell className="font-medium">{tx.cajero}</TableCell>
-                                <TableCell className="text-right">{formatCurrency(tx.monto, 'Bs.')}</TableCell>
+                 <div className="overflow-x-auto">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Hora</TableHead>
+                                <TableHead>Cajero</TableHead>
+                                <TableHead className="text-right">Monto</TableHead>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHeader>
+                        <TableBody>
+                            {recentTransactions.map(tx => (
+                                <TableRow key={tx.id}>
+                                    <TableCell>{tx.hora}</TableCell>
+                                    <TableCell className="font-medium">{tx.cajero}</TableCell>
+                                    <TableCell className="text-right">{formatCurrency(tx.monto, 'Bs.')}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
             </CardContent>
         </Card>
       </div>
