@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -29,7 +30,7 @@ const topProducts = [
 const bottomProducts = [
     { id: "PROD-008", name: "Calculadora de Escritorio", sales: 5, revenue: formatCurrency(90, 'Bs.') },
     { id: "PROD-007", name: "Rollo de Etiquetas para Precios", sales: 12, revenue: formatCurrency(144, 'Bs.') },
-    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: formatCurrency(75, 'Bs.') },
+    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: "Bs. 75" },
 ];
 
 const chartConfig = {
@@ -152,7 +153,7 @@ export default function DashboardVentasPage() {
 
 
       <div className="grid gap-8 lg:grid-cols-5">
-          <div className="lg:col-span-3">
+        <div className="lg:col-span-3">
             <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle>Productos Más Vendidos (Top 3)</CardTitle>
@@ -181,7 +182,7 @@ export default function DashboardVentasPage() {
                     </div>
                 </CardContent>
             </Card>
-          </div>
+        </div>
         <div className="lg:col-span-2">
             <Card className="bg-card/80 backdrop-blur-sm">
                 <CardHeader>
