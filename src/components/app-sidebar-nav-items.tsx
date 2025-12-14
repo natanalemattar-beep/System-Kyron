@@ -94,6 +94,7 @@ import {
   School,
   Presentation,
   Zap,
+  Cpu,
 } from "lucide-react";
 
 
