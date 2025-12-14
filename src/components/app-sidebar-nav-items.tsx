@@ -91,6 +91,7 @@ import {
   CornerDownLeft,
   XCircle,
   Calculator,
+  Mail,
 } from "lucide-react";
 
 
