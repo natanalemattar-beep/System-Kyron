@@ -31,7 +31,7 @@ const chatFlow = ai.defineFlow(
   },
   async (input) => {
     const { text } = await ai.generate({
-      model: 'googleai/gemini-1.5-flash-latest',
+      model: 'googleai/gemini-1.5-pro-latest',
       prompt: `You are a helpful AI assistant for a business management platform called "Kyron". Your goal is to guide users and answer their questions about the platform's features.
 
 The user is currently interacting with you from a specific context within the app, which is described below:
@@ -46,6 +46,9 @@ The user says:
 {{{message}}}
 `,
       input,
+      config: {
+        safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],
+      }
     });
     return text;
   }

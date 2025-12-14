@@ -39,7 +39,7 @@ const generateSalesStrategiesFlow = ai.defineFlow(
   },
   async (input) => {
     const { output } = await ai.generate({
-        model: 'googleai/gemini-1.5-flash-latest',
+        model: 'googleai/gemini-1.5-pro-latest',
         prompt: `You are a world-class sales and marketing strategist for a Venezuelan company selling office supplies, tech, and furniture.
   
         Analyze the following sales data:
@@ -60,6 +60,9 @@ const generateSalesStrategiesFlow = ai.defineFlow(
         `,
         input,
         output: { schema: SalesStrategyOutputSchema },
+        config: {
+          safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],
+        }
     });
     return output!;
   }

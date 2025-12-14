@@ -45,7 +45,7 @@ const analyzeSentimentFlow = ai.defineFlow(
   },
   async (input) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-1.5-flash-latest',
+      model: 'googleai/gemini-1.5-pro-latest',
       prompt: `You are a sentiment analysis expert. Analyze the sentiment of the following text and classify it as "Positivo", "Negativo", or "Neutral".
 
       Text to analyze: {{{textToAnalyze}}}
@@ -54,6 +54,9 @@ const analyzeSentimentFlow = ai.defineFlow(
       Ensure that the "confidence" is between 0 and 1.`,
       input,
       output: { schema: AnalyzeSentimentOutputSchema },
+      config: {
+        safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],
+      }
     });
     return output!;
   }

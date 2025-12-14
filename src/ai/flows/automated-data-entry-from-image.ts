@@ -47,7 +47,7 @@ const automatedDataEntryFlow = ai.defineFlow(
   },
   async input => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-1.5-flash-latest',
+      model: 'googleai/gemini-1.5-pro-latest',
       prompt: `You are an expert financial data extraction specialist.
 
       You will extract data from the given receipt or invoice image and description, and output in JSON format. You must always populate all the fields with the extracted information. If some information is not available, populate the field with default values (e.g., empty string, 0, or null, where appropriate based on the field's data type. Do not guess or invent data if it's not present in the document.)
@@ -63,6 +63,9 @@ const automatedDataEntryFlow = ai.defineFlow(
     `,
       input,
       output: { schema: AutomatedDataEntryOutputSchema },
+      config: {
+        safetySettings: [{category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH'}],
+      }
     });
     return output!;
   }
