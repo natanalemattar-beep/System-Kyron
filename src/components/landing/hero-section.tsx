@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart, FileText, LucideIcon, ShieldCheck, Users } from "lucide-react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const featureCards: {
   icon: LucideIcon;
@@ -56,7 +56,7 @@ export function HeroSection() {
                             Automatización fiscal, contabilidad inteligente y gestión de cumplimiento, todo en un solo lugar. Garantizamos tu tranquilidad para que te enfoques en crecer.
                         </p>
                         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                            <Button size="lg" asChild className="w-full sm:w-auto btn-3d-primary text-base">
+                            <Button size="lg" asChild className="w-full sm:w-auto text-base">
                                 <Link href="/register">Comienza Ahora</Link>
                             </Button>
                             <Button size="lg" variant="outline" asChild className="w-full sm:w-auto text-base">
@@ -90,7 +90,7 @@ export function HeroSection() {
                                         <div className="p-3 bg-primary/10 rounded-full mb-3">
                                             <feature.icon className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-base font-semibold">{feature.title}</h3>
+                                        <CardTitle className="text-base font-semibold">{feature.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="text-center text-xs text-muted-foreground">
                                         <p>{feature.description}</p>
