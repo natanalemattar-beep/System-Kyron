@@ -50,48 +50,9 @@ import {
   BrainCircuit,
   ShieldCheck,
   RefreshCw,
-  ShieldAlert,
   Bot,
   Scale,
   Stamp,
-  Gift,
-  FileScan,
-  AreaChart,
-  Sparkles,
-  FilePlus,
-  FileMinus,
-  HelpCircle,
-  Send,
-  Loader2,
-  Contact,
-  Calculator,
-  Paintbrush,
-  Network,
-  Rocket,
-  Mail,
-  Award,
-  Presentation,
-  Cpu,
-  Recycle,
-  Wand2,
-  Link as LinkIcon,
-  Globe,
-  Activity,
-  DollarSign as DollarSignIcon,
-  CandlestickChart,
-  Swords,
-  Search,
-  HardHat,
-  MessageSquare,
-  HeartPulse,
-  Home,
-  SlidersHorizontal,
-  School,
-  UserPlus,
-  Package,
-  Zap,
-  Signal,
-  Book,
   GitBranch,
 } from "lucide-react";
 
@@ -102,7 +63,7 @@ export const naturalMenuItems = [
         icon: LayoutDashboard,
         items: [
             { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-            { href: "/tarjeta-digital", label: "Tarjeta Digital", icon: Contact },
+            { href: "/tarjeta-digital", label: "Tarjeta Digital", icon: User },
             { href: "/seguridad", label: "Seguridad", icon: Shield },
             { href: "/notificaciones", label: "Notificaciones", icon: Bell },
         ],
@@ -122,9 +83,9 @@ export const naturalMenuItems = [
     },
     {
         title: "Salud",
-        icon: HeartPulse,
+        icon: HeartHandshake,
         items: [
-            { href: "/directorio-medico", label: "Directorio Médico", icon: HeartPulse },
+            { href: "/directorio-medico", label: "Directorio Médico", icon: HeartHandshake },
         ],
         subGroups: [],
     },
@@ -161,7 +122,6 @@ const finanzasContabilidadNavGroups = {
       title: "Reportes Clave",
       icon: BarChart,
       items: [
-        { href: "/dashboard-empresa", label: "Dashboard Principal", icon: LayoutDashboard },
         { href: "/reports", label: "Reportes Financieros", icon: BarChart },
         { href: "/memoria-anual", label: "Memoria Anual", icon: BookOpen },
         { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
@@ -248,7 +208,7 @@ const rrhhNavGroupsData = {
             { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
             { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
             { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
-            { href: "/carnet-personal", label: "Carnet del Personal", icon: Contact },
+            { href: "/carnet-personal", label: "Carnet del Personal", icon: User },
             { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
             { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
             { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Award },
@@ -377,6 +337,7 @@ export const advisoryNavGroups = {
 };
 
 export const adminNavGroups = [
+  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/dashboard-empresa", label: "Dashboard Principal", icon: LayoutDashboard }], subGroups: [] },
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
@@ -384,6 +345,7 @@ export const adminNavGroups = [
 ];
 
 export const legalNavGroups = [
+  { title: "Dashboard", icon: Gavel, items: [{ href: "/escritorio-juridico", label: "Dashboard Jurídico", icon: Gavel }], subGroups: [] },
   legalNavGroupsData,
   advisoryNavGroups
 ];
@@ -393,8 +355,8 @@ export const marketingNavGroups = [advisoryNavGroups];
 export const rrhhNavGroups = [rrhhNavGroupsData];
 
 export const ventasNavGroups = [
+    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/ventas/dashboard", label: "Dashboard de Ventas", icon: LayoutDashboard }], subGroups: []},
     { title: "Ventas y Caja", icon: ShoppingCart, items: [
-        { href: "/dashboard", label: "Dashboard de Ventas", icon: LayoutDashboard },
         { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
         { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },

@@ -30,7 +30,7 @@ const topProducts = [
 const bottomProducts = [
     { id: "PROD-008", name: "Calculadora de Escritorio", sales: 5, revenue: formatCurrency(90, 'Bs.') },
     { id: "PROD-007", name: "Rollo de Etiquetas para Precios", sales: 12, revenue: formatCurrency(144, 'Bs.') },
-    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: "Bs. 75" },
+    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: formatCurrency(75, 'Bs.') },
 ];
 
 const chartConfig = {

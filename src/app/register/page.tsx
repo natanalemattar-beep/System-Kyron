@@ -1,8 +1,9 @@
 
 "use client";
 
-import { Building, User, Briefcase, ArrowRight, ShoppingCart, Gavel, Users, Megaphone, Cpu, Signal, Banknote } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { User, ArrowRight } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -11,17 +12,24 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { loginOptions } from "@/lib/login-options";
 
 export default function RegisterPage() {
     
-  // Map login hrefs to registration hrefs
-  const registrationOptions = loginOptions.map(option => ({
-    ...option,
-    href: option.href.replace('/login', '/register'),
-  }));
+  // Map login hrefs to registration hrefs, filtering out any undefined ones
+  const registrationOptions = loginOptions
+    .map(option => ({
+        ...option,
+        href: option.href.replace('/login', '/register'),
+    }))
+    // Special case for 'fintech' which should go to 'juridica'
+    .map(option => {
+        if (option.href.includes('/register-fintech')) {
+            return { ...option, href: '/register/juridica' };
+        }
+        return option;
+    });
 
   return (
     <div className="flex flex-col min-h-screen">
