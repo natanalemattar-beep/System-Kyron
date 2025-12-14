@@ -156,3 +156,5 @@ export function DocumentRequestTable({ solicitudes, getDocumentContent, docTypeF
         </Table>
     )
 }
+
+    
