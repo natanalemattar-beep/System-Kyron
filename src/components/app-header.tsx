@@ -64,7 +64,7 @@ const getNavInfoForPath = (pathname: string) => {
     if (pathname.startsWith('/asesoria')) {
         return { user: { name: "Marketing", email: "mkt@kyron.com", fallback: "M" }, navGroups: [advisoryNavGroups], dashboardHref: "/asesoria" };
     }
-     if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos')) {
+     if (pathname.startsWith('/escritorio-juridico') || pathname.startsWith('/contratos') || pathname.startsWith('/permisos') || pathname.startsWith('/memoria-anual')) {
         return { user: { name: "Legal", email: "legal@kyron.com", fallback: "L" }, navGroups: legalNavGroups, dashboardHref: "/escritorio-juridico" };
     }
     if (pathname.startsWith('/dashboard-telecom')) {
