@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
 
 const user = { name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" };
-const dashboardHref = "/ventas/dashboard";
+const dashboardHref = "/analisis-ventas";
 
 
 export default function VentasLayout({ children }: { children: ReactNode }) {
@@ -29,7 +29,7 @@ export default function VentasLayout({ children }: { children: ReactNode }) {
               </p>
           </div>
       </motion.div>
-      <main className="flex-1 p-4 md:p-8 container mx-auto">
+      <main className="flex-1 container mx-auto p-4 md:p-8">
         {children}
       </main>
       <Toaster />

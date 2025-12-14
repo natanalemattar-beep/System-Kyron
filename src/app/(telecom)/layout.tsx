@@ -29,7 +29,7 @@ export default function TelecomLayout({ children }: { children: ReactNode }) {
               </p>
           </div>
       </motion.div>
-      <main className="flex-1 p-4 md:p-8 container mx-auto">
+      <main className="flex-1 container mx-auto p-4 md:p-8">
         {children}
       </main>
       <Toaster />
