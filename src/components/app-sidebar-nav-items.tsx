@@ -286,7 +286,7 @@ const legalNavGroupsData = {
           title: "Gestión Legal",
           icon: Gavel,
           items: [
-            { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
+            { href: "/escritorio-juridico", label: "Dashboard Jurídico", icon: Gavel },
             { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
             { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
@@ -383,7 +383,14 @@ export const adminNavGroups = [
   advisoryNavGroups
 ];
 
-export const legalNavGroups = [legalNavGroupsData];
+export const legalNavGroups = [
+  finanzasContabilidadNavGroups,
+  { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
+  impuestosCumplimientoNavGroups,
+  rrhhNavGroupsData,
+  legalNavGroupsData,
+  advisoryNavGroups
+];
 
 export const marketingNavGroups = [advisoryNavGroups];
 

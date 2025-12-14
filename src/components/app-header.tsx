@@ -1,17 +1,6 @@
 
 'use client';
 
-import {
-  adminNavGroups,
-  legalNavGroups,
-  ventasNavGroups,
-  rrhhNavGroups,
-  sociosNavGroups,
-  informaticaNavGroups,
-  advisoryNavGroups,
-  naturalMenuItems,
-  telecomNavGroups,
-} from "@/components/app-sidebar-nav-items";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,22 +32,20 @@ type User = {
   fallback: string;
 };
 
+type NavItem = {
+    href: string;
+    label: string;
+    icon: React.ElementType;
+};
+
 type NavGroup = {
     title: string;
     icon: React.ElementType;
-    items: {
-        href: string;
-        label: string;
-        icon: React.ElementType;
-    }[];
+    items: NavItem[];
     subGroups: {
         title: string;
         icon: React.ElementType;
-        items: {
-            href: string;
-            label: string;
-            icon: React.ElementType;
-        }[];
+        items: NavItem[];
     }[];
 };
 

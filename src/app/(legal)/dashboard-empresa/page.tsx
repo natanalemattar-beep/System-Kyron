@@ -35,15 +35,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatCurrency } from "@/lib/utils";
 
-const kpiData = [
-  { title: "Contratos Activos", value: "28", icon: FileSignature, color: "text-blue-400" },
-  { title: "Casos Judiciales Activos", value: "4", icon: Gavel, color: "text-purple-400" },
-  { title: "Permisos por Vencer", value: "3", icon: FileWarning, color: "text-orange-400" },
-  { title: "Consultas Internas (Mes)", value: "42", icon: Users, color: "text-blue-400" },
-  { title: "Nivel de Cumplimiento", value: "99.8%", icon: ShieldCheck, color: "text-green-400" },
-  { title: "Presupuesto Legal Ejecutado", value: "75%", icon: DollarSign, color: "text-green-400" },
-];
-
 const finanzasModules = [
   { title: "Análisis de Ventas", href: "/analisis-ventas", description: "Dashboard con KPIs de rendimiento comercial." },
   { title: "Contabilidad Central", href: "/contabilidad", description: "Gestiona libros, asientos y reportes contables." },
@@ -79,7 +70,7 @@ export default function DashboardAdminPage() {
       {/* Módulos de Acceso Rápido */}
       <div className="space-y-8">
           <div>
-            <h2 className="text-2xl font-semibold mb-4">Módulos de Finanzas y Ventas</h2>
+            <h2 className="text-2xl font-semibold mb-4">Gestión Financiera y Ventas</h2>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {finanzasModules.map((module) => (
                     <Card key={module.title} className="bg-card/50 backdrop-blur-sm flex flex-col hover:shadow-lg transition-shadow">
@@ -91,7 +82,7 @@ export default function DashboardAdminPage() {
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-semibold mb-4">Módulos de Recursos Humanos</h2>
+            <h2 className="text-2xl font-semibold mb-4">Gestión de Recursos Humanos</h2>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {rrhhModules.map((module) => (
                     <Card key={module.title} className="bg-card/50 backdrop-blur-sm flex flex-col hover:shadow-lg transition-shadow">
@@ -103,7 +94,7 @@ export default function DashboardAdminPage() {
             </div>
           </div>
            <div>
-            <h2 className="text-2xl font-semibold mb-4">Módulos de Gestión Jurídica</h2>
+            <h2 className="text-2xl font-semibold mb-4">Gestión Jurídica</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {juridicoModules.map((module) => (
                     <Card key={module.title} className="bg-card/50 backdrop-blur-sm flex flex-col hover:shadow-lg transition-shadow">

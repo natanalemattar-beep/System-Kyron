@@ -28,11 +28,10 @@ export default function MainLayout({ children }: { children: ReactNode }) {
               </p>
           </div>
       </motion.div>
-      <main className="flex-1 p-4 md:p-8 container mx-auto flex justify-center">
-        <div className="w-full max-w-7xl">
-            {children}
-        </div>
+      <main className="flex-1 p-4 md:p-8 container mx-auto">
+        {children}
       </main>
+      <Toaster />
     </div>
   );
 }

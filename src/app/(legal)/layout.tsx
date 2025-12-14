@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { legalNavGroups } from "@/components/app-sidebar-nav-items";
 
 const user = { name: "Escritorio Jurídico", email: "legal@kyron.com", fallback: "L" };
-const dashboardHref = "/escritorio-juridico";
+const dashboardHref = "/dashboard-empresa";
 
 
 export default function LegalLayout({ children }: { children: ReactNode }) {
@@ -29,7 +29,7 @@ export default function LegalLayout({ children }: { children: ReactNode }) {
               </p>
           </div>
       </motion.div>
-      <main className="flex-1 p-4 md:p-8 container mx-auto">
+      <main className="flex-1 container mx-auto p-4 md:p-8">
         {children}
       </main>
       <Toaster />

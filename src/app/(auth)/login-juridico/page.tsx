@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Gavel, Building, ShoppingCart, Briefcase, Users, Megaphone, Cpu, User } from "lucide-react";
+import { Gavel, Building, ShoppingCart, Briefcase, Users, Megaphone, Cpu, User, Banknote } from "lucide-react";
 import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginJuridicoPage() {
@@ -14,7 +14,7 @@ export default function LoginJuridicoPage() {
       { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
     ],
     submitButtonText: "Acceder",
-    submitButtonHref: "/escritorio-juridico",
+    submitButtonHref: "/dashboard-empresa",
     credentials: { user: "legal.user", password: "password123" },
     footerLinks: {
       text: "¿No eres del departamento legal? Accede a otro portal:",
@@ -22,7 +22,7 @@ export default function LoginJuridicoPage() {
         title: "Otros Portales",
         links: [
           { href: "/login", label: "Personal", icon: User },
-          { href: "/login-fintech", label: "FinTech", icon: Building },
+          { href: "/login-fintech", label: "FinTech/Admin", icon: Banknote },
           { href: "/login-ventas", label: "Ventas", icon: ShoppingCart },
           { href: "/login-rrhh", label: "RR.HH.", icon: Briefcase },
           { href: "/login-socios", label: "Socios", icon: Users },
