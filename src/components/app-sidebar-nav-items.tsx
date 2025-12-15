@@ -1,5 +1,4 @@
 
-      
 import {
   FileText,
   Bell,
@@ -145,15 +144,15 @@ export const naturalMenuItems = [
 ];
 
 const facturacionGeneralMenuItems = [
-    { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
-    { href: "/punto-de-venta", label: "Punto de Venta (TPV)", icon: TabletSmartphone },
-    { href: "/proformas", label: "Proformas", icon: Receipt },
-    { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-    { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
+    { href: "/ventas/facturacion", label: "Centro de Facturación", icon: FileText },
+    { href: "/ventas/punto-de-venta", label: "Punto de Venta (TPV)", icon: TabletSmartphone },
+    { href: "/ventas/proformas", label: "Proformas", icon: Receipt },
+    { href: "/ventas/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
+    { href: "/ventas/modelo-factura", label: "Modelo de Factura", icon: FileText },
     { href: "/modelo-presupuesto", label: "Modelo de Presupuesto", icon: Receipt },
-    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
-    { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
+    { href: "/ventas/nota-debito", label: "Nota de Débito", icon: FileMinus },
+    { href: "/ventas/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+    { href: "/main/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
 ];
 
@@ -376,7 +375,7 @@ export const advisoryNavGroups = {
 export const adminNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/admin/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
   finanzasContabilidadNavGroups,
-  { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems.map(item => ({...item, href: `/ventas${item.href}`})), subGroups: [] },
+  { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
   rrhhNavGroupsData,
   legalNavGroupsData,
@@ -430,7 +429,7 @@ export const ventasNavGroups = [
      { title: "Estrategias", icon: Lightbulb, items: [
         { href: "/ventas/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
     ], subGroups: [] },
-    { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems.map(item => ({...item, href: `${item.href}`})), subGroups: [] },
+    { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
 ];
 
 export const sociosNavGroups = [

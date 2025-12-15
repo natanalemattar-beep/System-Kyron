@@ -11,37 +11,37 @@ const facturacionModules = [
         title: "Punto de Venta (TPV)",
         description: "Interfaz rápida y visual para procesar ventas en tiempo real, integrada con el inventario y la facturación.",
         icon: TabletSmartphone,
-        href: "/(ventas)/punto-de-venta"
+        href: "/ventas/punto-de-venta"
     },
     {
         title: "Facturación a Crédito",
         description: "Gestiona ventas con financiamiento, controla las cuentas por cobrar y maneja plataformas como Cashea.",
         icon: CreditCard,
-        href: "/(ventas)/facturacion-credito"
+        href: "/ventas/facturacion-credito"
     },
     {
         title: "Facturas Proforma",
         description: "Crea y envía cotizaciones o facturas preliminares a tus clientes antes de la venta final.",
         icon: Receipt,
-        href: "/(ventas)/proformas"
+        href: "/ventas/proformas"
     },
     {
         title: "Modelo de Factura",
         description: "Visualiza y descarga un modelo de factura fiscal homologado y adaptado a la normativa del SENIAT.",
         icon: FileText,
-        href: "/(ventas)/modelo-factura"
+        href: "/ventas/modelo-factura"
     },
     {
         title: "Nota de Débito",
         description: "Emite notas de débito para aumentar el valor de una factura por intereses o cargos adicionales.",
         icon: FileMinus,
-        href: "/(ventas)/nota-debito"
+        href: "/ventas/nota-debito"
     },
     {
         title: "Nota de Crédito",
         description: "Genera notas de crédito para anular o corregir facturas por devoluciones, descuentos o errores.",
         icon: FilePlus,
-        href: "/(ventas)/nota-credito"
+        href: "/ventas/nota-credito"
     },
 ];
 
