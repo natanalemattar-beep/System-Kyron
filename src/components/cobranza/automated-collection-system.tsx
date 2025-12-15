@@ -29,6 +29,8 @@ interface CommunicationLog {
   id: string;
   clientId: string;
   clientName: string;
+  phone: string;
+  debtAmount: number;
   channel: 'email' | 'sms' | 'whatsapp' | 'llamada';
   type: 'recordatorio' | 'aviso' | 'urgente' | 'negociacion';
   status: 'sent' | 'delivered' | 'read' | 'responded';
@@ -98,6 +100,8 @@ export const AutomatedCollectionSystem = () => {
         id: 'comm-001',
         clientId: 'cl-001',
         clientName: 'TechSolutions Corp',
+        phone: '584125550101',
+        debtAmount: 15000,
         channel: 'email',
         type: 'recordatorio',
         status: 'read',
@@ -109,6 +113,8 @@ export const AutomatedCollectionSystem = () => {
         id: 'comm-002',
         clientId: 'cl-002',
         clientName: 'Distribuidora La Económica',
+        phone: '584145550202',
+        debtAmount: 12000,
         channel: 'whatsapp',
         type: 'aviso',
         status: 'read',
@@ -120,6 +126,8 @@ export const AutomatedCollectionSystem = () => {
         id: 'comm-003',
         clientId: 'cl-003',
         clientName: 'Constructora Norte',
+        phone: '584165550303',
+        debtAmount: 45000,
         channel: 'llamada',
         type: 'urgente',
         status: 'responded',
@@ -154,22 +162,10 @@ export const AutomatedCollectionSystem = () => {
     }
   };
 
-  const sendImmediateCommunication = (clientId: string, channel: string) => {
-    const client = communications.find(c => c.clientId === clientId);
-    if (client) {
-      const newComm: CommunicationLog = {
-        id: `comm-${Date.now()}`,
-        clientId,
-        clientName: client.clientName,
-        channel: channel as any,
-        type: 'recordatorio',
-        status: 'sent',
-        timestamp: new Date(),
-        message: `Recordatorio inmediato enviado por ${channel}`
-      };
-
-      setCommunications([newComm, ...communications]);
-    }
+  const handleWhatsAppContact = (client: CommunicationLog) => {
+    const message = `Estimado cliente ${client.clientName}, le saludamos de Kyron. Le contactamos en referencia a su saldo pendiente de $${client.debtAmount.toLocaleString()}. ¿Podemos ayudarle a procesar su pago? Quedamos atentos.`;
+    const whatsappUrl = `https://wa.me/${client.phone}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -269,27 +265,17 @@ export const AutomatedCollectionSystem = () => {
                   </div>
                 </div>
 
-                <div className="text-sm text-gray-400 mb-2">
+                <div className="text-sm text-gray-400 my-3">
                   {comm.message}
                 </div>
 
-                {comm.response && (
-                  <div className="bg-background rounded-lg p-2 text-sm">
-                    <strong>Respuesta:</strong> {comm.response}
-                  </div>
-                )}
-
-                <div className="flex gap-2 mt-2">
-                  <button 
-                    onClick={() => sendImmediateCommunication(comm.clientId, 'whatsapp')}
-                    className="text-green-400 text-sm"
-                  >
-                    Reenviar
-                  </button>
-                  <button className="text-blue-400 text-sm">
-                    Llamar
-                  </button>
-                </div>
+                <Button 
+                    onClick={() => handleWhatsAppContact(comm)}
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
+                    size="sm"
+                >
+                    Contactar por WhatsApp
+                </Button>
               </div>
             ))}
           </div>
