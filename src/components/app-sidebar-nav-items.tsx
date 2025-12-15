@@ -216,6 +216,7 @@ const impuestosCumplimientoNavGroups = {
         { href: "/admin/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
         { href: "/admin/igtf", label: "IGTF y Exoneraciones", icon: Percent },
         { href: "/admin/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
+        { href: "/admin/ajuste-por-inflacion", label: "Ajuste por Inflación", icon: TrendingUp },
       ]
     }
   ],
