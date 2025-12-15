@@ -350,13 +350,14 @@ export const advisoryNavGroups = {
                 { href: "/main/analisis-competitivo", label: "Análisis Competitivo", icon: BarChart },
                 { href: "/main/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
                 { href: "/main/demografia", label: "Demografía", icon: Users },
-                { href: "/main/ecosistema-negocio", label: "Modelo de Negocio", icon: GitBranch },
             ]
         },
          {
             title: "Guías de Negocio",
             icon: BookOpen,
             items: [
+                { href: "/main/ecosistema-negocio", label: "Ecosistema de Negocio (Kyron)", icon: GitBranch },
+                { href: "/main/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
                 { href: "/main/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Layers },
                 { href: "/main/analisis-empresas-no-digitales", label: "Análisis Empresas No Digitales", icon: SlidersHorizontal },
                 { href: "/main/contabilidad-escuelas", label: "Contabilidad para Escuelas", icon: School },
