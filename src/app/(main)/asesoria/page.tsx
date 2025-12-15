@@ -1,9 +1,10 @@
 
+      
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Megaphone, Ship, CandlestickChart, Gavel, FileText, Briefcase, Bot } from "lucide-react";
+import { ArrowRight, Megaphone, Ship, CandlestickChart, Gavel, FileText, Briefcase, Bot, Shield } from "lucide-react";
 import Link from "next/link";
 
 const advisoryModules = [
@@ -30,6 +31,12 @@ const advisoryModules = [
         description: "Accede a guías y herramientas para la gestión legal, cumplimiento normativo y estrategia corporativa.",
         icon: Gavel,
         href: "/departamento-juridico"
+    },
+     {
+        title: "Asesoría para Agentes de Seguros (IA)",
+        description: "Un ecosistema completo para la gestión de cartera, automatización de renovaciones y seguimiento de clientes con IA.",
+        icon: Shield,
+        href: "/seguros-ia"
     },
     {
         title: "Propuesta de Proyecto y Consultoría",
@@ -88,3 +95,5 @@ export default function AsesoriaPage() {
     </div>
   );
 }
+
+    

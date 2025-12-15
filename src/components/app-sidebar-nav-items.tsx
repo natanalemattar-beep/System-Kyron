@@ -1,3 +1,5 @@
+
+      
 import {
   FileText,
   Bell,
@@ -329,6 +331,7 @@ export const advisoryNavGroups = {
                 { href: "/main/asesoria-importaciones", label: "Asesoría de Importaciones", icon: Ship },
                 { href: "/main/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
                 { href: "/main/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
+                { href: "/main/seguros-ia", label: "Asesoría para Seguros (IA)", icon: Shield },
                 { href: "/main/propuesta-proyecto", label: "Propuesta de Proyecto", icon: FileText },
                 { href: "/main/carta-exposicion-motivos", label: "Carta de Exposición de Motivos", icon: Lightbulb },
             ]
@@ -462,3 +465,5 @@ export const informaticaNavGroups = [
       { href: "/main/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
+
+    
