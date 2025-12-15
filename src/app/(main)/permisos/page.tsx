@@ -155,7 +155,7 @@ const getLetterContent = (permiso: Permiso | null): string => {
 
     const fechaActual = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
     const baseContent = `
-Ciudad, ${'\'\''}${fechaActual}${'\'\''}
+Ciudad, ${fechaActual}
 
 Señores
 ${permiso.emisor}
@@ -277,7 +277,7 @@ export default function PermisosPage() {
             if (!p.fechaVencimiento || ["N/A", "Indefinido", "Vitalicio"].includes(p.fechaVencimiento)) {
                  toast({
                     title: "No requiere renovación",
-                    description: `El permiso ${p.id} no tiene una fecha de vencimiento definida.`,
+                    description: `El permiso ${permisoId} no tiene una fecha de vencimiento definida.`,
                 });
                 return p;
             }
@@ -287,7 +287,7 @@ export default function PermisosPage() {
             
             toast({
                 title: "Renovación Guardada en la Nube",
-                description: `Se ha notificado al representante legal sobre la renovación del permiso ${p.id}.`,
+                description: `Se ha notificado al representante legal sobre la renovación del permiso ${permisoId}.`,
                 action: <CheckCircle className="text-green-500" />,
             });
             
@@ -301,7 +301,7 @@ export default function PermisosPage() {
       setSelectedFile(file);
       toast({
           title: "Archivo Cargado y Guardado en la Nube",
-          description: `"${'\'\''}${file.name}${'\'\''}" listo para enviar. El archivo se conservará por 10 años.`,
+          description: `"${file.name}" listo para enviar. El archivo se conservará por 10 años.`,
           action: <CheckCircle className="text-green-500" />,
       });
   };
@@ -330,32 +330,19 @@ export default function PermisosPage() {
   };
 
   const handleSendNotification = (permiso: Permiso | null, channel: 'whatsapp' | 'email', isManual: boolean = false) => {
-    let message = '';
-    let subject = '';
-
-    if (isManual) {
-        message = `ALERTA DE CUMPLIMIENTO: Se ha detectado que existen permisos vencidos o por vencer. Por favor, revise el portal de gestión para tomar acción inmediata.`;
-        subject = 'Alerta de Cumplimiento Urgente: Permisos por Vencer';
-    } else if (permiso) {
-        message = `ALERTA DE RENOVACIÓN: El permiso "${permiso.tipo}" (ID: ${permiso.id}) está próximo a vencer o ha vencido (${formatDate(permiso.fechaVencimiento)}). Se requiere acción inmediata.`;
-        subject = `Alerta de Renovación: Permiso ${permiso.id} - ${permiso.tipo}`;
-    } else {
-        return;
-    }
-    
     if (channel === 'whatsapp') {
         const whatsappUrl = `https://wa.me/${alertPhone}`;
         window.open(whatsappUrl, '_blank');
         toast({
-            title: `Notificación Enviada por WhatsApp`,
-            description: `Se ha enviado un mensaje al ${alertPhone}.`,
+            title: `Notificación por WhatsApp`,
+            description: `Se ha abierto el chat con ${alertPhone}.`,
         });
     } else {
-        const mailtoUrl = `mailto:${alertEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        const mailtoUrl = `mailto:${alertEmail}`;
         window.location.href = mailtoUrl;
         toast({
-            title: `Notificación Enviada por Correo`,
-            description: `Se ha abierto el cliente de correo para enviar la alerta a ${alertEmail}.`,
+            title: `Notificación por Correo`,
+            description: `Se ha abierto el cliente de correo para enviar un mensaje a ${alertEmail}.`,
         });
     }
     
@@ -419,7 +406,7 @@ C.I: [C.I. del Representante]
 
   const handleDownloadPDF = (documentId: string) => {
     const sociosList = companyData.socios.map(socio => 
-        ` ${'\'\''}${socio.nombre}${'\'\''}, venezolano, mayor de edad, soltero, y titular de la cédula de identidad N° ${'\'\''}${socio.cedula}${'\'\''} y portador del Rif ${'\'\''}${socio.rif}${'\'\''}`
+        ` ${socio.nombre}, venezolano, mayor de edad, soltero, y titular de la cédula de identidad N° ${socio.cedula} y portador del Rif ${socio.rif}`
     ).join(',');
 
     const content = `
@@ -480,7 +467,7 @@ C.I: [C.I. del Representante]
                 </div>
                 <br>
                 <div class="content">
-                    <p>Nosotros,${'\'\''}${sociosList}${'\'\''}, por medio del presente documento declaramos: Que hemos decidido constituir una Compañía Anónima, la cual se regirá por las cláusulas siguientes y que sirvan a su vez de Acta Constitutiva y Estatutos Sociales de la Empresa:</p>
+                    <p>Nosotros,${sociosList}, por medio del presente documento declaramos: Que hemos decidido constituir una Compañía Anónima, la cual se regirá por las cláusulas siguientes y que sirvan a su vez de Acta Constitutiva y Estatutos Sociales de la Empresa:</p>
                     
                     <p><strong>PRIMERA:</strong> La denominación comercial de la compañía será: SYSTEM KYRON, C.A.</p>
                     
@@ -493,7 +480,7 @@ C.I: [C.I. del Representante]
 
                 <!-- Page 3 -->
                 <div class="content">
-                    <p><strong>CUARTA:</strong> El objeto principal será: ${'\'\''}${companyData.objetoSocial}${'\'\''}</p>
+                    <p><strong>CUARTA:</strong> El objeto principal será: ${companyData.objetoSocial}</p>
 
                     <p><strong>QUINTA:</strong> El capital Social de la compañía es de NOVECIENTOS MIL BOLIVARES (Bs. 900.000,00) divididos en Cien (100) acciones de UN MIL BOLIVARES (Bs. 1.000,00) cada una y han sido íntegramente suscritas y pagadas de la siguiente manera: ALBERTO JOSE SALAS PEREZ, ha suscrito y pagado CINCUENTA (50) acciones por un valor de CUATROCIENTO CINCUENTA MIL BOLIVARES (Bs. 450.000,00) y RITA ANABEL QUEVEDO MONTES, ha suscrito y pagado (50) acciones por un valor de CUATROCIENTO CINCUENTA MIL BOLIVARES... (Bs. 450.000,00) habiéndose pagado así el cien por ciento (100%) del capital tal como se evidencia en inventario anexo al documento.</p>
                 </div>
@@ -529,7 +516,7 @@ C.I: [C.I. del Representante]
 
             toast({
                 title: "Preparando Descarga",
-                description: `Se ha abierto el diálogo de impresión para '${'\'\''}${documentId}.pdf'\'\''. Por favor, selecciona 'Guardar como PDF' para descargar el documento.`
+                description: `Se ha abierto el diálogo de impresión para '${documentId}.pdf'. Por favor, selecciona 'Guardar como PDF' para descargar el documento.`
             });
         } else {
             toast({
@@ -600,7 +587,7 @@ C.I: [C.I. del Representante]
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={() => {toast({title: "Configuración Guardada", description: `Las alertas se enviarán a ${'\'\''}${alertEmail}${'\'\''} y ${'\'\''}${alertPhone}${'\'\''}.`}); setIsAlertConfigOpen(false);}}>
+                        <Button onClick={() => {toast({title: "Configuración Guardada", description: `Las alertas se enviarán a ${alertEmail} y ${alertPhone}.`}); setIsAlertConfigOpen(false);}}>
                             Guardar Configuración
                         </Button>
                     </DialogFooter>
