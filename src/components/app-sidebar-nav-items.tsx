@@ -168,7 +168,7 @@ const finanzasContabilidadNavGroups = {
         { href: "/ventas/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
         { href: "/contabilidad/analisis-caja", label: "Análisis de Caja", icon: BarChart },
         { href: "/contabilidad/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
-        { href: "/admin/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+        { href: "/contabilidad/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
         { href: "/contabilidad/estructura-costos", label: "Estructura de Costos", icon: PieChart },
         { href: "/main/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
       ],
@@ -279,7 +279,7 @@ const legalNavGroupsData = {
           title: "Gestión Legal",
           icon: Gavel,
           items: [
-            { href: "/legal/escritorio-juridico", label: "Dashboard Jurídico", icon: Gavel },
+            { href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
             { href: "/main/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
             { href: "/legal/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/main/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
@@ -405,7 +405,7 @@ export const contabilidadNavGroups = [
 ];
 
 export const legalNavGroups = [
-  { title: "Dashboard", icon: Gavel, items: [{ href: "/legal/escritorio-juridico", label: "Dashboard Jurídico", icon: Gavel }], subGroups: [] },
+  { title: "Dashboard", icon: Gavel, items: [{ href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel }], subGroups: [] },
   legalNavGroupsData,
   advisoryNavGroups
 ];
