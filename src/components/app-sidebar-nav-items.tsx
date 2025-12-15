@@ -469,5 +469,3 @@ export const informaticaNavGroups = [
       { href: "/main/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
-
-    
