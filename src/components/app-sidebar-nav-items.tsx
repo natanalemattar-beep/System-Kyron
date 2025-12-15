@@ -280,7 +280,7 @@ const legalNavGroupsData = {
           items: [
             { href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
             { href: "/main/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
-            { href: "/legal/permisos", label: "Trámites y Permisos", icon: UserCheck },
+            { href: "/main/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/main/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
             { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/main/multas", label: "Multas", icon: AlertTriangle },
@@ -421,7 +421,7 @@ export const rrhhNavGroups = [
 ];
 
 export const ventasNavGroups = [
-    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/ventas/analisis-ventas", label: "Análisis de Ventas", icon: LayoutDashboard }], subGroups: []},
+    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/analisis-ventas", label: "Análisis de Ventas", icon: LayoutDashboard }], subGroups: []},
     { title: "Ventas y Caja", icon: ShoppingCart, items: [
         { href: "/ventas/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/ventas/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
@@ -468,3 +468,4 @@ export const informaticaNavGroups = [
       { href: "/main/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
+    
