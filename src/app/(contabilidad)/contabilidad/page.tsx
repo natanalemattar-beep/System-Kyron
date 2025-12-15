@@ -14,9 +14,9 @@ const managementModules = [
         category: "Finanzas y Ventas",
         icon: Landmark,
         items: [
-            { title: "Análisis de Ventas", href: "/analisis-ventas", description: "Métricas y KPIs de rendimiento." },
-            { title: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", description: "Gestión inteligente y automatizada.", icon: Wallet },
-            { title: "Cuentas por Pagar", href: "/cuentas-por-pagar", description: "Control de deudas con proveedores.", icon: HandCoins },
+            { title: "Análisis de Ventas", href: "/ventas/analisis-ventas", description: "Métricas y KPIs de rendimiento." },
+            { title: "Cuentas por Cobrar", href: "/contabilidad/cuentas-por-cobrar", description: "Gestión inteligente y automatizada.", icon: Wallet },
+            { title: "Cuentas por Pagar", href: "/admin/cuentas-por-pagar", description: "Control de deudas con proveedores.", icon: HandCoins },
         ]
     }
 ];
@@ -76,7 +76,7 @@ export default function ContabilidadPage() {
                             </CardContent>
                             <CardFooter>
                                 <Button asChild className="w-full" variant="outline">
-                                    <Link href="/contabilidad">
+                                    <Link href="/admin/contabilidad">
                                         Acceder al Módulo <ArrowRight className="ml-2 h-4 w-4"/>
                                     </Link>
                                 </Button>

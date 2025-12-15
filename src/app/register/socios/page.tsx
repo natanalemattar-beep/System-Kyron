@@ -89,7 +89,9 @@ export default function RegisterSociosPage() {
                         {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
                 </div>
-                <Button type="submit" className="w-full h-11 text-base">Crear Cuenta de Socio</Button>
+                <Button asChild type="submit" className="w-full h-11 text-base">
+                    <Link href="/socios/dashboard-socios">Crear Cuenta de Socio</Link>
+                </Button>
                 <Credentials code="SOCIO-KYRON-2024" user="socio@kyron.com" password="password123" />
             </CardContent>
             <CardFooter className="flex-col p-6 border-t text-sm">

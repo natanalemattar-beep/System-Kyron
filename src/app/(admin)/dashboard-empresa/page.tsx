@@ -1,0 +1,69 @@
+
+'use client';
+
+import { DollarSign, TrendingUp, Users, AlertTriangle } from "lucide-react";
+import { StatsCards } from "@/components/dashboard/stats-cards";
+import { ActivityCard } from "@/components/dashboard/activity-card";
+import { RecentInvoices } from "@/components/dashboard/recent-invoices";
+import { OverviewChart } from "@/components/dashboard/overview-chart";
+import { QuickAccess } from "@/components/dashboard/quick-access";
+import { WelcomeTutorial } from "@/components/welcome-tutorial";
+
+const recentActivities = [
+  {
+    description: "La declaración de IVA para Junio 2024 fue enviada.",
+    time: "hace 2 horas",
+    icon: CheckCircle,
+    iconColor: "text-green-500",
+  },
+  {
+    description: "Se ha registrado un nuevo gasto de Bs. 1.200 en suministros de oficina.",
+    time: "hace 5 horas",
+    icon: TrendingDown,
+    iconColor: "text-red-500",
+  },
+  {
+    description: "La factura INV-005 para Epsilon Services está próxima a vencer.",
+    time: "hace 1 día",
+    icon: AlertTriangle,
+    iconColor: "text-orange-500",
+  },
+  {
+    description: "Nómina de la 1ra quincena de Julio procesada.",
+    time: "hace 2 días",
+    icon: Users,
+    iconColor: "text-blue-500",
+  },
+];
+
+export default function DashboardPage() {
+  return (
+    <div className="space-y-8">
+      <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+        <h1 className="text-3xl font-bold tracking-tight">Centro de Mando</h1>
+        <p className="text-muted-foreground text-sm">
+          Vista consolidada de las operaciones y finanzas de la empresa.
+        </p>
+      </div>
+
+      <div className="space-y-8">
+        <StatsCards />
+        <div className="grid gap-8 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+                <OverviewChart />
+            </div>
+            <ActivityCard recentActivities={recentActivities} />
+        </div>
+        <div className="grid gap-8 lg:grid-cols-5">
+            <div className="lg:col-span-3">
+                <QuickAccess />
+            </div>
+            <div className="lg:col-span-2">
+                 <RecentInvoices />
+            </div>
+        </div>
+      </div>
+       <WelcomeTutorial />
+    </div>
+  );
+}
