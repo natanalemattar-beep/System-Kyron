@@ -9,9 +9,16 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 
 export function QuickAccess() {
+    // Filter out groups that are not relevant for the quick access view
+    const relevantGroups = adminNavGroups.filter(group => 
+        group.title === "Finanzas y Contabilidad" || 
+        group.title === "Facturación" ||
+        group.title === "Impuestos y Cumplimiento"
+    );
+
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {adminNavGroups.map((group) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+          {relevantGroups.map((group) => (
           <div key={group.title} className="w-full">
               <Card className="bg-card/50 backdrop-blur-sm h-full flex flex-col">
                   <CardHeader>

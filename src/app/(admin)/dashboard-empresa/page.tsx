@@ -9,7 +9,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, DollarSign, Users, Gavel, Building } from "lucide-react";
+import { ArrowRight, DollarSign, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -20,26 +20,8 @@ const managementModules = [
         items: [
             { title: "Análisis de Ventas", href: "/analisis-ventas", description: "Métricas y KPIs de rendimiento." },
             { title: "Contabilidad", href: "/contabilidad", description: "Libros, asientos y reportes contables." },
-            { title: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", description: "Gestión de facturas pendientes." },
+            { title: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", description: "Gestión inteligente y automatizada de la cobranza." },
             { title: "Cuentas por Pagar", href: "/cuentas-por-pagar", description: "Control de deudas con proveedores." },
-        ]
-    },
-    {
-        category: "Recursos Humanos",
-        icon: Users,
-        items: [
-            { title: "Gestión de Nóminas", href: "/nominas", description: "Cálculo y pago de la nómina." },
-            { title: "Reclutamiento", href: "/reclutamiento", description: "Atracción y selección de talento." },
-        ]
-    },
-    {
-        category: "Jurídico y Cumplimiento",
-        icon: Gavel,
-        items: [
-            { title: "Gestión de Contratos", href: "/contratos", description: "Administra el ciclo de vida de los contratos." },
-            { title: "Cumplimiento Normativo", href: "/cumplimiento", description: "Monitorea el cumplimiento de leyes." },
-            { title: "Gestión de Poderes", href: "/poderes-representacion", description: "Administra poderes y representaciones." },
-            { title: "Trámites y Permisos", href: "/permisos", description: "Centraliza y renueva licencias operativas." },
         ]
     }
 ];
@@ -49,10 +31,10 @@ export default function DashboardAdminPage() {
     <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
-            <Building className="h-8 w-8 md:h-10 md:w-10 text-primary" />
-            Centro de Mando: Finanzas y Administración
+            <BookOpen className="h-8 w-8 md:h-10 md:w-10 text-primary" />
+            Centro de Contabilidad
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl">Dashboard estratégico para la gestión integral de la empresa.</p>
+        <p className="text-muted-foreground mt-2 max-w-2xl">Dashboard contable para la gestión integral de la empresa.</p>
       </header>
 
       <div className="space-y-12">

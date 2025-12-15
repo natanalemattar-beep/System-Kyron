@@ -148,7 +148,7 @@ const facturacionGeneralMenuItems = [
     { href: "/punto-de-venta", label: "Punto de Venta (TPV)", icon: TabletSmartphone },
     { href: "/proformas", label: "Proformas", icon: Receipt },
     { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-    { href: "/cobranza", label: "Gestión de Cobranza", icon: HandCoins },
+    { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
     { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
     { href: "/modelo-presupuesto", label: "Modelo de Presupuesto", icon: Receipt },
     { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
@@ -381,13 +381,10 @@ export const advisoryNavGroups = {
 };
 
 export const adminNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/dashboard-empresa", label: "Dashboard Principal", icon: LayoutDashboard }], subGroups: [] },
+  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
-  rrhhNavGroupsData,
-  legalNavGroupsData,
-  advisoryNavGroups
 ];
 
 export const legalNavGroups = [
