@@ -181,18 +181,18 @@ export default function CartaAvalIngenieriaPage() {
                     </CardHeader>
                     <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
                         <p>
-                            <strong>Fecha:</strong> {formatDate(formData.fecha)}
+                            <strong>Fecha:</strong> ${formatDate(formData.fecha)}
                         </p>
                         <p>
                             <strong>A quien pueda interesar,</strong>
                         </p>
                         <p>
-                            Por medio de la presente, yo, <strong>{formData.ingeniero}</strong>, Ingeniero [Especialidad], titular de la Cédula de Identidad N° [C.I. del Ingeniero] e inscrito en el Colegio de Ingenieros de Venezuela (C.I.V.) bajo el N° <strong>{formData.civ}</strong>, en pleno uso de mis facultades profesionales, certifico y doy fe de lo siguiente:
+                            Por medio de la presente, yo, <strong>${formData.ingeniero}</strong>, Ingeniero [Especialidad], titular de la Cédula de Identidad N° [C.I. del Ingeniero] e inscrito en el Colegio de Ingenieros de Venezuela (C.I.V.) bajo el N° <strong>${formData.civ}</strong>, en pleno uso de mis facultades profesionales, certifico y doy fe de lo siguiente:
                         </p>
 
                         <h4>1. OBJETO DEL AVAL</h4>
                         <p>
-                            He supervisado y revisado exhaustivamente el proyecto denominado "<strong>{formData.proyecto}</strong>", a ser ejecutado para nuestro cliente <strong>{formData.cliente}</strong>, ubicado en la siguiente dirección: <strong>{formData.direccion}</strong>.
+                            He supervisado y revisado exhaustivamente el proyecto denominado "<strong>${formData.proyecto}</strong>", a ser ejecutado para nuestro cliente <strong>${formData.cliente}</strong>, ubicado en la siguiente dirección: <strong>${formData.direccion}</strong>.
                         </p>
 
                         <h4>2. CUMPLIMIENTO TÉCNICO Y NORMATIVO</h4>
@@ -202,13 +202,13 @@ export default function CartaAvalIngenieriaPage() {
                         
                         <h4>3. CONCLUSIÓN</h4>
                         <p>
-                           En virtud de lo anteriormente expuesto, avalo técnicamente la viabilidad y correcta formulación del proyecto "<strong>{formData.proyecto}</strong>". Esta certificación se expide a solicitud de la parte interesada para los fines que estime convenientes.
+                           En virtud de lo anteriormente expuesto, avalo técnicamente la viabilidad y correcta formulación del proyecto "<strong>${formData.proyecto}</strong>". Esta certificación se expide a solicitud de la parte interesada para los fines que estime convenientes.
                         </p>
 
                         <div className="pt-24 text-center">
                             <p className="border-t-2 border-foreground inline-block px-12 pt-2">Firma del Ingeniero</p>
-                            <p className="font-semibold mt-1">{formData.ingeniero}</p>
-                            <p className="text-xs">C.I.V. N° {formData.civ}</p>
+                            <p className="font-semibold mt-1">${formData.ingeniero}</p>
+                            <p className="text-xs">C.I.V. N° ${formData.civ}</p>
                         </div>
 
                     </CardContent>
@@ -228,23 +228,23 @@ export default function CartaAvalIngenieriaPage() {
                 </CardHeader>
                 <CardContent>
                     <Accordion type="single" collapsible className="w-full">
-                        {permisosPorTipo.map((tipo) => (
-                            <AccordionItem value={tipo.tipo} key={tipo.tipo}>
+                        ${permisosPorTipo.map((tipo) => `
+                            <AccordionItem value="${tipo.tipo}" key="${tipo.tipo}">
                                 <AccordionTrigger>
                                     <div className="flex items-center gap-3 font-semibold text-lg">
-                                        <tipo.icon className="h-5 w-5 text-primary"/>
-                                        <span>{tipo.tipo}</span>
+                                        <${tipo.icon.displayName} className="h-5 w-5 text-primary"/>
+                                        <span>${tipo.tipo}</span>
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     <ul className="pl-10 space-y-3 text-muted-foreground list-disc">
-                                        {tipo.permisos.map(permiso => (
-                                            <li key={permiso}>{permiso}</li>
-                                        ))}
+                                        ${tipo.permisos.map(permiso => `
+                                            <li key="${permiso}">${permiso}</li>
+                                        `).join('')}
                                     </ul>
                                 </AccordionContent>
                             </AccordionItem>
-                        ))}
+                        `).join('')}
                     </Accordion>
                 </CardContent>
             </Card>

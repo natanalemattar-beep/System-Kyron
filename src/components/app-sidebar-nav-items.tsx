@@ -168,7 +168,7 @@ const finanzasContabilidadNavGroups = {
         { href: "/ventas/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
         { href: "/contabilidad/analisis-caja", label: "Análisis de Caja", icon: BarChart },
         { href: "/contabilidad/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
-        { href: "/contabilidad/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+        { href: "/admin/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
         { href: "/contabilidad/estructura-costos", label: "Estructura de Costos", icon: PieChart },
         { href: "/main/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
       ],
@@ -232,7 +232,7 @@ const rrhhNavGroupsData = {
         icon: Users,
         items: [
             { href: "/hr/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
-            { href: "/hr/nominas", label: "Nóminas", icon: Users },
+            { href: "/nominas", label: "Nóminas", icon: Users },
             { href: "/hr/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
             { href: "/hr/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
             { href: "/hr/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
@@ -258,7 +258,7 @@ const rrhhNavGroupsData = {
         title: "Libros de Registro",
         icon: BookOpen,
         items: [
-            { href: "/hr/libro-nomina", label: "Libro de Nómina", icon: Users },
+            { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
             { href: "/hr/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
             { href: "/hr/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
             { href: "/hr/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
@@ -282,6 +282,7 @@ const legalNavGroupsData = {
             { href: "/legal/escritorio-juridico", label: "Dashboard Jurídico", icon: Gavel },
             { href: "/main/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
             { href: "/legal/permisos", label: "Trámites y Permisos", icon: UserCheck },
+            { href: "/main/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
             { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/main/multas", label: "Multas", icon: AlertTriangle },
             { href: "/main/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
@@ -468,5 +469,3 @@ export const informaticaNavGroups = [
       { href: "/main/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
-
-    
