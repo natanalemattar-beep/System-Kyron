@@ -3,7 +3,6 @@
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { motion } from "framer-motion";
 import { Cpu, Shield, BarChart } from "lucide-react";
 
 const features = [
@@ -18,13 +17,8 @@ export function FeaturesSection() {
     return (
         <section id="caracteristicas" className="py-20 md:py-28 bg-muted/30">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div 
+            <div 
                 className="space-y-6"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                variants={{ visible: { opacity: 1, x: 0 }, hidden: { opacity: 0, x: -20 } }}
-                transition={{ duration: 0.6 }}
             >
                 <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
                 <p className="text-lg text-muted-foreground">
@@ -43,14 +37,9 @@ export function FeaturesSection() {
                     </div>
                     ))}
                 </div>
-            </motion.div>
-             <motion.div 
+            </div>
+             <div 
                 className="p-4 md:p-8 rounded-xl flex items-center justify-center"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                variants={{ visible: { opacity: 1, scale: 1 }, hidden: { opacity: 0, scale: 0.9 } }}
-                transition={{ duration: 0.6 }}
             >
                  {aboutImage && <Image 
                     src={aboutImage.imageUrl}
@@ -60,7 +49,7 @@ export function FeaturesSection() {
                     height={400}
                     className="rounded-xl object-cover shadow-2xl"
                  />}
-            </motion.div>
+            </div>
           </div>
         </section>
     );

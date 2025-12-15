@@ -14,7 +14,6 @@ import {
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { motion } from "framer-motion";
 
 const kpiData = [
   { title: "Disponibilidad de Red (Uptime)", value: "99.98%", icon: Signal, color: "text-green-400" },
@@ -58,11 +57,8 @@ export default function DashboardTelecomPage() {
       {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {kpiData.map((kpi, index) => (
-            <motion.div
+            <div
               key={kpi.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Card className="bg-card/80 backdrop-blur-sm h-full">
                   <CardHeader className="pb-2">
@@ -75,7 +71,7 @@ export default function DashboardTelecomPage() {
                       <p className={`text-3xl font-bold ${kpi.color}`}>{kpi.value}</p>
                   </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
       </div>
 

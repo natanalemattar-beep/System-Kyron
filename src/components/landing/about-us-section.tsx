@@ -3,7 +3,6 @@
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { motion } from "framer-motion";
 import { Target, Eye } from "lucide-react";
 
 const teamMembers = [
@@ -53,25 +52,15 @@ export function AboutUsSection() {
     return (
         <section id="nosotros" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
-                <motion.div 
+                <div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.5 }}
-                    variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 20 } }}
-                    transition={{ duration: 0.6 }}
                 >
                     <h2 className="text-3xl md:text-4xl font-bold">Conoce a Kyron</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Nacimos de la necesidad de crear orden en el caos administrativo venezolano, fusionando tecnología, cumplimiento y visión de futuro.</p>
-                </motion.div>
+                </div>
                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
-                    <motion.div 
+                    <div 
                         className="lg:col-span-2 space-y-8"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.5 }}
-                        variants={{ visible: { opacity: 1, x: 0 }, hidden: { opacity: 0, x: -20 } }}
-                        transition={{ duration: 0.6 }}
                     >
                         <div>
                             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Target className="text-primary"/>Nuestra Misión</h3>
@@ -99,14 +88,9 @@ export function AboutUsSection() {
                                 })}
                             </div>
                         </div>
-                    </motion.div>
-                    <motion.div 
+                    </div>
+                    <div 
                         className="lg:col-span-3"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.5 }}
-                        variants={{ visible: { opacity: 1, x: 0 }, hidden: { opacity: 0, x: 20 } }}
-                        transition={{ duration: 0.6 }}
                     >
                          <h3 className="text-xl font-semibold mb-4 text-center">Lo que Dicen Nuestros Clientes</h3>
                          <div className="space-y-6">
@@ -131,7 +115,7 @@ export function AboutUsSection() {
                                 );
                             })}
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

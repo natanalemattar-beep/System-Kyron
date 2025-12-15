@@ -15,7 +15,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { QuickAccess } from "@/components/dashboard/quick-access";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -52,11 +51,8 @@ export default function DashboardSociosPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {kpiData.map((kpi, index) => (
-            <motion.div
+            <div
               key={kpi.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Card className="bg-card/80 backdrop-blur-sm h-full">
                   <CardHeader className="pb-2">
@@ -69,7 +65,7 @@ export default function DashboardSociosPage() {
                       <p className="text-3xl font-bold">{kpi.value}</p>
                   </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
       </div>
 

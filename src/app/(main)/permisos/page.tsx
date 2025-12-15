@@ -14,7 +14,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
     Clock,
@@ -132,10 +132,10 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
   "Nuevo": "outline",
 };
 
-const formatDate = (dateString: string) => {
+const formatDateString = (dateString: string) => {
     if (!dateString || dateString === "N/A" || dateString === "Indefinido" || dateString === "Vitalicio") return dateString;
     const date = new Date(dateString);
-    // Add timezone offset to prevent date from changing
+    // Add timezone offset to prevent date from changing due to browser's timezone
     const userTimezoneOffset = date.getTimezoneOffset() * 60000;
     return new Date(date.getTime() + userTimezoneOffset).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
@@ -333,17 +333,9 @@ export default function PermisosPage() {
     if (channel === 'whatsapp') {
         const whatsappUrl = `https://wa.me/${alertPhone}`;
         window.open(whatsappUrl, '_blank');
-        toast({
-            title: `Notificación por WhatsApp`,
-            description: `Se ha abierto el chat con ${alertPhone}.`,
-        });
     } else {
         const mailtoUrl = `mailto:${alertEmail}`;
         window.location.href = mailtoUrl;
-        toast({
-            title: `Notificación por Correo`,
-            description: `Se ha abierto el cliente de correo para enviar un mensaje a ${alertEmail}.`,
-        });
     }
     
     if(selectedPermit) setSelectedPermit(null);
@@ -606,16 +598,7 @@ C.I: [C.I. del Representante]
             <AlertTitle>Alerta de Vencimiento</AlertTitle>
             <AlertDescription className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
               <span>Tienes {permisosPorVencer.length} permiso(s) vencido(s) o por vencer. Revisa la tabla.</span>
-              <div className="flex gap-2 mt-2 sm:mt-0">
-                <Button size="sm" variant="destructive" onClick={() => handleSendNotification(null, 'whatsapp', true)}>
-                    <MessageSquare className="mr-2 h-4 w-4"/>
-                    Notificar por WhatsApp
-                </Button>
-                 <Button size="sm" variant="destructive" onClick={() => handleSendNotification(null, 'email', true)}>
-                    <Mail className="mr-2 h-4 w-4"/>
-                    Notificar por Email
-                </Button>
-              </div>
+              
             </AlertDescription>
           </Alert>
         )}
@@ -685,7 +668,7 @@ C.I: [C.I. del Representante]
                                 <TableRow key={permiso.id} className={permiso.estado === 'Vencido' ? 'bg-destructive/10' : permiso.estado === 'Por Vencer' ? 'bg-secondary/50' : ''}>
                                     <TableCell className="font-medium">{permiso.id}</TableCell>
                                     <TableCell>{permiso.tipo}</TableCell>
-                                    <TableCell>{formatDate(permiso.fechaVencimiento)}</TableCell>
+                                    <TableCell>{formatDateString(permiso.fechaVencimiento)}</TableCell>
                                     <TableCell>
                                         <Badge variant={statusVariant[permiso.estado]}>{permiso.estado}</Badge>
                                     </TableCell>
@@ -804,7 +787,7 @@ C.I: [C.I. del Representante]
                                                                     <TableBody>
                                                                         {payments[permiso.id]?.length > 0 ? payments[permiso.id].map(p => (
                                                                             <TableRow key={p.id}>
-                                                                                <TableCell>{formatDate(p.fecha)}</TableCell>
+                                                                                <TableCell>{formatDateString(p.fecha)}</TableCell>
                                                                                 <TableCell>{p.referencia}</TableCell>
                                                                                 <TableCell className="text-right">{formatCurrency(p.monto, "Bs.")}</TableCell>
                                                                             </TableRow>
@@ -840,18 +823,7 @@ C.I: [C.I. del Representante]
                                             </DialogContent>
                                         </Dialog>
                                          )}
-                                         {(permiso.estado === "Por Vencer" || permiso.estado === "Vencido") && (
-                                            <>
-                                                <Button variant="outline" size="sm" className="text-orange-500 border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-600" onClick={() => handleSendNotification(permiso, 'whatsapp')}>
-                                                    <MessageSquare className="mr-2 h-4 w-4"/>
-                                                    WhatsApp
-                                                </Button>
-                                                <Button variant="outline" size="sm" className="text-orange-500 border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-600" onClick={() => handleSendNotification(permiso, 'email')}>
-                                                    <Mail className="mr-2 h-4 w-4"/>
-                                                    Email
-                                                </Button>
-                                            </>
-                                        )}
+                                         
                                     </TableCell>
                                 </TableRow>
                             ))}
