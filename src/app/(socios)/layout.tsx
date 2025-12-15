@@ -7,6 +7,7 @@ import { AppHeader } from "@/components/app-header";
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
+import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Socio", email: "socio@kyron.com", fallback: "S" };
 const dashboardHref = "/socios/dashboard-socios";
@@ -20,6 +21,7 @@ export default function SociosLayout({ children }: { children: ReactNode }) {
         {children}
       </main>
       <Toaster />
+      <ChatDialog />
     </div>
   );
 }

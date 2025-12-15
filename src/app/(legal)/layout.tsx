@@ -7,6 +7,7 @@ import { AppHeader } from "@/components/app-header";
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { legalNavGroups } from "@/components/app-sidebar-nav-items";
+import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Escritorio Jurídico", email: "legal@kyron.com", fallback: "L" };
 const dashboardHref = "/legal/escritorio-juridico";
@@ -20,6 +21,7 @@ export default function LegalLayout({ children }: { children: ReactNode }) {
         {children}
       </main>
       <Toaster />
+      <ChatDialog />
     </div>
   );
 }

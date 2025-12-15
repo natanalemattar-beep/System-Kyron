@@ -8,6 +8,7 @@ import { User, AlertTriangle } from "lucide-react";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion } from "framer-motion";
+import { ChatDialog } from "@/components/chat-dialog";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -38,6 +39,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <main className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto pt-12">
         {children}
       </main>
+      <ChatDialog />
     </div>
   );
 }

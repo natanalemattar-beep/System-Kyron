@@ -7,6 +7,7 @@ import { AppHeader } from "@/components/app-header";
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
+import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
 const dashboardHref = "/telecom/dashboard-telecom";
@@ -20,6 +21,7 @@ export default function TelecomLayout({ children }: { children: ReactNode }) {
         {children}
       </main>
       <Toaster />
+      <ChatDialog />
     </div>
   );
 }

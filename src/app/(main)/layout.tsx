@@ -7,6 +7,7 @@ import { AppHeader } from "@/components/app-header";
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { naturalMenuItems } from "@/components/app-sidebar-nav-items";
+import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Usuario", email: "usuario@email.com", fallback: "UN" };
 const dashboardHref = "/dashboard";
@@ -19,6 +20,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
         {children}
       </main>
       <Toaster />
+      <ChatDialog />
     </div>
   );
 }

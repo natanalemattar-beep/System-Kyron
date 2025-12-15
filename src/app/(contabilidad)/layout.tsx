@@ -7,6 +7,7 @@ import { AppHeader } from "@/components/app-header";
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { contabilidadNavGroups } from "@/components/app-sidebar-nav-items";
+import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Finanzas", email: "finanzas@kyron.com", fallback: "F" };
 const dashboardHref = "/contabilidad";
@@ -20,6 +21,7 @@ export default function ContabilidadLayout({ children }: { children: ReactNode }
         {children}
       </main>
       <Toaster />
+      <ChatDialog />
     </div>
   );
 }
