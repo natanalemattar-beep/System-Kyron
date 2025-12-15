@@ -96,6 +96,7 @@ import {
   Zap,
   Cpu,
   Phone,
+  Atom,
 } from "lucide-react";
 
 
@@ -318,6 +319,7 @@ const legalNavGroupsData = {
           items: [
             { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
             { href: "/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
+            { href: "/acta-asamblea", label: "Actas y Asambleas", icon: BookOpen },
             { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
             { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
             { href: "/organigrama", label: "Organigrama", icon: Network },
@@ -423,7 +425,7 @@ export const sociosNavGroups = [
 export const telecomNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [ 
       { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
-      { href: "/telecom/venta-linea", label: "Venta de Líneas", icon: Phone },
+      { href: "/venta-linea", label: "Venta de Líneas", icon: Phone },
     ], subGroups: [] },
 ];
 

@@ -66,30 +66,9 @@ CLÁUSULA SEGUNDA: DOMICILIO
 El domicilio de la compañía estará en la ciudad de Caracas, pudiendo establecer sucursales o agencias en cualquier otro lugar del territorio nacional o en el extranjero.
 
 CLÁUSULA TERCERA: OBJETO
-El objeto de la compañía es la asesoría contable, sistema de financiamiento, sistema de crédito a emprendimientos con intereses, desarrollo y aplicación de tecnologías blockchain, incluyendo sistemas de verificación biométrica como la huella dactilar, para la seguridad y trazabilidad de las transacciones, asesoría de publicidad y marketing, con sistema de app digital de cambio de moneda, asesoría de clases de materia contable, app de todas las carrera con asesoria de profesionales de la materia, venta de productos online, venta de todo tipo de artículos de papelería y escolares, software y artículos de contabilidad, equipos fiscales, y la comercialización de computadoras de marca propia. Adicionalmente, la fabricación y distribución de papeleras inteligentes de marca propia. Realizar convenios y alianzas para el canje de productos plásticos por dinero y alianzas con empresas. Tramitación de documentos y asesorías jurídicas, y todos los servicios administrativos, jurídicos, de ingeniería y marketing. 
+El objeto principal de la compañía es el desarrollo y comercialización de un sistema de contabilidad computarizado, la venta de artículos de oficina y papelería, la distribución de equipos fiscales homologados y la comercialización de computadoras. Así mismo, la empresa se dedicará al diseño, fabricación y registro de su propia marca de papeleras digitales e inteligentes, y cualquier otra actividad de lícito comercio conexa con su objeto principal.
 
-Adicionalmente, la empresa podrá operar como una Institución de Tecnología Financiera del Sector Bancario (ITFB), ofreciendo servicios financieros en las categorías de productos de pago y almacenamientos de dinero, productos dentro de instituciones bancarías y nuevos modelos de negocio a las Instituciones del sector bancario, las cuales se desarrollan dentro de las actividades siguientes:
-1. Apertura de cuenta bancaria a través de nuevas tecnologías.
-2. Soluciones bancarias multiplataforma.
-3. Utilización de datos estadísticos de libre dominio con fines financieros.
-4. Plataformas de conexión de FINTECH y de instituciones bancarias.
-5. Autenticación de voz del usuario.
-6. Interacción automatizada de los usuarios financieros.
-7. Software de cumplimiento (Compliance) y gestión de riesgos.
-8. Integración de redes sociales-pagos-finanzas-venta al por menor.
-9. La banca como servicio (BaaS).
-
-Parágrafo Único: En caso de que las Instituciones de Tecnología Financiera del Sector Bancario deseen ofrecer productos de pago y almacenamientos de dinero a clientes o usuarios distintos a las Instituciones Bancarias, deberán obtener la autorización del Banco Central de Venezuela, a los fines de operar como un Proveedor no Bancario de Servicios de Pago, cumpliendo para ello con los requisitos y condiciones establecidos en la normativa dictada por el Ente Emisor en la materia. Se entiende por productos de pago y almacenamientos de dinero a que se refiere el presente Parágrafo, las siguientes operaciones:
-a. Ahorros Automatizados de las Cuentas de los Usuarios a una Nueva Cuenta.
-b. Ahorros Automatizados en redes sociales de cuentas de usuarios a una plataforma P2P.
-c. Pagos Móviles.
-d. Pagos Móviles de Cooperación Directa Banco-Operador de Red Móvil.
-e. Pagos móviles-cobro directo a la cuenta del teléfono móvil.
-f. Pagos con tarjetas de crédito mediante API.
-g. Tarjetas virtuales prepagadas.
-h. Pasarelas (gateway) de pagos.
-
-En general, la sociedad podrá realizar cualquier otra actividad de lícito comercio conexa o no con su objeto principal.
+Adicionalmente, la empresa podrá operar como una Institución de Tecnología Financiera del Sector Bancario (ITFB), ofreciendo servicios financieros en las categorías de productos de pago y almacenamientos de dinero, productos dentro de instituciones bancarías y nuevos modelos de negocio a las Instituciones del sector bancario.
 
 CLÁUSULA CUARTA: CAPITAL SOCIAL
 El capital social es de [MONTO DEL CAPITAL] (Bs. X.XXX,XX), dividido en [NÚMERO DE ACCIONES] (XX) acciones nominativas no convertibles al portador, con un valor nominal de [VALOR NOMINAL] (Bs. X.XXX,XX) cada una, las cuales han sido suscritas y pagadas en su totalidad por los socios de la siguiente manera: [Socio 1] suscribe y paga [Número] acciones, y [Socio 2] suscribe y paga [Número] acciones.
@@ -188,7 +167,7 @@ Se autoriza ampliamente al ciudadano(a) [NOMBRE DEL AUTORIZADO], titular de la C
                     <CardTitle className="text-xl flex items-center justify-center gap-2"><FileText/>Modelo de Acta Constitutiva</CardTitle>
                     <CardDescription>Utiliza este modelo como base para tu documento.</CardDescription>
                 </CardHeader>
-                <CardContent className="p-6 prose prose-sm dark:prose-invert max-w-none text-justify h-[60vh] overflow-y-auto">
+                <CardContent id="printable-content" className="p-6 prose prose-sm dark:prose-invert max-w-none text-justify h-[60vh] overflow-y-auto">
                     <p>
                         Nosotros, [NOMBRES Y APELLIDOS DE LOS SOCIOS], mayores de edad, de nacionalidad [Nacionalidad], titulares de la Cédula de Identidad N° V-[C.I. Socio 1] y V-[C.I. Socio 2], domiciliados en la ciudad de Caracas, por medio del presente documento declaramos que hemos convenido en constituir, como en efecto lo hacemos, una Compañía Anónima que se regirá por las cláusulas que se detallan a continuación.
                     </p>
@@ -200,33 +179,9 @@ Se autoriza ampliamente al ciudadano(a) [NOMBRE DEL AUTORIZADO], titular de la C
                     <p>El domicilio de la compañía estará en la ciudad de Caracas, pudiendo establecer sucursales o agencias en cualquier otro lugar del territorio nacional o en el extranjero.</p>
 
                     <h4>CLÁUSULA TERCERA: OBJETO</h4>
-                    <p>El objeto de la compañía es la asesoría contable, sistema de financiamiento, sistema de crédito a emprendimientos con intereses, desarrollo y aplicación de tecnologías blockchain, incluyendo sistemas de verificación biométrica como la huella dactilar, para la seguridad y trazabilidad de las transacciones, asesoría de publicidad y marketing, con sistema de app digital de cambio de moneda, asesoría de clases de materia contable, app de todas las carrera con asesoria de profesionales de la materia, venta de productos online, venta de todo tipo de artículos de papelería y escolares, software y artículos de contabilidad, equipos fiscales, y la comercialización de computadoras de marca propia. Adicionalmente, la fabricación y distribución de papeleras inteligentes de marca propia. Realizar convenios y alianzas para el canje de productos plásticos por dinero y alianzas con empresas. Tramitación de documentos y asesorías jurídicas, y todos los servicios administrativos, jurídicos, de ingeniería y marketing.</p>
-                    <p>Adicionalmente, la empresa podrá operar como una Institución de Tecnología Financiera del Sector Bancario (ITFB), ofreciendo servicios financieros en las categorías de productos de pago y almacenamientos de dinero, productos dentro de instituciones bancarías y nuevos modelos de negocio a las Instituciones del sector bancario, las cuales se desarrollan dentro de las actividades siguientes:
-                        <ol className="list-decimal pl-6 my-2">
-                            <li>Apertura de cuenta bancaria a través de nuevas tecnologías.</li>
-                            <li>Soluciones bancarias multiplataforma.</li>
-                            <li>Utilización de datos estadísticos de libre dominio con fines financieros.</li>
-                            <li>Plataformas de conexión de FINTECH y de instituciones bancarias.</li>
-                            <li>Autenticación de voz del usuario.</li>
-                            <li>Interacción automatizada de los usuarios financieros.</li>
-                            <li>Software de cumplimiento (Compliance) y gestión de riesgos.</li>
-                            <li>Integración de redes sociales-pagos-finanzas-venta al por menor.</li>
-                            <li>La banca como servicio (BaaS).</li>
-                        </ol>
-                    </p>
-                     <p><strong>Parágrafo Único:</strong> En caso de que las Instituciones de Tecnología Financiera del Sector Bancario deseen ofrecer productos de pago y almacenamientos de dinero a clientes o usuarios distintos a las Instituciones Bancarias, deberán obtener la autorización del Banco Central de Venezuela, a los fines de operar como un Proveedor no Bancario de Servicios de Pago, cumpliendo para ello con los requisitos y condiciones establecidos en la normativa dictada por el Ente Emisor en la materia. Se entiende por productos de pago y almacenamientos de dinero a que se refiere el presente Parágrafo, las siguientes operaciones:</p>
-                        <ol className="list-alpha pl-6 my-2">
-                           <li>Ahorros Automatizados de las Cuentas de los Usuarios a una Nueva Cuenta.</li>
-                            <li>Ahorros Automatizados en redes sociales de cuentas de usuarios a una plataforma P2P.</li>
-                            <li>Pagos Móviles.</li>
-                            <li>Pagos Móviles de Cooperación Directa Banco-Operador de Red Móvil.</li>
-                            <li>Pagos móviles-cobro directo a la cuenta del teléfono móvil.</li>
-                            <li>Pagos con tarjetas de crédito mediante API.</li>
-                            <li>Tarjetas virtuales prepagadas.</li>
-                            <li>Pasarelas (gateway) de pagos.</li>
-                        </ol>
-                    <p>En general, la sociedad podrá realizar cualquier otra actividad de lícito comercio conexa o no con su objeto principal.</p>
-
+                    <p>El objeto principal de la compañía es el desarrollo y comercialización de un <strong>sistema de contabilidad computarizado</strong>, la venta de <strong>artículos de oficina y papelería</strong>, la distribución de <strong>equipos fiscales homologados</strong> y la comercialización de computadoras. Así mismo, la empresa se dedicará al diseño, fabricación y <strong>registro de su propia marca de papeleras digitales e inteligentes</strong>, y cualquier otra actividad de lícito comercio conexa con su objeto principal.</p>
+                    <p>Adicionalmente, la empresa podrá operar como una Institución de Tecnología Financiera del Sector Bancario (ITFB), ofreciendo servicios financieros en las categorías de productos de pago y almacenamientos de dinero, productos dentro de instituciones bancarías y nuevos modelos de negocio a las Instituciones del sector bancario.</p>
+                    
                     <h4>CLÁUSULA CUARTA: CAPITAL SOCIAL</h4>
                     <p>El capital social es de [MONTO DEL CAPITAL] (Bs. X.XXX,XX), dividido en [NÚMERO DE ACCIONES] (XX) acciones nominativas no convertibles al portador, con un valor nominal de [VALOR NOMINAL] (Bs. X.XXX,XX) cada una, las cuales han sido suscritas y pagadas en su totalidad por los socios de la siguiente manera: [Socio 1] suscribe y paga [Número] acciones, y [Socio 2] suscribe y paga [Número] acciones.</p>
                     
