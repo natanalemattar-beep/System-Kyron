@@ -341,6 +341,7 @@ export const advisoryNavGroups = {
             title: "Inteligencia de Negocio",
             icon: Lightbulb,
             items: [
+                { href: "/main/inteligencia-negocio", label: "Inteligencia de Negocio (BI)", icon: Lightbulb },
                 { href: "/main/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
                 { href: "/admin/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
                 { href: "/main/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
