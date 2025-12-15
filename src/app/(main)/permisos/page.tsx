@@ -73,7 +73,7 @@ const initialPermisos = [
     { id: "PERM-REG-003", tipo: "Licencia de Institución Financiera", emisor: "SUDEBAN", fechaEmision: "2022-11-15", fechaVencimiento: "2027-11-15", estado: "Vigente", requisitosInscripcion: ["Estudio de viabilidad económica", "Manuales de organización, procedimientos y control interno", "Origen de los fondos del capital"], requisitosRenovacion: ["Auditorías periódicas de SUDEBAN"] },
     { id: "PERM-PRO-001", tipo: "Inscripción en Colegio de Médicos", emisor: "Colegios Profesionales", fechaEmision: "2020-02-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario registrado y protocolizado", "Cédula de identidad", "Pago de aranceles de inscripción"], requisitosRenovacion: ["Solvencia anual"] },
     { id: "PERM-PRO-002", tipo: "Inscripción en Colegio de Ingenieros (CIV)", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de Ingeniero registrado", "Cédula de identidad", "Pago de tasas"], requisitosRenovacion: ["Solvencia anual"] },
-    { id: "PERM-PRO-003", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario", "Inscripción en el INPRECONTAD"], requisitosRenovacion: ["Solvencia anual del colegio y del INPRECONTAD"] },
+    { id: "PERM-PRO-003", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario", "Inscripción en el INPRECONTAD"], requisitosRenovacion: ["Solvencia anual"] },
     { id: "PERM-PRO-004", tipo: "Inscripción en INPREABOGADO", emisor: "Colegios Profesionales", fechaEmision: "2018-05-30", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de abogado registrado", "Inscripción en el Colegio de Abogados respectivo"], requisitosRenovacion: ["Pago de cuotas de sostenimiento"] },
 
     // --- SAPI ---
@@ -407,18 +407,42 @@ C.I: [C.I. del Representante]
 };
 
   const handleDownloadPDF = (pdfName: string) => {
-      // Simulate PDF download
-      const link = document.createElement("a");
-      link.href = `/docs/${pdfName}.pdf`; // Assuming a dummy path
-      link.download = `${pdfName}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      toast({
-          title: "Descarga Iniciada",
-          description: `El documento ${pdfName}.pdf se está descargando.`
-      });
-  }
+    // This is a corrected implementation. Instead of linking to a non-existent file,
+    // it triggers the browser's print dialog, which can be used to "Save as PDF".
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+        // A placeholder content for the PDF.
+        const content = `
+            <html>
+                <head><title>Registro Mercantil</title></head>
+                <body style="font-family: sans-serif; padding: 2rem;">
+                    <h1>Documento de Registro Mercantil (Ejemplo)</h1>
+                    <p><strong>Empresa:</strong> Tu Empresa, C.A.</p>
+                    <p><strong>RIF:</strong> J-12345678-9</p>
+                    <p>Este es un documento de ejemplo para demostrar la funcionalidad de descarga. El contenido real sería cargado o generado dinámicamente.</p>
+                </body>
+            </html>
+        `;
+        printWindow.document.write(content);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+            printWindow.print();
+            printWindow.close();
+        }, 500);
+
+        toast({
+            title: "Preparando Descarga",
+            description: `Se ha abierto el diálogo de impresión para '${pdfName}.pdf'. Por favor, selecciona 'Guardar como PDF' para descargar el documento.`
+        });
+    } else {
+        toast({
+            variant: "destructive",
+            title: "Error de Navegador",
+            description: "No se pudo abrir la ventana de impresión. Por favor, revisa la configuración de tu navegador."
+        });
+    }
+}
 
 
   const groupedPermisos = permisos.reduce((acc, permiso) => {
@@ -761,4 +785,6 @@ C.I: [C.I. del Representante]
 }
 
     
+    
+
     
