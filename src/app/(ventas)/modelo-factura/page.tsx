@@ -28,9 +28,9 @@ const factura = {
         direccion: "Calle Secundaria, Torre Empresarial, Valencia",
     },
     items: [
-        { id: 1, descripcion: "Licencia Anual - Plan Emprendedor", cantidad: 1, precio: 360 },
-        { id: 2, descripcion: "Soporte Técnico Prioritario (Mensual)", cantidad: 6, precio: 50 },
-        { id: 3, descripcion: "Módulo de Nómina Avanzada", cantidad: 1, precio: 150 },
+        { id: 1, descripcion: "Licencia Anual - Plan Profesional", cantidad: 1, precio: 48000 },
+        { id: 2, descripcion: "Horas de Soporte Adicional (Paquete 10h)", cantidad: 2, precio: 2000 },
+        { id: 3, descripcion: "Módulo de Integración con CRM", cantidad: 1, precio: 5000 },
     ],
     metodoPago: {
         tipo: "Punto de Venta",
@@ -69,7 +69,7 @@ export default function ModeloFacturaPage() {
         window.print();
         toast({
             title: `Factura ${factura.numero} descargada`,
-            description: "La factura ha sido guardada como PDF.",
+            description: "La factura ha sido guardada como PDF. Revisa tus descargas.",
         });
     }
 

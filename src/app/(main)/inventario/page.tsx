@@ -65,6 +65,35 @@ export default function InventarioPage() {
         });
     };
     
+    const handleExport = () => {
+        const headers = ["SKU", "Producto", "Categoría", "Stock", "Costo", "Valor Total", "Vencimiento"];
+        const csvContent = [
+            headers.join(','),
+            ...inventory.map(item => [
+                item.sku,
+                `"${item.nombre}"`,
+                item.categoria,
+                item.stock,
+                item.costo,
+                item.valor,
+                item.fechaVencimiento ? formatDate(item.fechaVencimiento) : 'N/A'
+            ].join(','))
+        ].join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "inventario_actual.csv");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        toast({ title: "Exportación Completa", description: "El inventario ha sido exportado a un archivo CSV." });
+    };
+
     const totalInventoryValue = inventory.reduce((acc, item) => acc + item.valor, 0);
     const totalProducts = inventory.length;
 
@@ -107,7 +136,7 @@ export default function InventarioPage() {
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full" onClick={handleExport}>
                         <Download className="mr-2" />
                         Exportar
                     </Button>

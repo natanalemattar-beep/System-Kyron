@@ -49,6 +49,26 @@ export default function AnalisisVentasPage() {
   const { toast } = useToast();
 
   const handleExport = () => {
+        const headers = ["Indicador", "Valor", "Tendencia"];
+        const kpiCsv = kpiData.map(kpi => [kpi.title, kpi.value, `"${kpi.trend}"`].join(',')).join('\n');
+        
+        const topProductsHeaders = ["ID Producto", "Nombre", "Ventas (Uds)", "Ingresos"];
+        const topProductsCsv = topProducts.map(p => [p.id, `"${p.name}"`, p.sales, `"${p.revenue}"`].join(',')).join('\n');
+
+        const csvContent = `KPIs de Ventas\n${kpiCsv}\n\nTop Productos\n${topProductsHeaders}\n${topProductsCsv}`;
+        
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "reporte_ventas.csv");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
       toast({
           title: "Reporte Generado",
           description: "El reporte de ventas ha sido exportado exitosamente.",

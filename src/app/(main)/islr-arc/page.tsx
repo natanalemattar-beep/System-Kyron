@@ -21,6 +21,23 @@ export default function IslrArcPage() {
   const { toast } = useToast();
 
   const handleExport = () => {
+    const headers = ["Empleado", "Cédula", "Remuneración Anual", "Retención Mes", "Retención Acumulada"];
+    const csvContent = [
+      headers.join(","),
+      ...registros.map(r => [`"${r.empleado}"`, r.cedula, r.remuneracionAnual, r.retencionMes, r.retencionAcumulada].join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", "reporte_islr.csv");
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
     toast({
       title: "Reporte Generado",
       description: "El reporte de ISLR ha sido exportado exitosamente.",
@@ -28,14 +45,23 @@ export default function IslrArcPage() {
   };
 
   const handleGenerateARC = (empleado: string) => {
+    // In a real app, you would generate a PDF here. We'll simulate with a print.
+    window.print();
     toast({
       title: `AR-C Generado para ${empleado}`,
-      description: "El comprobante de retención mensual está listo para descargar.",
+      description: "El comprobante de retención mensual está listo para descargar/imprimir.",
     });
   }
 
   return (
     <div>
+        <style>
+            {`
+                @media print {
+                    /* Define print styles here */
+                }
+            `}
+        </style>
         <header className="mb-8 flex items-center justify-between">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">

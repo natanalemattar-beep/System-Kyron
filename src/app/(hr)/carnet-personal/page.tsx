@@ -46,11 +46,26 @@ export default function CarnetPersonalPage() {
     };
 
     const handleSaveContact = () => {
+        const vCard = `BEGIN:VCARD
+VERSION:3.0
+FN:${employeeData.name}
+ORG:System Kyron;${employeeData.department}
+TITLE:${employeeData.position}
+TEL;TYPE=WORK,VOICE:${employeeData.departmentPhone}
+EMAIL:${employeeData.email}
+END:VCARD`;
+        const blob = new Blob([vCard], { type: "text/vcard;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute("download", `${employeeData.name}.vcf`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
         toast({
             title: "Descarga Iniciada",
             description: "Se está descargando el contacto en formato vCard.",
         });
-        // In a real app, you would generate and download a .vcf file here.
     };
 
 
