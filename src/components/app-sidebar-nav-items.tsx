@@ -1,4 +1,3 @@
-
 import {
   FileText,
   Bell,
@@ -168,7 +167,7 @@ const finanzasContabilidadNavGroups = {
         { href: "/legal/memoria-anual", label: "Memoria Anual", icon: BookOpen },
         { href: "/main/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
         { href: "/admin/estructura-costos", label: "Estructura de Costos", icon: PieChart },
-        { href: "/admin/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
+        { href: "/main/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
       ],
     },
     {
@@ -246,7 +245,7 @@ const rrhhNavGroupsData = {
             { href: "/hr/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
             { href: "/hr/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
             { href: "/hr/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
-            { href: "/hr/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
+            { href: "/main/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
             { href: "/hr/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
             { href: "/main/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
             { href: "/hr/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
@@ -381,7 +380,19 @@ export const advisoryNavGroups = {
 
 export const adminNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/admin/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
-  finanzasContabilidadNavGroups,
+  {
+    ...finanzasContabilidadNavGroups,
+    subGroups: [
+        ...finanzasContabilidadNavGroups.subGroups,
+        {
+            title: "Contabilidad General",
+            icon: BookOpen,
+            items: [
+                { href: "/contabilidad/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }
+            ]
+        }
+    ]
+  },
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems.map(item => ({...item, href: `/ventas${item.href}`})), subGroups: [] },
   impuestosCumplimientoNavGroups,
   rrhhNavGroupsData,
@@ -390,7 +401,7 @@ export const adminNavGroups = [
 ];
 
 export const contabilidadNavGroups = [
-  { title: "Dashboard", icon: BookOpen, items: [{ href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
+  { title: "Dashboard", icon: BookOpen, items: [{ href: "/contabilidad/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: [
       { href: "/ventas/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
@@ -425,7 +436,7 @@ export const ventasNavGroups = [
      { title: "Estrategias", icon: Lightbulb, items: [
         { href: "/ventas/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
     ], subGroups: [] },
-    { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems.map(item => ({...item, href: `/ventas${item.href}`})), subGroups: [] },
+    { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems.map(item => ({...item, href: `${item.href}`})), subGroups: [] },
 ];
 
 export const sociosNavGroups = [
