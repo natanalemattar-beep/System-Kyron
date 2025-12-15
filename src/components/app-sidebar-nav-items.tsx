@@ -105,10 +105,10 @@ export const naturalMenuItems = [
         title: "Principal",
         icon: LayoutDashboard,
         items: [
-            { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-            { href: "/tarjeta-digital", label: "Tarjeta Digital", icon: User },
-            { href: "/seguridad", label: "Seguridad", icon: Shield },
-            { href: "/notificaciones", label: "Notificaciones", icon: Bell },
+            { href: "/main/dashboard", label: "Dashboard", icon: LayoutDashboard },
+            { href: "/main/tarjeta-digital", label: "Tarjeta Digital", icon: User },
+            { href: "/main/seguridad", label: "Seguridad", icon: Shield },
+            { href: "/main/notificaciones", label: "Notificaciones", icon: Bell },
         ],
         subGroups: [],
     },
@@ -116,11 +116,11 @@ export const naturalMenuItems = [
         title: "Trámites Civiles",
         icon: FileText,
         items: [
-            { href: "/documentos", label: "Mis Documentos", icon: File },
-            { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
-            { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
-            { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
-            { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
+            { href: "/main/documentos", label: "Mis Documentos", icon: File },
+            { href: "/main/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
+            { href: "/main/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
+            { href: "/main/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
+            { href: "/main/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
         ],
         subGroups: [],
     },
@@ -128,7 +128,7 @@ export const naturalMenuItems = [
         title: "Salud",
         icon: HeartHandshake,
         items: [
-            { href: "/directorio-medico", label: "Directorio Médico", icon: HeartHandshake },
+            { href: "/main/directorio-medico", label: "Directorio Médico", icon: HeartHandshake },
         ],
         subGroups: [],
     },
@@ -136,8 +136,8 @@ export const naturalMenuItems = [
         title: "Obligaciones (LOPNNA)",
         icon: Gavel,
         items: [
-            { href: "/manutencion", label: "Obligación de Manutención", icon: Gavel },
-            { href: "/registro-rif", label: "Registro RIF (Hijos)", icon: FileEdit, isNew: true },
+            { href: "/main/manutencion", label: "Obligación de Manutención", icon: Gavel },
+            { href: "/main/registro-rif", label: "Registro RIF (Hijos)", icon: FileEdit, isNew: true },
         ],
         subGroups: [],
     }
@@ -149,11 +149,11 @@ const facturacionGeneralMenuItems = [
     { href: "/ventas/proformas", label: "Proformas", icon: Receipt },
     { href: "/ventas/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
     { href: "/ventas/modelo-factura", label: "Modelo de Factura", icon: FileText },
-    { href: "/modelo-presupuesto", label: "Modelo de Presupuesto", icon: Receipt },
+    { href: "/main/modelo-presupuesto", label: "Modelo de Presupuesto", icon: Receipt },
     { href: "/ventas/nota-debito", label: "Nota de Débito", icon: FileMinus },
     { href: "/ventas/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/main/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
-    { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
+    { href: "/main/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
 ];
 
 const finanzasContabilidadNavGroups = {
@@ -257,7 +257,7 @@ const rrhhNavGroupsData = {
         title: "Libros de Registro",
         icon: BookOpen,
         items: [
-            { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
+            { href: "/main/libro-nomina", label: "Libro de Nómina", icon: Users },
             { href: "/hr/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
             { href: "/hr/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
             { href: "/hr/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
@@ -280,7 +280,7 @@ const legalNavGroupsData = {
           items: [
             { href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
             { href: "/main/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
-            { href: "/main/permisos", label: "Trámites y Permisos", icon: UserCheck },
+            { href: "/legal/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/main/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
             { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/main/multas", label: "Multas", icon: AlertTriangle },
@@ -297,7 +297,7 @@ const legalNavGroupsData = {
             { href: "/main/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
             { href: "/main/cartas-seniat", label: "Comunicaciones al SENIAT", icon: Mail },
             { href: "/main/cartas-conatel", label: "Comunicaciones a CONATEL", icon: Signal },
-            { href: "/hr/modelo-contrato-trabajo", label: "Contrato de Trabajo", icon: FileSignature },
+            { href: "/main/modelo-contrato-trabajo", label: "Contrato de Trabajo", icon: FileSignature },
             { href: "/main/modelo-contrato", label: "Contrato de Servicios", icon: FileSignature },
             { href: "/main/archivo-digital", label: "Archivo Digital", icon: Archive },
           ]
@@ -450,7 +450,7 @@ export const telecomNavGroups = [
 ];
 
 export const seguridadNavGroups = [
-  { title: "Seguridad", icon: Shield, items: [ { href: "/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ], subGroups: [] },
+  { title: "Seguridad", icon: Shield, items: [ { href: "/main/seguridad", label: "Gestión de Accesos", icon: ShieldCheck } ], subGroups: [] },
 ];
 
 export const informaticaNavGroups = [
@@ -468,4 +468,3 @@ export const informaticaNavGroups = [
       { href: "/main/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
-    
