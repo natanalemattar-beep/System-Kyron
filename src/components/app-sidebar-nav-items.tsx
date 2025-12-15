@@ -160,44 +160,32 @@ const finanzasContabilidadNavGroups = {
   icon: BookOpen,
   subGroups: [
     {
-      title: "Reportes Clave",
+      title: "Análisis Financiero",
       icon: BarChart,
       items: [
-        { href: "/admin/reports", label: "Reportes Financieros", icon: BarChart },
-        { href: "/legal/memoria-anual", label: "Memoria Anual", icon: BookOpen },
+        { href: "/ventas/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
+        { href: "/contabilidad/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+        { href: "/contabilidad/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+        { href: "/contabilidad/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+        { href: "/contabilidad/estructura-costos", label: "Estructura de Costos", icon: PieChart },
         { href: "/main/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
-        { href: "/admin/estructura-costos", label: "Estructura de Costos", icon: PieChart },
-        { href: "/main/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: BookOpen },
       ],
     },
     {
       title: "Gestión de Cuentas",
       icon: Wallet,
       items: [
-        { href: "/admin/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
         { href: "/contabilidad/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
-        { href: "/admin/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
-        { href: "/admin/billetera-cambio", label: "Billetera de Cambio", icon: Wallet },
-        { href: "/main/pago-servicios", label: "Pago de Servicios", icon: CreditCard },
+        { href: "/contabilidad/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
       ],
     },
     {
-      title: "Libros Oficiales y Auxiliares",
-      icon: BookOpen,
-      items: [
-        { href: "/admin/libros-contables", label: "Libros Contables Principales", icon: BookOpen },
-        { href: "/admin/libro-compra-venta", label: "Libro de Compras y Ventas", icon: Landmark },
-        { href: "/admin/libro-licores", label: "Libro de Licores", icon: Wine },
-      ],
-    },
-     {
-      title: "Activos",
-      icon: Building,
-      items: [
-        { href: "/admin/inventario", label: "Inventario", icon: Archive },
-        { href: "/main/activos-inmobiliarios", label: "Activos Inmobiliarios", icon: Building },
-      ]
-    },
+        title: "Contabilidad General",
+        icon: BookOpen,
+        items: [
+            { href: "/contabilidad/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }
+        ]
+    }
   ],
   items: [],
 };
@@ -380,19 +368,7 @@ export const advisoryNavGroups = {
 
 export const adminNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/admin/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
-  {
-    ...finanzasContabilidadNavGroups,
-    subGroups: [
-        ...finanzasContabilidadNavGroups.subGroups,
-        {
-            title: "Contabilidad General",
-            icon: BookOpen,
-            items: [
-                { href: "/contabilidad/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }
-            ]
-        }
-    ]
-  },
+  finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems.map(item => ({...item, href: `/ventas${item.href}`})), subGroups: [] },
   impuestosCumplimientoNavGroups,
   rrhhNavGroupsData,
@@ -402,7 +378,18 @@ export const adminNavGroups = [
 
 export const contabilidadNavGroups = [
   { title: "Dashboard", icon: BookOpen, items: [{ href: "/contabilidad/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
-  finanzasContabilidadNavGroups,
+  {
+    title: "Análisis Financiero",
+    icon: BarChart,
+    items: finanzasContabilidadNavGroups.subGroups.find(sg => sg.title === "Análisis Financiero")?.items || [],
+    subGroups: []
+  },
+  {
+    title: "Gestión de Cuentas",
+    icon: Wallet,
+    items: finanzasContabilidadNavGroups.subGroups.find(sg => sg.title === "Gestión de Cuentas")?.items || [],
+    subGroups: []
+  },
   { title: "Facturación", icon: ShoppingCart, items: [
       { href: "/ventas/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
       { href: "/ventas/proformas", label: "Proformas", icon: Receipt },
