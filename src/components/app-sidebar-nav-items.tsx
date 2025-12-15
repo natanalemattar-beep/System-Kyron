@@ -280,7 +280,7 @@ const legalNavGroupsData = {
           items: [
             { href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
             { href: "/main/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
-            { href: "/legal/permisos", label: "Trámites y Permisos", icon: UserCheck },
+            { href: "/main/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/main/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
             { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/main/multas", label: "Multas", icon: AlertTriangle },
