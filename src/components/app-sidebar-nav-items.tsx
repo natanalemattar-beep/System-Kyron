@@ -95,6 +95,7 @@ import {
   Presentation,
   Zap,
   Cpu,
+  Phone,
 } from "lucide-react";
 
 
@@ -420,7 +421,10 @@ export const sociosNavGroups = [
 ];
 
 export const telecomNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal } ], subGroups: [] },
+  { title: "Dashboard", icon: LayoutDashboard, items: [ 
+      { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
+      { href: "/telecom/venta-linea", label: "Venta de Líneas", icon: Phone },
+    ], subGroups: [] },
 ];
 
 export const seguridadNavGroups = [
