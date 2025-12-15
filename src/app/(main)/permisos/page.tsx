@@ -406,6 +406,20 @@ C.I: [C.I. del Representante]
     });
 };
 
+  const handleDownloadPDF = (pdfName: string) => {
+      // Simulate PDF download
+      const link = document.createElement("a");
+      link.href = `/docs/${pdfName}.pdf`; // Assuming a dummy path
+      link.download = `${pdfName}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast({
+          title: "Descarga Iniciada",
+          description: `El documento ${pdfName}.pdf se está descargando.`
+      });
+  }
+
 
   const groupedPermisos = permisos.reduce((acc, permiso) => {
     const emisor = permiso.emisor;
@@ -570,7 +584,7 @@ C.I: [C.I. del Representante]
                                     </TableCell>
                                     <TableCell className="text-right space-x-1">
                                         {permiso.id === 'REG-MERC-001' ? (
-                                             <Button variant="outline" size="sm" onClick={() => toast({title: "Descarga Iniciada", description: "El Registro Mercantil se está descargando."})}>
+                                             <Button variant="outline" size="sm" onClick={() => handleDownloadPDF('registro_mercantil_ejemplo')}>
                                                 <Download className="mr-2 h-4 w-4" />
                                                 Descargar Documento
                                             </Button>
@@ -746,4 +760,5 @@ C.I: [C.I. del Representante]
   );
 }
 
+    
     
