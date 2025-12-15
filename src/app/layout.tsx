@@ -5,7 +5,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { GeistSans } from 'geist/font/sans';
 import { Toaster } from '@/components/ui/toaster';
-import WelcomeTutorial from '@/components/welcome-tutorial';
 
 export const metadata: Metadata = {
   title: {
@@ -34,7 +33,6 @@ export default function RootLayout({
                 enableSystem
                 disableTransitionOnChange
             >
-                <WelcomeTutorial />
                 {children}
                 <Toaster />
             </ThemeProvider>

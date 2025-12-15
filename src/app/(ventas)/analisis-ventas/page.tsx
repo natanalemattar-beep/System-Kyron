@@ -30,7 +30,7 @@ const topProducts = [
 const bottomProducts = [
     { id: "PROD-008", name: "Calculadora de Escritorio", sales: 5, revenue: formatCurrency(90, 'Bs.') },
     { id: "PROD-007", name: "Rollo de Etiquetas para Precios", sales: 12, revenue: formatCurrency(144, 'Bs.') },
-    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: formatCurrency(75, 'Bs.') },
+    { id: "PROD-006", name: "Caja de Bolígrafos Negros", sales: 15, revenue: "Bs. 75" },
 ];
 
 const chartConfig = {
@@ -70,7 +70,7 @@ export default function AnalisisVentasPage() {
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}><Download className="mr-2"/>Exportar Reporte</Button>
           <Button asChild>
-            <Link href="/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
+            <Link href="/(ventas)/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
           </Button>
         </div>
       </header>
@@ -206,7 +206,7 @@ export default function AnalisisVentasPage() {
             </CardContent>
             <CardContent>
                  <Button asChild variant="outline" className="w-full">
-                    <Link href="/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
+                    <Link href="/(ventas)/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
                 </Button>
             </CardContent>
         </Card>
@@ -215,5 +215,3 @@ export default function AnalisisVentasPage() {
     </div>
   );
 }
-
-    
