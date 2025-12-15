@@ -1,3 +1,4 @@
+
 import { TransactionsTable } from "@/components/transactions/transactions-table";
 import { mockTransactions } from "@/lib/data";
 

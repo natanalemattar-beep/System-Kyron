@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
 
 const user = { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
-const dashboardHref = "/dashboard-telecom";
+const dashboardHref = "/telecom/dashboard-telecom";
 
 
 export default function TelecomLayout({ children }: { children: ReactNode }) {

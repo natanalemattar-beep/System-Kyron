@@ -90,7 +90,7 @@ export default function AnalisisVentasPage() {
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleExport}><Download className="mr-2"/>Exportar Reporte</Button>
           <Button asChild>
-            <Link href="/(ventas)/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
+            <Link href="/ventas/estrategias-ventas">Generar Estrategias con IA <ArrowRight className="ml-2"/></Link>
           </Button>
         </div>
       </header>
@@ -226,7 +226,7 @@ export default function AnalisisVentasPage() {
             </CardContent>
             <CardContent>
                  <Button asChild variant="outline" className="w-full">
-                    <Link href="/(ventas)/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
+                    <Link href="/ventas/estrategias-ventas">Ver Estrategias para Mejorar Ventas <ArrowRight className="ml-2"/></Link>
                 </Button>
             </CardContent>
         </Card>

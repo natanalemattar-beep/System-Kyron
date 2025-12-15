@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { rrhhNavGroups } from "@/components/app-sidebar-nav-items";
 
 const user = { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" };
-const dashboardHref = "/dashboard-rrhh";
+const dashboardHref = "/hr/dashboard-rrhh";
 
 export default function HrLayout({ children }: { children: ReactNode }) {
   return (

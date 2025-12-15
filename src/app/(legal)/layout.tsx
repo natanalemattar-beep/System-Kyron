@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { legalNavGroups } from "@/components/app-sidebar-nav-items";
 
 const user = { name: "Escritorio Jurídico", email: "legal@kyron.com", fallback: "L" };
-const dashboardHref = "/escritorio-juridico";
+const dashboardHref = "/legal/escritorio-juridico";
 
 
 export default function LegalLayout({ children }: { children: ReactNode }) {
