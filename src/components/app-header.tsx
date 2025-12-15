@@ -60,7 +60,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
 
   return (
     <motion.header 
-      className="sticky top-0 left-0 right-0 z-50"
+      className="sticky top-0 left-0 right-0 z-50 backdrop-blur-lg bg-background/80"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{
@@ -71,7 +71,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
       }}
     >
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex h-16 items-center justify-between px-4 md:px-6 rounded-none md:rounded-full mt-0 md:mt-4 border-b md:border bg-background/80 backdrop-blur-sm">
+        <div className="flex h-20 items-center justify-between border-b">
         <div className="flex items-center gap-6">
             <Link href={dashboardHref} className="flex items-center gap-3">
                 <Logo />
@@ -129,39 +129,67 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                     <span className="sr-only">Abrir Menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-full max-w-sm p-0">
+              <SheetContent side="left" className="w-full max-w-sm p-0 flex flex-col">
                 <SheetHeader className="p-4 border-b">
-                    <SheetTitle className="sr-only">Menú Principal</SheetTitle>
-                    <Link href={dashboardHref} className="flex items-center gap-3">
-                        <Logo />
-                        <span className="text-xl font-bold">System Kyron</span>
-                    </Link>
+                    <SheetTitle asChild>
+                      <Link href={dashboardHref} className="flex items-center gap-3">
+                          <Logo />
+                          <span className="text-xl font-bold">System Kyron</span>
+                      </Link>
+                    </SheetTitle>
                 </SheetHeader>
-                 <ScrollArea className="h-[calc(100%-80px)]">
+                 <ScrollArea className="flex-grow">
                     <Accordion type="multiple" className="w-full px-4 py-2">
                       {navGroups.map((group) => (
                         <AccordionItem value={group.title} key={group.title}>
-                           <AccordionTrigger className="text-sm font-semibold text-muted-foreground hover:no-underline">
+                           <AccordionTrigger className="text-sm font-semibold hover:no-underline">
                               <div className="flex items-center gap-2">
                                 <group.icon className="h-4 w-4" />
                                 {group.title}
                               </div>
                            </AccordionTrigger>
-                           <AccordionContent className="pb-2">
-                                {(group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items) : group.items).map((item) => (
-                                <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
-                                    <Link href={item.href}>
-                                        <item.icon className="mr-2 h-4 w-4" />
-                                        {item.label}
-                                    </Link>
-                                </Button>
-                                ))}
+                           <AccordionContent className="pb-0">
+                                <div className="pl-4">
+                                {group.subGroups && group.subGroups.length > 0 ? (
+                                     <Accordion type="multiple" className="w-full">
+                                         {group.subGroups.map((subGroup) => (
+                                            <AccordionItem value={subGroup.title} key={subGroup.title} className="border-b-0">
+                                                <AccordionTrigger className="text-xs font-semibold text-muted-foreground hover:no-underline">
+                                                    <div className="flex items-center gap-2">
+                                                      <subGroup.icon className="h-4 w-4" />
+                                                      {subGroup.title}
+                                                    </div>
+                                                </AccordionTrigger>
+                                                <AccordionContent className="pb-0 pl-4">
+                                                    {subGroup.items.map((item) => (
+                                                        <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full text-xs h-8">
+                                                            <Link href={item.href}>
+                                                                <item.icon className="mr-2 h-3 w-3" />
+                                                                {item.label}
+                                                            </Link>
+                                                        </Button>
+                                                    ))}
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                         ))}
+                                     </Accordion>
+                                ) : (
+                                    group.items.map((item) => (
+                                        <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start w-full">
+                                            <Link href={item.href}>
+                                                <item.icon className="mr-2 h-4 w-4" />
+                                                {item.label}
+                                            </Link>
+                                        </Button>
+                                    ))
+                                )}
+                                </div>
                            </AccordionContent>
                         </AccordionItem>
                       ))}
                     </Accordion>
                  </ScrollArea>
-                  <div className="p-4 border-t">
+                  <div className="p-4 border-t mt-auto">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                            <Button variant="outline" className="w-full justify-start">

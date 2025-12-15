@@ -13,9 +13,9 @@ const dashboardHref = "/ventas/analisis-ventas";
 
 export default function VentasLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col min-h-screen bg-transparent text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
       <AppHeader user={user} navGroups={ventasNavGroups} dashboardHref={dashboardHref} />
-      <main className="flex-1 container mx-auto p-4 md:p-8 pt-12 md:pt-16">
+      <main className="flex-1 container mx-auto p-4 md:p-8 pt-24 md:pt-28">
         {children}
       </main>
       <Toaster />

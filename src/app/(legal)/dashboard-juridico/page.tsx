@@ -16,7 +16,6 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { motion } from "framer-motion";
 
 const kpiData = [
   { title: "Contratos Activos", value: "28", icon: FileSignature, color: "text-blue-400" },
@@ -31,10 +30,10 @@ const upcomingRenewals = [
 ];
 
 const juridicoModules = [
-    { title: "Gestión de Contratos", href: "/legal/contratos", description: "Crea, revisa y gestiona el ciclo de vida de tus contratos." },
+    { title: "Gestión de Contratos", href: "/main/contratos", description: "Crea, revisa y gestiona el ciclo de vida de tus contratos." },
     { title: "Cumplimiento Normativo", href: "/main/cumplimiento", description: "Monitorea el cumplimiento de normativas y leyes clave." },
     { title: "Gestión de Poderes", href: "/main/poderes-representacion", description: "Administra los poderes notariales y representaciones." },
-    { title: "Trámites y Permisos", href: "/legal/permisos", description: "Centraliza y renueva todas tus licencias operativas." },
+    { title: "Trámites y Permisos", href: "/main/permisos", description: "Centraliza y renueva todas tus licencias operativas." },
 ];
 
 const priorityVariant: { [key: string]: "destructive" | "secondary" | "outline" } = {
@@ -59,13 +58,10 @@ export default function EscritorioJuridicoPage() {
       {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {kpiData.map((kpi, index) => (
-              <motion.div
+              <div
                 key={kpi.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="bg-card/80 backdrop-blur-sm h-full">
+                <Card className="bg-card/50 backdrop-blur-sm h-full">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium flex items-center gap-2">
                             <kpi.icon className="h-4 w-4 text-muted-foreground" />
@@ -76,7 +72,7 @@ export default function EscritorioJuridicoPage() {
                         <p className={`text-3xl font-bold ${kpi.color}`}>{kpi.value}</p>
                     </CardContent>
                 </Card>
-              </motion.div>
+              </div>
           ))}
       </div>
 
@@ -108,7 +104,7 @@ export default function EscritorioJuridicoPage() {
                               <TableCell className={`text-center font-semibold ${item.daysLeft < 30 ? 'text-destructive' : 'text-muted-foreground'}`}>{item.daysLeft}</TableCell>
                               <TableCell className="text-right">
                                   <Button asChild variant="ghost" size="sm">
-                                      <Link href="/legal/permisos">Gestionar <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                                      <Link href="/main/permisos">Gestionar <ArrowRight className="ml-2 h-4 w-4"/></Link>
                                   </Button>
                               </TableCell>
                           </TableRow>

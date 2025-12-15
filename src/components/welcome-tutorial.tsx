@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, ArrowRight } from "lucide-react";
 
-export default function WelcomeTutorial() {
+export function WelcomeTutorial() {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {

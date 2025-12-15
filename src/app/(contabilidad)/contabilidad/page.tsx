@@ -2,37 +2,25 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { BookOpen, PlusCircle, ArrowRight, Landmark, Scale, Wallet, HandCoins, BarChart, TrendingUp, DollarSign } from "lucide-react";
+import { BookOpen, ArrowRight, TrendingUp, HandCoins, BarChart, Wallet, Scale, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { formatCurrency } from "@/lib/utils";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 
-
 const managementModules = [
-    {
-        category: "Finanzas y Ventas",
-        icon: Landmark,
-        items: [
-            { title: "Análisis de Ventas", href: "/ventas/analisis-ventas", description: "Métricas y KPIs de rendimiento.", icon: TrendingUp },
-            { title: "Cuentas por Cobrar", href: "/contabilidad/cuentas-por-cobrar", description: "Gestión inteligente y automatizada.", icon: Wallet },
-            { title: "Cuentas por Pagar", href: "/contabilidad/cuentas-por-pagar", description: "Control de deudas con proveedores.", icon: HandCoins },
-        ]
-    }
+    { title: "Análisis de Ventas", href: "/ventas/analisis-ventas", description: "Métricas y KPIs de rendimiento.", icon: TrendingUp },
+    { title: "Cuentas por Cobrar", href: "/contabilidad/cuentas-por-cobrar", description: "Gestión inteligente y automatizada.", icon: Wallet },
+    { title: "Cuentas por Pagar", href: "/contabilidad/cuentas-por-pagar", description: "Control de deudas con proveedores.", icon: HandCoins },
+    { title: "Estructura de Costos", href: "/contabilidad/estructura-costos", description: "Desglose de costos fijos y variables.", icon: Scale },
+    { title: "Libro de Compras/Ventas", href: "/admin/libro-compra-venta", description: "Registro fiscal de operaciones.", icon: Landmark },
 ];
 
 const chartConfig = {
-  ingresos: {
-    label: "Ingresos",
-    color: "hsl(var(--primary))",
-  },
-  gastos: {
-    label: "Gastos",
-    color: "hsl(var(--destructive))",
-  },
+  ingresos: { label: "Ingresos", color: "hsl(var(--primary))" },
+  gastos: { label: "Gastos", color: "hsl(var(--destructive))" },
 } satisfies ChartConfig;
 
 const latestData = historicalFinancialData.slice(-1)[0] || { ingresos: 0, gastos: 0 };
@@ -41,9 +29,8 @@ const margin = latestData.ingresos > 0 ? ((latestData.ingresos - latestData.gast
 const kpiData = [
     { title: "Ingresos (Últ. Mes)", value: formatCurrency(latestData.ingresos, 'Bs.'), icon: TrendingUp, color: "text-green-500" },
     { title: "Gastos (Últ. Mes)", value: formatCurrency(latestData.gastos, 'Bs.'), icon: TrendingUp, color: "text-red-500" },
-    { title: "Margen Neto", value: `${margin.toFixed(1)}%`, icon: DollarSign, color: margin > 0 ? "text-green-500" : "text-red-500" },
+    { title: "Margen Neto", value: `${margin.toFixed(1)}%`, icon: BarChart, color: margin > 0 ? "text-green-500" : "text-red-500" },
 ];
-
 
 export default function ContabilidadPage() {
   return (
@@ -57,7 +44,7 @@ export default function ContabilidadPage() {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {kpiData.map((kpi, index) => (
+        {kpiData.map((kpi) => (
             <Card key={kpi.title} className="bg-card/50 backdrop-blur-sm">
                 <CardHeader className="pb-2 flex-row items-center justify-between">
                     <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
@@ -105,49 +92,30 @@ export default function ContabilidadPage() {
           </CardContent>
       </Card>
 
-
-      <div className="space-y-12">
-        {managementModules.map((module, index) => (
-            <motion.div
-                key={module.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-            >
-                <Card className="bg-card/50 backdrop-blur-sm">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-3 text-2xl">
-                           <div className="p-3 bg-primary/10 rounded-xl">
-                             <module.icon className="h-6 w-6 text-primary" />
-                           </div>
-                           {module.category}
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-                        {module.items.map(item => (
-                            <Card key={item.title} className="flex flex-col hover:shadow-lg transition-shadow">
-                                <CardHeader className="flex-row gap-4 items-center">
-                                     <div className="p-2 bg-secondary rounded-lg">
-                                        <item.icon className="h-5 w-5 text-secondary-foreground" />
-                                     </div>
-                                    <CardTitle className="text-lg">{item.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="flex-grow">
-                                    <CardDescription>{item.description}</CardDescription>
-                                </CardContent>
-                                <CardFooter>
-                                    <Button asChild className="w-full">
-                                        <Link href={item.href}>
-                                            Acceder al Módulo <ArrowRight className="ml-2 h-4 w-4"/>
-                                        </Link>
-                                    </Button>
-                                </CardFooter>
-                            </Card>
-                        ))}
-                    </CardContent>
-                </Card>
-            </motion.div>
-        ))}
+      <div className="space-y-8">
+            <h2 className="text-2xl font-semibold tracking-tight">Módulos de Gestión Financiera</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {managementModules.map(item => (
+                    <Card key={item.title} className="flex flex-col hover:shadow-lg transition-shadow bg-card/50">
+                        <CardHeader className="flex-row gap-4 items-center">
+                             <div className="p-2 bg-secondary rounded-lg">
+                                <item.icon className="h-5 w-5 text-secondary-foreground" />
+                             </div>
+                            <CardTitle className="text-lg">{item.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                            <CardDescription>{item.description}</CardDescription>
+                        </CardContent>
+                        <CardFooter>
+                            <Button asChild className="w-full">
+                                <Link href={item.href}>
+                                    Acceder al Módulo <ArrowRight className="ml-2 h-4 w-4"/>
+                                </Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
       </div>
     </div>
   );
