@@ -113,6 +113,17 @@ const initialPermisos = [
     { id: "PERM-NAC-014", tipo: "Inscripción y Aporte a FONA", emisor: "ONA", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitosInscripcion: ["Declaración de Utilidades del ejercicio anterior", "Pago del 1% sobre la Utilidad Operativa (para empresas > 50 trabajadores)"], requisitosRenovacion: ["Nueva declaración y pago anual"] },
 ];
 
+const companyData = {
+  socios: [
+    { nombre: "CARLOS ALBERTO NATANALE MATTAR HERNANDEZ", cedula: "V-32.855.496", rif: "V-32856496-4" },
+    { nombre: "MARIA TERESA HERNANDEZ BASTIDAS", cedula: "V-13.374.121", rif: "V-13374121-2" },
+    { nombre: "JOSE DE JESUS HERRERA BOZZO", cedula: "V-12.459.024", rif: "V-12459024-4" },
+    { nombre: "OMAR ANTONIO MATTAR FANIANOS", cedula: "V-9.488.296", rif: "V-09488296-2" },
+  ],
+  objetoSocial: "El objeto principal será todo lo relacionado con las siguientes actividades: Distribución, Venta al Mayor y Detal, la prestación de servicios de telecomunicaciones móviles y fijas, venta de equipos y desarrollo de soluciones digitales para empresas y particulares, abarcando desde la telefonía e internet hasta servicios de valor agregado. Desarrollo y comercialización de un sistema de contabilidad computarizado, la venta de artículos de oficina y papelería, la distribución de equipos fiscales homologados y la comercialización de computadoras. Así mismo, la empresa se dedicará al diseño, fabricación y registro de su propia marca de papeleras digitales e inteligentes, y cualquier otra actividad de lícito comercio conexa con su objeto principal.",
+};
+
+
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   Vigente: "default",
   "Por Vencer": "secondary",
@@ -407,101 +418,105 @@ C.I: [C.I. del Representante]
 };
 
   const handleDownloadPDF = (documentId: string) => {
-        const content = `
-            <html>
-                <head>
-                    <title>Registro Mercantil</title>
-                    <style>
-                        @page {
-                            size: 8.5in 13in; /* Oficio size */
-                            margin: 1in;
-                        }
-                        body {
-                            font-family: 'Times New Roman', Times, serif;
-                            line-height: 1.6;
-                            font-size: 12pt;
-                        }
-                        .page-break {
-                            page-break-before: always;
-                        }
-                        .header {
-                            text-align: center;
-                            font-weight: bold;
-                        }
-                        .content {
-                            text-align: justify;
-                        }
-                        .signature-section {
-                            margin-top: 5rem;
-                            display: flex;
-                            justify-content: space-around;
-                            text-align: center;
-                        }
-                        .signature {
-                            border-top: 1px solid black;
-                            padding-top: 5px;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <!-- Page 1 -->
-                    <div class="header">
-                        <p>JOSE HERRERA BOZZO<br>IMPRE-ABOGADO<br>N° 55.380</p>
-                        <br><br>
-                        <p>CIUDADANO<br>REGISTRADOR MERCANTIL DE LA CIRCUNSCRIPCIÓN<br>JUDICIAL DEL ESTADO VARGAS.<br>SU DESPACHO</p>
-                    </div>
+    const sociosList = companyData.socios.map(socio => 
+        ` ${socio.nombre}, venezolano, mayor de edad, soltero, y titular de la cédula de identidad N° ${socio.cedula} y portador del Rif ${socio.rif}`
+    ).join(',');
+
+    const content = `
+        <html>
+            <head>
+                <title>Registro Mercantil</title>
+                <style>
+                    @page {
+                        size: 8.5in 13in; /* Oficio size */
+                        margin: 1in;
+                    }
+                    body {
+                        font-family: 'Times New Roman', Times, serif;
+                        line-height: 1.6;
+                        font-size: 12pt;
+                    }
+                    .page-break {
+                        page-break-before: always;
+                    }
+                    .header {
+                        text-align: center;
+                        font-weight: bold;
+                    }
+                    .content {
+                        text-align: justify;
+                    }
+                    .signature-section {
+                        margin-top: 5rem;
+                        display: flex;
+                        justify-content: space-around;
+                        text-align: center;
+                    }
+                    .signature {
+                        border-top: 1px solid black;
+                        padding-top: 5px;
+                    }
+                </style>
+            </head>
+            <body>
+                <!-- Page 1 -->
+                <div class="header">
+                    <p>JOSE HERRERA BOZZO<br>IMPRE-ABOGADO<br>N° 55.380</p>
                     <br><br>
-                    <div class="content">
-                        <p>Yo MARIA TERESA HERNANDEZ BASTIDAS, mayor de edad, de este domicilio, venezolano, soltera y titular de la Cédula de Identidad N° V-13.374.121, portador del Rif V-13374121-2 actuando en este acto debidamente autorizado en el documento constitutivo, estatutos sociales de la sociedad mercantil SYSTEM KYRON, C.A para la participación, ante usted ocurro y expongo que: presento debidamente firmado por cada uno de los socios el documento constitutivo de los estatutos de la nombrada sociedad.....................................</p>
-                        <p>Pido a usted se sirva abrir expediente a la expresada sociedad, acordar su registro y fijación y expedirme una (01) copia certificada del documento constitutivo y de la presente participación con asiento correspondiente a los fines de su publicación.</p>
-                        <p>En Catia la Mar, a la fecha de su presentación.</p>
-                    </div>
+                    <p>CIUDADANO<br>REGISTRADOR MERCANTIL DE LA CIRCUNSCRIPCIÓN<br>JUDICIAL DEL ESTADO VARGAS.<br>SU DESPACHO</p>
+                </div>
+                <br><br>
+                <div class="content">
+                    <p>Yo MARIA TERESA HERNANDEZ BASTIDAS, mayor de edad, de este domicilio, venezolano, soltera y titular de la Cédula de Identidad N° V-13.374.121, portador del Rif V-13374121-2 actuando en este acto debidamente autorizado en el documento constitutivo, estatutos sociales de la sociedad mercantil SYSTEM KYRON, C.A para la participación, ante usted ocurro y expongo que: presento debidamente firmado por cada uno de los socios el documento constitutivo de los estatutos de la nombrada sociedad.....................................</p>
+                    <p>Pido a usted se sirva abrir expediente a la expresada sociedad, acordar su registro y fijación y expedirme una (01) copia certificada del documento constitutivo y de la presente participación con asiento correspondiente a los fines de su publicación.</p>
+                    <p>En Catia la Mar, a la fecha de su presentación.</p>
+                </div>
+                
+                <div class="page-break"></div>
+
+                <!-- Page 2 -->
+                <div class="header">
+                    <p>NILCY M GONZALEZ<br>IMPRE-ABOGADO<br>N° 55.380</p>
+                </div>
+                <br>
+                <div class="content">
+                    <p>Nosotros,${sociosList}, por medio del presente documento declaramos: Que hemos decidido constituir una Compañía Anónima, la cual se regirá por las cláusulas siguientes y que sirvan a su vez de Acta Constitutiva y Estatutos Sociales de la Empresa:</p>
                     
-                    <div class="page-break"></div>
-
-                    <!-- Page 2 -->
-                    <div class="header">
-                        <p>NILCY M GONZALEZ<br>IMPRE-ABOGADO<br>N° 55.380</p>
-                    </div>
-                    <br>
-                    <div class="content">
-                        <p>Nosotros, CARLOS ALBERTO NATANALE MATTAR HERNANDEZ, MARIA TERESA HERNANDEZ BASTIDAS, JOSE DE JESUS HERRERA BOZZO, OMAR ANTONIO MATTAR FANIANOS, venezolanos, mayores de edad, soltero, divorciado y casado de este domicilio y titulares de las cédulas de identidad Nros. V-32.855.496, V-13374121, V-12459024, V-9.488.296 y portadores del Rif V-32856496-4, V-13374121-2, V-12459024-4 y V-9488296-2 por medio del presente documento declaramos: Que hemos decidido constituir una Compañía Anónima, la cual se regirá por las cláusulas siguientes y que sirvan a su vez de Acta Constitutiva y Estatutos Sociales de la Empresa:</p>
-                        
-                        <p><strong>PRIMERA:</strong> La denominación comercial de la compañía será: SYSTEM KYRON, C.A.</p>
-                        
-                        <p><strong>SEGUNDA:</strong> El domicilio de la compañía será: Avenida Principal de la Salina Sector Salina Frente a la Playa Local No21 Municipio Catia La Mar Estado Vargas, pudiendo establecer sucursales, agencias y oficinas en cualquier parte del territorio nacional o establecer sucursal fuera del País.</p>
-
-                        <p><strong>TERCERA:</strong> La duración de la compañía será de Treinta (30) años contados a partir de la fecha de inscripción de este documento en el Registro Mercantil correspondiente, pudiendo prorrogar dicho plazo por períodos iguales, mayores o menores a juicio de la Asamblea General de Accionistas.</p>
-                    </div>
+                    <p><strong>PRIMERA:</strong> La denominación comercial de la compañía será: SYSTEM KYRON, C.A.</p>
                     
-                    <div class="page-break"></div>
+                    <p><strong>SEGUNDA:</strong> El domicilio de la compañía será: Avenida Principal de la Salina Sector Salina Frente a la Playa Local No21 Municipio Catia La Mar Estado Vargas, pudiendo establecer sucursales, agencias y oficinas en cualquier parte del territorio nacional o establecer sucursal fuera del País.</p>
 
-                    <!-- Page 3 -->
-                    <div class="content">
-                        <p><strong>CUARTA:</strong> El objeto principal será todo lo relacionado con las siguientes actividades: Distribución, Venta al Mayor y Detal es la prestación de servicios de telecomunicaciones móviles y fijas, venta de equipos, y desarrollo de soluciones digitales para empresas y particulares, abarcando desde la telefonía, internet, hasta servicios de valor agregado, todo enmarcado en su Acta Constitutiva y Estatutos Sociales, que establecen las bases de su operación, capital y gobierno corporativo (Junta Directiva y Asambleas de Accionistas), reflejando las decisiones y estructura de la empresa como parte del Grupo System Kyron, todo lo que tenga que ver con el objeto principal, sea igual o similar y el desarrollo de actividades propias, sin perjuicio de poderle agregar otra actividad de lícito comercio conexa o no con el ramo principal.</p>
+                    <p><strong>TERCERA:</strong> La duración de la compañía será de Treinta (30) años contados a partir de la fecha de inscripción de este documento en el Registro Mercantil correspondiente, pudiendo prorrogar dicho plazo por períodos iguales, mayores o menores a juicio de la Asamblea General de Accionistas.</p>
+                </div>
+                
+                <div class="page-break"></div>
 
-                        <p><strong>QUINTA:</strong> El capital Social de la compañía es de NOVECIENTOS MIL BOLIVARES (Bs. 900.000,00) divididos en Cien (100) acciones de UN MIL BOLIVARES (Bs. 1.000,00) cada una y han sido íntegramente suscritas y pagadas de la siguiente manera: ALBERTO JOSE SALAS PEREZ, ha suscrito y pagado CINCUENTA (50) acciones por un valor de CUATROCIENTO CINCUENTA MIL BOLIVARES (Bs. 450.000,00) y RITA ANABEL QUEVEDO MONTES, ha suscrito y pagado (50) acciones por un valor de CUATROCIENTO CINCUENTA MIL BOLIVARES... (Bs. 450.000,00) habiéndose pagado así el cien por ciento (100%) del capital tal como se evidencia en inventario anexo al documento.</p>
-                    </div>
+                <!-- Page 3 -->
+                <div class="content">
+                    <p><strong>CUARTA:</strong> El objeto principal será: ${companyData.objetoSocial}</p>
 
-                     <div class="page-break"></div>
+                    <p><strong>QUINTA:</strong> El capital Social de la compañía es de NOVECIENTOS MIL BOLIVARES (Bs. 900.000,00) divididos en Cien (100) acciones de UN MIL BOLIVARES (Bs. 1.000,00) cada una y han sido íntegramente suscritas y pagadas de la siguiente manera: ALBERTO JOSE SALAS PEREZ, ha suscrito y pagado CINCUENTA (50) acciones por un valor de CUATROCIENTO CINCUENTA MIL BOLIVARES (Bs. 450.000,00) y RITA ANABEL QUEVEDO MONTES, ha suscrito y pagado (50) acciones por un valor de CUATROCIENTO CINCUENTA MIL BOLIVARES... (Bs. 450.000,00) habiéndose pagado así el cien por ciento (100%) del capital tal como se evidencia en inventario anexo al documento.</p>
+                </div>
 
-                    <!-- Page 4 -->
-                    <div class="content">
-                        <p>Las acciones son nominativas no convertibles al portador.</p>
-                        <p><strong>SEXTA:</strong> La compañía será dirigida y administrada por Un (01) Director General, quien podrá ser o no accionista de la compañía y durará Veinte (20) años en el desempeño de sus funciones y continuaran en su cargo hasta tanto se sustituya.</p>
-                        
-                        <p><strong>SEPTIMA:</strong> La junta directiva tendrá el más amplio poder en la administración, dirección, representación de la compañía y demás actuaciones que considere conveniente para la mejor defensa de sus intereses como Ejercer la dirección y representación de la sociedad en sus negociaciones con terceros, celebrando toda clase de arreglos, contratos, empleados y personas de otros carácter que realicen actos para la sociedad o en su nombre; Hacer todo cuanto fuere necesario para cumplir con el objeto social de la sociedad, con plenas facultades para actuar en defensa de sus derechos o intereses, tanto judicial como extrajudicialmente, con facultad para darse por citado en juicios; intentar y contestar demandas, celebrar convenimientos, desistimientos, transacciones, hacer posturas en actos de remate y en general, todo cuanto considere necesarios o convenientes para los intereses de la sociedad;</p>
-                    </div>
+                 <div class="page-break"></div>
 
-                    <div class="page-break"></div>
+                <!-- Page 4 -->
+                <div class="content">
+                    <p>Las acciones son nominativas no convertibles al portador.</p>
+                    <p><strong>SEXTA:</strong> La compañía será dirigida y administrada por Un (01) Director General, quien podrá ser o no accionista de la compañía y durará Veinte (20) años en el desempeño de sus funciones y continuaran en su cargo hasta tanto se sustituya.</p>
+                    
+                    <p><strong>SEPTIMA:</strong> La junta directiva tendrá el más amplio poder en la administración, dirección, representación de la compañía y demás actuaciones que considere conveniente para la mejor defensa de sus intereses como Ejercer la dirección y representación de la sociedad en sus negociaciones con terceros, celebrando toda clase de arreglos, contratos, empleados y personas de otros carácter que realicen actos para la sociedad o en su nombre; Hacer todo cuanto fuere necesario para cumplir con el objeto social de la sociedad, con plenas facultades para actuar en defensa de sus derechos o intereses, tanto judicial como extrajudicialmente, con facultad para darse por citado en juicios; intentar y contestar demandas, celebrar convenimientos, desistimientos, transacciones, hacer posturas en actos de remate y en general, todo cuanto considere necesarios o convenientes para los intereses de la sociedad;</p>
+                </div>
 
-                    <!-- Page 5 -->
-                     <div class="content">
-                        <p>Firmar en nombre de la sociedad su correspondencia; suscribir toda clase de documentos o contratos, pagares, letras de cambio, cheques cartas de crédito, contratos bancarios; otorgar poderes a cualquier personas que la junta directiva considere conveniente y en general, cualquier otro documento o acto que concierna a la sociedad; Abrir y movilizar cuentas corrientes de ahorros y tendrán firmas conjuntas o separadas; podrán hacer depósitos en institutos de créditos, recibir los valores, propiedades y bienes de cualquier especie que deban entregarse a la sociedad; Nombrar garantes, representantes, agentes y apoderados generales o especiales y nombrar abogado o abogados con poderes requeridos para el buen funcionamiento de sus cargos; Convocar las asambleas ordinarias o extraordinarias; Formar el balance, con cuentas de ganancias y pérdidas y la propuesta de distribución de beneficios y presentar una copia de dichos documentos al comisario de la sociedad; Informar a la asamblea sobre los ingresos, gastos y existencias y formular un informe general o memoria de la administración, adjuntándole el balance general de cada ejercicio Económico y deberán desempeñar además, cualesquiera otras funciones que especialmente les...</p>
-                    </div>
-                </body>
-            </html>
-        `;
+                <div class="page-break"></div>
+
+                <!-- Page 5 -->
+                 <div class="content">
+                    <p>Firmar en nombre de la sociedad su correspondencia; suscribir toda clase de documentos o contratos, pagares, letras de cambio, cheques cartas de crédito, contratos bancarios; otorgar poderes a cualquier personas que la junta directiva considere conveniente y en general, cualquier otro documento o acto que concierna a la sociedad; Abrir y movilizar cuentas corrientes de ahorros y tendrán firmas conjuntas o separadas; podrán hacer depósitos en institutos de créditos, recibir los valores, propiedades y bienes de cualquier especie que deban entregarse a la sociedad; Nombrar garantes, representantes, agentes y apoderados generales o especiales y nombrar abogado o abogados con poderes requeridos para el buen funcionamiento de sus cargos; Convocar las asambleas ordinarias o extraordinarias; Formar el balance, con cuentas de ganancias y pérdidas y la propuesta de distribución de beneficios y presentar una copia de dichos documentos al comisario de la sociedad; Informar a la asamblea sobre los ingresos, gastos y existencias y formular un informe general o memoria de la administración, adjuntándole el balance general de cada ejercicio Económico y deberán desempeñar además, cualesquiera otras funciones que especialmente les...</p>
+                </div>
+            </body>
+        </html>
+    `;
         const printWindow = window.open('', '_blank');
         if (printWindow) {
             printWindow.document.write(content);
@@ -864,8 +879,5 @@ C.I: [C.I. del Representante]
     </div>
   );
 }
-
-    
-    
 
     
