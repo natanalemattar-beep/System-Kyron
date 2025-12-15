@@ -6,16 +6,16 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import { AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
-import { adminNavGroups } from "@/components/app-sidebar-nav-items";
+import { contabilidadNavGroups } from "@/components/app-sidebar-nav-items";
 
-const user = { name: "Admin", email: "admin@kyron.com", fallback: "AD" };
+const user = { name: "Finanzas", email: "finanzas@kyron.com", fallback: "F" };
 const dashboardHref = "/contabilidad";
 
 
 export default function ContabilidadLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen bg-transparent text-foreground">
-      <AppHeader user={user} navGroups={adminNavGroups} dashboardHref={dashboardHref} />
+      <AppHeader user={user} navGroups={contabilidadNavGroups} dashboardHref={dashboardHref} />
        <motion.div 
         className="bg-yellow-400/10 border-y border-yellow-400/20 py-2 sticky top-[4.5rem] md:top-[5.5rem] z-40"
         initial={{ y: -50, opacity: 0 }}

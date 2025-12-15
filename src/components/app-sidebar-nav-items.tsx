@@ -380,7 +380,7 @@ export const advisoryNavGroups = {
     items: [] 
 };
 
-export const adminNavGroups = [
+export const contabilidadNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },

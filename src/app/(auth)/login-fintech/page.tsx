@@ -8,7 +8,7 @@ export default function LoginFintechPage() {
   const loginProps = {
     icon: Banknote,
     title: "FinTech y Banca Digital",
-    description: "Acceso al panel de control principal de la empresa.",
+    description: "Acceso al portal de Contabilidad de la empresa.",
     fields: [
       { id: "country", label: "País", type: "select" as const },
       { id: "username", label: "Usuario (Admin)", type: "text" as const, placeholder: "admin.user", defaultValue: "admin.user" },
@@ -16,7 +16,7 @@ export default function LoginFintechPage() {
       { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "#", label: "¿Olvidaste tu contraseña?" } }
     ],
     submitButtonText: "Acceder",
-    submitButtonHref: "/dashboard-empresa",
+    submitButtonHref: "/contabilidad",
     credentials: { user: "admin.user", password: "password123" },
   };
 
