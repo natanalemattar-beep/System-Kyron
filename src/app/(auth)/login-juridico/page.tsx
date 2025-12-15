@@ -14,7 +14,7 @@ export default function LoginJuridicoPage() {
       { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
     ],
     submitButtonText: "Acceder",
-    submitButtonHref: "/dashboard-empresa",
+    submitButtonHref: "/escritorio-juridico",
     credentials: { user: "legal.user", password: "password123" },
     footerLinks: {
       text: "¿No eres del departamento legal? Accede a otro portal:",
