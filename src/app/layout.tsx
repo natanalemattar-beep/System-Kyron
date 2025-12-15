@@ -1,10 +1,7 @@
-
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import './globals.css';
-import { ThemeProvider } from '@/components/theme-provider';
-import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { GeistSans } from 'geist/font/sans';
-import { Toaster } from '@/components/ui/toaster';
+import { Providers } from '@/components/providers';
 
 export const metadata: Metadata = {
   title: {
@@ -26,17 +23,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="font-sans antialiased">
-        <FirebaseClientProvider>
-            <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
-            >
-                {children}
-                <Toaster />
-            </ThemeProvider>
-        </FirebaseClientProvider>
+        <Providers>
+            {children}
+        </Providers>
       </body>
     </html>
   );
