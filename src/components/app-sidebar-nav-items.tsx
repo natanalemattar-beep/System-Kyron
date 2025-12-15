@@ -201,7 +201,7 @@ const impuestosCumplimientoNavGroups = {
       items: [
         { href: "/main/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
         { href: "/main/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
-        { href: "/legal/cumplimiento", label: "Prevención de Sanciones", icon: AlertTriangle },
+        { href: "/main/cumplimiento", label: "Prevención de Sanciones", icon: AlertTriangle },
         { href: "/main/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
       ]
     },
@@ -307,7 +307,7 @@ const legalNavGroupsData = {
           icon: Building,
           items: [
             { href: "/main/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
-            { href: "/legal/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
+            { href: "/main/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
             { href: "/admin/acta-asamblea", label: "Actas y Asambleas", icon: BookOpen },
             { href: "/main/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
             { href: "/main/tipos-empresa", label: "Tipos de Empresa", icon: Building },
@@ -421,7 +421,7 @@ export const rrhhNavGroups = [
 ];
 
 export const ventasNavGroups = [
-    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/analisis-ventas", label: "Análisis de Ventas", icon: LayoutDashboard }], subGroups: []},
+    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/ventas/analisis-ventas", label: "Análisis de Ventas", icon: LayoutDashboard }], subGroups: []},
     { title: "Ventas y Caja", icon: ShoppingCart, items: [
         { href: "/ventas/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/ventas/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
@@ -435,7 +435,7 @@ export const ventasNavGroups = [
 export const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
         { href: "/socios/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
-        { href: "/legal/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
+        { href: "/main/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/main/organigrama", label: "Organigrama", icon: Network },
         { href: "/main/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
     ], subGroups: [] },
