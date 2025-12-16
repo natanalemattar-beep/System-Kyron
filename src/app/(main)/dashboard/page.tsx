@@ -13,15 +13,15 @@ import { OverviewChart } from "@/components/dashboard/overview-chart";
 
 
 const kpiData = [
-  { title: "Trámites en Proceso", value: "2", icon: Clock, color: "text-yellow-500", href: "/main/partidas-nacimiento" },
-  { title: "Documentos Listos", value: "5", icon: CheckCircle, color: "text-green-500", href: "/main/documentos" },
-  { title: "Alertas o Vencimientos", value: "1", icon: FileWarning, color: "text-red-500", href: "/main/notificaciones" },
+  { title: "Trámites en Proceso", value: "2", icon: Clock, color: "text-yellow-500", href: "/partidas-nacimiento" },
+  { title: "Documentos Listos", value: "5", icon: CheckCircle, color: "text-green-500", href: "/documentos" },
+  { title: "Alertas o Vencimientos", value: "1", icon: FileWarning, color: "text-red-500", href: "/notificaciones" },
 ];
 
 const recentActivities = [
-    { id: "PN-2024-001", type: "Partida de Nacimiento", date: "2024-07-10", status: "Aprobado", href: "/main/partidas-nacimiento" },
-    { id: "AM-2024-001", type: "Acta de Matrimonio", date: "2024-07-18", status: "En Proceso", href: "/main/actas-matrimonio" },
-    { id: "AP-2024-005", type: "Antecedentes Penales", date: "2024-07-22", status: "Solicitado", href: "/main/antecedentes-penales" },
+    { id: "PN-2024-001", type: "Partida de Nacimiento", date: "2024-07-10", status: "Aprobado", href: "/partidas-nacimiento" },
+    { id: "AM-2024-001", type: "Acta de Matrimonio", date: "2024-07-18", status: "En Proceso", href: "/actas-matrimonio" },
+    { id: "AP-2024-005", type: "Antecedentes Penales", date: "2024-07-22", status: "Solicitado", href: "/antecedentes-penales" },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
