@@ -173,7 +173,7 @@ export default function LandingPage() {
                 </motion.div>
             </header>
 
-            <main className="flex-1 pt-24 md:pt-32">
+            <main className="flex-1">
                 <HeroSection />
                 <ServicesSection />
                 <FeaturesSection />

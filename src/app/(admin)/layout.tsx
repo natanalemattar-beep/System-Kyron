@@ -8,7 +8,7 @@ import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Administrador", email: "admin@kyron.com", fallback: "AD" };
-const dashboardHref = "/admin/dashboard-empresa";
+const dashboardHref = "/dashboard-empresa";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
