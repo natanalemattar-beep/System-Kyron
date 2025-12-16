@@ -281,7 +281,7 @@ const legalNavGroupsData = {
             { href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
             { href: "/legal/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
             { href: "/legal/permisos", label: "Trámites y Permisos", icon: UserCheck },
-            { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
+            { href: "/legal/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
             { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/multas", label: "Multas", icon: AlertTriangle },
             { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
@@ -307,7 +307,7 @@ const legalNavGroupsData = {
           icon: Building,
           items: [
             { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
-            { href: "/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
+            { href: "/legal/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
             { href: "/admin/acta-asamblea", label: "Actas y Asambleas", icon: BookOpen },
             { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
             { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
@@ -468,5 +468,3 @@ export const informaticaNavGroups = [
       { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
-
-    
