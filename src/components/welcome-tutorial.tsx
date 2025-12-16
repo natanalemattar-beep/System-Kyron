@@ -7,23 +7,33 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, ArrowRight } from "lucide-react";
 
 export function WelcomeTutorial() {
+    const [isMounted, setIsMounted] = useState(false);
     const [showTutorial, setShowTutorial] = useState(false);
 
     useEffect(() => {
-        // This effect runs only on the client side, after the initial render.
+        // This flag ensures the rest of the effect runs only on the client
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        // Don't run this logic on the server or before the component is mounted
+        if (!isMounted) {
+            return;
+        }
+
         const hasSeen = localStorage.getItem("hasSeenKyronTutorial");
         if (!hasSeen) {
             const timer = setTimeout(() => {
                 setShowTutorial(true);
                 localStorage.setItem("hasSeenKyronTutorial", "true");
             }, 2500); // Wait for other animations to settle
+
             return () => clearTimeout(timer);
         }
-    }, []);
+    }, [isMounted]); // Re-run when isMounted becomes true
     
-    // By default, the component renders nothing on the server and on initial client render.
-    // The dialog is only shown after the useEffect hook has run on the client.
-    if (!showTutorial) {
+    // Render nothing on the server or on the initial client render
+    if (!isMounted) {
         return null;
     }
 
