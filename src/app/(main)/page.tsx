@@ -14,7 +14,7 @@ import { loginOptions } from "@/lib/login-options";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
-import type { FC, AnchorHTMLAttributes<HTMLAnchorElement> } from 'react';
+import type { FC, AnchorHTMLAttributes } from 'react';
 import { HeroSection, ServicesSection, FeaturesSection, AboutUsSection, FaqSection, CtaSection, Footer } from '@/components/landing';
 
 const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
