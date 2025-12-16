@@ -1,3 +1,4 @@
+
 import { InvoicesTable } from "@/components/invoices/invoices-table";
 import { CreateInvoiceSheet } from "@/components/invoices/create-invoice-sheet";
 import { Button } from "@/components/ui/button";
@@ -9,15 +10,15 @@ export default function InvoicesPage() {
     <div>
       <header className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Invoices</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Facturas</h1>
           <p className="text-muted-foreground">
-            Create and manage your customer invoices.
+            Crea y gestiona las facturas de tus clientes.
           </p>
         </div>
         <CreateInvoiceSheet>
           <Button>
             <PlusCircle className="mr-2" />
-            Create Invoice
+            Crear Factura
           </Button>
         </CreateInvoiceSheet>
       </header>
