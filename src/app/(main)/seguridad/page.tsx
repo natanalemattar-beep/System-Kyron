@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -13,7 +12,7 @@ import Image from "next/image";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { securityFeatures, businessFraudStrategies, personalFraudStrategies } from "@/lib/page-data";
+import { businessFraudStrategies, personalFraudStrategies } from "@/lib/page-data";
 
 
 const activeSessions = [
@@ -28,17 +27,7 @@ const loginHistory = [
 ];
 
 export default function SeguridadPage() {
-    const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
     const { toast } = useToast();
-
-    const handleToggleTwoFactor = () => {
-        const newState = !twoFactorEnabled;
-        setTwoFactorEnabled(newState);
-        toast({
-            title: `Verificación en Dos Pasos ${newState ? "Activada" : "Desactivada"}`,
-            description: `La seguridad de tu cuenta ha sido ${newState ? "reforzada" : "modificada"}.`,
-        });
-    }
     
     const handleLogoutDevice = (deviceId: number) => {
         toast({
@@ -59,22 +48,6 @@ export default function SeguridadPage() {
           Gestiona la seguridad de tu cuenta y aprende a proteger tu negocio y tus finanzas.
         </p>
       </header>
-
-      <Card>
-        <CardHeader>
-            <CardTitle>Centro de Seguridad</CardTitle>
-            <CardDescription>Funcionalidades clave para proteger tu cuenta.</CardDescription>
-        </CardHeader>
-        <CardContent className="grid md:grid-cols-3 gap-4">
-            {securityFeatures.map(feature => (
-                <div key={feature.title} className="p-4 bg-secondary/50 rounded-lg">
-                     <feature.icon className="h-6 w-6 text-primary mb-2"/>
-                    <h4 className="font-semibold">{feature.title}</h4>
-                    <p className="text-sm text-muted-foreground">{feature.description}</p>
-                </div>
-            ))}
-        </CardContent>
-      </Card>
 
        <Card>
             <CardHeader>
@@ -100,46 +73,6 @@ export default function SeguridadPage() {
                     Actualizar Contraseña
                 </Button>
             </CardFooter>
-        </Card>
-
-        <Card>
-            <CardHeader>
-                <CardTitle>Verificación en Dos Pasos (2FA)</CardTitle>
-                <CardDescription>
-                    Añade una capa extra de seguridad a tu cuenta. Se te pedirá un código de una app de autenticación (como Google Authenticator) al iniciar sesión.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                 <div className="flex items-center justify-between p-4 rounded-lg bg-secondary/50">
-                    <Label htmlFor="two-factor-switch" className="font-medium flex items-center gap-2">
-                        <Shield className={`h-5 w-5 ${twoFactorEnabled ? 'text-green-500' : 'text-muted-foreground'}`}/>
-                        {twoFactorEnabled ? "Autenticación de dos factores activada" : "Activar autenticación de dos factores"}
-                    </Label>
-                    <Switch
-                        id="two-factor-switch"
-                        checked={twoFactorEnabled}
-                        onCheckedChange={handleToggleTwoFactor}
-                    />
-                </div>
-                 {twoFactorEnabled && (
-                    <div className="p-4 border-t mt-6">
-                        <h3 className="font-semibold mb-4">Configura tu App de Autenticación</h3>
-                        <div className="flex flex-col sm:flex-row items-center gap-6">
-                            <div className="p-2 bg-white rounded-lg">
-                                <Image src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=otpauth://totp/SystemCSM:usuario@email.com?secret=JBSWY3DPEHPK3PXP" alt="QR Code" width={120} height={120}/>
-                            </div>
-                            <div className="flex-1 space-y-4">
-                                <p className="text-sm text-muted-foreground">1. Escanea este código QR con tu app de autenticación.</p>
-                                <div className="space-y-2">
-                                    <Label htmlFor="auth-code">2. Introduce el código de 6 dígitos para verificar</Label>
-                                    <Input id="auth-code" placeholder="123456" maxLength={6} />
-                                </div>
-                                <Button className="w-full">Verificar y Activar</Button>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </CardContent>
         </Card>
 
         <Card>
