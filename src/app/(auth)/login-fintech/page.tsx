@@ -72,7 +72,7 @@ export default function LoginFintechPage() {
         </CardContent>
         <CardFooter className="p-6 pt-0 flex-col">
           <Button asChild type="submit" className="w-full h-11 text-base">
-            <Link href="/login-fintech-2fa">Continuar</Link>
+            <Link href="/contabilidad">Continuar</Link>
           </Button>
         </CardFooter>
       </form>
