@@ -88,3 +88,14 @@ export const financialChartData = [
   { month: "Jun '24", completed: 7, pending: 3 },
   { month: "Jul '24", completed: 5, pending: 2 },
 ];
+
+export const dailyChartData = [
+    { date: "15/07", completed: 2, pending: 1 },
+    { date: "16/07", completed: 3, pending: 2 },
+    { date: "17/07", completed: 1, pending: 3 },
+    { date: "18/07", completed: 4, pending: 1 },
+    { date: "19/07", completed: 2, pending: 4 },
+    { date: "20/07", completed: 5, pending: 2 },
+    { date: "21/07", completed: 3, pending: 1 },
+    { date: "22/07", completed: 1, pending: 2 },
+];
