@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { motion } from "framer-motion";
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts";
-import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 
 const kpiData = [
   { title: "Disponibilidad de Red (Uptime)", value: "99.98%", icon: Signal, color: "text-green-400", status: "Óptimo" },
@@ -50,8 +50,9 @@ const statusVariant: { [key: string]: "default" | "destructive" | "secondary" } 
 const chartConfig = {
     latency: {
         label: "Latencia (ms)",
+        color: "hsl(var(--primary))",
     },
-};
+} satisfies ChartConfig;
 
 
 export default function DashboardTelecomPage() {
@@ -134,14 +135,12 @@ export default function DashboardTelecomPage() {
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig} className="w-full h-[200px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <RechartsBarChart data={networkStatus} layout="vertical" margin={{ left: 20 }}>
-                            <XAxis type="number" hide />
-                            <YAxis dataKey="service" type="category" fontSize={10} tickLine={false} axisLine={false} width={120}/>
-                            <Tooltip content={<ChartTooltipContent formatter={(value) => `${value}ms`}/>} cursor={{fill: 'hsl(var(--secondary))'}} />
-                            <Bar dataKey="latency" name="Latencia" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
-                        </RechartsBarChart>
-                    </ResponsiveContainer>
+                    <RechartsBarChart data={networkStatus} layout="vertical" margin={{ left: 20 }}>
+                        <XAxis type="number" hide />
+                        <YAxis dataKey="service" type="category" fontSize={10} tickLine={false} axisLine={false} width={120}/>
+                        <Tooltip content={<ChartTooltipContent formatter={(value) => `${value}ms`}/>} cursor={{fill: 'hsl(var(--secondary))'}} />
+                        <Bar dataKey="latency" name="Latencia" fill="var(--color-latency)" radius={[0, 4, 4, 0]} />
+                    </RechartsBarChart>
                 </ChartContainer>
             </CardContent>
         </Card>
