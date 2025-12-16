@@ -15,7 +15,7 @@ export default function LoginEscritorioJuridicoPage() {
       { id: "remember-me", label: "Recordar este dispositivo", type: "checkbox" as const, rememberMe: true, link: { href: "/recover-legal", label: "¿Olvidó su credencial?" } }
     ],
     submitButtonText: "Verificar Credenciales",
-    submitButtonHref: "/dashboard-juridico",
+    submitButtonHref: "/legal/dashboard-juridico",
     credentials: { user: "legal.user", password: "password123" },
     footerLinks: {
       text: "¿No tienes una cuenta?",
@@ -24,7 +24,7 @@ export default function LoginEscritorioJuridicoPage() {
         title: "Otros Portales",
         links: [
             { href: "/login", label: "Personal", icon: User },
-            { href: "/login-fintech", label: "FinTech", icon: Building },
+            { href: "/login-admin", label: "Admin", icon: Building },
             { href: "/login-ventas", label: "Ventas", icon: ShoppingCart },
             { href: "/login-rrhh", label: "RR.HH.", icon: Briefcase },
             { href: "/login-socios", label: "Socios", icon: Users },
