@@ -126,7 +126,7 @@ export default function DashboardTelecomPage() {
                           <TableRow key={item.id} className={item.status === 'Vencida' ? 'bg-destructive/10' : ''}>
                               <TableCell className="font-medium">{item.name}</TableCell>
                               <TableCell className="text-center">
-                                <Badge variant={statusVariant[item.status]}>{item.status}</Badge>
+                                <Badge variant={statusVariant[item.status as keyof typeof statusVariant]}>{item.status}</Badge>
                               </TableCell>
                               <TableCell className="text-right">{item.expires}</TableCell>
                           </TableRow>
@@ -140,3 +140,5 @@ export default function DashboardTelecomPage() {
     </div>
   );
 }
+
+    

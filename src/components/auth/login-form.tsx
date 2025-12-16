@@ -53,23 +53,23 @@ interface LoginFormProps {
   };
 }
 
-const idByCountry: Record<string, { label: string, placeholder: string, defaultValue: string }> = {
-    "VEN": { label: "Cédula de Identidad", placeholder: "V-12345678", defaultValue: "V-12345678" },
-    "USA": { label: "Email / Username", placeholder: "user@email.com", defaultValue: "" },
-    "ESP": { label: "DNI / NIE", placeholder: "12345678A", defaultValue: "" },
-    "COL": { label: "Cédula de Ciudadanía", placeholder: "1234567890", defaultValue: "" },
-    "ARG": { label: "Documento Nacional de Identidad (DNI)", placeholder: "12.345.678", defaultValue: "" },
-    "MEX": { label: "Clave Única de Registro de Población (CURP)", placeholder: "ABCD123456HOMBRE12", defaultValue: "" },
-    "CHL": { label: "Rol Único Nacional (RUN)", placeholder: "12.345.678-K", defaultValue: "" },
-    "BRA": { label: "Cadastro de Pessoas Físicas (CPF)", placeholder: "123.456.789-00", defaultValue: "" },
-    "DEU": { label: "Personalausweisnummer", placeholder: "L01X00T29", defaultValue: "" },
-    "FRA": { label: "Numéro de Carte Nationale d'Identité", placeholder: "123456789012", defaultValue: "" },
-    "ITA": { label: "Codice Fiscale", placeholder: "ABCDEF12G34H567I", defaultValue: "" },
-    "NLD": { label: "Burgerservicenummer (BSN)", placeholder: "123456789", defaultValue: "" },
-    "CHN": { label: "Resident Identity Card Number", placeholder: "110101199003071234", defaultValue: "" },
-    "ARE": { label: "Emirates ID Number", placeholder: "784-1980-1234567-1", defaultValue: "" },
-    "CAN": { label: "Social Insurance Number (SIN)", placeholder: "123-456-789", defaultValue: "" },
-    "PRT": { label: "Cartão de Cidadão", placeholder: "12345678 9 ZZ1", defaultValue: "" },
+const idByCountry: Record<string, { label: string, placeholder: string }> = {
+    "VEN": { label: "Cédula de Identidad", placeholder: "V-12345678" },
+    "USA": { label: "Email / Username", placeholder: "user@email.com" },
+    "ESP": { label: "DNI / NIE", placeholder: "12345678A" },
+    "COL": { label: "Cédula de Ciudadanía", placeholder: "1234567890" },
+    "ARG": { label: "Documento Nacional de Identidad (DNI)", placeholder: "12.345.678" },
+    "MEX": { label: "Clave Única de Registro de Población (CURP)", placeholder: "ABCD123456HOMBRE12" },
+    "CHL": { label: "Rol Único Nacional (RUN)", placeholder: "12.345.678-K" },
+    "BRA": { label: "Cadastro de Pessoas Físicas (CPF)", placeholder: "123.456.789-00" },
+    "DEU": { label: "Personalausweisnummer", placeholder: "L01X00T29" },
+    "FRA": { label: "Numéro de Carte Nationale d'Identité", placeholder: "123456789012" },
+    "ITA": { label: "Codice Fiscale", placeholder: "ABCDEF12G34H567I" },
+    "NLD": { label: "Burgerservicenummer (BSN)", placeholder: "123456789" },
+    "CHN": { label: "Resident Identity Card Number", placeholder: "110101199003071234" },
+    "ARE": { label: "Emirates ID Number", placeholder: "784-1980-1234567-1" },
+    "CAN": { label: "Social Insurance Number (SIN)", placeholder: "123-456-789" },
+    "PRT": { label: "Cartão de Cidadão", placeholder: "12345678 9 ZZ1" },
 };
 
 export function LoginForm({ icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks }: LoginFormProps) {
@@ -80,7 +80,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const currentIdInfo = idByCountry[country] || { label: "Identificación Personal", placeholder: "", defaultValue: "" };
+  const currentIdInfo = idByCountry[country] || { label: "Identificación Personal", placeholder: "" };
 
   const handleCountryChange = (newCountryCode: string) => {
     setCountry(newCountryCode);
@@ -103,8 +103,8 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
         const passField = fields.find(f => f.id === 'password');
 
         if (idField && passField && credentials) {
-            const userValue = formData[idField.id];
-            const passValue = formData[passField.id];
+            const userValue = formData[idField.id] || "";
+            const passValue = formData[passField.id] || "";
 
             if (userValue === credentials.user && passValue === credentials.password) {
                  router.push(submitButtonHref);
@@ -196,6 +196,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
             {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
             {submitButtonText}
           </Button>
+          {credentials && <Credentials {...credentials} />}
         </CardFooter>
       </form>
        {footerLinks && (
@@ -221,3 +222,5 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
     </Card>
   );
 }
+
+    

@@ -8,10 +8,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { FileSignature, PlusCircle, MoreHorizontal, Download, Eye, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { formatCurrency, formatDate } from "@/lib/utils";
 
 const initialContracts = [
@@ -19,8 +21,6 @@ const initialContracts = [
     { id: "CON-002", cliente: "Constructora XYZ", tipo: "Contrato de Obra", fechaFirma: new Date(2022, 5, 20), fechaVencimiento: new Date(2024, 5, 19), monto: 250000, estado: "Vencido" },
     { id: "CON-003", cliente: "Innovate Corp", tipo: "Acuerdo de Confidencialidad", fechaFirma: new Date(2024, 6, 1), fechaVencimiento: new Date(2026, 6, 1), monto: 0, estado: "Activo" },
 ];
-
-type Contrato = typeof initialContracts[0];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" } = {
   Activo: "default",
@@ -80,7 +80,7 @@ export default function ContratosPage() {
                                     <TableCell>{contract.tipo}</TableCell>
                                     <TableCell>{formatDate(contract.fechaVencimiento)}</TableCell>
                                     <TableCell>
-                                        <Badge variant={statusVariant[contract.estado]}>{contract.estado}</Badge>
+                                        <Badge variant={statusVariant[contract.estado as keyof typeof statusVariant]}>{contract.estado}</Badge>
                                     </TableCell>
                                     <TableCell className="text-right">{contract.monto > 0 ? formatCurrency(contract.monto, 'Bs.') : 'N/A'}</TableCell>
                                     <TableCell className="text-right">

@@ -88,7 +88,7 @@ export default function DashboardPersonalPage() {
                                 <TableCell className="font-medium">{activity.type}</TableCell>
                                 <TableCell>{formatDate(activity.date)}</TableCell>
                                 <TableCell className="text-center">
-                                    <Badge variant={statusVariant[activity.status]}>{activity.status}</Badge>
+                                    <Badge variant={statusVariant[activity.status as keyof typeof statusVariant]}>{activity.status}</Badge>
                                 </TableCell>
                                 <TableCell className="text-right">
                                     <Button variant="outline" size="sm" asChild>
@@ -109,3 +109,5 @@ export default function DashboardPersonalPage() {
     </div>
   );
 }
+
+    

@@ -8,7 +8,7 @@ import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Socio", email: "socio@kyron.com", fallback: "S" };
-const dashboardHref = "/socios/dashboard-socios";
+const dashboardHref = "/dashboard-socios";
 
 
 export default function SociosLayout({ children }: { children: ReactNode }) {
@@ -23,3 +23,5 @@ export default function SociosLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+    

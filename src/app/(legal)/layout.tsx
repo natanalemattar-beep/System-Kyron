@@ -11,7 +11,7 @@ import { ChatDialog } from "@/components/chat-dialog";
 import { Loader2 } from "lucide-react";
 
 const user = { name: "Escritorio Jurídico", email: "legal@kyron.com", fallback: "L" };
-const dashboardHref = "/legal/dashboard-juridico";
+const dashboardHref = "/dashboard-juridico";
 
 // Simulate authentication state
 const useAuth = () => {
@@ -64,3 +64,5 @@ export default function LegalLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+    

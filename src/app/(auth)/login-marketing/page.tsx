@@ -28,7 +28,7 @@ export default function LoginMarketingPage() {
             { href: "/login-rrhh", label: "RR.HH.", icon: Briefcase },
             { href: "/login-socios", label: "Socios", icon: Users },
             { href: "/login-informatica", label: "IT", icon: Cpu },
-            { href: "/login-juridico", label: "Jurídico", icon: Gavel },
+            { href: "/login-escritorio-juridico", label: "Jurídico", icon: Gavel },
         ]
       }
     }
@@ -36,3 +36,5 @@ export default function LoginMarketingPage() {
 
   return <LoginForm {...loginProps} />;
 }
+
+    

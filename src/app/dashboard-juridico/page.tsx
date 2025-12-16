@@ -1,6 +1,7 @@
 
 "use client";
 
+import React from "react";
 import {
   Gavel,
   ShieldCheck,
@@ -26,6 +27,7 @@ import { Progress } from "@/components/ui/progress";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from "recharts";
 import { formatCurrency } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 
 const riskAreas = [
     { title: "Contratos", risk: "medio", details: "Contrato con ProveedorAlpha vence en 15 días. Valor: $120,000", icon: FileSignature },
@@ -93,7 +95,7 @@ export default function DashboardJuridicoPage() {
             <Button variant="outline">Nuevo Contrato Estándar</Button>
             <Button variant="outline">Generar Poder Notarial</Button>
             <Button variant="outline">Registrar Gasto Legal</Button>
-            <Button variant="destructive" variant="outline">Reportar Incidente</Button>
+            <Button variant="destructive">Reportar Incidente</Button>
           </div>
       </div>
 

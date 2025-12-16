@@ -253,3 +253,5 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
     </motion.header>
   );
 }
+
+    

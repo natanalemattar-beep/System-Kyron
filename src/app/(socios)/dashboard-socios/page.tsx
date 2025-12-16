@@ -6,7 +6,6 @@ import {
   Building,
   DollarSign,
   TrendingUp,
-  BarChart,
   LayoutDashboard,
   Network
 } from "lucide-react";
@@ -25,7 +24,7 @@ const kpiData = [
 ];
 
 const holdingStructure = [
-    { id: 1, empresa: "TRAMITEX C.A.", participacion: "100%", rol: "Casa Matriz", rendimiento: "Positivo", dashboard: "/admin/dashboard-empresa" },
+    { id: 1, empresa: "TRAMITEX C.A.", participacion: "100%", rol: "Casa Matriz", rendimiento: "Positivo", dashboard: "/dashboard-empresa" },
     { id: 2, empresa: "Logística Express", participacion: "60%", rol: "Subsidiaria", rendimiento: "Estable", dashboard: "#" },
     { id: 3, empresa: "Inversiones Futuro", participacion: "30%", rol: "Aliada Estratégica", rendimiento: "Positivo", dashboard: "#" },
 ];
@@ -97,7 +96,7 @@ export default function DashboardSociosPage() {
                               <TableCell>{emp.rol}</TableCell>
                               <TableCell className="text-center font-semibold">{emp.participacion}</TableCell>
                               <TableCell className="text-center">
-                                  <Badge variant={rendimientoVariant[emp.rendimiento]}>{emp.rendimiento}</Badge>
+                                  <Badge variant={rendimientoVariant[emp.rendimiento as keyof typeof rendimientoVariant]}>{emp.rendimiento}</Badge>
                               </TableCell>
                                <TableCell className="text-right">
                                   <Button asChild variant="outline" size="sm">
@@ -119,3 +118,5 @@ export default function DashboardSociosPage() {
     </div>
   );
 }
+
+    

@@ -8,7 +8,7 @@ import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Telecom", email: "telecom@kyron.com", fallback: "T" };
-const dashboardHref = "/telecom/dashboard-telecom";
+const dashboardHref = "/dashboard-telecom";
 
 
 export default function TelecomLayout({ children }: { children: ReactNode }) {
@@ -23,3 +23,5 @@ export default function TelecomLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+    

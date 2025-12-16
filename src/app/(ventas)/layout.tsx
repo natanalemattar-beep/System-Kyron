@@ -8,7 +8,7 @@ import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Equipo de Ventas", email: "ventas@kyron.com", fallback: "V" };
-const dashboardHref = "/ventas/analisis-ventas";
+const dashboardHref = "/analisis-ventas";
 
 
 export default function VentasLayout({ children }: { children: ReactNode }) {
@@ -23,3 +23,5 @@ export default function VentasLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+    
