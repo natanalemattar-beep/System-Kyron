@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { User, Menu, AlertTriangle } from "lucide-react";
+import { User, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/logo";
@@ -172,7 +172,7 @@ export default function LandingPage() {
                 </motion.div>
             </header>
 
-            <main className="flex-1 pt-24 md:pt-32">
+            <main className="flex-1 pt-16">
                 <HeroSection />
                 <ServicesSection />
                 <FeaturesSection />

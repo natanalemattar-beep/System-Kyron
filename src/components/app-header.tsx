@@ -71,7 +71,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
       }}
     >
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex h-20 items-center justify-between border-b">
+        <div className="flex h-16 items-center justify-between border-b">
         <div className="flex items-center gap-6">
             <Link href={dashboardHref} className="flex items-center gap-3">
                 <Logo />
