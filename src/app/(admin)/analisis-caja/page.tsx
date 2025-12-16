@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { CashFlowAnalysis } from "@/components/finanzas/cash-flow-analysis";

@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { IntelligentPortfolioManager } from "@/components/cobranza/intelligent-portfolio-manager";
