@@ -1,4 +1,3 @@
-
 "use client";
 
 import { User, Building, Briefcase, ShoppingCart } from "lucide-react";
@@ -17,7 +16,6 @@ export default function LoginNaturalPage() {
     ],
     submitButtonText: "Acceder",
     submitButtonHref: "/dashboard",
-    // Credenciales eliminadas para mejorar la seguridad. La validación se simulará en el componente.
     credentials: { user: "V-12345678", password: "password123" }, 
     footerLinks: {
       text: "¿No tienes una cuenta?",

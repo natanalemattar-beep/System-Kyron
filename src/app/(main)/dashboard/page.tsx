@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -12,7 +11,6 @@ import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
-
 
 const kpiData = [
   { title: "Trámites en Proceso", value: "2", icon: Clock, color: "text-yellow-500", href: "/partidas-nacimiento" },
@@ -72,7 +70,6 @@ function RecentActivityTableSkeleton() {
         </Table>
     )
 }
-
 
 export default function DashboardPersonalPage() {
   const [isLoading, setIsLoading] = useState(true);
