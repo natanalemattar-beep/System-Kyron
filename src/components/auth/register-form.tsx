@@ -50,7 +50,7 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
         if (pathname.includes('/register/socios')) return '/dashboard-socios';
         if (pathname.includes('/register/telecom')) return '/dashboard-telecom';
         if (pathname.includes('/register/ventas')) return '/analisis-ventas';
-        if (pathname.includes('/register/juridico')) return '/escritorio-juridico';
+        if (pathname.includes('/register/juridico')) return '/solicitud-acceso-legal';
         if (pathname.includes('/register/natural')) return '/dashboard';
         if (pathname.includes('/register/juridica')) return '/dashboard-empresa';
         return '/'; // Fallback
@@ -66,26 +66,28 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
                 <CardDescription>{description}</CardDescription>
             </CardHeader>
             <form>
-                <CardContent className="p-6 space-y-6">
-                    {fields.map((field) => (
-                         <div key={field.id} className="space-y-2 relative">
-                            <Label htmlFor={field.id}>{field.label}</Label>
-                            <Input
-                                id={field.id}
-                                type={field.type === 'password' && !passwordVisible ? 'password' : 'text'}
-                                placeholder={field.placeholder}
-                                defaultValue={field.defaultValue}
-                                required={field.required}
-                                className={field.type === 'password' ? 'pr-10' : ''}
-                            />
-                            {field.type === 'password' && (
-                                <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
-                                    {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                                </button>
-                            )}
-                        </div>
-                    ))}
-                </CardContent>
+                {fields.length > 0 && (
+                    <CardContent className="p-6 space-y-6">
+                        {fields.map((field) => (
+                            <div key={field.id} className="space-y-2 relative">
+                                <Label htmlFor={field.id}>{field.label}</Label>
+                                <Input
+                                    id={field.id}
+                                    type={field.type === 'password' && !passwordVisible ? 'password' : 'text'}
+                                    placeholder={field.placeholder}
+                                    defaultValue={field.defaultValue}
+                                    required={field.required}
+                                    className={field.type === 'password' ? 'pr-10' : ''}
+                                />
+                                {field.type === 'password' && (
+                                    <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">
+                                        {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </CardContent>
+                )}
                  <CardFooter className="p-6 pt-0 flex-col">
                     <Button asChild type="submit" className="w-full h-11 text-base">
                         <Link href={getDashboardHref()}>{submitButtonText}</Link>
