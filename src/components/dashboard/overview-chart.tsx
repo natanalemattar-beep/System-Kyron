@@ -1,11 +1,14 @@
 
 "use client";
 
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { dailyChartData } from "@/lib/data";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { AlertTriangle, CheckCircle, Clock } from "lucide-react";
+import { formatCurrency } from "@/lib/utils";
+import { historicalFinancialData } from "@/lib/historical-financial-data";
+
 
 const chartConfig = {
   completed: {
@@ -15,6 +18,14 @@ const chartConfig = {
   pending: {
     label: "Pendientes",
     color: "hsl(var(--accent))",
+  },
+   ingresos: {
+    label: "Ingresos",
+    color: "hsl(var(--primary))",
+  },
+  gastos: {
+    label: "Gastos",
+    color: "hsl(var(--destructive))",
   },
 } satisfies ChartConfig;
 
@@ -29,59 +40,40 @@ export function OverviewChart() {
   return (
     <Card className="bg-card/50 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle>Resumen Mensual (Julio 2024)</CardTitle>
-        <CardDescription>Actividad diaria de trámites completados vs. pendientes.</CardDescription>
+        <CardTitle>Pulso Financiero (Últimos 12 meses)</CardTitle>
+        <CardDescription>Evolución de ingresos vs. gastos para medir la rentabilidad.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="h-[250px] w-full pl-2">
             <ChartContainer config={chartConfig} className="w-full h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={dailyChartData} accessibilityLayer margin={{ left: -20, top: 10 }}>
-                   <defs>
-                      <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="var(--color-completed)" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="var(--color-completed)" stopOpacity={0.1} />
-                      </linearGradient>
-                      <linearGradient id="colorPending" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="var(--color-pending)" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="var(--color-pending)" stopOpacity={0.1} />
-                      </linearGradient>
-                    </defs>
-                  <XAxis
-                    dataKey="date"
-                    stroke="#888888"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                  />
-                  <YAxis
-                    stroke="#888888"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(value) => `${value}`}
-                  />
-                  <ChartTooltip
-                    content={<ChartTooltipContent />}
-                    cursorClassName="fill-muted"
-                  />
-                  <Legend />
-                  <Area type="monotone" dataKey="completed" stroke="var(--color-completed)" fill="url(#colorCompleted)" />
-                  <Area type="monotone" dataKey="pending" stroke="var(--color-pending)" fill="url(#colorPending)" />
-                </AreaChart>
+                  <AreaChart data={historicalFinancialData.slice(-12)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                      <defs>
+                          <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.8}/>
+                              <stop offset="95%" stopColor="var(--color-ingresos)" stopOpacity={0}/>
+                          </linearGradient>
+                          <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="var(--color-gastos)" stopOpacity={0.8}/>
+                              <stop offset="95%" stopColor="var(--color-gastos)" stopOpacity={0}/>
+                          </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+                      <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value as number) / 1000}k`} />
+                      <ChartTooltip 
+                          cursor={false}
+                          content={<ChartTooltipContent 
+                              indicator="dot" 
+                              formatter={(value) => formatCurrency(value as number, 'Bs.')} 
+                          />} 
+                      />
+                      <Legend />
+                      <Area type="monotone" dataKey="ingresos" stroke="var(--color-ingresos)" fillOpacity={1} fill="url(#colorIngresos)" />
+                      <Area type="monotone" dataKey="gastos" stroke="var(--color-gastos)" fillOpacity={1} fill="url(#colorGastos)" />
+                  </AreaChart>
               </ResponsiveContainer>
             </ChartContainer>
-        </div>
-        <div>
-          <h4 className="font-semibold text-md mb-3">Alertas y Actividades Clave del Día</h4>
-          <ul className="space-y-3">
-             {dailyAlerts.map((alert, index) => (
-                <li key={index} className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg">
-                    <alert.icon className={`h-5 w-5 mt-0.5 shrink-0 ${alert.color}`} />
-                    <p className="text-sm">{alert.text}</p>
-                </li>
-             ))}
-          </ul>
         </div>
       </CardContent>
     </Card>

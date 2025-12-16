@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 
 const facturasPendientes = [
     { id: "FAC-001", proveedor: "OficinaTech C.A.", email: "cobranza@oficinatech.com", fechaEmision: "2024-07-01", fechaVencimiento: "2024-07-31", monto: 1392, estado: "Pendiente" },
@@ -49,6 +50,12 @@ const getStatusVariant = (status: string) => {
         case "Pendiente": return "secondary";
         default: return "default";
     }
+};
+
+const chartConfig = {
+  "Volumen Compra": {
+    label: "Volumen de Compra (Bs.)",
+  },
 };
 
 export default function CuentasPorPagarPage() {
@@ -211,14 +218,16 @@ export default function CuentasPorPagarPage() {
                             <CardDescription>Top 5 proveedores por volumen de compra.</CardDescription>
                         </CardHeader>
                         <CardContent className="h-64">
-                             <ResponsiveContainer width="100%" height="100%">
-                                <RechartsBarChart data={topProveedoresData} layout="vertical" margin={{ right: 30, left: 10 }}>
-                                    <XAxis type="number" hide />
-                                    <YAxis dataKey="name" type="category" fontSize={12} tickLine={false} axisLine={false} />
-                                    <Tooltip cursor={{ fill: 'hsl(var(--secondary))' }} formatter={(value) => formatCurrency(value as number, 'Bs.')}/>
-                                    <Bar dataKey="Volumen Compra" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
-                                </RechartsBarChart>
-                            </ResponsiveContainer>
+                             <ChartContainer config={chartConfig} className="w-full h-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <RechartsBarChart data={topProveedoresData} layout="vertical" margin={{ right: 30, left: 10 }}>
+                                        <XAxis type="number" hide />
+                                        <YAxis dataKey="name" type="category" fontSize={12} tickLine={false} axisLine={false} />
+                                        <ChartTooltipContent formatter={(value) => formatCurrency(value as number, 'Bs.')} cursor={{ fill: 'hsl(var(--secondary))' }}/>
+                                        <Bar dataKey="Volumen Compra" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                                    </RechartsBarChart>
+                                </ResponsiveContainer>
+                            </ChartContainer>
                         </CardContent>
                     </Card>
                     <Card className="bg-card/80 backdrop-blur-sm">

@@ -13,7 +13,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
-import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -32,6 +32,13 @@ const employeeDistribution = [
   { name: 'Diseño', count: 7 },
   { name: 'Gerencia', count: 6 },
 ];
+
+const chartConfig = {
+  count: {
+    label: "Empleados",
+    color: "hsl(var(--primary))",
+  },
+} satisfies ChartConfig;
 
 const complianceAlerts = [
     { text: "3 Contratos de trabajo próximos a vencer.", icon: FileWarning, color: "text-orange-400" },
@@ -86,14 +93,14 @@ export default function RecursosHumanosPage() {
                   </div>
                 </CardHeader>
                 <CardContent className="h-80">
-                    <ChartContainer config={{}} className="w-full h-full">
+                    <ChartContainer config={chartConfig} className="w-full h-full">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={employeeDistribution}>
                             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false}/>
                             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                            <Tooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }}/>
+                            <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }}/>
                              <Legend />
-                            <Bar dataKey="count" name="Empleados" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                            <Bar dataKey="count" name="Empleados" fill="var(--color-count)" radius={[4, 4, 0, 0]} />
                         </BarChart>
                     </ResponsiveContainer>
                     </ChartContainer>

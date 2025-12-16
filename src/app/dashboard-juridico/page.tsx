@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -54,6 +55,12 @@ const feesData = [
   { name: 'Q2', Externos: 3000, Internos: 1398 },
   { name: 'Q3', Externos: 9800, Internos: 2000 },
 ];
+
+const chartConfig = {
+  Externos: { label: "Externos" },
+  Internos: { label: "Internos" },
+  value: { label: "Presupuesto" }
+};
 
 const riskColorMap = {
     alto: "bg-red-500/10 border-red-500 text-red-500",
@@ -149,30 +156,35 @@ export default function DashboardJuridicoPage() {
                         <div>
                              <h4 className="text-sm font-semibold text-center mb-2">Presupuesto Legal Anual Utilizado</h4>
                              <div className="h-48">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <PieChart>
-                                        <Pie data={budgetData} cx="50%" cy="50%" innerRadius={50} outerRadius={70} paddingAngle={5} dataKey="value">
-                                            {budgetData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
-                                        </Pie>
-                                         <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" className="text-2xl font-bold fill-foreground">
-                                            {budgetData[0].value}%
-                                        </text>
-                                    </PieChart>
-                                </ResponsiveContainer>
+                                <ChartContainer config={chartConfig} className="w-full h-full">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                             <ChartTooltip content={<ChartTooltipContent nameKey="name" formatter={(value) => `${value}%`}/>} />
+                                            <Pie data={budgetData} cx="50%" cy="50%" innerRadius={50} outerRadius={70} paddingAngle={5} dataKey="value">
+                                                {budgetData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
+                                            </Pie>
+                                             <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" className="text-2xl font-bold fill-foreground">
+                                                {budgetData[0].value}%
+                                            </text>
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </ChartContainer>
                             </div>
                         </div>
                         <div>
                              <h4 className="text-sm font-semibold text-center mb-4">Honorarios Externos vs. Internos (Q)</h4>
                              <div className="h-48">
-                                <ResponsiveContainer width="100%" height="100%">
-                                     <BarChart data={feesData}>
-                                        <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false}/>
-                                        <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value/1000}k`}/>
-                                        <Tooltip content={<ChartTooltipContent formatter={(value) => formatCurrency(value as number, "Bs.")}/>} />
-                                        <Bar dataKey="Externos" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                                        <Bar dataKey="Internos" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
-                                    </BarChart>
-                                </ResponsiveContainer>
+                                <ChartContainer config={chartConfig} className="w-full h-full">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                         <BarChart data={feesData}>
+                                            <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false}/>
+                                            <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value/1000}k`}/>
+                                            <ChartTooltip content={<ChartTooltipContent formatter={(value) => formatCurrency(value as number, "Bs.")}/>} />
+                                            <Bar dataKey="Externos" fill="var(--color-Externos)" radius={[4, 4, 0, 0]} />
+                                            <Bar dataKey="Internos" fill="var(--color-Internos)" radius={[4, 4, 0, 0]} />
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </ChartContainer>
                              </div>
                         </div>
                         <div className="text-center pt-4 border-t">

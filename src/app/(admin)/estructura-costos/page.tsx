@@ -154,12 +154,12 @@ export default function EstructuraCostosPage() {
                         <ChartContainer config={chartConfig} className="w-full h-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
+                                    <ChartTooltip content={<ChartTooltipContent nameKey="name" formatter={(value) => formatCurrency(value as number, 'Bs.')} />} />
                                     <Pie data={dataFijos} cx="50%" cy="50%" outerRadius={100} fill="#8884d8" dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
                                         {dataFijos.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <ChartTooltip content={<ChartTooltipContent nameKey="name" formatter={(value) => formatCurrency(value as number, 'Bs.')} />} />
                                     <Legend />
                                 </PieChart>
                             </ResponsiveContainer>
@@ -202,12 +202,12 @@ export default function EstructuraCostosPage() {
                          <ChartContainer config={chartConfig} className="w-full h-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
+                                    <ChartTooltip content={<ChartTooltipContent nameKey="name" formatter={(value) => formatCurrency(value as number, 'Bs.')}/>}/>
                                     <Pie data={dataVariables} cx="50%" cy="50%" outerRadius={100} fill="#8884d8" dataKey="value" labelLine={false} label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}>
                                         {dataVariables.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <ChartTooltip content={<ChartTooltipContent nameKey="name" formatter={(value) => formatCurrency(value as number, 'Bs.')}/>}/>
                                     <Legend />
                                 </PieChart>
                             </ResponsiveContainer>

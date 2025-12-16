@@ -165,8 +165,8 @@ export default function AnalisisVentasPage() {
                               />} 
                           />
                           <Legend />
-                          <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
-                          <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
+                          <Area type="monotone" dataKey="ingresos" stroke="var(--color-ingresos)" fillOpacity={1} fill="url(#colorIngresos)" />
+                          <Area type="monotone" dataKey="gastos" stroke="var(--color-gastos)" fillOpacity={1} fill="url(#colorGastos)" />
                       </AreaChart>
                   </ResponsiveContainer>
               </ChartContainer>

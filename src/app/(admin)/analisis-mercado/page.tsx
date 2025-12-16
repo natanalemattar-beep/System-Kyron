@@ -4,7 +4,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Users, DollarSign, ArrowRight, Lightbulb, Zap } from "lucide-react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -31,6 +31,12 @@ const competitorsData = [
     { name: 'Tu Empresa', value: 20, color: 'hsl(var(--accent-foreground))' },
     { name: 'Otros', value: 15, color: '#64748b' },
 ];
+
+const chartConfig = {
+  demanda: { label: "Demanda" },
+  oferta: { label: "Oferta" },
+  competitors: { label: "Cuota de Mercado" },
+};
 
 const estrategias = [
     "La demanda supera a la oferta en los meses de marzo y julio (inicio de períodos escolares/fiscales). Considerar aumentar el stock preventivamente.",
@@ -73,7 +79,7 @@ export default function AnalisisMercadoPage() {
                     <CardDescription>Evolución mensual de la oferta del mercado vs. la demanda de los consumidores.</CardDescription>
                 </CardHeader>
                 <CardContent className="h-80">
-                   <ChartContainer config={{}} className="w-full h-full">
+                   <ChartContainer config={chartConfig} className="w-full h-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie data={supplyDemandData} dataKey="demanda" nameKey="month" cx="50%" cy="50%" outerRadius={80} fill="hsl(var(--primary))" label />
@@ -89,9 +95,10 @@ export default function AnalisisMercadoPage() {
                     <CardDescription>Distribución del mercado entre los principales actores.</CardDescription>
                 </CardHeader>
                 <CardContent className="h-80">
-                    <ChartContainer config={{}} className="w-full h-full">
+                    <ChartContainer config={chartConfig} className="w-full h-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
+                                <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
                                 <Pie
                                     data={competitorsData}
                                     cx="50%"
@@ -107,7 +114,6 @@ export default function AnalisisMercadoPage() {
                                         <Cell key={`cell-${entry.name}`} fill={entry.color} />
                                     ))}
                                 </Pie>
-                                 <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
                                  <Legend />
                             </PieChart>
                         </ResponsiveContainer>

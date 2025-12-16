@@ -103,6 +103,7 @@ export default function DemografiaPage() {
                 <ChartContainer config={chartConfig} className="w-full h-80">
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
+                            <ChartTooltip content={<ChartTooltipContent nameKey="name" hideLabel />} />
                             <Pie
                                 data={pymesData}
                                 cx="50%"
@@ -117,7 +118,6 @@ export default function DemografiaPage() {
                                     <Cell key={`cell-${entry.name}`} fill={entry.fill} />
                                 ))}
                             </Pie>
-                            <ChartTooltip content={<ChartTooltipContent nameKey="name" hideLabel />} />
                         </PieChart>
                     </ResponsiveContainer>
                 </ChartContainer>
