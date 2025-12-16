@@ -1,3 +1,4 @@
+
 import type { Invoice } from "@/lib/types";
 import {
   Table,
@@ -20,10 +21,10 @@ import {
 import { formatCurrency, formatDate } from "@/lib/utils";
 
 const statusVariant: { [key in Invoice["status"]]: "default" | "secondary" | "destructive" | "outline" } = {
-  Paid: "default",
-  Sent: "secondary",
-  Draft: "outline",
-  Overdue: "destructive",
+  Pagada: "default",
+  Enviada: "secondary",
+  Borrador: "outline",
+  Vencida: "destructive",
 };
 
 export function InvoicesTable({ invoices }: { invoices: Invoice[] }) {
@@ -33,12 +34,12 @@ export function InvoicesTable({ invoices }: { invoices: Invoice[] }) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Invoice #</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Due Date</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead>Factura #</TableHead>
+              <TableHead>Cliente</TableHead>
+              <TableHead>Fecha</TableHead>
+              <TableHead>Vencimiento</TableHead>
+              <TableHead>Estado</TableHead>
+              <TableHead className="text-right">Monto</TableHead>
               <TableHead className="w-[50px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -55,7 +56,7 @@ export function InvoicesTable({ invoices }: { invoices: Invoice[] }) {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right font-mono">
-                  {formatCurrency(invoice.amount)}
+                  {formatCurrency(invoice.amount, 'Bs.')}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
@@ -65,9 +66,9 @@ export function InvoicesTable({ invoices }: { invoices: Invoice[] }) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuItem>View</DropdownMenuItem>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Send</DropdownMenuItem>
+                      <DropdownMenuItem>Ver</DropdownMenuItem>
+                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem>Enviar</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

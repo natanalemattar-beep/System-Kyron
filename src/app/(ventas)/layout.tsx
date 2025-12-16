@@ -15,7 +15,7 @@ export default function VentasLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <AppHeader user={user} navGroups={ventasNavGroups} dashboardHref={dashboardHref} />
-      <main className="flex-1 container mx-auto p-4 md:p-8 pt-24 md:pt-28">
+      <main className="flex-1 container mx-auto p-4 md:p-8 pt-20 md:pt-24">
         {children}
       </main>
       <Toaster />

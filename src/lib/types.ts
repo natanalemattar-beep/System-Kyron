@@ -1,3 +1,4 @@
+
 export type Invoice = {
   id: string;
   customer: string;
@@ -5,7 +6,7 @@ export type Invoice = {
   date: string;
   dueDate: string;
   amount: number;
-  status: 'Paid' | 'Sent' | 'Draft' | 'Overdue';
+  status: 'Pagada' | 'Enviada' | 'Borrador' | 'Vencida';
   items: {
     description: string;
     quantity: number;

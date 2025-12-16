@@ -18,9 +18,9 @@ export function RecentInvoices() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Recent Invoices</CardTitle>
+        <CardTitle>Facturas Recientes</CardTitle>
         <CardDescription>
-          You have {mockInvoices.filter((i) => i.status === "Sent" || i.status === "Overdue").length} pending invoices.
+          Tienes {mockInvoices.filter((i) => i.status === "Enviada" || i.status === "Vencida").length} facturas pendientes.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -38,13 +38,13 @@ export function RecentInvoices() {
               </p>
             </div>
             <div className="ml-auto font-medium">
-              {formatCurrency(invoice.amount)}
+              {formatCurrency(invoice.amount, 'Bs.')}
             </div>
           </div>
         ))}
          <Button asChild className="w-full">
             <Link href="/invoices">
-              View All Invoices <ArrowUpRight className="ml-2 h-4 w-4" />
+              Ver Todas las Facturas <ArrowUpRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
       </CardContent>

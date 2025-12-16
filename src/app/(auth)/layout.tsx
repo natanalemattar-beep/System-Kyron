@@ -36,7 +36,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         </div>
       </motion.header>
       
-      <main className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto pt-12">
+      <main className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto pt-20">
         {children}
       </main>
       <ChatDialog />

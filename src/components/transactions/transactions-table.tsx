@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -25,14 +26,14 @@ import { categorizeTransactionAction } from "@/app/(main)/transactions/actions";
 import { useToast } from "@/hooks/use-toast";
 
 const categories = [
-  "Income",
-  "Food",
-  "Transportation",
-  "Utilities",
+  "Ingreso",
+  "Comida",
+  "Transporte",
+  "Servicios Públicos",
   "Software",
-  "Office Supplies",
-  "Entertainment",
-  "Uncategorized",
+  "Suministros de Oficina",
+  "Entretenimiento",
+  "Sin Categorizar",
 ];
 
 export function TransactionsTable({
@@ -63,14 +64,14 @@ export function TransactionsTable({
     if ("error" in result) {
       toast({
         variant: "destructive",
-        title: "Categorization Failed",
+        title: "Falló la Categorización",
         description: result.error,
       });
     } else {
       handleCategoryChange(transaction.id, result.category);
       toast({
-        title: "Categorized!",
-        description: `Transaction set to "${result.category}" with ${Math.round(result.confidence * 100)}% confidence.`,
+        title: "¡Categorizado!",
+        description: `Transacción marcada como "${result.category}" con ${Math.round(result.confidence * 100)}% de confianza.`,
       });
     }
   };
@@ -81,11 +82,11 @@ export function TransactionsTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Date</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead>Fecha</TableHead>
+              <TableHead>Descripción</TableHead>
+              <TableHead className="text-right">Monto</TableHead>
+              <TableHead>Categoría</TableHead>
+              <TableHead className="text-right">Acciones</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -102,7 +103,7 @@ export function TransactionsTable({
                       : "text-red-600 dark:text-red-500"
                   }`}
                 >
-                  {formatCurrency(transaction.amount)}
+                  {formatCurrency(transaction.amount, 'Bs.')}
                 </TableCell>
                 <TableCell>
                   <Select
@@ -112,7 +113,7 @@ export function TransactionsTable({
                     }
                   >
                     <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select category" />
+                      <SelectValue placeholder="Seleccionar categoría" />
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((cat) => (
@@ -124,7 +125,7 @@ export function TransactionsTable({
                   </Select>
                 </TableCell>
                 <TableCell className="text-right">
-                  {transaction.category === "Uncategorized" && (
+                  {transaction.category === "Sin Categorizar" && (
                     <Button
                       variant="ghost"
                       size="sm"
@@ -136,7 +137,7 @@ export function TransactionsTable({
                       ) : (
                         <>
                           <Sparkles className="mr-2 h-4 w-4 text-yellow-500" />
-                          Categorize
+                          Categorizar
                         </>
                       )}
                     </Button>
