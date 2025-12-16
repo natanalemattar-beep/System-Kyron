@@ -27,10 +27,10 @@ const kpiData = [
 ];
 
 const networkStatus = [
-    { service: "Red de Fibra Óptica (Caracas)", status: "Operacional", latency: "12ms", packetLoss: "0.01%" },
-    { service: "Red Inalámbrica (Valencia)", status: "Mantenimiento Parcial", latency: "45ms", packetLoss: "0.5%" },
-    { service: "Enlace Satelital (Zonas Remotas)", status: "Operacional", latency: "600ms", packetLoss: "1.2%" },
-    { service: "Red 5G (Maracay)", status: "Degradado", latency: "80ms", packetLoss: "2.5%" },
+    { service: "Red de Fibra Óptica (Caracas)", status: "Operacional", latency: 12, packetLoss: "0.01%" },
+    { service: "Red Inalámbrica (Valencia)", status: "Mantenimiento Parcial", latency: 45, packetLoss: "0.5%" },
+    { service: "Enlace Satelital (Zonas Remotas)", status: "Operacional", latency: 600, packetLoss: "1.2%" },
+    { service: "Red 5G (Maracay)", status: "Degradado", latency: 80, packetLoss: "2.5%" },
 ];
 
 const complianceStatus = [
@@ -111,7 +111,7 @@ export default function DashboardTelecomPage() {
                                   {item.status}
                                 </Badge>
                               </TableCell>
-                              <TableCell className="text-right font-mono">{item.latency}</TableCell>
+                              <TableCell className="text-right font-mono">{item.latency}ms</TableCell>
                                <TableCell className="text-right font-mono">{item.packetLoss}</TableCell>
                           </TableRow>
                       ))}
@@ -147,6 +147,7 @@ export default function DashboardTelecomPage() {
                 <Table>
                 <TableHeader>
                     <TableRow>
+                    <TableHead>Referencia</TableHead>
                     <TableHead>Licencia / Permiso</TableHead>
                     <TableHead className="text-center">Estado</TableHead>
                     <TableHead className="text-right">Vencimiento</TableHead>
@@ -155,6 +156,7 @@ export default function DashboardTelecomPage() {
                 <TableBody>
                     {complianceStatus.map(item => (
                         <TableRow key={item.id} className={item.status === 'Vencida' ? 'bg-destructive/10' : ''}>
+                            <TableCell className="font-mono">{item.id}</TableCell>
                             <TableCell className="font-medium">{item.name}</TableCell>
                             <TableCell className="text-center">
                             <Badge variant={statusVariant[item.status]}>{item.status}</Badge>
