@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Users, Globe, Building, TrendingUp } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
@@ -35,7 +35,35 @@ const chartConfig = {
     label: "Crecimiento E-commerce (%)",
     color: "hsl(var(--primary))",
   },
+  demanda: {
+    label: "Demanda",
+    color: "hsl(var(--primary))",
+  },
+  oferta: {
+    label: "Oferta",
+    color: "hsl(var(--secondary))",
+  },
+    competitors: {
+    label: "Cuota de Mercado",
+  },
 } satisfies ChartConfig;
+
+const supplyDemandData = [
+  { month: 'Ene', demanda: 4000, oferta: 3800 },
+  { month: 'Feb', demanda: 3500, oferta: 4200 },
+  { month: 'Mar', demanda: 5200, oferta: 4500 },
+  { month: 'Abr', demanda: 4800, oferta: 5000 },
+  { month: 'May', demanda: 5500, oferta: 5300 },
+  { month: 'Jun', demanda: 5100, oferta: 5500 },
+  { month: 'Jul', demanda: 6000, oferta: 5800 },
+];
+
+const competitorsData = [
+    { name: 'OfiExpress', value: 40, color: 'hsl(var(--primary))' },
+    { name: 'Papelemax', value: 25, color: 'hsl(var(--secondary-foreground))' },
+    { name: 'Tu Empresa', value: 20, color: 'hsl(var(--accent-foreground))' },
+    { name: 'Otros', value: 15, color: '#64748b' },
+];
 
 export default function DemografiaPage() {
   return (
@@ -62,4 +90,62 @@ export default function DemografiaPage() {
                     <p className="text-sm text-muted-foreground mt-1">{stat.title}</p>
                 </div>
             ))}
- 
+        </CardContent>
+      </Card>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Distribución de PYMES en Venezuela</CardTitle>
+                <CardDescription>Porcentaje de pequeñas y medianas empresas por sector económico.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer config={chartConfig} className="w-full h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                            <Pie
+                                data={pymesData}
+                                cx="50%"
+                                cy="50%"
+                                labelLine={false}
+                                outerRadius={100}
+                                dataKey="value"
+                                nameKey="name"
+                                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                            >
+                                {pymesData.map((entry) => (
+                                    <Cell key={`cell-${entry.name}`} fill={entry.fill} />
+                                ))}
+                            </Pie>
+                            <ChartTooltip content={<ChartTooltipContent nameKey="name" hideLabel />} />
+                        </PieChart>
+                    </ResponsiveContainer>
+                </ChartContainer>
+            </CardContent>
+        </Card>
+        
+        <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Crecimiento del E-commerce</CardTitle>
+                <CardDescription>Proyección de crecimiento anual del comercio electrónico.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer config={chartConfig} className="w-full h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={comercioData}>
+                            <CartesianGrid vertical={false} />
+                            <XAxis dataKey="year" tickLine={false} axisLine={false} tickMargin={8} />
+                            <YAxis tickFormatter={(value) => `${value}%`} />
+                            <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
+                            <Legend />
+                            <Bar dataKey="ecommerceGrowth" fill="var(--color-ecommerceGrowth)" radius={4} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </ChartContainer>
+            </CardContent>
+        </Card>
+      </div>
+
+    </div>
+  );
+}
