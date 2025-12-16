@@ -10,9 +10,9 @@ import { Button } from "../ui/button";
 
 export function QuickAccess() {
     const relevantGroups = adminNavGroups.filter(group => 
-        group.title === "Finanzas y Contabilidad" || 
-        group.title === "Facturación" ||
-        group.title === "Impuestos y Cumplimiento"
+        group.title === "Impuestos y Cumplimiento" || 
+        group.title === "Recursos Humanos" ||
+        group.title === "Facturación"
     );
 
     return (

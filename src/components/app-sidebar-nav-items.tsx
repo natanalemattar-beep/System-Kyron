@@ -156,48 +156,43 @@ const facturacionGeneralMenuItems = [
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
 ];
 
-const finanzasContabilidadNavGroups = {
-  title: "Finanzas y Contabilidad",
-  icon: BookOpen,
-  subGroups: [
-    {
-      title: "Análisis Financiero",
-      icon: BarChart,
+const finanzasContabilidadNavItems = [
+  {
+    title: "Análisis Financiero",
+    icon: BarChart,
+    items: [
+      { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
+      { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+      { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+      { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+      { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+      { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
+    ],
+  },
+  {
+    title: "Gestión de Cuentas",
+    icon: Wallet,
+    items: [
+      { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
+      { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
+      { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
+      { href: "/creditos", label: "Créditos", icon: CreditCard },
+    ],
+  },
+  {
+      title: "Contabilidad General",
+      icon: BookOpen,
       items: [
-        { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
-        { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-        { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
-        { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
-        { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
-        { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
-      ],
-    },
-    {
-      title: "Gestión de Cuentas",
-      icon: Wallet,
-      items: [
-        { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
-        { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
-        { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
-        { href: "/creditos", label: "Créditos", icon: CreditCard },
-      ],
-    },
-    {
-        title: "Contabilidad General",
-        icon: BookOpen,
-        items: [
-            { href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen },
-            { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
-            { href: "/reports", label: "Reportes Financieros", icon: FileText },
-            { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
-            { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: Layers },
-            { href: "/clasificacion-facturacion", label: "Clasificación de Facturación", icon: Layers },
-            { href: "/activos-inmobiliarios", label: "Activos Inmobiliarios", icon: Building },
-        ]
-    }
-  ],
-  items: [],
-};
+          { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
+          { href: "/reports", label: "Reportes Financieros", icon: FileText },
+          { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
+          { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: Layers },
+          { href: "/clasificacion-facturacion", label: "Clasificación de Facturación", icon: Layers },
+          { href: "/activos-inmobiliarios", label: "Activos Inmobiliarios", icon: Building },
+      ]
+  }
+];
+
 
 const impuestosCumplimientoNavGroups = {
   title: "Impuestos y Cumplimiento",
@@ -382,7 +377,6 @@ export const advisoryNavGroups = {
 
 export const adminNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
-  finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
   rrhhNavGroupsData,
@@ -395,26 +389,21 @@ export const contabilidadNavGroups = [
   {
     title: "Análisis Financiero",
     icon: BarChart,
-    items: finanzasContabilidadNavGroups.subGroups.find(sg => sg.title === "Análisis Financiero")?.items || [],
+    items: finanzasContabilidadNavItems.find(i => i.title === 'Análisis Financiero')?.items || [],
     subGroups: []
   },
   {
     title: "Gestión de Cuentas",
     icon: Wallet,
-    items: finanzasContabilidadNavGroups.subGroups.find(sg => sg.title === "Gestión de Cuentas")?.items || [],
+    items: finanzasContabilidadNavItems.find(i => i.title === 'Gestión de Cuentas')?.items || [],
     subGroups: []
   },
   {
     title: "Contabilidad General",
     icon: BookOpen,
-    items: finanzasContabilidadNavGroups.subGroups.find(sg => sg.title === "Contabilidad General")?.items.filter(item => item.href !== '/contabilidad') || [],
+    items: finanzasContabilidadNavItems.find(i => i.title === 'Contabilidad General')?.items || [],
     subGroups: []
   },
-  { title: "Facturación", icon: ShoppingCart, items: [
-      { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-      { href: "/proformas", label: "Proformas", icon: Receipt },
-    ], subGroups: [] },
-  impuestosCumplimientoNavGroups,
 ];
 
 export const legalNavGroups = [
