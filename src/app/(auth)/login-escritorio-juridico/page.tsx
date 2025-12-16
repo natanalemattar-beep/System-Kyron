@@ -15,7 +15,7 @@ export default function LoginEscritorioJuridicoPage() {
       { id: "remember-me", label: "Recordar este dispositivo", type: "checkbox" as const, rememberMe: true, link: { href: "/recover-legal", label: "¿Olvidó su credencial?" } }
     ],
     submitButtonText: "Verificar Credenciales",
-    submitButtonHref: "/legal/dashboard-juridico",
+    submitButtonHref: "/dashboard-juridico",
     credentials: { user: "legal.user", password: "password123" },
     footerLinks: {
       text: "¿No tienes una cuenta?",
