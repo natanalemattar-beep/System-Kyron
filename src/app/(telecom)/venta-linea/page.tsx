@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Phone, User, Mail, Home, CheckCircle, CreditCard, DollarSign } from "lucide-react";
+import { Phone, User, Mail, Home, CheckCircle, CreditCard } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/lib/utils";

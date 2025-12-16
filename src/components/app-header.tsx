@@ -86,7 +86,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                                 size="sm" 
                                 className={cn(
                                     "gap-1",
-                                    (group.items.some(item => pathname.startsWith(item.href)) || group.subGroups.some(sg => sg.items.some(item => pathname.startsWith(item.href)))) && "bg-accent"
+                                    (group.items.some(item => pathname.startsWith(item.href)) || group.subGroups.some(sg => sg.items.some(item => pathname.startsWith(item.href)))) && "bg-accent text-accent-foreground"
                                 )}
                             >
                                 {group.title}
@@ -260,5 +260,3 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
     </motion.header>
   );
 }
-
-    

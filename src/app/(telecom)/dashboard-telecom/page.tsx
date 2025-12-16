@@ -21,20 +21,21 @@ import { ChartTooltipContent } from "@/components/ui/chart";
 
 const kpiData = [
   { title: "Disponibilidad de Red (Uptime)", value: "99.98%", icon: Signal, color: "text-green-400", status: "Óptimo" },
-  { title: "Proyectos de Despliegue Activos", value: "4", icon: HardHat, color: "text-blue-400", status: "En progreso" },
-  { title: "Cumplimiento CONATEL", value: "100%", icon: ShieldCheck, color: "text-green-400", status: "Al día" },
-  { title: "Nivel de Saturación de Red", value: "65%", icon: BarChart, color: "text-yellow-400", status: "Advertencia" },
+  { title: "Latencia Promedio", value: "25ms", icon: Clock, color: "text-green-400", status: "Excelente" },
+  { title: "Incidentes Activos", value: "1", icon: AlertTriangle, color: "text-yellow-400", status: "Advertencia" },
+  { title: "Proyectos de Despliegue", value: "4", icon: HardHat, color: "text-blue-400", status: "En progreso" },
 ];
 
 const networkStatus = [
-    { service: "Red de Fibra Óptica (Caracas)", status: "Operacional", latency: "12ms" },
-    { service: "Red Inalámbrica (Valencia)", status: "Mantenimiento Parcial", latency: "45ms" },
-    { service: "Enlace Satelital (Zonas Remotas)", status: "Operacional", latency: "600ms" },
+    { service: "Red de Fibra Óptica (Caracas)", status: "Operacional", latency: "12ms", packetLoss: "0.01%" },
+    { service: "Red Inalámbrica (Valencia)", status: "Mantenimiento Parcial", latency: "45ms", packetLoss: "0.5%" },
+    { service: "Enlace Satelital (Zonas Remotas)", status: "Operacional", latency: "600ms", packetLoss: "1.2%" },
+    { service: "Red 5G (Maracay)", status: "Degradado", latency: "80ms", packetLoss: "2.5%" },
 ];
 
 const complianceStatus = [
     { id: "CON-001", name: "Concesión de Espectro Radioeléctrico", expires: "20/03/2028", status: "Vigente" },
-    { id: "CON-002", name: "Licencia de Proveedor de Servicios de Internet (ISP)", expires: "01/04/2028", status: "Vigente" },
+    { id: "CON-002", name: "Licencia de Proveedor de Servicios (ISP)", expires: "01/04/2028", status: "Vigente" },
     { id: "CON-003", name: "Habilitación Postal", expires: "01/06/2024", status: "Vencida" },
 ];
 
@@ -42,6 +43,7 @@ const statusVariant: { [key: string]: "default" | "destructive" | "secondary" } 
   Vigente: "default",
   Vencida: "destructive",
   "Mantenimiento Parcial": "secondary",
+  Degradado: "secondary",
   Operacional: "default",
 };
 
@@ -84,9 +86,9 @@ export default function DashboardTelecomPage() {
           ))}
       </div>
 
-       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Network Status */}
-          <Card className="bg-card/80 backdrop-blur-sm">
+          <Card className="lg:col-span-3 bg-card/80 backdrop-blur-sm">
               <CardHeader>
                   <CardTitle>Estado de la Red en Tiempo Real</CardTitle>
               </CardHeader>
@@ -97,6 +99,7 @@ export default function DashboardTelecomPage() {
                         <TableHead>Servicio</TableHead>
                         <TableHead className="text-center">Estado</TableHead>
                         <TableHead className="text-right">Latencia</TableHead>
+                        <TableHead className="text-right">Pérdida Paquetes</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -109,6 +112,7 @@ export default function DashboardTelecomPage() {
                                 </Badge>
                               </TableCell>
                               <TableCell className="text-right font-mono">{item.latency}</TableCell>
+                               <TableCell className="text-right font-mono">{item.packetLoss}</TableCell>
                           </TableRow>
                       ))}
                     </TableBody>
@@ -116,35 +120,52 @@ export default function DashboardTelecomPage() {
               </CardContent>
           </Card>
         
-        {/* Compliance Status */}
-          <Card className="bg-card/80 backdrop-blur-sm">
-              <CardHeader>
-                  <CardTitle>Estado de Cumplimiento (CONATEL)</CardTitle>
-              </CardHeader>
-              <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Licencia / Permiso</TableHead>
-                        <TableHead className="text-center">Estado</TableHead>
-                        <TableHead className="text-right">Vencimiento</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                       {complianceStatus.map(item => (
-                          <TableRow key={item.id} className={item.status === 'Vencida' ? 'bg-destructive/10' : ''}>
-                              <TableCell className="font-medium">{item.name}</TableCell>
-                              <TableCell className="text-center">
-                                <Badge variant={statusVariant[item.status]}>{item.status}</Badge>
-                              </TableCell>
-                              <TableCell className="text-right">{item.expires}</TableCell>
-                          </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-              </CardContent>
-          </Card>
+        {/* Latency Chart */}
+        <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Rendimiento de Red</CardTitle>
+                <CardDescription>Latencia promedio por servicio.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ResponsiveContainer width="100%" height={200}>
+                    <RechartsBarChart data={networkStatus} layout="vertical" margin={{ left: 20 }}>
+                        <XAxis type="number" hide />
+                        <YAxis dataKey="service" type="category" fontSize={10} tickLine={false} axisLine={false} width={120}/>
+                        <Tooltip content={<ChartTooltipContent formatter={(value) => `${value}ms`}/>} cursor={{fill: 'hsl(var(--secondary))'}} />
+                        <Bar dataKey="latency" name="Latencia" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                    </RechartsBarChart>
+                </ResponsiveContainer>
+            </CardContent>
+        </Card>
       </div>
+
+       <Card className="bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle>Estado de Cumplimiento (CONATEL)</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                <TableHeader>
+                    <TableRow>
+                    <TableHead>Licencia / Permiso</TableHead>
+                    <TableHead className="text-center">Estado</TableHead>
+                    <TableHead className="text-right">Vencimiento</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {complianceStatus.map(item => (
+                        <TableRow key={item.id} className={item.status === 'Vencida' ? 'bg-destructive/10' : ''}>
+                            <TableCell className="font-medium">{item.name}</TableCell>
+                            <TableCell className="text-center">
+                            <Badge variant={statusVariant[item.status]}>{item.status}</Badge>
+                            </TableCell>
+                            <TableCell className="text-right">{item.expires}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
 
     </div>
   );
