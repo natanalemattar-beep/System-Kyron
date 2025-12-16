@@ -7,24 +7,28 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, ArrowRight } from "lucide-react";
 
 export function WelcomeTutorial() {
-    const [open, setOpen] = useState(false);
+    const [showTutorial, setShowTutorial] = useState(false);
 
     useEffect(() => {
-        // This effect runs only on the client
-        const hasSeenTutorial = localStorage.getItem("hasSeenKyronTutorial");
-        if (!hasSeenTutorial) {
+        // This effect runs only on the client side, after the initial render.
+        const hasSeen = localStorage.getItem("hasSeenKyronTutorial");
+        if (!hasSeen) {
             const timer = setTimeout(() => {
-                setOpen(true);
+                setShowTutorial(true);
                 localStorage.setItem("hasSeenKyronTutorial", "true");
-            }, 2500); // Wait a bit after splash screen
+            }, 2500); // Wait for other animations to settle
             return () => clearTimeout(timer);
         }
     }, []);
     
-    if (!open) return null;
+    // By default, the component renders nothing on the server and on initial client render.
+    // The dialog is only shown after the useEffect hook has run on the client.
+    if (!showTutorial) {
+        return null;
+    }
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={showTutorial} onOpenChange={setShowTutorial}>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader className="text-center items-center">
                     <div className="p-3 rounded-full bg-destructive/10 mb-4">
@@ -36,7 +40,7 @@ export function WelcomeTutorial() {
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="sm:justify-center pt-4">
-                     <Button onClick={() => setOpen(false)}>
+                     <Button onClick={() => setShowTutorial(false)}>
                         Entendido y Continuar <ArrowRight className="ml-2 h-4 w-4"/>
                     </Button>
                 </DialogFooter>
