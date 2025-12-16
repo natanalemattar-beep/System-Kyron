@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { ReactNode } from "react";
@@ -14,19 +15,19 @@ const dashboardHref = "/legal/dashboard-juridico";
 
 // Simulate authentication state
 const useAuth = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(true); // Changed to true for now
+    const [isLoading, setIsLoading] = useState(false); // Changed to false for now
 
-    useEffect(() => {
-        // In a real app, you would use Firebase's onAuthStateChanged here.
-        // For this simulation, we'll assume the user is NOT logged in initially.
-        const timer = setTimeout(() => {
-            setIsAuthenticated(false); // Change to true to simulate a logged-in user
-            setIsLoading(false);
-        }, 1000); // Simulate auth check delay
+    // useEffect(() => {
+    //     // In a real app, you would use Firebase's onAuthStateChanged here.
+    //     // For this simulation, we'll assume the user is NOT logged in initially.
+    //     const timer = setTimeout(() => {
+    //         setIsAuthenticated(false); // Change to true to simulate a logged-in user
+    //         setIsLoading(false);
+    //     }, 1000); // Simulate auth check delay
 
-        return () => clearTimeout(timer);
-    }, []);
+    //     return () => clearTimeout(timer);
+    // }, []);
 
     return { isAuthenticated, isLoading };
 };
@@ -41,13 +42,24 @@ export default function LegalLayout({ children }: { children: ReactNode }) {
     }
   }, [isLoading, isAuthenticated, router]);
 
-  if (isLoading || !isAuthenticated) {
+  if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen items-center justify-center bg-background text-foreground">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
         <p className="mt-4 text-muted-foreground">Verificando credenciales...</p>
       </div>
     );
+  }
+  
+  if (!isAuthenticated) {
+    // This will be rendered briefly before the redirect happens.
+    // Or you can return a full-page loader here as well.
+    return (
+       <div className="flex flex-col min-h-screen items-center justify-center bg-background text-foreground">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        <p className="mt-4 text-muted-foreground">Redirigiendo al login...</p>
+      </div>
+    )
   }
 
   return (

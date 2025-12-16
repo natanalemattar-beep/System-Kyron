@@ -30,10 +30,10 @@ const upcomingRenewals = [
 ];
 
 const juridicoModules = [
-    { title: "Gestión de Contratos", href: "/main/contratos", description: "Crea, revisa y gestiona el ciclo de vida de tus contratos." },
-    { title: "Cumplimiento Normativo", href: "/main/cumplimiento", description: "Monitorea el cumplimiento de normativas y leyes clave." },
-    { title: "Gestión de Poderes", href: "/main/poderes-representacion", description: "Administra los poderes notariales y representaciones." },
-    { title: "Trámites y Permisos", href: "/main/permisos", description: "Centraliza y renueva todas tus licencias operativas." },
+    { title: "Gestión de Contratos", href: "/legal/contratos", description: "Crea, revisa y gestiona el ciclo de vida de tus contratos." },
+    { title: "Cumplimiento Normativo", href: "/legal/cumplimiento", description: "Monitorea el cumplimiento de normativas y leyes clave." },
+    { title: "Gestión de Poderes", href: "/legal/poderes-representacion", description: "Administra los poderes notariales y representaciones." },
+    { title: "Trámites y Permisos", href: "/legal/permisos", description: "Centraliza y renueva todas tus licencias operativas." },
 ];
 
 const priorityVariant: { [key: string]: "destructive" | "secondary" | "outline" } = {
@@ -42,7 +42,7 @@ const priorityVariant: { [key: string]: "destructive" | "secondary" | "outline" 
   Baja: "outline",
 };
 
-export default function EscritorioJuridicoPage() {
+export default function DashboardJuridicoPage() {
   return (
     <div className="space-y-8">
       
@@ -104,7 +104,7 @@ export default function EscritorioJuridicoPage() {
                               <TableCell className={`text-center font-semibold ${item.daysLeft < 30 ? 'text-destructive' : 'text-muted-foreground'}`}>{item.daysLeft}</TableCell>
                               <TableCell className="text-right">
                                   <Button asChild variant="ghost" size="sm">
-                                      <Link href="/main/permisos">Gestionar <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                                      <Link href="/legal/permisos">Gestionar <ArrowRight className="ml-2 h-4 w-4"/></Link>
                                   </Button>
                               </TableCell>
                           </TableRow>
