@@ -405,8 +405,24 @@ export const contabilidadNavGroups = [
 
 export const legalNavGroups = [
   { title: "Dashboard", icon: Gavel, items: [{ href: "/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel }], subGroups: [] },
-  legalNavGroupsData,
-  advisoryNavGroups
+  { 
+    title: "Gestión Legal", 
+    icon: Gavel, 
+    items: legalNavGroupsData.subGroups.find(sg => sg.title === 'Gestión Legal')?.items || [], 
+    subGroups: [] 
+  },
+  { 
+    title: "Contratos y Documentos", 
+    icon: FileSignature, 
+    items: legalNavGroupsData.subGroups.find(sg => sg.title === 'Contratos y Documentos')?.items || [], 
+    subGroups: [] 
+  },
+  { 
+    title: "Estructura Corporativa", 
+    icon: Building, 
+    items: legalNavGroupsData.subGroups.find(sg => sg.title === 'Estructura Corporativa')?.items || [], 
+    subGroups: [] 
+  },
 ];
 
 export const marketingNavGroups = [advisoryNavGroups];
@@ -468,3 +484,5 @@ export const informaticaNavGroups = [
       { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
+
+    
