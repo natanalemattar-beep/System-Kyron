@@ -36,7 +36,7 @@ function KpiCardSkeleton() {
     <Card>
       <CardHeader className="pb-2 flex-row items-center justify-between">
           <Skeleton className="h-4 w-2/3" />
-          <Skeleton className="h-4 w-4" />
+          <Skeleton className="h-4 w-4 rounded-full" />
       </CardHeader>
       <CardContent>
           <Skeleton className="h-8 w-1/4" />
@@ -47,30 +47,34 @@ function KpiCardSkeleton() {
 
 function RecentActivityTableSkeleton() {
     return (
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableHead><Skeleton className="h-4 w-[100px]" /></TableHead>
-                    <TableHead><Skeleton className="h-4 w-[150px]" /></TableHead>
-                    <TableHead><Skeleton className="h-4 w-[80px]" /></TableHead>
-                    <TableHead className="text-center"><Skeleton className="h-4 w-[70px] mx-auto" /></TableHead>
-                    <TableHead className="text-right"><Skeleton className="h-4 w-[100px] ml-auto" /></TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {[...Array(3)].map((_, i) => (
-                    <TableRow key={i}>
-                        <TableCell><Skeleton className="h-5 w-[120px]" /></TableCell>
-                        <TableCell><Skeleton className="h-5 w-[170px]" /></TableCell>
-                        <TableCell><Skeleton className="h-5 w-[90px]" /></TableCell>
-                        <TableCell className="text-center"><Skeleton className="h-6 w-20 mx-auto" /></TableCell>
-                        <TableCell className="text-right"><Skeleton className="h-8 w-[120px] ml-auto" /></TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
+        <div className="space-y-2">
+            {[...Array(3)].map((_, i) => (
+                <div key={i} className="flex items-center justify-between p-2 rounded-lg">
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-[150px]" />
+                        <Skeleton className="h-3 w-[100px]" />
+                    </div>
+                    <Skeleton className="h-8 w-20" />
+                </div>
+            ))}
+        </div>
     )
 }
+
+function OverviewChartSkeleton() {
+    return (
+        <Card>
+            <CardHeader>
+                <Skeleton className="h-5 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+            </CardHeader>
+            <CardContent className="pl-2">
+                <Skeleton className="h-[350px] w-full" />
+            </CardContent>
+        </Card>
+    );
+}
+
 
 export default function DashboardPersonalPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -190,15 +194,7 @@ export default function DashboardPersonalPage() {
             transition={{ duration: 0.5, delay: 0.6 }}
         >
             {isLoading ? (
-                <Card>
-                    <CardHeader>
-                        <Skeleton className="h-5 w-3/4" />
-                        <Skeleton className="h-4 w-1/2" />
-                    </CardHeader>
-                    <CardContent className="pl-2">
-                        <Skeleton className="h-[350px] w-full" />
-                    </CardContent>
-                </Card>
+               <OverviewChartSkeleton />
             ) : (
                <OverviewChart />
             )}
