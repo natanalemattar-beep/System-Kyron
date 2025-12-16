@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, KeyRound, QrCode, Monitor, Smartphone, LogOut, CheckCircle } from "lucide-react";
+import { Shield, KeyRound, Monitor, Smartphone, LogOut, CheckCircle } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
@@ -13,7 +13,7 @@ import Image from "next/image";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { securityFeatures } from "@/lib/page-data";
+import { securityFeatures, businessFraudStrategies, personalFraudStrategies } from "@/lib/page-data";
 
 
 const activeSessions = [
@@ -26,59 +26,6 @@ const loginHistory = [
     { id: 2, date: "19/07/2024 08:30 PM", ip: "200.10.20.5", location: "Valencia, VE", status: "Exitoso" },
     { id: 3, date: "18/07/2024 09:15 AM", ip: "190.72.80.1", location: "Caracas, VE", status: "Exitoso" },
 ];
-
-const businessFraudStrategies = {
-    "Controles Financieros y Contables": [
-        "Segregación de Funciones: Dividir tareas para que ninguna persona maneje sola un ciclo financiero completo (autorización, pago, conciliación).",
-        "Rotación de Personal: Rotar las responsabilidades financieras y de inventario periódicamente para desalentar esquemas a largo plazo.",
-        "Conciliaciones Frecuentes: Realizar conciliaciones bancarias diarias o semanales para detectar transacciones no autorizadas rápidamente.",
-        "Doble Firma/Aprobación: Exigir dos aprobaciones para pagos que superen un monto preestablecido.",
-        "Auditorías Sorpresa: Realizar auditorías internas o recuentos de caja sin previo aviso."
-    ],
-    "Prevención de Fraude con Clientes": [
-        "Autenticación Fuerte (MFA): Implementar autenticación multifactor para el acceso de clientes a sus cuentas.",
-        "Análisis Transaccional con IA: Utilizar herramientas para detectar patrones de compra inusuales, cambios de dirección o uso de múltiples tarjetas desde la misma IP.",
-        "Verificación de Identidad (KYC): Exigir y validar documentos de identidad para la aprobación de créditos.",
-        "Capacitación en Punto de Venta: Entrenar al personal para reconocer tarjetas alteradas y seguir protocolos de verificación.",
-        "Cámaras de Seguridad: Instalar cámaras de alta resolución en cajas y áreas de inventario."
-    ],
-    "Seguridad de Datos y Tecnología": [
-        "Cifrado de Datos: Asegurar que toda la información sensible esté cifrada, tanto en reposo como en tránsito.",
-        "Acceso Restringido: Limitar el acceso a información confidencial solo al personal estrictamente necesario.",
-        "Actualización de Software: Mantener todos los sistemas y firewalls actualizados.",
-        "Backups Seguros: Realizar copias de seguridad de datos críticos y guardarlas en una ubicación separada."
-    ],
-    "Cultura de Prevención y Ética": [
-        "Política Clara de Fraude: Comunicar una política de tolerancia cero hacia el fraude y sus consecuencias.",
-        "Línea de Denuncia Anónima: Establecer un canal confidencial para que los empleados reporten actividades sospechosas.",
-        "Capacitación Anti-Phishing: Entrenar al personal para reconocer correos, llamadas y mensajes fraudulentos."
-    ]
-};
-
-const personalFraudStrategies = {
-    "Protección de Información y Dispositivos": [
-        "Usa contraseñas robustas y únicas para cada cuenta.",
-        "Activa siempre el Doble Factor de Autenticación (2FA/MFA).",
-        "Opera a través de la aplicación oficial de tu banco en lugar del navegador.",
-        "Mantén tu sistema operativo y antivirus actualizados.",
-        "Evita hacer transacciones financieras en redes Wi-Fi públicas.",
-        "Destruye documentos bancarios físicos que ya no necesites."
-    ],
-    "Detección de Estafas Digitales (Phishing)": [
-        "No hagas clic en enlaces de correos o SMS sospechosos.",
-        "Desconfía de llamadas que te presionen. Tu banco nunca te pedirá claves completas.",
-        "Nunca compartas códigos de verificación (OTP) que recibas.",
-        "Desconfía de ofertas de dinero fácil o premios que requieran tus datos bancarios.",
-        "Denuncia inmediatamente cualquier intento de fraude a tu banco."
-    ],
-    "Estrategias de Uso y Pago": [
-        "Monitorea tus cuentas y tarjetas con frecuencia.",
-        "Utiliza cuentas con saldo limitado para tus gastos diarios.",
-        "Considera usar tarjetas prepagadas o virtuales para compras en línea.",
-        "Verifica que los sitios web de compra sean seguros (https:// y candado verde)."
-    ]
-};
-
 
 export default function SeguridadPage() {
     const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
