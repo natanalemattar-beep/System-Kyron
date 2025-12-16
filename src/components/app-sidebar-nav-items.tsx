@@ -202,7 +202,7 @@ const impuestosCumplimientoNavGroups = {
         { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
         { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
         { href: "/cumplimiento", label: "Prevención de Sanciones", icon: AlertTriangle },
-        { href: "/legal/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
+        { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
       ]
     },
     {
@@ -270,7 +270,7 @@ const rrhhNavGroupsData = {
     items: []
 }
 
-const legalNavGroupsData = {
+const legalNavGroupsData = { 
     title: "Jurídico y Corporativo", 
     icon: Gavel, 
     subGroups: [
@@ -278,21 +278,21 @@ const legalNavGroupsData = {
           title: "Gestión Legal",
           icon: Gavel,
           items: [
-            { href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
-            { href: "/legal/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
-            { href: "/legal/permisos", label: "Trámites y Permisos", icon: UserCheck },
+            { href: "/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
+            { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
+            { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
             { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/multas", label: "Multas", icon: AlertTriangle },
             { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
-            { href: "/legal/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
+            { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
           ]
         },
         {
           title: "Contratos y Documentos",
           icon: FileSignature,
           items: [
-            { href: "/legal/contratos", label: "Gestión de Contratos", icon: FileSignature },
+            { href: "/contratos", label: "Gestión de Contratos", icon: FileSignature },
             { href: "/licencia-software", label: "Contrato de Licencia", icon: FileSignature },
             { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
             { href: "/cartas-seniat", label: "Comunicaciones al SENIAT", icon: Mail },
@@ -307,7 +307,7 @@ const legalNavGroupsData = {
           icon: Building,
           items: [
             { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
-            { href: "/legal/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
+            { href: "/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
             { href: "/admin/acta-asamblea", label: "Actas y Asambleas", icon: BookOpen },
             { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
             { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
@@ -404,7 +404,7 @@ export const contabilidadNavGroups = [
 ];
 
 export const legalNavGroups = [
-  { title: "Dashboard", icon: Gavel, items: [{ href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel }], subGroups: [] },
+  { title: "Dashboard", icon: Gavel, items: [{ href: "/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel }], subGroups: [] },
   legalNavGroupsData,
   advisoryNavGroups
 ];
@@ -435,7 +435,7 @@ export const ventasNavGroups = [
 export const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
         { href: "/socios/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
-        { href: "/legal/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
+        { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/organigrama", label: "Organigrama", icon: Network },
         { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
     ], subGroups: [] },
