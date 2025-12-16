@@ -7,6 +7,7 @@ import { BarChart, Users, DollarSign, ArrowRight, Lightbulb, Zap } from "lucide-
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const kpiData = [
     { title: "Tamaño del Mercado", value: formatCurrency(12000000, 'Bs.'), icon: DollarSign, description: "Valor total estimado del mercado de papelería." },
@@ -72,12 +73,14 @@ export default function AnalisisMercadoPage() {
                     <CardDescription>Evolución mensual de la oferta del mercado vs. la demanda de los consumidores.</CardDescription>
                 </CardHeader>
                 <CardContent className="h-80">
-                   <ResponsiveContainer width="100%" height="100%">
-                        <PieChart data={supplyDemandData}>
-                          <Pie dataKey="demanda" nameKey="month" cx="50%" cy="50%" outerRadius={80} fill="hsl(var(--primary))" label />
-                          <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))' }} />
-                        </PieChart>
-                    </ResponsiveContainer>
+                   <ChartContainer config={{}} className="w-full h-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <PieChart data={supplyDemandData}>
+                              <Pie dataKey="demanda" nameKey="month" cx="50%" cy="50%" outerRadius={80} fill="hsl(var(--primary))" label />
+                              <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }} />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </ChartContainer>
                 </CardContent>
             </Card>
              <Card className="bg-card/80 backdrop-blur-sm">
@@ -86,26 +89,28 @@ export default function AnalisisMercadoPage() {
                     <CardDescription>Distribución del mercado entre los principales actores.</CardDescription>
                 </CardHeader>
                 <CardContent className="h-80">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                            <Pie
-                                data={competitorsData}
-                                cx="50%"
-                                cy="50%"
-                                labelLine={false}
-                                outerRadius={100}
-                                fill="#8884d8"
-                                dataKey="value"
-                                nameKey="name"
-                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                            >
-                                {competitorsData.map((entry) => (
-                                    <Cell key={`cell-${entry.name}`} fill={entry.color} />
-                                ))}
-                            </Pie>
-                             <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))' }}/>
-                        </PieChart>
-                    </ResponsiveContainer>
+                    <ChartContainer config={{}} className="w-full h-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <PieChart>
+                                <Pie
+                                    data={competitorsData}
+                                    cx="50%"
+                                    cy="50%"
+                                    labelLine={false}
+                                    outerRadius={100}
+                                    fill="#8884d8"
+                                    dataKey="value"
+                                    nameKey="name"
+                                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                >
+                                    {competitorsData.map((entry) => (
+                                        <Cell key={`cell-${entry.name}`} fill={entry.color} />
+                                    ))}
+                                </Pie>
+                                 <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </ChartContainer>
                 </CardContent>
             </Card>
        </div>

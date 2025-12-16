@@ -114,7 +114,7 @@ export default function AnalisisRiesgoPage() {
                         <TableRow key={riesgo.id}>
                             <TableCell className="font-medium">{riesgo.area}</TableCell>
                             <TableCell>{riesgo.descripcion}</TableCell>
-                            <TableCell><Badge variant={getImpactVariant(riesgo.impacto)}>{riesgo.impacto}</Badge></TableCell>
+                            <TableCell><Badge variant={getImpactVariant(riesgo.impacto) as "destructive" | "secondary" | "outline"}>{riesgo.impacto}</Badge></TableCell>
                             <TableCell><Badge variant={getProbabilidadVariant(riesgo.probabilidad) as any}>{riesgo.probabilidad}</Badge></TableCell>
                             <TableCell className="text-center font-bold">{riesgo.puntuacion}</TableCell>
                             <TableCell>{riesgo.estado}</TableCell>
