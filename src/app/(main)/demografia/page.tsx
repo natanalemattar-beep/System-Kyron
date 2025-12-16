@@ -5,7 +5,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Users, Globe, Building, TrendingUp } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import type { ChartConfig } from "@/components/ui/chart";
+import { CartesianGrid } from "recharts";
 
 const globalStats = [
     { title: "Población Mundial", value: "8.1 Billones", icon: Globe },
@@ -22,12 +24,18 @@ const pymesData = [
 ];
 
 const comercioData = [
-    { year: 2022, "Crecimiento E-commerce (%)": 15 },
-    { year: 2023, "Crecimiento E-commerce (%)": 22 },
-    { year: 2024, "Crecimiento E-commerce (%)": 28 },
-    { year: 2025, "Crecimiento E-commerce (%)": 35 },
+    { year: 2022, ecommerceGrowth: 15 },
+    { year: 2023, ecommerceGrowth: 22 },
+    { year: 2024, ecommerceGrowth: 28 },
+    { year: 2025, ecommerceGrowth: 35 },
 ];
 
+const chartConfig = {
+  ecommerceGrowth: {
+    label: "Crecimiento E-commerce (%)",
+    color: "hsl(var(--primary))",
+  },
+} satisfies ChartConfig;
 
 export default function DemografiaPage() {
   return (
@@ -54,92 +62,4 @@ export default function DemografiaPage() {
                     <p className="text-sm text-muted-foreground mt-1">{stat.title}</p>
                 </div>
             ))}
-        </CardContent>
-      </Card>
-
-      <Card className="bg-card/50 backdrop-blur-sm">
-        <CardHeader>
-            <CardTitle>Análisis de Sectores Clave en Venezuela</CardTitle>
-            <CardDescription>Entiende la estructura de los mercados donde tu negocio compite.</CardDescription>
-        </CardHeader>
-        <CardContent>
-            <Tabs defaultValue="pymes">
-                <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="pymes">PYMES y Emprendedores</TabsTrigger>
-                    <TabsTrigger value="comercio">Comercio y Servicios</TabsTrigger>
-                </TabsList>
-                <TabsContent value="pymes" className="mt-6">
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                            <h4 className="font-semibold text-lg">Radiografía de las PYMES</h4>
-                            <div className="p-3 bg-secondary/50 rounded-lg">
-                                <p className="text-sm text-muted-foreground">Número Estimado en Venezuela</p>
-                                <p className="text-2xl font-bold">~ 280,000</p>
-                            </div>
-                            <div className="p-3 bg-secondary/50 rounded-lg">
-                                <p className="text-sm text-muted-foreground">Contribución al Empleo</p>
-                                <p className="text-2xl font-bold">~ 60%</p>
-                            </div>
-                             <div className="p-3 bg-secondary/50 rounded-lg">
-                                <p className="text-sm text-muted-foreground">Principal Barrera de Crecimiento</p>
-                                <p className="text-lg font-semibold">Complejidad Fiscal y Administrativa</p>
-                            </div>
-                        </div>
-                         <div className="h-80">
-                            <h4 className="font-semibold text-lg text-center mb-4">Distribución por Sector</h4>
-                             <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                <Pie data={pymesData} cx="50%" cy="50%" outerRadius={100} fill="#8884d8" dataKey="value" nameKey="name" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-                                     {pymesData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
-                                </Pie>
-                                <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))' }}/>
-                                </PieChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </div>
-                </TabsContent>
-                 <TabsContent value="comercio" className="mt-6">
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                            <h4 className="font-semibold text-lg">El Sector Terciario</h4>
-                            <div className="p-3 bg-secondary/50 rounded-lg">
-                                <p className="text-sm text-muted-foreground">Tamaño del Sector (Aporte al PIB)</p>
-                                <p className="text-2xl font-bold">~ 55%</p>
-                            </div>
-                            <div className="p-3 bg-secondary/50 rounded-lg">
-                                <p className="text-sm text-muted-foreground">Establecimientos Comerciales</p>
-                                <p className="text-2xl font-bold">+ 400,000</p>
-                            </div>
-                        </div>
-                         <div className="h-80">
-                            <h4 className="font-semibold text-lg text-center mb-4">Crecimiento del E-commerce</h4>
-                             <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={comercioData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="year" fontSize={12} />
-                                <YAxis fontSize={12} />
-                                <Tooltip content={<ChartTooltipContent formatter={(value) => `${value}%`} />} />
-                                <Legend />
-                                <Bar dataKey="Crecimiento E-commerce (%)" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </div>
-                </TabsContent>
-            </Tabs>
-        </CardContent>
-      </Card>
-      
-       <Card className="bg-primary/10 border-primary/20">
-        <CardHeader>
-            <CardTitle>Proyecciones y Oportunidades Futuras</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 text-muted-foreground">
-            <p><strong className="text-primary">Digitalización Acelerada:</strong> La necesidad de cumplimiento fiscal y eficiencia está impulsando una rápida adopción de herramientas digitales, un mercado clave para System C.M.S.</p>
-            <p><strong className="text-primary">Crecimiento del E-commerce:</strong> El auge del comercio electrónico exige sistemas de facturación y gestión de inventario integrados y automatizados.</p>
-            <p><strong className="text-primary">Demanda de Sostenibilidad:</strong> Las empresas buscan cada vez más soluciones que, como la Papelera Inteligente, les ayuden a cumplir con objetivos de responsabilidad social y ambiental.</p>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
+ 

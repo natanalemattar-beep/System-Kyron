@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { formatCurrency } from "@/lib/utils";
 import { BarChart, DollarSign, Hash } from "lucide-react";
 import { Bar, BarChart as RechartsBarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
-import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const kpiData = [
     { title: "Ventas Totales en Efectivo (Hoy)", value: formatCurrency(4850.50, 'Bs.'), icon: DollarSign },
@@ -68,7 +68,7 @@ export default function AnalisisCajaPage() {
                 <CardDescription>Evolución de las ventas en efectivo durante los últimos 7 días.</CardDescription>
             </CardHeader>
             <CardContent className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
+                <ChartContainer config={{}} className="w-full h-full">
                     <RechartsBarChart data={dailySalesData}>
                          <defs>
                             <linearGradient id="colorVentas" x1="0" y1="0" x2="0" y2="1">
@@ -91,14 +91,14 @@ export default function AnalisisCajaPage() {
                             axisLine={false}
                             tickFormatter={(value) => formatCurrency(value as number, 'Bs.')}
                         />
-                        <Tooltip
+                        <ChartTooltip
                             content={<ChartTooltipContent formatter={(value) => formatCurrency(value as number, 'Bs.')}/>}
                             cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }}
                         />
                         <Legend />
                         <Bar dataKey="ventas" name="Ventas en Efectivo" fill="url(#colorVentas)" radius={[4, 4, 0, 0]} />
                     </RechartsBarChart>
-                </ResponsiveContainer>
+                </ChartContainer>
             </CardContent>
         </Card>
 

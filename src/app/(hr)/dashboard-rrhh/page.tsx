@@ -13,7 +13,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
-import { ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -86,7 +86,7 @@ export default function RecursosHumanosPage() {
                   </div>
                 </CardHeader>
                 <CardContent className="h-80">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ChartContainer config={{}} className="w-full h-full">
                         <BarChart data={employeeDistribution}>
                             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false}/>
                             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
@@ -94,7 +94,7 @@ export default function RecursosHumanosPage() {
                              <Legend />
                             <Bar dataKey="count" name="Empleados" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                         </BarChart>
-                    </ResponsiveContainer>
+                    </ChartContainer>
                 </CardContent>
             </Card>
          </div>
