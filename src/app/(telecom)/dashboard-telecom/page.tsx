@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { motion } from "framer-motion";
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts";
-import { ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 
 const kpiData = [
   { title: "Disponibilidad de Red (Uptime)", value: "99.98%", icon: Signal, color: "text-green-400", status: "Óptimo" },
@@ -45,6 +45,12 @@ const statusVariant: { [key: string]: "default" | "destructive" | "secondary" } 
   "Mantenimiento Parcial": "secondary",
   Degradado: "secondary",
   Operacional: "default",
+};
+
+const chartConfig = {
+    latency: {
+        label: "Latencia (ms)",
+    },
 };
 
 
@@ -127,14 +133,16 @@ export default function DashboardTelecomPage() {
                 <CardDescription>Latencia promedio por servicio.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ResponsiveContainer width="100%" height={200}>
-                    <RechartsBarChart data={networkStatus} layout="vertical" margin={{ left: 20 }}>
-                        <XAxis type="number" hide />
-                        <YAxis dataKey="service" type="category" fontSize={10} tickLine={false} axisLine={false} width={120}/>
-                        <Tooltip content={<ChartTooltipContent formatter={(value) => `${value}ms`}/>} cursor={{fill: 'hsl(var(--secondary))'}} />
-                        <Bar dataKey="latency" name="Latencia" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
-                    </RechartsBarChart>
-                </ResponsiveContainer>
+                <ChartContainer config={chartConfig} className="w-full h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <RechartsBarChart data={networkStatus} layout="vertical" margin={{ left: 20 }}>
+                            <XAxis type="number" hide />
+                            <YAxis dataKey="service" type="category" fontSize={10} tickLine={false} axisLine={false} width={120}/>
+                            <Tooltip content={<ChartTooltipContent formatter={(value) => `${value}ms`}/>} cursor={{fill: 'hsl(var(--secondary))'}} />
+                            <Bar dataKey="latency" name="Latencia" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                        </RechartsBarChart>
+                    </ResponsiveContainer>
+                </ChartContainer>
             </CardContent>
         </Card>
       </div>
@@ -159,7 +167,7 @@ export default function DashboardTelecomPage() {
                             <TableCell className="font-mono">{item.id}</TableCell>
                             <TableCell className="font-medium">{item.name}</TableCell>
                             <TableCell className="text-center">
-                            <Badge variant={statusVariant[item.status]}>{item.status}</Badge>
+                            <Badge variant={statusVariant[item.status as keyof typeof statusVariant]}>{item.status}</Badge>
                             </TableCell>
                             <TableCell className="text-right">{item.expires}</TableCell>
                         </TableRow>
