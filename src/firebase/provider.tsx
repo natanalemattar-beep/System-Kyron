@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, ReactNode, useMemo, useState, useEffect, DependencyList } from 'react';
@@ -87,9 +88,9 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
 
   const contextValue = useMemo((): FirebaseContextState => ({
     areServicesAvailable: !!(firebaseApp && firestore && auth),
-    firebaseApp,
-    firestore,
-    auth,
+    firebaseApp: firebaseApp,
+    firestore: firestore,
+    auth: auth,
     user: userAuthState.user,
     isUserLoading: userAuthState.isUserLoading,
     userError: userAuthState.userError,
@@ -127,9 +128,9 @@ export const useFirebase = (): FirebaseServicesAndUser => {
   };
 };
 
-export const useAuth = (): Auth => useFirebase().auth;
-export const useFirestore = (): Firestore => useFirebase().firestore;
-export const useFirebaseApp = (): FirebaseApp => useFirebase().firebaseApp;
+export const useAuth = (): Auth | null => useFirebaseContext().auth;
+export const useFirestore = (): Firestore | null => useFirebaseContext().firestore;
+export const useFirebaseApp = (): FirebaseApp | null => useFirebaseContext().firebaseApp;
 export const useUser = (): UserHookResult => {
   const { user, isUserLoading, userError } = useFirebaseContext();
   return { user, isUserLoading, userError };

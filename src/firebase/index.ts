@@ -1,26 +1,35 @@
+
 'use client';
 
 import { firebaseConfig } from '@/firebase/config';
 import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getAuth, Auth } from 'firebase/auth';
+import { getFirestore, Firestore } from 'firebase/firestore';
 
 // This function now correctly handles initialization and returns the service instances.
-export function initializeFirebase() {
+function initializeFirebaseServices(): {
+  firebaseApp: FirebaseApp;
+  auth: Auth;
+  firestore: Firestore;
+} {
+  let app: FirebaseApp;
   if (!getApps().length) {
     // During development or if environment variables are not set,
     // this will use the config object. In production with App Hosting,
     // it will use the automatically provided environment variables.
-    return initializeApp(firebaseConfig);
+    app = initializeApp(firebaseConfig);
   } else {
-    return getApp();
+    app = getApp();
   }
+  return {
+    firebaseApp: app,
+    auth: getAuth(app),
+    firestore: getFirestore(app)
+  };
 }
 
 // Get SDKs with the initialized app
-const firebaseApp = initializeFirebase();
-const auth = getAuth(firebaseApp);
-const firestore = getFirestore(firebaseApp);
+const { firebaseApp, auth, firestore } = initializeFirebaseServices();
 
 // Export the initialized services
 export { firebaseApp, auth, firestore };
