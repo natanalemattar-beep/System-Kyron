@@ -87,6 +87,7 @@ export default function RecursosHumanosPage() {
                 </CardHeader>
                 <CardContent className="h-80">
                     <ChartContainer config={{}} className="w-full h-full">
+                      <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={employeeDistribution}>
                             <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false}/>
                             <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
@@ -94,6 +95,7 @@ export default function RecursosHumanosPage() {
                              <Legend />
                             <Bar dataKey="count" name="Empleados" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                         </BarChart>
+                    </ResponsiveContainer>
                     </ChartContainer>
                 </CardContent>
             </Card>

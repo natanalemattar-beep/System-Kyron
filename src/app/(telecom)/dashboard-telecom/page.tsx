@@ -135,12 +135,14 @@ export default function DashboardTelecomPage() {
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig} className="w-full h-[200px]">
-                    <RechartsBarChart data={networkStatus} layout="vertical" margin={{ left: 20 }}>
-                        <XAxis type="number" hide />
-                        <YAxis dataKey="service" type="category" fontSize={10} tickLine={false} axisLine={false} width={120}/>
-                        <Tooltip content={<ChartTooltipContent formatter={(value) => `${value}ms`}/>} cursor={{fill: 'hsl(var(--secondary))'}} />
-                        <Bar dataKey="latency" name="Latencia" fill="var(--color-latency)" radius={[0, 4, 4, 0]} />
-                    </RechartsBarChart>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <RechartsBarChart data={networkStatus} layout="vertical" margin={{ left: 20 }}>
+                            <XAxis type="number" hide />
+                            <YAxis dataKey="service" type="category" fontSize={10} tickLine={false} axisLine={false} width={120}/>
+                            <Tooltip content={<ChartTooltipContent formatter={(value) => `${value}ms`}/>} cursor={{fill: 'hsl(var(--secondary))'}} />
+                            <Bar dataKey="latency" name="Latencia" fill="var(--color-latency)" radius={[0, 4, 4, 0]} />
+                        </RechartsBarChart>
+                    </ResponsiveContainer>
                 </ChartContainer>
             </CardContent>
         </Card>

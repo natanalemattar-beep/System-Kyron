@@ -75,9 +75,9 @@ export default function AnalisisMercadoPage() {
                 <CardContent className="h-80">
                    <ChartContainer config={{}} className="w-full h-full">
                         <ResponsiveContainer width="100%" height="100%">
-                            <PieChart data={supplyDemandData}>
-                              <Pie dataKey="demanda" nameKey="month" cx="50%" cy="50%" outerRadius={80} fill="hsl(var(--primary))" label />
-                              <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }} />
+                            <PieChart>
+                                <Pie data={supplyDemandData} dataKey="demanda" nameKey="month" cx="50%" cy="50%" outerRadius={80} fill="hsl(var(--primary))" label />
+                                <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }} />
                             </PieChart>
                         </ResponsiveContainer>
                     </ChartContainer>
@@ -108,6 +108,7 @@ export default function AnalisisMercadoPage() {
                                     ))}
                                 </Pie>
                                  <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+                                 <Legend />
                             </PieChart>
                         </ResponsiveContainer>
                     </ChartContainer>

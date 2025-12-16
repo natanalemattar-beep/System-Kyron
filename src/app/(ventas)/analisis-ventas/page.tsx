@@ -142,31 +142,33 @@ export default function AnalisisVentasPage() {
           </CardHeader>
           <CardContent className="h-80">
                 <ChartContainer config={chartConfig} className="w-full h-full">
-                  <AreaChart data={historicalFinancialData.slice(-12)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                      <defs>
-                          <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                          </linearGradient>
-                          <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
-                              <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
-                          </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
-                      <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value as number) / 1000}k`} />
-                      <ChartTooltip 
-                          cursor={false}
-                          content={<ChartTooltipContent 
-                              indicator="dot" 
-                              formatter={(value) => formatCurrency(value as number, 'Bs.')} 
-                          />} 
-                      />
-                      <Legend />
-                      <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
-                      <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
-                  </AreaChart>
+                  <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={historicalFinancialData.slice(-12)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                          <defs>
+                              <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                                  <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                              </linearGradient>
+                              <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
+                                  <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
+                              </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+                          <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
+                          <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value as number) / 1000}k`} />
+                          <ChartTooltip 
+                              cursor={false}
+                              content={<ChartTooltipContent 
+                                  indicator="dot" 
+                                  formatter={(value) => formatCurrency(value as number, 'Bs.')} 
+                              />} 
+                          />
+                          <Legend />
+                          <Area type="monotone" dataKey="ingresos" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorIngresos)" />
+                          <Area type="monotone" dataKey="gastos" stroke="hsl(var(--destructive))" fillOpacity={1} fill="url(#colorGastos)" />
+                      </AreaChart>
+                  </ResponsiveContainer>
               </ChartContainer>
           </CardContent>
       </Card>
