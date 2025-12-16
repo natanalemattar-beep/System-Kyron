@@ -9,7 +9,6 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 
 export function QuickAccess() {
-    // Filter out groups that are not relevant for the quick access view
     const relevantGroups = adminNavGroups.filter(group => 
         group.title === "Finanzas y Contabilidad" || 
         group.title === "Facturación" ||
@@ -29,12 +28,12 @@ export function QuickAccess() {
                   </CardHeader>
                   <CardContent className="flex-grow">
                       <div className="flex flex-col gap-2">
-                          {(group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items) : group.items).slice(0, 4).map((item) => (
+                          {(group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items) : group.items).slice(0, 5).map((item) => (
                           <div key={`${item.href}-${item.label}`}>
                               <Button
                               asChild
                               variant="secondary"
-                              className="justify-start h-10 w-full"
+                              className="justify-start h-9 w-full text-xs sm:text-sm"
                               >
                               <Link href={item.href}>
                                   <item.icon className="h-4 w-4 mr-2" />
