@@ -202,20 +202,20 @@ const impuestosCumplimientoNavGroups = {
         { href: "/zero-risk", label: "Protección Fiscal (0% Riesgo)", icon: Shield },
         { href: "/homologacion-seniat", label: "Homologación SENIAT", icon: ShieldCheck },
         { href: "/cumplimiento", label: "Prevención de Sanciones", icon: AlertTriangle },
-        { href: "/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
+        { href: "/legal/sistema-legal-contable", label: "Sistema Legal y Contable", icon: Scale },
       ]
     },
     {
       title: "Declaraciones y Pagos",
       icon: FileText,
       items: [
-        { href: "/tramites-fiscales", label: "Centro de Trámites Fiscales", icon: FileText },
-        { href: "/declaracion-iva", label: "Declaración de IVA", icon: FileText },
-        { href: "/islr-arc", label: "Declaración Estimada (ISLR)", icon: Banknote },
-        { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
-        { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
-        { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
-        { href: "/ajuste-por-inflacion", label: "Ajuste por Inflación", icon: TrendingUp },
+        { href: "/admin/tramites-fiscales", label: "Centro de Trámites Fiscales", icon: FileText },
+        { href: "/admin/declaracion-iva", label: "Declaración de IVA", icon: FileText },
+        { href: "/admin/islr-arc", label: "Declaración Estimada (ISLR)", icon: Banknote },
+        { href: "/admin/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
+        { href: "/admin/igtf", label: "IGTF y Exoneraciones", icon: Percent },
+        { href: "/admin/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
+        { href: "/admin/ajuste-por-inflacion", label: "Ajuste por Inflación", icon: TrendingUp },
       ]
     }
   ],
@@ -279,13 +279,13 @@ const legalNavGroupsData = {
           icon: Gavel,
           items: [
             { href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
-            { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
+            { href: "/legal/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
             { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
-            { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
+            { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/multas", label: "Multas", icon: AlertTriangle },
             { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
-            { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
+            { href: "/legal/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
           ]
         },
         {
@@ -308,7 +308,7 @@ const legalNavGroupsData = {
           items: [
             { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
             { href: "/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
-            { href: "/acta-asamblea", label: "Actas y Asambleas", icon: BookOpen },
+            { href: "/admin/acta-asamblea", label: "Actas y Asambleas", icon: BookOpen },
             { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
             { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
             { href: "/organigrama", label: "Organigrama", icon: Network },
@@ -373,7 +373,7 @@ export const advisoryNavGroups = {
 };
 
 export const adminNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
+  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/admin/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
