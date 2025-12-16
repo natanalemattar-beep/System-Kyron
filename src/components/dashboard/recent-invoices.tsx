@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -42,7 +43,7 @@ export function RecentInvoices() {
           </div>
         ))}
          <Button asChild className="w-full">
-            <Link href="/(admin)/invoices">
+            <Link href="/invoices">
               View All Invoices <ArrowUpRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

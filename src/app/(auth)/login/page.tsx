@@ -11,14 +11,13 @@ export default function LoginPage() {
     description: "Inicia sesión con tu documento de identidad y contraseña.",
     fields: [
       { id: "country", label: "País", type: "select" as const },
-      { id: "idValue", label: "Cédula de Identidad", type: "text" as const, placeholder: "V-12345678", defaultValue: "" },
-      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "" },
-      { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "/recover-fintech", label: "¿Olvidaste tu contraseña?" } }
+      { id: "idValue", label: "Cédula de Identidad", type: "text" as const, placeholder: "V-12345678", defaultValue: "V-12345678" },
+      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
+      { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "/recover", label: "¿Olvidaste tu contraseña?" } }
     ],
     submitButtonText: "Acceder",
     submitButtonHref: "/dashboard",
-    // Credenciales eliminadas para mejorar la seguridad. La validación se simulará en el componente.
-    credentials: { user: "V-12345678", password: "password123" }, 
+    credentials: { user: "V-12345678", password: "password123" },
     footerLinks: {
       text: "¿No tienes una cuenta?",
       mainLink: { href: "/register/natural", label: "Crear una cuenta nueva" },
