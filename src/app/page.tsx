@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -172,7 +171,7 @@ export default function LandingPage() {
                 </motion.div>
             </header>
 
-            <main className="flex-1 pt-16">
+            <main className="flex-1">
                 <HeroSection />
                 <ServicesSection />
                 <FeaturesSection />
