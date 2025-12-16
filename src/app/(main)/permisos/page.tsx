@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info, DollarSign, Mail, MessageSquare, Send, Gavel, Stamp, FileEdit, BookOpen, Link as LinkIcon, Newspaper, UserCog, Calendar, AlertTriangle } from "lucide-react";
+import { UserCheck, PlusCircle, Download, RefreshCw, Eye, CheckCircle, FileUp, Info, Mail, MessageSquare, Gavel, Stamp, FileEdit, BookOpen, Link as LinkIcon, Newspaper, UserCog, Calendar, AlertTriangle } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -16,113 +16,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-    Clock,
-    Route,
-} from "lucide-react";
+import { Clock, Route } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Image from "next/image";
-
-
-const initialPermisos = [
-    // --- Ministerios - Petróleo y Minería ---
-    { id: "PERM-PET-001", tipo: "Transporte Terrestre de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-01-10", fechaVencimiento: "2025-01-10", estado: "Vigente", requisitosInscripcion: ["Copia del RIF", "Registro Mercantil", "Póliza de Seguro de Responsabilidad Civil"], requisitosRenovacion: ["Solvencia de pago de impuestos", "Inspección técnica vehicular vigente"] },
-    { id: "PERM-PET-002", tipo: "Transporte Acuático de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-02-15", fechaVencimiento: "2025-02-15", estado: "Vigente", requisitosInscripcion: ["Documento de Propiedad o Contrato de Arrendamiento de la embarcación", "Matrícula de la embarcación", "Certificado de seguridad emitido por el INEA"], requisitosRenovacion: ["Inspección de seguridad actualizada", "Solvencia del INEA"] },
-    { id: "PERM-PET-003", tipo: "Distribución de Lubricantes Terminados", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2023-08-01", fechaVencimiento: "2024-08-01", estado: "Por Vencer", requisitosInscripcion: ["Licencia de Actividades Económicas (donde aplique)", "Memoria Descriptiva de las instalaciones de almacenamiento", "Permiso de Bomberos"], requisitosRenovacion: ["Declaración de volúmenes de venta del período anterior"] },
-    { id: "PERM-PET-004", tipo: "Distribución de Derivados de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-04-05", fechaVencimiento: "2025-04-05", estado: "Vigente", requisitosInscripcion: ["RIF vigente", "Acta Constitutiva de la empresa", "Permiso de Almacenamiento (si aplica)"], requisitosRenovacion: ["Solvencia fiscal (SENIAT)"] },
-    { id: "PERM-PET-005", tipo: "Suministro y Almacenamiento de Gas", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-05-20", fechaVencimiento: "2026-05-20", estado: "Vigente", requisitosInscripcion: ["Estudio de impacto ambiental", "Certificación de seguridad industrial", "Plan de emergencia y contingencia"], requisitosRenovacion: ["Auditoría de seguridad anual"] },
-    { id: "PERM-PET-006", tipo: "Actualización de Industrialización de LGN", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-06-11", fechaVencimiento: "2025-06-11", estado: "Vigente", requisitosInscripcion: ["Informe técnico del proyecto de actualización", "Flujograma de procesos", "Balance de masa y energía proyectado"], requisitosRenovacion: ["Informe de ejecución del proyecto"] },
-    { id: "PERM-PET-007", tipo: "Registro para Industrialización de Refinación", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-07-12", fechaVencimiento: "2025-07-12", estado: "Vigente", requisitosInscripcion: ["Proyecto de factibilidad técnico-económica", "Descripción de la tecnología a utilizar", "Permisos ambientales preliminares"], requisitosRenovacion: ["Presentación de avances del proyecto"] },
-    { id: "PERM-MIN-001", tipo: "Desarrollo Minero Ecológico", emisor: "Min. Desarrollo Minero Ecológico", fechaEmision: "2024-03-10", fechaVencimiento: "2026-03-10", estado: "Vigente", requisitosInscripcion: ["Estudio de Impacto Ambiental y Sociocultural", "Plan de Explotación y Cierre de Minas", "Garantías financieras para la remediación ambiental"], requisitosRenovacion: ["Informe de cumplimiento de planes ambientales"] },
-
-    // --- Ministerios - Comercio e Industria ---
-    { id: "PERM-COM-001", tipo: "Licencia de Importación", emisor: "Min. Comercio", fechaEmision: "2024-07-01", fechaVencimiento: "2024-12-31", estado: "Vigente", requisitosInscripcion: ["RIF Vigente", "Registro en el RUSAD", "Factura Proforma", "Documento de Transporte (BL/AWB)"], requisitosRenovacion: ["Actualización de la declaración de necesidad de importación"] },
-    { id: "PERM-COM-002", tipo: "Licencia de Exportación", emisor: "Min. Comercio", fechaEmision: "2024-06-15", fechaVencimiento: "2024-12-15", estado: "Vigente", requisitosInscripcion: ["Certificado de Origen", "Factura Comercial", "Declaración Única de Aduanas (DUA)"], requisitosRenovacion: [] },
-    { id: "PERM-COM-003", tipo: "Certificado de No Producción Nacional (CNP)", emisor: "Min. Comercio", fechaEmision: "2024-07-22", fechaVencimiento: "2025-01-22", estado: "Vigente", requisitosInscripcion: ["Solicitud formal con descripción técnica del bien", "Estudio de mercado que demuestre la no existencia de producción nacional"], requisitosRenovacion: [] },
-
-    // --- Ministerios - Salud y Trabajo ---
-    { id: "PERM-SAL-001", tipo: "Permiso Sanitario de Funcionamiento", emisor: "MPPS / SACS", fechaEmision: "2024-01-15", fechaVencimiento: "2025-01-15", estado: "Vigente", requisitosInscripcion: ["RIF vigente", "Permiso de Bomberos", "Planos del local o establecimiento", "Copia de la C.I. del representante legal"], requisitosRenovacion: ["Certificado de fumigación vigente", "Solvencia de tasas sanitarias"] },
-    { id: "PERM-SAL-002", tipo: "Registro Sanitario de Producto", emisor: "MPPS / SACS", fechaEmision: "2022-11-11", fechaVencimiento: "2027-11-11", estado: "Vigente", requisitosInscripcion: ["Análisis físico-químico y microbiológico del producto", "Proyecto de etiqueta", "Certificado de Libre Venta del país de origen (si es importado)"], requisitosRenovacion: ["Análisis actualizados del producto"] },
-    { id: "PERM-SAL-003", tipo: "Certificado de Fumigación", emisor: "MPPS / SACS", fechaEmision: "2024-07-01", fechaVencimiento: "2025-01-01", estado: "Vigente", requisitosInscripcion: ["RIF del establecimiento", "Contratación de empresa de fumigación autorizada"], requisitosRenovacion: [] },
-    { id: "PERM-SAL-004", tipo: "Permiso de Manipulación de Alimentos", emisor: "MPPS / SACS", fechaEmision: "2024-06-01", fechaVencimiento: "2025-06-01", estado: "Vigente", requisitosInscripcion: ["Asistencia al curso de manipulación de alimentos", "Exámenes médicos (Certificado de Salud)", "Copia de la C.I."], requisitosRenovacion: ["Curso de actualización (si aplica)"] },
-    { id: "PERM-SAL-005", tipo: "Conformidad Sanitaria de Habitabilidad", emisor: "MPPS / SACS", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitosInscripcion: ["Inspección sanitaria del inmueble", "Planos arquitectónicos", "Permiso de construcción"], requisitosRenovacion: ["Inspección anual"] },
-    { id: "PERM-SAL-006", tipo: "Registro de Establecimiento de Salud", emisor: "MPPS / SACS", fechaEmision: "2024-01-20", fechaVencimiento: "2029-01-20", estado: "Vigente", requisitosInscripcion: ["RIF de la clínica u hospital", "Nómina de médicos y personal de salud", "Permiso de Bomberos", "Planos de la edificación"], requisitosRenovacion: [] },
-    { id: "PERM-TRA-001", tipo: "Acreditación en INPSASEL", emisor: "INPSASEL", fechaEmision: "2023-01-18", fechaVencimiento: "2025-01-18", estado: "Vigente", requisitosInscripcion: ["Registro en el portal del INPSASEL", "Programa de Seguridad y Salud en el Trabajo", "Elección de delegados de prevención"], requisitosRenovacion: ["Declaración Trimestral de Accidentes y Enfermedades Ocupacionales", "Informes del Comité de Seguridad y Salud Laboral"] },
-
-    // --- Ministerios - Sectoriales Diversos ---
-    { id: "PERM-CONS-001", tipo: "Permiso de Construcción de Obra Civil", emisor: "Min. Obras Públicas", fechaEmision: "2024-02-01", fechaVencimiento: "2026-02-01", estado: "Vigente", requisitosInscripcion: ["Planos del proyecto visados por un ingeniero", "Estudio de impacto ambiental", "Permiso municipal (Ingeniería Municipal)"], requisitosRenovacion: ["Informe de avance de obra"] },
-    { id: "PERM-CONS-002", tipo: "Permiso de Desmantelamiento de Instalaciones", emisor: "Min. Obras Públicas", fechaEmision: "2024-03-18", fechaVencimiento: "2024-09-18", estado: "Por Vencer", requisitosInscripcion: ["Plan de desmantelamiento y manejo de desechos", "Estudio de impacto ambiental", "Solvencia laboral"], requisitosRenovacion: [] },
-    { id: "PERM-ECO-001", tipo: "Registro de Actividades (RACDA)", emisor: "Min. Ecosocialismo (MINEC)", fechaEmision: "2023-09-05", fechaVencimiento: "2024-09-05", estado: "Por Vencer", requisitosInscripcion: ["Descripción de la actividad económica", "Listado de sustancias químicas o materiales utilizados (si aplica)"], requisitosRenovacion: ["Declaración anual de actividades"] },
-    { id: "PERM-TUR-001", tipo: "Licencia de Turismo", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-01-25", fechaVencimiento: "2025-01-25", estado: "Vigente", requisitosInscripcion: ["Registro en el RTN (Registro Turístico Nacional)", "Permiso Sanitario", "Conformidad de Uso de Bomberos"], requisitosRenovacion: ["Solvencia de contribución especial de turismo (1%)"] },
-    { id: "PERM-TUR-002", tipo: "Inscripción en Marca País", emisor: "Min. Turismo (MINTUR)", fechaEmision: "2024-07-26", fechaVencimiento: "2026-07-26", estado: "Vigente", requisitosInscripcion: ["Portafolio de productos o servicios que representen a Venezuela", "Acta Constitutiva", "Certificado de calidad (si aplica)"], requisitosRenovacion: [] },
-    { id: "PERM-EDU-001", tipo: "Conformidad de Uso Educativo", emisor: "Min. Educación", fechaEmision: "2023-09-01", fechaVencimiento: "2028-09-01", estado: "Vigente", requisitosInscripcion: ["Proyecto pedagógico", "Planos de la institución", "Nómina del personal docente"], requisitosRenovacion: ["Inspección periódica de la Zona Educativa"] },
-    { id: "PERM-CUL-001", tipo: "Asignación de ISBN", emisor: "CENAL", fechaEmision: "2024-04-20", fechaVencimiento: "N/A", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud de ISBN", "Maqueta o borrador de la publicación"], requisitosRenovacion: [] },
-    { id: "PERM-CUL-002", tipo: "Certificado de Patrimonio Cultural", emisor: "Min. Cultura (MPPC)", fechaEmision: "2023-12-01", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Justificación del valor cultural del bien", "Informe técnico histórico o artístico"], requisitosRenovacion: [] },
-    { id: "PERM-DEP-001", tipo: "Registro Nacional del Deporte", emisor: "Min. Deporte", fechaEmision: "2024-04-12", fechaVencimiento: "2026-04-12", estado: "Vigente", requisitosInscripcion: ["Registro de atletas y entrenadores", "Estatutos del club o asociación deportiva"], requisitosRenovacion: ["Informe de actividades deportivas anual"] },
-    { id: "PERM-PES-001", tipo: "Registro de Empresas de Pesca", emisor: "Min. Pesca y Acuicultura", fechaEmision: "2024-05-14", fechaVencimiento: "2025-05-14", estado: "Vigente", requisitosInscripcion: ["Permisos de embarcaciones (si aplica)", "Lista de artes de pesca a utilizar"], requisitosRenovacion: ["Declaración de captura y producción"] },
-    
-    // --- Permisos Municipales ---
-    { id: "PERM-MUN-001", tipo: "Licencia de Actividades Económicas", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitosInscripcion: ["RIF vigente", "Certificado de Uso Conforme o Zonificación", "Conformidad de Uso de Bomberos"], requisitosRenovacion: ["Declaración de Ingresos Brutos del año anterior", "Solvencia de impuestos municipales"] },
-    { id: "PERM-MUN-002", tipo: "Conformidad de Uso de Bomberos", emisor: "Cuerpo de Bomberos", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer", requisitosInscripcion: ["Inspección técnica de seguridad", "Plan de emergencia y evacuación", "Certificado de operatividad de extintores"], requisitosRenovacion: ["Inspección anual", "Recarga de extintores"] },
-    { id: "PERM-MUN-003", tipo: "Certificado de Uso Conforme", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitosInscripcion: ["Documento de propiedad o contrato de arrendamiento del inmueble", "RIF de la empresa"], requisitosRenovacion: [] },
-    { id: "PERM-MUN-004", tipo: "Certificado de Uso de Suelo (Zonificación)", emisor: "Alcaldía Municipal", fechaEmision: "2024-03-01", fechaVencimiento: "2025-03-01", estado: "Vigente", requisitosInscripcion: ["Documento de propiedad o contrato de arrendamiento", "Descripción de la actividad a desarrollar"], requisitosRenovacion: [] },
-
-    // --- Entes Reguladores y Profesionales ---
-    { id: "PERM-REG-001", tipo: "Permiso Sanitario para Funerarias", emisor: "MPPS / SACS", fechaEmision: "2024-01-20", fechaVencimiento: "2025-01-20", estado: "Vigente", requisitosInscripcion: ["RIF de la funeraria", "Planos del local con áreas designadas (preparación, velación)", "Inspección Sanitaria"], requisitosRenovacion: ["Certificado de fumigación"] },
-    { id: "PERM-REG-002", tipo: "Autorización de Empresa de Seguros", emisor: "SUDEASEG", fechaEmision: "2023-05-10", fechaVencimiento: "2025-05-10", estado: "Vigente", requisitosInscripcion: ["Capital mínimo suscrito y pagado", "Estatutos sociales de la empresa", "Nómina de directores y credenciales"], requisitosRenovacion: ["Publicación de Estados Financieros auditados"] },
-    { id: "PERM-REG-003", tipo: "Licencia de Institución Financiera", emisor: "SUDEBAN", fechaEmision: "2022-11-15", fechaVencimiento: "2027-11-15", estado: "Vigente", requisitosInscripcion: ["Estudio de viabilidad económica", "Manuales de organización, procedimientos y control interno", "Origen de los fondos del capital"], requisitosRenovacion: ["Auditorías periódicas de SUDEBAN"] },
-    { id: "PERM-PRO-001", tipo: "Inscripción en Colegio de Médicos", emisor: "Colegios Profesionales", fechaEmision: "2020-02-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario registrado y protocolizado", "Cédula de identidad", "Pago de aranceles de inscripción"], requisitosRenovacion: ["Solvencia anual"] },
-    { id: "PERM-PRO-002", tipo: "Inscripción en Colegio de Ingenieros (CIV)", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de Ingeniero registrado", "Cédula de identidad", "Pago de tasas"], requisitosRenovacion: ["Solvencia anual"] },
-    { id: "PERM-PRO-003", tipo: "Inscripción en Colegio de Contadores Públicos", emisor: "Colegios Profesionales", fechaEmision: "2019-07-22", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título universitario", "Inscripción en el INPRECONTAD"], requisitosRenovacion: ["Solvencia anual"] },
-    { id: "PERM-PRO-004", tipo: "Inscripción en INPREABOGADO", emisor: "Colegios Profesionales", fechaEmision: "2018-05-30", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Título de abogado registrado", "Inscripción en el Colegio de Abogados respectivo"], requisitosRenovacion: ["Pago de cuotas de sostenimiento"] },
-
-    // --- SAPI ---
-    { id: "PERM-SAPI-001", tipo: "Registro de Marca", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente", requisitosInscripcion: ["Búsqueda fonética y gráfica de antecedentes", "Diseño del logo en formato JPG/PNG", "Pago de tasas"], requisitosRenovacion: ["Pago de tasa de renovación cada 10 años"] },
-    { id: "PERM-SAPI-INV-001", tipo: "Examen de Solicitud de Patente de Invención", emisor: "SAPI", fechaEmision: "2023-05-20", fechaVencimiento: "2024-11-20", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud (FP-01)", "Memoria descriptiva del invento", "Reivindicaciones", "Dibujos técnicos", "Resumen", "Comprobante de pago de la tasa"], requisitosRenovacion: ["Pago de anualidades para mantener la patente vigente"] },
-    { id: "PERM-SAPI-MOD-001", tipo: "Patente de Modelo de Utilidad", emisor: "SAPI", fechaEmision: "2023-08-15", fechaVencimiento: "2033-08-15", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud", "Descripción del modelo", "Dibujos del modelo", "Comprobante de pago"], requisitosRenovacion: ["Pago de anualidades"] },
-    { id: "PERM-SAPI-DIS-001", tipo: "Patente de Diseño Industrial", emisor: "SAPI", fechaEmision: "2024-02-10", fechaVencimiento: "2034-02-10", estado: "Vigente", requisitosInscripcion: ["Formulario de solicitud", "Reproducciones gráficas o fotográficas del diseño", "Descripción", "Comprobante de pago"], requisitosRenovacion: ["Pago de anualidades"] },
-    { id: "PERM-SAPI-DA-001", tipo: "Registro de Derecho de Autor", emisor: "SAPI", fechaEmision: "2023-03-05", fechaVencimiento: "Vitalicio", estado: "Vigente", requisitosInscripcion: ["Ejemplar de la obra a registrar", "Formulario de solicitud", "Comprobante de pago de tasas"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-002", tipo: "Solicitud de Resguardo Temporal de la Invención", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Formulario de solicitud", "Descripción de la invención", "Comprobante de pago"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-003", tipo: "Habilitación de Respuesta de Oposiciones", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito de contestación a la oposición", "Pruebas que sustenten la contestación", "Pago de la tasa correspondiente"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-004", tipo: "Habilitación de Renovaciones y Cambios", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Solicitud de renovación/cambio", "Documento de registro original", "Pago de tasas"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-005", tipo: "Consulta de Expedientes", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de expediente", "Identificación del solicitante", "Pago de tasa de consulta"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-006", tipo: "Actualización de Agentes de Propiedad Industrial", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Planilla de actualización de datos", "Documentos que soporten los cambios"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-007", tipo: "Solicitud del Estado Administrativo Actualizado", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Identificación del expediente", "Pago de tasa"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-008", tipo: "Contestación a devolución de forma", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito de subsanación", "Documentos corregidos"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-009", tipo: "Recurso de Reconsideración", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Escrito del recurso", "Argumentos y pruebas", "Pago de tasa"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-010", tipo: "Certificado de Registro de Marca", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de registro de la marca", "Pago de tasa de certificación"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-011", tipo: "Pago de Derechos de Registro", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Número de solicitud o registro", "Monto a pagar según tarifa", "Comprobante de pago"], requisitosRenovacion: [] },
-    { id: "PERM-SAPI-012", tipo: "Publicación en Prensa Digital SAPI", emisor: "SAPI", fechaEmision: "", fechaVencimiento: "", estado: "Nuevo", requisitosInscripcion: ["Extracto de la marca o patente", "Pago de la tarifa de publicación"], requisitosRenovacion: [] },
-
-
-    // --- Entes Nacionales y Registros Obligatorios ---
-    { id: "REG-MERC-001", tipo: "Registro Mercantil", emisor: "SAREN", fechaEmision: "2020-01-05", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Acta Constitutiva Visada", "Cédulas de los socios", "Pago de tasas"], requisitosRenovacion: ["Actualización de Actas de Asamblea"] },
-    { id: "PERM-NAC-001", tipo: "Inscripción Patronal en el IVSS", emisor: "IVSS", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Formulario 14-01", "RIF de la empresa", "Cédula del representante legal"], requisitosRenovacion: [] },
-    { id: "PERM-NAC-002", tipo: "Inscripción en BANAVIH (FAOV)", emisor: "BANAVIH", fechaEmision: "2020-01-10", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Registro en el sistema FAOV en Línea", "RIF", "Carga de la nómina de trabajadores"], requisitosRenovacion: [] },
-    { id: "PERM-NAC-003", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "2021-06-01", fechaVencimiento: "2024-06-01", estado: "Vencido", requisitosInscripcion: ["Registro como operador postal", "Descripción de los servicios a prestar"], requisitosRenovacion: ["Solvencia de pago de tasas postales"] },
-    { id: "PERM-NAC-004", tipo: "Registro Nacional de Contratistas (RNC)", emisor: "SNC", fechaEmision: "2024-07-10", fechaVencimiento: "2025-07-10", estado: "Vigente", requisitosInscripcion: ["Estados Financieros visados", "Solvencia Laboral (IVSS, BANAVIH, INCES)", "Acta Constitutiva"], requisitosRenovacion: ["Actualización anual de estados financieros"] },
-    { id: "PERM-NAC-005", tipo: "Inscripción en el RNA (CONALOT)", emisor: "Min. Trabajo (MPPPST)", fechaEmision: "2020-02-01", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Registro en el sistema RNET", "RIF", "Nómina de trabajadores"], requisitosRenovacion: ["Actualización trimestral de la nómina"] },
-    { id: "PERM-NAC-006", tipo: "Inscripción en el RESQUIMC", emisor: "ONA", fechaEmision: "2024-05-15", fechaVencimiento: "2025-05-15", estado: "Vigente", requisitosInscripcion: ["Listado de sustancias químicas controladas a utilizar", "Plan de manejo y seguridad"], requisitosRenovacion: ["Declaración de uso y existencias"] },
-    { id: "PERM-NAC-007", tipo: "Registro de Empresas de Producción Social (EPS)", emisor: "Min. Comunas", fechaEmision: "2023-08-20", fechaVencimiento: "2024-08-20", estado: "Por Vencer", requisitosInscripcion: ["Acta constitutiva de la EPS", "Proyecto socio-productivo"], requisitosRenovacion: ["Informe de gestión y reinversión social"] },
-    { id: "PERM-NAC-008", tipo: "Inscripción en el RUPDAE", emisor: "SUNDDE", fechaEmision: "2024-02-10", fechaVencimiento: "2025-02-10", estado: "Vigente", requisitosInscripcion: ["Estructura de costos de los productos", "RIF"], requisitosRenovacion: ["Actualización de estructuras de costos"] },
-    { id: "PERM-NAC-009", tipo: "Concesión de Espectro Radioeléctrico", emisor: "CONATEL", fechaEmision: "2023-03-20", fechaVencimiento: "2028-03-20", estado: "Vigente", requisitosInscripcion: ["Proyecto técnico de la red a desplegar", "Estudio de factibilidad económica", "Garantía de cumplimiento"], requisitosRenovacion: ["Pago de tasas anuales", "Informe de uso del espectro"] },
-    { id: "PERM-NAC-010", tipo: "Licencia de Proveedor de Servicios de Internet (ISP)", emisor: "CONATEL", fechaEmision: "2023-04-01", fechaVencimiento: "2028-04-01", estado: "Vigente", requisitosInscripcion: ["Acta Constitutiva con objeto social adecuado", "Proyecto técnico detallado", "Solvencia fiscal"], requisitosRenovacion: ["Actualización de la información técnica", "Pago de tasas regulatorias"] },
-    { id: "PERM-NAC-011", tipo: "Declaración de Aduanas (Nacionalización)", emisor: "SENIAT", fechaEmision: "2024-07-25", fechaVencimiento: "N/A", estado: "Vigente", requisitosInscripcion: ["Factura Comercial", "Documento de Transporte (BL/AWB)", "Licencia de Importación (si aplica)", "Certificado de Origen"], requisitosRenovacion: [] },
-    { id: "PERM-NAC-012", tipo: "Inscripción Militar Obligatoria (Empresa)", emisor: "Min. Defensa", fechaEmision: "2020-01-15", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["RIF", "Nómina de trabajadores en edad militar"], requisitosRenovacion: ["Actualización anual de la nómina"] },
-    { id: "PERM-NAC-013", tipo: "Inscripción y Aporte a FONACIT", emisor: "FONACIT", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitosInscripcion: ["Declaración de Ingresos Brutos del ejercicio anterior", "Pago del aporte correspondiente"], requisitosRenovacion: ["Nueva declaración y pago anual"] },
-    { id: "PERM-NAC-014", tipo: "Inscripción y Aporte a FONA", emisor: "ONA", fechaEmision: "2024-04-30", fechaVencimiento: "2025-04-30", estado: "Vigente", requisitosInscripcion: ["Declaración de Utilidades del ejercicio anterior", "Pago del 1% sobre la Utilidad Operativa (para empresas > 50 trabajadores)"], requisitosRenovacion: ["Nueva declaración y pago anual"] },
-];
-
-const companyData = {
-  socios: [
-    { nombre: "CARLOS ALBERTO NATANALE MATTAR HERNANDEZ", cedula: "V-32.855.496", rif: "V-32856496-4" },
-    { nombre: "MARIA TERESA HERNANDEZ BASTIDAS", cedula: "V-13.374.121", rif: "V-13374121-2" },
-    { nombre: "JOSE DE JESUS HERRERA BOZZO", cedula: "V-12.459.024", rif: "V-12459024-4" },
-    { nombre: "OMAR ANTONIO MATTAR FANIANOS", cedula: "V-9.488.296", rif: "V-09488296-2" },
-  ],
-  objetoSocial: "El objeto principal será todo lo relacionado con las siguientes actividades: Distribución, Venta al Mayor y Detal, la prestación de servicios de telecomunicaciones móviles y fijas, venta de equipos y desarrollo de soluciones digitales para empresas y particulares, abarcando desde la telefonía e internet hasta servicios de valor agregado. Desarrollo y comercialización de un sistema de contabilidad computarizado, la venta de artículos de oficina y papelería, la distribución de equipos fiscales homologados y la comercialización de computadoras. Así mismo, la empresa se dedicará al diseño, fabricación y registro de su propia marca de papeleras digitales e inteligentes, y cualquier otra actividad de lícito comercio conexa con su objeto principal.",
-};
-
+import { initialPermisos, companyData } from "@/lib/permisos-data";
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
   Vigente: "default",
@@ -135,7 +32,6 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 const formatDateString = (dateString: string) => {
     if (!dateString || dateString === "N/A" || dateString === "Indefinido" || dateString === "Vitalicio") return dateString;
     const date = new Date(dateString);
-    // Add timezone offset to prevent date from changing due to browser's timezone
     const userTimezoneOffset = date.getTimezoneOffset() * 60000;
     return new Date(date.getTime() + userTimezoneOffset).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
@@ -149,26 +45,25 @@ type Payment = {
 
 type Permiso = typeof initialPermisos[0];
 
-// Function to generate specific letter content
 const getLetterContent = (permiso: Permiso | null): string => {
     if (!permiso) return "";
 
     const fechaActual = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
     const baseContent = `
-Ciudad, ${fechaActual}
+Ciudad, ${'${fechaActual}'}
 
 Señores
-${permiso.emisor}
+${'${permiso.emisor}'}
 Presente.-
 
-Asunto: Solicitud de Permiso - ${permiso.tipo}
+Asunto: Solicitud de Permiso - ${'${permiso.tipo}'}
 
-Por medio de la presente, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes con el debido respeto para solicitar formalmente la tramitación y otorgamiento del permiso de "${permiso.tipo}".
+Por medio de la presente, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes con el debido respeto para solicitar formalmente la tramitación y otorgamiento del permiso de "${'${permiso.tipo}'}".
 `;
 
     let recaudosContent = '';
     switch (permiso.id) {
-        case 'PERM-SAPI-001': // Registro de Marca
+        case 'PERM-SAPI-001':
             recaudosContent = `
 Adjunto a la presente, consignamos los siguientes recaudos:
 - Resultados de la búsqueda de antecedentes fonéticos.
@@ -177,7 +72,7 @@ Adjunto a la presente, consignamos los siguientes recaudos:
 - Comprobante de pago de las tasas correspondientes.
 `;
             break;
-        case 'PERM-SAPI-INV-001': // Patente de Invención
+        case 'PERM-SAPI-INV-001':
             recaudosContent = `
 Adjunto a la presente, consignamos los siguientes recaudos técnicos y administrativos:
 - Formulario de solicitud (FP-01) debidamente cumplimentado.
@@ -188,7 +83,7 @@ Adjunto a la presente, consignamos los siguientes recaudos técnicos y administr
 - Comprobante de pago de la tasa de presentación.
 `;
             break;
-         case 'PERM-SAPI-DA-001': // Derecho de Autor
+         case 'PERM-SAPI-DA-001':
             recaudosContent = `
 Adjunto a la presente, consignamos los siguientes recaudos para el registro de la obra:
 - Un (1) ejemplar de la obra a registrar.
@@ -221,7 +116,7 @@ const getPlanillaResguardoTemporalContent = () => `
 ----------------------------------------------------------------------
 Servicio Autónomo de la Propiedad Intelectual (SAPI)
 
-FECHA DE SOLICITUD: ${new Date().toLocaleDateString('es-ES')}
+FECHA DE SOLICITUD: ${"$'{"}new Date().toLocaleDateString('es-ES'){"}"}
 
 1. DATOS DEL SOLICITANTE:
    Nombre/Razón Social: Kyron, C.A.
@@ -277,7 +172,7 @@ export default function PermisosPage() {
             if (!p.fechaVencimiento || ["N/A", "Indefinido", "Vitalicio"].includes(p.fechaVencimiento)) {
                  toast({
                     title: "No requiere renovación",
-                    description: `El permiso ${permisoId} no tiene una fecha de vencimiento definida.`,
+                    description: `El permiso ${'${permisoId}'} no tiene una fecha de vencimiento definida.`,
                 });
                 return p;
             }
@@ -287,7 +182,7 @@ export default function PermisosPage() {
             
             toast({
                 title: "Renovación Guardada en la Nube",
-                description: `Se ha notificado al representante legal sobre la renovación del permiso ${permisoId}.`,
+                description: `Se ha notificado al representante legal sobre la renovación del permiso ${'${permisoId}'}.`,
                 action: <CheckCircle className="text-green-500" />,
             });
             
@@ -301,7 +196,7 @@ export default function PermisosPage() {
       setSelectedFile(file);
       toast({
           title: "Archivo Cargado y Guardado en la Nube",
-          description: `"${file.name}" listo para enviar. El archivo se conservará por 10 años.`,
+          description: `"${'${file.name}'}" listo para enviar. El archivo se conservará por 10 años.`,
           action: <CheckCircle className="text-green-500" />,
       });
   };
@@ -324,17 +219,17 @@ export default function PermisosPage() {
 
       toast({
         title: "Pago Registrado",
-        description: `Se ha añadido un nuevo pago al historial del permiso ${permisoId}.`
+        description: `Se ha añadido un nuevo pago al historial del permiso ${'${permisoId}'}.`
       });
       form.reset();
   };
 
   const handleSendNotification = (permiso: Permiso | null, channel: 'whatsapp' | 'email', isManual: boolean = false) => {
     if (channel === 'whatsapp') {
-        const whatsappUrl = `https://wa.me/${alertPhone}`;
+        const whatsappUrl = `https://wa.me/${'${alertPhone}'}`;
         window.open(whatsappUrl, '_blank');
     } else {
-        const mailtoUrl = `mailto:${alertEmail}`;
+        const mailtoUrl = `mailto:${'${alertEmail}'}`;
         window.location.href = mailtoUrl;
     }
     
@@ -348,18 +243,18 @@ export default function PermisosPage() {
 
     if (tipo === 'solicitud') {
         content = getLetterContent(permiso);
-        filename = `Solicitud_${permiso.tipo.replace(/ /g, '_')}.docx`;
+        filename = `Solicitud_${'${permiso.tipo.replace(/ /g, \'_\')}'}.docx`;
     } else if (tipo === 'renovacion') {
         content = `
-Ciudad, ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
+Ciudad, ${"$'{"}new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }){"}"}
 
 Señores
-${permiso.emisor}
+${'${permiso.emisor}'}
 Presente.-
 
-Asunto: Solicitud de Renovación de Permiso - ${permiso.tipo}
+Asunto: Solicitud de Renovación de Permiso - ${'${permiso.tipo}'}
 
-Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${permiso.tipo}", con referencia N° ${permiso.id}, próximo a vencer.
+Yo, [Nombre del Representante Legal], en mi carácter de Representante Legal de la empresa [Nombre de la Empresa], C.A., RIF [RIF de la Empresa], me dirijo a ustedes para solicitar formalmente la renovación del permiso de "${'${permiso.tipo}'}", con referencia N° ${'${permiso.id}'}, próximo a vencer.
 
 Adjuntamos los recaudos correspondientes para la renovación.
 
@@ -369,7 +264,7 @@ _________________________
 [Nombre del Representante Legal]
 C.I: [C.I. del Representante]
 `;
-        filename = `Renovacion_${permiso.tipo.replace(/ /g, '_')}.docx`;
+        filename = `Renovacion_${'${permiso.tipo.replace(/ /g, \'_\')}'}.docx`;
     } else if (tipo === 'planilla_resguardo') {
         content = getPlanillaResguardoTemporalContent();
         filename = `Planilla_Resguardo_Temporal.docx`;
@@ -380,7 +275,7 @@ C.I: [C.I. del Representante]
         "xmlns='http://www.w3.org/TR/REC-html40'>"+
         "<head><meta charset='utf-8'><title>Export HTML to Word</title></head><body>";
     const footer = "</body></html>";
-    const sourceHTML = header + `<div style="font-family: Arial, sans-serif;">${content.replace(/\n/g, '<br/>')}</div>` + footer;
+    const sourceHTML = header + `<div style="font-family: Arial, sans-serif;">${'${content.replace(/\\n/g, \'<br/>\')}'}</div>` + footer;
 
     const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
     const fileDownload = document.createElement("a");
@@ -392,13 +287,13 @@ C.I: [C.I. del Representante]
 
     toast({
         title: 'Descarga Iniciada',
-        description: `El documento se está descargando como ${filename}.`
+        description: `El documento se está descargando como ${'${filename}'}.`
     });
 };
 
   const handleDownloadPDF = (documentId: string) => {
     const sociosList = companyData.socios.map(socio => 
-        ` ${socio.nombre}, venezolano, mayor de edad, soltero, y titular de la cédula de identidad N° ${socio.cedula} y portador del Rif ${socio.rif}`
+        ` ${'${socio.nombre}'}, venezolano, mayor de edad, soltero, y titular de la cédula de identidad N° ${'${socio.cedula}'} y portador del Rif ${'${socio.rif}'}`
     ).join(',');
 
     const content = `
@@ -459,7 +354,7 @@ C.I: [C.I. del Representante]
                 </div>
                 <br>
                 <div class="content">
-                    <p>Nosotros,${sociosList}, por medio del presente documento declaramos: Que hemos decidido constituir una Compañía Anónima, la cual se regirá por las cláusulas siguientes y que sirvan a su vez de Acta Constitutiva y Estatutos Sociales de la Empresa:</p>
+                    <p>Nosotros,${'${sociosList}'}, por medio del presente documento declaramos: Que hemos decidido constituir una Compañía Anónima, la cual se regirá por las cláusulas siguientes y que sirvan a su vez de Acta Constitutiva y Estatutos Sociales de la Empresa:</p>
                     
                     <p><strong>PRIMERA:</strong> La denominación comercial de la compañía será: SYSTEM KYRON, C.A.</p>
                     
@@ -472,7 +367,7 @@ C.I: [C.I. del Representante]
 
                 <!-- Page 3 -->
                 <div class="content">
-                    <p><strong>CUARTA:</strong> El objeto principal será: ${companyData.objetoSocial}</p>
+                    <p><strong>CUARTA:</strong> El objeto principal será: ${'${companyData.objetoSocial}'}</p>
 
                     <p><strong>QUINTA:</strong> El capital Social de la compañía es de NOVECIENTOS MIL BOLIVARES (Bs. 900.000,00) divididos en Cien (100) acciones de UN MIL BOLIVARES (Bs. 1.000,00) cada una y han sido íntegramente suscritas y pagadas de la siguiente manera: ALBERTO JOSE SALAS PEREZ, ha suscrito y pagado CINCUENTA (50) acciones por un valor de CUATROCIENTO CINCUENTA MIL BOLIVARES (Bs. 450.000,00) y RITA ANABEL QUEVEDO MONTES, ha suscrito y pagado (50) acciones por un valor de CUATROCIENTO CINCUENTA MIL BOLIVARES... (Bs. 450.000,00) habiéndose pagado así el cien por ciento (100%) del capital tal como se evidencia en inventario anexo al documento.</p>
                 </div>
@@ -508,7 +403,7 @@ C.I: [C.I. del Representante]
 
             toast({
                 title: "Preparando Descarga",
-                description: `Se ha abierto el diálogo de impresión para '${documentId}.pdf'. Por favor, selecciona 'Guardar como PDF' para descargar el documento.`
+                description: `Se ha abierto el diálogo de impresión para '${'${documentId}'}.pdf'. Por favor, selecciona 'Guardar como PDF' para descargar el documento.`
             });
         } else {
             toast({
@@ -517,7 +412,7 @@ C.I: [C.I. del Representante]
                 description: "No se pudo abrir la ventana de impresión. Por favor, revisa la configuración de tu navegador."
             });
         }
-    }
+  }
 
 
   const groupedPermisos = permisos.reduce((acc, permiso) => {
@@ -579,7 +474,7 @@ C.I: [C.I. del Representante]
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={() => {toast({title: "Configuración Guardada", description: `Las alertas se enviarán a ${alertEmail} y ${alertPhone}.`}); setIsAlertConfigOpen(false);}}>
+                        <Button onClick={() => {toast({title: "Configuración Guardada", description: `Las alertas se enviarán a ${'${alertEmail}'} y ${'${alertPhone}'}.`}); setIsAlertConfigOpen(false);}}>
                             Guardar Configuración
                         </Button>
                     </DialogFooter>
