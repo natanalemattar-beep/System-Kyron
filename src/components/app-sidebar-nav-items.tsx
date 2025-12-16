@@ -386,24 +386,7 @@ export const adminNavGroups = [
 
 export const contabilidadNavGroups = [
   { title: "Dashboard", icon: BookOpen, items: [{ href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
-  {
-    title: "Análisis Financiero",
-    icon: BarChart,
-    items: finanzasContabilidadNavItems.find(i => i.title === 'Análisis Financiero')?.items || [],
-    subGroups: []
-  },
-  {
-    title: "Gestión de Cuentas",
-    icon: Wallet,
-    items: finanzasContabilidadNavItems.find(i => i.title === 'Gestión de Cuentas')?.items || [],
-    subGroups: []
-  },
-  {
-    title: "Contabilidad General",
-    icon: BookOpen,
-    items: finanzasContabilidadNavItems.find(i => i.title === 'Contabilidad General')?.items || [],
-    subGroups: []
-  },
+  ...finanzasContabilidadNavItems.map(group => ({ ...group, subGroups: [] })),
 ];
 
 export const legalNavGroups = [

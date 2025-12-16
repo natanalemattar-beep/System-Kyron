@@ -16,7 +16,7 @@ import { ArrowUpRight } from "lucide-react";
 export function RecentInvoices() {
   const recentInvoices = mockInvoices.slice(0, 5);
   return (
-    <Card>
+    <Card className="bg-card/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Facturas Recientes</CardTitle>
         <CardDescription>

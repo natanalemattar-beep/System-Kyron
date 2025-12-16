@@ -1,7 +1,7 @@
 
 'use client';
 
-import { DollarSign, TrendingUp, Users, AlertTriangle } from "lucide-react";
+import { DollarSign, TrendingUp, Users, AlertTriangle, CheckCircle, FileWarning } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
@@ -54,11 +54,12 @@ export default function DashboardPage() {
             </div>
             <ActivityCard recentActivities={recentActivities} />
         </div>
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight">Acceso Rápido a Módulos</h2>
+          <QuickAccess />
+        </div>
         <div className="grid gap-8 lg:grid-cols-5">
             <div className="lg:col-span-3">
-                <QuickAccess />
-            </div>
-            <div className="lg:col-span-2">
                  <RecentInvoices />
             </div>
         </div>

@@ -3,21 +3,30 @@
 
 import {
   adminNavGroups,
+  contabilidadNavGroups
 } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
 
 export function QuickAccess() {
-    const relevantGroups = adminNavGroups.filter(group => 
-        group.title === "Impuestos y Cumplimiento" || 
-        group.title === "Recursos Humanos" ||
-        group.title === "Facturación"
-    );
-
+    const pathname = usePathname();
+    
+    let groupsToShow = [];
+    if (pathname.includes('/contabilidad') || pathname.includes('/analisis-ventas') || pathname.includes('/cuentas-por-cobrar') || pathname.includes('/cuentas-por-pagar')) {
+        groupsToShow = contabilidadNavGroups.filter(g => g.title !== 'Dashboard');
+    } else {
+        groupsToShow = adminNavGroups.filter(g => 
+            g.title === "Impuestos y Cumplimiento" || 
+            g.title === "Recursos Humanos" ||
+            g.title === "Facturación"
+        );
+    }
+    
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-          {relevantGroups.map((group) => (
+          {groupsToShow.map((group) => (
           <div key={group.title} className="w-full">
               <Card className="bg-card/50 backdrop-blur-sm h-full flex flex-col">
                   <CardHeader>
