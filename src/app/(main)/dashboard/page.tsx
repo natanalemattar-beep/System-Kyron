@@ -3,30 +3,19 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, FileWarning, ArrowRight, FileText, Heart, Gavel } from 'lucide-react';
+import { CheckCircle, Clock, FileWarning, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/utils";
 import { motion } from 'framer-motion';
+import { InvoicesTable } from "@/components/invoices/invoices-table";
+import { mockInvoices } from "@/lib/data";
+import { OverviewChart } from "@/components/dashboard/overview-chart";
+
 
 const kpiData = [
   { title: "Trámites en Proceso", value: "2", icon: Clock, color: "text-yellow-500", href: "/main/partidas-nacimiento" },
   { title: "Documentos Listos", value: "5", icon: CheckCircle, color: "text-green-500", href: "/main/documentos" },
   { title: "Alertas o Vencimientos", value: "1", icon: FileWarning, color: "text-red-500", href: "/main/notificaciones" },
 ];
-
-const recentActivities = [
-    { id: "PN-2024-001", type: "Partida de Nacimiento", date: "2024-07-10", status: "Aprobado", href: "/main/partidas-nacimiento" },
-    { id: "AM-2024-001", type: "Acta de Matrimonio", date: "2024-07-18", status: "En Proceso", href: "/main/actas-matrimonio" },
-    { id: "AP-2024-005", type: "Antecedentes Penales", date: "2024-07-22", status: "Solicitado", href: "/main/antecedentes-penales" },
-];
-
-const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
-  Aprobado: "default",
-  "En Proceso": "secondary",
-  Solicitado: "outline",
-};
 
 export default function DashboardPersonalPage() {
   return (
@@ -61,42 +50,22 @@ export default function DashboardPersonalPage() {
         ))}
       </div>
 
-      <Card id="tramites">
-        <CardHeader>
-          <CardTitle>Actividad Reciente de Trámites</CardTitle>
-          <CardDescription>Un resumen de tus últimas solicitudes y su estado actual.</CardDescription>
-        </CardHeader>
-        <CardContent>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Referencia</TableHead>
-                        <TableHead>Tipo de Trámite</TableHead>
-                        <TableHead>Fecha de Solicitud</TableHead>
-                        <TableHead className="text-center">Estado</TableHead>
-                        <TableHead className="text-right">Acciones</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {recentActivities.map((activity) => (
-                        <TableRow key={activity.id}>
-                            <TableCell className="font-mono">{activity.id}</TableCell>
-                            <TableCell className="font-medium">{activity.type}</TableCell>
-                            <TableCell>{formatDate(activity.date)}</TableCell>
-                            <TableCell className="text-center">
-                                <Badge variant={statusVariant[activity.status]}>{activity.status}</Badge>
-                            </TableCell>
-                            <TableCell className="text-right">
-                                <Button variant="outline" size="sm" asChild>
-                                    <Link href={activity.href}>Ver Detalles <ArrowRight className="ml-2 h-4 w-4"/></Link>
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </CardContent>
-      </Card>
+      <div className="grid gap-8 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <OverviewChart />
+        </div>
+        <div className="lg:col-span-2">
+           <Card>
+            <CardHeader>
+              <CardTitle>Actividad Reciente</CardTitle>
+              <CardDescription>Resumen de tus últimas solicitudes.</CardDescription>
+            </CardHeader>
+            <CardContent>
+               <InvoicesTable invoices={mockInvoices} />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }
