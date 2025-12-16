@@ -149,23 +149,23 @@ export function ReportsView() {
                 <TableBody>
                     <TableRow>
                         <TableCell className="font-medium">Ingresos (Revenue)</TableCell>
-                        <TableCell className="text-right">{formatCurrency(incomeStatementData.revenue)}</TableCell>
+                        <TableCell className="text-right">{formatCurrency(incomeStatementData.revenue, 'Bs.')}</TableCell>
                     </TableRow>
                      <TableRow>
                         <TableCell className="pl-8 text-muted-foreground">Costo de Bienes Vendidos</TableCell>
-                        <TableCell className="text-right text-muted-foreground">({formatCurrency(incomeStatementData.costOfGoodsSold)})</TableCell>
+                        <TableCell className="text-right text-muted-foreground">({formatCurrency(incomeStatementData.costOfGoodsSold, 'Bs.')})</TableCell>
                     </TableRow>
                      <TableRow className="font-bold border-t">
                         <TableCell>Ganancia Bruta</TableCell>
-                        <TableCell className="text-right">{formatCurrency(grossProfit)}</TableCell>
+                        <TableCell className="text-right">{formatCurrency(grossProfit, 'Bs.')}</TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell className="font-medium pt-6">Gastos Operativos</TableCell>
-                        <TableCell className="text-right pt-6">({formatCurrency(incomeStatementData.operatingExpenses)})</TableCell>
+                        <TableCell className="text-right pt-6">({formatCurrency(incomeStatementData.operatingExpenses, 'Bs.')})</TableCell>
                     </TableRow>
                      <TableRow className="font-bold border-t text-lg text-primary">
                         <TableCell>Ingreso Neto (Ganancias y Pérdidas)</TableCell>
-                        <TableCell className="text-right">{formatCurrency(netIncome)}</TableCell>
+                        <TableCell className="text-right">{formatCurrency(netIncome, 'Bs.')}</TableCell>
                     </TableRow>
                 </TableBody>
              </Table>
@@ -188,37 +188,37 @@ export function ReportsView() {
                     {/* Activos */}
                     <TableRow><TableCell className="font-bold text-base">ACTIVOS</TableCell><TableCell></TableCell></TableRow>
                     <TableRow><TableCell className="font-semibold pl-4">Activos Corrientes</TableCell><TableCell></TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Efectivo y Equivalentes</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.current.cash)}</TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Cuentas por Cobrar</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.current.accountsReceivable)}</TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Inventario</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.current.inventory)}</TableCell></TableRow>
-                    <TableRow><TableCell className="font-semibold pl-4 border-t">Total Activos Corrientes</TableCell><TableCell className="text-right font-semibold border-t">{formatCurrency(totalCurrentAssets)}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Efectivo y Equivalentes</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.current.cash, 'Bs.')}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Cuentas por Cobrar</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.current.accountsReceivable, 'Bs.')}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Inventario</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.current.inventory, 'Bs.')}</TableCell></TableRow>
+                    <TableRow><TableCell className="font-semibold pl-4 border-t">Total Activos Corrientes</TableCell><TableCell className="text-right font-semibold border-t">{formatCurrency(totalCurrentAssets, 'Bs.')}</TableCell></TableRow>
                     
                     <TableRow><TableCell className="font-semibold pl-4 pt-4">Activos No Corrientes</TableCell><TableCell></TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Propiedad, Planta y Equipo</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.nonCurrent.propertyPlantEquipment)}</TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Activos Intangibles</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.nonCurrent.intangibleAssets)}</TableCell></TableRow>
-                    <TableRow><TableCell className="font-semibold pl-4 border-t">Total Activos No Corrientes</TableCell><TableCell className="text-right font-semibold border-t">{formatCurrency(totalNonCurrentAssets)}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Propiedad, Planta y Equipo</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.nonCurrent.propertyPlantEquipment, 'Bs.')}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Activos Intangibles</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.assets.nonCurrent.intangibleAssets, 'Bs.')}</TableCell></TableRow>
+                    <TableRow><TableCell className="font-semibold pl-4 border-t">Total Activos No Corrientes</TableCell><TableCell className="text-right font-semibold border-t">{formatCurrency(totalNonCurrentAssets, 'Bs.')}</TableCell></TableRow>
                     
-                    <TableRow className="bg-secondary/50 font-bold text-lg"><TableCell>TOTAL ACTIVOS</TableCell><TableCell className="text-right">{formatCurrency(totalAssets)}</TableCell></TableRow>
+                    <TableRow className="bg-secondary/50 font-bold text-lg"><TableCell>TOTAL ACTIVOS</TableCell><TableCell className="text-right">{formatCurrency(totalAssets, 'Bs.')}</TableCell></TableRow>
 
                     {/* Pasivos y Patrimonio */}
                     <TableRow><TableCell className="font-bold text-base pt-8">PASIVOS Y PATRIMONIO</TableCell><TableCell></TableCell></TableRow>
                     <TableRow><TableCell className="font-semibold pl-4">Pasivos Corrientes</TableCell><TableCell></TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Cuentas por Pagar</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.liabilities.current.accountsPayable)}</TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Deuda a Corto Plazo</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.liabilities.current.shortTermDebt)}</TableCell></TableRow>
-                     <TableRow><TableCell className="font-semibold pl-4 border-t">Total Pasivos Corrientes</TableCell><TableCell className="text-right font-semibold border-t">{formatCurrency(totalCurrentLiabilities)}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Cuentas por Pagar</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.liabilities.current.accountsPayable, 'Bs.')}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Deuda a Corto Plazo</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.liabilities.current.shortTermDebt, 'Bs.')}</TableCell></TableRow>
+                     <TableRow><TableCell className="font-semibold pl-4 border-t">Total Pasivos Corrientes</TableCell><TableCell className="text-right font-semibold border-t">{formatCurrency(totalCurrentLiabilities, 'Bs.')}</TableCell></TableRow>
                      
                     <TableRow><TableCell className="font-semibold pl-4 pt-4">Pasivos No Corrientes</TableCell><TableCell></TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Deuda a Largo Plazo</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.liabilities.nonCurrent.longTermDebt)}</TableCell></TableRow>
-                    <TableRow><TableCell className="font-semibold pl-4 border-t">Total Pasivos No Corrientes</TableCell><TableCell className="text-right font-semibold border-t">{formatCurrency(totalNonCurrentLiabilities)}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Deuda a Largo Plazo</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.liabilities.nonCurrent.longTermDebt, 'Bs.')}</TableCell></TableRow>
+                    <TableRow><TableCell className="font-semibold pl-4 border-t">Total Pasivos No Corrientes</TableCell><TableCell className="text-right font-semibold border-t">{formatCurrency(totalNonCurrentLiabilities, 'Bs.')}</TableCell></TableRow>
 
-                    <TableRow className="bg-muted/40 font-bold"><TableCell className="pl-4">TOTAL PASIVOS</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilities)}</TableCell></TableRow>
+                    <TableRow className="bg-muted/40 font-bold"><TableCell className="pl-4">TOTAL PASIVOS</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilities, 'Bs.')}</TableCell></TableRow>
 
                     <TableRow><TableCell className="font-semibold pl-4 pt-4">Patrimonio</TableCell><TableCell></TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Capital Social</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.equity.commonStock)}</TableCell></TableRow>
-                    <TableRow><TableCell className="pl-8 text-muted-foreground">Ganancias Retenidas</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.equity.retainedEarnings)}</TableCell></TableRow>
-                    <TableRow className="bg-muted/40 font-bold"><TableCell className="pl-4">TOTAL PATRIMONIO</TableCell><TableCell className="text-right">{formatCurrency(totalEquity)}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Capital Social</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.equity.commonStock, 'Bs.')}</TableCell></TableRow>
+                    <TableRow><TableCell className="pl-8 text-muted-foreground">Ganancias Retenidas</TableCell><TableCell className="text-right">{formatCurrency(balanceSheetData.equity.retainedEarnings, 'Bs.')}</TableCell></TableRow>
+                    <TableRow className="bg-muted/40 font-bold"><TableCell className="pl-4">TOTAL PATRIMONIO</TableCell><TableCell className="text-right">{formatCurrency(totalEquity, 'Bs.')}</TableCell></TableRow>
                     
-                    <TableRow className="bg-secondary/50 font-bold text-lg"><TableCell>TOTAL PASIVOS Y PATRIMONIO</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilitiesAndEquity)}</TableCell></TableRow>
+                    <TableRow className="bg-secondary/50 font-bold text-lg"><TableCell>TOTAL PASIVOS Y PATRIMONIO</TableCell><TableCell className="text-right">{formatCurrency(totalLiabilitiesAndEquity, 'Bs.')}</TableCell></TableRow>
 
                   </TableBody>
                 </Table>
@@ -241,10 +241,10 @@ export function ReportsView() {
                         <TableRow key={asset.id}>
                             <TableCell>{asset.name}</TableCell>
                             <TableCell>{asset.purchaseDate}</TableCell>
-                            <TableCell className="text-right">{formatCurrency(asset.cost)}</TableCell>
+                            <TableCell className="text-right">{formatCurrency(asset.cost, 'Bs.')}</TableCell>
                             <TableCell className="text-right">{asset.usefulLife}</TableCell>
-                            <TableCell className="text-right">{formatCurrency(asset.accumulatedDepreciation)}</TableCell>
-                            <TableCell className="text-right font-medium">{formatCurrency(asset.bookValue)}</TableCell>
+                            <TableCell className="text-right">{formatCurrency(asset.accumulatedDepreciation, 'Bs.')}</TableCell>
+                            <TableCell className="text-right font-medium">{formatCurrency(asset.bookValue, 'Bs.')}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -267,10 +267,10 @@ export function ReportsView() {
                         <TableRow key={asset.id}>
                             <TableCell>{asset.name}</TableCell>
                             <TableCell>{asset.purchaseDate}</TableCell>
-                            <TableCell className="text-right">{formatCurrency(asset.cost)}</TableCell>
+                            <TableCell className="text-right">{formatCurrency(asset.cost, 'Bs.')}</TableCell>
                             <TableCell className="text-right">{asset.usefulLife}</TableCell>
-                            <TableCell className="text-right">{formatCurrency(asset.accumulatedDepreciation)}</TableCell>
-                            <TableCell className="text-right font-medium">{formatCurrency(asset.bookValue)}</TableCell>
+                            <TableCell className="text-right">{formatCurrency(asset.accumulatedDepreciation, 'Bs.')}</TableCell>
+                            <TableCell className="text-right font-medium">{formatCurrency(asset.bookValue, 'Bs.')}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -281,5 +281,3 @@ export function ReportsView() {
     </Card>
   );
 }
-
-    

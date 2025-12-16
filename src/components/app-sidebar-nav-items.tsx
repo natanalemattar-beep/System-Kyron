@@ -188,6 +188,7 @@ const finanzasContabilidadNavGroups = {
         items: [
             { href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen },
             { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
+            { href: "/reports", label: "Reportes Financieros", icon: FileText },
             { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
             { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: Layers },
             { href: "/clasificacion-facturacion", label: "Clasificación de Facturación", icon: Layers },
