@@ -156,7 +156,10 @@ const facturacionGeneralMenuItems = [
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
 ];
 
-const finanzasContabilidadNavItems = [
+const finanzasContabilidadNavItems = {
+  title: "Finanzas y Contabilidad",
+  icon: Calculator,
+  subGroups: [
     {
       title: "Análisis Financiero",
       icon: BarChart,
@@ -190,38 +193,45 @@ const finanzasContabilidadNavItems = [
             { href: "/activos-inmobiliarios", label: "Activos Inmobiliarios", icon: Building },
         ]
     }
-  ];
+  ],
+  items: []
+};
 
-const librosContablesNavItems = [
-     {
-        title: "Libros Contables",
-        icon: BookOpen,
-        items: [
-            { href: "/libros-contables", label: "Libros Contables Principales", icon: BookOpen },
-        ]
-    },
-    {
-        title: "Libros de Registro Fiscal",
-        icon: BookOpen,
-        items: [
-            { href: "/libro-compra-venta", label: "Libro de Compras y Ventas", icon: Landmark },
-            { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
-        ]
-    },
-    {
-        title: "Libros de Registro Laboral",
-        icon: BookOpen,
-        items: [
-            { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
-            { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
-            { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
-            { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
-            { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
-            { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
-            { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
-        ]
-    }
-]
+const librosContablesNavItems = {
+    title: "Libros Oficiales",
+    icon: BookOpen,
+    subGroups: [
+        {
+            title: "Libros Contables",
+            icon: BookOpen,
+            items: [
+                { href: "/libros-contables", label: "Libros Principales", icon: BookOpen },
+            ]
+        },
+        {
+            title: "Libros de Registro Fiscal",
+            icon: BookOpen,
+            items: [
+                { href: "/libro-compra-venta", label: "Libro de Compras y Ventas", icon: Landmark },
+                { href: "/libro-licores", label: "Libro de Licores", icon: Wine },
+            ]
+        },
+        {
+            title: "Libros de Registro Laboral",
+            icon: BookOpen,
+            items: [
+                { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
+                { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
+                { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
+                { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
+                { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
+                { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
+                { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
+            ]
+        }
+    ],
+    items: []
+}
 
 const impuestosCumplimientoNavGroups = {
   title: "Impuestos y Cumplimiento",
@@ -393,6 +403,7 @@ const advisoryNavGroups = {
 export const adminNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
+  finanzasContabilidadNavItems,
   impuestosCumplimientoNavGroups,
   rrhhNavGroupsData,
   legalNavGroupsData,
@@ -406,9 +417,9 @@ export const adminNavGroups = [
 
 export const contabilidadNavGroups = [
     { title: "Dashboard", icon: BookOpen, items: [{ href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
-    ...finanzasContabilidadNavItems.map(group => ({ ...group, subGroups: [] })),
-    ...librosContablesNavItems.map(group => ({ ...group, subGroups: [] })),
+    librosContablesNavItems,
 ];
+
 
 export const legalNavGroups = [
   { title: "Dashboard", icon: Gavel, items: [{ href: "/escritorio-juridico", label: "Centro de Mando Legal", icon: Gavel }], subGroups: [] },
