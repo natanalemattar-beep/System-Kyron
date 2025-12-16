@@ -10,25 +10,25 @@ const teamMembers = [
     name: "Carlos Mattar",
     role: "CEO & Fundador",
     avatarId: "testimonial-avatar-1",
-    description: "Líder visionario, impulsando la estrategia y el crecimiento global de Kyron."
+    description: "Más de 15 años de experiencia liderando proyectos de tecnología y transformación digital en Latinoamérica."
   },
   {
     name: "Maria T. Hernandez",
-    role: "CEO & Fundadora",
+    role: "CFO & Co-Fundadora",
     avatarId: "testimonial-avatar-2",
-    description: "Experta en operaciones y finanzas, asegurando la excelencia y sostenibilidad del negocio."
+    description: "Experta en finanzas corporativas y cumplimiento, asegurando la sostenibilidad y el crecimiento financiero de Kyron."
   },
    {
     name: "Jose Herrera",
-    role: "CEO & Fundador",
+    role: "CTO & Co-Fundador",
     avatarId: "testimonial-avatar-3",
-    description: "Arquitecto de la tecnología, dirigiendo la innovación y el desarrollo de la plataforma."
+    description: "Arquitecto de software con una década de experiencia construyendo plataformas escalables y seguras en la nube."
   },
   {
     name: "Omar Mattar",
-    role: "CEO",
+    role: "Head of Growth",
     avatarId: "testimonial-avatar-4",
-    description: "Responsable de la ejecución comercial y la expansión de mercado en Venezuela."
+    description: "Estratega de mercado enfocado en la expansión nacional y la creación de alianzas clave para el ecosistema Kyron."
   },
 ];
 

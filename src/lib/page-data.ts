@@ -47,33 +47,29 @@ export const planes = [
 
 export const faqItems = [
     {
-        question: "¿Qué es Kyron?",
-        answer: "Kyron es una plataforma digital integral diseñada para simplificar la burocracia y la gestión empresarial en Venezuela. Centralizamos todos tus procesos, desde la contabilidad y facturación hasta la gestión de permisos y recursos humanos, en un solo lugar, utilizando tecnología e inteligencia artificial para garantizar el cumplimiento y la eficiencia."
+        question: "¿Cómo garantizan el cumplimiento con las normativas del SENIAT?",
+        answer: "Nuestra plataforma está diseñada específicamente para el entorno fiscal venezolano. Mantenemos una comunicación constante con el SENIAT para asegurar que cada factura, retención y libro contable cumpla con las últimas providencias administrativas. Nuestro sistema valida los datos en tiempo real y está homologado, dándote la tranquilidad de que tu empresa opera 100% en regla."
     },
     {
-        question: "¿Qué servicios ofrecen?",
-        answer: "Ofrecemos un ecosistema completo de soluciones que incluyen: Gestión Fiscal y Contable (homologada por el SENIAT), Administración de Nómina, Gestión de Permisos y Cumplimiento, y un módulo de Asesoría Legal y Estratégica con herramientas de análisis y modelos de documentos."
-    },
-     {
-        question: "¿Cuáles son sus funciones clave?",
-        answer: "Nuestras funciones clave son la automatización de procesos mediante Inteligencia Artificial (para conciliación, análisis, etc.), seguridad de nivel superior con cifrado de extremo a extremo, y un potente sistema de análisis y reportes con dashboards intuitivos para visualizar la salud de tu negocio en tiempo real."
+        question: "¿Qué métodos de pago aceptan?",
+        answer: "Aceptamos una amplia variedad de métodos de pago para tu comodidad. Para pagos en Bolívares (VES), puedes usar transferencias bancarias y Pago Móvil. Para pagos en Dólares (USD) o otras divisas, aceptamos Zelle, transferencias internacionales y tarjetas de crédito a través de nuestra pasarela de pago segura."
     },
     {
-        question: "¿Mis datos están seguros en la plataforma?",
-        answer: "La seguridad es nuestra máxima prioridad. Utilizamos cifrado de extremo a extremo, autenticación de dos factores (2FA), monitoreo de sesiones activas y auditorías constantes para proteger tu información de forma robusta."
-    },
-     {
-        question: "¿Qué tipo de soporte técnico ofrecen?",
-        answer: "Ofrecemos soporte por correo electrónico para nuestro Plan Básico. Para los planes Profesional y Corporativo, ofrecemos soporte prioritario a través de WhatsApp y teléfono, con un equipo dedicado a resolver tus dudas de manera rápida y eficiente."
-    },
-     {
-        question: "¿Puedo cambiar de plan en cualquier momento?",
-        answer: "Sí, puedes mejorar o ajustar tu plan en cualquier momento directamente desde el panel de configuración de tu cuenta. La facturación se ajustará automáticamente de forma prorrateada para que solo pagues por lo que usas."
+        question: "¿Ofrecen soporte técnico y de implementación?",
+        answer: "¡Sí! El éxito de nuestros clientes es nuestro éxito. Ofrecemos un proceso de 'onboarding' guiado para asegurar una implementación fluida. Además, todos nuestros planes incluyen soporte. El Plan Profesional y Corporativo cuentan con soporte prioritario vía WhatsApp y teléfono para resolver cualquier duda al instante."
     },
     {
-        question: "¿Cómo puedo contactarlos?",
-        answer: "Puedes contactarnos a través de nuestro correo electrónico contacto@kyron.com, llamando al +58 414-1234567, o iniciando una conversación con nuestro Asistente de IA directamente en la página. ¡Estamos aquí para ayudarte!"
+        question: "¿Puedo probar la plataforma antes de comprometerme?",
+        answer: "Por supuesto. Creemos en el valor de nuestra plataforma y queremos que lo compruebes por ti mismo. Ofrecemos una demostración gratuita y personalizada donde uno de nuestros especialistas te guiará a través de las funcionalidades clave y responderá todas tus preguntas. Solicita tu demo en la sección de contacto."
     },
+    {
+        question: "¿Es seguro subir mis datos fiscales y contables a la plataforma?",
+        answer: "La seguridad es nuestra máxima prioridad. Utilizamos cifrado de nivel bancario para toda la información, tanto en tránsito como en reposo. Además, implementamos autenticación de dos factores (2FA) y auditorías de seguridad constantes para garantizar que tus datos estén siempre protegidos contra accesos no autorizados."
+    },
+    {
+        question: "¿Qué sucede si cambia la legislación fiscal en Venezuela?",
+        answer: "Esa es una de nuestras mayores fortalezas. Nuestro equipo legal y de desarrollo monitorea constantemente cualquier cambio en la legislación. Actualizamos la plataforma de forma proactiva para adaptarnos a nuevas leyes, gacetas o providencias, asegurando que tu empresa siempre esté al día sin que tú tengas que preocuparte."
+    }
 ];
 
 export const securityFeatures = [
