@@ -1,13 +1,12 @@
 
 'use client';
 
-import { DollarSign, TrendingUp, Users, AlertTriangle, CheckCircle, FileWarning } from "lucide-react";
+import { DollarSign, TrendingUp, Users, AlertTriangle, CheckCircle } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { QuickAccess } from "@/components/dashboard/quick-access";
-import { WelcomeTutorial } from "@/components/welcome-tutorial";
 
 const recentActivities = [
   {
@@ -64,7 +63,6 @@ export default function DashboardPage() {
             </div>
         </div>
       </div>
-       <WelcomeTutorial />
     </div>
   );
 }
