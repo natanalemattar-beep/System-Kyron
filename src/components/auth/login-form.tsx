@@ -75,7 +75,15 @@ const idByCountry: Record<string, { label: string, placeholder: string }> = {
 export function LoginForm({ icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks }: LoginFormProps) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
-  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState<Record<string, string>>(() => {
+    const initialData: Record<string, string> = {};
+    fields.forEach(field => {
+      if (field.defaultValue) {
+        initialData[field.id] = field.defaultValue;
+      }
+    });
+    return initialData;
+  });
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -136,7 +144,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
     const dynamicFieldId = field.id === 'idValue' ? currentIdInfo.label.toLowerCase().replace(/ /g, '-') : field.id;
     const dynamicLabel = field.id === 'idValue' ? currentIdInfo.label : field.label;
     const dynamicPlaceholder = field.id === 'idValue' ? currentIdInfo.placeholder : field.placeholder;
-    const dynamicValue = field.id === 'idValue' ? formData.idValue || '' : formData[field.id] || '';
+    const dynamicValue = field.id === 'idValue' ? (formData.idValue || '') : (formData[field.id] || '');
 
     switch (field.type) {
       case 'password':
@@ -222,5 +230,3 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
     </Card>
   );
 }
-
-    

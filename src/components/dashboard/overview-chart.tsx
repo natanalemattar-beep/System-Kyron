@@ -4,14 +4,13 @@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { financialChartData } from "@/lib/data";
-import { formatCurrency } from "@/lib/utils";
 import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 export function OverviewChart() {
   const recentData = financialChartData.slice(-6); // Get last 6 months
 
   return (
-    <Card>
+    <Card className="bg-card/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Resumen Semestral</CardTitle>
         <CardDescription>Trámites completados y pendientes en los últimos 6 meses.</CardDescription>
@@ -35,6 +34,7 @@ export function OverviewChart() {
             />
             <Tooltip
               content={<ChartTooltipContent formatter={(value, name) => `${value} ${name.toLowerCase()}`}/>}
+              cursor={{fill: 'hsl(var(--secondary))'}}
             />
             <Legend />
             <Bar dataKey="completed" name="Completados" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
