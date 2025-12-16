@@ -16,7 +16,7 @@ export default function LoginFintechPage() {
       { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "/recover-fintech", label: "¿Olvidaste tu contraseña?" } }
     ],
     submitButtonText: "Acceder al Centro de Contabilidad",
-    submitButtonHref: "/contabilidad",
+    submitButtonHref: "/admin/contabilidad",
     credentials: { user: "admin.user", password: "password123" },
     footerLinks: {
       text: "¿No tienes una cuenta de empresa?",
