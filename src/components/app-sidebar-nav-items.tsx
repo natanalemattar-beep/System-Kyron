@@ -281,7 +281,7 @@ const legalNavGroupsData = {
             { href: "/legal/dashboard-juridico", label: "Dashboard Jurídico", icon: Gavel },
             { href: "/legal/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
             { href: "/legal/permisos", label: "Trámites y Permisos", icon: UserCheck },
-            { href: "/legal/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
+            { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
             { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/multas", label: "Multas", icon: AlertTriangle },
             { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
@@ -435,7 +435,7 @@ export const ventasNavGroups = [
 export const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
         { href: "/socios/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
-        { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
+        { href: "/legal/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/organigrama", label: "Organigrama", icon: Network },
         { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
     ], subGroups: [] },

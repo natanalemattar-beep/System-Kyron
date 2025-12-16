@@ -8,7 +8,7 @@ export default function RegisterJuridicoPage() {
     const registerProps = {
         icon: Gavel,
         title: "Registro de Escritorio Jurídico",
-        description: "Este portal es de acceso restringido. Por favor, solicita acceso a través del formulario correspondiente.",
+        description: "Este portal es de acceso restringido. Para obtener credenciales, debes enviar una solicitud formal que será revisada por un administrador.",
         fields: [],
         submitButtonText: "Solicitar Acceso al Portal",
         footerLinkHref: "/login-escritorio-juridico",
