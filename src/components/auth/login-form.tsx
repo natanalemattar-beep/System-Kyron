@@ -2,7 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, EyeOff, Copy } from "lucide-react";
+import { Eye, EyeOff, Copy, Loader2, AlertTriangle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +20,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { countries } from "@/lib/countries";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Credentials } from "./credentials";
-import { Separator } from "../ui/separator";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface Field {
   id: string;
@@ -54,35 +55,69 @@ interface LoginFormProps {
 
 const idByCountry: Record<string, { label: string, placeholder: string, defaultValue: string }> = {
     "VEN": { label: "Cédula de Identidad", placeholder: "V-12345678", defaultValue: "V-12345678" },
-    "USA": { label: "Email / Username", placeholder: "user@email.com", defaultValue: "user@email.com" },
-    "ESP": { label: "DNI / NIE", placeholder: "12345678A", defaultValue: "12345678A" },
-    "COL": { label: "Cédula de Ciudadanía", placeholder: "1234567890", defaultValue: "1234567890" },
-    "ARG": { label: "Documento Nacional de Identidad (DNI)", placeholder: "12.345.678", defaultValue: "12.345.678" },
-    "MEX": { label: "Clave Única de Registro de Población (CURP)", placeholder: "ABCD123456HOMBRE12", defaultValue: "ABCD123456HOMBRE12" },
-    "CHL": { label: "Rol Único Nacional (RUN)", placeholder: "12.345.678-K", defaultValue: "12.345.678-K" },
-    "BRA": { label: "Cadastro de Pessoas Físicas (CPF)", placeholder: "123.456.789-00", defaultValue: "123.456.789-00" },
-    "DEU": { label: "Personalausweisnummer", placeholder: "L01X00T29", defaultValue: "L01X00T29" },
-    "FRA": { label: "Numéro de Carte Nationale d'Identité", placeholder: "123456789012", defaultValue: "123456789012" },
-    "ITA": { label: "Codice Fiscale", placeholder: "ABCDEF12G34H567I", defaultValue: "ABCDEF12G34H567I" },
-    "NLD": { label: "Burgerservicenummer (BSN)", placeholder: "123456789", defaultValue: "123456789" },
-    "CHN": { label: "Resident Identity Card Number", placeholder: "110101199003071234", defaultValue: "110101199003071234" },
-    "ARE": { label: "Emirates ID Number", placeholder: "784-1980-1234567-1", defaultValue: "784-1980-1234567-1" },
-    "CAN": { label: "Social Insurance Number (SIN)", placeholder: "123-456-789", defaultValue: "123-456-789" },
-    "PRT": { label: "Cartão de Cidadão", placeholder: "12345678 9 ZZ1", defaultValue: "12345678 9 ZZ1" },
+    "USA": { label: "Email / Username", placeholder: "user@email.com", defaultValue: "" },
+    "ESP": { label: "DNI / NIE", placeholder: "12345678A", defaultValue: "" },
+    "COL": { label: "Cédula de Ciudadanía", placeholder: "1234567890", defaultValue: "" },
+    "ARG": { label: "Documento Nacional de Identidad (DNI)", placeholder: "12.345.678", defaultValue: "" },
+    "MEX": { label: "Clave Única de Registro de Población (CURP)", placeholder: "ABCD123456HOMBRE12", defaultValue: "" },
+    "CHL": { label: "Rol Único Nacional (RUN)", placeholder: "12.345.678-K", defaultValue: "" },
+    "BRA": { label: "Cadastro de Pessoas Físicas (CPF)", placeholder: "123.456.789-00", defaultValue: "" },
+    "DEU": { label: "Personalausweisnummer", placeholder: "L01X00T29", defaultValue: "" },
+    "FRA": { label: "Numéro de Carte Nationale d'Identité", placeholder: "123456789012", defaultValue: "" },
+    "ITA": { label: "Codice Fiscale", placeholder: "ABCDEF12G34H567I", defaultValue: "" },
+    "NLD": { label: "Burgerservicenummer (BSN)", placeholder: "123456789", defaultValue: "" },
+    "CHN": { label: "Resident Identity Card Number", placeholder: "110101199003071234", defaultValue: "" },
+    "ARE": { label: "Emirates ID Number", placeholder: "784-1980-1234567-1", defaultValue: "" },
+    "CAN": { label: "Social Insurance Number (SIN)", placeholder: "123-456-789", defaultValue: "" },
+    "PRT": { label: "Cartão de Cidadão", placeholder: "12345678 9 ZZ1", defaultValue: "" },
 };
-
 
 export function LoginForm({ icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks }: LoginFormProps) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [country, setCountry] = useState("VEN");
-  const [idValue, setIdValue] = useState(idByCountry["VEN"].defaultValue);
+  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const currentIdInfo = idByCountry[country] || { label: "Identificación Personal", placeholder: "", defaultValue: "" };
-  
+
   const handleCountryChange = (newCountryCode: string) => {
     setCountry(newCountryCode);
-    const newIdInfo = idByCountry[newCountryCode] || {defaultValue: ""};
-    setIdValue(newIdInfo.defaultValue);
+    setFormData(prev => ({...prev, idValue: ''}));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { id, value } = e.target;
+      setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsLoading(true);
+      setError(null);
+      
+      // Simulate backend validation
+      setTimeout(() => {
+        const idField = fields.find(f => f.id === 'idValue' || f.id === 'username');
+        const passField = fields.find(f => f.id === 'password');
+
+        if (idField && passField && credentials) {
+            const userValue = formData[idField.id];
+            const passValue = formData[passField.id];
+
+            if (userValue === credentials.user && passValue === credentials.password) {
+                 router.push(submitButtonHref);
+            } else {
+                 setError("Usuario o contraseña incorrectos.");
+            }
+        } else {
+            // Default success if no credentials to check against (for other forms)
+            router.push(submitButtonHref);
+        }
+
+        setIsLoading(false);
+      }, 1000);
   };
   
   const renderField = (field: Field) => {
@@ -98,21 +133,17 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
       );
     }
 
-    if (field.id === 'idValue') {
-      return (
-        <div key={field.id} className="space-y-2">
-          <Label htmlFor={field.id}>{currentIdInfo.label}</Label>
-          <Input id={field.id} type="text" placeholder={currentIdInfo.placeholder} value={idValue} onChange={(e) => setIdValue(e.target.value)} required />
-        </div>
-      );
-    }
-  
+    const dynamicFieldId = field.id === 'idValue' ? currentIdInfo.label.toLowerCase().replace(/ /g, '-') : field.id;
+    const dynamicLabel = field.id === 'idValue' ? currentIdInfo.label : field.label;
+    const dynamicPlaceholder = field.id === 'idValue' ? currentIdInfo.placeholder : field.placeholder;
+    const dynamicValue = field.id === 'idValue' ? formData.idValue || '' : formData[field.id] || '';
+
     switch (field.type) {
       case 'password':
         return (
           <div key={field.id} className="space-y-2 relative">
             <Label htmlFor={field.id}>{field.label}</Label>
-            <Input id={field.id} type={passwordVisible ? "text" : "password"} placeholder={field.placeholder} defaultValue={field.defaultValue} className="pr-10" required/>
+            <Input id={field.id} type={passwordVisible ? "text" : "password"} placeholder={field.placeholder} value={formData[field.id] || ''} onChange={handleInputChange} className="pr-10" required/>
             <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
           </div>
         );
@@ -131,8 +162,8 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
       default: {
         return (
           <div key={field.id} className="space-y-2">
-            <Label htmlFor={field.id}>{field.label}</Label>
-            <Input id={field.id} type={field.type} placeholder={field.placeholder} defaultValue={field.defaultValue} required/>
+            <Label htmlFor={dynamicFieldId}>{dynamicLabel}</Label>
+            <Input id={field.id} type={field.type} placeholder={dynamicPlaceholder} value={dynamicValue} onChange={handleInputChange} required/>
           </div>
         );
       }
@@ -148,15 +179,23 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
         <CardTitle className="text-2xl">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <form>
+      <form onSubmit={handleSubmit}>
         <CardContent className="p-6 space-y-6">
+          {error && (
+              <Alert variant="destructive">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertDescription>
+                      {error}
+                  </AlertDescription>
+              </Alert>
+          )}
           {fields.map(renderField)}
         </CardContent>
         <CardFooter className="p-6 pt-0 flex-col">
-          <Button asChild type="submit" className="w-full h-11 text-base">
-            <Link href={submitButtonHref}>{submitButtonText}</Link>
+          <Button type="submit" className="w-full h-11 text-base" disabled={isLoading}>
+            {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
+            {submitButtonText}
           </Button>
-          {credentials && <Credentials user={fields.some(f => f.id === 'idValue') ? idValue : credentials.user} password={credentials.password} />}
         </CardFooter>
       </form>
        {footerLinks && (
