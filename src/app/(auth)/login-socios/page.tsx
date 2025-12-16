@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Users, Building, ShoppingCart, Briefcase, Megaphone, Cpu, Gavel, User } from "lucide-react";
+import { Users, Building, ShoppingCart, Briefcase, Megaphone, Cpu, Gavel, User, Banknote } from "lucide-react";
 import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginSociosPage() {
@@ -23,7 +23,7 @@ export default function LoginSociosPage() {
         title: "Otros Portales",
         links: [
           { href: "/login", label: "Personal", icon: User },
-          { href: "/login-admin", label: "Admin", icon: Building },
+          { href: "/login-fintech", label: "FinTech", icon: Banknote },
           { href: "/login-ventas", label: "Ventas", icon: ShoppingCart },
           { href: "/login-rrhh", label: "RR.HH.", icon: Briefcase },
           { href: "/login-marketing", label: "Marketing", icon: Megaphone },
