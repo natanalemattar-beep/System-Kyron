@@ -1,12 +1,14 @@
 
 'use client';
 
-import { DollarSign, TrendingUp, Users, AlertTriangle, CheckCircle } from "lucide-react";
+import { DollarSign, TrendingUp, Users, AlertTriangle, CheckCircle, TrendingDown } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { QuickAccess } from "@/components/dashboard/quick-access";
+import { SplashScreen } from "@/components/splash-screen";
+import { useEffect, useState } from "react";
 
 const recentActivities = [
   {
@@ -36,6 +38,19 @@ const recentActivities = [
 ];
 
 export default function DashboardPage() {
+   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setIsLoading(false);
+    }, 1500); // Simulate data fetching
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
@@ -47,11 +62,13 @@ export default function DashboardPage() {
 
       <div className="space-y-8">
         <StatsCards />
-        <div className="grid gap-8 lg:grid-cols-3">
-            <div className="lg:col-span-2">
+        <div className="grid gap-8 lg:grid-cols-5">
+            <div className="lg:col-span-3">
                 <OverviewChart />
             </div>
-            <ActivityCard recentActivities={recentActivities} />
+            <div className="lg:col-span-2">
+                <ActivityCard recentActivities={recentActivities} />
+            </div>
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight">Acceso Rápido a Módulos</h2>
