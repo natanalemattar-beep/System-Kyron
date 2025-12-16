@@ -184,7 +184,7 @@ export default function RegisterNaturalPage() {
                     <div className="space-y-2 relative">
                         <Label htmlFor="password">Contraseña</Label>
                         <Input id="password" type={passwordVisible ? "text" : "password"} placeholder="••••••••" className="pr-10" required />
-                        <button type="button" onClick={() => setPasswordVisible(!v)} className="absolute right-3 top-8 text-muted-foreground">{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
+                        <button type="button" onClick={() => setPasswordVisible(prev => !prev)} className="absolute right-3 top-8 text-muted-foreground">{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
                     </div>
                     <div className="flex justify-end h-5">
                        {renderSaveStatus()}
@@ -206,3 +206,5 @@ export default function RegisterNaturalPage() {
         </Card>
     );
 }
+
+    

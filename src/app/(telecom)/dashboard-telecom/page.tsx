@@ -10,6 +10,7 @@ import {
   FileText,
   Clock,
   CheckCircle,
+  AlertTriangle,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,10 +18,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { motion } from "framer-motion";
 
 const kpiData = [
-  { title: "Disponibilidad de Red (Uptime)", value: "99.98%", icon: Signal, color: "text-green-400" },
-  { title: "Proyectos de Despliegue Activos", value: "4", icon: HardHat, color: "text-blue-400" },
-  { title: "Cumplimiento CONATEL", value: "100%", icon: ShieldCheck, color: "text-green-400" },
-  { title: "Nivel de Saturación de Red", value: "65%", icon: BarChart, color: "text-yellow-400" },
+  { title: "Disponibilidad de Red (Uptime)", value: "99.98%", icon: Signal, color: "text-green-400", status: "Óptimo" },
+  { title: "Proyectos de Despliegue Activos", value: "4", icon: HardHat, color: "text-blue-400", status: "En progreso" },
+  { title: "Cumplimiento CONATEL", value: "100%", icon: ShieldCheck, color: "text-green-400", status: "Al día" },
+  { title: "Nivel de Saturación de Red", value: "65%", icon: BarChart, color: "text-yellow-400", status: "Advertencia" },
 ];
 
 const networkStatus = [
@@ -74,6 +75,7 @@ export default function DashboardTelecomPage() {
                   </CardHeader>
                   <CardContent>
                       <p className={`text-3xl font-bold ${kpi.color}`}>{kpi.value}</p>
+                      <p className="text-xs text-muted-foreground">{kpi.status}</p>
                   </CardContent>
               </Card>
             </motion.div>
@@ -131,7 +133,7 @@ export default function DashboardTelecomPage() {
                           <TableRow key={item.id} className={item.status === 'Vencida' ? 'bg-destructive/10' : ''}>
                               <TableCell className="font-medium">{item.name}</TableCell>
                               <TableCell className="text-center">
-                                <Badge variant={statusVariant[item.status as keyof typeof statusVariant]}>{item.status}</Badge>
+                                <Badge variant={statusVariant[item.status]}>{item.status}</Badge>
                               </TableCell>
                               <TableCell className="text-right">{item.expires}</TableCell>
                           </TableRow>
@@ -145,3 +147,5 @@ export default function DashboardTelecomPage() {
     </div>
   );
 }
+
+    

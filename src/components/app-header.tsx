@@ -81,7 +81,14 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                  {navGroups.map((group) => (
                     <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm" className="gap-1">
+                            <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                className={cn(
+                                    "gap-1",
+                                    (group.items.some(item => pathname.startsWith(item.href)) || group.subGroups.some(sg => sg.items.some(item => pathname.startsWith(item.href)))) && "bg-accent"
+                                )}
+                            >
                                 {group.title}
                             </Button>
                         </DropdownMenuTrigger>
