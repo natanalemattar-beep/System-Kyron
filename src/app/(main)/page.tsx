@@ -1,102 +1,188 @@
 
-"use client";
+'use client';
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, FileWarning, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/utils";
-import { motion } from 'framer-motion';
+import { User, Menu, AlertTriangle } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { Logo } from "@/components/logo";
+import { cn } from "@/lib/utils";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { loginOptions } from "@/lib/login-options";
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+import { ThemeToggle } from "@/components/theme-toggle";
+import type { FC, AnchorHTMLAttributes<HTMLAnchorElement> } from 'react';
+import { HeroSection, ServicesSection, FeaturesSection, AboutUsSection, FaqSection, CtaSection, Footer } from '@/components/landing';
 
-const kpiData = [
-  { title: "Trámites en Proceso", value: "2", icon: Clock, color: "text-yellow-500", href: "/main/partidas-nacimiento" },
-  { title: "Documentos Listos", value: "5", icon: CheckCircle, color: "text-green-500", href: "/main/documentos" },
-  { title: "Alertas o Vencimientos", value: "1", icon: FileWarning, color: "text-red-500", href: "/main/notificaciones" },
-];
+const ChatDialog = dynamic(() => import('@/components/chat-dialog').then(mod => mod.ChatDialog), { ssr: false });
 
-const recentActivities = [
-    { id: "PN-2024-001", type: "Partida de Nacimiento", date: "2024-07-10", status: "Aprobado", href: "/main/partidas-nacimiento" },
-    { id: "AM-2024-001", type: "Acta de Matrimonio", date: "2024-07-18", status: "En Proceso", href: "/main/actas-matrimonio" },
-    { id: "AP-2024-005", type: "Antecedentes Penales", date: "2024-07-22", status: "Solicitado", href: "/main/antecedentes-penales" },
-];
+const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const targetId = href!.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+        // This part is for closing the mobile sheet menu if a link is clicked
+        const sheetCloseButton = document.querySelector('[data-radix-dialog-close]');
+        if (sheetCloseButton instanceof HTMLElement) {
+            sheetCloseButton.click();
+        }
+    };
 
-const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
-  Aprobado: "default",
-  "En Proceso": "secondary",
-  Solicitado: "outline",
+    return <a href={href} onClick={handleClick} {...props} />;
 };
 
-export default function DashboardPersonalPage() {
-  return (
-    <div className="space-y-8">
-      <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Bienvenido, Usuario
-        </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl">Tu centro de mando para gestionar documentos y solicitudes de forma fácil y segura.</p>
-      </header>
-      
-      <div className="grid gap-6 md:grid-cols-3">
-         {kpiData.map((kpi, index) => (
-            <motion.div
-              key={kpi.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Link href={kpi.href}>
-                  <Card className="hover:shadow-lg transition-shadow">
-                      <CardHeader className="pb-2 flex-row items-center justify-between">
-                          <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                          <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
-                      </CardHeader>
-                      <CardContent>
-                          <p className="text-3xl font-bold">{kpi.value}</p>
-                      </CardContent>
-                  </Card>
-              </Link>
-            </motion.div>
-        ))}
-      </div>
+const navLinks = [
+  { href: "#servicios", label: "Servicios" },
+  { href: "#caracteristicas", label: "Características" },
+  { href: "#nosotros", label: "Nosotros" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#contacto", label: "Contacto" },
+];
 
-      <Card id="tramites">
-        <CardHeader>
-          <CardTitle>Actividad Reciente de Trámites</CardTitle>
-          <CardDescription>Un resumen de tus últimas solicitudes y su estado actual.</CardDescription>
-        </CardHeader>
-        <CardContent>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Referencia</TableHead>
-                        <TableHead>Tipo de Trámite</TableHead>
-                        <TableHead>Fecha de Solicitud</TableHead>
-                        <TableHead className="text-center">Estado</TableHead>
-                        <TableHead className="text-right">Acciones</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {recentActivities.map((activity) => (
-                        <TableRow key={activity.id}>
-                            <TableCell className="font-mono">{activity.id}</TableCell>
-                            <TableCell className="font-medium">{activity.type}</TableCell>
-                            <TableCell>{formatDate(activity.date)}</TableCell>
-                            <TableCell className="text-center">
-                                <Badge variant={statusVariant[activity.status]}>{activity.status}</Badge>
-                            </TableCell>
-                            <TableCell className="text-right">
-                                <Button variant="outline" size="sm" asChild>
-                                    <Link href={activity.href}>Ver Detalles <ArrowRight className="ml-2 h-4 w-4"/></Link>
+export default function LandingPage() {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 10);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    return (
+        <div className="flex flex-col min-h-dvh bg-background text-foreground">
+            <header className={cn(
+                "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+                 isScrolled ? "bg-background/80 backdrop-blur-lg" : "bg-transparent"
+            )}>
+                <motion.div 
+                    className="container mx-auto px-4 md:px-6"
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{
+                        type: 'spring',
+                        stiffness: 70,
+                        damping: 20,
+                        mass: 1,
+                        delay: 0.5
+                    }}
+                >
+                    <div className={cn(
+                        "flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
+                        isScrolled ? "border rounded-full mt-4" : "mt-0 md:mt-4"
+                    )}>
+                        <Link href="/" className="flex items-center gap-3">
+                            <Logo />
+                            <span className="text-xl font-bold">System Kyron</span>
+                        </Link>
+                        <nav className="hidden md:flex gap-6">
+                            {navLinks.map((link) => (
+                                <SmoothScrollLink key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                                    {link.label}
+                                </SmoothScrollLink>
+                            ))}
+                        </nav>
+                        <div className="hidden md:flex items-center gap-2">
+                            <LanguageSwitcher />
+                            <ThemeToggle />
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost">Acceder <User className="ml-2 h-4 w-4" /></Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-64">
+                                    <DropdownMenuLabel>Selecciona un Portal</DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    {loginOptions.map((opt) => (
+                                        <DropdownMenuItem key={opt.href} asChild>
+                                            <Link href={opt.href} className="flex items-center justify-start">
+                                                <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                                                <div>
+                                                    <p>{opt.label}</p>
+                                                    <p className="text-xs text-muted-foreground">{opt.description}</p>
+                                                </div>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                            <Button asChild>
+                                <Link href="/register">Registrarse</Link>
+                            </Button>
+                        </div>
+                        <Sheet>
+                            <SheetTrigger asChild>
+                                <Button variant="ghost" size="icon" className="md:hidden">
+                                    <Menu />
+                                    <span className="sr-only">Abrir menú</span>
                                 </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </CardContent>
-      </Card>
-    </div>
-  );
+                            </SheetTrigger>
+                            <SheetContent side="left" className="flex flex-col">
+                                <SheetHeader>
+                                    <SheetTitle className="flex items-center gap-3">
+                                        <Logo />
+                                        <span className="text-xl font-bold">System Kyron</span>
+                                    </SheetTitle>
+                                </SheetHeader>
+                                <nav className="grid gap-4 text-lg font-medium mt-8">
+                                    {navLinks.map((link) => (
+                                        <SmoothScrollLink key={link.href} href={link.href}>{link.label}</SmoothScrollLink>
+                                    ))}
+                                </nav>
+                                <div className="mt-auto space-y-4">
+                                    <div className="flex gap-2">
+                                        <LanguageSwitcher />
+                                        <ThemeToggle />
+                                    </div>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="outline" className="w-full justify-start">
+                                                <User className="mr-2 h-4 w-4" /> Acceder
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="start" side="top" className="w-64 mb-2">
+                                            <DropdownMenuLabel>Selecciona un Portal</DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                            {loginOptions.map((opt) => (
+                                                <DropdownMenuItem key={opt.href} asChild>
+                                                    <Link href={opt.href} className="flex items-center justify-start">
+                                                        <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                                                        <div>
+                                                            <p>{opt.label}</p>
+                                                            <p className="text-xs text-muted-foreground">{opt.description}</p>
+                                                        </div>
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                            ))}
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                    <Button asChild className="w-full">
+                                        <Link href="/register">Registrarse</Link>
+                                    </Button>
+                                </div>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
+                </motion.div>
+            </header>
+
+            <main className="flex-1">
+                <HeroSection />
+                <ServicesSection />
+                <FeaturesSection />
+                <AboutUsSection />
+                <FaqSection />
+                <CtaSection />
+            </main>
+
+            <Footer />
+            <ChatDialog />
+        </div>
+    );
 }

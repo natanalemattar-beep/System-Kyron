@@ -23,5 +23,3 @@ export default function SociosLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-    

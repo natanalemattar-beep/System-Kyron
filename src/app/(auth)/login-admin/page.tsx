@@ -13,7 +13,7 @@ export default function LoginAdminPage() {
       { id: "country", label: "País", type: "select" as const },
       { id: "username", label: "Usuario (Admin)", type: "text" as const, placeholder: "admin.user", defaultValue: "admin.user" },
       { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
-      { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "#", label: "¿Olvidaste tu contraseña?" } }
+      { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "/recover-fintech", label: "¿Olvidaste tu contraseña?" } }
     ],
     submitButtonText: "Acceder",
     submitButtonHref: "/dashboard-empresa",

@@ -23,5 +23,3 @@ export default function VentasLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-    

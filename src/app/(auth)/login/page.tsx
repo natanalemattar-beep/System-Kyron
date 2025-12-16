@@ -1,3 +1,4 @@
+
 "use client";
 
 import { User, Building, Briefcase, ShoppingCart } from "lucide-react";
@@ -12,7 +13,7 @@ export default function LoginPage() {
       { id: "country", label: "País", type: "select" as const },
       { id: "idValue", label: "Cédula de Identidad", type: "text" as const, placeholder: "V-12345678", defaultValue: "" },
       { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "" },
-      { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "/recover", label: "¿Olvidaste tu contraseña?" } }
+      { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "/recover-fintech", label: "¿Olvidaste tu contraseña?" } }
     ],
     submitButtonText: "Acceder",
     submitButtonHref: "/dashboard",

@@ -11,11 +11,11 @@ import { formatCurrency } from "@/lib/utils";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 
 const managementModules = [
-    { title: "Análisis de Ventas", href: "/ventas/analisis-ventas", description: "Métricas y KPIs de rendimiento.", icon: TrendingUp },
-    { title: "Cuentas por Cobrar", href: "/contabilidad/cuentas-por-cobrar", description: "Gestión inteligente y automatizada.", icon: Wallet },
-    { title: "Cuentas por Pagar", href: "/contabilidad/cuentas-por-pagar", description: "Control de deudas con proveedores.", icon: HandCoins },
-    { title: "Estructura de Costos", href: "/contabilidad/estructura-costos", description: "Desglose de costos fijos y variables.", icon: Scale },
-    { title: "Libro de Compras/Ventas", href: "/admin/libro-compra-venta", description: "Registro fiscal de operaciones.", icon: Landmark },
+    { title: "Análisis de Ventas", href: "/analisis-ventas", description: "Métricas y KPIs de rendimiento.", icon: TrendingUp },
+    { title: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", description: "Gestión inteligente y automatizada.", icon: Wallet },
+    { title: "Cuentas por Pagar", href: "/cuentas-por-pagar", description: "Control de deudas con proveedores.", icon: HandCoins },
+    { title: "Estructura de Costos", href: "/estructura-costos", description: "Desglose de costos fijos y variables.", icon: Scale },
+    { title: "Libro de Compras/Ventas", href: "/libro-compra-venta", description: "Registro fiscal de operaciones.", icon: Landmark },
 ];
 
 const chartConfig = {

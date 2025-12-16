@@ -144,14 +144,14 @@ export const naturalMenuItems = [
 ];
 
 const facturacionGeneralMenuItems = [
-    { href: "/ventas/facturacion", label: "Centro de Facturación", icon: FileText },
-    { href: "/ventas/punto-de-venta", label: "Punto de Venta (TPV)", icon: TabletSmartphone },
-    { href: "/ventas/proformas", label: "Proformas", icon: Receipt },
-    { href: "/ventas/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-    { href: "/ventas/modelo-factura", label: "Modelo de Factura", icon: FileText },
+    { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
+    { href: "/punto-de-venta", label: "Punto de Venta (TPV)", icon: TabletSmartphone },
+    { href: "/proformas", label: "Proformas", icon: Receipt },
+    { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
+    { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
     { href: "/modelo-presupuesto", label: "Modelo de Presupuesto", icon: Receipt },
-    { href: "/ventas/nota-debito", label: "Nota de Débito", icon: FileMinus },
-    { href: "/ventas/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+    { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+    { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     { href: "/factura-nota-debito-credito", label: "Factura, Débito y Crédito", icon: HelpCircle },
     { href: "/data-entry", label: "Entrada de Datos por IA", icon: FileScan },
 ];
@@ -164,11 +164,11 @@ const finanzasContabilidadNavGroups = {
       title: "Análisis Financiero",
       icon: BarChart,
       items: [
-        { href: "/ventas/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
-        { href: "/contabilidad/analisis-caja", label: "Análisis de Caja", icon: BarChart },
-        { href: "/contabilidad/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
-        { href: "/contabilidad/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
-        { href: "/contabilidad/estructura-costos", label: "Estructura de Costos", icon: PieChart },
+        { href: "/analisis-ventas", label: "Análisis de Ventas", icon: TrendingUp },
+        { href: "/analisis-caja", label: "Análisis de Caja", icon: BarChart },
+        { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+        { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+        { href: "/estructura-costos", label: "Estructura de Costos", icon: PieChart },
         { href: "/analisis-rentabilidad", label: "Análisis de Rentabilidad", icon: TrendingUp },
       ],
     },
@@ -177,14 +177,14 @@ const finanzasContabilidadNavGroups = {
       icon: Wallet,
       items: [
         { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
-        { href: "/contabilidad/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
+        { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
       ],
     },
     {
         title: "Contabilidad General",
         icon: BookOpen,
         items: [
-            { href: "/contabilidad/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }
+            { href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }
         ]
     }
   ],
@@ -209,13 +209,13 @@ const impuestosCumplimientoNavGroups = {
       title: "Declaraciones y Pagos",
       icon: FileText,
       items: [
-        { href: "/admin/tramites-fiscales", label: "Centro de Trámites Fiscales", icon: FileText },
-        { href: "/admin/declaracion-iva", label: "Declaración de IVA", icon: FileText },
-        { href: "/admin/islr-arc", label: "Declaración Estimada (ISLR)", icon: Banknote },
-        { href: "/admin/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
-        { href: "/admin/igtf", label: "IGTF y Exoneraciones", icon: Percent },
-        { href: "/admin/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
-        { href: "/admin/ajuste-por-inflacion", label: "Ajuste por Inflación", icon: TrendingUp },
+        { href: "/tramites-fiscales", label: "Centro de Trámites Fiscales", icon: FileText },
+        { href: "/declaracion-iva", label: "Declaración de IVA", icon: FileText },
+        { href: "/islr-arc", label: "Declaración Estimada (ISLR)", icon: Banknote },
+        { href: "/proteccion-pensiones", label: "Protección de Pensiones", icon: Shield },
+        { href: "/igtf", label: "IGTF y Exoneraciones", icon: Percent },
+        { href: "/timbres-fiscales", label: "Timbres Fiscales", icon: Stamp },
+        { href: "/ajuste-por-inflacion", label: "Ajuste por Inflación", icon: TrendingUp },
       ]
     }
   ],
@@ -230,18 +230,18 @@ const rrhhNavGroupsData = {
         title: "Gestión de Personal",
         icon: Users,
         items: [
-            { href: "/hr/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
+            { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
             { href: "/nominas", label: "Nóminas", icon: Users },
-            { href: "/hr/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
-            { href: "/hr/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
-            { href: "/hr/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
+            { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
+            { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
+            { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
             { href: "/beneficios-empleados", label: "Beneficios para Empleados", icon: Gift },
-            { href: "/hr/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
+            { href: "/modelos-cartas", label: "Modelos de Cartas", icon: Mail },
             { href: "/desarrollo-profesional", label: "Desarrollo Profesional", icon: Sparkles },
-            { href: "/hr/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
-            { href: "/hr/carnet-personal", label: "Carnet del Personal", icon: User },
-            { href: "/hr/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
-            { href: "/hr/reclutamiento", label: "Reclutamiento", icon: UserPlus },
+            { href: "/gestion-notificaciones", label: "Gestión de Notificaciones", icon: Bell },
+            { href: "/carnet-personal", label: "Carnet del Personal", icon: User },
+            { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
+            { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
             { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Award },
         ]
       },
@@ -258,12 +258,12 @@ const rrhhNavGroupsData = {
         icon: BookOpen,
         items: [
             { href: "/libro-nomina", label: "Libro de Nómina", icon: Users },
-            { href: "/hr/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
-            { href: "/hr/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
-            { href: "/hr/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
-            { href: "/hr/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
+            { href: "/libro-horas-extras", label: "Libro de Horas Extras", icon: Timer },
+            { href: "/libro-horas-diurnas", label: "Libro de Horas Diurnas", icon: Sun },
+            { href: "/libro-horario-nocturno", label: "Libro de Horario Nocturno", icon: Moon },
+            { href: "/libro-vacaciones", label: "Libro de Vacaciones", icon: Plane },
             { href: "/libro-cesta-ticket", label: "Libro de Cesta Ticket", icon: ShoppingCart },
-            { href: "/hr/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
+            { href: "/libro-personal-retirado", label: "Libro de Personal Retirado", icon: UserX },
         ]
       }
     ],
@@ -282,7 +282,7 @@ const legalNavGroupsData = {
             { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
             { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
-            { href: "/admin/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
+            { href: "/autorizaciones", label: "Autorizaciones", icon: ShieldCheck },
             { href: "/multas", label: "Multas", icon: AlertTriangle },
             { href: "/compra-venta-inmuebles", label: "Gestión Inmobiliaria", icon: Home },
             { href: "/recursos-fiscales", label: "Recursos Fiscales", icon: Scale },
@@ -297,7 +297,7 @@ const legalNavGroupsData = {
             { href: "/cartas-autorizacion", label: "Cartas de Autorización", icon: Mail },
             { href: "/cartas-seniat", label: "Comunicaciones al SENIAT", icon: Mail },
             { href: "/cartas-conatel", label: "Comunicaciones a CONATEL", icon: Signal },
-            { href: "/hr/modelo-contrato-trabajo", label: "Contrato de Trabajo", icon: FileSignature },
+            { href: "/modelo-contrato-trabajo", label: "Contrato de Trabajo", icon: FileSignature },
             { href: "/modelo-contrato", label: "Contrato de Servicios", icon: FileSignature },
             { href: "/archivo-digital", label: "Archivo Digital", icon: Archive },
           ]
@@ -308,7 +308,7 @@ const legalNavGroupsData = {
           items: [
             { href: "/legalizacion-empresa", label: "Legalización Empresa", icon: Stamp },
             { href: "/poderes-representacion", label: "Poderes y Socios", icon: Gavel },
-            { href: "/admin/acta-asamblea", label: "Actas y Asambleas", icon: BookOpen },
+            { href: "/acta-asamblea", label: "Actas y Asambleas", icon: BookOpen },
             { href: "/tramites-corporativos", label: "Trámites Corporativos", icon: UserCog },
             { href: "/tipos-empresa", label: "Tipos de Empresa", icon: Building },
             { href: "/organigrama", label: "Organigrama", icon: Network },
@@ -343,9 +343,9 @@ export const advisoryNavGroups = {
             items: [
                 { href: "/inteligencia-negocio", label: "Inteligencia de Negocio (BI)", icon: Lightbulb },
                 { href: "/analisis-estrategico", label: "Análisis Estratégico", icon: BarChart },
-                { href: "/contabilidad/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
+                { href: "/analisis-riesgo", label: "Análisis de Riesgo", icon: ShieldQuestion },
                 { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
-                { href: "/contabilidad/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
+                { href: "/analisis-mercado", label: "Análisis de Mercado", icon: BarChart },
                 { href: "/nivel-competencia", label: "Nivel de Competencia", icon: Swords },
                 { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: BarChart },
                 { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
@@ -373,7 +373,7 @@ export const advisoryNavGroups = {
 };
 
 export const adminNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/admin/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
+  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
   finanzasContabilidadNavGroups,
   { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
   impuestosCumplimientoNavGroups,
@@ -383,7 +383,7 @@ export const adminNavGroups = [
 ];
 
 export const contabilidadNavGroups = [
-  { title: "Dashboard", icon: BookOpen, items: [{ href: "/contabilidad/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
+  { title: "Dashboard", icon: BookOpen, items: [{ href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
   {
     title: "Análisis Financiero",
     icon: BarChart,
@@ -397,8 +397,8 @@ export const contabilidadNavGroups = [
     subGroups: []
   },
   { title: "Facturación", icon: ShoppingCart, items: [
-      { href: "/ventas/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-      { href: "/ventas/proformas", label: "Proformas", icon: Receipt },
+      { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
+      { href: "/proformas", label: "Proformas", icon: Receipt },
     ], subGroups: [] },
   impuestosCumplimientoNavGroups,
 ];
@@ -437,20 +437,20 @@ export const rrhhNavGroups = [
 ];
 
 export const ventasNavGroups = [
-    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/ventas/analisis-ventas", label: "Análisis de Ventas", icon: LayoutDashboard }], subGroups: []},
+    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/analisis-ventas", label: "Análisis de Ventas", icon: LayoutDashboard }], subGroups: []},
     { title: "Ventas y Caja", icon: ShoppingCart, items: [
-        { href: "/ventas/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
-        { href: "/ventas/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
+        { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+        { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     ], subGroups: [] },
      { title: "Estrategias", icon: Lightbulb, items: [
-        { href: "/ventas/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
+        { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
     ], subGroups: [] },
     { title: "Facturación", icon: ShoppingCart, items: facturacionGeneralMenuItems, subGroups: [] },
 ];
 
 export const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
-        { href: "/socios/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
+        { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
         { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/organigrama", label: "Organigrama", icon: Network },
         { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
@@ -460,8 +460,8 @@ export const sociosNavGroups = [
 
 export const telecomNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [ 
-      { href: "/telecom/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
-      { href: "/telecom/venta-linea", label: "Venta de Líneas", icon: Phone },
+      { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
+      { href: "/venta-linea", label: "Venta de Líneas", icon: Phone },
     ], subGroups: [] },
 ];
 
@@ -484,5 +484,3 @@ export const informaticaNavGroups = [
       { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
-
-    

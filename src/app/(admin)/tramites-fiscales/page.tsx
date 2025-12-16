@@ -11,49 +11,49 @@ const tramites = [
         title: "Declaración de IVA",
         description: "Prepara, declara y paga el Impuesto al Valor Agregado.",
         icon: FileText,
-        href: "/admin/declaracion-iva"
+        href: "/declaracion-iva"
     },
     {
         title: "Declaración Estimada (Personal)",
         description: "Genera y consulta los comprobantes de retención de ISLR (AR-C) de tus empleados.",
         icon: Banknote,
-        href: "/admin/islr-arc"
+        href: "/islr-arc"
     },
     {
         title: "Libro de Compras y Ventas",
         description: "Registra y consulta tus operaciones fiscales diarias exigidas por el SENIAT.",
         icon: Landmark,
-        href: "/admin/libro-compra-venta"
+        href: "/libro-compra-venta"
     },
     {
         title: "Protección de Pensiones",
         description: "Declara y paga la contribución especial para la protección de las pensiones.",
         icon: Shield,
-        href: "/admin/proteccion-pensiones"
+        href: "/proteccion-pensiones"
     },
     {
         title: "IGTF y Exoneraciones",
         description: "Calcula el IGTF y consulta las operaciones exentas de IVA.",
         icon: Percent,
-        href: "/admin/igtf"
+        href: "/igtf"
     },
     {
         title: "Timbres Fiscales",
         description: "Estima el costo de los timbres fiscales para diversos trámites.",
         icon: Stamp,
-        href: "/admin/timbres-fiscales"
+        href: "/timbres-fiscales"
     },
      {
         title: "Cumplimiento Fiscal",
         description: "Guía de soluciones administrativas homologadas para evitar sanciones.",
         icon: ShieldCheck,
-        href: "/admin/cumplimiento-fiscal"
+        href: "/cumplimiento-fiscal"
     },
     {
         title: "Recursos Fiscales y Gacetas",
         description: "Consulta jurisprudencia, gacetas, leyes y providencias administrativas.",
         icon: Scale,
-        href: "/admin/recursos-fiscales"
+        href: "/recursos-fiscales"
     }
 ];
 

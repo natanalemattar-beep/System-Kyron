@@ -23,5 +23,3 @@ export default function TelecomLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-    

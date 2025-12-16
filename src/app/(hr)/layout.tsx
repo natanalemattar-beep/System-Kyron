@@ -8,7 +8,7 @@ import { rrhhNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 
 const user = { name: "Recursos Humanos", email: "rrhh@kyron.com", fallback: "RH" };
-const dashboardHref = "/hr/dashboard-rrhh";
+const dashboardHref = "/dashboard-rrhh";
 
 export default function HrLayout({ children }: { children: ReactNode }) {
   return (
