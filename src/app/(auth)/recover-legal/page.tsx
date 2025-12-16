@@ -62,7 +62,7 @@ export default function RecoverLegalPage() {
                 </CardFooter>
              </form>
         ) : (
-             <CardContent className="p-6 text-center space-y-4">
+            <CardContent className="p-6 text-center space-y-4">
                 <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
                 <p className="font-semibold">Solicitud Enviada</p>
                 <p className="text-muted-foreground">Un administrador del departamento legal ha sido notificado. Se pondrán en contacto contigo para verificar tu identidad y restablecer tu acceso de forma segura.</p>
