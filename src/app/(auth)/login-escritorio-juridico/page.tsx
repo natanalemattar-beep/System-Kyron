@@ -19,7 +19,7 @@ export default function LoginEscritorioJuridicoPage() {
     credentials: { user: "legal.user", password: "password123" },
     footerLinks: {
       text: "¿No tienes una cuenta?",
-      mainLink: { href: "/solicitud-acceso-legal", label: "Solicita acceso aquí" },
+      mainLink: { href: "/register/juridico", label: "Solicita acceso aquí" },
       secondaryLinks: {
         title: "Otros Portales",
         links: [
