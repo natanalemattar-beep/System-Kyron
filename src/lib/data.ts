@@ -1,3 +1,4 @@
+
 import type { Invoice, Transaction } from './types';
 
 export const mockInvoices: Invoice[] = [
@@ -77,4 +78,13 @@ export const mockMovableAssets = [
 export const mockImmovableAssets = [
     { id: 'ASSET-I-001', name: 'Oficina Principal', purchaseDate: '2018-01-01', cost: 250000, usefulLife: 40, accumulatedDepreciation: 39062.5, bookValue: 210937.5 },
     { id: 'ASSET-I-002', name: 'Almacén', purchaseDate: '2020-05-10', cost: 150000, usefulLife: 25, accumulatedDepreciation: 26000, bookValue: 124000 },
+];
+
+export const financialChartData = [
+  { month: "Feb '24", completed: 5, pending: 3 },
+  { month: "Mar '24", completed: 8, pending: 2 },
+  { month: "Abr '24", completed: 6, pending: 4 },
+  { month: "May '24", completed: 10, pending: 1 },
+  { month: "Jun '24", completed: 7, pending: 3 },
+  { month: "Jul '24", completed: 5, pending: 2 },
 ];
