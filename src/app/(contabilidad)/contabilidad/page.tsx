@@ -20,11 +20,11 @@ export default function ContabilidadPage() {
 
       <div className="space-y-8">
         <StatsCards />
-        <div className="grid gap-8 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-                <OverviewChart />
+        <div className="grid gap-8 lg:grid-cols-5">
+            <div className="lg:col-span-3">
+                 <OverviewChart />
             </div>
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-2">
                  <RecentInvoices />
             </div>
         </div>

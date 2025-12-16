@@ -178,13 +178,20 @@ const finanzasContabilidadNavGroups = {
       items: [
         { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: Wallet },
         { href: "/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
+        { href: "/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
+        { href: "/creditos", label: "Créditos", icon: CreditCard },
       ],
     },
     {
         title: "Contabilidad General",
         icon: BookOpen,
         items: [
-            { href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }
+            { href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen },
+            { href: "/libros-contables", label: "Libros Contables", icon: BookOpen },
+            { href: "/presupuesto", label: "Presupuesto", icon: PieChart },
+            { href: "/clasificacion-cuentas-contables", label: "Clasificación de Cuentas", icon: Layers },
+            { href: "/clasificacion-facturacion", label: "Clasificación de Facturación", icon: Layers },
+            { href: "/activos-inmobiliarios", label: "Activos Inmobiliarios", icon: Building },
         ]
     }
   ],
@@ -394,6 +401,12 @@ export const contabilidadNavGroups = [
     title: "Gestión de Cuentas",
     icon: Wallet,
     items: finanzasContabilidadNavGroups.subGroups.find(sg => sg.title === "Gestión de Cuentas")?.items || [],
+    subGroups: []
+  },
+  {
+    title: "Contabilidad General",
+    icon: BookOpen,
+    items: finanzasContabilidadNavGroups.subGroups.find(sg => sg.title === "Contabilidad General")?.items.filter(item => item.href !== '/contabilidad') || [],
     subGroups: []
   },
   { title: "Facturación", icon: ShoppingCart, items: [
