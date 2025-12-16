@@ -14,7 +14,6 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 const facturasPendientes = [
     { id: "FAC-001", proveedor: "OficinaTech C.A.", email: "cobranza@oficinatech.com", fechaEmision: "2024-07-01", fechaVencimiento: "2024-07-31", monto: 1392, estado: "Pendiente" },
@@ -185,22 +184,6 @@ export default function CuentasPorPagarPage() {
                                                                 <div className="space-y-2">
                                                                     <Label>Monto a Pagar</Label>
                                                                     <Input type="number" defaultValue={factura.monto} />
-                                                                </div>
-                                                                <div className="space-y-2 text-center p-4 bg-secondary/50 rounded-lg">
-                                                                    <Label className="font-semibold">Código de Autorización (2FA)</Label>
-                                                                    <p className="text-xs text-muted-foreground">Un supervisor debe aprobar esta transacción.</p>
-                                                                    <InputOTP maxLength={6}>
-                                                                        <InputOTPGroup>
-                                                                            <InputOTPSlot index={0} />
-                                                                            <InputOTPSlot index={1} />
-                                                                            <InputOTPSlot index={2} />
-                                                                        </InputOTPGroup>
-                                                                        <InputOTPGroup>
-                                                                            <InputOTPSlot index={3} />
-                                                                            <InputOTPSlot index={4} />
-                                                                            <InputOTPSlot index={5} />
-                                                                        </InputOTPGroup>
-                                                                    </InputOTP>
                                                                 </div>
                                                             </div>
                                                         </div>
