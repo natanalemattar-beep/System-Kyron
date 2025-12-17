@@ -24,12 +24,6 @@ const teamMembers = [
     avatarId: "testimonial-avatar-3",
     description: "Arquitecto de software con una década de experiencia construyendo plataformas escalables y seguras en la nube."
   },
-  {
-    name: "Omar Mattar",
-    role: "Head of Growth",
-    avatarId: "testimonial-avatar-4",
-    description: "Estratega de mercado enfocado en la expansión nacional y la creación de alianzas clave para el ecosistema Kyron."
-  },
 ];
 
 const testimonials = [

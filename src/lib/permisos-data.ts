@@ -93,7 +93,6 @@ export const companyData = {
     { nombre: "CARLOS ALBERTO NATANALE MATTAR HERNANDEZ", cedula: "V-32.855.496", rif: "V-32856496-4" },
     { nombre: "MARIA TERESA HERNANDEZ BASTIDAS", cedula: "V-13.374.121", rif: "V-13374121-2" },
     { nombre: "JOSE DE JESUS HERRERA BOZZO", cedula: "V-12.459.024", rif: "V-12459024-4" },
-    { nombre: "OMAR ANTONIO MATTAR FANIANOS", cedula: "V-9.488.296", rif: "V-09488296-2" },
   ],
   objetoSocial: "El objeto principal será todo lo relacionado con las siguientes actividades: Distribución, Venta al Mayor y Detal, la prestación de servicios de telecomunicaciones móviles y fijas, venta de equipos y desarrollo de soluciones digitales para empresas y particulares, abarcando desde la telefonía e internet hasta servicios de valor agregado. Desarrollo y comercialización de un sistema de contabilidad computarizado, la venta de artículos de oficina y papelería, la distribución de equipos fiscales homologados y la comercialización de computadoras. Así mismo, la empresa se dedicará al diseño, fabricación y registro de su propia marca de papeleras digitales e inteligentes, y cualquier otra actividad de lícito comercio conexa con su objeto principal.",
 };
