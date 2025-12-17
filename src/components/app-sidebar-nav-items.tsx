@@ -285,6 +285,7 @@ const rrhhNavGroupsData = {
             { href: "/material-apoyo", label: "Material de Apoyo", icon: Paintbrush },
             { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
             { href: "/clasificacion-empleados", label: "Clasificación de Empleados", icon: Award },
+            { href: "/analisis-personal", label: "Análisis de Personal", icon: User },
         ]
       },
       {
