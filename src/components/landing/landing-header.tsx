@@ -89,18 +89,21 @@ export function LandingHeader() {
                             <ThemeToggle />
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                     <Button>
+                                     <Button className="btn-3d-primary">
                                         Acceder <User className="ml-2 h-4 w-4" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-56">
+                                <DropdownMenuContent align="end" className="w-64 p-2">
                                     <DropdownMenuLabel>Portales de Acceso</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
                                     {loginOptions.map((option) => (
                                         <DropdownMenuItem key={option.href} asChild>
-                                            <Link href={option.href} className="flex items-center gap-2">
-                                                <option.icon className="h-4 w-4 text-muted-foreground"/>
-                                                <span>{option.label}</span>
+                                            <Link href={option.href} className="flex items-start gap-3 p-2 transition-colors rounded-md hover:bg-secondary">
+                                                <option.icon className="h-5 w-5 text-primary mt-1 shrink-0"/>
+                                                <div>
+                                                    <p className="font-semibold text-sm leading-none">{option.label}</p>
+                                                    <p className="text-xs text-muted-foreground mt-1">{option.description}</p>
+                                                </div>
                                             </Link>
                                         </DropdownMenuItem>
                                     ))}
