@@ -1,4 +1,3 @@
-
 # Server and Client Components
 @doc-version: 16.0.10
 @last-updated: 2025-10-22
