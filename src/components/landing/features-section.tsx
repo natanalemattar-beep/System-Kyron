@@ -20,7 +20,7 @@ export function FeaturesSection() {
             <div 
                 className="space-y-6"
             >
-                <h2 className="text-3xl md:text-4xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
                 <p className="text-lg text-muted-foreground">
                   Nuestra plataforma integra tecnologías de vanguardia para darte una ventaja competitiva.
                 </p>

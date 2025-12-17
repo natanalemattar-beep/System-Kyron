@@ -18,7 +18,7 @@ export function ServicesSection() {
                 <div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

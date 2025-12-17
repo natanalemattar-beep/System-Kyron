@@ -55,7 +55,7 @@ export function AboutUsSection() {
                 <div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold">Conoce a Kyron</h2>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Conoce a Kyron</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Nacimos de la necesidad de crear orden en el caos administrativo venezolano, fusionando tecnología, cumplimiento y visión de futuro.</p>
                 </div>
                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">

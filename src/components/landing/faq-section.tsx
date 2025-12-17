@@ -39,7 +39,7 @@ export function FaqSection() {
                 <div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold">Preguntas Frecuentes</h2>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Preguntas Frecuentes</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Resolvemos tus dudas más comunes para que tomes la mejor decisión.</p>
                 </div>
                 <div 
