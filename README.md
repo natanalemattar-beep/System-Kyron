@@ -1,594 +1,259 @@
-# Server and Client Components
+# Turbopack
 @doc-version: 16.0.10
-@last-updated: 2025-10-22
+@last-updated: 2025-10-21
 
 
-By default, layouts and pages are [Server Components](https://react.dev/reference/rsc/server-components), which lets you fetch data and render parts of your UI on the server, optionally cache the result, and stream it to the client. When you need interactivity or browser APIs, you can use [Client Components](https://react.dev/reference/rsc/use-client) to layer in functionality.
+Turbopack is an **incremental bundler** optimized for JavaScript and TypeScript, written in Rust, and built into **Next.js**. You can use Turbopack with both the Pages and App Router for a **much faster** local development experience.
 
-This page explains how Server and Client Components work in Next.js and when to use them, with examples of how to compose them together in your application.
+## Why Turbopack?
 
-## When to use Server and Client Components?
+We built Turbopack to push the performance of Next.js, including:
 
-The client and server environments have different capabilities. Server and Client components allow you to run logic in each environment depending on your use case.
+* **Unified Graph:** Next.js supports multiple output environments (e.g., client and server). Managing multiple compilers and stitching bundles together can be tedious. Turbopack uses a **single, unified graph** for all environments.
+* **Bundling vs Native ESM:** Some tools skip bundling in development and rely on the browser's native ESM. This works well for small apps but can slow down large apps due to excessive network requests. Turbopack **bundles** in dev, but in an optimized way to keep large apps fast.
+* **Incremental Computation:** Turbopack parallelizes work across cores and **caches** results down to the function level. Once a piece of work is done, Turbopack won’t repeat it.
+* **Lazy Bundling:** Turbopack only bundles what is actually requested by the dev server. This lazy approach can reduce initial compile times and memory usage.
 
-Use **Client Components** when you need:
+## Getting started
 
-* [State](https://react.dev/learn/managing-state) and [event handlers](https://react.dev/learn/responding-to-events). E.g. `onClick`, `onChange`.
-* [Lifecycle logic](https://react.dev/learn/lifecycle-of-reactive-effects). E.g. `useEffect`.
-* Browser-only APIs. E.g. `localStorage`, `window`, `Navigator.geolocation`, etc.
-* [Custom hooks](https://react.dev/learn/reusing-logic-with-custom-hooks).
+Turbopack is now the **default bundler** in Next.js. No configuration is needed to use Turbopack:
 
-Use **Server Components** when you need:
+```json filename="package.json" highlight={3}
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}
+```
 
-* Fetch data from databases or APIs close to the source.
-* Use API keys, tokens, and other secrets without exposing them to the client.
-* Reduce the amount of JavaScript sent to the browser.
-* Improve the [First Contentful Paint (FCP)](https://web.dev/fcp/), and stream content progressively to the client.
+### Using Webpack instead
 
-For example, the `<Page>` component is a Server Component that fetches data about a post, and passes it as props to the `<LikeButton>` which handles client-side interactivity.
+If you need to use Webpack instead of Turbopack, you can opt-in with the `--webpack` flag:
 
-```tsx filename="app/[id]/page.tsx" highlight={1,12} switcher
-import LikeButton from '@/app/ui/like-button'
-import { getPost } from '@/lib/data'
+```json filename="package.json"
+{
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start"
+  }
+}
+```
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
-  const { id } = await params
-  const post = await getPost(id)
+## Supported features
 
+Turbopack in Next.js has **zero-configuration** for the common use cases. Below is a summary of what is supported out of the box, plus some references to how you can configure Turbopack further when needed.
+
+### Language features
+
+| Feature                     | Status        | Notes                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| --------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **JavaScript & TypeScript** | **Supported** | Uses SWC under the hood. Type-checking is not done by Turbopack (run `tsc --watch` or rely on your IDE for type checks).                                                                                                                                                                                                                                                                                                |
+| **ECMAScript (ESNext)**     | **Supported** | Turbopack supports the latest ECMAScript features, matching SWC’s coverage.                                                                                                                                                                                                                                                                                                                                             |
+| **CommonJS**                | **Supported** | `require()` syntax is handled out of the box.                                                                                                                                                                                                                                                                                                                                                                           |
+| **ESM**                     | **Supported** | Static and dynamic `import` are fully supported.                                                                                                                                                                                                                                                                                                                                                                        |
+| **Babel**                   | **Supported** | Starting in Next.js 16, Turbopack uses Babel automatically if it detects [a configuration file][babel-config]. Unlike in webpack, SWC is always used for Next.js's internal transforms and downleveling to older ECMAScript revisions. Next.js with webpack disables SWC if a Babel configuration file is present. Files in `node_modules` are excluded, unless you [manually configure `babel-loader`][manual-loader]. |
+
+[babel-config]: https://babeljs.io/docs/config-files
+
+[manual-loader]: /docs/app/api-reference/config/next-config-js/turbopack#configuring-webpack-loaders
+
+### Framework and React features
+
+| Feature                           | Status        | Notes                                                                                                                  |
+| --------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **JSX / TSX**                     | **Supported** | SWC handles JSX/TSX compilation.                                                                                       |
+| **Fast Refresh**                  | **Supported** | No configuration needed.                                                                                               |
+| **React Server Components (RSC)** | **Supported** | For the Next.js App Router. Turbopack ensures correct server/client bundling.                                          |
+| **Root layout creation**          | Unsupported   | Automatic creation of a root layout in App Router is not supported. Turbopack will instruct you to create it manually. |
+
+### CSS and styling
+
+| Feature            | Status                  | Notes                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------ | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Global CSS**     | **Supported**           | Import `.css` files directly in your application.                                                                                                                                                                                                                                                                                                                     |
+| **CSS Modules**    | **Supported**           | `.module.css` files work natively (Lightning CSS).                                                                                                                                                                                                                                                                                                                    |
+| **CSS Nesting**    | **Supported**           | Lightning CSS supports [modern CSS nesting](https://lightningcss.dev/).                                                                                                                                                                                                                                                                                               |
+| **@import syntax** | **Supported**           | Combine multiple CSS files.                                                                                                                                                                                                                                                                                                                                           |
+| **PostCSS**        | **Supported**           | Automatically processes `postcss.config.js` in a Node.js worker pool. Useful for Tailwind, Autoprefixer, etc.                                                                                                                                                                                                                                                         |
+| **Sass / SCSS**    | **Supported** (Next.js) | For Next.js, Sass is supported out of the box. Custom Sass functions (`sassOptions.functions`) are not supported because Turbopack's Rust-based architecture cannot directly execute JavaScript functions, unlike webpack's Node.js environment. Use webpack if you need this feature. In the future, Turbopack standalone usage will likely require a loader config. |
+| **Less**           | Planned via plugins     | Not yet supported by default. Will likely require a loader config once custom loaders are stable.                                                                                                                                                                                                                                                                     |
+| **Lightning CSS**  | **In Use**              | Handles CSS transformations. Some low-usage CSS Modules features (like `:local/:global` as standalone pseudo-classes) are not yet supported. [See below for more details.](#unsupported-and-unplanned-features)                                                                                                                                                       |
+
+### Assets
+
+| Feature                           | Status        | Notes                                                                                                                      |
+| --------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Static Assets** (images, fonts) | **Supported** | Importing `import img from './img.png'` works out of the box. In Next.js, returns an object for the `<Image />` component. |
+| **JSON Imports**                  | **Supported** | Named or default imports from `.json` are supported.                                                                       |
+
+### Module resolution
+
+| Feature               | Status              | Notes                                                                                                                                                           |
+| --------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Path Aliases**      | **Supported**       | Reads `tsconfig.json`'s `paths` and `baseUrl`, matching Next.js behavior.                                                                                       |
+| **Manual Aliases**    | **Supported**       | [Configure `resolveAlias` in `next.config.js`](/docs/app/api-reference/config/next-config-js/turbopack.md#resolving-aliases) (similar to `webpack.resolve.alias`). |
+| **Custom Extensions** | **Supported**       | [Configure `resolveExtensions` in `next.config.js`](/docs/app/api-reference/config/next-config-js/turbopack.md#resolving-custom-extensions).                       |
+| **AMD**               | Partially Supported | Basic transforms work; advanced AMD usage is limited.                                                                                                           |
+
+### Performance and Fast Refresh
+
+| Feature                  | Status        | Notes                                                                                    |
+| ------------------------ | ------------- | ---------------------------------------------------------------------------------------- |
+| **Fast Refresh**         | **Supported** | Updates JavaScript, TypeScript, and CSS without a full refresh.                          |
+| **Incremental Bundling** | **Supported** | Turbopack lazily builds only what’s requested by the dev server, speeding up large apps. |
+
+## Known gaps with webpack
+
+There are a number of non-trivial behavior differences between webpack and Turbopack that are important to be aware of when migrating an application. Generally, these are less of a concern for new applications.
+
+### Filesystem Root
+
+Turbopack uses the root directory to resolve modules. Files outside of the project root are not resolved.
+
+For example, when linking dependencies outside the project root (via `npm link`, `yarn link`, `pnpm link`, etc.), those linked files will not be resolved by default. To resolve these files, you must configure the root option to the parent directory of both the project and the linked dependencies.
+
+You can configure the filesystem root using [turbopack.root](/docs/app/api-reference/config/next-config-js/turbopack.md#root-directory) option in `next.config.js`.
+
+### CSS Module Ordering
+
+Turbopack will follow JS import order to order [CSS modules](/docs/app/getting-started/css.md#css-modules) which are not otherwise ordered. For example:
+
+```jsx filename="components/BlogPost.jsx"
+import utilStyles from './utils.module.css'
+import buttonStyles from './button.module.css'
+export default function BlogPost() {
   return (
-    <div>
-      <main>
-        <h1>{post.title}</h1>
-        {/* ... */}
-        <LikeButton likes={post.likes} />
-      </main>
+    <div className={utilStyles.container}>
+      <button className={buttonStyles.primary}>Click me</button>
     </div>
   )
 }
 ```
 
-```jsx filename="app/[id]/page.js" highlight={1,12} switcher
-import LikeButton from '@/app/ui/like-button'
-import { getPost } from '@/lib/data'
+In this example, Turbopack will ensure that `utils.module.css` will appear before `button.module.css` in the produced CSS chunk, following the import order
 
-export default async function Page({ params }) {
-  const post = await getPost(params.id)
+Webpack generally does this as well, but there are cases where it will ignore JS inferred ordering, for example if it infers the JS file is side-effect-free.
 
-  return (
-    <div>
-      <main>
-        <h1>{post.title}</h1>
-        {/* ... */}
-        <LikeButton likes={post.likes} />
-      </main>
-    </div>
-  )
-}
+This can lead to subtle rendering changes when adopting Turbopack, if applications have come to rely on an arbitrary ordering. Generally, the solution is easy, e.g. have `button.module.css` `@import utils.module.css` to force the ordering, or identify the conflicting rules and change them to not target the same properties.
+
+### Sass node_modules imports
+
+Turbopack supports importing `node_modules` Sass files out of the box. Webpack supports a legacy tilde `~` syntax for this, which is not supported by Turbopack.
+
+From:
+
+```scss filename="styles/globals.scss"
+@import '~bootstrap/dist/css/bootstrap.min.css';
 ```
 
-```tsx filename="app/ui/like-button.tsx" highlight={1} switcher
-'use client'
+To:
 
-import { useState } from 'react'
-
-export default function LikeButton({ likes }: { likes: number }) {
-  // ...
-}
+```scss filename="styles/globals.scss"
+@import 'bootstrap/dist/css/bootstrap.min.css';
 ```
 
-```jsx filename="app/ui/like-button.js" highlight={1} switcher
-'use client'
-
-import { useState } from 'react'
-
-export default function LikeButton({ likes }) {
-  // ...
-}
-```
-
-## How do Server and Client Components work in Next.js?
-
-### On the server
-
-On the server, Next.js uses React's APIs to orchestrate rendering. The rendering work is split into chunks, by individual route segments ([layouts and pages](/docs/app/getting-started/layouts-and-pages.md)):
-
-* **Server Components** are rendered into a special data format called the React Server Component Payload (RSC Payload).
-* **Client Components** and the RSC Payload are used to [pre-render](/docs/app/guides/caching.md#rendering-strategies) HTML.
-
-> **What is the React Server Component Payload (RSC)?**
->
-> The RSC Payload is a compact binary representation of the rendered React Server Components tree. It's used by React on the client to update the browser's DOM. The RSC Payload contains:
->
-> * The rendered result of Server Components
-> * Placeholders for where Client Components should be rendered and references to their JavaScript files
-> * Any props passed from a Server Component to a Client Component
-
-### On the client (first load)
-
-Then, on the client:
-
-1. **HTML** is used to immediately show a fast non-interactive preview of the route to the user.
-2. **RSC Payload** is used to reconcile the Client and Server Component trees.
-3. **JavaScript** is used to hydrate Client Components and make the application interactive.
-
-> **What is hydration?**
->
-> Hydration is React's process for attaching [event handlers](https://react.dev/learn/responding-to-events) to the DOM, to make the static HTML interactive.
-
-### Subsequent Navigations
-
-On subsequent navigations:
-
-* The **RSC Payload** is prefetched and cached for instant navigation.
-* **Client Components** are rendered entirely on the client, without the server-rendered HTML.
-
-## Examples
-
-### Using Client Components
-
-You can create a Client Component by adding the [`"use client"`](https://react.dev/reference/react/use-client) directive at the top of the file, above your imports.
-
-```tsx filename="app/ui/counter.tsx" highlight={1} switcher
-'use client'
-
-import { useState } from 'react'
-
-export default function Counter() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div>
-      <p>{count} likes</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
-  )
-}
-```
-
-```jsx filename="app/ui/counter.js" highlight={1} switcher
-'use client'
-
-import { useState } from 'react'
-
-export default function Counter() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div>
-      <p>{count} likes</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
-  )
-}
-```
-
-`"use client"` is used to declare a **boundary** between the Server and Client module graphs (trees).
-
-Once a file is marked with `"use client"`, **all its imports and child components are considered part of the client bundle**. This means you don't need to add the directive to every component that is intended for the client.
-
-### Reducing JS bundle size
-
-To reduce the size of your client JavaScript bundles, add `'use client'` to specific interactive components instead of marking large parts of your UI as Client Components.
-
-For example, the `<Layout>` component contains mostly static elements like a logo and navigation links, but includes an interactive search bar. `<Search />` is interactive and needs to be a Client Component, however, the rest of the layout can remain a Server Component.
-
-```tsx filename="app/layout.tsx" highlight={12} switcher
-// Client Component
-import Search from './search'
-// Server Component
-import Logo from './logo'
-
-// Layout is a Server Component by default
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <nav>
-        <Logo />
-        <Search />
-      </nav>
-      <main>{children}</main>
-    </>
-  )
-}
-```
-
-```jsx filename="app/layout.js" highlight={12} switcher
-// Client Component
-import Search from './search'
-// Server Component
-import Logo from './logo'
-
-// Layout is a Server Component by default
-export default function Layout({ children }) {
-  return (
-    <>
-      <nav>
-        <Logo />
-        <Search />
-      </nav>
-      <main>{children}</main>
-    </>
-  )
-}
-```
-
-```tsx filename="app/ui/search.tsx" highlight={1} switcher
-'use client'
-
-export default function Search() {
-  // ...
-}
-```
-
-```jsx filename="app/ui/search.js" highlight={1} switcher
-'use client'
-
-export default function Search() {
-  // ...
-}
-```
-
-### Passing data from Server to Client Components
-
-You can pass data from Server Components to Client Components using props.
-
-```tsx filename="app/[id]/page.tsx" highlight={1,7} switcher
-import LikeButton from '@/app/ui/like-button'
-import { getPost } from '@/lib/data'
-
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
-  const { id } = await params
-  const post = await getPost(id)
-
-  return <LikeButton likes={post.likes} />
-}
-```
-
-```jsx filename="app/[id]/page.js" highlight={1,7} switcher
-import LikeButton from '@/app/ui/like-button'
-import { getPost } from '@/lib/data'
-
-export default async function Page({ params }) {
-  const post = await getPost(params.id)
-
-  return <LikeButton likes={post.likes} />
-}
-```
-
-```tsx filename="app/ui/like-button.tsx" highlight={1} switcher
-'use client'
-
-export default function LikeButton({ likes }: { likes: number }) {
-  // ...
-}
-```
-
-```jsx filename="app/ui/like-button.js" highlight={1} switcher
-'use client'
-
-export default function LikeButton({ likes }) {
-  // ...
-}
-```
-
-Alternatively, you can stream data from a Server Component to a Client Component with the [`use` Hook](https://react.dev/reference/react/use). See an [example](/docs/app/getting-started/fetching-data.md#streaming-data-with-the-use-hook).
-
-> **Good to know**: Props passed to Client Components need to be [serializable](https://react.dev/reference/react/use-server#serializable-parameters-and-return-values) by React.
-
-### Interleaving Server and Client Components
-
-You can pass Server Components as a prop to a Client Component. This allows you to visually nest server-rendered UI within Client components.
-
-A common pattern is to use `children` to create a *slot* in a `<ClientComponent>`. For example, a `<Cart>` component that fetches data on the server, inside a `<Modal>` component that uses client state to toggle visibility.
-
-```tsx filename="app/ui/modal.tsx" switcher
-'use client'
-
-export default function Modal({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>
-}
-```
-
-```jsx filename="app/ui/modal.js" switcher
-'use client'
-
-export default function Modal({ children }) {
-  return <div>{children}</div>
-}
-```
-
-Then, in a parent Server Component (e.g.`<Page>`), you can pass a `<Cart>` as the child of the `<Modal>`:
-
-```tsx filename="app/page.tsx"  highlight={7} switcher
-import Modal from './ui/modal'
-import Cart from './ui/cart'
-
-export default function Page() {
-  return (
-    <Modal>
-      <Cart />
-    </Modal>
-  )
-}
-```
-
-```jsx filename="app/page.js" highlight={7} switcher
-import Modal from './ui/modal'
-import Cart from './ui/cart'
-
-export default function Page() {
-  return (
-    <Modal>
-      <Cart />
-    </Modal>
-  )
-}
-```
-
-In this pattern, all Server Components will be rendered on the server ahead of time, including those as props. The resulting RSC payload will contain references of where Client Components should be rendered within the component tree.
-
-### Context providers
-
-[React context](https://react.dev/learn/passing-data-deeply-with-context) is commonly used to share global state like the current theme. However, React context is not supported in Server Components.
-
-To use context, create a Client Component that accepts `children`:
-
-```tsx filename="app/theme-provider.tsx" switcher
-'use client'
-
-import { createContext } from 'react'
-
-export const ThemeContext = createContext({})
-
-export default function ThemeProvider({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return <ThemeContext.Provider value="dark">{children}</ThemeContext.Provider>
-}
-```
-
-```jsx filename="app/theme-provider.js" switcher
-'use client'
-
-import { createContext } from 'react'
-
-export const ThemeContext = createContext({})
-
-export default function ThemeProvider({ children }) {
-  return <ThemeContext.Provider value="dark">{children}</ThemeContext.Provider>
-}
-```
-
-Then, import it into a Server Component (e.g. `layout`):
-
-```tsx filename="app/layout.tsx" switcher
-import ThemeProvider from './theme-provider'
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html>
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
-    </html>
-  )
-}
-```
-
-```jsx filename="app/layout.js" switcher
-import ThemeProvider from './theme-provider'
-
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
-    </html>
-  )
-}
-```
-
-Your Server Component will now be able to directly render your provider, and all other Client Components throughout your app will be able to consume this context.
-
-> **Good to know**: You should render providers as deep as possible in the tree – notice how `ThemeProvider` only wraps `{children}` instead of the entire `<html>` document. This makes it easier for Next.js to optimize the static parts of your Server Components.
-
-### Third-party components
-
-When using a third-party component that relies on client-only features, you can wrap it in a Client Component to ensure it works as expected.
-
-For example, the `<Carousel />` can be imported from the `acme-carousel` package. This component uses `useState`, but it doesn't yet have the `"use client"` directive.
-
-If you use `<Carousel />` within a Client Component, it will work as expected:
-
-```tsx filename="app/gallery.tsx" switcher
-'use client'
-
-import { useState } from 'react'
-import { Carousel } from 'acme-carousel'
-
-export default function Gallery() {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <div>
-      <button onClick={() => setIsOpen(true)}>View pictures</button>
-      {/* Works, since Carousel is used within a Client Component */}
-      {isOpen && <Carousel />}
-    </div>
-  )
-}
-```
-
-```jsx filename="app/gallery.js" switcher
-'use client'
-
-import { useState } from 'react'
-import { Carousel } from 'acme-carousel'
-
-export default function Gallery() {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <div>
-      <button onClick={() => setIsOpen(true)}>View pictures</button>
-      {/*  Works, since Carousel is used within a Client Component */}
-      {isOpen && <Carousel />}
-    </div>
-  )
-}
-```
-
-However, if you try to use it directly within a Server Component, you'll see an error. This is because Next.js doesn't know `<Carousel />` is using client-only features.
-
-To fix this, you can wrap third-party components that rely on client-only features in your own Client Components:
-
-```tsx filename="app/carousel.tsx" switcher
-'use client'
-
-import { Carousel } from 'acme-carousel'
-
-export default Carousel
-```
-
-```jsx filename="app/carousel.js" switcher
-'use client'
-
-import { Carousel } from 'acme-carousel'
-
-export default Carousel
-```
-
-Now, you can use `<Carousel />` directly within a Server Component:
-
-```tsx filename="app/page.tsx" switcher
-import Carousel from './carousel'
-
-export default function Page() {
-  return (
-    <div>
-      <p>View pictures</p>
-      {/*  Works, since Carousel is a Client Component */}
-      <Carousel />
-    </div>
-  )
-}
-```
-
-```jsx filename="app/page.js" switcher
-import Carousel from './carousel'
-
-export default function Page() {
-  return (
-    <div>
-      <p>View pictures</p>
-      {/*  Works, since Carousel is a Client Component */}
-      <Carousel />
-    </div>
-  )
-}
-```
-
-> **Advice for Library Authors**
->
-> If you’re building a component library, add the `"use client"` directive to entry points that rely on client-only features. This lets your users import components into Server Components without needing to create wrappers.
->
-> It's worth noting some bundlers might strip out `"use client"` directives. You can find an example of how to configure esbuild to include the `"use client"` directive in the [React Wrap Balancer](https://github.com/shuding/react-wrap-balancer/blob/main/tsup.config.ts#L10-L13) and [Vercel Analytics](https://github.com/vercel/analytics/blob/main/packages/web/tsup.config.js#L26-L30) repositories.
-
-### Preventing environment poisoning
-
-JavaScript modules can be shared between both Server and Client Components modules. This means it's possible to accidentally import server-only code into the client. For example, consider the following function:
-
-```ts filename="lib/data.ts" switcher
-export async function getData() {
-  const res = await fetch('https://external-service.com/data', {
-    headers: {
-      authorization: process.env.API_KEY,
+If you can't update the imports, you can add a `turbopack.resolveAlias` configuration to map the `~` syntax to the actual path:
+
+```js filename="next.config.js"
+module.exports = {
+  turbopack: {
+    resolveAlias: {
+      '~*': '*',
     },
-  })
-
-  return res.json()
+  },
 }
 ```
 
-```js filename="lib/data.js" switcher
-export async function getData() {
-  const res = await fetch('https://external-service.com/data', {
-    headers: {
-      authorization: process.env.API_KEY,
+### Build Caching
+
+Webpack supports [disk build caching](https://webpack.js.org/configuration/cache/#cache) to improve build performance. Turbopack provides a similar feature, currently in beta. Starting with Next 16, you can enable Turbopack’s filesystem cache by setting the following experimental flags:
+
+* [`experimental.turbopackFileSystemCacheForDev`](/docs/app/api-reference/config/next-config-js/turbopackFileSystemCache.md) is enabled by default
+* [`experimental.turbopackFileSystemCacheForBuild`](/docs/app/api-reference/config/next-config-js/turbopackFileSystemCache.md) is currently opt-in
+
+> **Good to know:** For this reason, when comparing webpack and Turbopack performance, make sure to delete the `.next` folder between builds to see a fair cold build comparison or enable the turbopack filesystem cache feature to compare warm builds.
+
+### Webpack plugins
+
+Turbopack does not support webpack plugins. This affects third-party tools that rely on webpack's plugin system for integration. We do support [webpack loaders](/docs/app/api-reference/config/next-config-js/turbopack.md#configuring-webpack-loaders). If you depend on webpack plugins, you'll need to find Turbopack-compatible alternatives or continue using webpack until equivalent functionality is available.
+
+## Unsupported and unplanned features
+
+Some features are not yet implemented or not planned:
+
+* **Legacy CSS Modules features**
+  * Standalone `:local` and `:global` pseudo-classes (only the function variant `:global(...)` is supported).
+  * The `@value` rule (superseded by CSS variables).
+  * `:import` and `:export` ICSS rules.
+  * `composes` in `.module.css` composing a `.css` file. In webpack this would treat the `.css` file as a CSS Module, with Turbopack the `.css` file will always be global. This means that if you want to use `composes` in a CSS Module, you need to change the `.css` file to a `.module.css` file.
+  * `@import` in CSS Modules importing `.css` as a CSS Module. In webpack this would treat the `.css` file as a CSS Module, with Turbopack the `.css` file will always be global. This means that if you want to use `@import` in a CSS Module, you need to change the `.css` file to a `.module.css` file.
+* **`sassOptions.functions`**
+  Custom Sass functions defined in `sassOptions.functions` are not supported. This feature allows defining JavaScript functions that can be called from Sass code during compilation. Turbopack's Rust-based architecture cannot directly execute JavaScript functions passed through `sassOptions.functions`, unlike webpack's Node.js-based sass-loader which runs entirely in JavaScript. If you're using custom Sass functions, you'll need to use webpack instead of Turbopack.
+* **`webpack()` configuration** in `next.config.js`
+  Turbopack replaces webpack, so `webpack()` configs are not recognized. Use the [`turbopack` config](/docs/app/api-reference/config/next-config-js/turbopack.md) instead.
+* **Yarn PnP**
+  Not planned for Turbopack support in Next.js.
+* **`experimental.urlImports`**
+  Not planned for Turbopack.
+* **`experimental.esmExternals`**
+  Not planned. Turbopack does not support the legacy `esmExternals` configuration in Next.js.
+* **Some Next.js Experimental Flags**
+  * `experimental.nextScriptWorkers`
+  * `experimental.sri.algorithm`
+  * `experimental.fallbackNodePolyfills`
+    We plan to implement these in the future.
+
+For a full, detailed breakdown of each feature flag and its status, see the [Turbopack API Reference](/docs/app/api-reference/config/next-config-js/turbopack.md).
+
+## Configuration
+
+Turbopack can be configured via `next.config.js` (or `next.config.ts`) under the `turbopack` key. Configuration options include:
+
+* **`rules`**
+  Define additional [webpack loaders](/docs/app/api-reference/config/next-config-js/turbopack.md#configuring-webpack-loaders) for file transformations.
+* **`resolveAlias`**
+  Create manual aliases (like `resolve.alias` in webpack).
+* **`resolveExtensions`**
+  Change or extend file extensions for module resolution.
+
+```js filename="next.config.js"
+module.exports = {
+  turbopack: {
+    // Example: adding an alias and custom file extension
+    resolveAlias: {
+      underscore: 'lodash',
     },
-  })
-
-  return res.json()
+    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.json'],
+  },
 }
 ```
 
-This function contains an `API_KEY` that should never be exposed to the client.
+For more in-depth configuration examples, see the [Turbopack config documentation](/docs/app/api-reference/config/next-config-js/turbopack.md).
 
-In Next.js, only environment variables prefixed with `NEXT_PUBLIC_` are included in the client bundle. If variables are not prefixed, Next.js replaces them with an empty string.
+## Generating trace files for performance debugging
 
-As a result, even though `getData()` can be imported and executed on the client, it won't work as expected.
+If you encounter performance or memory issues and want to help the Next.js team diagnose them, you can generate a trace file by appending `NEXT_TURBOPACK_TRACING=1` to your dev command:
 
-To prevent accidental usage in Client Components, you can use the [`server-only` package](https://www.npmjs.com/package/server-only).
-
-Then, import the package into a file that contains server-only code:
-
-```js filename="lib/data.js"
-import 'server-only'
-
-export async function getData() {
-  const res = await fetch('https://external-service.com/data', {
-    headers: {
-      authorization: process.env.API_KEY,
-    },
-  })
-
-  return res.json()
-}
+```bash
+NEXT_TURBOPACK_TRACING=1 next dev
 ```
 
-Now, if you try to import the module into a Client Component, there will be a build-time error.
+This will produce a `.next/dev/trace-turbopack` file. Include that file when creating a GitHub issue on the [Next.js repo](https://github.com/vercel/next.js) to help us investigate.
 
-The corresponding [`client-only` package](https://www.npmjs.com/package/client-only) can be used to mark modules that contain client-only logic like code that accesses the `window` object.
+By default the development server outputs to `.next/dev`. Read more about [isolatedDevBuild](/docs/app/api-reference/config/next-config-js/isolatedDevBuild.md).
 
-In Next.js, installing `server-only` or `client-only` is **optional**. However, if your linting rules flag extraneous dependencies, you may install them to avoid issues.
+## Summary
 
-```bash package="npm"
-npm install server-only
-```
+Turbopack is a **Rust-based**, **incremental** bundler designed to make local development and builds fast—especially for large applications. It is integrated into Next.js, offering zero-config CSS, React, and TypeScript support.
 
-```bash package="yarn"
-yarn add server-only
-```
+## Version Changes
 
-```bash package="pnpm"
-pnpm add server-only
-```
-
-```bash package="bun"
-bun add server-only
-```
-
-Next.js handles `server-only` and `client-only` imports internally to provide clearer error messages when a module is used in the wrong environment. The contents of these packages from NPM are not used by Next.js.
-
-Next.js also provides its own type declarations for `server-only` and `client-only`, for TypeScript configurations where [`noUncheckedSideEffectImports`](https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports) is active.
-## Next Steps
-
-Learn more about the APIs mentioned in this page.
-
-- [use client](/docs/app/api-reference/directives/use-client.md)
-  - Learn how to use the use client directive to render a component on the client.
+| Version   | Changes                                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------------------ |
+| `v16.0.0` | Turbopack becomes the default bundler for Next.js. Automatic support for Babel when a configuration file is found. |
+| `v15.5.0` | Turbopack support for `build` beta                                                                                 |
+| `v15.3.0` | Experimental support for `build`                                                                                   |
+| `v15.0.0` | Turbopack for `dev` stable                                                                                         |
