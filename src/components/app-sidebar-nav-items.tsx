@@ -379,6 +379,7 @@ const advisoryNavGroups = {
                 { href: "/analisis-competitivo", label: "Análisis Competitivo", icon: BarChart },
                 { href: "/visualizacion-datos", label: "Visualización de Datos", icon: AreaChart },
                 { href: "/demografia", label: "Demografía", icon: Users },
+                { href: "/analisis-fintech", label: "Análisis FinTech", icon: Banknote },
             ]
         },
          {
@@ -499,3 +500,5 @@ export const informaticaNavGroups = [
       { href: "/ingenieria-ia", label: "Sistema de Ingeniería (IA)", icon: Cpu },
   ], subGroups: [] },
 ];
+
+    
