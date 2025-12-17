@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -20,7 +19,7 @@ import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
-import { Menu } from "lucide-react";
+import { Cog, Menu } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { loginOptions } from "@/lib/login-options";
 import { ThemeToggle } from "./theme-toggle";
@@ -246,10 +245,19 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                       ))}
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
-              <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href="/general">Configuración</Link>
+                <Link href="/seguridad" className="flex items-center justify-start">
+                    <ShieldCheck className="mr-2 h-4 w-4" />
+                    <span>Seguridad</span>
+                </Link>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/general" className="flex items-center justify-start">
+                    <Cog className="mr-2 h-4 w-4" />
+                    <span>Configuración</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/">Cerrar Sesión</Link>
               </DropdownMenuItem>
