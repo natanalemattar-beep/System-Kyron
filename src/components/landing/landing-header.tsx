@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -11,6 +12,8 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { FC, AnchorHTMLAttributes } from 'react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { loginOptions } from "@/lib/login-options";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -84,9 +87,25 @@ export function LandingHeader() {
                         <div className="hidden md:flex items-center gap-2">
                             <LanguageSwitcher />
                             <ThemeToggle />
-                            <Button asChild variant="ghost">
-                              <Link href="/login">Acceder <User className="ml-2 h-4 w-4" /></Link>
-                            </Button>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                     <Button variant="ghost">
+                                        Acceder <User className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-56">
+                                    <DropdownMenuLabel>Portales de Acceso</DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    {loginOptions.map((option) => (
+                                        <DropdownMenuItem key={option.href} asChild>
+                                            <Link href={option.href} className="flex items-center gap-2">
+                                                <option.icon className="h-4 w-4 text-muted-foreground"/>
+                                                <span>{option.label}</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                             <Button asChild>
                                 <Link href="/register">Registrarse</Link>
                             </Button>
