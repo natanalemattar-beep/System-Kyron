@@ -147,47 +147,37 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                 </SheetHeader>
                  <ScrollArea className="flex-grow">
                     <nav className="p-4">
-                      {navGroups.map((group) => (
-                        <div key={group.title} className="mb-4">
-                          <h4 className="font-semibold text-lg mb-2 flex items-center gap-2">
-                            <group.icon className="h-5 w-5 text-primary"/>
-                            {group.title}
-                          </h4>
-                          <div className="flex flex-col gap-1">
-                            {group.subGroups.length > 0 ? (
-                                group.subGroups.map((subGroup) => (
-                                <DropdownMenu key={subGroup.title}>
-                                  <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" className="justify-start w-full text-left h-auto py-2">
-                                      <subGroup.icon className="mr-2 h-4 w-4" />
-                                      {subGroup.title}
-                                    </Button>
-                                  </DropdownMenuTrigger>
-                                  <DropdownMenuContent side="right" align="start" className="ml-2">
-                                      {subGroup.items.map((item) => (
-                                          <DropdownMenuItem key={item.href} asChild>
-                                              <Link href={item.href}>
-                                                <item.icon className="mr-2 h-4 w-4" />
-                                                {item.label}
-                                              </Link>
-                                          </DropdownMenuItem>
-                                      ))}
-                                  </DropdownMenuContent>
-                                </DropdownMenu>
-                              ))
-                            ) : (
-                              group.items.map((item) => (
-                                <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start">
-                                  <Link href={item.href}>
-                                      <item.icon className="mr-2 h-4 w-4" />
-                                      {item.label}
-                                  </Link>
-                                </Button>
-                              ))
-                            )}
-                          </div>
-                        </div>
-                      ))}
+                        <Accordion type="multiple" className="w-full">
+                          {navGroups.map((group) => (
+                            <AccordionItem value={group.title} key={group.title}>
+                                <AccordionTrigger>
+                                    <h4 className="font-semibold text-base flex items-center gap-2">
+                                        <group.icon className="h-5 w-5 text-primary"/>
+                                        {group.title}
+                                    </h4>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    <div className="flex flex-col gap-1 pl-4">
+                                        {group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items).map(item => (
+                                            <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start">
+                                                <Link href={item.href}>
+                                                    <item.icon className="mr-2 h-4 w-4" />
+                                                    {item.label}
+                                                </Link>
+                                            </Button>
+                                        )) : group.items.map(item => (
+                                             <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start">
+                                                <Link href={item.href}>
+                                                    <item.icon className="mr-2 h-4 w-4" />
+                                                    {item.label}
+                                                </Link>
+                                            </Button>
+                                        ))}
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </Accordion>
                     </nav>
                  </ScrollArea>
                   <div className="p-4 border-t mt-auto">

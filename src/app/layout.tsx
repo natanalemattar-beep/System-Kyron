@@ -19,8 +19,6 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning className={GeistSans.className}>
        <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body>
         <Providers>

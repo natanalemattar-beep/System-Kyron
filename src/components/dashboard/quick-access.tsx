@@ -27,7 +27,7 @@ type NavGroup = {
 };
 
 interface QuickAccessProps {
-  navGroups: NavGroup[];
+  navGroups?: NavGroup[];
 }
 
 export function QuickAccess({ navGroups }: QuickAccessProps) {
