@@ -8,8 +8,8 @@ import { LoginForm } from "@/components/auth/login-form";
 export default function LoginFintechPage() {
    const loginProps = {
     icon: Banknote,
-    title: "Portal de Contabilidad",
-    description: "Acceso al centro de libros contables y reportes financieros.",
+    title: "Centro de Contabilidad",
+    description: "Acceso al dashboard contable y reportes financieros.",
     fields: [
       { id: "country", label: "País", type: "select" as const },
       { id: "username", label: "Usuario (Contador/Admin)", type: "text" as const, placeholder: "admin.user", defaultValue: "admin.user" },
