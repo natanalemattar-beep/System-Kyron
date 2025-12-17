@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { GeistSans } from 'geist/font/sans';
 import { Providers } from '@/components/providers';
+import { WelcomeTutorial } from '@/components/welcome-tutorial';
 
 export const metadata: Metadata = {
   title: {
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body>
         <Providers>
             {children}
+            <WelcomeTutorial />
         </Providers>
       </body>
     </html>

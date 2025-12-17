@@ -7,20 +7,10 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, ArrowRight } from "lucide-react";
 
 export function WelcomeTutorial() {
-    const [isMounted, setIsMounted] = useState(false);
     const [showTutorial, setShowTutorial] = useState(false);
 
     useEffect(() => {
-        // This flag ensures the rest of the effect runs only on the client
-        setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        // Don't run this logic on the server or before the component is mounted
-        if (!isMounted) {
-            return;
-        }
-
+        // This effect runs only on the client
         const hasSeen = localStorage.getItem("hasSeenKyronTutorial");
         if (!hasSeen) {
             const timer = setTimeout(() => {
@@ -30,10 +20,10 @@ export function WelcomeTutorial() {
 
             return () => clearTimeout(timer);
         }
-    }, [isMounted]); // Re-run when isMounted becomes true
+    }, []);
     
-    // Render nothing on the server or on the initial client render
-    if (!isMounted) {
+    // Render nothing on the server
+    if (typeof window === 'undefined') {
         return null;
     }
 
