@@ -55,6 +55,7 @@ const getStatusVariant = (status: string) => {
 const chartConfig = {
   "Volumen Compra": {
     label: "Volumen de Compra (Bs.)",
+    color: "hsl(var(--primary))",
   },
 };
 
@@ -224,7 +225,7 @@ export default function CuentasPorPagarPage() {
                                         <XAxis type="number" hide />
                                         <YAxis dataKey="name" type="category" fontSize={12} tickLine={false} axisLine={false} />
                                         <ChartTooltipContent formatter={(value) => formatCurrency(value as number, 'Bs.')} cursor={{ fill: 'hsl(var(--secondary))' }}/>
-                                        <Bar dataKey="Volumen Compra" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                                        <Bar dataKey="Volumen Compra" fill="var(--color-Volumen-Compra)" radius={[0, 4, 4, 0]} />
                                     </RechartsBarChart>
                                 </ResponsiveContainer>
                             </ChartContainer>

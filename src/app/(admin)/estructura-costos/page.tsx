@@ -35,16 +35,18 @@ const ventasTotales = precioVentaUnitario * unidadesVendidas;
 const margenContribucion = precioVentaUnitario - costoVariableUnitario;
 const puntoEquilibrioUnidades = totalCostosFijos / margenContribucion;
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const dataFijos = costosFijos.map((item, index) => ({ name: item.concepto, value: item.monto, fill: `var(--color-fijo-${index})` }));
+const dataVariables = costosVariables.map((item, index) => ({ name: item.concepto, value: item.monto, fill: `var(--color-variable-${index})` }));
 
-const dataFijos = costosFijos.map(item => ({ name: item.concepto, value: item.monto }));
-const dataVariables = costosVariables.map(item => ({ name: item.concepto, value: item.monto }));
+const chartConfigFijos = dataFijos.reduce((acc, item, index) => {
+    acc[`fijo-${index}`] = { label: item.name, color: `hsl(var(--chart-${index + 1}))` };
+    return acc;
+}, {} as any);
 
-const chartConfig = {
-  value: {
-    label: "Monto (Bs.)",
-  },
-};
+const chartConfigVariables = dataVariables.reduce((acc, item, index) => {
+    acc[`variable-${index}`] = { label: item.name, color: `hsl(var(--chart-${index + 1}))` };
+    return acc;
+}, {} as any);
 
 
 export default function EstructuraCostosPage() {
@@ -151,13 +153,13 @@ export default function EstructuraCostosPage() {
                         </Table>
                     </div>
                      <div className="h-80">
-                        <ChartContainer config={chartConfig} className="w-full h-full">
+                        <ChartContainer config={chartConfigFijos} className="w-full h-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <ChartTooltip content={<ChartTooltipContent nameKey="name" formatter={(value) => formatCurrency(value as number, 'Bs.')} />} />
-                                    <Pie data={dataFijos} cx="50%" cy="50%" outerRadius={100} fill="#8884d8" dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-                                        {dataFijos.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    <Pie data={dataFijos} cx="50%" cy="50%" outerRadius={100} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+                                        {dataFijos.map((entry) => (
+                                            <Cell key={`cell-${entry.name}`} fill={entry.fill} />
                                         ))}
                                     </Pie>
                                     <Legend />
@@ -199,13 +201,13 @@ export default function EstructuraCostosPage() {
                         </Table>
                     </div>
                     <div className="h-80">
-                         <ChartContainer config={chartConfig} className="w-full h-full">
+                         <ChartContainer config={chartConfigVariables} className="w-full h-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <ChartTooltip content={<ChartTooltipContent nameKey="name" formatter={(value) => formatCurrency(value as number, 'Bs.')}/>}/>
-                                    <Pie data={dataVariables} cx="50%" cy="50%" outerRadius={100} fill="#8884d8" dataKey="value" labelLine={false} label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}>
-                                        {dataVariables.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    <Pie data={dataVariables} cx="50%" cy="50%" outerRadius={100} dataKey="value" labelLine={false} label={({ name, percent }) => `${(percent * 100).toFixed(0)}%`}>
+                                        {dataVariables.map((entry) => (
+                                            <Cell key={`cell-${entry.name}`} fill={entry.fill} />
                                         ))}
                                     </Pie>
                                     <Legend />

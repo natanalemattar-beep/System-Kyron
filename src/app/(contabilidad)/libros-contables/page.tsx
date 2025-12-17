@@ -33,7 +33,7 @@ const librosPrincipales = [
 
 const librosAuxiliares = [
     { nombre: "Libro de Compras y Ventas", href: "/libro-compra-venta", descripcion: "Registro fiscal para el SENIAT." },
-    { nombre: "Libro de Nómina", href: "/libro-nomina", descripcion: "Registro oficial para el Ministerio del Trabajo." },
+    { nombre: "Libro de Nómina", href: "/nominas", descripcion: "Registro oficial para el Ministerio del Trabajo." },
     { nombre: "Libro de Licores", href: "/libro-licores", descripcion: "Control de entradas y salidas de bebidas alcohólicas." },
     { nombre: "Libro de Horas Extras", href: "/libro-horas-extras", descripcion: "Control del pago de horas extraordinarias." },
 ]

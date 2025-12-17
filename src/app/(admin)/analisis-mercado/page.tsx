@@ -122,8 +122,8 @@ export default function AnalisisMercadoPage() {
                                     nameKey="name"
                                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                                 >
-                                    {competitorsData.map((entry) => (
-                                        <Cell key={`cell-${entry.name}`} fill={entry.color} />
+                                    {competitorsData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} />
                                     ))}
                                 </Pie>
                                  <Legend />

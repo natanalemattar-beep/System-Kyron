@@ -146,12 +146,12 @@ export default function AnalisisVentasPage() {
                       <AreaChart data={historicalFinancialData.slice(-12)} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                           <defs>
                               <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                                  <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                                  <stop offset="5%" stopColor="var(--color-ingresos)" stopOpacity={0.8}/>
+                                  <stop offset="95%" stopColor="var(--color-ingresos)" stopOpacity={0}/>
                               </linearGradient>
                               <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
-                                  <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0}/>
+                                  <stop offset="5%" stopColor="var(--color-gastos)" stopOpacity={0.8}/>
+                                  <stop offset="95%" stopColor="var(--color-gastos)" stopOpacity={0}/>
                               </linearGradient>
                           </defs>
                           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
