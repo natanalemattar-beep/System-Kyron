@@ -9,6 +9,7 @@ import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { QuickAccess } from "@/components/dashboard/quick-access";
 import { SplashScreen } from "@/components/splash-screen";
 import { useEffect, useState } from "react";
+import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 
 const recentActivities = [
   {
@@ -72,7 +73,7 @@ export default function DashboardPage() {
         </div>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight">Acceso Rápido a Módulos</h2>
-          <QuickAccess />
+          <QuickAccess navGroups={adminNavGroups} />
         </div>
         <div className="grid gap-8 lg:grid-cols-5">
             <div className="lg:col-span-3">
