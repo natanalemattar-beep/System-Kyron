@@ -10,9 +10,6 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
   DropdownMenuLabel,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Logo } from "./logo";
@@ -21,7 +18,6 @@ import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Cog, Menu, ShieldCheck } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
-import { loginOptions } from "@/lib/login-options";
 import { ThemeToggle } from "./theme-toggle";
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
@@ -93,26 +89,21 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          {group.subGroups && group.subGroups.length > 0 ? (
-                            group.subGroups.map((subGroup) => (
-                              <DropdownMenuSub key={subGroup.title}>
-                                <DropdownMenuSubTrigger>
-                                  <subGroup.icon className="mr-2 h-4 w-4" />
-                                  <span>{subGroup.title}</span>
-                                </DropdownMenuSubTrigger>
-                                <DropdownMenuSubContent>
-                                  {subGroup.items.map((item) => (
-                                    <DropdownMenuItem key={item.href} asChild>
-                                      <Link href={item.href} className={cn("flex items-center", pathname === item.href && "font-bold text-primary")}>
-                                          <item.icon className="mr-2 h-4 w-4" />
-                                          {item.label}
-                                      </Link>
-                                    </DropdownMenuItem>
-                                  ))}
-                                </DropdownMenuSubContent>
-                              </DropdownMenuSub>
+                          {group.subGroups && group.subGroups.length > 0 ? group.subGroups.map((subGroup) => (
+                              <div key={subGroup.title}>
+                                <DropdownMenuLabel>{subGroup.title}</DropdownMenuLabel>
+                                {subGroup.items.map((item) => (
+                                  <DropdownMenuItem key={item.href} asChild>
+                                    <Link href={item.href} className={cn("flex items-center", pathname === item.href && "font-bold text-primary")}>
+                                        <item.icon className="mr-2 h-4 w-4" />
+                                        {item.label}
+                                    </Link>
+                                  </DropdownMenuItem>
+                                ))}
+                                <DropdownMenuSeparator />
+                              </div>
                             ))
-                          ) : (
+                          : 
                             group.items.map((item) => (
                                 <DropdownMenuItem key={item.href} asChild>
                                     <Link href={item.href} className={cn("flex items-center", pathname === item.href && "font-bold text-primary")}>
@@ -121,7 +112,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                                     </Link>
                                 </DropdownMenuItem>
                             ))
-                          )}
+                          }
                         </DropdownMenuContent>
                     </DropdownMenu>
                 ))}
@@ -181,23 +172,11 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                     </nav>
                  </ScrollArea>
                   <div className="p-4 border-t mt-auto">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                           <Button variant="outline" className="w-full justify-start">
-                                Portales de Acceso
-                           </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent side="top" align="start" className="w-64">
-                             {loginOptions.map((opt) => (
-                                <DropdownMenuItem key={opt.href} asChild>
-                                  <Link href={opt.href} className="flex items-center justify-start">
-                                      <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                                      <p>{opt.label}</p>
-                                    </Link>
-                                </DropdownMenuItem>
-                              ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                      <Button variant="outline" className="w-full justify-start" asChild>
+                          <Link href="/">
+                              Cerrar Sesión
+                          </Link>
+                      </Button>
                   </div>
               </SheetContent>
             </Sheet>
@@ -216,19 +195,6 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                  <p className="text-xs text-muted-foreground font-normal">{user.email}</p>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-               <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Portales de Acceso</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    {loginOptions.map((opt) => (
-                        <DropdownMenuItem key={opt.href} asChild>
-                           <Link href={opt.href} className="flex items-center justify-start">
-                              <opt.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                              <p>{opt.label}</p>
-                            </Link>
-                        </DropdownMenuItem>
-                      ))}
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
               <DropdownMenuItem asChild>
                 <Link href="/seguridad" className="flex items-center justify-start">
                     <ShieldCheck className="mr-2 h-4 w-4" />

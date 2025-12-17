@@ -1,142 +1,201 @@
+"use client"
 
-"use client";
+import * as React from "react"
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
+import { Check, ChevronRight, Circle } from "lucide-react"
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { KeyRound, Loader2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import Link from "next/link";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+import { cn } from "@/lib/utils"
 
-type Step = 1 | 2 | 3 | 4;
+const DropdownMenu = DropdownMenuPrimitive.Root
 
-export default function RecoverFintechPage() {
-    const [step, setStep] = useState<Step>(1);
-    const [isProcessing, setIsProcessing] = useState(false);
-    const { toast } = useToast();
+const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
 
-    const handleStep1 = (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsProcessing(true);
-        setTimeout(() => {
-            setStep(2);
-            setIsProcessing(false);
-            toast({ title: "Código Enviado", description: "Hemos enviado un código de verificación por SMS." });
-        }, 1000);
-    }
-    
-    const handleStep2 = () => {
-         setIsProcessing(true);
-        setTimeout(() => {
-            setStep(3);
-            setIsProcessing(false);
-        }, 1000);
-    }
-    
-    const handleStep3 = () => {
-        setIsProcessing(true);
-        setTimeout(() => {
-            setStep(4);
-            setIsProcessing(false);
-            toast({ title: "Verificación Exitosa", description: "Hemos enviado un enlace para restablecer tu contraseña a tu correo." });
-        }, 1000);
-    }
+const DropdownMenuGroup = DropdownMenuPrimitive.Group
 
+const DropdownMenuPortal = DropdownMenuPrimitive.Portal
+
+const DropdownMenuSub = DropdownMenuPrimitive.Sub
+
+const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
+
+const DropdownMenuSubTrigger = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
+    inset?: boolean
+  }
+>(({ className, inset, children, ...props }, ref) => (
+  <DropdownMenuPrimitive.SubTrigger
+    ref={ref}
+    className={cn(
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
+      inset && "pl-8",
+      className
+    )}
+    {...props}
+  >
+    {children}
+    <ChevronRight className="ml-auto h-4 w-4" />
+  </DropdownMenuPrimitive.SubTrigger>
+))
+DropdownMenuSubTrigger.displayName =
+  DropdownMenuPrimitive.SubTrigger.displayName
+
+const DropdownMenuSubContent = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
+>(({ className, ...props }, ref) => (
+  <DropdownMenuPrimitive.SubContent
+    ref={ref}
+    className={cn(
+      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    )}
+    {...props}
+  />
+))
+DropdownMenuSubContent.displayName =
+  DropdownMenuPrimitive.SubContent.displayName
+
+const DropdownMenuContent = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
+>(({ className, sideOffset = 4, ...props }, ref) => (
+  <DropdownMenuPrimitive.Portal>
+    <DropdownMenuPrimitive.Content
+      ref={ref}
+      sideOffset={sideOffset}
+      className={cn(
+        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        className
+      )}
+      {...props}
+    />
+  </DropdownMenuPrimitive.Portal>
+))
+DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
+
+const DropdownMenuItem = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
+    inset?: boolean
+  }
+>(({ className, inset, ...props }, ref) => (
+  <DropdownMenuPrimitive.Item
+    ref={ref}
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      inset && "pl-8",
+      className
+    )}
+    {...props}
+  />
+))
+DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName
+
+const DropdownMenuCheckboxItem = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
+>(({ className, children, checked, ...props }, ref) => (
+  <DropdownMenuPrimitive.CheckboxItem
+    ref={ref}
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className
+    )}
+    checked={checked}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <DropdownMenuPrimitive.ItemIndicator>
+        <Check className="h-4 w-4" />
+      </DropdownMenuPrimitive.ItemIndicator>
+    </span>
+    {children}
+  </DropdownMenuPrimitive.CheckboxItem>
+))
+DropdownMenuCheckboxItem.displayName =
+  DropdownMenuPrimitive.CheckboxItem.displayName
+
+const DropdownMenuRadioItem = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
+>(({ className, children, ...props }, ref) => (
+  <DropdownMenuPrimitive.RadioItem
+    ref={ref}
+    className={cn(
+      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className
+    )}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <DropdownMenuPrimitive.ItemIndicator>
+        <Circle className="h-2 w-2 fill-current" />
+      </DropdownMenuPrimitive.ItemIndicator>
+    </span>
+    {children}
+  </DropdownMenuPrimitive.RadioItem>
+))
+DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName
+
+const DropdownMenuLabel = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Label>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
+    inset?: boolean
+  }
+>(({ className, inset, ...props }, ref) => (
+  <DropdownMenuPrimitive.Label
+    ref={ref}
+    className={cn(
+      "px-2 py-1.5 text-sm font-semibold",
+      inset && "pl-8",
+      className
+    )}
+    {...props}
+  />
+))
+DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName
+
+const DropdownMenuSeparator = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
+>(({ className, ...props }, ref) => (
+  <DropdownMenuPrimitive.Separator
+    ref={ref}
+    className={cn("-mx-1 my-1 h-px bg-muted", className)}
+    {...props}
+  />
+))
+DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName
+
+const DropdownMenuShortcut = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) => {
   return (
-    <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
-        <CardHeader className="text-center">
-            <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
-              <KeyRound className="h-8 w-8 text-primary" />
-            </div>
-            <CardTitle className="text-2xl">Recuperación de Cuenta FinTech</CardTitle>
-            <CardDescription>Sigue los pasos para recuperar el acceso a tu cuenta de forma segura.</CardDescription>
-        </CardHeader>
-        
-        {step === 1 && (
-             <form onSubmit={handleStep1}>
-                <CardContent className="p-6 space-y-4">
-                    <p className="text-sm text-center text-muted-foreground">Paso 1: Verificación de Identidad</p>
-                    <div className="space-y-2">
-                        <Label htmlFor="cedula">Cédula de Identidad o RIF</Label>
-                        <Input id="cedula" placeholder="Ej: V-12345678" required/>
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="telefono">Número de Teléfono Registrado</Label>
-                        <Input id="telefono" type="tel" placeholder="Ej: 0412-1234567" required/>
-                    </div>
-                </CardContent>
-                <CardFooter className="p-6 pt-0">
-                    <Button type="submit" className="w-full" disabled={isProcessing}>
-                        {isProcessing && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-                        Enviar Código de Verificación por SMS
-                    </Button>
-                </CardFooter>
-             </form>
-        )}
+    <span
+      className={cn("ml-auto text-xs tracking-widest opacity-60", className)}
+      {...props}
+    />
+  )
+}
+DropdownMenuShortcut.displayName = "DropdownMenuShortcut"
 
-        {step === 2 && (
-             <CardContent className="p-6 space-y-4 flex flex-col items-center">
-                <p className="text-sm text-center text-muted-foreground">Paso 2: Código SMS</p>
-                <Label>Introduce el código recibido en tu teléfono</Label>
-                <InputOTP maxLength={6}>
-                    <InputOTPGroup>
-                        <InputOTPSlot index={0} />
-                        <InputOTPSlot index={1} />
-                        <InputOTPSlot index={2} />
-                        <InputOTPSlot index={3} />
-                        <InputOTPSlot index={4} />
-                        <InputOTPSlot index={5} />
-                    </InputOTPGroup>
-                </InputOTP>
-                 <Button onClick={handleStep2} className="w-full mt-4" disabled={isProcessing}>
-                    {isProcessing && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-                    Verificar Código
-                </Button>
-            </CardContent>
-        )}
-        
-         {step === 3 && (
-            <form onSubmit={(e) => { e.preventDefault(); handleStep3(); }}>
-                <CardContent className="p-6 space-y-4">
-                    <p className="text-sm text-center text-muted-foreground">Paso 3: Pregunta de Seguridad</p>
-                    <div className="space-y-2">
-                        <Label htmlFor="security-q">¿Cuál es el nombre de tu primera mascota?</Label>
-                        <Input id="security-q" required/>
-                    </div>
-                </CardContent>
-                 <CardFooter className="p-6 pt-0">
-                    <Button type="submit" className="w-full" disabled={isProcessing}>
-                        {isProcessing && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-                        Verificar y Enviar Enlace de Recuperación
-                    </Button>
-                </CardFooter>
-            </form>
-        )}
-
-         {step === 4 && (
-            <CardContent className="p-6 text-center space-y-4">
-                <p className="text-sm text-muted-foreground">Paso 4: Correo Enviado</p>
-                <p>Revisa tu bandeja de entrada. Te hemos enviado un correo electrónico con un enlace seguro para que puedas restablecer tu contraseña.</p>
-                <Button asChild className="w-full mt-4">
-                    <Link href="/login-fintech">Volver al Inicio de Sesión</Link>
-                </Button>
-            </CardContent>
-        )}
-
-    </Card>
-  );
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuGroup,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuRadioGroup,
 }
