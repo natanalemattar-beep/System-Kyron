@@ -3,8 +3,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BarChart, Users, DollarSign, ArrowRight, Lightbulb, Zap } from "lucide-react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
+import { BarChart as LucideBarChart, Users, DollarSign, ArrowRight, Lightbulb, Zap } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, BarChart, CartesianGrid, XAxis, YAxis, Bar } from 'recharts';
 import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -33,8 +33,8 @@ const competitorsData = [
 ];
 
 const chartConfig = {
-  demanda: { label: "Demanda" },
-  oferta: { label: "Oferta" },
+  demanda: { label: "Demanda", color: "hsl(var(--primary))" },
+  oferta: { label: "Oferta", color: "hsl(var(--secondary))" },
   competitors: { label: "Cuota de Mercado" },
 };
 
@@ -49,7 +49,7 @@ export default function AnalisisMercadoPage() {
     <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-            <BarChart className="h-8 w-8" />
+            <LucideBarChart className="h-8 w-8" />
             Análisis de Mercado
         </h1>
         <p className="text-muted-foreground mt-2">
@@ -81,10 +81,22 @@ export default function AnalisisMercadoPage() {
                 <CardContent className="h-80">
                    <ChartContainer config={chartConfig} className="w-full h-full">
                         <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                                <Pie data={supplyDemandData} dataKey="demanda" nameKey="month" cx="50%" cy="50%" outerRadius={80} fill="hsl(var(--primary))" label />
-                                <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--accent))', opacity: 0.5 }} />
-                            </PieChart>
+                            <BarChart data={supplyDemandData}>
+                                <CartesianGrid vertical={false} />
+                                <XAxis
+                                    dataKey="month"
+                                    tickLine={false}
+                                    tickMargin={10}
+                                    axisLine={false}
+                                />
+                                <ChartTooltip
+                                    cursor={false}
+                                    content={<ChartTooltipContent indicator="dot" />}
+                                />
+                                <Legend />
+                                <Bar dataKey="demanda" fill="var(--color-demanda)" radius={4} />
+                                <Bar dataKey="oferta" fill="var(--color-oferta)" radius={4} />
+                            </BarChart>
                         </ResponsiveContainer>
                     </ChartContainer>
                 </CardContent>
