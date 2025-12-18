@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, Layers, DollarSign, Briefcase, GitBranch, Megaphone } from "lucide-react";
 import { Logo } from "../logo";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const orbFeatures = [
   { icon: Layers, title: "Gestión Inteligente" },
@@ -28,16 +29,12 @@ const ICON_ORB_SIZE_MOBILE = 60;
 export function HeroSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isClient, setIsClient] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 
   useEffect(() => {
     setIsClient(true);
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const handleMouseEnter = (index: number) => {
@@ -58,7 +55,7 @@ export function HeroSection() {
   const currentIconOrbSize = isMobile ? ICON_ORB_SIZE_MOBILE : ICON_ORB_SIZE;
 
   return (
-    <section className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-background py-24 sm:py-32">
+    <section id="inicio" className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-background py-24 sm:py-32">
       <div className="absolute inset-0 -z-10 h-full w-full">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,hsl(var(--primary)/0.05)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--primary)/0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_0%,#000_100%)]"></div>
       </div>

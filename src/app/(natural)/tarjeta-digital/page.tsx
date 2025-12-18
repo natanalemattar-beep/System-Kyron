@@ -17,7 +17,7 @@ export default function TarjetaDigitalPage() {
     const [qrCodeUrl, setQrCodeUrl] = useState("");
 
     useEffect(() => {
-        // This code runs only on the client, after the component has mounted.
+        // This effect runs only on the client, after the component has mounted.
         const currentUrl = window.location.href;
         setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`);
     }, []);
@@ -107,3 +107,4 @@ export default function TarjetaDigitalPage() {
     </div>
   );
 }
+
