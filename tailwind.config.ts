@@ -93,10 +93,10 @@ const config: Config = {
             textShadow: theme('textShadow.glow'),
           },
           '.btn-3d-primary': {
-            '--btn-bg': theme('colors.primary.DEFAULT'),
+            '--btn-bg': 'hsl(var(--primary))',
             '--btn-border': 'hsl(var(--primary) / 0.8)',
             '--btn-shadow': 'hsl(var(--primary) / 0.4)',
-            'color': theme('colors.primary.foreground'),
+            'color': 'hsl(var(--primary-foreground))',
             'backgroundColor': 'var(--btn-bg)',
             'borderBottom': '4px solid var(--btn-border)',
             'boxShadow': '0 5px 15px -5px var(--btn-shadow)',

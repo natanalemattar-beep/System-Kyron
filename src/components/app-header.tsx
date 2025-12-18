@@ -63,12 +63,14 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
   }
 
   const isGroupActive = (group: NavGroup) => {
-    const checkItems = (items: NavItem[]) => items.some(item => isLinkActive(item.href));
-    
-    if (checkItems(group.items)) {
+    // Check if any item in the main group is active
+    if (group.items.some(item => isLinkActive(item.href))) {
       return true;
     }
-    return group.subGroups.some(sg => checkItems(sg.items));
+    // Check if any item in any subgroup is active
+    return group.subGroups.some(subGroup => 
+      subGroup.items.some(item => isLinkActive(item.href))
+    );
   };
 
 

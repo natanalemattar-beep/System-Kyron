@@ -5,69 +5,69 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
+    --background: 264 70% 4%;
     --foreground: 210 40% 98%;
  
-    --card: 240 5.9% 10%;
+    --card: 250 50% 12%;
     --card-foreground: 210 40% 98%;
  
-    --popover: 240 5.9% 10%;
+    --popover: 264 70% 4%;
     --popover-foreground: 210 40% 98%;
  
     --primary: 262.1 83.3% 57.8%;
     --primary-foreground: 210 40% 98%;
  
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 240 5% 18%;
     --secondary-foreground: 210 40% 98%;
  
-    --muted: 240 3.7% 15.9%;
+    --muted: 240 5% 18%;
     --muted-foreground: 215 20.2% 65.1%;
  
-    --accent: 240 3.7% 15.9%;
+    --accent: 240 5% 22%;
     --accent-foreground: 210 40% 98%;
  
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 40%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
+    --border: 240 4% 20%;
+    --input: 240 4% 20%;
     --ring: 263.4 92.4% 59.4%;
  
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --primary-rgb: 94, 23, 235;
+    --primary-rgb: 124, 58, 237;
   }
  
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 264 70% 4%;
     --foreground: 210 40% 98%;
  
-    --card: 240 5.9% 10%;
+    --card: 250 50% 12%;
     --card-foreground: 210 40% 98%;
  
-    --popover: 240 5.9% 10%;
+    --popover: 264 70% 4%;
     --popover-foreground: 210 40% 98%;
  
     --primary: 263.4 92.4% 59.4%;
     --primary-foreground: 210 40% 98%;
  
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 240 5% 18%;
     --secondary-foreground: 210 40% 98%;
  
-    --muted: 240 3.7% 15.9%;
+    --muted: 240 5% 18%;
     --muted-foreground: 215 20.2% 65.1%;
  
-    --accent: 240 3.7% 15.9%;
+    --accent: 240 5% 22%;
     --accent-foreground: 210 40% 98%;
  
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 210 40% 98%;
  
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
+    --border: 240 4% 20%;
+    --input: 240 4% 20%;
     --ring: 263.4 92.4% 59.4%;
 
-    --primary-rgb: 124, 58, 237;
+     --primary-rgb: 124, 58, 237;
   }
 }
  

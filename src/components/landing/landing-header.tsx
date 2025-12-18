@@ -11,14 +11,11 @@ import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { loginOptions } from "@/lib/login-options";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 
@@ -79,7 +76,7 @@ export function LandingHeader() {
                 >
                     <div className={cn(
                         "flex h-16 items-center justify-between px-4 md:px-6 transition-all duration-300",
-                        isScrolled ? "border rounded-full mt-4" : "mt-0 md:mt-4"
+                        isScrolled ? "border-b" : ""
                     )}>
                         <Link href="/" className="flex items-center gap-3">
                             <Logo />
@@ -97,7 +94,7 @@ export function LandingHeader() {
                             <ThemeToggle />
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="default" className="btn-3d-primary">
+                                    <Button variant="outline">
                                         Acceder <User className="ml-2 h-4 w-4" />
                                     </Button>
                                 </DropdownMenuTrigger>
