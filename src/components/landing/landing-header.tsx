@@ -12,7 +12,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { FC, AnchorHTMLAttributes } from 'react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { loginOptions } from "@/lib/login-options";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
@@ -40,6 +40,9 @@ const navLinks = [
   { href: "#faq", label: "FAQ" },
   { href: "#contacto", label: "Contacto" },
 ];
+
+const mainAccess = loginOptions.slice(0, 2);
+const specificRoles = loginOptions.slice(2);
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -93,12 +96,29 @@ export function LandingHeader() {
                                         Acceder <User className="ml-2 h-4 w-4" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-56">
-                                    {loginOptions.map((option) => (
+                                <DropdownMenuContent align="end" className="w-64">
+                                     <DropdownMenuLabel>Acceso Principal</DropdownMenuLabel>
+                                     {mainAccess.map((option) => (
                                         <DropdownMenuItem key={option.href} asChild>
-                                            <Link href={option.href} className="flex items-center gap-3">
-                                                <option.icon className="h-4 w-4 text-muted-foreground"/>
-                                                <span>{option.label}</span>
+                                            <Link href={option.href} className="flex items-start gap-3">
+                                                <option.icon className="h-5 w-5 text-muted-foreground mt-1"/>
+                                                <div>
+                                                    <p>{option.label}</p>
+                                                    <p className="text-xs text-muted-foreground">{option.description}</p>
+                                                </div>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    ))}
+                                    <DropdownMenuSeparator />
+                                     <DropdownMenuLabel>Roles Específicos</DropdownMenuLabel>
+                                     {specificRoles.map((option) => (
+                                        <DropdownMenuItem key={option.href} asChild>
+                                            <Link href={option.href} className="flex items-start gap-3">
+                                                <option.icon className="h-5 w-5 text-muted-foreground mt-1"/>
+                                                 <div>
+                                                    <p>{option.label}</p>
+                                                    <p className="text-xs text-muted-foreground">{option.description}</p>
+                                                </div>
                                             </Link>
                                         </DropdownMenuItem>
                                     ))}
