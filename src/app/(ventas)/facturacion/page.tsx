@@ -11,37 +11,37 @@ const facturacionModules = [
         title: "Punto de Venta (TPV)",
         description: "Interfaz rápida y visual para procesar ventas en tiempo real, integrada con el inventario y la facturación.",
         icon: TabletSmartphone,
-        href: "/punto-de-venta"
+        href: "/ventas/punto-de-venta"
     },
     {
         title: "Facturación a Crédito",
         description: "Gestiona ventas con financiamiento, controla las cuentas por cobrar y maneja plataformas como Cashea.",
         icon: CreditCard,
-        href: "/facturacion-credito"
+        href: "/ventas/facturacion-credito"
     },
     {
         title: "Facturas Proforma",
         description: "Crea y envía cotizaciones o facturas preliminares a tus clientes antes de la venta final.",
         icon: Receipt,
-        href: "/proformas"
+        href: "/ventas/proformas"
     },
     {
         title: "Modelo de Factura",
         description: "Visualiza y descarga un modelo de factura fiscal homologado y adaptado a la normativa del SENIAT.",
         icon: FileText,
-        href: "/modelo-factura"
+        href: "/ventas/modelo-factura"
     },
     {
         title: "Nota de Débito",
         description: "Emite notas de débito para aumentar el valor de una factura por intereses o cargos adicionales.",
         icon: FileMinus,
-        href: "/nota-debito"
+        href: "/ventas/nota-debito"
     },
     {
         title: "Nota de Crédito",
         description: "Genera notas de crédito para anular o corregir facturas por devoluciones, descuentos o errores.",
         icon: FilePlus,
-        href: "/nota-credito"
+        href: "/ventas/nota-credito"
     },
 ];
 
@@ -59,7 +59,7 @@ export default function FacturacionPage() {
       </header>
        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {facturacionModules.map((module) => (
-            <Card key={module.title} className="flex flex-col">
+            <Card key={module.title} className="flex flex-col bg-card/50 backdrop-blur-sm">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-3">
                         <module.icon className="h-6 w-6 text-primary" />
