@@ -18,18 +18,18 @@ type Message = {
 
 // This function determines the context based on the current URL
 const getPageContext = (pathname: string) => {
-  if (pathname.startsWith('/admin/dashboard-empresa')) return "el dashboard principal de administración de la empresa (Centro de Mando)";
-  if (pathname.startsWith('/contabilidad')) return "el dashboard del portal de Contabilidad";
-  if (pathname.startsWith('/ventas/analisis-ventas')) return "el dashboard de Análisis de Ventas";
-  if (pathname.startsWith('/hr/dashboard-rrhh')) return "el dashboard de Recursos Humanos";
-  if (pathname.startsWith('/legal/escritorio-juridico')) return "el dashboard del Escritorio Jurídico";
-  if (pathname.startsWith('/socios/dashboard-socios')) return "el dashboard para Socios y Directivos (Holding)";
-  if (pathname.startsWith('/admin/dashboard-informatica')) return "el dashboard de Ingeniería e Informática";
-  if (pathname.startsWith('/main/asesoria-publicidad')) return "el dashboard de Marketing y Publicidad";
-  if (pathname.startsWith('/dashboard')) return "el dashboard personal para trámites civiles de una persona natural";
-  if (pathname.startsWith('/main/cuentas-por-cobrar')) return "el módulo de Cuentas por Cobrar";
-  if (pathname.startsWith('/main/cuentas-por-pagar')) return "el módulo de Cuentas por Pagar";
-  if (pathname.startsWith('/ventas/punto-de-venta')) return "el Punto de Venta (TPV) para facturar";
+  if (pathname.includes('dashboard-empresa')) return "el dashboard principal de administración de la empresa (Centro de Mando)";
+  if (pathname.includes('/contabilidad')) return "el dashboard del portal de Contabilidad";
+  if (pathname.includes('/analisis-ventas')) return "el dashboard de Análisis de Ventas";
+  if (pathname.includes('/dashboard-rrhh')) return "el dashboard de Recursos Humanos";
+  if (pathname.includes('/escritorio-juridico')) return "el dashboard del Escritorio Jurídico";
+  if (pathname.includes('/dashboard-socios')) return "el dashboard para Socios y Directivos (Holding)";
+  if (pathname.includes('/dashboard-informatica')) return "el dashboard de Ingeniería e Informática";
+  if (pathname.includes('/asesoria-publicidad')) return "el dashboard de Marketing y Publicidad";
+  if (pathname.includes('/dashboard')) return "el dashboard personal para trámites civiles de una persona natural";
+  if (pathname.includes('/cuentas-por-cobrar')) return "el módulo de Cuentas por Cobrar";
+  if (pathname.includes('/cuentas-por-pagar')) return "el módulo de Cuentas por Pagar";
+  if (pathname.includes('/punto-de-venta')) return "el Punto de Venta (TPV) para facturar";
   if (pathname === '/') return "la página de inicio de Kyron. Describe los servicios, características y testimonios.";
   // Add more specific contexts as needed
   return "una página general de la aplicación Kyron";
