@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FC, type AnchorHTMLAttributes } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { User, Menu } from "lucide-react";
@@ -11,8 +11,7 @@ import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
-import type { FC, AnchorHTMLAttributes } from 'react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { loginOptions } from "@/lib/login-options";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
@@ -87,26 +86,28 @@ export function LandingHeader() {
                         <div className="hidden md:flex items-center gap-2">
                             <LanguageSwitcher />
                             <ThemeToggle />
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
+                            <Popover>
+                                <PopoverTrigger asChild>
                                     <Button variant="default" className="btn-3d-primary">
                                         Acceder <User className="ml-2 h-4 w-4" />
                                     </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-64">
-                                     {loginOptions.map((option) => (
-                                        <DropdownMenuItem key={option.href} asChild>
-                                            <Link href={option.href} className="flex items-start gap-3">
-                                                <option.icon className="h-5 w-5 text-muted-foreground mt-1"/>
-                                                <div>
-                                                    <p>{option.label}</p>
-                                                    <p className="text-xs text-muted-foreground">{option.description}</p>
+                                </PopoverTrigger>
+                                <PopoverContent align="end" className="w-screen max-w-sm">
+                                    <div className="p-4 grid grid-cols-1 gap-2">
+                                        {loginOptions.map((option) => (
+                                            <Link href={option.href} key={option.href} className="block p-3 rounded-lg hover:bg-accent transition-colors">
+                                                <div className="flex items-start gap-4">
+                                                    <option.icon className="h-6 w-6 text-primary mt-1 shrink-0"/>
+                                                    <div>
+                                                        <p className="font-semibold">{option.label}</p>
+                                                        <p className="text-xs text-muted-foreground">{option.description}</p>
+                                                    </div>
                                                 </div>
                                             </Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                                        ))}
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
                             <Button asChild>
                                 <Link href="/register">Registrarse</Link>
                             </Button>

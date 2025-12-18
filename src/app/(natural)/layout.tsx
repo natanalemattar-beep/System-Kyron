@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import type { ReactNode } from "react";
@@ -8,7 +7,7 @@ import { AppHeader } from "@/components/app-header";
 import { naturalMenuItems } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 
-const user = { name: "Usuario Natural", email: "usuario@kyron.com", fallback: "N" };
+const user = { name: "Usuario Natural", email: "usuario@kyron.com", fallback: "UN" };
 const dashboardHref = "/dashboard";
 
 export default function NaturalLayout({ children }: { children: ReactNode }) {
