@@ -1,43 +1,23 @@
-
 'use client';
 import type { ReactNode } from "react";
-import Link from "next/link";
-import { Logo } from "@/components/logo";
-import { Button } from "@/components/ui/button";
-import { User } from "lucide-react";
-import { LanguageSwitcher } from "@/components/language-switcher";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { motion } from "framer-motion";
+import { LandingHeader } from "@/components/landing/landing-header";
 import { ChatDialog } from "@/components/chat-dialog";
+import { motion } from "framer-motion";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground relative">
-      <motion.header 
-        className="sticky top-0 z-50 w-full"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ type: 'spring', stiffness: 50, damping: 15 }}
-      >
-        <div className="container mx-auto px-4 md:px-6">
-            <div className="flex h-16 items-center justify-between px-4 md:px-6 rounded-none md:rounded-full mt-0 md:mt-4 border-b md:border bg-background/80 backdrop-blur-sm">
-              <Link href="/" className="flex items-center gap-3">
-                <Logo />
-                <span className="text-lg font-bold">System Kyron</span>
-              </Link>
-              <div className="flex items-center gap-2">
-                <LanguageSwitcher />
-                <ThemeToggle />
-                <Button asChild>
-                  <Link href="/register">Registrarse</Link>
-                </Button>
-              </div>
-            </div>
-        </div>
-      </header>
+      <LandingHeader />
       
       <main className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto pt-20">
-        {children}
+        <motion.div 
+            className="w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+        >
+            {children}
+        </motion.div>
       </main>
       <ChatDialog />
     </div>

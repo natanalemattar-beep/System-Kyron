@@ -23,11 +23,10 @@ import { Credentials } from "./credentials";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils";
-import Particles from "@/components/particles";
 import { motion } from "framer-motion";
 
 const cardVariants = cva(
-  "w-full max-w-md mx-auto bg-card/60 dark:bg-card/30 backdrop-blur-lg border overflow-hidden hover-glow",
+  "w-full max-w-md mx-auto bg-card/60 dark:bg-card/30 backdrop-blur-lg border overflow-hidden",
   {
     variants: {
       variant: {
@@ -132,7 +131,7 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         setError(null);
         
         setTimeout(() => {
-            const idField = fields.find(f => f.id === 'idValue' || f.id === 'username');
+            const idField = fields.find(f => f.id === 'idValue' || f.id === 'username' || f.id === 'email');
             const passField = fields.find(f => f.id === 'password');
 
             if (idField && passField && credentials) {
@@ -151,16 +150,6 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
             setIsLoading(false);
         }, 1000);
     };
-
-    const getParticleColor = () => {
-        switch (variant) {
-            case 'juridico': return '#3b82f6';
-            case 'fintech': return '#22c55e';
-            case 'ventas': return '#f43f5e';
-            case 'tecnologia': return '#06b6d4';
-            default: return '#a855f7'; // primary violet
-        }
-    }
   
     const renderField = (field: Field) => {
         if (field.id === 'country') {
@@ -215,13 +204,6 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       <Card ref={ref} className={cn(cardVariants({ variant, className }))} {...props}>
-        <div className="absolute inset-0 -z-10 h-full w-full">
-            <Particles
-                className="absolute inset-0 -z-10"
-                quantity={100}
-                color={getParticleColor()}
-            />
-        </div>
         <CardHeader className="text-center">
             <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
             <Icon className="h-8 w-8 text-primary" />
@@ -274,5 +256,3 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
   );
 })
 LoginCard.displayName = "LoginCard"
-
-```
