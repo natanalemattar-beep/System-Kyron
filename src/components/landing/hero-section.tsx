@@ -6,16 +6,16 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, Layers, DollarSign } from "lucide-react";
+import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, Layers, DollarSign, Briefcase, GitBranch, Megaphone } from "lucide-react";
 import { Logo } from "../logo";
 
 const orbFeatures = [
-  { icon: Layers, title: "Gestión Fiscal" },
-  { icon: DollarSign, title: "Nómina" },
-  { icon: ShieldCheck, title: "Seguridad" },
-  { icon: BrainCircuit, title: "Análisis IA" },
-  { icon: FileText, title: "Facturación" },
-  { icon: Users, title: "RR.HH." },
+  { icon: Layers, title: "Gestión Inteligente" },
+  { icon: DollarSign, title: "Finanzas y Contabilidad" },
+  { icon: ShieldCheck, title: "Tranquilidad Fiscal" },
+  { icon: Briefcase, title: "Talento Humano" },
+  { icon: GitBranch, title: "Ecosistema de Negocios" },
+  { icon: Megaphone, title: "Asesoría Estratégica" },
 ];
 
 const ORB_SIZE = 400;

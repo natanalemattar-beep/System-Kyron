@@ -41,9 +41,6 @@ const navLinks = [
   { href: "#contacto", label: "Contacto" },
 ];
 
-const mainAccess = loginOptions.slice(0, 2);
-const specificRoles = loginOptions.slice(2);
-
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -97,23 +94,11 @@ export function LandingHeader() {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-64">
-                                     {mainAccess.map((option) => (
+                                     {loginOptions.map((option) => (
                                         <DropdownMenuItem key={option.href} asChild>
                                             <Link href={option.href} className="flex items-start gap-3">
                                                 <option.icon className="h-5 w-5 text-muted-foreground mt-1"/>
                                                 <div>
-                                                    <p>{option.label}</p>
-                                                    <p className="text-xs text-muted-foreground">{option.description}</p>
-                                                </div>
-                                            </Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                    <DropdownMenuSeparator />
-                                     {specificRoles.map((option) => (
-                                        <DropdownMenuItem key={option.href} asChild>
-                                            <Link href={option.href} className="flex items-start gap-3">
-                                                <option.icon className="h-5 w-5 text-muted-foreground mt-1"/>
-                                                 <div>
                                                     <p>{option.label}</p>
                                                     <p className="text-xs text-muted-foreground">{option.description}</p>
                                                 </div>
