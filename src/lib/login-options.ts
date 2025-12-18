@@ -2,7 +2,7 @@
 import { User, Building, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Banknote, Signal } from "lucide-react";
 
 export const loginOptions = [
-    { href: "/login", label: "Acceso Personal", icon: User, description: "Para clientes individuales." },
+    { href: "/login", label: "Acceso Personal", icon: User, description: "Para clientes individuales y gestión de trámites personales." },
     { href: "/login-fintech", label: "Centro de Contabilidad", icon: Banknote, description: "Dashboard principal de la empresa." },
     { href: "/login-escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel, description: "Portal para el departamento legal." },
     { href: "/login-ventas", label: "Ventas y Facturación", icon: ShoppingCart, description: "Acceso para cajeros y vendedores." },

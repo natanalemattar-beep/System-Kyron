@@ -1,9 +1,9 @@
 
-
 "use client";
 
 import { Banknote, User } from "lucide-react";
 import { LoginForm } from "@/components/auth/login-form";
+import { loginOptions } from "@/lib/login-options";
 
 export default function LoginFintechPage() {
    const loginProps = {
@@ -24,9 +24,7 @@ export default function LoginFintechPage() {
       mainLink: { href: "/register/juridica", label: "Regístra tu empresa aquí" },
        secondaryLinks: {
         title: "Otros Portales",
-        links: [
-            { href: "/login", label: "Personal", icon: User },
-        ]
+        links: loginOptions.filter(o => o.href !== '/login-fintech')
       }
     }
   };

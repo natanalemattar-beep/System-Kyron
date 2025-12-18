@@ -56,13 +56,21 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
 
   const isLinkActive = (itemHref: string) => {
     if (itemHref === '/') return pathname === '/';
+    // Match dashboard links exactly
+    if (itemHref.includes("dashboard")) return pathname === itemHref;
+    // For other links, check if the path starts with the href
     return pathname.startsWith(itemHref);
   }
 
   const isGroupActive = (group: NavGroup) => {
-    return group.items.some(item => isLinkActive(item.href)) ||
-           group.subGroups.some(sg => sg.items.some(item => isLinkActive(item.href)));
-  }
+    const checkItems = (items: NavItem[]) => items.some(item => isLinkActive(item.href));
+    
+    if (checkItems(group.items)) {
+      return true;
+    }
+    return group.subGroups.some(sg => checkItems(sg.items));
+  };
+
 
   return (
     <motion.header 

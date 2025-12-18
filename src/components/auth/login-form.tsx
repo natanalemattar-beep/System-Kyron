@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, EyeOff, Copy, Loader2, AlertTriangle } from "lucide-react";
+import { Eye, EyeOff, Loader2, AlertTriangle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

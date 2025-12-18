@@ -1,10 +1,9 @@
 
 "use client";
 
-import { User, Building, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Banknote, Signal } from "lucide-react";
-import Link from "next/link";
-import { loginOptions } from "@/lib/login-options";
+import { User } from "lucide-react";
 import { LoginForm } from "@/components/auth/login-form";
+import { loginOptions } from "@/lib/login-options";
 
 export default function LoginPage() {
     const loginProps = {
@@ -24,7 +23,7 @@ export default function LoginPage() {
             mainLink: { href: "/register/natural", label: "Regístrate aquí" },
             secondaryLinks: {
                 title: "Acceso a Otros Portales",
-                links: loginOptions.filter(o => o.href !== '/login-natural')
+                links: loginOptions.filter(o => o.href !== '/login')
             }
         }
     };
