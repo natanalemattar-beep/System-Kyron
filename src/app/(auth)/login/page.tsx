@@ -2,7 +2,7 @@
 "use client";
 
 import { User } from "lucide-react";
-import { LoginForm } from "@/components/auth/login-form";
+import { LoginCard } from "@/components/auth/login-card";
 import { loginOptions } from "@/lib/login-options";
 
 export default function LoginPage() {
@@ -28,5 +28,5 @@ export default function LoginPage() {
         }
     };
 
-    return <LoginForm {...loginProps} />;
+    return <LoginCard {...loginProps} />;
 }

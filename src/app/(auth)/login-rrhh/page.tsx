@@ -1,8 +1,9 @@
 
 "use client";
 
-import { Briefcase, User, Building, ShoppingCart, Users, Megaphone, Cpu } from "lucide-react";
-import { LoginForm } from "@/components/auth/login-form";
+import { Briefcase } from "lucide-react";
+import { LoginCard } from "@/components/auth/login-card";
+import { loginOptions } from "@/lib/login-options";
 
 export default function LoginRrhhPage() {
   const loginProps = {
@@ -21,17 +22,10 @@ export default function LoginRrhhPage() {
       mainLink: { href: "/register/rrhh", label: "Regístrate aquí" },
       secondaryLinks: {
         title: "Otros Portales",
-        links: [
-            { href: "/login", label: "Personal", icon: User },
-            { href: "/login-fintech", label: "FinTech", icon: Building },
-            { href: "/login-ventas", label: "Ventas", icon: ShoppingCart },
-            { href: "/login-socios", label: "Socios", icon: Users },
-            { href: "/login-marketing", label: "Marketing", icon: Megaphone },
-            { href: "/login-informatica", label: "IT", icon: Cpu },
-        ]
+        links: loginOptions.filter(o => o.href !== '/login-rrhh')
       }
     }
   };
 
-  return <LoginForm {...loginProps} />;
+  return <LoginCard {...loginProps} />;
 }

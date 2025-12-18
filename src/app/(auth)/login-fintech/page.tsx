@@ -1,8 +1,8 @@
 
 "use client";
 
-import { Banknote, User } from "lucide-react";
-import { LoginForm } from "@/components/auth/login-form";
+import { Banknote } from "lucide-react";
+import { LoginCard } from "@/components/auth/login-card";
 import { loginOptions } from "@/lib/login-options";
 
 export default function LoginFintechPage() {
@@ -10,6 +10,7 @@ export default function LoginFintechPage() {
     icon: Banknote,
     title: "Centro de Contabilidad",
     description: "Acceso al dashboard contable y reportes financieros.",
+    variant: "fintech" as const,
     fields: [
       { id: "country", label: "País", type: "select" as const },
       { id: "username", label: "Usuario (Contador/Admin)", type: "text" as const, placeholder: "admin.user", defaultValue: "admin.user" },
@@ -29,5 +30,5 @@ export default function LoginFintechPage() {
     }
   };
 
-  return <LoginForm {...loginProps} />;
+  return <LoginCard {...loginProps} />;
 }
