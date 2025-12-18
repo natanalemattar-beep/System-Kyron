@@ -97,7 +97,6 @@ export function LandingHeader() {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-64">
-                                     <DropdownMenuLabel>Acceso Principal</DropdownMenuLabel>
                                      {mainAccess.map((option) => (
                                         <DropdownMenuItem key={option.href} asChild>
                                             <Link href={option.href} className="flex items-start gap-3">
@@ -110,7 +109,6 @@ export function LandingHeader() {
                                         </DropdownMenuItem>
                                     ))}
                                     <DropdownMenuSeparator />
-                                     <DropdownMenuLabel>Roles Específicos</DropdownMenuLabel>
                                      {specificRoles.map((option) => (
                                         <DropdownMenuItem key={option.href} asChild>
                                             <Link href={option.href} className="flex items-start gap-3">
