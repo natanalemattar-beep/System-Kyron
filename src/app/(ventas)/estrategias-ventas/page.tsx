@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Lightbulb, Package, Tag, Users, Zap, Loader2 } from "lucide-react";
-import { generateSalesStrategies, SalesStrategyOutput } from "@/ai/flows/sales-strategy-generator";
+import { generateSalesStrategies, type SalesStrategyOutput } from "@/ai/flows/sales-strategy-generator";
 import { useToast } from "@/hooks/use-toast";
 
 type Strategy = SalesStrategyOutput['strategies'][0];
@@ -143,5 +143,3 @@ export default function EstrategiasVentasPage() {
     </div>
   );
 }
-
-    

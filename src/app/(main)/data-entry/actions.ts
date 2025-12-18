@@ -1,10 +1,10 @@
-"use server";
+'use server';
 
 import {
   automatedDataEntry,
-  AutomatedDataEntryInput,
-  AutomatedDataEntryOutput,
-} from "@/ai/flows/automated-data-entry-from-image";
+  type AutomatedDataEntryInput,
+  type AutomatedDataEntryOutput,
+} from '@/ai/flows/automated-data-entry-from-image';
 
 export async function processDocumentAction(
   input: AutomatedDataEntryInput
@@ -14,6 +14,8 @@ export async function processDocumentAction(
     return result;
   } catch (e: any) {
     console.error(e);
-    return { error: e.message || "An unknown error occurred." };
+    // Ensure a consistent error object is returned
+    const errorMessage = e.message || 'An unknown error occurred while processing the document.';
+    return { error: errorMessage };
   }
 }

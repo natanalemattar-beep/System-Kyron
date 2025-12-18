@@ -1,10 +1,10 @@
-"use server";
+'use server';
 
 import {
   categorizeTransaction,
-  CategorizeTransactionInput,
-  CategorizeTransactionOutput,
-} from "@/ai/flows/transaction-auto-categorization";
+  type CategorizeTransactionInput,
+  type CategorizeTransactionOutput,
+} from '@/ai/flows/transaction-auto-categorization';
 
 export async function categorizeTransactionAction(
   input: CategorizeTransactionInput
@@ -14,6 +14,8 @@ export async function categorizeTransactionAction(
     return result;
   } catch (e: any) {
     console.error(e);
-    return { error: e.message || "An unknown error occurred." };
+    // Ensure a consistent error object is returned
+    const errorMessage = e.message || 'An unknown error occurred during categorization.';
+    return { error: errorMessage };
   }
 }
