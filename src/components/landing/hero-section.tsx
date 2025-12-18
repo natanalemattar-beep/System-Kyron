@@ -29,6 +29,8 @@ export function HeroSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
 
   useEffect(() => {
     setIsClient(true);
@@ -39,11 +41,17 @@ export function HeroSection() {
   }, []);
 
   const handleMouseEnter = (index: number) => {
+    if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+    }
     setHoveredIndex(index);
   };
 
   const handleMouseLeave = () => {
-    setHoveredIndex(null);
+    timeoutRef.current = setTimeout(() => {
+        setHoveredIndex(null);
+    }, 5000); // Persist for 5 seconds
   };
   
   const currentOrbSize = isMobile ? ORB_SIZE_MOBILE : ORB_SIZE;
