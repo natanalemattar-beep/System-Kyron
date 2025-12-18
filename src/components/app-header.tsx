@@ -54,6 +54,16 @@ interface AppHeaderProps {
 export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
   const pathname = usePathname();
 
+  const isLinkActive = (itemHref: string) => {
+    if (itemHref === '/') return pathname === '/';
+    return pathname.startsWith(itemHref);
+  }
+
+  const isGroupActive = (group: NavGroup) => {
+    return group.items.some(item => isLinkActive(item.href)) ||
+           group.subGroups.some(sg => sg.items.some(item => isLinkActive(item.href)));
+  }
+
   return (
     <motion.header 
       className="sticky top-0 left-0 right-0 z-50 backdrop-blur-lg bg-background/80"
@@ -82,7 +92,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                                 size="sm" 
                                 className={cn(
                                     "gap-1",
-                                    (group.items.some(item => pathname.startsWith(item.href)) || group.subGroups.some(sg => sg.items.some(item => pathname.startsWith(item.href)))) && "bg-accent text-accent-foreground"
+                                    isGroupActive(group) && "bg-accent text-accent-foreground"
                                 )}
                             >
                                 {group.title}
@@ -94,7 +104,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                                 <DropdownMenuLabel>{subGroup.title}</DropdownMenuLabel>
                                 {subGroup.items.map((item) => (
                                   <DropdownMenuItem key={item.href} asChild>
-                                    <Link href={item.href} className={cn("flex items-center", pathname === item.href && "font-bold text-primary")}>
+                                    <Link href={item.href} className={cn("flex items-center", isLinkActive(item.href) && "font-bold text-primary")}>
                                         <item.icon className="mr-2 h-4 w-4" />
                                         {item.label}
                                     </Link>
@@ -106,7 +116,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                           : 
                             group.items.map((item) => (
                                 <DropdownMenuItem key={item.href} asChild>
-                                    <Link href={item.href} className={cn("flex items-center", pathname === item.href && "font-bold text-primary")}>
+                                    <Link href={item.href} className={cn("flex items-center", isLinkActive(item.href) && "font-bold text-primary")}>
                                         <item.icon className="mr-2 h-4 w-4" />
                                         {item.label}
                                     </Link>
@@ -150,14 +160,14 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                                 <AccordionContent>
                                     <div className="flex flex-col gap-1 pl-4">
                                         {group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items).map(item => (
-                                            <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start">
+                                            <Button key={item.href} asChild variant={isLinkActive(item.href) ? "secondary" : "ghost"} className="justify-start">
                                                 <Link href={item.href}>
                                                     <item.icon className="mr-2 h-4 w-4" />
                                                     {item.label}
                                                 </Link>
                                             </Button>
                                         )) : group.items.map(item => (
-                                             <Button key={item.href} asChild variant={pathname === item.href ? "secondary" : "ghost"} className="justify-start">
+                                             <Button key={item.href} asChild variant={isLinkActive(item.href) ? "secondary" : "ghost"} className="justify-start">
                                                 <Link href={item.href}>
                                                     <item.icon className="mr-2 h-4 w-4" />
                                                     {item.label}
