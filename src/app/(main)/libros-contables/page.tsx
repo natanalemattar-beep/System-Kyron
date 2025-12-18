@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
+import Link from "next/link";
 
 const librosPrincipales = [
     {
@@ -31,9 +32,10 @@ const librosPrincipales = [
 ];
 
 const librosAuxiliares = [
-    { nombre: "Cuentas por Cobrar", descripcion: "Detalle de saldos de clientes." },
-    { nombre: "Cuentas por Pagar", descripcion: "Detalle de deudas con proveedores." },
-    { nombre: "Inventario de Mercancía", descripcion: "Movimientos de entrada y salida por producto." },
+    { nombre: "Libro de Compras y Ventas", href: "/libro-compra-venta", descripcion: "Registro fiscal para el SENIAT." },
+    { nombre: "Libro de Nómina", href: "/nominas", descripcion: "Registro oficial para el Ministerio del Trabajo." },
+    { nombre: "Libro de Licores", href: "/libro-licores", descripcion: "Control de entradas y salidas de bebidas alcohólicas." },
+    { nombre: "Libro de Horas Extras", href: "/libro-horas-extras", descripcion: "Control del pago de horas extraordinarias." },
 ]
 
 type AsientoLinea = {
@@ -102,7 +104,7 @@ export default function LibrosContablesPage() {
             <div>
                 <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
                     <BookOpen className="h-8 w-8" />
-                    Libros Contables
+                    Centro de Libros Contables
                 </h1>
                 <p className="text-muted-foreground mt-2">
                     Gestiona los libros contables principales y auxiliares de tu empresa.
@@ -239,8 +241,10 @@ export default function LibrosContablesPage() {
                                 <TableCell className="font-medium">{libro.nombre}</TableCell>
                                 <TableCell>{libro.descripcion}</TableCell>
                                 <TableCell className="text-right">
-                                    <Button variant="outline" size="sm">
-                                        Ver Detalle <ArrowRight className="ml-2 h-4 w-4" />
+                                    <Button asChild variant="outline" size="sm">
+                                        <Link href={libro.href}>
+                                          Ver Detalle <ArrowRight className="ml-2 h-4 w-4" />
+                                        </Link>
                                     </Button>
                                 </TableCell>
                             </TableRow>

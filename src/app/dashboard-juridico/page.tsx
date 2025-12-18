@@ -98,8 +98,8 @@ export default function DashboardJuridicoPage() {
             />
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline">Nuevo Contrato Estándar</Button>
-            <Button variant="outline">Generar Poder Notarial</Button>
+            <Button asChild variant="outline"><Link href="/contratos">Nuevo Contrato Estándar</Link></Button>
+            <Button asChild variant="outline"><Link href="/poderes-representacion">Generar Poder Notarial</Link></Button>
             <Button variant="outline">Registrar Gasto Legal</Button>
             <Button variant="destructive">Reportar Incidente</Button>
           </div>
