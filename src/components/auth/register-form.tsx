@@ -48,11 +48,11 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
         if (pathname.includes('/register/marketing')) return '/asesoria-publicidad';
         if (pathname.includes('/register/rrhh')) return '/dashboard-rrhh';
         if (pathname.includes('/register/socios')) return '/socios/dashboard-socios';
-        if (pathname.includes('/register/telecom')) return '/telecom/dashboard-telecom';
+        if (pathname.includes('/register/telecom')) return '/dashboard-telecom';
         if (pathname.includes('/register/ventas')) return '/analisis-ventas';
-        if (pathname.includes('/register/juridico')) return '/solicitud-acceso-legal';
+        if (pathname.includes('/register/juridico') || pathname.includes('/register/legal')) return '/solicitud-acceso-legal';
         if (pathname.includes('/register/natural')) return '/dashboard';
-        if (pathname.includes('/register/juridica')) return '/admin/dashboard-empresa';
+        if (pathname.includes('/register/juridica')) return '/dashboard-empresa';
         return '/'; // Fallback
     }
 

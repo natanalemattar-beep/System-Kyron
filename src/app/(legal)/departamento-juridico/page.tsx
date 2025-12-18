@@ -11,7 +11,7 @@ const responsabilidades = [
         icon: FileSignature,
         titulo: "Gestión de Contratos",
         descripcion: "Redacción, revisión y administración de todos los contratos comerciales, laborales y de servicios.",
-        href: "/modelo-contrato"
+        href: "/contratos"
     },
     {
         icon: ShieldCheck,
