@@ -12,7 +12,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { FC, AnchorHTMLAttributes } from 'react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { loginOptions } from "@/lib/login-options";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
@@ -40,6 +40,9 @@ const navLinks = [
   { href: "#faq", label: "FAQ" },
   { href: "#contacto", label: "Contacto" },
 ];
+
+const mainAccess = loginOptions.slice(0, 2);
+const specificRoles = loginOptions.slice(2);
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -87,28 +90,49 @@ export function LandingHeader() {
                         <div className="hidden md:flex items-center gap-2">
                             <LanguageSwitcher />
                             <ThemeToggle />
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                     <Button className="btn-3d-primary">
+                             <Popover>
+                                <PopoverTrigger asChild>
+                                     <Button variant="default" className="btn-3d-primary">
                                         Acceder <User className="ml-2 h-4 w-4" />
                                     </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-64 p-2">
-                                    <DropdownMenuLabel>Portales de Acceso</DropdownMenuLabel>
-                                    <DropdownMenuSeparator />
-                                    {loginOptions.map((option) => (
-                                        <DropdownMenuItem key={option.href} asChild>
-                                            <Link href={option.href} className="flex items-start gap-3 p-2 transition-colors rounded-md hover:bg-secondary">
-                                                <option.icon className="h-5 w-5 text-primary mt-1 shrink-0"/>
-                                                <div>
-                                                    <p className="font-semibold text-sm leading-none">{option.label}</p>
-                                                    <p className="text-xs text-muted-foreground mt-1">{option.description}</p>
-                                                </div>
-                                            </Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                                </PopoverTrigger>
+                                <PopoverContent align="end" className="w-screen max-w-2xl p-6">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                        <div className="space-y-4">
+                                            <h3 className="font-semibold text-foreground">Acceso Principal</h3>
+                                            <div className="grid gap-4">
+                                                {mainAccess.map((option) => (
+                                                <Link key={option.href} href={option.href} className="group -m-3 flex items-start gap-4 rounded-lg p-3 transition-colors hover:bg-secondary">
+                                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                                        <option.icon className="h-6 w-6" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-semibold text-sm text-foreground">{option.label}</p>
+                                                        <p className="text-xs text-muted-foreground">{option.description}</p>
+                                                    </div>
+                                                </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                         <div className="space-y-4">
+                                            <h3 className="font-semibold text-foreground">Roles Específicos</h3>
+                                            <div className="grid gap-4">
+                                                {specificRoles.map((option) => (
+                                                <Link key={option.href} href={option.href} className="group -m-3 flex items-start gap-4 rounded-lg p-3 transition-colors hover:bg-secondary">
+                                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                                        <option.icon className="h-6 w-6" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-semibold text-sm text-foreground">{option.label}</p>
+                                                        <p className="text-xs text-muted-foreground">{option.description}</p>
+                                                    </div>
+                                                </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
                             <Button asChild>
                                 <Link href="/register">Registrarse</Link>
                             </Button>
