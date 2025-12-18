@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Eye, EyeOff, Loader2, AlertTriangle, User, Building, Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -155,7 +155,12 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
     });
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isClient, setIsClient] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     const currentIdInfo = idByCountry[country] || { label: "Identificación Personal", placeholder: "" };
 
@@ -206,6 +211,12 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
             </Select>
             </div>
         );
+        }
+
+        if (field.id === 'idValue' && !isClient) {
+            // On the server or during the first client render, render a placeholder or nothing
+            // to avoid mismatch with the client-side dynamic field.
+            return <div key="id-placeholder" className="space-y-2"><Label>Identificación</Label><Input disabled placeholder="Cargando..." /></div>;
         }
 
         const dynamicFieldId = field.id === 'idValue' ? currentIdInfo.label.toLowerCase().replace(/ /g, '-') : field.id;
@@ -300,3 +311,6 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
   );
 })
 LoginCard.displayName = "LoginCard"
+
+
+    
