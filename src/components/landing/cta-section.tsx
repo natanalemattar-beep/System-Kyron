@@ -1,9 +1,8 @@
 
 'use client';
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -23,9 +22,6 @@ export function CtaSection() {
                         Simplifica tu operación, garantiza tu tranquilidad fiscal y toma el control total de tu negocio. Comienza hoy.
                     </p>
                     <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Button size="lg" asChild className="w-full sm:w-auto text-base">
-                            <Link href="/planes-y-precios">Ver Planes y Precios</Link>
-                        </Button>
                          <Button size="lg" variant="default" asChild className="w-full sm:w-auto text-base btn-3d-primary">
                             <Link href="/register">Crear Cuenta Gratis <ArrowRight className="ml-2 h-5 w-5" /></Link>
                         </Button>

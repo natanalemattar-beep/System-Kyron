@@ -139,8 +139,8 @@ export default function AnalisisEmpresasNoDigitalesPage() {
                 </CardContent>
                 <CardFooter>
                      <Button size="lg" variant="secondary" className="bg-background text-foreground hover:bg-background/80" asChild>
-                        <Link href="/planes-y-precios">
-                            Ver Planes y Precios <ArrowRight className="ml-2"/>
+                        <Link href="/register">
+                            Comienza Ahora <ArrowRight className="ml-2"/>
                         </Link>
                     </Button>
                 </CardFooter>

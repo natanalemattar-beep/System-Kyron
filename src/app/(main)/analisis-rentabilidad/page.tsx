@@ -4,6 +4,9 @@
 import { ProfitabilityAnalyzer } from '@/components/rentabilidad/profitability-analyzer';
 import { CostOptimization } from '@/components/rentabilidad/cost-optimization';
 import { GrowthStrategies } from '@/components/rentabilidad/growth-strategies';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function SustainableProfitabilityDashboard() {
   return (
@@ -79,6 +82,11 @@ export default function SustainableProfitabilityDashboard() {
             <div className="text-center">
               <div className="text-xl font-bold">95%</div>
               <div className="text-xs text-blue-200">Satisfacción Clientes</div>
+            </div>
+             <div className="col-span-full mt-4 text-center">
+                <Button asChild variant="secondary">
+                    <Link href="/estrategias-ventas">Ver Estrategias Detalladas <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                </Button>
             </div>
           </div>
         </div>
