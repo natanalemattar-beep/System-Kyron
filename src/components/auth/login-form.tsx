@@ -179,7 +179,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
+    <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border hover-glow">
       <CardHeader className="text-center">
         <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
           <Icon className="h-8 w-8 text-primary" />
@@ -213,7 +213,7 @@ export function LoginForm({ icon: Icon, title, description, fields, submitButton
            {footerLinks.secondaryLinks ? (
             <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
                 {footerLinks.secondaryLinks.links.map(link => (
-                    <Button key={link.href} asChild variant="link" className="p-0">
+                    <Button key={link.href} asChild variant="link" className="p-0 h-auto text-muted-foreground hover:text-primary">
                         <Link href={link.href} className="flex items-center gap-1">
                             <link.icon className="h-4 w-4" />{link.label}
                         </Link>

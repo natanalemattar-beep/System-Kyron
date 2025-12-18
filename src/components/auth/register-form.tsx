@@ -57,7 +57,7 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
     }
 
     return (
-        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
+        <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border hover-glow">
             <CardHeader className="text-center">
                 <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
                     <Icon className="h-8 w-8 text-primary" />

@@ -20,18 +20,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 
-const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ href, ...props }) => {
+const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement> & { onLinkClick?: () => void }> = ({ href, onLinkClick, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         const targetId = href!.substring(1);
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
+             const yOffset = -80; // Offset to account for sticky header
+            const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
+            window.scrollTo({top: y, behavior: 'smooth'});
         }
-        // This part is for closing the mobile sheet menu if a link is clicked
-        const sheetCloseButton = document.querySelector('[data-radix-dialog-close]');
-        if (sheetCloseButton instanceof HTMLElement) {
-            sheetCloseButton.click();
+        if (onLinkClick) {
+            onLinkClick();
         }
     };
 
@@ -48,10 +48,25 @@ const navLinks = [
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [activeSection, setActiveSection] = useState("");
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
+            
+            const sections = navLinks.map(link => document.getElementById(link.href.substring(1))).filter(Boolean);
+            let currentSection = "";
+
+            sections.forEach(section => {
+                if (section) {
+                    const sectionTop = section.offsetTop - 100;
+                    if (window.scrollY >= sectionTop) {
+                        currentSection = section.id;
+                    }
+                }
+            });
+            setActiveSection(currentSection);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -82,28 +97,36 @@ export function LandingHeader() {
                             <Logo />
                             <span className="text-xl font-bold">System Kyron</span>
                         </Link>
-                        <nav className="hidden md:flex gap-6">
+                        <nav className="hidden md:flex gap-2">
                             {navLinks.map((link) => (
-                                <SmoothScrollLink key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                                    {link.label}
-                                </SmoothScrollLink>
+                                <Button key={link.href} variant="ghost" size="sm" asChild>
+                                    <SmoothScrollLink href={link.href} className={cn(
+                                        "text-muted-foreground",
+                                        activeSection === link.href.substring(1) && "text-foreground font-semibold"
+                                    )}>
+                                        {link.label}
+                                    </SmoothScrollLink>
+                                </Button>
                             ))}
                         </nav>
                         <div className="hidden md:flex items-center gap-2">
                             <LanguageSwitcher />
                             <ThemeToggle />
-                            <DropdownMenu>
+                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="outline">
                                         Acceder <User className="ml-2 h-4 w-4" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-56">
+                                <DropdownMenuContent align="end" className="w-64">
                                     {loginOptions.map((option) => (
                                         <DropdownMenuItem key={option.href} asChild>
-                                            <Link href={option.href} className="flex items-center gap-3">
-                                                <option.icon className="h-4 w-4 text-muted-foreground"/>
-                                                <span>{option.label}</span>
+                                            <Link href={option.href} className="flex items-start gap-3 p-2">
+                                                <option.icon className="h-5 w-5 mt-1 text-primary shrink-0"/>
+                                                <div>
+                                                  <p className="font-semibold">{option.label}</p>
+                                                  <p className="text-xs text-muted-foreground">{option.description}</p>
+                                                </div>
                                             </Link>
                                         </DropdownMenuItem>
                                     ))}
@@ -113,7 +136,7 @@ export function LandingHeader() {
                                 <Link href="/register">Registrarse</Link>
                             </Button>
                         </div>
-                        <Sheet>
+                        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="md:hidden">
                                     <Menu />
@@ -129,7 +152,7 @@ export function LandingHeader() {
                                 </SheetHeader>
                                 <nav className="grid gap-4 text-lg font-medium mt-8">
                                     {navLinks.map((link) => (
-                                        <SmoothScrollLink key={link.href} href={link.href}>{link.label}</SmoothScrollLink>
+                                        <SmoothScrollLink key={link.href} href={link.href} onLinkClick={() => setIsMobileMenuOpen(false)}>{link.label}</SmoothScrollLink>
                                     ))}
                                 </nav>
                                 <div className="mt-auto space-y-4">
