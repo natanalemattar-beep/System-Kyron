@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, EyeOff, Loader2, AlertTriangle, User, Building } from "lucide-react";
+import { Eye, EyeOff, Loader2, AlertTriangle, User, Building, Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -19,11 +19,12 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { countries } from "@/lib/countries";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Credentials } from "./credentials";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
+
 
 const cardVariants = cva(
   "w-full max-w-md mx-auto bg-card/60 dark:bg-card/30 backdrop-blur-lg border overflow-hidden",
@@ -67,7 +68,7 @@ export interface LoginCardProps extends React.HTMLAttributes<HTMLDivElement>, Va
   fields: Field[];
   submitButtonText: string;
   submitButtonHref: string;
-  credentials?: { user: string; password?: string };
+  credentials?: { user: string; password?: string, code?: string };
   footerLinks?: {
     text?: string;
     mainLink?: { href: string; label: string };
@@ -92,6 +93,49 @@ const idByCountry: Record<string, { label: string, placeholder: string }> = {
     "ARE": { label: "Emirates ID Number", placeholder: "784-1980-1234567-1" },
     "CAN": { label: "Social Insurance Number (SIN)", placeholder: "123-456-789" },
     "PRT": { label: "Cartão de Cidadão", placeholder: "12345678 9 ZZ1" },
+};
+
+const Credentials = ({ user, password, code }: { user?: string; password?: string, code?: string }) => {
+    const { toast } = useToast();
+
+    const copyToClipboard = (text: string, field: string) => {
+        if (text) {
+            navigator.clipboard.writeText(text);
+            toast({
+                title: `${field} copiado`,
+                description: `${text} ha sido copiado al portapapeles.`,
+            });
+        }
+    };
+
+    return (
+        <div className="mt-6 w-full space-y-3 text-sm">
+            {code && (
+                 <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
+                    <span className="text-muted-foreground">Código: <strong className="text-foreground font-mono">{code}</strong></span>
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(code, 'Código')}>
+                        <Copy className="h-4 w-4"/>
+                    </Button>
+                </div>
+            )}
+            {user && (
+                 <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
+                    <span className="text-muted-foreground">Usuario: <strong className="text-foreground font-mono">{user}</strong></span>
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(user, 'Usuario')}>
+                        <Copy className="h-4 w-4"/>
+                    </Button>
+                </div>
+            )}
+            {password && (
+                <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
+                    <span className="text-muted-foreground">Contraseña: <strong className="text-foreground font-mono">{password}</strong></span>
+                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(password, 'Contraseña')}>
+                        <Copy className="h-4 w-4"/>
+                    </Button>
+                </div>
+            )}
+        </div>
+    );
 };
 
 
