@@ -8,69 +8,69 @@
     @apply scroll-smooth;
   }
   :root {
-    --background: 264 70% 4%;
+    --background: 222 84% 5%;
     --foreground: 210 40% 98%;
  
-    --card: 250 50% 12%;
+    --card: 222 84% 7%;
     --card-foreground: 210 40% 98%;
  
-    --popover: 264 70% 4%;
+    --popover: 222 84% 5%;
     --popover-foreground: 210 40% 98%;
  
-    --primary: 142.1 76.2% 36.3%;
+    --primary: 153 82% 41%; /* Emerald Green */
     --primary-foreground: 210 40% 98%;
  
-    --secondary: 240 5% 18%;
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
  
-    --muted: 240 5% 18%;
+    --muted: 217 33% 17%;
     --muted-foreground: 215 20.2% 65.1%;
  
-    --accent: 240 5% 22%;
+    --accent: 217 33% 25%;
     --accent-foreground: 210 40% 98%;
  
-    --destructive: 0 62.8% 40%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 4% 20%;
-    --input: 240 4% 20%;
-    --ring: 142.1 76.2% 36.3%;
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 153 82% 41%;
  
     --radius: 0.75rem;
 
-    --primary-rgb: 124, 58, 237;
+    --primary-rgb: 16, 185, 129;
   }
  
   .dark {
-    --background: 264 70% 4%;
+    --background: 222 84% 5%;
     --foreground: 210 40% 98%;
  
-    --card: 250 50% 12%;
+    --card: 222 84% 7%;
     --card-foreground: 210 40% 98%;
  
-    --popover: 264 70% 4%;
+    --popover: 222 84% 5%;
     --popover-foreground: 210 40% 98%;
  
-    --primary: 142.1 76.2% 36.3%;
+    --primary: 153 82% 41%; /* Emerald Green */
     --primary-foreground: 210 40% 98%;
  
-    --secondary: 240 5% 18%;
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
  
-    --muted: 240 5% 18%;
+    --muted: 217 33% 17%;
     --muted-foreground: 215 20.2% 65.1%;
  
-    --accent: 240 5% 22%;
+    --accent: 217 33% 25%;
     --accent-foreground: 210 40% 98%;
  
-    --destructive: 0 72% 51%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
- 
-    --border: 240 4% 20%;
-    --input: 240 4% 20%;
-    --ring: 142.1 76.2% 36.3%;
 
-     --primary-rgb: 124, 58, 237;
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 153 82% 41%;
+
+    --primary-rgb: 16, 185, 129;
   }
 }
  
