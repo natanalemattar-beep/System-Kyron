@@ -29,7 +29,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 <LanguageSwitcher />
                 <ThemeToggle />
                 <Button asChild>
-                  <Link href="/">Acceder</Link>
+                  <Link href="/register">Registrarse</Link>
                 </Button>
               </div>
             </div>
