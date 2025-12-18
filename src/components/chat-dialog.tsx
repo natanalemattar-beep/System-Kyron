@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { chat, type ChatInput, type ChatOutput } from "@/ai/flows/chat";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ThinkingAnimation } from "./thinking-animation";
 
 type Message = {
   role: 'user' | 'bot';
@@ -25,6 +26,7 @@ const getPageContext = (pathname: string) => {
   if (pathname.includes('/escritorio-juridico')) return "el dashboard del Escritorio Jurídico";
   if (pathname.includes('/dashboard-socios')) return "el dashboard para Socios y Directivos (Holding)";
   if (pathname.includes('/dashboard-informatica')) return "el dashboard de Ingeniería e Informática";
+  if (pathname.includes('/dashboard-telecom')) return "el dashboard de Telecomunicaciones";
   if (pathname.includes('/asesoria-publicidad')) return "el dashboard de Marketing y Publicidad";
   if (pathname.includes('/dashboard')) return "el dashboard personal para trámites civiles de una persona natural";
   if (pathname.includes('/cuentas-por-cobrar')) return "el módulo de Cuentas por Cobrar";
@@ -47,7 +49,7 @@ export function ChatDialog() {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, isLoading]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,7 +90,7 @@ export function ChatDialog() {
           </DialogDescription>
         </DialogHeader>
         <div ref={chatContainerRef} className="flex-grow flex flex-col p-4 bg-secondary rounded-lg min-h-0 overflow-y-auto space-y-4">
-          {messages.length === 0 ? (
+          {messages.length === 0 && !isLoading ? (
             <div className="flex-grow flex items-center justify-center text-center text-muted-foreground">
               <p>Hola, ¿cómo puedo ayudarte hoy?</p>
             </div>
@@ -114,8 +116,8 @@ export function ChatDialog() {
            {isLoading && (
               <div className="flex items-start gap-3 justify-start">
                 <Avatar className="h-8 w-8"><AvatarFallback><Bot className="h-4 w-4"/></AvatarFallback></Avatar>
-                <div className="bg-background max-w-xs md:max-w-md rounded-lg px-4 py-2 flex items-center">
-                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground"/>
+                <div className="bg-background max-w-xs md:max-w-md rounded-lg p-4">
+                    <ThinkingAnimation />
                 </div>
               </div>
             )}
