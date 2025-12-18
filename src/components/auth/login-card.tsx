@@ -182,18 +182,23 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         setTimeout(() => {
             const idField = fields.find(f => f.id === 'idValue' || f.id === 'username' || f.id === 'email');
             const passField = fields.find(f => f.id === 'password');
+            const codeField = fields.find(f => f.id === 'inviteCode');
 
-            if (idField && passField && credentials) {
-                const userValue = formData[idField.id] || "";
-                const passValue = formData[passField.id] || "";
+            const userValue = idField ? formData[idField.id] : undefined;
+            const passValue = passField ? formData[passField.id] : undefined;
+            const codeValue = codeField ? formData[codeField.id] : undefined;
 
-                if (userValue === credentials.user && passValue === credentials.password) {
-                    router.push(submitButtonHref);
-                } else {
-                    setError("Usuario o contraseña incorrectos.");
-                }
-            } else {
+            let isValid = true;
+            if (credentials) {
+                if (credentials.user && userValue !== credentials.user) isValid = false;
+                if (credentials.password && passValue !== credentials.password) isValid = false;
+                if (credentials.code && codeValue !== credentials.code) isValid = false;
+            }
+
+            if (isValid) {
                 router.push(submitButtonHref);
+            } else {
+                setError("Credenciales incorrectas. Por favor, inténtalo de nuevo.");
             }
 
             setIsLoading(false);
@@ -214,22 +219,20 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         }
 
         if (field.id === 'idValue' && !isClient) {
-            // On the server or during the first client render, render a placeholder or nothing
-            // to avoid mismatch with the client-side dynamic field.
             return <div key="id-placeholder" className="space-y-2"><Label>Identificación</Label><Input disabled placeholder="Cargando..." /></div>;
         }
 
         const dynamicFieldId = field.id === 'idValue' ? currentIdInfo.label.toLowerCase().replace(/ /g, '-') : field.id;
         const dynamicLabel = field.id === 'idValue' ? currentIdInfo.label : field.label;
         const dynamicPlaceholder = field.id === 'idValue' ? currentIdInfo.placeholder : field.placeholder;
-        const dynamicValue = field.id === 'idValue' ? (formData.idValue || '') : (formData[field.id] || '');
+        const dynamicValue = formData[field.id] || '';
 
         switch (field.type) {
         case 'password':
             return (
             <div key={field.id} className="space-y-2 relative">
                 <Label htmlFor={field.id}>{field.label}</Label>
-                <Input id={field.id} type={passwordVisible ? "text" : "password"} placeholder={field.placeholder} value={formData[field.id] || ''} onChange={handleInputChange} className="pr-10" required/>
+                <Input id={field.id} type={passwordVisible ? "text" : "password"} placeholder={field.placeholder} value={dynamicValue} onChange={handleInputChange} className="pr-10" required/>
                 <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute right-3 top-8 text-muted-foreground">{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
             </div>
             );
@@ -311,6 +314,3 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
   );
 })
 LoginCard.displayName = "LoginCard"
-
-
-    
