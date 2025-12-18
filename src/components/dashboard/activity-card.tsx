@@ -51,7 +51,9 @@ export function ActivityCard({ recentActivities }: { recentActivities: Activity[
                       <p><strong>Estado:</strong> Completado</p>
                   </div>
                   <DialogFooter>
-                      <Button>Cerrar</Button>
+                      <DialogTrigger asChild>
+                        <Button>Cerrar</Button>
+                      </DialogTrigger>
                   </DialogFooter>
               </DialogContent>
             </Dialog>
