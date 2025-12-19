@@ -39,6 +39,14 @@ const requisitos = {
         "Descripción detallada de los servicios postales a ofrecer (mensajería, encomienda, etc.).",
         "Prueba de capacidad logística y operativa.",
         "Comprobante de pago de las tasas correspondientes.",
+    ],
+    valorAgregado: [
+        "Copia del Registro Mercantil con objeto social que incluya la prestación de servicios de telecomunicaciones y/o valor agregado.",
+        "Copia del RIF vigente de la empresa.",
+        "Copia de la Cédula de Identidad del representante legal.",
+        "Descripción detallada de los servicios a prestar (telefonía, alojamiento web, SaaS, etc.).",
+        "Arquitectura de la plataforma tecnológica y diagrama de red.",
+        "Comprobante de pago de la tasa de solicitud para la Habilitación Administrativa.",
     ]
 }
 
@@ -130,6 +138,36 @@ _________________________
 C.I: [C.I. DEL REPRESENTANTE]
 KYRON, C.A.
 `
+        },
+        valorAgregado: {
+            titulo: "Solicitud de Habilitación para Servicios de Valor Agregado",
+            contenido: `Ciudad y Fecha: ${fecha}
+
+Directorio de la Comisión Nacional de Telecomunicaciones (CONATEL)
+Presente.-
+
+ASUNTO: SOLICITUD DE HABILITACIÓN ADMINISTRATIVA PARA LA PRESTACIÓN DE SERVICIOS DE VALOR AGREGADO (TELEFONÍA, WEB, SOFTWARE)
+
+Nosotros, los abajo firmantes, en nuestra condición de representantes legales de la empresa KYRON, C.A., RIF J-12345678-9, solicitamos formalmente el otorgamiento de una Habilitación Administrativa General para la prestación de servicios de telecomunicaciones que incluyen, pero no se limitan a:
+
+1.  **Servicios Telefónicos:** Ofrecimiento de líneas telefónicas sobre plataformas digitales (VoIP).
+2.  **Servicios Web:** Alojamiento y gestión de páginas web.
+3.  **Software como Servicio (SaaS):** Prestación de nuestro sistema de contabilidad computarizado y gestión administrativa a través de la nube.
+
+DATOS DE LOS SOCIOS PRINCIPALES:
+${listaSocios}
+
+Nuestro proyecto se sustenta en una infraestructura tecnológica robusta que garantiza la calidad, seguridad y continuidad de los servicios, contribuyendo a la modernización y digitalización del sector empresarial venezolano.
+
+Manifestamos nuestro compromiso de acatar toda la normativa aplicable, incluyendo la Ley Orgánica de Telecomunicaciones y las providencias dictadas por este organismo.
+
+Atentamente,
+
+_________________________
+[REPRESENTANTE LEGAL]
+C.I: [C.I. DEL REPRESENTANTE]
+KYRON, C.A.
+`
         }
     };
 };
@@ -179,10 +217,11 @@ export default function CartasConatelPage() {
             </header>
 
             <Tabs defaultValue="espectro" className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
+                <TabsList className="grid w-full grid-cols-4">
                     <TabsTrigger value="espectro">Espectro Radioeléctrico</TabsTrigger>
                     <TabsTrigger value="isp">Licencia de ISP</TabsTrigger>
                     <TabsTrigger value="postal">Habilitación Postal</TabsTrigger>
+                    <TabsTrigger value="valorAgregado">Servicios Valor Agregado</TabsTrigger>
                 </TabsList>
                 {Object.entries(modelos).map(([key, modelo]) => (
                     <TabsContent value={key} key={key} className="mt-6">
