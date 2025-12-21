@@ -8,22 +8,31 @@ import { AlertTriangle, ArrowRight } from "lucide-react";
 
 export function WelcomeTutorial() {
     const [showTutorial, setShowTutorial] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        // This effect runs only on the client
-        const hasSeen = localStorage.getItem("hasSeenKyronTutorial");
-        if (!hasSeen) {
-            const timer = setTimeout(() => {
-                setShowTutorial(true);
-                localStorage.setItem("hasSeenKyronTutorial", "true");
-            }, 2500); // Wait for other animations to settle
-
-            return () => clearTimeout(timer);
-        }
+        // This ensures the code inside only runs on the client
+        setIsClient(true);
     }, []);
+
+    useEffect(() => {
+        // This effect depends on isClient, so it will only run on the client side
+        // after the initial render.
+        if (isClient) {
+            const hasSeen = localStorage.getItem("hasSeenKyronTutorial");
+            if (!hasSeen) {
+                const timer = setTimeout(() => {
+                    setShowTutorial(true);
+                    localStorage.setItem("hasSeenKyronTutorial", "true");
+                }, 2500); // Wait for other animations to settle
+
+                return () => clearTimeout(timer);
+            }
+        }
+    }, [isClient]);
     
-    // Render nothing on the server
-    if (typeof window === 'undefined') {
+    // Render nothing on the server or if the tutorial should not be shown.
+    if (!isClient || !showTutorial) {
         return null;
     }
 
