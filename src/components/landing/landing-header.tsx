@@ -50,8 +50,10 @@ export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState("");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
+        setIsClient(true);
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
             
@@ -99,7 +101,7 @@ export function LandingHeader() {
                                 <Button key={link.href} variant="ghost" size="sm" asChild>
                                     <SmoothScrollLink href={link.href} className={cn(
                                         "text-muted-foreground",
-                                        activeSection === link.href.substring(1) && "text-foreground font-semibold"
+                                        isClient && activeSection === link.href.substring(1) && "text-foreground font-semibold"
                                     )}>
                                         {link.label}
                                     </SmoothScrollLink>
