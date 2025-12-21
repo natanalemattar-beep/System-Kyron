@@ -1,6 +1,7 @@
 
 "use client";
 
+import * as React from "react";
 import { useState, useEffect } from "react";
 import { Eye, EyeOff, Loader2, AlertTriangle, Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -149,8 +150,14 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         fields.forEach(field => {
             if (field.defaultValue) {
                 initialData[field.id] = field.defaultValue;
-            } else {
-                initialData[field.id] = '';
+            } else if (credentials) {
+                if (field.id.includes('user') || field.id.includes('Id')) {
+                    initialData[field.id] = credentials.user || '';
+                } else if (field.id === 'password') {
+                    initialData[field.id] = credentials.password || '';
+                } else if (field.id.includes('Code')) {
+                    initialData[field.id] = credentials.code || '';
+                }
             }
         });
         return initialData;
@@ -230,7 +237,7 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         const dynamicLabel = field.id === 'idValue' ? currentIdInfo.label : field.label;
         const dynamicPlaceholder = field.id === 'idValue' ? currentIdInfo.placeholder : field.placeholder;
         
-        const value = formData[field.id] ?? field.defaultValue ?? '';
+        const value = formData[field.id] || '';
 
 
         switch (field.type) {
