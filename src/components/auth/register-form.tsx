@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -114,6 +113,11 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
     const [country, setCountry] = useState("VEN");
     const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved">("idle");
     const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     const [formData, setFormData] = useState<Record<string, string>>(() => {
         const initialData: Record<string, string> = {};
@@ -211,6 +215,15 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
                         <SelectTrigger><SelectValue placeholder="Seleccionar país..." /></SelectTrigger>
                         <SelectContent>{countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}</SelectContent>
                     </Select>
+                </div>
+            );
+        }
+        
+        if (field.id === 'idNumber' && !isClient) {
+            return (
+                <div key="id-placeholder" className="space-y-2">
+                    <Label>Identificación</Label>
+                    <Input disabled placeholder="Cargando..." />
                 </div>
             );
         }
