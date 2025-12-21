@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Eye, EyeOff, Loader2, AlertTriangle, User, Building, Copy } from "lucide-react";
+import { Eye, EyeOff, Loader2, AlertTriangle, Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -147,12 +147,15 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
     const [formData, setFormData] = useState<Record<string, string>>(() => {
         const initialData: Record<string, string> = {};
         fields.forEach(field => {
-        if (field.defaultValue) {
-            initialData[field.id] = field.defaultValue;
-        }
+            if (field.defaultValue) {
+                initialData[field.id] = field.defaultValue;
+            } else {
+                initialData[field.id] = '';
+            }
         });
         return initialData;
     });
+
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isClient, setIsClient] = useState(false);
@@ -160,7 +163,24 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
 
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        // Set default values from credentials when component mounts
+        if (credentials) {
+            const defaultFormData: Record<string, string> = {};
+            fields.forEach(field => {
+                 if (field.id === 'idValue' || field.id === 'username' || field.id === 'email') {
+                    defaultFormData[field.id] = credentials.user || '';
+                 }
+                 if (field.id === 'password') {
+                     defaultFormData[field.id] = credentials.password || '';
+                 }
+                 if (field.id === 'inviteCode') {
+                     defaultFormData[field.id] = credentials.code || '';
+                 }
+            });
+            setFormData(prev => ({...prev, ...defaultFormData}));
+        }
+    }, [credentials, fields]);
+
 
     const currentIdInfo = idByCountry[country] || { label: "Identificación Personal", placeholder: "" };
 
@@ -252,7 +272,7 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
             return (
             <div key={field.id} className="space-y-2">
                 <Label htmlFor={dynamicFieldId}>{dynamicLabel}</Label>
-                <Input id={field.id} type={field.type} placeholder={dynamicPlaceholder} value={dynamicValue} onChange={handleInputChange} required/>
+                <Input id={field.id} type={field.type} placeholder={dynamicPlaceholder} value={dynamicValue} onChange={handleInputChange} required={field.required}/>
             </div>
             );
         }

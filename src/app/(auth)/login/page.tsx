@@ -11,9 +11,9 @@ export default function LoginPage() {
         title: "Acceso Personal",
         description: "Accede a tu portal para gestionar tus trámites y documentos personales.",
         fields: [
-            { id: "country", label: "País", type: "select" as const },
-            { id: "idValue", label: "Identificación Personal", type: "text" as const, placeholder: "V-12345678", defaultValue: "V-12345678" },
-            { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
+            { id: "country", label: "País", type: "select" as const, required: true },
+            { id: "idValue", label: "Identificación Personal", type: "text" as const, placeholder: "V-12345678" },
+            { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••" },
         ],
         submitButtonText: "Acceder al Portal Personal",
         submitButtonHref: "/dashboard",
