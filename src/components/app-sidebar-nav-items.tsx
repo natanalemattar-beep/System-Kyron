@@ -500,8 +500,28 @@ export const sociosNavGroups = [
 export const telecomNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [ 
       { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
+    ], subGroups: [] 
+  },
+  { 
+    title: "Gestión CONATEL",
+    icon: Gavel,
+    items: [],
+    subGroups: [
+        {
+            title: "Trámites",
+            icon: Gavel,
+            items: [
+                { href: "/conatel/licenses", label: "Mis Licencias", icon: FileText },
+                { href: "/conatel/alerts", label: "Alertas y Multas", icon: AlertTriangle },
+                { href: "/conatel/documents", label: "Documentos", icon: Archive },
+            ]
+        }
+    ]
+  },
+  { title: "Operaciones", icon: Signal, items: [ 
       { href: "/venta-linea", label: "Venta de Líneas", icon: Phone },
-    ], subGroups: [] },
+    ], subGroups: [] 
+  },
 ];
 
 export const seguridadNavGroups = [
