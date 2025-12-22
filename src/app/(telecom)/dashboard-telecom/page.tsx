@@ -3,9 +3,6 @@
 
 import {
   Signal,
-  ShieldCheck,
-  FileText,
-  AlertTriangle,
   ArrowRight,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
@@ -22,10 +19,10 @@ const initialComplianceStatus = [
     { id: "CON-003", name: "Habilitación Postal", expires: "2024-06-01", status: "Vencida" },
 ];
 
-const statusVariant: { [key: string]: { pillClass: string, text: string } } = {
-  Vigente: { pillClass: "bg-telecom-cyan-green/10 text-telecom-cyan-green", text: "ACTIVO" },
-  Vencida: { pillClass: "bg-telecom-pink/10 text-telecom-pink", text: "CRÍTICO" },
-  "Por Vencer": { pillClass: "bg-telecom-amber/10 text-telecom-amber", text: "ADVERTENCIA" },
+const statusVariant: { [key: string]: { text: string, color: string } } = {
+  Vigente: { text: "ACTIVO", color: "text-green-400" },
+  Vencida: { text: "CRÍTICO", color: "text-red-400" },
+  "Por Vencer": { text: "ADVERTENCIA", color: "text-yellow-400" },
 };
 
 export default function DashboardTelecomPage() {
@@ -36,19 +33,19 @@ export default function DashboardTelecomPage() {
       
       <header className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
-            <Signal className="h-8 w-8 md:h-10 md:w-10 text-telecom-cyan" />
-            <span className="font-mono">TELECOM⌇</span>
+            <Signal className="h-8 w-8 md:h-10 md:w-10 text-primary" />
+            <span className="font-mono">Plataforma de Operaciones Telecom</span>
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl">Plataforma de Operaciones Telecom. Visión de misión crítica.</p>
+        <p className="text-muted-foreground mt-2 max-w-2xl">Visión de misión crítica para la gestión integral de la operadora.</p>
       </header>
       
        {licenciaVencida && (
-           <Alert variant="destructive" className="mb-8 bg-telecom-magenta/5 border-l-4 border-telecom-magenta text-telecom-magenta">
+           <Alert variant="destructive" className="mb-8 bg-destructive/10 border-l-4 border-destructive">
                 <span className="font-bold absolute left-4 top-4 text-sm">[TX!]</span>
-                <AlertTitle className="ml-4 font-bold">ALERTA DE CUMPLIMIENTO CRÍTICO</AlertTitle>
-                <AlertDescription className="ml-4 flex items-center justify-between">
-                    <span>Su "{licenciaVencida.name}" está <strong>VENCIDA</strong>. Riesgo de multas activo.</span>
-                    <Button asChild variant="destructive" size="sm" className="bg-telecom-magenta hover:bg-telecom-magenta/80 text-telecom-black font-bold">
+                <AlertTitle className="ml-10 font-bold">ALERTA DE CUMPLIMIENTO CRÍTICO</AlertTitle>
+                <AlertDescription className="ml-10 flex items-center justify-between">
+                    <span>Su "{licenciaVencida.name}" está <strong>VENCIDA</strong> desde el {formatDate(licenciaVencida.expires)}. Existe riesgo de multas.</span>
+                    <Button asChild variant="destructive" size="sm">
                        <Link href="/conatel/licenses">Iniciar Renovación Urgente</Link>
                     </Button>
                 </AlertDescription>
@@ -57,33 +54,33 @@ export default function DashboardTelecomPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             <div className="lg:col-span-3 space-y-8">
-               <Card className="telecom-panel">
-                    <CardHeader className="panel-header">
+               <Card>
+                    <CardHeader>
                         <CardTitle>Resumen de Cumplimiento (CONATEL)</CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <Table className="telecom-matrix">
+                        <Table>
                         <TableHeader>
                             <TableRow>
-                            <TableHead>Licencia / Permiso</TableHead>
-                            <TableHead>Estado</TableHead>
-                            <TableHead className="text-right">Acciones</TableHead>
+                            <TableHead className="text-primary">Licencia / Permiso</TableHead>
+                            <TableHead className="text-primary">Estado</TableHead>
+                            <TableHead className="text-right text-primary">Acciones</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {initialComplianceStatus.map(item => (
-                                <TableRow key={item.id}>
+                                <TableRow key={item.id} className="border-b border-border/50">
                                     <TableCell className="font-mono text-sm">
                                         {item.name} ({item.id})
-                                        <p className="text-xs text-telecom-gray-4">Vence: {formatDate(item.expires)}</p>
+                                        <p className="text-xs text-muted-foreground">Vence: {formatDate(item.expires)}</p>
                                     </TableCell>
                                     <TableCell>
-                                        <div className={`px-2 py-1 rounded-full text-xs font-bold inline-block ${statusVariant[item.status as keyof typeof statusVariant].pillClass}`}>
-                                            {statusVariant[item.status as keyof typeof statusVariant].text}
-                                        </div>
+                                       <span className={`font-bold text-sm ${statusVariant[item.status as keyof typeof statusVariant].color}`}>
+                                          {statusVariant[item.status as keyof typeof statusVariant].text}
+                                       </span>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <Button asChild variant="outline" size="sm" className="telecom-btn-secondary">
+                                        <Button asChild variant="outline" size="sm">
                                             <Link href="/conatel/licenses">
                                                 Gestionar <ArrowRight className="ml-2 h-4 w-4"/>
                                             </Link>
@@ -97,13 +94,13 @@ export default function DashboardTelecomPage() {
                 </Card>
           </div>
           <div className="lg:col-span-2">
-             <Card className="telecom-panel sticky top-24">
-                <CardHeader className="panel-header">
+             <Card className="sticky top-24">
+                <CardHeader>
                     <CardTitle>Información de Contacto CONATEL</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4 text-sm font-mono">
-                    <h4 className="font-bold text-telecom-cyan">[ PRESENTACIÓN PRESENCIAL OBLIGATORIA ]</h4>
-                    <ul className="list-disc pl-5 text-telecom-gray-4 space-y-2">
+                    <h4 className="font-bold text-primary">[ PRESENTACIÓN PRESENCIAL OBLIGATORIA ]</h4>
+                    <ul className="list-disc pl-5 text-muted-foreground space-y-2">
                         <li><strong className="text-foreground">Lugar:</strong> Oficina de Atención al Ciudadano.</li>
                         <li><strong className="text-foreground">Horario:</strong> L-V, 8:00-12:00 / 13:30-16:30.</li>
                         <li><strong className="text-foreground">Requisito:</strong> Representante legal o apoderado.</li>

@@ -22,17 +22,93 @@ export default function RootLayout({
        <head>
         <style>{`
           :root {
-            --telecom-black: 228 14% 5%;
-            --telecom-white: 0 0% 100%;
-            --telecom-cyan: 183 100% 50%;
-            --telecom-magenta: 318 100% 50%;
-            --telecom-cyan-green: 158 100% 40%;
-            --telecom-amber: 39 100% 50%;
-            --telecom-pink: 337 100% 50%;
-            --telecom-gray-1: 231 16% 10%;
-            --telecom-gray-2: 230 11% 18%;
-            --telecom-gray-3: 228 8% 25%;
-            --telecom-gray-4: 240 4% 40%;
+            /* Paleta Principal (Materiales Naturales) - Modo Claro */
+            --light-background: 220 20% 98%;   /* Silicio */
+            --light-foreground: 220 25% 10%;   /* Carbono */
+            --light-card: 220 20% 100%;  
+            --light-card-foreground: 220 25% 10%;
+            --light-popover: 220 20% 100%;
+            --light-popover-foreground: 220 25% 10%;
+            --light-primary: 28 79% 45%;        /* Cobre */
+            --light-primary-foreground: 220 20% 98%;
+            --light-secondary: 220 15% 90%;
+            --light-secondary-foreground: 220 25% 25%;
+            --light-muted: 220 15% 90%;
+            --light-muted-foreground: 220 10% 45%; /* Vidrio */
+            --light-accent: 220 15% 95%;
+            --light-accent-foreground: 220 25% 15%;
+            --light-destructive: 0 72% 51%;        /* Rojo Óxido */
+            --light-destructive-foreground: 220 20% 98%;
+            --light-border: 220 15% 90%;      /* Gris Transmisión suave */
+            --light-input: 220 15% 90%;
+            --light-ring: 28 79% 45%;
+            
+            /* Paleta Principal - Modo Oscuro */
+            --dark-background: 220 25% 8%;    /* Carbono */
+            --dark-foreground: 220 20% 96%;   /* Silicio */
+            --dark-card: 220 20% 13%;   /* Gris Interferencia */
+            --dark-card-foreground: 220 20% 96%;
+            --dark-popover: 220 25% 8%;
+            --dark-popover-foreground: 220 20% 96%;
+            --dark-primary: 34 92% 60%;         /* Cobre brillante */
+            --dark-primary-foreground: 28 80% 10%;
+            --dark-secondary: 220% 15% 20%;
+            --dark-secondary-foreground: 220 20% 96%;
+            --dark-muted: 220 15% 20%;
+            --dark-muted-foreground: 220 10% 55%; /* Vidrio */
+            --dark-accent: 220 15% 20%;
+            --dark-accent-foreground: 220 20% 98%;
+            --dark-destructive: 0 70% 60%;      /* Rojo Óxido brillante */
+            --dark-destructive-foreground: 220 20% 98%;
+            --dark-border: 220 15% 25%;       /* Gris Transmisión */
+            --dark-input: 220 15% 25%;
+            --dark-ring: 34 92% 60%;
+            
+            --radius: 0.3rem; /* Bordes más sutiles */
+          }
+
+          .light {
+            --background: var(--light-background);
+            --foreground: var(--light-foreground);
+            --card: var(--light-card);
+            --card-foreground: var(--light-card-foreground);
+            --popover: var(--light-popover);
+            --popover-foreground: var(--light-popover-foreground);
+            --primary: var(--light-primary);
+            --primary-foreground: var(--light-primary-foreground);
+            --secondary: var(--light-secondary);
+            --secondary-foreground: var(--light-secondary-foreground);
+            --muted: var(--light-muted);
+            --muted-foreground: var(--light-muted-foreground);
+            --accent: var(--light-accent);
+            --accent-foreground: var(--light-accent-foreground);
+            --destructive: var(--light-destructive);
+            --destructive-foreground: var(--light-destructive-foreground);
+            --border: var(--light-border);
+            --input: var(--light-input);
+            --ring: var(--light-ring);
+          }
+
+          .dark {
+            --background: var(--dark-background);
+            --foreground: var(--dark-foreground);
+            --card: var(--dark-card);
+            --card-foreground: var(--dark-card-foreground);
+            --popover: var(--dark-popover);
+            --popover-foreground: var(--dark-popover-foreground);
+            --primary: var(--dark-primary);
+            --primary-foreground: var(--dark-primary-foreground);
+            --secondary: var(--dark-secondary);
+            --secondary-foreground: var(--dark-secondary-foreground);
+            --muted: var(--dark-muted);
+            --muted-foreground: var(--dark-muted-foreground);
+            --accent: var(--dark-accent);
+            --accent-foreground: var(--dark-accent-foreground);
+            --destructive: var(--dark-destructive);
+            --destructive-foreground: var(--dark-destructive-foreground);
+            --border: var(--dark-border);
+            --input: var(--dark-input);
+            --ring: var(--dark-ring);
           }
         `}</style>
       </head>

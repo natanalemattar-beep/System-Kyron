@@ -1,4 +1,3 @@
-
 import type {Config} from 'tailwindcss';
 
 const config: Config = {
@@ -20,7 +19,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'sans-serif'],
-        mono: ['SF Mono', 'IBM Plex Mono', 'monospace'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -56,17 +55,6 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        'telecom-black': 'hsl(var(--telecom-black))',
-        'telecom-white': 'hsl(var(--telecom-white))',
-        'telecom-cyan': 'hsl(var(--telecom-cyan))',
-        'telecom-magenta': 'hsl(var(--telecom-magenta))',
-        'telecom-cyan-green': 'hsl(var(--telecom-cyan-green))',
-        'telecom-amber': 'hsl(var(--telecom-amber))',
-        'telecom-pink': 'hsl(var(--telecom-pink))',
-        'telecom-gray-1': 'hsl(var(--telecom-gray-1))',
-        'telecom-gray-2': 'hsl(var(--telecom-gray-2))',
-        'telecom-gray-3': 'hsl(var(--telecom-gray-3))',
-        'telecom-gray-4': 'hsl(var(--telecom-gray-4))',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -99,33 +87,6 @@ const config: Config = {
   },
   plugins: [
       require("tailwindcss-animate"),
-      function ({ theme, addUtilities }: { theme: (path: string) => any; addUtilities: (utilities: any) => void; }) {
-        const newUtilities = {
-          '.text-shadow-glow': {
-            textShadow: theme('textShadow.glow'),
-          },
-          '.btn-3d-primary': {
-            '--btn-bg': 'hsl(var(--primary))',
-            '--btn-border': 'hsl(var(--primary) / 0.8)',
-            '--btn-shadow': 'hsl(var(--primary) / 0.4)',
-            'color': 'hsl(var(--primary-foreground))',
-            'backgroundColor': 'var(--btn-bg)',
-            'borderBottom': '4px solid var(--btn-border)',
-            'boxShadow': '0 5px 15px -5px var(--btn-shadow)',
-            'transition': 'all 0.15s ease-in-out',
-            '&:hover': {
-              transform: 'translateY(-2px)',
-              boxShadow: '0 8px 20px -5px var(--btn-shadow)',
-            },
-            '&:active': {
-              transform: 'translateY(2px)',
-              borderBottomWidth: '2px',
-              boxShadow: '0 2px 5px -2px var(--btn-shadow)',
-            },
-          }
-        };
-        addUtilities(newUtilities);
-      },
     ],
 }
 
