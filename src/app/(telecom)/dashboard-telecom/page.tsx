@@ -1,28 +1,25 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
 import {
   Signal,
   ShieldCheck,
   FileText,
   AlertTriangle,
   ArrowRight,
-  PlusCircle,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { formatDate } from "@/lib/utils";
 import Link from 'next/link';
 
 const initialComplianceStatus = [
-    { id: "CON-001", name: "Concesión de Espectro Radioeléctrico", expires: "2028-03-20", status: "Vigente", diasMora: 0, dailyPenalty: 25, requirements: ["form_A", "payment_proof"] },
-    { id: "CON-002", name: "Licencia de Proveedor de Servicios (ISP)", expires: "2028-04-01", status: "Vigente", diasMora: 0, dailyPenalty: 20, requirements: ["form_B", "financial_statement"] },
-    { id: "CON-003", name: "Habilitación Postal", expires: "2024-06-01", status: "Vencida", diasMora: 68, dailyPenalty: 15.50, requirements: ["form_FUR-02", "payment_proof_fine", "previous_license_copy", "rif_copy", "solvencia_seniat", "solvencia_ivss"] },
+    { id: "CON-001", name: "Concesión de Espectro Radioeléctrico", expires: "2028-03-20", status: "Vigente" },
+    { id: "CON-002", name: "Licencia de Proveedor de Servicios (ISP)", expires: "2028-04-01", status: "Vigente" },
+    { id: "CON-003", name: "Habilitación Postal", expires: "2024-06-01", status: "Vencida" },
 ];
 
 const statusVariant: { [key: string]: "default" | "destructive" | "secondary" } = {
@@ -53,7 +50,7 @@ export default function DashboardTelecomPage() {
                 <AlertDescription className="flex items-center justify-between">
                     <span>Su "{licenciaVencida.name} ({licenciaVencida.id})" está <strong>VENCIDA</strong>. Existe riesgo de multas.</span>
                     <Button asChild variant="destructive" size="sm">
-                       <Link href="/conatel/licenses?action=renew&id=CON-003">Iniciar Renovación Urgente</Link>
+                       <Link href="/conatel/licenses">Iniciar Renovación Urgente</Link>
                     </Button>
                 </AlertDescription>
             </Alert>
@@ -106,7 +103,7 @@ export default function DashboardTelecomPage() {
                     <h4 className="font-semibold">📞 Presentación Presencial Obligatoria</h4>
                     <ul className="list-disc pl-5 text-muted-foreground space-y-1">
                         <li><strong>Lugar:</strong> Oficina de Atención al Ciudadano de CONATEL.</li>
-                        <li><strong>Horario:</strong> L-V, 8:00 a.m. a 12:00 m / 1:30 p.m. a 4:30 p.m.</li>
+                        <li><strong>Horario:</strong> L-V, 8:00 a.m. - 12:00 m / 1:30 p.m. - 4:30 p.m.</li>
                         <li><strong>Requisito:</strong> Asistir el interesado o su representante legal con poder notariado.</li>
                         <li><strong>Base Legal:</strong> Formalidades del Artículo 26 de la LOTEL.</li>
                     </ul>

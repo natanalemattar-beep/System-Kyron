@@ -498,9 +498,13 @@ export const sociosNavGroups = [
 ];
 
 export const telecomNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [ 
+  { 
+    title: "Dashboard", 
+    icon: LayoutDashboard, 
+    items: [ 
       { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
-    ], subGroups: [] 
+    ], 
+    subGroups: [] 
   },
   { 
     title: "Gestión CONATEL",
@@ -508,7 +512,7 @@ export const telecomNavGroups = [
     items: [],
     subGroups: [
         {
-            title: "Trámites",
+            title: "Trámites y Cumplimiento",
             icon: Gavel,
             items: [
                 { href: "/conatel/licenses", label: "Mis Licencias", icon: FileText },
@@ -518,9 +522,13 @@ export const telecomNavGroups = [
         }
     ]
   },
-  { title: "Operaciones", icon: Signal, items: [ 
+  { 
+    title: "Operaciones", 
+    icon: Signal, 
+    items: [ 
       { href: "/venta-linea", label: "Venta de Líneas", icon: Phone },
-    ], subGroups: [] 
+    ], 
+    subGroups: [] 
   },
 ];
 
