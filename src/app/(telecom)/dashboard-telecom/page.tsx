@@ -68,22 +68,23 @@ export default function DashboardTelecomPage() {
                             <TableRow>
                             <TableHead>Licencia / Permiso</TableHead>
                             <TableHead>Estado</TableHead>
-                            <TableHead>Vencimiento</TableHead>
                             <TableHead className="text-right">Acciones</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {initialComplianceStatus.map(item => (
                                 <TableRow key={item.id} className={item.status === 'Vencida' ? 'bg-destructive/10' : item.status === 'Por Vencer' ? 'bg-secondary/60' : ''}>
-                                    <TableCell className="font-medium">{item.name}</TableCell>
+                                    <TableCell className="font-medium">
+                                        {item.name} ({item.id})
+                                        <p className="text-xs text-muted-foreground">Vence: {formatDate(item.expires)}</p>
+                                    </TableCell>
                                     <TableCell>
                                         <Badge variant={statusVariant[item.status as keyof typeof statusVariant]}>{item.status}</Badge>
                                     </TableCell>
-                                    <TableCell>{formatDate(item.expires)}</TableCell>
                                     <TableCell className="text-right">
                                         <Button asChild variant="outline" size="sm">
                                             <Link href="/conatel/licenses">
-                                                Ver Detalles <ArrowRight className="ml-2 h-4 w-4"/>
+                                                Gestionar <ArrowRight className="ml-2 h-4 w-4"/>
                                             </Link>
                                         </Button>
                                     </TableCell>

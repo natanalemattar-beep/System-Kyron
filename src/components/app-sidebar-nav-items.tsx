@@ -345,7 +345,7 @@ const legalNavGroupsData = {
           ]
         }
     ], 
-    items: []
+    items: [] 
 };
 
 const advisoryNavGroups = { 
