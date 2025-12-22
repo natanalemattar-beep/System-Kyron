@@ -22,49 +22,47 @@ export default function RootLayout({
        <head>
         <style>{`
           :root {
-            /* Paleta Principal (Materiales Naturales) - Modo Claro */
-            --light-background: 220 20% 98%;   /* Silicio */
-            --light-foreground: 220 25% 10%;   /* Carbono */
-            --light-card: 220 20% 100%;  
-            --light-card-foreground: 220 25% 10%;
-            --light-popover: 220 20% 100%;
-            --light-popover-foreground: 220 25% 10%;
-            --light-primary: 28 79% 45%;        /* Cobre */
-            --light-primary-foreground: 220 20% 98%;
-            --light-secondary: 220 15% 90%;
-            --light-secondary-foreground: 220 25% 25%;
-            --light-muted: 220 15% 90%;
-            --light-muted-foreground: 220 10% 45%; /* Vidrio */
-            --light-accent: 220 15% 95%;
-            --light-accent-foreground: 220 25% 15%;
-            --light-destructive: 0 72% 51%;        /* Rojo Óxido */
-            --light-destructive-foreground: 220 20% 98%;
-            --light-border: 220 15% 90%;      /* Gris Transmisión suave */
-            --light-input: 220 15% 90%;
-            --light-ring: 28 79% 45%;
+            --light-background: hsl(220 20% 98%);
+            --light-foreground: hsl(220 25% 10%);
+            --light-card: hsl(220 20% 100%);
+            --light-card-foreground: hsl(220 25% 10%);
+            --light-popover: hsl(220 20% 100%);
+            --light-popover-foreground: hsl(220 25% 10%);
+            --light-primary: hsl(28 79% 45%);
+            --light-primary-foreground: hsl(220 20% 98%);
+            --light-secondary: hsl(220 15% 90%);
+            --light-secondary-foreground: hsl(220 25% 25%);
+            --light-muted: hsl(220 15% 90%);
+            --light-muted-foreground: hsl(220 10% 45%);
+            --light-accent: hsl(220 15% 95%);
+            --light-accent-foreground: hsl(220 25% 15%);
+            --light-destructive: hsl(0 72% 51%);
+            --light-destructive-foreground: hsl(220 20% 98%);
+            --light-border: hsl(220 15% 90%);
+            --light-input: hsl(220 15% 90%);
+            --light-ring: hsl(28 79% 45%);
             
-            /* Paleta Principal - Modo Oscuro */
-            --dark-background: 220 25% 8%;    /* Carbono */
-            --dark-foreground: 220 20% 96%;   /* Silicio */
-            --dark-card: 220 20% 13%;   /* Gris Interferencia */
-            --dark-card-foreground: 220 20% 96%;
-            --dark-popover: 220 25% 8%;
-            --dark-popover-foreground: 220 20% 96%;
-            --dark-primary: 34 92% 60%;         /* Cobre brillante */
-            --dark-primary-foreground: 28 80% 10%;
-            --dark-secondary: 220% 15% 20%;
-            --dark-secondary-foreground: 220 20% 96%;
-            --dark-muted: 220 15% 20%;
-            --dark-muted-foreground: 220 10% 55%; /* Vidrio */
-            --dark-accent: 220 15% 20%;
-            --dark-accent-foreground: 220 20% 98%;
-            --dark-destructive: 0 70% 60%;      /* Rojo Óxido brillante */
-            --dark-destructive-foreground: 220 20% 98%;
-            --dark-border: 220 15% 25%;       /* Gris Transmisión */
-            --dark-input: 220 15% 25%;
-            --dark-ring: 34 92% 60%;
+            --dark-background: hsl(220 25% 8%);
+            --dark-foreground: hsl(220 20% 96%);
+            --dark-card: hsl(220 20% 13%);
+            --dark-card-foreground: hsl(220 20% 96%);
+            --dark-popover: hsl(220 25% 8%);
+            --dark-popover-foreground: hsl(220 20% 96%);
+            --dark-primary: hsl(34 92% 60%);
+            --dark-primary-foreground: hsl(28 80% 10%);
+            --dark-secondary: hsl(220 15% 20%);
+            --dark-secondary-foreground: hsl(220 20% 96%);
+            --dark-muted: hsl(220 15% 20%);
+            --dark-muted-foreground: hsl(220 10% 55%);
+            --dark-accent: hsl(220 15% 20%);
+            --dark-accent-foreground: hsl(220 20% 98%);
+            --dark-destructive: hsl(0 70% 60%);
+            --dark-destructive-foreground: hsl(220 20% 98%);
+            --dark-border: hsl(220 15% 25%);
+            --dark-input: hsl(220 15% 25%);
+            --dark-ring: hsl(34 92% 60%);
             
-            --radius: 0.3rem; /* Bordes más sutiles */
+            --radius: 0.3rem;
           }
 
           .light {
