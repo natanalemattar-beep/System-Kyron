@@ -20,6 +20,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'sans-serif'],
+        mono: ['SF Mono', 'IBM Plex Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -55,6 +56,17 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        'telecom-black': 'hsl(var(--telecom-black))',
+        'telecom-white': 'hsl(var(--telecom-white))',
+        'telecom-cyan': 'hsl(var(--telecom-cyan))',
+        'telecom-magenta': 'hsl(var(--telecom-magenta))',
+        'telecom-cyan-green': 'hsl(var(--telecom-cyan-green))',
+        'telecom-amber': 'hsl(var(--telecom-amber))',
+        'telecom-pink': 'hsl(var(--telecom-pink))',
+        'telecom-gray-1': 'hsl(var(--telecom-gray-1))',
+        'telecom-gray-2': 'hsl(var(--telecom-gray-2))',
+        'telecom-gray-3': 'hsl(var(--telecom-gray-3))',
+        'telecom-gray-4': 'hsl(var(--telecom-gray-4))',
       },
       borderRadius: {
         lg: "var(--radius)",

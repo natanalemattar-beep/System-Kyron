@@ -8,69 +8,67 @@
     @apply scroll-smooth;
   }
   :root {
-    --background: 222 84% 5%;
-    --foreground: 210 40% 98%;
+    /* Mapeo de la paleta "Telecom" a las variables de ShadCN */
+    --background: var(--telecom-black);
+    --foreground: var(--telecom-white);
  
-    --card: 222 84% 7%;
-    --card-foreground: 210 40% 98%;
+    --card: var(--telecom-gray-1);
+    --card-foreground: var(--telecom-white);
  
-    --popover: 222 84% 5%;
-    --popover-foreground: 210 40% 98%;
+    --popover: var(--telecom-black);
+    --popover-foreground: var(--telecom-white);
  
-    --primary: 153 82% 41%; /* Emerald Green */
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--telecom-cyan);
+    --primary-foreground: var(--telecom-black);
  
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: var(--telecom-gray-2);
+    --secondary-foreground: var(--telecom-white);
  
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: var(--telecom-gray-2);
+    --muted-foreground: var(--telecom-gray-4);
  
-    --accent: 217 33% 25%;
-    --accent-foreground: 210 40% 98%;
+    --accent: var(--telecom-gray-3);
+    --accent-foreground: var(--telecom-white);
  
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: var(--telecom-pink);
+    --destructive-foreground: var(--telecom-white);
 
-    --border: 217 33% 20%;
-    --input: 217 33% 20%;
-    --ring: 153 82% 41%;
+    --border: var(--telecom-gray-3);
+    --input: var(--telecom-gray-2);
+    --ring: var(--telecom-cyan);
  
-    --radius: 0.75rem;
-
-    --primary-rgb: 16, 185, 129;
+    --radius: 0.5rem; /* Bordes más rectos */
   }
  
   .dark {
-    --background: 222 84% 5%;
-    --foreground: 210 40% 98%;
+    /* La paleta ya es oscura, por lo que la mantenemos igual */
+    --background: var(--telecom-black);
+    --foreground: var(--telecom-white);
  
-    --card: 222 84% 7%;
-    --card-foreground: 210 40% 98%;
+    --card: var(--telecom-gray-1);
+    --card-foreground: var(--telecom-white);
  
-    --popover: 222 84% 5%;
-    --popover-foreground: 210 40% 98%;
+    --popover: var(--telecom-black);
+    --popover-foreground: var(--telecom-white);
  
-    --primary: 153 82% 41%; /* Emerald Green */
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--telecom-cyan);
+    --primary-foreground: var(--telecom-black);
  
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: var(--telecom-gray-2);
+    --secondary-foreground: var(--telecom-white);
  
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: var(--telecom-gray-2);
+    --muted-foreground: var(--telecom-gray-4);
  
-    --accent: 217 33% 25%;
-    --accent-foreground: 210 40% 98%;
+    --accent: var(--telecom-gray-3);
+    --accent-foreground: var(--telecom-white);
  
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: var(--telecom-pink);
+    --destructive-foreground: var(--telecom-white);
 
-    --border: 217 33% 20%;
-    --input: 217 33% 20%;
-    --ring: 153 82% 41%;
-
-    --primary-rgb: 16, 185, 129;
+    --border: var(--telecom-gray-3);
+    --input: var(--telecom-gray-2);
+    --ring: var(--telecom-cyan);
   }
 }
  
@@ -83,62 +81,37 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -10;
-    background-image:
-      linear-gradient(to right, hsl(var(--primary)/0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--primary)/0.03) 1px, transparent 1px);
-    background-size: 3rem 3rem;
-    mask-image: radial-gradient(ellipse at center, transparent 0%, black 100%);
-    animation: pan-grid 20s linear infinite;
-  }
-
-  @keyframes pan-grid {
-    0% { background-position: 0 0; }
-    100% { background-position: 3rem 3rem; }
-  }
-
-  body::after {
-    content: '';
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 150%;
-    height: 150%;
-    z-index: -11;
-    transform: translate(-50%, -50%);
-    background-image: radial-gradient(
-      circle at center,
-      hsl(var(--primary) / 0.1),
-      hsl(var(--primary) / 0.05),
-      transparent 50%
-    );
-    animation: rotate-glow 25s linear infinite;
-  }
-   @keyframes rotate-glow {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-  }
 }
 
+@layer components {
+  /* Estilos de Componentes Originales */
+  .telecom-panel {
+    @apply bg-telecom-gray-1 border border-telecom-gray-3 shadow-lg;
+    border-radius: 0; /* Bordes rectos */
+  }
+  .telecom-panel .panel-header {
+    @apply bg-gradient-to-r from-telecom-black to-telecom-gray-1 p-4 border-b border-telecom-gray-3;
+  }
+  
+  .telecom-matrix {
+    @apply font-mono;
+  }
+  .telecom-matrix thead {
+    @apply bg-telecom-black;
+  }
+  .telecom-matrix th {
+    @apply text-telecom-cyan font-semibold;
+  }
+  .telecom-matrix tr {
+    @apply border-b-telecom-gray-2;
+  }
 
-@page {
-  size: A4;
-  margin: 1in;
-}
-
-@page oficio {
-  size: 21.6cm 33cm;
-  margin: 2cm;
-}
-
-.oficio-document {
-  page: oficio;
+  .telecom-btn-primary {
+    @apply bg-telecom-black border border-telecom-cyan text-telecom-cyan hover:bg-telecom-cyan hover:text-telecom-black;
+    border-radius: 0;
+  }
+  .telecom-btn-secondary {
+    @apply bg-telecom-gray-2 border border-telecom-gray-3 text-telecom-gray-4 hover:border-telecom-cyan hover:text-telecom-cyan;
+    border-radius: 0;
+  }
 }

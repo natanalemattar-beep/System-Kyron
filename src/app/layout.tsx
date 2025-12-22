@@ -20,6 +20,21 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning className={GeistSans.className}>
        <head>
+        <style>{`
+          :root {
+            --telecom-black: 228 14% 5%;
+            --telecom-white: 0 0% 100%;
+            --telecom-cyan: 183 100% 50%;
+            --telecom-magenta: 318 100% 50%;
+            --telecom-cyan-green: 158 100% 40%;
+            --telecom-amber: 39 100% 50%;
+            --telecom-pink: 337 100% 50%;
+            --telecom-gray-1: 231 16% 10%;
+            --telecom-gray-2: 230 11% 18%;
+            --telecom-gray-3: 228 8% 25%;
+            --telecom-gray-4: 240 4% 40%;
+          }
+        `}</style>
       </head>
       <body>
         <Providers>
