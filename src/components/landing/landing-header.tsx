@@ -117,13 +117,16 @@ export function LandingHeader() {
                                         Acceder <User className="ml-2 h-4 w-4" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-64">
+                                <DropdownMenuContent align="end" className="w-80">
                                     {loginOptions.map((option) => (
                                         <DropdownMenuItem key={option.href} asChild>
-                                            <Link href={option.href} className="flex items-start gap-3 p-2">
-                                                <option.icon className="h-5 w-5 mt-1 text-primary shrink-0"/>
+                                            <Link href={option.href} className="flex items-start gap-3 p-3">
+                                                <div className="p-2 bg-primary/10 rounded-md mt-1">
+                                                   <option.icon className="h-5 w-5 text-primary"/>
+                                                </div>
                                                 <div>
                                                   <p className="font-semibold">{option.label}</p>
+                                                  <p className="text-xs text-muted-foreground">{option.description}</p>
                                                 </div>
                                             </Link>
                                         </DropdownMenuItem>
