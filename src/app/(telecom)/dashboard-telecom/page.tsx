@@ -8,7 +8,7 @@ import {
   AlertTriangle,
   ArrowRight,
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
@@ -17,9 +17,9 @@ import { formatDate } from "@/lib/utils";
 import Link from 'next/link';
 
 const initialComplianceStatus = [
-    { id: "CON-001", name: "Concesión de Espectro Radioeléctrico", expires: "2028-03-20", status: "Vigente", diasMora: 0, calculatedPenalty: 0 },
-    { id: "CON-002", name: "Licencia de Proveedor de Servicios (ISP)", expires: "2028-04-01", status: "Vigente", diasMora: 0, calculatedPenalty: 0 },
-    { id: "CON-003", name: "Habilitación Postal", expires: "2024-06-01", status: "Vencida", diasMora: 68, calculatedPenalty: 1020 },
+    { id: "CON-001", name: "Concesión de Espectro Radioeléctrico", expires: "2028-03-20", status: "Vigente" },
+    { id: "CON-002", name: "Licencia de Proveedor de Servicios (ISP)", expires: "2028-04-01", status: "Vigente" },
+    { id: "CON-003", name: "Habilitación Postal", expires: "2024-06-01", status: "Vencida" },
 ];
 
 const statusVariant: { [key: string]: { pillClass: string, text: string } } = {
@@ -27,7 +27,6 @@ const statusVariant: { [key: string]: { pillClass: string, text: string } } = {
   Vencida: { pillClass: "bg-telecom-pink/10 text-telecom-pink", text: "CRÍTICO" },
   "Por Vencer": { pillClass: "bg-telecom-amber/10 text-telecom-amber", text: "ADVERTENCIA" },
 };
-
 
 export default function DashboardTelecomPage() {
     const licenciaVencida = initialComplianceStatus.find(l => l.status === 'Vencida');
@@ -68,7 +67,6 @@ export default function DashboardTelecomPage() {
                             <TableRow>
                             <TableHead>Licencia / Permiso</TableHead>
                             <TableHead>Estado</TableHead>
-                            <TableHead>Días Vencidos</TableHead>
                             <TableHead className="text-right">Acciones</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -83,9 +81,6 @@ export default function DashboardTelecomPage() {
                                         <div className={`px-2 py-1 rounded-full text-xs font-bold inline-block ${statusVariant[item.status as keyof typeof statusVariant].pillClass}`}>
                                             {statusVariant[item.status as keyof typeof statusVariant].text}
                                         </div>
-                                    </TableCell>
-                                    <TableCell className="font-mono text-center">
-                                       {item.diasMora > 0 ? <span className="text-telecom-pink font-bold">{item.diasMora}</span> : '-'}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <Button asChild variant="outline" size="sm" className="telecom-btn-secondary">
