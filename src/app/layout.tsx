@@ -63,6 +63,19 @@ export default function RootLayout({
             --dark-ring: hsl(34 92% 60%);
             
             --radius: 0.3rem;
+
+            /* Telecom Palette */
+            --telecom-black: #0A0A0F;
+            --telecom-white: #FFFFFF;
+            --telecom-cyan: #00F3FF;
+            --telecom-magenta: #FF00D6;
+            --telecom-cyan-green: #00FFAA;
+            --telecom-amber: #FFAA00;
+            --telecom-pink: #FF0055;
+            --telecom-gray-1: #1A1A23;
+            --telecom-gray-2: #2A2A35;
+            --telecom-gray-3: #3A3A45;
+            --telecom-gray-4: #555566;
           }
 
           .light {

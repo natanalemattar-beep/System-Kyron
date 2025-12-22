@@ -503,6 +503,7 @@ export const telecomNavGroups = [
     icon: LayoutDashboard, 
     items: [ 
       { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
+      { href: "/telecom-design-showcase", label: "Design Showcase", icon: Paintbrush },
     ], 
     subGroups: [] 
   },
