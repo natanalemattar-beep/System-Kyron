@@ -66,7 +66,7 @@ export default function ActivosInmobiliariosPage() {
                             <TableCell>{activo.ubicacion}</TableCell>
                             <TableCell>{activo.area}</TableCell>
                             <TableCell>
-                                <Badge variant={statusVariant[activo.estado]}>{activo.estado}</Badge>
+                                <Badge variant={statusVariant[activo.estado as keyof typeof statusVariant]}>{activo.estado}</Badge>
                             </TableCell>
                             <TableCell className="text-right font-mono">{formatCurrency(activo.valor, 'USD')}</TableCell>
                             <TableCell className="text-right">

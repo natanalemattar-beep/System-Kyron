@@ -1,3 +1,4 @@
+
 "use client";
 
 import DashboardJuridicoPage from "@/app/dashboard-juridico/page";

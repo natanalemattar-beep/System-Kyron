@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { GeistSans } from 'geist/font/sans';
 import { Providers } from '@/components/providers';
-import { WelcomeTutorial } from '@/components/welcome-tutorial';
 
 export const metadata: Metadata = {
   title: {
@@ -18,115 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning className={GeistSans.className}>
-       <head>
-        <style>{`
-          :root {
-            --light-background: hsl(220 20% 98%);
-            --light-foreground: hsl(220 25% 10%);
-            --light-card: hsl(220 20% 100%);
-            --light-card-foreground: hsl(220 25% 10%);
-            --light-popover: hsl(220 20% 100%);
-            --light-popover-foreground: hsl(220 25% 10%);
-            --light-primary: hsl(28 79% 45%);
-            --light-primary-foreground: hsl(220 20% 98%);
-            --light-secondary: hsl(220 15% 90%);
-            --light-secondary-foreground: hsl(220 25% 25%);
-            --light-muted: hsl(220 15% 90%);
-            --light-muted-foreground: hsl(220 10% 45%);
-            --light-accent: hsl(220 15% 95%);
-            --light-accent-foreground: hsl(220 25% 15%);
-            --light-destructive: hsl(0 72% 51%);
-            --light-destructive-foreground: hsl(220 20% 98%);
-            --light-border: hsl(220 15% 90%);
-            --light-input: hsl(220 15% 90%);
-            --light-ring: hsl(28 79% 45%);
-            
-            --dark-background: hsl(220 25% 8%);
-            --dark-foreground: hsl(220 20% 96%);
-            --dark-card: hsl(220 20% 13%);
-            --dark-card-foreground: hsl(220 20% 96%);
-            --dark-popover: hsl(220 25% 8%);
-            --dark-popover-foreground: hsl(220 20% 96%);
-            --dark-primary: hsl(34 92% 60%);
-            --dark-primary-foreground: hsl(28 80% 10%);
-            --dark-secondary: hsl(220 15% 20%);
-            --dark-secondary-foreground: hsl(220 20% 96%);
-            --dark-muted: hsl(220 15% 20%);
-            --dark-muted-foreground: hsl(220 10% 55%);
-            --dark-accent: hsl(220 15% 20%);
-            --dark-accent-foreground: hsl(220 20% 98%);
-            --dark-destructive: hsl(0 70% 60%);
-            --dark-destructive-foreground: hsl(220 20% 98%);
-            --dark-border: hsl(220 15% 25%);
-            --dark-input: hsl(220 15% 25%);
-            --dark-ring: hsl(34 92% 60%);
-            
-            --radius: 0.3rem;
-
-            /* Telecom Palette */
-            --telecom-black: #0A0A0F;
-            --telecom-white: #FFFFFF;
-            --telecom-cyan: #00F3FF;
-            --telecom-magenta: #FF00D6;
-            --telecom-cyan-green: #00FFAA;
-            --telecom-amber: #FFAA00;
-            --telecom-pink: #FF0055;
-            --telecom-gray-1: #1A1A23;
-            --telecom-gray-2: #2A2A35;
-            --telecom-gray-3: #3A3A45;
-            --telecom-gray-4: #555566;
-          }
-
-          .light {
-            --background: var(--light-background);
-            --foreground: var(--light-foreground);
-            --card: var(--light-card);
-            --card-foreground: var(--light-card-foreground);
-            --popover: var(--light-popover);
-            --popover-foreground: var(--light-popover-foreground);
-            --primary: var(--light-primary);
-            --primary-foreground: var(--light-primary-foreground);
-            --secondary: var(--light-secondary);
-            --secondary-foreground: var(--light-secondary-foreground);
-            --muted: var(--light-muted);
-            --muted-foreground: var(--light-muted-foreground);
-            --accent: var(--light-accent);
-            --accent-foreground: var(--light-accent-foreground);
-            --destructive: var(--light-destructive);
-            --destructive-foreground: var(--light-destructive-foreground);
-            --border: var(--light-border);
-            --input: var(--light-input);
-            --ring: var(--light-ring);
-          }
-
-          .dark {
-            --background: var(--dark-background);
-            --foreground: var(--dark-foreground);
-            --card: var(--dark-card);
-            --card-foreground: var(--dark-card-foreground);
-            --popover: var(--dark-popover);
-            --popover-foreground: var(--dark-popover-foreground);
-            --primary: var(--dark-primary);
-            --primary-foreground: var(--dark-primary-foreground);
-            --secondary: var(--dark-secondary);
-            --secondary-foreground: var(--dark-secondary-foreground);
-            --muted: var(--dark-muted);
-            --muted-foreground: var(--dark-muted-foreground);
-            --accent: var(--dark-accent);
-            --accent-foreground: var(--dark-accent-foreground);
-            --destructive: var(--dark-destructive);
-            --destructive-foreground: var(--dark-destructive-foreground);
-            --border: var(--dark-border);
-            --input: var(--dark-input);
-            --ring: var(--dark-ring);
-          }
-        `}</style>
-      </head>
+    <html lang="en" suppressHydrationWarning className={GeistSans.className}>
+       <head />
       <body>
         <Providers>
             {children}
-            <WelcomeTutorial />
         </Providers>
       </body>
     </html>

@@ -2,28 +2,29 @@
 'use client';
 
 import type { ReactNode } from "react";
-import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
-import { SplashScreen } from "@/components/splash-screen";
+import { LandingHeader } from "@/components/landing/landing-header";
+import { Footer } from "@/components/landing";
+import { usePathname } from "next/navigation";
 
 const user = { name: "Administrador", email: "admin@kyron.com", fallback: "AD" };
 const dashboardHref = "/dashboard-empresa";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
-    const [isLoading, setIsLoading] = useState(true);
+    const pathname = usePathname();
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 1500); // Simulate data fetching
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (isLoading) {
-        return <SplashScreen />;
+    if (pathname === '/') {
+        return (
+             <div className="flex flex-col min-h-dvh bg-background text-foreground">
+                <LandingHeader />
+                <main className="flex-1 pt-16">{children}</main>
+                <Footer />
+                <ChatDialog />
+            </div>
+        )
     }
 
   return (

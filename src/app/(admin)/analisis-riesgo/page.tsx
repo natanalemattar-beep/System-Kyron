@@ -42,7 +42,7 @@ export default function AnalisisRiesgoPage() {
     const riesgoGeneral = 7.5;
 
   return (
-    <div>
+    <div className="space-y-8">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <ShieldQuestion className="h-8 w-8" />
@@ -54,7 +54,7 @@ export default function AnalisisRiesgoPage() {
       </header>
 
       <div className="grid gap-6 lg:grid-cols-3 mb-8">
-        <Card className="lg:col-span-1 bg-card/80 backdrop-blur-sm">
+        <Card className="lg:col-span-1 bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Nivel de Riesgo General</CardTitle>
             </CardHeader>
@@ -67,7 +67,7 @@ export default function AnalisisRiesgoPage() {
                 <p className="text-sm mt-2 font-medium text-orange-400">Riesgo Moderado-Alto</p>
             </CardContent>
         </Card>
-        <Card className="lg:col-span-2 bg-card/80 backdrop-blur-sm">
+        <Card className="lg:col-span-2 bg-card/50 backdrop-blur-sm">
             <CardHeader>
                 <CardTitle>Planes de Mitigación</CardTitle>
                 <CardDescription>Resumen de las acciones clave para reducir el riesgo.</CardDescription>
@@ -93,7 +93,7 @@ export default function AnalisisRiesgoPage() {
         </Card>
       </div>
 
-       <Card className="bg-card/80 backdrop-blur-sm">
+       <Card className="bg-card/50 backdrop-blur-sm">
         <CardHeader>
             <CardTitle>Matriz de Riesgos Identificados</CardTitle>
         </CardHeader>

@@ -167,7 +167,7 @@ export function LandingHeader() {
                                                 Acceder <User className="ml-2 h-4 w-4" />
                                             </Button>
                                         </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end" className="w-80 shadow-lg">
+                                        <DropdownMenuContent align="end" className="w-full shadow-lg z-[9999]">
                                             {loginOptions.map((option) => (
                                                 <DropdownMenuItem key={option.href} asChild>
                                                     <Link href={option.href} className="flex items-start gap-3 p-3">

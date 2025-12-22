@@ -108,7 +108,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                                 {group.title}
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent>
+                        <DropdownMenuContent className="shadow-lg">
                           {group.subGroups && group.subGroups.length > 0 ? group.subGroups.map((subGroup) => (
                               <div key={subGroup.title}>
                                 <DropdownMenuLabel>{subGroup.title}</DropdownMenuLabel>
@@ -147,7 +147,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                     <span className="sr-only">Abrir Menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-full max-w-sm p-0 flex flex-col">
+              <SheetContent side="left" className="w-full max-w-sm p-0 flex flex-col bg-background/80 backdrop-blur-lg shadow-lg">
                 <SheetHeader className="p-4 border-b">
                     <SheetTitle asChild>
                       <Link href={dashboardHref} className="flex items-center gap-3">
@@ -209,7 +209,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="shadow-lg">
               <DropdownMenuLabel>
                  <p className="font-semibold">{user.name}</p>
                  <p className="text-xs text-muted-foreground font-normal">{user.email}</p>
