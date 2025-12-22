@@ -161,12 +161,29 @@ export function LandingHeader() {
                                         <LanguageSwitcher />
                                         <ThemeToggle />
                                     </div>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="outline" className="w-full">
+                                                Acceder <User className="ml-2 h-4 w-4" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end" className="w-80 shadow-lg">
+                                            {loginOptions.map((option) => (
+                                                <DropdownMenuItem key={option.href} asChild>
+                                                    <Link href={option.href} className="flex items-start gap-3 p-3">
+                                                        <div className="p-2 bg-primary/10 rounded-md mt-1">
+                                                        <option.icon className="h-5 w-5 text-primary"/>
+                                                        </div>
+                                                        <div>
+                                                        <p className="font-semibold">{option.label}</p>
+                                                        <p className="text-xs text-muted-foreground">{option.description}</p>
+                                                        </div>
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                            ))}
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
                                     <Button asChild className="w-full">
-                                        <Link href="/login">
-                                            Acceder <User className="ml-2 h-4 w-4" />
-                                        </Link>
-                                    </Button>
-                                    <Button asChild variant="outline" className="w-full">
                                         <Link href="/register">Registrarse</Link>
                                     </Button>
                                 </div>
