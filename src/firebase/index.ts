@@ -5,12 +5,14 @@ import { firebaseConfig } from '@/firebase/config';
 import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
 import { getAuth, Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
+import { getDatabase, Database } from 'firebase/database';
 
 // This function now correctly handles initialization and returns the service instances.
 function initializeFirebaseServices(): {
   firebaseApp: FirebaseApp;
   auth: Auth;
   firestore: Firestore;
+  database: Database;
 } {
   let app: FirebaseApp;
   if (!getApps().length) {
@@ -24,15 +26,16 @@ function initializeFirebaseServices(): {
   return {
     firebaseApp: app,
     auth: getAuth(app),
-    firestore: getFirestore(app)
+    firestore: getFirestore(app),
+    database: getDatabase(app)
   };
 }
 
 // Get SDKs with the initialized app
-const { firebaseApp, auth, firestore } = initializeFirebaseServices();
+const { firebaseApp, auth, firestore, database } = initializeFirebaseServices();
 
 // Export the initialized services
-export { firebaseApp, auth, firestore };
+export { firebaseApp, auth, firestore, database };
 
 // Export all hooks and utilities from their respective files
 export * from './provider';

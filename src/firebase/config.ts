@@ -3,6 +3,7 @@ export const firebaseConfig = {
   "appId": "1:1082863387183:web:5ddbb80c305bb595043cda",
   "apiKey": "AIzaSyDMQI7SZQJ-7AzZfhrZMho2LMvI0zonsKY",
   "authDomain": "fintrack-automation2-534-c4c71.firebaseapp.com",
+  "databaseURL": "https://fintrack-automation2-534-c4c71-default-rtdb.firebaseio.com",
   "measurementId": "",
   "messagingSenderId": "1082863387183"
 };
