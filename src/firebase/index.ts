@@ -7,22 +7,16 @@ import { getAuth, Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
 import { getDatabase, Database } from 'firebase/database';
 
-// This function now correctly handles initialization and returns the service instances.
-function initializeFirebaseServices(): {
+// This function should be called on the client side.
+// It ensures that Firebase is initialized only once.
+export function initializeFirebase(): {
   firebaseApp: FirebaseApp;
   auth: Auth;
   firestore: Firestore;
   database: Database;
 } {
-  let app: FirebaseApp;
-  if (!getApps().length) {
-    // During development or if environment variables are not set,
-    // this will use the config object. In production with App Hosting,
-    // it will use the automatically provided environment variables.
-    app = initializeApp(firebaseConfig);
-  } else {
-    app = getApp();
-  }
+  const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+  
   return {
     firebaseApp: app,
     auth: getAuth(app),
@@ -30,12 +24,6 @@ function initializeFirebaseServices(): {
     database: getDatabase(app)
   };
 }
-
-// Get SDKs with the initialized app
-const { firebaseApp, auth, firestore, database } = initializeFirebaseServices();
-
-// Export the initialized services
-export { firebaseApp, auth, firestore, database };
 
 // Export all hooks and utilities from their respective files
 export * from './provider';

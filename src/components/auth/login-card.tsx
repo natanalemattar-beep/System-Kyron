@@ -153,6 +153,12 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         const email = formData[emailField.id];
         const password = formData[passField.id];
         
+        if (!email || !password) {
+            setError("Por favor, introduce tu correo y contraseña.");
+            setIsLoading(false);
+            return;
+        }
+
         try {
             await signInWithEmailAndPassword(auth, email, password);
             // onAuthStateChanged in the provider will handle the redirect.
@@ -290,7 +296,3 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
   );
 })
 LoginCard.displayName = "LoginCard"
-
-
-    
-    
