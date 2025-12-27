@@ -101,15 +101,7 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
     
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [country, setCountry] = useState("VEN");
-    const [formData, setFormData] = useState<Record<string, string>>(() => {
-        const initialData: Record<string, string> = {};
-        fields.forEach(field => {
-            if (field.defaultValue) {
-                initialData[field.id] = field.defaultValue;
-            }
-        });
-        return initialData;
-    });
+    const [formData, setFormData] = useState<Record<string, string>>({});
 
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -276,7 +268,7 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         {footerLinks && (
             <CardFooter className="flex-col gap-4 p-6 border-t text-sm">
             {footerLinks.text && <p className="text-muted-foreground">{footerLinks.text}</p>}
-            {footerLinks.secondaryLinks ? (
+            {footerLinks.secondaryLinks && footerLinks.secondaryLinks.links ? (
                 <div className="flex justify-center flex-wrap gap-x-4 gap-y-2">
                     {footerLinks.secondaryLinks.links.map(link => (
                         <Button key={link.href} asChild variant="link" className="p-0 h-auto text-muted-foreground hover:text-primary">
