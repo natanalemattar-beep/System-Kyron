@@ -25,6 +25,8 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 
 const cardVariants = cva(
@@ -151,7 +153,7 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
             if (field.defaultValue) {
                 initialData[field.id] = field.defaultValue;
             } else if (credentials) {
-                if (field.id.includes('user') || field.id.includes('Id')) {
+                 if (field.id.includes('user') || field.id.includes('Id') || field.id.includes('email')) {
                     initialData[field.id] = credentials.user || '';
                 } else if (field.id === 'password') {
                     initialData[field.id] = credentials.password || '';
@@ -167,6 +169,8 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
     const [isLoading, setIsLoading] = useState(false);
     const [isClient, setIsClient] = useState(false);
     const router = useRouter();
+    const auth = useAuth();
+
 
     useEffect(() => {
         setIsClient(true);
@@ -185,35 +189,50 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         setFormData(prev => ({ ...prev, [id]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
         
-        setTimeout(() => {
-            const idField = fields.find(f => f.id === 'idValue' || f.id === 'username' || f.id === 'email');
-            const passField = fields.find(f => f.id === 'password');
-            const codeField = fields.find(f => f.id === 'inviteCode');
-
-            const userValue = idField ? formData[idField.id] : undefined;
-            const passValue = passField ? formData[passField.id] : undefined;
-            const codeValue = codeField ? formData[codeField.id] : undefined;
-
-            let isValid = true;
-            if (credentials) {
-                if (credentials.user && userValue !== credentials.user) isValid = false;
-                if (credentials.password && passValue !== credentials.password) isValid = false;
-                if (credentials.code && codeValue !== credentials.code) isValid = false;
-            }
-
-            if (isValid) {
-                router.push(submitButtonHref);
-            } else {
-                setError("Credenciales incorrectas. Por favor, inténtalo de nuevo.");
-            }
-
+        if (!auth) {
+            setError("Servicio de autenticación no disponible.");
             setIsLoading(false);
-        }, 1000);
+            return;
+        }
+
+        const emailField = fields.find(f => f.type === 'email');
+        const passField = fields.find(f => f.type === 'password');
+        
+        if (!emailField || !passField) {
+            setError("Configuración de formulario inválida.");
+            setIsLoading(false);
+            return;
+        }
+
+        const email = formData[emailField.id];
+        const password = formData[passField.id];
+        
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            // onAuthStateChanged in the provider will handle the redirect.
+            router.push(submitButtonHref);
+        } catch (err: any) {
+            switch (err.code) {
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                case 'auth/invalid-credential':
+                    setError("Correo electrónico o contraseña incorrectos.");
+                    break;
+                case 'auth/invalid-email':
+                    setError("El formato del correo electrónico es inválido.");
+                    break;
+                default:
+                    setError("Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
+                    break;
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
   
     const renderField = (field: Field) => {
@@ -328,3 +347,5 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
 })
 LoginCard.displayName = "LoginCard"
 
+
+    

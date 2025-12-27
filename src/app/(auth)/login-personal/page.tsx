@@ -12,14 +12,13 @@ export default function LoginPersonalPage() {
         variant: "default" as const,
         description: "Acceso para clientes individuales y gestión de trámites personales.",
         fields: [
-            { id: "country", label: "País", type: "select" as const },
-            { id: "idValue", label: "Identificación Personal", type: "text" as const, placeholder: "V-12345678" },
-            { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••" },
+            { id: "email", label: "Correo Electrónico", type: "email" as const, placeholder: "tu@correo.com", defaultValue: "usuario@kyron.com" },
+            { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
             { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "/recover-personal", label: "¿Olvidaste tu contraseña?" } }
         ],
         submitButtonText: "Acceder al Portal Personal",
         submitButtonHref: "/dashboard",
-        credentials: { user: "V-12345678", password: "password123" },
+        credentials: { user: "usuario@kyron.com", password: "password123" },
         footerLinks: {
             text: "¿No tienes una cuenta?",
             mainLink: { href: "/register/natural", label: "Regístrate aquí" },
@@ -32,3 +31,5 @@ export default function LoginPersonalPage() {
 
     return <LoginCard {...loginProps} />;
 }
+
+    
