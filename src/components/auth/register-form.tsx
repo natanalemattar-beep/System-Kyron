@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Eye, EyeOff, Copy, Loader2, CheckCircle, Trash2 } from "lucide-react";
+import { Eye, EyeOff, Copy, Loader2, CheckCircle, Trash2, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +19,7 @@ import { usePathname } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { countries } from "@/lib/countries";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 
 const idByCountry: Record<string, { label: string, placeholder: string }> = {
@@ -102,9 +103,11 @@ interface RegisterFormProps {
     footerLinkHref: string;
     footerLinkText: string;
     credentials?: { user: string; password?: string, code?: string };
+    onSubmit?: (formData: Record<string, string>) => Promise<void>;
+    error?: string | null;
 }
 
-export function RegisterForm({ icon: Icon, title, description, fields, submitButtonText, footerLinkHref, footerLinkText, credentials }: RegisterFormProps) {
+export function RegisterForm({ icon: Icon, title, description, fields, submitButtonText, footerLinkHref, footerLinkText, credentials, onSubmit, error }: RegisterFormProps) {
     const { toast } = useToast();
     const pathname = usePathname();
     const STORAGE_KEY = `kyron_borrador_registro_${pathname.replace(/\//g, '_')}`;
@@ -112,6 +115,7 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [country, setCountry] = useState("VEN");
     const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved">("idle");
+    const [isLoading, setIsLoading] = useState(false);
     const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
     const [isClient, setIsClient] = useState(false);
 
@@ -185,18 +189,14 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
         }
     };
     
-    const getDashboardHref = () => {
-        if (pathname.includes('/register/informatica')) return '/dashboard-informatica';
-        if (pathname.includes('/register/marketing')) return '/asesoria-publicidad';
-        if (pathname.includes('/register/rrhh')) return '/dashboard-rrhh';
-        if (pathname.includes('/register/socios')) return '/socios/dashboard-socios';
-        if (pathname.includes('/register/telecom')) return '/dashboard-telecom';
-        if (pathname.includes('/register/ventas')) return '/analisis-ventas';
-        if (pathname.includes('/register/juridico')) return '/solicitud-acceso-legal';
-        if (pathname.includes('/register/natural')) return '/dashboard';
-        if (pathname.includes('/register/juridica')) return '/dashboard-empresa';
-        return '/'; // Fallback
-    }
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (onSubmit) {
+            setIsLoading(true);
+            await onSubmit(formData);
+            setIsLoading(false);
+        }
+    };
 
     const renderSaveStatus = () => {
         switch (saveStatus) {
@@ -261,9 +261,15 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
                 <CardTitle className="text-2xl">{title}</CardTitle>
                 <CardDescription>{description}</CardDescription>
             </CardHeader>
-            <form>
+            <form onSubmit={handleSubmit}>
                 {fields.length > 0 && (
                     <CardContent className="p-6 space-y-6">
+                       {error && (
+                            <Alert variant="destructive">
+                                <AlertTriangle className="h-4 w-4" />
+                                <AlertDescription>{error}</AlertDescription>
+                            </Alert>
+                       )}
                        {fields.map(renderField)}
                        <div className="flex justify-end h-5">
                           {renderSaveStatus()}
@@ -271,8 +277,9 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
                     </CardContent>
                 )}
                  <CardFooter className="p-6 pt-0 flex-col gap-2">
-                    <Button asChild type="submit" className="w-full h-11 text-base">
-                        <Link href={getDashboardHref()}>{submitButtonText}</Link>
+                    <Button type="submit" className="w-full h-11 text-base" disabled={isLoading}>
+                         {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
+                        {submitButtonText}
                     </Button>
                      <Button type="button" variant="ghost" size="sm" className="text-xs text-muted-foreground" onClick={handleDiscardDraft}>
                        <Trash2 className="mr-2 h-3 w-3"/> Descartar borrador
@@ -289,3 +296,5 @@ export function RegisterForm({ icon: Icon, title, description, fields, submitBut
         </Card>
     );
 }
+
+    

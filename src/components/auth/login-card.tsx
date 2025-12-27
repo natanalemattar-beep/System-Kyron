@@ -152,14 +152,6 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         fields.forEach(field => {
             if (field.defaultValue) {
                 initialData[field.id] = field.defaultValue;
-            } else if (credentials) {
-                 if (field.id.includes('user') || field.id.includes('Id') || field.id.includes('email')) {
-                    initialData[field.id] = credentials.user || '';
-                } else if (field.id === 'password') {
-                    initialData[field.id] = credentials.password || '';
-                } else if (field.id.includes('Code')) {
-                    initialData[field.id] = credentials.code || '';
-                }
             }
         });
         return initialData;
@@ -219,9 +211,13 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         } catch (err: any) {
             switch (err.code) {
                 case 'auth/user-not-found':
+                    setError("No se encontró ningún usuario con este correo electrónico.");
+                    break;
                 case 'auth/wrong-password':
+                    setError("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
+                    break;
                 case 'auth/invalid-credential':
-                    setError("Correo electrónico o contraseña incorrectos.");
+                    setError("Credenciales inválidas. Verifica tu correo y contraseña.");
                     break;
                 case 'auth/invalid-email':
                     setError("El formato del correo electrónico es inválido.");
@@ -348,4 +344,5 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
 LoginCard.displayName = "LoginCard"
 
 
+    
     
