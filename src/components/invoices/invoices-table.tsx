@@ -1,4 +1,6 @@
 
+"use client";
+
 import type { Invoice } from "@/lib/types";
 import {
   Table,
@@ -11,7 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Loader2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatCurrency, formatDate } from "@/lib/utils";
+import { Skeleton } from "../ui/skeleton";
 
 const statusVariant: { [key in Invoice["status"]]: "default" | "secondary" | "destructive" | "outline" } = {
   Pagada: "default",
@@ -27,7 +30,50 @@ const statusVariant: { [key in Invoice["status"]]: "default" | "secondary" | "de
   Vencida: "destructive",
 };
 
-export function InvoicesTable({ invoices }: { invoices: Invoice[] }) {
+export function InvoicesTable({ invoices, isLoading }: { invoices: Invoice[], isLoading: boolean }) {
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Factura #</TableHead>
+                <TableHead>Cliente</TableHead>
+                <TableHead>Fecha</TableHead>
+                <TableHead>Vencimiento</TableHead>
+                <TableHead>Estado</TableHead>
+                <TableHead className="text-right">Monto</TableHead>
+                <TableHead className="w-[50px]"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {[...Array(5)].map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell><Skeleton className="h-4 w-[100px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[150px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[80px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[80px]" /></TableCell>
+                  <TableCell><Skeleton className="h-6 w-20 rounded-full" /></TableCell>
+                  <TableCell className="text-right"><Skeleton className="h-4 w-[100px] ml-auto" /></TableCell>
+                  <TableCell><Skeleton className="h-8 w-8 rounded-md" /></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    )
+  }
+  
+  if (invoices.length === 0) {
+    return (
+        <div className="text-center py-12 text-muted-foreground">
+            No se han encontrado facturas.
+        </div>
+    )
+  }
+
   return (
     <Card>
       <CardContent className="p-0">

@@ -24,6 +24,7 @@ import type { Transaction } from "@/lib/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { categorizeTransactionAction } from "@/app/(main)/transactions/actions";
 import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "../ui/skeleton";
 
 const categories = [
   "Ingreso",
@@ -38,12 +39,18 @@ const categories = [
 
 export function TransactionsTable({
   initialTransactions,
+  isLoading
 }: {
   initialTransactions: Transaction[];
+  isLoading: boolean;
 }) {
   const [transactions, setTransactions] = useState(initialTransactions);
   const [categorizingId, setCategorizingId] = useState<string | null>(null);
   const { toast } = useToast();
+
+  React.useEffect(() => {
+    setTransactions(initialTransactions);
+  }, [initialTransactions]);
 
   const handleCategoryChange = (transactionId: string, newCategory: string) => {
     setTransactions(
@@ -75,6 +82,37 @@ export function TransactionsTable({
       });
     }
   };
+  
+  if (isLoading) {
+    return (
+       <Card>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Fecha</TableHead>
+                <TableHead>Descripción</TableHead>
+                <TableHead className="text-right">Monto</TableHead>
+                <TableHead>Categoría</TableHead>
+                <TableHead className="text-right">Acciones</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {[...Array(5)].map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell><Skeleton className="h-4 w-[80px]" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-[250px]" /></TableCell>
+                  <TableCell className="text-right"><Skeleton className="h-4 w-[100px] ml-auto" /></TableCell>
+                  <TableCell><Skeleton className="h-10 w-[180px]" /></TableCell>
+                  <TableCell className="text-right"><Skeleton className="h-8 w-[120px] ml-auto" /></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <Card>

@@ -1,8 +1,26 @@
 
+"use client";
+
 import { TransactionsTable } from "@/components/transactions/transactions-table";
-import { mockTransactions } from "@/lib/data";
+import { useUser } from "@/firebase/provider";
+import { useCollection, useMemoFirebase } from "@/firebase";
+import { collection, query, where } from "firebase/firestore";
+import { useFirestore } from "@/firebase/provider";
 
 export default function TransactionsPage() {
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const transactionsQuery = useMemoFirebase(() => {
+    if (!user || !firestore) return null;
+    return query(
+      collection(firestore, "transactions"),
+      where("userId", "==", user.uid)
+    );
+  }, [user, firestore]);
+
+  const { data: transactions, isLoading } = useCollection(transactionsQuery);
+
   return (
     <div className="p-4 md:p-8">
       <header className="mb-8">
@@ -11,7 +29,10 @@ export default function TransactionsPage() {
           Visualiza, gestiona y categoriza tus transacciones.
         </p>
       </header>
-      <TransactionsTable initialTransactions={mockTransactions} />
+      <TransactionsTable 
+        initialTransactions={transactions || []} 
+        isLoading={isLoading} 
+      />
     </div>
   );
 }

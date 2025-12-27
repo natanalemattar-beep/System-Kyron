@@ -1,11 +1,28 @@
 
+"use client";
 import { InvoicesTable } from "@/components/invoices/invoices-table";
 import { CreateInvoiceSheet } from "@/components/invoices/create-invoice-sheet";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { mockInvoices } from "@/lib/data";
+import { useUser } from "@/firebase/provider";
+import { useCollection, useMemoFirebase } from "@/firebase";
+import { collection, query, where } from "firebase/firestore";
+import { useFirestore } from "@/firebase/provider";
 
 export default function InvoicesPage() {
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const invoicesQuery = useMemoFirebase(() => {
+    if (!user || !firestore) return null;
+    return query(
+      collection(firestore, "invoices"),
+      where("userId", "==", user.uid)
+    );
+  }, [user, firestore]);
+
+  const { data: invoices, isLoading } = useCollection(invoicesQuery);
+
   return (
     <div>
       <header className="mb-8 flex items-center justify-between">
@@ -22,7 +39,7 @@ export default function InvoicesPage() {
           </Button>
         </CreateInvoiceSheet>
       </header>
-      <InvoicesTable invoices={mockInvoices} />
+      <InvoicesTable invoices={invoices || []} isLoading={isLoading} />
     </div>
   );
 }

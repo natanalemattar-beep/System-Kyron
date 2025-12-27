@@ -1,6 +1,9 @@
 
 import type { Invoice, Transaction } from './types';
 
+// This data is now for demonstration purposes only.
+// The application should fetch data from Firestore.
+
 export const mockInvoices: Invoice[] = [
   {
     id: 'INV-001',
@@ -12,60 +15,10 @@ export const mockInvoices: Invoice[] = [
     status: 'Pagada',
     items: [{ description: 'Web Design Consultation', quantity: 1, price: 250 }],
   },
-  {
-    id: 'INV-002',
-    customer: 'Beta Co.',
-    customerEmail: 'accounts@betaco.com',
-    date: '2024-06-15',
-    dueDate: '2024-07-15',
-    amount: 1500.0,
-    status: 'Enviada',
-    items: [{ description: 'SaaS Subscription - Yearly', quantity: 1, price: 1500 }],
-  },
-  {
-    id: 'INV-003',
-    customer: 'Gamma LLC',
-    customerEmail: 'gamma@gamma.llc',
-    date: '2024-05-20',
-    dueDate: '2024-06-20',
-    amount: 350.5,
-    status: 'Vencida',
-    items: [
-      { description: 'Graphic Design Services', quantity: 5, price: 50.1 },
-      { description: 'Stock Photos License', quantity: 1, price: 100 },
-    ],
-  },
-  {
-    id: 'INV-004',
-    customer: 'Delta Solutions',
-    customerEmail: 'support@deltasolutions.org',
-    date: '2024-07-01',
-    dueDate: '2024-08-01',
-    amount: 750.0,
-    status: 'Borrador',
-    items: [{ description: 'SEO Audit', quantity: 1, price: 750 }],
-  },
-  {
-    id: 'INV-005',
-    customer: 'Epsilon Services',
-    customerEmail: 'billing@epsilon.serv',
-    date: '2024-06-28',
-    dueDate: '2024-07-28',
-    amount: 5200.0,
-    status: 'Enviada',
-    items: [{ description: 'Custom Software Development', quantity: 1, price: 5200 }],
-  },
 ];
 
 export const mockTransactions: Transaction[] = [
   { id: 'TR-001', date: '2024-07-15', description: 'Pago de Stripe', amount: 1800.0, category: 'Ingreso' },
-  { id: 'TR-002', date: '2024-07-14', description: 'DigitalOcean', amount: -50.0, category: 'Servicios Públicos' },
-  { id: 'TR-003', date: '2024-07-13', description: 'Almuerzo en The Corner Cafe', amount: -25.5, category: 'Comida' },
-  { id: 'TR-004', date: '2024-07-12', description: 'Suscripción de Figma', amount: -15.0, category: 'Software' },
-  { id: 'TR-005', date: '2024-07-11', description: 'Pago de Cliente - Beta Co.', amount: 1500.0, category: 'Ingreso' },
-  { id: 'TR-006', date: '2024-07-10', description: 'Suministros de Oficina de Amazon', amount: -75.2, category: 'Suministros de Oficina' },
-  { id: 'TR-007', date: '2024-07-09', description: 'Gasolina', amount: -45.0, category: 'Transporte' },
-  { id: 'TR-008', date: '2024-07-08', description: 'Gasto no categorizado', amount: -120.0, category: 'Sin Categorizar' },
 ];
 
 

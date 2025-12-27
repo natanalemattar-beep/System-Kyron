@@ -1,8 +1,11 @@
+
 'use client';
 
 import { HeroSection, ServicesSection, FeaturesSection, AboutUsSection, FaqSection, CtaSection, Footer } from '@/components/landing';
 import { LandingHeader } from "@/components/landing/landing-header";
 import { ChatDialog } from "@/components/chat-dialog";
+import { WelcomeTutorial } from '@/components/welcome-tutorial';
+
 
 export default function LandingPage() {
     
@@ -20,6 +23,7 @@ export default function LandingPage() {
 
             <Footer />
             <ChatDialog />
+            <WelcomeTutorial />
         </div>
     );
 }

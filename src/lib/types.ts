@@ -1,6 +1,7 @@
 
 export type Invoice = {
   id: string;
+  userId?: string; // Added for Firestore rules
   customer: string;
   customerEmail: string;
   date: string;
@@ -16,6 +17,7 @@ export type Invoice = {
 
 export type Transaction = {
   id: string;
+  userId?: string; // Added for Firestore rules
   date: string;
   description: string;
   amount: number;
