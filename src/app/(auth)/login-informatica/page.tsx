@@ -12,12 +12,11 @@ export default function LoginInformaticaPage() {
     description: "Acceso al dashboard de gestión de infraestructura y desarrollo.",
     variant: "tecnologia" as const,
     fields: [
-      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.it", defaultValue: "usuario.it" },
-      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
+      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.it" },
+      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••" },
     ],
     submitButtonText: "Acceder al Dashboard de IT",
     submitButtonHref: "/dashboard-informatica",
-    credentials: { user: "usuario.it", password: "password123" },
     footerLinks: {
       text: "¿No tienes una cuenta de IT?",
       mainLink: { href: "/register/informatica", label: "Regístrate aquí" },

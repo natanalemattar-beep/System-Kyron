@@ -12,13 +12,12 @@ export default function LoginEscritorioJuridicoPage() {
         variant: "juridico" as const,
         description: "Acceso seguro para el departamento legal y socios.",
         fields: [
-            { id: "username", label: "Usuario", type: "text" as const, placeholder: "legal.user", defaultValue: "legal.user" },
-            { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
+            { id: "username", label: "Usuario", type: "text" as const, placeholder: "legal.user" },
+            { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••" },
             { id: "remember-me", label: "Recuérdame", type: "checkbox" as const, rememberMe: true, link: { href: "/recover-legal", label: "¿Olvidaste tu contraseña?" } }
         ],
         submitButtonText: "Acceder al Escritorio Jurídico",
         submitButtonHref: "/login-legal-2fa",
-        credentials: { user: "legal.user", password: "password123" },
         footerLinks: {
             text: "¿Necesitas acceso?",
             mainLink: { href: "/solicitud-acceso-legal", label: "Solicita tu cuenta aquí" },

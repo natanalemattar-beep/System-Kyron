@@ -12,12 +12,11 @@ export default function LoginTelecomPage() {
     description: "Acceso al portal de administración de redes y servicios de conectividad.",
     variant: "tecnologia" as const,
     fields: [
-      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.telecom", defaultValue: "usuario.telecom" },
-      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
+      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.telecom" },
+      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••" },
     ],
     submitButtonText: "Acceder al Dashboard",
     submitButtonHref: "/dashboard-telecom",
-    credentials: { user: "usuario.telecom", password: "password123" },
     footerLinks: {
       text: "¿No tienes una cuenta de Telecom?",
       mainLink: { href: "/register/telecom", label: "Regístrate aquí" },

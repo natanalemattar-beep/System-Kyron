@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Eye, EyeOff, Loader2, AlertTriangle, Copy } from "lucide-react";
+import { Eye, EyeOff, Loader2, AlertTriangle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -71,7 +70,6 @@ export interface LoginCardProps extends React.HTMLAttributes<HTMLDivElement>, Va
   fields: Field[];
   submitButtonText: string;
   submitButtonHref: string;
-  credentials?: { user: string; password?: string, code?: string };
   footerLinks?: {
     text?: string;
     mainLink?: { href: string; label: string };
@@ -98,52 +96,8 @@ const idByCountry: Record<string, { label: string, placeholder: string }> = {
     "PRT": { label: "Cartão de Cidadão", placeholder: "12345678 9 ZZ1" },
 };
 
-const Credentials = ({ user, password, code }: { user?: string; password?: string, code?: string }) => {
-    const { toast } = useToast();
-
-    const copyToClipboard = (text: string, field: string) => {
-        if (text) {
-            navigator.clipboard.writeText(text);
-            toast({
-                title: `${field} copiado`,
-                description: `${text} ha sido copiado al portapapeles.`,
-            });
-        }
-    };
-
-    return (
-        <div className="mt-6 w-full space-y-3 text-sm">
-            {code && (
-                 <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
-                    <span className="text-muted-foreground">Código: <strong className="text-foreground font-mono">{code}</strong></span>
-                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(code, 'Código')}>
-                        <Copy className="h-4 w-4"/>
-                    </Button>
-                </div>
-            )}
-            {user && (
-                 <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
-                    <span className="text-muted-foreground">Usuario: <strong className="text-foreground font-mono">{user}</strong></span>
-                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(user, 'Usuario')}>
-                        <Copy className="h-4 w-4"/>
-                    </Button>
-                </div>
-            )}
-            {password && (
-                <div className="flex justify-between items-center bg-secondary/50 p-2 rounded-lg">
-                    <span className="text-muted-foreground">Contraseña: <strong className="text-foreground font-mono">{password}</strong></span>
-                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => copyToClipboard(password, 'Contraseña')}>
-                        <Copy className="h-4 w-4"/>
-                    </Button>
-                </div>
-            )}
-        </div>
-    );
-};
-
-
 export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
-  ({ className, variant, icon: Icon, title, description, fields, submitButtonText, submitButtonHref, credentials, footerLinks, ...props }, ref) => {
+  ({ className, variant, icon: Icon, title, description, fields, submitButtonText, submitButtonHref, footerLinks, ...props }, ref) => {
     
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [country, setCountry] = useState("VEN");
@@ -195,9 +149,12 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
         const emailField = fields.find(f => f.type === 'email');
         const passField = fields.find(f => f.type === 'password');
         
+        // This is a simulated login for non-email forms
         if (!emailField || !passField) {
-            setError("Configuración de formulario inválida.");
-            setIsLoading(false);
+            setTimeout(() => {
+              setIsLoading(false);
+              router.push(submitButtonHref);
+            }, 1000);
             return;
         }
 
@@ -314,7 +271,6 @@ export const LoginCard = React.forwardRef<HTMLDivElement, LoginCardProps>(
                 {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
                 {submitButtonText}
             </Button>
-            {credentials && <Credentials {...credentials} />}
             </CardFooter>
         </form>
         {footerLinks && (

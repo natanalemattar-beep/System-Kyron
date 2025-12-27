@@ -10,15 +10,14 @@ export default function RegisterSociosPage() {
     title: "Registro de Socios",
     description: "Crea tu cuenta para el portal de socios y directivos.",
     fields: [
-        { id: "inviteCode", label: "Código de Invitación del Holding", type: "text" as const, placeholder: "Código exclusivo para socios", required: true, defaultValue: "SOCIO-KYRON-2024" },
+        { id: "inviteCode", label: "Código de Invitación del Holding", type: "text" as const, placeholder: "Código exclusivo para socios", required: true },
         { id: "fullName", label: "Nombres y Apellidos", type: "text" as const, placeholder: "Ej: Ana Pérez", required: true },
-        { id: "email", label: "Correo Electrónico", type: "email" as const, placeholder: "socio@tuempresa.com", required: true, defaultValue: "socio@kyron.com" },
-        { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", required: true, defaultValue: "password123" },
+        { id: "email", label: "Correo Electrónico", type: "email" as const, placeholder: "socio@tuempresa.com", required: true },
+        { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", required: true },
     ],
     submitButtonText: "Crear Cuenta de Socio",
     footerLinkHref: "/login-socios",
-    footerLinkText: "Inicia sesión aquí",
-    credentials: { code: "SOCIO-KYRON-2024", user: "socio@kyron.com", password: "password123" }
+    footerLinkText: "Inicia sesión aquí"
   };
 
   return <RegisterForm {...registerProps} />;

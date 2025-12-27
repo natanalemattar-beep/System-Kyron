@@ -11,12 +11,11 @@ export default function LoginRrhhPage() {
     title: "Acceso RR.HH.",
     description: "Inicia sesión con tu usuario de Recursos Humanos.",
     fields: [
-      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.rrhh", defaultValue: "usuario.rrhh" },
-      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
+      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.rrhh" },
+      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••" },
     ],
     submitButtonText: "Acceder",
     submitButtonHref: "/dashboard-rrhh",
-    credentials: { user: "usuario.rrhh", password: "password123" },
     footerLinks: {
       text: "¿No tienes una cuenta?",
       mainLink: { href: "/register/rrhh", label: "Regístrate aquí" },

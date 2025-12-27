@@ -12,12 +12,11 @@ export default function LoginMarketingPage() {
     description: "Accede al dashboard de gestión de campañas y análisis de mercado.",
     variant: "ventas" as const,
     fields: [
-      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.marketing", defaultValue: "usuario.marketing" },
-      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••", defaultValue: "password123" },
+      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.marketing" },
+      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••" },
     ],
     submitButtonText: "Acceder al Portal de Marketing",
     submitButtonHref: "/asesoria-publicidad",
-    credentials: { user: "usuario.marketing", password: "password123" },
     footerLinks: {
       text: "¿No tienes acceso?",
       mainLink: { href: "/register/marketing", label: "Crea una cuenta aquí" },
