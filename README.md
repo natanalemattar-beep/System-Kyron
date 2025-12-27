@@ -233,6 +233,7 @@ module.exports = {
 
 For more in-depth configuration examples, see the [Turbopack config documentation](/docs/app/api-reference/config/next-config-js/turbopack.md).
 
+
 ## Generating trace files for performance debugging
 
 If you encounter performance or memory issues and want to help the Next.js team diagnose them, you can generate a trace file by appending `NEXT_TURBOPACK_TRACING=1` to your dev command:
