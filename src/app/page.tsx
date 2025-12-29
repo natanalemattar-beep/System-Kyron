@@ -1,10 +1,10 @@
 
 'use client';
 
-import LandingPage from '@/app/[locale]/page';
+import LoginPage from '@/app/(auth)/login/page';
 
 // This is the root entry point of the app.
-// It directly renders the complete LandingPage component, which includes its own layout.
+// It directly renders the main login page.
 export default function RootPage() {
-  return <LandingPage />;
+  return <LoginPage />;
 }
