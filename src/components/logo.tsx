@@ -14,25 +14,17 @@ export function Logo({ className }: { className?: string }) {
       >
         <defs>
           <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 1 }} />
-            <stop offset="100%" style={{ stopColor: "hsl(180, 80%, 70%)", stopOpacity: 1 }} />
+            <stop offset="0%" style={{ stopColor: "hsl(var(--primary))" }} />
+            <stop offset="100%" style={{ stopColor: "hsl(200, 100%, 75%)" }} />
           </linearGradient>
         </defs>
-        <path 
-          d="M10 30 V 10 L 20 20 L 30 10 V 30" 
-          stroke="url(#logo-gradient)" 
-          strokeWidth="4" 
-          strokeLinecap="round" 
-          strokeLinejoin="round" 
-          fill="none" 
-        />
-        <path 
-          d="M20 20 L 30 30" 
-          stroke="url(#logo-gradient)" 
-          strokeWidth="4" 
-          strokeLinecap="round" 
-          strokeLinejoin="round" 
-          fill="none" 
+        <path
+          d="M8 4V36 M28 4L16 20L28 36"
+          stroke="url(#logo-gradient)"
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
         />
       </svg>
     </div>
