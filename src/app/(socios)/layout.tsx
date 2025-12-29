@@ -2,27 +2,20 @@
 'use client';
 
 import type { ReactNode } from "react";
-import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { SplashScreen } from "@/components/splash-screen";
+import { useUser } from "@/firebase";
 
 const user = { name: "Socio", email: "socio@kyron.com", fallback: "SO" };
 const dashboardHref = "/dashboard-socios";
 
 export default function SociosLayout({ children }: { children: ReactNode }) {
-    const [isLoading, setIsLoading] = useState(true);
+    const { isUserLoading } = useUser();
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 1500); // Simulate data fetching
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (isLoading) {
+    if (isUserLoading) {
         return <SplashScreen />;
     }
 

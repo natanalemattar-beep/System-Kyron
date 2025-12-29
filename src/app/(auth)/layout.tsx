@@ -1,22 +1,16 @@
+
 'use client';
 import type { ReactNode } from "react";
-import { useState, useEffect } from "react";
 import { LandingHeader } from "@/components/landing/landing-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { SplashScreen } from "@/components/splash-screen";
+import { useUser } from "@/firebase";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const { isUserLoading } = useUser();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        setIsLoading(false);
-    }, 1500); // Simulate data fetching
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
+  if (isUserLoading) {
     return <SplashScreen />;
   }
 
