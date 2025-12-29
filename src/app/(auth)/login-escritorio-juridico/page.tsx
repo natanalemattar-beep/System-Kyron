@@ -1,14 +1,25 @@
 
 "use client";
 
-import { LoginCard } from "@/components/auth/login-card";
+import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
+import { Gavel } from "lucide-react";
 
 export default function LoginEscritorioJuridicoPage() {
     return (
-        <LoginCard 
+        <SpecializedLoginCard 
             portalName="Escritorio Jurídico" 
             portalDescription="Acceso para el departamento legal y gestión de cumplimiento."
-            redirectPath="/dashboard-juridico"
+            redirectPath="/legal/escritorio-juridico"
+            icon={Gavel}
+            demoUsername="legal.admin"
+            demoPassword="password123"
+            footerLinks={{
+              primary: { href: "/recover-legal", text: "¿Problemas para acceder?" },
+              secondaryLinks: {
+                title: "¿No tienes una cuenta?",
+                links: [{ href: "/solicitud-acceso-legal", text: "Solicitar Acceso" }]
+              }
+            }}
         />
     );
 }

@@ -10,11 +10,15 @@ import { Loader2, AlertTriangle, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
 
-interface LoginCardProps {
+interface SpecializedLoginCardProps {
     portalName: string;
     portalDescription: string;
     redirectPath: string;
+    icon: React.ElementType;
+    demoUsername: string;
+    demoPassword: string;
     footerLinks?: {
       primary: { href: string; text: string };
       secondaryLinks?: {
@@ -24,10 +28,11 @@ interface LoginCardProps {
     };
 }
 
-export function LoginCard({ portalName, portalDescription, redirectPath, footerLinks }: LoginCardProps) {
+export function SpecializedLoginCard({ portalName, portalDescription, redirectPath, icon: Icon, demoUsername, demoPassword, footerLinks }: SpecializedLoginCardProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+    const { toast } = useToast();
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,16 +40,12 @@ export function LoginCard({ portalName, portalDescription, redirectPath, footerL
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        const email = formData.get('email') as string;
+        const username = formData.get('username') as string;
         const password = formData.get('password') as string;
-
-        // Demo credentials
-        const DEMO_EMAIL = "demo@kyron.com";
-        const DEMO_PASS = "demodemo";
         
-        // Simulate network delay
         setTimeout(() => {
-            if (email === DEMO_EMAIL && password === DEMO_PASS) {
+            if (username === demoUsername && password === demoPassword) {
+                toast({ title: "Acceso Concedido", description: `Bienvenido al portal ${portalName}.` });
                 router.push(redirectPath);
             } else {
                 setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
@@ -58,7 +59,7 @@ export function LoginCard({ portalName, portalDescription, redirectPath, footerL
             <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-2 border-border shadow-xl rounded-2xl">
                  <CardHeader className="text-center p-8">
                     <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit mb-4">
-                        <User className="h-8 w-8 text-primary"/>
+                        <Icon className="h-8 w-8 text-primary"/>
                     </div>
                     <CardTitle className="text-3xl font-bold">{portalName}</CardTitle>
                     <CardDescription className="text-base text-muted-foreground mt-2">
@@ -71,9 +72,8 @@ export function LoginCard({ portalName, portalDescription, redirectPath, footerL
                             <AlertTriangle className="h-4 w-4" />
                             <AlertTitle>Modo Demostración</AlertTitle>
                             <AlertDescription>
-                                <p>Utilice las siguientes credenciales para acceder:</p>
-                                <p className="font-mono text-sm"><strong>Correo:</strong> demo@kyron.com</p>
-                                <p className="font-mono text-sm"><strong>Clave:</strong> demodemo</p>
+                                <p className="font-mono text-sm"><strong>Usuario:</strong> {demoUsername}</p>
+                                <p className="font-mono text-sm"><strong>Clave:</strong> {demoPassword}</p>
                             </AlertDescription>
                         </Alert>
                         {error && (
@@ -84,8 +84,8 @@ export function LoginCard({ portalName, portalDescription, redirectPath, footerL
                             </Alert>
                         )}
                         <div className="space-y-2">
-                            <Label htmlFor="email">Correo Electrónico</Label>
-                            <Input id="email" name="email" type="email" placeholder="tu@email.com" required className="text-base" />
+                            <Label htmlFor="username">Usuario</Label>
+                            <Input id="username" name="username" type="text" placeholder="Ingresa tu usuario" required className="text-base" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="password">Contraseña</Label>

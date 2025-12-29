@@ -1,14 +1,19 @@
 
 "use client";
 
-import { LoginCard } from "@/components/auth/login-card";
+import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
+import { Signal } from "lucide-react";
+
 
 export default function LoginTelecomPage() {
     return (
-        <LoginCard 
+        <SpecializedLoginCard 
             portalName="Gestión de Telecom" 
             portalDescription="Administración de redes, líneas y servicios de conectividad."
             redirectPath="/dashboard-telecom"
+            icon={Signal}
+            demoUsername="telecom.noc"
+            demoPassword="password123"
         />
     );
 }

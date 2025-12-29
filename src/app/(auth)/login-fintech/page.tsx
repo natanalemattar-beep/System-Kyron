@@ -1,14 +1,95 @@
 
 "use client";
 
-import { LoginCard } from "@/components/auth/login-card";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2, AlertTriangle, Building, KeyRound } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
 
 export default function LoginFintechPage() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
+    const { toast } = useToast();
+
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setIsLoading(true);
+        setError(null);
+
+        const formData = new FormData(event.currentTarget);
+        const rif = formData.get('rif') as string;
+        const password = formData.get('password') as string;
+
+        const DEMO_RIF = "J-12345678-9";
+        const DEMO_PASS = "admin1234";
+        
+        setTimeout(() => {
+            if (rif === DEMO_RIF && password === DEMO_PASS) {
+                toast({ title: "Acceso Concedido", description: "Bienvenido al Centro de Contabilidad." });
+                router.push('/contabilidad');
+            } else {
+                setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
+            }
+            setIsLoading(false);
+        }, 1000);
+    };
+
     return (
-        <LoginCard 
-            portalName="Centro de Contabilidad" 
-            portalDescription="Dashboard de gestión financiera y contable para empresas."
-            redirectPath="/contabilidad"
-        />
+        <div className="flex items-center justify-center min-h-screen">
+            <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-2 border-border shadow-xl rounded-2xl">
+                 <CardHeader className="text-center p-8">
+                    <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit mb-4">
+                        <Building className="h-8 w-8 text-primary"/>
+                    </div>
+                    <CardTitle className="text-3xl font-bold">Portal Empresarial</CardTitle>
+                    <CardDescription className="text-base text-muted-foreground mt-2">
+                        Acceso al Centro de Contabilidad y gestión financiera.
+                    </CardDescription>
+                </CardHeader>
+                <form onSubmit={handleLogin}>
+                    <CardContent className="p-8 space-y-6">
+                         <Alert variant="default" className="bg-secondary">
+                            <AlertTriangle className="h-4 w-4" />
+                            <AlertTitle>Modo Demostración</AlertTitle>
+                            <AlertDescription>
+                                <p>Utilice las siguientes credenciales para acceder:</p>
+                                <p className="font-mono text-sm"><strong>RIF:</strong> J-12345678-9</p>
+                                <p className="font-mono text-sm"><strong>Clave:</strong> admin1234</p>
+                            </AlertDescription>
+                        </Alert>
+                        {error && (
+                             <Alert variant="destructive">
+                                <AlertTriangle className="h-4 w-4" />
+                                <AlertTitle>Error de Autenticación</AlertTitle>
+                                <AlertDescription>{error}</AlertDescription>
+                            </Alert>
+                        )}
+                        <div className="space-y-2">
+                            <Label htmlFor="rif">RIF de la Empresa</Label>
+                            <Input id="rif" name="rif" type="text" placeholder="J-12345678-9" required className="text-base" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="password">Contraseña Maestra</Label>
+                            <Input id="password" name="password" type="password" required className="text-base" />
+                        </div>
+                    </CardContent>
+                    <CardFooter className="p-8 flex flex-col gap-4">
+                        <Button type="submit" className="w-full text-lg h-12" disabled={isLoading}>{
+                            isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder'
+                        }</Button>
+                        <Button variant="link" asChild className="text-muted-foreground font-normal">
+                           <Link href="#">¿Olvidaste tu contraseña maestra?</Link>
+                        </Button>
+                    </CardFooter>
+                </form>
+            </Card>
+        </div>
     );
 }
