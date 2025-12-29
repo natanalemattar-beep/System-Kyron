@@ -1,8 +1,31 @@
 
 'use client';
 
-import LoginPage from '@/app/(auth)/login/page';
+import {
+  HeroSection,
+  ServicesSection,
+  FeaturesSection,
+  AboutUsSection,
+  FaqSection,
+  CtaSection,
+  Footer
+} from "@/components/landing";
+import { LandingHeader } from "@/components/landing/landing-header";
+
 
 export default function LandingPage() {
-    return <LoginPage />;
+  return (
+    <>
+      <LandingHeader />
+      <main>
+        <HeroSection />
+        <ServicesSection />
+        <FeaturesSection />
+        <AboutUsSection />
+        <FaqSection />
+        <CtaSection />
+        <Footer />
+      </main>
+    </>
+  );
 }

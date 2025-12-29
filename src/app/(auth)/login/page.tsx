@@ -98,7 +98,7 @@ export default function LoginPage() {
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-80 shadow-lg rounded-xl">
-                                {loginOptions.filter(o => o.href !== '/login-fintech').map((option) => (
+                                {loginOptions.filter(o => o.href !== '/login').map((option) => (
                                     <DropdownMenuItem key={option.href} asChild>
                                         <Link href={option.href} className="flex items-start gap-3 p-3">
                                             <div className="p-2 bg-primary/10 rounded-md mt-1">
