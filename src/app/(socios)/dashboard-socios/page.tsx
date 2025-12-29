@@ -16,6 +16,7 @@ import { formatCurrency } from "@/lib/utils";
 import { QuickAccess } from "@/components/dashboard/quick-access";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 
 const kpiData = [
   { title: "Empresas en el Holding", value: "5", icon: Building },
@@ -113,7 +114,7 @@ export default function DashboardSociosPage() {
       {/* Quick Access Modules */}
       <div className="space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight">Acceso a Módulos del Ecosistema</h2>
-          <QuickAccess />
+          <QuickAccess navGroups={adminNavGroups} />
       </div>
     </div>
   );

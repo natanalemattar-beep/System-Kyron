@@ -9,21 +9,15 @@ import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { SplashScreen } from "@/components/splash-screen";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
+import { useUser } from "@/firebase";
 
 const user = { name: "Administrador", email: "admin@kyron.com", fallback: "AD" };
 const dashboardHref = "/dashboard-empresa";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const { isUserLoading } = useUser();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        setIsLoading(false);
-    }, 1500); // Simulate data fetching
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
+  if (isUserLoading) {
     return <SplashScreen />;
   }
   

@@ -13,33 +13,27 @@ export function DynamicBackground() {
   useEffect(() => {
     // This effect runs only on the client, ensuring window and other browser-specific APIs are available.
     setIsClient(true);
-    
-    // Logic to determine the current holiday
-    const now = new Date();
-    
-    // --- TEMPORARY FOR DEMONSTRATION ---
-    // This forces the Christmas holiday to be active so you can see the effect.
-    const currentHoliday = holidays.find(h => h.name === "Navidad") || null;
-    setActiveHoliday(currentHoliday);
-    // --- END TEMPORARY ---
+  }, []);
 
-    /*
-    // Original logic to be restored later:
-    const currentMonth = now.getMonth();
-    const currentDay = now.getDate();
+  useEffect(() => {
+    if (isClient) {
+        const now = new Date();
+        const currentMonth = now.getMonth();
+        const currentDay = now.getDate();
+        let foundHoliday: Holiday | null = null;
 
-    for (const holiday of holidays) {
-        const holidayEndDate = new Date(now.getFullYear(), holiday.month, holiday.day + holiday.duration - 1);
-        const holidayStartDate = new Date(now.getFullYear(), holiday.month, holiday.day);
+        for (const holiday of holidays) {
+            const holidayEndDate = new Date(now.getFullYear(), holiday.month, holiday.day + holiday.duration -1);
+            const holidayStartDate = new Date(now.getFullYear(), holiday.month, holiday.day);
 
-        if (now >= holidayStartDate && now <= holidayEndDate) {
-            setActiveHoliday(holiday);
-            break; // Found an active holiday, no need to check further
+            if (now >= holidayStartDate && now <= holidayEndDate) {
+                foundHoliday = holiday;
+                break; 
+            }
         }
+        setActiveHoliday(foundHoliday);
     }
-    */
-    
-  }, []); // Empty dependency array ensures this runs once on mount.
+  }, [isClient]);
 
   return (
     <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden">
@@ -59,7 +53,7 @@ export function DynamicBackground() {
             transition={{ duration: 2, delay: 0.5 }}
         >
             <motion.div
-                className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--primary)/0.1),rgba(255,255,255,0))] animate-[pulse_8s_infinite]"
+                className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--primary)/0.1),rgba(255,255,255,0))]"
                 animate={{
                     x: [0, 100, 0, -100, 0],
                     y: [0, -50, 50, 0, 0],
@@ -73,7 +67,7 @@ export function DynamicBackground() {
                 }}
             />
             <motion.div
-                className="absolute bottom-[-10%] right-[-10%] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--primary)/0.05),rgba(255,255,255,0))] animate-[pulse_10s_infinite_2s]"
+                className="absolute bottom-[-10%] right-[-10%] h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--primary)/0.05),rgba(255,255,255,0))]"
                   animate={{
                     x: [0, -80, 0, 80, 0],
                     y: [0, 60, -40, 0, 0],

@@ -41,18 +41,19 @@ export default function RegisterNaturalPage() {
 
             // Create a user profile document in Firestore
             const userDocRef = doc(firestore, "users", user.uid);
-            await setDoc(userDocRef, {
+            // Use the non-blocking fire-and-forget method
+            setDocumentNonBlocking(userDocRef, {
                 id: user.uid,
                 email: user.email,
                 firstName: firstName || '',
                 lastName: lastName || ''
-            });
+            }, {});
 
             toast({
                 title: "¡Registro Exitoso!",
                 description: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
             });
-            router.push("/login-personal");
+            router.push("/login");
         } catch (err: any) {
             switch (err.code) {
                 case 'auth/email-already-in-use':
@@ -84,7 +85,7 @@ export default function RegisterNaturalPage() {
             { id: "password", label: "Contraseña", type: "password" as const, placeholder: "Mínimo 6 caracteres", required: true },
         ],
         submitButtonText: "Crear Cuenta",
-        footerLinkHref: "/login-personal",
+        footerLinkHref: "/login",
         footerLinkText: "Inicia sesión aquí",
         onSubmit: handleRegister,
         error: error,

@@ -66,7 +66,7 @@ export function InvoicesTable({ invoices, isLoading }: { invoices: Invoice[], is
     )
   }
   
-  if (invoices.length === 0) {
+  if (!invoices || invoices.length === 0) {
     return (
         <div className="text-center py-12 text-muted-foreground">
             No se han encontrado facturas.
