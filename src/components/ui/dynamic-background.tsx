@@ -3,10 +3,26 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { SnowEffect } from "./snow-effect";
 
 export function DynamicBackground() {
+  const [isDecember, setIsDecember] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // This effect runs only on the client
+    setIsClient(true);
+    const today = new Date();
+    // Christmas season: check if the month is December (month is 0-indexed)
+    if (today.getMonth() === 11) {
+      setIsDecember(true);
+    }
+  }, []);
+
   return (
     <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden">
+        {isClient && isDecember && <SnowEffect />}
         <motion.div 
             className="absolute inset-0 -z-10 h-full w-full"
             initial={{ opacity: 0 }}
