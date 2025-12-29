@@ -4,9 +4,8 @@
 import React, { createContext, useContext, ReactNode, useMemo, DependencyList } from 'react';
 import { FirebaseApp } from 'firebase/app';
 import { Firestore } from 'firebase/firestore';
-import { Auth, User } from 'firebase/auth';
+import { Auth } from 'firebase/auth';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
-import { useUser as useAuthHook } from './auth/use-user'; // Renamed to avoid conflict
 
 interface FirebaseProviderProps {
   children: ReactNode;
@@ -28,13 +27,6 @@ export interface FirebaseServices {
   firebaseApp: FirebaseApp;
   firestore: Firestore;
   auth: Auth;
-}
-
-// Return type for useUser()
-export interface UserHookResult {
-  user: User | null;
-  isUserLoading: boolean;
-  userError: Error | null;
 }
 
 // React Context
@@ -88,9 +80,6 @@ export const useFirebase = (): FirebaseServices => {
 export const useAuth = (): Auth | null => useFirebaseContext().auth;
 export const useFirestore = (): Firestore | null => useFirebaseContext().firestore;
 export const useFirebaseApp = (): FirebaseApp | null => useFirebaseContext().firebaseApp;
-
-// Re-export the dedicated auth hook for user state
-export const useUser = useAuthHook;
 
 type MemoFirebase <T> = T & {__memo?: boolean};
 

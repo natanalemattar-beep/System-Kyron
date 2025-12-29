@@ -1,24 +1,11 @@
 
-import { HeroSection, ServicesSection, FeaturesSection, AboutUsSection, FaqSection, CtaSection, Footer } from '@/components/landing';
-import { LandingHeader } from "@/components/landing/landing-header";
-import { ChatDialog } from "@/components/chat-dialog";
+'use client';
 
-export default function LandingPage() {
-    
-    return (
-        <div className="flex flex-col min-h-dvh bg-background text-foreground">
-           <LandingHeader />
-            <main className="flex-1 pt-16">
-                <HeroSection />
-                <ServicesSection />
-                <FeaturesSection />
-                <AboutUsSection />
-                <FaqSection />
-                <CtaSection />
-            </main>
+import LandingPage from '@/app/(main)/page';
 
-            <Footer />
-            <ChatDialog />
-        </div>
-    );
+// This file is now a simple re-exporter. 
+// The actual landing page logic is in /app/(main)/page.tsx
+// to share the main layout with other authenticated pages.
+export default function RootPage() {
+  return <LandingPage />;
 }

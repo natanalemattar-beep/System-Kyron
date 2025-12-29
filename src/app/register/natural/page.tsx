@@ -1,74 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-"use client";
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-import { useState } from "react";
-import { RegisterForm } from "@/components/auth/register-form";
-import { User } from "lucide-react";
-import { useAuth } from "@/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertTriangle } from "lucide-react";
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-export default function RegisterNaturalPage() {
-    const [error, setError] = useState<string | null>(null);
-    const auth = useAuth();
-    const router = useRouter();
-    const { toast } = useToast();
-
-    const handleRegister = async (formData: Record<string, string>) => {
-        if (!auth) {
-            setError("El servicio de autenticación no está disponible.");
-            return;
-        }
-
-        const email = formData.email;
-        const password = formData.password;
-
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            toast({
-                title: "¡Registro Exitoso!",
-                description: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
-            });
-            router.push("/login-personal");
-        } catch (err: any) {
-            switch (err.code) {
-                case 'auth/email-already-in-use':
-                    setError("Este correo electrónico ya está en uso. Intenta iniciar sesión.");
-                    break;
-                case 'auth/weak-password':
-                    setError("La contraseña es muy débil. Debe tener al menos 6 caracteres.");
-                    break;
-                case 'auth/invalid-email':
-                     setError("El formato del correo electrónico es inválido.");
-                    break;
-                default:
-                    setError("Ocurrió un error inesperado durante el registro.");
-                    break;
-            }
-        }
-    };
-
-
-    const registerProps = {
-        icon: User,
-        title: "Registro Personal",
-        description: "Crea tu cuenta para gestionar tus trámites personales.",
-        fields: [
-            { id: "fullName", label: "Nombres y Apellidos", type: "text" as const, placeholder: "Ej: Juan Pérez", required: true },
-            { id: "email", label: "Correo Electrónico", type: "email" as const, placeholder: "tu@correo.com", required: true },
-            { id: "password", label: "Contraseña", type: "password" as const, placeholder: "Mínimo 6 caracteres", required: true },
-        ],
-        submitButtonText: "Crear Cuenta",
-        footerLinkHref: "/login-personal",
-        footerLinkText: "Inicia sesión aquí",
-        onSubmit: handleRegister,
-        error: error,
-    };
-
-    return <RegisterForm {...registerProps} />;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
 }
-
-    
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
