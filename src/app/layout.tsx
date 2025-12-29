@@ -2,10 +2,11 @@
 'use client';
 
 import type { ReactNode } from "react";
-import { AppHeader } from "@/components/app-header";
-import { adminNavGroups, legalNavGroups, rrhhNavGroups, sociosNavGroups, telecomNavGroups, ventasNavGroups, naturalMenuItems as naturalNavGroups } from "@/components/app-sidebar-nav-items";
-import { ChatDialog } from "@/components/chat-dialog";
 import { usePathname } from "next/navigation";
+import { AppHeader } from "@/components/app-header";
+import { LandingHeader } from "@/components/landing/landing-header";
+import { adminNavGroups, legalNavGroups, rrhhNavGroups, sociosNavGroups, telecomNavGroups, ventasNavGroups, naturalNavGroups } from "@/components/app-sidebar-nav-items";
+import { ChatDialog } from "@/components/chat-dialog";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { Providers } from "@/components/providers";
 
@@ -23,66 +24,70 @@ const portalConfig = {
 
 type PortalKey = keyof typeof portalConfig;
 
+// Function to determine which portal config to use based on the pathname
+const getPortalKey = (pathname: string): PortalKey | 'public' => {
+  const firstSegment = pathname.split('/')[1];
+
+  const publicRoutes = ['login', 'register', 'terms', 'politica-privacidad', '[locale]'];
+
+  if (pathname === '/' || publicRoutes.includes(firstSegment)) {
+      return 'public';
+  }
+
+  if (firstSegment.startsWith('(')) {
+    const portal = firstSegment.replace(/[()]/g, '');
+    if (Object.keys(portalConfig).includes(portal)) {
+      return portal as PortalKey;
+    }
+  }
+
+  // Fallback for top-level admin routes
+  if (['dashboard-empresa', 'contabilidad', 'cuentas-por-cobrar'].includes(firstSegment)) {
+      return 'admin';
+  }
+
+  return 'admin'; // Default authenticated portal
+};
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-
-  // Determine the current portal based on the URL structure
-  const getPortalKey = (): PortalKey | null => {
-    const segment = pathname.split('/')[1]; // e.g., 'legal', 'hr', 'login'
-    if (pathname.startsWith('/(legal)')) return 'legal';
-    if (pathname.startsWith('/(hr)')) return 'hr';
-    if (pathname.startsWith('/(socios)')) return 'socios';
-    if (pathname.startsWith('/(telecom)')) return 'telecom';
-    if (pathname.startsWith('/(ventas)')) return 'ventas';
-    if (pathname.startsWith('/(natural)')) return 'natural';
-    if (pathname.startsWith('/(auth)')) return 'auth';
-    
-    // Default to admin for most top-level authenticated routes
-    const publicRoutes = ['/', '/login', '/register', '/terms', '/politica-privacidad'];
-    if (publicRoutes.includes(pathname) || pathname.startsWith('/_next') || pathname.startsWith('/[locale]')) {
-        return null;
+  const portalKey = getPortalKey(pathname);
+  
+  const renderContent = () => {
+    if (portalKey === 'public') {
+      return (
+        <>
+          <LandingHeader />
+          <main>{children}</main>
+        </>
+      );
     }
     
-    return 'admin';
-  }
+    const config = portalConfig[portalKey as Exclude<PortalKey, 'auth'>];
 
-  const portalKey = getPortalKey();
-  const config = portalKey ? portalConfig[portalKey] : null;
-
-  // This layout is now ONLY for authenticated app pages.
-  // The root page (landing) has its own complete layout structure.
-  if (!config) {
-    // This should ideally only render for the public pages, which now handle their own layout.
-    // We return children directly to let those pages control their structure.
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body>
-                 <Providers>
-                    {children}
-                </Providers>
-            </body>
-        </html>
+      <div className="flex flex-col min-h-screen">
+          <AppHeader user={config.user} navGroups={config.navGroups} dashboardHref={config.dashboardHref} />
+          <main className="flex-1 container mx-auto p-4 md:p-8 pt-20 md:pt-24">
+              {children}
+          </main>
+          <ChatDialog />
+      </div>
     );
-  }
+  };
 
-  // Authenticated App Layout
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
         <Providers>
-          <div className="flex flex-col min-h-screen bg-background text-foreground">
             <DynamicBackground />
-            <AppHeader user={config.user} navGroups={config.navGroups} dashboardHref={config.dashboardHref} />
-            <main className="flex-1 container mx-auto p-4 md:p-8 pt-20 md:pt-24">
-              {children}
-            </main>
-            <ChatDialog />
-          </div>
+            {renderContent()}
         </Providers>
       </body>
     </html>
