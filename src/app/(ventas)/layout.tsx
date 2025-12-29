@@ -6,20 +6,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
-import { SplashScreen } from "@/components/splash-screen";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
-import { useUser } from "@/firebase";
 
 const user = { name: "Vendedor", email: "ventas@kyron.com", fallback: "VE" };
 const dashboardHref = "/analisis-ventas";
 
 
 export default function VentasLayout({ children }: { children: ReactNode }) {
-  const { isUserLoading } = useUser();
-
-  if (isUserLoading) {
-    return <SplashScreen />;
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">

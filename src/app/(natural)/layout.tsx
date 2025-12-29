@@ -6,19 +6,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import { naturalMenuItems } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
-import { SplashScreen } from "@/components/splash-screen";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
-import { useUser } from "@/firebase";
 
 const user = { name: "Usuario Natural", email: "usuario@kyron.com", fallback: "UN" };
 const dashboardHref = "/dashboard";
 
 export default function NaturalLayout({ children }: { children: ReactNode }) {
-  const { isUserLoading } = useUser();
-
-  if (isUserLoading) {
-    return <SplashScreen />;
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">

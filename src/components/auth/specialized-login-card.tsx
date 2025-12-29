@@ -96,24 +96,22 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
                         <Button type="submit" className="w-full text-lg h-12" disabled={isLoading}>{
                             isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder'
                         }</Button>
-                        {footerLinks && (
-                          <>
-                            <Button variant="link" asChild className="text-muted-foreground font-normal">
-                               <Link href={footerLinks.primary.href}>{footerLinks.primary.text}</Link>
-                            </Button>
-                            {footerLinks.secondaryLinks && footerLinks.secondaryLinks.links.length > 0 && (
-                                <div className="text-center w-full pt-4 border-t">
-                                    <p className="text-sm text-muted-foreground mb-2">{footerLinks.secondaryLinks.title || 'Otras opciones:'}</p>
-                                    <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
-                                        {footerLinks.secondaryLinks.links.map(link => (
-                                             <Button key={link.href} variant="link" asChild className="p-0 h-auto text-xs">
-                                                <Link href={link.href}>{link.text}</Link>
-                                             </Button>
-                                        ))}
-                                    </div>
+                        {footerLinks && footerLinks.primary && (
+                          <Button variant="link" asChild className="text-muted-foreground font-normal">
+                             <Link href={footerLinks.primary.href}>{footerLinks.primary.text}</Link>
+                          </Button>
+                        )}
+                         {footerLinks && footerLinks.secondaryLinks && footerLinks.secondaryLinks.links.length > 0 && (
+                            <div className="text-center w-full pt-4 border-t">
+                                <p className="text-sm text-muted-foreground mb-2">{footerLinks.secondaryLinks.title || 'Otras opciones:'}</p>
+                                <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                                    {footerLinks.secondaryLinks.links.map(link => (
+                                         <Button key={link.href} variant="link" asChild className="p-0 h-auto text-xs">
+                                            <Link href={link.href}>{link.text}</Link>
+                                         </Button>
+                                    ))}
                                 </div>
-                            )}
-                          </>
+                            </div>
                         )}
                     </CardFooter>
                 </form>

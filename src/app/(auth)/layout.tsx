@@ -4,16 +4,9 @@ import type { ReactNode } from "react";
 import { LandingHeader } from "@/components/landing/landing-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { SplashScreen } from "@/components/splash-screen";
-import { useUser } from "@/firebase";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const { isUserLoading } = useUser();
-
-  if (isUserLoading) {
-    return <SplashScreen />;
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground relative">

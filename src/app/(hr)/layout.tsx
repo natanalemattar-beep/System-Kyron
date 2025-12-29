@@ -6,19 +6,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { AppHeader } from "@/components/app-header";
 import { rrhhNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
-import { SplashScreen } from "@/components/splash-screen";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
-import { useUser } from "@/firebase";
 
 const user = { name: "RR.HH.", email: "rrhh@kyron.com", fallback: "RH" };
 const dashboardHref = "/dashboard-rrhh";
 
 export default function HrLayout({ children }: { children: ReactNode }) {
-  const { isUserLoading } = useUser();
-
-  if (isUserLoading) {
-    return <SplashScreen />;
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
