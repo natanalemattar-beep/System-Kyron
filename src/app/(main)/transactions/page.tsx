@@ -2,21 +2,12 @@
 "use client";
 
 import { TransactionsTable } from "@/components/transactions/transactions-table";
-import { useUser } from "@/firebase/provider";
-import { useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query } from "firebase/firestore";
-import { useFirestore } from "@/firebase/provider";
+import { mockTransactions } from "@/lib/data";
 
 export default function TransactionsPage() {
-  const { user } = useUser();
-  const firestore = useFirestore();
-
-  const transactionsQuery = useMemoFirebase(() => {
-    if (!user || !firestore) return null;
-    return query(collection(firestore, "users", user.uid, "transactions"));
-  }, [user, firestore]);
-
-  const { data: transactions, isLoading } = useCollection(transactionsQuery);
+  // Using mock data directly, no need for Firebase hooks.
+  const transactions = mockTransactions;
+  const isLoading = false; // Data is static, so it's never loading.
 
   return (
     <div className="p-4 md:p-8">

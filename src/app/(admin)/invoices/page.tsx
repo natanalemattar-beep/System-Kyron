@@ -4,21 +4,12 @@ import { InvoicesTable } from "@/components/invoices/invoices-table";
 import { CreateInvoiceSheet } from "@/components/invoices/create-invoice-sheet";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { useUser } from "@/firebase/provider";
-import { useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query } from "firebase/firestore";
-import { useFirestore } from "@/firebase/provider";
+import { mockInvoices } from "@/lib/data";
 
 export default function InvoicesPage() {
-  const { user } = useUser();
-  const firestore = useFirestore();
-
-  const invoicesQuery = useMemoFirebase(() => {
-    if (!user || !firestore) return null;
-    return query(collection(firestore, "users", user.uid, "invoices"));
-  }, [user, firestore]);
-
-  const { data: invoices, isLoading } = useCollection(invoicesQuery);
+  // Using mock data directly, no need for Firebase hooks here anymore.
+  const invoices = mockInvoices;
+  const isLoading = false; // Data is static, so it's never loading.
 
   return (
     <div>

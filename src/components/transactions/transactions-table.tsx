@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -48,7 +48,7 @@ export function TransactionsTable({
   const [categorizingId, setCategorizingId] = useState<string | null>(null);
   const { toast } = useToast();
 
-  React.useEffect(() => {
+  useEffect(() => {
     setTransactions(initialTransactions);
   }, [initialTransactions]);
 
