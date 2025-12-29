@@ -8,8 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, AlertTriangle, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/firebase/provider';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import Link from 'next/link';
 
@@ -30,15 +28,9 @@ export function LoginCard({ portalName, portalDescription, redirectPath, footerL
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
-    const auth = useAuth();
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (!auth) {
-            setError("Servicio de autenticación no disponible.");
-            return;
-        }
-
         setIsLoading(true);
         setError(null);
 
@@ -46,32 +38,19 @@ export function LoginCard({ portalName, portalDescription, redirectPath, footerL
         const email = formData.get('email') as string;
         const password = formData.get('password') as string;
 
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            router.push(redirectPath);
-        } catch (err: any) {
-            switch (err.code) {
-                case 'auth/user-not-found':
-                case 'auth/invalid-credential':
-                    setError("Credenciales inválidas. Por favor, verifica tu correo y contraseña.");
-                    break;
-                case 'auth/wrong-password':
-                    setError("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
-                    break;
-                case 'auth/invalid-email':
-                    setError("El formato del correo electrónico es inválido.");
-                    break;
-                case 'auth/too-many-requests':
-                    setError("Has intentado iniciar sesión demasiadas veces. Por favor, inténtalo más tarde.");
-                    break;
-                default:
-                    setError("Ocurrió un error inesperado al iniciar sesión.");
-                    console.error("Firebase login error:", err);
-                    break;
+        // Demo credentials
+        const DEMO_EMAIL = "demo@kyron.com";
+        const DEMO_PASS = "demodemo";
+        
+        // Simulate network delay
+        setTimeout(() => {
+            if (email === DEMO_EMAIL && password === DEMO_PASS) {
+                router.push(redirectPath);
+            } else {
+                setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
             }
-        } finally {
             setIsLoading(false);
-        }
+        }, 1000);
     };
 
     return (
@@ -88,6 +67,15 @@ export function LoginCard({ portalName, portalDescription, redirectPath, footerL
                 </CardHeader>
                 <form onSubmit={handleLogin}>
                     <CardContent className="p-8 space-y-6">
+                         <Alert variant="default" className="bg-secondary">
+                            <AlertTriangle className="h-4 w-4" />
+                            <AlertTitle>Modo Demostración</AlertTitle>
+                            <AlertDescription>
+                                <p>Utilice las siguientes credenciales para acceder:</p>
+                                <p className="font-mono text-sm"><strong>Correo:</strong> demo@kyron.com</p>
+                                <p className="font-mono text-sm"><strong>Clave:</strong> demodemo</p>
+                            </AlertDescription>
+                        </Alert>
                         {error && (
                              <Alert variant="destructive">
                                 <AlertTriangle className="h-4 w-4" />

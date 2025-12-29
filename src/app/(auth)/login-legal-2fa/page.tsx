@@ -34,7 +34,7 @@ export default function LoginLegal2faPage() {
                     title: "Acceso Concedido",
                     description: "Verificación de 2FA exitosa. Redirigiendo al portal legal...",
                 });
-                window.location.href = "/legal/dashboard-juridico";
+                window.location.href = "/legal/escritorio-juridico";
             } else {
                 toast({
                     variant: "destructive",
@@ -54,7 +54,7 @@ export default function LoginLegal2faPage() {
         </div>
         <CardTitle className="text-2xl">Verificación de Segundo Factor</CardTitle>
         <CardDescription>
-            Se requiere verificación adicional. Ingrese el código de 6 dígitos de su aplicación autenticadora.
+            Se requiere verificación adicional. Ingrese el código de 6 dígitos.
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6 flex flex-col items-center justify-center space-y-6">
@@ -70,6 +70,7 @@ export default function LoginLegal2faPage() {
                 <InputOTPSlot index={5} />
             </InputOTPGroup>
         </InputOTP>
+        <p className="text-sm text-muted-foreground">(Pista: el código es 123456)</p>
 
          <Button onClick={handleVerify} disabled={isVerifying || code.length < 6} className="w-full h-11 text-base">
             {isVerifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
