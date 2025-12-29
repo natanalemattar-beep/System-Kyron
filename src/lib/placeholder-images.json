@@ -3,7 +3,7 @@
     {
       "id": "user-avatar",
       "description": "A placeholder for a user's avatar.",
-      "imageUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1c2VyJTIwYXZhdGFyfGVufDB8fHx8MTc1OTIzODE1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
       "imageHint": "user avatar"
     },
     {
@@ -21,169 +21,169 @@
     {
       "id": "testimonial-avatar-1",
       "description": "A placeholder image for a testimonial avatar, showing a businessman.",
-      "imageUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&q=80",
+      "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026701d",
       "imageHint": "businessman portrait"
     },
     {
       "id": "testimonial-avatar-2",
       "description": "A placeholder image for a testimonial avatar, showing a businesswoman.",
-      "imageUrl": "https://images.unsplash.com/photo-1544725176-7c40e5a71c3e?w=400&q=80",
+      "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026702d",
       "imageHint": "businesswoman portrait"
     },
     {
       "id": "testimonial-avatar-3",
       "description": "A placeholder image for a testimonial avatar, showing a professional man.",
-      "imageUrl": "https://images.unsplash.com/photo-1557862921-37829c790f19?w=400&q=80",
+      "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026703d",
       "imageHint": "professional man"
     },
     {
       "id": "testimonial-avatar-4",
       "description": "A placeholder image for a testimonial avatar, showing a smiling businessman.",
-      "imageUrl": "https://images.unsplash.com/photo-1531590878845-12627191e687?w=400&q=80",
+      "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
       "imageHint": "smiling businessman"
     },
     {
       "id": "notebook-design-1",
       "description": "A modern notebook design with geometric patterns.",
-      "imageUrl": "https://images.unsplash.com/photo-1762222678255-d04695ebed98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBub3RlYm9va3xlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1765648763912-03115da05d07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBub3RlYm9va3xlbnwwfHx8fDE3NjY5Njg0OTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "modern notebook"
     },
     {
       "id": "notebook-design-2",
       "description": "A minimalist notebook design in pastel colors.",
-      "imageUrl": "https://images.unsplash.com/photo-1661169398798-a91a4eb3ee08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwbm90ZWJvb2t8ZW58MHx8fHwxNzYyNjI5MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1614630536369-2516d7c0a58c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtaW5pbWFsaXN0JTIwbm90ZWJvb2t8ZW58MHx8fHwxNzY2OTY4NDkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "minimalist notebook"
     },
     {
       "id": "notebook-design-3",
       "description": "A professional notebook design with a corporate logo mockup.",
-      "imageUrl": "https://images.unsplash.com/photo-176234111756-caf184156fa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb3Jwb3JhdGUlMjBub3RlYm9va3xlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1544006658-89bde88e87c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb3Jwb3JhdGUlMjBub3RlYm9va3xlbnwwfHx8fDE3NjY5Njg0OTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "corporate notebook"
     },
     {
       "id": "presentation-template-1",
       "description": "A template for a business presentation slide with dark theme.",
-      "imageUrl": "https://images.unsplash.com/photo-1650802218103-6bb0ac6b98eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcmVzZW50YXRpb24lMjBzbGlkZXxlbnwwfHx8fDE3NjI1ODIwNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1590097520505-416422f07ad1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcmVzZW50YXRpb24lMjBzbGlkZXxlbnwwfHx8fDE3NjY5Njg0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "presentation slide"
     },
     {
       "id": "presentation-template-2",
       "description": "A vibrant presentation template with bold colors.",
-      "imageUrl": "https://images.unsplash.com/photo-1712293176507-deee4f255380?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx2aWJyYW50JTIwcHJlc2VudGF0aW9ufGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1712293176507-deee4f255380?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx2aWJyYW50JTIwcHJlc2VudGF0aW9ufGVufDB8fHx8MTc2Njk2ODQ5MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "vibrant presentation"
     },
     {
       "id": "presentation-template-3",
       "description": "A clean and minimalist presentation slide layout.",
-      "imageUrl": "https://images.unsplash.com/photo-1505468726633-0069fc52f4b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwcHJlc2VudGF0aW9ufGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1748801583967-3038967d7279?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwcHJlc2VudGF0aW9ufGVufDB8fHx8MTc2Njk2ODQ5MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "minimalist presentation"
     },
     {
       "id": "presentation-template-4",
       "description": "Template de presentación con infografías.",
-      "imageUrl": "https://images.unsplash.com/photo-1582775764915-6b78a5e9904d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpbmZvZ3JhcGhpYyUyMHByZXNlbnRhdGlvbnxlbnwwfHx8fDE3NjQwMzc2MzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1626747086409-5d61a2710ab7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpbmZvZ3JhcGhpYyUyMHByZXNlbnRhdGlvbnxlbnwwfHx8fDE3NjY5Njg0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "infographic presentation"
     },
     {
       "id": "presentation-template-5",
       "description": "Template de presentación con fondo de video.",
-      "imageUrl": "https://images.unsplash.com/photo-1673767297241-f072cfefa0cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx2aWRlbyUyMHByZXNlbnRhdGlvbnxlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1673767297241-f072cfefa0cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx2aWRlbyUyMHByZXNlbnRhdGlvbnxlbnwwfHx8fDE3NjY5Njg0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "video presentation"
     },
     {
       "id": "letterhead-template-1",
       "description": "A template for a corporate letterhead with a classic header.",
-      "imageUrl": "https://images.unsplash.com/photo-1602629978879-e7ed887988d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb3Jwb3JhdGUlMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1698067942087-53f552fe2f59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y29ycG9yYXRlJTIwbGV0dGVyaGVhZHxlbnwwfHx8fDE3NjY5Njg0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "corporate letterhead"
     },
     {
       "id": "letterhead-template-2",
       "description": "A modern letterhead design with a sidebar for contact info.",
-      "imageUrl": "https://images.unsplash.com/photo-1576859933856-c07ec7ddfe92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtb2Rlcm4lMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1735050871569-4cb29aae3a30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2NjkwNjgyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "modern letterhead"
     },
     {
       "id": "letterhead-template-3",
       "description": "An elegant letterhead with a watermark logo.",
-      "imageUrl": "https://images.unsplash.com/photo-1735050871569-4cb29aae3a30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbGVnYW50JTIwbGV0dGVyaGVhZHxlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1615604543792-b8eb0e2390b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwbGV0dGVyaGVhZHxlbnwwfHx8fDE3NjY5Njg0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "elegant letterhead"
     },
     {
       "id": "letterhead-template-4",
       "description": "Papelería con diseño eco-amigable.",
-      "imageUrl": "https://images.unsplash.com/photo-1577563820627-bc12aa2139de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlY28lMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1517263869251-3d367cb6db21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlY28lMjBsZXR0ZXJoZWFkfGVufDB8fHx8MTc2Njk2ODQ5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "eco letterhead"
     },
     {
       "id": "letterhead-template-5",
       "description": "Papelería creativa con formas abstractas.",
-      "imageUrl": "https://images.unsplash.com/photo-1616912174939-405ed717a290?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMGxldHRlcmhlYWR8ZW58MHx8fHwxNzYyNjI5MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1616912174939-405ed717a290?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjcmVhdGl2ZSUyMGxldHRlcmhlYWR8ZW58MHx8fHwxNzY2OTY4NDkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "creative letterhead"
     },
     {
       "id": "corporate-box-1",
       "description": "Caja corporativa con logo estampado.",
-      "imageUrl": "https://images.unsplash.com/photo-1625552187662-ac3fac11fcf1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y29ycG9yYXRlJTIwYm94fGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1625552187662-ac3fac11fcf1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb3Jwb3JhdGUlMjBib3h8ZW58MHx8fHwxNzY2OTY4NDkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "corporate box"
     },
     {
       "id": "corporate-box-2",
       "description": "Diseño de empaque para productos.",
-      "imageUrl": "https://images.unsplash.com/photo-1760804876161-ba0337e998fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwcGFja2FnaW5nfGVufDB8fHx8MTc2MjU3NDg4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1668775589972-3aa874ea191b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwcGFja2FnaW5nfGVufDB8fHx8MTc2Njk2NzA3OXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product packaging"
     },
     {
       "id": "shopping-bag-1",
       "description": "Bolsa de compras con branding.",
-      "imageUrl": "https://images.unsplash.com/photo-1654783858479-346aaa6480a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxicmFuZGVkJTIwYmFnfGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1654783855112-ff4ff9378c46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxicmFuZGVkJTIwYmFnfGVufDB8fHx8MTc2Njk2ODQ5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "branded bag"
     },
     {
       "id": "pen-design-1",
       "description": "Bolígrafo corporativo metálico.",
-      "imageUrl": "https://images.unsplash.com/photo-1581474859688-82ea214f852c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb3Jwb3JhdGUlMjBwZW58ZW58MHx8fHwxNzYyNjI5MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1758519289559-f4d0ead39634?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjb3Jwb3JhdGUlMjBwZW58ZW58MHx8fHwxNzY2OTY4NDkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "corporate pen"
     },
     {
       "id": "pen-design-2",
       "description": "Set de bolígrafos de colores.",
-      "imageUrl": "https://images.unsplash.com/photo-1523292643061-ed55f8c45178?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2xvcmVkJTIwcGVuc3xlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1523292507848-543224912bbf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb2xvcmVkJTIwcGVuc3xlbnwwfHx8fDE3NjY5Njg0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "colored pens"
     },
     {
       "id": "book-aumenta-ventas",
       "description": "Portada del libro Aumenta tus Ventas.",
-      "imageUrl": "https://images.unsplash.com/photo-1542919901-ce575ee6e6e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzYWxlcyUyMGJvb2t8ZW58MHx8fHwxNzYyNjI5MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1674664985250-4d023c679b39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c2FsZXMlMjBib29rfGVufDB8fHx8MTc2Njk2ODQ5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sales book"
     },
     {
       "id": "book-padre-rico",
       "description": "Portada del libro Padre Rico, Padre Pobre.",
-      "imageUrl": "https://images.unsplash.com/photo-1761735485999-f3e7e531e149?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxmaW5hbmNlJTIwYm9va3xlbnwwfHx8fDE3NjI2MjkzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1697382608873-acefe3c756fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmaW5hbmNlJTIwYm9va3xlbnwwfHx8fDE3NjY5Njg0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "finance book"
     },
     {
       "id": "book-quien-queso",
       "description": "Portada del libro ¿Quién se ha llevado mi queso?.",
-      "imageUrl": "https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjaGFuZ2UlMjBtYW5hZ2VtZW50fGVufDB8fHx8MTc2MjYyOTMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1609678693605-00a47c0a45be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaGFuZ2UlMjBtYW5hZ2VtZW50fGVufDB8fHx8MTc2Njk2ODQ5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "change management"
     },
     {
       "id": "satellite-image",
       "description": "A satellite dish pointing to a clear sky, representing technology and connectivity.",
-      "imageUrl": "https://images.unsplash.com/photo-1518364538800-6bae3c2ea5f2?q=80&w=1920&auto=format&fit=crop",
+      "imageUrl": "https://images.unsplash.com/photo-1528499908559-b8e4e8b89bda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzYXRlbGxpdGUlMjBkaXNofGVufDB8fHx8MTc2Njk2ODQ5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "satellite dish"
     },
     {
       "id": "smart-bin",
       "description": "Una papelera inteligente en un entorno urbano moderno, mostrando su interfaz de usuario.",
-      "imageUrl": "https://images.unsplash.com/photo-1621371892332-6e2c342a34a8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzbWFydCUyMGJpbnxlbnwwfHx8fDE3NjQwOTYyNTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1580027609553-d1ee7aa70d60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzbWFydCUyMGJpbnxlbnwwfHx8fDE3NjY5Njg0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "smart bin"
     },
     {
       "id": "accounting-software",
       "description": "Una interfaz de software de contabilidad en una pantalla de computadora, mostrando gráficos y datos.",
-      "imageUrl": "https://images.unsplash.com/photo-1633400584282-38a4d8db120e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhY2NvdW50aW5nJTIwc29mdHdhcmV8ZW58MHx8fHwxNzY0MDk2MjU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhY2NvdW50aW5nJTIwc29mdHdhcmV8ZW58MHx8fHwxNzY2OTY4NDkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "accounting software"
     }
   ]

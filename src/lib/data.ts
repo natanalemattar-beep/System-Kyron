@@ -4,22 +4,9 @@ import type { Invoice, Transaction } from './types';
 // This data is now for demonstration purposes only.
 // The application should fetch data from Firestore.
 
-export const mockInvoices: Invoice[] = [
-  {
-    id: 'INV-001',
-    customer: 'Alpha Inc.',
-    customerEmail: 'contact@alpha.inc',
-    date: '2024-06-01',
-    dueDate: '2024-07-01',
-    amount: 250.0,
-    status: 'Pagada',
-    items: [{ description: 'Web Design Consultation', quantity: 1, price: 250 }],
-  },
-];
+export const mockInvoices: Invoice[] = [];
 
-export const mockTransactions: Transaction[] = [
-  { id: 'TR-001', date: '2024-07-15', description: 'Pago de Stripe', amount: 1800.0, category: 'Ingreso' },
-];
+export const mockTransactions: Transaction[] = [];
 
 
 export const mockMovableAssets = [

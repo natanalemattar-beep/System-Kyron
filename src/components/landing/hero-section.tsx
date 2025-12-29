@@ -51,8 +51,8 @@ export function HeroSection() {
     }, 5000); // Persist for 5 seconds
   };
   
-  const currentOrbSize = isMobile ? ORB_SIZE_MOBILE : ORB_SIZE;
-  const currentIconOrbSize = isMobile ? ICON_ORB_SIZE_MOBILE : ICON_ORB_SIZE;
+  const currentOrbSize = isClient && isMobile ? ORB_SIZE_MOBILE : ORB_SIZE;
+  const currentIconOrbSize = isClient && isMobile ? ICON_ORB_SIZE_MOBILE : ICON_ORB_SIZE;
 
   return (
     <section id="inicio" className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-background py-24 sm:py-32">

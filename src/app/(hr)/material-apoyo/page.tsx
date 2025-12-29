@@ -12,7 +12,7 @@ const notebookDesigns = [
     PlaceHolderImages.find(img => img.id === "notebook-design-1"),
     PlaceHolderImages.find(img => img.id === "notebook-design-2"),
     PlaceHolderImages.find(img => img.id === "notebook-design-3"),
-].filter(Boolean);
+].filter((item): item is NonNullable<typeof item> => !!item);
 
 const presentationTemplates = [
     PlaceHolderImages.find(img => img.id === "presentation-template-1"),
@@ -20,7 +20,7 @@ const presentationTemplates = [
     PlaceHolderImages.find(img => img.id === "presentation-template-3"),
     PlaceHolderImages.find(img => img.id === "presentation-template-4"),
     PlaceHolderImages.find(img => img.id === "presentation-template-5"),
-].filter(Boolean);
+].filter((item): item is NonNullable<typeof item> => !!item);
 
 const letterheadTemplates = [
     PlaceHolderImages.find(img => img.id === "letterhead-template-1"),
@@ -28,18 +28,18 @@ const letterheadTemplates = [
     PlaceHolderImages.find(img => img.id === "letterhead-template-3"),
     PlaceHolderImages.find(img => img.id === "letterhead-template-4"),
     PlaceHolderImages.find(img => img.id === "letterhead-template-5"),
-].filter(Boolean);
+].filter((item): item is NonNullable<typeof item> => !!item);
 
 const packagingDesigns = [
     PlaceHolderImages.find(img => img.id === "corporate-box-1"),
     PlaceHolderImages.find(img => img.id === "corporate-box-2"),
     PlaceHolderImages.find(img => img.id === "shopping-bag-1"),
-].filter(Boolean);
+].filter((item): item is NonNullable<typeof item> => !!item);
 
 const promoItems = [
     PlaceHolderImages.find(img => img.id === "pen-design-1"),
     PlaceHolderImages.find(img => img.id === "pen-design-2"),
-].filter(Boolean);
+].filter((item): item is NonNullable<typeof item> => !!item);
 
 
 export default function MaterialApoyoPage() {
@@ -67,19 +67,19 @@ export default function MaterialApoyoPage() {
                 <TabsContent value="libretas" className="mt-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {notebookDesigns.map(design => (
-                            <Card key={design!.id} className="bg-card/50 backdrop-blur-sm">
+                            <Card key={design.id} className="bg-card/50 backdrop-blur-sm">
                                 <CardHeader className="p-0">
                                      <Image 
-                                        src={design!.imageUrl} 
-                                        alt={design!.description} 
+                                        src={design.imageUrl} 
+                                        alt={design.description} 
                                         width={400} 
                                         height={300} 
                                         className="rounded-t-xl object-cover"
-                                        data-ai-hint={design!.imageHint}
+                                        data-ai-hint={design.imageHint}
                                     />
                                 </CardHeader>
                                 <CardContent className="p-4">
-                                    <CardTitle className="text-base">{design!.description}</CardTitle>
+                                    <CardTitle className="text-base">{design.description}</CardTitle>
                                 </CardContent>
                                 <CardFooter className="gap-2">
                                     <Button variant="outline" className="w-full"><Settings className="mr-2 h-4 w-4"/> Personalizar</Button>
@@ -93,19 +93,19 @@ export default function MaterialApoyoPage() {
                 <TabsContent value="presentaciones" className="mt-8">
                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {presentationTemplates.map(design => (
-                            <Card key={design!.id} className="bg-card/50 backdrop-blur-sm">
+                            <Card key={design.id} className="bg-card/50 backdrop-blur-sm">
                                 <CardHeader className="p-0">
                                      <Image 
-                                        src={design!.imageUrl} 
-                                        alt={design!.description} 
+                                        src={design.imageUrl} 
+                                        alt={design.description} 
                                         width={400} 
                                         height={300} 
                                         className="rounded-t-xl object-cover"
-                                        data-ai-hint={design!.imageHint}
+                                        data-ai-hint={design.imageHint}
                                     />
                                 </CardHeader>
                                 <CardContent className="p-4">
-                                    <CardTitle className="text-base">{design!.description}</CardTitle>
+                                    <CardTitle className="text-base">{design.description}</CardTitle>
                                 </CardContent>
                                 <CardFooter className="gap-2">
                                      <Button className="w-full"><Download className="mr-2 h-4 w-4"/> Descargar Plantilla</Button>
@@ -118,19 +118,19 @@ export default function MaterialApoyoPage() {
                 <TabsContent value="papeleria" className="mt-8">
                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {letterheadTemplates.map(design => (
-                            <Card key={design!.id} className="bg-card/50 backdrop-blur-sm">
+                            <Card key={design.id} className="bg-card/50 backdrop-blur-sm">
                                 <CardHeader className="p-0">
                                      <Image 
-                                        src={design!.imageUrl} 
-                                        alt={design!.description} 
+                                        src={design.imageUrl} 
+                                        alt={design.description} 
                                         width={400} 
                                         height={300} 
                                         className="rounded-t-xl object-cover"
-                                        data-ai-hint={design!.imageHint}
+                                        data-ai-hint={design.imageHint}
                                     />
                                 </CardHeader>
                                 <CardContent className="p-4">
-                                    <CardTitle className="text-base">{design!.description}</CardTitle>
+                                    <CardTitle className="text-base">{design.description}</CardTitle>
                                 </CardContent>
                                 <CardFooter className="gap-2">
                                      <Button className="w-full"><Download className="mr-2 h-4 w-4"/> Descargar Hoja</Button>
@@ -143,19 +143,19 @@ export default function MaterialApoyoPage() {
                  <TabsContent value="empaques" className="mt-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {packagingDesigns.map(design => (
-                            <Card key={design!.id} className="bg-card/50 backdrop-blur-sm">
+                            <Card key={design.id} className="bg-card/50 backdrop-blur-sm">
                                 <CardHeader className="p-0">
                                      <Image 
-                                        src={design!.imageUrl} 
-                                        alt={design!.description} 
+                                        src={design.imageUrl} 
+                                        alt={design.description} 
                                         width={400} 
                                         height={300} 
                                         className="rounded-t-xl object-cover"
-                                        data-ai-hint={design!.imageHint}
+                                        data-ai-hint={design.imageHint}
                                     />
                                 </CardHeader>
                                 <CardContent className="p-4">
-                                    <CardTitle className="text-base">{design!.description}</CardTitle>
+                                    <CardTitle className="text-base">{design.description}</CardTitle>
                                 </CardContent>
                                 <CardFooter className="gap-2">
                                     <Button variant="outline" className="w-full"><Settings className="mr-2 h-4 w-4"/> Personalizar</Button>
@@ -169,19 +169,19 @@ export default function MaterialApoyoPage() {
                 <TabsContent value="promocionales" className="mt-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {promoItems.map(design => (
-                            <Card key={design!.id} className="bg-card/50 backdrop-blur-sm">
+                            <Card key={design.id} className="bg-card/50 backdrop-blur-sm">
                                 <CardHeader className="p-0">
                                      <Image 
-                                        src={design!.imageUrl} 
-                                        alt={design!.description} 
+                                        src={design.imageUrl} 
+                                        alt={design.description} 
                                         width={400} 
                                         height={300} 
                                         className="rounded-t-xl object-cover"
-                                        data-ai-hint={design!.imageHint}
+                                        data-ai-hint={design.imageHint}
                                     />
                                 </CardHeader>
                                 <CardContent className="p-4">
-                                    <CardTitle className="text-base">{design!.description}</CardTitle>
+                                    <CardTitle className="text-base">{design.description}</CardTitle>
                                 </CardContent>
                                 <CardFooter className="gap-2">
                                     <Button className="w-full"><Download className="mr-2 h-4 w-4"/> Contactar Proveedor</Button>

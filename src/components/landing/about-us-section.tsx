@@ -30,18 +30,18 @@ const testimonials = [
   {
     name: "Carlos Rodríguez",
     company: "Constructora XYZ",
+    avatarId: "testimonial-avatar-1",
     text: "System Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
   },
   {
     name: "Ana Pérez",
     company: "Inversiones ABC",
+    avatarId: "testimonial-avatar-2",
     text: "La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.",
   },
 ];
 
 export function AboutUsSection() {
-    const testimonialAvatar1 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-1");
-    const testimonialAvatar2 = PlaceHolderImages.find((img) => img.id === "testimonial-avatar-2");
 
     return (
         <section id="nosotros" className="py-20 md:py-28 bg-background">
@@ -88,10 +88,10 @@ export function AboutUsSection() {
                     >
                          <h3 className="text-xl font-semibold mb-4 text-center">Lo que Dicen Nuestros Clientes</h3>
                          <div className="space-y-6">
-                            {testimonials.map((testimonial, index) => {
-                                const avatar = index === 0 ? testimonialAvatar1 : testimonialAvatar2;
+                            {testimonials.map((testimonial) => {
+                                const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
                                 return (
-                                    <blockquote key={index} className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm">
+                                    <blockquote key={testimonial.name} className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm">
                                         <p className="italic text-muted-foreground">"{testimonial.text}"</p>
                                         <footer className="flex items-center gap-3 mt-4">
                                             {avatar && (
