@@ -15,7 +15,6 @@ export default function InvoicesPage() {
 
   const invoicesQuery = useMemoFirebase(() => {
     if (!user || !firestore) return null;
-    // Correctly query the subcollection for the logged-in user
     return query(collection(firestore, "users", user.uid, "invoices"));
   }, [user, firestore]);
 

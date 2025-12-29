@@ -13,7 +13,6 @@ export default function TransactionsPage() {
 
   const transactionsQuery = useMemoFirebase(() => {
     if (!user || !firestore) return null;
-    // Correctly query the subcollection for the logged-in user
     return query(collection(firestore, "users", user.uid, "transactions"));
   }, [user, firestore]);
 
