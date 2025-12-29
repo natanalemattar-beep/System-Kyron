@@ -6,6 +6,7 @@ import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { SplashScreen } from "@/components/splash-screen";
 import { useUser } from "@/firebase";
+import { DynamicBackground } from "@/components/ui/dynamic-background";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const { isUserLoading } = useUser();
@@ -16,6 +17,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground relative">
+      <DynamicBackground />
       <LandingHeader />
       
       <main className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto pt-20">

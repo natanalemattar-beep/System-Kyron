@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import type { ReactNode } from "react";
@@ -8,6 +9,7 @@ import { AppHeader } from "@/components/app-header";
 import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { SplashScreen } from "@/components/splash-screen";
+import { DynamicBackground } from "@/components/ui/dynamic-background";
 
 const user = { name: "Telecom", email: "telecom@kyron.com", fallback: "TE" };
 const dashboardHref = "/dashboard-telecom";
@@ -28,6 +30,7 @@ export default function TelecomLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-card text-foreground">
+      <DynamicBackground />
       <AppHeader user={user} navGroups={telecomNavGroups} dashboardHref={dashboardHref} />
       <main className="flex-1 container mx-auto p-4 md:p-8 pt-20 md:pt-24">
         {children}
