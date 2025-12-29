@@ -49,6 +49,14 @@ const holidays: Holiday[] = [
  * @returns The active Holiday object or null if no holiday is active.
  */
 export function getCurrentHoliday(): Holiday | null {
+  // --- TEMPORARY FOR DEMONSTRATION ---
+  // This line forces the Christmas holiday to be active so you can see the effect.
+  // I will remove this later to restore the real-date functionality.
+  return holidays.find(h => h.name === "Navidad") || null;
+  // --- END TEMPORARY ---
+
+  /*
+  // Original logic based on real date:
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentDay = now.getDate();
@@ -65,4 +73,5 @@ export function getCurrentHoliday(): Holiday | null {
   }
 
   return null;
+  */
 }
