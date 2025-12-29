@@ -1,7 +1,7 @@
 
 'use client';
 
-import LandingPage from '@/app/(main)/page';
+import LandingPage from '@/app/[locale]/page';
 
 // This file is now a simple re-exporter. 
 // The actual landing page logic is in /app/(main)/page.tsx
