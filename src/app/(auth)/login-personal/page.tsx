@@ -7,7 +7,7 @@ export default function LoginPersonalPage() {
     const loginProps = {
         portalName: "Acceso Personal",
         portalDescription: "Portal para clientes individuales y trámites personales.",
-        redirectPath: "/dashboard",
+        redirectPath: "/dashboard-empresa",
         footerLinks: {
             primary: { href: "/recover-personal", text: "¿Olvidaste tu contraseña?" },
             secondaryLinks: {

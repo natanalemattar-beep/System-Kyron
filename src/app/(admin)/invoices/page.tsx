@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { useUser } from "@/firebase/provider";
 import { useCollection, useMemoFirebase } from "@/firebase";
-import { collection, query, where } from "firebase/firestore";
+import { collection, query } from "firebase/firestore";
 import { useFirestore } from "@/firebase/provider";
 
 export default function InvoicesPage() {
@@ -15,10 +15,8 @@ export default function InvoicesPage() {
 
   const invoicesQuery = useMemoFirebase(() => {
     if (!user || !firestore) return null;
-    return query(
-      collection(firestore, "invoices"),
-      where("userId", "==", user.uid)
-    );
+    // Correctly query the subcollection for the logged-in user
+    return query(collection(firestore, "users", user.uid, "invoices"));
   }, [user, firestore]);
 
   const { data: invoices, isLoading } = useCollection(invoicesQuery);

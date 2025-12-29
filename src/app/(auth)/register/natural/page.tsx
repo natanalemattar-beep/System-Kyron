@@ -4,20 +4,24 @@
 import { useState } from "react";
 import { RegisterForm } from "@/components/auth/register-form";
 import { User } from "lucide-react";
-import { useAuth } from "@/firebase";
+import { useAuth, useFirestore } from "@/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { doc, setDoc } from "firebase/firestore";
+import { setDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+
 
 export default function RegisterNaturalPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const auth = useAuth();
+    const firestore = useFirestore();
     const router = useRouter();
     const { toast } = useToast();
 
     const handleRegister = async (formData: Record<string, string>) => {
-        if (!auth) {
+        if (!auth || !firestore) {
             setError("El servicio de autenticación no está disponible.");
             return;
         }
@@ -26,9 +30,24 @@ export default function RegisterNaturalPage() {
         
         const email = formData.email;
         const password = formData.password;
+        const fullName = formData.fullName;
+        const [firstName, ...lastNameParts] = fullName.split(' ');
+        const lastName = lastNameParts.join(' ');
+
 
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Create a user profile document in Firestore
+            const userDocRef = doc(firestore, "users", user.uid);
+            await setDoc(userDocRef, {
+                id: user.uid,
+                email: user.email,
+                firstName: firstName || '',
+                lastName: lastName || ''
+            });
+
             toast({
                 title: "¡Registro Exitoso!",
                 description: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
