@@ -3,9 +3,8 @@
 
 import LandingPage from '@/app/[locale]/page';
 
-// This file is now a simple re-exporter. 
-// The actual landing page logic is in /app/(main)/page.tsx
-// to share the main layout with other authenticated pages.
+// This is the root entry point of the app.
+// It directly renders the complete LandingPage component, which includes its own layout.
 export default function RootPage() {
   return <LandingPage />;
 }
