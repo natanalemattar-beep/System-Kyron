@@ -2,7 +2,6 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, FileWarning, ArrowRight } from 'lucide-react';
@@ -11,7 +10,6 @@ import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
 import { DailyTasksChart } from "@/components/dashboard/daily-tasks-chart";
 
 const kpiData = [
@@ -32,61 +30,8 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
   Solicitado: "outline",
 };
 
-function KpiCardSkeleton() {
-  return (
-    <Card>
-      <CardHeader className="pb-2 flex-row items-center justify-between">
-          <Skeleton className="h-4 w-2/3" />
-          <Skeleton className="h-4 w-4 rounded-full" />
-      </CardHeader>
-      <CardContent>
-          <Skeleton className="h-8 w-1/4" />
-      </CardContent>
-    </Card>
-  )
-}
-
-function RecentActivityTableSkeleton() {
-    return (
-        <div className="space-y-2">
-            {[...Array(3)].map((_, i) => (
-                <div key={i} className="flex items-center justify-between p-2 rounded-lg">
-                    <div className="space-y-2">
-                        <Skeleton className="h-4 w-[150px]" />
-                        <Skeleton className="h-3 w-[100px]" />
-                    </div>
-                    <Skeleton className="h-8 w-20" />
-                </div>
-            ))}
-        </div>
-    )
-}
-
-function OverviewChartSkeleton() {
-    return (
-        <Card>
-            <CardHeader>
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
-            </CardHeader>
-            <CardContent className="pl-2">
-                <Skeleton className="h-[350px] w-full" />
-            </CardContent>
-        </Card>
-    );
-}
-
 
 export default function DashboardPersonalPage() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        setIsLoading(false);
-    }, 1500); // Simulate data fetching
-    return () => clearTimeout(timer);
-  }, []);
-
 
   return (
     <div className="space-y-8">
@@ -110,34 +55,26 @@ export default function DashboardPersonalPage() {
       </header>
       
       <div className="grid gap-6 md:grid-cols-3">
-         {isLoading ? (
-            <>
-              <KpiCardSkeleton />
-              <KpiCardSkeleton />
-              <KpiCardSkeleton />
-            </>
-         ) : (
-             kpiData.map((kpi, index) => (
-                <motion.div
-                  key={kpi.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                >
-                  <Link href={kpi.href}>
-                      <Card className="hover:shadow-lg transition-shadow hover:-translate-y-1">
-                          <CardHeader className="pb-2 flex-row items-center justify-between">
-                              <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                              <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
-                          </CardHeader>
-                          <CardContent>
-                              <p className="text-3xl font-bold">{kpi.value}</p>
-                          </CardContent>
-                      </Card>
-                  </Link>
-                </motion.div>
-            ))
-         )}
+        {kpiData.map((kpi, index) => (
+            <motion.div
+              key={kpi.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+            >
+              <Link href={kpi.href}>
+                  <Card className="hover:shadow-lg transition-shadow hover:-translate-y-1">
+                      <CardHeader className="pb-2 flex-row items-center justify-between">
+                          <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
+                          <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
+                      </CardHeader>
+                      <CardContent>
+                          <p className="text-3xl font-bold">{kpi.value}</p>
+                      </CardContent>
+                  </Card>
+              </Link>
+            </motion.div>
+        ))}
       </div>
 
       <div className="grid gap-8 lg:grid-cols-5">
@@ -153,38 +90,34 @@ export default function DashboardPersonalPage() {
               <CardDescription>Un resumen de tus últimas solicitudes y su estado actual.</CardDescription>
             </CardHeader>
             <CardContent>
-                {isLoading ? (
-                    <RecentActivityTableSkeleton />
-                ) : (
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Referencia</TableHead>
-                                <TableHead>Tipo de Trámite</TableHead>
-                                <TableHead>Fecha de Solicitud</TableHead>
-                                <TableHead className="text-center">Estado</TableHead>
-                                <TableHead className="text-right">Acciones</TableHead>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Referencia</TableHead>
+                            <TableHead>Tipo de Trámite</TableHead>
+                            <TableHead>Fecha de Solicitud</TableHead>
+                            <TableHead className="text-center">Estado</TableHead>
+                            <TableHead className="text-right">Acciones</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {recentActivities.map((activity) => (
+                            <TableRow key={activity.id}>
+                                <TableCell className="font-mono">{activity.id}</TableCell>
+                                <TableCell className="font-medium">{activity.type}</TableCell>
+                                <TableCell>{formatDate(activity.date)}</TableCell>
+                                <TableCell className="text-center">
+                                    <Badge variant={statusVariant[activity.status as keyof typeof statusVariant]}>{activity.status}</Badge>
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    <Button variant="outline" size="sm" asChild>
+                                        <Link href={activity.href}>Ver Detalles <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                                    </Button>
+                                </TableCell>
                             </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {recentActivities.map((activity) => (
-                                <TableRow key={activity.id}>
-                                    <TableCell className="font-mono">{activity.id}</TableCell>
-                                    <TableCell className="font-medium">{activity.type}</TableCell>
-                                    <TableCell>{formatDate(activity.date)}</TableCell>
-                                    <TableCell className="text-center">
-                                        <Badge variant={statusVariant[activity.status as keyof typeof statusVariant]}>{activity.status}</Badge>
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        <Button variant="outline" size="sm" asChild>
-                                            <Link href={activity.href}>Ver Detalles <ArrowRight className="ml-2 h-4 w-4"/></Link>
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                )}
+                        ))}
+                    </TableBody>
+                </Table>
             </CardContent>
           </Card>
         </motion.div>
@@ -194,11 +127,7 @@ export default function DashboardPersonalPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
         >
-            {isLoading ? (
-               <OverviewChartSkeleton />
-            ) : (
-               <DailyTasksChart />
-            )}
+           <DailyTasksChart />
         </motion.div>
       </div>
     </div>
