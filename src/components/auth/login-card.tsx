@@ -17,9 +17,16 @@ interface LoginCardProps {
     portalName: string;
     portalDescription: string;
     redirectPath: string;
+    footerLinks?: {
+      primary: { href: string; text: string };
+      secondaryLinks?: {
+        title?: string;
+        links: { href: string; text: string }[];
+      };
+    };
 }
 
-export function LoginCard({ portalName, portalDescription, redirectPath }: LoginCardProps) {
+export function LoginCard({ portalName, portalDescription, redirectPath, footerLinks }: LoginCardProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
@@ -45,7 +52,8 @@ export function LoginCard({ portalName, portalDescription, redirectPath }: Login
         } catch (err: any) {
             switch (err.code) {
                 case 'auth/user-not-found':
-                    setError("No se encontró ningún usuario con este correo electrónico.");
+                case 'auth/invalid-credential':
+                    setError("Credenciales inválidas. Por favor, verifica tu correo y contraseña.");
                     break;
                 case 'auth/wrong-password':
                     setError("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
@@ -100,9 +108,25 @@ export function LoginCard({ portalName, portalDescription, redirectPath }: Login
                         <Button type="submit" className="w-full text-lg h-12" disabled={isLoading}>{
                             isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder'
                         }</Button>
-                        <Button variant="link" asChild className="text-muted-foreground font-normal">
-                           <Link href="/recover-legal">¿Olvidaste tu contraseña?</Link>
-                        </Button>
+                        {footerLinks && (
+                          <>
+                            <Button variant="link" asChild className="text-muted-foreground font-normal">
+                               <Link href={footerLinks.primary.href}>{footerLinks.primary.text}</Link>
+                            </Button>
+                            {footerLinks.secondaryLinks && footerLinks.secondaryLinks.links.length > 0 && (
+                                <div className="text-center w-full pt-4 border-t">
+                                    <p className="text-sm text-muted-foreground mb-2">{footerLinks.secondaryLinks.title || 'Otras opciones:'}</p>
+                                    <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                                        {footerLinks.secondaryLinks.links.map(link => (
+                                             <Button key={link.href} variant="link" asChild className="p-0 h-auto text-xs">
+                                                <Link href={link.href}>{link.text}</Link>
+                                             </Button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                          </>
+                        )}
                     </CardFooter>
                 </form>
             </Card>
