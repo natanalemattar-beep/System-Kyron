@@ -2,27 +2,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { SnowEffect } from "./snow-effect";
+import { FestiveEffect } from "./confetti-effect"; // Changed from snow-effect
+import { getCurrentHoliday, Holiday } from "@/lib/holidays";
 
 export function DynamicBackground() {
-  const [isDecember, setIsDecember] = useState(false);
+  const [activeHoliday, setActiveHoliday] = useState<Holiday | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     // This effect runs only on the client
     setIsClient(true);
-    const today = new Date();
-    // Christmas season: check if the month is December (month is 0-indexed)
-    if (today.getMonth() === 11) {
-      setIsDecember(true);
-    }
   }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      const holiday = getCurrentHoliday();
+      setActiveHoliday(holiday);
+    }
+  }, [isClient]);
 
   return (
     <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden">
-        {isClient && isDecember && <SnowEffect />}
+        {isClient && activeHoliday && <FestiveEffect type={activeHoliday.effect} />}
         <motion.div 
             className="absolute inset-0 -z-10 h-full w-full"
             initial={{ opacity: 0 }}
