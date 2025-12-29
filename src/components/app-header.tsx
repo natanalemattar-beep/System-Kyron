@@ -82,12 +82,13 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
   }
 
   const isGroupActive = (group: NavGroup) => {
+    if (!group || !group.items) return false;
     // Check if any item in the main group is active
     if (group.items.some(item => isLinkActive(item.href))) {
       return true;
     }
     // Check if any item in any subgroup is active
-    return group.subGroups.some(subGroup => 
+    return group.subGroups && group.subGroups.some(subGroup => 
       subGroup.items.some(item => isLinkActive(item.href))
     );
   };
@@ -113,7 +114,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                 <span className="text-xl font-bold hidden sm:inline-block">System Kyron</span>
             </Link>
             <nav className="hidden md:flex items-center gap-2">
-                 {navGroups.map((group) => (
+                 {navGroups && navGroups.map((group) => (
                     <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
                             <Button 
@@ -178,7 +179,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                  <ScrollArea className="flex-grow">
                     <nav className="p-4">
                         <Accordion type="multiple" className="w-full">
-                          {navGroups.map((group) => (
+                          {navGroups && navGroups.map((group) => (
                             <AccordionItem value={group.title} key={group.title}>
                                 <AccordionTrigger>
                                     <h4 className="font-semibold text-base flex items-center gap-2">
@@ -188,14 +189,14 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     <div className="flex flex-col gap-1 pl-4">
-                                        {group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items).map(item => (
+                                        {group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items).map(item => (
                                             <Button key={item.href} asChild variant={isLinkActive(item.href) ? "secondary" : "ghost"} className="justify-start">
                                                 <Link href={item.href}>
                                                     <item.icon className="mr-2 h-4 w-4" />
                                                     {item.label}
                                                 </Link>
                                             </Button>
-                                        )) : group.items.map(item => (
+                                        )) : group.items && group.items.map(item => (
                                              <Button key={item.href} asChild variant={isLinkActive(item.href) ? "secondary" : "ghost"} className="justify-start">
                                                 <Link href={item.href}>
                                                     <item.icon className="mr-2 h-4 w-4" />
