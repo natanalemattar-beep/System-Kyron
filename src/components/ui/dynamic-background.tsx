@@ -3,24 +3,43 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { FestiveEffect } from "./confetti-effect"; // Changed from snow-effect
-import { getCurrentHoliday, Holiday } from "@/lib/holidays";
+import { FestiveEffect } from "./confetti-effect";
+import { holidays, type Holiday } from "@/lib/holidays";
 
 export function DynamicBackground() {
   const [activeHoliday, setActiveHoliday] = useState<Holiday | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // This effect runs only on the client
+    // This effect runs only on the client, ensuring window and other browser-specific APIs are available.
     setIsClient(true);
-  }, []);
+    
+    // Logic to determine the current holiday
+    const now = new Date();
+    
+    // --- TEMPORARY FOR DEMONSTRATION ---
+    // This forces the Christmas holiday to be active so you can see the effect.
+    const currentHoliday = holidays.find(h => h.name === "Navidad") || null;
+    setActiveHoliday(currentHoliday);
+    // --- END TEMPORARY ---
 
-  useEffect(() => {
-    if (isClient) {
-      const holiday = getCurrentHoliday();
-      setActiveHoliday(holiday);
+    /*
+    // Original logic to be restored later:
+    const currentMonth = now.getMonth();
+    const currentDay = now.getDate();
+
+    for (const holiday of holidays) {
+        const holidayEndDate = new Date(now.getFullYear(), holiday.month, holiday.day + holiday.duration - 1);
+        const holidayStartDate = new Date(now.getFullYear(), holiday.month, holiday.day);
+
+        if (now >= holidayStartDate && now <= holidayEndDate) {
+            setActiveHoliday(holiday);
+            break; // Found an active holiday, no need to check further
+        }
     }
-  }, [isClient]);
+    */
+    
+  }, []); // Empty dependency array ensures this runs once on mount.
 
   return (
     <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden">
