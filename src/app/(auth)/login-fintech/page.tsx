@@ -6,11 +6,18 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, Building, KeyRound } from 'lucide-react';
+import { Loader2, AlertTriangle, Building, KeyRound, ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { loginOptions } from '@/lib/login-options';
 
 export default function LoginFintechPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -36,8 +43,8 @@ export default function LoginFintechPage() {
                 router.push('/contabilidad');
             } else {
                 setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
+                setIsLoading(false);
             }
-            setIsLoading(false);
         }, 1000);
     };
 
@@ -84,9 +91,28 @@ export default function LoginFintechPage() {
                         <Button type="submit" className="w-full text-lg h-12" disabled={isLoading}>{
                             isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder'
                         }</Button>
-                        <Button variant="link" asChild className="text-muted-foreground font-normal">
-                           <Link href="#">¿Olvidaste tu contraseña maestra?</Link>
-                        </Button>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="link" className="text-muted-foreground font-normal">
+                                    ¿Acceder a otro portal? <ChevronDown className="ml-1 h-4 w-4" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                             <DropdownMenuContent align="end" className="w-80 shadow-lg rounded-xl">
+                                {loginOptions.filter(o => o.href !== '/login-fintech').map((option) => (
+                                    <DropdownMenuItem key={option.href} asChild>
+                                        <Link href={option.href} className="flex items-start gap-3 p-3">
+                                            <div className="p-2 bg-primary/10 rounded-md mt-1">
+                                                <option.icon className="h-5 w-5 text-primary"/>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{option.label}</p>
+                                                <p className="text-xs text-muted-foreground">{option.description}</p>
+                                            </div>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </CardFooter>
                 </form>
             </Card>

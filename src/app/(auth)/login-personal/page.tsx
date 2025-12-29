@@ -36,8 +36,8 @@ export default function LoginPersonalPage() {
                 router.push('/dashboard');
             } else {
                 setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
+                setIsLoading(false);
             }
-            setIsLoading(false);
         }, 1000);
     };
 
@@ -87,7 +87,7 @@ export default function LoginPersonalPage() {
                                 <p className="text-sm text-muted-foreground mb-2">¿No tienes una cuenta o tienes problemas?</p>
                                 <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
                                     <Button variant="link" asChild className="p-0 h-auto text-xs">
-                                        <Link href="/register/natural">Crear una cuenta nueva</Link>
+                                        <Link href="/register">Crear una cuenta nueva</Link>
                                     </Button>
                                      <Button variant="link" asChild className="p-0 h-auto text-xs">
                                         <Link href="#">Recuperar contraseña</Link>
