@@ -6,8 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from 'lucide-react';
+import { Loader2, AlertTriangle, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/firebase/provider';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import Link from 'next/link';
 
 interface LoginCardProps {
     portalName: string;
@@ -17,41 +21,88 @@ interface LoginCardProps {
 
 export function LoginCard({ portalName, portalDescription, redirectPath }: LoginCardProps) {
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const router = useRouter();
+    const auth = useAuth();
 
-    const handleLogin = async (event: React.FormEvent) => {
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (!auth) {
+            setError("Servicio de autenticación no disponible.");
+            return;
+        }
+
         setIsLoading(true);
-        // Simulate API call
-        setTimeout(() => {
+        setError(null);
+
+        const formData = new FormData(event.currentTarget);
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
             router.push(redirectPath);
-        }, 2000);
+        } catch (err: any) {
+            switch (err.code) {
+                case 'auth/user-not-found':
+                    setError("No se encontró ningún usuario con este correo electrónico.");
+                    break;
+                case 'auth/wrong-password':
+                    setError("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
+                    break;
+                case 'auth/invalid-email':
+                    setError("El formato del correo electrónico es inválido.");
+                    break;
+                case 'auth/too-many-requests':
+                    setError("Has intentado iniciar sesión demasiadas veces. Por favor, inténtalo más tarde.");
+                    break;
+                default:
+                    setError("Ocurrió un error inesperado al iniciar sesión.");
+                    console.error("Firebase login error:", err);
+                    break;
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-            <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-2 border-gray-200 dark:border-gray-700 shadow-xl rounded-2xl">
-                <CardHeader className="text-center p-8">
-                    <CardTitle className="text-3xl font-bold text-gray-800 dark:text-white">{portalName}</CardTitle>
-                    <CardDescription className="text-lg text-gray-600 dark:text-gray-300 mt-2">
+        <div className="flex items-center justify-center min-h-screen">
+            <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-2 border-border shadow-xl rounded-2xl">
+                 <CardHeader className="text-center p-8">
+                    <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit mb-4">
+                        <User className="h-8 w-8 text-primary"/>
+                    </div>
+                    <CardTitle className="text-3xl font-bold">{portalName}</CardTitle>
+                    <CardDescription className="text-base text-muted-foreground mt-2">
                         {portalDescription}
                     </CardDescription>
                 </CardHeader>
                 <form onSubmit={handleLogin}>
                     <CardContent className="p-8 space-y-6">
+                        {error && (
+                             <Alert variant="destructive">
+                                <AlertTriangle className="h-4 w-4" />
+                                <AlertTitle>Error de Autenticación</AlertTitle>
+                                <AlertDescription>{error}</AlertDescription>
+                            </Alert>
+                        )}
                         <div className="space-y-2">
                             <Label htmlFor="email">Correo Electrónico</Label>
-                            <Input id="email" type="email" placeholder="tu@email.com" required className="text-base" />
+                            <Input id="email" name="email" type="email" placeholder="tu@email.com" required className="text-base" />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="password">Contraseña</Label>
-                            <Input id="password" type="password" required className="text-base" />
+                            <Input id="password" name="password" type="password" required className="text-base" />
                         </div>
                     </CardContent>
-                    <CardFooter className="p-8">
-                        <Button type="submit" className="w-full text-lg" disabled={isLoading}>{
+                    <CardFooter className="p-8 flex flex-col gap-4">
+                        <Button type="submit" className="w-full text-lg h-12" disabled={isLoading}>{
                             isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder'
                         }</Button>
+                        <Button variant="link" asChild className="text-muted-foreground font-normal">
+                           <Link href="/recover-legal">¿Olvidaste tu contraseña?</Link>
+                        </Button>
                     </CardFooter>
                 </form>
             </Card>

@@ -1,30 +1,14 @@
 
 "use client";
 
-import { Briefcase } from "lucide-react";
 import { LoginCard } from "@/components/auth/login-card";
-import { loginOptions } from "@/lib/login-options";
 
 export default function LoginRrhhPage() {
-  const loginProps = {
-    icon: Briefcase,
-    title: "Acceso RR.HH.",
-    description: "Inicia sesión con tu usuario de Recursos Humanos.",
-    fields: [
-      { id: "username", label: "Usuario", type: "text" as const, placeholder: "usuario.rrhh" },
-      { id: "password", label: "Contraseña", type: "password" as const, placeholder: "••••••••" },
-    ],
-    submitButtonText: "Acceder",
-    submitButtonHref: "/dashboard-rrhh",
-    footerLinks: {
-      text: "¿No tienes una cuenta?",
-      mainLink: { href: "/register/rrhh", label: "Regístrate aquí" },
-      secondaryLinks: {
-        title: "Otros Portales",
-        links: loginOptions.filter(o => o.href !== '/login-rrhh')
-      }
-    }
-  };
-
-  return <LoginCard {...loginProps} />;
+    return (
+        <LoginCard 
+            portalName="Gestión de RR.HH." 
+            portalDescription="Portal para la administración del talento humano y nóminas."
+            redirectPath="/dashboard-rrhh"
+        />
+    );
 }
