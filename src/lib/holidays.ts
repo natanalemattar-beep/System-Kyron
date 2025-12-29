@@ -39,7 +39,7 @@ export const holidays: Holiday[] = [
     country: "ALL",
     month: 11, // Diciembre
     day: 1,
-    duration: 31,
+    duration: 31, // Christmas season lasts for the whole month
     effect: 'snow',
   },
 ];

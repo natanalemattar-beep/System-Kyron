@@ -21,6 +21,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ThemeToggle } from "./theme-toggle";
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useState, useEffect } from "react";
+import { holidays, type Holiday } from "@/lib/holidays";
+
 
 type User = {
   name: string;
@@ -53,6 +56,22 @@ interface AppHeaderProps {
 
 export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
   const pathname = usePathname();
+  const [isChristmas, setIsChristmas] = useState(false);
+
+   useEffect(() => {
+    const checkHoliday = () => {
+      const now = new Date();
+      const christmas = holidays.find(h => h.name === "Navidad");
+      if (christmas) {
+        const startDate = new Date(now.getFullYear(), christmas.month, christmas.day);
+        const endDate = new Date(now.getFullYear(), christmas.month, christmas.day + christmas.duration);
+        setIsChristmas(now >= startDate && now < endDate);
+      }
+    };
+    checkHoliday();
+    const interval = setInterval(checkHoliday, 1000 * 60 * 60); // Check every hour
+    return () => clearInterval(interval);
+  }, []);
 
   const isLinkActive = (itemHref: string) => {
     if (itemHref === '/') return pathname === '/';
@@ -90,7 +109,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
         <div className="flex h-16 items-center justify-between border-b">
         <div className="flex items-center gap-6">
             <Link href={dashboardHref} className="flex items-center gap-3">
-                <Logo />
+                <Logo className={cn(isChristmas && "animate-pulse [filter:drop-shadow(0_0_8px_hsl(var(--primary)))]")} />
                 <span className="text-xl font-bold hidden sm:inline-block">System Kyron</span>
             </Link>
             <nav className="hidden md:flex items-center gap-2">

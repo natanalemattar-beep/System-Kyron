@@ -11,28 +11,32 @@ export function DynamicBackground() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // This effect runs only on the client, ensuring window and other browser-specific APIs are available.
     setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (isClient) {
+    if (!isClient) return;
+
+    const checkHoliday = () => {
         const now = new Date();
-        const currentMonth = now.getMonth();
-        const currentDay = now.getDate();
         let foundHoliday: Holiday | null = null;
 
         for (const holiday of holidays) {
-            const holidayEndDate = new Date(now.getFullYear(), holiday.month, holiday.day + holiday.duration -1);
             const holidayStartDate = new Date(now.getFullYear(), holiday.month, holiday.day);
-
-            if (now >= holidayStartDate && now <= holidayEndDate) {
+            const holidayEndDate = new Date(now.getFullYear(), holiday.month, holiday.day + holiday.duration);
+            
+            if (now >= holidayStartDate && now < holidayEndDate) {
                 foundHoliday = holiday;
                 break; 
             }
         }
         setActiveHoliday(foundHoliday);
-    }
+    };
+
+    checkHoliday(); // Check immediately on mount
+    const interval = setInterval(checkHoliday, 1000 * 60 * 60); // Re-check every hour
+
+    return () => clearInterval(interval); // Cleanup on unmount
   }, [isClient]);
 
   return (
