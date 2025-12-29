@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { StatsCards } from "@/components/dashboard/stats-cards";
@@ -7,7 +6,7 @@ import { RecentInvoices } from "@/components/dashboard/recent-invoices";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { QuickAccess } from "@/components/dashboard/quick-access";
 import { BookOpen } from "lucide-react";
-import { contabilidadNavGroups } from "@/components/app-sidebar-nav-items";
+import { librosContablesNavItems } from "@/components/app-sidebar-nav-items";
 
 export default function ContabilidadPage() {
   return (
@@ -31,8 +30,8 @@ export default function ContabilidadPage() {
             </div>
         </div>
         <div className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-tight">Acceso Rápido a Módulos Contables</h2>
-            <QuickAccess navGroups={contabilidadNavGroups} />
+            <h2 className="text-2xl font-semibold tracking-tight">Libros Oficiales y Acceso Rápido</h2>
+            <QuickAccess navGroups={[librosContablesNavItems]} />
         </div>
       </div>
     </div>

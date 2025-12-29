@@ -12,7 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { OverviewChart } from "@/components/dashboard/overview-chart";
+import { DailyTasksChart } from "@/components/dashboard/daily-tasks-chart";
 
 const kpiData = [
   { title: "Trámites en Proceso", value: "2", icon: Clock, color: "text-yellow-500", href: "/partidas-nacimiento" },
@@ -197,7 +197,7 @@ export default function DashboardPersonalPage() {
             {isLoading ? (
                <OverviewChartSkeleton />
             ) : (
-               <OverviewChart />
+               <DailyTasksChart />
             )}
         </motion.div>
       </div>

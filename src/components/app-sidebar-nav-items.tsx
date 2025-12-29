@@ -198,7 +198,7 @@ const finanzasContabilidadNavItems = {
   items: []
 };
 
-const librosContablesNavItems = {
+export const librosContablesNavItems = {
     title: "Libros Oficiales",
     icon: BookOpen,
     subGroups: [

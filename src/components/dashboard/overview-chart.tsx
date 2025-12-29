@@ -3,23 +3,13 @@
 
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { dailyChartData } from "@/lib/data";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
-import { AlertTriangle, CheckCircle, Clock } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { historicalFinancialData } from "@/lib/historical-financial-data";
 
 
 const chartConfig = {
-  completed: {
-    label: "Completados",
-    color: "hsl(var(--primary))",
-  },
-  pending: {
-    label: "Pendientes",
-    color: "hsl(var(--accent))",
-  },
-   ingresos: {
+  ingresos: {
     label: "Ingresos",
     color: "hsl(var(--primary))",
   },
@@ -29,11 +19,6 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const dailyAlerts = [
-    { text: "La solicitud de Antecedentes Penales (AP-2024-005) fue aprobada.", icon: CheckCircle, color: "text-green-500" },
-    { text: "El trámite de Partida de Nacimiento (PN-2024-003) ha entrado en fase de revisión.", icon: Clock, color: "text-yellow-500" },
-    { text: "Faltan recaudos para la solicitud del RIF del menor (RF-2024-010).", icon: AlertTriangle, color: "text-red-500" },
-];
 
 export function OverviewChart() {
 
