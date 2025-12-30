@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
-import { redirect } from 'next/navigation';
 
 interface SpecializedLoginCardProps {
     portalName: string;
@@ -47,8 +46,7 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
         // Simulate a server-side delay
         setTimeout(() => {
             if (username === demoUsername && password === demoPassword) {
-                toast({ title: "Acceso Concedido", description: `Bienvenido al portal ${portalName}.` });
-                // Use router.push for client-side navigation after the toast
+                // Remove the toast from here and just navigate.
                 router.push(redirectPath);
             } else {
                 setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
