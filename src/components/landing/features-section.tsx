@@ -3,12 +3,12 @@
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { BrainCircuit, Shield, GitBranch } from "lucide-react";
+import { BrainCircuit, GitBranch, Lock } from "lucide-react";
 
 const features = [
-    { title: "Auditoría con IA y Cero Riesgo Fiscal", description: "Utilizamos IA para una auditoría continua y predictiva, garantizando un 100% de cumplimiento con el SENIAT y eliminando el riesgo de multas.", icon: BrainCircuit},
-    { title: "Seguridad de Grado Bancario", description: "Tus datos están protegidos con cifrado de extremo a extremo, autenticación de dos factores y una arquitectura de nube robusta y segura.", icon: Shield },
-    { title: "Ecosistema Modular e Integrado", description: "Desde contabilidad y nómina hasta ventas y legal. Activa los módulos que necesitas y escala tu operación sin fricciones.", icon: GitBranch },
+    { title: "Inteligencia Fiscal Predictiva", description: "Nuestra IA analiza patrones y cambios normativos para anticipar riesgos fiscales, asegurando un cumplimiento proactivo y evitando sanciones antes de que ocurran.", icon: BrainCircuit},
+    { title: "Ecosistema de Gestión Unificado", description: "Controla un holding completo desde una sola interfaz. Consolida finanzas, comparte datos entre empresas y mantén una visión 360° de todo tu grupo.", icon: GitBranch },
+    { title: "Verificación Inmutable con Blockchain", description: "Cada transacción y documento fiscal se sella en una cadena de bloques privada, creando un registro de auditoría incorruptible y 100% verificable.", icon: Lock },
 ];
 
 export function FeaturesSection() {
@@ -20,9 +20,9 @@ export function FeaturesSection() {
             <div 
                 className="space-y-6"
             >
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Inteligencia que Impulsa tu Negocio</h2>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Tecnología que te Da el Control Absoluto</h2>
                 <p className="text-lg text-muted-foreground">
-                  Nuestra plataforma integra tecnologías de vanguardia para darte una ventaja competitiva.
+                  Fusionamos IA, Blockchain y una arquitectura unificada para ofrecerte un nivel de gestión y seguridad sin precedentes.
                 </p>
                 <div className="space-y-6">
                     {features.map((feature) => (

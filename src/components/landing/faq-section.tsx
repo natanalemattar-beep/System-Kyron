@@ -6,28 +6,28 @@ import { HelpCircle } from "lucide-react";
 
 const faqItems = [
     {
-        question: "¿Qué tan seguro están del 'Cero Riesgo Fiscal'?",
-        answer: "Nuestra confianza se basa en un sistema de triple validación: 1) Reglas de negocio actualizadas constantemente por nuestro equipo legal. 2) Auditoría continua por IA que verifica cada transacción. 3) Una capa de verificación humana por contadores expertos. Este enfoque proactivo nos permite garantizar el 100% de cumplimiento."
+        question: "¿Cómo garantizan el 'Cero Riesgo Fiscal'?",
+        answer: "Nuestra confianza se basa en un sistema de triple validación: 1) Reglas de negocio actualizadas en tiempo real por nuestro equipo legal. 2) Auditoría continua por IA que verifica cada transacción contra la Gaceta Oficial. 3) Sellado de transacciones en Blockchain para crear un registro inmutable. Este enfoque proactivo nos permite garantizar el cumplimiento antes de que ocurra cualquier fiscalización."
     },
     {
-        question: "¿Cómo se adapta la plataforma a los constantes cambios de leyes en Venezuela?",
-        answer: "Esta es nuestra mayor fortaleza. Nuestro equipo legal monitorea la Gaceta Oficial diariamente. Cualquier cambio en leyes, providencias o tasas (ej. IGTF, Protección de Pensiones) se traduce en actualizaciones automáticas en la plataforma, asegurando que tu empresa siempre esté al día sin que tengas que preocuparte."
+        question: "¿La plataforma puede gestionar un holding de varias empresas?",
+        answer: "Sí. System Kyron está diseñado desde su núcleo para la gestión de holdings. Puedes consolidar la contabilidad, generar reportes financieros a nivel de grupo, y tener una visión 360° de todas tus empresas desde un único Centro de Mando, manteniendo la operatividad y los datos de cada una de forma segura e independiente."
     },
     {
-        question: "¿Puedo integrar System Kyron con otras herramientas que ya uso?",
-        answer: "¡Sí! Para nuestros clientes del Plan Corporativo, ofrecemos una API robusta que permite integraciones a medida con tus sistemas de CRM, ERP o cualquier otra herramienta de gestión, creando un flujo de trabajo unificado y sin fisuras."
+        question: "¿Qué tan difícil es migrar mi información contable actual a Kyron?",
+        answer: "Hemos simplificado este proceso al máximo. Nuestro equipo de implementación te guiará para importar tus datos históricos (clientes, productos, balances) de forma masiva. Para la mayoría de los sistemas contables estándar, la migración se completa en menos de 48 horas."
     },
     {
         question: "Mi empresa no es de tecnología. ¿Es difícil de usar?",
         answer: "Para nada. La plataforma está diseñada para ser increíblemente intuitiva. Si sabes usar tu correo electrónico o redes sociales, sabrás usar Kyron. Además, ofrecemos un proceso de implementación guiado y soporte constante para resolver cualquier duda que pueda surgir."
     },
     {
-        question: "¿Qué nivel de soporte técnico ofrecen?",
-        answer: "Ofrecemos soporte escalonado. Todos nuestros planes incluyen soporte por correo. El Plan Profesional añade soporte prioritario vía WhatsApp, y el Plan Corporativo ofrece un Oficial de Cumplimiento dedicado y soporte 24/7 con acuerdos de nivel de servicio (SLA) garantizados."
+        question: "¿Cómo se adapta la plataforma a los constantes cambios de leyes en Venezuela?",
+        answer: "Esta es nuestra mayor fortaleza. Nuestro equipo legal y nuestra IA monitorean la Gaceta Oficial diariamente. Cualquier cambio en leyes (IVA, ISLR) o nuevas contribuciones (Protección de Pensiones) se traduce en actualizaciones automáticas en la plataforma, asegurando que tu empresa siempre esté al día sin que tengas que preocuparte."
     },
     {
-        question: "¿Qué pasa con mis datos si decido dejar de usar el servicio?",
-        answer: "Tus datos son tuyos. En cualquier momento, puedes exportar toda tu información (libros contables, facturas, reportes) en formatos estándar como Excel o PDF. Garantizamos un proceso de salida transparente y sin trabas."
+        question: "¿Qué nivel de soporte técnico ofrecen?",
+        answer: "Ofrecemos soporte escalonado. Todos nuestros planes incluyen soporte por correo. El Plan Profesional añade soporte prioritario vía WhatsApp, y el Plan Corporativo ofrece un Oficial de Cumplimiento dedicado y soporte 24/7 con acuerdos de nivel de servicio (SLA) garantizados."
     }
 ];
 

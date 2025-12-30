@@ -6,7 +6,7 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, Layers, DollarSign, Briefcase, GitBranch, Megaphone, ShoppingCart } from "lucide-react";
+import { ArrowRight, Layers, ShoppingCart, ShieldCheck, Briefcase, GitBranch, Megaphone } from "lucide-react";
 import { Logo } from "../logo";
 import { useIsMobile } from "@/hooks/use-mobile";
 

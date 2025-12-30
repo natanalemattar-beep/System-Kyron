@@ -3,7 +3,7 @@
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Target, Eye } from "lucide-react";
+import { Target, Eye, Recycling } from "lucide-react";
 
 const teamMembers = [
   {
@@ -29,13 +29,13 @@ const teamMembers = [
 const testimonials = [
   {
     name: "Carlos Rodríguez",
-    company: "Constructora XYZ",
+    company: "Director, Constructora XYZ",
     avatarId: "testimonial-avatar-1",
     text: "System Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
   },
   {
     name: "Ana Pérez",
-    company: "Inversiones ABC",
+    company: "Gerente General, Inversiones ABC",
     avatarId: "testimonial-avatar-2",
     text: "La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.",
   },
@@ -49,8 +49,8 @@ export function AboutUsSection() {
                 <div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Conoce a Kyron</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Nacimos de la necesidad de crear orden en el caos administrativo venezolano, fusionando tecnología, cumplimiento y visión de futuro.</p>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Más que un Software, Somos tu Socio</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Nacimos de la necesidad de crear orden en el caos administrativo venezolano, fusionando tecnología, cumplimiento y una visión de futuro sostenible.</p>
                 </div>
                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
                     <div 
@@ -63,6 +63,10 @@ export function AboutUsSection() {
                         <div>
                             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Eye className="text-primary"/>Nuestra Visión</h3>
                             <p className="text-muted-foreground">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso con el éxito de nuestros clientes.</p>
+                        </div>
+                         <div>
+                            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Recycling className="text-primary"/>Fundación Kyron</h3>
+                            <p className="text-muted-foreground">Creemos en un futuro sostenible. A través de nuestra fundación, impulsamos iniciativas como la Tarjeta de Reciclaje, utilizando nuestra tecnología para incentivar la economía circular y la conciencia ambiental.</p>
                         </div>
                         <div className="pt-4">
                             <h3 className="text-xl font-semibold mb-4 text-center sm:text-left">Equipo Fundador</h3>

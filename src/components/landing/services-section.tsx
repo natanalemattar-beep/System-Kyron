@@ -1,14 +1,14 @@
 
 'use client';
 
-import { Layers, Users, ShieldCheck, Gavel, ShoppingCart, Briefcase } from "lucide-react";
+import { Layers, Briefcase, Gavel, Network } from "lucide-react";
 import { Card, CardHeader, CardContent, CardTitle } from "../ui/card";
 
 const services = [
-    { title: "Contabilidad y Finanzas", description: "Automatiza tu contabilidad, desde libros oficiales hasta reportes financieros y análisis de rentabilidad.", icon: Layers },
-    { title: "Ventas y Facturación", description: "Gestiona todo tu ciclo de ventas con un Punto de Venta (TPV) integrado, facturación a crédito y notas fiscales.", icon: ShoppingCart },
-    { title: "Gestión de Talento Humano", description: "Administra nóminas, cálculo de prestaciones, contratos y el ciclo de vida completo de tus empleados.", icon: Briefcase },
-    { title: "Cumplimiento y Asesoría Legal", description: "Garantiza el cumplimiento fiscal (SENIAT, IVSS) y gestiona contratos, poderes y trámites corporativos con seguridad.", icon: Gavel },
+    { title: "Holding y Finanzas", description: "Consolida la contabilidad de múltiples empresas, gestiona la tesorería de forma centralizada y accede a reportes financieros a nivel de grupo.", icon: Network },
+    { title: "Operaciones y Ventas", description: "Desde el Punto de Venta (TPV) hasta el control de inventario y la facturación a crédito, optimiza todo tu ciclo comercial.", icon: Layers },
+    { title: "Talento y Cultura", description: "Automatiza la gestión de nóminas, cálculo de prestaciones, contratos y el ciclo de vida completo del empleado.", icon: Briefcase },
+    { title: "Legal y Cumplimiento Fiscal", description: "Garantiza el cumplimiento con SENIAT e IVSS, gestiona contratos, poderes y trámites corporativos con un módulo legal integrado.", icon: Gavel },
 ];
 
 export function ServicesSection() {
@@ -18,8 +18,8 @@ export function ServicesSection() {
                 <div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Un Ecosistema para tu Tranquilidad</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos tu aliado estratégico para navegar el entorno empresarial venezolano.</p>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Un Ecosistema para Gobernar tu Negocio</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos el sistema operativo para tu grupo empresarial. Orquestamos cada área de tu compañía para una sinfonía de eficiencia.</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {services.map((item, index) => (
