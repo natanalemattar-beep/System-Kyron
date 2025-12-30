@@ -6,16 +6,16 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, Layers, DollarSign, Briefcase, GitBranch, Megaphone } from "lucide-react";
+import { ArrowRight, FileText, ShieldCheck, Users, BrainCircuit, Layers, DollarSign, Briefcase, GitBranch, Megaphone, ShoppingCart } from "lucide-react";
 import { Logo } from "../logo";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const orbFeatures = [
-  { icon: Layers, title: "Gestión Inteligente" },
-  { icon: DollarSign, title: "Finanzas y Contabilidad" },
-  { icon: ShieldCheck, title: "Tranquilidad Fiscal" },
+  { icon: Layers, title: "Contabilidad y Finanzas" },
+  { icon: ShoppingCart, title: "Ventas y Facturación" },
+  { icon: ShieldCheck, title: "Cumplimiento Fiscal" },
   { icon: Briefcase, title: "Talento Humano" },
-  { icon: GitBranch, title: "Ecosistema de Negocios" },
+  { icon: GitBranch, title: "Gestión Corporativa" },
   { icon: Megaphone, title: "Asesoría Estratégica" },
 ];
 
@@ -126,14 +126,22 @@ export function HeroSection() {
         </div>
       </div>
       
-       <div className="text-center mt-12 px-4">
+       <div className="text-center mt-12 px-4 z-20">
+           <motion.h1
+             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance"
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              Tu Centro de Mando Empresarial
+           </motion.h1>
            <motion.p
-             className="text-lg md:text-xl max-w-2xl mx-auto text-muted-foreground text-balance"
+             className="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground text-balance mt-6"
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
              transition={{ duration: 0.5, delay: 0.2 }}
            >
-             La plataforma definitiva para la gestión empresarial en Venezuela. Automatización fiscal, contabilidad inteligente y cumplimiento normativo, todo en un solo lugar.
+             Automatización fiscal, contabilidad inteligente y cumplimiento normativo en una única plataforma diseñada para la tranquilidad del empresario venezolano.
            </motion.p>
            <motion.div
              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"

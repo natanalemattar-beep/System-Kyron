@@ -1,14 +1,14 @@
 
 'use client';
 
-import { Layers, Users, ShieldCheck, Gavel } from "lucide-react";
+import { Layers, Users, ShieldCheck, Gavel, ShoppingCart, Briefcase } from "lucide-react";
 import { Card, CardHeader, CardContent, CardTitle } from "../ui/card";
 
 const services = [
-    { title: "Gestión Fiscal y Contable", description: "Automatiza tu contabilidad, desde libros oficiales hasta la declaración de impuestos, todo homologado por el SENIAT.", icon: Layers },
-    { title: "Administración de Nómina", description: "Calcula y gestiona la nómina, beneficios y obligaciones parafiscales de tus empleados sin complicaciones.", icon: Users },
-    { title: "Permisología y Cumplimiento", description: "Centraliza y mantén al día todas las licencias y permisos necesarios para operar en Venezuela.", icon: ShieldCheck },
-    { title: "Asesoría Legal y Estratégica", description: "Accede a herramientas de análisis, modelos de contratos y guías para una toma de decisiones informada.", icon: Gavel },
+    { title: "Contabilidad y Finanzas", description: "Automatiza tu contabilidad, desde libros oficiales hasta reportes financieros y análisis de rentabilidad.", icon: Layers },
+    { title: "Ventas y Facturación", description: "Gestiona todo tu ciclo de ventas con un Punto de Venta (TPV) integrado, facturación a crédito y notas fiscales.", icon: ShoppingCart },
+    { title: "Gestión de Talento Humano", description: "Administra nóminas, cálculo de prestaciones, contratos y el ciclo de vida completo de tus empleados.", icon: Briefcase },
+    { title: "Cumplimiento y Asesoría Legal", description: "Garantiza el cumplimiento fiscal (SENIAT, IVSS) y gestiona contratos, poderes y trámites corporativos con seguridad.", icon: Gavel },
 ];
 
 export function ServicesSection() {

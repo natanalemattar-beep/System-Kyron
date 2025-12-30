@@ -17,7 +17,7 @@ export function CtaSection() {
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold">Tu Ecosistema de Gestión y Cumplimiento</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold">Da el Salto a la Gestión Inteligente</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
                         Simplifica tu operación, garantiza tu tranquilidad fiscal y toma el control total de tu negocio. Comienza hoy.
                     </p>

@@ -3,12 +3,12 @@
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Cpu, Shield, BarChart } from "lucide-react";
+import { BrainCircuit, Shield, GitBranch } from "lucide-react";
 
 const features = [
-    { title: "Inteligencia Artificial", description: "Conciliación bancaria, análisis predictivo y auditoría en tiempo real para decisiones más inteligentes.", icon: Cpu},
-    { title: "Seguridad de Nivel Superior", description: "Tus datos están protegidos con cifrado de extremo a extremo y autenticación de dos factores.", icon: Shield },
-    { title: "Análisis y Reportes", description: "Visualiza la salud de tu negocio con dashboards intuitivos y reportes personalizables.", icon: BarChart },
+    { title: "Auditoría con IA y Cero Riesgo Fiscal", description: "Utilizamos IA para una auditoría continua y predictiva, garantizando un 100% de cumplimiento con el SENIAT y eliminando el riesgo de multas.", icon: BrainCircuit},
+    { title: "Seguridad de Grado Bancario", description: "Tus datos están protegidos con cifrado de extremo a extremo, autenticación de dos factores y una arquitectura de nube robusta y segura.", icon: Shield },
+    { title: "Ecosistema Modular e Integrado", description: "Desde contabilidad y nómina hasta ventas y legal. Activa los módulos que necesitas y escala tu operación sin fricciones.", icon: GitBranch },
 ];
 
 export function FeaturesSection() {

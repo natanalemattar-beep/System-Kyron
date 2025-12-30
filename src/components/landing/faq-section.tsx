@@ -6,28 +6,28 @@ import { HelpCircle } from "lucide-react";
 
 const faqItems = [
     {
-        question: "¿Cómo garantizan el cumplimiento con las normativas del SENIAT?",
-        answer: "Nuestra plataforma está diseñada específicamente para el entorno fiscal venezolano. Mantenemos una comunicación constante con el SENIAT para asegurar que cada factura, retención y libro contable cumpla con las últimas providencias administrativas. Nuestro sistema valida los datos en tiempo real y está homologado, dándote la tranquilidad de que tu empresa opera 100% en regla."
+        question: "¿Qué tan seguro están del 'Cero Riesgo Fiscal'?",
+        answer: "Nuestra confianza se basa en un sistema de triple validación: 1) Reglas de negocio actualizadas constantemente por nuestro equipo legal. 2) Auditoría continua por IA que verifica cada transacción. 3) Una capa de verificación humana por contadores expertos. Este enfoque proactivo nos permite garantizar el 100% de cumplimiento."
     },
     {
-        question: "¿Qué métodos de pago aceptan?",
-        answer: "Aceptamos una amplia variedad de métodos de pago para tu comodidad. Para pagos en Bolívares (VES), puedes usar transferencias bancarias y Pago Móvil. Para pagos en Dólares (USD) o otras divisas, aceptamos Zelle, transferencias internacionales y tarjetas de crédito a través de nuestra pasarela de pago segura."
+        question: "¿Cómo se adapta la plataforma a los constantes cambios de leyes en Venezuela?",
+        answer: "Esta es nuestra mayor fortaleza. Nuestro equipo legal monitorea la Gaceta Oficial diariamente. Cualquier cambio en leyes, providencias o tasas (ej. IGTF, Protección de Pensiones) se traduce en actualizaciones automáticas en la plataforma, asegurando que tu empresa siempre esté al día sin que tengas que preocuparte."
     },
     {
-        question: "¿Ofrecen soporte técnico y de implementación?",
-        answer: "¡Sí! El éxito de nuestros clientes es nuestro éxito. Ofrecemos un proceso de 'onboarding' guiado para asegurar una implementación fluida. Además, todos nuestros planes incluyen soporte. El Plan Profesional y Corporativo cuentan con soporte prioritario vía WhatsApp y teléfono para resolver cualquier duda al instante."
+        question: "¿Puedo integrar System Kyron con otras herramientas que ya uso?",
+        answer: "¡Sí! Para nuestros clientes del Plan Corporativo, ofrecemos una API robusta que permite integraciones a medida con tus sistemas de CRM, ERP o cualquier otra herramienta de gestión, creando un flujo de trabajo unificado y sin fisuras."
     },
     {
-        question: "¿Puedo probar la plataforma antes de comprometerme?",
-        answer: "Por supuesto. Creemos en el valor de nuestra plataforma y queremos que lo compruebes por ti mismo. Ofrecemos una demostración gratuita y personalizada donde uno de nuestros especialistas te guiará a través de las funcionalidades clave y responderá todas tus preguntas. Solicita tu demo en la sección de contacto."
+        question: "Mi empresa no es de tecnología. ¿Es difícil de usar?",
+        answer: "Para nada. La plataforma está diseñada para ser increíblemente intuitiva. Si sabes usar tu correo electrónico o redes sociales, sabrás usar Kyron. Además, ofrecemos un proceso de implementación guiado y soporte constante para resolver cualquier duda que pueda surgir."
     },
     {
-        question: "¿Es seguro subir mis datos fiscales y contables a la plataforma?",
-        answer: "La seguridad es nuestra máxima prioridad. Utilizamos cifrado de nivel bancario para toda la información, tanto en tránsito como en reposo. Además, implementamos autenticación de dos factores (2FA) y auditorías de seguridad constantes para garantizar que tus datos estén siempre protegidos contra accesos no autorizados."
+        question: "¿Qué nivel de soporte técnico ofrecen?",
+        answer: "Ofrecemos soporte escalonado. Todos nuestros planes incluyen soporte por correo. El Plan Profesional añade soporte prioritario vía WhatsApp, y el Plan Corporativo ofrece un Oficial de Cumplimiento dedicado y soporte 24/7 con acuerdos de nivel de servicio (SLA) garantizados."
     },
     {
-        question: "¿Qué sucede si cambia la legislación fiscal en Venezuela?",
-        answer: "Esa es una de nuestras mayores fortalezas. Nuestro equipo legal y de desarrollo monitorea constantemente cualquier cambio en la legislación. Actualizamos la plataforma de forma proactiva para adaptarnos a nuevas leyes, gacetas o providencias, asegurando que tu empresa siempre esté al día sin que tú tengas que preocuparte."
+        question: "¿Qué pasa con mis datos si decido dejar de usar el servicio?",
+        answer: "Tus datos son tuyos. En cualquier momento, puedes exportar toda tu información (libros contables, facturas, reportes) en formatos estándar como Excel o PDF. Garantizamos un proceso de salida transparente y sin trabas."
     }
 ];
 
