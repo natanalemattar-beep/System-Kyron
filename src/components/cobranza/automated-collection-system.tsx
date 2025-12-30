@@ -162,12 +162,6 @@ export const AutomatedCollectionSystem = () => {
     }
   };
 
-  const handleWhatsAppContact = (client: CommunicationLog) => {
-    const message = `Estimado cliente ${client.clientName}, le saludamos de Kyron. Le contactamos en referencia a su saldo pendiente de $${client.debtAmount.toLocaleString()}. ¿Podemos ayudarle a procesar su pago? Quedamos atentos.`;
-    const whatsappUrl = `https://wa.me/${client.phone}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
   return (
     <div className="bg-card/50 backdrop-blur-sm rounded-lg border p-6">
       <div className="flex justify-between items-center mb-6">
@@ -235,7 +229,7 @@ export const AutomatedCollectionSystem = () => {
           </div>
         </div>
         <div>
-          <h3 className="font-semibold mb-4">Comunicaciones Recientes</h3>
+          <h3 className="font-semibold mb-4">Registro de Comunicaciones Automatizadas</h3>
           <div className="space-y-3">
             {communications.map((comm) => (
               <div key={comm.id} className="border border-border rounded-lg p-4">
@@ -268,14 +262,11 @@ export const AutomatedCollectionSystem = () => {
                 <div className="text-sm text-gray-400 my-3">
                   {comm.message}
                 </div>
-
-                <Button 
-                    onClick={() => handleWhatsAppContact(comm)}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white"
-                    size="sm"
-                >
-                    Contactar por WhatsApp
-                </Button>
+                {comm.response && (
+                    <div className="text-sm text-gray-300 my-3 p-2 bg-secondary rounded-md">
+                        <span className="font-semibold text-primary">Respuesta:</span> {comm.response}
+                    </div>
+                )}
               </div>
             ))}
           </div>

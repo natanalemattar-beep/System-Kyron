@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview An AI agent that generates sales strategies.
@@ -9,7 +10,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { Package, Tag, Users } from 'lucide-react';
 
 const SalesStrategyInputSchema = z.object({
   topProducts: z.array(z.object({ name: z.string(), sales: z.number(), revenue: z.string() })).describe("List of top-selling products."),
@@ -17,13 +17,15 @@ const SalesStrategyInputSchema = z.object({
 });
 export type SalesStrategyInput = z.infer<typeof SalesStrategyInputSchema>;
 
+const StrategySchema = z.object({
+    icon: z.enum(["Package", "Tag", "Users"]).describe("Thematic icon for the strategy (Package, Tag, or Users)."),
+    titulo: z.string().describe("A short, catchy title for the strategy."),
+    descripcion: z.string().describe("A detailed description of the strategy and its rationale."),
+    impacto: z.string().describe("The estimated impact or result of implementing the strategy (e.g., 'Aumento del 15% en ventas').")
+});
+
 const SalesStrategyOutputSchema = z.object({
-    strategies: z.array(z.object({
-        icon: z.enum(["Package", "Tag", "Users"]).describe("Thematic icon for the strategy (Package, Tag, or Users)."),
-        titulo: z.string().describe("A short, catchy title for the strategy."),
-        descripcion: z.string().describe("A detailed description of the strategy and its rationale."),
-        impacto: z.string().describe("The estimated impact or result of implementing the strategy (e.g., 'Aumento del 15% en ventas').")
-    }))
+    strategies: z.array(StrategySchema).length(3).describe("An array containing exactly 3 sales strategies.")
 });
 export type SalesStrategyOutput = z.infer<typeof SalesStrategyOutputSchema>;
 
@@ -46,9 +48,11 @@ const generateSalesStrategiesFlow = ai.defineFlow(
         - Top Selling Products: {{{json topProducts}}}
         - Bottom Selling Products: {{{json bottomProducts}}}
 
-        Based on this data, generate exactly 3 creative, actionable, and impactful sales strategies. For each strategy, provide a title, a description, an estimated impact, and an appropriate icon ('Package' for bundling, 'Tag' for discounts, 'Users' for loyalty programs).
+        Based on this data, you must generate exactly 3 creative, actionable, and impactful sales strategies. For each strategy, provide a title, a description, an estimated impact, and an appropriate icon ('Package' for bundling, 'Tag' for discounts, 'Users' for loyalty programs).
         
-        Example Strategy:
+        The final output must be a valid JSON object with a single key "strategies" which is an array of exactly 3 strategy objects.
+        
+        Example Strategy Object:
         {
           "icon": "Package",
           "titulo": "Crear un Combo 'Kit de Oficina Esencial'",
