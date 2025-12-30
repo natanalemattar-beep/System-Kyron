@@ -3,7 +3,7 @@ import { User, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Banknote, 
 
 export const loginOptions = [
     { href: "/login-personal", label: "Acceso Personal", icon: User, description: "Portal para clientes individuales y trámites personales." },
-    { href: "/login-fintech", label: "Centro de Contabilidad", icon: Banknote, description: "Dashboard de gestión financiera y contable para empresas." },
+    { href: "/login", label: "Centro de Contabilidad", icon: Banknote, description: "Dashboard de gestión financiera y contable para empresas." },
     { href: "/login-escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel, description: "Acceso para el departamento legal y gestión de cumplimiento." },
     { href: "/login-ventas", label: "Ventas y Facturación", icon: ShoppingCart, description: "Punto de Venta (TPV) para cajeros y personal de ventas." },
     { href: "/login-rrhh", label: "Gestión de RR.HH.", icon: Briefcase, description: "Portal para la administración del talento humano y nóminas." },

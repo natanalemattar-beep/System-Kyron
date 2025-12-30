@@ -50,7 +50,7 @@ type NavGroup = {
 
 interface AppHeaderProps {
     user: User;
-    navGroups: NavGroup[];
+    navGroups?: NavGroup[];
     dashboardHref: string;
 }
 
