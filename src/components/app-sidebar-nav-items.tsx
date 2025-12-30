@@ -101,7 +101,7 @@ import {
 } from "lucide-react";
 
 
-export const naturalMenuItems = [
+export const naturalNavGroups = [
     {
         title: "Principal",
         icon: LayoutDashboard,
@@ -181,6 +181,7 @@ const finanzasContabilidadNavItems = {
         { href: "/(admin)/cuentas-por-pagar", label: "Cuentas por Pagar", icon: HandCoins },
         { href: "/(main)/cuentas-bancarias", label: "Cuentas Bancarias", icon: Landmark },
         { href: "/(main)/creditos", label: "Créditos", icon: CreditCard },
+        { href: "/(admin)/pasarelas-pago", label: "Pasarelas de Pago", icon: CreditCard },
       ]
     },
     {
