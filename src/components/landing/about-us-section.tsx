@@ -54,8 +54,8 @@ export function AboutUsSection() {
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Un Ecosistema para Gobernar tu Negocio</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos el sistema operativo para tu grupo empresarial. Orquestamos cada área de tu compañía para una sinfonía de eficiencia.</p>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Nuestra Filosofía</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Creemos en el poder de la tecnología para brindar tranquilidad y potenciar el crecimiento. Nuestra misión es simplificar lo complejo.</p>
                 </motion.div>
                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
                     <motion.div 
@@ -76,24 +76,6 @@ export function AboutUsSection() {
                          <div>
                             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Recycling className="text-primary"/>Fundación Kyron</h3>
                             <p className="text-muted-foreground">Creemos en un futuro sostenible. A través de nuestra fundación, impulsamos iniciativas como la Tarjeta de Reciclaje, utilizando nuestra tecnología para incentivar la economía circular y la conciencia ambiental.</p>
-                        </div>
-                        <div className="pt-4">
-                            <h3 className="text-xl font-semibold mb-4 text-center sm:text-left">Equipo Fundador</h3>
-                            <div className="flex flex-wrap items-start justify-center sm:justify-start gap-4">
-                                {teamMembers.map((member) => {
-                                    const avatar = PlaceHolderImages.find(img => img.id === member.avatarId);
-                                    return (
-                                        <div key={member.name} className="flex flex-col items-center text-center w-24">
-                                            {avatar && <Avatar className="w-20 h-20 mb-2">
-                                                <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
-                                                <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                                            </Avatar>}
-                                            <h4 className="font-semibold text-sm">{member.name}</h4>
-                                            <p className="text-primary font-medium text-xs">{member.role}</p>
-                                        </div>
-                                    );
-                                })}
-                            </div>
                         </div>
                     </motion.div>
                     <motion.div 

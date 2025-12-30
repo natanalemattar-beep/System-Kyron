@@ -185,6 +185,30 @@
       "description": "Una interfaz de software de contabilidad en una pantalla de computadora, mostrando gráficos y datos.",
       "imageUrl": "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhY2NvdW50aW5nJTIwc29mdHdhcmV8ZW58MHx8fHwxNzY2OTY4NDkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "accounting software"
+    },
+    {
+      "id": "stripe-logo",
+      "description": "Logo de Stripe.",
+      "imageUrl": "https://images.unsplash.com/photo-1634733591962-13c54c30c885?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHlwZSUyMGxvZ298ZW58MHx8fHwxNzY3MDYzMTU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "stripe logo"
+    },
+    {
+      "id": "paypal-logo",
+      "description": "Logo de PayPal.",
+      "imageUrl": "https://images.unsplash.com/photo-1616469829935-c2f334676b17?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxweXBhbCUyMGxvZ298ZW58MHx8fHwxNzY3MDYzMTU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "paypal logo"
+    },
+    {
+      "id": "crypto-logo",
+      "description": "Representación de criptomonedas.",
+      "imageUrl": "https://images.unsplash.com/photo-1621403160754-01589139a061?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcnlwdG9jdXJyZW5jeXxlbnwwfHx8fDE3NjcwNjMxNTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cryptocurrency"
+    },
+    {
+      "id": "pago-movil-logo",
+      "description": "Una persona usando un teléfono para pagar.",
+      "imageUrl": "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBwYXltZW50fGVufDB8fHx8MTc2NzA2MzE1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mobile payment"
     }
   ]
 }

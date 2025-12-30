@@ -17,9 +17,15 @@ export default function AnalisisRentabilidadPage() {
         </p>
       </header>
 
-      <ProfitabilityAnalyzer />
-      <GrowthStrategies />
-      <CostOptimization />
+      <div className="mb-8">
+        <ProfitabilityAnalyzer />
+      </div>
+      <div className="mb-8">
+        <GrowthStrategies />
+      </div>
+      <div className="mb-8">
+        <CostOptimization />
+      </div>
 
     </div>
   );

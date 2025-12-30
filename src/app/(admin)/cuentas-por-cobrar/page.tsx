@@ -17,8 +17,12 @@ export default function CuentasPorCobrarPage() {
         </header>
 
       <IntelligentPortfolioManager />
-      <AutomatedCollectionSystem />
-      <PaymentReconciliation />
+      <div className="mt-8">
+        <AutomatedCollectionSystem />
+      </div>
+      <div className="mt-8">
+        <PaymentReconciliation />
+      </div>
     </div>
   );
 }

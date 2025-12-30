@@ -1,27 +1,33 @@
 
 import type { ReactNode } from "react";
-import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import "./globals.css";
 
 // This is the ROOT layout. It should only contain elements that are truly global,
 // like providers and global styles. Specific headers/footers belong in nested layouts.
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params: { locale }
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head />
       <body>
-        <Providers>
-            <DynamicBackground />
-            {children}
-        </Providers>
+        <NextIntlClientProvider messages={messages}>
+          <Providers>
+              {children}
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

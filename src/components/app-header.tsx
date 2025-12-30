@@ -23,6 +23,7 @@ import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useState, useEffect } from "react";
 import { holidays, type Holiday } from "@/lib/holidays";
+import { LanguageSwitcher } from "./language-switcher";
 
 
 type User = {
@@ -114,7 +115,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                 <span className="text-xl font-bold hidden sm:inline-block">System Kyron</span>
             </Link>
             <nav className="hidden md:flex items-center gap-2">
-                 {navGroups && navGroups.map((group) => (
+                 {navGroups && Array.isArray(navGroups) && navGroups.map((group) => (
                     <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
                             <Button 
@@ -179,7 +180,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                  <ScrollArea className="flex-grow">
                     <nav className="p-4">
                         <Accordion type="multiple" className="w-full">
-                          {navGroups && navGroups.map((group) => (
+                          {navGroups && Array.isArray(navGroups) && navGroups.map((group) => (
                             <AccordionItem value={group.title} key={group.title}>
                                 <AccordionTrigger>
                                     <h4 className="font-semibold text-base flex items-center gap-2">
@@ -220,6 +221,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                   </div>
               </SheetContent>
             </Sheet>
+            <LanguageSwitcher />
             <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

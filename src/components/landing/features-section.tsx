@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from "next/image";
@@ -7,9 +6,9 @@ import { BrainCircuit, GitBranch, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 
 const features = [
-    { title: "Auditoría con IA y Cero Riesgo Fiscal", description: "Nuestra IA analiza cada transacción en tiempo real contra la normativa vigente, identificando y corrigiendo inconsistencias antes de que se conviertan en un problema. Garantizamos un cumplimiento proactivo.", icon: BrainCircuit},
-    { title: "Seguridad de Grado Bancario con Blockchain", description: "Sellamos cada registro contable y fiscal en una cadena de bloques privada. Esto crea una traza de auditoría inmutable, transparente y 100% verificable, eliminando la posibilidad de manipulación.", icon: Lock },
-    { title: "Ecosistema Modular e Integrado", description: "Desde la gestión de un holding empresarial hasta la operación de una simple sucursal, nuestra arquitectura modular se adapta. Activa los módulos que necesites (Contabilidad, RR.HH., Ventas) y mantenlos todos sincronizados en una única plataforma.", icon: GitBranch },
+    { title: "Inteligencia Fiscal Predictiva", description: "Nuestra IA analiza cada transacción en tiempo real contra la normativa vigente, identificando y corrigiendo inconsistencias antes de que se conviertan en un problema. Garantizamos un cumplimiento proactivo.", icon: BrainCircuit},
+    { title: "Verificación Inmutable (Blockchain)", description: "Sellamos cada registro contable y fiscal en una cadena de bloques. Esto crea una traza de auditoría inmutable, transparente y 100% verificable, eliminando la posibilidad de manipulación.", icon: Lock },
+    { title: "Ecosistema de Gestión Unificado", description: "Desde la gestión de un holding hasta la operación de una sucursal, nuestra arquitectura modular se adapta. Activa los módulos que necesites y mantenlos sincronizados en una única plataforma.", icon: GitBranch },
 ];
 
 export function FeaturesSection() {
