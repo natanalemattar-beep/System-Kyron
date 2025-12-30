@@ -4,6 +4,7 @@
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Target, Eye, Recycling } from "lucide-react";
+import { motion } from "framer-motion";
 
 const teamMembers = [
   {
@@ -46,15 +47,23 @@ export function AboutUsSection() {
     return (
         <section id="nosotros" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
-                <div 
+                <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.5 }}
                 >
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Más que un Software, Somos tu Socio</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Nacimos de la necesidad de crear orden en el caos administrativo venezolano, fusionando tecnología, cumplimiento y una visión de futuro sostenible.</p>
-                </div>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Un Ecosistema para Gobernar tu Negocio</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">Más que un software, somos el sistema operativo para tu grupo empresarial. Orquestamos cada área de tu compañía para una sinfonía de eficiencia.</p>
+                </motion.div>
                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
-                    <div 
+                    <motion.div 
                         className="lg:col-span-2 space-y-8"
+                         initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
                     >
                         <div>
                             <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Target className="text-primary"/>Nuestra Misión</h3>
@@ -86,9 +95,13 @@ export function AboutUsSection() {
                                 })}
                             </div>
                         </div>
-                    </div>
-                    <div 
+                    </motion.div>
+                    <motion.div 
                         className="lg:col-span-3"
+                         initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
                     >
                          <h3 className="text-xl font-semibold mb-4 text-center">Lo que Dicen Nuestros Clientes</h3>
                          <div className="space-y-6">
@@ -113,7 +126,7 @@ export function AboutUsSection() {
                                 );
                             })}
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

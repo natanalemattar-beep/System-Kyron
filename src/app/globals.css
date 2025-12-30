@@ -75,3 +75,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+    .btn-3d-primary {
+        @apply transform transition-transform duration-150 ease-in-out active:translate-y-px;
+        box-shadow: 0 4px 0 0 hsl(var(--primary) / 0.5);
+    }
+    .dark .btn-3d-primary {
+        box-shadow: 0 4px 0 0 hsl(var(--primary-foreground) / 0.2);
+    }
+    .btn-3d-primary:active {
+        box-shadow: 0 2px 0 0 hsl(var(--primary) / 0.5);
+    }
+    .dark .btn-3d-primary:active {
+        box-shadow: 0 2px 0 0 hsl(var(--primary-foreground) / 0.2);
+    }
+}

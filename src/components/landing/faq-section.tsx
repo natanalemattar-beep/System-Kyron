@@ -3,6 +3,7 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const faqItems = [
     {
@@ -36,14 +37,22 @@ export function FaqSection() {
     return (
         <section id="faq" className="py-20 md:py-28 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6">
-                <div 
+                <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.5 }}
                 >
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Preguntas Frecuentes</h2>
                     <p className="mt-4 text-lg text-muted-foreground">Resolvemos tus dudas más comunes para que tomes la mejor decisión.</p>
-                </div>
-                <div 
+                </motion.div>
+                <motion.div 
                     className="max-w-3xl mx-auto"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     <Accordion type="single" collapsible className="w-full">
                         {faqItems.map((item, index) => (
@@ -60,7 +69,7 @@ export function FaqSection() {
                             </AccordionItem>
                         ))}
                     </Accordion>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

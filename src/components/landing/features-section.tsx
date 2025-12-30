@@ -4,11 +4,12 @@
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { BrainCircuit, GitBranch, Lock } from "lucide-react";
+import { motion } from "framer-motion";
 
 const features = [
-    { title: "Inteligencia Fiscal Predictiva", description: "Nuestra IA analiza patrones y cambios normativos para anticipar riesgos fiscales, asegurando un cumplimiento proactivo y evitando sanciones antes de que ocurran.", icon: BrainCircuit},
-    { title: "Ecosistema de Gestión Unificado", description: "Controla un holding completo desde una sola interfaz. Consolida finanzas, comparte datos entre empresas y mantén una visión 360° de todo tu grupo.", icon: GitBranch },
-    { title: "Verificación Inmutable con Blockchain", description: "Cada transacción y documento fiscal se sella en una cadena de bloques privada, creando un registro de auditoría incorruptible y 100% verificable.", icon: Lock },
+    { title: "Auditoría con IA y Cero Riesgo Fiscal", description: "Nuestra IA analiza cada transacción en tiempo real contra la normativa vigente, identificando y corrigiendo inconsistencias antes de que se conviertan en un problema. Garantizamos un cumplimiento proactivo.", icon: BrainCircuit},
+    { title: "Seguridad de Grado Bancario con Blockchain", description: "Sellamos cada registro contable y fiscal en una cadena de bloques privada. Esto crea una traza de auditoría inmutable, transparente y 100% verificable, eliminando la posibilidad de manipulación.", icon: Lock },
+    { title: "Ecosistema Modular e Integrado", description: "Desde la gestión de un holding empresarial hasta la operación de una simple sucursal, nuestra arquitectura modular se adapta. Activa los módulos que necesites (Contabilidad, RR.HH., Ventas) y mantenlos todos sincronizados en una única plataforma.", icon: GitBranch },
 ];
 
 export function FeaturesSection() {
@@ -17,16 +18,27 @@ export function FeaturesSection() {
     return (
         <section id="caracteristicas" className="py-20 md:py-28 bg-muted/30">
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div 
+            <motion.div 
                 className="space-y-6"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5 }}
             >
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Tecnología que te Da el Control Absoluto</h2>
                 <p className="text-lg text-muted-foreground">
                   Fusionamos IA, Blockchain y una arquitectura unificada para ofrecerte un nivel de gestión y seguridad sin precedentes.
                 </p>
                 <div className="space-y-6">
-                    {features.map((feature) => (
-                    <div key={feature.title} className="flex items-start gap-4">
+                    {features.map((feature, index) => (
+                    <motion.div 
+                        key={feature.title} 
+                        className="flex items-start gap-4"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 1 }}
+                        transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                    >
                         <div className="p-3 bg-primary/10 text-primary rounded-lg mt-1">
                           <feature.icon className="h-6 w-6 shrink-0" />
                         </div>
@@ -34,12 +46,16 @@ export function FeaturesSection() {
                           <h4 className="font-semibold text-lg">{feature.title}</h4>
                           <p className="text-muted-foreground text-sm">{feature.description}</p>
                         </div>
-                    </div>
+                    </motion.div>
                     ))}
                 </div>
-            </div>
-             <div 
+            </motion.div>
+             <motion.div 
                 className="p-4 md:p-8 rounded-xl flex items-center justify-center"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
             >
                  {aboutImage && <Image 
                     src={aboutImage.imageUrl}
@@ -49,7 +65,7 @@ export function FeaturesSection() {
                     height={400}
                     className="rounded-xl object-cover shadow-2xl"
                  />}
-            </div>
+            </motion.div>
           </div>
         </section>
     );
