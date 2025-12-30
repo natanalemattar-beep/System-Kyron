@@ -3,12 +3,12 @@ import type { ReactNode } from "react";
 import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { NextIntlClientProvider } from 'next-intl';
-import { getRequestConfig } from 'next-intl/server';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { notFound } from "next/navigation";
 import { i18n } from "@/i18n";
+import { DynamicBackground } from "@/components/ui/dynamic-background";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params: { locale }
 }: Readonly<{
@@ -20,12 +20,7 @@ export default async function RootLayout({
     notFound();
   }
 
-  let messages;
-  try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
-    notFound();
-  }
+  const messages = useMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
@@ -33,6 +28,7 @@ export default async function RootLayout({
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
+              <DynamicBackground />
               {children}
           </Providers>
         </NextIntlClientProvider>

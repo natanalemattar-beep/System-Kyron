@@ -11,6 +11,7 @@ import {
   Footer
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
+import { useTranslations } from "next-intl";
 
 
 export default function LandingPage() {
