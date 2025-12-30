@@ -3,12 +3,12 @@ import type { ReactNode } from "react";
 import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { notFound } from "next/navigation";
-import { i18n } from "@/i18n";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { DynamicBackground } from "@/components/ui/dynamic-background";
+import "./globals.css";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale }
 }: Readonly<{
@@ -16,11 +16,7 @@ export default function RootLayout({
   params: { locale: string };
 }>) {
   
-  if (!i18n.locales.includes(locale as any)) {
-    notFound();
-  }
-
-  const messages = useMessages();
+  const messages = await getMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
