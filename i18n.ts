@@ -10,6 +10,6 @@ export type Locale = (typeof i18n)['locales'][number];
 
 export default getRequestConfig(async ({ locale }) => {
   return {
-    messages: (await import(`../messages/${locale}.json`)).default,
+    messages: (await import(`./messages/${locale}.json`)).default,
   };
 });
