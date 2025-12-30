@@ -1,4 +1,3 @@
-
 import type { ReactNode } from "react";
 import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
@@ -22,7 +21,7 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head />
       <body>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider messages={messages}>
           <Providers>
               <DynamicBackground />
               {children}
