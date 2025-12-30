@@ -16,7 +16,7 @@ export default function RootLayout({
   params: { locale: string };
 }>) {
   
-  if (!i18n.locales.includes(locale)) {
+  if (!i18n.locales.includes(locale as any)) {
     notFound();
   }
 
