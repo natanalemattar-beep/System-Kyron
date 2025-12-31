@@ -1,9 +1,10 @@
+
 import type { ReactNode } from "react";
 import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { getMessages } from "next-intl/server";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import "./globals.css";
 
@@ -21,7 +22,7 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head />
       <body>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
               <DynamicBackground />
               {children}

@@ -405,12 +405,15 @@ const advisoryNavGroups = {
 };
 
 export const adminNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/(admin)/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
+  { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/dashboard-empresa", label: "Centro de Mando", icon: LayoutDashboard }], subGroups: [] },
   { 
     title: "Ventas y Facturación", 
     icon: ShoppingCart, 
     subGroups: [],
-    items: facturacionGeneralMenuItems,
+    items: [
+        ...facturacionGeneralMenuItems,
+        { href: "/(admin)/fidelizacion-clientes", label: "Fidelización de Clientes", icon: Heart },
+    ]
   },
   finanzasContabilidadNavItems,
   impuestosCumplimientoNavGroups,
@@ -425,13 +428,13 @@ export const adminNavGroups = [
 ];
 
 export const contabilidadNavGroups = [
-    { title: "Dashboard", icon: BookOpen, items: [{ href: "/(admin)/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
+    { title: "Dashboard", icon: BookOpen, items: [{ href: "/contabilidad", label: "Centro de Contabilidad", icon: BookOpen }], subGroups: [] },
     librosContablesNavItems,
 ];
 
 
 export const legalNavGroups = [
-  { title: "Dashboard", icon: Gavel, items: [{ href: "/(legal)/escritorio-juridico", label: "Centro de Mando Legal", icon: Gavel }], subGroups: [] },
+  { title: "Dashboard", icon: Gavel, items: [{ href: "/escritorio-juridico", label: "Centro de Mando Legal", icon: Gavel }], subGroups: [] },
   { 
     title: "Gestión Legal", 
     icon: Gavel, 
@@ -455,32 +458,32 @@ export const legalNavGroups = [
 export const marketingNavGroups = [advisoryNavGroups];
 
 export const rrhhNavGroups = [
-    { title: "Dashboard", icon: Briefcase, items: [{ href: "/(hr)/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard }], subGroups: []},
+    { title: "Dashboard", icon: Briefcase, items: [{ href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard }], subGroups: []},
     ...rrhhNavGroupsData.subGroups.map(group => ({ ...group, items: group.items, subGroups: [] })),
 ];
 
 export const ventasNavGroups = [
-    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/(ventas)/analisis-ventas", label: "Análisis de Ventas", icon: LayoutDashboard }], subGroups: []},
+    { title: "Dashboard", icon: LayoutDashboard, items: [{ href: "/analisis-ventas", label: "Análisis de Ventas", icon: LayoutDashboard }], subGroups: []},
     { title: "Ventas y Caja", icon: ShoppingCart, items: [
-        { href: "/(ventas)/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
-        { href: "/(ventas)/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
+        { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
+        { href: "/arqueo-caja", label: "Arqueo de Caja", icon: ClipboardCheck },
     ], subGroups: [] },
      { title: "Estrategias", icon: Lightbulb, items: [
-        { href: "/(ventas)/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
+        { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
     ], subGroups: [] },
     { title: "Facturación", icon: ShoppingCart, items: [
-        { href: "/(ventas)/facturacion", label: "Centro de Facturación", icon: FileText },
-        { href: "/(ventas)/proformas", label: "Proformas", icon: Receipt },
-        { href: "/(ventas)/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
-        { href: "/(ventas)/modelo-factura", label: "Modelo de Factura", icon: FileText },
-        { href: "/(ventas)/nota-debito", label: "Nota de Débito", icon: FileMinus },
-        { href: "/(ventas)/nota-credito", label: "Nota de Crédito", icon: FilePlus },
+        { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
+        { href: "/proformas", label: "Proformas", icon: Receipt },
+        { href: "/facturacion-credito", label: "Facturación a Crédito", icon: CreditCard },
+        { href: "/modelo-factura", label: "Modelo de Factura", icon: FileText },
+        { href: "/nota-debito", label: "Nota de Débito", icon: FileMinus },
+        { href: "/nota-credito", label: "Nota de Crédito", icon: FilePlus },
     ], subGroups: [] },
 ];
 
 export const sociosNavGroups = [
     { title: "Socios y Holding", icon: Briefcase, items: [
-        { href: "/(socios)/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
+        { href: "/dashboard-socios", label: "Dashboard de Socios", icon: LayoutDashboard },
         { href: "/(main)/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/(main)/organigrama", label: "Organigrama", icon: Network },
         { href: "/(main)/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
@@ -493,8 +496,8 @@ export const telecomNavGroups = [
     title: "Dashboard", 
     icon: LayoutDashboard, 
     items: [ 
-      { href: "/(telecom)/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
-      { href: "/(telecom)/telecom-design-showcase", label: "Design Showcase", icon: Paintbrush },
+      { href: "/dashboard-telecom", label: "Dashboard Telecom", icon: Signal },
+      { href: "/telecom-design-showcase", label: "Design Showcase", icon: Paintbrush },
     ], 
     subGroups: [] 
   },
@@ -507,9 +510,9 @@ export const telecomNavGroups = [
             title: "Trámites y Cumplimiento",
             icon: Gavel,
             items: [
-                { href: "/(telecom)/conatel/licenses", label: "Mis Licencias", icon: FileText },
-                { href: "/(telecom)/conatel/alerts", label: "Alertas y Multas", icon: AlertTriangle },
-                { href: "/(telecom)/conatel/documents", label: "Documentos", icon: Archive },
+                { href: "/conatel/licenses", label: "Mis Licencias", icon: FileText },
+                { href: "/conatel/alerts", label: "Alertas y Multas", icon: AlertTriangle },
+                { href: "/conatel/documents", label: "Documentos", icon: Archive },
             ]
         }
     ]
@@ -518,7 +521,7 @@ export const telecomNavGroups = [
     title: "Operaciones", 
     icon: Signal, 
     items: [ 
-      { href: "/(telecom)/venta-linea", label: "Venta de Líneas", icon: Phone },
+      { href: "/venta-linea", label: "Venta de Líneas", icon: Phone },
     ], 
     subGroups: [] 
   },
@@ -529,7 +532,7 @@ export const seguridadNavGroups = [
 ];
 
 export const informaticaNavGroups = [
-  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/(main)/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ], subGroups: [] },
+  { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ], subGroups: [] },
   { title: "Soluciones IA", icon: BrainCircuit, items: [ 
       { href: "/(main)/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
       { href: "/(main)/analisis-suelo-foto", label: "Análisis de Suelo (IA)", icon: Search },

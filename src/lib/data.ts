@@ -1,4 +1,5 @@
 
+
 import type { Invoice, Transaction } from './types';
 
 export const mockInvoices: Invoice[] = [
@@ -52,6 +53,37 @@ export const mockInvoices: Invoice[] = [
       status: 'Enviada',
       items: [{ description: 'Mantenimiento de Servidores', quantity: 1, price: 800 }],
     },
+    // Adding more invoices for better summaries
+    {
+      id: 'INV-006',
+      customer: 'Tech Solutions LLC',
+      customerEmail: 'billing@techsolutions.com',
+      date: '2024-06-15',
+      dueDate: '2024-07-15',
+      amount: 15000,
+      status: 'Pagada',
+      items: [{ description: 'Licencia Anual Software', quantity: 1, price: 15000 }],
+    },
+    {
+      id: 'INV-007',
+      customer: 'Innovate Corp',
+      customerEmail: 'accounts@innovatecorp.com',
+      date: '2024-05-10',
+      dueDate: '2024-06-09',
+      amount: 45000,
+      status: 'Pagada',
+      items: [{ description: 'Desarrollo a la medida', quantity: 1, price: 45000 }],
+    },
+    {
+      id: 'INV-008',
+      customer: 'Constructora XYZ',
+      customerEmail: 'pagos@constructoraxyz.com',
+      date: '2024-04-20',
+      dueDate: '2024-05-20',
+      amount: 22000,
+      status: 'Pagada',
+      items: [{ description: 'Materiales de construcción', quantity: 100, price: 220 }],
+    }
 ];
 
 export const mockTransactions: Transaction[] = [
