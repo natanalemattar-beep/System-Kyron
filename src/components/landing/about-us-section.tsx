@@ -1,9 +1,8 @@
-
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Target, Eye, Recycling } from "lucide-react";
+import { Target, Eye, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 
 const teamMembers = [
@@ -74,7 +73,7 @@ export function AboutUsSection() {
                             <p className="text-muted-foreground">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso con el éxito de nuestros clientes.</p>
                         </div>
                          <div>
-                            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Recycling className="text-primary"/>Fundación Kyron</h3>
+                            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Rocket className="text-primary"/>Fundación Kyron</h3>
                             <p className="text-muted-foreground">Creemos en un futuro sostenible. A través de nuestra fundación, impulsamos iniciativas como la Tarjeta de Reciclaje, utilizando nuestra tecnología para incentivar la economía circular y la conciencia ambiental.</p>
                         </div>
                     </motion.div>
