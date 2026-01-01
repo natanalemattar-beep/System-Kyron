@@ -35,11 +35,28 @@ export function HeroSection() {
   const isMobile = useIsMobile();
   const { activeHoliday, isHolidayActive } = useHoliday();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
+  const [animationStep, setAnimationStep] = useState(0); // 0: Start, 1: Message, 2: Year
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (isHolidayActive && activeHoliday?.name === "Año Nuevo") {
+      const timer1 = setTimeout(() => setAnimationStep(1), 500); // Start with message
+      const timer2 = setTimeout(() => setAnimationStep(2), 4000); // Switch to year
+      const timer3 = setTimeout(() => setAnimationStep(3), 8000); // End animation
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+        clearTimeout(timer3);
+      };
+    } else {
+        setAnimationStep(0);
+    }
+  }, [isHolidayActive, activeHoliday]);
+
 
   const handleMouseEnter = (index: number) => {
     if (timeoutRef.current) {
@@ -59,38 +76,59 @@ export function HeroSection() {
   const currentIconOrbSize = isClient && isMobile ? ICON_ORB_SIZE_MOBILE : ICON_ORB_SIZE;
   
   const isFireworks = isHolidayActive && activeHoliday?.effect === 'fireworks';
+  const showHolidayAnimation = isFireworks && animationStep > 0 && animationStep < 3;
+
 
   return (
     <section id="inicio" className={cn(
         "relative min-h-dvh flex flex-col items-center justify-center overflow-hidden py-24 sm:py-32",
-        !isHolidayActive && "bg-muted/30"
+        !isHolidayActive && "bg-muted/30",
+        isHolidayActive && "bg-transparent"
     )}>
       {isHolidayActive && <FestiveEffect type={activeHoliday.effect} />}
       
       <AnimatePresence mode="wait">
-        {isHolidayActive ? (
+        {showHolidayAnimation ? (
             <motion.div
-                key="holiday"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5 }}
-                className="text-center"
+                key="holiday-message"
+                className="text-center text-white/90"
+                style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}
             >
-                {activeHoliday.name === "Año Nuevo" && (
-                     <div className="text-white/80" style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}>
-                        <p className="text-9xl font-extrabold">{new Date().getFullYear()}</p>
-                    </div>
+              <AnimatePresence mode="wait">
+                {animationStep === 1 && (
+                    <motion.h2
+                        key="message"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.7, ease: "easeOut" }}
+                        className="text-6xl md:text-8xl font-bold"
+                    >
+                        ¡Feliz Año Nuevo!
+                    </motion.h2>
                 )}
+                 {animationStep === 2 && (
+                    <motion.p
+                        key="year"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.7, ease: "easeOut" }}
+                        className="text-8xl md:text-9xl font-extrabold"
+                    >
+                        {currentYear}
+                    </motion.p>
+                )}
+              </AnimatePresence>
             </motion.div>
         ) : (
             <motion.div 
-                key="default"
+                key="default-content"
                 className="w-full h-full flex flex-col items-center justify-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, delay: animationStep === 3 ? 0.5 : 0 }}
             >
                 <div className="relative flex items-center justify-center" style={{ width: currentOrbSize, height: currentOrbSize }}>
                     {/* Central Logo and Text */}
