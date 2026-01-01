@@ -100,7 +100,7 @@ export function HeroSection() {
                         key="message"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
+                        exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
                         transition={{ duration: 0.7, ease: "easeOut" }}
                         className="text-6xl md:text-8xl font-bold"
                     >
@@ -112,7 +112,7 @@ export function HeroSection() {
                         key="year"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
+                        exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
                         transition={{ duration: 0.7, ease: "easeOut" }}
                         className="text-8xl md:text-9xl font-extrabold"
                     >
