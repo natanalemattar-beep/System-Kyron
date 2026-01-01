@@ -63,15 +63,32 @@ export function HeroSection() {
   return (
     <section id="inicio" className={cn(
         "relative min-h-dvh flex flex-col items-center justify-center overflow-hidden py-24 sm:py-32",
-        isHolidayActive ? "bg-transparent" : "bg-muted/30"
+        !isHolidayActive && "bg-muted/30"
     )}>
-      {isFireworks && <FestiveEffect type="fireworks" />}
+      {isHolidayActive && <FestiveEffect type={activeHoliday.effect} />}
       
-      <AnimatePresence>
-        {!isFireworks && (
+      <AnimatePresence mode="wait">
+        {isHolidayActive ? (
+            <motion.div
+                key="holiday"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.5 }}
+                className="text-center"
+            >
+                {activeHoliday.name === "Año Nuevo" && (
+                     <div className="text-white/80" style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}>
+                        <p className="text-9xl font-extrabold">{new Date().getFullYear()}</p>
+                    </div>
+                )}
+            </motion.div>
+        ) : (
             <motion.div 
+                key="default"
                 className="w-full h-full flex flex-col items-center justify-center"
-                initial={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
             >

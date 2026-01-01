@@ -15,7 +15,7 @@ export const holidays: Holiday[] = [
     country: "ALL",
     month: 0, // Enero
     day: 1,
-    duration: 1,
+    duration: 5,
     effect: 'fireworks',
   },
   {
