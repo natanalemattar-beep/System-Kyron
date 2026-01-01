@@ -4,11 +4,10 @@ import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { getMessages } from "next-intl/server";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import "./globals.css";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params: { locale }
 }: Readonly<{
@@ -16,7 +15,7 @@ export default async function RootLayout({
   params: { locale: string };
 }>) {
   
-  const messages = await getMessages();
+  const messages = useMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
