@@ -56,17 +56,17 @@ interface AppHeaderProps {
 
 export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
   const pathname = usePathname();
-  const [isChristmas, setIsChristmas] = useState(false);
+  const [activeHoliday, setActiveHoliday] = useState<Holiday | null>(null);
 
    useEffect(() => {
     const checkHoliday = () => {
       const now = new Date();
-      const christmas = holidays.find(h => h.name === "Navidad");
-      if (christmas) {
-        const startDate = new Date(now.getFullYear(), christmas.month, christmas.day);
-        const endDate = new Date(now.getFullYear(), christmas.month, christmas.day + christmas.duration);
-        setIsChristmas(now >= startDate && now < endDate);
-      }
+      const currentHoliday = holidays.find(h => {
+        const startDate = new Date(now.getFullYear(), h.month, h.day);
+        const endDate = new Date(now.getFullYear(), h.month, h.day + h.duration);
+        return now >= startDate && now < endDate;
+      });
+      setActiveHoliday(currentHoliday || null);
     };
     checkHoliday();
     const interval = setInterval(checkHoliday, 1000 * 60 * 60); // Check every hour
@@ -110,7 +110,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
         <div className="flex h-16 items-center justify-between border-b">
         <div className="flex items-center gap-6">
             <Link href={dashboardHref} className="flex items-center gap-3">
-                <Logo className={cn(isChristmas && "animate-pulse [filter:drop-shadow(0_0_8px_hsl(var(--primary)))]")} />
+                <Logo className={cn(activeHoliday && "animate-pulse [filter:drop-shadow(0_0_8px_hsl(var(--primary)))]")} />
                 <span className="text-xl font-bold hidden sm:inline-block">System Kyron</span>
             </Link>
             <nav className="hidden md:flex items-center gap-2">
@@ -122,7 +122,8 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                                 size="sm" 
                                 className={cn(
                                     "gap-1",
-                                    isGroupActive(group) && "bg-accent text-accent-foreground"
+                                    isGroupActive(group) && "bg-accent text-accent-foreground",
+                                    activeHoliday && "transition-all duration-300 [text-shadow:0_0_10px_hsl(var(--primary)/0.5)]"
                                 )}
                             >
                                 {group.title}

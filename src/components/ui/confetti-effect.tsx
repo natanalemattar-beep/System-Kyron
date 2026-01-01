@@ -1,7 +1,7 @@
 
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useMemo } from "react";
 
 // --- Snowflake Particle ---
@@ -104,11 +104,22 @@ export function FestiveEffect({ type }: { type: EffectType }) {
   const [particles, setParticles] = useState<React.ReactElement[]>([]);
   const [isClient, setIsClient] = useState(false);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [animationTrigger, setAnimationTrigger] = useState(0);
+  const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+  
+  // Effect to hide the message after 15 seconds for fireworks
+  useEffect(() => {
+    if (type === 'fireworks') {
+        const timer = setTimeout(() => {
+            setShowMessage(false);
+        }, 15000); // 15 seconds
+
+        return () => clearTimeout(timer);
+    }
+  }, [type]);
 
   const generateFireworks = useMemo(() => {
     if (!isClient || type !== 'fireworks') return [];
@@ -118,10 +129,9 @@ export function FestiveEffect({ type }: { type: EffectType }) {
         const x = Math.random() * 80 + 10; // 10% to 90% of width
         const y = Math.random() * 50 + 10; // 10% to 60% of height
         const delay = Math.random() * 1.5;
-        return <Firework key={`${animationTrigger}-${index}`} x={x} y={y} delay={delay} />;
+        return <Firework key={`fw-${Date.now()}-${index}`} x={x} y={y} delay={delay} />;
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClient, type, animationTrigger]);
+  }, [isClient, type]);
 
 
   useEffect(() => {
@@ -138,21 +148,15 @@ export function FestiveEffect({ type }: { type: EffectType }) {
         setParticles(snowParticles);
     } else if (type === 'fireworks') {
         const interval = setInterval(() => {
-            setAnimationTrigger(prev => prev + 1);
+            setParticles(generateFireworks);
         }, 3500); // New burst every 3.5 seconds
 
-        // Initial burst
         setParticles(generateFireworks);
 
         return () => clearInterval(interval);
     }
   }, [isClient, type, generateFireworks]);
 
-   useEffect(() => {
-    if (type === 'fireworks') {
-      setParticles(generateFireworks);
-    }
-  }, [animationTrigger, generateFireworks, type]);
 
   if (!isClient) {
     return null;
@@ -161,19 +165,21 @@ export function FestiveEffect({ type }: { type: EffectType }) {
   return (
     <div className="fixed inset-0 -z-40 pointer-events-none">
         {particles}
-        {type === 'fireworks' && (
+        <AnimatePresence>
+        {type === 'fireworks' && showMessage && (
             <motion.div
-                key={animationTrigger} // Re-trigger animation
                 className="absolute inset-0 flex flex-col items-center justify-center text-center text-white/80"
                 style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}
                 initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: [0, 1, 1, 0], scale: [0.5, 1.1, 1] }}
-                transition={{ duration: 3, ease: "easeOut", times: [0, 0.2, 0.8, 1] }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 1, ease: "easeOut" }}
             >
                 <h2 className="text-6xl font-bold">¡Feliz Año Nuevo!</h2>
                 <p className="text-8xl font-extrabold">{currentYear}</p>
             </motion.div>
         )}
+        </AnimatePresence>
     </div>
     );
 }
