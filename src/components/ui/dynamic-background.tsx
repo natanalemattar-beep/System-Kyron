@@ -54,7 +54,7 @@ export function DynamicBackground() {
         </motion.div>
         
         {/* Conditional Orbs */}
-        {!activeHoliday && (
+        {!activeHoliday && isClient && (
              <motion.div
                 className="absolute inset-0 -z-20"
                 initial={{ scale: 1.5, opacity: 0 }}
