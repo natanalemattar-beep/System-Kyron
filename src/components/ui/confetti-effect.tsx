@@ -103,7 +103,8 @@ type EffectType = 'snow' | 'fireworks';
 export function FestiveEffect({ type }: { type: EffectType }) {
   const [particles, setParticles] = useState<React.ReactElement[]>([]);
   const [isClient, setIsClient] = useState(false);
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear() + 1);
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [animationTrigger, setAnimationTrigger] = useState(0);
 
   useEffect(() => {
     setIsClient(true);
@@ -117,10 +118,10 @@ export function FestiveEffect({ type }: { type: EffectType }) {
         const x = Math.random() * 80 + 10; // 10% to 90% of width
         const y = Math.random() * 50 + 10; // 10% to 60% of height
         const delay = Math.random() * 1.5;
-        return <Firework key={`${currentYear}-${index}`} x={x} y={y} delay={delay} />;
+        return <Firework key={`${animationTrigger}-${index}`} x={x} y={y} delay={delay} />;
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClient, type, currentYear]);
+  }, [isClient, type, animationTrigger]);
 
 
   useEffect(() => {
@@ -137,8 +138,8 @@ export function FestiveEffect({ type }: { type: EffectType }) {
         setParticles(snowParticles);
     } else if (type === 'fireworks') {
         const interval = setInterval(() => {
-            setCurrentYear(prevYear => prevYear + 1);
-        }, 3000); // New year, new burst every 3 seconds
+            setAnimationTrigger(prev => prev + 1);
+        }, 3500); // New burst every 3.5 seconds
 
         // Initial burst
         setParticles(generateFireworks);
@@ -151,7 +152,7 @@ export function FestiveEffect({ type }: { type: EffectType }) {
     if (type === 'fireworks') {
       setParticles(generateFireworks);
     }
-  }, [currentYear, generateFireworks, type]);
+  }, [animationTrigger, generateFireworks, type]);
 
   if (!isClient) {
     return null;
@@ -162,14 +163,15 @@ export function FestiveEffect({ type }: { type: EffectType }) {
         {particles}
         {type === 'fireworks' && (
             <motion.div
-                key={currentYear} // Re-trigger animation on year change
-                className="absolute inset-0 flex items-center justify-center text-8xl font-bold text-white/80"
+                key={animationTrigger} // Re-trigger animation
+                className="absolute inset-0 flex flex-col items-center justify-center text-center text-white/80"
                 style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: [0, 1, 1, 0], scale: [0.5, 1.1, 1] }}
-                transition={{ duration: 2.5, ease: "easeOut", times: [0, 0.2, 0.8, 1] }}
+                transition={{ duration: 3, ease: "easeOut", times: [0, 0.2, 0.8, 1] }}
             >
-                {currentYear}
+                <h2 className="text-6xl font-bold">¡Feliz Año Nuevo!</h2>
+                <p className="text-8xl font-extrabold">{currentYear}</p>
             </motion.div>
         )}
     </div>
