@@ -18,7 +18,6 @@ export default function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <head />
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
