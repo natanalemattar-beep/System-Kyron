@@ -36,7 +36,7 @@ const Firework = ({ x, y, delay }: { x: number, y: number, delay: number }) => {
     const trailDuration = 0.5;
 
     return (
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
             {/* Trail */}
             <motion.div
                 className="absolute"
@@ -118,6 +118,8 @@ export function FestiveEffect({ type }: { type: EffectType }) {
         }, 15000); // 15 seconds
 
         return () => clearTimeout(timer);
+    } else {
+        setShowMessage(true); // Ensure message is shown for other effects if needed
     }
   }, [type]);
 
@@ -163,7 +165,7 @@ export function FestiveEffect({ type }: { type: EffectType }) {
   }
 
   return (
-    <div className="fixed inset-0 -z-40 pointer-events-none">
+    <div className="absolute inset-0 -z-40 pointer-events-none overflow-hidden">
         {particles}
         <AnimatePresence>
         {type === 'fireworks' && showMessage && (
