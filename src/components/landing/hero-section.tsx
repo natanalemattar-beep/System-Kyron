@@ -36,7 +36,7 @@ export function HeroSection() {
   const { activeHoliday, isHolidayActive } = useHoliday();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [animationStep, setAnimationStep] = useState(0); // 0: Start, 1: Message, 2: Year, 3: End
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear() + 2; // To match 2026 for the demo
 
   useEffect(() => {
     setIsClient(true);
@@ -45,8 +45,8 @@ export function HeroSection() {
   useEffect(() => {
     if (isHolidayActive && activeHoliday?.name === "Año Nuevo") {
       const timer1 = setTimeout(() => setAnimationStep(1), 500); // Start with message
-      const timer2 = setTimeout(() => setAnimationStep(2), 4000); // Switch to year
-      const timer3 = setTimeout(() => setAnimationStep(3), 8000); // End animation
+      const timer2 = setTimeout(() => setAnimationStep(2), 2500); // Switch to year
+      const timer3 = setTimeout(() => setAnimationStep(3), 5000); // End animation
       return () => {
         clearTimeout(timer1);
         clearTimeout(timer2);
@@ -91,7 +91,7 @@ export function HeroSection() {
         {showHolidayAnimation ? (
             <motion.div
                 key="holiday-message"
-                className="w-full h-full flex flex-col items-center justify-center text-center text-white/90"
+                className="absolute inset-0 flex flex-col items-center justify-center text-center text-white/90"
                 style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}
             >
               <AnimatePresence mode="wait">
