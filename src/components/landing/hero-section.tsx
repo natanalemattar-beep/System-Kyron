@@ -35,7 +35,7 @@ export function HeroSection() {
   const isMobile = useIsMobile();
   const { activeHoliday, isHolidayActive } = useHoliday();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [animationStep, setAnimationStep] = useState(0); // 0: Start, 1: Message, 2: Year
+  const [animationStep, setAnimationStep] = useState(0); // 0: Start, 1: Message, 2: Year, 3: End
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export function HeroSection() {
     )}>
       {isHolidayActive && <FestiveEffect type={activeHoliday.effect} />}
       
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {showHolidayAnimation ? (
             <motion.div
                 key="holiday-message"
@@ -125,7 +125,7 @@ export function HeroSection() {
             <motion.div 
                 key="default-content"
                 className="w-full h-full flex flex-col items-center justify-center"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: animationStep === 3 ? 0 : 1 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5, delay: animationStep === 3 ? 0.5 : 0 }}
