@@ -17,7 +17,7 @@ const services = [
 export function ServicesSection() {
     const { isHolidayActive } = useHoliday();
     return (
-        <section id="servicios" className={cn("py-20 md:py-28", !isHolidayActive && "bg-muted/30")}>
+        <section id="servicios" className={cn("py-20 md:py-28", !isHolidayActive && "bg-muted/30", isHolidayActive && "bg-background/80 backdrop-blur-lg")}>
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
@@ -40,7 +40,7 @@ export function ServicesSection() {
                         >
                             <Card className={cn(
                                 "h-full transition-all hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1",
-                                isHolidayActive ? "bg-card/50 backdrop-blur-sm" : ""
+                                isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card"
                             )}>
                                <CardHeader>
                                   <div className="inline-block p-4 bg-primary/10 text-primary rounded-xl mb-4 w-fit">

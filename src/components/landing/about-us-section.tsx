@@ -95,7 +95,7 @@ export function AboutUsSection() {
                                 return (
                                     <blockquote key={testimonial.name} className={cn(
                                         "p-6 border rounded-xl",
-                                        isHolidayActive ? "bg-card/50 backdrop-blur-sm" : ""
+                                        isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card"
                                     )}>
                                         <p className="italic text-muted-foreground">"{testimonial.text}"</p>
                                         <footer className="flex items-center gap-3 mt-4">

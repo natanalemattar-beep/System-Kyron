@@ -60,7 +60,8 @@ export function HeroSection() {
   return (
     <section id="inicio" className={cn(
         "relative min-h-dvh flex flex-col items-center justify-center overflow-hidden py-24 sm:py-32",
-        !isHolidayActive && "bg-muted/30"
+        !isHolidayActive && "bg-muted/30",
+        isHolidayActive && "bg-transparent"
     )}>
       <div className="absolute inset-0 -z-10 h-full w-full">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,hsl(var(--primary)/0.05)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--primary)/0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_0%,#000_100%)]"></div>

@@ -16,7 +16,7 @@ export function CtaSection() {
                 <motion.div 
                     className={cn(
                         "max-w-3xl mx-auto text-center border rounded-2xl p-8 md:p-12 shadow-lg",
-                        isHolidayActive ? "bg-card/50 backdrop-blur-sm" : ""
+                        isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card"
                     )}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

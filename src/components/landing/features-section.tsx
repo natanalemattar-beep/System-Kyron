@@ -19,7 +19,7 @@ export function FeaturesSection() {
     const { isHolidayActive } = useHoliday();
 
     return (
-        <section id="caracteristicas" className={cn("py-20 md:py-28", !isHolidayActive && "bg-muted/30")}>
+        <section id="caracteristicas" className={cn("py-20 md:py-28", !isHolidayActive && "bg-muted/30", isHolidayActive && "bg-background/80 backdrop-blur-lg")}>
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div 
                 className="space-y-6"
