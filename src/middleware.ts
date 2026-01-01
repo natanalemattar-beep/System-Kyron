@@ -2,14 +2,12 @@ import createMiddleware from 'next-intl/middleware';
 import { i18n } from './lib/i18n-config';
  
 export default createMiddleware({
-  // A list of all locales that are supported
   locales: i18n.locales,
- 
-  // Used when no locale matches
-  defaultLocale: i18n.defaultLocale
+  defaultLocale: i18n.defaultLocale,
+  localePrefix: 'never'
 });
  
 export const config = {
   // Match only internationalized pathnames
-  matcher: ['/', '/(es|en)/:path*']
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)', '/(en|es)/:path*']
 };

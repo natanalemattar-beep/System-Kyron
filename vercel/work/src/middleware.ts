@@ -3,10 +3,11 @@ import { i18n } from './lib/i18n-config';
  
 export default createMiddleware({
   locales: i18n.locales,
-  defaultLocale: i18n.defaultLocale
+  defaultLocale: i18n.defaultLocale,
+  localePrefix: 'never'
 });
  
 export const config = {
   // Match only internationalized pathnames
-  matcher: ['/', '/(es|en)/:path*']
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
 };
