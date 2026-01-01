@@ -30,24 +30,52 @@ const Snowflake = ({ style }: { style: React.CSSProperties }) => (
 
 // --- Firework Particle ---
 const fireworkColors = ["#ef4444", "#3b82f6", "#22c55e", "#eab308", "#8b5cf6", "#f97316", "#ec4899"];
-const FireworkParticle = ({ x, y }: { x: number, y: number }) => {
-    const count = 20; // Number of sparks per firework
+
+const Firework = ({ x, y, delay }: { x: number, y: number, delay: number }) => {
+    const sparkCount = 25;
+    const trailDuration = 0.5;
 
     return (
-        <div style={{ position: 'absolute', top: `${y}%`, left: `${x}%` }}>
-            {Array.from({ length: count }).map((_, i) => {
-                const angle = (i / count) * 360;
-                const distance = Math.random() * 80 + 50;
-                const duration = Math.random() * 0.8 + 0.5;
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+            {/* Trail */}
+            <motion.div
+                className="absolute"
+                style={{
+                    left: `${x}%`,
+                    bottom: 0,
+                    width: '3px',
+                    height: '0px',
+                    background: `linear-gradient(to top, ${fireworkColors[Math.floor(Math.random() * fireworkColors.length)]}, transparent)`,
+                }}
+                initial={{ height: '0px', opacity: 0 }}
+                animate={{
+                    height: `${100 - y}%`,
+                    opacity: [0, 1, 0],
+                }}
+                transition={{
+                    duration: trailDuration,
+                    ease: "easeOut",
+                    delay: delay,
+                }}
+            />
+
+            {/* Explosion */}
+            {Array.from({ length: sparkCount }).map((_, i) => {
+                const angle = (i / sparkCount) * 360;
+                const distance = Math.random() * 100 + 50;
+                const sparkDuration = Math.random() * 0.8 + 0.6;
+                const color = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
 
                 return (
                     <motion.div
                         key={i}
                         className="absolute rounded-full"
                         style={{
-                            width: '4px',
-                            height: '4px',
-                            backgroundColor: fireworkColors[Math.floor(Math.random() * fireworkColors.length)],
+                            top: `${y}%`,
+                            left: `${x}%`,
+                            width: '5px',
+                            height: '5px',
+                            backgroundColor: color,
                         }}
                         initial={{ scale: 0, x: 0, y: 0 }}
                         animate={{
@@ -57,8 +85,9 @@ const FireworkParticle = ({ x, y }: { x: number, y: number }) => {
                             opacity: [1, 0],
                         }}
                         transition={{
-                            duration: duration,
+                            duration: sparkDuration,
                             ease: "easeOut",
+                            delay: delay + trailDuration,
                         }}
                     />
                 );
@@ -74,55 +103,75 @@ type EffectType = 'snow' | 'fireworks';
 export function FestiveEffect({ type }: { type: EffectType }) {
   const [particles, setParticles] = useState<React.ReactElement[]>([]);
   const [isClient, setIsClient] = useState(false);
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear() + 1);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const generatedParticles = useMemo(() => {
-    if (!isClient) return [];
-
-    if (type === 'snow') {
-      return Array.from({ length: 50 }).map((_, index) => {
-        const style = {
-          left: `${Math.random() * 100}vw`,
-          fontSize: `${Math.random() * 1 + 0.5}rem`,
-        };
-        return <Snowflake key={`snow-${index}`} style={style} />;
-      });
-    }
-
-    if (type === 'fireworks') {
-        const fireworkCount = 10;
-        return Array.from({ length: fireworkCount }).map((_, index) => {
-            const x = Math.random() * 80 + 10; // 10% to 90% of width
-            const y = Math.random() * 60 + 10; // 10% to 70% of height
-            return <FireworkParticle key={`firework-${index}`} x={x} y={y} />;
-        });
-    }
-
-    return [];
+  const generateFireworks = useMemo(() => {
+    if (!isClient || type !== 'fireworks') return [];
+    
+    const fireworkCount = Math.floor(Math.random() * 5) + 8; // 8 to 12 fireworks per burst
+    return Array.from({ length: fireworkCount }).map((_, index) => {
+        const x = Math.random() * 80 + 10; // 10% to 90% of width
+        const y = Math.random() * 50 + 10; // 10% to 60% of height
+        const delay = Math.random() * 1.5;
+        return <Firework key={`${currentYear}-${index}`} x={x} y={y} delay={delay} />;
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isClient, type]);
+  }, [isClient, type, currentYear]);
+
 
   useEffect(() => {
-    if (type === 'fireworks' && isClient) {
-      // For fireworks, we want to regenerate them on an interval to simulate a show
-      const interval = setInterval(() => {
-        setParticles(generatedParticles);
-      }, 2000); // New burst every 2 seconds
+    if (!isClient) return;
 
-      setParticles(generatedParticles); // Initial burst
+    if (type === 'snow') {
+        const snowParticles = Array.from({ length: 50 }).map((_, index) => {
+            const style = {
+                left: `${Math.random() * 100}vw`,
+                fontSize: `${Math.random() * 1 + 0.5}rem`,
+            };
+            return <Snowflake key={`snow-${index}`} style={style} />;
+        });
+        setParticles(snowParticles);
+    } else if (type === 'fireworks') {
+        const interval = setInterval(() => {
+            setCurrentYear(prevYear => prevYear + 1);
+        }, 3000); // New year, new burst every 3 seconds
 
-      return () => clearInterval(interval);
-    } else {
-      setParticles(generatedParticles);
+        // Initial burst
+        setParticles(generateFireworks);
+
+        return () => clearInterval(interval);
     }
-  }, [generatedParticles, isClient, type]);
+  }, [isClient, type, generateFireworks]);
+
+   useEffect(() => {
+    if (type === 'fireworks') {
+      setParticles(generateFireworks);
+    }
+  }, [currentYear, generateFireworks, type]);
 
   if (!isClient) {
     return null;
   }
 
-  return <div className="fixed inset-0 -z-40 pointer-events-none">{particles}</div>;
+  return (
+    <div className="fixed inset-0 -z-40 pointer-events-none">
+        {particles}
+        {type === 'fireworks' && (
+            <motion.div
+                key={currentYear} // Re-trigger animation on year change
+                className="absolute inset-0 flex items-center justify-center text-8xl font-bold text-white/80"
+                style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: [0, 1, 1, 0], scale: [0.5, 1.1, 1] }}
+                transition={{ duration: 2.5, ease: "easeOut", times: [0, 0.2, 0.8, 1] }}
+            >
+                {currentYear}
+            </motion.div>
+        )}
+    </div>
+    );
 }
