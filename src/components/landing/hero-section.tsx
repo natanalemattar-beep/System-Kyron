@@ -91,7 +91,7 @@ export function HeroSection() {
         {showHolidayAnimation ? (
             <motion.div
                 key="holiday-message"
-                className="text-center text-white/90"
+                className="w-full h-full flex flex-col items-center justify-center text-center text-white/90"
                 style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}
             >
               <AnimatePresence mode="wait">
