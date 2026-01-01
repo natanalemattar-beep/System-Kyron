@@ -7,7 +7,7 @@ import { useEffect, useState, useMemo } from "react";
 // --- Snowflake Particle ---
 const Snowflake = ({ style }: { style: React.CSSProperties }) => (
   <motion.div
-    className="absolute text-primary"
+    className="absolute text-blue-400"
     style={style}
     initial={{ y: "-10vh", opacity: 0 }}
     animate={{ y: "110vh", opacity: [0, 1, 1, 0] }}
