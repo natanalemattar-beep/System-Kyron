@@ -5,13 +5,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useHoliday } from "@/hooks/use-holiday";
+import { cn } from "@/lib/utils";
 
 export function CtaSection() {
+    const { isHolidayActive } = useHoliday();
     return (
         <section id="contacto" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div 
-                    className="max-w-3xl mx-auto text-center bg-card/50 backdrop-blur-sm border rounded-2xl p-8 md:p-12 shadow-lg"
+                    className={cn(
+                        "max-w-3xl mx-auto text-center border rounded-2xl p-8 md:p-12 shadow-lg",
+                        isHolidayActive ? "bg-card/50 backdrop-blur-sm" : ""
+                    )}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}

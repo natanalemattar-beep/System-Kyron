@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react";
 import { Button } from "../ui/button";
+import { useHoliday } from "@/hooks/use-holiday";
+import { cn } from "@/lib/utils";
 
 const SocialIcon = ({ href, children }: { href: string, children: React.ReactNode }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
@@ -14,8 +16,9 @@ const SocialIcon = ({ href, children }: { href: string, children: React.ReactNod
 
 
 export function Footer() {
+    const { isHolidayActive } = useHoliday();
     return (
-        <footer id="footer" className="py-16 bg-card border-t">
+        <footer id="footer" className={cn("py-16 border-t", isHolidayActive ? "bg-transparent" : "bg-card")}>
             <div className="container px-4 md:px-6 grid md:grid-cols-3 gap-12">
                 <div className="space-y-4">
                     <div className="flex items-center gap-3">

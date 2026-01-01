@@ -1,9 +1,12 @@
+
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Target, Eye, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
+import { useHoliday } from "@/hooks/use-holiday";
+import { cn } from "@/lib/utils";
 
 const teamMembers = [
   {
@@ -42,6 +45,7 @@ const testimonials = [
 ];
 
 export function AboutUsSection() {
+    const { isHolidayActive } = useHoliday();
 
     return (
         <section id="nosotros" className="py-20 md:py-28 bg-background">
@@ -89,7 +93,10 @@ export function AboutUsSection() {
                             {testimonials.map((testimonial) => {
                                 const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
                                 return (
-                                    <blockquote key={testimonial.name} className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm">
+                                    <blockquote key={testimonial.name} className={cn(
+                                        "p-6 border rounded-xl",
+                                        isHolidayActive ? "bg-card/50 backdrop-blur-sm" : ""
+                                    )}>
                                         <p className="italic text-muted-foreground">"{testimonial.text}"</p>
                                         <footer className="flex items-center gap-3 mt-4">
                                             {avatar && (

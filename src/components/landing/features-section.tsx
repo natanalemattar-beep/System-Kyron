@@ -1,9 +1,12 @@
+
 'use client';
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { BrainCircuit, GitBranch, Lock } from "lucide-react";
 import { motion } from "framer-motion";
+import { useHoliday } from "@/hooks/use-holiday";
+import { cn } from "@/lib/utils";
 
 const features = [
     { title: "Inteligencia Fiscal Predictiva", description: "Nuestra IA analiza cada transacción en tiempo real contra la normativa vigente, identificando y corrigiendo inconsistencias antes de que se conviertan en un problema. Garantizamos un cumplimiento proactivo.", icon: BrainCircuit},
@@ -13,9 +16,10 @@ const features = [
 
 export function FeaturesSection() {
     const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
+    const { isHolidayActive } = useHoliday();
 
     return (
-        <section id="caracteristicas" className="py-20 md:py-28 bg-muted/30">
+        <section id="caracteristicas" className={cn("py-20 md:py-28", !isHolidayActive && "bg-muted/30")}>
           <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div 
                 className="space-y-6"

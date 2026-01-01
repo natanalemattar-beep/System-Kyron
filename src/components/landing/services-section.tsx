@@ -4,6 +4,8 @@
 import { Layers, Briefcase, Gavel, Network } from "lucide-react";
 import { Card, CardHeader, CardContent, CardTitle } from "../ui/card";
 import { motion } from "framer-motion";
+import { useHoliday } from "@/hooks/use-holiday";
+import { cn } from "@/lib/utils";
 
 const services = [
     { title: "Holding y Finanzas", description: "Desde la facturación homologada por el SENIAT hasta la consolidación de estados financieros para holdings. Control total de tu flujo de caja, cuentas por cobrar y pagar.", icon: Layers },
@@ -13,8 +15,9 @@ const services = [
 ];
 
 export function ServicesSection() {
+    const { isHolidayActive } = useHoliday();
     return (
-        <section id="servicios" className="py-20 md:py-28 bg-muted/30">
+        <section id="servicios" className={cn("py-20 md:py-28", !isHolidayActive && "bg-muted/30")}>
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
@@ -35,7 +38,10 @@ export function ServicesSection() {
                             viewport={{ once: true, amount: 0.5 }}
                             transition={{ duration: 0.5, delay: 0.1 * index }}
                         >
-                            <Card className="h-full bg-card/50 backdrop-blur-sm transition-all hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1">
+                            <Card className={cn(
+                                "h-full transition-all hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-1",
+                                isHolidayActive ? "bg-card/50 backdrop-blur-sm" : ""
+                            )}>
                                <CardHeader>
                                   <div className="inline-block p-4 bg-primary/10 text-primary rounded-xl mb-4 w-fit">
                                       <item.icon className="h-8 w-8" />
