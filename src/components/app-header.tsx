@@ -23,7 +23,6 @@ import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useState, useEffect } from "react";
 import { holidays, type Holiday } from "@/lib/holidays";
-import { LanguageSwitcher } from "./language-switcher";
 
 
 type User = {
@@ -221,7 +220,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                   </div>
               </SheetContent>
             </Sheet>
-            <LanguageSwitcher />
+            
             <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

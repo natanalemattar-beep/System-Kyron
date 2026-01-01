@@ -8,7 +8,6 @@ import { User, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
-import { LanguageSwitcher } from "@/components/language-switcher";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { loginOptions } from "@/lib/login-options";
@@ -109,7 +108,6 @@ export function LandingHeader() {
                             ))}
                         </nav>
                         <div className="hidden md:flex items-center gap-2">
-                            <LanguageSwitcher />
                             <ThemeToggle />
                              <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
@@ -158,7 +156,6 @@ export function LandingHeader() {
                                 </nav>
                                 <div className="mt-auto space-y-4">
                                     <div className="flex gap-2">
-                                        <LanguageSwitcher />
                                         <ThemeToggle />
                                     </div>
                                     <Button variant="outline" className="w-full" asChild>
