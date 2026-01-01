@@ -1,7 +1,7 @@
 
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState, useMemo } from "react";
 
 // --- Snowflake Particle ---
@@ -103,25 +103,10 @@ type EffectType = 'snow' | 'fireworks';
 export function FestiveEffect({ type }: { type: EffectType }) {
   const [particles, setParticles] = useState<React.ReactElement[]>([]);
   const [isClient, setIsClient] = useState(false);
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
-  
-  // Effect to hide the message after 15 seconds for fireworks
-  useEffect(() => {
-    if (type === 'fireworks') {
-        const timer = setTimeout(() => {
-            setShowMessage(false);
-        }, 15000); // 15 seconds
-
-        return () => clearTimeout(timer);
-    } else {
-        setShowMessage(true); // Ensure message is shown for other effects if needed
-    }
-  }, [type]);
 
   const generateFireworks = useMemo(() => {
     if (!isClient || type !== 'fireworks') return [];
@@ -167,21 +152,6 @@ export function FestiveEffect({ type }: { type: EffectType }) {
   return (
     <div className="absolute inset-0 -z-40 pointer-events-none overflow-hidden">
         {particles}
-        <AnimatePresence>
-        {type === 'fireworks' && showMessage && (
-            <motion.div
-                className="absolute inset-0 flex flex-col items-center justify-center text-center text-white/80"
-                style={{ textShadow: '0 0 20px rgba(255,255,255,0.7)' }}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-            >
-                <h2 className="text-6xl font-bold">¡Feliz Año Nuevo!</h2>
-                <p className="text-8xl font-extrabold">{currentYear}</p>
-            </motion.div>
-        )}
-        </AnimatePresence>
     </div>
     );
 }
