@@ -28,33 +28,48 @@ const Snowflake = ({ style }: { style: React.CSSProperties }) => (
   </motion.div>
 );
 
-// --- Confetti Particle ---
-const confettiColors = ["#ef4444", "#3b82f6", "#22c55e", "#eab308", "#8b5cf6"];
-const ConfettiParticle = ({ style }: { style: React.CSSProperties }) => (
-  <motion.div
-    className="absolute rounded-full"
-    style={style}
-    initial={{ y: "-10vh", opacity: 0 }}
-    animate={{ y: "110vh", opacity: [0, 1, 1, 0] }}
-    transition={{
-      duration: Math.random() * 5 + 5,
-      repeat: Infinity,
-      repeatType: "loop",
-      ease: "linear",
-      delay: Math.random() * 8,
-    }}
-  >
-     <motion.div
-      className="w-full h-full"
-      animate={{ rotate: [0, 360, 720] }}
-      transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, ease: 'linear' }}
-     />
-  </motion.div>
-);
+// --- Firework Particle ---
+const fireworkColors = ["#ef4444", "#3b82f6", "#22c55e", "#eab308", "#8b5cf6", "#f97316", "#ec4899"];
+const FireworkParticle = ({ x, y }: { x: number, y: number }) => {
+    const count = 20; // Number of sparks per firework
+
+    return (
+        <div style={{ position: 'absolute', top: `${y}%`, left: `${x}%` }}>
+            {Array.from({ length: count }).map((_, i) => {
+                const angle = (i / count) * 360;
+                const distance = Math.random() * 80 + 50;
+                const duration = Math.random() * 0.8 + 0.5;
+
+                return (
+                    <motion.div
+                        key={i}
+                        className="absolute rounded-full"
+                        style={{
+                            width: '4px',
+                            height: '4px',
+                            backgroundColor: fireworkColors[Math.floor(Math.random() * fireworkColors.length)],
+                        }}
+                        initial={{ scale: 0, x: 0, y: 0 }}
+                        animate={{
+                            x: Math.cos(angle * (Math.PI / 180)) * distance,
+                            y: Math.sin(angle * (Math.PI / 180)) * distance,
+                            scale: [1, 0],
+                            opacity: [1, 0],
+                        }}
+                        transition={{
+                            duration: duration,
+                            ease: "easeOut",
+                        }}
+                    />
+                );
+            })}
+        </div>
+    );
+};
 
 
 // --- Main FestiveEffect Component ---
-type EffectType = 'snow' | 'confetti';
+type EffectType = 'snow' | 'fireworks';
 
 export function FestiveEffect({ type }: { type: EffectType }) {
   const [particles, setParticles] = useState<React.ReactElement[]>([]);
@@ -77,17 +92,13 @@ export function FestiveEffect({ type }: { type: EffectType }) {
       });
     }
 
-    if (type === 'confetti') {
-      return Array.from({ length: 100 }).map((_, index) => {
-        const size = Math.random() * 8 + 4;
-        const style = {
-          left: `${Math.random() * 100}vw`,
-          width: `${size}px`,
-          height: `${size}px`,
-          backgroundColor: confettiColors[Math.floor(Math.random() * confettiColors.length)],
-        };
-        return <ConfettiParticle key={`confetti-${index}`} style={style} />;
-      });
+    if (type === 'fireworks') {
+        const fireworkCount = 10;
+        return Array.from({ length: fireworkCount }).map((_, index) => {
+            const x = Math.random() * 80 + 10; // 10% to 90% of width
+            const y = Math.random() * 60 + 10; // 10% to 70% of height
+            return <FireworkParticle key={`firework-${index}`} x={x} y={y} />;
+        });
     }
 
     return [];
@@ -95,8 +106,19 @@ export function FestiveEffect({ type }: { type: EffectType }) {
   }, [isClient, type]);
 
   useEffect(() => {
-    setParticles(generatedParticles);
-  }, [generatedParticles]);
+    if (type === 'fireworks' && isClient) {
+      // For fireworks, we want to regenerate them on an interval to simulate a show
+      const interval = setInterval(() => {
+        setParticles(generatedParticles);
+      }, 2000); // New burst every 2 seconds
+
+      setParticles(generatedParticles); // Initial burst
+
+      return () => clearInterval(interval);
+    } else {
+      setParticles(generatedParticles);
+    }
+  }, [generatedParticles, isClient, type]);
 
   if (!isClient) {
     return null;

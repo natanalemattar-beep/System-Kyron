@@ -5,7 +5,7 @@ export type Holiday = {
   month: number; // 0-11 (Jan-Dec)
   day: number;
   duration: number; // in days
-  effect: 'snow' | 'confetti';
+  effect: 'snow' | 'fireworks';
 };
 
 // List of holidays. More can be added here.
@@ -16,7 +16,7 @@ export const holidays: Holiday[] = [
     month: 0, // Enero
     day: 1,
     duration: 1,
-    effect: 'confetti',
+    effect: 'fireworks',
   },
   {
     name: "Carnaval",
@@ -24,7 +24,7 @@ export const holidays: Holiday[] = [
     month: 1, // Febrero
     day: 12, // Approximate start, varies each year. For demo purposes.
     duration: 2,
-    effect: 'confetti',
+    effect: 'fireworks',
   },
   {
     name: "Día de la Independencia",
@@ -32,7 +32,7 @@ export const holidays: Holiday[] = [
     month: 6, // Julio
     day: 5,
     duration: 1,
-    effect: 'confetti',
+    effect: 'fireworks',
   },
   {
     name: "Navidad",
