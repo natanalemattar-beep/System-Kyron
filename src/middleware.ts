@@ -1,13 +1,12 @@
 import createMiddleware from 'next-intl/middleware';
-import { i18n } from './lib/i18n-config';
+import {locales, defaultLocale} from './lib/i18n-config';
  
 export default createMiddleware({
-  locales: i18n.locales,
-  defaultLocale: i18n.defaultLocale,
+  locales: locales,
+  defaultLocale: defaultLocale,
   localePrefix: 'never'
 });
  
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)', '/(en|es)/:path*']
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
 };
