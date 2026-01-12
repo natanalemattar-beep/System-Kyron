@@ -19,7 +19,7 @@ export default function LandingPage() {
   return (
     <>
       <LandingHeader />
-      <main>
+      <main className="pt-16">
         <HeroSection />
         <ServicesSection />
         <FeaturesSection />
