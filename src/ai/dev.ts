@@ -6,3 +6,4 @@ import '@/ai/flows/transaction-auto-categorization.ts';
 import '@/ai/flows/sentiment-analysis.ts';
 import '@/ai/flows/chat.ts';
 import '@/ai/flows/sales-strategy-generator.ts';
+import '@/ai/flows/gaceta-6952-consultant.ts';
