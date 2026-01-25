@@ -40,14 +40,15 @@ export function HeroSection() {
   useEffect(() => {
     setIsClient(true);
     if (isHolidayActive && activeHoliday?.name === "Año Nuevo") {
-      const timer = setTimeout(() => setShowHolidayMessage(true), 500);
-      const hideTimer = setTimeout(() => setShowHolidayMessage(false), 5000);
-      return () => {
-        clearTimeout(timer);
-        clearTimeout(hideTimer);
-      };
+        const messageTimer = setTimeout(() => setShowHolidayMessage(true), 500);
+        const contentTimer = setTimeout(() => setShowHolidayMessage(false), 5000); 
+        return () => {
+            clearTimeout(messageTimer);
+            clearTimeout(contentTimer);
+        };
     }
   }, [isHolidayActive, activeHoliday]);
+
 
   const handleMouseEnter = (index: number) => {
     if (timeoutRef.current) {
@@ -76,17 +77,17 @@ export function HeroSection() {
     )}>
       {isHolidayActive && <FestiveEffect type={activeHoliday.effect} />}
       
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isNewYear && showHolidayMessage ? (
           <motion.div
             key="holiday-message"
             className="absolute inset-0 z-30 flex flex-col items-center justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
+            exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.5 } }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-center text-balance bg-clip-text text-transparent bg-gradient-to-br from-yellow-300 via-white to-yellow-400 [text-shadow:0_2px_10px_hsl(var(--primary)/0.2)]">
+             <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-center text-balance bg-clip-text text-transparent bg-gradient-to-br from-yellow-300 via-white to-yellow-400 [text-shadow:0_2px_10px_hsl(var(--primary)/0.2)]">
                 Feliz Año 2026
             </h1>
           </motion.div>
@@ -94,8 +95,8 @@ export function HeroSection() {
             <motion.div 
                 key="default-content"
                 className="w-full h-full flex flex-col items-center justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: isNewYear ? 0 : 1 }}
+                animate={{ opacity: 1, transition: { delay: isNewYear ? 0.5 : 0 } }}
                 exit={{ opacity: 0 }}
             >
                 <div className="relative flex items-center justify-center" style={{ width: currentOrbSize, height: currentOrbSize }}>
@@ -174,7 +175,7 @@ export function HeroSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                         >
-                        Tu Centro de Mando Empresarial
+                        La Tranquilidad Fiscal que tu Empresa Merece
                     </motion.h1>
                     <motion.p
                         className="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground text-balance mt-6"
@@ -182,7 +183,7 @@ export function HeroSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        Automatización fiscal, contabilidad inteligente y cumplimiento normativo en una única plataforma diseñada para la tranquilidad del empresario venezolano.
+                        Automatización de impuestos, facturación SENIAT y contabilidad en una sola plataforma. Deja de preocuparte por el cumplimiento, nosotros lo hacemos por ti.
                     </motion.p>
                     <motion.div
                         className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
@@ -191,10 +192,10 @@ export function HeroSection() {
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
                         <Button size="lg" asChild className="w-full sm:w-auto text-base btn-3d-primary">
-                        <Link href="/register">Comienza Ahora</Link>
+                        <Link href="/register">Solicita tu Demo Gratis</Link>
                         </Button>
                         <Button size="lg" variant="ghost" asChild className="w-full sm:w-auto text-base">
-                        <Link href="#servicios">Explorar Servicios <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                        <Link href="#servicios">Explorar Ecosistema <ArrowRight className="ml-2 h-4 w-4" /></Link>
                         </Button>
                     </motion.div>
                 </div>

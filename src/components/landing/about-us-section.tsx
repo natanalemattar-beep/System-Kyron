@@ -3,30 +3,34 @@
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Target, Eye, Rocket } from "lucide-react";
-import { motion } from "framer-motion";
+import { Target, Eye, Rocket, Building } from "lucide-react";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 
-const teamMembers = [
-  {
-    name: "Carlos Mattar",
-    role: "CEO & Fundador",
-    avatarId: "testimonial-avatar-1",
-    description: "Más de 15 años de experiencia liderando proyectos de tecnología y transformación digital en Latinoamérica."
-  },
-  {
-    name: "Maria T. Hernandez",
-    role: "CFO & Co-Fundadora",
-    avatarId: "testimonial-avatar-2",
-    description: "Experta en finanzas corporativas y cumplimiento, asegurando la sostenibilidad y el crecimiento financiero de Kyron."
-  },
-   {
-    name: "Jose Herrera",
-    role: "CTO & Co-Fundador",
-    avatarId: "testimonial-avatar-3",
-    description: "Arquitecto de software con una década de experiencia construyendo plataformas escalables y seguras en la nube."
-  },
+const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, duration?: number }) => {
+    const count = useMotionValue(from);
+    const rounded = useTransform(count, (latest) => Math.round(latest));
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true });
+
+    useEffect(() => {
+        if (inView) {
+            animate(count, to, { duration });
+        }
+    }, [count, inView, to, duration]);
+
+    return <motion.span ref={ref}>{rounded}</motion.span>;
+}
+
+const clientLogos = [
+    { id: "client-logo-1", name: "Constructora XYZ" },
+    { id: "client-logo-2", name: "Inversiones ABC" },
+    { id: "client-logo-3", name: "Tech Solutions LLC" },
+    { id: "client-logo-4", name: "Innovate Corp" },
+    { id: "client-logo-5", name: "Epsilon Services" },
 ];
 
 const testimonials = [
@@ -50,6 +54,25 @@ export function AboutUsSection() {
     return (
         <section id="nosotros" className="py-20 md:py-28 bg-background">
             <div className="container mx-auto px-4 md:px-6">
+                 {/* Social Proof Section */}
+                <motion.div 
+                    className="mb-16 md:mb-24"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <h3 className="text-center text-muted-foreground font-semibold mb-6">CON LA CONFIANZA DE EMPRESAS LÍDERES EN VENEZUELA</h3>
+                    <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+                        {clientLogos.map((logo, index) => {
+                            const logoImage = PlaceHolderImages.find(img => img.id === logo.id);
+                            return (
+                                logoImage && <Image key={logo.id} src={logoImage.imageUrl} alt={logo.name} width={100} height={40} className="opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" data-ai-hint={logoImage.imageHint}/>
+                            )
+                        })}
+                    </div>
+                </motion.div>
+
                 <motion.div 
                     className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
                     initial={{ opacity: 0, y: 20 }}
@@ -88,6 +111,21 @@ export function AboutUsSection() {
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
+                        <div className={cn("rounded-xl p-6 md:p-8 mb-8 flex justify-around text-center", isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card")}>
+                            <div>
+                                <p className="text-4xl font-bold text-primary"><Counter from={0} to={500} />+</p>
+                                <p className="text-sm text-muted-foreground">Empresas Activas</p>
+                            </div>
+                             <div>
+                                <p className="text-4xl font-bold text-primary"><Counter from={0} to={10} />K+</p>
+                                <p className="text-sm text-muted-foreground">Declaraciones Procesadas</p>
+                            </div>
+                             <div>
+                                <p className="text-4xl font-bold text-primary">0%</p>
+                                <p className="text-sm text-muted-foreground">Riesgo Fiscal</p>
+                            </div>
+                        </div>
+
                          <h3 className="text-xl font-semibold mb-4 text-center">Lo que Dicen Nuestros Clientes</h3>
                          <div className="space-y-6">
                             {testimonials.map((testimonial) => {
