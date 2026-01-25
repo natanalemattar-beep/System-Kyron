@@ -3,205 +3,192 @@
 
 import { useState, useEffect, useRef } from "react";
 import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, Layers, ShoppingCart, ShieldCheck, Briefcase, GitBranch, Megaphone } from "lucide-react";
-import { Logo } from "../logo";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { ArrowRight, ChevronRight, Layers, ShoppingCart, ShieldCheck, Briefcase, GitBranch, Megaphone, Video, Loader2 } from "lucide-react";
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";
 import { FestiveEffect } from "../ui/confetti-effect";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { loginOptions } from "@/lib/login-options";
+import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
-const orbFeatures = [
-  { icon: Layers, title: "Contabilidad y Finanzas" },
-  { icon: ShoppingCart, title: "Ventas y Facturación" },
-  { icon: ShieldCheck, title: "Cumplimiento Fiscal" },
-  { icon: Briefcase, title: "Talento Humano" },
-  { icon: GitBranch, title: "Gestión Corporativa" },
-  { icon: Megaphone, title: "Asesoría Estratégica" },
-];
-
-const ORB_SIZE = 400;
-const ICON_ORB_SIZE = 80;
-
-const ORB_SIZE_MOBILE = 280;
-const ICON_ORB_SIZE_MOBILE = 60;
-
+const formSchema = z.object({
+  name: z.string().min(2, "El nombre es muy corto"),
+  email: z.string().email("Correo electrónico inválido"),
+  phone: z.string().min(10, "Número de teléfono inválido"),
+  company: z.string().min(2, "El nombre de la empresa es muy corto"),
+  module: z.string().nonempty("Debes seleccionar un módulo de interés"),
+});
 
 export function HeroSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isClient, setIsClient] = useState(false);
-  const isMobile = useIsMobile();
   const { activeHoliday, isHolidayActive } = useHoliday();
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [showHolidayMessage, setShowHolidayMessage] = useState(false);
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-    if (isHolidayActive && activeHoliday?.name === "Año Nuevo") {
-        const messageTimer = setTimeout(() => setShowHolidayMessage(true), 500);
-        const contentTimer = setTimeout(() => setShowHolidayMessage(false), 5000); 
-        return () => {
-            clearTimeout(messageTimer);
-            clearTimeout(contentTimer);
-        };
-    }
-  }, [isHolidayActive, activeHoliday]);
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      module: "",
+    },
+  });
 
-
-  const handleMouseEnter = (index: number) => {
-    if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-    }
-    setHoveredIndex(index);
-  };
-
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-        setHoveredIndex(null);
-    }, 5000); // Persist for 5 seconds
-  };
-  
-  const currentOrbSize = isClient && isMobile ? ORB_SIZE_MOBILE : ORB_SIZE;
-  const currentIconOrbSize = isClient && isMobile ? ICON_ORB_SIZE_MOBILE : ICON_ORB_SIZE;
-  
-  const isNewYear = isHolidayActive && activeHoliday?.name === "Año Nuevo";
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    console.log(values);
+    setTimeout(() => {
+        toast({
+            title: "¡Solicitud Recibida!",
+            description: "Gracias, nos pondremos en contacto contigo pronto para agendar tu demo.",
+        });
+        form.reset();
+        setIsSubmitting(false);
+    }, 1500);
+  }
 
   return (
     <section id="inicio" className={cn(
-        "relative min-h-dvh flex flex-col items-center justify-center overflow-hidden py-24 sm:py-32",
+        "relative min-h-dvh flex items-center justify-center overflow-hidden py-24 sm:py-32",
         !isHolidayActive && "bg-muted/30",
         isHolidayActive && "bg-transparent"
     )}>
       {isHolidayActive && <FestiveEffect type={activeHoliday.effect} />}
       
-      <AnimatePresence mode="wait">
-        {isNewYear && showHolidayMessage ? (
-          <motion.div
-            key="holiday-message"
-            className="absolute inset-0 z-30 flex flex-col items-center justify-center"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.5 } }}
-            transition={{ duration: 0.5 }}
+      <div className="container mx-auto px-4 md:px-6 z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Side: Content */}
+          <motion.div 
+            className="text-center lg:text-left"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-             <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-center text-balance bg-clip-text text-transparent bg-gradient-to-br from-yellow-300 via-white to-yellow-400 [text-shadow:0_2px_10px_hsl(var(--primary)/0.2)]">
-                Feliz Año 2026
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-balance">
+              Integra Contabilidad, RR.HH., Legal y Ventas en una <span className="text-primary">SOLA Plataforma</span>
             </h1>
+            <p className="text-lg md:text-xl max-w-xl mx-auto lg:mx-0 text-muted-foreground text-balance mt-6">
+              Elimina 8 sistemas diferentes. Automatiza todos los departamentos de tu empresa venezolana con IA y Blockchain.
+            </p>
+            <div className="mt-8 flex justify-center lg:justify-start">
+               <div className="p-3 bg-secondary rounded-lg text-sm font-semibold">
+                   30 días gratis | Especial para empresas venezolanas
+                </div>
+            </div>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+               <div className="w-full sm:w-auto aspect-video bg-secondary rounded-xl flex flex-col items-center justify-center border hover:border-primary transition-all cursor-pointer">
+                    <Video className="h-16 w-16 text-primary mb-2" />
+                    <p className="font-semibold">Ver Video (90s)</p>
+               </div>
+            </div>
           </motion.div>
-        ) : (
-            <motion.div 
-                key="default-content"
-                className="w-full h-full flex flex-col items-center justify-center"
-                initial={{ opacity: isNewYear ? 0 : 1 }}
-                animate={{ opacity: 1, transition: { delay: isNewYear ? 0.5 : 0 } }}
-                exit={{ opacity: 0 }}
-            >
-                <div className="relative flex items-center justify-center" style={{ width: currentOrbSize, height: currentOrbSize }}>
-                    {/* Central Logo and Text */}
-                    <motion.div
-                        className="absolute z-10 flex flex-col items-center text-center"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                        key={hoveredIndex === null ? 'default' : hoveredIndex}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="flex flex-col items-center"
-                        >
-                        {hoveredIndex === null ? (
-                            <>
-                            <Logo className="h-16 w-16 sm:h-20 sm:w-20 mb-4" />
-                            <h1 className="text-2xl sm:text-3xl font-bold">System Kyron</h1>
-                            </>
-                        ) : (
-                            <>
-                            {React.createElement(orbFeatures[hoveredIndex].icon, { className: "h-12 w-12 sm:h-16 sm:w-16 text-primary mb-4" })}
-                            <h2 className="text-xl sm:text-2xl font-semibold">{orbFeatures[hoveredIndex].title}</h2>
-                            </>
-                        )}
-                        </motion.div>
-                    </AnimatePresence>
-                    </motion.div>
 
-                    {/* Static Icons */}
-                    <div className="absolute w-full h-full">
-                        {isClient && orbFeatures.map((feature, index) => {
-                            const angle = (index / orbFeatures.length) * 2 * Math.PI;
-                            const x = (currentOrbSize / 2) * Math.cos(angle);
-                            const y = (currentOrbSize / 2) * Math.sin(angle);
-
-                            return (
-                            <motion.div
-                                key={feature.title}
-                                className="absolute"
-                                style={{
-                                    top: '50%',
-                                    left: '50%',
-                                    x: x - currentIconOrbSize / 2,
-                                    y: y - currentIconOrbSize / 2,
-                                }}
-                                onMouseEnter={() => handleMouseEnter(index)}
-                                onMouseLeave={handleMouseLeave}
-                            >
-                                <motion.div
-                                    className={cn(
-                                        "border rounded-full flex items-center justify-center cursor-pointer",
-                                        isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card"
-                                    )}
-                                    style={{ width: currentIconOrbSize, height: currentIconOrbSize }}
-                                    whileHover={{ scale: 1.2, zIndex: 50, boxShadow: "0 0 20px hsl(var(--primary) / 0.5)" }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                {React.createElement(feature.icon, { className: "h-8 w-8 sm:h-10 sm:w-10 text-muted-foreground" })}
-                                </motion.div>
-                            </motion.div>
-                            );
-                        })}
-                    </div>
-                </div>
-        
-                <div className="text-center mt-12 px-4 z-20">
-                    <motion.h1
-                        className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        >
-                        La Tranquilidad Fiscal que tu Empresa Merece
-                    </motion.h1>
-                    <motion.p
-                        className="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground text-balance mt-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                    >
-                        Automatización de impuestos, facturación SENIAT y contabilidad en una sola plataforma. Deja de preocuparte por el cumplimiento, nosotros lo hacemos por ti.
-                    </motion.p>
-                    <motion.div
-                        className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                    >
-                        <Button size="lg" asChild className="w-full sm:w-auto text-base btn-3d-primary">
-                        <Link href="/register">Solicita tu Demo Gratis</Link>
-                        </Button>
-                        <Button size="lg" variant="ghost" asChild className="w-full sm:w-auto text-base">
-                        <Link href="#servicios">Explorar Ecosistema <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                        </Button>
-                    </motion.div>
-                </div>
-            </motion.div>
-        )}
-      </AnimatePresence>
+          {/* Right Side: Form */}
+          <motion.div
+             initial={{ opacity: 0, x: 50 }}
+             animate={{ opacity: 1, x: 0 }}
+             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          >
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className={cn(
+                  "space-y-4 p-8 border rounded-2xl shadow-2xl",
+                  isHolidayActive ? "bg-card/70 backdrop-blur-xl" : "bg-card"
+              )}>
+                <h3 className="text-xl font-bold text-center">Solicita tu Demo Personalizada</h3>
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nombre Completo</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Ej: Ana Pérez" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Empresa</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Ej: Constructora XYZ, C.A." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Correo Electrónico</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="tu@correo.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Teléfono</FormLabel>
+                      <FormControl>
+                        <Input type="tel" placeholder="0412-1234567" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="module"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Módulo de Interés Principal</FormLabel>
+                       <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecciona un módulo..." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                           {loginOptions.map(opt => (
+                               <SelectItem key={opt.href} value={opt.label}>{opt.label}</SelectItem>
+                           ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <Button type="submit" size="lg" className="w-full text-base" disabled={isSubmitting}>
+                   {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
+                   Solicitar Demo Personalizada
+                </Button>
+              </form>
+            </Form>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

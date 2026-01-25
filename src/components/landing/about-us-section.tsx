@@ -3,7 +3,7 @@
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Target, Eye, Rocket, Building } from "lucide-react";
+import { Target, Eye, Rocket, Building, BookOpen, Gavel, Briefcase } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";
@@ -36,16 +36,28 @@ const clientLogos = [
 const testimonials = [
   {
     name: "Carlos Rodríguez",
-    company: "Director, Constructora XYZ",
+    company: "Director de Contabilidad, Constructora XYZ",
     avatarId: "testimonial-avatar-1",
-    text: "System Kyron ha transformado nuestra gestión. Lo que antes nos tomaba días, ahora lo resolvemos en horas. La tranquilidad de saber que cumplimos con el SENIAT no tiene precio.",
+    module: "Centro de Contabilidad",
+    icon: BookOpen,
+    text: "Reduje 20 horas a la semana en conciliación manual. La automatización del Libro de Compras y Ventas y la conexión con el SENIAT es impecable.",
   },
   {
     name: "Ana Pérez",
-    company: "Gerente General, Inversiones ABC",
+    company: "Gerente de RR.HH., Inversiones ABC",
     avatarId: "testimonial-avatar-2",
-    text: "La plataforma es increíblemente intuitiva. El soporte técnico siempre está dispuesto a ayudar. Finalmente tenemos una solución que entiende las complejidades del mercado venezolano.",
+    module: "Gestión de RR.HH.",
+    icon: Briefcase,
+    text: "Calculo y pago la nómina completa de 80 empleados en menos de una hora. El cálculo automático de prestaciones y la generación de recibos me ahorra días de trabajo al mes.",
   },
+  {
+    name: "Luis Martínez",
+    company: "Asesor Legal, Tech Solutions LLC",
+    avatarId: "testimonial-avatar-3",
+    module: "Escritorio Jurídico",
+    icon: Gavel,
+    text: "Cero multas del SENIAT este trimestre. El sistema de alertas predictivas y el módulo de cumplimiento son una garantía de tranquilidad que no tiene precio en Venezuela.",
+  }
 ];
 
 export function AboutUsSection() {
@@ -126,7 +138,7 @@ export function AboutUsSection() {
                             </div>
                         </div>
 
-                         <h3 className="text-xl font-semibold mb-4 text-center">Lo que Dicen Nuestros Clientes</h3>
+                         <h3 className="text-xl font-semibold mb-4 text-center">Testimonios por Departamento</h3>
                          <div className="space-y-6">
                             {testimonials.map((testimonial) => {
                                 const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
@@ -135,6 +147,10 @@ export function AboutUsSection() {
                                         "p-6 border rounded-xl",
                                         isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card"
                                     )}>
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <testimonial.icon className="h-4 w-4 text-primary"/>
+                                            <span className="text-xs font-semibold uppercase text-primary">{testimonial.module}</span>
+                                        </div>
                                         <p className="italic text-muted-foreground">"{testimonial.text}"</p>
                                         <footer className="flex items-center gap-3 mt-4">
                                             {avatar && (
