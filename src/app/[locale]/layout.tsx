@@ -1,4 +1,3 @@
-
 import type { ReactNode } from "react";
 import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
@@ -6,7 +5,13 @@ import { GeistMono } from "geist/font/mono";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { DynamicBackground } from "@/components/ui/dynamic-background";
+import type { Metadata } from "next";
 import "../globals.css";
+
+export const metadata: Metadata = {
+  title: "System Kyron - Centro de Mando Empresarial",
+  description: "Plataforma integral de gestión contable, fiscal y administrativa diseñada para la tranquilidad del empresario venezolano.",
+};
 
 export default async function LocaleLayout({
   children,
