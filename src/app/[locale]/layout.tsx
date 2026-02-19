@@ -10,7 +10,7 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   title: "System Kyron - Ecosistema Integral de Gestión, Telecomunicaciones y Finanzas",
-  description: "System Kyron es la plataforma definitiva de gestión empresarial 360°. Unifica automatización contable, cumplimiento legal, RR.HH., TPV, telecomunicaciones y finanzas Blockchain. Impulsado por IA para garantizar eficiencia y seguridad inmutable.",
+  description: "System Kyron es un ecosistema integral de gestión inteligente, telecomunicaciones y finanzas avanzadas. Unifica en una sola plataforma la automatización contable y administrativa, el cumplimiento legal corporativo, la gestión estratégica de talento humano, servicios de conectividad de misión crítica, un avanzado sistema de alertas predictivas y soluciones financieras impulsadas por Blockchain e IA. Diseñado como un Centro de Mando omnicanal para empresas y holdings, garantiza seguridad inmutable, eficiencia operativa total y crecimiento estratégico.",
 };
 
 export default async function LocaleLayout({
