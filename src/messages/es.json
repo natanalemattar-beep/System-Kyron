@@ -1,0 +1,18 @@
+
+{
+    "LandingHeader": {
+        "home": "Inicio",
+        "ecosystem": "Ecosistema",
+        "technology": "Tecnología",
+        "about": "Nosotros",
+        "faq": "FAQ",
+        "login": "Acceder",
+        "register": "Registrarse"
+    },
+    "HeroSection": {
+        "title": "Tu Centro de Mando Empresarial",
+        "subtitle": "Automatización fiscal, contabilidad inteligente y cumplimiento normativo en una única plataforma diseñada para la tranquilidad del empresario venezolano.",
+        "cta_main": "Comienza Ahora",
+        "cta_secondary": "Explorar Servicios"
+    }
+}

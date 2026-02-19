@@ -1,0 +1,18 @@
+
+{
+    "LandingHeader": {
+        "home": "Home",
+        "ecosystem": "Ecosystem",
+        "technology": "Technology",
+        "about": "About Us",
+        "faq": "FAQ",
+        "login": "Login",
+        "register": "Sign Up"
+    },
+    "HeroSection": {
+        "title": "Your Business Command Center",
+        "subtitle": "Tax automation, smart accounting, and regulatory compliance on a single platform designed for the peace of mind of the Venezuelan entrepreneur.",
+        "cta_main": "Get Started Now",
+        "cta_secondary": "Explore Services"
+    }
+}
