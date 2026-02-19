@@ -1,30 +1,7 @@
-'use client';
 
-import {
-  HeroSection,
-  ServicesSection,
-  FeaturesSection,
-  AboutUsSection,
-  FaqSection,
-  CtaSection,
-  Footer
-} from "@/components/landing";
-import { LandingHeader } from "@/components/landing/landing-header";
+import { redirect } from 'next/navigation';
 
-export default function LandingPage() {
-  
-  return (
-    <div>
-      <LandingHeader />
-      <main>
-        <HeroSection />
-        <ServicesSection />
-        <FeaturesSection />
-        <AboutUsSection />
-        <FaqSection />
-        <CtaSection />
-        <Footer />
-      </main>
-    </div>
-  );
+export default function RootPage() {
+  // Redirige automáticamente a la versión en español de la landing page
+  redirect('/es');
 }
