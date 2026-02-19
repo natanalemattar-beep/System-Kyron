@@ -9,8 +9,8 @@ import type { Metadata } from "next";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "System Kyron - Ecosistema Integral de Gestión Empresarial Inteligente",
-  description: "System Kyron es el centro de mando definitivo para empresas en Venezuela. Automatización contable, cumplimiento fiscal (SENIAT), RR.HH. y finanzas impulsadas por IA y Blockchain para una gestión con riesgo cero.",
+  title: "System Kyron - Ecosistema Integral de Gestión, Telecomunicaciones y Finanzas",
+  description: "System Kyron es la plataforma definitiva de gestión empresarial 360°. Unifica automatización contable, cumplimiento legal, RR.HH., TPV, telecomunicaciones y finanzas Blockchain. Impulsado por IA para garantizar eficiencia y seguridad inmutable.",
 };
 
 export default async function LocaleLayout({
