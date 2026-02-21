@@ -1,4 +1,3 @@
-
 import type {Config} from 'tailwindcss';
 
 const config: Config = {
@@ -19,7 +18,7 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'sans-serif'],
+        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
       colors: {
@@ -56,17 +55,6 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        'telecom-black': 'var(--telecom-black)',
-        'telecom-white': 'var(--telecom-white)',
-        'telecom-cyan': 'var(--telecom-cyan)',
-        'telecom-magenta': 'var(--telecom-magenta)',
-        'telecom-cyan-green': 'var(--telecom-cyan-green)',
-        'telecom-amber': 'var(--telecom-amber)',
-        'telecom-pink': 'var(--telecom-pink)',
-        'telecom-gray-1': 'var(--telecom-gray-1)',
-        'telecom-gray-2': 'var(--telecom-gray-2)',
-        'telecom-gray-3': 'var(--telecom-gray-3)',
-        'telecom-gray-4': 'var(--telecom-gray-4)',
       },
       borderRadius: {
         lg: "var(--radius)",

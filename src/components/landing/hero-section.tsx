@@ -1,12 +1,9 @@
-
 'use client';
 
-import { useState, useEffect, useRef } from "react";
-import * as React from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ArrowRight, ChevronRight, Layers, ShoppingCart, ShieldCheck, Briefcase, GitBranch, Megaphone, Video, Loader2 } from "lucide-react";
+import { ArrowRight, Video, Loader2 } from "lucide-react";
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";
 import { FestiveEffect } from "../ui/confetti-effect";
@@ -18,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { loginOptions } from "@/lib/login-options";
 import { useToast } from "@/hooks/use-toast";
-import Image from "next/image";
 
 const formSchema = z.object({
   name: z.string().min(2, "El nombre es muy corto"),
@@ -63,48 +59,52 @@ export function HeroSection() {
         !isHolidayActive && "bg-muted/30",
         isHolidayActive && "bg-transparent"
     )}>
-      {isHolidayActive && <FestiveEffect type={activeHoliday.effect} />}
+      {isHolidayActive && activeHoliday && <FestiveEffect type={activeHoliday.effect} />}
       
       <div className="container mx-auto px-4 md:px-6 z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side: Content */}
           <motion.div 
             className="text-center lg:text-left"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-balance">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-balance leading-[1.1]">
               Integra Contabilidad, RR.HH., Legal y Ventas en una <span className="text-primary">SOLA Plataforma</span>
             </h1>
-            <p className="text-lg md:text-xl max-w-xl mx-auto lg:mx-0 text-muted-foreground text-balance mt-6">
+            <p className="text-lg md:text-xl max-w-xl mx-auto lg:mx-0 text-muted-foreground text-balance mt-8 leading-relaxed">
               Elimina 8 sistemas diferentes. Automatiza todos los departamentos de tu empresa venezolana con IA y Blockchain.
             </p>
-            <div className="mt-8 flex justify-center lg:justify-start">
-               <div className="p-3 bg-secondary rounded-lg text-sm font-semibold">
+            <div className="mt-10 flex justify-center lg:justify-start">
+               <div className="px-4 py-2 bg-primary/5 border border-primary/10 rounded-full text-sm font-medium text-primary">
                    30 días gratis | Especial para empresas venezolanas
                 </div>
             </div>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-               <div className="w-full sm:w-auto aspect-video bg-secondary rounded-xl flex flex-col items-center justify-center border hover:border-primary transition-all cursor-pointer">
-                    <Video className="h-16 w-16 text-primary mb-2" />
-                    <p className="font-semibold">Ver Video (90s)</p>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+               <div className="w-full sm:w-64 aspect-video bg-secondary/50 backdrop-blur-sm rounded-xl flex flex-col items-center justify-center border border-border/50 hover:border-primary/50 transition-all cursor-pointer group">
+                    <Video className="h-12 w-12 text-primary/70 group-hover:text-primary transition-colors mb-2" />
+                    <p className="text-sm font-semibold opacity-70 group-hover:opacity-100 transition-opacity">Ver Video (90s)</p>
                </div>
             </div>
           </motion.div>
 
           {/* Right Side: Form */}
           <motion.div
-             initial={{ opacity: 0, x: 50 }}
-             animate={{ opacity: 1, x: 0 }}
+             initial={{ opacity: 0, scale: 0.95 }}
+             animate={{ opacity: 1, scale: 1 }}
              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className={cn(
-                  "space-y-4 p-8 border rounded-2xl shadow-2xl",
+                  "space-y-5 p-8 border rounded-3xl shadow-2xl",
                   isHolidayActive ? "bg-card/70 backdrop-blur-xl" : "bg-card"
               )}>
-                <h3 className="text-xl font-bold text-center">Solicita tu Demo Personalizada</h3>
+                <div className="space-y-1 mb-6">
+                    <h3 className="text-2xl font-bold text-center">Solicita tu Demo</h3>
+                    <p className="text-sm text-muted-foreground text-center">Personalizada para tu sector</p>
+                </div>
+                
                 <FormField
                   control={form.control}
                   name="name"
@@ -112,7 +112,7 @@ export function HeroSection() {
                     <FormItem>
                       <FormLabel>Nombre Completo</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ej: Ana Pérez" {...field} />
+                        <Input placeholder="Ej: Ana Pérez" {...field} className="bg-background/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -125,7 +125,7 @@ export function HeroSection() {
                     <FormItem>
                       <FormLabel>Empresa</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ej: Constructora XYZ, C.A." {...field} />
+                        <Input placeholder="Ej: Constructora XYZ, C.A." {...field} className="bg-background/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -138,7 +138,7 @@ export function HeroSection() {
                     <FormItem>
                       <FormLabel>Correo Electrónico</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="tu@correo.com" {...field} />
+                        <Input type="email" placeholder="tu@correo.com" {...field} className="bg-background/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -151,7 +151,7 @@ export function HeroSection() {
                     <FormItem>
                       <FormLabel>Teléfono</FormLabel>
                       <FormControl>
-                        <Input type="tel" placeholder="0412-1234567" {...field} />
+                        <Input type="tel" placeholder="0412-1234567" {...field} className="bg-background/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -162,10 +162,10 @@ export function HeroSection() {
                   name="module"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Módulo de Interés Principal</FormLabel>
+                      <FormLabel>Módulo de Interés</FormLabel>
                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className="bg-background/50">
                             <SelectValue placeholder="Selecciona un módulo..." />
                           </SelectTrigger>
                         </FormControl>
@@ -180,9 +180,9 @@ export function HeroSection() {
                   )}
                 />
                 
-                <Button type="submit" size="lg" className="w-full text-base" disabled={isSubmitting}>
+                <Button type="submit" size="lg" className="w-full text-base font-bold mt-4" disabled={isSubmitting}>
                    {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-                   Solicitar Demo Personalizada
+                   Agendar Demo Gratuita
                 </Button>
               </form>
             </Form>
