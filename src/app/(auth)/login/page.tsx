@@ -1,120 +1,96 @@
 
 "use client";
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import Link from "next/link";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, Building, KeyRound, ChevronDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import Link from 'next/link';
-import { useToast } from '@/hooks/use-toast';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import { loginOptions } from '@/lib/login-options';
+import { loginOptions } from "@/lib/login-options";
+import { User, Building2, ArrowRight, ChevronLeft } from "lucide-react";
+import { motion } from "framer-motion";
 
-export default function LoginPage() {
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const router = useRouter();
-    const { toast } = useToast();
-
-    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setIsLoading(true);
-        setError(null);
-
-        const formData = new FormData(event.currentTarget);
-        const rif = formData.get('rif') as string;
-        const password = formData.get('password') as string;
-
-        const DEMO_RIF = "J-12345678-9";
-        const DEMO_PASS = "admin1234";
-        
-        setTimeout(() => {
-            if (rif === DEMO_RIF && password === DEMO_PASS) {
-                router.push('/contabilidad');
-            } else {
-                setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
-                setIsLoading(false);
-            }
-        }, 1000);
-    };
+export default function LoginSelectionPage() {
+    const personalOption = loginOptions.find(o => o.href === '/login-personal');
+    const enterpriseOptions = loginOptions.filter(o => o.href !== '/login-personal');
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-2 border-border shadow-xl rounded-2xl">
-                 <CardHeader className="text-center p-8">
-                    <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit mb-4">
-                        <Building className="h-8 w-8 text-primary"/>
-                    </div>
-                    <CardTitle className="text-3xl font-bold">Portal Empresarial</CardTitle>
-                    <CardDescription className="text-base text-muted-foreground mt-2">
-                        Acceso al Centro de Contabilidad y gestión financiera.
-                    </CardDescription>
-                </CardHeader>
-                <form onSubmit={handleLogin}>
-                    <CardContent className="p-8 space-y-6">
-                         <Alert variant="default" className="bg-secondary">
-                            <AlertTriangle className="h-4 w-4" />
-                            <AlertTitle>Modo Demostración</AlertTitle>
-                            <AlertDescription>
-                                <p>Utilice las siguientes credenciales para acceder:</p>
-                                <p className="font-mono text-sm"><strong>RIF:</strong> J-12345678-9</p>
-                                <p className="font-mono text-sm"><strong>Clave:</strong> admin1234</p>
-                            </AlertDescription>
-                        </Alert>
-                        {error && (
-                             <Alert variant="destructive">
-                                <AlertTriangle className="h-4 w-4" />
-                                <AlertTitle>Error de Autenticación</AlertTitle>
-                                <AlertDescription>{error}</AlertDescription>
-                            </Alert>
+        <div className="container mx-auto px-4 py-12 min-h-screen flex flex-col items-center">
+            <motion.div 
+                className="w-full max-w-5xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                <div className="flex flex-col items-center text-center mb-12">
+                    <Button variant="ghost" asChild className="mb-8 self-start">
+                        <Link href="/"><ChevronLeft className="mr-2 h-4 w-4"/> Volver al inicio</Link>
+                    </Button>
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Bienvenido al Ecosistema Kyron</h1>
+                    <p className="text-lg text-muted-foreground max-w-2xl">
+                        Selecciona el portal al que deseas acceder para comenzar a gestionar tus operaciones.
+                    </p>
+                </div>
+
+                <div className="grid gap-12">
+                    {/* Sección Personal */}
+                    <section>
+                        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                            <User className="text-primary h-6 w-6" /> Portal de Ciudadano
+                        </h2>
+                        {personalOption && (
+                            <Card className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-2 hover:border-primary transition-all">
+                                <Link href={personalOption.href} className="flex flex-col md:flex-row items-center p-8 gap-8">
+                                    <div className="p-6 bg-primary/10 rounded-2xl">
+                                        <personalOption.icon className="h-12 w-12 text-primary" />
+                                    </div>
+                                    <div className="flex-1 text-center md:text-left">
+                                        <h3 className="text-2xl font-bold mb-2">{personalOption.label}</h3>
+                                        <p className="text-muted-foreground text-lg">{personalOption.description}</p>
+                                    </div>
+                                    <Button size="lg" className="group-hover:translate-x-2 transition-transform">
+                                        Entrar al Portal <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </Link>
+                            </Card>
                         )}
-                        <div className="space-y-2">
-                            <Label htmlFor="rif">RIF de la Empresa</Label>
-                            <Input id="rif" name="rif" type="text" placeholder="J-12345678-9" required className="text-base" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="password">Contraseña Maestra</Label>
-                            <Input id="password" name="password" type="password" required className="text-base" />
-                        </div>
-                    </CardContent>
-                    <CardFooter className="p-8 flex flex-col gap-4">
-                        <Button type="submit" className="w-full text-lg h-12" disabled={isLoading}>{
-                            isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder'
-                        }</Button>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="link" className="text-muted-foreground font-normal">
-                                    ¿Acceder a otro portal? <ChevronDown className="ml-1 h-4 w-4" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-80 shadow-lg rounded-xl">
-                                {loginOptions.filter(o => o.href !== '/login' && o.href !== '/login-fintech').map((option) => (
-                                    <DropdownMenuItem key={option.href} asChild>
-                                        <Link href={option.href} className="flex items-start gap-3 p-3">
-                                            <div className="p-2 bg-primary/10 rounded-md mt-1">
-                                                <option.icon className="h-5 w-5 text-primary"/>
-                                            </div>
-                                            <div>
-                                                <p className="font-semibold">{option.label}</p>
-                                                <p className="text-xs text-muted-foreground">{option.description}</p>
+                    </section>
+
+                    {/* Sección Empresarial */}
+                    <section>
+                        <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                            <Building2 className="text-primary h-6 w-6" /> Portales Empresariales y Corporativos
+                        </h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {enterpriseOptions.map((option, index) => (
+                                <motion.div
+                                    key={option.href}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                                >
+                                    <Card className="h-full group hover:border-primary transition-all bg-card/50 backdrop-blur-sm flex flex-col">
+                                        <Link href={option.href} className="flex flex-col h-full">
+                                            <CardHeader className="flex-row items-center gap-4">
+                                                <div className="p-3 bg-primary/10 rounded-xl">
+                                                    <option.icon className="h-6 w-6 text-primary" />
+                                                </div>
+                                                <CardTitle className="text-lg group-hover:text-primary transition-colors">{option.label}</CardTitle>
+                                            </CardHeader>
+                                            <CardContent className="flex-grow">
+                                                <CardDescription className="text-sm">{option.description}</CardDescription>
+                                            </CardContent>
+                                            <div className="p-6 pt-0 mt-auto">
+                                                <span className="text-xs font-bold uppercase tracking-wider text-primary inline-flex items-center group-hover:gap-2 transition-all">
+                                                    Acceder <ArrowRight className="h-3 w-3" />
+                                                </span>
                                             </div>
                                         </Link>
-                                    </DropdownMenuItem>
-                                ))}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </CardFooter>
-                </form>
-            </Card>
+                                    </Card>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
+            </motion.div>
         </div>
     );
 }

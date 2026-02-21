@@ -4,20 +4,12 @@
 import { useState, useEffect, type FC, type AnchorHTMLAttributes } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { User, Menu } from "lucide-react";
+import { User, Menu, LogIn } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { loginOptions } from "@/lib/login-options";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement> & { onLinkClick?: () => void }> = ({ href, onLinkClick, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -109,28 +101,11 @@ export function LandingHeader() {
                         </nav>
                         <div className="hidden md:flex items-center gap-2">
                             <ThemeToggle />
-                             <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="outline">
-                                        Acceder <User className="ml-2 h-4 w-4" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-80 shadow-lg rounded-xl">
-                                    {loginOptions.map((option) => (
-                                        <DropdownMenuItem key={option.href} asChild>
-                                            <Link href={option.href} className="flex items-start gap-3 p-3">
-                                                <div className="p-2 bg-primary/10 rounded-md mt-1">
-                                                   <option.icon className="h-5 w-5 text-primary"/>
-                                                </div>
-                                                <div>
-                                                  <p className="font-semibold">{option.label}</p>
-                                                  <p className="text-xs text-muted-foreground">{option.description}</p>
-                                                </div>
-                                            </Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                            <Button variant="outline" asChild>
+                                <Link href="/login" className="flex items-center gap-2">
+                                    Acceder <LogIn className="h-4 w-4" />
+                                </Link>
+                            </Button>
                             <Button asChild>
                                 <Link href="/register">Registrarse</Link>
                             </Button>
@@ -159,7 +134,9 @@ export function LandingHeader() {
                                         <ThemeToggle />
                                     </div>
                                     <Button variant="outline" className="w-full" asChild>
-                                      <Link href="/login">Acceder <User className="ml-2 h-4 w-4" /></Link>
+                                      <Link href="/login" className="flex items-center justify-center gap-2">
+                                        Acceder <LogIn className="h-4 w-4" />
+                                      </Link>
                                     </Button>
                                     <Button asChild className="w-full">
                                         <Link href="/register">Registrarse</Link>
