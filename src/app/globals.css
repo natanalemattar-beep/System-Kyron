@@ -32,7 +32,7 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
  
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
  
   .light {
@@ -68,29 +68,25 @@
  
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-bold tracking-tight text-foreground;
+    @apply font-sans font-bold tracking-tight text-foreground text-balance;
   }
 }
 
 @layer components {
     .btn-3d-primary {
-        @apply transform transition-transform duration-150 ease-in-out active:translate-y-px;
-        box-shadow: 0 4px 0 0 hsl(var(--primary) / 0.5);
+        @apply transform transition-all duration-200 ease-in-out active:translate-y-0.5 active:shadow-none;
+        box-shadow: 0 4px 0 0 hsl(var(--primary) / 0.2);
     }
     .dark .btn-3d-primary {
-        box-shadow: 0 4px 0 0 hsl(var(--primary-foreground) / 0.2);
-    }
-    .btn-3d-primary:active {
-        box-shadow: 0 2px 0 0 hsl(var(--primary) / 0.5);
-    }
-    .dark .btn-3d-primary:active {
-        box-shadow: 0 2px 0 0 hsl(var(--primary-foreground) / 0.2);
+        box-shadow: 0 4px 0 0 hsl(var(--primary-foreground) / 0.1);
     }
 }
