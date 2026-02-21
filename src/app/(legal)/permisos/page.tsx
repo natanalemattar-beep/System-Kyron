@@ -85,9 +85,10 @@ Adjunto a la presente, consignamos los siguientes recaudos técnicos y administr
             break;
          case 'PERM-SAPI-DA-001':
             recaudosContent = `
-Adjunto a la presente, consignamos los siguientes recaudos para el registro de la obra:
-- Un (1) ejemplar de la obra a registrar.
+Adjunto a la presente, consignamos los siguientes recaudos para el registro del programa de computación:
+- Un (1) ejemplar de la obra a registrar (CD o Pendrive con el código fuente).
 - Formulario de solicitud de registro debidamente llenado.
+- Copia del RIF y Acta Constitutiva de la empresa.
 - Comprobante de pago de las tasas administrativas correspondientes.
 `;
             break;
@@ -733,5 +734,3 @@ C.I: [C.I. del Representante]
     </div>
   );
 }
-
-    
