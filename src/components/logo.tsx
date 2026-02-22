@@ -13,42 +13,45 @@ export function Logo({ className }: { className?: string }) {
         aria-label="Kyron Logo"
       >
         <defs>
-          <linearGradient id="kyron-brand-gradient" x1="14" y1="12" x2="24" y2="28" gradientUnits="userSpaceOnUse">
-            <stop stopColor="hsl(var(--primary))" />
-            <stop offset="1" stopColor="#3b82f6" />
+          <linearGradient id="kyron-hex-gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#040434" />
+            <stop offset="1" stopColor="#1a1a90" />
           </linearGradient>
+          <filter id="logo-shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.5" />
+            <feOffset dx="0" dy="1" result="offsetblur" />
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="0.2" />
+            </feComponentTransfer>
+            <feMerge>
+              <feMergeNode />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
         
-        {/* Hexagonal Background Frame (Subtle) */}
+        {/* Hexagonal Background Traced from User Image */}
         <path
-          d="M20 2L35.5885 11V29L20 38L4.41154 29V11L20 2Z"
-          className="fill-primary/5 stroke-primary/10"
-          strokeWidth="1"
+          d="M20 2L36.5 11.5V28.5L20 38L3.5 28.5V11.5L20 2Z"
+          fill="url(#kyron-hex-gradient)"
         />
         
-        {/* Stylized Node 'K' */}
-        <path
-          d="M14 11V29"
-          stroke="url(#kyron-brand-gradient)"
-          strokeWidth="4.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M26 11L14 20L26 29"
-          stroke="url(#kyron-brand-gradient)"
-          strokeWidth="4.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        
-        {/* Connection Pivot Point */}
-        <circle 
-          cx="14" 
-          cy="20" 
-          r="2.5" 
-          className="fill-background stroke-primary" 
-          strokeWidth="1.5" 
-        />
+        {/* White Symbol Traced from User Image */}
+        <g filter="url(#logo-shadow)" transform="translate(4, 4) scale(0.8)">
+          <path
+            d="M28.5 4L11 21.5H19.75L37.25 4H28.5Z"
+            fill="white"
+          />
+          <path
+            d="M11 21.5L2.25 30.25H11L19.75 21.5H11Z"
+            fill="white"
+          />
+          <path
+            d="M19.75 21.5L28.5 30.25H19.75L11 21.5H19.75Z"
+            fill="white"
+            fillOpacity="0.85"
+          />
+        </g>
       </svg>
     </div>
   );
