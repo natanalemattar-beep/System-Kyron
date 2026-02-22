@@ -81,7 +81,7 @@ export default function LoginSelectionPage() {
                                         Entrar Ahora <ArrowRight className="ml-2 h-6 w-6" />
                                     </Button>
                                 </Link>
-                            </Card>Personal
+                            </Card>
                         )}
                     </motion.section>
 
