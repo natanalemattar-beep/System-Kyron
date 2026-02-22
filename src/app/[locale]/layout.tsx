@@ -9,8 +9,30 @@ import type { Metadata } from "next";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "System Kyron - Ecosistema Integral de Gestión, Telecomunicaciones y Finanzas",
-  description: "System Kyron es un ecosistema integral de gestión inteligente, telecomunicaciones y finanzas avanzadas. Unifica en una sola plataforma la automatización contable y administrativa, el cumplimiento legal corporativo, la gestión estratégica de talento humano, servicios de conectividad de misión crítica, un avanzado sistema de alertas predictivas y soluciones financieras impulsadas por Blockchain e IA. Diseñado como un Centro de Mando omnicanal para empresas y holdings, garantiza seguridad inmutable, eficiencia operativa total y crecimiento estratégico.",
+  title: {
+    default: "System Kyron - Ecosistema Integral de Gestión, Telecomunicaciones y Finanzas",
+    template: "%s | System Kyron"
+  },
+  description: "System Kyron es el ecosistema integral definitivo para empresas modernas. Unificamos automatización contable, cumplimiento fiscal SENIAT, gestión estratégica de RR.HH., telecomunicaciones de misión crítica y finanzas avanzadas con IA y Blockchain en un solo Centro de Mando omnicanal.",
+  keywords: ["ERP Venezuela", "Contabilidad Automatizada", "SENIAT", "Blockchain", "IA Empresarial", "Telecomunicaciones", "Gestión de Holding", "Finanzas Digitales"],
+  authors: [{ name: "System Kyron" }],
+  openGraph: {
+    title: "System Kyron - El Futuro de la Gestión Empresarial",
+    description: "Automatización total, cumplimiento garantizado y seguridad inmutable para el empresario global.",
+    url: "https://systemkyron.com",
+    siteName: "System Kyron",
+    locale: "es_VE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "System Kyron - Ecosistema de Gestión Inteligente",
+    description: "Unificamos todos tus departamentos en una sola plataforma impulsada por IA y Blockchain.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default async function LocaleLayout({
@@ -25,7 +47,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body>
+      <body className="min-h-screen font-sans selection:bg-primary/10">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
               <DynamicBackground />
