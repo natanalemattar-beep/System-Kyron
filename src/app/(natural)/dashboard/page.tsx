@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, FileWarning, ArrowRight, User, Share2 } from 'lucide-react';
+import { CheckCircle, Clock, FileWarning, ArrowRight, User, Share2, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -49,8 +49,15 @@ export default function DashboardPersonalPage() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="relative"
         >
-            <Button asChild size="lg" className="bg-primary text-primary-foreground shadow-xl group">
+            <div className="absolute -top-2 -right-2 z-10">
+                <span className="flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                </span>
+            </div>
+            <Button asChild size="lg" className="bg-primary text-primary-foreground shadow-2xl group px-8 h-14 rounded-2xl">
                 <Link href="/tarjeta-digital">
                     <User className="mr-2 h-5 w-5" />
                     Mi Tarjeta Digital
@@ -69,7 +76,7 @@ export default function DashboardPersonalPage() {
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
             >
               <Link href={kpi.href}>
-                  <Card className="hover:shadow-lg transition-shadow hover:-translate-y-1">
+                  <Card className="hover:shadow-lg transition-all hover:-translate-y-1 border-2 border-transparent hover:border-primary/20">
                       <CardHeader className="pb-2 flex-row items-center justify-between">
                           <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
                           <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
@@ -90,7 +97,7 @@ export default function DashboardPersonalPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
         >
-           <Card className="h-full">
+           <Card className="h-full bg-card/50 backdrop-blur-sm">
             <CardHeader>
               <CardTitle>Actividad Reciente de Trámites</CardTitle>
               <CardDescription>Un resumen de tus últimas solicitudes y su estado actual.</CardDescription>
@@ -134,19 +141,20 @@ export default function DashboardPersonalPage() {
             transition={{ duration: 0.5, delay: 0.6 }}
         >
            <DailyTasksChart />
-           <Card className="bg-primary/5 border-primary/20">
+           <Card className="bg-primary/5 border-primary/20 border-2 shadow-xl overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
-                        <Share2 className="h-5 w-5 text-primary" />
-                        Tu Identidad Digital
+                        <Sparkles className="h-5 w-5 text-yellow-500" />
+                        Identidad Digital 3D
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 relative z-10">
                     <p className="text-sm text-muted-foreground">
-                        Accede a tu tarjeta de presentación 3D interactiva para compartir tu perfil profesional en segundos mediante código QR.
+                        Tu tarjeta de presentación del futuro está lista. Compártela escaneando el QR o mediante un enlace directo.
                     </p>
-                    <Button variant="secondary" asChild className="w-full">
-                        <Link href="/tarjeta-digital">Explorar Tarjeta 3D</Link>
+                    <Button variant="default" asChild className="w-full h-12 rounded-xl font-bold">
+                        <Link href="/tarjeta-digital">Abrir Tarjeta Interactiva</Link>
                     </Button>
                 </CardContent>
            </Card>
