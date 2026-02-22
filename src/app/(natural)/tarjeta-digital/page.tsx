@@ -20,7 +20,6 @@ import {
     Briefcase, 
     Sparkles,
     Globe,
-    ExternalLink,
     Printer
 } from "lucide-react";
 import Image from "next/image";
@@ -70,7 +69,6 @@ export default function TarjetaDigitalPage() {
 
     const handleSaveContact = (e: React.MouseEvent) => {
         e.stopPropagation();
-        // Modern vCard 3.0 with more fields for the "2025 Model"
         const vCard = [
             "BEGIN:VCARD",
             "VERSION:3.0",
@@ -98,7 +96,6 @@ export default function TarjetaDigitalPage() {
         toast({ 
             title: "Contacto Actualizado", 
             description: "Se ha descargado la ficha vCard Pro para tu agenda.",
-            action: <CheckCircleIcon className="text-green-500 h-4 w-4" />
         });
     };
 
@@ -151,14 +148,12 @@ export default function TarjetaDigitalPage() {
                     animate={{ rotateY: isFlipped ? 180 : 0 }}
                     transition={{ duration: 0.7, type: "spring", stiffness: 150, damping: 25 }}
                 >
-                    {/* FRENTE: Estilo High-Tech Glass */}
+                    {/* FRENTE */}
                     <Card className="absolute inset-0 backface-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border-2 overflow-hidden bg-card/90 backdrop-blur-2xl flex flex-col print-card rounded-[2.5rem] border-primary/10">
-                        {/* Mesh Gradient Top */}
                         <div className="h-40 relative overflow-hidden bg-[#0a0a0a]">
                             <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_-20%,hsl(var(--primary)),transparent_70%)]"></div>
                             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
                             
-                            {/* Animated Orbs */}
                             <motion.div 
                                 className="absolute -top-10 -left-10 w-32 h-32 bg-primary/20 rounded-full blur-[60px]"
                                 animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -211,7 +206,7 @@ export default function TarjetaDigitalPage() {
                         </div>
                     </Card>
 
-                    {/* REVERSO: Minimalista & QR Focus */}
+                    {/* REVERSO */}
                     <Card className="absolute inset-0 backface-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border-2 rotate-y-180 bg-card/95 backdrop-blur-2xl flex flex-col items-center justify-center p-10 text-center rounded-[2.5rem] border-primary/10">
                         <div className="mb-12">
                             <div className="p-5 bg-primary/10 rounded-3xl w-fit mx-auto mb-6 shadow-inner border border-primary/5">
@@ -266,24 +261,4 @@ export default function TarjetaDigitalPage() {
             </Button>
         </div>
     );
-}
-
-function CheckCircleIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-      <polyline points="22 4 12 14.01 9 11.01" />
-    </svg>
-  )
 }
