@@ -70,7 +70,7 @@ export default function TarjetaDigitalPage() {
 
     const handleSaveContact = (e: React.MouseEvent) => {
         e.stopPropagation();
-        // Modern vCard 3.0 with more fields
+        // Modern vCard 3.0 with more fields for the "2025 Model"
         const vCard = [
             "BEGIN:VCARD",
             "VERSION:3.0",
@@ -98,7 +98,7 @@ export default function TarjetaDigitalPage() {
         toast({ 
             title: "Contacto Actualizado", 
             description: "Se ha descargado la ficha vCard Pro para tu agenda.",
-            action: <CheckCircle className="text-green-500 h-4 w-4" />
+            action: <CheckCircleIcon className="text-green-500 h-4 w-4" />
         });
     };
 
@@ -268,7 +268,7 @@ export default function TarjetaDigitalPage() {
     );
 }
 
-function CheckCircle(props: React.SVGProps<SVGSVGElement>) {
+function CheckCircleIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

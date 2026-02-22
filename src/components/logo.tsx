@@ -17,11 +17,12 @@ export function Logo({ className }: { className?: string }) {
             <stop stopColor="#040434" />
             <stop offset="1" stopColor="#1a1a90" />
           </linearGradient>
-          <filter id="logo-shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="0.5" />
+          {/* Shadow filter to create the folded ribbon depth effect from the user's drawing */}
+          <filter id="logo-depth-shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.6" />
             <feOffset dx="0" dy="1" result="offsetblur" />
             <feComponentTransfer>
-              <feFuncA type="linear" slope="0.2" />
+              <feFuncA type="linear" slope="0.3" />
             </feComponentTransfer>
             <feMerge>
               <feMergeNode />
@@ -30,24 +31,27 @@ export function Logo({ className }: { className?: string }) {
           </filter>
         </defs>
         
-        {/* Hexagonal Background Pointy-topped */}
+        {/* Pointy-topped Hexagonal Background - Traced Proportions */}
         <path
-          d="M20 2L36.5 11.5V28.5L20 38L3.5 28.5V11.5L20 2Z"
+          d="M20 2L37.32 12V30L20 40L2.68 30V12L20 2Z"
           fill="url(#kyron-hex-gradient)"
         />
         
-        {/* White Symbol Traced from User Image */}
-        <g filter="url(#logo-shadow)" transform="translate(4, 4) scale(0.8)">
+        {/* White Symbol - Manual Trace of the folded ribbon/chevron shape from user input */}
+        <g filter="url(#logo-depth-shadow)" transform="translate(4, 4) scale(0.8)">
+          {/* Top segment: Slanting down from top-right to center-left */}
           <path
             d="M28.5 4L11 21.5H19.75L37.25 4H28.5Z"
             fill="white"
           />
+          {/* Bottom-left segment: Slanting down from center to far bottom-left */}
           <path
             d="M11 21.5L2.25 30.25H11L19.75 21.5H11Z"
             fill="white"
           />
+          {/* Bottom-right segment: Overlapping to create the depth/chevron look */}
           <path
-            d="M19.75 21.5L28.5 30.25H19.75L11 21.5H19.75Z"
+            d="M19.75 21.5L28.5 30.25H37.25 30.25L28.5 21.5H19.75Z"
             fill="white"
             fillOpacity="0.85"
           />
