@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, User } from 'lucide-react';
+import { Loader2, AlertTriangle, ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import Link from 'next/link';
@@ -43,10 +43,8 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
         const username = formData.get('username') as string;
         const password = formData.get('password') as string;
         
-        // Simulate a server-side delay
         setTimeout(() => {
             if (username === demoUsername && password === demoPassword) {
-                // Remove the toast from here and just navigate.
                 router.push(redirectPath);
             } else {
                 setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
@@ -56,58 +54,63 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border-2 border-border shadow-xl rounded-2xl">
-                 <CardHeader className="text-center p-8">
-                    <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit mb-4">
-                        <Icon className="h-8 w-8 text-primary"/>
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
+            <Button variant="ghost" asChild className="mb-8 self-start md:absolute md:top-12 md:left-12 h-12 rounded-xl text-base">
+                <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-5 w-5"/> Volver</Link>
+            </Button>
+            <Card className="w-full max-w-xl bg-card/80 backdrop-blur-2xl border-2 border-border shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)] rounded-[3rem] overflow-hidden">
+                 <CardHeader className="text-center p-12 pb-6">
+                    <div className="mx-auto bg-primary/10 p-5 rounded-3xl w-fit mb-8 shadow-inner">
+                        <Icon className="h-12 w-12 text-primary"/>
                     </div>
-                    <CardTitle className="text-3xl font-bold">{portalName}</CardTitle>
-                    <CardDescription className="text-base text-muted-foreground mt-2">
+                    <CardTitle className="text-4xl font-black tracking-tighter">{portalName}</CardTitle>
+                    <CardDescription className="text-lg text-muted-foreground mt-4 leading-snug">
                         {portalDescription}
                     </CardDescription>
                 </CardHeader>
                 <form onSubmit={handleLogin}>
-                    <CardContent className="p-8 space-y-6">
-                         <Alert variant="default" className="bg-secondary">
-                            <AlertTriangle className="h-4 w-4" />
-                            <AlertTitle>Modo Demostración</AlertTitle>
-                            <AlertDescription>
-                                <p className="font-mono text-sm"><strong>Usuario:</strong> {demoUsername}</p>
-                                <p className="font-mono text-sm"><strong>Clave:</strong> {demoPassword}</p>
+                    <CardContent className="p-12 pt-6 space-y-10">
+                         <Alert variant="default" className="bg-secondary/50 border-none rounded-3xl p-6">
+                            <AlertTriangle className="h-6 w-6 text-primary" />
+                            <AlertTitle className="text-lg font-bold ml-4">Modo Demostración</AlertTitle>
+                            <AlertDescription className="ml-4 mt-2">
+                                <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
+                                    <p className="font-mono text-base"><strong>Usuario:</strong> {demoUsername}</p>
+                                    <p className="font-mono text-base"><strong>Clave:</strong> {demoPassword}</p>
+                                </div>
                             </AlertDescription>
                         </Alert>
                         {error && (
-                             <Alert variant="destructive">
-                                <AlertTriangle className="h-4 w-4" />
-                                <AlertTitle>Error de Autenticación</AlertTitle>
-                                <AlertDescription>{error}</AlertDescription>
+                             <Alert variant="destructive" className="rounded-3xl p-6">
+                                <AlertTriangle className="h-6 w-6" />
+                                <AlertTitle className="text-lg font-bold ml-4">Error de Acceso</AlertTitle>
+                                <AlertDescription className="ml-4 mt-2 text-base">{error}</AlertDescription>
                             </Alert>
                         )}
-                        <div className="space-y-2">
-                            <Label htmlFor="username">Usuario</Label>
-                            <Input id="username" name="username" type="text" placeholder="Ingresa tu usuario" required className="text-base" />
+                        <div className="space-y-4">
+                            <Label htmlFor="username" className="text-base font-bold uppercase tracking-widest opacity-70">Usuario</Label>
+                            <Input id="username" name="username" type="text" placeholder="Tu identificador" required className="h-16 text-xl px-6 rounded-2xl bg-secondary/30 border-none focus-visible:ring-primary" />
                         </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="password">Contraseña</Label>
-                            <Input id="password" name="password" type="password" required className="text-base" />
+                        <div className="space-y-4">
+                            <Label htmlFor="password" className="text-base font-bold uppercase tracking-widest opacity-70">Contraseña</Label>
+                            <Input id="password" name="password" type="password" required className="h-16 text-xl px-6 rounded-2xl bg-secondary/30 border-none focus-visible:ring-primary" />
                         </div>
                     </CardContent>
-                    <CardFooter className="p-8 flex flex-col gap-4">
-                        <Button type="submit" className="w-full text-lg h-12" disabled={isLoading}>{
-                            isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder'
+                    <CardFooter className="p-12 pt-0 flex flex-col gap-6">
+                        <Button type="submit" className="w-full text-xl font-black h-20 rounded-[2rem] shadow-2xl btn-3d-primary" disabled={isLoading}>{
+                            isLoading ? <Loader2 className="mr-3 h-8 w-8 animate-spin" /> : 'Acceder al Portal'
                         }</Button>
                         {footerLinks && footerLinks.primary && (
-                          <Button variant="link" asChild className="text-muted-foreground font-normal">
+                          <Button variant="link" asChild className="text-muted-foreground font-bold text-base h-auto py-2">
                              <Link href={footerLinks.primary.href}>{footerLinks.primary.text}</Link>
                           </Button>
                         )}
                          {footerLinks && footerLinks.secondaryLinks && footerLinks.secondaryLinks.links.length > 0 && (
-                            <div className="text-center w-full pt-4 border-t">
-                                <p className="text-sm text-muted-foreground mb-2">{footerLinks.secondaryLinks.title || 'Otras opciones:'}</p>
-                                <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                            <div className="text-center w-full pt-8 border-t border-border/10">
+                                <p className="text-sm text-muted-foreground mb-4 uppercase tracking-[0.2em] font-bold">{footerLinks.secondaryLinks.title || 'Otras opciones'}</p>
+                                <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
                                     {footerLinks.secondaryLinks.links.map(link => (
-                                         <Button key={link.href} variant="link" asChild className="p-0 h-auto text-xs">
+                                         <Button key={link.href} variant="link" asChild className="p-0 h-auto text-base font-bold">
                                             <Link href={link.href}>{link.text}</Link>
                                          </Button>
                                     ))}
