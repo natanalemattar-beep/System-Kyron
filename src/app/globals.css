@@ -70,16 +70,17 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: var(--font-geist-sans), system-ui, sans-serif !important;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary;
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
     -moz-osx-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-bold tracking-tight text-foreground text-balance;
+    @apply font-bold tracking-tight text-foreground text-balance;
   }
 }
 

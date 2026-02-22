@@ -33,9 +33,9 @@ interface QuickAccessProps {
 export function QuickAccess({ navGroups }: QuickAccessProps) {
     const pathname = usePathname();
     
-    // Default to adminNavGroups if no specific groups are passed
+    // Default to a curated list if no groups are passed
     const groupsToShow = navGroups || adminNavGroups.filter(g => 
-        g.title === "Facturación" ||
+        g.title === "Ventas y Facturación" ||
         g.title === "Finanzas y Contabilidad" || 
         g.title === "Impuestos y Cumplimiento" ||
         g.title === "Recursos Humanos"
