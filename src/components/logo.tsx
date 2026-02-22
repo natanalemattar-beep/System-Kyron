@@ -13,7 +13,7 @@ export function Logo({ className }: { className?: string }) {
         aria-label="Kyron Logo"
       >
         <defs>
-          <linearGradient id="kyron-hex-gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+          <linearGradient id="kyron-hex-gradient" x1="0" y1="40" x2="40" y2="0" gradientUnits="userSpaceOnUse">
             <stop stopColor="#040434" />
             <stop offset="1" stopColor="#1a1a90" />
           </linearGradient>
@@ -30,7 +30,7 @@ export function Logo({ className }: { className?: string }) {
           </filter>
         </defs>
         
-        {/* Hexagonal Background Traced from User Image */}
+        {/* Hexagonal Background Pointy-topped */}
         <path
           d="M20 2L36.5 11.5V28.5L20 38L3.5 28.5V11.5L20 2Z"
           fill="url(#kyron-hex-gradient)"
