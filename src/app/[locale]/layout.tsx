@@ -13,17 +13,7 @@ export const metadata: Metadata = {
     default: "System Kyron - Ecosistema Integral de Gestión, Telecomunicaciones y Finanzas",
     template: "%s | System Kyron"
   },
-  description: "System Kyron es el ecosistema integral definitivo para empresas modernas. Unificamos automatización contable, cumplimiento fiscal SENIAT, gestión estratégica de RR.HH., telecomunicaciones de misión crítica, un avanzado sistema de alertas predictivas y finanzas avanzadas con IA y Blockchain en un solo Centro de Mando omnicanal.",
-  keywords: ["ERP Venezuela", "Contabilidad Automatizada", "SENIAT", "Blockchain", "IA Empresarial", "Telecomunicaciones", "Gestión de Holding", "Finanzas Digitales", "Alertas Predictivas"],
-  authors: [{ name: "System Kyron" }],
-  openGraph: {
-    title: "System Kyron - El Futuro de la Gestión Empresarial",
-    description: "Automatización total, cumplimiento garantizado y seguridad inmutable para el empresario global.",
-    url: "https://systemkyron.com",
-    siteName: "System Kyron",
-    locale: "es_VE",
-    type: "website",
-  },
+  description: "System Kyron es el ecosistema integral de gestión inteligente, telecomunicaciones y finanzas avanzadas. Unifica automatización contable, cumplimiento fiscal SENIAT, gestión estratégica de RR.HH., servicios de conectividad de misión crítica, un avanzado sistema de alertas predictivas y soluciones financieras con Blockchain e IA.",
 };
 
 export default async function LocaleLayout({
@@ -38,11 +28,13 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="min-h-screen font-sans selection:bg-primary/10">
+      <body className="min-h-screen font-sans selection:bg-primary/10 transition-colors duration-300">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
               <DynamicBackground />
-              {children}
+              <div className="relative flex min-h-screen flex-col">
+                {children}
+              </div>
           </Providers>
         </NextIntlClientProvider>
       </body>

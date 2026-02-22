@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -16,14 +15,11 @@ import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Cog, Menu, ShieldCheck } from "lucide-react";
+import { Menu, ShieldCheck, ChevronDown, User, Cog, LogOut } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ThemeToggle } from "./theme-toggle";
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useState, useEffect } from "react";
-import { holidays, type Holiday } from "@/lib/holidays";
-
 
 type User = {
   name: string;
@@ -56,99 +52,72 @@ interface AppHeaderProps {
 
 export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
   const pathname = usePathname();
-  const [activeHoliday, setActiveHoliday] = useState<Holiday | null>(null);
-
-   useEffect(() => {
-    const checkHoliday = () => {
-      const now = new Date();
-      const currentHoliday = holidays.find(h => {
-        const startDate = new Date(now.getFullYear(), h.month, h.day);
-        const endDate = new Date(now.getFullYear(), h.month, h.day + h.duration);
-        return now >= startDate && now < endDate;
-      });
-      setActiveHoliday(currentHoliday || null);
-    };
-    checkHoliday();
-    const interval = setInterval(checkHoliday, 1000 * 60 * 60); // Check every hour
-    return () => clearInterval(interval);
-  }, []);
 
   const isLinkActive = (itemHref: string) => {
-    if (itemHref === '/') return pathname === '/';
-    // Match dashboard links exactly
-    if (itemHref.includes("dashboard")) return pathname === itemHref;
-    // For other links, check if the path starts with the href
-    return pathname.startsWith(itemHref);
+    return pathname === itemHref || pathname.startsWith(itemHref + '/');
   }
 
   const isGroupActive = (group: NavGroup) => {
-    if (!group || !group.items) return false;
-    // Check if any item in the main group is active
-    if (group.items.some(item => isLinkActive(item.href))) {
-      return true;
-    }
-    // Check if any item in any subgroup is active
-    return group.subGroups && group.subGroups.some(subGroup => 
-      subGroup.items.some(item => isLinkActive(item.href))
-    );
+    if (!group) return false;
+    const allHrefs = [
+      ...group.items.map(i => i.href),
+      ...(group.subGroups?.flatMap(sg => sg.items.map(i => i.href)) || [])
+    ];
+    return allHrefs.some(href => isLinkActive(href));
   };
-
 
   return (
     <motion.header 
-      className="sticky top-0 left-0 right-0 z-50 backdrop-blur-lg bg-background/80"
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{
-        type: 'spring',
-        stiffness: 70,
-        damping: 20,
-        mass: 1,
-      }}
+      className="sticky top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-xl"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
     >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex h-16 items-center justify-between border-b">
-        <div className="flex items-center gap-6">
-            <Link href={dashboardHref} className="flex items-center gap-3">
-                <Logo className={cn(activeHoliday && "animate-pulse [filter:drop-shadow(0_0_8px_hsl(var(--primary)))]")} />
-                <span className="text-xl font-bold hidden sm:inline-block">System Kyron</span>
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          <div className="flex items-center gap-8">
+            <Link href={dashboardHref} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <Logo className="h-8 w-8" />
+                <span className="text-xl font-black tracking-tighter">KYRON</span>
             </Link>
-            <nav className="hidden md:flex items-center gap-2">
-                 {navGroups && Array.isArray(navGroups) && navGroups.map((group) => (
+            
+            <nav className="hidden lg:flex items-center gap-1">
+                 {navGroups?.map((group) => (
                     <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
                             <Button 
                                 variant="ghost" 
                                 size="sm" 
                                 className={cn(
-                                    "gap-1",
-                                    isGroupActive(group) && "bg-accent text-accent-foreground",
-                                    activeHoliday && "transition-all duration-300 [text-shadow:0_0_10px_hsl(var(--primary)/0.5)]"
+                                    "h-9 px-4 gap-1 font-bold text-xs uppercase tracking-widest",
+                                    isGroupActive(group) && "bg-primary/5 text-primary"
                                 )}
                             >
                                 {group.title}
+                                <ChevronDown className="h-3 w-3 opacity-50" />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="shadow-lg">
-                          {group.subGroups && group.subGroups.length > 0 ? group.subGroups.map((subGroup) => (
+                        <DropdownMenuContent align="start" className="w-56 p-2 rounded-xl">
+                          {group.subGroups?.length > 0 ? group.subGroups.map((subGroup) => (
                               <div key={subGroup.title}>
-                                <DropdownMenuLabel>{subGroup.title}</DropdownMenuLabel>
+                                <DropdownMenuLabel className="px-2 py-1.5 text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+                                  {subGroup.title}
+                                </DropdownMenuLabel>
                                 {subGroup.items.map((item) => (
                                   <DropdownMenuItem key={item.href} asChild>
-                                    <Link href={item.href} className={cn("flex items-center", isLinkActive(item.href) && "font-bold text-primary")}>
-                                        <item.icon className="mr-2 h-4 w-4" />
+                                    <Link href={item.href} className={cn("flex items-center gap-2 rounded-lg", isLinkActive(item.href) && "bg-secondary font-bold")}>
+                                        <item.icon className="h-4 w-4" />
                                         {item.label}
                                     </Link>
                                   </DropdownMenuItem>
                                 ))}
-                                <DropdownMenuSeparator />
+                                <DropdownMenuSeparator className="my-2" />
                               </div>
                             ))
                           : 
                             group.items.map((item) => (
                                 <DropdownMenuItem key={item.href} asChild>
-                                    <Link href={item.href} className={cn("flex items-center", isLinkActive(item.href) && "font-bold text-primary")}>
-                                        <item.icon className="mr-2 h-4 w-4" />
+                                    <Link href={item.href} className={cn("flex items-center gap-2 rounded-lg", isLinkActive(item.href) && "bg-secondary font-bold")}>
+                                        <item.icon className="h-4 w-4" />
                                         {item.label}
                                     </Link>
                                 </DropdownMenuItem>
@@ -158,49 +127,80 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                     </DropdownMenu>
                 ))}
             </nav>
-        </div>
-        <div className="flex items-center gap-4">
-           {/* Mobile Menu */}
-           <Sheet>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-9 w-9 rounded-full ring-offset-background hover:bg-secondary">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="font-bold text-xs">{user.fallback}</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64 p-2 rounded-2xl shadow-2xl">
+                <DropdownMenuLabel className="p-4 font-normal">
+                   <div className="flex flex-col gap-1">
+                      <p className="text-sm font-bold leading-none">{user.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                   </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="mx-2" />
+                <DropdownMenuItem asChild className="rounded-xl">
+                  <Link href="/seguridad" className="flex items-center py-2 px-3">
+                      <ShieldCheck className="mr-3 h-4 w-4 text-primary" />
+                      <span className="font-medium">Seguridad</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="rounded-xl">
+                  <Link href="/general" className="flex items-center py-2 px-3">
+                      <Cog className="mr-3 h-4 w-4 text-primary" />
+                      <span className="font-medium">Configuración</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="mx-2" />
+                <DropdownMenuItem asChild className="rounded-xl text-destructive focus:bg-destructive/10 focus:text-destructive">
+                  <Link href="/" className="flex items-center py-2 px-3">
+                      <LogOut className="mr-3 h-4 w-4" />
+                      <span className="font-bold">Cerrar Sesión</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
+                <Button variant="ghost" size="icon" className="lg:hidden h-9 w-9">
                     <Menu className="h-5 w-5"/>
-                    <span className="sr-only">Abrir Menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-full max-w-sm p-0 flex flex-col bg-background/80 backdrop-blur-lg shadow-lg">
-                <SheetHeader className="p-4 border-b">
+              <SheetContent side="left" className="w-[300px] p-0 flex flex-col bg-background/95 backdrop-blur-xl">
+                <SheetHeader className="p-6 border-b">
                     <SheetTitle asChild>
-                      <Link href={dashboardHref} className="flex items-center gap-3">
-                          <Logo />
-                          <span className="text-xl font-bold">System Kyron</span>
+                      <Link href={dashboardHref} className="flex items-center gap-2">
+                          <Logo className="h-8 w-8" />
+                          <span className="text-xl font-black tracking-tighter">KYRON</span>
                       </Link>
                     </SheetTitle>
                 </SheetHeader>
                  <ScrollArea className="flex-grow">
                     <nav className="p-4">
                         <Accordion type="multiple" className="w-full">
-                          {navGroups && Array.isArray(navGroups) && navGroups.map((group) => (
-                            <AccordionItem value={group.title} key={group.title}>
-                                <AccordionTrigger>
-                                    <h4 className="font-semibold text-base flex items-center gap-2">
-                                        <group.icon className="h-5 w-5 text-primary"/>
+                          {navGroups?.map((group) => (
+                            <AccordionItem value={group.title} key={group.title} className="border-none">
+                                <AccordionTrigger className="hover:no-underline py-2">
+                                    <div className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                                        <group.icon className="h-4 w-4"/>
                                         {group.title}
-                                    </h4>
+                                    </div>
                                 </AccordionTrigger>
-                                <AccordionContent>
-                                    <div className="flex flex-col gap-1 pl-4">
-                                        {group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items).map(item => (
-                                            <Button key={item.href} asChild variant={isLinkActive(item.href) ? "secondary" : "ghost"} className="justify-start">
+                                <AccordionContent className="pb-4">
+                                    <div className="flex flex-col gap-1 pl-7 mt-2">
+                                        {(group.subGroups?.flatMap(sg => sg.items) || group.items).map(item => (
+                                            <Button key={item.href} asChild variant={isLinkActive(item.href) ? "secondary" : "ghost"} className="justify-start h-9 px-3 rounded-lg text-sm font-medium">
                                                 <Link href={item.href}>
-                                                    <item.icon className="mr-2 h-4 w-4" />
-                                                    {item.label}
-                                                </Link>
-                                            </Button>
-                                        )) : group.items && group.items.map(item => (
-                                             <Button key={item.href} asChild variant={isLinkActive(item.href) ? "secondary" : "ghost"} className="justify-start">
-                                                <Link href={item.href}>
-                                                    <item.icon className="mr-2 h-4 w-4" />
+                                                    <item.icon className="mr-3 h-4 w-4" />
                                                     {item.label}
                                                 </Link>
                                             </Button>
@@ -212,50 +212,9 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                         </Accordion>
                     </nav>
                  </ScrollArea>
-                  <div className="p-4 border-t mt-auto">
-                      <Button variant="outline" className="w-full justify-start" asChild>
-                          <Link href="/">
-                              Cerrar Sesión
-                          </Link>
-                      </Button>
-                  </div>
               </SheetContent>
             </Sheet>
-            
-            <ThemeToggle />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                <Avatar className="h-9 w-9">
-                  <AvatarFallback>{user.fallback}</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="shadow-lg">
-              <DropdownMenuLabel>
-                 <p className="font-semibold">{user.name}</p>
-                 <p className="text-xs text-muted-foreground font-normal">{user.email}</p>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/seguridad" className="flex items-center justify-start">
-                    <ShieldCheck className="mr-2 h-4 w-4" />
-                    <span>Seguridad</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/general" className="flex items-center justify-start">
-                    <Cog className="mr-2 h-4 w-4" />
-                    <span>Configuración</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/">Cerrar Sesión</Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+          </div>
         </div>
       </div>
     </motion.header>
