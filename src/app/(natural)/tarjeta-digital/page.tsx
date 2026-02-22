@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -176,7 +177,7 @@ export default function TarjetaDigitalPage() {
             </motion.div>
             
             <Button variant="link" className="mt-8 text-muted-foreground font-bold uppercase text-[10px] tracking-widest no-print hover:text-primary transition-colors" onClick={() => window.print()}>
-                Imprimir Tarjeta Física
+                no me deja en pdf :(
             </Button>
         </div>
     );
