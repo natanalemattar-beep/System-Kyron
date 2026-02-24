@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -9,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Loader2, AlertTriangle, Building, ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import Link from 'lucide-react';
+import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 
 export default function LoginEmpresaPage() {
@@ -43,7 +42,7 @@ export default function LoginEmpresaPage() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
             <Button variant="ghost" asChild className="mb-8 self-start md:absolute md:top-12 md:left-12 h-12 rounded-xl text-base">
-                <a href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-5 w-5"/> Volver</a>
+                <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-5 w-5"/> Volver</Link>
             </Button>
             <Card className="w-full max-w-xl bg-card/80 backdrop-blur-2xl border-2 border-border shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)] rounded-[3rem] overflow-hidden">
                  <CardHeader className="text-center p-12 pb-6">

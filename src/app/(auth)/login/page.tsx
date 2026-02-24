@@ -58,27 +58,27 @@ export default function LoginSelectionPage() {
                     <motion.section variants={itemVariants}>
                         <div className="flex items-center gap-8 mb-16">
                             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-border"></div>
-                            <h2 className="text-sm font-black uppercase tracking-[0.5em] opacity-40 flex items-center gap-4">
-                                <User className="text-primary h-5 w-5" /> Portal Ciudadano
+                            <h2 className="text-sm font-black uppercase tracking-[0.5em] opacity-40 flex items-center gap-4 text-primary">
+                                <User className="h-5 w-5" /> Portal Ciudadano
                             </h2>
                             <div className="h-px flex-1 bg-gradient-to-l from-transparent via-border to-border"></div>
                         </div>
                         {personalOption && (
                             <Card className="group relative overflow-hidden bg-card/40 backdrop-blur-3xl border-2 hover:border-primary/40 transition-all duration-700 shadow-[0_48px_96px_-12px_rgba(0,0,0,0.2)] rounded-[4rem]">
                                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                                <Link href={personalOption.href} className="relative z-10 flex flex-col lg:flex-row items-center p-16 md:p-24 lg:p-32 gap-16 md:gap-24">
-                                    <div className="p-16 bg-primary/5 rounded-[3.5rem] group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-700 border border-primary/5 shadow-2xl">
-                                        <personalOption.icon className="h-32 w-32 text-primary" />
+                                <Link href={personalOption.href} className="relative z-10 flex flex-col lg:flex-row items-center p-12 md:p-20 lg:p-24 gap-12 md:gap-20">
+                                    <div className="p-12 bg-primary/5 rounded-[3.5rem] group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-700 border border-primary/5 shadow-2xl">
+                                        <personalOption.icon className="h-24 w-24 md:h-32 md:w-32 text-primary" />
                                     </div>
                                     <div className="flex-1 text-center lg:text-left space-y-8">
-                                        <h3 className="text-5xl md:text-7xl font-black flex items-center justify-center lg:justify-start gap-6 tracking-tighter">
+                                        <h3 className="text-4xl md:text-6xl lg:text-7xl font-black flex items-center justify-center lg:justify-start gap-6 tracking-tighter">
                                             {personalOption.label}
-                                            <Sparkles className="h-12 w-12 text-yellow-500 animate-pulse" />
+                                            <Sparkles className="h-10 w-10 md:h-12 md:w-12 text-yellow-500 animate-pulse" />
                                         </h3>
-                                        <p className="text-muted-foreground text-2xl md:text-3xl leading-snug max-w-3xl font-medium">{personalOption.description}</p>
+                                        <p className="text-muted-foreground text-xl md:text-2xl lg:text-3xl leading-snug max-w-3xl font-medium">{personalOption.description}</p>
                                     </div>
-                                    <Button size="lg" className="h-24 px-20 rounded-[2.5rem] group-hover:translate-x-6 transition-all duration-700 text-2xl font-black shadow-2xl btn-3d-primary whitespace-nowrap">
-                                        Entrar Ahora <ArrowRight className="ml-4 h-10 w-10" />
+                                    <Button size="lg" className="h-20 md:h-24 px-12 md:px-20 rounded-[2.5rem] group-hover:translate-x-6 transition-all duration-700 text-xl md:text-2xl font-black shadow-2xl btn-3d-primary whitespace-nowrap">
+                                        Entrar Ahora <ArrowRight className="ml-4 h-8 w-8 md:h-10 md:w-10" />
                                     </Button>
                                 </Link>
                             </Card>
@@ -89,12 +89,12 @@ export default function LoginSelectionPage() {
                     <motion.section variants={itemVariants}>
                         <div className="flex items-center gap-8 mb-20">
                             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-border"></div>
-                            <h2 className="text-sm font-black uppercase tracking-[0.5em] opacity-40 flex items-center gap-4">
-                                <Building2 className="text-primary h-5 w-5" /> Portales Corporativos
+                            <h2 className="text-sm font-black uppercase tracking-[0.5em] opacity-40 flex items-center gap-4 text-primary">
+                                <Building2 className="h-5 w-5" /> Portales Corporativos
                             </h2>
                             <div className="h-px flex-1 bg-gradient-to-l from-transparent via-border to-border"></div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
                             {enterpriseOptions.map((option) => (
                                 <motion.div
                                     key={option.href}
@@ -103,18 +103,18 @@ export default function LoginSelectionPage() {
                                 >
                                     <Card className="h-full group hover:border-primary/40 transition-all duration-500 bg-card/40 backdrop-blur-2xl flex flex-col border-border/50 shadow-2xl hover:shadow-primary/10 rounded-[3.5rem] overflow-hidden">
                                         <Link href={option.href} className="flex flex-col h-full">
-                                            <CardHeader className="flex-row items-center gap-8 p-12 pb-10">
-                                                <div className="p-6 bg-primary/5 rounded-[2rem] group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-500 border border-primary/5">
-                                                    <option.icon className="h-12 w-12 text-primary" />
+                                            <CardHeader className="flex-row items-center gap-6 p-10 pb-8">
+                                                <div className="p-5 bg-primary/5 rounded-[2rem] group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-500 border border-primary/5">
+                                                    <option.icon className="h-10 w-10 md:h-12 md:w-12 text-primary" />
                                                 </div>
-                                                <CardTitle className="text-3xl font-black group-hover:text-primary transition-colors tracking-tight leading-[1.1]">{option.label}</CardTitle>
+                                                <CardTitle className="text-2xl md:text-3xl font-black group-hover:text-primary transition-colors tracking-tight leading-[1.1]">{option.label}</CardTitle>
                                             </CardHeader>
-                                            <CardContent className="flex-grow px-12 pb-12">
-                                                <CardDescription className="text-xl leading-snug text-muted-foreground font-medium">{option.description}</CardDescription>
+                                            <CardContent className="flex-grow px-10 pb-10">
+                                                <CardDescription className="text-lg md:text-xl leading-snug text-muted-foreground font-medium">{option.description}</CardDescription>
                                             </CardContent>
-                                            <div className="p-12 pt-0 mt-auto border-t border-border/10">
-                                                <span className="text-[12px] font-black uppercase tracking-[0.4em] text-primary/40 group-hover:text-primary inline-flex items-center group-hover:gap-6 transition-all duration-500">
-                                                    Acceder al Sistema <ArrowRight className="h-6 w-6 ml-4" />
+                                            <div className="p-10 pt-0 mt-auto border-t border-border/10">
+                                                <span className="text-[11px] font-black uppercase tracking-[0.4em] text-primary/40 group-hover:text-primary inline-flex items-center group-hover:gap-6 transition-all duration-500">
+                                                    Acceder al Sistema <ArrowRight className="h-5 w-5 ml-4" />
                                                 </span>
                                             </div>
                                         </Link>

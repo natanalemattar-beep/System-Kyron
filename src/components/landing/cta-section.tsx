@@ -24,38 +24,39 @@ const formSchema = z.object({
 });
 
 const CountdownTimer = () => {
-    const calculateTimeLeft = () => {
-        const difference = +new Date("2024-12-31") - +new Date();
-        let timeLeft: { [key: string]: number } = {};
-
-        if (difference > 0) {
-            timeLeft = {
-                días: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                minutos: Math.floor((difference / 1000 / 60) % 60),
-                segundos: Math.floor((difference / 1000) % 60),
-            };
-        }
-
-        return timeLeft;
-    };
-
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    const [timeLeft, setTimeLeft] = useState<{ [key: string]: number } | null>(null);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        const calculateTimeLeft = () => {
+            const difference = +new Date("2024-12-31") - +new Date();
+            if (difference > 0) {
+                return {
+                    días: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    horas: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    minutos: Math.floor((difference / 1000 / 60) % 60),
+                    segundos: Math.floor((difference / 1000) % 60),
+                };
+            }
+            return null;
+        };
+
+        const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
 
+        setTimeLeft(calculateTimeLeft());
+
         return () => clearTimeout(timer);
-    });
+    }, []);
+
+    if (!timeLeft) return null;
 
     return (
         <div className="flex justify-center lg:justify-start gap-4 my-6">
             {Object.entries(timeLeft).map(([unit, value]) => (
-                <div key={unit} className="text-center p-2 bg-background/50 rounded-lg w-20">
-                    <div className="text-3xl font-bold">{String(value).padStart(2, '0')}</div>
-                    <div className="text-[10px] uppercase font-black tracking-tighter text-muted-foreground">{unit}</div>
+                <div key={unit} className="text-center p-2 bg-background/50 rounded-lg w-20 border border-border/50 backdrop-blur-sm shadow-inner">
+                    <div className="text-3xl font-bold tracking-tighter">{String(value).padStart(2, '0')}</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">{unit}</div>
                 </div>
             ))}
         </div>
@@ -126,8 +127,8 @@ export function CtaSection() {
                     >
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className={cn(
-                                "space-y-5 p-8 md:p-10 border rounded-[2rem] shadow-2xl relative overflow-hidden",
-                                isHolidayActive ? "bg-card/70 backdrop-blur-xl" : "bg-card"
+                                "space-y-5 p-8 md:p-10 border rounded-[2rem] shadow-2xl relative overflow-hidden bg-card/40 backdrop-blur-3xl",
+                                isHolidayActive ? "border-primary/20" : "border-border"
                             )}>
                                 <div className="absolute top-0 right-0 p-8 opacity-5">
                                     <Ticket className="h-32 w-32 rotate-12" />
@@ -222,7 +223,7 @@ export function CtaSection() {
                                         "Comenzar mi Prueba Gratis"
                                     )}
                                 </Button>
-                                <p className="text-center text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Sin compromisos | Implementación guiada</p>
+                                <p className="text-center text-[10px] text-muted-foreground uppercase font-black tracking-[0.2em] mt-4 opacity-60">Sin compromisos | Implementación guiada</p>
                             </form>
                         </Form>
                     </motion.div>

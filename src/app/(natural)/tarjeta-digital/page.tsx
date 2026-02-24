@@ -23,7 +23,7 @@ import {
     QrCode
 } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const userData = {
     name: "Usuario Natural",
@@ -44,10 +44,12 @@ const userData = {
 export default function TarjetaDigitalPage() {
     const userAvatar = PlaceHolderImages.find((img) => img.id === userData.avatarId);
     const { toast } = useToast();
-    const [qrCodeUrl, setQrCodeUrl] = useState("");
+    const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
     const [isFlipped, setIsFlipped] = useState(false);
+    const [isMounted, setIsClient] = useState(false);
 
     useEffect(() => {
+        setIsClient(true);
         const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://systemkyron.com';
         setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(currentUrl)}&bgcolor=ffffff&color=000000&margin=1`);
     }, []);
@@ -103,6 +105,8 @@ export default function TarjetaDigitalPage() {
         e.stopPropagation();
         window.print();
     };
+
+    if (!isMounted) return null;
 
     return (
         <div className="flex flex-col items-center justify-center py-16 px-4 min-h-[calc(100vh-8rem)] select-none">
