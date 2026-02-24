@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -20,7 +19,8 @@ import {
     Briefcase, 
     Sparkles,
     Globe,
-    Printer
+    Printer,
+    QrCode
 } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -49,7 +49,7 @@ export default function TarjetaDigitalPage() {
 
     useEffect(() => {
         const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://systemkyron.com';
-        setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}&bgcolor=ffffff&color=000000&margin=1`);
+        setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(currentUrl)}&bgcolor=ffffff&color=000000&margin=1`);
     }, []);
 
     const handleShare = (e: React.MouseEvent) => {
@@ -105,7 +105,7 @@ export default function TarjetaDigitalPage() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center py-12 px-4 min-h-[calc(100vh-8rem)] select-none">
+        <div className="flex flex-col items-center justify-center py-16 px-4 min-h-[calc(100vh-8rem)] select-none">
             <style>
                 {`
                     @media print {
@@ -127,110 +127,110 @@ export default function TarjetaDigitalPage() {
             </style>
 
             <motion.div 
-                className="text-center mb-10 no-print"
+                className="text-center mb-16 no-print"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-4">
-                    <Sparkles className="h-3 w-3" /> Tecnología de Identidad 3D
+                <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[11px] font-black uppercase tracking-[0.3em] mb-6">
+                    <Sparkles className="h-4 w-4" /> Tecnología de Identidad 3D
                 </div>
-                <h1 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-3">Tarjeta Interactiva</h1>
-                <p className="text-muted-foreground font-medium text-sm">Pulsa la tarjeta para escanear el QR en el reverso</p>
+                <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none mb-4">ID Digital Interactiva</h1>
+                <p className="text-muted-foreground font-semibold text-lg">Pulsa la tarjeta para ver el reverso</p>
             </motion.div>
 
             <div 
-                className="relative w-full max-w-[360px] h-[540px] perspective-1000 cursor-pointer group mb-12"
+                className="relative w-full max-w-[400px] h-[600px] perspective-1000 cursor-pointer group mb-16"
                 onClick={() => setIsFlipped(!isFlipped)}
             >
                 <motion.div
                     className="w-full h-full relative preserve-3d"
                     initial={false}
                     animate={{ rotateY: isFlipped ? 180 : 0 }}
-                    transition={{ duration: 0.7, type: "spring", stiffness: 150, damping: 25 }}
+                    transition={{ duration: 0.8, type: "spring", stiffness: 120, damping: 20 }}
                 >
                     {/* FRENTE */}
-                    <Card className="absolute inset-0 backface-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border-2 overflow-hidden bg-card/90 backdrop-blur-2xl flex flex-col print-card rounded-[2.5rem] border-primary/10">
-                        <div className="h-40 relative overflow-hidden bg-[#0a0a0a]">
-                            <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_-20%,hsl(var(--primary)),transparent_70%)]"></div>
+                    <Card className="absolute inset-0 backface-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] border-2 overflow-hidden bg-card/95 backdrop-blur-3xl flex flex-col print-card rounded-[3rem] border-primary/10">
+                        <div className="h-48 relative overflow-hidden bg-[#050505]">
+                            <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_-20%,hsl(var(--primary)),transparent_75%)]"></div>
                             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
                             
                             <motion.div 
-                                className="absolute -top-10 -left-10 w-32 h-32 bg-primary/20 rounded-full blur-[60px]"
-                                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-                                transition={{ duration: 4, repeat: Infinity }}
+                                className="absolute -top-12 -left-12 w-40 h-40 bg-primary/25 rounded-full blur-[70px]"
+                                animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.6, 0.4] }}
+                                transition={{ duration: 5, repeat: Infinity }}
                             />
                         </div>
                         
-                        <CardContent className="flex-grow flex flex-col items-center -mt-20 relative z-10 px-8">
-                            <Avatar className="h-36 w-36 border-[6px] border-background shadow-2xl mb-6">
+                        <CardContent className="flex-grow flex flex-col items-center -mt-24 relative z-10 px-10">
+                            <Avatar className="h-44 w-44 border-[8px] border-background shadow-2xl mb-8">
                                 {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt={userData.name} />}
-                                <AvatarFallback className="text-4xl bg-secondary font-black">{userData.name.charAt(0)}</AvatarFallback>
+                                <AvatarFallback className="text-5xl bg-secondary font-black">{userData.name.charAt(0)}</AvatarFallback>
                             </Avatar>
                             
-                            <h2 className="text-2xl font-black text-center mb-1 tracking-tight">{userData.name}</h2>
-                            <p className="text-primary font-black text-center text-[10px] uppercase tracking-[0.3em] mb-4">{userData.position}</p>
+                            <h2 className="text-3xl font-black text-center mb-2 tracking-tight leading-none">{userData.name}</h2>
+                            <p className="text-primary font-black text-center text-[11px] uppercase tracking-[0.4em] mb-6">{userData.position}</p>
                             
-                            <div className="flex items-center gap-2 mb-10 px-4 py-1.5 rounded-full bg-secondary/50 border border-border/50">
-                                <Briefcase className="h-3.5 w-3.5 text-primary" /> 
-                                <span className="text-[11px] font-bold tracking-tight">{userData.company}</span>
+                            <div className="flex items-center gap-3 mb-12 px-6 py-2.5 rounded-full bg-secondary/50 border border-border/50">
+                                <Briefcase className="h-4 w-4 text-primary" /> 
+                                <span className="text-xs font-bold tracking-tight">{userData.company}</span>
                             </div>
 
-                            <div className="w-full space-y-4">
-                                <div className="flex items-center gap-4 text-xs">
-                                    <div className="p-2 rounded-xl bg-primary/5 text-primary border border-primary/10"><Phone className="h-4 w-4"/></div>
-                                    <span className="font-mono font-bold">{userData.phone}</span>
+                            <div className="w-full space-y-5">
+                                <div className="flex items-center gap-5 text-sm">
+                                    <div className="p-2.5 rounded-2xl bg-primary/5 text-primary border border-primary/10"><Phone className="h-5 w-5"/></div>
+                                    <span className="font-mono font-bold tracking-tighter">{userData.phone}</span>
                                 </div>
-                                <div className="flex items-center gap-4 text-xs">
-                                    <div className="p-2 rounded-xl bg-primary/5 text-primary border border-primary/10"><Mail className="h-4 w-4"/></div>
-                                    <span className="font-mono font-bold truncate">{userData.email}</span>
+                                <div className="flex items-center gap-5 text-sm">
+                                    <div className="p-2.5 rounded-2xl bg-primary/5 text-primary border border-primary/10"><Mail className="h-5 w-5"/></div>
+                                    <span className="font-mono font-bold truncate tracking-tighter">{userData.email}</span>
                                 </div>
-                                <div className="flex items-center gap-4 text-xs">
-                                    <div className="p-2 rounded-xl bg-primary/5 text-primary border border-primary/10"><Home className="h-4 w-4"/></div>
-                                    <span className="font-mono font-bold">{userData.address}</span>
+                                <div className="flex items-center gap-5 text-sm">
+                                    <div className="p-2.5 rounded-2xl bg-primary/5 text-primary border border-primary/10"><Home className="h-5 w-5"/></div>
+                                    <span className="font-mono font-bold tracking-tighter">{userData.address}</span>
                                 </div>
                             </div>
 
-                            <div className="flex justify-center gap-4 mt-auto mb-10">
+                            <div className="flex justify-center gap-6 mt-auto mb-12">
                                 {[Linkedin, Twitter, Github].map((Icon, i) => (
-                                    <div key={i} className="p-3 rounded-2xl border border-primary/10 hover:bg-primary/5 hover:border-primary/30 transition-all">
-                                        <Icon className="h-5 w-5 text-primary/80" />
+                                    <div key={i} className="p-4 rounded-2xl border border-primary/10 hover:bg-primary/5 hover:border-primary/30 transition-all">
+                                        <Icon className="h-6 w-6 text-primary/80" />
                                     </div>
                                 ))}
                             </div>
                         </CardContent>
                         
-                        <div className="p-5 border-t border-primary/5 bg-primary/[0.02] text-center no-print flex items-center justify-center gap-2">
-                            <span className="text-[9px] uppercase font-black tracking-[0.4em] text-muted-foreground/50">Ecosistema Kyron</span>
-                            <div className="h-1 w-1 rounded-full bg-primary/30 animate-pulse"></div>
-                            <span className="text-[9px] uppercase font-black tracking-[0.4em] text-muted-foreground/50">2025</span>
+                        <div className="p-6 border-t border-primary/5 bg-primary/[0.03] text-center no-print flex items-center justify-center gap-3">
+                            <span className="text-[10px] uppercase font-black tracking-[0.5em] text-muted-foreground/40">Kyron Ecosystem</span>
+                            <div className="h-1.5 w-1.5 rounded-full bg-primary/30 animate-pulse"></div>
+                            <span className="text-[10px] uppercase font-black tracking-[0.5em] text-muted-foreground/40">Model 2025</span>
                         </div>
                     </Card>
 
                     {/* REVERSO */}
-                    <Card className="absolute inset-0 backface-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border-2 rotate-y-180 bg-card/95 backdrop-blur-2xl flex flex-col items-center justify-center p-10 text-center rounded-[2.5rem] border-primary/10">
-                        <div className="mb-12">
-                            <div className="p-5 bg-primary/10 rounded-3xl w-fit mx-auto mb-6 shadow-inner border border-primary/5">
-                                <QrCode className="h-12 w-12 text-primary"/>
+                    <Card className="absolute inset-0 backface-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] border-2 rotate-y-180 bg-card/98 backdrop-blur-3xl flex flex-col items-center justify-center p-12 text-center rounded-[3rem] border-primary/10">
+                        <div className="mb-16">
+                            <div className="p-6 bg-primary/10 rounded-[2.5rem] w-fit mx-auto mb-8 shadow-inner border border-primary/5">
+                                <QrCode className="h-16 w-16 text-primary"/>
                             </div>
-                            <h3 className="font-black text-2xl tracking-tighter mb-2">Acceso Instantáneo</h3>
-                            <p className="text-xs text-muted-foreground font-medium">Escanea para conectar directamente</p>
+                            <h3 className="font-black text-3xl tracking-tighter mb-3">Acceso Instantáneo</h3>
+                            <p className="text-sm text-muted-foreground font-semibold">Escanea para conectar al ecosistema</p>
                         </div>
 
-                        <div className="p-6 bg-white rounded-[2.5rem] shadow-2xl border-[1px] border-black/5 relative group/qr">
-                            <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] blur-xl opacity-0 group-hover/qr:opacity-100 transition-opacity"></div>
+                        <div className="p-8 bg-white rounded-[3rem] shadow-2xl border-[1px] border-black/5 relative group/qr">
+                            <div className="absolute inset-0 bg-primary/5 rounded-[3rem] blur-2xl opacity-0 group-hover/qr:opacity-100 transition-opacity"></div>
                             {qrCodeUrl ? (
-                                <Image src={qrCodeUrl} alt="QR Code" width={200} height={200} className="rounded-xl relative z-10"/>
+                                <Image src={qrCodeUrl} alt="QR Code" width={240} height={240} className="rounded-2xl relative z-10"/>
                             ) : (
-                                <div className="h-[200px] w-[200px] bg-muted animate-pulse rounded-xl" />
+                                <div className="h-[240px] w-[240px] bg-muted animate-pulse rounded-2xl" />
                             )}
                         </div>
                         
-                        <div className="mt-12 space-y-4 w-full">
-                            <Button variant="outline" size="sm" className="w-full rounded-2xl h-11 border-primary/10 hover:bg-primary/5" onClick={(e) => { e.stopPropagation(); window.open(userData.website); }}>
-                                <Globe className="mr-2 h-4 w-4" /> Visitar Website
+                        <div className="mt-16 space-y-5 w-full">
+                            <Button variant="outline" className="w-full rounded-2xl h-14 border-primary/10 hover:bg-primary/5 text-base font-bold" onClick={(e) => { e.stopPropagation(); window.open(userData.website); }}>
+                                <Globe className="mr-3 h-5 w-5" /> Visitar Website Oficial
                             </Button>
-                            <Button variant="ghost" size="sm" className="no-print rounded-xl font-bold opacity-60 hover:opacity-100" onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}>
-                                <RefreshCcw className="mr-2 h-3.5 w-3.5" /> Volver al frente
+                            <Button variant="ghost" className="no-print rounded-xl font-black uppercase text-[10px] tracking-[0.3em] opacity-50 hover:opacity-100" onClick={(e) => { e.stopPropagation(); setIsFlipped(false); }}>
+                                <RefreshCcw className="mr-2 h-4 w-4" /> Volver al frente
                             </Button>
                         </div>
                     </Card>
@@ -238,25 +238,25 @@ export default function TarjetaDigitalPage() {
             </div>
 
             <motion.div 
-                className="flex flex-col sm:flex-row gap-4 w-full max-w-[360px] no-print"
+                className="flex flex-col sm:flex-row gap-6 w-full max-w-[400px] no-print"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.5 }}
             >
-                <Button className="flex-1 h-14 font-black rounded-2xl shadow-xl btn-3d-primary text-base" onClick={handleSaveContact}>
-                    <Download className="mr-2 h-5 w-5"/> Guardar VCF
+                <Button className="flex-1 h-16 font-black rounded-2xl shadow-2xl btn-3d-primary text-lg" onClick={handleSaveContact}>
+                    <Download className="mr-3 h-6 w-6"/> Guardar VCF
                 </Button>
-                <Button variant="secondary" className="flex-1 h-14 font-black rounded-2xl shadow-md text-base" onClick={handleShare}>
-                    <Share2 className="mr-2 h-5 w-5"/> Compartir
+                <Button variant="secondary" className="flex-1 h-16 font-black rounded-2xl shadow-xl text-lg border border-border/50" onClick={handleShare}>
+                    <Share2 className="mr-3 h-6 w-6"/> Compartir
                 </Button>
             </motion.div>
             
             <Button 
                 variant="link" 
-                className="mt-10 text-muted-foreground font-black uppercase text-[10px] tracking-[0.3em] no-print hover:text-primary transition-all flex items-center gap-2" 
+                className="mt-12 text-muted-foreground font-black uppercase text-[11px] tracking-[0.4em] no-print hover:text-primary transition-all flex items-center gap-3 opacity-60 hover:opacity-100" 
                 onClick={handlePrint}
             >
-                <Printer className="h-3 w-3" />
+                <Printer className="h-4 w-4" />
                 no le cambies el nombre solo quiero que se imprima y ya
             </Button>
         </div>
