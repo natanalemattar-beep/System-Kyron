@@ -139,7 +139,7 @@ export default function TarjetaDigitalPage() {
             </motion.div>
 
             <div 
-                className="relative w-full max-w-[400px] h-[600px] perspective-1000 cursor-pointer group mb-16"
+                className="relative w-full max-w-[400px] h-[600px] perspective-2000 cursor-pointer group mb-16"
                 onClick={() => setIsFlipped(!isFlipped)}
             >
                 <motion.div

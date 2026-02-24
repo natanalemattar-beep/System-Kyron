@@ -23,7 +23,7 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
-    --radius: 1.25rem;
+    --radius: 1.5rem;
   }
  
   .dark {
@@ -63,8 +63,8 @@
 }
 
 @layer utilities {
-  .perspective-1000 {
-    perspective: 1000px;
+  .perspective-2000 {
+    perspective: 2000px;
   }
   .preserve-3d {
     transform-style: preserve-3d;
@@ -79,9 +79,9 @@
 
 @layer components {
   .glass-card {
-    @apply bg-card/40 backdrop-blur-2xl border border-white/10 shadow-2xl;
+    @apply bg-card/40 backdrop-blur-3xl border border-white/10 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)];
   }
   .btn-3d-primary {
-    @apply shadow-[0_6px_0_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none transition-all;
+    @apply shadow-[0_8px_0_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none transition-all duration-150;
   }
 }
