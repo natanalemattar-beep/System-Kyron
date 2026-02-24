@@ -10,26 +10,29 @@ import {
   PlusCircle, 
   Download,
   Eye,
-  FileText
+  FileText,
+  Search
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const kpiData = [
-  { title: "Contratos Activos", value: "24", icon: FileSignature, color: "text-blue-500" },
-  { title: "Alertas de Vencimiento", value: "3", icon: AlertTriangle, color: "text-orange-500" },
-  { title: "Poderes Vigentes", value: "8", icon: ShieldCheck, color: "text-green-500" },
-  { title: "Trámites en Curso", value: "5", icon: Clock, color: "text-purple-500" },
+  { title: "Contratos Activos", value: "24", icon: FileSignature, color: "text-blue-500", bg: "bg-blue-500/10" },
+  { title: "Alertas Críticas", value: "3", icon: AlertTriangle, color: "text-red-500", bg: "bg-red-500/10" },
+  { title: "Poderes Vigentes", value: "8", icon: ShieldCheck, color: "text-green-500", bg: "bg-green-500/10" },
+  { title: "Trámites en Curso", value: "5", icon: Clock, color: "text-purple-500", bg: "bg-purple-500/10" },
 ];
 
 const expedientesRecientes = [
-  { id: "EXP-2024-001", asunto: "Renovación Marca Kyron", fecha: "25/07/2024", estado: "En Revisión" },
-  { id: "EXP-2024-042", asunto: "Contrato Servicios TechSolutions", fecha: "22/07/2024", estado: "Aprobado" },
-  { id: "EXP-2024-015", asunto: "Poder Judicial Especial - Chacao", fecha: "18/07/2024", estado: "Vencido" },
+  { id: "EXP-2024-001", asunto: "Renovación Marca Kyron", fecha: "25/07/2024", estado: "En Revisión", prioridad: "Alta" },
+  { id: "EXP-2024-042", asunto: "Contrato Servicios TechSolutions", fecha: "22/07/2024", estado: "Aprobado", prioridad: "Media" },
+  { id: "EXP-2024-015", asunto: "Poder Judicial Especial - Chacao", fecha: "18/07/2024", estado: "Vencido", prioridad: "Crítica" },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
@@ -43,7 +46,7 @@ export default function EscritorioJuridicoPage() {
     <div className="space-y-8">
       <header className="flex flex-col md:flex-row justify-between md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
             <Gavel className="h-8 w-8 text-primary" />
             Centro de Mando Legal
           </h1>
@@ -71,11 +74,13 @@ export default function EscritorioJuridicoPage() {
           >
             <Card className="bg-card/50 backdrop-blur-sm border-2 border-transparent hover:border-primary/10 transition-all">
               <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                <kpi.icon className={cn("h-4 w-4", kpi.color)} />
+                <CardTitle className="text-xs font-black uppercase tracking-widest text-muted-foreground">{kpi.title}</CardTitle>
+                <div className={cn("p-2 rounded-lg", kpi.bg)}>
+                    <kpi.icon className={cn("h-4 w-4", kpi.color)} />
+                </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{kpi.value}</div>
+                <div className="text-3xl font-bold tracking-tighter">{kpi.value}</div>
               </CardContent>
             </Card>
           </motion.div>
@@ -84,9 +89,15 @@ export default function EscritorioJuridicoPage() {
 
       <div className="grid gap-8 lg:grid-cols-5">
         <Card className="lg:col-span-3 bg-card/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle>Expedientes y Trámites Recientes</CardTitle>
-            <CardDescription>Seguimiento de las últimas gestiones ante registros y notarías.</CardDescription>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+                <CardTitle>Expedientes y Trámites</CardTitle>
+                <CardDescription>Seguimiento de gestiones ante registros y notarías.</CardDescription>
+            </div>
+            <div className="relative w-48">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input placeholder="Buscar..." className="pl-8 h-9" />
+            </div>
           </CardHeader>
           <CardContent>
             <Table>
@@ -102,11 +113,11 @@ export default function EscritorioJuridicoPage() {
               <TableBody>
                 {expedientesRecientes.map((exp) => (
                   <TableRow key={exp.id}>
-                    <TableCell className="font-mono text-xs">{exp.id}</TableCell>
-                    <TableCell className="font-medium">{exp.asunto}</TableCell>
-                    <TableCell className="text-sm">{exp.fecha}</TableCell>
+                    <TableCell className="font-mono text-xs text-primary">{exp.id}</TableCell>
+                    <TableCell className="font-medium text-sm">{exp.asunto}</TableCell>
+                    <TableCell className="text-xs text-muted-foreground">{exp.fecha}</TableCell>
                     <TableCell className="text-center">
-                      <Badge variant={statusVariant[exp.estado]}>{exp.estado}</Badge>
+                      <Badge variant={statusVariant[exp.estado]} className="text-[10px] h-5">{exp.estado}</Badge>
                     </TableCell>
                     <TableCell className="text-right">
                       <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -118,10 +129,10 @@ export default function EscritorioJuridicoPage() {
               </TableBody>
             </Table>
           </CardContent>
-          <CardFooter>
-            <Button variant="link" asChild className="p-0 h-auto font-bold">
+          <CardFooter className="border-t bg-secondary/10 p-4">
+            <Button variant="link" asChild className="p-0 h-auto font-bold text-xs">
               <Link href="/poderes-representacion" className="flex items-center">
-                Ver todos los expedientes <Clock className="ml-2 h-4 w-4" />
+                Ver todos los expedientes <Clock className="ml-2 h-3.5 w-3.5" />
               </Link>
             </Button>
           </CardFooter>
@@ -136,37 +147,37 @@ export default function EscritorioJuridicoPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Accede a nuestra biblioteca de borradores legales homologados.
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Accede a la biblioteca de borradores legales homologados y actualizados.
               </p>
               <div className="grid gap-2">
-                <Button variant="secondary" className="justify-start h-10 text-xs font-bold" asChild>
+                <Button variant="secondary" className="justify-start h-10 text-xs font-bold rounded-xl" asChild>
                   <Link href="/contratos">Gestión de Contratos Pro</Link>
                 </Button>
-                <Button variant="outline" className="justify-start h-10 text-xs" asChild>
+                <Button variant="outline" className="justify-start h-10 text-xs rounded-xl" asChild>
                   <Link href="/licencia-software">Contrato de Licencia de Software</Link>
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-lg">Próximos Vencimientos</CardTitle>
+              <CardTitle className="text-lg">Vencimientos Próximos</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-start gap-3 p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
+            <CardContent className="space-y-3">
+              <div className="flex items-start gap-3 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20">
                 <AlertTriangle className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
                 <div className="text-xs">
                   <p className="font-bold text-orange-600">Poder de Administración</p>
                   <p className="text-muted-foreground">Vence en 12 días (Ana Pérez)</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+              <div className="flex items-start gap-3 p-3 rounded-xl bg-red-500/10 border border-red-500/20">
                 <AlertTriangle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
                 <div className="text-xs">
                   <p className="font-bold text-red-600">Habilitación CONATEL</p>
-                  <p className="text-muted-foreground">VENCIDA (CON-003)</p>
+                  <p className="text-muted-foreground font-semibold">VENCIDA (CON-003)</p>
                 </div>
               </div>
             </CardContent>
@@ -176,5 +187,3 @@ export default function EscritorioJuridicoPage() {
     </div>
   );
 }
-
-import { cn } from "@/lib/utils";

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -42,7 +43,7 @@ export default function LoginPersonalPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
-             <Button variant="ghost" asChild className="mb-6 self-start md:absolute md:top-8 md:left-8 h-10 rounded-xl text-sm">
+             <Button variant="ghost" asChild className="mb-6 self-start md:absolute md:top-8 md:left-8 h-9 rounded-xl text-xs">
                 <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4"/> Volver</Link>
             </Button>
             <Card className="w-full max-w-lg bg-card/80 backdrop-blur-2xl border border-border shadow-xl rounded-[2rem] overflow-hidden">
@@ -76,15 +77,15 @@ export default function LoginPersonalPage() {
                         )}
                         <div className="space-y-3">
                             <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest opacity-70">Correo Electrónico</Label>
-                            <Input id="email" name="email" type="email" placeholder="tu@correo.com" required className="h-12 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
+                            <Input id="email" name="email" type="email" placeholder="tu@correo.com" required className="h-11 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
                         </div>
                         <div className="space-y-3">
                             <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest opacity-70">Contraseña</Label>
-                            <Input id="password" name="password" type="password" required className="h-12 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
+                            <Input id="password" name="password" type="password" required className="h-11 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
                         </div>
                     </CardContent>
                     <CardFooter className="p-8 pt-0 flex flex-col gap-6">
-                        <Button type="submit" className="w-full text-lg font-black h-14 rounded-xl shadow-lg btn-3d-primary" disabled={isLoading}>{
+                        <Button type="submit" className="w-full text-lg font-black h-12 rounded-xl shadow-lg btn-3d-primary" disabled={isLoading}>{
                             isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Iniciar Sesión Segura'
                         }</Button>
                         <div className="text-center w-full pt-6 border-t border-border/10">
