@@ -1,4 +1,3 @@
-
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
@@ -9,7 +8,7 @@ export default function LoginEscritorioJuridicoPage() {
         <SpecializedLoginCard 
             portalName="Escritorio Jurídico" 
             portalDescription="Acceso para el departamento legal y gestión de cumplimiento."
-            redirectPath="/legal/escritorio-juridico"
+            redirectPath="/escritorio-juridico"
             icon={Gavel}
             demoUsername="legal.admin"
             demoPassword="password123"

@@ -41,51 +41,50 @@ export default function LoginEmpresaPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
-            <Button variant="ghost" asChild className="mb-8 self-start md:absolute md:top-12 md:left-12 h-12 rounded-xl text-base">
-                <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-5 w-5"/> Volver</Link>
+            <Button variant="ghost" asChild className="mb-6 self-start md:absolute md:top-8 md:left-8 h-10 rounded-xl text-sm">
+                <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4"/> Volver</Link>
             </Button>
-            <Card className="w-full max-w-xl bg-card/80 backdrop-blur-2xl border-2 border-border shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)] rounded-[3rem] overflow-hidden">
-                 <CardHeader className="text-center p-12 pb-6">
-                    <div className="mx-auto bg-primary/10 p-5 rounded-3xl w-fit mb-8 shadow-inner">
-                        <Building className="h-12 w-12 text-primary"/>
+            <Card className="w-full max-w-lg bg-card/80 backdrop-blur-2xl border border-border shadow-xl rounded-[2rem] overflow-hidden">
+                 <CardHeader className="text-center p-8 pb-4">
+                    <div className="mx-auto bg-primary/10 p-4 rounded-2xl w-fit mb-6 shadow-inner">
+                        <Building className="h-10 w-10 text-primary"/>
                     </div>
-                    <CardTitle className="text-4xl font-black tracking-tighter">Portal Empresarial</CardTitle>
-                    <CardDescription className="text-lg text-muted-foreground mt-4 leading-snug">
-                        Acceso al Centro de Contabilidad, Finanzas y Gestión de Cumplimiento.
+                    <CardTitle className="text-3xl font-black tracking-tighter">Portal Empresarial</CardTitle>
+                    <CardDescription className="text-base text-muted-foreground mt-2 leading-snug">
+                        Acceso al Centro de Contabilidad y Finanzas.
                     </CardDescription>
                 </CardHeader>
                 <form onSubmit={handleLogin}>
-                    <CardContent className="p-12 pt-6 space-y-10">
-                         <Alert variant="default" className="bg-secondary/50 border-none rounded-3xl p-6">
-                            <AlertTriangle className="h-6 w-6 text-primary" />
-                            <AlertTitle className="text-lg font-bold ml-4">Modo Demostración</AlertTitle>
-                            <AlertDescription className="ml-4 mt-2">
-                                <p className="text-base">Utilice las siguientes credenciales:</p>
-                                <div className="mt-2 flex gap-6">
-                                    <p className="font-mono text-base"><strong>RIF:</strong> J-12345678-9</p>
-                                    <p className="font-mono text-base"><strong>Clave:</strong> admin1234</p>
+                    <CardContent className="p-8 pt-4 space-y-6">
+                         <Alert variant="default" className="bg-secondary/50 border-none rounded-2xl p-4">
+                            <AlertTriangle className="h-5 w-5 text-primary" />
+                            <AlertTitle className="text-sm font-bold ml-3">Modo Demostración</AlertTitle>
+                            <AlertDescription className="ml-3 mt-1">
+                                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                                    <p className="font-mono text-xs"><strong>RIF:</strong> J-12345678-9</p>
+                                    <p className="font-mono text-xs"><strong>Clave:</strong> admin1234</p>
                                 </div>
                             </AlertDescription>
                         </Alert>
                         {error && (
-                             <Alert variant="destructive" className="rounded-3xl p-6">
-                                <AlertTriangle className="h-6 w-6" />
-                                <AlertTitle className="text-lg font-bold ml-4">Error de Autenticación</AlertTitle>
-                                <AlertDescription className="ml-4 mt-2 text-base">{error}</AlertDescription>
+                             <Alert variant="destructive" className="rounded-2xl p-4">
+                                <AlertTriangle className="h-5 w-5" />
+                                <AlertTitle className="text-sm font-bold ml-3">Error de Autenticación</AlertTitle>
+                                <AlertDescription className="ml-3 mt-1 text-xs">{error}</AlertDescription>
                             </Alert>
                         )}
-                        <div className="space-y-4">
-                            <Label htmlFor="rif" className="text-base font-bold uppercase tracking-widest opacity-70">RIF de la Empresa</Label>
-                            <Input id="rif" name="rif" type="text" placeholder="J-12345678-9" required className="h-16 text-xl px-6 rounded-2xl bg-secondary/30 border-none focus-visible:ring-primary" />
+                        <div className="space-y-3">
+                            <Label htmlFor="rif" className="text-xs font-bold uppercase tracking-widest opacity-70">RIF de la Empresa</Label>
+                            <Input id="rif" name="rif" type="text" placeholder="J-12345678-9" required className="h-12 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
                         </div>
-                        <div className="space-y-4">
-                            <Label htmlFor="password" className="text-base font-bold uppercase tracking-widest opacity-70">Contraseña Maestra</Label>
-                            <Input id="password" name="password" type="password" required className="h-16 text-xl px-6 rounded-2xl bg-secondary/30 border-none focus-visible:ring-primary" />
+                        <div className="space-y-3">
+                            <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest opacity-70">Contraseña Maestra</Label>
+                            <Input id="password" name="password" type="password" required className="h-12 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
                         </div>
                     </CardContent>
-                    <CardFooter className="p-12 pt-0 flex flex-col gap-6">
-                        <Button type="submit" className="w-full text-xl font-black h-20 rounded-[2rem] shadow-2xl btn-3d-primary" disabled={isLoading}>{
-                            isLoading ? <Loader2 className="mr-3 h-8 w-8 animate-spin" /> : 'Acceder al Sistema'
+                    <CardFooter className="p-8 pt-0 flex flex-col gap-4">
+                        <Button type="submit" className="w-full text-lg font-black h-14 rounded-xl shadow-lg btn-3d-primary" disabled={isLoading}>{
+                            isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder al Sistema'
                         }</Button>
                     </CardFooter>
                 </form>

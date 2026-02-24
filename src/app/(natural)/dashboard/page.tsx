@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, FileWarning, ArrowRight, User, Share2, Sparkles } from 'lucide-react';
+import { CheckCircle, Clock, FileWarning, ArrowRight, User, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -41,7 +41,7 @@ export default function DashboardPersonalPage() {
         >
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Bienvenido, Usuario</h1>
             <p className="text-muted-foreground mt-2 max-w-2xl">
-                Tu centro de mando para gestionar documentos y solicitudes de forma fácil y segura.
+                Tu centro de mando para gestionar documentos y solicitudes.
             </p>
         </motion.div>
         
@@ -51,15 +51,15 @@ export default function DashboardPersonalPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative"
         >
-            <div className="absolute -top-2 -right-2 z-10">
-                <span className="flex h-3 w-3">
+            <div className="absolute -top-1 -right-1 z-10">
+                <span className="flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
                 </span>
             </div>
-            <Button asChild size="lg" className="bg-primary text-primary-foreground shadow-2xl group px-8 h-14 rounded-2xl">
+            <Button asChild size="lg" className="bg-primary text-primary-foreground shadow-lg group h-12 rounded-xl px-6">
                 <Link href="/tarjeta-digital">
-                    <User className="mr-2 h-5 w-5" />
+                    <User className="mr-2 h-4 w-4" />
                     Mi Tarjeta Digital
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -76,7 +76,7 @@ export default function DashboardPersonalPage() {
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
             >
               <Link href={kpi.href}>
-                  <Card className="hover:shadow-lg transition-all hover:-translate-y-1 border-2 border-transparent hover:border-primary/20">
+                  <Card className="hover:shadow-lg transition-all hover:-translate-y-1 border-2 border-transparent hover:border-primary/20 rounded-2xl">
                       <CardHeader className="pb-2 flex-row items-center justify-between">
                           <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
                           <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
@@ -97,18 +97,18 @@ export default function DashboardPersonalPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
         >
-           <Card className="h-full bg-card/50 backdrop-blur-sm">
+           <Card className="h-full bg-card/50 backdrop-blur-sm rounded-2xl">
             <CardHeader>
-              <CardTitle>Actividad Reciente de Trámites</CardTitle>
-              <CardDescription>Un resumen de tus últimas solicitudes y su estado actual.</CardDescription>
+              <CardTitle>Actividad Reciente</CardTitle>
+              <CardDescription>Resumen de tus últimas solicitudes.</CardDescription>
             </CardHeader>
             <CardContent>
                 <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead>Referencia</TableHead>
-                            <TableHead>Tipo de Trámite</TableHead>
-                            <TableHead>Fecha de Solicitud</TableHead>
+                            <TableHead>Tipo</TableHead>
+                            <TableHead>Fecha</TableHead>
                             <TableHead className="text-center">Estado</TableHead>
                             <TableHead className="text-right">Acciones</TableHead>
                         </TableRow>
@@ -123,8 +123,8 @@ export default function DashboardPersonalPage() {
                                     <Badge variant={statusVariant[activity.status as keyof typeof statusVariant]}>{activity.status}</Badge>
                                 </TableCell>
                                 <TableCell className="text-right">
-                                    <Button variant="outline" size="sm" asChild>
-                                        <Link href={activity.href}>Ver Detalles <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                                    <Button variant="outline" size="sm" asChild className="h-8 text-xs rounded-lg">
+                                        <Link href={activity.href}>Ver Detalles</Link>
                                     </Button>
                                 </TableCell>
                             </TableRow>
@@ -141,7 +141,7 @@ export default function DashboardPersonalPage() {
             transition={{ duration: 0.5, delay: 0.6 }}
         >
            <DailyTasksChart />
-           <Card className="bg-primary/5 border-primary/20 border-2 shadow-xl overflow-hidden group">
+           <Card className="bg-primary/5 border-primary/20 border-2 shadow-xl overflow-hidden group rounded-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -151,9 +151,9 @@ export default function DashboardPersonalPage() {
                 </CardHeader>
                 <CardContent className="space-y-4 relative z-10">
                     <p className="text-sm text-muted-foreground">
-                        Tu tarjeta de presentación del futuro está lista. Compártela escaneando el QR o mediante un enlace directo.
+                        Tu tarjeta de presentación del futuro está lista. Compártela escaneando el QR.
                     </p>
-                    <Button variant="default" asChild className="w-full h-12 rounded-xl font-bold">
+                    <Button variant="default" asChild className="w-full h-11 rounded-xl font-bold">
                         <Link href="/tarjeta-digital">Abrir Tarjeta Interactiva</Link>
                     </Button>
                 </CardContent>

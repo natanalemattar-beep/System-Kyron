@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -34,7 +33,7 @@ export default function LoginLegal2faPage() {
                     title: "Acceso Concedido",
                     description: "Verificación de 2FA exitosa. Redirigiendo al portal legal...",
                 });
-                window.location.href = "/legal/escritorio-juridico";
+                window.location.href = "/escritorio-juridico";
             } else {
                 toast({
                     variant: "destructive",
@@ -47,17 +46,17 @@ export default function LoginLegal2faPage() {
     };
     
   return (
-    <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border">
-      <CardHeader className="text-center">
+    <Card className="w-full max-w-md mx-auto bg-card/80 backdrop-blur-md border rounded-[2rem] shadow-xl overflow-hidden">
+      <CardHeader className="text-center p-8 pb-4">
         <div className="inline-block bg-primary/10 text-primary p-3 rounded-xl mb-4 mx-auto">
           <ShieldCheck className="h-8 w-8 text-primary" />
         </div>
-        <CardTitle className="text-2xl">Verificación de Segundo Factor</CardTitle>
+        <CardTitle className="text-2xl font-black tracking-tight">Verificación de 2FA</CardTitle>
         <CardDescription>
-            Se requiere verificación adicional. Ingrese el código de 6 dígitos.
+            Ingrese el código de 6 dígitos enviado a su dispositivo.
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-6 flex flex-col items-center justify-center space-y-6">
+      <CardContent className="p-8 flex flex-col items-center justify-center space-y-6">
         <InputOTP maxLength={6} value={code} onChange={(value) => setCode(value)}>
             <InputOTPGroup>
                 <InputOTPSlot index={0} />
@@ -70,17 +69,17 @@ export default function LoginLegal2faPage() {
                 <InputOTPSlot index={5} />
             </InputOTPGroup>
         </InputOTP>
-        <p className="text-sm text-muted-foreground">(Pista: el código es 123456)</p>
+        <p className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">(Pista: 123456)</p>
 
-         <Button onClick={handleVerify} disabled={isVerifying || code.length < 6} className="w-full h-11 text-base">
+         <Button onClick={handleVerify} disabled={isVerifying || code.length < 6} className="w-full h-12 text-base font-bold rounded-xl btn-3d-primary shadow-lg">
             {isVerifying && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Verificar y Acceder
         </Button>
       </CardContent>
-      <CardFooter className="p-6 border-t text-sm">
-        <Button asChild variant="link" className="p-0 h-auto w-full">
+      <CardFooter className="p-6 border-t text-sm bg-secondary/10">
+        <Button asChild variant="link" className="p-0 h-auto w-full text-muted-foreground font-bold">
             <Link href="#">
-                No puedo usar mi 2FA en este momento
+                ¿Problemas con el código?
             </Link>
         </Button>
       </CardFooter>
