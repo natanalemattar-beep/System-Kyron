@@ -23,7 +23,7 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
-    --radius: 1rem;
+    --radius: 0.75rem;
   }
  
   .dark {
@@ -75,19 +75,13 @@
   .rotate-y-180 {
     transform: rotateY(180deg);
   }
-  .text-glow {
-    text-shadow: 0 0 20px hsl(var(--primary) / 0.3);
-  }
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-card/40 backdrop-blur-3xl border border-white/5 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.4)];
+  .section-padding {
+    @apply py-24 md:py-32;
   }
   .btn-3d-primary {
     @apply shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:translate-y-0.5 active:shadow-none transition-all duration-150;
-  }
-  .section-padding {
-    @apply py-24 md:py-32;
   }
 }
