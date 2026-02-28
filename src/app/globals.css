@@ -23,11 +23,11 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
-    --radius: 1.5rem;
+    --radius: 1rem;
   }
  
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 240 10% 2%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -35,7 +35,7 @@
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 240 3.7% 10%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
@@ -75,13 +75,19 @@
   .rotate-y-180 {
     transform: rotateY(180deg);
   }
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-card/40 backdrop-blur-3xl border border-white/10 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)];
+    @apply bg-card/40 backdrop-blur-3xl border border-white/5 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.4)];
   }
   .btn-3d-primary {
-    @apply shadow-[0_8px_0_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none transition-all duration-150;
+    @apply shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:translate-y-0.5 active:shadow-none transition-all duration-150;
+  }
+  .section-padding {
+    @apply py-24 md:py-32;
   }
 }
