@@ -3,11 +3,20 @@
 import { useState, useEffect, type FC, type AnchorHTMLAttributes } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, LogIn } from "lucide-react";
+import { Menu, ChevronDown, User, Banknote, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Signal, Cpu } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { loginOptions } from "@/lib/login-options";
 
 const SmoothScrollLink: FC<AnchorHTMLAttributes<HTMLAnchorElement> & { onLinkClick?: () => void }> = ({ href, onLinkClick, ...props }) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -53,7 +62,7 @@ export function LandingHeader() {
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="flex h-12 items-center justify-between">
                         <Link href="/" className="flex items-center gap-3 group">
-                            <Logo className="h-8 w-8 transition-transform group-hover:scale-110" />
+                            <Logo className="h-9 w-9 transition-transform group-hover:scale-110" />
                             <span className="text-xl font-black tracking-tighter uppercase italic">Kyron</span>
                         </Link>
                         
@@ -69,11 +78,69 @@ export function LandingHeader() {
 
                         <div className="hidden md:flex items-center gap-3">
                             <ThemeToggle />
-                            <Button variant="ghost" asChild className="h-9 px-4 text-[10px] font-black uppercase tracking-widest">
-                                <Link href="/login">Acceso</Link>
-                            </Button>
+                            
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" className="h-9 px-4 text-[10px] font-black uppercase tracking-widest gap-2 hover:bg-primary/5 transition-colors rounded-full border border-transparent hover:border-primary/10">
+                                        Acceso <ChevronDown className="h-3 w-3 opacity-50" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-72 p-2 rounded-2xl shadow-2xl bg-card/95 backdrop-blur-xl border-primary/5">
+                                    <DropdownMenuLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 px-3 py-2">Portales Principales</DropdownMenuLabel>
+                                    <DropdownMenuItem asChild className="rounded-xl">
+                                        <Link href="/login-personal" className="flex items-center gap-3 py-2.5 cursor-pointer">
+                                            <div className="p-2 bg-primary/5 rounded-lg"><User className="h-4 w-4 text-primary" /></div>
+                                            <span className="font-bold text-xs">Acceso Personal</span>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem asChild className="rounded-xl">
+                                        <Link href="/login-empresa" className="flex items-center gap-3 py-2.5 cursor-pointer">
+                                            <div className="p-2 bg-primary/5 rounded-lg"><Banknote className="h-4 w-4 text-primary" /></div>
+                                            <span className="font-bold text-xs">Centro de Contabilidad</span>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    
+                                    <DropdownMenuSeparator className="my-2 opacity-50" />
+                                    
+                                    <DropdownMenuLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 px-3 py-2">Gestión y Operaciones</DropdownMenuLabel>
+                                    <div className="grid grid-cols-1 gap-1">
+                                        {[
+                                            { href: "/login-escritorio-juridico", label: "Jurídico", icon: Gavel },
+                                            { href: "/login-ventas", label: "Ventas", icon: ShoppingCart },
+                                            { href: "/login-rrhh", label: "Recursos Humanos", icon: Briefcase },
+                                        ].map((item) => (
+                                            <DropdownMenuItem key={item.href} asChild className="rounded-xl">
+                                                <Link href={item.href} className="flex items-center gap-3 py-2 cursor-pointer">
+                                                    <item.icon className="h-3.5 w-3.5 text-muted-foreground" />
+                                                    <span className="text-xs font-medium">{item.label}</span>
+                                                </Link>
+                                            </DropdownMenuItem>
+                                        ))}
+                                    </div>
+
+                                    <DropdownMenuSeparator className="my-2 opacity-50" />
+
+                                    <DropdownMenuLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 px-3 py-2">Especializados</DropdownMenuLabel>
+                                    <div className="grid grid-cols-2 gap-1">
+                                        {[
+                                            { href: "/login-socios", label: "Socios", icon: Users },
+                                            { href: "/login-marketing", label: "Marketing", icon: Megaphone },
+                                            { href: "/login-telecom", label: "Telecom", icon: Signal },
+                                            { href: "/login-informatica", label: "IT / Ing.", icon: Cpu },
+                                        ].map((item) => (
+                                            <DropdownMenuItem key={item.href} asChild className="rounded-xl">
+                                                <Link href={item.href} className="flex items-center gap-2 py-2 cursor-pointer">
+                                                    <item.icon className="h-3 w-3 text-muted-foreground" />
+                                                    <span className="text-[10px] font-medium">{item.label}</span>
+                                                </Link>
+                                            </DropdownMenuItem>
+                                        ))}
+                                    </div>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+
                             <div className="h-4 w-px bg-border" />
-                            <Button asChild className="h-9 px-5 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                            <Button asChild className="h-9 px-5 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95">
                                 <Link href="/register">Registro</Link>
                             </Button>
                         </div>
