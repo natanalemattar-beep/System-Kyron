@@ -39,5 +39,5 @@ export const companyData = {
     { nombre: "MARIA TERESA HERNANDEZ BASTIDAS", cedula: "V-13.374.121", rif: "V-13374121-2" },
     { nombre: "JOSE DE JESUS HERRERA BOZZO", cedula: "V-12.459.024", rif: "V-12459024-4" },
   ],
-  objetoSocial: "Distribución, Venta al Mayor y Detal, prestación de servicios de telecomunicaciones móviles y fijas, venta de equipos y desarrollo de soluciones digitales (ERP, CRM, Software Contable) con integración de IA y Blockchain. Venta de artículos de oficina, equipos fiscales homologados y hardware. Fabricación y registro de marca de mobiliario inteligente y papeleras digitales. Gestión integral de holdings y asesoría estratégica corporativa.",
+  objetoSocial: "Distribución, Venta al Mayor y Detal, prestación de servicios de telecomunicaciones móviles y fijas, venta de dispositivos móviles (teléfonos) y asignación de números telefónicos. Desarrollo de soluciones digitales (ERP, CRM, Software Contable) con integración de IA y Blockchain. Venta de artículos de oficina, equipos fiscales homologados y hardware. Fabricación, venta y registro de marca de mobiliario inteligente y papeleras inteligentes con tecnología de magnetismo. Gestión integral de holdings y asesoría estratégica corporativa.",
 };

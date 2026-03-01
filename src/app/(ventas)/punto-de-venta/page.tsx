@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
@@ -23,11 +21,11 @@ const products = [
     { id: 3, name: "Punto de Venta Inalámbrico", price: 280.00, barcode: "7591234567892", image: "https://picsum.photos/seed/pos/200/200" },
     { id: 4, name: "Lector de Código de Barras USB", price: 95.00, barcode: "7591234567893", image: "https://picsum.photos/seed/scanner/200/200" },
     { id: 5, name: "Tóner de Repuesto para Impresora", price: 85.00, barcode: "7591234567894", image: "https://picsum.photos/seed/toner/200/200" },
+    { id: 11, name: "Papelera Inteligente (Magnetismo)", price: 150.00, barcode: "7591234567900", image: "https://picsum.photos/seed/smartbin/200/200" },
+    { id: 12, name: "Smartphone Kyron Pro X", price: 299.00, barcode: "7591234567901", image: "https://picsum.photos/seed/phone/200/200" },
+    { id: 13, name: "Número Telefónico (Línea Nueva)", price: 15.00, barcode: "7591234567902", image: "https://picsum.photos/seed/simcard/200/200" },
     { id: 6, name: "Caja de Bolígrafos Negros (12 Unidades)", price: 5.00, barcode: "7591234567895", image: "https://picsum.photos/seed/pens/200/200" },
-    { id: 7, name: "Rollo de Etiquetas para Precios", price: 12.00, barcode: "7591234567896", image: "https://picsum.photos/seed/labels/200/200" },
-    { id: 8, name: "Calculadora de Escritorio con Impresora", price: 18.00, barcode: "7591234567897", image: "https://picsum.photos/seed/calculator/200/200" },
-    { id: 9, name: "Licencia Anual Software Contable", price: 480.00, barcode: "7591234567898", image: "https://picsum.photos/seed/software/200/200" },
-    { id: 10, name: "Gaveta de Dinero para Punto de Venta", price: 120.00, barcode: "7591234567899", image: "https://picsum.photos/seed/cashdrawer/200/200" }
+    { id: 9, name: "Licencia Anual Software Contable", price: 480.00, barcode: "7591234567898", image: "https://picsum.photos/seed/software/200/200" }
 ];
 
 
@@ -121,7 +119,6 @@ export default function PuntoDeVentaPage() {
       const checkWorkHours = () => {
         const now = new Date();
         const currentHour = now.getHours();
-        // Horario laboral de 8 AM a 6 PM (18:00)
         if (currentHour < 8 || currentHour >= 18) {
           setIsLocked(true);
         } else {
@@ -130,7 +127,6 @@ export default function PuntoDeVentaPage() {
       };
       
       checkWorkHours();
-      // Opcional: comprobar cada minuto
       const interval = setInterval(checkWorkHours, 60000); 
 
       return () => clearInterval(interval);
@@ -162,7 +158,7 @@ export default function PuntoDeVentaPage() {
         const product = products.find(p => p.barcode === barcode);
         if (product) {
             addToCart(product);
-            setBarcode(""); // Clear input after adding
+            setBarcode("");
         } else {
             toast({ variant: "destructive", title: "Producto no encontrado", description: `No se encontró ningún producto con el código de barras ${barcode}.` });
         }
@@ -279,7 +275,6 @@ export default function PuntoDeVentaPage() {
 
     const handleFinalizeTransaction = () => {
         setIsProcessing(true);
-        // Simulate API call
         setTimeout(() => {
             if (paymentMethod === "Pago Móvil" || paymentMethod === "Transferencia Bancaria") {
                 toast({
@@ -302,8 +297,6 @@ export default function PuntoDeVentaPage() {
         });
     };
     
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://systemcms.com/menu/table/${tableNumber}`;
-
     const filteredProducts = products.filter(product =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         product.barcode.includes(searchTerm)
@@ -329,13 +322,13 @@ export default function PuntoDeVentaPage() {
             <header className="flex items-center justify-between bg-card/80 backdrop-blur-sm p-3 rounded-lg shadow-sm flex-wrap gap-4">
                  <div className="flex items-center gap-2">
                     <TabletSmartphone className="h-6 w-6" />
-                    <h1 className="text-xl font-bold">Punto de Venta</h1>
+                    <h1 className="text-xl font-bold uppercase tracking-tight">System Kyron TPV</h1>
                 </div>
                  {!activeCashier ? (
                      <div className="flex items-center gap-2 w-full sm:w-auto">
-                        <Label htmlFor="cashier-select" className="whitespace-nowrap">Seleccionar Cajero:</Label>
+                        <Label htmlFor="cashier-select" className="whitespace-nowrap font-bold text-[10px] uppercase tracking-widest opacity-60">Seleccionar Cajero:</Label>
                          <Select onValueChange={(value) => setActiveCashier(value)}>
-                            <SelectTrigger id="cashier-select" className="w-full sm:w-[180px]">
+                            <SelectTrigger id="cashier-select" className="w-full sm:w-[180px] rounded-xl border-primary/10">
                                 <SelectValue placeholder="Seleccionar..." />
                             </SelectTrigger>
                             <SelectContent>
@@ -346,41 +339,13 @@ export default function PuntoDeVentaPage() {
                 ) : (
                     <>
                         <div className="flex items-center gap-2 flex-grow">
-                             <Dialog open={isQrDialogOpen} onOpenChange={setIsQrDialogOpen}>
-                                <DialogTrigger asChild>
-                                    <Button variant="outline">
-                                        <QrCode className="mr-2 h-4 w-4"/>
-                                        Generar QR para Mesa
-                                    </Button>
-                                </DialogTrigger>
-                                <DialogContent>
-                                    <DialogHeader>
-                                        <DialogTitle>Generar QR para Pedido en Mesa</DialogTitle>
-                                        <DialogDescription>Introduce el número de la mesa para generar su código QR único.</DialogDescription>
-                                    </DialogHeader>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="table-number">Número de Mesa</Label>
-                                        <Input id="table-number" value={tableNumber} onChange={(e) => setTableNumber(e.target.value)} placeholder="Ej: 15" />
-                                    </div>
-                                    {tableNumber && (
-                                        <div className="flex flex-col items-center justify-center pt-4">
-                                            <Image src={qrCodeUrl} alt={`QR para mesa ${tableNumber}`} width={200} height={200} />
-                                            <p className="font-bold mt-2 text-lg">Mesa {tableNumber}</p>
-                                            <p className="text-sm text-muted-foreground">Escanea para ordenar</p>
-                                        </div>
-                                    )}
-                                    <DialogFooter>
-                                        <Button onClick={() => setIsQrDialogOpen(false)}>Cerrar</Button>
-                                    </DialogFooter>
-                                </DialogContent>
-                            </Dialog>
                             <div className="relative w-full max-w-sm">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                                 <Input 
                                     ref={barcodeRef}
                                     type="text" 
-                                    placeholder="Buscar producto o escanear código..." 
-                                    className="pl-10"
+                                    placeholder="Producto o Código de Barras..." 
+                                    className="pl-10 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onKeyDown={handleBarcodeKeyDown}
@@ -389,78 +354,77 @@ export default function PuntoDeVentaPage() {
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-2 text-sm">
-                                <User className="h-4 w-4"/>
-                                <span>Cajero: <span className="font-semibold">{activeCashier}</span></span>
+                            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest opacity-60">
+                                <User className="h-3.5 w-3.5"/>
+                                <span>Cajero: <span className="text-primary">{activeCashier}</span></span>
                             </div>
-                            <Button onClick={handleCloseShift} variant="outline" size="sm">Cerrar Turno</Button>
+                            <Button onClick={handleCloseShift} variant="outline" size="sm" className="rounded-xl h-9 text-[9px] font-black uppercase tracking-widest">Cerrar Turno</Button>
                         </div>
                     </>
                 )}
             </header>
 
             <div className="grid lg:grid-cols-3 gap-4">
-                <div className="lg:col-span-2 bg-card/80 backdrop-blur-sm p-4 rounded-lg shadow-sm">
-                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <div className="lg:col-span-2 bg-card/80 backdrop-blur-sm p-6 rounded-[2rem] shadow-sm border border-primary/5">
+                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
                          {filteredProducts.map(product => (
-                            <Card key={product.id} onClick={() => addToCart(product)} className="cursor-pointer hover:shadow-lg hover:border-primary transition-all flex flex-col">
-                                <CardContent className="p-0 aspect-square relative w-full">
-                                    <Image src={product.image} alt={product.name} fill className="object-cover rounded-t-lg"/>
+                            <Card key={product.id} onClick={() => addToCart(product)} className="group cursor-pointer hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex flex-col rounded-2xl overflow-hidden border-primary/5 bg-background/50">
+                                <CardContent className="p-0 aspect-square relative w-full overflow-hidden">
+                                    <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500"/>
+                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <Plus className="text-white h-10 w-10"/>
+                                    </div>
                                 </CardContent>
-                                <div className="p-3 flex-grow">
-                                    <p className="font-medium text-sm leading-tight">{product.name}</p>
+                                <div className="p-4 flex-grow">
+                                    <p className="font-bold text-xs leading-tight tracking-tight">{product.name}</p>
                                 </div>
-                                <CardFooter className="p-3 pt-0">
-                                    <p className="text-sm font-semibold text-primary">{formatCurrency(getPriceInCurrency(product.price), currency)}</p>
+                                <CardFooter className="p-4 pt-0">
+                                    <p className="text-sm font-black text-primary italic">{formatCurrency(getPriceInCurrency(product.price), currency)}</p>
                                 </CardFooter>
                             </Card>
                         ))}
                     </div>
                 </div>
 
-                <Card className="lg:col-span-1 flex flex-col bg-card/80 backdrop-blur-sm">
-                    <CardHeader>
-                        <CardTitle>Resumen de Orden</CardTitle>
+                <Card className="lg:col-span-1 flex flex-col bg-card/80 backdrop-blur-sm rounded-[2rem] border-primary/5 shadow-lg">
+                    <CardHeader className="p-6">
+                        <CardTitle className="text-lg font-black uppercase tracking-tighter">Detalle de Orden</CardTitle>
                     </CardHeader>
-                    <CardContent className="flex-grow overflow-y-auto">
+                    <CardContent className="flex-grow overflow-y-auto px-6 custom-scrollbar">
                         {cart.length > 0 ? (
-                            <Table>
-                                <TableBody>
-                                    {cart.map(item => (
-                                        <TableRow key={item.id}>
-                                            <TableCell>
-                                                <p className="font-medium">{item.name}</p>
-                                                <p className="text-xs text-muted-foreground">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)} c/u</p>
-                                            </TableCell>
-                                            <TableCell className="w-28">
-                                                <div className="flex items-center gap-1">
-                                                    <Button size="icon" variant="ghost" className="h-6 w-6" onClick={() => updateQuantity(item.id, -1)}><Minus className="h-3 w-3"/></Button>
-                                                    <span className="w-6 text-center">{item.quantity}</span>
-                                                    <Button size="icon" variant="ghost" className="h-6 w-6" onClick={() => updateQuantity(item.id, 1)}><Plus className="h-3 w-3"/></Button>
-                                                </div>
-                                            </TableCell>
-                                            <TableCell className="text-right font-semibold">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</TableCell>
-                                            <TableCell><Button size="icon" variant="ghost" className="h-6 w-6 text-destructive" onClick={() => removeFromCart(item.id)}><X className="h-4 w-4"/></Button></TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                            <div className="space-y-4">
+                                {cart.map(item => (
+                                    <div key={item.id} className="flex items-center justify-between gap-4 p-3 bg-secondary/20 rounded-xl">
+                                        <div className="flex-1">
+                                            <p className="font-bold text-xs">{item.name}</p>
+                                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)}</p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <Button size="icon" variant="ghost" className="h-7 w-7 rounded-lg" onClick={() => updateQuantity(item.id, -1)}><Minus className="h-3 w-3"/></Button>
+                                            <span className="text-sm font-bold w-4 text-center">{item.quantity}</span>
+                                            <Button size="icon" variant="ghost" className="h-7 w-7 rounded-lg" onClick={() => updateQuantity(item.id, 1)}><Plus className="h-3 w-3"/></Button>
+                                            <Button size="icon" variant="ghost" className="h-7 w-7 text-destructive hover:bg-destructive/5" onClick={() => removeFromCart(item.id)}><X className="h-4 w-4"/></Button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         ) : (
-                            <div className="flex items-center justify-center h-full text-muted-foreground">
-                                <p>El carrito está vacío</p>
+                            <div className="flex flex-col items-center justify-center h-full text-muted-foreground gap-4 opacity-30">
+                                <ShoppingCart className="h-16 w-16" />
+                                <p className="text-xs font-black uppercase tracking-widest">Esperando Productos...</p>
                             </div>
                         )}
                     </CardContent>
-                    <CardFooter className="flex-col !p-4 border-t gap-2">
-                        <div className="w-full space-y-2">
-                            <Label htmlFor="cliente-cedula">Adjuntar Cliente (Cédula/RIF/Pasaporte)</Label>
+                    <CardFooter className="flex-col !p-6 border-t border-primary/5 gap-4">
+                        <div className="w-full space-y-3">
+                            <Label htmlFor="cliente-cedula" className="text-[10px] font-black uppercase tracking-widest opacity-60">Asignar Cliente Fiscal</Label>
                             {attachedCliente ? (
-                                <div className="flex items-center justify-between p-2 bg-secondary rounded-md">
+                                <div className="flex items-center justify-between p-3 bg-primary/5 border border-primary/10 rounded-xl">
                                     <div>
-                                        <p className="font-semibold text-sm">{attachedCliente.nombre}</p>
-                                        <p className="text-xs text-muted-foreground">{attachedCliente.rif}</p>
+                                        <p className="font-black text-xs uppercase tracking-tighter">{attachedCliente.nombre}</p>
+                                        <p className="text-[10px] font-mono text-muted-foreground">{attachedCliente.rif}</p>
                                     </div>
-                                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setAttachedCliente(null)}>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => setAttachedCliente(null)}>
                                         <UserMinus className="h-4 w-4 text-destructive"/>
                                     </Button>
                                 </div>
@@ -468,305 +432,216 @@ export default function PuntoDeVentaPage() {
                                 <div className="flex gap-2">
                                     <Input
                                         id="cliente-cedula"
-                                        placeholder="Cédula (V, E), Pasaporte, RIF (J,G)..."
+                                        placeholder="RIF / Cédula / Pasaporte"
+                                        className="h-10 text-xs rounded-xl bg-secondary/30 border-none"
                                         value={clienteCedula}
                                         onChange={(e) => setClienteCedula(e.target.value)}
                                         onKeyDown={handleClienteKeyDown}
                                     />
-                                    <Button variant="outline" onClick={handleAttachCliente}><Search className="h-4 w-4"/></Button>
+                                    <Button variant="secondary" className="rounded-xl h-10 w-10 p-0" onClick={handleAttachCliente}><Search className="h-4 w-4"/></Button>
                                 </div>
                             )}
                         </div>
-                        <Separator className="my-2"/>
+                        
                          <div className="w-full grid grid-cols-2 gap-4">
-                            <div>
-                                <Label htmlFor="op-type-select">Tipo de Operación</Label>
+                            <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">Operación</Label>
                                 <Select onValueChange={(value) => setOperationType(value as OperationType)} value={operationType || ""}>
-                                    <SelectTrigger id="op-type-select">
-                                        <SelectValue placeholder="Clasificar..." />
+                                    <SelectTrigger className="rounded-xl border-primary/10 h-10 text-xs">
+                                        <SelectValue placeholder="Tipo..." />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="Venta Inmediata">Venta Inmediata</SelectItem>
-                                        <SelectItem value="Factura a Crédito sin Abono">Factura a Crédito sin Abono</SelectItem>
-                                        <SelectItem value="Venta con Financiamiento">Venta con Financiamiento</SelectItem>
-                                        <SelectItem value="Venta a Ente Exento de IVA">Venta a Ente Exento de IVA</SelectItem>
+                                        <SelectItem value="Venta Inmediata">Inmediata</SelectItem>
+                                        <SelectItem value="Factura a Crédito sin Abono">Crédito (Sin abono)</SelectItem>
+                                        <SelectItem value="Venta con Financiamiento">Financiamiento (BNPL)</SelectItem>
+                                        <SelectItem value="Venta a Ente Exento de IVA">Exento IVA</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <div>
-                                <Label htmlFor="currency-select">Moneda</Label>
+                            <div className="space-y-2">
+                                <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">Divisa</Label>
                                 <Select value={currency} onValueChange={(value) => setCurrency(value as Currency)}>
-                                    <SelectTrigger id="currency-select">
-                                        <SelectValue placeholder="Seleccionar..." />
+                                    <SelectTrigger className="rounded-xl border-primary/10 h-10 text-xs">
+                                        <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="Bs.">Bolívares (Bs.)</SelectItem>
-                                        <SelectItem value="USD">Dólares (USD)</SelectItem>
-                                        <SelectItem value="EUR">Euros (EUR)</SelectItem>
+                                        <SelectItem value="Bs.">VES</SelectItem>
+                                        <SelectItem value="USD">USD</SelectItem>
+                                        <SelectItem value="EUR">EUR</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
                          </div>
-                          {operationType === 'Venta con Financiamiento' && (
-                            <div className="w-full space-y-3 p-3 bg-secondary/50 rounded-lg animate-in fade-in">
-                                 <div className="space-y-2">
-                                    <Label htmlFor="financing-platform">Plataforma</Label>
-                                     <Select onValueChange={(value) => setFinancingPlatform(value as FinancingPlatform)} value={financingPlatform ?? ''}>
-                                        <SelectTrigger id="financing-platform">
-                                            <SelectValue placeholder="Seleccionar plataforma..." />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="Cashea">Cashea</SelectItem>
-                                            <SelectItem value="Krece">Krece</SelectItem>
-                                            <SelectItem value="Rapikom">Rapikom</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                {financingPlatform === 'Cashea' && (
-                                    <div className="space-y-3 animate-in fade-in">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="cashea-level">Nivel de Cliente en Cashea</Label>
-                                            <Select onValueChange={setCasheaLevel} value={casheaLevel ?? ''}>
-                                                <SelectTrigger id="cashea-level">
-                                                    <SelectValue placeholder="Seleccionar nivel..." />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    {casheaLevels.map(l => (
-                                                        <SelectItem key={l.level} value={String(l.level)}>
-                                                            Nivel {l.level}: {l.name} ({l.initialPayment})
-                                                            {l.moreQuotas && " (+ Modo Más Cuotas)"}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
-                                        </div>
-                                        {selectedCasheaLevelData && selectedCasheaLevelData.moreQuotas && (
-                                            <div className="space-y-3">
-                                                <div className="flex items-center space-x-2">
-                                                    <Switch 
-                                                        id="modo-mas-cuotas" 
-                                                        checked={useModoMasCuotas}
-                                                        onCheckedChange={setUseModoMasCuotas}
-                                                    />
-                                                    <Label htmlFor="modo-mas-cuotas">Clasifícame el modo más cuota</Label>
-                                                </div>
-                                                {useModoMasCuotas && (
-                                                    <div className="animate-in fade-in">
-                                                        <Label htmlFor="installments-select">Plan de Pago (Cada 14 días)</Label>
-                                                        <Select defaultValue="3">
-                                                            <SelectTrigger id="installments-select">
-                                                                <SelectValue />
-                                                            </SelectTrigger>
-                                                            <SelectContent>
-                                                                <SelectItem value="3">3 Cuotas (Estándar)</SelectItem>
-                                                                <SelectItem value="6">6 Cuotas</SelectItem>
-                                                                <SelectItem value="9">9 Cuotas</SelectItem>
-                                                                <SelectItem value="12">12 Cuotas</SelectItem>
-                                                            </SelectContent>
-                                                        </Select>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                                 {financingPlatform === 'Krece' && (
-                                    <div className="space-y-2 animate-in fade-in">
-                                        <Label htmlFor="krece-level">Nivel de Cliente en Krece</Label>
-                                        <Select onValueChange={setKreceLevel} value={kreceLevel ?? ''}>
-                                            <SelectTrigger id="krece-level">
-                                                <SelectValue placeholder="Seleccionar nivel..." />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {kreceLevels.map(l => (
-                                                    <SelectItem key={l.level} value={l.level}>
-                                                        {l.name} ({l.initialPayment})
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                )}
-                                {financingPlatform === 'Rapikom' && (
-                                    <div className="space-y-2 animate-in fade-in">
-                                        <Label htmlFor="rapikom-line">Línea de Crédito Rapikom</Label>
-                                        <Select onValueChange={setRapikomLine} value={rapikomLine ?? ''}>
-                                            <SelectTrigger id="rapikom-line">
-                                                <SelectValue placeholder="Seleccionar línea..." />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {rapikomLines.map(l => (
-                                                    <SelectItem key={l.id} value={l.id}>
-                                                        {l.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                )}
-                            </div>
-                         )}
-                         <div className="w-full">
-                            <Label htmlFor="payment-method-select">Método de Pago</Label>
-                            <Select onValueChange={(value) => setPaymentMethod(value as PaymentMethod)} value={paymentMethod || ""}>
-                                <SelectTrigger id="payment-method-select">
-                                    <SelectValue placeholder="Seleccionar..." />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="Punto de Venta">Punto de Venta</SelectItem>
-                                    <SelectItem value="Pago Móvil">Pago Móvil</SelectItem>
-                                    <SelectItem value="Transferencia Bancaria">Transferencia Bancaria</SelectItem>
-                                    <SelectItem value="Zelle">Zelle</SelectItem>
-                                    <SelectItem value="Efectivo">Efectivo</SelectItem>
-                                </SelectContent>
-                            </Select>
+
+                        <div className="w-full space-y-2 text-xs py-4 border-y border-primary/5 font-bold">
+                            <div className="flex justify-between"><span>SUBTOTAL:</span><span className="font-mono">{formatCurrency(subtotalInCurrency, currency)}</span></div>
+                            <div className="flex justify-between"><span>IVA (16%):</span><span className="font-mono">{formatCurrency(iva, currency)}</span></div>
+                            <div className="flex justify-between text-lg font-black pt-2 text-primary"><span>TOTAL:</span><span className="italic">{formatCurrency(total, currency)}</span></div>
                         </div>
-                        <div className="w-full space-y-2 text-sm my-4">
-                            <div className="flex justify-between"><span>Subtotal:</span><span>{formatCurrency(subtotalInCurrency, currency)}</span></div>
-                            <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, currency)}</span></div>
-                            <div className="flex justify-between font-bold text-lg border-t pt-2"><span>Total a Pagar:</span><span>{formatCurrency(total, currency)}</span></div>
-                        </div>
-                        <Button className="w-full text-lg h-12" onClick={handleCheckout} disabled={!activeCashier}>Cobrar</Button>
+                        
+                        <Button className="w-full text-sm font-black h-14 rounded-2xl shadow-xl btn-3d-primary" onClick={handleCheckout} disabled={!activeCashier || cart.length === 0}>
+                            PROCESAR PAGO
+                        </Button>
                     </CardFooter>
                 </Card>
             </div>
             
             {/* Checkout Dialog */}
             <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
-                <DialogContent>
+                <DialogContent className="rounded-[2rem] p-8">
                     <DialogHeader>
-                        <DialogTitle>Finalizar Compra</DialogTitle>
-                        <DialogDescription>Confirma el pago y la devolución.</DialogDescription>
+                        <DialogTitle className="text-2xl font-black tracking-tighter">Finalizar Transacción</DialogTitle>
+                        <DialogDescription>Selecciona el método de pago y confirma el ingreso.</DialogDescription>
                     </DialogHeader>
-                    <div className="space-y-4">
-                        <div className="flex justify-between items-center text-xl font-bold p-4 bg-secondary rounded-lg">
-                            <Label>Total a Pagar:</Label>
-                            <span>{formatCurrency(total, currency)}</span>
+                    <div className="space-y-6 py-4">
+                        <div className="flex justify-between items-center text-2xl font-black p-6 bg-primary/10 text-primary rounded-2xl border border-primary/10">
+                            <span>TOTAL:</span>
+                            <span className="italic">{formatCurrency(total, currency)}</span>
                         </div>
-                        <div className="space-y-2">
-                             <Label htmlFor="amount-received">Monto Recibido del Cliente</Label>
-                             <Input 
-                                id="amount-received" 
-                                type="number" 
-                                placeholder="0.00" 
-                                value={amountReceived}
-                                onChange={(e) => setAmountReceived(Number(e.target.value))}
-                            />
+                        
+                        <div className="space-y-3">
+                            <Label className="text-xs font-black uppercase tracking-widest opacity-60">Método de Pago</Label>
+                            <div className="grid grid-cols-2 gap-3">
+                                {[
+                                    { id: "Punto de Venta", icon: TabletSmartphone },
+                                    { id: "Pago Móvil", icon: Smartphone },
+                                    { id: "Efectivo", icon: Banknote },
+                                    { id: "Transferencia Bancaria", icon: Landmark },
+                                ].map((method) => (
+                                    <Button 
+                                        key={method.id}
+                                        type="button"
+                                        variant={paymentMethod === method.id ? "default" : "outline"}
+                                        className={cn("h-12 rounded-xl text-[10px] font-black uppercase tracking-widest gap-2", paymentMethod === method.id && "bg-primary text-white")}
+                                        onClick={() => setPaymentMethod(method.id as PaymentMethod)}
+                                    >
+                                        <method.icon className="h-4 w-4" />
+                                        {method.id}
+                                    </Button>
+                                ))}
+                            </div>
                         </div>
-                        {changeDue > 0 && (
-                            <div className="p-4 bg-blue-500/10 rounded-lg text-center space-y-2">
-                                <Label className="text-lg font-semibold">Vuelto a Entregar</Label>
-                                <p className="text-3xl font-bold text-blue-400">{formatCurrency(changeDue, currency)}</p>
-                                <div className="flex items-center justify-center space-x-2 pt-2">
-                                    <Switch id="pago-movil-check" checked={giveChangeByPagoMovil} onCheckedChange={setGiveChangeByPagoMovil}/>
-                                    <Label htmlFor="pago-movil-check">Dar vuelto por Pago Móvil</Label>
-                                </div>
-                                {giveChangeByPagoMovil && (
-                                     <div className="pt-2 space-y-2 text-left animate-in fade-in">
-                                         <Label>Datos para Pago Móvil</Label>
-                                        <Input placeholder="Teléfono del cliente" />
-                                        <Input placeholder="Cédula/RIF del cliente" />
-                                     </div>
+
+                        {paymentMethod === "Efectivo" && (
+                            <div className="space-y-3 animate-in slide-in-from-top-2">
+                                 <Label htmlFor="amount-received" className="text-xs font-black uppercase tracking-widest opacity-60">Monto Recibido ({currency})</Label>
+                                 <Input 
+                                    id="amount-received" 
+                                    type="number" 
+                                    placeholder="0.00" 
+                                    className="h-12 rounded-xl text-lg font-mono font-bold bg-secondary/30 border-none"
+                                    value={amountReceived}
+                                    onChange={(e) => setAmountReceived(Number(e.target.value))}
+                                />
+                                {changeDue > 0 && (
+                                    <div className="p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-center space-y-2">
+                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">Vuelto por entregar</p>
+                                        <p className="text-4xl font-black text-blue-500 italic">{formatCurrency(changeDue, currency)}</p>
+                                    </div>
                                 )}
                             </div>
                         )}
                     </div>
-                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsCheckoutOpen(false)}>Cancelar</Button>
-                        <Button onClick={handleFinalizeTransaction} disabled={isProcessing}>
-                            {isProcessing && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-                            Finalizar y Generar Factura
+                     <DialogFooter className="gap-3 sm:flex-col">
+                        <Button onClick={handleFinalizeTransaction} disabled={isProcessing || !paymentMethod} className="w-full h-14 rounded-2xl text-base font-black shadow-xl btn-3d-primary">
+                            {isProcessing ? <Loader2 className="mr-2 h-6 w-6 animate-spin"/> : "CONFIRMAR Y EMITIR FACTURA"}
                         </Button>
+                        <Button variant="ghost" onClick={() => setIsCheckoutOpen(false)} className="w-full h-10 rounded-xl text-[10px] font-black uppercase tracking-widest opacity-50">Cancelar Operación</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
             {/* Receipt Dialog */}
             <Dialog open={isReceiptOpen} onOpenChange={setIsReceiptOpen}>
-                <DialogContent className="sm:max-w-md print:shadow-none print:border-none">
-                     <div className="print-content">
-                        <DialogHeader className="text-center">
-                            <DialogTitle className="text-2xl">Empresa S.A.</DialogTitle>
-                            <DialogDescription>RIF: J-12345678-9 <br/> Recibo de Venta</DialogDescription>
-                        </DialogHeader>
+                <DialogContent className="sm:max-w-md print:shadow-none print:border-none rounded-[2rem]">
+                     <div className="print-content font-mono p-4">
+                        <div className="text-center mb-6">
+                            <Logo className="h-12 w-12 mx-auto mb-4" />
+                            <h2 className="text-xl font-black uppercase tracking-tighter">System Kyron, C.A.</h2>
+                            <p className="text-[10px] font-bold">RIF: J-12345678-9 <br/> Caracas, Venezuela</p>
+                        </div>
+                        
+                        <Separator className="my-4 border-dashed" />
+                        
                         {attachedCliente && (
-                            <div className="text-xs my-4 border-y py-2">
-                                <p className="font-bold">CLIENTE:</p>
+                            <div className="text-[10px] my-4 space-y-1">
+                                <p className="font-black">CLIENTE FISCAL:</p>
                                 <p>{attachedCliente.nombre}</p>
                                 <p>RIF/C.I: {attachedCliente.rif}</p>
                             </div>
                         )}
-                        <div className="my-4 text-xs space-y-1">
-                            <p>Fecha: {new Date().toLocaleString('es-VE')}</p>
-                            <p>Cajero: {activeCashier}</p>
-                            {operationType && <p>Operación: {operationType}</p>}
-                            {paymentMethod && <p>Método de Pago: {paymentMethod}</p>}
+                        
+                        <div className="my-4 text-[9px] space-y-1 font-bold">
+                            <p>FECHA: {new Date().toLocaleString('es-VE')}</p>
+                            <p>CAJERO: {activeCashier}</p>
+                            {operationType && <p>OPERACIÓN: {operationType}</p>}
+                            {paymentMethod && <p>MÉTODO PAGO: {paymentMethod}</p>}
                         </div>
-                        <div className="my-4">
-                            <Table className="mt-2">
-                                 <TableBody>
-                                    {cart.map(item => (
-                                        <TableRow key={item.id}>
-                                            <TableCell className="p-1">{item.name} <br/> <span className="text-muted-foreground text-xs">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)}</span></TableCell>
-                                            <TableCell className="text-right font-medium p-1">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                        
+                        <Separator className="my-4 border-dashed" />
+                        
+                        <div className="my-4 space-y-2">
+                            {cart.map(item => (
+                                <div key={item.id} className="flex justify-between text-[10px]">
+                                    <div className="max-w-[70%]">
+                                        <p>{item.name}</p>
+                                        <p className="opacity-60">{item.quantity} x {formatCurrency(getPriceInCurrency(item.price), currency)}</p>
+                                    </div>
+                                    <p className="font-bold">{formatCurrency(getPriceInCurrency(item.price * item.quantity), currency)}</p>
+                                </div>
+                            ))}
                         </div>
-                         <Separator className="my-2"/>
-                         <div className="w-full space-y-1 text-sm">
-                            <div className="flex justify-between"><span>Subtotal:</span><span>{formatCurrency(subtotalInCurrency, currency)}</span></div>
+                        
+                         <Separator className="my-4 border-dashed"/>
+                         
+                         <div className="w-full space-y-1 text-xs font-bold">
+                            <div className="flex justify-between"><span>SUBTOTAL:</span><span>{formatCurrency(subtotalInCurrency, currency)}</span></div>
                             <div className="flex justify-between"><span>IVA (16%):</span><span>{formatCurrency(iva, currency)}</span></div>
-                            <div className="flex justify-between font-bold text-base pt-1"><span>TOTAL ({currency}):</span><span>{formatCurrency(total, currency)}</span></div>
+                            <div className="flex justify-between text-base font-black pt-2"><span>TOTAL ({currency}):</span><span>{formatCurrency(total, currency)}</span></div>
                         </div>
-                        <Separator className="my-2"/>
-                        <div className="w-full space-y-1 text-sm">
-                            <div className="flex justify-between"><span>Monto Pagado:</span><span>{formatCurrency(Number(amountReceived), currency)}</span></div>
-                            <div className="flex justify-between"><span>Vuelto:</span><span>{formatCurrency(changeDue, currency)}</span></div>
-                        </div>
-
-                         <div className="flex flex-col items-center text-center mt-4">
-                             <div className="flex items-center gap-3 text-sm text-green-600">
-                                <ShieldCheck className="h-8 w-8"/>
-                                <div>
-                                    <p className="font-bold">Recibo 100% Protegido y Seguro</p>
-                                    <p className="text-xs text-muted-foreground">Verificado por C.M.S el {new Date().toLocaleDateString()}</p>
+                        
+                        <Separator className="my-4 border-dashed"/>
+                        
+                        <div className="flex flex-col items-center text-center mt-8 space-y-4">
+                             <div className="flex items-center gap-3 p-3 bg-green-500/10 border border-green-500/20 rounded-xl text-green-600">
+                                <ShieldCheck className="h-8 w-8 shrink-0"/>
+                                <div className="text-left">
+                                    <p className="text-[10px] font-black uppercase tracking-tighter leading-none">Venta Protegida</p>
+                                    <p className="text-[8px] font-bold opacity-70">Validación Blockchain Exitosa</p>
                                 </div>
                             </div>
                              <Image 
-                                src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=Factura:VF-001,Monto:${total},Fecha:${new Date().toISOString()}`} 
+                                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=KyronReceipt:${Math.random().toString(36).substr(2, 9)}`} 
                                 alt="QR de Verificación" 
-                                width={100} 
-                                height={100}
-                                className="mt-4"
+                                width={120} 
+                                height={120}
+                                className="border p-2 bg-white rounded-xl"
                             />
-                            <p className="text-xs text-muted-foreground mt-1">Escanear para verificar</p>
+                            <p className="text-[8px] font-black uppercase tracking-widest opacity-40">Validez Fiscal Electrónica</p>
                         </div>
                     </div>
-                    <DialogFooter className="mt-6 gap-2 sm:justify-center print:hidden">
-                        <Button variant="outline" onClick={handlePrint}><Printer className="mr-2"/> Imprimir Recibo</Button>
-                        <Button onClick={handleNewSale}>Nueva Venta</Button>
+                    <DialogFooter className="mt-6 gap-3 sm:justify-center print:hidden border-t pt-6">
+                        <Button variant="outline" onClick={handlePrint} className="h-12 rounded-xl text-xs font-black uppercase tracking-widest"><Printer className="mr-2 h-4 w-4"/> Imprimir</Button>
+                        <Button onClick={handleNewSale} className="h-12 rounded-xl text-xs font-black uppercase tracking-widest btn-3d-primary px-8">Nueva Venta</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
             {/* Supervisor Authorization Dialog */}
             <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
-                <DialogContent>
+                <DialogContent className="rounded-[2rem]">
                     <DialogHeader>
-                        <DialogTitle>Autorización de Supervisor</DialogTitle>
+                        <DialogTitle className="text-xl font-black">Autorización de Nivel 5</DialogTitle>
                         <DialogDescription>
-                            Para desbloquear el TPV fuera del horario laboral, se requiere la autorización de un supervisor.
+                            Se requiere la intervención del supervisor para operar fuera de horario o anular registros.
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="space-y-2 py-4">
-                        <Label htmlFor="auth-code">Código de Autorización</Label>
-                        <Input id="auth-code" type="password" placeholder="Introduzca el código del supervisor"/>
+                    <div className="space-y-4 py-6">
+                        <Label htmlFor="auth-code" className="text-xs font-black uppercase tracking-widest opacity-60">PIN de Seguridad</Label>
+                        <Input id="auth-code" type="password" placeholder="••••" className="h-14 text-center text-3xl font-black tracking-[1em] rounded-2xl bg-secondary/30 border-none" maxLength={4}/>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsAuthDialogOpen(false)}>Cancelar</Button>
-                        <Button onClick={handleAuthorization}>Desbloquear</Button>
+                        <Button onClick={handleAuthorization} className="w-full h-12 rounded-xl font-black btn-3d-primary shadow-lg">DESBLOQUEAR TPV</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

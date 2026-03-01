@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from "framer-motion";
@@ -41,7 +40,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
           >
-            Automatización fiscal y operativa en una plataforma diseñada para la claridad técnica y el crecimiento estratégico bajo el ecosistema System Kyron.
+            Automatización fiscal, telecomunicaciones y finanzas blockchain en una plataforma diseñada bajo el ecosistema System Kyron.
           </motion.p>
           
           <motion.div

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -9,7 +8,7 @@ import {
     X,
     User
 } from "lucide-react";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -48,7 +47,7 @@ export function LandingHeader() {
                     </div>
 
                     {/* Navigation Links - Centered and always visible on desktops */}
-                    <nav className="hidden lg:flex items-center gap-8 flex-1 justify-center">
+                    <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
                         {navLinks.map((link) => (
                             <Link 
                                 key={link.href} 
@@ -75,7 +74,7 @@ export function LandingHeader() {
                         </div>
 
                         {/* Mobile Menu */}
-                        <div className="lg:hidden flex items-center gap-2">
+                        <div className="md:hidden flex items-center gap-2">
                             <ThemeToggle />
                             <Sheet>
                                 <SheetTrigger asChild>
