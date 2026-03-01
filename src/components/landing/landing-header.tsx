@@ -11,7 +11,6 @@ import {
     ChevronDown,
     LayoutGrid,
     Sparkles,
-    UserCircle2
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { 
@@ -89,7 +88,7 @@ export function LandingHeader() {
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
                             
-                            {/* Desplegable de Acceso Organizado */}
+                            {/* Desplegable de Acceso Organizado (PC) */}
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="outline" className="rounded-xl h-11 px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group">
@@ -98,25 +97,30 @@ export function LandingHeader() {
                                         <ChevronDown className="h-3 w-3 ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[500px] p-4 rounded-[2.5rem] border-primary/10 bg-background/95 backdrop-blur-3xl shadow-2xl grid grid-cols-2 gap-2 animate-in fade-in zoom-in-95 duration-200">
-                                    <DropdownMenuLabel className="col-span-2 px-4 py-2 flex items-center gap-2">
-                                        <Sparkles className="h-3 w-3 text-primary" />
-                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] opacity-50">Ecosistema de Portales</span>
+                                <DropdownMenuContent align="end" className="w-[600px] p-6 rounded-[2.5rem] border-primary/10 bg-background/95 backdrop-blur-3xl shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                                    <DropdownMenuLabel className="px-4 py-2 flex items-center gap-3">
+                                        <Sparkles className="h-4 w-4 text-primary" />
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Ecosistema Kyron</span>
+                                            <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest opacity-60">Selecciona tu portal de gestión</span>
+                                        </div>
                                     </DropdownMenuLabel>
-                                    <DropdownMenuSeparator className="col-span-2 mb-2 opacity-50" />
-                                    {loginOptions.map((option) => (
-                                        <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-3 cursor-pointer focus:bg-primary/5 group/item border border-transparent focus:border-primary/10 transition-all">
-                                            <Link href={option.href} className="flex flex-col items-start gap-1">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="p-2 bg-primary/10 rounded-xl group-hover/item:scale-110 transition-transform">
-                                                        <option.icon className="h-4 w-4 text-primary" />
+                                    <DropdownMenuSeparator className="my-4 opacity-50" />
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {loginOptions.map((option) => (
+                                            <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-4 cursor-pointer focus:bg-primary/5 group/item border border-transparent focus:border-primary/10 transition-all">
+                                                <Link href={option.href} className="flex items-start gap-4">
+                                                    <div className="p-3 bg-primary/10 rounded-xl group-hover/item:scale-110 group-hover/item:bg-primary/20 transition-all shadow-inner">
+                                                        <option.icon className="h-5 w-5 text-primary" />
                                                     </div>
-                                                    <span className="font-black text-[11px] tracking-tight uppercase italic">{option.label}</span>
-                                                </div>
-                                                <p className="text-[9px] text-muted-foreground leading-tight font-medium opacity-70 group-hover/item:opacity-100">{option.description}</p>
-                                            </Link>
-                                        </DropdownMenuItem>
-                                    ))}
+                                                    <div className="flex flex-col gap-1">
+                                                        <span className="font-black text-xs tracking-tight uppercase italic leading-none">{option.label}</span>
+                                                        <p className="text-[9px] text-muted-foreground leading-tight font-medium opacity-70 group-hover/item:opacity-100">{option.description}</p>
+                                                    </div>
+                                                </Link>
+                                            </DropdownMenuItem>
+                                        ))}
+                                    </div>
                                 </DropdownMenuContent>
                             </DropdownMenu>
 
@@ -125,14 +129,14 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
-                        {/* Hamburger Menu Trigger */}
+                        {/* Menú Lateral (Hamburguesa) */}
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all active:scale-90">
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:max-w-sm p-0 flex flex-col overflow-hidden border-l-primary/10 shadow-[-20px_0_50px_rgba(0,0,0,0.1)]">
+                            <SheetContent side="right" className="w-full sm:max-w-md p-0 flex flex-col overflow-hidden border-l-primary/10 shadow-[-20px_0_50px_rgba(0,0,0,0.1)]">
                                 <div className="p-10 border-b flex flex-col items-center gap-4 bg-gradient-to-br from-primary/10 to-transparent">
                                     <Logo className="h-16 w-16" /> 
                                     <div className="text-center">
@@ -140,39 +144,39 @@ export function LandingHeader() {
                                         <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mt-1">Ecosistema Global</p>
                                     </div>
                                 </div>
-                                <nav className="flex-grow flex flex-col p-8 gap-4 overflow-y-auto">
-                                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-2 italic px-2">Navegación</p>
+                                <nav className="flex-grow flex flex-col p-6 gap-2 overflow-y-auto custom-scrollbar">
+                                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic px-4">Navegación</p>
                                     {navLinks.map((link) => (
                                         <SheetClose asChild key={link.href}>
-                                            <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-4 border-b border-border/30 hover:pl-2 transition-all flex items-center justify-between group">
+                                            <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-4 px-4 border-b border-border/30 hover:pl-6 transition-all flex items-center justify-between group">
                                                 {link.label}
                                                 <LayoutGrid className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             </Link>
                                         </SheetClose>
                                     ))}
                                     
-                                    <div className="pt-10 space-y-4 px-2">
-                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic">Acceso Directo</p>
-                                        <div className="grid grid-cols-1 gap-4">
-                                            <Collapsible open={isAccesoOpen} onOpenChange={setIsAccesoOpen} className="w-full space-y-2">
+                                    <div className="pt-8 space-y-4 px-2">
+                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic px-2">Acceso al Ecosistema</p>
+                                        <div className="flex flex-col gap-4">
+                                            <Collapsible open={isAccesoOpen} onOpenChange={setIsAccesoOpen} className="w-full">
                                                 <CollapsibleTrigger asChild>
-                                                    <Button variant="outline" className="w-full justify-center rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md">
-                                                        ACCESO 
-                                                        <ChevronDown className={cn("h-4 w-4 ml-2 text-primary transition-transform duration-300", isAccesoOpen && "rotate-180")} />
+                                                    <Button variant="outline" className="w-full justify-between rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md px-6">
+                                                        <span>DESPLEGAR ACCESO</span> 
+                                                        <ChevronDown className={cn("h-4 w-4 text-primary transition-transform duration-300", isAccesoOpen && "rotate-180")} />
                                                     </Button>
                                                 </CollapsibleTrigger>
-                                                <CollapsibleContent className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
-                                                    <div className="grid grid-cols-2 gap-2 p-2 bg-secondary/20 rounded-2xl border border-primary/5">
+                                                <CollapsibleContent className="animate-in fade-in slide-in-from-top-2 duration-300 pt-4">
+                                                    <div className="grid grid-cols-2 gap-3 p-4 bg-secondary/20 rounded-[2rem] border border-primary/5">
                                                         {loginOptions.map((option) => (
                                                             <Link 
                                                                 key={option.href} 
                                                                 href={option.href as any}
-                                                                className="flex flex-col items-center justify-center p-3 rounded-xl bg-background/50 hover:bg-primary/5 border border-transparent hover:border-primary/10 transition-all text-center group/item"
+                                                                className="flex flex-col items-center justify-center p-4 rounded-2xl bg-background/50 hover:bg-primary/5 border border-transparent hover:border-primary/10 transition-all text-center group/item"
                                                             >
-                                                                <div className="p-2 bg-primary/10 rounded-lg mb-2 group-hover/item:scale-110 transition-transform">
-                                                                    <option.icon className="h-4 w-4 text-primary" />
+                                                                <div className="p-3 bg-primary/10 rounded-xl mb-3 group-hover/item:scale-110 transition-transform shadow-inner">
+                                                                    <option.icon className="h-5 w-5 text-primary" />
                                                                 </div>
-                                                                <span className="text-[8px] font-black uppercase tracking-tighter leading-none">{option.label}</span>
+                                                                <span className="text-[8px] font-black uppercase tracking-tighter leading-tight">{option.label}</span>
                                                             </Link>
                                                         ))}
                                                     </div>
