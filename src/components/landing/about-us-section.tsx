@@ -1,3 +1,4 @@
+
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -118,7 +119,7 @@ export function AboutUsSection() {
                                 { val: 10, label: "Declaraciones", suffix: "K+" },
                                 { val: 0, label: "Riesgo Fiscal", suffix: "%" }
                             ].map((stat, i) => (
-                                <Card key={i} className="glass-card border-none p-8 text-center bg-primary/[0.02]">
+                                <Card key={i} className="bg-primary/[0.02] border-white/5 p-8 text-center rounded-2xl shadow-xl">
                                     <CardContent className="p-0">
                                         <p className="text-4xl font-black text-primary italic tracking-tighter mb-1">
                                             {stat.prefix}<Counter from={0} to={stat.val} />{stat.suffix}

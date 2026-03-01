@@ -25,7 +25,7 @@ export default function DashboardPersonalPage() {
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
                 <Sparkles className="h-4 w-4 text-yellow-400 animate-pulse" /> Identity Secured
             </div>
-            <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic leading-none italic-shadow">Mi Identidad</h1>
+            <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic leading-none italic-shadow text-white">Mi Identidad</h1>
             <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Portal Ciudadano • Gestión de Activos Legales y Civiles</p>
         </div>
         

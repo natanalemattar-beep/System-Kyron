@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -78,7 +79,7 @@ export default function EstudioPoblacionPage() {
         <div className="p-10 space-y-12 w-full animate-in fade-in duration-1000">
             <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-l-8 border-primary pl-10 py-4 bg-primary/5 rounded-r-3xl">
                 <div className="space-y-2">
-                    <h1 className="text-5xl font-black tracking-tighter flex items-center gap-4 italic italic-shadow">
+                    <h1 className="text-5xl font-black tracking-tighter flex items-center gap-4 italic italic-shadow text-white">
                         <Users className="h-12 w-12 text-primary" />
                         POBLACIÓN A TRABAJAR
                     </h1>

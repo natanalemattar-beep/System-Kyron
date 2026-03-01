@@ -1,3 +1,4 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -16,11 +17,11 @@ export default function NaturalLayout({
 
     return (
       <div className="flex min-h-screen bg-[#020202] text-white relative overflow-hidden">
-          {/* Fondo Atmosférico Estelar Global envolvente */}
+          {/* Fondo Atmosférico Global */}
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute top-[-5%] right-[-5%] w-[1400px] h-[1400px] bg-primary/10 rounded-full blur-[200px] opacity-50 animate-pulse" />
-            <div className="absolute bottom-[-5%] left-[-5%] w-[1200px] h-[1200px] bg-blue-600/5 rounded-full blur-[180px] opacity-40" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+            <div className="absolute top-0 right-0 w-[1400px] h-[1400px] bg-primary/5 rounded-full blur-[200px] opacity-50" />
+            <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-blue-600/5 rounded-full blur-[180px] opacity-40" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
           </div>
 
           <AppSidebar />
@@ -33,13 +34,13 @@ export default function NaturalLayout({
               />
               
               <motion.main 
-                className="flex-1 w-full p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
               >
-                  {/* Sello de agua sutil de gran formato */}
-                  <div className="absolute top-1/4 right-40 opacity-[0.02] pointer-events-none -z-10 select-none">
+                  {/* Sello de agua sutil */}
+                  <div className="absolute top-1/4 right-40 opacity-[0.01] pointer-events-none -z-10">
                     <Sparkles className="w-[800px] h-[800px] text-primary" />
                   </div>
                   
