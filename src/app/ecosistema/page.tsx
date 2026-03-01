@@ -30,6 +30,7 @@ import { Separator } from "@/components/ui/separator";
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { cn, formatCurrency } from "@/lib/utils";
+import { Logo } from "@/components/logo";
 
 // --- CONSTANTES ---
 const COLORS = ['#0A2472', '#4CAF50', '#2196F3', '#9C27B0', '#FF9800'];
@@ -96,7 +97,7 @@ export default function EcosistemaKyron() {
         <StatCard title="CO₂ Evitado" value="320 kg" icon={Droplets} variant="accent" />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-2 glass-card border-none">
+        <Card className="lg:col-span-2 glass-card border-none shadow-2xl">
           <CardHeader><CardTitle>Evolución Financiera</CardTitle></CardHeader>
           <CardContent className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -114,7 +115,7 @@ export default function EcosistemaKyron() {
             </ResponsiveContainer>
           </CardContent>
         </Card>
-        <Card className="glass-card border-none">
+        <Card className="glass-card border-none shadow-2xl">
           <CardHeader><CardTitle>Distribución de Residuos</CardTitle></CardHeader>
           <CardContent className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -146,7 +147,7 @@ export default function EcosistemaKyron() {
         <StatCard title="Puntos Acumulados" value={sustainabilityData.points.toLocaleString()} icon={Zap} variant="accent" />
         <StatCard title="Árboles Equivalentes" value={sustainabilityData.trees} icon={History} variant="accent" />
       </div>
-      <Card className="glass-card border-none">
+      <Card className="glass-card border-none shadow-2xl">
         <CardHeader><CardTitle>Historial de Trazabilidad</CardTitle></CardHeader>
         <CardContent>
           <Table>
@@ -184,7 +185,7 @@ export default function EcosistemaKyron() {
           <div className="w-24 h-24 bg-primary/10 rounded-3xl flex items-center justify-center mb-6 border border-primary/10">
             <Logo className="h-16 w-16" />
           </div>
-          <h3 className="text-2xl font-black tracking-tighter mb-1">System Kyron</h3>
+          <h3 className="text-2xl font-black tracking-tighter mb-1 text-primary">System Kyron</h3>
           <p className="text-[10px] uppercase font-black tracking-widest text-[#4CAF50] mb-8">Ecosistema Verificado</p>
           
           <div className="w-full space-y-4 text-left mb-8">
@@ -233,7 +234,7 @@ export default function EcosistemaKyron() {
             { id: 'juridico', label: 'Jurídico', icon: Scale },
             { id: 'sostenibilidad', label: 'Sostenibilidad', icon: Recycle },
             { id: 'petroleo', label: 'Petróleo', icon: Droplets },
-            { id: 'tesoreria', label: 'Tesorería', icon: Wallet },
+            { id: 'tesoreria', label: 'Tesoreria', icon: Wallet },
             { id: 'mantenimiento', label: 'Mantenimiento', icon: Wrench },
             { id: 'fiscalizacion', label: 'Fiscalización', icon: ShieldCheck },
             { id: 'tienda', label: 'Tienda', icon: ShoppingBag },
@@ -286,10 +287,9 @@ export default function EcosistemaKyron() {
               {activeTab === 'inicio' && <ModuleInicio />}
               {activeTab === 'sostenibilidad' && <ModuleSostenibilidad />}
               {activeTab === 'identidad' && <ModuleIdentidad />}
-              {/* Otros módulos simplificados para la demo */}
               {!['inicio', 'sostenibilidad', 'identidad'].includes(activeTab) && (
                 <div className="flex flex-col items-center justify-center h-[60vh] text-center space-y-6">
-                  <div className="p-8 glass-card rounded-[3rem]">
+                  <div className="p-8 glass-card rounded-[3rem] shadow-2xl">
                     <LayoutDashboard className="h-20 w-20 text-[#0A2472]/20 mx-auto mb-4" />
                     <h3 className="text-2xl font-black text-[#0A2472] uppercase tracking-tighter">Módulo {activeTab}</h3>
                     <p className="text-slate-500 max-w-md mx-auto mt-4">Interfaz en proceso de sincronización con el núcleo central. Esta funcionalidad está disponible en la versión completa.</p>
@@ -323,7 +323,7 @@ export default function EcosistemaKyron() {
 function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: any) {
   const colorClass = variant === 'accent' ? 'text-[#4CAF50]' : variant === 'danger' ? 'text-[#F44336]' : 'text-[#0A2472]';
   return (
-    <Card className="glass-card hover:scale-[1.02] transition-all duration-300 border-none group relative overflow-hidden">
+    <Card className="glass-card hover:scale-[1.02] transition-all duration-300 border-none group relative overflow-hidden shadow-2xl">
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-4">
           <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{title}</p>
