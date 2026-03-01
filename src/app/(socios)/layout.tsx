@@ -1,8 +1,8 @@
 
 'use client';
 
-import type { ReactNode } from "react";
 import { AppHeader } from "@/components/app-header";
+import { AppSidebar } from "@/components/app-sidebar";
 import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 
@@ -14,11 +14,19 @@ export default function SociosLayout({
     const user = { name: "Socio", email: "socio@kyron.com", fallback: "SO" };
 
     return (
-      <div className="flex flex-col min-h-screen">
-          <AppHeader user={user} navGroups={sociosNavGroups} dashboardHref="/dashboard-socios" />
-          <main className="flex-1 container mx-auto p-4 md:p-8 pt-20 md:pt-24">
-              {children}
-          </main>
+      <div className="flex min-h-screen">
+          <AppSidebar />
+          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
+              <AppHeader user={user} navGroups={sociosNavGroups} dashboardHref="/dashboard-socios" />
+              <main className="flex-1 container mx-auto p-4 md:p-8 pt-20 md:pt-24">
+                  {children}
+              </main>
+              <footer className="p-6 border-t bg-card/30 text-center">
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">
+                  System Kyron v2.0 • 2026 • © Todos los derechos reservados
+                </p>
+              </footer>
+          </div>
           <ChatDialog />
       </div>
     );
