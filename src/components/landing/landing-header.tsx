@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -67,7 +68,7 @@ export function LandingHeader() {
                             <span className="text-xl font-bold tracking-tight text-primary">System Kyron</span>
                         </Link>
 
-                        <nav className="hidden md:flex items-center gap-1">
+                        <nav className="hidden lg:flex items-center gap-1">
                             {navLinks.map((link) => (
                                 <Button 
                                     key={link.href} 

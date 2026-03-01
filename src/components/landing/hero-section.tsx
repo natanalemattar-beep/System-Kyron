@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from "framer-motion";
@@ -6,14 +7,14 @@ import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-background">
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 text-center">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-10">
           
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -30,8 +31,8 @@ export function HeroSection() {
             transition={{ duration: 0.6 }}
             className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-foreground"
           >
-            Sistemas para la <br/> 
-            <span className="text-primary italic">Estrategia Empresarial</span>
+            Gestión Inteligente <br/> 
+            <span className="text-primary italic">para la Élite Empresarial</span>
           </motion.h1>
           
           <motion.p
@@ -40,31 +41,31 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
           >
-            Automatización fiscal y gestión de cumplimiento en una plataforma de grado corporativo diseñada para la claridad operativa y el crecimiento estratégico.
+            Automatización fiscal y operativa en una plataforma diseñada para la claridad técnica y el crecimiento estratégico.
           </motion.p>
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col items-center gap-10 pt-6"
+            className="flex flex-col items-center gap-12 pt-6"
           >
             <div className="flex flex-wrap justify-center gap-4">
-                <Button variant="outline" size="lg" className="h-12 px-8 text-[10px] uppercase tracking-[0.2em] rounded-xl border-primary/20 hover:bg-primary/5 hover:text-primary transition-all font-bold">
-                    EXPLORAR TECNOLOGÍA
+                <Button variant="outline" size="lg" className="h-12 px-10 text-[10px] uppercase tracking-[0.2em] rounded-xl border-primary/20 hover:bg-primary/5 hover:text-primary transition-all font-bold">
+                    EXPLORAR ECOSISTEMA
                 </Button>
-                <Button size="lg" className="btn-3d-primary h-12 px-8 text-[10px] uppercase tracking-[0.2em] rounded-xl">
-                    AGENDAR DEMO
+                <Button size="lg" className="btn-3d-primary h-12 px-10 text-[10px] uppercase tracking-[0.2em] rounded-xl shadow-xl">
+                    AGENDAR CONSULTORÍA
                 </Button>
             </div>
             
             <motion.div 
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                className="flex flex-col items-center gap-2.5 opacity-30 mt-4"
+                className="flex flex-col items-center gap-3 opacity-30 mt-8"
             >
-                <span className="text-[8px] font-black uppercase tracking-[0.4em]">Descubre el Ecosistema</span>
-                <ArrowDown className="h-4 w-4" />
+                <span className="text-[8px] font-black uppercase tracking-[0.4em]">Desliza para conocer más</span>
+                <ArrowDown className="h-4 w-4 text-primary" />
             </motion.div>
           </motion.div>
         </div>

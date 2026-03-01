@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -13,16 +14,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Logo } from "./logo";
-import { usePathname } from "next/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
     Menu, 
     Bell, 
     LogOut, 
     Lock,
-    LayoutGrid
+    LayoutGrid,
+    Search
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
+import { Input } from "./ui/input";
 
 interface AppHeaderProps {
     user: any;
@@ -41,7 +43,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 lg:left-64 right-0 z-40 border-b bg-background/80 backdrop-blur-xl h-16 flex items-center">
+    <header className="fixed top-0 left-0 lg:left-64 right-0 z-40 border-b bg-background/80 backdrop-blur-xl h-16 flex items-center shadow-sm">
       <div className="w-full px-4 md:px-8">
         <div className="flex items-center justify-between w-full">
           
@@ -62,25 +64,25 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                 </SheetContent>
               </Sheet>
             </div>
-            <Link href={dashboardHref} className="flex items-center gap-2 lg:hidden">
-              <Logo className="h-7 w-7" />
-              <span className="font-bold text-sm tracking-tight text-primary">System Kyron</span>
-            </Link>
-            <div className="hidden lg:block">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">Misión: Operaciones</span>
+            
+            <div className="hidden md:flex relative max-w-sm">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input placeholder="Buscar en el sistema..." className="pl-9 h-9 w-[300px] bg-secondary/30 border-none rounded-lg text-xs" />
             </div>
           </div>
 
-          <div className="flex items-center gap-2 md:gap-4">
-            <div className="hidden md:flex flex-col items-end gap-0 mr-2">
+          <div className="flex items-center gap-2 md:gap-6">
+            <div className="hidden md:flex flex-col items-end gap-0">
                 <span className="text-xs font-mono font-bold tracking-tight text-primary">
                     {time || '--:--:--'}
                 </span>
-                <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest opacity-50">Sync Active</span>
+                <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest opacity-50 italic">System Synced</span>
             </div>
 
-            <div className="flex items-center gap-1">
-                <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground relative hover:bg-primary/5 transition-all">
+            <div className="h-8 w-px bg-border/50 hidden md:block" />
+
+            <div className="flex items-center gap-1.5">
+                <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground relative hover:bg-primary/5 transition-all rounded-lg">
                     <Bell className="h-4 w-4" />
                     <span className="absolute top-2.5 right-2.5 h-1.5 w-1.5 bg-red-500 rounded-full" />
                 </Button>
@@ -95,24 +97,25 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-64 p-2 rounded-xl shadow-2xl border bg-background/98">
+              <DropdownMenuContent align="end" className="w-64 p-2 rounded-2xl shadow-2xl border bg-background/98 backdrop-blur-xl">
                 <DropdownMenuLabel className="p-4">
                    <div className="flex flex-col gap-1">
                       <p className="text-sm font-bold truncate tracking-tight">{user.name}</p>
-                      <p className="text-xs text-muted-foreground font-medium truncate opacity-70">{user.email}</p>
+                      <p className="text-[10px] text-muted-foreground font-bold truncate opacity-70 uppercase tracking-widest">{user.email}</p>
                    </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild className="rounded-lg">
-                  <Link href="/seguridad" className="flex items-center py-2 px-3">
+                <DropdownMenuItem asChild className="rounded-xl">
+                  <Link href="/seguridad" className="flex items-center py-2.5 px-3">
                       <Lock className="mr-3 h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm font-medium">Seguridad</span>
+                      <span className="text-sm font-medium">Seguridad de Cuenta</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="rounded-lg text-destructive focus:text-destructive focus:bg-destructive/5">
-                  <Link href="/" className="flex items-center py-2 px-3">
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild className="rounded-xl text-destructive focus:text-destructive focus:bg-destructive/5">
+                  <Link href="/" className="flex items-center py-2.5 px-3">
                       <LogOut className="mr-3 h-4 w-4" />
-                      <span className="text-sm font-bold">Salir del Sistema</span>
+                      <span className="text-sm font-bold">Cerrar Sesión</span>
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
