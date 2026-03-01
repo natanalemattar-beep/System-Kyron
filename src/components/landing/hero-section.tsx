@@ -1,8 +1,7 @@
-
 'use client';
 
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, Smartphone, Magnet, Phone, Globe, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Smartphone, Magnet, Phone, Globe, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
@@ -12,36 +11,36 @@ export function HeroSection() {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
       
-      {/* Background Animated Elements - "LA VIDA" */}
+      {/* Background Animated Elements - "VIDA" */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-        {/* Floating Tech Orbs */}
+        {/* Animated Orbs */}
         <motion.div 
           animate={{ 
-            scale: [1, 1.3, 1],
-            x: [0, 150, 0],
-            y: [0, -80, 0],
-            opacity: [0.15, 0.25, 0.15]
+            scale: [1, 1.2, 1],
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+            opacity: [0.2, 0.4, 0.2]
           }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[140px]"
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px]"
         />
         <motion.div 
           animate={{ 
             scale: [1.2, 1, 1.2],
-            x: [0, -120, 0],
-            y: [0, 100, 0],
-            opacity: [0.1, 0.2, 0.1]
+            x: [0, -80, 0],
+            y: [0, 80, 0],
+            opacity: [0.15, 0.3, 0.15]
           }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[120px]"
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/20 rounded-full blur-[100px]"
         />
         
         {/* Massive Background Logo - Controlled Scale */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[850px] aspect-square opacity-[0.03] flex items-center justify-center overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square opacity-[0.03] flex items-center justify-center pointer-events-none">
             <motion.div
               animate={{ 
-                  scale: [1, 1.08, 1],
-                  rotate: [0, 3, 0]
+                  scale: [1, 1.05, 1],
+                  rotate: [0, 2, 0]
               }}
               transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
               className="w-full h-full"
@@ -63,7 +62,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-10"
           >
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-primary/10 text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-2xl backdrop-blur-md border border-primary/20 animate-in fade-in slide-in-from-left-4 duration-1000">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-primary/10 text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-2xl backdrop-blur-md border border-primary/20">
               <Sparkles className="h-4 w-4 text-yellow-400 animate-pulse fill-yellow-400" />
               Ecosistema de Misión Crítica v2.6
             </div>

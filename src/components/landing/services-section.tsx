@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { loginOptions } from "@/lib/login-options";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { Info } from "lucide-react";
 
 export function ServicesSection() {
     return (
@@ -22,11 +21,7 @@ export function ServicesSection() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.4, delay: 0.05 * index }}
                         >
-                            <Link href={item.href} className="group block h-full bg-card hover:bg-muted/30 transition-all p-10 rounded-[1.5rem] border border-border/40 hover:border-primary/20 shadow-sm hover:shadow-xl relative overflow-hidden">
-                                <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-                                    <ArrowUpRight className="h-5 w-5 text-primary" />
-                                </div>
-                                
+                            <div className="h-full bg-card/50 backdrop-blur-sm p-10 rounded-[2rem] border border-border/40 hover:border-primary/20 shadow-sm transition-all duration-300 relative overflow-hidden group">
                                 <div className="mb-8">
                                     <div className="p-4 bg-primary/5 rounded-2xl w-fit group-hover:bg-primary/10 transition-colors border border-primary/5">
                                         <item.icon className="h-6 w-6 text-primary" />
@@ -34,15 +29,15 @@ export function ServicesSection() {
                                 </div>
                                 
                                 <h3 className="text-lg font-bold tracking-tight mb-3">{item.label}</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed font-medium line-clamp-3">
+                                <p className="text-muted-foreground text-sm leading-relaxed font-medium">
                                     {item.description}
                                 </p>
                                 
-                                <div className="mt-8 pt-8 border-t border-border/40 flex items-center justify-between">
-                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground group-hover:text-primary transition-colors">Ver Detalles</span>
-                                    <div className="h-1 w-8 rounded-full bg-primary/10 group-hover:bg-primary transition-all duration-500 group-hover:w-12" />
+                                <div className="mt-8 pt-8 border-t border-border/40 flex items-center gap-2">
+                                    <Info className="h-3 w-3 text-primary opacity-40" />
+                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Información del Módulo</span>
                                 </div>
-                            </Link>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
