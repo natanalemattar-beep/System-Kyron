@@ -8,11 +8,23 @@ import {
     Menu, 
     UserCircle,
     Zap,
+    ChevronDown,
+    LayoutGrid,
+    Sparkles
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { 
+    DropdownMenu, 
+    DropdownMenuContent, 
+    DropdownMenuItem, 
+    DropdownMenuTrigger,
+    DropdownMenuLabel,
+    DropdownMenuSeparator
+} from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { loginOptions } from "@/lib/login-options";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -42,7 +54,7 @@ export function LandingHeader() {
                     
                     {/* Left: Navigation (Desktop) */}
                     <nav className="hidden lg:flex items-center gap-8 flex-1">
-                        {navLinks.slice(0, 3).map((link) => (
+                        {navLinks.slice(0, 4).map((link) => (
                             <Link 
                                 key={link.href} 
                                 href={link.href as any} 
@@ -61,7 +73,7 @@ export function LandingHeader() {
                                 <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700"></div>
                                 <Logo className="h-12 w-12 mb-1 relative z-10 group-hover:scale-110 transition-transform duration-500" /> 
                             </div>
-                            <span className="text-sm font-black tracking-tighter text-primary uppercase leading-none mt-1">System Kyron</span>
+                            <span className="text-sm font-black tracking-tighter text-primary uppercase leading-none mt-1 italic">System Kyron</span>
                         </Link>
                     </div>
 
@@ -69,57 +81,83 @@ export function LandingHeader() {
                     <div className="flex items-center justify-end gap-4 flex-1">
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
-                            <Button variant="outline" asChild className="rounded-xl h-11 px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner">
-                                <Link href="/login" className="flex items-center gap-2">
-                                    <UserCircle className="h-4 w-4" /> Acceder
-                                </Link>
-                            </Button>
+                            
+                            {/* Desplegable de Acceso Organizado */}
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline" className="rounded-xl h-11 px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group">
+                                        <UserCircle className="h-4 w-4 mr-2 text-primary" /> 
+                                        Acceder
+                                        <ChevronDown className="h-3 w-3 ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-[500px] p-4 rounded-[2rem] border-primary/10 bg-background/95 backdrop-blur-3xl shadow-2xl grid grid-cols-2 gap-2 animate-in fade-in zoom-in-95 duration-200">
+                                    <DropdownMenuLabel className="col-span-2 px-4 py-2 flex items-center gap-2">
+                                        <Sparkles className="h-3 w-3 text-primary" />
+                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] opacity-50">Ecosistema de Portales</span>
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator className="col-span-2 mb-2 opacity-50" />
+                                    {loginOptions.map((option) => (
+                                        <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-3 cursor-pointer focus:bg-primary/5 group/item border border-transparent focus:border-primary/10 transition-all">
+                                            <Link href={option.href} className="flex flex-col items-start gap-1">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="p-2 bg-primary/10 rounded-xl group-hover/item:scale-110 transition-transform">
+                                                        <option.icon className="h-4 w-4 text-primary" />
+                                                    </div>
+                                                    <span className="font-black text-[11px] tracking-tight uppercase italic">{option.label}</span>
+                                                </div>
+                                                <p className="text-[9px] text-muted-foreground leading-tight font-medium opacity-70 group-hover/item:opacity-100">{option.description}</p>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+
                             <Button asChild className="rounded-xl h-11 px-8 btn-3d-primary text-[10px] font-black uppercase tracking-widest shadow-2xl">
                                 <Link href="/register">REGISTRO</Link>
                             </Button>
                         </div>
 
-                        {/* Hamburger Menu Trigger - ALWAYS VISIBLE */}
+                        {/* Hamburger Menu Trigger */}
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all active:scale-90">
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:max-w-xs p-0 flex flex-col overflow-hidden border-l-primary/10 shadow-[-20px_0_50px_rgba(0,0,0,0.1)]">
+                            <SheetContent side="right" className="w-full sm:max-w-sm p-0 flex flex-col overflow-hidden border-l-primary/10 shadow-[-20px_0_50px_rgba(0,0,0,0.1)]">
                                 <div className="p-10 border-b flex flex-col items-center gap-4 bg-gradient-to-br from-primary/10 to-transparent">
                                     <Logo className="h-16 w-16" /> 
                                     <div className="text-center">
-                                        <span className="text-xl font-black tracking-tighter text-primary uppercase">System Kyron</span>
+                                        <span className="text-xl font-black tracking-tighter text-primary uppercase italic">System Kyron</span>
                                         <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mt-1">Ecosistema Global</p>
                                     </div>
                                 </div>
-                                <nav className="flex flex-col p-8 gap-2 overflow-y-auto">
-                                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-6 italic">Protocolos de Acceso</p>
+                                <nav className="flex-grow flex flex-col p-8 gap-2 overflow-y-auto">
+                                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-6 italic">Navegación</p>
                                     {navLinks.map((link) => (
                                         <SheetClose asChild key={link.href}>
-                                            <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-3 border-b border-border/30 hover:pl-2 transition-all">
+                                            <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-4 border-b border-border/30 hover:pl-2 transition-all flex items-center justify-between group">
                                                 {link.label}
+                                                <LayoutGrid className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             </Link>
                                         </SheetClose>
                                     ))}
                                     
-                                    {/* Action Buttons in Menu - Fix for shadow overflow */}
-                                    <div className="pt-10 space-y-5 px-2">
-                                        <div className="p-1">
-                                            <Button variant="outline" asChild className="w-full justify-center rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md hover:bg-primary/5">
-                                                <Link href="/login" className="flex items-center gap-2">Acceder <UserCircle className="h-4 w-4" /></Link>
+                                    <div className="pt-10 space-y-4 px-2">
+                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic">Acceso Rápido</p>
+                                        <div className="grid grid-cols-1 gap-3">
+                                            <Button variant="outline" asChild className="w-full justify-center rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md">
+                                                <Link href="/login">Portal Maestro <UserCircle className="h-4 w-4 ml-2" /></Link>
                                             </Button>
-                                        </div>
-                                        <div className="p-1">
                                             <Button asChild className="w-full justify-center rounded-xl h-14 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
-                                                <Link href="/register" className="flex items-center gap-2">REGISTRARSE <Zap className="h-4 w-4 text-yellow-400 fill-yellow-400"/></Link>
+                                                <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400"/></Link>
                                             </Button>
                                         </div>
                                     </div>
                                 </nav>
                                 <div className="mt-auto p-8 text-center border-t border-border/50 bg-muted/20">
-                                    <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">Status: Sincronizado</span>
+                                    <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">System Status: Synchronized</span>
                                 </div>
                             </SheetContent>
                         </Sheet>
