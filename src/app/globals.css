@@ -23,7 +23,7 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221 83% 53%;
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
 
   .dark {
@@ -61,21 +61,21 @@
 
 @layer utilities {
   .minimal-card {
-    @apply bg-card border border-border/40 shadow-sm rounded-xl transition-all duration-300 hover:shadow-md hover:border-primary/10;
+    @apply bg-card border border-border/40 shadow-sm rounded-3xl transition-all duration-500 hover:shadow-xl hover:border-primary/10;
   }
 
   .btn-3d-primary {
-    @apply bg-primary text-primary-foreground font-medium px-6 py-2.5 rounded-lg transition-all duration-200 
+    @apply bg-primary text-primary-foreground font-black px-6 py-3 rounded-2xl transition-all duration-200 
            hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_rgb(5,18,58)] hover:shadow-[0_2px_0_rgb(5,18,58)];
   }
 
   .btn-3d-secondary {
-    @apply bg-secondary text-secondary-foreground font-medium px-6 py-2.5 rounded-lg transition-all duration-200 
+    @apply bg-secondary text-secondary-foreground font-black px-6 py-3 rounded-2xl transition-all duration-200 
            hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_rgb(34,77,36)] hover:shadow-[0_2px_0_rgb(34,77,36)];
   }
 
   .glass-panel {
-    @apply bg-background/60 backdrop-blur-md border border-white/10 dark:border-white/5 shadow-xl;
+    @apply bg-background/80 backdrop-blur-2xl border border-border/40 shadow-2xl;
   }
   
   .custom-scrollbar::-webkit-scrollbar {
