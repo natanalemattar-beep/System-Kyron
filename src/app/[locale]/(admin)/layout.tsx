@@ -25,13 +25,13 @@ export default function AdminLayout({
           <AppSidebar />
           <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
               <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-empresa" />
+              {/* Main Fluido: Sin contenedores restrictivos para laptops */}
               <motion.main 
                 className="flex-1 w-full p-4 md:p-10 pt-20 md:pt-24 relative"
                 initial={{ opacity: 0, scale: 0.99 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
               >
-                  {/* Watermark de Finanzas */}
                   <div className="absolute bottom-20 left-10 opacity-[0.02] pointer-events-none">
                     <Landmark className="w-96 h-96 text-primary" />
                   </div>

@@ -41,6 +41,14 @@ export const pathnames = {
   '/islr-arc': '/islr-arc',
   '/libro-compra-venta': '/libro-compra-venta',
   '/venta-linea': '/venta-linea',
+  '/arqueo-caja': '/arqueo-caja',
+  '/estrategias-ventas': '/estrategias-ventas',
+  '/facturacion': '/facturacion',
+  '/facturacion-credito': '/facturacion-credito',
+  '/modelo-factura': '/modelo-factura',
+  '/nota-debito': '/nota-debito',
+  '/nota-credito': '/nota-credito',
+  '/proformas': '/proformas',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({

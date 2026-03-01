@@ -1,6 +1,7 @@
+
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, ShieldAlert, Smartphone, Recycle, Sparkles, ArrowRight, Activity, Fingerprint, Radio } from 'lucide-react';
 import { Link } from "@/navigation";
@@ -18,7 +19,7 @@ const kpiData = [
 export default function DashboardPersonalPage() {
   return (
     <div className="space-y-8 w-full">
-      {/* Header Sección con Identidad Refinada */}
+      {/* Header con Identidad Refinada - Sin límites de ancho */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2">
         <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[9px] font-black uppercase tracking-[0.3em] mb-2 border border-primary/10">
@@ -42,7 +43,7 @@ export default function DashboardPersonalPage() {
         </div>
       </header>
       
-      {/* Grid de KPIs */}
+      {/* Grid de KPIs - Fluido */}
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {kpiData.map((kpi, index) => (
             <motion.div
@@ -67,7 +68,7 @@ export default function DashboardPersonalPage() {
       </div>
 
       <div className="grid gap-8 grid-cols-1 lg:grid-cols-12 items-start">
-        {/* Historial */}
+        {/* Historial Extendido */}
         <Card className="lg:col-span-8 border-none shadow-xl bg-card/40 backdrop-blur-md rounded-[2.5rem] overflow-hidden border border-white/5">
             <CardHeader className="p-8 border-b border-white/5 bg-muted/5">
               <div className="flex items-center justify-between">
@@ -105,7 +106,7 @@ export default function DashboardPersonalPage() {
             </div>
         </Card>
 
-        {/* Columna Lateral de Acciones - Línea Kyron */}
+        {/* Columna Lateral de Acciones - Línea Kyron (Solo Conectividad) */}
         <div className="lg:col-span-4 space-y-6">
            <Card className="border-none shadow-2xl bg-primary text-primary-foreground rounded-[2.5rem] overflow-hidden relative group min-h-[300px] flex flex-col justify-between">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 group-hover:scale-110 transition-all duration-700">
