@@ -1,7 +1,8 @@
+
 'use client';
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
   BarChart3, Users, Scale, Recycle, Droplets, Wallet, 
@@ -41,11 +42,12 @@ export function AppSidebar() {
       <nav className="flex-grow py-6 px-4 space-y-1 overflow-y-auto custom-scrollbar">
         <p className="text-[10px] font-bold uppercase text-muted-foreground/50 tracking-widest mb-4 px-2">Terminal Principal</p>
         {menuItems.map((item) => {
+          // usePathname from @/navigation already excludes the locale prefix
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
           return (
             <Link 
               key={item.id} 
-              href={item.href}
+              href={item.href as any}
               className={cn(
                 "group flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 relative",
                 isActive 

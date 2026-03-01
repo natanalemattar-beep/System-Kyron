@@ -1,16 +1,17 @@
 
 import createMiddleware from 'next-intl/middleware';
-import {locales} from './i18n';
+import {locales, defaultLocale} from './i18n/request';
  
 export default createMiddleware({
-  // A list of all locales that are supported
-  locales,
- 
-  // Used when no locale matches
-  defaultLocale: 'es'
+  locales: ['en', 'es'],
+  defaultLocale: 'es',
+  localePrefix: 'as-needed'
 });
  
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/', '/(es|en)/:path*']
+  // Match all pathnames except for
+  // - API routes
+  // - _next (Next.js internals)
+  // - static files (e.g. /favicon.ico, /images/*)
+  matcher: ['/((?!api|_next|.*\\..*).*)']
 };
