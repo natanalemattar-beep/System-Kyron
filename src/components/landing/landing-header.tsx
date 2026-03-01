@@ -95,7 +95,7 @@ export function LandingHeader() {
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="outline" className="rounded-xl h-10 md:h-11 px-3 md:px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group bg-background/50 backdrop-blur-sm">
                                         <UserCircle className="h-4 w-4 md:mr-2 text-primary" /> 
-                                        <span className="hidden sm:inline">ACCESO</span>
+                                        <span className="hidden sm:inline">ACCEDER</span>
                                         <ChevronDown className="h-3 w-3 ml-1 md:ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
