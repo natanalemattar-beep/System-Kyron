@@ -33,7 +33,7 @@ export default function MainLayout({
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
               >
-                  {/* Arquitectura de Pantalla Completa Real: Sin contenedores restrictivos */}
+                  {/* Arquitectura de Pantalla Completa Real: Contenido expansivo */}
                   <div className="w-full">
                     {children}
                   </div>

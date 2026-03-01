@@ -25,8 +25,8 @@ import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
 const teamData = [
-  { label: "NOMBRE DEL PROYECTO", value: "AutoMind AI - System Kyron" },
-  { label: "INTEGRANTES DEL EQUIPO", value: "Miguel Uzcategui, Miguel Angel Goites, Joaquin de Barros" },
+  { label: "NOMBRE DEL PROYECTO", value: "System Kyron" },
+  { label: "INTEGRANTES DEL EQUIPO", value: "Carlos Mattar, Sebastian Garrido, Marcos Sousa" },
   { label: "INSTITUCIÓN EDUCATIVA", value: "U.E. Colegio Gabriela Mistral" },
   { label: "PAÍS/CIUDAD", value: "Venezuela, La Guaira" },
 ];
@@ -84,7 +84,7 @@ const problemAnalysis = {
 
 const proposedSolution = {
   titulo: "SOLUCIÓN PROPUESTA",
-  desarrollo: "Implementación del Ecosistema de Gestión Digital Kyron para la digitalización del 100% de los archivos académicos y administrativos del Colegio Gabriela Mistral. Utilizando IA para el reconocimiento de documentos (OCR) y almacenamiento seguro en la nube, permitiendo búsquedas instantáneas por Cédula o Nombre, eliminando el riesgo de pérdida física y reduciendo el tiempo de gestión en un 95%."
+  desarrollo: "Implementación del Ecosistema de Gestión Digital System Kyron para la digitalización del 100% de los archivos académicos y administrativos del Colegio Gabriela Mistral. Utilizando IA para el reconocimiento de documentos (OCR) y almacenamiento seguro en la nube, permitiendo búsquedas instantáneas por Cédula o Nombre, eliminando el riesgo de pérdida física y reduciendo el tiempo de gestión en un 95%."
 };
 
 export default function EstudioPoblacionPage() {
@@ -93,14 +93,14 @@ export default function EstudioPoblacionPage() {
     const handleDownloadWord = () => {
         const content = `
             <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head><meta charset='utf-8'><title>Informe Técnico - Gabriela Mistral</title>
+            <head><meta charset='utf-8'><title>Informe Técnico - System Kyron</title>
             <style>
                 body { font-family: 'Arial', sans-serif; padding: 40px; color: #000; }
                 table { width: 100%; border-collapse: collapse; margin-bottom: 30px; page-break-inside: avoid; }
                 th, td { border: 1px solid #000; padding: 12px; text-align: left; }
                 th { background-color: #f2f2f2; font-weight: bold; text-transform: uppercase; font-size: 10pt; }
                 .main-title { text-align: center; font-size: 22pt; font-weight: bold; margin-bottom: 40px; color: #0A2472; }
-                .section-title { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin-top: 30px; margin-bottom: 10px; color: #4CAF50; border-bottom: 2px solid #eee; }
+                .section-title { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin-top: 30px; margin-bottom: 10px; color: #2563eb; border-bottom: 2px solid #eee; }
                 ul { margin: 0; padding-left: 20px; }
                 .highlight-box { border: 2px solid #0A2472; padding: 15px; background-color: #f9f9f9; }
             </style>
@@ -157,7 +157,7 @@ export default function EstudioPoblacionPage() {
                     <p><strong>PROYECTO:</strong> ${proposedSolution.desarrollo}</p>
                 </div>
 
-                <p style="margin-top: 50px; font-size: 9pt; text-align: center; color: #666;">Documento Generado por System Kyron v2.6 • Nodo La Guaira • AutoMind AI</p>
+                <p style="margin-top: 50px; font-size: 9pt; text-align: center; color: #666;">Documento Generado por System Kyron v2.6 • Nodo La Guaira</p>
             </body>
             </html>
         `;
@@ -166,7 +166,7 @@ export default function EstudioPoblacionPage() {
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Informe_Zedu_Completo_Gabriela_Mistral.doc';
+        fileDownload.download = 'Informe_Tecnico_SystemKyron_GabrielaMistral.doc';
         fileDownload.click();
         document.body.removeChild(fileDownload);
 
@@ -197,11 +197,10 @@ export default function EstudioPoblacionPage() {
 
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
                 
-                {/* PARTE 1 & 2: EQUIPO Y ZEDU */}
                 <div className="xl:col-span-4 space-y-10">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> Equipo AutoMind AI
+                            <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> Equipo de Gestión
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl">
                             <CardContent className="p-0">
@@ -244,7 +243,6 @@ export default function EstudioPoblacionPage() {
                     </section>
                 </div>
 
-                {/* PARTE 3 & 4: DEMOGRAFÍA Y PROBLEMA */}
                 <div className="xl:col-span-8 space-y-10">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6">Métricas Poblacionales (La Atlántida)</h3>
@@ -287,7 +285,6 @@ export default function EstudioPoblacionPage() {
                             </div>
                         </Card>
 
-                        {/* PARTE 5: SOLUCIÓN PROPUESTA */}
                         <Card className="border-none bg-primary p-12 text-primary-foreground relative overflow-hidden shadow-glow rounded-[3rem]">
                             <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12">
                                 <Zap className="h-64 w-64 text-white" />
