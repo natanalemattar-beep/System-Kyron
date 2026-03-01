@@ -6,23 +6,22 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
-import Image from "next/image";
 
 export function HeroSection() {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
       
-      {/* Background Large Logo - Massive but controlled scale */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[800px] aspect-square opacity-[0.03] pointer-events-none -z-10 overflow-hidden">
+      {/* Background Large Logo - Contained but massive */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1200px] aspect-square opacity-[0.03] pointer-events-none -z-10 overflow-hidden px-4">
           <motion.div
             animate={{ 
-                scale: [1, 1.05, 1],
+                scale: [1, 1.02, 1],
                 opacity: [0.02, 0.04, 0.02]
             }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
             className="w-full h-full flex items-center justify-center"
           >
-            <Logo className="w-full h-full" />
+            <Logo className="w-full h-full max-w-full max-h-full" />
           </motion.div>
       </div>
 
@@ -80,7 +79,6 @@ export function HeroSection() {
             transition={{ duration: 1 }}
             className="relative"
           >
-            {/* Visual Showcase de Productos con Vida */}
             <div className="grid grid-cols-2 gap-6 p-4">
                 <Card className={cn(
                     "p-8 bg-card/60 backdrop-blur-xl border-primary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all group overflow-hidden border"
@@ -125,7 +123,6 @@ export function HeroSection() {
                 </div>
             </div>
             
-            {/* Ambient Glow */}
             <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-primary/20 rounded-full blur-[120px] animate-pulse" />
           </motion.div>
 

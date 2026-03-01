@@ -75,14 +75,14 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
-                        {/* Menu Trigger (Visible on PC too as requested) */}
+                        {/* Menu Trigger (Visible on PC too) */}
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all">
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:max-w-xs p-0 flex flex-col">
+                            <SheetContent side="right" className="w-full sm:max-w-xs p-0 flex flex-col overflow-hidden">
                                 <div className="p-8 border-b flex flex-col items-center gap-3 bg-gradient-to-br from-primary/10 to-transparent">
                                     <Logo className="h-14 w-14" /> 
                                     <span className="text-xl font-black tracking-tighter text-primary uppercase">System Kyron</span>
@@ -97,8 +97,8 @@ export function LandingHeader() {
                                             </Link>
                                         </SheetClose>
                                     ))}
-                                    <div className="pt-8 space-y-4">
-                                        <Button variant="outline" asChild className="w-full justify-center rounded-xl h-12 font-black uppercase text-[10px] tracking-widest border-primary/20">
+                                    <div className="pt-8 space-y-4 px-1">
+                                        <Button variant="outline" asChild className="w-full justify-center rounded-xl h-12 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-sm">
                                             <Link href="/login">Acceder <UserCircle className="ml-2 h-4 w-4" /></Link>
                                         </Button>
                                         <Button asChild className="w-full justify-center rounded-xl h-12 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
