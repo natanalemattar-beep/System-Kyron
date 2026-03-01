@@ -11,7 +11,6 @@ import {
   Footer
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
-import { LandingSidebar } from "@/components/landing/landing-sidebar";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 
@@ -24,23 +23,20 @@ export default function LandingPage() {
   });
 
   return (
-    <div className="relative min-h-screen bg-background flex flex-col lg:flex-row overflow-x-hidden">
+    <div className="relative min-h-screen bg-background flex flex-col overflow-x-hidden">
       <DynamicBackground />
       
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1.5 bg-primary origin-left z-[150] shadow-[0_0_15px_rgba(10,36,114,0.5)]"
+        className="fixed top-0 left-0 right-0 h-1.5 bg-primary origin-left z-[200] shadow-[0_0_15px_rgba(10,36,114,0.5)]"
         style={{ scaleX }}
       />
 
-      {/* Sidebar para computadoras (Panel Izquierdo) */}
-      <LandingSidebar />
-      
-      {/* Header para móviles (Logo Centrado) */}
+      {/* Header Informativo Global (Visibilidad Total) */}
       <LandingHeader />
       
-      {/* Contenido Principal con margen para Sidebar en computadoras */}
-      <main className="relative flex-1 w-full lg:ml-64 transition-all duration-300">
+      {/* Contenido Principal Full Width */}
+      <main className="relative flex-1 w-full transition-all duration-300">
         <div className="max-w-[1600px] mx-auto pb-20">
             <section id="inicio">
               <HeroSection />

@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Zap, Smartphone, Magnet, Phone, Globe } from "lucide-react";
+import { ArrowRight, Zap, Smartphone, Magnet, Phone, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
       {/* Background Large Logo - Marca de agua tecnológica controlada */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[600px] aspect-square opacity-[0.03] pointer-events-none -z-10">
           <motion.div
@@ -81,41 +81,47 @@ export function HeroSection() {
           >
             {/* Visual Showcase de Productos con Vida */}
             <div className="grid grid-cols-2 gap-6 p-4">
-                <Card className="p-8 bg-card/60 backdrop-blur-xl border-primary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all group overflow-hidden">
+                <div className={cn(
+                    "p-8 bg-card/60 backdrop-blur-xl border-primary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all group overflow-hidden border"
+                )}>
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
                     <div className="p-4 bg-primary/10 rounded-2xl w-fit mb-6 relative z-10">
                         <Smartphone className="h-10 w-10 text-primary" />
                     </div>
                     <h3 className="font-black text-base uppercase italic mb-2 relative z-10">Kyron Pro X</h3>
                     <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Venta de Dispositivos de Alta Gama</p>
-                </Card>
+                </div>
                 
-                <Card className="p-8 bg-card/60 backdrop-blur-xl border-secondary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all mt-12 group overflow-hidden">
+                <div className={cn(
+                    "p-8 bg-card/60 backdrop-blur-xl border-secondary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all mt-12 group overflow-hidden border"
+                )}>
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
                     <div className="p-4 bg-secondary/10 rounded-2xl w-fit mb-6 relative z-10">
                         <Magnet className="h-10 w-10 text-secondary" />
                     </div>
                     <h3 className="font-black text-base uppercase italic mb-2 relative z-10">Smart Bins</h3>
                     <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Tecnología de Magnetismo Inteligente</p>
-                </Card>
+                </div>
                 
-                <Card className="p-8 bg-card/60 backdrop-blur-xl border-primary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all -mt-6 group overflow-hidden">
+                <div className={cn(
+                    "p-8 bg-card/60 backdrop-blur-xl border-primary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all -mt-6 group overflow-hidden border"
+                )}>
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
                     <div className="p-4 bg-primary/10 rounded-2xl w-fit mb-6 relative z-10">
                         <Phone className="h-10 w-10 text-primary" />
                     </div>
                     <h3 className="font-black text-base uppercase italic mb-2 relative z-10">Línea Kyron</h3>
                     <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Asignación Inmediata de Números</p>
-                </Card>
+                </div>
                 
-                <Card className="p-8 bg-primary text-white rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all mt-6 group overflow-hidden border-none">
+                <div className="p-8 bg-primary text-white rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all mt-6 group overflow-hidden border-none relative">
                     <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="p-4 bg-white/10 rounded-2xl w-fit mb-6 relative z-10">
                         <Globe className="h-10 w-10 text-white" />
                     </div>
                     <h3 className="font-black text-base uppercase italic mb-2 relative z-10">Ecosistema</h3>
                     <p className="text-[9px] text-white/70 font-bold uppercase tracking-widest relative z-10 leading-tight">Finanzas y Gestión Blockchain</p>
-                </Card>
+                </div>
             </div>
             
             {/* Ambient Glow */}
@@ -126,12 +132,4 @@ export function HeroSection() {
       </div>
     </section>
   );
-}
-
-function Card({ children, className, onClick }: { children: React.ReactNode, className?: string, onClick?: () => void }) {
-    return (
-        <div onClick={onClick} className={cn("relative overflow-hidden border", className)}>
-            {children}
-        </div>
-    );
 }
