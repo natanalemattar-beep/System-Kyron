@@ -29,9 +29,9 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-black/40 backdrop-blur-3xl border-r border-white/10 flex flex-col z-50 hidden lg:flex shadow-[25px_0_60px_-15px_rgba(0,0,0,0.7)] overflow-hidden">
-      {/* Relleno de identidad lateral para evitar el hueco negro */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-transparent pointer-events-none" />
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-black/60 backdrop-blur-3xl border-r border-white/10 flex flex-col z-50 hidden lg:flex shadow-[20px_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
+      {/* Gradiente de Relleno Lateral */}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent pointer-events-none opacity-50" />
       
       <div className="p-10 border-b border-white/5 flex flex-col items-center gap-6 relative z-10 bg-white/[0.02]">
         <Link href="/" className="flex flex-col items-center gap-4 transition-all hover:scale-105 group">
