@@ -55,24 +55,31 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig" 1, "alt" 1;
   }
 }
 
 @layer utilities {
   .glass-card {
-    @apply bg-white/10 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl;
+    @apply bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl;
   }
   
   .btn-3d-primary {
-    @apply bg-[#0A2472] text-white shadow-[0_6px_0_0_#061a5a] active:shadow-none active:translate-y-1 transition-all duration-150 border-none rounded-2xl;
+    @apply bg-[#0A2472] text-white shadow-[0_6px_0_0_#061a5a] active:shadow-none active:translate-y-1 transition-all duration-150 border-none rounded-2xl font-black uppercase tracking-widest text-[10px];
   }
   
   .btn-3d-secondary {
-    @apply bg-[#4CAF50] text-white shadow-[0_6px_0_0_#3d8b40] active:shadow-none active:translate-y-1 transition-all duration-150 border-none rounded-2xl;
+    @apply bg-[#4CAF50] text-white shadow-[0_6px_0_0_#3d8b40] active:shadow-none active:translate-y-1 transition-all duration-150 border-none rounded-2xl font-black uppercase tracking-widest text-[10px];
   }
 
   .text-glow {
     text-shadow: 0 0 15px hsl(var(--primary) / 0.3);
+  }
+
+  .crystal-panel {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 }

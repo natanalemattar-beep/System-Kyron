@@ -9,7 +9,7 @@ import {
   Smartphone, Share2, MessageCircle, ChevronRight, Send, History, Recycle,
   Trash2, CreditCard, LayoutDashboard, Database, Server, BrainCircuit,
   Zap, Award, Globe, Key, Lock, Layers, Target, Calculator, Gift, Heart, Calendar,
-  Activity, Thermometer, Gauge, Cpu, Radio, Box
+  Activity, Thermometer, Gauge, Cpu, Radio, Box, Package, ShieldAlert
 } from 'lucide-react';
 import { 
   LineChart, Line, AreaChart, Area, BarChart, Bar, 
@@ -30,13 +30,47 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { cn, formatCurrency } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { AppSidebar } from "@/components/app-sidebar";
+import { AppHeader } from "@/components/app-header";
 
 const COLORS = ['#0A2472', '#4CAF50', '#2196F3', '#9C27B0', '#FF9800'];
 
 export default function EcosistemaKyron() {
   const [activeTab, setActiveTab] = useState('inicio');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { toast } = useToast();
+
+  const user = { name: "Director Ejecutivo", email: "ceo@kyron.com", fallback: "CE" };
+
+  // Mock navigation groups for the header
+  const headerNavGroups = [
+    {
+        title: "Operaciones",
+        icon: Cog,
+        items: [
+            { href: "#", label: "Producción Petróleo", icon: Droplets },
+            { href: "#", label: "Mantenimiento Preventivo", icon: Wrench },
+            { href: "#", label: "Logística y Tienda", icon: ShoppingBag },
+        ]
+    },
+    {
+        title: "Finanzas",
+        icon: Wallet,
+        items: [
+            { href: "#", label: "Consolidado Bancario", icon: Landmark },
+            { href: "#", label: "Cuentas por Cobrar", icon: BarChart3 },
+            { href: "#", label: "Flujo de Caja IA", icon: TrendingUp },
+        ]
+    },
+    {
+        title: "Legal",
+        icon: Scale,
+        items: [
+            { href: "#", label: "Escritorio Jurídico", icon: Gavel },
+            { href: "#", label: "Fiscalización SENIAT", icon: ShieldCheck },
+            { href: "#", label: "Identidad Digital", icon: Fingerprint },
+        ]
+    }
+  ];
 
   const [sustainabilityData, setSustainabilityData] = useState({
     today: 245,
@@ -49,14 +83,6 @@ export default function EcosistemaKyron() {
       { id: 3, date: "2026-03-01 11:45", type: "Vidrio", weight: 2.1, points: 100 },
     ]
   });
-
-  const [oilAssets, setOilAssets] = useState([
-    { id: 1, name: "Pozo 12 (Zulia)", bpd: 1250, pressure: "2450 psi", temp: "85°C", status: "optimal" },
-    { id: 2, name: "Refinería Amuay", bpd: 45000, pressure: "1850 psi", temp: "120°C", status: "warning" },
-    { id: 3, name: "Estación Bachaquero", bpd: 8500, pressure: "2100 psi", temp: "72°C", status: "optimal" },
-  ]);
-
-  const [selectedAsset, setSelectedAsset] = useState(oilAssets[0]);
 
   const simulateRecycling = () => {
     const weights = [0.3, 0.5, 1.2, 0.8];
@@ -75,236 +101,235 @@ export default function EcosistemaKyron() {
         type,
         weight,
         points
-      }, ...prev.history].slice(0, 10)
+      }, ...prev.history].slice(0, 5)
     }));
 
     toast({
-      title: "Reciclaje Exitoso",
-      description: `Has depositado ${weight}kg de ${type}. +${points} puntos verdes.`,
+      title: "Reciclaje Procesado",
+      description: `Se han registrado ${weight}kg de ${type}. Puntos acreditados.`,
     });
   };
 
   const ModuleInicio = () => (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8 animate-in fade-in duration-700">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Ingresos Mensuales" value="$ 450.000" trend="+12%" icon={ArrowUpRight} />
-        <StatCard title="Gastos Operativos" value="$ 280.000" trend="-5%" icon={ArrowDownRight} variant="danger" />
-        <StatCard title="Margen Neto" value="38%" icon={BarChart3} variant="accent" />
-        <StatCard title="Riesgo Fiscal" value="0%" icon={ShieldCheck} variant="accent" />
+        <StatCard title="Liquidez Total" value="Bs. 12.4M" trend="+8.2%" icon={Wallet} />
+        <StatCard title="Producción Hoy" value="85.4k BPD" trend="+1.5%" icon={Droplets} />
+        <StatCard title="Estatus Fiscal" value="Cero Riesgo" icon={ShieldCheck} variant="accent" />
+        <StatCard title="Puntos Verdes" value="12.450" icon={Recycle} variant="accent" />
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-2 glass-card border-none shadow-2xl">
-          <CardHeader><CardTitle>Evolución Financiera</CardTitle></CardHeader>
-          <CardContent className="h-80">
+        <Card className="lg:col-span-2 crystal-panel border-none">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+                <BarChart3 className="text-primary" />
+                Desempeño del Ecosistema
+            </CardTitle>
+            <CardDescription>Consolidado operativo de los últimos 6 meses.</CardDescription>
+          </CardHeader>
+          <CardContent className="h-[350px]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={[
-                { m: 'Sep', i: 380, g: 240 }, { m: 'Oct', i: 410, g: 255 }, { m: 'Nov', i: 395, g: 230 },
-                { m: 'Dic', i: 480, g: 290 }, { m: 'Ene', i: 420, g: 260 }, { m: 'Feb', i: 450, g: 280 }
+                { m: 'Oct', i: 380, g: 240 }, { m: 'Nov', i: 410, g: 255 }, { m: 'Dic', i: 450, g: 230 },
+                { m: 'Ene', i: 480, g: 290 }, { m: 'Feb', i: 520, g: 260 }, { m: 'Mar', i: 580, g: 280 }
               ]}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+                <defs>
+                    <linearGradient id="colorI" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#0A2472" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#0A2472" stopOpacity={0}/>
+                    </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
                 <XAxis dataKey="m" axisLine={false} tickLine={false} />
                 <YAxis axisLine={false} tickLine={false} />
                 <Tooltip />
-                <Area type="monotone" dataKey="i" stroke="#0A2472" fill="#0A2472" fillOpacity={0.1} />
-                <Area type="monotone" dataKey="g" stroke="#F44336" fill="#F44336" fillOpacity={0.1} />
+                <Area type="monotone" dataKey="i" stroke="#0A2472" strokeWidth={3} fill="url(#colorI)" />
+                <Area type="monotone" dataKey="g" stroke="#4CAF50" strokeWidth={3} fill="transparent" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
-        <Card className="glass-card border-none shadow-2xl">
-          <CardHeader><CardTitle>Distribución de Residuos</CardTitle></CardHeader>
-          <CardContent className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie data={[{n:'Papel', v:60}, {n:'Plástico', v:25}, {n:'Vidrio', v:10}, {n:'Metal', v:5}]} dataKey="v" innerRadius={60} outerRadius={80} paddingAngle={5}>
-                  {COLORS.map((c, i) => <Cell key={i} fill={c} />)}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+        
+        <div className="space-y-6">
+            <Card className="crystal-panel border-none">
+                <CardHeader><CardTitle className="text-sm font-black uppercase tracking-widest text-primary/60">Alertas de Misión</CardTitle></CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-red-500/10 border border-red-500/20">
+                        <ShieldAlert className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                        <div>
+                            <p className="text-xs font-black uppercase tracking-tight text-red-600">Presión Crítica</p>
+                            <p className="text-[10px] text-muted-foreground leading-tight">Pozo 12 (Zulia) reporta anomalía en cabezal de flujo.</p>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-orange-500/10 border border-orange-500/20">
+                        <Calendar className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
+                        <div>
+                            <p className="text-xs font-black uppercase tracking-tight text-orange-600">Mantenimiento Pendiente</p>
+                            <p className="text-[10px] text-muted-foreground leading-tight">Bomba B-45 requiere cambio de sellos antes del 20/04.</p>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+            
+            <Card className="bg-[#0A2472] text-white border-none shadow-2xl overflow-hidden relative">
+                <div className="absolute top-0 right-0 p-8 opacity-10"><Fingerprint className="h-32 w-32" /></div>
+                <CardHeader>
+                    <CardTitle className="text-lg font-black uppercase tracking-tighter">Identidad 3D</CardTitle>
+                    <CardDescription className="text-white/60 text-xs">Empresa Verificada Blockchain</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="p-4 bg-white/10 rounded-2xl border border-white/10 backdrop-blur-md">
+                        <p className="text-[10px] font-black uppercase tracking-widest opacity-60">RIF Jurídico</p>
+                        <p className="text-xl font-mono font-bold tracking-tighter">J-12345678-9</p>
+                    </div>
+                </CardContent>
+                <CardFooter>
+                    <Button variant="secondary" className="w-full btn-3d-secondary h-10">Ver Credenciales</Button>
+                </CardFooter>
+            </Card>
+        </div>
       </div>
     </div>
   );
 
   return (
-    <div className="flex h-screen w-full bg-[#f8fafc] overflow-hidden text-slate-900 font-sans">
-      {/* SIDEBAR */}
-      <aside className={cn(
-        "bg-[#0A2472] text-white flex flex-col transition-all duration-500 z-30 shadow-2xl",
-        isSidebarOpen ? 'w-72' : 'w-24'
-      )}>
-        <div className="p-8 flex items-center gap-4 border-b border-white/5">
-          <div className="bg-white p-2 rounded-2xl shadow-xl shrink-0">
-            <Logo className="text-[#0A2472] h-8 w-8" />
-          </div>
-          {isSidebarOpen && <span className="font-black text-xl tracking-tighter uppercase italic opacity-90">Kyron</span>}
-        </div>
+    <div className="flex min-h-screen bg-background text-slate-900 overflow-hidden">
+      <AppSidebar />
+      
+      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
+        <AppHeader user={user} navGroups={headerNavGroups} dashboardHref="/ecosistema" />
         
-        <nav className="flex-grow py-8 px-4 space-y-2 overflow-y-auto">
-          {[
-            { id: 'inicio', label: 'Inicio', icon: Home },
-            { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3 },
-            { id: 'rrhh', label: 'RR.HH.', icon: Users },
-            { id: 'juridico', label: 'Jurídico', icon: Scale },
-            { id: 'sostenibilidad', label: 'Sostenibilidad', icon: Recycle },
-            { id: 'petroleo', label: 'Petróleo', icon: Droplets },
-            { id: 'tesoreria', label: 'Tesoreria', icon: Wallet },
-            { id: 'mantenimiento', label: 'Mantenimiento', icon: Wrench },
-            { id: 'fiscalizacion', label: 'Fiscalización', icon: ShieldCheck },
-            { id: 'tienda', label: 'Tienda', icon: ShoppingBag },
-            { id: 'identidad', label: 'Identidad Digital', icon: Fingerprint },
-            { id: 'configuracion', label: 'Configuración', icon: Cog },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={cn(
-                "w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 group relative",
-                activeTab === item.id 
-                ? 'bg-white/10 border-l-4 border-[#4CAF50]' 
-                : 'hover:bg-white/5 text-slate-400 hover:text-white'
-              )}
-            >
-              <item.icon className={cn("h-5 w-5 shrink-0", activeTab === item.id ? 'text-[#4CAF50]' : '')} />
-              {isSidebarOpen && <span className="text-sm font-black uppercase tracking-widest">{item.label}</span>}
-            </button>
-          ))}
-        </nav>
-      </aside>
-
-      {/* CONTENT */}
-      <main className="flex-1 flex flex-col relative overflow-hidden">
-        <header className="h-20 border-b bg-white/40 backdrop-blur-md flex items-center justify-between px-10 z-20">
-          <div className="flex flex-col">
-            <h2 className="text-[10px] font-black text-[#0A2472] uppercase tracking-[0.3em] mb-1">
-              {new Date().toLocaleDateString('es-VE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-            </h2>
-            <p className="text-sm font-bold text-slate-500">Bienvenido, Empresa Ejemplo C.A.</p>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-[#0A2472]/5">
-                <Bell className="h-5 w-5" />
-                <span className="absolute top-2 right-2 bg-red-500 text-white text-[8px] font-black h-4 w-4 flex items-center justify-center rounded-full border-2 border-white">3</span>
-              </Button>
-            </div>
-            <Avatar className="h-10 w-10 border-2 border-[#0A2472]/10 shadow-lg">
-              <AvatarFallback className="bg-[#0A2472] text-white font-black text-xs">EC</AvatarFallback>
-            </Avatar>
-          </div>
-        </header>
-
-        <div className="flex-1 overflow-y-auto p-10">
+        <main className="flex-1 container mx-auto p-6 md:p-10 pt-24 md:pt-28 overflow-y-auto">
           <AnimatePresence mode="wait">
-            <div key={activeTab}>
+            <motion.div 
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+            >
               {activeTab === 'inicio' && <ModuleInicio />}
-              {activeTab === 'sostenibilidad' && <ModuleSostenibilidad sustainabilityData={sustainabilityData} simulateRecycling={simulateRecycling} />}
-              {/* Other modules would go here */}
+              
+              {/* Module: Sostenibilidad */}
+              {activeTab === 'sostenibilidad' && (
+                <div className="space-y-8">
+                    <div className="flex justify-between items-center bg-white/50 p-6 rounded-[2rem] border shadow-sm">
+                        <div>
+                            <h2 className="text-3xl font-black tracking-tighter">SOSTENIBILIDAD INTELIGENTE</h2>
+                            <p className="text-muted-foreground font-medium">Gestión de residuos y economía circular impulsada por IA.</p>
+                        </div>
+                        <Button onClick={simulateRecycling} className="btn-3d-secondary h-12 px-8">
+                            <Recycle className="mr-2 h-4 w-4" /> SIMULAR RECICLAJE
+                        </Button>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <StatCard title="Reciclado Hoy" value={`${sustainabilityData.today.toFixed(1)} kg`} icon={Leaf} variant="accent" />
+                        <StatCard title="Puntos Acumulados" value={sustainabilityData.points.toLocaleString()} icon={Zap} variant="accent" />
+                        <StatCard title="Meta Mensual" value={`${sustainabilityData.month} kg`} icon={Target} />
+                        <StatCard title="Árboles Salvados" value={sustainabilityData.trees} icon={History} variant="accent" />
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <Card className="lg:col-span-2 crystal-panel border-none">
+                            <CardHeader><CardTitle>Trazabilidad de Residuos</CardTitle></CardHeader>
+                            <CardContent>
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow className="bg-secondary/30">
+                                            <TableHead className="font-black">Fecha / Hora</TableHead>
+                                            <TableHead className="font-black">Material</TableHead>
+                                            <TableHead className="text-center font-black">Peso</TableHead>
+                                            <TableHead className="text-right font-black">Puntos</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {sustainabilityData.history.map((item: any) => (
+                                            <TableRow key={item.id}>
+                                                <TableCell className="font-mono text-[10px]">{item.date}</TableCell>
+                                                <TableCell><Badge variant="secondary" className="rounded-xl px-3">{item.type}</Badge></TableCell>
+                                                <TableCell className="text-center font-bold">{item.weight} kg</TableCell>
+                                                <TableCell className="text-right font-black text-green-600">+{item.points}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </CardContent>
+                        </Card>
+                        <Card className="crystal-panel border-none overflow-hidden">
+                            <CardHeader className="bg-primary/5"><CardTitle>Distribución de Recolección</CardTitle></CardHeader>
+                            <CardContent className="h-64 mt-4">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie data={[{n:'Papel', v:60}, {n:'Plástico', v:25}, {n:'Vidrio', v:10}, {n:'Metal', v:5}]} dataKey="v" innerRadius={60} outerRadius={80} paddingAngle={5}>
+                                            {COLORS.map((c, i) => <Cell key={i} fill={c} />)}
+                                        </Pie>
+                                        <Tooltip />
+                                        <Legend verticalAlign="bottom" height={36}/>
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+              )}
+
+              {/* Placeholder for other tabs */}
               {!['inicio', 'sostenibilidad'].includes(activeTab) && (
-                <div className="flex flex-col items-center justify-center h-[60vh] text-center space-y-6">
-                  <div className="p-8 glass-card rounded-[3rem] shadow-2xl">
-                    <LayoutDashboard className="h-20 w-20 text-[#0A2472]/20 mx-auto mb-4" />
-                    <h3 className="text-2xl font-black text-[#0A2472] uppercase tracking-tighter">Módulo {activeTab}</h3>
-                    <p className="text-slate-500 max-w-md mx-auto mt-4">Interfaz en proceso de sincronización con el núcleo central de Kyron. El diseño 3D y la telemetría están siendo activados.</p>
-                    <Button onClick={() => setActiveTab('inicio')} className="btn-3d-primary mt-8 px-8 h-12 text-xs font-black uppercase">Volver al Inicio</Button>
+                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8">
+                  <div className="p-12 crystal-panel rounded-[3rem] max-w-2xl relative overflow-hidden group">
+                    <div className="absolute -top-10 -right-10 opacity-5 group-hover:rotate-12 transition-transform duration-700"><Logo className="h-64 w-64" /></div>
+                    <LayoutDashboard className="h-24 w-24 text-primary/20 mx-auto mb-6" />
+                    <h3 className="text-4xl font-black text-primary uppercase tracking-tighter">Módulo en Sincronización</h3>
+                    <p className="text-slate-500 text-lg leading-relaxed mt-4">La interfaz del módulo <strong>{activeTab}</strong> está siendo calibrada con el núcleo central de System Kyron. Las innovaciones visuales y la telemetría 3D estarán activas en breve.</p>
+                    <div className="flex justify-center gap-4 mt-10">
+                        <Button onClick={() => setActiveTab('inicio')} className="btn-3d-primary px-10 h-12">VOLVER AL INICIO</Button>
+                        <Button variant="outline" className="rounded-2xl h-12 px-10 border-2 font-black uppercase tracking-widest text-[10px]">Soporte Técnico</Button>
+                    </div>
                   </div>
                 </div>
               )}
-            </div>
+            </motion.div>
           </AnimatePresence>
-        </div>
+        </main>
 
-        <footer className="h-12 border-t bg-white/40 flex items-center justify-center px-10 text-[9px] font-black text-slate-400 uppercase tracking-[0.4em]">
-          System Kyron v2.0 • 2026 • © Todos los derechos reservados
+        <footer className="h-16 border-t bg-background/80 backdrop-blur-md flex items-center justify-center px-10">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] text-center">
+            System Kyron v2.0 • 2026 • © Todos los derechos reservados • Misión Crítica
+          </p>
         </footer>
-      </main>
+      </div>
     </div>
   );
 }
 
 function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: any) {
-  const colorClass = variant === 'accent' ? 'text-[#4CAF50]' : variant === 'danger' ? 'text-[#F44336]' : 'text-[#0A2472]';
+  const colorClass = variant === 'accent' ? 'text-[#4CAF50]' : 'text-[#0A2472]';
+  const bgClass = variant === 'accent' ? 'bg-green-500/5' : 'bg-primary/5';
+  
   return (
-    <Card className="glass-card hover:scale-[1.02] transition-all duration-300 border-none group relative overflow-hidden shadow-2xl">
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{title}</p>
-          <div className={cn("p-2 rounded-xl bg-slate-50", colorClass)}>
-            <Icon className="h-4 w-4" />
+    <Card className="crystal-panel hover:scale-[1.02] transition-all duration-500 border-none group relative overflow-hidden">
+      <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform"><Icon className="h-16 w-16" /></div>
+      <CardContent className="p-8">
+        <div className="flex items-center justify-between mb-6">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">{title}</p>
+          <div className={cn("p-3 rounded-2xl", bgClass, colorClass)}>
+            <Icon className="h-5 w-5" />
           </div>
         </div>
-        <h4 className={cn("text-2xl font-black tracking-tighter mb-1", colorClass)}>{value}</h4>
-        {trend && <p className="text-[10px] font-bold text-slate-400">Tendencia: <span className={trend.startsWith('+') ? 'text-green-500' : 'text-red-500'}>{trend}</span></p>}
+        <div className="flex items-end gap-3">
+            <h4 className={cn("text-3xl font-black tracking-tighter leading-none", colorClass)}>{value}</h4>
+            {trend && (
+                <div className={cn(
+                    "flex items-center text-[10px] font-black px-2 py-0.5 rounded-lg mb-1",
+                    trend.startsWith('+') ? 'bg-green-500/10 text-green-600' : 'bg-red-500/10 text-red-600'
+                )}>
+                    {trend}
+                </div>
+            )}
+        </div>
       </CardContent>
     </Card>
-  );
-}
-
-function ModuleSostenibilidad({ sustainabilityData, simulateRecycling }: any) {
-  return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="flex justify-between items-center">
-        <h3 className="text-2xl font-bold text-[#0A2472]">Sostenibilidad: Papelera Inteligente</h3>
-        <Button onClick={simulateRecycling} className="btn-3d-secondary px-8 h-12 text-xs font-black uppercase">
-          <Recycle className="mr-2 h-4 w-4" /> Simular Reciclaje
-        </Button>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <StatCard title="Reciclado Hoy" value={`${sustainabilityData.today.toFixed(1)} kg`} icon={Leaf} variant="accent" />
-        <StatCard title="Meta Mensual" value={`${sustainabilityData.month} kg`} icon={Target} />
-        <StatCard title="Puntos Acumulados" value={sustainabilityData.points.toLocaleString()} icon={Zap} variant="accent" />
-        <StatCard title="Árboles Salvados" value={sustainabilityData.trees} icon={History} variant="accent" />
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="glass-card border-none shadow-2xl">
-          <CardHeader><CardTitle>Historial de Trazabilidad</CardTitle></CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Fecha</TableHead>
-                  <TableHead>Material</TableHead>
-                  <TableHead>Peso</TableHead>
-                  <TableHead className="text-right">Puntos</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {sustainabilityData.history.map((item: any) => (
-                  <TableRow key={item.id}>
-                    <TableCell className="text-xs">{item.date}</TableCell>
-                    <TableCell><Badge variant="secondary">{item.type}</Badge></TableCell>
-                    <TableCell className="font-mono">{item.weight} kg</TableCell>
-                    <TableCell className="text-right font-bold text-[#4CAF50]">+{item.points}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-        <Card className="glass-card border-none shadow-2xl">
-          <CardHeader><CardTitle>Catálogo de Canjes Verdes</CardTitle></CardHeader>
-          <CardContent className="grid grid-cols-2 gap-4">
-            {[
-              { n: 'Bono Factura 5%', p: 5000, i: Gift },
-              { n: 'Crédito Cashea Plus', p: 8000, i: Award },
-              { n: 'Kit Oficina Eco', p: 3000, i: ShoppingBag },
-              { n: 'Donación Fundación', p: 1000, i: Heart },
-            ].map(item => (
-              <div key={item.n} className="p-4 border rounded-2xl flex flex-col items-center text-center gap-2 hover:bg-primary/5 transition-colors">
-                <item.i className="h-8 w-8 text-primary" />
-                <p className="text-sm font-bold">{item.n}</p>
-                <p className="text-xs text-muted-foreground">{item.p} pts</p>
-                <Button variant="outline" size="sm" className="w-full mt-2 rounded-xl">Canjear</Button>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
-    </div>
   );
 }

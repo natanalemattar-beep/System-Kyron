@@ -11,6 +11,7 @@ import {
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { DynamicBackground } from "@/components/ui/dynamic-background";
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
@@ -21,10 +22,12 @@ export default function LandingPage() {
   });
 
   return (
-    <div className="relative min-h-screen selection:bg-primary selection:text-white">
-      {/* Progress Bar */}
+    <div className="relative min-h-screen selection:bg-primary selection:text-white bg-background">
+      <DynamicBackground />
+      
+      {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-[#4CAF50] origin-left z-[60]"
+        className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0A2472] to-[#4CAF50] origin-left z-[60] shadow-[0_0_15px_rgba(76,175,80,0.5)]"
         style={{ scaleX }}
       />
 
@@ -33,10 +36,12 @@ export default function LandingPage() {
       <main className="relative">
         <HeroSection />
         
-        <div className="relative z-10 space-y-0">
+        <div className="relative z-10">
           <ServicesSection />
           <FeaturesSection />
-          <AboutUsSection />
+          <div className="bg-gradient-to-b from-transparent via-primary/5 to-transparent">
+            <AboutUsSection />
+          </div>
           <FaqSection />
           <CtaSection />
         </div>
