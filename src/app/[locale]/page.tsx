@@ -11,6 +11,7 @@ import {
   Footer
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
+import { LandingSidebar } from "@/components/landing/landing-sidebar";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 
@@ -23,18 +24,19 @@ export default function LandingPage() {
   });
 
   return (
-    <div className="relative min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background flex">
       <DynamicBackground />
       
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-primary origin-left z-[110]"
+        className="fixed top-0 left-0 right-0 h-1 bg-primary origin-left z-[120]"
         style={{ scaleX }}
       />
 
+      <LandingSidebar />
       <LandingHeader />
       
-      <main className="relative">
+      <main className="relative flex-1 lg:pl-64">
         <section id="inicio">
           <HeroSection />
         </section>
@@ -58,9 +60,9 @@ export default function LandingPage() {
         <section id="contacto">
           <CtaSection />
         </section>
+        
+        <Footer />
       </main>
-      
-      <Footer />
     </div>
   );
 }
