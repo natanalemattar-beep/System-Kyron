@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -20,7 +19,9 @@ import {
     Rocket,
     ChevronRight,
     ChevronLeft,
-    CheckCircle2
+    CheckCircle2,
+    UserCircle,
+    UserPlus
 } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
@@ -34,22 +35,29 @@ const steps = [
     bg: "bg-yellow-400/10"
   },
   {
-    title: "Portales de Acceso",
-    description: "Haz clic en el botón 'ACCESO' en la barra superior para desplegar todos los portales especializados: Personal, Contabilidad, Legal y más.",
-    icon: LayoutGrid,
+    title: "¿Cómo Iniciar Sesión?",
+    description: "Toca el botón 'ACCESO' en la barra superior. Se desplegará una cuadrícula con todos los portales disponibles (Personal, Contabilidad, Legal, etc.). Solo elige el tuyo e ingresa.",
+    icon: UserCircle,
     color: "text-primary",
     bg: "bg-primary/10"
   },
   {
-    title: "Tecnología e Innovación",
-    description: "Descubre nuestras Papeleras Inteligentes con magnetismo, Smartphones Pro X y la asignación inmediata de líneas telefónicas.",
-    icon: Magnet,
+    title: "¿Cómo Registrarte?",
+    description: "Si aún no tienes cuenta, pulsa el botón 'REGISTRO'. Podrás elegir entre un perfil Personal o de Empresa para comenzar tu afiliación segura al sistema.",
+    icon: UserPlus,
     color: "text-secondary",
     bg: "bg-secondary/10"
   },
   {
+    title: "Tecnología e Innovación",
+    description: "Descubre nuestras Papeleras Inteligentes con magnetismo, Smartphones Pro X y la asignación inmediata de líneas telefónicas desde tu panel.",
+    icon: Magnet,
+    color: "text-orange-500",
+    bg: "bg-orange-500/10"
+  },
+  {
     title: "Blindaje Fiscal con IA",
-    description: "Tus operaciones están protegidas por inteligencia artificial predictiva y sellado inmutable en Blockchain (0% Riesgo Fiscal).",
+    description: "Tus operaciones están protegidas por inteligencia artificial predictiva y sellado inmutable en Blockchain (0% Riesgo Fiscal garantizado).",
     icon: ShieldCheck,
     color: "text-blue-500",
     bg: "bg-blue-500/10"
