@@ -16,7 +16,7 @@ import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, ShieldCheck, ChevronDown, Bell, LogOut, Cog, Search, Zap, LayoutGrid, Calendar as CalendarIcon } from "lucide-react";
+import { Menu, ShieldCheck, ChevronDown, Bell, LogOut, Cog, Search, Zap, LayoutGrid, Calendar as CalendarIcon, Wallet, Droplets, Scale, ShoppingBag, Landmark, BarChart3, TrendingUp, Gavel } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 
 type User = {
@@ -25,25 +25,43 @@ type User = {
   fallback: string;
 };
 
-type NavItem = {
-    href: string;
-    label: string;
-    icon: React.ElementType;
-};
-
-type NavGroup = {
-    title: string;
-    icon: React.ElementType;
-    items: NavItem[];
-};
+const defaultNavGroups = [
+    {
+        title: "Operaciones",
+        icon: Cog,
+        items: [
+            { href: "/dashboard-telecom", label: "Producción Petróleo", icon: Droplets },
+            { href: "/dashboard-informatica", label: "Mantenimiento Preventivo", icon: Zap },
+            { href: "/punto-de-venta", label: "Logística y Tienda", icon: ShoppingBag },
+        ]
+    },
+    {
+        title: "Finanzas",
+        icon: Wallet,
+        items: [
+            { href: "/cuentas-bancarias", label: "Consolidado Bancario", icon: Landmark },
+            { href: "/cuentas-por-cobrar", label: "Cuentas por Cobrar", icon: BarChart3 },
+            { href: "/analisis-ventas", label: "Flujo de Caja IA", icon: TrendingUp },
+        ]
+    },
+    {
+        title: "Legal",
+        icon: Scale,
+        items: [
+            { href: "/escritorio-juridico", label: "Escritorio Jurídico", icon: Gavel },
+            { href: "/zero-risk", label: "Fiscalización SENIAT", icon: ShieldCheck },
+            { href: "/tarjeta-digital", label: "Identidad Digital", icon: Zap },
+        ]
+    }
+];
 
 interface AppHeaderProps {
     user: User;
-    navGroups?: NavGroup[];
+    navGroups?: any[];
     dashboardHref: string;
 }
 
-export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
+export function AppHeader({ user, navGroups = defaultNavGroups, dashboardHref }: AppHeaderProps) {
   const pathname = usePathname();
   const [dateStr, setDateStr] = useState("");
 
@@ -82,7 +100,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
             </div>
 
             <nav className="flex items-center gap-1">
-                 {navGroups?.slice(0, 4).map((group) => (
+                 {navGroups.map((group: any) => (
                     <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
                             <Button 
@@ -97,7 +115,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                         <DropdownMenuContent align="start" className="w-64 p-2 rounded-xl shadow-2xl border-primary/10">
                             <DropdownMenuLabel className="text-[9px] font-black uppercase tracking-widest opacity-40 px-3 py-2">Módulos</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            {group.items.map((item) => (
+                            {group.items.map((item: any) => (
                                 <DropdownMenuItem key={item.href} asChild className="rounded-lg">
                                     <Link href={item.href} className={cn("flex items-center gap-3 py-2.5 px-3", isLinkActive(item.href) && "bg-primary/5 text-primary font-bold")}>
                                         <item.icon className="h-4 w-4 opacity-70" />
@@ -169,7 +187,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                 <SheetHeader className="p-8 border-b border-white/10">
                     <SheetTitle className="flex items-center gap-3 text-white">
                         <Logo className="h-10 w-10" />
-                        <span className="text-2xl font-black tracking-tighter uppercase italic">KYRON</span>
+                        <span className="text-2xl font-black tracking-tighter uppercase italic text-white">KYRON</span>
                     </SheetTitle>
                 </SheetHeader>
                 <div className="p-6">

@@ -17,7 +17,7 @@ export default function AdminLayout({
       <div className="flex min-h-screen bg-background">
           <AppSidebar />
           <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
-              <AppHeader user={user} navGroups={adminNavGroups} dashboardHref="/dashboard-empresa" />
+              <AppHeader user={user} dashboardHref="/dashboard-empresa" />
               <motion.main 
                 className="flex-1 container mx-auto p-4 md:p-10 pt-24 md:pt-28"
                 initial={{ opacity: 0, y: 20 }}
