@@ -41,7 +41,7 @@ export function LandingHeader() {
              isScrolled ? "bg-background/80 backdrop-blur-2xl py-3 border-b shadow-lg" : "bg-transparent py-6"
         )}>
             <div className="container mx-auto px-6">
-                <div className="relative flex items-center justify-between h-16">
+                <div className="grid grid-cols-3 items-center h-16 relative">
                     
                     {/* Left: Navigation Links (Desktop) */}
                     <nav className="hidden lg:flex items-center gap-6">
@@ -57,8 +57,8 @@ export function LandingHeader() {
                         ))}
                     </nav>
 
-                    {/* Center: Brand Identity - absolute center */}
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                    {/* Center: Brand Identity - Central Absoluto */}
+                    <div className="flex justify-center">
                         <Link href="/" className="flex flex-col items-center group">
                             <Logo className="h-10 w-10 mb-1 group-hover:scale-110 transition-transform duration-500" /> 
                             <span className="text-sm font-black tracking-tighter text-primary uppercase leading-none">System Kyron</span>
@@ -66,10 +66,10 @@ export function LandingHeader() {
                     </div>
 
                     {/* Right: Actions + Always-visible Menu */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-end gap-4">
                         <div className="hidden sm:flex items-center gap-3">
                             <ThemeToggle />
-                            <Button variant="ghost" asChild className="rounded-xl h-10 px-4 text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/5">
+                            <Button variant="outline" asChild className="rounded-xl h-10 px-4 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5">
                                 <Link href="/login" className="flex items-center gap-2">
                                     <UserCircle className="h-4 w-4" /> Acceder
                                 </Link>
@@ -79,7 +79,7 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
-                        {/* Menu Trigger (Visible on PC and Mobile) */}
+                        {/* Menu Trigger (Visible siempre en PC y Móvil) */}
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all">
