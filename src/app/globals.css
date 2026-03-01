@@ -10,9 +10,9 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 225 84% 24%; /* #0A2472 */
+    --primary: 225 84% 24%; /* #0A2472 Azul Kyron */
     --primary-foreground: 210 40% 98%;
-    --secondary: 122 39% 49%; /* #4CAF50 */
+    --secondary: 122 39% 49%; /* #4CAF50 Verde Kyron */
     --secondary-foreground: 225 84% 24%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -23,7 +23,7 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 225 84% 24%;
-    --radius: 1.25rem;
+    --radius: 1rem;
   }
  
   .dark {
@@ -55,42 +55,29 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "alt" 1;
   }
 }
 
 @layer utilities {
-  .glass-card {
-    @apply bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl;
-  }
-  
   .btn-3d-primary {
-    @apply bg-[#0A2472] text-white shadow-[0_6px_0_0_#061a5a] active:shadow-none active:translate-y-1 transition-all duration-150 border-none rounded-2xl font-black uppercase tracking-widest text-[10px];
+    @apply bg-[#0A2472] text-white shadow-[0_5px_0_0_#061a5a] active:shadow-none active:translate-y-1 transition-all duration-100 rounded-xl font-bold uppercase tracking-wider;
   }
   
   .btn-3d-secondary {
-    @apply bg-[#4CAF50] text-white shadow-[0_6px_0_0_#3d8b40] active:shadow-none active:translate-y-1 transition-all duration-150 border-none rounded-2xl font-black uppercase tracking-widest text-[10px];
-  }
-
-  .text-glow {
-    text-shadow: 0 0 15px hsl(var(--primary) / 0.3);
+    @apply bg-[#4CAF50] text-white shadow-[0_5px_0_0_#3d8b40] active:shadow-none active:translate-y-1 transition-all duration-100 rounded-xl font-bold uppercase tracking-wider;
   }
 
   .crystal-panel {
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    @apply bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/5 shadow-2xl;
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
+    @apply bg-primary/20 rounded-full;
   }
 }
