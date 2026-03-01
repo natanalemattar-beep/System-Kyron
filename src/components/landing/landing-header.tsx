@@ -166,25 +166,25 @@ export function LandingHeader() {
                                             <Collapsible open={isAccesoOpen} onOpenChange={setIsAccesoOpen} className="w-full">
                                                 <CollapsibleTrigger asChild>
                                                     <Button variant="outline" className="w-full justify-between rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md px-6">
-                                                        <span>ACCESO</span> 
+                                                        <span>ACCESO AL SISTEMA</span> 
                                                         <ChevronDown className={cn("h-4 w-4 text-primary transition-transform duration-300", isAccesoOpen && "rotate-180")} />
                                                     </Button>
                                                 </CollapsibleTrigger>
                                                 <CollapsibleContent className="animate-in fade-in slide-in-from-top-2 duration-300 pt-4 space-y-6">
-                                                    {/* Sección Ciudadano */}
-                                                    <div className="space-y-3">
-                                                        <div className="flex items-center gap-2 px-4">
-                                                            <User className="h-3 w-3 text-primary/40" />
-                                                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary/40">Ciudadano</span>
+                                                    {/* Sección Ciudadano con Envoltorio */}
+                                                    <div className="p-4 rounded-[1.5rem] bg-primary/[0.03] border border-primary/10 space-y-4">
+                                                        <div className="flex items-center gap-2 px-2">
+                                                            <User className="h-3 w-3 text-primary" />
+                                                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary">Portal Ciudadano</span>
                                                         </div>
-                                                        <div className="grid grid-cols-1 gap-2 px-2">
+                                                        <div className="grid grid-cols-1 gap-2">
                                                             {loginOptions.filter(o => o.href === '/login-personal').map((option) => (
                                                                 <Link 
                                                                     key={option.href} 
                                                                     href={option.href as any}
-                                                                    className="flex items-center gap-4 p-4 rounded-2xl bg-primary/5 hover:bg-primary/10 border border-primary/10 transition-colors group/item"
+                                                                    className="flex items-center gap-4 p-4 rounded-2xl bg-background border border-primary/5 hover:border-primary/20 transition-all group/item shadow-sm hover:shadow-md"
                                                                 >
-                                                                    <div className="p-2 bg-background rounded-xl shadow-inner">
+                                                                    <div className="p-2 bg-primary/5 rounded-xl shadow-inner">
                                                                         <option.icon className="h-5 w-5 text-primary" />
                                                                     </div>
                                                                     <span className="text-[10px] font-black uppercase tracking-tight italic">{option.label}</span>
@@ -193,20 +193,20 @@ export function LandingHeader() {
                                                         </div>
                                                     </div>
 
-                                                    {/* Sección Corporativa */}
-                                                    <div className="space-y-3">
-                                                        <div className="flex items-center gap-2 px-4">
-                                                            <Building2 className="h-3 w-3 text-primary/40" />
-                                                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary/40">Corporativo</span>
+                                                    {/* Sección Corporativa con Envoltorio */}
+                                                    <div className="p-4 rounded-[1.5rem] bg-secondary/[0.03] border border-border/50 space-y-4">
+                                                        <div className="flex items-center gap-2 px-2">
+                                                            <Building2 className="h-3 w-3 text-muted-foreground" />
+                                                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground">Portales Corporativos</span>
                                                         </div>
-                                                        <div className="grid grid-cols-2 gap-2 px-2">
+                                                        <div className="grid grid-cols-2 gap-2">
                                                             {loginOptions.filter(o => o.href !== '/login-personal').map((option) => (
                                                                 <Link 
                                                                     key={option.href} 
                                                                     href={option.href as any}
-                                                                    className="flex flex-col items-center justify-center p-4 rounded-2xl bg-secondary/5 hover:bg-secondary/10 border border-border/50 transition-colors text-center group/item h-24"
+                                                                    className="flex flex-col items-center justify-center p-4 rounded-2xl bg-background border border-border/50 transition-all text-center group/item h-24 shadow-sm hover:shadow-md hover:border-primary/20"
                                                                 >
-                                                                    <div className="p-2 bg-background rounded-xl mb-2 transition-transform shadow-inner">
+                                                                    <div className="p-2 bg-secondary/5 rounded-xl mb-2 transition-transform shadow-inner group-hover/item:scale-110">
                                                                         <option.icon className="h-4 w-4 text-primary" />
                                                                     </div>
                                                                     <span className="text-[7px] font-black uppercase tracking-tighter leading-tight">{option.label}</span>
