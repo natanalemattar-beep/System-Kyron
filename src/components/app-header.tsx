@@ -91,7 +91,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
             </div>
             
             <div className="hidden lg:flex items-center gap-2 overflow-x-auto no-scrollbar max-w-[50vw]">
-                <Button variant="ghost" asChild className="h-10 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary">
+                <Button variant="ghost" asChild className="h-10 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary shrink-0">
                     <Link href={dashboardHref as any}><LayoutGrid className="mr-2 h-4 w-4"/> Dashboard</Link>
                 </Button>
                 
@@ -100,7 +100,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                     {navGroups.map(group => (
                       <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-10 px-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-secondary/10">
+                          <Button variant="ghost" className="h-10 px-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-secondary/10 whitespace-nowrap">
                             {group.title} <ChevronDown className="ml-1.5 h-3 w-3 opacity-40" />
                           </Button>
                         </DropdownMenuTrigger>
