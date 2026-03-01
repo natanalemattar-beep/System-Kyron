@@ -1,9 +1,8 @@
-
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, ShieldAlert, Smartphone, Recycle, Sparkles, ArrowRight, Activity, Fingerprint } from 'lucide-react';
+import { CheckCircle, Clock, ShieldAlert, Smartphone, Recycle, Sparkles, ArrowRight, Activity, Fingerprint, Radio } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -19,7 +18,7 @@ const kpiData = [
 export default function DashboardPersonalPage() {
   return (
     <div className="space-y-8 w-full">
-      {/* Header Sección con Identidad Refinada y Proporcional */}
+      {/* Header Sección con Identidad Refinada */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-4 border-primary pl-8 py-2">
         <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[9px] font-black uppercase tracking-[0.3em] mb-2 border border-primary/10">
@@ -43,7 +42,7 @@ export default function DashboardPersonalPage() {
         </div>
       </header>
       
-      {/* Grid de KPIs - Ahora rellena el ancho disponible */}
+      {/* Grid de KPIs */}
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {kpiData.map((kpi, index) => (
             <motion.div
@@ -68,7 +67,7 @@ export default function DashboardPersonalPage() {
       </div>
 
       <div className="grid gap-8 grid-cols-1 lg:grid-cols-12 items-start">
-        {/* Historial - Ocupa más espacio central para rellenar la pantalla */}
+        {/* Historial */}
         <Card className="lg:col-span-8 border-none shadow-xl bg-card/40 backdrop-blur-md rounded-[2.5rem] overflow-hidden border border-white/5">
             <CardHeader className="p-8 border-b border-white/5 bg-muted/5">
               <div className="flex items-center justify-between">
@@ -106,24 +105,24 @@ export default function DashboardPersonalPage() {
             </div>
         </Card>
 
-        {/* Columna Lateral de Acciones - Rellena el lado derecho */}
+        {/* Columna Lateral de Acciones - Línea Kyron */}
         <div className="lg:col-span-4 space-y-6">
            <Card className="border-none shadow-2xl bg-primary text-primary-foreground rounded-[2.5rem] overflow-hidden relative group min-h-[300px] flex flex-col justify-between">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 group-hover:scale-110 transition-all duration-700">
-                    <Smartphone className="h-32 w-32" />
+                    <Radio className="h-32 w-32" />
                 </div>
                 <CardHeader className="p-8 relative z-10">
-                    <CardTitle className="text-2xl font-black uppercase italic tracking-tighter text-white">Hardware Pro X</CardTitle>
-                    <CardDescription className="text-white/70 text-[10px] font-bold uppercase tracking-widest mt-1">Activar Ecosistema de Red</CardDescription>
+                    <CardTitle className="text-2xl font-black uppercase italic tracking-tighter text-white">Línea Kyron</CardTitle>
+                    <CardDescription className="text-white/70 text-[10px] font-bold uppercase tracking-widest mt-1">Conectividad 5G Oficial</CardDescription>
                 </CardHeader>
                 <CardContent className="px-8 relative z-10">
                     <p className="text-sm leading-relaxed font-medium opacity-90">
-                        Sincroniza tu identidad digital con el smartphone oficial Kyron Pro X y activa tu línea 5G con seguridad cuántica integrada.
+                        Activa tu propia línea telefónica vinculada a tu ID digital. Obtén tu eSIM oficial y navega con seguridad cuántica integrada.
                     </p>
                 </CardContent>
                 <CardFooter className="p-8 relative z-10">
                     <Button variant="secondary" asChild className="w-full h-14 text-xs font-black bg-white text-primary hover:bg-white/90 rounded-2xl uppercase tracking-widest shadow-xl">
-                        <Link href="/venta-linea">EXPLORAR TIENDA <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                        <Link href="/venta-linea">ACTIVAR MI LÍNEA <ArrowRight className="ml-2 h-4 w-4"/></Link>
                     </Button>
                 </CardFooter>
            </Card>

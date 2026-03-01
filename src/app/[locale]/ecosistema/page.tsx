@@ -1,10 +1,9 @@
-
 "use client";
 
 import React, { useState } from 'react';
 import { 
   BarChart3, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint,
-  Activity, Calendar, ShieldAlert, Network
+  Activity, Calendar, ShieldAlert, Radio
 } from 'lucide-react';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, 
@@ -149,17 +148,17 @@ export default function EcosistemaKyron() {
                     <Card className="bg-[#050505] text-white border border-white/10 shadow-2xl overflow-hidden relative rounded-2xl group">
                         <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-20 transition-all duration-700"><Fingerprint className="h-48 w-48" /></div>
                         <CardHeader className="p-8 relative z-10">
-                            <CardTitle className="text-3xl font-black uppercase tracking-tighter italic">ID DIGITAL 3D</CardTitle>
-                            <CardDescription className="text-primary text-[11px] font-black uppercase tracking-[0.4em] mt-2">Ledger Validated</CardDescription>
+                            <CardTitle className="text-3xl font-black uppercase tracking-tighter italic">Línea Kyron</CardTitle>
+                            <CardDescription className="text-primary text-[11px] font-black uppercase tracking-[0.4em] mt-2">Conectividad 5G Digital</CardDescription>
                         </CardHeader>
                         <CardContent className="p-8 pt-0 relative z-10">
                             <div className="p-6 bg-white/5 rounded-lg border border-white/10 backdrop-blur-3xl shadow-inner">
-                                <p className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">Identificador Maestro</p>
-                                <p className="text-3xl font-mono font-black tracking-tighter text-white/90">J-12345678-9</p>
+                                <p className="text-[9px] font-black uppercase tracking-[0.3em] opacity-40 mb-2">Activación eSIM Inmediata</p>
+                                <p className="text-3xl font-mono font-black tracking-tighter text-white/90">0412-KYRON-5G</p>
                             </div>
                         </CardContent>
                         <CardFooter className="p-8 pt-0 relative z-10">
-                            <Button variant="secondary" className="w-full btn-3d-secondary h-16 text-xs">AUTENTICACIÓN BIOMÉTRICA</Button>
+                            <Button variant="secondary" className="w-full btn-3d-secondary h-16 text-xs">ASIGNAR NÚMERO DIGITAL</Button>
                         </CardFooter>
                     </Card>
                 </div>
@@ -188,8 +187,8 @@ export default function EcosistemaKyron() {
             </div>
             <div className="h-8 w-px bg-white/5" />
             <div className="flex flex-col">
-                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">Cifrado</span>
-                <span className="text-xs font-mono font-bold text-primary">AES-XTS-512</span>
+                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">Seguridad</span>
+                <span className="text-xs font-mono font-bold text-primary">AES-512-QS</span>
             </div>
           </div>
           <p className="text-[10px] font-black text-white/10 uppercase tracking-[0.8em]">

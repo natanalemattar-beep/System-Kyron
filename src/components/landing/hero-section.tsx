@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ArrowRight, Smartphone, Magnet, Phone, Globe, Sparkles } from "lucide-react";
+import { ArrowRight, Radio, Magnet, Phone, Globe, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
@@ -11,9 +11,8 @@ export function HeroSection() {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
       
-      {/* Background Animated Elements - Optimized for Performance */}
+      {/* Background Animated Elements */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden gpu-accelerated">
-        {/* Optimized Orbs - Reduced Blur for Performance */}
         <motion.div 
           animate={{ 
             x: [0, 50, 0],
@@ -33,7 +32,6 @@ export function HeroSection() {
           className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-secondary/10 rounded-full blur-[70px]"
         />
         
-        {/* Massive Background Logo - Controlled Scale */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[700px] aspect-square opacity-[0.02] flex items-center justify-center pointer-events-none">
             <motion.div
               animate={{ 
@@ -78,8 +76,8 @@ export function HeroSection() {
                   </span>
                 </h1>
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-snug font-medium border-l-4 border-primary/20 pl-6">
-                  Revolución en <span className="text-secondary font-black">Magnetismo de Residuos</span>, 
-                  Telefonía <span className="text-primary font-black uppercase tracking-tighter">Pro X</span> y Blindaje Fiscal IA.
+                  Líneas <span className="text-secondary font-black">5G Digitales</span>, 
+                  Conectividad <span className="text-primary font-black uppercase tracking-tighter">eSIM</span> y Blindaje Fiscal IA.
                 </p>
             </div>
             
@@ -117,10 +115,10 @@ export function HeroSection() {
             <div className="grid grid-cols-2 gap-8 p-4">
                 <Card className="p-8 bg-card/40 backdrop-blur-lg border-primary/10 rounded-[2.5rem] shadow-xl hover:scale-[1.02] transition-transform duration-300 group overflow-hidden border">
                     <div className="p-5 bg-primary/10 rounded-2xl w-fit mb-6 relative z-10 shadow-inner">
-                        <Smartphone className="h-10 w-10 text-primary group-hover:rotate-6 transition-transform" />
+                        <Radio className="h-10 w-10 text-primary group-hover:rotate-6 transition-transform" />
                     </div>
-                    <h3 className="font-black text-lg uppercase italic mb-2 relative z-10">Kyron Pro X</h3>
-                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Terminales de Grado Militar</p>
+                    <h3 className="font-black text-lg uppercase italic mb-2 relative z-10">Líneas Kyron</h3>
+                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Activación 5G Inmediata</p>
                 </Card>
                 
                 <Card className="p-8 bg-card/40 backdrop-blur-lg border-secondary/10 rounded-[2.5rem] shadow-xl hover:scale-[1.02] transition-transform duration-300 mt-16 group overflow-hidden border">
@@ -136,7 +134,7 @@ export function HeroSection() {
                         <Phone className="h-10 w-10 text-primary" />
                     </div>
                     <h3 className="font-black text-lg uppercase italic mb-2 relative z-10">SIM Digital</h3>
-                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Activación de Números 5G</p>
+                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Gestión de eSIM Pro</p>
                 </Card>
                 
                 <div className="p-8 bg-primary text-white rounded-[2.5rem] shadow-2xl hover:scale-[1.02] transition-transform duration-300 mt-8 group overflow-hidden border-none relative flex flex-col justify-end">

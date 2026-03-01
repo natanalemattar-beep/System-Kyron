@@ -16,8 +16,8 @@ import Image from "next/image";
 
 const initialInventory = [
     { sku: "KYRON-BIN-01", nombre: "Papelera Inteligente (Magnetismo)", categoria: "Tecnología Ambiental", stock: 15, costo: 95, valor: 1425 },
-    { sku: "PHONE-001", nombre: "Smartphone Kyron Pro X", categoria: "Telecomunicaciones", stock: 25, costo: 180, valor: 4500 },
-    { sku: "SIM-CARD-01", nombre: "Número Telefónico (SIM)", categoria: "Telecomunicaciones", stock: 100, costo: 2, valor: 200 },
+    { sku: "SIM-CARD-01", nombre: "SIM Card Física (Línea Kyron)", categoria: "Telecomunicaciones", stock: 100, costo: 2, valor: 200 },
+    { sku: "ESIM-DIG-01", nombre: "eSIM Digital (Línea Kyron)", categoria: "Telecomunicaciones", stock: 1000, costo: 0, valor: 0 },
     { sku: "PROD-001", nombre: "Resma de Papel Carta", categoria: "Papelería", stock: 150, costo: 5, valor: 750 },
     { sku: "PROD-002", nombre: "Impresora Fiscal Térmica", categoria: "Suministros de Oficina", stock: 30, costo: 80, valor: 2400 },
     { sku: "PROD-003", nombre: "Laptop 14 pulgadas", categoria: "Equipos de Computación", stock: 12, costo: 600, valor: 7200 },
@@ -40,7 +40,7 @@ export default function InventarioPage() {
                         Gestión de Existencias
                     </h1>
                     <p className="text-muted-foreground mt-2 font-medium">
-                        Control de inventario centralizado: Telefonía, papeleras magnéticas y equipos fiscales.
+                        Control de inventario centralizado: Líneas Kyron, papeleras magnéticas y equipos fiscales.
                     </p>
                 </div>
                 <div className="flex gap-2">

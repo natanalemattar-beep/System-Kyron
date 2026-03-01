@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
     Sparkles, 
-    LayoutGrid, 
     Magnet, 
     ShieldCheck, 
     Rocket,
@@ -21,7 +20,8 @@ import {
     ChevronLeft,
     CheckCircle2,
     UserCircle,
-    UserPlus
+    UserPlus,
+    Radio
 } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
@@ -50,17 +50,24 @@ const steps = [
   },
   {
     title: "Tecnología e Innovación",
-    description: "Descubre nuestras Papeleras Inteligentes con magnetismo, Smartphones Pro X y la asignación inmediata de líneas telefónicas desde tu panel.",
+    description: "Descubre nuestras Papeleras Inteligentes con magnetismo y el sistema de activación inmediata de líneas Kyron 5G.",
     icon: Magnet,
     color: "text-orange-500",
     bg: "bg-orange-500/10"
   },
   {
+    title: "Conectividad Total",
+    description: "Asigna números telefónicos y activa eSIMs digitales en segundos para tu flota corporativa o uso personal.",
+    icon: Radio,
+    color: "text-blue-500",
+    bg: "bg-blue-500/10"
+  },
+  {
     title: "Blindaje Fiscal con IA",
     description: "Tus operaciones están protegidas por inteligencia artificial predictiva y sellado inmutable en Blockchain (0% Riesgo Fiscal garantizado).",
     icon: ShieldCheck,
-    color: "text-blue-500",
-    bg: "bg-blue-500/10"
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/10"
   },
   {
     title: "¡Todo Listo!",

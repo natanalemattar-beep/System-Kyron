@@ -1,4 +1,3 @@
-
 export const initialPermisos = [
     // --- Ministerios - Petróleo y Minería ---
     { id: "PERM-PET-001", tipo: "Transporte Terrestre de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-01-10", fechaVencimiento: "2025-01-10", estado: "Vigente", requisitosInscripcion: ["Copia del RIF", "Registro Mercantil", "Póliza de Seguro de Responsabilidad Civil"], requisitosRenovacion: ["Solvencia de pago de impuestos", "Inspección técnica vehicular vigente"] },
@@ -28,5 +27,5 @@ export const companyData = {
     { nombre: "MARIA TERESA HERNANDEZ BASTIDAS", cedula: "V-13.374.121", rif: "V-13374121-2" },
     { nombre: "JOSE DE JESUS HERRERA BOZZO", cedula: "V-12.459.024", rif: "V-12459024-4" },
   ],
-  objetoSocial: "Comercialización y venta al mayor y detal de papeleras inteligentes con tecnología de magnetismo, mobiliario de oficina y equipos fiscales homologados. Prestación de servicios de telecomunicaciones móviles y fijas, incluyendo la asignación de números telefónicos y venta de dispositivos móviles (smartphones). Desarrollo de software ERP/CRM bajo el ecosistema System Kyron con integración de IA y Blockchain. Consultoría estratégica y gestión integral de holdings corporativos.",
+  objetoSocial: "Comercialización y venta al mayor y detal de papeleras inteligentes con tecnología de magnetismo, mobiliario de oficina y equipos fiscales homologados. Prestación de servicios de telecomunicaciones móviles y fijas, incluyendo la asignación de números telefónicos y venta de tarjetas SIM/eSIM. Desarrollo de software ERP/CRM bajo el ecosistema System Kyron con integración de IA y Blockchain. Consultoría estratégica y gestión integral de holdings corporativos.",
 };

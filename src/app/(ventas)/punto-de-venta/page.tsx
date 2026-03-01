@@ -1,11 +1,10 @@
-
 "use client";
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { TabletSmartphone, Plus, Minus, X, CheckCircle, Smartphone, Phone, Landmark, CreditCard, Banknote, Loader2, Search } from "lucide-react";
+import { TabletSmartphone, Plus, Minus, X, CheckCircle, Smartphone, Phone, Landmark, CreditCard, Banknote, Loader2, Search, Radio } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -17,8 +16,8 @@ const products = [
     { id: 1, name: "Resma de Papel Carta (500 Hojas)", price: 8.50, barcode: "7591234567890", image: "https://picsum.photos/seed/paper/200/200" },
     { id: 2, name: "Impresora Fiscal Térmica", price: 350.00, barcode: "7591234567891", image: "https://picsum.photos/seed/printer/200/200" },
     { id: 11, name: "Papelera Inteligente (Magnetismo)", price: 150.00, barcode: "7591234567900", image: "https://picsum.photos/seed/smartbin/200/200" },
-    { id: 12, name: "Smartphone Kyron Pro X", price: 299.00, barcode: "7591234567901", image: "https://picsum.photos/seed/phone/200/200" },
-    { id: 13, name: "Número Telefónico (Línea Nueva)", price: 15.00, barcode: "7591234567902", image: "https://picsum.photos/seed/simcard/200/200" },
+    { id: 13, name: "SIM Card Física (Línea Nueva)", price: 5.00, barcode: "7591234567902", image: "https://picsum.photos/seed/simcard/200/200" },
+    { id: 14, name: "eSIM Digital (Línea Nueva)", price: 10.00, barcode: "7591234567903", image: "https://picsum.photos/seed/esim/200/200" },
     { id: 3, name: "Punto de Venta Inalámbrico", price: 280.00, barcode: "7591234567892", image: "https://picsum.photos/seed/pos/200/200" },
     { id: 4, name: "Lector de Código de Barras USB", price: 95.00, barcode: "7591234567893", image: "https://picsum.photos/seed/scanner/200/200" },
     { id: 5, name: "Tóner de Repuesto para Impresora", price: 85.00, barcode: "7591234567894", image: "https://picsum.photos/seed/toner/200/200" },
