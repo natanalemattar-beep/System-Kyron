@@ -15,12 +15,12 @@ export default function NaturalLayout({
     const user = { name: "Usuario Natural", email: "usuario@kyron.com", fallback: "UN" };
 
     return (
-      <div className="flex min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
-          {/* Fondo Atmosférico Estelar */}
+      <div className="flex min-h-screen bg-[#020202] text-white relative overflow-hidden">
+          {/* Fondo Atmosférico Estelar Global envolvente */}
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute top-[-10%] right-[-10%] w-[1200px] h-[1200px] bg-primary/10 rounded-full blur-[180px] opacity-40 animate-pulse" />
-            <div className="absolute bottom-[-10%] left-[-10%] w-[1000px] h-[1000px] bg-blue-600/5 rounded-full blur-[150px] opacity-30" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
+            <div className="absolute top-[-5%] right-[-5%] w-[1400px] h-[1400px] bg-primary/10 rounded-full blur-[200px] opacity-50 animate-pulse" />
+            <div className="absolute bottom-[-5%] left-[-5%] w-[1200px] h-[1200px] bg-blue-600/5 rounded-full blur-[180px] opacity-40" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
           </div>
 
           <AppSidebar />
@@ -33,17 +33,17 @@ export default function NaturalLayout({
               />
               
               <motion.main 
-                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-10 md:p-16 pt-32 md:pt-40 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
+                transition={{ duration: 0.8 }}
               >
-                  {/* Sello de agua etéreo */}
-                  <div className="absolute top-1/4 right-20 opacity-[0.015] pointer-events-none -z-10 select-none">
-                    <Sparkles className="w-[600px] h-[600px] text-primary" />
+                  {/* Sello de agua sutil de gran formato */}
+                  <div className="absolute top-1/4 right-40 opacity-[0.02] pointer-events-none -z-10 select-none">
+                    <Sparkles className="w-[800px] h-[800px] text-primary" />
                   </div>
                   
-                  <div className="w-full">
+                  <div className="w-full h-full">
                     {children}
                   </div>
               </motion.main>

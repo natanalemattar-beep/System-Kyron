@@ -1,12 +1,10 @@
-
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Target, Eye, Rocket, Building, BookOpen, Gavel, Briefcase } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Target, Eye, BookOpen, Gavel, Briefcase } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
-import { useHoliday } from "@/hooks/use-holiday";
-import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
@@ -61,110 +59,104 @@ const testimonials = [
 ];
 
 export function AboutUsSection() {
-    const { isHolidayActive } = useHoliday();
-
     return (
-        <section id="nosotros" className="py-20 md:py-28 bg-background">
-            <div className="container mx-auto px-4 md:px-6">
-                 {/* Social Proof Section */}
+        <section id="nosotros" className="py-20 md:py-28 bg-background relative overflow-hidden">
+            <div className="container mx-auto px-6 relative z-10">
                 <motion.div 
-                    className="mb-16 md:mb-24"
+                    className="mb-24"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h3 className="text-center text-muted-foreground font-semibold mb-6">CON LA CONFIANZA DE EMPRESAS LÍDERES EN VENEZUELA</h3>
-                    <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-                        {clientLogos.map((logo, index) => {
+                    <h3 className="text-center text-muted-foreground font-black text-[10px] uppercase tracking-[0.5em] mb-10 opacity-40">Trust Network • Alianzas Estratégicas</h3>
+                    <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-8">
+                        {clientLogos.map((logo) => {
                             const logoImage = PlaceHolderImages.find(img => img.id === logo.id);
                             return (
-                                logoImage && <Image key={logo.id} src={logoImage.imageUrl} alt={logo.name} width={100} height={40} className="opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" data-ai-hint={logoImage.imageHint}/>
+                                logoImage && <Image key={logo.id} src={logoImage.imageUrl} alt={logo.name} width={120} height={50} className="opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110" data-ai-hint={logoImage.imageHint}/>
                             )
                         })}
                     </div>
                 </motion.div>
 
-                <motion.div 
-                    className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Nuestra Filosofía</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Creemos en el poder de la tecnología para brindar tranquilidad y potenciar el crecimiento. Nuestra misión es simplificar lo complejo.</p>
-                </motion.div>
-                <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+                <div className="grid lg:grid-cols-5 gap-16 items-start">
                     <motion.div 
-                        className="lg:col-span-2 space-y-8"
-                         initial={{ opacity: 0, x: -20 }}
+                        className="lg:col-span-2 space-y-12"
+                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        transition={{ duration: 0.6 }}
                     >
-                        <div>
-                            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Target className="text-primary"/>Nuestra Misión</h3>
-                            <p className="text-muted-foreground">Empoderar a las empresas venezolanas con herramientas inteligentes que garanticen su tranquilidad fiscal y potencien su crecimiento sostenible.</p>
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Eye className="text-primary"/>Nuestra Visión</h3>
-                            <p className="text-muted-foreground">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso con el éxito de nuestros clientes.</p>
-                        </div>
-                         <div>
-                            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2"><Rocket className="text-primary"/>Fundación Kyron</h3>
-                            <p className="text-muted-foreground">Creemos en un futuro sostenible. A través de nuestra fundación, impulsamos iniciativas como la Tarjeta de Reciclaje, utilizando nuestra tecnología para incentivar la economía circular y la conciencia ambiental.</p>
-                        </div>
-                    </motion.div>
-                    <motion.div 
-                        className="lg:col-span-3"
-                         initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                    >
-                        <div className={cn("rounded-xl p-6 md:p-8 mb-8 flex justify-around text-center", isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card")}>
-                            <div>
-                                <p className="text-4xl font-bold text-primary"><Counter from={0} to={500} />+</p>
-                                <p className="text-sm text-muted-foreground">Empresas Activas</p>
-                            </div>
-                             <div>
-                                <p className="text-4xl font-bold text-primary"><Counter from={0} to={10} />K+</p>
-                                <p className="text-sm text-muted-foreground">Declaraciones Procesadas</p>
-                            </div>
-                             <div>
-                                <p className="text-4xl font-bold text-primary">0%</p>
-                                <p className="text-sm text-muted-foreground">Riesgo Fiscal</p>
-                            </div>
+                        <div className="space-y-4">
+                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic italic-shadow">El Equipo</h2>
+                            <p className="text-lg text-muted-foreground font-medium leading-relaxed">Fusionamos la ingeniería de software con la visión de negocios para transformar la realidad operativa de Venezuela.</p>
                         </div>
 
-                         <h3 className="text-xl font-semibold mb-4 text-center">Testimonios por Departamento</h3>
+                        <div className="space-y-8 pt-6">
+                            <div className="group">
+                                <h3 className="text-xl font-black uppercase italic tracking-tight mb-3 flex items-center gap-3 group-hover:text-primary transition-colors"><Target className="text-primary h-5 w-5"/>Nuestra Misión</h3>
+                                <p className="text-muted-foreground font-medium border-l-2 border-primary/20 pl-6">Empoderar a las empresas venezolanas con herramientas inteligentes que garanticen su tranquilidad fiscal y potencien su crecimiento sostenible.</p>
+                            </div>
+                            <div className="group">
+                                <h3 className="text-xl font-black uppercase italic tracking-tight mb-3 flex items-center gap-3 group-hover:text-primary transition-colors"><Eye className="text-primary h-5 w-5"/>Nuestra Visión</h3>
+                                <p className="text-muted-foreground font-medium border-l-2 border-primary/20 pl-6">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso absoluto.</p>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    <motion.div 
+                        className="lg:col-span-3 space-y-10"
+                         initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        <div className="grid grid-cols-3 gap-6">
+                            {[
+                                { val: 500, label: "Empresas", prefix: "+" },
+                                { val: 10, label: "Declaraciones", suffix: "K+" },
+                                { val: 0, label: "Riesgo Fiscal", suffix: "%" }
+                            ].map((stat, i) => (
+                                <Card key={i} className="glass-card border-none p-8 text-center bg-primary/[0.02]">
+                                    <CardContent className="p-0">
+                                        <p className="text-4xl font-black text-primary italic tracking-tighter mb-1">
+                                            {stat.prefix}<Counter from={0} to={stat.val} />{stat.suffix}
+                                        </p>
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+
                          <div className="space-y-6">
                             {testimonials.map((testimonial) => {
                                 const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
                                 return (
-                                    <blockquote key={testimonial.name} className={cn(
-                                        "p-6 border rounded-xl",
-                                        isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card"
-                                    )}>
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <testimonial.icon className="h-4 w-4 text-primary"/>
-                                            <span className="text-xs font-semibold uppercase text-primary">{testimonial.module}</span>
-                                        </div>
-                                        <p className="italic text-muted-foreground">"{testimonial.text}"</p>
-                                        <footer className="flex items-center gap-3 mt-4">
-                                            {avatar && (
-                                                <Avatar className="h-10 w-10">
-                                                <AvatarImage src={avatar.imageUrl} alt={avatar.description} data-ai-hint={avatar.imageHint} />
-                                                <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                                                </Avatar>
-                                            )}
-                                            <div>
-                                                <p className="font-semibold text-sm">{testimonial.name}</p>
-                                                <p className="text-xs text-muted-foreground">{testimonial.company}</p>
+                                    <Card key={testimonial.name} className="glass-card border-none p-8 relative group overflow-hidden">
+                                        <CardContent className="p-0">
+                                            <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-all">
+                                                <testimonial.icon className="h-20 w-24" />
                                             </div>
-                                        </footer>
-                                    </blockquote>
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <testimonial.icon className="h-4 w-4 text-primary"/>
+                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">{testimonial.module}</span>
+                                            </div>
+                                            <p className="text-base font-bold italic text-foreground/80 leading-relaxed mb-6">"{testimonial.text}"</p>
+                                            <footer className="flex items-center gap-4">
+                                                {avatar && (
+                                                    <Avatar className="h-12 w-12 border-2 border-primary/20 shadow-lg">
+                                                        <AvatarImage src={avatar.imageUrl} alt={testimonial.name} />
+                                                        <AvatarFallback className="font-black">{testimonial.name.charAt(0)}</AvatarFallback>
+                                                    </Avatar>
+                                                )}
+                                                <div>
+                                                    <p className="font-black text-sm uppercase tracking-tight">{testimonial.name}</p>
+                                                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{testimonial.company}</p>
+                                                </div>
+                                            </footer>
+                                        </CardContent>
+                                    </Card>
                                 );
                             })}
                         </div>
