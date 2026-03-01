@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { 
     Menu, 
     X,
-    User,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -33,14 +32,17 @@ export function LandingHeader() {
 
     return (
         <header className={cn(
-            "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 lg:hidden", // Solo visible en móvil
+            "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 lg:hidden",
              isScrolled ? "bg-background/95 backdrop-blur-xl py-2 border-b shadow-sm" : "bg-transparent py-6"
         )}>
             <div className="w-full px-6">
                 <div className="flex items-center justify-between h-16">
-                    <Link href="/" className="flex items-center gap-3">
+                    {/* Placeholder para equilibrar el logo centrado en móvil */}
+                    <div className="w-10 lg:hidden" />
+
+                    <Link href="/" className="flex flex-col items-center gap-1 absolute left-1/2 -translate-x-1/2">
                         <Logo className="h-10 w-10" /> 
-                        <span className="text-sm font-black tracking-tighter text-primary uppercase">System Kyron</span>
+                        <span className="text-[8px] font-black tracking-[0.3em] text-primary uppercase">System Kyron</span>
                     </Link>
 
                     <div className="flex items-center gap-2">
@@ -50,14 +52,9 @@ export function LandingHeader() {
                                 <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner"><Menu className="h-5 w-5" /></Button>
                             </SheetTrigger>
                             <SheetContent side="right" className="w-full sm:max-w-xs p-0 flex flex-col">
-                                <div className="p-8 border-b flex items-center justify-between bg-primary/5">
-                                    <div className="flex items-center gap-3">
-                                        <Logo className="h-8 w-8" /> 
-                                        <span className="text-lg font-black tracking-tighter text-primary uppercase">System Kyron</span>
-                                    </div>
-                                    <SheetClose asChild>
-                                        <Button variant="ghost" size="icon" className="rounded-full"><X className="h-5 w-5" /></Button>
-                                    </SheetClose>
+                                <div className="p-8 border-b flex flex-col items-center gap-3 bg-primary/5">
+                                    <Logo className="h-12 w-12" /> 
+                                    <span className="text-lg font-black tracking-tighter text-primary uppercase">System Kyron</span>
                                 </div>
                                 <nav className="flex flex-col p-8 gap-4">
                                     {navLinks.map((link) => (

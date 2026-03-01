@@ -57,7 +57,7 @@ export function LandingSidebar() {
                     <ThemeToggle />
                 </div>
                 <Button variant="outline" asChild className="w-full justify-center h-11 rounded-xl gap-2 font-black uppercase text-[9px] tracking-widest border-primary/10 hover:bg-primary/5">
-                    <Link href="/login">Acceder XD <Zap className="h-3.5 w-3.5 text-yellow-500 animate-pulse" /></Link>
+                    <Link href="/login">Acceder <Zap className="h-3.5 w-3.5 text-yellow-500 animate-pulse" /></Link>
                 </Button>
                 <Button asChild className="w-full justify-center h-11 rounded-xl btn-3d-primary text-[9px] uppercase tracking-[0.2em] shadow-lg">
                     <Link href="/register">REGISTRO</Link>
