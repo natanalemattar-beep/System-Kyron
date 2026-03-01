@@ -23,7 +23,6 @@ import {
     Bell, 
     LogOut, 
     Search, 
-    Zap, 
     LayoutGrid, 
     Wallet, 
     Droplets, 
@@ -32,32 +31,33 @@ import {
     TrendingUp, 
     Gavel,
     Activity,
-    Lock
+    Lock,
+    Clock as ClockIcon
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 
 const defaultNavGroups = [
     {
-        title: "LOGÍSTICA",
+        title: "Operaciones",
         items: [
-            { href: "/dashboard-telecom", label: "RECURSOS", icon: Droplets },
-            { href: "/dashboard-informatica", label: "SISTEMAS", icon: Zap },
-            { href: "/punto-de-venta", label: "VENTAS", icon: ShoppingBag },
+            { href: "/dashboard-telecom", label: "Recursos", icon: Droplets },
+            { href: "/dashboard-informatica", label: "Sistemas", icon: Activity },
+            { href: "/punto-de-venta", label: "Ventas", icon: ShoppingBag },
         ]
     },
     {
-        title: "FINANZAS",
+        title: "Finanzas",
         items: [
-            { href: "/cuentas-bancarias", label: "TESORERÍA", icon: Wallet },
-            { href: "/cuentas-por-cobrar", label: "CARTERA", icon: BarChart3 },
-            { href: "/analisis-ventas", label: "KPI PRO", icon: TrendingUp },
+            { href: "/cuentas-bancarias", label: "Tesoreria", icon: Wallet },
+            { href: "/cuentas-por-cobrar", label: "Cartera", icon: BarChart3 },
+            { href: "/analisis-ventas", label: "KPI Pro", icon: TrendingUp },
         ]
     },
     {
-        title: "LEGAL",
+        title: "Legal",
         items: [
-            { href: "/escritorio-juridico", label: "CUMPLIMIENTO", icon: Gavel },
-            { href: "/zero-risk", label: "BLINDAJE", icon: ShieldCheck },
+            { href: "/escritorio-juridico", label: "Cumplimiento", icon: Gavel },
+            { href: "/zero-risk", label: "Blindaje", icon: ShieldCheck },
         ]
     }
 ];
@@ -70,9 +70,10 @@ interface AppHeaderProps {
 
 export function AppHeader({ user, navGroups = defaultNavGroups, dashboardHref }: AppHeaderProps) {
   const pathname = usePathname();
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
+    setTime(new Date());
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -80,45 +81,51 @@ export function AppHeader({ user, navGroups = defaultNavGroups, dashboardHref }:
   const isLinkActive = (itemHref: string) => pathname === itemHref;
 
   return (
-    <header className="fixed top-0 left-0 lg:left-64 right-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur-3xl h-20 flex items-center">
-      <div className="w-full px-6 md:px-12">
-        <div className="flex items-center justify-between gap-12">
+    <header className="fixed top-0 left-0 lg:left-64 right-0 z-40 border-b bg-background/80 backdrop-blur-xl h-16 flex items-center">
+      <div className="w-full px-4 md:px-8">
+        <div className="flex items-center justify-between gap-4">
           
-          {/* Mobile UI */}
-          <div className="lg:hidden">
-            <Link href={dashboardHref}><Logo className="h-10 w-10" /></Link>
+          {/* Mobile Logo & Trigger */}
+          <div className="flex items-center gap-4 lg:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-9 w-9"><Menu className="h-5 w-5" /></Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-72 p-0">
+                <div className="p-6 border-b mb-4">
+                    <Logo className="h-8 w-8 inline-block mr-2" />
+                    <span className="font-bold text-lg">System Kyron</span>
+                </div>
+                <nav className="px-4 space-y-2">
+                    <Button variant="ghost" asChild className="w-full justify-start h-11"><Link href="/dashboard"><LayoutGrid className="mr-3 h-5 w-5"/> Dashboard</Link></Button>
+                </nav>
+              </SheetContent>
+            </Sheet>
+            <Link href={dashboardHref}><Logo className="h-8 w-8" /></Link>
           </div>
 
-          {/* Desktop HUD Center */}
-          <div className="hidden lg:flex items-center gap-12 flex-grow">
-            <div className="flex flex-col border-l-2 border-primary pl-6">
-              <span className="text-[10px] font-black uppercase text-primary tracking-[0.5em] leading-none mb-2">Protocolo Activo</span>
-              <p className="text-xs font-black text-white/90 flex items-center gap-3">
-                <Activity className="h-3 w-3 text-secondary animate-pulse" />
-                SISTEMA SÍNCRONO
-              </p>
-            </div>
-
-            <nav className="flex items-center gap-3">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-6 flex-grow">
+            <nav className="flex items-center gap-1">
                  {navGroups.map((group: any) => (
                     <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
                             <Button 
                                 variant="ghost" 
                                 size="sm" 
-                                className="h-12 px-6 gap-4 font-black text-[11px] uppercase tracking-[0.3em] rounded-lg text-white/30 hover:text-white hover:bg-white/5 transition-all"
+                                className="h-9 px-4 gap-2 font-semibold text-xs uppercase tracking-wider rounded-lg text-muted-foreground hover:text-foreground"
                             >
                                 {group.title}
-                                <ChevronDown className="h-3 w-3 opacity-30" />
+                                <ChevronDown className="h-3 w-3 opacity-50" />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="start" className="w-72 p-3 titanium-card border-white/10 rounded-xl">
-                            <DropdownMenuLabel className="text-[9px] font-black uppercase tracking-[0.5em] opacity-30 px-5 py-4">Protocolos</DropdownMenuLabel>
+                        <DropdownMenuContent align="start" className="w-64 p-2 rounded-xl">
+                            <DropdownMenuLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-3 py-2">Módulos</DropdownMenuLabel>
                             {group.items.map((item: any) => (
                                 <DropdownMenuItem key={item.href} asChild className="rounded-lg">
-                                    <Link href={item.href} className={cn("flex items-center gap-5 py-4 px-5", isLinkActive(item.href) && "bg-primary/20 text-primary font-black shadow-inner")}>
-                                        <item.icon className="h-5 w-5 opacity-50" />
-                                        <span className="text-[11px] font-black uppercase tracking-tighter">{item.label}</span>
+                                    <Link href={item.href} className={cn("flex items-center gap-3 py-2.5 px-3", isLinkActive(item.href) && "bg-primary/5 text-primary font-bold")}>
+                                        <item.icon className="h-4 w-4" />
+                                        <span className="text-sm">{item.label}</span>
                                     </Link>
                                 </DropdownMenuItem>
                             ))}
@@ -126,75 +133,66 @@ export function AppHeader({ user, navGroups = defaultNavGroups, dashboardHref }:
                     </DropdownMenu>
                 ))}
             </nav>
+            
+            <div className="h-4 w-px bg-border mx-2" />
+            
+            <div className="relative w-full max-w-xs">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <input 
+                    type="text" 
+                    placeholder="Buscar trámites o facturas..." 
+                    className="w-full h-9 pl-9 pr-4 bg-muted/50 border-none rounded-lg text-sm focus:ring-1 focus:ring-primary transition-all outline-none"
+                />
+            </div>
           </div>
 
           {/* User & Global State */}
-          <div className="flex items-center gap-8">
-            <div className="hidden md:flex flex-col items-end gap-1">
-                <span className="text-sm font-mono font-black text-white tracking-tighter">
-                    {time.toLocaleTimeString('es-VE', { hour12: false })}
+          <div className="flex items-center gap-3 md:gap-6">
+            <div className="hidden md:flex flex-col items-end gap-0.5 min-w-[100px]">
+                <span className="text-xs font-mono font-bold tracking-tight">
+                    {time ? time.toLocaleTimeString('es-VE', { hour12: false }) : '--:--:--'}
                 </span>
-                <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.4em]">Enlace Estelar</span>
+                <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Sincronizado</span>
             </div>
 
-            <div className="flex items-center gap-3">
-                <Button variant="ghost" size="icon" className="h-11 w-11 text-white/30 hover:text-white hover:bg-white/5 relative border border-white/5 rounded-lg">
-                    <Bell className="h-5 w-5" />
-                    <span className="absolute top-3 right-3 h-2 w-2 bg-red-500 rounded-full shadow-[0_0_12px_#ef4444]" />
+            <div className="flex items-center gap-1.5">
+                <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground relative">
+                    <Bell className="h-4 w-4" />
+                    <span className="absolute top-2.5 right-2.5 h-1.5 w-1.5 bg-red-500 rounded-full" />
                 </Button>
                 <ThemeToggle />
             </div>
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-12 w-12 rounded-lg border border-white/10 p-0 overflow-hidden group hover:border-primary/50 transition-all bg-white/5 shadow-2xl">
-                  <Avatar className="h-full w-full rounded-none">
-                    <AvatarFallback className="font-black text-sm bg-primary/20 text-primary">{user.fallback}</AvatarFallback>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full border p-0 overflow-hidden hover:border-primary/50 transition-all">
+                  <Avatar className="h-full w-full">
+                    <AvatarFallback className="font-bold text-xs bg-primary/10 text-primary">{user.fallback}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-72 p-3 titanium-card border-white/10 rounded-xl">
-                <DropdownMenuLabel className="p-5">
-                   <div className="flex flex-col gap-2">
-                      <p className="text-sm font-black uppercase italic tracking-tighter">{user.name}</p>
-                      <p className="text-[10px] text-white/30 font-mono font-bold">{user.email}</p>
+              <DropdownMenuContent align="end" className="w-64 p-2 rounded-xl">
+                <DropdownMenuLabel className="p-4">
+                   <div className="flex flex-col gap-1">
+                      <p className="text-sm font-bold truncate">{user.name}</p>
+                      <p className="text-xs text-muted-foreground font-medium truncate">{user.email}</p>
                    </div>
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-white/10" />
+                <DropdownMenuSeparator />
                 <DropdownMenuItem asChild className="rounded-lg">
-                  <Link href="/seguridad" className="flex items-center py-4 px-5">
-                      <Lock className="mr-4 h-5 w-5 text-primary" />
-                      <span className="font-black text-[10px] uppercase tracking-[0.3em]">ACCESO TOTAL NIVEL 5</span>
+                  <Link href="/seguridad" className="flex items-center py-2 px-3">
+                      <Lock className="mr-3 h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">Configuración de Seguridad</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="rounded-lg text-red-500 hover:bg-red-500/10">
-                  <Link href="/" className="flex items-center py-4 px-5">
-                      <LogOut className="mr-4 h-5 w-5" />
-                      <span className="font-black text-[10px] uppercase tracking-[0.3em]">DESCONECTAR TERMINAL</span>
+                <DropdownMenuItem asChild className="rounded-lg text-destructive focus:text-destructive">
+                  <Link href="/" className="flex items-center py-2 px-3">
+                      <LogOut className="mr-3 h-4 w-4" />
+                      <span className="text-sm">Cerrar Sesión</span>
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
-            {/* Mobile Sidebar */}
-            <Sheet>
-              <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon" className="h-12 w-12 bg-white/5 border border-white/10 rounded-lg"><Menu className="h-6 w-6 text-primary"/></Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="bg-black/95 border-r border-white/10 w-80 p-10 flex flex-col">
-                <SheetHeader className="mb-16">
-                    <SheetTitle className="flex items-center gap-5">
-                        <Logo className="h-10 w-10" />
-                        <span className="text-3xl font-black uppercase tracking-tighter italic">KYRON</span>
-                    </SheetTitle>
-                </SheetHeader>
-                <nav className="space-y-6">
-                    <Button variant="ghost" asChild className="w-full justify-start text-3xl font-black tracking-tighter hover:text-primary transition-all">
-                        <Link href="/dashboard" className="flex items-center gap-6"><LayoutGrid className="h-8 w-8"/> DASHBOARD</Link>
-                    </Button>
-                </nav>
-              </SheetContent>
-            </Sheet>
           </div>
         </div>
       </div>
