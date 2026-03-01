@@ -19,7 +19,7 @@ export default function LandingPage() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
-    damping: 30,
+    damping: 40, // Increased damping for smoother motion
     restDelta: 0.001
   });
 
@@ -28,17 +28,15 @@ export default function LandingPage() {
       <DynamicBackground />
       <WelcomeTutorial />
       
-      {/* Scroll Progress Bar */}
+      {/* Optimized Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1.5 bg-primary origin-left z-[200] shadow-[0_0_15px_rgba(10,36,114,0.5)]"
+        className="fixed top-0 left-0 right-0 h-1.5 bg-primary origin-left z-[200] shadow-[0_0_10px_rgba(10,36,114,0.3)] gpu-accelerated"
         style={{ scaleX }}
       />
 
-      {/* Header Informativo Global (Visibilidad Total) */}
       <LandingHeader />
       
-      {/* Contenido Principal Full Width */}
-      <main className="relative flex-1 w-full transition-all duration-300">
+      <main className="relative flex-1 w-full transition-opacity duration-300">
         <div className="max-w-[1600px] mx-auto pb-20">
             <section id="inicio">
               <HeroSection />

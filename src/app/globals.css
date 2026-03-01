@@ -54,6 +54,8 @@
   * { @apply border-border; }
   body {
     @apply bg-background text-foreground antialiased font-sans selection:bg-primary/10 scroll-smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
@@ -62,16 +64,18 @@
     @apply bg-[#0A2472] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
            hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#05123a] hover:shadow-[0_2px_0_#05123a]
            hover:scale-[1.02];
+    will-change: transform, box-shadow;
   }
 
   .btn-3d-secondary {
     @apply bg-[#4CAF50] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
            hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#2e7d32] hover:shadow-[0_2px_0_#2e7d32]
            hover:scale-[1.02];
+    will-change: transform, box-shadow;
   }
 
   .glass-panel {
-    @apply bg-card/40 backdrop-blur-2xl border border-white/10 shadow-2xl;
+    @apply bg-card/40 backdrop-blur-xl border border-white/10 shadow-2xl;
   }
   
   .italic-shadow {
@@ -89,8 +93,16 @@
   }
   
   .titanium-card {
-    @apply bg-card/60 backdrop-blur-xl border border-primary/5 shadow-xl rounded-[2.5rem] 
+    @apply bg-card/60 backdrop-blur-lg border border-primary/5 shadow-xl rounded-[2.5rem] 
            transition-all duration-500 hover:shadow-primary/5 hover:border-primary/20;
+    transform: translateZ(0); /* Force GPU */
+  }
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform, opacity;
   }
 }
 
