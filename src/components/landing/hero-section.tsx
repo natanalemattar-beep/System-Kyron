@@ -64,7 +64,7 @@ export function HeroSection() {
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 className="flex flex-col items-center gap-3 opacity-30 mt-8"
             >
-                <span className="text-[8px] font-black uppercase tracking-[0.4em]">Desliza para conocer más</span>
+                <span className="text-[8px] font-black uppercase tracking-[0.4em]">Descubre el Ecosistema</span>
                 <ArrowDown className="h-4 w-4 text-primary" />
             </motion.div>
           </motion.div>

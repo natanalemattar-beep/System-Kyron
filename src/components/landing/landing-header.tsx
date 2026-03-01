@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { 
     Menu, 
@@ -27,15 +27,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-
-const loginOptions = [
-    { href: "/login-personal", label: "Acceso Personal", sub: "Trámites Ciudadanos", icon: User },
-    { href: "/login-empresa", label: "Contabilidad", sub: "Gestión Fiscal", icon: Banknote },
-    { href: "/login-escritorio-juridico", label: "Legal", sub: "Contratos y Ley", icon: Gavel },
-    { href: "/login-ventas", label: "Ventas & TPV", sub: "Operaciones", icon: ShoppingCart },
-    { href: "/login-rrhh", label: "Talento Humano", sub: "Nómina e IA", icon: Briefcase },
-    { href: "/login-socios", label: "Portal de Socios", sub: "Estrategia", icon: Users },
-];
+import { loginOptions } from "@/lib/login-options";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -65,10 +57,10 @@ export function LandingHeader() {
                     <div className="flex items-center gap-8">
                         <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95">
                             <Logo className="h-9 w-9" />
-                            <span className="text-xl font-bold tracking-tight text-primary">System Kyron</span>
+                            <span className="text-xl font-bold tracking-tight text-primary whitespace-nowrap">System Kyron</span>
                         </Link>
 
-                        <nav className="hidden lg:flex items-center gap-1">
+                        <nav className="hidden md:flex items-center gap-1">
                             {navLinks.map((link) => (
                                 <Button 
                                     key={link.href} 
@@ -104,7 +96,7 @@ export function LandingHeader() {
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <span className="text-sm font-bold">{opt.label}</span>
-                                                        <span className="text-[10px] text-muted-foreground font-medium">{opt.sub}</span>
+                                                        <span className="text-[10px] text-muted-foreground font-medium">{opt.description.substring(0, 30)}...</span>
                                                     </div>
                                                 </Link>
                                             </DropdownMenuItem>

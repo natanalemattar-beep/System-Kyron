@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { Logo } from "./logo";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
@@ -21,7 +21,8 @@ import {
     LogOut, 
     Lock,
     LayoutGrid,
-    Search
+    Search,
+    Clock
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { Input } from "./ui/input";
@@ -56,10 +57,12 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                 <SheetContent side="left" className="w-72 p-0">
                   <div className="p-6 border-b mb-4 flex items-center gap-3">
                       <Logo className="h-8 w-8" />
-                      <span className="font-bold text-lg tracking-tight">System Kyron</span>
+                      <span className="font-bold text-lg tracking-tight text-primary">System Kyron</span>
                   </div>
                   <nav className="px-4 space-y-2">
-                      <Button variant="ghost" asChild className="w-full justify-start h-11"><Link href="/dashboard"><LayoutGrid className="mr-3 h-5 w-5"/> Dashboard</Link></Button>
+                      <Button variant="ghost" asChild className="w-full justify-start h-11">
+                        <Link href={dashboardHref as any}><LayoutGrid className="mr-3 h-5 w-5"/> Dashboard</Link>
+                      </Button>
                   </nav>
                 </SheetContent>
               </Sheet>
@@ -67,15 +70,16 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
             
             <div className="hidden md:flex relative max-w-sm">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Buscar en el sistema..." className="pl-9 h-9 w-[300px] bg-secondary/30 border-none rounded-lg text-xs" />
+                <Input placeholder="Buscar en el sistema..." className="pl-9 h-9 w-[200px] lg:w-[300px] bg-secondary/30 border-none rounded-lg text-xs" />
             </div>
           </div>
 
           <div className="flex items-center gap-2 md:gap-6">
             <div className="hidden md:flex flex-col items-end gap-0">
-                <span className="text-xs font-mono font-bold tracking-tight text-primary">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-tight text-primary">
+                    <Clock className="h-3 w-3" />
                     {time || '--:--:--'}
-                </span>
+                </div>
                 <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest opacity-50 italic">System Synced</span>
             </div>
 
