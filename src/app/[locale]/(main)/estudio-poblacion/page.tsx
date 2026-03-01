@@ -27,13 +27,13 @@ import { motion } from "framer-motion";
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "System Kyron" },
   { label: "INTEGRANTES DEL EQUIPO", value: "Carlos Mattar, Sebastian Garrido, Marcos Sousa" },
-  { label: "INSTITUCIÓN EDUCATIVA", value: "U.E. Colegio Gabriela Mistral" },
+  { label: "INSTITUCIÓN EDUCATIVA", value: "U.E.P. Gabriela Mistral" },
   { label: "PAÍS/CIUDAD", value: "Venezuela, La Guaira" },
 ];
 
 const zeduData = [
   { 
-    label: "PAÍS / CIUDAD/ MUNICIPIO/ LOCALIDAD ESPECÍFICA", 
+    label: "LOCALIDAD ESPECÍFICA", 
     value: "Venezuela, La Guaira, Municipio Vargas, Catia La Mar, Sector La Atlántida (Calle 7 a Calle 3).",
     icon: MapPin 
   },
@@ -48,23 +48,13 @@ const zeduData = [
     icon: Users 
   },
   { 
-    label: "CANTIDAD DE HABITANTES POR GÉNERO", 
-    value: "Femenino: 52% (7,800) | Masculino: 48% (7,200).",
-    icon: Layers 
-  },
-  { 
-    label: "CANTIDAD DE HABITANTES POR EDAD", 
-    value: "0-18: 22% | 19-45: 48% | 46-65: 22% | +65: 8%.",
-    icon: Info 
-  },
-  { 
     label: "CARACTERÍSTICAS DE LA POBLACIÓN", 
     value: "Zona costera con alta densidad de comercios. Elevada generación de residuos físicos, ideal para la digitalización Kyron.",
     icon: Recycle 
   },
   { 
     label: "CLIMA", 
-    value: "Tropical costero. Temperatura promedio: 28°C (Mín: 24°C / Máx: 34°C). Brisa marina constante.",
+    value: "Tropical costero. Temperatura promedio: 28°C. Brisa marina constante.",
     icon: ThermometerSun 
   }
 ];
@@ -78,13 +68,13 @@ const problemAnalysis = {
   ],
   consecuencias: "Pérdida masiva de tiempo en búsqueda de archivos y documentos físicos.",
   definicion: "En la Institución el sistema de archivado es muy pobre, ya que el método es netamente físico. Esto no permite agilidad a la hora de buscar información respecto a un estudiante de la institución.",
-  importancia: "Es vital disminuir la carga de trabajo y optimizar los tiempos de respuesta en la búsqueda de archivos mediante la digitalización.",
+  importancia: "Es vital disminuir la carga de trabajo y optimizar los tiempos de respuesta mediante la digitalización IA.",
   origen: "Desactualización e ignorancia en la gestión de nuevas tecnologías y procesos digitales."
 };
 
 const proposedSolution = {
   titulo: "SOLUCIÓN PROPUESTA",
-  desarrollo: "Implementación del Ecosistema de Gestión Digital System Kyron para la digitalización del 100% de los archivos académicos y administrativos del Colegio Gabriela Mistral. Utilizando IA para el reconocimiento de documentos (OCR) y almacenamiento seguro en la nube, permitiendo búsquedas instantáneas por Cédula o Nombre, eliminando el riesgo de pérdida física y reduciendo el tiempo de gestión en un 95%."
+  desarrollo: "Implementación del Ecosistema de Gestión Digital System Kyron para la digitalización del 100% de los archivos académicos y administrativos de la U.E.P. Gabriela Mistral. Utilizando IA para el reconocimiento de documentos (OCR) y almacenamiento seguro en la nube, permitiendo búsquedas instantáneas por Cédula o Nombre, eliminando el riesgo de pérdida física y reduciendo el tiempo de gestión en un 95%."
 };
 
 export default function EstudioPoblacionPage() {
@@ -106,7 +96,7 @@ export default function EstudioPoblacionPage() {
             </style>
             </head>
             <body>
-                <div class="main-title">INFORME TÉCNICO Y ESTUDIO DE POBLACIÓN (ZEDU)</div>
+                <div class="main-title">INFORME TÉCNICO DE MISIÓN CRÍTICA - SYSTEM KYRON</div>
                 
                 <div class="section-title">1. INFORMACIÓN DEL EQUIPO</div>
                 <table>
@@ -146,10 +136,6 @@ export default function EstudioPoblacionPage() {
                         <th>IMPORTANCIA DE RESOLVER</th>
                         <td>${problemAnalysis.importancia}</td>
                     </tr>
-                    <tr>
-                        <th>ORIGEN DEL PROBLEMA</th>
-                        <td>${problemAnalysis.origen}</td>
-                    </tr>
                 </table>
 
                 <div class="section-title">4. SOLUCIÓN PROPUESTA</div>
@@ -166,7 +152,7 @@ export default function EstudioPoblacionPage() {
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Informe_Tecnico_SystemKyron_GabrielaMistral.doc';
+        fileDownload.download = 'Informe_Tecnico_SystemKyron_U.E.P_GabrielaMistral.doc';
         fileDownload.click();
         document.body.removeChild(fileDownload);
 
@@ -182,16 +168,16 @@ export default function EstudioPoblacionPage() {
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-8 border-primary pl-10 py-2">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-3 px-4 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4">
-                        <Rocket className="h-3 w-3" /> Mission Status: Active
+                        <Rocket className="h-3 w-3" /> Mission Status: Ready
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter flex items-center gap-4 italic italic-shadow text-white uppercase leading-none">
                         <BookOpen className="h-14 w-14 text-primary" />
-                        ESTUDIO DE POBLACIÓN
+                        ESTUDIO TÉCNICO
                     </h1>
-                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Unidad Educativa Gabriela Mistral • Nodo La Guaira</p>
+                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">U.E.P. Gabriela Mistral • Nodo La Guaira</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-20 px-16 rounded-2xl shadow-glow text-base font-black" onClick={handleDownloadWord}>
-                    <Download className="mr-4 h-8 w-8" /> EXPORTAR INFORME FINAL (.DOC)
+                    <Download className="mr-4 h-8 w-8" /> EXPORTAR INFORME (.DOC)
                 </Button>
             </header>
 
@@ -200,7 +186,7 @@ export default function EstudioPoblacionPage() {
                 <div className="xl:col-span-4 space-y-10">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> Equipo de Gestión
+                            <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> Ficha del Proyecto
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl">
                             <CardContent className="p-0">
@@ -216,28 +202,21 @@ export default function EstudioPoblacionPage() {
 
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> Ubicación Geográfica
+                            <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> Matriz ZEDU
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl">
                             <CardContent className="p-10 space-y-8">
-                                <div className="flex items-start gap-6">
-                                    <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 shrink-0">
-                                        <MapPin className="h-6 w-6 text-primary" />
+                                {zeduData.slice(0, 2).map((item, index) => (
+                                    <div key={index} className="flex items-start gap-6">
+                                        <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 shrink-0">
+                                            <item.icon className="h-6 w-6 text-primary" />
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-primary/60 mb-1">{item.label}</p>
+                                            <p className="text-sm font-bold text-white/80 leading-relaxed italic">{item.value}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-primary/60 mb-1">Localidad</p>
-                                        <p className="text-sm font-bold text-white/80 leading-relaxed italic">{zeduData[0].value}</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-6">
-                                    <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 shrink-0">
-                                        <ThermometerSun className="h-6 w-6 text-primary" />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-primary/60 mb-1">Condiciones Climáticas</p>
-                                        <p className="text-sm font-bold text-white/80 leading-relaxed italic">{zeduData[6].value}</p>
-                                    </div>
-                                </div>
+                                ))}
                             </CardContent>
                         </Card>
                     </section>
@@ -245,9 +224,9 @@ export default function EstudioPoblacionPage() {
 
                 <div className="xl:col-span-8 space-y-10">
                     <section>
-                        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6">Métricas Poblacionales (La Atlántida)</h3>
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6">Análisis Situacional</h3>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {zeduData.slice(2, 5).map((item, index) => (
+                            {zeduData.slice(2).map((item, index) => (
                                 <Card key={index} className="glass-card border-none p-8 hover:scale-105 transition-transform">
                                     <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 w-fit mb-6">
                                         <item.icon className="h-6 w-6 text-primary" />
@@ -265,11 +244,11 @@ export default function EstudioPoblacionPage() {
                                 <AlertTriangle className="h-48 w-48 text-primary" />
                             </div>
                             <h3 className="text-2xl font-black uppercase italic flex items-center gap-4 mb-10 text-white">
-                                <AlertTriangle className="text-primary h-8 w-8" /> ANÁLISIS DEL PROBLEMA
+                                <AlertTriangle className="text-primary h-8 w-8" /> DEFINICIÓN DEL PROBLEMA
                             </h3>
                             <div className="space-y-10">
                                 <div>
-                                    <h4 className="font-black text-[10px] uppercase tracking-[0.3em] text-primary mb-4 opacity-60">Causas Identificadas</h4>
+                                    <h4 className="font-black text-[10px] uppercase tracking-[0.3em] text-primary mb-4 opacity-60">Causas Principales</h4>
                                     <ul className="space-y-3">
                                         {problemAnalysis.causas.map((c, i) => (
                                             <li key={i} className="flex items-center gap-3 text-sm font-bold text-white/70">
@@ -279,7 +258,7 @@ export default function EstudioPoblacionPage() {
                                     </ul>
                                 </div>
                                 <div className="pt-8 border-t border-white/5">
-                                    <h4 className="font-black text-[10px] uppercase tracking-[0.3em] text-primary mb-4 opacity-60">Definición Crítica</h4>
+                                    <h4 className="font-black text-[10px] uppercase tracking-[0.3em] text-primary mb-4 opacity-60">Impacto en la Institución</h4>
                                     <p className="text-base font-bold italic text-white/80 leading-relaxed text-justify">{problemAnalysis.definicion}</p>
                                 </div>
                             </div>
@@ -292,7 +271,7 @@ export default function EstudioPoblacionPage() {
                             <div className="relative z-10 space-y-10">
                                 <div>
                                     <div className="inline-flex items-center gap-3 px-4 py-1 rounded-full bg-white/10 text-[10px] font-black uppercase tracking-[0.4em] text-white mb-6 border border-white/20">
-                                        <CheckCircle className="h-3 w-3" /> Solution Engineering
+                                        <CheckCircle className="h-3 w-3" /> Digital Engineering
                                     </div>
                                     <h3 className="text-4xl font-black uppercase italic tracking-tighter mb-6 text-white leading-none">SOLUCIÓN <br/> PROPUESTA</h3>
                                     <p className="text-lg font-black italic leading-tight text-white/90 border-l-4 border-white/30 pl-8">
@@ -300,9 +279,9 @@ export default function EstudioPoblacionPage() {
                                     </p>
                                 </div>
                                 <div className="pt-10 border-t border-white/10">
-                                    <h4 className="font-black text-[10px] uppercase tracking-[0.4em] opacity-60 mb-4 text-white">Desarrolla tu Proyecto</h4>
+                                    <h4 className="font-black text-[10px] uppercase tracking-[0.4em] opacity-60 mb-4 text-white">Próximos Pasos</h4>
                                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-3xl">
-                                        <p className="text-xs font-bold uppercase tracking-widest text-white/80">Estatus: Fase de Implementación IA</p>
+                                        <p className="text-xs font-bold uppercase tracking-widest text-white/80">Estatus: Fase de Implementación IA Activa</p>
                                     </div>
                                 </div>
                             </div>
