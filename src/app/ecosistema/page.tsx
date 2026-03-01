@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
@@ -9,7 +8,8 @@ import {
   CheckCircle2, AlertTriangle, Info, MapPin, Printer, Download,
   Smartphone, Share2, MessageCircle, ChevronRight, Send, History, Recycle,
   Trash2, CreditCard, LayoutDashboard, Database, Server, BrainCircuit,
-  Zap, Award, Globe, Key, Lock, Layers, Target, Calculator, Gift, Heart, Calendar
+  Zap, Award, Globe, Key, Lock, Layers, Target, Calculator, Gift, Heart, Calendar,
+  Activity, Thermometer, Gauge, Cpu, Radio, Box
 } from 'lucide-react';
 import { 
   LineChart, Line, AreaChart, Area, BarChart, Bar, 
@@ -31,178 +31,140 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { cn, formatCurrency } from "@/lib/utils";
 
-// --- PALETA Y CONSTANTES ---
-const COLORS = {
-  primary: '#0A2472',
-  accent: '#4CAF50',
-  danger: '#F44336',
-  warning: '#FFC107',
-  chart: ['#0A2472', '#4CAF50', '#2196F3', '#9C27B0', '#FF9800']
-};
+// --- CONSTANTES ---
+const COLORS = ['#0A2472', '#4CAF50', '#2196F3', '#9C27B0', '#FF9800'];
 
-// --- MOCK DATA ---
-const financialHistory = [
-  { month: 'Sep', ingresos: 380000, gastos: 240000 },
-  { month: 'Oct', ingresos: 410000, gastos: 255000 },
-  { month: 'Nov', ingresos: 395000, gastos: 230000 },
-  { month: 'Dic', ingresos: 480000, gastos: 290000 },
-  { month: 'Ene', ingresos: 420000, gastos: 260000 },
-  { month: 'Feb', ingresos: 450000, gastos: 280000 },
-];
+export default function EcosistemaKyron() {
+  const [activeTab, setActiveTab] = useState('inicio');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [cartCount, setCartCount] = useState(0);
+  const { toast } = useToast();
 
-const wasteDistribution = [
-  { name: 'Papel', value: 60 },
-  { name: 'Plástico', value: 25 },
-  { name: 'Vidrio', value: 10 },
-  { name: 'Metal', value: 5 },
-];
+  // --- ESTADO SOSTENIBILIDAD ---
+  const [sustainabilityData, setSustainabilityData] = useState({
+    today: 245,
+    month: 3450,
+    points: 12450,
+    trees: 18,
+    history: [
+      { id: 1, date: "2026-03-01 14:20", type: "Papel", weight: 1.2, points: 60 },
+      { id: 2, date: "2026-03-01 13:10", type: "Plástico", weight: 0.5, points: 25 },
+      { id: 3, date: "2026-03-01 11:45", type: "Vidrio", weight: 2.1, points: 100 },
+    ]
+  });
 
-// --- COMPONENTES AUXILIARES ---
+  const simulateRecycling = () => {
+    const weights = [0.3, 0.5, 1.2, 0.8];
+    const types = ["Papel", "Plástico", "Vidrio", "Metal"];
+    const weight = weights[Math.floor(Math.random() * weights.length)];
+    const type = types[Math.floor(Math.random() * types.length)];
+    const points = Math.round(weight * 50);
 
-function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: any) {
-  const colorClass = variant === 'accent' ? 'text-[#4CAF50]' : variant === 'danger' ? 'text-[#F44336]' : 'text-[#0A2472]';
-  const bgColor = variant === 'accent' ? 'bg-[#4CAF50]' : variant === 'danger' ? 'bg-[#F44336]' : 'bg-[#0A2472]';
-  
-  return (
-    <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
-      <Card className="glass-card hover:scale-[1.02] transition-all duration-300 border-none shadow-xl overflow-hidden group relative">
-        <div className={cn("absolute top-0 left-0 h-1 w-full opacity-20", bgColor)} />
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">{title}</p>
-            <div className={cn("p-2 rounded-xl bg-slate-50 group-hover:scale-110 transition-transform", colorClass)}>
-              <Icon className="h-4 w-4" />
-            </div>
-          </div>
-          <h4 className={cn("text-2xl font-black tracking-tighter mb-1", colorClass)}>{value}</h4>
-          {trend && (
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              Tendencia: <span className={trend.startsWith('+') ? 'text-green-500' : trend.startsWith('-') ? 'text-red-500' : ''}>{trend}</span>
-            </p>
-          )}
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-}
+    setSustainabilityData(prev => ({
+      ...prev,
+      today: prev.today + weight,
+      points: prev.points + points,
+      history: [{
+        id: Date.now(),
+        date: new Date().toLocaleString(),
+        type,
+        weight,
+        points
+      }, ...prev.history].slice(0, 10)
+    }));
 
-// --- MÓDULO INICIO ---
-function ModuleInicio() {
-  return (
-    <div className="space-y-8 animate-in fade-in duration-700">
-      <div>
-        <h3 className="text-3xl font-black text-[#0A2472] tracking-tighter">Panel de Control Estratégico</h3>
-        <p className="text-sm text-muted-foreground font-medium">Resumen consolidado del rendimiento corporativo y ambiental.</p>
-      </div>
+    toast({
+      title: "Reciclaje Exitoso",
+      description: `Has depositado ${weight}kg de ${type}. +${points} puntos verdes.`,
+    });
+  };
 
-      {/* Fila 1: KPIs Generales */}
+  // --- COMPONENTES DE MÓDULOS ---
+
+  const ModuleInicio = () => (
+    <div className="space-y-8 animate-in fade-in duration-500">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Ingresos Mensuales" value="$ 450.000" trend="+12%" icon={ArrowUpRight} />
         <StatCard title="Gastos Operativos" value="$ 280.000" trend="-5%" icon={ArrowDownRight} variant="danger" />
         <StatCard title="Margen Neto" value="38%" icon={BarChart3} variant="accent" />
         <StatCard title="Riesgo Fiscal" value="0%" icon={ShieldCheck} variant="accent" />
       </div>
-
-      {/* Fila 2: KPIs Sostenibilidad */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Reciclado Hoy" value="245 kg" icon={Leaf} variant="accent" />
-        <StatCard title="Puntos Verdes" value="12.450" icon={Zap} variant="accent" />
-        <StatCard title="Árboles Salvados" value="18" icon={History} variant="accent" />
+        <StatCard title="Reciclado Hoy" value={`${sustainabilityData.today.toFixed(1)} kg`} icon={Leaf} variant="accent" />
+        <StatCard title="Puntos Verdes" value={sustainabilityData.points.toLocaleString()} icon={Zap} variant="accent" />
+        <StatCard title="Árboles Salvados" value={sustainabilityData.trees} icon={History} variant="accent" />
         <StatCard title="CO₂ Evitado" value="320 kg" icon={Droplets} variant="accent" />
       </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Gráfico Líneas */}
-        <Card className="lg:col-span-2 glass-card border-none shadow-2xl">
-          <CardHeader>
-            <CardTitle className="text-[#0A2472] flex items-center gap-2 font-black text-lg">
-              <AreaChart className="h-5 w-5 text-primary"/> Desempeño Financiero
-            </CardTitle>
-            <CardDescription className="font-medium">Evolución de ingresos vs gastos (Últimos 6 meses)</CardDescription>
-          </CardHeader>
-          <CardContent className="h-[320px]">
+        <Card className="lg:col-span-2 glass-card border-none">
+          <CardHeader><CardTitle>Evolución Financiera</CardTitle></CardHeader>
+          <CardContent className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={financialHistory}>
-                <defs>
-                  <linearGradient id="colorIng" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#0A2472" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#0A2472" stopOpacity={0}/>
-                  </linearGradient>
-                  <linearGradient id="colorGas" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#F44336" stopOpacity={0.1}/>
-                    <stop offset="95%" stopColor="#F44336" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
+              <AreaChart data={[
+                { m: 'Sep', i: 380, g: 240 }, { m: 'Oct', i: 410, g: 255 }, { m: 'Nov', i: 395, g: 230 },
+                { m: 'Dic', i: 480, g: 290 }, { m: 'Ene', i: 420, g: 260 }, { m: 'Feb', i: 450, g: 280 }
+              ]}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
-                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12, fontWeight: 'bold'}} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12, fontWeight: 'bold'}} />
-                <Tooltip contentStyle={{borderRadius: '20px', border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.1)', fontWeight: 'bold'}} />
-                <Area type="monotone" dataKey="ingresos" stroke="#0A2472" strokeWidth={4} fillOpacity={1} fill="url(#colorIng)" />
-                <Area type="monotone" dataKey="gastos" stroke="#F44336" strokeWidth={3} fillOpacity={1} fill="url(#colorGas)" />
+                <XAxis dataKey="m" axisLine={false} tickLine={false} />
+                <YAxis axisLine={false} tickLine={false} />
+                <Tooltip />
+                <Area type="monotone" dataKey="i" stroke="#0A2472" fill="#0A2472" fillOpacity={0.1} />
+                <Area type="monotone" dataKey="g" stroke="#F44336" fill="#F44336" fillOpacity={0.1} />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
-
-        {/* Gráfico Pastel */}
-        <Card className="glass-card border-none shadow-2xl">
-          <CardHeader>
-            <CardTitle className="text-[#0A2472] flex items-center gap-2 font-black text-lg">
-              <Recycle className="h-5 w-5 text-accent"/> Distribución de Residuos
-            </CardTitle>
-            <CardDescription className="font-medium">Materiales procesados por tipo</CardDescription>
-          </CardHeader>
-          <CardContent className="h-[320px]">
+        <Card className="glass-card border-none">
+          <CardHeader><CardTitle>Distribución de Residuos</CardTitle></CardHeader>
+          <CardContent className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={wasteDistribution} innerRadius={70} outerRadius={100} paddingAngle={8} dataKey="value">
-                  {wasteDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS.chart[index % COLORS.chart.length]} stroke="none" />
-                  ))}
+                <Pie data={[{n:'Papel', v:60}, {n:'Plástico', v:25}, {n:'Vidrio', v:10}, {n:'Metal', v:5}]} dataKey="v" innerRadius={60} outerRadius={80} paddingAngle={5}>
+                  {COLORS.map((c, i) => <Cell key={i} fill={c} />)}
                 </Pie>
                 <Tooltip />
-                <Legend iconType="circle" wrapperStyle={{fontWeight: 'bold', fontSize: '12px'}} />
+                <Legend />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
+    </div>
+  );
 
-      {/* Tabla Actividad Reciente */}
-      <Card className="glass-card border-none shadow-2xl overflow-hidden">
-        <CardHeader className="bg-[#0A2472]/5 border-b border-slate-100">
-          <CardTitle className="text-[#0A2472] flex items-center gap-2 font-black">
-            <History className="h-5 w-5"/> Actividad Reciente del Sistema
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
+  const ModuleSostenibilidad = () => (
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="flex justify-between items-center">
+        <h3 className="text-2xl font-bold text-[#0A2472]">Gestión de Papelera Inteligente</h3>
+        <Button onClick={simulateRecycling} className="btn-3d-secondary">
+          <Recycle className="mr-2 h-4 w-4" /> Simular Reciclaje
+        </Button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <StatCard title="Reciclado Hoy" value={`${sustainabilityData.today.toFixed(1)} kg`} icon={Leaf} variant="accent" />
+        <StatCard title="Meta Mensual" value={`${sustainabilityData.month} kg`} icon={Target} />
+        <StatCard title="Puntos Acumulados" value={sustainabilityData.points.toLocaleString()} icon={Zap} variant="accent" />
+        <StatCard title="Árboles Equivalentes" value={sustainabilityData.trees} icon={History} variant="accent" />
+      </div>
+      <Card className="glass-card border-none">
+        <CardHeader><CardTitle>Historial de Trazabilidad</CardTitle></CardHeader>
+        <CardContent>
           <Table>
-            <TableHeader className="bg-slate-50/50">
+            <TableHeader>
               <TableRow>
-                <TableHead className="pl-8 text-[10px] font-black uppercase tracking-widest text-slate-400">Fecha</TableHead>
-                <TableHead className="text-[10px] font-black uppercase tracking-widest text-slate-400">Descripción de Acción</TableHead>
-                <TableHead className="text-right pr-8 text-[10px] font-black uppercase tracking-widest text-slate-400">Estado</TableHead>
+                <TableHead>Fecha/Hora</TableHead>
+                <TableHead>Material</TableHead>
+                <TableHead>Peso (kg)</TableHead>
+                <TableHead className="text-right">Puntos</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {[
-                { date: "Hoy, 14:20", desc: "Factura Fiscal #F-2026-452 emitida exitosamente", status: "Completado" },
-                { date: "Hoy, 13:10", desc: "Reciclaje de Papel (1.2kg) registrado en Sede Caracas", status: "Completado" },
-                { date: "Hoy, 09:30", desc: "Nómina Q1 Marzo 2026 procesada para 124 empleados", status: "Completado" },
-                { date: "Ayer, 17:45", desc: "Contrato TechSolutions renovado por Asesoría Legal", status: "Completado" },
-                { date: "Ayer, 11:20", desc: "Mantenimiento preventivo Bomba B-45 iniciado", status: "En Proceso" }
-              ].map((row, i) => (
-                <TableRow key={i} className="hover:bg-slate-50/50 transition-colors">
-                  <TableCell className="pl-8 text-xs text-slate-400 font-black uppercase">{row.date}</TableCell>
-                  <TableCell className="font-bold text-slate-700 text-sm">{row.desc}</TableCell>
-                  <TableCell className="text-right pr-8">
-                    <Badge variant="outline" className={cn(
-                      "font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-lg border-none shadow-sm",
-                      row.status === "Completado" ? "text-green-600 bg-green-50" : "text-yellow-600 bg-yellow-50"
-                    )}>
-                      {row.status}
-                    </Badge>
-                  </TableCell>
+              {sustainabilityData.history.map(item => (
+                <TableRow key={item.id}>
+                  <TableCell className="text-xs">{item.date}</TableCell>
+                  <TableCell><Badge variant="secondary">{item.type}</Badge></TableCell>
+                  <TableCell className="font-mono">{item.weight} kg</TableCell>
+                  <TableCell className="text-right font-bold text-[#4CAF50]">+{item.points}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -211,161 +173,167 @@ function ModuleInicio() {
       </Card>
     </div>
   );
-}
 
-// --- COMPONENTE MAESTRO ---
-export default function EcosistemaKyron() {
-  const [activeTab, setActiveTab] = useState('inicio');
-  const [currentDate, setCurrentDate] = useState('');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { toast } = useToast();
+  const ModuleIdentidad = () => (
+    <div className="flex flex-col items-center justify-center py-12 animate-in zoom-in duration-500">
+      <motion.div 
+        className="relative w-80 h-[480px] perspective-1000 group"
+        whileHover={{ rotateY: 10, rotateX: 5 }}
+      >
+        <Card className="w-full h-full glass-card border-2 border-primary/20 rounded-[2.5rem] overflow-hidden flex flex-col items-center p-8 text-center shadow-[0_20px_50px_rgba(10,36,114,0.3)]">
+          <div className="w-24 h-24 bg-primary/10 rounded-3xl flex items-center justify-center mb-6 border border-primary/10">
+            <Logo className="h-16 w-16" />
+          </div>
+          <h3 className="text-2xl font-black tracking-tighter mb-1">System Kyron</h3>
+          <p className="text-[10px] uppercase font-black tracking-widest text-[#4CAF50] mb-8">Ecosistema Verificado</p>
+          
+          <div className="w-full space-y-4 text-left mb-8">
+            <div className="space-y-1">
+              <p className="text-[8px] uppercase font-black text-muted-foreground tracking-widest">Identificador Fiscal</p>
+              <p className="text-xs font-bold font-mono">RIF: J-12345678-9</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[8px] uppercase font-black text-muted-foreground tracking-widest">Global ID</p>
+              <p className="text-xs font-bold font-mono">RUN: 25.123.456-K</p>
+            </div>
+          </div>
 
-  useEffect(() => {
-    const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    setCurrentDate(new Date().toLocaleDateString('es-ES', options));
-  }, []);
+          <div className="p-4 bg-white rounded-2xl mb-8 shadow-inner border">
+            <Image src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=kyron-identity-verified" alt="QR Identity" width={120} height={120} />
+          </div>
 
-  const navItems = [
-    { id: 'inicio', label: 'Inicio', icon: Home },
-    { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3 },
-    { id: 'rrhh', label: 'RR.HH.', icon: Users },
-    { id: 'juridico', label: 'Jurídico', icon: Scale },
-    { id: 'sostenibilidad', label: 'Sostenibilidad', icon: Leaf },
-    { id: 'petroleo', label: 'Petróleo', icon: Droplets },
-    { id: 'tesoreria', label: 'Tesorería', icon: Wallet },
-    { id: 'mantenimiento', label: 'Mantenimiento', icon: Wrench },
-    { id: 'fiscalizacion', label: 'Fiscalización', icon: ShieldCheck },
-    { id: 'tienda', label: 'Tienda', icon: ShoppingBag },
-    { id: 'identidad', label: 'Identidad Digital', icon: Fingerprint },
-    { id: 'configuracion', label: 'Configuración', icon: Cog },
-  ];
-
-  const handleDemoClick = () => {
-    toast({
-      title: "Funcionalidad en Demostración",
-      description: "Esta acción está simulada para fines de visualización del ecosistema Kyron.",
-    });
-  };
+          <div className="mt-auto flex gap-2 w-full">
+            <Button className="flex-1 btn-3d-primary h-10 text-[10px] font-black uppercase">Compartir</Button>
+            <Button variant="outline" className="flex-1 h-10 text-[10px] font-black uppercase rounded-xl">Blockchain</Button>
+          </div>
+        </Card>
+      </motion.div>
+    </div>
+  );
 
   return (
-    <div className="flex h-screen w-full bg-[#f8fafc] overflow-hidden text-slate-900 font-sans selection:bg-primary/10">
-      {/* --- SIDEBAR --- */}
+    <div className="flex h-screen w-full bg-[#f8fafc] overflow-hidden text-slate-900 font-sans">
+      {/* SIDEBAR */}
       <aside className={cn(
-        "bg-[#0A2472] text-white flex flex-col transition-all duration-500 z-30 shadow-2xl relative",
+        "bg-[#0A2472] text-white flex flex-col transition-all duration-500 z-30 shadow-2xl",
         isSidebarOpen ? 'w-72' : 'w-24'
       )}>
         <div className="p-8 flex items-center gap-4 border-b border-white/5">
-          <div className="bg-white p-2 rounded-2xl shadow-2xl shrink-0">
-            <Zap className="text-[#0A2472] h-7 w-7" />
+          <div className="bg-white p-2 rounded-2xl shadow-xl shrink-0">
+            <Logo className="text-[#0A2472] h-8 w-8" />
           </div>
-          {isSidebarOpen && <span className="font-black text-2xl tracking-tighter uppercase italic opacity-90">Kyron</span>}
+          {isSidebarOpen && <span className="font-black text-xl tracking-tighter uppercase italic opacity-90">Kyron</span>}
         </div>
         
-        <nav className="flex-grow py-8 px-4 space-y-2 overflow-y-auto custom-scrollbar">
-          {navItems.map((item) => (
+        <nav className="flex-grow py-8 px-4 space-y-2 overflow-y-auto">
+          {[
+            { id: 'inicio', label: 'Inicio', icon: Home },
+            { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3 },
+            { id: 'rrhh', label: 'RR.HH.', icon: Users },
+            { id: 'juridico', label: 'Jurídico', icon: Scale },
+            { id: 'sostenibilidad', label: 'Sostenibilidad', icon: Recycle },
+            { id: 'petroleo', label: 'Petróleo', icon: Droplets },
+            { id: 'tesoreria', label: 'Tesorería', icon: Wallet },
+            { id: 'mantenimiento', label: 'Mantenimiento', icon: Wrench },
+            { id: 'fiscalizacion', label: 'Fiscalización', icon: ShieldCheck },
+            { id: 'tienda', label: 'Tienda', icon: ShoppingBag },
+            { id: 'identidad', label: 'Identidad Digital', icon: Fingerprint },
+            { id: 'configuracion', label: 'Configuración', icon: Cog },
+          ].map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={cn(
-                "w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 group relative overflow-hidden",
+                "w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 group relative",
                 activeTab === item.id 
-                ? 'bg-white/10 border border-white/10 shadow-inner' 
+                ? 'bg-white/10 border-l-4 border-[#4CAF50]' 
                 : 'hover:bg-white/5 text-slate-400 hover:text-white'
               )}
             >
-              {activeTab === item.id && <motion.div layoutId="active-pill" className="absolute left-0 w-1 h-6 bg-[#4CAF50] rounded-r-full" />}
-              <item.icon className={cn("h-5 w-5 shrink-0 transition-transform group-hover:scale-110", activeTab === item.id ? 'text-[#4CAF50]' : '')} />
-              {isSidebarOpen && <span className="text-sm font-black uppercase tracking-widest whitespace-nowrap">{item.label}</span>}
+              <item.icon className={cn("h-5 w-5 shrink-0", activeTab === item.id ? 'text-[#4CAF50]' : '')} />
+              {isSidebarOpen && <span className="text-sm font-black uppercase tracking-widest">{item.label}</span>}
             </button>
           ))}
         </nav>
-
-        <div className="p-6 border-t border-white/5">
-          <button 
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="w-full flex items-center justify-center h-12 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/5"
-          >
-            {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
       </aside>
 
-      {/* --- CONTENT AREA --- */}
-      <main className="flex-1 flex flex-col relative overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(10,36,114,0.03),transparent_50%)]">
-        {/* HEADER */}
-        <header className="h-20 border-b bg-white/40 backdrop-blur-2xl flex items-center justify-between px-10 z-20 shadow-sm">
+      {/* CONTENT */}
+      <main className="flex-1 flex flex-col relative overflow-hidden">
+        <header className="h-20 border-b bg-white/40 backdrop-blur-md flex items-center justify-between px-10 z-20">
           <div className="flex flex-col">
-            <h2 className="text-xs font-black text-[#0A2472] uppercase tracking-[0.3em] mb-1">{currentDate}</h2>
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-slate-500 italic">Bienvenido,</span>
-              <span className="text-sm font-black text-slate-800">Empresa Ejemplo C.A.</span>
-            </div>
+            <h2 className="text-[10px] font-black text-[#0A2472] uppercase tracking-[0.3em] mb-1">
+              {new Date().toLocaleDateString('es-VE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+            </h2>
+            <p className="text-sm font-bold text-slate-500">Bienvenido, Empresa Ejemplo C.A.</p>
           </div>
 
-          <div className="flex items-center gap-8">
-            <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-[#0A2472]/5 rounded-full border border-[#0A2472]/5">
-              <Search className="h-4 w-4 text-slate-400" />
-              <input type="text" placeholder="Buscar en el ecosistema..." className="bg-transparent border-none text-xs font-bold outline-none w-48 placeholder:text-slate-400" />
-            </div>
-
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="relative h-12 w-12 rounded-2xl hover:bg-[#0A2472]/5 transition-colors" onClick={handleDemoClick}>
-                <Bell className="h-6 w-6 text-slate-600" />
-                <span className="absolute top-3 right-3 bg-[#F44336] text-white text-[9px] font-black h-5 w-5 flex items-center justify-center rounded-full border-2 border-white shadow-lg">3</span>
+          <div className="flex items-center gap-6">
+            <div className="relative">
+              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-[#0A2472]/5">
+                <Bell className="h-5 w-5" />
+                <span className="absolute top-2 right-2 bg-red-500 text-white text-[8px] font-black h-4 w-4 flex items-center justify-center rounded-full border-2 border-white">3</span>
               </Button>
-
-              <div className="h-10 w-px bg-slate-200" />
-
-              <div className="flex items-center gap-3 cursor-pointer group" onClick={handleDemoClick}>
-                <div className="text-right hidden sm:block">
-                  <p className="text-xs font-black text-slate-800 leading-none mb-1">Adm. General</p>
-                  <p className="text-[10px] font-bold text-[#4CAF50] uppercase tracking-widest">En Línea</p>
-                </div>
-                <Avatar className="h-12 w-12 border-2 border-white shadow-xl group-hover:scale-105 transition-transform">
-                  <AvatarFallback className="bg-gradient-to-br from-[#0A2472] to-[#1e3a8a] text-white font-black text-sm">AD</AvatarFallback>
-                </Avatar>
-              </div>
             </div>
+            <Avatar className="h-10 w-10 border-2 border-[#0A2472]/10 shadow-lg">
+              <AvatarFallback className="bg-[#0A2472] text-white font-black text-xs">EC</AvatarFallback>
+            </Avatar>
           </div>
         </header>
 
-        {/* MAIN RENDERER */}
-        <div className="flex-1 overflow-y-auto p-10 custom-scrollbar relative">
+        <div className="flex-1 overflow-y-auto p-10">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
+            <div key={activeTab}>
               {activeTab === 'inicio' && <ModuleInicio />}
-              {activeTab !== 'inicio' && (
-                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6">
-                  <div className="p-8 bg-white/50 backdrop-blur-xl rounded-[3rem] shadow-2xl border border-white/20">
-                    <LayoutDashboard className="h-20 w-20 text-[#0A2472]/20 mx-auto mb-6" />
-                    <h3 className="text-3xl font-black text-[#0A2472] tracking-tighter uppercase italic">Módulo {activeTab}</h3>
-                    <p className="text-slate-500 font-medium max-w-md mt-4">Estamos preparando la interfaz de este módulo. <br/>Pronto estará disponible en la Fase 2 del desarrollo.</p>
-                    <Button className="mt-8 bg-[#0A2472] rounded-2xl h-12 px-8 font-black shadow-xl" onClick={() => setActiveTab('inicio')}>Volver al Inicio</Button>
+              {activeTab === 'sostenibilidad' && <ModuleSostenibilidad />}
+              {activeTab === 'identidad' && <ModuleIdentidad />}
+              {/* Otros módulos simplificados para la demo */}
+              {!['inicio', 'sostenibilidad', 'identidad'].includes(activeTab) && (
+                <div className="flex flex-col items-center justify-center h-[60vh] text-center space-y-6">
+                  <div className="p-8 glass-card rounded-[3rem]">
+                    <LayoutDashboard className="h-20 w-20 text-[#0A2472]/20 mx-auto mb-4" />
+                    <h3 className="text-2xl font-black text-[#0A2472] uppercase tracking-tighter">Módulo {activeTab}</h3>
+                    <p className="text-slate-500 max-w-md mx-auto mt-4">Interfaz en proceso de sincronización con el núcleo central. Esta funcionalidad está disponible en la versión completa.</p>
+                    <Button onClick={() => setActiveTab('inicio')} className="btn-3d-primary mt-8 px-8 h-12">Volver al Inicio</Button>
                   </div>
                 </div>
               )}
-            </motion.div>
+            </div>
           </AnimatePresence>
         </div>
 
-        <footer className="h-12 border-t bg-white/40 backdrop-blur-md flex items-center justify-center px-10 text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] z-20">
+        <footer className="h-12 border-t bg-white/40 flex items-center justify-center px-10 text-[9px] font-black text-slate-400 uppercase tracking-[0.4em]">
           System Kyron v2.0 • 2026 • © Todos los derechos reservados
         </footer>
       </main>
 
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(10, 36, 114, 0.1); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(10, 36, 114, 0.2); }
-        .glass-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 32px; box-shadow: 0 20px 50px rgba(10, 36, 114, 0.05); }
-      `}</style>
+      {/* Floating Assistant */}
+      <button 
+        onClick={() => toast({ title: "System Kyron Assistant", description: "¿En qué puedo ayudarte hoy?" })}
+        className="fixed bottom-8 right-8 h-16 w-16 bg-[#0A2472] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 group"
+      >
+        <MessageCircle className="h-8 w-8" />
+        <span className="absolute right-20 bg-[#0A2472] text-white text-[10px] font-black px-4 py-2 rounded-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+          ¿Necesitas ayuda?
+        </span>
+      </button>
     </div>
+  );
+}
+
+function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: any) {
+  const colorClass = variant === 'accent' ? 'text-[#4CAF50]' : variant === 'danger' ? 'text-[#F44336]' : 'text-[#0A2472]';
+  return (
+    <Card className="glass-card hover:scale-[1.02] transition-all duration-300 border-none group relative overflow-hidden">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{title}</p>
+          <div className={cn("p-2 rounded-xl bg-slate-50", colorClass)}>
+            <Icon className="h-4 w-4" />
+          </div>
+        </div>
+        <h4 className={cn("text-2xl font-black tracking-tighter mb-1", colorClass)}>{value}</h4>
+        {trend && <p className="text-[10px] font-bold text-slate-400">Tendencia: <span className={trend.startsWith('+') ? 'text-green-500' : 'text-red-500'}>{trend}</span></p>}
+      </CardContent>
+    </Card>
   );
 }
