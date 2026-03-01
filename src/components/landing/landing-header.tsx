@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -11,6 +10,8 @@ import {
     ChevronDown,
     LayoutGrid,
     Sparkles,
+    User,
+    Building2,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { 
@@ -88,7 +89,6 @@ export function LandingHeader() {
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
                             
-                            {/* Desplegable de Acceso Organizado (PC) */}
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="outline" className="rounded-xl h-11 px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group">
@@ -129,7 +129,6 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
-                        {/* Menú Lateral (Hamburguesa) */}
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all active:scale-90">
@@ -156,29 +155,58 @@ export function LandingHeader() {
                                     ))}
                                     
                                     <div className="pt-8 space-y-4 px-2">
-                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic px-2">Acceso al Ecosistema</p>
+                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic px-2">Portales de Gestión</p>
                                         <div className="flex flex-col gap-4">
                                             <Collapsible open={isAccesoOpen} onOpenChange={setIsAccesoOpen} className="w-full">
                                                 <CollapsibleTrigger asChild>
                                                     <Button variant="outline" className="w-full justify-between rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md px-6">
-                                                        <span>DESPLEGAR ACCESO</span> 
+                                                        <span>ACCESO</span> 
                                                         <ChevronDown className={cn("h-4 w-4 text-primary transition-transform duration-300", isAccesoOpen && "rotate-180")} />
                                                     </Button>
                                                 </CollapsibleTrigger>
-                                                <CollapsibleContent className="animate-in fade-in slide-in-from-top-2 duration-300 pt-4">
-                                                    <div className="grid grid-cols-2 gap-3 p-4 bg-secondary/20 rounded-[2rem] border border-primary/5">
-                                                        {loginOptions.map((option) => (
-                                                            <Link 
-                                                                key={option.href} 
-                                                                href={option.href as any}
-                                                                className="flex flex-col items-center justify-center p-4 rounded-2xl bg-background/50 hover:bg-primary/5 border border-transparent hover:border-primary/10 transition-all text-center group/item"
-                                                            >
-                                                                <div className="p-3 bg-primary/10 rounded-xl mb-3 group-hover/item:scale-110 transition-transform shadow-inner">
-                                                                    <option.icon className="h-5 w-5 text-primary" />
-                                                                </div>
-                                                                <span className="text-[8px] font-black uppercase tracking-tighter leading-tight">{option.label}</span>
-                                                            </Link>
-                                                        ))}
+                                                <CollapsibleContent className="animate-in fade-in slide-in-from-top-2 duration-300 pt-4 space-y-6">
+                                                    {/* Sección Personal */}
+                                                    <div className="space-y-3">
+                                                        <div className="flex items-center gap-2 px-4">
+                                                            <User className="h-3 w-3 text-primary/40" />
+                                                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary/40">Ciudadano</span>
+                                                        </div>
+                                                        <div className="grid grid-cols-1 gap-2 px-2">
+                                                            {loginOptions.filter(o => o.href === '/login-personal').map((option) => (
+                                                                <Link 
+                                                                    key={option.href} 
+                                                                    href={option.href as any}
+                                                                    className="flex items-center gap-4 p-4 rounded-2xl bg-primary/5 hover:bg-primary/10 border border-primary/10 transition-all group/item"
+                                                                >
+                                                                    <div className="p-2 bg-background rounded-xl shadow-inner">
+                                                                        <option.icon className="h-5 w-5 text-primary" />
+                                                                    </div>
+                                                                    <span className="text-[10px] font-black uppercase tracking-tight italic">{option.label}</span>
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Sección Corporativa */}
+                                                    <div className="space-y-3">
+                                                        <div className="flex items-center gap-2 px-4">
+                                                            <Building2 className="h-3 w-3 text-primary/40" />
+                                                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary/40">Corporativo</span>
+                                                        </div>
+                                                        <div className="grid grid-cols-2 gap-2 px-2">
+                                                            {loginOptions.filter(o => o.href !== '/login-personal').map((option) => (
+                                                                <Link 
+                                                                    key={option.href} 
+                                                                    href={option.href as any}
+                                                                    className="flex flex-col items-center justify-center p-4 rounded-2xl bg-secondary/5 hover:bg-secondary/10 border border-border/50 transition-all text-center group/item h-24"
+                                                                >
+                                                                    <div className="p-2 bg-background rounded-xl mb-2 group-hover/item:scale-110 transition-transform shadow-inner">
+                                                                        <option.icon className="h-4 w-4 text-primary" />
+                                                                    </div>
+                                                                    <span className="text-[7px] font-black uppercase tracking-tighter leading-tight">{option.label}</span>
+                                                                </Link>
+                                                            ))}
+                                                        </div>
                                                     </div>
                                                 </CollapsibleContent>
                                             </Collapsible>
