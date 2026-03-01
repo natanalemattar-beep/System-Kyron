@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
@@ -37,13 +37,13 @@ export function HeroSection() {
               Ecosistema unificado de gestión, telecomunicaciones y finanzas blindado por inteligencia artificial.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button asChild size="lg" className="h-12 px-8 rounded-full text-sm font-bold shadow-xl transition-all hover:scale-105 group">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <Button asChild size="lg" className="h-14 px-10 rounded-2xl text-sm font-black shadow-xl btn-3d-primary group">
                     <Link href="/login" className="flex items-center">
-                        Entrar al Ecosistema <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        Entrar al Ecosistema <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="h-12 px-8 rounded-full text-sm font-bold border-primary/10 hover:bg-primary/5">
+                <Button variant="outline" size="lg" className="h-14 px-10 rounded-2xl text-sm font-black border-primary/10 hover:bg-primary/5 backdrop-blur-sm">
                     Descubrir Tecnología
                 </Button>
             </div>

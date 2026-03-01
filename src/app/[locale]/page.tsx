@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -11,23 +10,20 @@ import {
   Footer
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
-import { useTranslations } from "next-intl";
 
 export default function LandingPage() {
-  const t = useTranslations('LandingHeader');
-
   return (
-    <>
+    <div className="relative min-h-screen">
       <LandingHeader />
-      <main className="pt-16">
+      <main>
         <HeroSection />
         <ServicesSection />
         <FeaturesSection />
         <AboutUsSection />
         <FaqSection />
         <CtaSection />
-        <Footer />
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }
