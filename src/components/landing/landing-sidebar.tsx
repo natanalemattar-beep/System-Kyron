@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState } from "react";
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
@@ -16,13 +17,23 @@ import {
     ShoppingCart,
     ShieldCheck,
     Contact,
-    Package
+    Package,
+    ChevronDown,
+    UserCircle2
 } from "lucide-react";
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { loginOptions } from "@/lib/login-options";
 
 export function LandingSidebar() {
+    const [isAccesoOpen, setIsAccesoOpen] = useState(false);
+    
     const navLinks = [
       { href: "#inicio", label: "Inicio", icon: LayoutGrid },
       { href: "/ecosistema", label: "Ecosistema", icon: Zap },
@@ -34,7 +45,6 @@ export function LandingSidebar() {
 
     return (
         <aside className="fixed left-0 top-0 bottom-0 w-64 bg-card/80 backdrop-blur-2xl border-r border-primary/10 hidden lg:flex flex-col z-[110] shadow-[10px_0_30px_rgba(0,0,0,0.05)] overflow-hidden">
-            {/* Header del Sidebar con Brillo y Vida */}
             <div className="p-8 border-b border-primary/5 flex flex-col items-center gap-4 bg-gradient-to-b from-primary/[0.05] to-transparent">
                 <div className="relative group">
                     <div className="absolute inset-0 bg-primary/30 blur-xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700"></div>
@@ -80,14 +90,35 @@ export function LandingSidebar() {
                 </div>
             </nav>
 
-            {/* Footer con Botones 3D */}
             <div className="p-6 border-t border-primary/5 bg-gradient-to-t from-primary/[0.03] to-transparent space-y-4">
                 <div className="flex justify-center mb-2">
                     <ThemeToggle />
                 </div>
-                <Button variant="outline" asChild className="w-full justify-center h-12 rounded-xl gap-2 font-black uppercase text-[10px] tracking-widest border-primary/10 hover:bg-primary/5 shadow-inner">
-                    <Link href="/login">Acceder <ShieldCheck className="h-4 w-4 text-primary" /></Link>
-                </Button>
+                
+                <Collapsible open={isAccesoOpen} onOpenChange={setIsAccesoOpen} className="w-full space-y-2">
+                    <CollapsibleTrigger asChild>
+                        <Button variant="outline" className="w-full justify-center h-12 rounded-xl gap-2 font-black uppercase text-[10px] tracking-widest border-primary/10 hover:bg-primary/5 shadow-inner">
+                            ACCESO 
+                            <ChevronDown className={cn("h-3.5 w-3.5 text-primary transition-transform", isAccesoOpen && "rotate-180")} />
+                        </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        <div className="grid grid-cols-2 gap-2 p-2 bg-secondary/10 rounded-2xl border border-primary/5">
+                            {loginOptions.slice(0, 4).map((option) => (
+                                <Link 
+                                    key={option.href} 
+                                    href={option.href as any}
+                                    className="flex flex-col items-center justify-center p-2 rounded-xl bg-background/50 hover:bg-primary/5 border border-transparent hover:border-primary/10 transition-all text-center"
+                                >
+                                    <option.icon className="h-3.5 w-3.5 text-primary mb-1" />
+                                    <span className="text-[7px] font-black uppercase tracking-tighter leading-none">{option.label}</span>
+                                </Link>
+                            ))}
+                            <Link href="/login" className="col-span-2 text-[8px] font-black uppercase text-center py-1 hover:text-primary transition-colors">Ver todos los portales</Link>
+                        </div>
+                    </CollapsibleContent>
+                </Collapsible>
+
                 <Button asChild className="w-full justify-center h-12 rounded-xl btn-3d-primary text-[10px] uppercase tracking-[0.2em] shadow-xl group">
                     <Link href="/register">REGISTRO <Zap className="ml-2 h-3.5 w-3.5 text-yellow-400 fill-yellow-400 group-hover:scale-125 transition-transform"/></Link>
                 </Button>

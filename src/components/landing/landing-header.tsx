@@ -22,6 +22,11 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -29,6 +34,7 @@ import { loginOptions } from "@/lib/login-options";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isAccesoOpen, setIsAccesoOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -88,7 +94,7 @@ export function LandingHeader() {
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="outline" className="rounded-xl h-11 px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group">
                                         <UserCircle className="h-4 w-4 mr-2 text-primary" /> 
-                                        Acceder
+                                        ACCESO
                                         <ChevronDown className="h-3 w-3 ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
@@ -148,9 +154,30 @@ export function LandingHeader() {
                                     <div className="pt-10 space-y-4 px-2">
                                         <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic">Acceso Directo</p>
                                         <div className="grid grid-cols-1 gap-4">
-                                            <Button variant="outline" asChild className="w-full justify-center rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md">
-                                                <Link href="/login">ACCESO <UserCircle2 className="h-4 w-4 ml-2 text-primary" /></Link>
-                                            </Button>
+                                            <Collapsible open={isAccesoOpen} onOpenChange={setIsAccesoOpen} className="w-full space-y-2">
+                                                <CollapsibleTrigger asChild>
+                                                    <Button variant="outline" className="w-full justify-center rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md">
+                                                        ACCESO 
+                                                        <ChevronDown className={cn("h-4 w-4 ml-2 text-primary transition-transform duration-300", isAccesoOpen && "rotate-180")} />
+                                                    </Button>
+                                                </CollapsibleTrigger>
+                                                <CollapsibleContent className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                                                    <div className="grid grid-cols-2 gap-2 p-2 bg-secondary/20 rounded-2xl border border-primary/5">
+                                                        {loginOptions.map((option) => (
+                                                            <Link 
+                                                                key={option.href} 
+                                                                href={option.href as any}
+                                                                className="flex flex-col items-center justify-center p-3 rounded-xl bg-background/50 hover:bg-primary/5 border border-transparent hover:border-primary/10 transition-all text-center group/item"
+                                                            >
+                                                                <div className="p-2 bg-primary/10 rounded-lg mb-2 group-hover/item:scale-110 transition-transform">
+                                                                    <option.icon className="h-4 w-4 text-primary" />
+                                                                </div>
+                                                                <span className="text-[8px] font-black uppercase tracking-tighter leading-none">{option.label}</span>
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                </CollapsibleContent>
+                                            </Collapsible>
                                             <Button asChild className="w-full justify-center rounded-xl h-14 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
                                                 <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400 animate-pulse"/></Link>
                                             </Button>
