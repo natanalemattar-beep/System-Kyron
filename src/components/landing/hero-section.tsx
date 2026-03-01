@@ -4,11 +4,17 @@
 import { motion } from "framer-motion";
 import { ArrowDown, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/logo";
 
 export function HeroSection() {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      {/* Background Large Logo */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[650px] aspect-square opacity-[0.03] pointer-events-none -z-10">
+          <Logo className="w-full h-full" />
+      </div>
+
+      <div className="absolute inset-0 -z-20 overflow-hidden">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]" />
       </div>
@@ -32,7 +38,7 @@ export function HeroSection() {
             className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.1] text-foreground"
           >
             Gestión Inteligente <br/> 
-            <span className="text-primary italic text-shadow-glow">para la Élite Empresarial</span>
+            <span className="text-primary italic text-shadow-glow">System Kyron</span>
           </motion.h1>
           
           <motion.p
@@ -41,7 +47,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
           >
-            Automatización fiscal, comercialización de tecnología magnética y finanzas blockchain bajo el ecosistema System Kyron.
+            Automatización fiscal, comercialización de papeleras inteligentes con tecnología de magnetismo, venta de smartphones y asignación inmediata de números telefónicos bajo el ecosistema System Kyron.
           </motion.p>
           
           <motion.div
