@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -6,23 +5,13 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { 
     Menu, 
-    ChevronDown, 
     X,
-    Sparkles
+    User
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import { loginOptions } from "@/lib/login-options";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -34,11 +23,11 @@ export function LandingHeader() {
     }, []);
 
     const navLinks = [
-      { href: "#servicios", label: "Servicios" },
+      { href: "#inicio", label: "Inicio" },
+      { href: "/ecosistema", label: "Ecosistema" },
       { href: "#tecnologia", label: "Tecnología" },
       { href: "#nosotros", label: "Nosotros" },
       { href: "#faq", label: "FAQ" },
-      { href: "#contacto", label: "Contacto" },
     ];
 
     return (
@@ -50,61 +39,37 @@ export function LandingHeader() {
                 <div className="flex h-16 items-center justify-between gap-8">
                     
                     {/* Logo & Brand */}
-                    <div className="flex items-center gap-12">
-                        <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95 shrink-0">
-                            <Logo className="h-9 w-9" />
-                            <span className="text-xl font-black tracking-tighter text-primary whitespace-nowrap uppercase">System Kyron</span>
+                    <div className="flex items-center gap-3 shrink-0">
+                        <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95">
+                            <Logo className="h-10 w-10" />
+                            <span className="text-xl font-black tracking-tighter text-white uppercase">System Kyron</span>
                         </Link>
-
-                        {/* Navigation Buttons - Visible from MD (Laptop) */}
-                        <nav className="hidden md:flex items-center gap-1">
-                            {navLinks.map((link) => (
-                                <Button 
-                                    key={link.href} 
-                                    variant="ghost" 
-                                    asChild
-                                    className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all px-4 h-9 rounded-lg"
-                                >
-                                    <a href={link.href}>{link.label}</a>
-                                </Button>
-                            ))}
-                        </nav>
                     </div>
 
-                    {/* Action Buttons */}
+                    {/* Navigation Links - Exact labels from screenshot */}
+                    <nav className="hidden md:flex items-center gap-8">
+                        {navLinks.map((link) => (
+                            <Link 
+                                key={link.href} 
+                                href={link.href as any}
+                                className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                    </nav>
+
+                    {/* Action Buttons - Exact style from screenshot */}
                     <div className="flex items-center gap-4">
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
                             
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button className="btn-3d-primary h-11 px-8 gap-3 text-[11px] font-black tracking-widest rounded-xl shadow-lg uppercase">
-                                        ACCESO <ChevronDown className="h-4 w-4 opacity-50" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-80 p-2 rounded-2xl shadow-2xl border bg-background/98 backdrop-blur-xl mt-4">
-                                    <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground px-4 py-3">Portal de Gestión Kyron</DropdownMenuLabel>
-                                    <DropdownMenuSeparator />
-                                    <div className="grid grid-cols-1 gap-1 p-1">
-                                        {loginOptions.map((opt) => (
-                                            <DropdownMenuItem key={opt.href} asChild className="rounded-xl focus:bg-primary/5 cursor-pointer p-0">
-                                                <Link href={opt.href} className="flex items-center gap-4 p-3 w-full group">
-                                                    <div className="p-2.5 bg-primary/5 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                                                        <opt.icon className="h-4 w-4" />
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-sm font-bold">{opt.label}</span>
-                                                        <span className="text-[10px] text-muted-foreground font-medium">{opt.description.substring(0, 40)}...</span>
-                                                    </div>
-                                                </Link>
-                                            </DropdownMenuItem>
-                                        ))}
-                                    </div>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                            <Button variant="outline" asChild className="border-white/20 text-white hover:bg-white/10 rounded-lg h-11 px-6 gap-2 font-bold uppercase text-[10px] tracking-widest transition-all">
+                                <Link href="/login">Acceder <User className="h-4 w-4" /></Link>
+                            </Button>
 
-                            <Button variant="outline" asChild className="rounded-xl px-8 h-11 font-black text-[11px] tracking-widest border-primary/20 hover:bg-primary/5 hover:text-primary transition-all uppercase">
-                                <Link href="/register">REGISTRO</Link>
+                            <Button asChild className="bg-white text-black hover:bg-white/90 rounded-lg h-11 px-8 font-bold uppercase text-[10px] tracking-widest transition-all shadow-xl">
+                                <Link href="/register">Registrarse</Link>
                             </Button>
                         </div>
 
@@ -129,16 +94,16 @@ export function LandingHeader() {
                                     <nav className="flex flex-col p-6 gap-1">
                                         {navLinks.map((link) => (
                                             <SheetClose asChild key={link.href}>
-                                                <a href={link.href} className="flex items-center px-4 py-3 text-sm font-bold uppercase tracking-wider text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all">
+                                                <Link href={link.href as any} className="flex items-center px-4 py-3 text-sm font-bold uppercase tracking-wider text-foreground hover:text-primary rounded-xl transition-all">
                                                     {link.label}
-                                                </a>
+                                                </Link>
                                             </SheetClose>
                                         ))}
                                     </nav>
 
                                     <div className="mt-auto p-6 border-t bg-muted/20 space-y-3">
-                                        <Button className="w-full h-12 rounded-xl text-xs font-black tracking-widest btn-3d-primary uppercase" asChild>
-                                            <Link href="/login">ACCEDER AL PORTAL</Link>
+                                        <Button className="w-full h-12 btn-3d-primary" asChild>
+                                            <Link href="/login">Acceder</Link>
                                         </Button>
                                     </div>
                                 </SheetContent>
