@@ -10,8 +10,6 @@ import {
     ChevronDown,
     LayoutGrid,
     Sparkles,
-    User,
-    Building2,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { 
@@ -53,7 +51,7 @@ export function LandingHeader() {
 
     return (
         <header className={cn(
-            "fixed top-0 left-0 right-0 z-[150] transition-all duration-300",
+            "fixed top-0 left-0 right-0 z-[150] transition-all duration-300 gpu-accelerated",
              isScrolled ? "bg-background/85 backdrop-blur-xl py-2 border-b shadow-lg" : "bg-transparent py-6"
         )}>
             <div className="container mx-auto px-6">
@@ -83,45 +81,88 @@ export function LandingHeader() {
                         </Link>
                     </div>
 
-                    {/* Right: Actions + Menú (PC & Móvil) */}
+                    {/* Right: Actions */}
                     <div className="flex items-center justify-end gap-2 md:gap-4 flex-1">
                         <div className="flex items-center gap-2 md:gap-4">
                             <div className="hidden xs:block">
                                 <ThemeToggle />
                             </div>
                             
-                            {/* BOTÓN DE ACCESO: Ahora persistente en la barra superior */}
+                            {/* BOTÓN DE ACCESO: Organizado por Secciones */}
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="outline" className="rounded-xl h-10 md:h-11 px-3 md:px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group bg-background/50 backdrop-blur-sm">
+                                    <Button variant="outline" className="rounded-xl h-10 md:h-11 px-3 md:px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group bg-background/50 backdrop-blur-sm transition-all duration-200">
                                         <UserCircle className="h-4 w-4 md:mr-2 text-primary" /> 
-                                        <span className="hidden sm:inline">ACCEDER</span>
+                                        <span className="hidden sm:inline">ACCESO</span>
                                         <ChevronDown className="h-3 w-3 ml-1 md:ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[90vw] sm:w-[600px] p-4 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-                                    <DropdownMenuLabel className="px-4 py-2 flex items-center gap-3">
-                                        <Sparkles className="h-4 w-4 text-primary" />
-                                        <div className="flex flex-col">
-                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Ecosistema Kyron</span>
-                                            <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest opacity-60">Selecciona tu portal de gestión</span>
-                                        </div>
-                                    </DropdownMenuLabel>
-                                    <DropdownMenuSeparator className="my-4 opacity-50" />
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto custom-scrollbar">
-                                        {loginOptions.map((option) => (
-                                            <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-4 cursor-pointer focus:bg-primary/5 group/item border border-transparent focus:border-primary/10 transition-all">
-                                                <Link href={option.href} className="flex items-start gap-4">
-                                                    <div className="p-3 bg-primary/10 rounded-xl group-hover/item:bg-primary/20 transition-all shadow-inner">
-                                                        <option.icon className="h-5 w-5 text-primary" />
-                                                    </div>
-                                                    <div className="flex flex-col gap-1">
-                                                        <span className="font-black text-xs tracking-tight uppercase italic leading-none">{option.label}</span>
-                                                        <p className="text-[9px] text-muted-foreground leading-tight font-medium opacity-70 group-hover/item:opacity-100">{option.description}</p>
-                                                    </div>
-                                                </Link>
-                                            </DropdownMenuItem>
-                                        ))}
+                                <DropdownMenuContent align="end" className="w-[90vw] sm:w-[640px] p-0 rounded-[2.5rem] border-primary/10 bg-background/95 backdrop-blur-3xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 overflow-hidden">
+                                    <div className="p-8 pb-4">
+                                        <DropdownMenuLabel className="px-0 py-0 flex items-center gap-3">
+                                            <div className="p-2 bg-primary/10 rounded-lg">
+                                                <Sparkles className="h-5 w-5 text-primary" />
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-primary">Ecosistema Kyron</span>
+                                                <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest opacity-60">Selecciona tu portal de gestión</span>
+                                            </div>
+                                        </DropdownMenuLabel>
+                                    </div>
+                                    
+                                    <div className="px-8 pb-8 pt-2 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                                        {/* Sección Ciudadana */}
+                                        <section>
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <span className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">Portal Ciudadano</span>
+                                                <div className="h-px flex-1 bg-border/50"></div>
+                                            </div>
+                                            <div className="grid grid-cols-1">
+                                                {loginOptions.filter(o => o.href === '/login-personal').map((option) => (
+                                                    <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-5 cursor-pointer focus:bg-primary/5 group/item border border-primary/5 hover:border-primary/20 transition-all bg-primary/[0.02]">
+                                                        <Link href={option.href} className="flex items-center gap-6">
+                                                            <div className="p-4 bg-primary/10 rounded-2xl group-hover/item:bg-primary/20 transition-all shadow-inner">
+                                                                <option.icon className="h-7 w-7 text-primary" />
+                                                            </div>
+                                                            <div className="flex flex-col gap-1.5 flex-1">
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="font-black text-sm tracking-tight uppercase italic text-primary">{option.label}</span>
+                                                                    <span className="text-[8px] font-black px-2 py-0.5 rounded-full bg-primary/10 text-primary uppercase">Biométrico</span>
+                                                                </div>
+                                                                <p className="text-xs text-muted-foreground leading-relaxed font-medium opacity-80">{option.description}</p>
+                                                            </div>
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                ))}
+                                            </div>
+                                        </section>
+
+                                        {/* Sección Corporativa */}
+                                        <section>
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <span className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">Portales Corporativos</span>
+                                                <div className="h-px flex-1 bg-border/50"></div>
+                                            </div>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                {loginOptions.filter(o => o.href !== '/login-personal').map((option) => (
+                                                    <DropdownMenuItem key={option.href} asChild className="rounded-xl p-4 cursor-pointer focus:bg-primary/5 group/item border border-transparent focus:border-primary/10 transition-all">
+                                                        <Link href={option.href} className="flex items-start gap-4">
+                                                            <div className="p-2.5 bg-primary/5 rounded-xl group-hover/item:bg-primary/10 transition-all shadow-inner">
+                                                                <option.icon className="h-5 w-5 text-primary" />
+                                                            </div>
+                                                            <div className="flex flex-col gap-1">
+                                                                <span className="font-black text-xs tracking-tight uppercase italic leading-none">{option.label}</span>
+                                                                <p className="text-[9px] text-muted-foreground leading-tight font-medium opacity-70 group-hover/item:opacity-100 line-clamp-2">{option.description}</p>
+                                                            </div>
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                ))}
+                                            </div>
+                                        </section>
+                                    </div>
+                                    
+                                    <div className="p-4 bg-muted/30 border-t flex justify-center">
+                                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic">System Kyron Secured • Nivel 5</p>
                                     </div>
                                 </DropdownMenuContent>
                             </DropdownMenu>
