@@ -49,6 +49,7 @@ export const pathnames = {
   '/nota-debito': '/nota-debito',
   '/nota-credito': '/nota-credito',
   '/proformas': '/proformas',
+  '/estudio-factibilidad-economica': '/estudio-factibilidad-economica',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
