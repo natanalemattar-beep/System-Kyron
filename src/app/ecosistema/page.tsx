@@ -9,7 +9,7 @@ import {
   CheckCircle2, AlertTriangle, Info, MapPin, Printer, Download,
   Smartphone, Share2, MessageCircle, ChevronRight, Send, History, Recycle,
   Trash2, CreditCard, LayoutDashboard, Database, Server, BrainCircuit,
-  Zap, Award, Globe, Key, Lock, Layers, Target, Calculator
+  Zap, Award, Globe, Key, Lock, Layers, Target, Calculator, Gift, Heart, Calendar
 } from 'lucide-react';
 import { 
   LineChart, Line, AreaChart, Area, BarChart, Bar, 
@@ -29,7 +29,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { formatCurrency } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 
 // --- PALETA Y CONSTANTES ---
 const COLORS = {
@@ -50,7 +50,7 @@ const financialHistory = [
   { month: 'Feb', ingresos: 450000, gastos: 280000 },
 ];
 
-const recyclingMix = [
+const initialRecyclingMix = [
   { name: 'Papel', value: 60 },
   { name: 'Plástico', value: 25 },
   { name: 'Vidrio', value: 10 },
@@ -62,12 +62,6 @@ const initialEmployees = [
   { id: 2, name: "Carlos Ruiz", role: "Ingeniero de Procesos", dept: "Operaciones", date: "15/03/2021", status: "Activo" },
   { id: 3, name: "Maria Elena", role: "Analista RR.HH.", dept: "RR.HH.", date: "22/06/2022", status: "Activo" },
   { id: 4, name: "Jose Castillo", role: "Abogado Senior", dept: "Jurídico", date: "05/11/2022", status: "Activo" },
-];
-
-const suppliers = [
-  { name: "Inversiones Los Andes C.A.", rif: "J-12345678-9", status: "Activo", lastVal: "20/02/2026", risk: "Bajo" },
-  { name: "Construcciones Mérida", rif: "J-98765432-1", status: "En revisión", lastVal: "15/02/2026", risk: "Medio" },
-  { name: "Suministros Globales", rif: "J-45678912-3", status: "Suspendido", lastVal: "01/02/2026", risk: "Alto" },
 ];
 
 const products = [
@@ -86,14 +80,15 @@ export default function EcosistemaKyron() {
   const [asistenteOpen, setAsistenteOpen] = useState(false);
   const { toast } = useToast();
 
-  // Sostenibilidad State
+  // Sostenibilidad Global State
   const [recyclingToday, setRecyclingToday] = useState(245);
   const [greenPoints, setGreenPoints] = useState(12450);
   const [treesSaved, setTreesSaved] = useState(18);
+  const [co2Saved, setCo2Saved] = useState(320);
   const [recyclingHistory, setRecyclingHistory] = useState([
     { id: 1, date: "2026-02-28 14:20", type: "Papel", weight: 0.3, points: 5 },
     { id: 2, date: "2026-02-28 13:45", type: "Plástico", weight: 1.2, points: 15 },
-    { id: 3, date: "2026-02-28 11:10", type: "Cartón", weight: 5.0, points: 50 },
+    { id: 3, date: "2026-02-28 11:10", type: "Vidrio", weight: 5.0, points: 50 },
   ]);
 
   useEffect(() => {
@@ -109,6 +104,7 @@ export default function EcosistemaKyron() {
 
     setRecyclingToday(prev => prev + randomWeight);
     setGreenPoints(prev => prev + randomPoints);
+    setCo2Saved(prev => prev + (randomWeight * 1.5));
     if (recyclingToday % 50 < (recyclingToday + randomWeight) % 50) {
       setTreesSaved(prev => prev + 1);
     }
@@ -191,16 +187,11 @@ export default function EcosistemaKyron() {
         {/* HEADER */}
         <header className="h-16 border-b bg-white/60 backdrop-blur-md flex items-center justify-between px-8 z-20">
           <div className="flex flex-col">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Empresa Ejemplo C.A.</span>
             <h2 className="text-xs font-medium text-slate-600 capitalize">{currentDate}</h2>
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mt-1">Bienvenido, Empresa Ejemplo C.A.</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="hidden md:flex items-center gap-3 px-4 py-1.5 bg-slate-100/50 rounded-full border">
-              <span className="text-xs font-bold text-slate-500">Bienvenido,</span>
-              <span className="text-xs font-black text-[#0A2472]">Administrador</span>
-            </div>
-            
             <div className="relative">
               <Button variant="ghost" size="icon" className="relative h-10 w-10">
                 <Bell className="h-5 w-5 text-slate-600" />
@@ -209,13 +200,12 @@ export default function EcosistemaKyron() {
             </div>
 
             <Avatar className="h-10 w-10 border-2 border-white shadow-md cursor-pointer hover:scale-105 transition-transform">
-              <AvatarImage src="" />
-              <AvatarFallback className="bg-[#0A2472] text-white font-black text-xs">AD</AvatarFallback>
+              <AvatarFallback className="bg-[#0A2472] text-white font-black text-xs">EE</AvatarFallback>
             </Avatar>
           </div>
         </header>
 
-        {/* MAIN RENDERER */}
+        {/* MAIN MODULE RENDERER */}
         <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar relative">
           <AnimatePresence mode="wait">
             <motion.div
@@ -225,7 +215,7 @@ export default function EcosistemaKyron() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              {activeTab === 'inicio' && <ModuleInicio />}
+              {activeTab === 'inicio' && <ModuleInicio todayRecycling={recyclingToday} greenPoints={greenPoints} trees={treesSaved} co2={co2Saved} />}
               {activeTab === 'contabilidad' && <ModuleContabilidad />}
               {activeTab === 'rrhh' && <ModuleRRHH />}
               {activeTab === 'juridico' && <ModuleJuridico />}
@@ -254,7 +244,7 @@ export default function EcosistemaKyron() {
                 <div className="bg-[#0A2472] p-4 text-white flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <BrainCircuit className="h-5 w-5 text-[#4CAF50] animate-pulse" />
-                    <span className="text-sm font-black uppercase tracking-widest">Asistente Kyron</span>
+                    <span className="text-sm font-black uppercase tracking-widest">Kyron Assistant</span>
                   </div>
                   <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/10" onClick={() => setAsistenteOpen(false)}>
                     <X className="h-4 w-4" />
@@ -262,7 +252,7 @@ export default function EcosistemaKyron() {
                 </div>
                 <div className="p-6 h-64 overflow-y-auto space-y-4 text-sm">
                   <div className="bg-secondary p-3 rounded-2xl rounded-bl-none text-slate-700">
-                    Hola, soy el asistente inteligente de Kyron. ¿En qué puedo apoyarte hoy?
+                    Hola, soy tu asistente inteligente. ¿Necesitas ayuda? System Kyron está aquí para optimizar tu gestión.
                   </div>
                   <div className="flex flex-col gap-2">
                     <Button variant="outline" className="justify-start h-9 text-xs rounded-xl" onClick={() => toast({title: "Consulta", description: "Analizando estados financieros..."})}>
@@ -283,6 +273,10 @@ export default function EcosistemaKyron() {
             <MessageCircle className="h-6 w-6 text-white" />
           </Button>
         </div>
+
+        <footer className="h-10 border-t bg-white/40 backdrop-blur-sm flex items-center justify-center px-8 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+          © 2026 System Kyron v2.0 • Todos los derechos reservados
+        </footer>
       </main>
 
       <style jsx global>{`
@@ -295,6 +289,8 @@ export default function EcosistemaKyron() {
         .preserve-3d { transform-style: preserve-3d; }
         .backface-hidden { backface-visibility: hidden; }
         .rotate-y-180 { transform: rotateY(180deg); }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 3s ease-in-out infinite; }
       `}</style>
     </div>
   );
@@ -302,36 +298,33 @@ export default function EcosistemaKyron() {
 
 // --- SUB-MÓDULOS ---
 
-function ModuleInicio() {
+function ModuleInicio({ todayRecycling, greenPoints, trees, co2 }: any) {
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Panel de Control Estratégico</h3>
-          <p className="text-sm text-muted-foreground">Resumen consolidado del rendimiento corporativo.</p>
-        </div>
-        <Badge className="bg-[#4CAF50] text-white px-4 py-1.5 rounded-full font-bold">OPERACIÓN ESTABLE</Badge>
+      <div>
+        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Panel de Control Estratégico</h3>
+        <p className="text-sm text-muted-foreground">Resumen consolidado del rendimiento corporativo.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Ingresos Mensuales" value="$ 450.000" trend="+12%" icon={ArrowUpRight} />
         <StatCard title="Gastos Operativos" value="$ 280.000" trend="-5%" icon={ArrowDownRight} variant="danger" />
-        <StatCard title="Margen Neto" value="38%" trend="Estable" icon={BarChart3} variant="accent" />
-        <StatCard title="Riesgo Fiscal" value="0%" trend="Seguro" icon={ShieldCheck} variant="accent" />
+        <StatCard title="Margen Neto" value="38%" icon={BarChart3} variant="accent" />
+        <StatCard title="Riesgo Fiscal" value="0%" icon={ShieldCheck} variant="accent" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Reciclado Hoy" value="245 kg" icon={Leaf} variant="accent" />
-        <StatCard title="Puntos Verdes" value="12.450" icon={Recycle} variant="accent" />
-        <StatCard title="Árboles Salvados" value="18" icon={AreaChart} variant="accent" />
-        <StatCard title="CO₂ Evitado" value="320 kg" icon={Droplets} variant="accent" />
+        <StatCard title="Reciclado Hoy" value={`${todayRecycling.toFixed(1)} kg`} icon={Leaf} variant="accent" />
+        <StatCard title="Puntos Verdes" value={greenPoints.toLocaleString()} icon={Zap} variant="accent" />
+        <StatCard title="Árboles Salvados" value={trees} icon={History} variant="accent" />
+        <StatCard title="CO₂ Evitado" value={`${co2.toFixed(1)} kg`} icon={Droplets} variant="accent" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <Card className="lg:col-span-2 glass-card border-none">
           <CardHeader>
             <CardTitle className="text-[#0A2472] flex items-center gap-2"><AreaChart className="h-5 w-5"/> Desempeño Financiero</CardTitle>
-            <CardDescription>Comparativa semestral de flujo de caja</CardDescription>
+            <CardDescription>Evolución de ingresos vs gastos (Últimos 6 meses)</CardDescription>
           </CardHeader>
           <CardContent className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -359,14 +352,14 @@ function ModuleInicio() {
 
         <Card className="glass-card border-none">
           <CardHeader>
-            <CardTitle className="text-[#0A2472] flex items-center gap-2"><Recycle className="h-5 w-5"/> Residuos por Tipo</CardTitle>
-            <CardDescription>Distribución porcentual de reciclaje</CardDescription>
+            <CardTitle className="text-[#0A2472] flex items-center gap-2"><Recycle className="h-5 w-5"/> Mezcla de Residuos</CardTitle>
+            <CardDescription>Distribución por tipo de material</CardDescription>
           </CardHeader>
           <CardContent className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={recyclingMix} innerRadius={60} outerRadius={85} paddingAngle={5} dataKey="value">
-                  {recyclingMix.map((entry, index) => (
+                <Pie data={initialRecyclingMix} innerRadius={60} outerRadius={85} paddingAngle={5} dataKey="value">
+                  {initialRecyclingMix.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS.chart[index % COLORS.chart.length]} stroke="none" />
                   ))}
                 </Pie>
@@ -394,10 +387,10 @@ function ModuleInicio() {
             <TableBody>
               {[
                 { date: "Hoy, 14:20", desc: "Factura #F-2026-452 emitida", status: "Completado" },
-                { date: "Hoy, 13:10", desc: "Reciclaje de Papel (1.2kg) registrado", status: "Completado" },
+                { date: "Hoy, 13:10", desc: "Reciclaje de Papel registrado", status: "Completado" },
                 { date: "Hoy, 09:30", desc: "Nómina Q1 Marzo 2026 procesada", status: "Completado" },
                 { date: "Ayer, 17:45", desc: "Contrato TechSolutions renovado", status: "Completado" },
-                { date: "Ayer, 11:20", desc: "Mantenimiento preventivo Bomba B-45", status: "Pendiente" }
+                { date: "Ayer, 11:20", desc: "Mantenimiento preventivo Bomba B-45", status: "En Proceso" }
               ].map((row, i) => (
                 <TableRow key={i} className="hover:bg-slate-50/50">
                   <TableCell className="pl-6 text-xs text-slate-400 font-bold uppercase">{row.date}</TableCell>
@@ -446,7 +439,7 @@ function ModuleContabilidad() {
     <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Centro de Contabilidad Fiscal</h3>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Centro de Contabilidad</h3>
           <p className="text-sm text-muted-foreground">Gestión de libros, facturación y tributos.</p>
         </div>
         <div className="flex gap-3">
@@ -469,7 +462,7 @@ function ModuleContabilidad() {
         <Card className="glass-card p-6 flex flex-col items-center text-center border-none shadow-lg">
           <div className="p-4 bg-[#F44336]/5 rounded-2xl mb-4 text-[#F44336]"><ArrowDownRight className="h-8 w-8"/></div>
           <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Facturas Recibidas</p>
-          <h4 className="text-3xl font-black text-[#F44336]">187</h4>
+          <h4 className="text-3xl font-black text-[#4CAF50]">187</h4>
         </Card>
         <Card className="glass-card p-6 flex flex-col items-center text-center bg-red-50 border border-red-100 shadow-lg">
           <div className="p-4 bg-red-100/50 rounded-2xl mb-4 text-red-600"><AlertTriangle className="h-8 w-8"/></div>
@@ -481,14 +474,14 @@ function ModuleContabilidad() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <Card className="lg:col-span-2 glass-card border-none shadow-xl overflow-hidden">
           <CardHeader className="bg-[#0A2472]/5">
-            <CardTitle className="text-[#0A2472]">Libro de Ventas</CardTitle>
+            <CardTitle className="text-[#0A2472]">Últimas Facturas</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <Table>
               <TableHeader className="bg-slate-50">
                 <TableRow>
                   <TableHead className="pl-6">Número</TableHead>
-                  <TableHead>Cliente</TableHead>
+                  <TableHead>Cliente/Proveedor</TableHead>
                   <TableHead>Fecha</TableHead>
                   <TableHead className="text-right">Monto</TableHead>
                   <TableHead className="text-right pr-6">Estado</TableHead>
@@ -521,7 +514,7 @@ function ModuleContabilidad() {
 
         <Card className="glass-card border-none shadow-xl">
           <CardHeader>
-            <CardTitle className="text-[#0A2472] flex items-center gap-2"><Calendar className="h-5 w-5"/> Vencimientos</CardTitle>
+            <CardTitle className="text-[#0A2472] flex items-center gap-2"><Calendar className="h-5 w-5"/> Calendario Fiscal</CardTitle>
           </CardHeader>
           <CardContent className="p-6 pt-0">
             <div className="grid grid-cols-7 gap-2 text-center text-[10px] font-black uppercase text-slate-400 mb-4">
@@ -559,7 +552,7 @@ function ModuleRRHH() {
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Gestión de Talento y Cultura</h3>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Gestión de Talento Humano</h3>
           <p className="text-sm text-muted-foreground">Administración de nómina, personal y beneficios.</p>
         </div>
         <Button className="bg-[#0A2472] rounded-xl h-11 px-6 font-bold shadow-lg"><Plus className="mr-2 h-4 w-4" /> Nuevo Empleado</Button>
@@ -568,14 +561,14 @@ function ModuleRRHH() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <StatCard title="Empleados Activos" value="124" icon={Users} />
         <StatCard title="Nómina Mensual" value="$ 85.000" icon={Wallet} />
-        <StatCard title="Vacaciones" value="7" icon={Leaf} variant="warning" />
-        <StatCard title="Prestaciones" value="100%" icon={CheckCircle2} variant="accent" />
+        <StatCard title="Vacaciones Solicitadas" value="7" icon={Leaf} variant="warning" />
+        <StatCard title="Prestaciones Calculadas" value="100%" icon={CheckCircle2} variant="accent" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <Card className="lg:col-span-2 glass-card border-none shadow-xl overflow-hidden">
           <CardHeader className="bg-[#0A2472]/5">
-            <CardTitle className="text-[#0A2472]">Nómina de Personal</CardTitle>
+            <CardTitle className="text-[#0A2472]">Listado de Personal</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <Table>
@@ -671,7 +664,7 @@ function ModuleJuridico() {
         </div>
         <div className="bg-blue-50 border border-blue-100 p-6 rounded-[2rem] flex items-center gap-5 shadow-sm">
           <div className="p-4 bg-[#0A2472] rounded-2xl text-white shadow-lg shadow-blue-200"><FileSignature /></div>
-          <div><p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Pendientes</p><h4 className="text-lg font-black text-blue-700">5 firmas digitales</h4></div>
+          <div><p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Documentos</p><h4 className="text-lg font-black text-blue-700">5 firmas pendientes</h4></div>
         </div>
       </div>
 
@@ -702,7 +695,7 @@ function ModuleJuridico() {
         </Card>
 
         <Card className="glass-card border-none shadow-xl">
-          <CardHeader><CardTitle className="text-[#0A2472] flex items-center gap-2"><ShieldCheck className="h-5 w-5"/> Checklist de Cumplimiento</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-[#0A2472] flex items-center gap-2"><ShieldCheck className="h-5 w-5"/> Cumplimiento Normativo</CardTitle></CardHeader>
           <CardContent className="space-y-6 pt-4">
             {[
               { item: 'Ley de IVA (Providencia 0071)', desc: 'Validación de formatos fiscales y control de series.', done: true },
@@ -741,7 +734,7 @@ function ModuleSostenibilidad({ simulate, history, points, today, trees }: any) 
         <div>
           <h3 className="text-2xl font-black text-[#4CAF50] tracking-tighter flex items-center gap-3">
             <Recycle className="h-8 w-8" /> 
-            Papelera Inteligente & Sostenibilidad
+            Sostenibilidad Inteligente
           </h3>
           <p className="text-sm text-muted-foreground">Gestión automatizada de residuos y huella de carbono.</p>
         </div>
@@ -754,7 +747,7 @@ function ModuleSostenibilidad({ simulate, history, points, today, trees }: any) 
         <StatCard title="Reciclado Hoy" value={`${today.toFixed(1)} kg`} icon={Leaf} variant="accent" />
         <StatCard title="Reciclado Mes" value="3.450 kg" icon={AreaChart} variant="accent" />
         <StatCard title="Puntos Verdes" value={points.toLocaleString()} icon={Zap} variant="accent" />
-        <StatCard title="Huella de Impacto" value={`${trees} Árboles`} icon={History} variant="accent" />
+        <StatCard title="Equivalencia" value={`${trees} Árboles`} icon={History} variant="accent" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -789,28 +782,28 @@ function ModuleSostenibilidad({ simulate, history, points, today, trees }: any) 
         <div className="space-y-8">
           <Card className="glass-card border-none shadow-xl bg-[#4CAF50]/5 overflow-hidden">
             <div className="h-1 bg-[#4CAF50] w-full" />
-            <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase text-[#4CAF50] tracking-widest">Estado Papelera Inteligente</CardTitle></CardHeader>
+            <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase text-[#4CAF50] tracking-widest">Simulación Papelera</CardTitle></CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <div className="flex justify-between text-xs font-bold text-slate-600"><span>Capacidad de Almacenamiento</span><span>72%</span></div>
+                <div className="flex justify-between text-xs font-bold text-slate-600"><span>Capacidad actual</span><span>72%</span></div>
                 <Progress value={72} className="h-3 bg-white" />
               </div>
               <div className="flex items-center gap-4 p-4 bg-white/80 rounded-[1.5rem] border border-[#4CAF50]/10 shadow-sm">
                 <div className="h-4 w-4 rounded-full bg-[#4CAF50] animate-ping" />
                 <div className="text-xs">
-                  <p className="font-black text-[#0A2472] uppercase tracking-tighter">Última Detección</p>
-                  <p className="font-medium text-slate-500">Papel (0.3 kg) - Hace 5 min</p>
+                  <p className="font-black text-[#0A2472] uppercase tracking-tighter">Último reciclaje</p>
+                  <p className="font-medium text-slate-500">Hace 5 min - Papel (0.3 kg)</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <div className="space-y-4">
-            <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Catálogo de Canjes</h4>
+            <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Canje de Recompensas</h4>
             {[
               { t: "Descuento 10% Proveedores", p: 500, icon: ShoppingBag },
-              { t: "Kit Ecológico Corporativo", p: 300, icon: Gift },
-              { t: "Donación Fundación Kyron", p: 200, icon: Heart }
+              { t: "Donación a Fundación", p: 200, icon: Heart },
+              { t: "Kit Ecológico", p: 300, icon: Gift }
             ].map(item => (
               <Card key={item.t} className="glass-card p-4 hover:border-[#4CAF50]/50 transition-all cursor-pointer group shadow-lg border-none">
                 <div className="flex items-center justify-between">
@@ -836,21 +829,21 @@ function ModulePetroleo() {
         <div>
           <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter flex items-center gap-3">
             <Droplets className="h-8 w-8 text-[#0A2472]" /> 
-            Monitoreo de Activos Energéticos
+            Gemelo Digital: Activos Energéticos
           </h3>
-          <p className="text-sm text-muted-foreground">Gemelo digital y telemetría en tiempo real.</p>
+          <p className="text-sm text-muted-foreground">Monitoreo de infraestructura y telemetría avanzada.</p>
         </div>
-        <Badge className="bg-[#F44336] animate-pulse px-4 py-1.5 rounded-full font-bold">1 ALERTA CRÍTICA</Badge>
+        <Badge className="bg-[#F44336] animate-pulse px-4 py-1.5 rounded-full font-bold">ALERTA: PRESIÓN POZO 12</Badge>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <Card className="lg:col-span-3 glass-card relative min-h-[550px] bg-slate-900 border-none shadow-2xl overflow-hidden rounded-[2.5rem]">
-          {/* SIMULACIÓN DE MAPA CON CSS Y GRADIENTES */}
+        <Card className="lg:col-span-3 glass-card relative min-h-[500px] bg-slate-900 border-none shadow-2xl overflow-hidden rounded-[2.5rem]">
+          {/* SIMULACIÓN DE MAPA */}
           <div className="absolute inset-0 bg-[#050505]">
-            <div className="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/seed/map-dark/1200/800')] bg-cover bg-center grayscale mix-blend-overlay" />
+            <div className="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/seed/map/1200/800')] bg-cover bg-center grayscale mix-blend-overlay" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(10,36,114,0.3),transparent_70%)]" />
             
-            {/* MARCADORES INTERACTIVOS */}
+            {/* MARCADORES */}
             <div className="absolute top-[40%] left-[30%] cursor-pointer group">
               <div className="relative">
                 <div className="bg-[#4CAF50] h-4 w-4 rounded-full border-2 border-white shadow-lg animate-bounce" />
@@ -879,44 +872,30 @@ function ModulePetroleo() {
                   <AlertTriangle className="h-4 w-4 text-[#F44336]"/>
                   <span className="text-[10px] font-black uppercase text-[#F44336] tracking-[0.2em]">Pozo Oriente 12</span>
                 </div>
-                <p className="text-xs font-bold text-slate-600">PRESIÓN CRÍTICA: 4.800 psi. Se requiere intervención inmediata.</p>
+                <p className="text-xs font-bold text-slate-600">Presión anormal detectada. Revisar válvulas de alivio.</p>
               </div>
             </div>
           </div>
           
           <div className="absolute top-6 left-6 z-10 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-3">
             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"/>
-            <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Enlace Satelital Activo</span>
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Sincronización Satelital Activa</span>
           </div>
         </Card>
 
         <div className="space-y-6">
-          <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Infraestructura</h4>
+          <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Estatus de Activos</h4>
           {[
-            { n: "Refinería El Palito", s: "98%", v: "green" },
-            { n: "Terminal Jose", s: "100%", v: "green" },
-            { n: "Pozo Oriente 12", s: "45%", v: "red" },
-            { n: "Estación San Tomé", s: "82%", v: "yellow" }
+            { n: "Refinería El Palito", s: "🟢 Normal", p: "98%" },
+            { n: "Terminal Jose", s: "🟢 Normal", p: "100%" },
+            { n: "Pozo Oriente 12", s: "🔴 Alerta", p: "45%" },
+            { n: "Estación San Tomé", s: "🟡 Revisión", p: "82%" }
           ].map(asset => (
             <div key={asset.n} className="p-5 bg-white rounded-2xl shadow-lg border border-slate-50 flex items-center justify-between hover:scale-[1.02] transition-transform cursor-pointer">
-              <div className="flex items-center gap-4">
-                <div className={cn(
-                  "h-3 w-3 rounded-full shadow-inner",
-                  asset.v === 'green' ? 'bg-[#4CAF50]' : asset.v === 'red' ? 'bg-[#F44336]' : 'bg-[#FFC107]'
-                )} />
-                <div><p className="text-sm font-black text-slate-700 leading-none mb-1">{asset.n}</p><p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Eficiencia: {asset.s}</p></div>
-              </div>
-              <ChevronRight className="h-4 w-4 text-slate-300" />
+              <div><p className="text-sm font-black text-slate-700 leading-none mb-1">{asset.n}</p><p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Capacidad: {asset.p}</p></div>
+              <span className="text-xs font-bold">{asset.s}</span>
             </div>
           ))}
-          
-          <Card className="glass-card border-none shadow-xl bg-[#0A2472] text-white overflow-hidden mt-8">
-            <CardContent className="p-6">
-              <h4 className="text-xs font-black uppercase tracking-[0.2em] text-[#4CAF50] mb-4">Mantenimiento Predictivo</h4>
-              <p className="text-sm font-light italic leading-relaxed opacity-80 mb-6">"Análisis de vibración sugiere cambio de rodamientos en Pozo 07 antes del 15 de Abril."</p>
-              <Button className="w-full bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/10">Ver Detalle IA</Button>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
@@ -929,26 +908,23 @@ function ModuleTesoreria() {
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Tesorería Multi-Divisa</h3>
-          <p className="text-sm text-muted-foreground">Consolidado bancario y flujo de efectivo.</p>
+          <p className="text-sm text-muted-foreground">Consolidado bancario y flujo de efectivo en tiempo real.</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="rounded-xl h-11 font-bold">Transferencia Rápida</Button>
+          <Button variant="outline" className="rounded-xl h-11 font-bold">Nueva Transferencia</Button>
           <Button className="bg-[#0A2472] rounded-xl h-11 font-bold shadow-lg">Conciliación Bancaria</Button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { b: "Banesco", bs: "45.678", usd: "1.250", icon: Building },
-          { b: "Provincial", bs: "23.456", usd: "800", icon: Building },
-          { b: "Mercantil", bs: "67.890", usd: "2.100", icon: Building },
-          { b: "Bancaribe", bs: "12.345", usd: "0", icon: Building }
+          { b: "Banesco", bs: "45.678", usd: "1.250" },
+          { b: "Provincial", bs: "23.456", usd: "800" },
+          { b: "Mercantil", bs: "67.890", usd: "2.100" },
+          { b: "Bancaribe", bs: "12.345", usd: "0" }
         ].map(bank => (
           <Card key={bank.b} className="glass-card p-6 border-l-4 border-l-[#0A2472] shadow-xl border-none">
-            <div className="flex items-center gap-2 mb-4">
-              <bank.icon className="h-4 w-4 text-slate-400" />
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{bank.b}</p>
-            </div>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">🏦 {bank.b}</p>
             <div className="space-y-2">
               <div>
                 <p className="text-[10px] font-black text-slate-400 uppercase">Saldo VES</p>
@@ -966,13 +942,14 @@ function ModuleTesoreria() {
 
       <Card className="glass-card border-none shadow-2xl overflow-hidden">
         <CardHeader className="bg-[#0A2472]/5">
-          <CardTitle className="text-[#0A2472]">Movimientos de Cuenta (Hoy)</CardTitle>
+          <CardTitle className="text-[#0A2472]">Últimos Movimientos</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           <Table>
             <TableHeader className="bg-slate-50">
               <TableRow>
-                <TableHead className="pl-6">Banco</TableHead>
+                <TableHead className="pl-6">Fecha</TableHead>
+                <TableHead>Banco</TableHead>
                 <TableHead>Descripción</TableHead>
                 <TableHead className="text-right">Monto Bs.</TableHead>
                 <TableHead className="text-right pr-6">Monto $</TableHead>
@@ -980,22 +957,18 @@ function ModuleTesoreria() {
             </TableHeader>
             <TableBody>
               <TableRow className="hover:bg-slate-50/50">
-                <TableCell className="pl-6 font-bold text-slate-700">Banesco</TableCell>
+                <TableCell className="pl-6 text-xs font-bold text-slate-400 uppercase">Hoy, 10:00</TableCell>
+                <TableCell className="font-bold text-slate-700">Banesco</TableCell>
                 <TableCell className="text-sm">Pago de Nómina Q1</TableCell>
-                <TableCell className="text-right text-red-500 font-black">- Bs. 12.000,00</TableCell>
-                <TableCell className="text-right pr-6 font-medium text-slate-500">- $ 300,00</TableCell>
+                <TableCell className="text-right text-red-500 font-black">- Bs. 12.000</TableCell>
+                <TableCell className="text-right pr-6 font-medium text-slate-500">- $ 300</TableCell>
               </TableRow>
               <TableRow className="hover:bg-slate-50/50">
-                <TableCell className="pl-6 font-bold text-slate-700">Mercantil</TableCell>
+                <TableCell className="pl-6 text-xs font-bold text-slate-400 uppercase">Ayer, 15:30</TableCell>
+                <TableCell className="font-bold text-slate-700">Mercantil</TableCell>
                 <TableCell className="text-sm">Transferencia Recibida #452</TableCell>
-                <TableCell className="text-right text-green-500 font-black">+ Bs. 5.400,00</TableCell>
-                <TableCell className="text-right pr-6 font-black text-[#4CAF50]">+ $ 135,00</TableCell>
-              </TableRow>
-              <TableRow className="hover:bg-slate-50/50">
-                <TableCell className="pl-6 font-bold text-slate-700">Provincial</TableCell>
-                <TableCell className="text-sm">Pago Proveedor: Daka</TableCell>
-                <TableCell className="text-right text-red-500 font-black">- Bs. 8.200,00</TableCell>
-                <TableCell className="text-right pr-6 font-medium text-slate-500">- $ 205,00</TableCell>
+                <TableCell className="text-right text-green-500 font-black">+ Bs. 5.400</TableCell>
+                <TableCell className="text-right pr-6 font-black text-[#4CAF50]">+ $ 135</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -1011,7 +984,7 @@ function ModuleMantenimiento() {
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Mantenimiento Predictivo</h3>
-          <p className="text-sm text-muted-foreground">Estado de salud de activos críticos.</p>
+          <p className="text-sm text-muted-foreground">Estado de salud de activos críticos y prevención de fallas.</p>
         </div>
         <Badge className="bg-[#FFC107] text-[#0A2472] px-4 py-1.5 rounded-full font-black">2 ALERTAS DE PRECAUCIÓN</Badge>
       </div>
@@ -1048,25 +1021,18 @@ function ModuleMantenimiento() {
         ))}
       </div>
 
-      <Card className="glass-card border-none shadow-2xl overflow-hidden bg-gradient-to-br from-[#0A2472] to-[#1e3a8a] text-white">
-        <CardContent className="p-10 relative">
-          <div className="absolute right-0 top-0 h-full w-1/3 bg-white/5 skew-x-12 translate-x-20" />
-          <div className="max-w-2xl relative z-10">
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-[#4CAF50]/20 text-[#4CAF50] rounded-full border border-[#4CAF50]/30 mb-6">
-              <BrainCircuit className="h-4 w-4" />
-              <span className="text-[10px] font-black uppercase tracking-widest">Recomendación IA Engine</span>
-            </div>
-            <h4 className="text-2xl font-black mb-4 tracking-tight">Intervención Crítica Detectada</h4>
-            <p className="text-lg font-light leading-relaxed opacity-90 mb-8">
-              "El análisis de vibración armónica del <span className="font-bold underline decoration-[#4CAF50] decoration-2 underline-offset-4">Compresor C-22</span> indica un desgaste prematuro en los sellos. Existe un riesgo del 85% de detención no programada en las próximas 48 horas de operación continua."
-            </p>
-            <div className="flex gap-4">
-              <Button className="bg-[#4CAF50] hover:bg-[#4CAF50]/90 text-white font-black px-8 h-12 rounded-2xl shadow-xl">GENERAR ORDEN DE TRABAJO</Button>
-              <Button variant="ghost" className="text-white hover:bg-white/10 font-bold h-12 px-6 rounded-2xl border border-white/10">Posponer 24h</Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="p-8 rounded-[2.5rem] bg-[#0A2472] text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-10 opacity-5">
+          <BrainCircuit className="h-48 w-48" />
+        </div>
+        <div className="max-w-xl relative z-10">
+          <h4 className="text-2xl font-black mb-4 tracking-tight">Recomendación IA del Sistema</h4>
+          <p className="text-lg font-light leading-relaxed opacity-90">
+            "Cambiar sellos de la bomba B-45 antes del 20/04/2026. Se detecta un incremento de vibración del 15% en el último turno."
+          </p>
+        </div>
+        <Button className="bg-[#4CAF50] hover:bg-[#4CAF50]/90 text-white font-black px-8 h-14 rounded-2xl shadow-xl shrink-0">GENERAR ORDEN DE TRABAJO</Button>
+      </div>
     </div>
   );
 }
@@ -1076,8 +1042,8 @@ function ModuleFiscalizacion() {
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Fiscalización de Terceros</h3>
-          <p className="text-sm text-muted-foreground">Monitoreo de cumplimiento de proveedores y aliados.</p>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Fiscalización de Proveedores</h3>
+          <p className="text-sm text-muted-foreground">Monitoreo de cumplimiento de terceros y validación de documentos.</p>
         </div>
         <Button className="bg-[#0A2472] rounded-xl h-11 font-black shadow-lg"><Plus className="mr-2 h-4 w-4"/> Registrar Proveedor</Button>
       </div>
@@ -1085,47 +1051,43 @@ function ModuleFiscalizacion() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard title="Proveedores Activos" value="47" icon={Users} />
         <StatCard title="En Riesgo Fiscal" value="3" icon={AlertTriangle} variant="danger" />
-        <StatCard title="Expedientes por Vencer" value="8" icon={History} variant="warning" />
+        <StatCard title="Docs por Vencer" value="8" icon={History} variant="warning" />
       </div>
 
       <Card className="glass-card border-none shadow-2xl overflow-hidden">
         <CardHeader className="bg-[#0A2472]/5">
-          <CardTitle className="text-[#0A2472] flex items-center gap-2"><ShieldCheck className="h-5 w-5"/> Validación de Terceros (KYC/KYB)</CardTitle>
+          <CardTitle className="text-[#0A2472]">Tabla de Proveedores</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           <Table>
             <TableHeader className="bg-slate-50">
               <TableRow>
-                <TableHead className="pl-6">Proveedor</TableHead>
+                <TableHead className="pl-6">Nombre</TableHead>
                 <TableHead>RIF</TableHead>
-                <TableHead>Estatus Fiscal</TableHead>
-                <TableHead>Riesgo</TableHead>
+                <TableHead>Estatus</TableHead>
+                <TableHead>Última Validación</TableHead>
                 <TableHead className="text-right pr-6">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {suppliers.map(s => (
-                <TableRow key={s.rif} className="hover:bg-slate-50/50">
-                  <TableCell className="pl-6 font-black text-slate-700">{s.name}</TableCell>
-                  <TableCell className="font-mono text-xs font-bold text-slate-400">{s.rif}</TableCell>
+              {[
+                { n: "Inversiones Los Andes C.A.", r: "J-12345678-9", s: "Activo", v: "20/02/2026", c: "green" },
+                { n: "Construcciones Mérida", r: "J-98765432-1", s: "En revisión", v: "15/02/2026", c: "yellow" },
+                { n: "Suministros Globales", r: "J-45678912-3", s: "Suspendido", v: "01/02/2026", c: "red" }
+              ].map(s => (
+                <TableRow key={s.r} className="hover:bg-slate-50/50">
+                  <TableCell className="pl-6 font-black text-slate-700">{s.n}</TableCell>
+                  <TableCell className="font-mono text-xs font-bold text-slate-400">{s.r}</TableCell>
                   <TableCell>
                     <Badge className={cn(
                       "rounded-full px-3",
-                      s.status === 'Activo' ? 'bg-green-500' : s.status === 'Suspendido' ? 'bg-red-500' : 'bg-yellow-500'
+                      s.c === 'green' ? 'bg-green-500' : s.c === 'red' ? 'bg-red-500' : 'bg-yellow-500'
                     )}>
-                      {s.status}
+                      {s.s}
                     </Badge>
                   </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <div className={cn(
-                        "h-2 w-2 rounded-full",
-                        s.risk === 'Bajo' ? 'bg-green-500' : s.risk === 'Alto' ? 'bg-red-500' : 'bg-yellow-500'
-                      )} />
-                      <span className="text-[10px] font-black uppercase text-slate-500 tracking-tight">{s.risk}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right pr-6"><Button variant="ghost" size="sm" className="font-black text-[#0A2472] hover:bg-[#0A2472]/5">AUDITAR</Button></TableCell>
+                  <TableCell className="text-xs font-medium text-slate-500">{s.v}</TableCell>
+                  <TableCell className="text-right pr-6"><Button variant="ghost" size="sm" className="font-black text-[#0A2472] hover:bg-[#0A2472]/5">VER DETALLE</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -1136,18 +1098,10 @@ function ModuleFiscalizacion() {
       <div className="p-8 rounded-[2.5rem] bg-amber-50 border-2 border-amber-100 flex items-start gap-6 shadow-sm">
         <div className="p-4 bg-amber-500 rounded-3xl text-white shadow-xl shadow-amber-200"><AlertTriangle className="h-8 w-8"/></div>
         <div>
-          <h4 className="text-xl font-black text-amber-800 mb-2">Inconsistencias Recientes</h4>
+          <h4 className="text-xl font-black text-amber-800 mb-2">Alertas Recientes</h4>
           <ul className="space-y-2">
-            {[
-              "Factura #F-001 de Inversiones Los Andes no concilia con reporte del SENIAT.",
-              "Documento de Solvencia IVSS de Construcciones Mérida expira en 48h.",
-              "RIF del proveedor Suministros Globales registra domicilio fiscal inactivo."
-            ].map((al, i) => (
-              <li key={i} className="text-sm text-amber-700 font-medium flex items-center gap-2">
-                <div className="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"/>
-                {al}
-              </li>
-            ))}
+            <li className="text-sm text-amber-700 font-medium">• Factura #F001 de Inversiones Los Andes no concilia con declaración fiscal.</li>
+            <li className="text-sm text-amber-700 font-medium">• RIF de proveedor Suministros Globales suspendido por SENIAT.</li>
           </ul>
         </div>
       </div>
@@ -1165,7 +1119,7 @@ function ModuleTienda({ cartCount, addToCart }: any) {
         </div>
         <div className="relative">
           <Button className="rounded-2xl bg-[#0A2472] hover:bg-[#0A2472]/90 h-12 px-6 font-bold shadow-xl relative group">
-            <ShoppingBag className="mr-2 h-5 w-5" /> Ver Carrito
+            <ShoppingBag className="mr-2 h-5 w-5" /> Carrito de Compras
             <span className="absolute -top-2 -right-2 bg-[#4CAF50] text-white text-[10px] font-black h-6 w-6 rounded-full flex items-center justify-center border-2 border-white shadow-lg animate-in zoom-in duration-300">{cartCount}</span>
           </Button>
         </div>
@@ -1175,7 +1129,7 @@ function ModuleTienda({ cartCount, addToCart }: any) {
         {products.map(p => (
           <Card key={p.id} className="glass-card border-none shadow-xl group hover:scale-[1.03] transition-all duration-300 overflow-hidden rounded-[2rem]">
             <div className="h-48 bg-slate-50 relative flex items-center justify-center group-hover:bg-[#0A2472]/5 transition-colors p-8">
-              <Image src={p.image} alt={p.n} layout="fill" className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+              <Image src={p.image} alt={p.name} layout="fill" className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
               <div className="absolute top-4 left-4">
                 <Badge className="bg-[#4CAF50] text-white border-none text-[8px] font-black uppercase tracking-widest">Homologado</Badge>
               </div>
@@ -1208,7 +1162,7 @@ function ModuleIdentidad() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500 flex flex-col items-center">
       <div className="self-start w-full mb-8">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Identidad Digital Soberana</h3>
+        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Identidad Digital Corporativa</h3>
         <p className="text-sm text-muted-foreground">Credenciales empresariales selladas en Blockchain.</p>
       </div>
       
@@ -1303,11 +1257,6 @@ function ModuleConfiguracion() {
             <Separator className="opacity-50"/>
             <div className="flex items-center justify-between">
               <div><p className="font-black text-slate-700 text-sm">Sellado Blockchain</p><p className="text-[10px] text-slate-400 font-bold uppercase">Inmutabilidad de registros</p></div>
-              <Badge className="bg-[#4CAF50] rounded-full px-4">Activo</Badge>
-            </div>
-            <Separator className="opacity-50"/>
-            <div className="flex items-center justify-between">
-              <div><p className="font-black text-slate-700 text-sm">Respaldos Diarios Cloud</p><p className="text-[10px] text-slate-400 font-bold uppercase">Sincronización 24/7</p></div>
               <Badge className="bg-[#4CAF50] rounded-full px-4">Activo</Badge>
             </div>
           </CardContent>
