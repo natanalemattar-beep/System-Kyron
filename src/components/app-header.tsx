@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -145,7 +146,9 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full border p-0 overflow-hidden hover:border-primary/50 transition-all shadow-md">
                   <Avatar className="h-full w-full">
-                    <AvatarFallback className="font-black text-[10px] bg-primary/10 text-primary uppercase">{user.fallback}</AvatarFallback>
+                    <AvatarFallback className={cn("font-black text-[10px] text-white uppercase", user.color || "bg-primary/10 text-primary")}>
+                        {user.fallback}
+                    </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
