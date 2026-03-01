@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -81,8 +80,8 @@ export function LandingHeader() {
                     </div>
 
                     {/* Center: Absolute centered Logo & Brand */}
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <Link href="/" className="flex flex-col items-center group transition-transform active:scale-95">
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                        <Link href="/" className="flex flex-col items-center group transition-transform active:scale-95 pointer-events-auto">
                             <Logo className="h-9 w-9 mb-1 transition-transform group-hover:scale-110" />
                             <span className="text-[9px] font-black tracking-[0.4em] text-foreground uppercase whitespace-nowrap">System Kyron</span>
                         </Link>

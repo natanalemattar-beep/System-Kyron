@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from "framer-motion";
@@ -9,8 +8,8 @@ import { Logo } from "@/components/logo";
 export function HeroSection() {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background">
-      {/* Background Large Logo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[650px] aspect-square opacity-[0.03] pointer-events-none -z-10">
+      {/* Background Large Logo - Constrained to screen */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[650px] aspect-square opacity-[0.03] pointer-events-none -z-10">
           <Logo className="w-full h-full" />
       </div>
 
