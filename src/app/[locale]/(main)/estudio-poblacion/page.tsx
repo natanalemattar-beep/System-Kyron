@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -15,8 +14,6 @@ import {
   Recycle,
   Layers,
   Info,
-  UserCircle,
-  Sparkles,
   BookOpen
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -37,32 +34,32 @@ const zeduData = [
   },
   { 
     label: "NOMBRE DE LA COMUNIDAD", 
-    value: "La Atlántida Catia La Mar",
+    value: "Santa Rosa de Lima",
     icon: Building 
   },
   { 
     label: "CANTIDAD TOTAL DE HABITANTES", 
-    value: "Aproximadamente 500 empresas (unos 5.000 empleados del sector administrativo)",
+    value: "Pendiente por definir",
     icon: Users 
   },
   { 
     label: "CANTIDAD DE HABITANTES POR GÉNERO", 
-    value: "52% femenino, 48% masculino (en cargos administrativos)",
+    value: "Pendiente por definir",
     icon: Layers 
   },
   { 
     label: "CANTIDAD DE HABITANTES POR EDAD", 
-    value: "25-40 años: 60% / 41-55 años: 30% / mayores de 55: 10%",
+    value: "Pendiente por definir",
     icon: Info 
   },
   { 
     label: "CARACTERÍSTICAS DE LA POBLACIÓN", 
-    value: "Empresas que buscan automatizar sus procesos fiscales y contables, interesadas en sostenibilidad y reciclaje de papel/plásticos.",
+    value: "Empresas y residentes de zona urbana con alto interés en automatización y servicios premium.",
     icon: Recycle 
   },
   { 
     label: "CLIMA", 
-    value: "Cálido tropical con influencia costera. Temperaturas promedio entre 26°C y 32°C.",
+    value: "Templado de montaña (Caracas). Temperaturas promedio entre 18°C y 26°C.",
     icon: ThermometerSun 
   }
 ];
@@ -84,7 +81,7 @@ export default function EstudioPoblacionPage() {
             </style>
             </head>
             <body>
-                <div class="main-title">Modelo Zedu</div>
+                <div class="main-title">Modelo Zedu - Santa Rosa de Lima</div>
                 
                 <div class="section-title">INFORMACIÓN DEL EQUIPO</div>
                 <table>
@@ -114,13 +111,13 @@ export default function EstudioPoblacionPage() {
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Modelo_Zedu_AutoMindAI.doc';
+        fileDownload.download = 'Modelo_Zedu_AutoMindAI_SantaRosa.doc';
         fileDownload.click();
         document.body.removeChild(fileDownload);
 
         toast({
             title: "Generación Completada",
-            description: "El modelo Zedu (Partes 1 y 2) ha sido exportado exitosamente.",
+            description: "El modelo Zedu (Parte 3) ha sido exportado exitosamente.",
             action: <CheckCircle className="text-green-500 h-4 w-4" />
         });
     };
@@ -131,9 +128,9 @@ export default function EstudioPoblacionPage() {
                 <div className="space-y-2">
                     <h1 className="text-5xl font-black tracking-tighter flex items-center gap-4 italic italic-shadow text-white uppercase">
                         <BookOpen className="h-12 w-12 text-primary" />
-                        MODELO ZEDU
+                        MODELO ZEDU - PARTE 3
                     </h1>
-                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Documentación Maestra • AutoMind AI • Ecosistema Kyron</p>
+                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Santa Rosa de Lima • AutoMind AI • Ecosistema Kyron</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl" onClick={handleDownloadWord}>
                     <Download className="mr-3 h-6 w-6" /> DESCARGAR PARA WORD
@@ -188,7 +185,7 @@ export default function EstudioPoblacionPage() {
                                                         <h3 className="font-black text-[9px] uppercase tracking-widest text-primary/70 mt-2">{item.label}</h3>
                                                     </div>
                                                     <div className="md:w-2/3 p-8 text-lg font-bold text-white/80 italic leading-relaxed text-justify">
-                                                        {item.value}
+                                                        {item.value || <span className="opacity-30">Campo por rellenar...</span>}
                                                     </div>
                                                 </div>
                                             </TableCell>
@@ -203,7 +200,7 @@ export default function EstudioPoblacionPage() {
             
             <footer className="pt-10 text-center">
                 <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white/10 italic">
-                    Kyron Intelligence Ledger • Inmutable Record v2.6
+                    Kyron Intelligence Ledger • Santa Rosa de Lima Node v2.6
                 </p>
             </footer>
         </div>

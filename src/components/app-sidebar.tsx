@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Link, usePathname } from "@/navigation";
@@ -29,13 +28,13 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-black/60 backdrop-blur-3xl border-r border-white/10 flex flex-col z-50 hidden lg:flex shadow-[20px_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
-      {/* Gradiente de Relleno Lateral */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent pointer-events-none opacity-50" />
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-black/80 backdrop-blur-3xl border-r border-white/10 flex flex-col z-50 hidden lg:flex shadow-[20px_0_100px_rgba(0,0,0,0.8)] overflow-hidden">
+      {/* Gradiente de Relleno Lateral para eliminar el vacío negro */}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent pointer-events-none opacity-60" />
       
-      <div className="p-10 border-b border-white/5 flex flex-col items-center gap-6 relative z-10 bg-white/[0.02]">
+      <div className="p-10 border-b border-white/5 flex flex-col items-center gap-6 relative z-10 bg-white/[0.03]">
         <Link href="/" className="flex flex-col items-center gap-4 transition-all hover:scale-105 group">
-          <Logo className="h-16 w-16 drop-shadow-[0_0_20px_rgba(37,99,235,0.5)]" />
+          <Logo className="h-16 w-16 drop-shadow-[0_0_30px_rgba(37,99,235,0.6)]" />
           <div className="text-center">
             <span className="text-xs font-black tracking-[0.6em] text-white uppercase italic leading-none">System Kyron</span>
             <p className="text-[8px] font-bold text-primary uppercase tracking-[0.3em] mt-2 opacity-80">Master Control Node</p>
@@ -64,7 +63,7 @@ export function AppSidebar() {
               {isActive && (
                 <motion.div 
                   layoutId="sidebar-active-indicator"
-                  className="absolute left-0 w-1 h-1/2 bg-white rounded-r-full shadow-[0_0_15px_rgba(255,255,255,0.8)]"
+                  className="absolute left-0 w-1.5 h-1/2 bg-white rounded-r-full shadow-[0_0_20px_rgba(255,255,255,1)]"
                 />
               )}
             </Link>
@@ -72,10 +71,10 @@ export function AppSidebar() {
         })}
       </nav>
 
-      <div className="p-8 border-t border-white/5 bg-black/40 relative z-10 backdrop-blur-3xl text-center">
+      <div className="p-8 border-t border-white/5 bg-black/60 relative z-10 backdrop-blur-3xl text-center">
         <div className="flex items-center justify-center gap-3">
-            <div className="h-1.5 w-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,1)]" />
-            <span className="text-[9px] font-black text-emerald-500/60 uppercase tracking-widest">Active Node v2.6</span>
+            <div className="h-2 w-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_15px_rgba(16,185,129,1)]" />
+            <span className="text-[9px] font-black text-emerald-500/80 uppercase tracking-widest">Active Node v2.6</span>
         </div>
       </div>
     </aside>
