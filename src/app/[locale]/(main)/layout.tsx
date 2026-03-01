@@ -5,7 +5,6 @@ import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Cpu } from "lucide-react";
 
 export default function MainLayout({
   children,
@@ -18,9 +17,9 @@ export default function MainLayout({
       <div className="flex min-h-screen bg-[#050505] text-white relative overflow-hidden">
           {/* Fondo Atmosférico de Misión Crítica */}
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute top-0 right-0 w-[1400px] h-[1400px] bg-primary/5 rounded-full blur-[200px] opacity-50" />
-            <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-emerald-600/5 rounded-full blur-[180px] opacity-40" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
+            <div className="absolute top-0 right-0 w-[1400px] h-[1400px] bg-primary/10 rounded-full blur-[250px] opacity-60" />
+            <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-emerald-600/10 rounded-full blur-[200px] opacity-50" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
           </div>
 
           <AppSidebar />
@@ -29,20 +28,20 @@ export default function MainLayout({
               <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-informatica" />
               
               <motion.main 
-                className="flex-1 w-full p-8 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
+                className="flex-1 w-full p-10 md:p-16 lg:p-24 pt-32 md:pt-40 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.8 }}
               >
-                  {/* Contenedor sin restricciones de ancho para aprovechar toda la pantalla */}
-                  <div className="w-full h-full">
+                  {/* Arquitectura de Pantalla Completa Real: Sin contenedores restrictivos */}
+                  <div className="w-full">
                     {children}
                   </div>
               </motion.main>
               
-              <footer className="p-8 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
-                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white/10 italic">
-                  System Kyron v2.6 • Engineering Node • 2026
+              <footer className="p-12 border-t border-white/10 bg-black/60 text-center backdrop-blur-3xl relative z-20">
+                <p className="text-[10px] font-black uppercase tracking-[1em] text-white/20 italic">
+                  System Kyron v2.6 • Quantum Engineering • 2026
                 </p>
               </footer>
           </div>
