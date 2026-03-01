@@ -2,17 +2,17 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, FileWarning, ArrowRight, User, Sparkles, Activity, ShieldAlert, Cpu } from 'lucide-react';
+import { CheckCircle, Clock, ShieldAlert, ArrowRight, User, Sparkles, Activity } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
 
 const kpiData = [
-  { title: "Gestiones en Proceso", value: "2", icon: Clock, color: "text-yellow-500" },
-  { title: "Validaciones Listas", value: "5", icon: CheckCircle, color: "text-secondary" },
-  { title: "Alertas Activas", value: "1", icon: ShieldAlert, color: "text-red-500" },
+  { title: "Gestiones en Proceso", value: "2", icon: Clock, color: "text-yellow-500", bg: "bg-yellow-500/5" },
+  { title: "Validaciones Listas", value: "5", icon: CheckCircle, color: "text-green-500", bg: "bg-green-500/5" },
+  { title: "Alertas Activas", value: "1", icon: ShieldAlert, color: "text-red-500", bg: "bg-red-500/5" },
 ];
 
 const recentActivities = [
@@ -23,32 +23,32 @@ const recentActivities = [
 
 export default function DashboardPersonalPage() {
   return (
-    <div className="space-y-10">
-      <header className="flex flex-col lg:flex-row justify-between lg:items-end gap-6 border-l-4 border-primary pl-6 py-2">
+    <div className="max-w-6xl mx-auto space-y-10">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
+          className="space-y-1"
         >
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic italic-shadow">Terminal Usuario</h1>
-            <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.4em] mt-2">Centro de Control de Identidad y Trámites Civiles</p>
+            <h1 className="text-3xl font-bold tracking-tight">Portal Ciudadano</h1>
+            <p className="text-muted-foreground">Gestione su identidad digital y trámites civiles.</p>
         </motion.div>
         
         <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative"
         >
-            <Button asChild size="lg" className="btn-3d-primary h-14 px-10 group">
-                <Link href="/tarjeta-digital" className="flex items-center gap-3">
-                    <User className="h-5 w-5" />
-                    MI IDENTIDAD 3D
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-2" />
+            <Button asChild size="lg" className="rounded-2xl px-8 h-12 shadow-lg">
+                <Link href="/tarjeta-digital" className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    Mi Identidad Digital
+                    <ArrowRight className="h-4 w-4" />
                 </Link>
             </Button>
         </motion.div>
       </header>
       
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {kpiData.map((kpi, index) => (
             <motion.div
               key={kpi.title}
@@ -56,65 +56,61 @@ export default function DashboardPersonalPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="titanium-card rounded-2xl border-white/5 hover:border-primary/20 transition-all glow-border">
-                  <CardContent className="p-8">
-                      <div className="flex justify-between items-center mb-6">
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">{kpi.title}</p>
-                        <kpi.icon className={cn("h-5 w-5", kpi.color)} />
+              <Card className="minimal-card overflow-hidden">
+                  <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <span className={cn("p-2 rounded-xl", kpi.bg)}>
+                            <kpi.icon className={cn("h-5 w-5", kpi.color)} />
+                        </span>
+                        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{kpi.title}</p>
                       </div>
-                      <p className="text-4xl font-black italic">{kpi.value}</p>
+                      <p className="text-3xl font-bold">{kpi.value}</p>
                   </CardContent>
               </Card>
             </motion.div>
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-5">
+      <div className="grid gap-8 lg:grid-cols-3">
         <motion.div 
-            className="lg:col-span-3"
+            className="lg:col-span-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
         >
-           <Card className="titanium-card rounded-3xl glow-border">
-            <CardHeader className="flex flex-row items-center justify-between border-b border-white/5 pb-6">
-              <div>
-                <CardTitle className="text-xl font-black uppercase tracking-tighter italic">Actividad del Sistema</CardTitle>
-                <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-white/20">Registro de eventos de misión en tiempo real</CardDescription>
-              </div>
-              <div className="flex items-center gap-2 text-[9px] font-black text-secondary">
-                <Activity className="h-3 w-3 animate-pulse" /> PROCESANDO
+           <Card className="minimal-card overflow-hidden">
+            <CardHeader className="border-b border-border/50 pb-6">
+              <div className="flex items-center justify-between">
+                <div>
+                    <CardTitle className="text-lg font-bold">Actividad Reciente</CardTitle>
+                    <CardDescription>Seguimiento de sus solicitudes en curso.</CardDescription>
+                </div>
+                <Activity className="h-5 w-5 text-muted-foreground/30" />
               </div>
             </CardHeader>
             <CardContent className="p-0">
                 <Table>
                     <TableHeader>
-                        <TableRow className="border-white/5 hover:bg-transparent">
-                            <TableHead className="text-[9px] font-black uppercase tracking-widest pl-8">Protocolo</TableHead>
-                            <TableHead className="text-[9px] font-black uppercase tracking-widest">Tipo</TableHead>
-                            <TableHead className="text-[9px] font-black uppercase tracking-widest">Timestamp</TableHead>
-                            <TableHead className="text-[9px] font-black uppercase tracking-widest text-center">Estado</TableHead>
-                            <TableHead className="text-right pr-8"></TableHead>
+                        <TableRow className="hover:bg-transparent">
+                            <TableHead className="pl-6">Referencia</TableHead>
+                            <TableHead>Trámite</TableHead>
+                            <TableHead>Fecha</TableHead>
+                            <TableHead className="text-right pr-6">Estado</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {recentActivities.map((activity) => (
-                            <TableRow key={activity.id} className="border-white/5 group hover:bg-white/[0.02]">
-                                <TableCell className="font-mono text-[11px] font-bold text-primary pl-8">{activity.id}</TableCell>
-                                <TableCell className="font-black text-[10px] uppercase tracking-tighter">{activity.type}</TableCell>
-                                <TableCell className="text-[10px] text-white/40">{formatDate(activity.date)}</TableCell>
-                                <TableCell className="text-center">
+                            <TableRow key={activity.id} className="group hover:bg-muted/30">
+                                <TableCell className="font-mono text-xs text-primary pl-6">{activity.id}</TableCell>
+                                <TableCell className="text-sm font-medium">{activity.type}</TableCell>
+                                <TableCell className="text-xs text-muted-foreground">{formatDate(activity.date)}</TableCell>
+                                <TableCell className="text-right pr-6">
                                     <Badge variant="outline" className={cn(
-                                        "text-[8px] font-black uppercase tracking-widest h-5 px-3 border-white/10",
-                                        activity.status === 'Aprobado' ? "text-secondary border-secondary/20 bg-secondary/5" : "text-white/40"
+                                        "text-[10px] font-bold h-6",
+                                        activity.status === 'Aprobado' ? "border-green-500/20 text-green-600 bg-green-500/5" : "text-muted-foreground"
                                     )}>
                                         {activity.status}
                                     </Badge>
-                                </TableCell>
-                                <TableCell className="text-right pr-8">
-                                    <Button variant="ghost" size="sm" className="h-8 w-8 rounded-lg text-white/20 group-hover:text-primary group-hover:bg-primary/10">
-                                        <ArrowRight className="h-4 w-4" />
-                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -125,40 +121,41 @@ export default function DashboardPersonalPage() {
         </motion.div>
 
         <motion.div 
-            className="lg:col-span-2 space-y-8"
+            className="space-y-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
         >
-           <Card className="bg-[#050505] text-white border border-white/5 shadow-2xl rounded-3xl overflow-hidden relative group glow-border">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                <CardHeader className="relative z-10">
-                    <CardTitle className="text-2xl font-black uppercase tracking-tighter italic flex items-center gap-3">
-                        <Sparkles className="h-6 w-6 text-primary" />
-                        Nivel de Acceso 5
+           <Card className="minimal-card bg-primary text-primary-foreground border-none">
+                <CardHeader>
+                    <CardTitle className="text-xl flex items-center gap-2">
+                        <Sparkles className="h-5 w-5" />
+                        Acceso Premium
                     </CardTitle>
-                    <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-white/30">Privilegios de Identidad Digital Avanzada</CardDescription>
+                    <CardDescription className="text-primary-foreground/70">Seguridad avanzada y respaldo Blockchain.</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6 relative z-10">
-                    <p className="text-sm font-medium text-white/60 leading-relaxed">
-                        Su perfil está blindado por el motor de IA de Kyron. El sellado Blockchain garantiza que sus documentos sean 100% inmutables y verificables globalmente.
+                <CardContent className="space-y-4">
+                    <p className="text-sm leading-relaxed opacity-90">
+                        Su perfil está protegido con cifrado de grado bancario. Todos sus trámites cuentan con sellado inmutable.
                     </p>
-                    <div className="p-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-xl flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="p-2.5 rounded-lg bg-primary/20"><Cpu className="h-5 w-5 text-primary" /></div>
-                            <div>
-                                <p className="text-[10px] font-black uppercase tracking-widest text-white">Estado de Red</p>
-                                <p className="text-[9px] font-bold text-secondary">ENLACE SÍNCRONO</p>
-                            </div>
-                        </div>
-                        <div className="text-right">
-                            <p className="text-[10px] font-black uppercase tracking-widest text-white">Latencia</p>
-                            <p className="text-[9px] font-bold text-white/40">12MS</p>
+                    <Button variant="secondary" asChild className="w-full rounded-xl font-bold">
+                        <Link href="/tarjeta-digital">Configurar ID Digital</Link>
+                    </Button>
+                </CardContent>
+           </Card>
+
+           <Card className="minimal-card">
+                <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-bold">Alertas de Sistema</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                    <div className="p-3 rounded-xl bg-orange-500/5 border border-orange-500/10 flex items-start gap-3">
+                        <ShieldAlert className="h-4 w-4 text-orange-500 mt-0.5" />
+                        <div className="text-xs">
+                            <p className="font-bold text-orange-600">Renovación de RIF</p>
+                            <p className="text-muted-foreground">Su registro fiscal vence en 15 días.</p>
                         </div>
                     </div>
-                    <Button variant="default" asChild className="btn-3d-primary w-full h-12">
-                        <Link href="/tarjeta-digital">INGRESAR A IDENTIDAD 3D</Link>
-                    </Button>
                 </CardContent>
            </Card>
         </motion.div>

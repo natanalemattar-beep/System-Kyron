@@ -1,87 +1,84 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, ShieldCheck, Cpu, Activity, Globe, ZapOff } from "lucide-react";
+import { ArrowRight, ShieldCheck, Zap, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/logo";
 import Link from "next/link";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden bg-background hud-grid">
-      {/* Scanline Effect */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-10">
-        <div className="w-full h-1/2 bg-gradient-to-b from-transparent via-primary/20 to-transparent animate-scanline" />
-      </div>
-
-      {/* Decorative Overlays */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(10,36,114,0.1),transparent_70%)]" />
-
-      <div className="container mx-auto px-4 z-10">
-        <div className="flex flex-col items-center text-center">
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
           
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="mb-16 relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10"
           >
-            <div className="absolute inset-0 bg-primary/30 blur-[120px] rounded-full scale-150 animate-pulse" />
-            <Logo className="h-56 w-56 md:h-96 md:w-96 relative z-10 filter drop-shadow-[0_0_80px_rgba(30,64,175,0.6)]" />
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            <span className="text-xs font-semibold text-primary uppercase tracking-widest">Ecosistema de Gestión Integral v2.0</span>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-10"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-[1.1]"
           >
-            <div className="inline-flex items-center gap-4 px-6 py-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-2xl">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
-              </span>
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-white/90">Protocolo de Control Global v2.0.4</span>
-            </div>
+            Sistemas Inteligentes para la <span className="text-primary">Estrategia Empresarial</span>
+          </motion.h1>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+          >
+            Automatización fiscal, contabilidad avanzada y cumplimiento normativo en una plataforma única diseñada para potenciar el crecimiento de su empresa.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+          >
+            <Button asChild size="lg" className="h-14 px-10 text-base rounded-2xl shadow-lg hover:shadow-primary/20 transition-all">
+              <Link href="/login" className="flex items-center gap-2">
+                Comenzar ahora <ArrowRight className="h-5 w-5" />
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" className="h-14 px-10 text-base rounded-2xl hover:bg-muted transition-all">
+              Ver demostración
+            </Button>
+          </motion.div>
 
-            <h1 className="text-7xl md:text-9xl lg:text-[11rem] font-black tracking-tighter leading-[0.75] uppercase italic italic-shadow">
-              Sistemas <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-secondary glow-text-primary">Blindados</span>
-            </h1>
-            
-            <p className="text-xl md:text-3xl text-muted-foreground max-w-4xl mx-auto font-black uppercase tracking-tighter leading-none opacity-60">
-              Arquitectura Industrial. Inteligencia Fiscal Cuántica. <br/> 
-              <span className="text-primary/80">Inmutabilidad Blockchain Total.</span>
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-12">
-              <Button asChild className="btn-3d-primary h-20 px-16 text-sm group min-w-[320px]">
-                <Link href="/login" className="flex items-center gap-4">
-                  INICIAR OPERACIONES <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-3" />
-                </Link>
-              </Button>
-              <Button variant="outline" className="h-20 px-16 rounded-lg text-sm font-black border-2 border-white/10 hover:bg-white/5 backdrop-blur-xl min-w-[320px] tracking-widest uppercase transition-all shadow-2xl">
-                DOCUMENTACIÓN TÉCNICA
-              </Button>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="pt-20 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-60"
+          >
+            <div className="flex flex-col items-center gap-2">
+              <ShieldCheck className="h-6 w-6 text-primary" />
+              <span className="text-[10px] font-bold uppercase tracking-widest">Cero Riesgo</span>
             </div>
-
-            <div className="pt-32 grid grid-cols-2 md:grid-cols-4 gap-12 max-w-5xl mx-auto opacity-30">
-              <div className="flex flex-col items-center gap-3">
-                <ShieldCheck className="h-8 w-8 text-secondary" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Cero Riesgo</span>
-              </div>
-              <div className="flex flex-col items-center gap-3">
-                <Zap className="h-8 w-8 text-primary" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">IA Predictiva</span>
-              </div>
-              <div className="flex flex-col items-center gap-3">
-                <Globe className="h-8 w-8 text-white" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Conexión Global</span>
-              </div>
-              <div className="flex flex-col items-center gap-3">
-                <Activity className="h-8 w-8 text-secondary" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Telemetría</span>
-              </div>
+            <div className="flex flex-col items-center gap-2">
+              <Zap className="h-6 w-6 text-primary" />
+              <span className="text-[10px] font-bold uppercase tracking-widest">IA Aplicada</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Globe className="h-6 w-6 text-primary" />
+              <span className="text-[10px] font-bold uppercase tracking-widest">Escalabilidad</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <ArrowRight className="h-6 w-6 text-primary" />
+              <span className="text-[10px] font-bold uppercase tracking-widest">Eficiencia</span>
             </div>
           </motion.div>
         </div>
