@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -46,20 +47,20 @@ export function LandingHeader() {
                         </Link>
                     </div>
 
-                    {/* Navigation Links - Exact labels from screenshot */}
-                    <nav className="hidden md:flex items-center gap-8">
+                    {/* Navigation Links - Centered and always visible on desktops */}
+                    <nav className="hidden lg:flex items-center gap-8 flex-1 justify-center">
                         {navLinks.map((link) => (
                             <Link 
                                 key={link.href} 
                                 href={link.href as any}
-                                className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-white transition-colors"
+                                className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-white transition-colors"
                             >
                                 {link.label}
                             </Link>
                         ))}
                     </nav>
 
-                    {/* Action Buttons - Exact style from screenshot */}
+                    {/* Action Buttons */}
                     <div className="flex items-center gap-4">
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
@@ -74,7 +75,7 @@ export function LandingHeader() {
                         </div>
 
                         {/* Mobile Menu */}
-                        <div className="sm:hidden flex items-center gap-2">
+                        <div className="lg:hidden flex items-center gap-2">
                             <ThemeToggle />
                             <Sheet>
                                 <SheetTrigger asChild>
