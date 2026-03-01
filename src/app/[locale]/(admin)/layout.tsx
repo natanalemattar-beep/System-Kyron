@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -16,7 +15,6 @@ export default function AdminLayout({
 
     return (
       <div className="flex min-h-screen bg-[#050505] text-white relative overflow-hidden">
-          {/* Fondo Atmosférico Financiero Global */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:50px_50px]" />
             <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.03] rounded-full blur-[250px]" />
@@ -27,7 +25,7 @@ export default function AdminLayout({
           <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
               <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-empresa" />
               <motion.main 
-                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-24 md:pt-32 relative"
+                className="flex-1 w-full p-12 lg:p-16 pt-28 md:pt-36 relative"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
@@ -35,7 +33,7 @@ export default function AdminLayout({
                   <div className="absolute bottom-20 left-20 opacity-[0.01] pointer-events-none -z-10">
                     <Landmark className="w-[600px] h-[600px] text-primary" />
                   </div>
-                  <div className="w-full h-full">
+                  <div className="w-full">
                     {children}
                   </div>
               </motion.main>

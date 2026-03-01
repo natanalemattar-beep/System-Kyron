@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -34,7 +33,7 @@ export default function NaturalLayout({
               />
               
               <motion.main 
-                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
@@ -44,7 +43,7 @@ export default function NaturalLayout({
                     <Sparkles className="w-[800px] h-[800px] text-primary" />
                   </div>
                   
-                  <div className="w-full h-full">
+                  <div className="w-full">
                     {children}
                   </div>
               </motion.main>
