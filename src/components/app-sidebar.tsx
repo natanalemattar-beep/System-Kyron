@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Link, usePathname } from "@/navigation";
@@ -28,10 +29,10 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-card/95 backdrop-blur-3xl border-r border-white/10 flex flex-col z-50 hidden lg:flex shadow-[25px_0_60px_rgba(0,0,0,0.6)] overflow-hidden">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#050505]/95 backdrop-blur-3xl border-r border-white/10 flex flex-col z-50 hidden lg:flex shadow-[25px_0_60px_rgba(0,0,0,0.8)] overflow-hidden">
       {/* Luz lateral de profundidad para rellenar el espacio */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
       
       <div className="p-10 border-b border-white/10 flex flex-col items-center gap-6 relative z-10 bg-white/[0.03]">
         <Link href="/" className="flex flex-col items-center gap-4 transition-all hover:scale-105 active:scale-95 group">

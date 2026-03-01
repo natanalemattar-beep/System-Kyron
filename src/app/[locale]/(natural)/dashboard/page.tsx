@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -17,10 +18,10 @@ const kpiData = [
 
 export default function DashboardPersonalPage() {
   return (
-    <div className="space-y-20 w-full animate-in fade-in duration-1000 pb-20">
+    <div className="space-y-16 w-full animate-in fade-in duration-1000 pb-20">
       
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
-        <div className="space-y-4">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 border-l-4 border-primary pl-8 py-2">
+        <div className="space-y-2">
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
                 <Sparkles className="h-4 w-4 text-yellow-400 animate-pulse" /> Identity Secured
             </div>
@@ -67,7 +68,7 @@ export default function DashboardPersonalPage() {
       </div>
 
       <div className="grid gap-12 grid-cols-1 lg:grid-cols-12">
-        <Card className="lg:col-span-8 glass-card border-none overflow-hidden flex flex-col">
+        <Card className="lg:col-span-8 glass-card border-none overflow-hidden flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.3)]">
             <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-[11px] font-black uppercase tracking-[0.6em] text-primary">Historial de Operaciones en el Ledger</CardTitle>
@@ -125,7 +126,7 @@ export default function DashboardPersonalPage() {
                 </CardFooter>
            </Card>
 
-           <Card className="glass-card border-none overflow-hidden p-2">
+           <Card className="glass-card border-none overflow-hidden p-2 shadow-xl">
                 <CardContent className="p-10">
                     <div className="flex items-start gap-8">
                         <div className="p-5 rounded-[1.5rem] bg-rose-500/10 border border-rose-500/20 shadow-inner">

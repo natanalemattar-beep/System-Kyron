@@ -1,32 +1,26 @@
+
 "use client";
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { 
   Download, 
   Users, 
   MapPin, 
-  ThermometerSun, 
   CheckCircle,
-  Briefcase,
   FileText,
-  Zap
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Logo } from "@/components/logo";
 
 const zeduData = {
-  pais: "Venezuela",
-  ciudad: "Catia La Mar",
-  municipio: "Vargas",
-  localidad: "La Atlántida entre calle 7 a calle 3, Catia La Mar, Pinta Catia, Supermercado Bensica",
-  comunidad: "La Atlántida - Catia La Mar",
-  habitantesTotales: "Aproximadamente 500 empresas (5.000 empleados aprox.)",
+  localizacion: "Venezuela, La Atlántida entre calle 7 a calle 3, Catia La Mar Pinta Catia, Supermercado Bensica.",
+  comunidad: "La Atlántida catia La Mar",
+  habitantes: "Aproximadamente 500 empresas (unos 5.000 empleados)",
   genero: "52% femenino, 48% masculino (en cargos administrativos)",
   edad: "25-40 años: 60% / 41-55 años: 30% / mayores de 55: 10%",
-  caracteristicas: "Empresas que buscan automatizar sus procesos fiscales y contables, interesadas en adoptar prácticas sostenibles. Generan grandes volúmenes de residuos de papel y otros materiales reciclables.",
+  caracteristicas: "Empresas que buscan automatizar sus procesos fiscales y contables, y que además están interesadas en adoptar prácticas sostenibles. Generan grandes volúmenes de residuos de papel y otros materiales reciclables",
   clima: "Cálido tropical con influencia costera. Temperaturas promedio entre 26°C y 32°C. Alta salinidad ambiental."
 };
 
@@ -43,27 +37,27 @@ export default function EstudioPoblacionPage() {
                 th, td { border: 1px solid #000; padding: 12px; text-align: left; }
                 th { background-color: #f2f2f2; font-weight: bold; text-transform: uppercase; font-size: 10pt; }
                 .title { text-align: center; font-size: 18pt; font-weight: bold; text-transform: uppercase; margin-bottom: 30px; border-bottom: 2px solid #0A2472; padding-bottom: 10px; color: #0A2472; }
-                .label { font-weight: bold; background-color: #f9f9f9; width: 30%; }
             </style>
             </head>
             <body>
-                <div class="title">POBLACIÓN A TRABAJAR - MODELO ZEDU</div>
+                <div class="title">POBLACIÓN A TRABAJAR</div>
                 <table>
-                    <tr><th colspan="2">LOCALIZACIÓN GEOGRÁFICA</th></tr>
-                    <tr><td class="label">PAÍS / CIUDAD / MUNICIPIO</td><td>${zeduData.pais}, ${zeduData.ciudad}, ${zeduData.municipio}</td></tr>
-                    <tr><td class="label">LOCALIDAD ESPECÍFICA</td><td>${zeduData.localidad}</td></tr>
-                    <tr><td class="label">NOMBRE DE LA COMUNIDAD</td><td>${zeduData.comunidad}</td></tr>
-                    
-                    <tr><th colspan="2">DATOS DEMOGRÁFICOS</th></tr>
-                    <tr><td class="label">CANTIDAD DE HABITANTES</td><td>${zeduData.habitantesTotales}</td></tr>
-                    <tr><td class="label">DISTRIBUCIÓN POR GÉNERO</td><td>${zeduData.genero}</td></tr>
-                    <tr><td class="label">DISTRIBUCIÓN POR EDAD</td><td>${zeduData.edad}</td></tr>
-                    
-                    <tr><th colspan="2">ANÁLISIS PSICOGRÁFICO Y AMBIENTAL</th></tr>
-                    <tr><td class="label">CARACTERÍSTICAS</td><td>${zeduData.caracteristicas}</td></tr>
-                    <tr><td class="label">FACTOR CLIMÁTICO</td><td>${zeduData.clima}</td></tr>
+                    <tr><th>PAÍS/ CIUDAD/ MUNICIPIO/ LOCALIDAD ESPECÍFICA</th></tr>
+                    <tr><td>${zeduData.localizacion}</td></tr>
+                    <tr><th>NOMBRE DE LA COMUNIDAD</th></tr>
+                    <tr><td>${zeduData.comunidad}</td></tr>
+                    <tr><th>CANTIDAD TOTAL DE HABITANTES</th></tr>
+                    <tr><td>${zeduData.habitantes}</td></tr>
+                    <tr><th>CANTIDAD DE HABITANTES POR GÉNERO</th></tr>
+                    <tr><td>${zeduData.genero}</td></tr>
+                    <tr><th>CANTIDAD DE HABITANTES POR EDAD</th></tr>
+                    <tr><td>${zeduData.edad}</td></tr>
+                    <tr><th>CARACTERISTICAS DE LA POBLACIÓN</th></tr>
+                    <tr><td>${zeduData.caracteristicas}</td></tr>
+                    <tr><th>CLIMA</th></tr>
+                    <tr><td>${zeduData.clima}</td></tr>
                 </table>
-                <p style="margin-top: 50px; font-size: 8pt; text-align: center; color: #666;">Documento generado por System Kyron v2.6 - Inteligencia de Mercado</p>
+                <p style="margin-top: 50px; font-size: 8pt; text-align: center; color: #666;">Documento generado por System Kyron v2.6 - Modelo Zedu Oficial</p>
             </body>
             </html>
         `;
@@ -91,97 +85,81 @@ export default function EstudioPoblacionPage() {
                         <Users className="h-8 w-8 text-primary" />
                         POBLACIÓN A TRABAJAR (MODELO ZEDU)
                     </h1>
-                    <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-widest italic">Análisis de Segmentación • Catia La Mar</p>
+                    <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-widest italic">Estudio Técnico de Segmentación • Catia La Mar</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-14 px-10 rounded-2xl shadow-2xl" onClick={handleDownloadWord}>
                     <Download className="mr-3 h-5 w-5" /> DESCARGAR PARA WORD
                 </Button>
             </header>
 
-            <div className="grid gap-10 lg:grid-cols-12">
-                <Card className="lg:col-span-8 glass-card border-none overflow-hidden">
-                    <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
-                        <CardTitle className="text-[11px] font-black uppercase tracking-[0.6em] text-primary italic">Matriz de Datos Maestro</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                        <Table>
+            <Card className="glass-card border-none overflow-hidden max-w-5xl mx-auto shadow-[0_0_50px_rgba(0,0,0,0.3)]">
+                <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
+                    <CardTitle className="text-[11px] font-black uppercase tracking-[0.6em] text-primary italic">Documento Maestro Zedu</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                    <div className="w-full">
+                        <Table className="border-collapse">
                             <TableBody>
-                                <TableRow className="hover:bg-primary/[0.02] border-white/5 transition-all">
-                                    <TableCell className="w-1/3 font-black text-[10px] uppercase tracking-widest text-white/40 pl-10 py-8">Localización Específica</TableCell>
-                                    <TableCell className="py-8 pr-10">
-                                        <div className="flex items-start gap-3">
-                                            <MapPin className="h-5 w-5 text-primary shrink-0 mt-1" />
-                                            <p className="font-bold text-white/90 leading-relaxed italic">{zeduData.localidad}</p>
-                                        </div>
+                                {/* País / Localidad */}
+                                <TableRow className="border-white/5">
+                                    <TableCell className="p-0">
+                                        <div className="bg-white/[0.03] px-8 py-4 font-black text-[10px] uppercase tracking-widest text-primary border-b border-white/5">PAÍS/ CIUDAD/ MUNICIPIO/ LOCALIDAD ESPECÍFICA</div>
+                                        <div className="px-8 py-6 text-sm font-bold text-white/90 italic">{zeduData.localizacion}</div>
                                     </TableCell>
                                 </TableRow>
-                                <TableRow className="hover:bg-primary/[0.02] border-white/5 transition-all">
-                                    <TableCell className="font-black text-[10px] uppercase tracking-widest text-white/40 pl-10 py-8">Nombre Comunidad</TableCell>
-                                    <TableCell className="py-8 pr-10 font-black text-xl italic text-primary uppercase">{zeduData.comunidad}</TableCell>
-                                </TableRow>
-                                <TableRow className="hover:bg-primary/[0.02] border-white/5 transition-all">
-                                    <TableCell className="font-black text-[10px] uppercase tracking-widest text-white/40 pl-10 py-8">Cantidad Habitantes</TableCell>
-                                    <TableCell className="py-8 pr-10">
-                                        <div className="flex items-center gap-3">
-                                            <Briefcase className="h-5 w-5 text-secondary" />
-                                            <p className="font-bold text-white/90">{zeduData.habitantesTotales}</p>
-                                        </div>
+                                {/* Comunidad */}
+                                <TableRow className="border-white/5">
+                                    <TableCell className="p-0">
+                                        <div className="bg-white/[0.03] px-8 py-4 font-black text-[10px] uppercase tracking-widest text-primary border-b border-white/5">NOMBRE DE LA COMUNIDAD</div>
+                                        <div className="px-8 py-6 text-xl font-black text-white italic uppercase tracking-tight">{zeduData.comunidad}</div>
                                     </TableCell>
                                 </TableRow>
-                                <TableRow className="hover:bg-primary/[0.02] border-white/5 transition-all">
-                                    <TableCell className="font-black text-[10px] uppercase tracking-widest text-white/40 pl-10 py-8">Segmentación Género</TableCell>
-                                    <TableCell className="py-8 pr-10 font-bold text-white/80 italic">{zeduData.genero}</TableCell>
+                                {/* Habitantes Totales */}
+                                <TableRow className="border-white/5">
+                                    <TableCell className="p-0">
+                                        <div className="bg-white/[0.03] px-8 py-4 font-black text-[10px] uppercase tracking-widest text-primary border-b border-white/5">CANTIDAD TOTAL DE HABITANTES</div>
+                                        <div className="px-8 py-6 text-base font-bold text-white/80">{zeduData.habitantes}</div>
+                                    </TableCell>
                                 </TableRow>
-                                <TableRow className="hover:bg-primary/[0.02] border-white/5 transition-all">
-                                    <TableCell className="font-black text-[10px] uppercase tracking-widest text-white/40 pl-10 py-8">Distribución Edad</TableCell>
-                                    <TableCell className="py-8 pr-10 font-mono text-primary font-black">{zeduData.edad}</TableCell>
+                                {/* Género */}
+                                <TableRow className="border-white/5">
+                                    <TableCell className="p-0">
+                                        <div className="bg-white/[0.03] px-8 py-4 font-black text-[10px] uppercase tracking-widest text-primary border-b border-white/5">CANTIDAD DE HABITANTES POR GÉNERO</div>
+                                        <div className="px-8 py-6 text-sm font-bold text-white/70 italic">{zeduData.genero}</div>
+                                    </TableCell>
                                 </TableRow>
-                                <TableRow className="hover:bg-primary/[0.02] border-white/5 transition-all">
-                                    <TableCell className="font-black text-[10px] uppercase tracking-widest text-white/40 pl-10 py-8">Características</TableCell>
-                                    <TableCell className="py-8 pr-10 text-sm text-muted-foreground leading-relaxed text-justify font-medium">{zeduData.caracteristicas}</TableCell>
+                                {/* Edad */}
+                                <TableRow className="border-white/5">
+                                    <TableCell className="p-0">
+                                        <div className="bg-white/[0.03] px-8 py-4 font-black text-[10px] uppercase tracking-widest text-primary border-b border-white/5">CANTIDAD DE HABITANTES POR EDAD</div>
+                                        <div className="px-8 py-6 font-mono text-primary font-black text-lg">{zeduData.edad}</div>
+                                    </TableCell>
                                 </TableRow>
-                                <TableRow className="hover:bg-primary/[0.02] border-none transition-all">
-                                    <TableCell className="font-black text-[10px] uppercase tracking-widest text-white/40 pl-10 py-8">Factor Climático</TableCell>
-                                    <TableCell className="py-8 pr-10">
-                                        <div className="flex items-start gap-3">
-                                            <ThermometerSun className="h-5 w-5 text-orange-400 shrink-0 mt-1" />
-                                            <p className="text-sm text-white/70 font-medium italic">{zeduData.clima}</p>
-                                        </div>
+                                {/* Características */}
+                                <TableRow className="border-white/5">
+                                    <TableCell className="p-0">
+                                        <div className="bg-white/[0.03] px-8 py-4 font-black text-[10px] uppercase tracking-widest text-primary border-b border-white/5">CARACTERISTICAS DE LA POBLACIÓN</div>
+                                        <div className="px-8 py-6 text-sm text-muted-foreground leading-relaxed text-justify font-medium">{zeduData.caracteristicas}</div>
+                                    </TableCell>
+                                </TableRow>
+                                {/* Clima */}
+                                <TableRow className="border-none">
+                                    <TableCell className="p-0">
+                                        <div className="bg-white/[0.03] px-8 py-4 font-black text-[10px] uppercase tracking-widest text-primary border-b border-white/5">CLIMA</div>
+                                        <div className="px-8 py-6 text-sm text-white/60 font-medium italic">{zeduData.clima}</div>
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
-                    </CardContent>
-                </Card>
+                    </div>
+                </CardContent>
+            </Card>
 
-                <div className="lg:col-span-4 space-y-10">
-                    <Card className="bg-primary text-primary-foreground rounded-[3rem] p-10 shadow-2xl relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-all duration-700">
-                            <FileText className="h-40 w-40" />
-                        </div>
-                        <CardHeader className="p-0 mb-6 relative z-10">
-                            <CardTitle className="text-3xl font-black uppercase italic tracking-tighter">Uso del Modelo</CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-0 relative z-10 space-y-6">
-                            <p className="text-lg leading-relaxed font-bold opacity-80 italic">
-                                Este modelo Zedu fundamenta la viabilidad técnica ante entes gubernamentales y socios.
-                            </p>
-                            <ul className="space-y-4 text-xs font-black uppercase tracking-widest">
-                                <li className="flex items-center gap-3"><CheckCircle className="h-4 w-4" /> Justificación Fiscal</li>
-                                <li className="flex items-center gap-3"><CheckCircle className="h-4 w-4" /> Diseño de Logística</li>
-                                <li className="flex items-center gap-3"><CheckCircle className="h-4 w-4" /> Impacto Ambiental</li>
-                            </ul>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="glass-card border-none">
-                        <CardContent className="p-10 text-center space-y-6">
-                            <Logo className="h-16 w-16 mx-auto opacity-20" />
-                            <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/30 italic">
-                                Data Intelligence v2.6.8<br/>System Kyron Master Control
-                            </p>
-                        </CardContent>
-                    </Card>
+            <div className="max-w-5xl mx-auto flex justify-center py-10">
+                <div className="flex items-center gap-6 opacity-20">
+                    <div className="h-px w-24 bg-white"></div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.5em]">Fin del Informe Técnico</p>
+                    <div className="h-px w-24 bg-white"></div>
                 </div>
             </div>
         </div>
