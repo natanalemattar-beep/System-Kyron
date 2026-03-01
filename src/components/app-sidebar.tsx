@@ -29,17 +29,18 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0a]/95 border-r border-primary/50 flex flex-col z-50 hidden lg:flex shadow-[20px_0_100px_rgba(0,0,0,0.8)] backdrop-blur-3xl overflow-hidden">
-      {/* Textura Industrial para el Sidebar */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:10px_10px]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-primary/[0.03] pointer-events-none" />
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0a]/98 border-r border-primary/40 flex flex-col z-50 hidden lg:flex shadow-[25px_0_80px_rgba(0,0,0,0.9)] backdrop-blur-3xl overflow-hidden">
+      {/* Refuerzo visual para eliminar el hueco negro */}
+      <div className="absolute inset-0 opacity-[0.08] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:15px:15px]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/[0.02] to-primary/[0.05] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[1px] h-full bg-gradient-to-b from-transparent via-primary/50 to-transparent" />
       
-      <div className="p-12 border-b border-white/10 flex flex-col items-center gap-6 relative z-10 bg-black/60">
+      <div className="p-12 border-b border-white/10 flex flex-col items-center gap-6 relative z-10 bg-black/40">
         <Link href="/" className="flex flex-col items-center gap-4 transition-all hover:scale-105 group">
-          <Logo className="h-16 w-16 drop-shadow-[0_0_25px_rgba(37,99,235,0.6)]" />
+          <Logo className="h-16 w-16 drop-shadow-[0_0_20px_rgba(37,99,235,0.5)]" />
           <div className="text-center">
             <span className="text-[11px] font-black tracking-[0.6em] text-white uppercase italic leading-none">System Kyron</span>
-            <p className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-80">Command Control</p>
+            <p className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-80">Command Center</p>
           </div>
         </Link>
       </div>
@@ -76,7 +77,7 @@ export function AppSidebar() {
       <div className="p-8 border-t border-white/10 bg-black/40 relative z-10">
         <div className="flex items-center justify-center gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
             <Activity className="h-4 w-4 text-emerald-500 animate-pulse" />
-            <span className="text-[9px] font-black text-emerald-500/80 uppercase tracking-widest italic">Node v2.6.4 Online</span>
+            <span className="text-[9px] font-black text-emerald-500/80 uppercase tracking-widest italic">System v2.6.4 Online</span>
         </div>
       </div>
     </aside>
