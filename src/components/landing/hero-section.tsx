@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from "framer-motion";
@@ -6,13 +5,14 @@ import { ArrowRight, Zap, Smartphone, Magnet, Phone, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
 export function HeroSection() {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
       
-      {/* Background Large Logo - Marca de agua masiva y controlada */}
+      {/* Background Large Logo - Massive but controlled scale */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[800px] aspect-square opacity-[0.03] pointer-events-none -z-10 overflow-hidden">
           <motion.div
             animate={{ 
@@ -35,7 +35,7 @@ export function HeroSection() {
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.3em] text-primary shadow-lg backdrop-blur-sm">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 text-[10px] font-black uppercase tracking-[0.3em] text-primary shadow-lg backdrop-blur-sm border border-primary/20">
               <Zap className="h-4 w-4 text-yellow-500 animate-pulse" />
               Ecosistema de Misión Crítica v2.0
             </div>
@@ -82,7 +82,7 @@ export function HeroSection() {
           >
             {/* Visual Showcase de Productos con Vida */}
             <div className="grid grid-cols-2 gap-6 p-4">
-                <div className={cn(
+                <Card className={cn(
                     "p-8 bg-card/60 backdrop-blur-xl border-primary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all group overflow-hidden border"
                 )}>
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
@@ -91,9 +91,9 @@ export function HeroSection() {
                     </div>
                     <h3 className="font-black text-base uppercase italic mb-2 relative z-10">Kyron Pro X</h3>
                     <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Venta de Dispositivos de Alta Gama</p>
-                </div>
+                </Card>
                 
-                <div className={cn(
+                <Card className={cn(
                     "p-8 bg-card/60 backdrop-blur-xl border-secondary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all mt-12 group overflow-hidden border"
                 )}>
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-secondary/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
@@ -102,9 +102,9 @@ export function HeroSection() {
                     </div>
                     <h3 className="font-black text-base uppercase italic mb-2 relative z-10">Smart Bins</h3>
                     <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Tecnología de Magnetismo Inteligente</p>
-                </div>
+                </Card>
                 
-                <div className={cn(
+                <Card className={cn(
                     "p-8 bg-card/60 backdrop-blur-xl border-primary/10 rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all -mt-6 group overflow-hidden border"
                 )}>
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
@@ -113,7 +113,7 @@ export function HeroSection() {
                     </div>
                     <h3 className="font-black text-base uppercase italic mb-2 relative z-10">Línea Kyron</h3>
                     <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest relative z-10 leading-tight">Asignación Inmediata de Números</p>
-                </div>
+                </Card>
                 
                 <div className="p-8 bg-primary text-white rounded-[2.5rem] shadow-2xl hover:scale-105 transition-all mt-6 group overflow-hidden border-none relative">
                     <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />

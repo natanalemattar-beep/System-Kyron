@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -8,9 +7,6 @@ import {
     Menu, 
     UserCircle,
     Zap,
-    ShieldCheck,
-    Search,
-    Bell
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -41,10 +37,10 @@ export function LandingHeader() {
              isScrolled ? "bg-background/80 backdrop-blur-2xl py-3 border-b shadow-lg" : "bg-transparent py-6"
         )}>
             <div className="container mx-auto px-6">
-                <div className="grid grid-cols-3 items-center h-16 relative">
+                <div className="flex items-center justify-between h-16 relative">
                     
                     {/* Left: Navigation Links (Desktop) */}
-                    <nav className="hidden lg:flex items-center gap-6">
+                    <nav className="hidden lg:flex items-center gap-6 flex-1">
                         {navLinks.slice(0, 3).map((link) => (
                             <Link 
                                 key={link.href} 
@@ -57,16 +53,16 @@ export function LandingHeader() {
                         ))}
                     </nav>
 
-                    {/* Center: Brand Identity - Central Absoluto */}
-                    <div className="flex justify-center">
+                    {/* Center: Brand Identity - Absolutely Centered */}
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
                         <Link href="/" className="flex flex-col items-center group">
                             <Logo className="h-10 w-10 mb-1 group-hover:scale-110 transition-transform duration-500" /> 
                             <span className="text-sm font-black tracking-tighter text-primary uppercase leading-none">System Kyron</span>
                         </Link>
                     </div>
 
-                    {/* Right: Actions + Always-visible Menu */}
-                    <div className="flex items-center justify-end gap-4">
+                    {/* Right: Actions + Menu Button */}
+                    <div className="flex items-center justify-end gap-4 flex-1">
                         <div className="hidden sm:flex items-center gap-3">
                             <ThemeToggle />
                             <Button variant="outline" asChild className="rounded-xl h-10 px-4 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5">
@@ -79,7 +75,7 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
-                        {/* Menu Trigger (Visible siempre en PC y Móvil) */}
+                        {/* Menu Trigger (Visible on PC too as requested) */}
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all">
