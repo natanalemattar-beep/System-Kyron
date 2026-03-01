@@ -13,7 +13,9 @@ import {
     Briefcase, 
     Users, 
     X,
-    LayoutGrid
+    LayoutGrid,
+    Info,
+    ShieldCheck
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -29,7 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const loginOptions = [
-    { href: "/login-personal", label: "Portal Personal", sub: "Trámites Ciudadanos", icon: User },
+    { href: "/login-personal", label: "Acceso Personal", sub: "Trámites Ciudadanos", icon: User },
     { href: "/login-empresa", label: "Contabilidad", sub: "Gestión Fiscal", icon: Banknote },
     { href: "/login-escritorio-juridico", label: "Legal", sub: "Contratos y Ley", icon: Gavel },
     { href: "/login-ventas", label: "Ventas & TPV", sub: "Operaciones", icon: ShoppingCart },
@@ -62,15 +64,15 @@ export function LandingHeader() {
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex h-14 items-center justify-between gap-4">
                     
-                    {/* Logo & Info Buttons */}
+                    {/* Logo & Navigation */}
                     <div className="flex items-center gap-8">
                         <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95">
                             <Logo className="h-9 w-9" />
                             <span className="text-xl font-bold tracking-tight text-primary">Kyron</span>
                         </Link>
 
-                        {/* Navigation - Info Buttons */}
-                        <nav className="hidden lg:flex items-center gap-1">
+                        {/* DESKTOP NAV - VISIBLE ON MD AND UP */}
+                        <nav className="hidden md:flex items-center gap-1">
                             {navLinks.map((link) => (
                                 <Button 
                                     key={link.href} 
@@ -84,11 +86,12 @@ export function LandingHeader() {
                         </nav>
                     </div>
 
-                    {/* Action Buttons */}
+                    {/* Actions */}
                     <div className="flex items-center gap-3">
                         <div className="hidden md:flex items-center gap-3">
                             <ThemeToggle />
                             
+                            {/* MASTER ACCESS BUTTON */}
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button className="btn-3d-primary h-10 px-6 gap-3 text-[11px] uppercase tracking-[0.2em] font-bold rounded-xl">
@@ -121,8 +124,8 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
-                        {/* Mobile Menu */}
-                        <div className="lg:hidden flex items-center gap-2">
+                        {/* MOBILE MENU */}
+                        <div className="md:hidden flex items-center gap-2">
                             <ThemeToggle />
                             <Sheet>
                                 <SheetTrigger asChild>

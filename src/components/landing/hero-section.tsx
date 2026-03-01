@@ -1,20 +1,20 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Zap, Globe, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-background">
-      {/* Background elements */}
+    <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-background">
+      {/* Dynamic Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 text-center">
-        <div className="max-w-3xl mx-auto space-y-10">
+        <div className="max-w-3xl mx-auto space-y-12">
           
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -25,7 +25,7 @@ export function HeroSection() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            Ecosistema Empresarial v2.6.0
+            Ecosistema de Misión Crítica
           </motion.div>
 
           <motion.h1
@@ -44,7 +44,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
           >
-            Automatización fiscal, contabilidad avanzada y cumplimiento normativo en una plataforma única diseñada para la claridad y el crecimiento.
+            Automatización fiscal y gestión de cumplimiento en una plataforma única diseñada para la claridad operativa y el crecimiento estratégico.
           </motion.p>
           
           <motion.div
@@ -54,7 +54,7 @@ export function HeroSection() {
             className="flex flex-col items-center gap-8 pt-6"
           >
             <Button variant="outline" size="lg" className="h-12 px-10 text-[11px] uppercase tracking-[0.25em] rounded-xl border-border/60 hover:bg-muted/50 transition-all font-bold">
-                DESCUBRIR TECNOLOGÍA
+                CONOCE NUESTRA TECNOLOGÍA
             </Button>
             
             <motion.div 
@@ -62,7 +62,7 @@ export function HeroSection() {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="flex flex-col items-center gap-2 opacity-40 mt-4"
             >
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em]">EXPLORAR</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em]">DESLIZA PARA EXPLORAR</span>
                 <ArrowDown className="h-4 w-4" />
             </motion.div>
           </motion.div>
