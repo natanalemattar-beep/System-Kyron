@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -19,7 +20,6 @@ import {
     Bell, 
     LogOut, 
     Lock,
-    Search,
     Clock,
     LayoutGrid
 } from "lucide-react";
@@ -47,7 +47,6 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
       <div className="w-full px-4 md:px-8">
         <div className="flex items-center justify-between w-full">
           
-          {/* Left: Mobile Menu */}
           <div className="flex items-center gap-4">
             <div className="lg:hidden">
               <Sheet>
@@ -73,7 +72,6 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
             </div>
           </div>
 
-          {/* Right: Controls correctly aligned */}
           <div className="flex items-center gap-2 md:gap-6">
             <div className="hidden md:flex flex-col items-end">
                 <div className="flex items-center gap-2 text-xs font-mono font-black text-primary">

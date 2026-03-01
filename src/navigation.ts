@@ -30,6 +30,13 @@ export const pathnames = {
   '/tarjeta-reciclaje': '/tarjeta-reciclaje',
   '/zero-risk': '/zero-risk',
   '/general': '/general',
+  '/recursos-fiscales': '/recursos-fiscales',
+  '/gaceta-6952': '/gaceta-6952',
+  '/poderes-representacion': '/poderes-representacion',
+  '/cuentas-por-cobrar': '/cuentas-por-cobrar',
+  '/nominas': '/nominas',
+  '/seguridad': '/seguridad',
+  '/notificaciones': '/notificaciones',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
