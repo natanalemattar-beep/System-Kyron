@@ -16,9 +16,8 @@ import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, ShieldCheck, ChevronDown, Bell, LogOut, Cog, Search, Zap, LayoutGrid, Globe, Calendar as CalendarIcon } from "lucide-react";
+import { Menu, ShieldCheck, ChevronDown, Bell, LogOut, Cog, Search, Zap, LayoutGrid, Calendar as CalendarIcon } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
-import { motion } from "framer-motion";
 
 type User = {
   name: string;
@@ -72,18 +71,18 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
             </Link>
           </div>
 
-          {/* Desktop Navigation (The "Missing" buttons) */}
+          {/* Desktop Navigation - Middle (MAESTRO) */}
           <div className="hidden lg:flex items-center gap-6 flex-grow">
             <div className="flex flex-col">
-              <span className="text-[10px] font-black uppercase text-primary tracking-widest leading-none mb-1">Status Global</span>
+              <span className="text-[10px] font-black uppercase text-primary tracking-widest leading-none mb-1">Misión Crítica</span>
               <p className="text-xs font-bold text-muted-foreground flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-                Sincronización Blockchain Activa
+                Motor IA Activo
               </p>
             </div>
 
             <nav className="flex items-center gap-1">
-                 {navGroups?.slice(0, 3).map((group) => (
+                 {navGroups?.slice(0, 4).map((group) => (
                     <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
                             <Button 
@@ -96,7 +95,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="start" className="w-64 p-2 rounded-xl shadow-2xl border-primary/10">
-                            <DropdownMenuLabel className="text-[9px] font-black uppercase tracking-widest opacity-40 px-3 py-2">Módulos Disponibles</DropdownMenuLabel>
+                            <DropdownMenuLabel className="text-[9px] font-black uppercase tracking-widest opacity-40 px-3 py-2">Módulos</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             {group.items.map((item) => (
                                 <DropdownMenuItem key={item.href} asChild className="rounded-lg">
@@ -149,12 +148,6 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                       <span className="font-bold text-[10px] uppercase tracking-widest">Seguridad</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="rounded-lg">
-                  <Link href="/configuracion" className="flex items-center py-2.5 px-3">
-                      <Cog className="mr-3 h-4 w-4 text-primary" />
-                      <span className="font-bold text-[10px] uppercase tracking-widest">Ajustes</span>
-                  </Link>
-                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild className="rounded-lg text-destructive">
                   <Link href="/" className="flex items-center py-2.5 px-3 font-black">
@@ -174,15 +167,13 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] p-0 border-none bg-[#0A2472] text-white">
                 <SheetHeader className="p-8 border-b border-white/10">
-                    <SheetTitle className="flex items-center gap-3">
-                        <Logo className="h-10 w-10 text-white" />
-                        <span className="text-2xl font-black tracking-tighter italic text-white">KYRON</span>
+                    <SheetTitle className="flex items-center gap-3 text-white">
+                        <Logo className="h-10 w-10" />
+                        <span className="text-2xl font-black tracking-tighter uppercase italic">KYRON</span>
                     </SheetTitle>
                 </SheetHeader>
                 <div className="p-6">
-                  {/* Sidebar links duplicated here for mobile */}
                   <nav className="space-y-2">
-                    {/* Simplified mobile nav */}
                     <p className="text-[10px] font-black uppercase text-white/40 tracking-widest mb-4">Portal Móvil</p>
                     <Button variant="ghost" asChild className="w-full justify-start text-white hover:bg-white/10 h-12 rounded-xl">
                         <Link href="/dashboard" className="flex items-center gap-3"><LayoutGrid className="h-5 w-5"/> Dashboard</Link>

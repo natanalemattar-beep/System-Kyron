@@ -27,7 +27,7 @@ export default function LandingPage() {
       
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0A2472] to-[#4CAF50] origin-left z-[60] shadow-[0_0_15px_rgba(76,175,80,0.5)]"
+        className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0A2472] to-[#4CAF50] origin-left z-[110] shadow-[0_0_15px_rgba(76,175,80,0.5)]"
         style={{ scaleX }}
       />
 
@@ -37,7 +37,9 @@ export default function LandingPage() {
         <HeroSection />
         
         <div className="relative z-10">
-          <ServicesSection />
+          <div id="servicios">
+            <ServicesSection />
+          </div>
           <FeaturesSection />
           <div className="bg-gradient-to-b from-transparent via-primary/5 to-transparent">
             <AboutUsSection />

@@ -10,9 +10,9 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 4%;
     --popover-foreground: 210 40% 98%;
-    --primary: 225 84% 24%; /* #0A2472 Azul Kyron */
+    --primary: 225 84% 24%; /* #0A2472 */
     --primary-foreground: 210 40% 98%;
-    --secondary: 122 39% 49%; /* #4CAF50 Verde Kyron */
+    --secondary: 122 39% 49%; /* #4CAF50 */
     --secondary-foreground: 225 84% 24%;
     --muted: 217.2 32.6% 12%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -23,7 +23,7 @@
     --border: 217.2 32.6% 12%;
     --input: 217.2 32.6% 12%;
     --ring: 225 84% 24%;
-    --radius: 1rem;
+    --radius: 1.25rem;
   }
 }
  
@@ -32,25 +32,25 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-white;
+    @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-white font-sans;
   }
 }
 
 @layer utilities {
   .btn-3d-primary {
-    @apply bg-[#0A2472] text-white shadow-[0_6px_0_0_#061a5a] active:shadow-none active:translate-y-1.5 transition-all duration-150 rounded-2xl font-black uppercase tracking-widest text-[10px];
+    @apply bg-[#0A2472] text-white shadow-[0_6px_0_0_#061a5a] active:shadow-none active:translate-y-1.5 transition-all duration-100 rounded-2xl font-black uppercase tracking-widest text-[10px];
   }
   
   .btn-3d-secondary {
-    @apply bg-[#4CAF50] text-white shadow-[0_6px_0_0_#3d8b40] active:shadow-none active:translate-y-1.5 transition-all duration-150 rounded-2xl font-black uppercase tracking-widest text-[10px];
+    @apply bg-[#4CAF50] text-white shadow-[0_6px_0_0_#3d8b40] active:shadow-none active:translate-y-1.5 transition-all duration-100 rounded-2xl font-black uppercase tracking-widest text-[10px];
   }
 
-  .glass-panel {
-    @apply bg-background/40 backdrop-blur-3xl border border-white/10 shadow-2xl;
+  .crystal-panel {
+    @apply bg-card/40 backdrop-blur-2xl border border-white/5 shadow-2xl;
   }
 
-  .text-glow-green {
-    text-shadow: 0 0 10px rgba(76, 175, 80, 0.5), 0 0 20px rgba(76, 175, 80, 0.3);
+  .text-glow {
+    text-shadow: 0 0 15px hsl(var(--primary) / 0.5), 0 0 30px hsl(var(--primary) / 0.3);
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -60,6 +60,15 @@
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-primary/20 rounded-full hover:bg-primary/40;
+    @apply bg-white/10 rounded-full hover:bg-white/20;
   }
+}
+
+@keyframes infinite-scroll {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(300%); }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 3s linear infinite;
 }

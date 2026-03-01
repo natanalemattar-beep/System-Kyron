@@ -9,7 +9,8 @@ import {
   Smartphone, Share2, MessageCircle, ChevronRight, Send, History, Recycle,
   Trash2, CreditCard, LayoutDashboard, Database, Server, BrainCircuit,
   Zap, Award, Globe, Key, Lock, Layers, Target, Calculator, Gift, Heart, Calendar,
-  Activity, Thermometer, Gauge, Cpu, Radio, Box, Package, ShieldAlert
+  Activity, Thermometer, Gauge, Cpu, Radio, Box, Package, ShieldAlert,
+  TrendingUp, Landmark, Gavel
 } from 'lucide-react';
 import { 
   LineChart, Line, AreaChart, Area, BarChart, Bar, 
@@ -41,7 +42,6 @@ export default function EcosistemaKyron() {
 
   const user = { name: "Director Ejecutivo", email: "ceo@kyron.com", fallback: "CE" };
 
-  // Mock navigation groups for the header
   const headerNavGroups = [
     {
         title: "Operaciones",

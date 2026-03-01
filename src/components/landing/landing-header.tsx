@@ -12,10 +12,10 @@ import {
     ShoppingCart, 
     Briefcase, 
     Users, 
-    Sparkles, 
     LayoutGrid, 
     ShieldCheck,
-    ArrowRight
+    ArrowRight,
+    Sparkles
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -31,8 +31,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const loginOptions = [
-    { href: "/login-personal", label: "Portal Personal", sub: "Trámites Ciudadanos", icon: User, color: "text-blue-400" },
-    { href: "/login-empresa", label: "Contabilidad", sub: "Gestión Fiscal SENIAT", icon: Banknote, color: "text-green-400" },
+    { href: "/login-personal", label: "Acceso Personal", sub: "Trámites y Salud", icon: User, color: "text-blue-400" },
+    { href: "/login-empresa", label: "Contabilidad", sub: "Gestión Fiscal", icon: Banknote, color: "text-green-400" },
     { href: "/login-escritorio-juridico", label: "Escritorio Jurídico", sub: "Legal y Contratos", icon: Gavel, color: "text-purple-400" },
     { href: "/login-ventas", label: "Ventas / TPV", sub: "Facturación Real-Time", icon: ShoppingCart, color: "text-orange-400" },
     { href: "/login-rrhh", label: "Recursos Humanos", sub: "Nómina y Beneficios", icon: Briefcase, color: "text-emerald-400" },
@@ -64,7 +64,7 @@ export function LandingHeader() {
                 <div className="flex h-16 items-center justify-between gap-4">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-4 group shrink-0">
-                        <div className="bg-[#0A2472] p-2.5 rounded-2xl shadow-2xl transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 group-hover:shadow-primary/20 border border-white/10">
+                        <div className="bg-[#0A2472] p-2.5 rounded-2xl shadow-2xl transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 border border-white/10">
                             <Logo className="h-8 w-8 text-white" />
                         </div>
                         <div className="flex flex-col">
