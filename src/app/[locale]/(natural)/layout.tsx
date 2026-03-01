@@ -1,8 +1,8 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
+import { naturalNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 
@@ -17,7 +17,11 @@ export default function NaturalLayout({
       <div className="flex min-h-screen bg-background">
           <AppSidebar />
           <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
-              <AppHeader user={user} dashboardHref="/dashboard" />
+              <AppHeader 
+                user={user} 
+                dashboardHref="/dashboard" 
+                navGroups={naturalNavGroups as any}
+              />
               <motion.main 
                 className="flex-1 w-full max-w-7xl mx-auto p-4 md:p-10 pt-24 md:pt-28"
                 initial={{ opacity: 0, y: 10 }}

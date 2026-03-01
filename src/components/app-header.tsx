@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -21,16 +20,24 @@ import {
     LogOut, 
     Lock,
     Clock,
-    LayoutGrid
+    LayoutGrid,
+    ChevronDown,
+    Sparkles
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
+import { cn } from "@/lib/utils";
 
 interface AppHeaderProps {
     user: any;
     dashboardHref: string;
+    navGroups?: {
+        title: string;
+        icon: any;
+        items: { href: string; label: string; icon: any }[];
+    }[];
 }
 
-export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
+export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
 
@@ -47,33 +54,76 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
       <div className="w-full px-4 md:px-8">
         <div className="flex items-center justify-between w-full">
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 overflow-hidden">
             <div className="lg:hidden">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon" className="h-10 w-10"><Menu className="h-5 w-5" /></Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-72 p-0">
+                <SheetContent side="left" className="w-72 p-0 flex flex-col">
                   <div className="p-6 border-b mb-4 flex items-center gap-3">
                       <Logo className="h-8 w-8" />
                       <span className="font-black text-lg tracking-tighter uppercase text-primary">System Kyron</span>
                   </div>
-                  <nav className="px-4 space-y-2">
-                      <Button variant="ghost" asChild className="w-full justify-start h-11 rounded-xl">
+                  <nav className="px-4 space-y-6 flex-grow overflow-y-auto custom-scrollbar">
+                      <Button variant="secondary" asChild className="w-full justify-start h-11 rounded-xl">
                         <Link href={dashboardHref as any}><LayoutGrid className="mr-3 h-5 w-5"/> Dashboard</Link>
                       </Button>
+                      
+                      {navGroups?.map(group => (
+                        <div key={group.title} className="space-y-2">
+                          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 px-4">{group.title}</p>
+                          <div className="space-y-1">
+                            {group.items.map(item => (
+                              <Button key={item.href} variant="ghost" asChild className="w-full justify-start h-10 rounded-xl text-xs font-bold">
+                                <Link href={item.href as any}>
+                                  <item.icon className="mr-3 h-4 w-4" />
+                                  {item.label}
+                                </Link>
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                   </nav>
                 </SheetContent>
               </Sheet>
             </div>
             
-            <div className="hidden md:flex items-center gap-3">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground opacity-40">Operaciones en curso</span>
+            <div className="hidden lg:flex items-center gap-2 overflow-x-auto no-scrollbar max-w-[50vw]">
+                <Button variant="ghost" asChild className="h-10 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary">
+                    <Link href={dashboardHref as any}><LayoutGrid className="mr-2 h-4 w-4"/> Dashboard</Link>
+                </Button>
+                
+                {navGroups && (
+                  <div className="flex items-center gap-1">
+                    {navGroups.map(group => (
+                      <DropdownMenu key={group.title}>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="h-10 px-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-secondary/10">
+                            {group.title} <ChevronDown className="ml-1.5 h-3 w-3 opacity-40" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start" className="w-56 p-2 rounded-2xl shadow-2xl border">
+                          <DropdownMenuLabel className="px-3 py-2 text-[9px] font-black uppercase tracking-[0.2em] opacity-40">Módulos de {group.title}</DropdownMenuLabel>
+                          {group.items.map(item => (
+                            <DropdownMenuItem key={item.href} asChild className="rounded-xl">
+                              <Link href={item.href as any} className="flex items-center py-2 px-3">
+                                <item.icon className="mr-3 h-4 w-4 text-muted-foreground" />
+                                <span className="text-xs font-bold">{item.label}</span>
+                              </Link>
+                            </DropdownMenuItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    ))}
+                  </div>
+                )}
             </div>
           </div>
 
-          <div className="flex items-center gap-2 md:gap-6">
-            <div className="hidden md:flex flex-col items-end">
+          <div className="flex items-center gap-2 md:gap-6 shrink-0">
+            <div className="hidden sm:flex flex-col items-end">
                 <div className="flex items-center gap-2 text-xs font-mono font-black text-primary">
                     <Clock className="h-3 w-3" />
                     {mounted ? time : '--:--:--'}
