@@ -32,9 +32,9 @@ export default function NaturalLayout({
                 dashboardHref="/dashboard" 
                 navGroups={naturalNavGroups as any}
               />
-              {/* Contenedor Fluido: Sin mx-auto ni max-w para rellenar toda la pantalla */}
+              {/* Contenedor Ultra-Fluido: Rellena toda la pantalla hasta los bordes */}
               <motion.main 
-                className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-28 relative z-10"
+                className="flex-1 w-full p-4 md:p-8 pt-24 md:pt-28 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}

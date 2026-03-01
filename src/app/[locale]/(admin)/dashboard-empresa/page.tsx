@@ -53,7 +53,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-8 w-full">
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
         <h1 className="text-3xl font-bold tracking-tight">Centro de Mando</h1>
         <p className="text-muted-foreground text-sm">
