@@ -26,22 +26,18 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { cn, formatCurrency } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
-// --- CONSTANTES ---
 const COLORS = ['#0A2472', '#4CAF50', '#2196F3', '#9C27B0', '#FF9800'];
 
 export default function EcosistemaKyron() {
   const [activeTab, setActiveTab] = useState('inicio');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [cartCount, setCartCount] = useState(0);
   const { toast } = useToast();
 
-  // --- ESTADO SOSTENIBILIDAD ---
   const [sustainabilityData, setSustainabilityData] = useState({
     today: 245,
     month: 3450,
@@ -53,6 +49,14 @@ export default function EcosistemaKyron() {
       { id: 3, date: "2026-03-01 11:45", type: "Vidrio", weight: 2.1, points: 100 },
     ]
   });
+
+  const [oilAssets, setOilAssets] = useState([
+    { id: 1, name: "Pozo 12 (Zulia)", bpd: 1250, pressure: "2450 psi", temp: "85°C", status: "optimal" },
+    { id: 2, name: "Refinería Amuay", bpd: 45000, pressure: "1850 psi", temp: "120°C", status: "warning" },
+    { id: 3, name: "Estación Bachaquero", bpd: 8500, pressure: "2100 psi", temp: "72°C", status: "optimal" },
+  ]);
+
+  const [selectedAsset, setSelectedAsset] = useState(oilAssets[0]);
 
   const simulateRecycling = () => {
     const weights = [0.3, 0.5, 1.2, 0.8];
@@ -79,8 +83,6 @@ export default function EcosistemaKyron() {
       description: `Has depositado ${weight}kg de ${type}. +${points} puntos verdes.`,
     });
   };
-
-  // --- COMPONENTES DE MÓDULOS ---
 
   const ModuleInicio = () => (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -136,7 +138,7 @@ export default function EcosistemaKyron() {
   const ModuleSostenibilidad = () => (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-center">
-        <h3 className="text-2xl font-bold text-[#0A2472]">Gestión de Papelera Inteligente</h3>
+        <h3 className="text-2xl font-bold text-[#0A2472]">Sostenibilidad: Papelera Inteligente</h3>
         <Button onClick={simulateRecycling} className="btn-3d-secondary">
           <Recycle className="mr-2 h-4 w-4" /> Simular Reciclaje
         </Button>
@@ -145,33 +147,132 @@ export default function EcosistemaKyron() {
         <StatCard title="Reciclado Hoy" value={`${sustainabilityData.today.toFixed(1)} kg`} icon={Leaf} variant="accent" />
         <StatCard title="Meta Mensual" value={`${sustainabilityData.month} kg`} icon={Target} />
         <StatCard title="Puntos Acumulados" value={sustainabilityData.points.toLocaleString()} icon={Zap} variant="accent" />
-        <StatCard title="Árboles Equivalentes" value={sustainabilityData.trees} icon={History} variant="accent" />
+        <StatCard title="Árboles Salvados" value={sustainabilityData.trees} icon={History} variant="accent" />
       </div>
-      <Card className="glass-card border-none shadow-2xl">
-        <CardHeader><CardTitle>Historial de Trazabilidad</CardTitle></CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Fecha/Hora</TableHead>
-                <TableHead>Material</TableHead>
-                <TableHead>Peso (kg)</TableHead>
-                <TableHead className="text-right">Puntos</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sustainabilityData.history.map(item => (
-                <TableRow key={item.id}>
-                  <TableCell className="text-xs">{item.date}</TableCell>
-                  <TableCell><Badge variant="secondary">{item.type}</Badge></TableCell>
-                  <TableCell className="font-mono">{item.weight} kg</TableCell>
-                  <TableCell className="text-right font-bold text-[#4CAF50]">+{item.points}</TableCell>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card className="glass-card border-none shadow-2xl">
+          <CardHeader><CardTitle>Historial de Trazabilidad</CardTitle></CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Fecha</TableHead>
+                  <TableHead>Material</TableHead>
+                  <TableHead>Peso</TableHead>
+                  <TableHead className="text-right">Puntos</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+              </TableHeader>
+              <TableBody>
+                {sustainabilityData.history.map(item => (
+                  <TableRow key={item.id}>
+                    <TableCell className="text-xs">{item.date}</TableCell>
+                    <TableCell><Badge variant="secondary">{item.type}</Badge></TableCell>
+                    <TableCell className="font-mono">{item.weight} kg</TableCell>
+                    <TableCell className="text-right font-bold text-[#4CAF50]">+{item.points}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+        <Card className="glass-card border-none shadow-2xl">
+          <CardHeader><CardTitle>Catálogo de Canjes Verdes</CardTitle></CardHeader>
+          <CardContent className="grid grid-cols-2 gap-4">
+            {[
+              { n: 'Bono Factura 5%', p: 5000, i: Gift },
+              { n: 'Crédito Cashea Plus', p: 8000, i: Award },
+              { n: 'Kit Oficina Eco', p: 3000, i: ShoppingBag },
+              { n: 'Donación Fundación', p: 1000, i: Heart },
+            ].map(item => (
+              <div key={item.n} className="p-4 border rounded-2xl flex flex-col items-center text-center gap-2 hover:bg-primary/5 transition-colors">
+                <item.i className="h-8 w-8 text-primary" />
+                <p className="text-sm font-bold">{item.n}</p>
+                <p className="text-xs text-muted-foreground">{item.p} pts</p>
+                <Button variant="outline" size="sm" className="w-full mt-2" onClick={() => toast({ title: "Canje iniciado" })}>Canjear</Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  const ModulePetroleo = () => (
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <h3 className="text-2xl font-bold text-[#0A2472]">Gemelo Digital: Infraestructura Petrolera</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 relative aspect-video bg-slate-900 rounded-[2.5rem] overflow-hidden border-4 border-slate-800 shadow-2xl">
+          {/* Mapa SVG Simulado de Venezuela */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+             <Globe className="h-96 w-96 text-primary" />
+          </div>
+          {/* Marcadores */}
+          {oilAssets.map((asset, i) => (
+            <button
+              key={asset.id}
+              onClick={() => setSelectedAsset(asset)}
+              className={cn(
+                "absolute p-2 rounded-full transition-all hover:scale-125 z-10",
+                asset.status === 'optimal' ? 'bg-green-500 shadow-[0_0_20px_rgba(76,175,80,0.5)]' : 'bg-yellow-500 animate-pulse'
+              )}
+              style={{ top: `${30 + i * 20}%`, left: `${20 + i * 25}%` }}
+            >
+              <Radio className="h-4 w-4 text-white" />
+            </button>
+          ))}
+          <div className="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md p-4 rounded-2xl text-white text-xs space-y-1 border border-white/10">
+            <p className="font-bold mb-2">Leyenda Operativa</p>
+            <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-green-500"></div> Estado Óptimo</div>
+            <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-yellow-500"></div> Mantenimiento Pendiente</div>
+            <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-red-500"></div> Alerta Crítica</div>
+          </div>
+        </div>
+        <Card className="glass-card border-none shadow-2xl">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Activity className="h-5 w-5 text-primary"/> Telemetría del Activo</CardTitle>
+            <CardDescription>{selectedAsset.name}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-secondary/20 rounded-2xl">
+                <p className="text-[10px] font-black uppercase text-muted-foreground">Producción</p>
+                <p className="text-xl font-bold">{selectedAsset.bpd.toLocaleString()}</p>
+                <p className="text-[8px] text-muted-foreground">BPD (Barriles x día)</p>
+              </div>
+              <div className="p-4 bg-secondary/20 rounded-2xl">
+                <p className="text-[10px] font-black uppercase text-muted-foreground">Presión</p>
+                <p className="text-xl font-bold">{selectedAsset.pressure}</p>
+              </div>
+              <div className="p-4 bg-secondary/20 rounded-2xl">
+                <p className="text-[10px] font-black uppercase text-muted-foreground">Temperatura</p>
+                <p className="text-xl font-bold">{selectedAsset.temp}</p>
+              </div>
+              <div className="p-4 bg-secondary/20 rounded-2xl">
+                <p className="text-[10px] font-black uppercase text-muted-foreground">Estado</p>
+                <Badge className={selectedAsset.status === 'optimal' ? 'bg-green-500' : 'bg-yellow-500'}>
+                  {selectedAsset.status.toUpperCase()}
+                </Badge>
+              </div>
+            </div>
+            <Separator />
+            <div className="space-y-3">
+              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Alertas de Activo</p>
+              {selectedAsset.status === 'warning' ? (
+                <div className="flex items-start gap-3 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
+                  <AlertTriangle className="h-4 w-4 text-yellow-600 mt-0.5" />
+                  <p className="text-xs">Programar cambio de filtros para el 15/03/2026.</p>
+                </div>
+              ) : (
+                <div className="flex items-start gap-3 p-3 bg-green-500/10 border border-green-500/20 rounded-xl">
+                  <CheckCircle2 className="h-4 w-4 text-green-600 mt-0.5" />
+                  <p className="text-xs">Sin anomalías detectadas en las últimas 72h.</p>
+                </div>
+              )}
+            </div>
+            <Button className="w-full btn-3d-primary mt-4">Ver Cámara en Vivo</Button>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 
@@ -179,7 +280,7 @@ export default function EcosistemaKyron() {
     <div className="flex flex-col items-center justify-center py-12 animate-in zoom-in duration-500">
       <motion.div 
         className="relative w-80 h-[480px] perspective-1000 group"
-        whileHover={{ rotateY: 10, rotateX: 5 }}
+        whileHover={{ rotateY: 15, rotateX: 5 }}
       >
         <Card className="w-full h-full glass-card border-2 border-primary/20 rounded-[2.5rem] overflow-hidden flex flex-col items-center p-8 text-center shadow-[0_20px_50px_rgba(10,36,114,0.3)]">
           <div className="w-24 h-24 bg-primary/10 rounded-3xl flex items-center justify-center mb-6 border border-primary/10">
@@ -204,11 +305,19 @@ export default function EcosistemaKyron() {
           </div>
 
           <div className="mt-auto flex gap-2 w-full">
-            <Button className="flex-1 btn-3d-primary h-10 text-[10px] font-black uppercase">Compartir</Button>
-            <Button variant="outline" className="flex-1 h-10 text-[10px] font-black uppercase rounded-xl">Blockchain</Button>
+            <Button className="flex-1 btn-3d-primary h-10 text-[10px] font-black uppercase" onClick={() => toast({ title: "Compartiendo ID..." })}>Compartir</Button>
+            <Button variant="outline" className="flex-1 h-10 text-[10px] font-black uppercase rounded-xl border-primary/20">Blockchain</Button>
           </div>
         </Card>
       </motion.div>
+      <div className="mt-12 max-w-xl text-center">
+        <h4 className="text-xl font-bold mb-4">Credenciales Verificables</h4>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Badge variant="outline" className="h-8 px-4 border-green-500/20 bg-green-500/5 text-green-600">✓ Solvencia SENIAT</Badge>
+          <Badge variant="outline" className="h-8 px-4 border-blue-500/20 bg-blue-500/5 text-blue-600">✓ Licencia CONATEL</Badge>
+          <Badge variant="outline" className="h-8 px-4 border-purple-500/20 bg-purple-500/5 text-purple-600">✓ Registro Mercantil</Badge>
+        </div>
+      </div>
     </div>
   );
 
@@ -286,13 +395,14 @@ export default function EcosistemaKyron() {
             <div key={activeTab}>
               {activeTab === 'inicio' && <ModuleInicio />}
               {activeTab === 'sostenibilidad' && <ModuleSostenibilidad />}
+              {activeTab === 'petroleo' && <ModulePetroleo />}
               {activeTab === 'identidad' && <ModuleIdentidad />}
-              {!['inicio', 'sostenibilidad', 'identidad'].includes(activeTab) && (
+              {!['inicio', 'sostenibilidad', 'petroleo', 'identidad'].includes(activeTab) && (
                 <div className="flex flex-col items-center justify-center h-[60vh] text-center space-y-6">
                   <div className="p-8 glass-card rounded-[3rem] shadow-2xl">
                     <LayoutDashboard className="h-20 w-20 text-[#0A2472]/20 mx-auto mb-4" />
                     <h3 className="text-2xl font-black text-[#0A2472] uppercase tracking-tighter">Módulo {activeTab}</h3>
-                    <p className="text-slate-500 max-w-md mx-auto mt-4">Interfaz en proceso de sincronización con el núcleo central. Esta funcionalidad está disponible en la versión completa.</p>
+                    <p className="text-slate-500 max-w-md mx-auto mt-4">Interfaz en proceso de sincronización con el núcleo central de Kyron. El diseño 3D y la telemetría están activos para Sostenibilidad y Petróleo.</p>
                     <Button onClick={() => setActiveTab('inicio')} className="btn-3d-primary mt-8 px-8 h-12">Volver al Inicio</Button>
                   </div>
                 </div>
@@ -308,7 +418,7 @@ export default function EcosistemaKyron() {
 
       {/* Floating Assistant */}
       <button 
-        onClick={() => toast({ title: "System Kyron Assistant", description: "¿En qué puedo ayudarte hoy?" })}
+        onClick={() => toast({ title: "Asistente Kyron", description: "¿En qué puedo ayudarte hoy?" })}
         className="fixed bottom-8 right-8 h-16 w-16 bg-[#0A2472] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 group"
       >
         <MessageCircle className="h-8 w-8" />

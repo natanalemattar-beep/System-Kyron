@@ -35,6 +35,15 @@ export function LandingHeader() {
       { href: "#nosotros", label: "Nosotros" },
     ];
 
+    const loginOptions = [
+        { href: "/login-personal", label: "Acceso Personal", sub: "Trámites y Salud", icon: User },
+        { href: "/login-empresa", label: "Centro de Contabilidad", sub: "Gestión Fiscal", icon: Banknote },
+        { href: "/login-escritorio-juridico", label: "Jurídico", sub: "Legal y Contratos", icon: Gavel },
+        { href: "/login-ventas", label: "Ventas", sub: "TPV y Facturación", icon: ShoppingCart },
+        { href: "/login-rrhh", label: "RR.HH.", sub: "Nómina y Talento", icon: Briefcase },
+        { href: "/login-socios", label: "Portal Socios", sub: "Holding y KPIs", icon: Users },
+    ];
+
     return (
         <header className={cn(
             "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
@@ -68,42 +77,19 @@ export function LandingHeader() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-72 p-2 rounded-2xl shadow-2xl bg-card/95 backdrop-blur-xl border-primary/5">
                                 <DropdownMenuLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 px-3 py-2">Portales de Gestión</DropdownMenuLabel>
-                                <DropdownMenuItem asChild className="rounded-xl">
-                                    <Link href="/login-personal" className="flex items-center gap-3 py-3 cursor-pointer group">
-                                        <div className="p-2 bg-primary/5 rounded-lg group-hover:bg-[#4CAF50]/10 transition-colors"><User className="h-4 w-4 text-primary group-hover:text-[#4CAF50]" /></div>
-                                        <div>
-                                            <p className="font-bold text-xs">Acceso Personal</p>
-                                            <p className="text-[9px] text-muted-foreground">Trámites y Salud</p>
-                                        </div>
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem asChild className="rounded-xl">
-                                    <Link href="/login-empresa" className="flex items-center gap-3 py-3 cursor-pointer group">
-                                        <div className="p-2 bg-primary/5 rounded-lg group-hover:bg-[#4CAF50]/10 transition-colors"><Banknote className="h-4 w-4 text-primary group-hover:text-[#4CAF50]" /></div>
-                                        <div>
-                                            <p className="font-bold text-xs">Centro de Contabilidad</p>
-                                            <p className="text-[9px] text-muted-foreground">Gestión Fiscal SENIAT</p>
-                                        </div>
-                                    </Link>
-                                </DropdownMenuItem>
-                                
-                                <DropdownMenuSeparator className="my-2 opacity-50" />
-                                
-                                <div className="grid grid-cols-2 gap-1 p-1">
-                                    {[
-                                        { href: "/login-escritorio-juridico", label: "Jurídico", icon: Gavel },
-                                        { href: "/login-ventas", label: "Ventas", icon: ShoppingCart },
-                                        { href: "/login-rrhh", label: "RR.HH.", icon: Briefcase },
-                                        { href: "/login-socios", label: "Socios", icon: Users },
-                                    ].map((item) => (
-                                        <DropdownMenuItem key={item.href} asChild className="rounded-lg">
-                                            <Link href={item.href} className="flex flex-col items-center gap-1.5 py-3 cursor-pointer text-center">
-                                                <item.icon className="h-4 w-4 text-muted-foreground" />
-                                                <span className="text-[9px] font-bold uppercase tracking-tighter">{item.label}</span>
-                                            </Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </div>
+                                {loginOptions.map((opt) => (
+                                    <DropdownMenuItem key={opt.href} asChild className="rounded-xl">
+                                        <Link href={opt.href} className="flex items-center gap-3 py-2.5 cursor-pointer group">
+                                            <div className="p-2 bg-primary/5 rounded-lg group-hover:bg-[#4CAF50]/10 transition-colors">
+                                                <opt.icon className="h-4 w-4 text-primary group-hover:text-[#4CAF50]" />
+                                            </div>
+                                            <div>
+                                                <p className="font-bold text-xs">{opt.label}</p>
+                                                <p className="text-[9px] text-muted-foreground">{opt.sub}</p>
+                                            </div>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                ))}
                             </DropdownMenuContent>
                         </DropdownMenu>
 
