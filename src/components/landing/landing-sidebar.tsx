@@ -4,17 +4,15 @@
 import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { User, LayoutGrid, Cpu, Users, HelpCircle, Phone, Info } from "lucide-react";
+import { User, LayoutGrid, Cpu, Users, HelpCircle, Smartphone, Zap, Magnet } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function LandingSidebar() {
-    const pathname = usePathname();
-
     const navLinks = [
       { href: "#inicio", label: "Inicio", icon: LayoutGrid },
-      { href: "/ecosistema", label: "Ecosistema", icon: Info },
+      { href: "/ecosistema", label: "Ecosistema", icon: Zap },
       { href: "#tecnologia", label: "Tecnología", icon: Cpu },
       { href: "#nosotros", label: "Nosotros", icon: Users },
       { href: "#faq", label: "FAQ", icon: HelpCircle },
@@ -42,6 +40,16 @@ export function LandingSidebar() {
                         <span className="text-[10px] font-black uppercase tracking-widest">{link.label}</span>
                     </Link>
                 ))}
+                
+                <div className="pt-8 px-4 space-y-4">
+                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.3em] mb-4 italic">Productos</p>
+                    <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
+                        <Magnet className="h-3.5 w-3.5 text-primary" /> Papeleras Magnéticas
+                    </div>
+                    <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
+                        <Smartphone className="h-3.5 w-3.5 text-primary" /> Telefonía Kyron
+                    </div>
+                </div>
             </nav>
 
             <div className="p-6 border-t bg-muted/20 space-y-4">
@@ -49,7 +57,7 @@ export function LandingSidebar() {
                     <ThemeToggle />
                 </div>
                 <Button variant="outline" asChild className="w-full justify-center h-11 rounded-xl gap-2 font-black uppercase text-[9px] tracking-widest border-primary/10 hover:bg-primary/5">
-                    <Link href="/login">Acceder <User className="h-3.5 w-3.5" /></Link>
+                    <Link href="/login">Acceder XD <Zap className="h-3.5 w-3.5 text-yellow-500 animate-pulse" /></Link>
                 </Button>
                 <Button asChild className="w-full justify-center h-11 rounded-xl btn-3d-primary text-[9px] uppercase tracking-[0.2em] shadow-lg">
                     <Link href="/register">REGISTRO</Link>
