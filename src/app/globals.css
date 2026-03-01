@@ -24,7 +24,7 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 225 84% 25%;
-    --radius: 0.75rem;
+    --radius: 1.25rem;
   }
 
   .dark {
@@ -60,20 +60,22 @@
 @layer utilities {
   .btn-3d-primary {
     @apply bg-[#0A2472] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_3px_0_#05123a] hover:shadow-[0_1px_0_#05123a];
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#05123a] hover:shadow-[0_2px_0_#05123a]
+           hover:scale-[1.02];
   }
 
   .btn-3d-secondary {
     @apply bg-[#4CAF50] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_3px_0_#2e7d32] hover:shadow-[0_1px_0_#2e7d32];
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#2e7d32] hover:shadow-[0_2px_0_#2e7d32]
+           hover:scale-[1.02];
   }
 
   .glass-panel {
-    @apply bg-background/60 backdrop-blur-xl border border-border/40 shadow-sm;
+    @apply bg-card/40 backdrop-blur-2xl border border-white/10 shadow-2xl;
   }
   
-  .titanium-card {
-    @apply bg-card/50 backdrop-blur-xl border border-border/20 shadow-sm rounded-2xl transition-all duration-300 hover:shadow-md hover:border-primary/10;
+  .italic-shadow {
+    @apply [text-shadow:2px_2px_0px_rgba(10,36,114,0.1)];
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -83,6 +85,20 @@
     @apply bg-transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40;
+    @apply bg-primary/20 rounded-full hover:bg-primary/40;
   }
+  
+  .titanium-card {
+    @apply bg-card/60 backdrop-blur-xl border border-primary/5 shadow-xl rounded-[2.5rem] 
+           transition-all duration-500 hover:shadow-primary/5 hover:border-primary/20;
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }
