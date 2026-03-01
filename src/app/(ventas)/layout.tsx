@@ -1,10 +1,10 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ventasNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
+import { motion } from "framer-motion";
 
 export default function VentasLayout({
   children,
@@ -14,17 +14,25 @@ export default function VentasLayout({
     const user = { name: "Vendedor", email: "ventas@kyron.com", fallback: "VE" };
 
     return (
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen bg-background">
           <AppSidebar />
           <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
               <AppHeader user={user} navGroups={ventasNavGroups} dashboardHref="/analisis-ventas" />
-              <main className="flex-1 container mx-auto p-4 md:p-8 pt-20 md:pt-24">
+              <motion.main 
+                className="flex-1 container mx-auto p-4 md:p-10 pt-24 md:pt-28"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
                   {children}
-              </main>
-              <footer className="p-6 border-t bg-card/30 text-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">
-                  System Kyron v2.0 • 2026 • © Todos los derechos reservados
+              </motion.main>
+              <footer className="p-10 border-t bg-card/30 text-center">
+                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 mb-2">
+                  System Kyron v2.0 • Misión Crítica • © Todos los derechos reservados
                 </p>
+                <div className="h-1.5 w-32 bg-primary/5 mx-auto rounded-full overflow-hidden">
+                    <div className="h-full w-1/3 bg-primary/20 animate-infinite-scroll"></div>
+                </div>
               </footer>
           </div>
           <ChatDialog />

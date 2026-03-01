@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { 
   Home, BarChart3, Users, Scale, Recycle, Droplets, Wallet, 
   Wrench, ShieldCheck, ShoppingBag, Fingerprint, Cog, 
-  ChevronRight, LayoutDashboard, Zap, ShieldAlert
+  ChevronRight, Zap, ShieldAlert
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
@@ -30,7 +30,7 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0A2472] text-white flex flex-col z-50 border-r border-white/10 shadow-[10px_0_30px_rgba(0,0,0,0.3)] hidden lg:flex">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0A2472] text-white flex flex-col z-[100] border-r border-white/10 shadow-[10px_0_30px_rgba(0,0,0,0.3)] hidden lg:flex">
       <div className="p-8 border-b border-white/5 bg-black/10">
         <Link href="/" className="flex items-center gap-4 group">
           <div className="bg-white p-2 rounded-2xl shadow-xl transition-transform duration-500 group-hover:rotate-[360deg]">
