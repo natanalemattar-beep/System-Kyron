@@ -17,11 +17,13 @@ export default function NaturalLayout({
 
     return (
       <div className="flex min-h-screen bg-background relative overflow-hidden">
-          {/* Identidad Visual: Ciudadano / Identidad Digital - Optimizada */}
+          {/* Identidad Visual: Ciudadano / Identidad Digital - Fluida e Inmersiva */}
           <div className="absolute inset-0 pointer-events-none -z-10">
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] animate-pulse" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[80px]" />
-            <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent" />
+            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[100px]" />
+            <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent" />
+            {/* Patrón de micro-estrellas para rellenar el espacio */}
+            <div className="absolute inset-0 opacity-[0.1] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
           </div>
 
           <AppSidebar />
@@ -32,14 +34,14 @@ export default function NaturalLayout({
                 navGroups={naturalNavGroups as any}
               />
               <motion.main 
-                className="flex-1 w-full max-w-7xl mx-auto p-4 md:p-10 pt-24 md:pt-28 relative z-10"
+                className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-28 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
               >
-                  {/* Watermark sutil de identidad - Proporcional */}
-                  <div className="absolute top-10 right-10 opacity-[0.015] pointer-events-none -z-10">
-                    <Sparkles className="w-48 h-48 text-primary" />
+                  {/* Watermark de identidad - Posicionamiento dinámico */}
+                  <div className="absolute top-20 right-20 opacity-[0.02] pointer-events-none -z-10">
+                    <Sparkles className="w-64 h-64 text-primary" />
                   </div>
                   {children}
               </motion.main>

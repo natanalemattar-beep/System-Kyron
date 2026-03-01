@@ -52,7 +52,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
 
   return (
     <header className="fixed top-0 left-0 lg:left-64 right-0 z-40 border-b bg-background/80 backdrop-blur-xl h-16 flex items-center shadow-sm">
-      <div className="w-full px-4 md:px-8">
+      <div className="w-full px-4 md:px-10">
         <div className="flex items-center justify-between w-full">
           
           <div className="flex items-center gap-4 overflow-hidden">
@@ -91,27 +91,30 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
               </Sheet>
             </div>
             
-            <div className="hidden lg:flex items-center gap-2 overflow-x-auto no-scrollbar max-w-[50vw]">
-                <Button variant="ghost" asChild className="h-10 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary shrink-0">
+            <div className="hidden lg:flex items-center gap-3 overflow-x-auto no-scrollbar">
+                <Button variant="ghost" asChild className="h-10 px-5 rounded-2xl text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary shrink-0 border border-primary/10 shadow-sm">
                     <Link href={dashboardHref as any}><LayoutGrid className="mr-2 h-4 w-4"/> Dashboard</Link>
                 </Button>
                 
                 {navGroups && (
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     {navGroups.map(group => (
                       <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-10 px-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-secondary/10 whitespace-nowrap">
-                            {group.title} <ChevronDown className="ml-1.5 h-3 w-3 opacity-40" />
+                          <Button variant="ghost" className="h-10 px-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-secondary/10 border border-transparent hover:border-secondary/20 transition-all whitespace-nowrap">
+                            {group.title} <ChevronDown className="ml-2 h-3 w-3 opacity-40" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="start" className="w-56 p-2 rounded-2xl shadow-2xl border">
+                        <DropdownMenuContent align="start" className="w-64 p-3 rounded-[1.5rem] shadow-2xl border bg-background/95 backdrop-blur-xl">
                           <DropdownMenuLabel className="px-3 py-2 text-[9px] font-black uppercase tracking-[0.2em] opacity-40">Módulos de {group.title}</DropdownMenuLabel>
+                          <DropdownMenuSeparator className="opacity-50" />
                           {group.items.map(item => (
-                            <DropdownMenuItem key={item.href} asChild className="rounded-xl">
-                              <Link href={item.href as any} className="flex items-center py-2 px-3">
-                                <item.icon className="mr-3 h-4 w-4 text-muted-foreground" />
-                                <span className="text-xs font-bold">{item.label}</span>
+                            <DropdownMenuItem key={item.href} asChild className="rounded-xl mt-1">
+                              <Link href={item.href as any} className="flex items-center py-2.5 px-3">
+                                <div className="p-2 bg-primary/5 rounded-lg mr-3">
+                                    <item.icon className="h-4 w-4 text-primary" />
+                                </div>
+                                <span className="text-xs font-bold uppercase tracking-tight">{item.label}</span>
                               </Link>
                             </DropdownMenuItem>
                           ))}
