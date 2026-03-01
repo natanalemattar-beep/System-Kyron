@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -13,11 +14,7 @@ import {
     Briefcase, 
     Users, 
     X,
-    Info,
-    ShieldCheck,
-    Megaphone,
-    Cpu,
-    Signal
+    ShieldCheck
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -70,10 +67,10 @@ export function LandingHeader() {
                     <div className="flex items-center gap-10">
                         <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95">
                             <Logo className="h-9 w-9" />
-                            <span className="text-xl font-bold tracking-tight text-primary">Kyron</span>
+                            <span className="text-xl font-bold tracking-tight text-primary">System Kyron</span>
                         </Link>
 
-                        {/* DESKTOP NAV */}
+                        {/* DESKTOP NAV - Visible from tablet upwards */}
                         <nav className="hidden md:flex items-center gap-1">
                             {navLinks.map((link) => (
                                 <Button 
@@ -95,7 +92,7 @@ export function LandingHeader() {
                             
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button className="btn-3d-primary h-10 px-6 gap-2 text-xs font-bold rounded-xl">
+                                    <Button className="btn-3d-primary h-10 px-6 gap-2 text-xs font-bold rounded-xl shadow-md">
                                         ACCESO <ChevronDown className="h-3.5 w-3.5 opacity-50" />
                                     </Button>
                                 </DropdownMenuTrigger>
@@ -136,7 +133,7 @@ export function LandingHeader() {
                                     <div className="p-6 border-b flex items-center justify-between">
                                         <div className="flex items-center gap-3">
                                             <Logo className="h-8 w-8" /> 
-                                            <span className="text-lg font-bold text-primary">Kyron</span>
+                                            <span className="text-lg font-bold text-primary">System Kyron</span>
                                         </div>
                                         <SheetClose asChild>
                                             <Button variant="ghost" size="icon" className="rounded-full"><X className="h-5 w-5" /></Button>

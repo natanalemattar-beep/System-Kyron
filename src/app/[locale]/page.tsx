@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -33,7 +34,7 @@ export default function LandingPage() {
 
       <LandingHeader />
       
-      <main>
+      <main className="relative">
         <section id="inicio">
           <HeroSection />
         </section>
