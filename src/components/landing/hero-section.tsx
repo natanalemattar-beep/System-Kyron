@@ -7,54 +7,53 @@ import Link from "next/link";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-background">
+      {/* Background patterns */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
+      </div>
+
       <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+        <div className="max-w-3xl mx-auto text-center space-y-10">
           
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10"
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted border border-border text-[10px] font-bold uppercase tracking-widest text-muted-foreground"
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            <span className="text-xs font-semibold text-primary uppercase tracking-widest">Ecosistema de Gestión Integral v2.0</span>
+            Ecosistema de Gestión v2.6
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-[1.1]"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.15]"
           >
-            Sistemas Inteligentes para la <span className="text-primary">Estrategia Empresarial</span>
+            Sistemas para la <span className="text-primary italic">Estrategia Empresarial</span>
           </motion.h1>
           
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed font-medium"
           >
-            Automatización fiscal, contabilidad avanzada y cumplimiento normativo en una plataforma única diseñada para potenciar el crecimiento de su empresa.
+            Automatización fiscal, contabilidad avanzada y cumplimiento normativo en una plataforma única diseñada para la claridad y el crecimiento.
           </motion.p>
           
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
           >
-            <Button asChild size="lg" className="h-14 px-10 text-base rounded-2xl shadow-lg hover:shadow-primary/20 transition-all">
-              <Link href="/login" className="flex items-center gap-2">
-                Comenzar ahora <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" className="h-14 px-10 text-base rounded-2xl hover:bg-muted transition-all">
-              Ver demostración
+            <Button variant="outline" size="lg" className="h-12 px-8 text-sm rounded-xl hover:bg-muted transition-all font-semibold">
+              Ver demostración técnica
             </Button>
           </motion.div>
 
@@ -62,23 +61,31 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="pt-20 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-60"
+            className="pt-16 grid grid-cols-2 md:grid-cols-4 gap-12"
           >
-            <div className="flex flex-col items-center gap-2">
-              <ShieldCheck className="h-6 w-6 text-primary" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">Cero Riesgo</span>
+            <div className="flex flex-col items-center gap-3 group">
+              <div className="p-3 bg-primary/5 rounded-2xl group-hover:bg-primary/10 transition-colors border border-primary/10">
+                <ShieldCheck className="h-5 w-5 text-primary" />
+              </div>
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Cero Riesgo</span>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <Zap className="h-6 w-6 text-primary" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">IA Aplicada</span>
+            <div className="flex flex-col items-center gap-3 group">
+              <div className="p-3 bg-primary/5 rounded-2xl group-hover:bg-primary/10 transition-colors border border-primary/10">
+                <Zap className="h-5 w-5 text-primary" />
+              </div>
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">IA Aplicada</span>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <Globe className="h-6 w-6 text-primary" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">Escalabilidad</span>
+            <div className="flex flex-col items-center gap-3 group">
+              <div className="p-3 bg-primary/5 rounded-2xl group-hover:bg-primary/10 transition-colors border border-primary/10">
+                <Globe className="h-5 w-5 text-primary" />
+              </div>
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Global Ready</span>
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <ArrowRight className="h-6 w-6 text-primary" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">Eficiencia</span>
+            <div className="flex flex-col items-center gap-3 group">
+              <div className="p-3 bg-primary/5 rounded-2xl group-hover:bg-primary/10 transition-colors border border-primary/10">
+                <ArrowRight className="h-5 w-5 text-primary" />
+              </div>
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Eficiencia</span>
             </div>
           </motion.div>
         </div>
