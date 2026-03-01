@@ -22,44 +22,44 @@ import { useToast } from "@/hooks/use-toast";
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "AutoMind AI - System Kyron" },
   { label: "INTEGRANTES DEL EQUIPO", value: "Miguel Uzcategui, Miguel Angel Goites, Joaquin de Barros" },
-  { label: "INSTITUCIÓN EDUCATIVA", value: "Colegio Santa Rosa de Lima" },
-  { label: "PAÍS/CIUDAD", value: "Venezuela, Caracas" },
+  { label: "INSTITUCIÓN EDUCATIVA", value: "Colegio Gabriela Mistral" },
+  { label: "PAÍS/CIUDAD", value: "Venezuela, La Guaira" },
 ];
 
 const zeduData = [
   { 
     label: "PAÍS / CIUDAD/ MUNICIPIO/ LOCALIDAD ESPECÍFICA", 
-    value: "Venezuela, Caracas, Municipio Baruta, Sector Santa Rosa de Lima.",
+    value: "Venezuela, La Guaira, Municipio Vargas, Catia La Mar, Sector La Atlántida (Calle 7 a Calle 3).",
     icon: MapPin 
   },
   { 
     label: "NOMBRE DE LA COMUNIDAD", 
-    value: "Comunidad Educativa y Residencial Santa Rosa de Lima.",
+    value: "Sector Comercial y Educativo La Atlántida - Punto de Referencia: Supermercado Bensica.",
     icon: Building 
   },
   { 
     label: "CANTIDAD TOTAL DE HABITANTES", 
-    value: "Aprox. 12,500 residentes permanentes y 3,000 transeúntes diarios.",
+    value: "Aprox. 15,000 residentes y una población flotante de 4,500 personas por actividad comercial.",
     icon: Users 
   },
   { 
     label: "CANTIDAD DE HABITANTES POR GÉNERO", 
-    value: "Femenino: 54% (6,750) | Masculino: 46% (5,750).",
+    value: "Femenino: 52% (7,800) | Masculino: 48% (7,200).",
     icon: Layers 
   },
   { 
     label: "CANTIDAD DE HABITANTES POR EDAD", 
-    value: "0-18: 25% | 19-45: 45% | 46-65: 20% | +65: 10%.",
+    value: "0-18: 22% | 19-45: 48% | 46-65: 22% | +65: 8%.",
     icon: Info 
   },
   { 
     label: "CARACTERÍSTICAS DE LA POBLACIÓN", 
-    value: "Sector de clase media-alta, alta actividad comercial y educativa. Gran interés en tecnologías de reciclaje inteligente y automatización.",
+    value: "Zona costera con alta densidad de comercios (más de 500 empresas activas). Elevada generación de residuos de oficina y envases PET, ideal para la implementación de Papeleras Inteligentes Kyron.",
     icon: Recycle 
   },
   { 
     label: "CLIMA", 
-    value: "Templado de montaña. Temperatura promedio: 22°C (Mín: 16°C / Máx: 28°C).",
+    value: "Tropical semi-árido. Temperatura promedio: 28°C (Mín: 24°C / Máx: 34°C). Influencia directa de la brisa marina.",
     icon: ThermometerSun 
   }
 ];
@@ -70,7 +70,7 @@ export default function EstudioPoblacionPage() {
     const handleDownloadWord = () => {
         const content = `
             <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head><meta charset='utf-8'><title>Modelo Zedu - AutoMind AI</title>
+            <head><meta charset='utf-8'><title>Modelo Zedu - Gabriela Mistral</title>
             <style>
                 body { font-family: 'Arial', sans-serif; padding: 40px; color: #000; }
                 table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
@@ -81,9 +81,9 @@ export default function EstudioPoblacionPage() {
             </style>
             </head>
             <body>
-                <div class="main-title">MODELO ZEDU - ESTUDIO DE POBLACIÓN</div>
+                <div class="main-title">MODELO ZEDU - ESTUDIO DE POBLACIÓN (LA GUAIRA)</div>
                 
-                <div class="section-title">INFORMACIÓN DEL EQUIPO</div>
+                <div class="section-title">INFORMACIÓN DEL EQUIPO - GABRIELA MISTRAL</div>
                 <table>
                     ${teamData.map(item => `
                         <tr>
@@ -93,7 +93,7 @@ export default function EstudioPoblacionPage() {
                     `).join('')}
                 </table>
 
-                <div class="section-title">POBLACIÓN A TRABAJAR</div>
+                <div class="section-title">MATRIZ DE POBLACIÓN (ZEDU)</div>
                 <table>
                     ${zeduData.map(item => `
                         <tr>
@@ -102,7 +102,7 @@ export default function EstudioPoblacionPage() {
                         </tr>
                     `).join('')}
                 </table>
-                <p style="margin-top: 50px; font-size: 9pt; text-align: center; color: #666;">Documento Maestro • AutoMind AI • Generado por System Kyron v2.6</p>
+                <p style="margin-top: 50px; font-size: 9pt; text-align: center; color: #666;">Documento Oficial • System Kyron v2.6 • Nodo La Guaira</p>
             </body>
             </html>
         `;
@@ -111,13 +111,13 @@ export default function EstudioPoblacionPage() {
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Modelo_Zedu_AutoMind_Completo.doc';
+        fileDownload.download = 'Modelo_Zedu_Gabriela_Mistral_Completo.doc';
         fileDownload.click();
         document.body.removeChild(fileDownload);
 
         toast({
             title: "Exportación Exitosa",
-            description: "El modelo Zedu completo ha sido descargado para Word.",
+            description: "El modelo Zedu para La Guaira ha sido descargado.",
             action: <CheckCircle className="text-green-500 h-4 w-4" />
         });
     };
@@ -130,7 +130,7 @@ export default function EstudioPoblacionPage() {
                         <BookOpen className="h-12 w-12 text-primary" />
                         ESTUDIO DE POBLACIÓN (ZEDU)
                     </h1>
-                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Misión Crítica • AutoMind AI • Santa Rosa de Lima Node</p>
+                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Misión Crítica • AutoMind AI • Nodo La Guaira - Gabriela Mistral</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl" onClick={handleDownloadWord}>
                     <Download className="mr-3 h-6 w-6" /> DESCARGAR PARA WORD
@@ -141,7 +141,7 @@ export default function EstudioPoblacionPage() {
                 {/* BLOQUE EQUIPO */}
                 <div className="lg:col-span-5 space-y-8">
                     <div className="flex items-center gap-4 mb-2">
-                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Equipo del Proyecto</span>
+                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Equipo Gabriela Mistral</span>
                         <div className="h-px flex-1 bg-white/5"></div>
                     </div>
                     <Card className="glass-card border-none overflow-hidden shadow-2xl p-2">
@@ -167,7 +167,7 @@ export default function EstudioPoblacionPage() {
                 {/* BLOQUE POBLACIÓN */}
                 <div className="lg:col-span-7 space-y-8">
                     <div className="flex items-center gap-4 mb-2">
-                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Matriz Demográfica</span>
+                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Estudio Regional (La Guaira)</span>
                         <div className="h-px flex-1 bg-white/5"></div>
                     </div>
                     <Card className="glass-card border-none overflow-hidden shadow-2xl p-2">
@@ -200,7 +200,7 @@ export default function EstudioPoblacionPage() {
             
             <footer className="pt-10 text-center">
                 <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white/10 italic">
-                    Kyron Intelligence Ledger • Santa Rosa de Lima Node v2.6 • 2026
+                    Kyron Intelligence Ledger • Gabriela Mistral Node v2.6 • 2026
                 </p>
             </footer>
         </div>
