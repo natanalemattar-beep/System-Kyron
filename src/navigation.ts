@@ -8,6 +8,8 @@ export const localePrefix = 'as-needed';
 export const pathnames = {
   '/': '/',
   '/login': '/login',
+  '/login-empresa': '/login-empresa',
+  '/login-personal': '/login-personal',
   '/register': '/register',
   '/ecosistema': '/ecosistema',
   '/dashboard': '/dashboard',

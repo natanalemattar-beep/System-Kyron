@@ -1,7 +1,7 @@
 
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { loginOptions } from "@/lib/login-options";
@@ -66,7 +66,7 @@ export default function LoginSelectionPage() {
                         {personalOption && (
                             <Card className="group relative overflow-hidden bg-card/40 backdrop-blur-2xl border-2 hover:border-primary/40 transition-all duration-500 shadow-xl rounded-[2rem]">
                                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <Link href={personalOption.href} className="relative z-10 flex flex-col lg:flex-row items-center p-6 md:p-10 gap-6 md:gap-10">
+                                <Link href={personalOption.href as any} className="relative z-10 flex flex-col lg:flex-row items-center p-6 md:p-10 gap-6 md:gap-10">
                                     <div className="p-6 bg-primary/5 rounded-2xl group-hover:scale-105 group-hover:bg-primary/10 transition-all duration-500 border border-primary/5 shadow-lg">
                                         <personalOption.icon className="h-12 w-12 md:h-14 md:w-14 text-primary" />
                                     </div>
@@ -101,7 +101,7 @@ export default function LoginSelectionPage() {
                                     whileHover={{ y: -5 }}
                                 >
                                     <Card className="h-full group hover:border-primary/40 transition-all duration-300 bg-card/40 backdrop-blur-xl flex flex-col border-border/50 shadow-lg hover:shadow-primary/5 rounded-[1.5rem] overflow-hidden">
-                                        <Link href={option.href} className="flex flex-col h-full">
+                                        <Link href={option.href as any} className="flex flex-col h-full">
                                             <CardHeader className="flex-row items-center gap-4 p-6 pb-4">
                                                 <div className="p-3 bg-primary/5 rounded-xl group-hover:bg-primary/10 group-hover:scale-105 transition-all duration-300 border border-primary/5">
                                                     <option.icon className="h-6 w-6 text-primary" />
