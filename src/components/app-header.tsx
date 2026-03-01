@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -24,7 +25,6 @@ import {
     Clock
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
-import { Input } from "./ui/input";
 
 interface AppHeaderProps {
     user: any;
@@ -76,7 +76,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 md:gap-6">
+          <div className="flex items-center gap-2 md:gap-6 ml-auto">
             <div className="hidden md:flex flex-col items-end gap-0">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-tight text-primary">
                     <Clock className="h-3 w-3" />

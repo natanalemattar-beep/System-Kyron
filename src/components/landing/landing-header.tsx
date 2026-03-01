@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -6,10 +7,9 @@ import { Button } from "@/components/ui/button";
 import { 
     Menu, 
     ChevronDown, 
-    X,
-    Sparkles
+    X
 } from "lucide-react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -48,19 +48,20 @@ export function LandingHeader() {
             <div className="container mx-auto px-4">
                 <div className="flex h-16 items-center justify-between gap-4">
                     
-                    <div className="flex items-center gap-10">
+                    <div className="flex items-center gap-8">
                         <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95 shrink-0">
                             <Logo className="h-9 w-9" />
                             <span className="text-xl font-bold tracking-tight text-primary whitespace-nowrap">System Kyron</span>
                         </Link>
 
-                        <nav className="hidden lg:flex items-center gap-1">
+                        {/* Navegación Informativa - Visible en escritorio y laptops */}
+                        <nav className="hidden md:flex items-center gap-1">
                             {navLinks.map((link) => (
                                 <Button 
                                     key={link.href} 
                                     variant="ghost" 
                                     asChild
-                                    className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all px-4 h-9 rounded-lg"
+                                    className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all px-4 h-9 rounded-lg"
                                 >
                                     <a href={link.href}>{link.label}</a>
                                 </Button>
@@ -79,7 +80,7 @@ export function LandingHeader() {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-80 p-2 rounded-2xl shadow-2xl border bg-background/98 backdrop-blur-xl mt-4">
-                                    <DropdownMenuLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground px-4 py-3">Selecciona tu Portal</DropdownMenuLabel>
+                                    <DropdownMenuLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground px-4 py-3">Portal de Gestión</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
                                     <div className="grid grid-cols-1 gap-1 p-1">
                                         {loginOptions.map((opt) => (
@@ -90,7 +91,7 @@ export function LandingHeader() {
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <span className="text-sm font-bold">{opt.label}</span>
-                                                        <span className="text-[10px] text-muted-foreground font-medium">{opt.description.substring(0, 30)}...</span>
+                                                        <span className="text-[10px] text-muted-foreground font-medium">{opt.description.substring(0, 35)}...</span>
                                                     </div>
                                                 </Link>
                                             </DropdownMenuItem>
@@ -104,6 +105,7 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
+                        {/* Mobile Menu */}
                         <div className="sm:hidden flex items-center gap-2">
                             <ThemeToggle />
                             <Sheet>
@@ -133,10 +135,7 @@ export function LandingHeader() {
 
                                     <div className="mt-auto p-6 border-t bg-muted/20 space-y-3">
                                         <Button className="w-full h-12 rounded-xl text-sm font-bold btn-3d-primary" asChild>
-                                            <Link href="/login">INICIAR SESIÓN</Link>
-                                        </Button>
-                                        <Button variant="outline" className="w-full h-12 rounded-xl text-sm font-bold" asChild>
-                                            <Link href="/register">CREAR CUENTA</Link>
+                                            <Link href="/login">ACCESO</Link>
                                         </Button>
                                     </div>
                                 </SheetContent>

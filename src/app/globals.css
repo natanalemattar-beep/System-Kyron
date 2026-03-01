@@ -60,12 +60,12 @@
 @layer utilities {
   .btn-3d-primary {
     @apply bg-[#0A2472] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#05123a] hover:shadow-[0_2px_0_#05123a];
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_3px_0_#05123a] hover:shadow-[0_1px_0_#05123a];
   }
 
   .btn-3d-secondary {
     @apply bg-[#4CAF50] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#2e7d32] hover:shadow-[0_2px_0_#2e7d32];
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_3px_0_#2e7d32] hover:shadow-[0_1px_0_#2e7d32];
   }
 
   .glass-panel {
