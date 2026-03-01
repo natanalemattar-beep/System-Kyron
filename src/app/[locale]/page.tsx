@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -23,45 +22,41 @@ export default function LandingPage() {
   });
 
   return (
-    <div className="relative min-h-screen selection:bg-primary selection:text-white bg-background">
+    <div className="relative min-h-screen bg-background">
       <DynamicBackground />
       
       {/* Scroll Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0A2472] to-[#4CAF50] origin-left z-[110] shadow-[0_0_15px_rgba(76,175,80,0.5)]"
+        className="fixed top-0 left-0 right-0 h-1 bg-primary origin-left z-[110]"
         style={{ scaleX }}
       />
 
       <LandingHeader />
       
-      <main className="relative">
+      <main>
         <section id="inicio">
           <HeroSection />
         </section>
         
-        <div className="relative z-10">
-          <section id="servicios">
-            <ServicesSection />
-          </section>
-          
-          <section id="tecnologia">
-            <FeaturesSection />
-          </section>
-          
-          <div className="bg-gradient-to-b from-transparent via-primary/5 to-transparent">
-            <section id="nosotros">
-              <AboutUsSection />
-            </section>
-          </div>
-          
-          <section id="faq">
-            <FaqSection />
-          </section>
-          
-          <section id="contacto">
-            <CtaSection />
-          </section>
-        </div>
+        <section id="servicios">
+          <ServicesSection />
+        </section>
+        
+        <section id="tecnologia">
+          <FeaturesSection />
+        </section>
+        
+        <section id="nosotros">
+          <AboutUsSection />
+        </section>
+        
+        <section id="faq">
+          <FaqSection />
+        </section>
+        
+        <section id="contacto">
+          <CtaSection />
+        </section>
       </main>
       
       <Footer />

@@ -22,8 +22,8 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221 83% 53%;
-    --radius: 1rem;
+    --ring: 225 84% 25%;
+    --radius: 0.75rem;
   }
 
   .dark {
@@ -55,36 +55,26 @@
     @apply bg-background text-foreground antialiased font-sans selection:bg-primary/10;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight font-semibold;
+    @apply tracking-tight font-bold;
   }
 }
 
 @layer utilities {
   .minimal-card {
-    @apply bg-card border border-border/40 shadow-sm rounded-3xl transition-all duration-500 hover:shadow-xl hover:border-primary/10;
+    @apply bg-card/50 backdrop-blur-xl border border-border/40 shadow-sm rounded-2xl transition-all duration-300 hover:shadow-md hover:border-primary/20;
   }
 
   .btn-3d-primary {
-    @apply bg-primary text-primary-foreground font-black px-6 py-3 rounded-2xl transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_rgb(5,18,58)] hover:shadow-[0_2px_0_rgb(5,18,58)];
+    @apply bg-[#0A2472] text-white font-bold px-6 py-2.5 rounded-xl transition-all duration-200 
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#05123a] hover:shadow-[0_2px_0_#05123a];
   }
 
   .btn-3d-secondary {
-    @apply bg-secondary text-secondary-foreground font-black px-6 py-3 rounded-2xl transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_rgb(34,77,36)] hover:shadow-[0_2px_0_rgb(34,77,36)];
+    @apply bg-[#4CAF50] text-white font-bold px-6 py-2.5 rounded-xl transition-all duration-200 
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#2e7d32] hover:shadow-[0_2px_0_#2e7d32];
   }
 
   .glass-panel {
-    @apply bg-background/80 backdrop-blur-2xl border border-border/40 shadow-2xl;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/20 rounded-full;
+    @apply bg-background/60 backdrop-blur-2xl border border-border/40 shadow-lg;
   }
 }
