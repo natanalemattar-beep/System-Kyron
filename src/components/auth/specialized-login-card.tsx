@@ -43,6 +43,7 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
         const username = formData.get('username') as string;
         const password = formData.get('password') as string;
         
+        // Reduced timeout for snappier experience
         setTimeout(() => {
             if (username === demoUsername && password === demoPassword) {
                 router.push(redirectPath);
@@ -50,7 +51,7 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
                 setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
                 setIsLoading(false);
             }
-        }, 1000);
+        }, 300);
     };
 
     return (
@@ -102,7 +103,7 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
                         }</Button>
                         {footerLinks && footerLinks.primary && (
                           <Button variant="link" asChild className="text-muted-foreground font-bold text-sm h-auto py-1">
-                             <Link href={footerLinks.primary.href}>{footerLinks.primary.text}</Link>
+                             <Link href={footerLinks.primary.href as any}>{footerLinks.primary.text}</Link>
                           </Button>
                         )}
                          {footerLinks && footerLinks.secondaryLinks && footerLinks.secondaryLinks.links.length > 0 && (
@@ -111,7 +112,7 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
                                 <div className="flex flex-wrap justify-center gap-x-6 gap-y-1">
                                     {footerLinks.secondaryLinks.links.map(link => (
                                          <Button key={link.href} variant="link" asChild className="p-0 h-auto text-xs font-bold">
-                                            <Link href={link.href}>{link.text}</Link>
+                                            <Link href={link.href as any}>{link.text}</Link>
                                          </Button>
                                     ))}
                                 </div>

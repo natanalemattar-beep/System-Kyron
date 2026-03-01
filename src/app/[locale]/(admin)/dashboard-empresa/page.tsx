@@ -42,9 +42,10 @@ export default function DashboardPage() {
    const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Reduced splash screen time for faster transition
     const timer = setTimeout(() => {
         setIsLoading(false);
-    }, 1500); 
+    }, 500); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -53,7 +54,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-8 w-full">
+    <div className="space-y-8 w-full animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
         <h1 className="text-3xl font-bold tracking-tight">Centro de Mando</h1>
         <p className="text-muted-foreground text-sm">

@@ -30,6 +30,7 @@ export default function LoginPersonalPage() {
         const DEMO_EMAIL = "usuario@kyron.com";
         const DEMO_PASS = "password123";
         
+        // Keep personal snappiness consistent
         setTimeout(() => {
             if (email === DEMO_EMAIL && password === DEMO_PASS) {
                 toast({ title: "Acceso Concedido", description: "Bienvenido a tu portal personal." });
@@ -38,7 +39,7 @@ export default function LoginPersonalPage() {
                 setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
                 setIsLoading(false);
             }
-        }, 1000);
+        }, 300);
     };
 
     return (

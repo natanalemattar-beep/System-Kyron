@@ -30,14 +30,15 @@ export default function LoginEmpresaPage() {
         const DEMO_RIF = "J-12345678-9";
         const DEMO_PASS = "admin1234";
         
+        // Snappier transition
         setTimeout(() => {
             if (rif === DEMO_RIF && password === DEMO_PASS) {
-                router.push('/contabilidad');
+                router.push('/dashboard-empresa');
             } else {
                 setError("Credenciales de demostración incorrectas.");
                 setIsLoading(false);
             }
-        }, 1000);
+        }, 300);
     };
 
     return (
