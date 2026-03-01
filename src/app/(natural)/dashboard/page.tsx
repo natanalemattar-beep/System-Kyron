@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, ShieldAlert, User, Activity } from 'lucide-react';
+import { CheckCircle, Clock, ShieldAlert, User } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";

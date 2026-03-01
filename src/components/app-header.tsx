@@ -14,13 +14,11 @@ import {
 import Link from "next/link";
 import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
     Menu, 
     Bell, 
     LogOut, 
-    Search, 
     Lock,
     LayoutGrid
 } from "lucide-react";
@@ -32,8 +30,7 @@ interface AppHeaderProps {
     dashboardHref: string;
 }
 
-export function AppHeader({ user, navGroups = [], dashboardHref }: AppHeaderProps) {
-  const pathname = usePathname();
+export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
@@ -67,14 +64,14 @@ export function AppHeader({ user, navGroups = [], dashboardHref }: AppHeaderProp
             </div>
             <Link href={dashboardHref} className="flex items-center gap-2 lg:hidden">
               <Logo className="h-7 w-7" />
-              <span className="font-bold text-sm tracking-tight">System Kyron</span>
+              <span className="font-bold text-sm tracking-tight text-primary">System Kyron</span>
             </Link>
             <div className="hidden lg:block">
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">Misión: Operaciones</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 md:gap-4 ml-auto">
+          <div className="flex items-center gap-2 md:gap-4">
             <div className="hidden md:flex flex-col items-end gap-0 mr-2">
                 <span className="text-xs font-mono font-bold tracking-tight text-primary">
                     {time || '--:--:--'}

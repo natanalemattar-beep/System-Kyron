@@ -27,24 +27,24 @@
   }
 
   .dark {
-    --background: 222 47% 4%;
+    --background: 222 47% 2%;
     --foreground: 210 40% 98%;
-    --card: 222 47% 6%;
+    --card: 222 47% 4%;
     --card-foreground: 210 40% 98%;
-    --popover: 222 47% 4%;
+    --popover: 222 47% 2%;
     --popover-foreground: 210 40% 98%;
     --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 142 71% 45%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 12%;
+    --muted: 217.2 32.6% 8%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 12%;
+    --accent: 217.2 32.6% 10%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 15%;
-    --input: 217.2 32.6% 15%;
+    --border: 217.2 32.6% 12%;
+    --input: 217.2 32.6% 12%;
     --ring: 224.3 76.3% 48%;
   }
 }
@@ -58,13 +58,13 @@
 
 @layer utilities {
   .btn-3d-primary {
-    @apply bg-[#0A2472] text-white font-bold px-6 py-2 rounded-lg transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_3px_0_#05123a] hover:shadow-[0_1px_0_#05123a];
+    @apply bg-[#0A2472] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#05123a] hover:shadow-[0_2px_0_#05123a];
   }
 
   .btn-3d-secondary {
-    @apply bg-[#4CAF50] text-white font-bold px-6 py-2 rounded-lg transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_3px_0_#2e7d32] hover:shadow-[0_1px_0_#2e7d32];
+    @apply bg-[#4CAF50] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#2e7d32] hover:shadow-[0_2px_0_#2e7d32];
   }
 
   .glass-panel {
@@ -72,7 +72,7 @@
   }
   
   .titanium-card {
-    @apply bg-card/50 backdrop-blur-xl border border-border/20 shadow-sm rounded-xl transition-all duration-300 hover:shadow-md;
+    @apply bg-card/50 backdrop-blur-xl border border-border/20 shadow-sm rounded-2xl transition-all duration-300 hover:shadow-md hover:border-primary/10;
   }
 
   .custom-scrollbar::-webkit-scrollbar {

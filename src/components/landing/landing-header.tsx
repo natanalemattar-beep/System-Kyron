@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -14,7 +13,6 @@ import {
     Briefcase, 
     Users, 
     X,
-    ShieldCheck
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -63,14 +61,12 @@ export function LandingHeader() {
             <div className="container mx-auto px-4 md:px-8">
                 <div className="flex h-14 items-center justify-between gap-4">
                     
-                    {/* Logo & Navigation */}
-                    <div className="flex items-center gap-10">
+                    <div className="flex items-center gap-8">
                         <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95">
                             <Logo className="h-9 w-9" />
                             <span className="text-xl font-bold tracking-tight text-primary">System Kyron</span>
                         </Link>
 
-                        {/* DESKTOP NAV - Visible from tablet upwards */}
                         <nav className="hidden md:flex items-center gap-1">
                             {navLinks.map((link) => (
                                 <Button 
@@ -85,7 +81,6 @@ export function LandingHeader() {
                         </nav>
                     </div>
 
-                    {/* Actions */}
                     <div className="flex items-center gap-3">
                         <div className="hidden md:flex items-center gap-3">
                             <ThemeToggle />
@@ -122,7 +117,6 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
-                        {/* MOBILE MENU */}
                         <div className="md:hidden flex items-center gap-2">
                             <ThemeToggle />
                             <Sheet>
