@@ -17,7 +17,7 @@ export default function NaturalLayout({
 
     return (
       <div className="flex min-h-screen bg-[#020202] text-white relative overflow-hidden">
-          {/* Fondo Atmosférico Global */}
+          {/* Fondo Atmosférico Global Integrado */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute top-0 right-0 w-[1400px] h-[1400px] bg-primary/5 rounded-full blur-[200px] opacity-50" />
             <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-blue-600/5 rounded-full blur-[180px] opacity-40" />
@@ -34,7 +34,7 @@ export default function NaturalLayout({
               />
               
               <motion.main 
-                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-8 md:p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
@@ -44,6 +44,7 @@ export default function NaturalLayout({
                     <Sparkles className="w-[800px] h-[800px] text-primary" />
                   </div>
                   
+                  {/* Contenido sin contenedores restrictivos para pantalla completa real */}
                   <div className="w-full">
                     {children}
                   </div>
