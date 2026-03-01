@@ -34,7 +34,7 @@ export function AppSidebar() {
       <div className="p-6 border-b flex items-center gap-3">
         <Link href="/" className="flex items-center gap-2 transition-transform active:scale-95">
           <Logo className="h-7 w-7" />
-          <span className="text-lg font-bold tracking-tight text-primary">System Kyron</span>
+          <span className="text-lg font-black tracking-tighter text-primary uppercase">System Kyron</span>
         </Link>
       </div>
       
