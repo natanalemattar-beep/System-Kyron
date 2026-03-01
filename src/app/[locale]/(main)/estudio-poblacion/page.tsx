@@ -2,9 +2,9 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { 
   Download, 
   Users, 
@@ -15,14 +15,19 @@ import {
   Recycle,
   Layers,
   Info,
-  BookOpen
+  BookOpen,
+  AlertTriangle,
+  FileText,
+  Zap,
+  Target
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
 
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "AutoMind AI - System Kyron" },
   { label: "INTEGRANTES DEL EQUIPO", value: "Miguel Uzcategui, Miguel Angel Goites, Joaquin de Barros" },
-  { label: "INSTITUCIÓN EDUCATIVA", value: "Colegio Gabriela Mistral" },
+  { label: "INSTITUCIÓN EDUCATIVA", value: "U.E. Colegio Gabriela Mistral" },
   { label: "PAÍS/CIUDAD", value: "Venezuela, La Guaira" },
 ];
 
@@ -54,15 +59,28 @@ const zeduData = [
   },
   { 
     label: "CARACTERÍSTICAS DE LA POBLACIÓN", 
-    value: "Zona costera con alta densidad de comercios (más de 500 empresas activas). Elevada generación de residuos de oficina y envases PET, ideal para la implementación de Papeleras Inteligentes Kyron.",
+    value: "Zona costera con alta densidad de comercios. Elevada generación de residuos físicos, ideal para la digitalización Kyron.",
     icon: Recycle 
   },
   { 
     label: "CLIMA", 
-    value: "Tropical semi-árido. Temperatura promedio: 28°C (Mín: 24°C / Máx: 34°C). Influencia directa de la brisa marina.",
+    value: "Tropical costero. Temperatura promedio: 28°C (Mín: 24°C / Máx: 34°C). Brisa marina constante.",
     icon: ThermometerSun 
   }
 ];
+
+const problemAnalysis = {
+  causas: [
+    "Falta de organización administrativa",
+    "Poca disposición al cambio de procesos",
+    "Escaso presupuesto para infraestructura",
+    "Desactualización tecnológica crítica"
+  ],
+  consecuencias: "Pérdida masiva de tiempo en búsqueda de archivos y documentos físicos.",
+  definicion: "En la Institución el sistema de archivado es muy pobre, ya que el método es netamente físico. Esto no permite agilidad a la hora de buscar información respecto a un estudiante de la institución.",
+  importancia: "Es vital disminuir la carga de trabajo y optimizar los tiempos de respuesta en la búsqueda de archivos mediante la digitalización.",
+  origen: "Desactualización e ignorancia en la gestión de nuevas tecnologías y procesos digitales."
+};
 
 export default function EstudioPoblacionPage() {
     const { toast } = useToast();
@@ -70,20 +88,21 @@ export default function EstudioPoblacionPage() {
     const handleDownloadWord = () => {
         const content = `
             <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head><meta charset='utf-8'><title>Modelo Zedu - Gabriela Mistral</title>
+            <head><meta charset='utf-8'><title>Informe Técnico - Gabriela Mistral</title>
             <style>
                 body { font-family: 'Arial', sans-serif; padding: 40px; color: #000; }
-                table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+                table { width: 100%; border-collapse: collapse; margin-bottom: 30px; page-break-inside: avoid; }
                 th, td { border: 1px solid #000; padding: 12px; text-align: left; }
                 th { background-color: #f2f2f2; font-weight: bold; text-transform: uppercase; font-size: 10pt; }
                 .main-title { text-align: center; font-size: 22pt; font-weight: bold; margin-bottom: 40px; color: #0A2472; }
-                .section-title { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin-top: 20px; margin-bottom: 10px; color: #4CAF50; border-bottom: 2px solid #eee; }
+                .section-title { font-size: 14pt; font-weight: bold; text-transform: uppercase; margin-top: 30px; margin-bottom: 10px; color: #4CAF50; border-bottom: 2px solid #eee; }
+                ul { margin: 0; padding-left: 20px; }
             </style>
             </head>
             <body>
-                <div class="main-title">MODELO ZEDU - ESTUDIO DE POBLACIÓN (LA GUAIRA)</div>
+                <div class="main-title">INFORME TÉCNICO Y ESTUDIO DE POBLACIÓN</div>
                 
-                <div class="section-title">INFORMACIÓN DEL EQUIPO - GABRIELA MISTRAL</div>
+                <div class="section-title">1. INFORMACIÓN DEL EQUIPO</div>
                 <table>
                     ${teamData.map(item => `
                         <tr>
@@ -93,7 +112,7 @@ export default function EstudioPoblacionPage() {
                     `).join('')}
                 </table>
 
-                <div class="section-title">MATRIZ DE POBLACIÓN (ZEDU)</div>
+                <div class="section-title">2. MATRIZ DE POBLACIÓN (ZEDU)</div>
                 <table>
                     ${zeduData.map(item => `
                         <tr>
@@ -102,7 +121,32 @@ export default function EstudioPoblacionPage() {
                         </tr>
                     `).join('')}
                 </table>
-                <p style="margin-top: 50px; font-size: 9pt; text-align: center; color: #666;">Documento Oficial • System Kyron v2.6 • Nodo La Guaira</p>
+
+                <div class="section-title">3. ANÁLISIS DEL PROBLEMA</div>
+                <table>
+                    <tr>
+                        <th style="width: 35%;">CAUSAS DEL PROBLEMA</th>
+                        <td><ul>${problemAnalysis.causas.map(c => `<li>${c}</li>`).join('')}</ul></td>
+                    </tr>
+                    <tr>
+                        <th>CONSECUENCIAS</th>
+                        <td>${problemAnalysis.consecuencias}</td>
+                    </tr>
+                    <tr>
+                        <th>DEFINICIÓN DEL PROBLEMA</th>
+                        <td>${problemAnalysis.definicion}</td>
+                    </tr>
+                    <tr>
+                        <th>IMPORTANCIA DE RESOLVER</th>
+                        <td>${problemAnalysis.importancia}</td>
+                    </tr>
+                    <tr>
+                        <th>ORIGEN DEL PROBLEMA</th>
+                        <td>${problemAnalysis.origen}</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 50px; font-size: 9pt; text-align: center; color: #666;">Documento Generado por System Kyron v2.6 • Nodo La Guaira</p>
             </body>
             </html>
         `;
@@ -111,90 +155,133 @@ export default function EstudioPoblacionPage() {
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Modelo_Zedu_Gabriela_Mistral_Completo.doc';
+        fileDownload.download = 'Informe_Completo_Gabriela_Mistral.doc';
         fileDownload.click();
         document.body.removeChild(fileDownload);
 
         toast({
             title: "Exportación Exitosa",
-            description: "El modelo Zedu para La Guaira ha sido descargado.",
+            description: "El informe completo ha sido descargado.",
             action: <CheckCircle className="text-green-500 h-4 w-4" />
         });
     };
 
     return (
-        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20">
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-l-8 border-primary pl-8 py-2">
+        <div className="space-y-16 w-full animate-in fade-in duration-1000 pb-20">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-l-8 border-primary pl-10 py-2">
                 <div className="space-y-2">
-                    <h1 className="text-5xl font-black tracking-tighter flex items-center gap-4 italic italic-shadow text-white uppercase">
+                    <h1 className="text-5xl md:text-6xl font-black tracking-tighter flex items-center gap-4 italic italic-shadow text-white uppercase">
                         <BookOpen className="h-12 w-12 text-primary" />
-                        ESTUDIO DE POBLACIÓN (ZEDU)
+                        INFORME TÉCNICO INTEGRAL
                     </h1>
-                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Misión Crítica • AutoMind AI • Nodo La Guaira - Gabriela Mistral</p>
+                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">AutoMind AI • Colegio Gabriela Mistral • Nodo La Guaira</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl" onClick={handleDownloadWord}>
-                    <Download className="mr-3 h-6 w-6" /> DESCARGAR PARA WORD
+                    <Download className="mr-3 h-6 w-6" /> GENERAR INFORME (.DOC)
                 </Button>
             </header>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                {/* BLOQUE EQUIPO */}
-                <div className="lg:col-span-5 space-y-8">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-12">
+                {/* BLOQUE 1: IDENTIFICACIÓN */}
+                <div className="xl:col-span-4 space-y-8">
                     <div className="flex items-center gap-4 mb-2">
-                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Equipo Gabriela Mistral</span>
+                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Identificación del Proyecto</span>
                         <div className="h-px flex-1 bg-white/5"></div>
                     </div>
-                    <Card className="glass-card border-none overflow-hidden shadow-2xl p-2">
+                    <Card className="glass-card border-none overflow-hidden shadow-2xl p-2 bg-white/[0.02]">
                         <CardContent className="p-0">
-                            <Table>
-                                <TableBody>
-                                    {teamData.map((item, index) => (
-                                        <TableRow key={index} className="border-white/5 hover:bg-primary/[0.03] transition-all">
-                                            <TableCell className="p-0">
-                                                <div className="flex flex-col p-8">
-                                                    <h3 className="font-black text-[10px] uppercase tracking-widest text-primary mb-3 opacity-60">{item.label}</h3>
-                                                    <p className="text-xl font-black text-white/90 italic tracking-tight">{item.value}</p>
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                            {teamData.map((item, index) => (
+                                <div key={index} className="p-8 border-b border-white/5 last:border-none hover:bg-white/[0.02] transition-all">
+                                    <h3 className="font-black text-[9px] uppercase tracking-widest text-primary mb-2 opacity-60">{item.label}</h3>
+                                    <p className="text-lg font-black text-white/90 italic tracking-tight">{item.value}</p>
+                                </div>
+                            ))}
                         </CardContent>
                     </Card>
                 </div>
 
-                {/* BLOQUE POBLACIÓN */}
-                <div className="lg:col-span-7 space-y-8">
+                {/* BLOQUE 2: ZEDU POBLACIÓN */}
+                <div className="xl:col-span-8 space-y-8">
                     <div className="flex items-center gap-4 mb-2">
-                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Estudio Regional (La Guaira)</span>
+                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Estudio de Población (ZEDU)</span>
                         <div className="h-px flex-1 bg-white/5"></div>
                     </div>
-                    <Card className="glass-card border-none overflow-hidden shadow-2xl p-2">
+                    <Card className="glass-card border-none overflow-hidden shadow-2xl bg-white/[0.02]">
                         <CardContent className="p-0">
-                            <Table>
-                                <TableBody>
-                                    {zeduData.map((item, index) => (
-                                        <TableRow key={index} className="border-white/5 hover:bg-primary/[0.03] transition-all">
-                                            <TableCell className="p-0">
-                                                <div className="flex flex-col md:flex-row">
-                                                    <div className="md:w-1/3 bg-white/[0.02] p-8 flex items-start gap-4 border-b md:border-b-0 md:border-r border-white/5">
-                                                        <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
-                                                            <item.icon className="h-5 w-5 text-primary" />
-                                                        </div>
-                                                        <h3 className="font-black text-[9px] uppercase tracking-widest text-primary/70 mt-2">{item.label}</h3>
-                                                    </div>
-                                                    <div className="md:w-2/3 p-8 text-lg font-bold text-white/80 italic leading-relaxed text-justify">
-                                                        {item.value}
-                                                    </div>
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                            <div className="grid md:grid-cols-2">
+                                {zeduData.map((item, index) => (
+                                    <div key={index} className="p-8 border-b border-white/5 last:border-none flex items-start gap-6 hover:bg-white/[0.02] transition-all">
+                                        <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 shrink-0">
+                                            <item.icon className="h-5 w-5 text-primary" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-black text-[9px] uppercase tracking-widest text-primary/70 mb-2">{item.label}</h3>
+                                            <p className="text-sm font-bold text-white/80 italic leading-relaxed">{item.value}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </CardContent>
                     </Card>
+                </div>
+
+                {/* BLOQUE 3: ANÁLISIS DEL PROBLEMA (PARTE 4) */}
+                <div className="xl:col-span-12 space-y-8">
+                    <div className="flex items-center gap-4 mb-2">
+                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Análisis Crítico del Problema</span>
+                        <div className="h-px flex-1 bg-white/5"></div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {/* Causas */}
+                        <Card className="glass-card border-none bg-white/[0.02] p-8">
+                            <CardHeader className="p-0 mb-6">
+                                <CardTitle className="text-xl font-black uppercase italic flex items-center gap-3">
+                                    <AlertTriangle className="text-primary h-6 w-6" /> Causas
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-0">
+                                <ul className="space-y-4">
+                                    {problemAnalysis.causas.map((causa, i) => (
+                                        <li key={i} className="flex items-center gap-3 text-sm font-bold text-white/70">
+                                            <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                                            {causa}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+
+                        {/* Consecuencias e Importancia */}
+                        <Card className="glass-card border-none bg-white/[0.02] p-8">
+                            <div className="space-y-10">
+                                <div>
+                                    <h3 className="font-black text-[10px] uppercase tracking-widest text-primary mb-4">Consecuencias Directas</h3>
+                                    <p className="text-base font-bold italic text-white/80 leading-relaxed">{problemAnalysis.consecuencias}</p>
+                                </div>
+                                <div>
+                                    <h3 className="font-black text-[10px] uppercase tracking-widest text-primary mb-4">Por qué es importante resolver</h3>
+                                    <p className="text-base font-bold italic text-white/80 leading-relaxed">{problemAnalysis.importancia}</p>
+                                </div>
+                            </div>
+                        </Card>
+
+                        {/* Definición y Origen */}
+                        <Card className="glass-card border-none bg-primary p-10 text-primary-foreground relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-10 opacity-10">
+                                <Target className="h-40 w-40" />
+                            </div>
+                            <div className="relative z-10 space-y-8">
+                                <div>
+                                    <h3 className="font-black text-[10px] uppercase tracking-widest opacity-60 mb-4 text-white">Definición del Problema</h3>
+                                    <p className="text-lg font-black italic leading-tight text-white">{problemAnalysis.definicion}</p>
+                                </div>
+                                <div className="pt-6 border-t border-white/10">
+                                    <h3 className="font-black text-[10px] uppercase tracking-widest opacity-60 mb-4 text-white">Origen</h3>
+                                    <p className="text-sm font-bold italic text-white/90">{problemAnalysis.origen}</p>
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
                 </div>
             </div>
             
