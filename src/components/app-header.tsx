@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -56,10 +55,13 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
         <div className="flex items-center justify-between w-full">
           
           <div className="flex items-center gap-4 overflow-hidden">
-            <div className="lg:hidden">
+            {/* Quick Menu Trigger - Now visible on all screen sizes */}
+            <div>
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-10 w-10"><Menu className="h-5 w-5" /></Button>
+                  <Button variant="ghost" size="icon" className="h-10 w-10 hover:bg-primary/5 transition-all rounded-xl border border-transparent hover:border-primary/10 shadow-inner lg:shadow-none">
+                    <Menu className="h-5 w-5 text-primary" />
+                  </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-72 p-0 flex flex-col">
                   <div className="p-6 border-b mb-4 flex items-center gap-3">
