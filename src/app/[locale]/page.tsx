@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -34,18 +35,32 @@ export default function LandingPage() {
       <LandingHeader />
       
       <main className="relative">
-        <HeroSection />
+        <section id="inicio">
+          <HeroSection />
+        </section>
         
         <div className="relative z-10">
-          <div id="servicios">
+          <section id="servicios">
             <ServicesSection />
-          </div>
-          <FeaturesSection />
+          </section>
+          
+          <section id="tecnologia">
+            <FeaturesSection />
+          </section>
+          
           <div className="bg-gradient-to-b from-transparent via-primary/5 to-transparent">
-            <AboutUsSection />
+            <section id="nosotros">
+              <AboutUsSection />
+            </section>
           </div>
-          <FaqSection />
-          <CtaSection />
+          
+          <section id="faq">
+            <FaqSection />
+          </section>
+          
+          <section id="contacto">
+            <CtaSection />
+          </section>
         </div>
       </main>
       

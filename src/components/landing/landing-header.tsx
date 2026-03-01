@@ -49,7 +49,7 @@ export function LandingHeader() {
     const navLinks = [
       { href: "#inicio", label: "Inicio" },
       { href: "#servicios", label: "Servicios" },
-      { href: "#caracteristicas", label: "Tecnología" },
+      { href: "#tecnologia", label: "Tecnología" },
       { href: "#nosotros", label: "Nosotros" },
       { href: "#faq", label: "FAQ" },
       { href: "#contacto", label: "Contacto" },
