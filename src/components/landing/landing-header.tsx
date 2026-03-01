@@ -10,7 +10,8 @@ import {
     Zap,
     ChevronDown,
     LayoutGrid,
-    Sparkles
+    Sparkles,
+    UserCircle2
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { 
@@ -91,7 +92,7 @@ export function LandingHeader() {
                                         <ChevronDown className="h-3 w-3 ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[500px] p-4 rounded-[2rem] border-primary/10 bg-background/95 backdrop-blur-3xl shadow-2xl grid grid-cols-2 gap-2 animate-in fade-in zoom-in-95 duration-200">
+                                <DropdownMenuContent align="end" className="w-[500px] p-4 rounded-[2.5rem] border-primary/10 bg-background/95 backdrop-blur-3xl shadow-2xl grid grid-cols-2 gap-2 animate-in fade-in zoom-in-95 duration-200">
                                     <DropdownMenuLabel className="col-span-2 px-4 py-2 flex items-center gap-2">
                                         <Sparkles className="h-3 w-3 text-primary" />
                                         <span className="text-[9px] font-black uppercase tracking-[0.3em] opacity-50">Ecosistema de Portales</span>
@@ -133,8 +134,8 @@ export function LandingHeader() {
                                         <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mt-1">Ecosistema Global</p>
                                     </div>
                                 </div>
-                                <nav className="flex-grow flex flex-col p-8 gap-2 overflow-y-auto">
-                                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-6 italic">Navegación</p>
+                                <nav className="flex-grow flex flex-col p-8 gap-4 overflow-y-auto">
+                                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-2 italic px-2">Navegación</p>
                                     {navLinks.map((link) => (
                                         <SheetClose asChild key={link.href}>
                                             <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-4 border-b border-border/30 hover:pl-2 transition-all flex items-center justify-between group">
@@ -145,13 +146,13 @@ export function LandingHeader() {
                                     ))}
                                     
                                     <div className="pt-10 space-y-4 px-2">
-                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic">Acceso Rápido</p>
-                                        <div className="grid grid-cols-1 gap-3">
+                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic">Acceso Directo</p>
+                                        <div className="grid grid-cols-1 gap-4">
                                             <Button variant="outline" asChild className="w-full justify-center rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md">
-                                                <Link href="/login">Portal Maestro <UserCircle className="h-4 w-4 ml-2" /></Link>
+                                                <Link href="/login">ACCESO <UserCircle2 className="h-4 w-4 ml-2 text-primary" /></Link>
                                             </Button>
                                             <Button asChild className="w-full justify-center rounded-xl h-14 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
-                                                <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400"/></Link>
+                                                <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400 animate-pulse"/></Link>
                                             </Button>
                                         </div>
                                     </div>
