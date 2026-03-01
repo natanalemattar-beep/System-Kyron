@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from "framer-motion";
@@ -7,20 +6,20 @@ import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-background">
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-background">
       {/* Ambient Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 text-center">
-        <div className="max-w-4xl mx-auto space-y-10">
+        <div className="max-w-4xl mx-auto space-y-8">
           
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-[10px] font-bold uppercase tracking-[0.25em] text-primary mx-auto"
+            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-[9px] font-black uppercase tracking-[0.3em] text-primary mx-auto"
           >
             <ShieldCheck className="h-3.5 w-3.5" />
             Infraestructura de Misión Crítica
@@ -42,20 +41,20 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
           >
-            Automatización fiscal y gestión de cumplimiento en una plataforma de grado corporativo diseñada para la claridad operativa y el crecimiento estratégico del empresario.
+            Automatización fiscal y gestión de cumplimiento en una plataforma de grado corporativo diseñada para la claridad operativa y el crecimiento estratégico.
           </motion.p>
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col items-center gap-12 pt-8"
+            className="flex flex-col items-center gap-10 pt-6"
           >
             <div className="flex flex-wrap justify-center gap-4">
-                <Button variant="outline" size="lg" className="h-12 px-10 text-[11px] uppercase tracking-[0.25em] rounded-xl border-primary/20 hover:bg-primary/5 hover:text-primary transition-all font-bold">
+                <Button variant="outline" size="lg" className="h-12 px-8 text-[10px] uppercase tracking-[0.2em] rounded-xl border-primary/20 hover:bg-primary/5 hover:text-primary transition-all font-bold">
                     EXPLORAR TECNOLOGÍA
                 </Button>
-                <Button size="lg" className="btn-3d-primary h-12 px-10 text-[11px] uppercase tracking-[0.25em] rounded-xl">
+                <Button size="lg" className="btn-3d-primary h-12 px-8 text-[10px] uppercase tracking-[0.2em] rounded-xl">
                     AGENDAR DEMO
                 </Button>
             </div>
@@ -65,9 +64,10 @@ export function HeroSection() {
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 className="flex flex-col items-center gap-2.5 opacity-30 mt-4"
             >
-                <span className="text-[9px] font-black uppercase tracking-[0.4em]">Descubre el Ecosistema</span>
+                <span className="text-[8px] font-black uppercase tracking-[0.4em]">Descubre el Ecosistema</span>
                 <ArrowDown className="h-4 w-4" />
             </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
