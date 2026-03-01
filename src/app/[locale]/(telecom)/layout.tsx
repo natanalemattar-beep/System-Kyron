@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -16,35 +15,38 @@ export default function TelecomLayout({
     const user = { name: "Telecom Admin", email: "telecom@kyron.com", fallback: "TE" };
 
     return (
-      <div className="flex min-h-screen bg-background relative overflow-hidden">
-          {/* Identidad Visual: Operaciones Telecom - Fluida */}
-          <div className="absolute inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:20px_20px]" />
+      <div className="flex min-h-screen bg-[#080602] text-white relative overflow-hidden hud-grid">
+          {/* Fondo Atmosférico Telecom */}
+          <div className="fixed inset-0 pointer-events-none -z-10">
+            <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:20px_20px]" />
+            <div className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-amber-500/[0.06] rounded-full blur-[200px] opacity-40" />
             <motion.div 
-                className="absolute top-0 left-0 right-0 h-1 bg-amber-500/20"
+                className="absolute top-0 left-0 right-0 h-[2px] bg-amber-500/10 shadow-[0_0_20px_rgba(245,158,11,0.5)]"
                 animate={{ top: ["0%", "100%", "0%"] }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
             />
           </div>
 
           <AppSidebar />
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
+          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
               <AppHeader user={{...user, color: "bg-amber-600"}} navGroups={telecomNavGroups as any} dashboardHref="/dashboard-telecom" />
               <motion.main 
-                className="flex-1 w-full p-4 md:p-10 pt-20 md:pt-24 relative"
-                initial={{ opacity: 0, y: -10 }}
+                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
+                initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.8 }}
               >
-                  {/* Watermark de Telecom */}
-                  <div className="absolute bottom-10 right-10 opacity-[0.04] pointer-events-none">
-                    <Signal className="w-80 h-80 text-amber-500" />
+                  {/* Watermark Telecom */}
+                  <div className="absolute bottom-20 right-20 opacity-[0.03] pointer-events-none -z-10">
+                    <Signal className="w-[500px] h-[500px] text-amber-500" />
                   </div>
-                  {children}
+                  <div className="w-full">
+                    {children}
+                  </div>
               </motion.main>
-              <footer className="p-8 border-t bg-card text-center">
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground/50">
-                  System Kyron v2.0 • 2025 • © Todos los derechos reservados
+              <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
+                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
+                  System Kyron v2.6 • Telecom Operations Center • 2026
                 </p>
               </footer>
           </div>

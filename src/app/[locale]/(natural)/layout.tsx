@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -16,19 +15,12 @@ export default function NaturalLayout({
     const user = { name: "Usuario Natural", email: "usuario@kyron.com", fallback: "UN" };
 
     return (
-      <div className="flex min-h-screen bg-[#030303] relative overflow-hidden">
-          {/* Fondo Atmosférico Global: Elimina el vacío negro */}
+      <div className="flex min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
+          {/* Fondo Atmosférico Estelar */}
           <div className="fixed inset-0 pointer-events-none -z-10">
-            {/* Luces de profundidad */}
-            <div className="absolute top-[-20%] right-[-10%] w-[1400px] h-[1400px] bg-primary/10 rounded-full blur-[200px] opacity-30 animate-pulse" />
-            <div className="absolute bottom-[-20%] left-[-10%] w-[1200px] h-[1200px] bg-blue-600/5 rounded-full blur-[180px] opacity-20" />
-            
-            {/* Textura de ruido y rejilla etérea */}
-            <div className="absolute inset-0 opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent opacity-5" />
-            
-            {/* Rejilla de precisión sutil */}
-            <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black,transparent)]" />
+            <div className="absolute top-[-10%] right-[-10%] w-[1200px] h-[1200px] bg-primary/10 rounded-full blur-[180px] opacity-40 animate-pulse" />
+            <div className="absolute bottom-[-10%] left-[-10%] w-[1000px] h-[1000px] bg-blue-600/5 rounded-full blur-[150px] opacity-30" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
           </div>
 
           <AppSidebar />
@@ -40,25 +32,24 @@ export default function NaturalLayout({
                 navGroups={naturalNavGroups as any}
               />
               
-              {/* Main Fluido: Padding amplio para evitar el efecto 'amorochado' */}
               <motion.main 
-                className="flex-1 w-full p-8 md:p-12 lg:p-16 pt-28 md:pt-32 relative z-10"
+                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 1 }}
               >
-                  {/* Sello de agua dinámico */}
-                  <div className="absolute top-1/4 right-10 opacity-[0.01] pointer-events-none -z-10 select-none">
-                    <Sparkles className="w-[800px] h-[800px] text-primary" />
+                  {/* Sello de agua etéreo */}
+                  <div className="absolute top-1/4 right-20 opacity-[0.015] pointer-events-none -z-10 select-none">
+                    <Sparkles className="w-[600px] h-[600px] text-primary" />
                   </div>
                   
-                  <div className="w-full h-full">
+                  <div className="w-full">
                     {children}
                   </div>
               </motion.main>
               
-              <footer className="p-10 border-t border-white/5 bg-black/20 text-center backdrop-blur-md relative z-10">
-                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-muted-foreground/20">
+              <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
+                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
                   System Kyron v2.6 • Distributed Ledger Identity • 2026
                 </p>
               </footer>

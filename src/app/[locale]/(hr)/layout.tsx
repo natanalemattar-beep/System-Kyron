@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -16,31 +15,34 @@ export default function HRLayout({
     const user = { name: "RR.HH.", email: "rrhh@kyron.com", fallback: "RH" };
 
     return (
-      <div className="flex min-h-screen bg-background relative overflow-hidden">
-          {/* Identidad Visual: Talento y Cultura - Fluida */}
-          <div className="absolute inset-0 pointer-events-none -z-10">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-secondary/[0.08] rounded-full blur-[150px]" />
-            <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-secondary/[0.04] rounded-full blur-[120px]" />
+      <div className="flex min-h-screen bg-[#020502] text-white relative overflow-hidden hud-grid">
+          {/* Fondo Atmosférico Cultura */}
+          <div className="fixed inset-0 pointer-events-none -z-10">
+            <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-full h-[800px] bg-secondary/[0.08] rounded-full blur-[200px] opacity-40 animate-pulse" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-secondary/[0.04] rounded-full blur-[180px] opacity-30" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
           </div>
 
           <AppSidebar />
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
+          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
               <AppHeader user={{...user, color: "bg-secondary"}} navGroups={rrhhNavGroups as any} dashboardHref="/dashboard-rrhh" />
               <motion.main 
-                className="flex-1 w-full p-4 md:p-10 pt-20 md:pt-24 relative"
+                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 1 }}
               >
-                  {/* Watermark de Cultura */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none">
-                    <Heart className="w-[600px] h-[600px] text-secondary" />
+                  {/* Sello de agua cultura */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] pointer-events-none -z-10">
+                    <Heart className="w-[700px] h-[700px] text-secondary" />
                   </div>
-                  {children}
+                  <div className="w-full">
+                    {children}
+                  </div>
               </motion.main>
-              <footer className="p-6 border-t bg-card/30 text-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">
-                  System Kyron v2.0 • 2026 • © Todos los derechos reservados
+              <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
+                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
+                  System Kyron v2.6 • Culture & Talent Node • 2026
                 </p>
               </footer>
           </div>

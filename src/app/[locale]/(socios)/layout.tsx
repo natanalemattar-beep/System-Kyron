@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -16,36 +15,35 @@ export default function SociosLayout({
     const user = { name: "Socio", email: "socio@kyron.com", fallback: "SO" };
 
     return (
-      <div className="flex min-h-screen bg-slate-900/5 dark:bg-slate-950 relative overflow-hidden">
-          {/* Identidad Visual: Estrategia y Holding - Fluida */}
-          <div className="absolute inset-0 pointer-events-none -z-10">
-            <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.06] rounded-full blur-[150px]" />
-            <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-slate-800/[0.06] rounded-full blur-[120px]" />
-            <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+      <div className="flex min-h-screen bg-[#03040a] text-white relative overflow-hidden hud-grid">
+          {/* Fondo Atmosférico Holding */}
+          <div className="fixed inset-0 pointer-events-none -z-10">
+            <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.08] rounded-full blur-[200px] opacity-40 animate-pulse" />
+            <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-slate-800/[0.08] rounded-full blur-[180px] opacity-30" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay" />
           </div>
 
           <AppSidebar />
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
+          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
               <AppHeader user={{...user, color: "bg-indigo-900"}} navGroups={sociosNavGroups as any} dashboardHref="/dashboard-socios" />
               <motion.main 
-                className="flex-1 w-full p-4 md:p-10 pt-24 md:pt-28 relative"
+                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.6 }}
               >
-                  {/* Watermark de Holding */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] pointer-events-none">
+                  {/* Watermark Holding */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] pointer-events-none -z-10">
                     <Globe className="w-[800px] h-[800px] text-primary" />
                   </div>
-                  {children}
+                  <div className="w-full">
+                    {children}
+                  </div>
               </motion.main>
-              <footer className="p-10 border-t bg-card/30 text-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 mb-2">
-                  System Kyron v2.0 • Misión Crítica • © Todos los derechos reservados
+              <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
+                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
+                  System Kyron v2.6 • Strategy & Holding Node • 2026
                 </p>
-                <div className="h-1.5 w-32 bg-primary/5 mx-auto rounded-full overflow-hidden">
-                    <div className="h-full w-1/3 bg-primary/20 animate-infinite-scroll"></div>
-                </div>
               </footer>
           </div>
           <ChatDialog />

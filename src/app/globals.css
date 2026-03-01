@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,9 +10,9 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 225 84% 25%; /* #0A2472 - Azul Kyron */
+    --primary: 225 84% 25%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 142 71% 45%; /* #4CAF50 - Verde Kyron */
+    --secondary: 142 71% 45%;
     --secondary-foreground: 210 40% 98%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -24,7 +23,7 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 225 84% 25%;
-    --radius: 1.25rem;
+    --radius: 1.5rem;
   }
 
   .dark {
@@ -61,56 +60,56 @@
 
 @layer utilities {
   .btn-3d-primary {
-    @apply bg-[#0A2472] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#05123a] hover:shadow-[0_2px_0_#05123a]
-           hover:scale-[1.02];
+    @apply bg-[#0A2472] text-white font-black px-8 py-3 rounded-2xl transition-all duration-300 
+           hover:brightness-110 active:translate-y-1 shadow-[0_6px_0_#05123a] hover:shadow-[0_3px_0_#05123a]
+           hover:scale-[1.03] uppercase text-[10px] tracking-widest;
     will-change: transform, box-shadow;
   }
 
   .btn-3d-secondary {
-    @apply bg-[#4CAF50] text-white font-bold px-6 py-2 rounded-xl transition-all duration-200 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_4px_0_#2e7d32] hover:shadow-[0_2px_0_#2e7d32]
-           hover:scale-[1.02];
+    @apply bg-[#4CAF50] text-white font-black px-8 py-3 rounded-2xl transition-all duration-300 
+           hover:brightness-110 active:translate-y-1 shadow-[0_6px_0_#2e7d32] hover:shadow-[0_3px_0_#2e7d32]
+           hover:scale-[1.03] uppercase text-[10px] tracking-widest;
     will-change: transform, box-shadow;
   }
 
-  .glass-panel {
-    @apply bg-card/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+  .glass-card {
+    @apply bg-white/[0.02] backdrop-blur-3xl border border-white/10 shadow-2xl rounded-[3rem] 
+           transition-all duration-500 hover:bg-white/[0.04] hover:border-white/20;
   }
   
   .italic-shadow {
-    @apply [text-shadow:2px_2px_0px_rgba(10,36,114,0.1)];
+    @apply [text-shadow:3px_3px_0px_rgba(10,36,114,0.1)];
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-primary/20 rounded-full hover:bg-primary/40;
+    @apply bg-primary/30 rounded-full hover:bg-primary/50;
   }
   
-  .titanium-card {
-    @apply bg-card/60 backdrop-blur-lg border border-primary/5 shadow-xl rounded-[2.5rem] 
-           transition-all duration-500 hover:shadow-primary/5 hover:border-primary/20;
-    transform: translateZ(0); /* Force GPU */
+  .hud-grid {
+    @apply relative;
   }
-
-  .gpu-accelerated {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-    will-change: transform, opacity;
+  .hud-grid::before {
+    content: "";
+    @apply absolute inset-0 opacity-[0.03] pointer-events-none -z-10;
+    background-image: linear-gradient(to right, #ffffff 1px, transparent 1px),
+                      linear-gradient(to bottom, #ffffff 1px, transparent 1px);
+    background-size: 50px 50px;
   }
 }
 
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
-.animate-spin-slow {
-  animation: spin-slow 12s linear infinite;
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

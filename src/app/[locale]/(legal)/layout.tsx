@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -16,31 +15,34 @@ export default function LegalLayout({
     const user = { name: "Abogado", email: "legal@kyron.com", fallback: "AB" };
 
     return (
-      <div className="flex min-h-screen bg-slate-50/50 dark:bg-slate-950/50 relative overflow-hidden">
-          {/* Identidad Visual: Legal y Cumplimiento - Fluida */}
-          <div className="absolute inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(30deg,#0f172a_12%,transparent_12.5%,transparent_87%,#0f172a_87.5%,#0f172a),linear-gradient(150deg,#0f172a_12%,transparent_12.5%,transparent_87%,#0f172a_87.5%,#0f172a),linear-gradient(30deg,#0f172a_12%,transparent_12.5%,transparent_87%,#0f172a_87.5%,#0f172a),linear-gradient(150deg,#0f172a_12%,transparent_12.5%,transparent_87%,#0f172a_87.5%,#0f172a),linear-gradient(60deg,#1e293b_25%,transparent_25.5%,transparent_75%,#1e293b_75%,#1e293b),linear-gradient(60deg,#1e293b_25%,transparent_25.5%,transparent_75%,#1e293b_75%,#1e293b)] [background-size:80px_140px]" />
-            <div className="absolute top-0 right-0 w-full h-full bg-slate-900/[0.03]" />
+      <div className="flex min-h-screen bg-[#05070a] text-white relative overflow-hidden hud-grid">
+          {/* Fondo Atmosférico Blindaje Legal */}
+          <div className="fixed inset-0 pointer-events-none -z-10">
+            <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(30deg,#1e293b_12%,transparent_12.5%,transparent_87%,#1e293b_87.5%,#1e293b),linear-gradient(150deg,#1e293b_12%,transparent_12.5%,transparent_87%,#1e293b_87.5%,#1e293b)] [background-size:80px_140px]" />
+            <div className="absolute top-0 right-0 w-full h-full bg-slate-900/[0.05] rounded-full blur-[250px]" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
           </div>
 
           <AppSidebar />
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
+          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
               <AppHeader user={{...user, color: "bg-slate-800"}} navGroups={legalNavGroups as any} dashboardHref="/escritorio-juridico" />
               <motion.main 
-                className="flex-1 w-full p-4 md:p-10 pt-20 md:pt-24 relative"
-                initial={{ opacity: 0, x: 10 }}
+                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
+                initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.8 }}
               >
-                  {/* Watermark de Blindaje */}
-                  <div className="absolute top-20 right-20 opacity-[0.03] pointer-events-none">
-                    <ShieldCheck className="w-96 h-96 text-slate-900" />
+                  {/* Watermark Blindaje */}
+                  <div className="absolute top-20 right-20 opacity-[0.02] pointer-events-none -z-10">
+                    <ShieldCheck className="w-[600px] h-[600px] text-slate-400" />
                   </div>
-                  {children}
+                  <div className="w-full">
+                    {children}
+                  </div>
               </motion.main>
-              <footer className="p-6 border-t bg-card/30 text-center backdrop-blur-sm">
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">
-                  System Kyron v2.0 • 2026 • © Todos los derechos reservados
+              <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
+                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
+                  System Kyron v2.6 • Legal Guard • 2026
                 </p>
               </footer>
           </div>
