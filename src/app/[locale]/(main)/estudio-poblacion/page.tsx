@@ -17,8 +17,6 @@ import {
   Info,
   BookOpen,
   AlertTriangle,
-  FileText,
-  Zap,
   Target
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -167,28 +165,25 @@ export default function EstudioPoblacionPage() {
     };
 
     return (
-        <div className="space-y-16 w-full animate-in fade-in duration-1000 pb-20">
+        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20">
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-l-8 border-primary pl-10 py-2">
                 <div className="space-y-2">
                     <h1 className="text-5xl md:text-6xl font-black tracking-tighter flex items-center gap-4 italic italic-shadow text-white uppercase">
                         <BookOpen className="h-12 w-12 text-primary" />
-                        INFORME TÉCNICO INTEGRAL
+                        ESTUDIO DE POBLACIÓN (ZEDU)
                     </h1>
-                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">AutoMind AI • Colegio Gabriela Mistral • Nodo La Guaira</p>
+                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Misión Crítica • AutoMind AI • Nodo La Guaira - Gabriela Mistral</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-16 px-12 rounded-2xl shadow-2xl" onClick={handleDownloadWord}>
-                    <Download className="mr-3 h-6 w-6" /> GENERAR INFORME (.DOC)
+                    <Download className="mr-3 h-6 w-6" /> DESCARGAR PARA WORD
                 </Button>
             </header>
 
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-12">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
                 {/* BLOQUE 1: IDENTIFICACIÓN */}
-                <div className="xl:col-span-4 space-y-8">
-                    <div className="flex items-center gap-4 mb-2">
-                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Identificación del Proyecto</span>
-                        <div className="h-px flex-1 bg-white/5"></div>
-                    </div>
-                    <Card className="glass-card border-none overflow-hidden shadow-2xl p-2 bg-white/[0.02]">
+                <div className="xl:col-span-4 space-y-6">
+                    <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-4">Equipo Gabriela Mistral</h3>
+                    <Card className="border-none overflow-hidden shadow-2xl bg-white/[0.02] backdrop-blur-3xl">
                         <CardContent className="p-0">
                             {teamData.map((item, index) => (
                                 <div key={index} className="p-8 border-b border-white/5 last:border-none hover:bg-white/[0.02] transition-all">
@@ -201,12 +196,9 @@ export default function EstudioPoblacionPage() {
                 </div>
 
                 {/* BLOQUE 2: ZEDU POBLACIÓN */}
-                <div className="xl:col-span-8 space-y-8">
-                    <div className="flex items-center gap-4 mb-2">
-                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Estudio de Población (ZEDU)</span>
-                        <div className="h-px flex-1 bg-white/5"></div>
-                    </div>
-                    <Card className="glass-card border-none overflow-hidden shadow-2xl bg-white/[0.02]">
+                <div className="xl:col-span-8 space-y-6">
+                    <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-4">Estudio Regional (La Guaira)</h3>
+                    <Card className="border-none overflow-hidden shadow-2xl bg-white/[0.02] backdrop-blur-3xl">
                         <CardContent className="p-0">
                             <div className="grid md:grid-cols-2">
                                 {zeduData.map((item, index) => (
@@ -225,54 +217,47 @@ export default function EstudioPoblacionPage() {
                     </Card>
                 </div>
 
-                {/* BLOQUE 3: ANÁLISIS DEL PROBLEMA (PARTE 4) */}
-                <div className="xl:col-span-12 space-y-8">
-                    <div className="flex items-center gap-4 mb-2">
-                        <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Análisis Crítico del Problema</span>
-                        <div className="h-px flex-1 bg-white/5"></div>
-                    </div>
+                {/* BLOQUE 3: ANÁLISIS DEL PROBLEMA */}
+                <div className="xl:col-span-12 space-y-6">
+                    <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-4">Análisis del Problema Institucional</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {/* Causas */}
-                        <Card className="glass-card border-none bg-white/[0.02] p-8">
-                            <CardHeader className="p-0 mb-6">
-                                <CardTitle className="text-xl font-black uppercase italic flex items-center gap-3">
-                                    <AlertTriangle className="text-primary h-6 w-6" /> Causas
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-0">
-                                <ul className="space-y-4">
-                                    {problemAnalysis.causas.map((causa, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-sm font-bold text-white/70">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                                            {causa}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardContent>
+                        <Card className="border-none bg-white/[0.02] backdrop-blur-3xl p-8">
+                            <h3 className="text-xl font-black uppercase italic flex items-center gap-3 mb-6">
+                                <AlertTriangle className="text-primary h-6 w-6" /> Causas
+                            </h3>
+                            <ul className="space-y-4">
+                                {problemAnalysis.causas.map((causa, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-sm font-bold text-white/70">
+                                        <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                                        {causa}
+                                    </li>
+                                ))}
+                            </ul>
                         </Card>
 
                         {/* Consecuencias e Importancia */}
-                        <Card className="glass-card border-none bg-white/[0.02] p-8">
+                        <Card className="border-none bg-white/[0.02] backdrop-blur-3xl p-8">
                             <div className="space-y-10">
                                 <div>
-                                    <h3 className="font-black text-[10px] uppercase tracking-widest text-primary mb-4">Consecuencias Directas</h3>
+                                    <h3 className="font-black text-[10px] uppercase tracking-widest text-primary mb-4">Consecuencias</h3>
                                     <p className="text-base font-bold italic text-white/80 leading-relaxed">{problemAnalysis.consecuencias}</p>
                                 </div>
                                 <div>
-                                    <h3 className="font-black text-[10px] uppercase tracking-widest text-primary mb-4">Por qué es importante resolver</h3>
+                                    <h3 className="font-black text-[10px] uppercase tracking-widest text-primary mb-4">Importancia</h3>
                                     <p className="text-base font-bold italic text-white/80 leading-relaxed">{problemAnalysis.importancia}</p>
                                 </div>
                             </div>
                         </Card>
 
                         {/* Definición y Origen */}
-                        <Card className="glass-card border-none bg-primary p-10 text-primary-foreground relative overflow-hidden">
+                        <Card className="border-none bg-primary p-10 text-primary-foreground relative overflow-hidden shadow-2xl">
                             <div className="absolute top-0 right-0 p-10 opacity-10">
                                 <Target className="h-40 w-40" />
                             </div>
                             <div className="relative z-10 space-y-8">
                                 <div>
-                                    <h3 className="font-black text-[10px] uppercase tracking-widest opacity-60 mb-4 text-white">Definición del Problema</h3>
+                                    <h3 className="font-black text-[10px] uppercase tracking-widest opacity-60 mb-4 text-white">Definición</h3>
                                     <p className="text-lg font-black italic leading-tight text-white">{problemAnalysis.definicion}</p>
                                 </div>
                                 <div className="pt-6 border-t border-white/10">
@@ -284,12 +269,6 @@ export default function EstudioPoblacionPage() {
                     </div>
                 </div>
             </div>
-            
-            <footer className="pt-10 text-center">
-                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white/10 italic">
-                    Kyron Intelligence Ledger • Gabriela Mistral Node v2.6 • 2026
-                </p>
-            </footer>
         </div>
     );
 }

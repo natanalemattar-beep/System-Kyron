@@ -15,7 +15,7 @@ export default function MainLayout({
     const user = { name: "Operador IT", email: "it@kyron.com", fallback: "IT" };
 
     return (
-      <div className="flex min-h-screen bg-[#020202] text-white relative overflow-hidden">
+      <div className="flex min-h-screen bg-[#050505] text-white relative overflow-hidden">
           {/* Fondo Atmosférico de Misión Crítica */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute top-0 right-0 w-[1400px] h-[1400px] bg-primary/5 rounded-full blur-[200px] opacity-50" />
@@ -29,25 +29,20 @@ export default function MainLayout({
               <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-informatica" />
               
               <motion.main 
-                className="flex-1 w-full p-10 md:p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-8 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.5 }}
               >
-                  {/* Sello de agua sutil */}
-                  <div className="absolute top-1/4 right-40 opacity-[0.01] pointer-events-none -z-10">
-                    <Cpu className="w-[800px] h-[800px] text-primary" />
-                  </div>
-                  
-                  {/* Contenedor sin restricciones de ancho para pantalla completa real */}
-                  <div className="w-full">
+                  {/* Contenedor sin restricciones de ancho para aprovechar toda la pantalla */}
+                  <div className="w-full h-full">
                     {children}
                   </div>
               </motion.main>
               
-              <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
-                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
-                  System Kyron v2.6 • Engineering & AI Node • 2026
+              <footer className="p-8 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
+                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white/10 italic">
+                  System Kyron v2.6 • Engineering Node • 2026
                 </p>
               </footer>
           </div>
