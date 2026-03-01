@@ -73,7 +73,7 @@ export function LandingHeader() {
                         </div>
                     </Link>
                     
-                    {/* Desktop Nav - Middle (Visible from MD) */}
+                    {/* Desktop Nav - Middle */}
                     <nav className="hidden md:flex items-center gap-1 bg-white/5 p-1.5 rounded-2xl border border-white/5 backdrop-blur-md">
                         {navLinks.map((link) => (
                             <Button key={link.href} variant="ghost" size="sm" asChild className="rounded-xl px-5 hover:bg-white/10 transition-all group">
