@@ -38,11 +38,11 @@
 
 @layer utilities {
   .btn-3d-primary {
-    @apply bg-[#0A2472] text-white shadow-[0_6px_0_0_#061a5a] active:shadow-none active:translate-y-1.5 transition-all duration-100 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center;
+    @apply bg-[#0A2472] text-white shadow-[0_6px_0_0_#061a5a] active:shadow-none active:translate-y-1.5 transition-all duration-100 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center border border-white/10;
   }
   
   .btn-3d-secondary {
-    @apply bg-[#4CAF50] text-white shadow-[0_6px_0_0_#3d8b40] active:shadow-none active:translate-y-1.5 transition-all duration-100 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center;
+    @apply bg-[#4CAF50] text-white shadow-[0_6px_0_0_#3d8b40] active:shadow-none active:translate-y-1.5 transition-all duration-100 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center border border-white/10;
   }
 
   .crystal-panel {
@@ -51,6 +51,10 @@
 
   .text-glow {
     text-shadow: 0 0 15px hsl(var(--primary) / 0.5), 0 0 30px hsl(var(--primary) / 0.3);
+  }
+
+  .text-glow-green {
+    text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
   }
 
   .custom-scrollbar::-webkit-scrollbar {
