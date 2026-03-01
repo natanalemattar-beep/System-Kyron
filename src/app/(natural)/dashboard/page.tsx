@@ -2,66 +2,47 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, FileWarning, ArrowRight, User, Sparkles } from 'lucide-react';
+import { CheckCircle, Clock, FileWarning, ArrowRight, User, Sparkles, Activity, ShieldAlert, Cpu } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
-import { DailyTasksChart } from "@/components/dashboard/daily-tasks-chart";
 
 const kpiData = [
-  { title: "Trámites en Proceso", value: "2", icon: Clock, color: "text-yellow-500", href: "/partidas-nacimiento" },
-  { title: "Documentos Listos", value: "5", icon: CheckCircle, color: "text-green-500", href: "/documentos" },
-  { title: "Alertas o Vencimientos", value: "1", icon: FileWarning, color: "text-red-500", href: "/notificaciones" },
+  { title: "Gestiones en Proceso", value: "2", icon: Clock, color: "text-yellow-500" },
+  { title: "Validaciones Listas", value: "5", icon: CheckCircle, color: "text-secondary" },
+  { title: "Alertas Activas", value: "1", icon: ShieldAlert, color: "text-red-500" },
 ];
 
 const recentActivities = [
-    { id: "PN-2024-001", type: "Partida de Nacimiento", date: "2024-07-10", status: "Aprobado", href: "/partidas-nacimiento" },
-    { id: "AM-2024-001", type: "Acta de Matrimonio", date: "2024-07-18", status: "En Proceso", href: "/actas-matrimonio" },
-    { id: "AP-2024-005", type: "Antecedentes Penales", date: "2024-07-22", status: "Solicitado", href: "/antecedentes-penales" },
+    { id: "ID-2026-X1", type: "Identidad Biométrica", date: "2024-07-10", status: "Aprobado" },
+    { id: "DC-2026-A2", type: "Expediente Digital", date: "2024-07-18", status: "En Proceso" },
+    { id: "AP-2026-C5", type: "Sello de Antecedentes", date: "2024-07-22", status: "Solicitado" },
 ];
 
-const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | "outline" } = {
-  Aprobado: "default",
-  "En Proceso": "secondary",
-  Solicitado: "outline",
-};
-
-
 export default function DashboardPersonalPage() {
-
   return (
-    <div className="space-y-8">
-      <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div className="space-y-10">
+      <header className="flex flex-col lg:flex-row justify-between lg:items-end gap-6 border-l-4 border-primary pl-6 py-2">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
         >
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Bienvenido, Usuario</h1>
-            <p className="text-muted-foreground mt-2 max-w-2xl">
-                Tu centro de mando para gestionar documentos y solicitudes.
-            </p>
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic italic-shadow">Terminal Usuario</h1>
+            <p className="text-sm font-bold text-muted-foreground uppercase tracking-[0.4em] mt-2">Centro de Control de Identidad y Trámites Civiles</p>
         </motion.div>
         
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
             className="relative"
         >
-            <div className="absolute -top-1 -right-1 z-10">
-                <span className="flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
-                </span>
-            </div>
-            <Button asChild size="lg" className="bg-primary text-primary-foreground shadow-lg group h-12 rounded-xl px-6">
-                <Link href="/tarjeta-digital">
-                    <User className="mr-2 h-4 w-4" />
-                    Mi Tarjeta Digital
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <Button asChild size="lg" className="btn-3d-primary h-14 px-10 group">
+                <Link href="/tarjeta-digital" className="flex items-center gap-3">
+                    <User className="h-5 w-5" />
+                    MI IDENTIDAD 3D
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-2" />
                 </Link>
             </Button>
         </motion.div>
@@ -73,58 +54,66 @@ export default function DashboardPersonalPage() {
               key={kpi.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+              transition={{ delay: index * 0.1 }}
             >
-              <Link href={kpi.href}>
-                  <Card className="hover:shadow-lg transition-all hover:-translate-y-1 border-2 border-transparent hover:border-primary/20 rounded-2xl">
-                      <CardHeader className="pb-2 flex-row items-center justify-between">
-                          <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                          <kpi.icon className={`h-4 w-4 ${kpi.color}`} />
-                      </CardHeader>
-                      <CardContent>
-                          <p className="text-3xl font-bold">{kpi.value}</p>
-                      </CardContent>
-                  </Card>
-              </Link>
+              <Card className="titanium-card rounded-2xl border-white/5 hover:border-primary/20 transition-all glow-border">
+                  <CardContent className="p-8">
+                      <div className="flex justify-between items-center mb-6">
+                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">{kpi.title}</p>
+                        <kpi.icon className={cn("h-5 w-5", kpi.color)} />
+                      </div>
+                      <p className="text-4xl font-black italic">{kpi.value}</p>
+                  </CardContent>
+              </Card>
             </motion.div>
         ))}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-5">
+      <div className="grid gap-10 lg:grid-cols-5">
         <motion.div 
             className="lg:col-span-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ delay: 0.4 }}
         >
-           <Card className="h-full bg-card/50 backdrop-blur-sm rounded-2xl">
-            <CardHeader>
-              <CardTitle>Actividad Reciente</CardTitle>
-              <CardDescription>Resumen de tus últimas solicitudes.</CardDescription>
+           <Card className="titanium-card rounded-3xl glow-border">
+            <CardHeader className="flex flex-row items-center justify-between border-b border-white/5 pb-6">
+              <div>
+                <CardTitle className="text-xl font-black uppercase tracking-tighter italic">Actividad del Sistema</CardTitle>
+                <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-white/20">Registro de eventos de misión en tiempo real</CardDescription>
+              </div>
+              <div className="flex items-center gap-2 text-[9px] font-black text-secondary">
+                <Activity className="h-3 w-3 animate-pulse" /> PROCESANDO
+              </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-0">
                 <Table>
                     <TableHeader>
-                        <TableRow>
-                            <TableHead>Referencia</TableHead>
-                            <TableHead>Tipo</TableHead>
-                            <TableHead>Fecha</TableHead>
-                            <TableHead className="text-center">Estado</TableHead>
-                            <TableHead className="text-right">Acciones</TableHead>
+                        <TableRow className="border-white/5 hover:bg-transparent">
+                            <TableHead className="text-[9px] font-black uppercase tracking-widest pl-8">Protocolo</TableHead>
+                            <TableHead className="text-[9px] font-black uppercase tracking-widest">Tipo</TableHead>
+                            <TableHead className="text-[9px] font-black uppercase tracking-widest">Timestamp</TableHead>
+                            <TableHead className="text-[9px] font-black uppercase tracking-widest text-center">Estado</TableHead>
+                            <TableHead className="text-right pr-8"></TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {recentActivities.map((activity) => (
-                            <TableRow key={activity.id}>
-                                <TableCell className="font-mono text-xs">{activity.id}</TableCell>
-                                <TableCell className="font-medium text-sm">{activity.type}</TableCell>
-                                <TableCell className="text-sm">{formatDate(activity.date)}</TableCell>
+                            <TableRow key={activity.id} className="border-white/5 group hover:bg-white/[0.02]">
+                                <TableCell className="font-mono text-[11px] font-bold text-primary pl-8">{activity.id}</TableCell>
+                                <TableCell className="font-black text-[10px] uppercase tracking-tighter">{activity.type}</TableCell>
+                                <TableCell className="text-[10px] text-white/40">{formatDate(activity.date)}</TableCell>
                                 <TableCell className="text-center">
-                                    <Badge variant={statusVariant[activity.status as keyof typeof statusVariant]}>{activity.status}</Badge>
+                                    <Badge variant="outline" className={cn(
+                                        "text-[8px] font-black uppercase tracking-widest h-5 px-3 border-white/10",
+                                        activity.status === 'Aprobado' ? "text-secondary border-secondary/20 bg-secondary/5" : "text-white/40"
+                                    )}>
+                                        {activity.status}
+                                    </Badge>
                                 </TableCell>
-                                <TableCell className="text-right">
-                                    <Button variant="outline" size="sm" asChild className="h-8 text-xs rounded-lg">
-                                        <Link href={activity.href}>Ver Detalles</Link>
+                                <TableCell className="text-right pr-8">
+                                    <Button variant="ghost" size="sm" className="h-8 w-8 rounded-lg text-white/20 group-hover:text-primary group-hover:bg-primary/10">
+                                        <ArrowRight className="h-4 w-4" />
                                     </Button>
                                 </TableCell>
                             </TableRow>
@@ -134,27 +123,41 @@ export default function DashboardPersonalPage() {
             </CardContent>
           </Card>
         </motion.div>
+
         <motion.div 
             className="lg:col-span-2 space-y-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            transition={{ delay: 0.5 }}
         >
-           <DailyTasksChart />
-           <Card className="bg-primary/5 border-primary/20 border-2 shadow-xl overflow-hidden group rounded-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardHeader>
-                    <CardTitle className="text-lg flex items-center gap-2">
-                        <Sparkles className="h-5 w-5 text-yellow-500" />
-                        Identidad Digital 3D
+           <Card className="bg-[#050505] text-white border border-white/5 shadow-2xl rounded-3xl overflow-hidden relative group glow-border">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <CardHeader className="relative z-10">
+                    <CardTitle className="text-2xl font-black uppercase tracking-tighter italic flex items-center gap-3">
+                        <Sparkles className="h-6 w-6 text-primary" />
+                        Nivel de Acceso 5
                     </CardTitle>
+                    <CardDescription className="text-[10px] font-bold uppercase tracking-widest text-white/30">Privilegios de Identidad Digital Avanzada</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4 relative z-10">
-                    <p className="text-sm text-muted-foreground">
-                        Tu tarjeta de presentación del futuro está lista. Compártela escaneando el QR.
+                <CardContent className="space-y-6 relative z-10">
+                    <p className="text-sm font-medium text-white/60 leading-relaxed">
+                        Su perfil está blindado por el motor de IA de Kyron. El sellado Blockchain garantiza que sus documentos sean 100% inmutables y verificables globalmente.
                     </p>
-                    <Button variant="default" asChild className="w-full h-11 rounded-xl font-bold">
-                        <Link href="/tarjeta-digital">Abrir Tarjeta Interactiva</Link>
+                    <div className="p-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-xl flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <div className="p-2.5 rounded-lg bg-primary/20"><Cpu className="h-5 w-5 text-primary" /></div>
+                            <div>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-white">Estado de Red</p>
+                                <p className="text-[9px] font-bold text-secondary">ENLACE SÍNCRONO</p>
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-[10px] font-black uppercase tracking-widest text-white">Latencia</p>
+                            <p className="text-[9px] font-bold text-white/40">12MS</p>
+                        </div>
+                    </div>
+                    <Button variant="default" asChild className="btn-3d-primary w-full h-12">
+                        <Link href="/tarjeta-digital">INGRESAR A IDENTIDAD 3D</Link>
                     </Button>
                 </CardContent>
            </Card>
