@@ -8,7 +8,9 @@ import {
     Menu, 
     UserCircle,
     Zap,
-    ShieldCheck
+    ShieldCheck,
+    Search,
+    Bell
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -39,23 +41,11 @@ export function LandingHeader() {
              isScrolled ? "bg-background/80 backdrop-blur-2xl py-3 border-b shadow-lg" : "bg-transparent py-6"
         )}>
             <div className="container mx-auto px-6">
-                <div className="flex items-center justify-between h-16">
+                <div className="relative flex items-center justify-between h-16">
                     
-                    {/* Brand Identity */}
-                    <Link href="/" className="flex items-center gap-3 group">
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-primary/20 blur-md rounded-full scale-0 group-hover:scale-125 transition-transform"></div>
-                            <Logo className="h-10 w-10 relative z-10" /> 
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-lg font-black tracking-tighter text-primary uppercase leading-none">System Kyron</span>
-                            <span className="text-[8px] font-bold tracking-[0.3em] text-muted-foreground uppercase opacity-60">Next-Gen Ecosystem</span>
-                        </div>
-                    </Link>
-
-                    {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center gap-8 bg-secondary/5 border border-primary/5 px-8 py-2 rounded-full backdrop-blur-md">
-                        {navLinks.map((link) => (
+                    {/* Left: Navigation Links (Desktop) */}
+                    <nav className="hidden lg:flex items-center gap-6">
+                        {navLinks.slice(0, 3).map((link) => (
                             <Link 
                                 key={link.href} 
                                 href={link.href as any} 
@@ -67,56 +57,61 @@ export function LandingHeader() {
                         ))}
                     </nav>
 
-                    {/* Action Buttons */}
+                    {/* Center: Brand Identity - absolute center */}
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                        <Link href="/" className="flex flex-col items-center group">
+                            <Logo className="h-10 w-10 mb-1 group-hover:scale-110 transition-transform duration-500" /> 
+                            <span className="text-sm font-black tracking-tighter text-primary uppercase leading-none">System Kyron</span>
+                        </Link>
+                    </div>
+
+                    {/* Right: Actions + Always-visible Menu */}
                     <div className="flex items-center gap-4">
-                        <div className="hidden sm:flex items-center gap-2">
+                        <div className="hidden sm:flex items-center gap-3">
                             <ThemeToggle />
-                            <Button variant="ghost" asChild className="rounded-xl h-10 px-5 text-[10px] font-black uppercase tracking-widest hover:bg-primary/5 text-primary border border-transparent hover:border-primary/10">
+                            <Button variant="ghost" asChild className="rounded-xl h-10 px-4 text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/5">
                                 <Link href="/login" className="flex items-center gap-2">
                                     <UserCircle className="h-4 w-4" /> Acceder
                                 </Link>
                             </Button>
-                            <Button asChild className="rounded-xl h-10 px-6 btn-3d-primary text-[10px] font-black uppercase tracking-widest shadow-xl group">
-                                <Link href="/register" className="flex items-center gap-2">
-                                    REGISTRO <Zap className="h-3.5 w-3.5 text-yellow-400 fill-yellow-400 group-hover:scale-125 transition-transform"/>
-                                </Link>
+                            <Button asChild className="rounded-xl h-10 px-6 btn-3d-primary text-[10px] font-black uppercase tracking-widest shadow-xl">
+                                <Link href="/register">REGISTRO</Link>
                             </Button>
                         </div>
 
-                        {/* Mobile Menu Trigger */}
-                        <div className="lg:hidden">
-                            <Sheet>
-                                <SheetTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner">
-                                        <Menu className="h-5 w-5" />
-                                    </Button>
-                                </SheetTrigger>
-                                <SheetContent side="right" className="w-full sm:max-w-xs p-0 flex flex-col">
-                                    <div className="p-8 border-b flex flex-col items-center gap-3 bg-gradient-to-br from-primary/10 to-transparent">
-                                        <Logo className="h-14 w-14" /> 
-                                        <span className="text-xl font-black tracking-tighter text-primary uppercase">System Kyron</span>
+                        {/* Menu Trigger (Visible on PC and Mobile) */}
+                        <Sheet>
+                            <SheetTrigger asChild>
+                                <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all">
+                                    <Menu className="h-5 w-5 text-primary" />
+                                </Button>
+                            </SheetTrigger>
+                            <SheetContent side="right" className="w-full sm:max-w-xs p-0 flex flex-col">
+                                <div className="p-8 border-b flex flex-col items-center gap-3 bg-gradient-to-br from-primary/10 to-transparent">
+                                    <Logo className="h-14 w-14" /> 
+                                    <span className="text-xl font-black tracking-tighter text-primary uppercase">System Kyron</span>
+                                    <p className="text-[8px] font-black uppercase tracking-[0.4em] opacity-40">Ecosistema Global</p>
+                                </div>
+                                <nav className="flex flex-col p-8 gap-4 overflow-y-auto">
+                                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.3em] mb-4 italic">Explorar Módulos</p>
+                                    {navLinks.map((link) => (
+                                        <SheetClose asChild key={link.href}>
+                                            <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-2 border-b border-border/50">
+                                                {link.label}
+                                            </Link>
+                                        </SheetClose>
+                                    ))}
+                                    <div className="pt-8 space-y-4">
+                                        <Button variant="outline" asChild className="w-full justify-center rounded-xl h-12 font-black uppercase text-[10px] tracking-widest border-primary/20">
+                                            <Link href="/login">Acceder <UserCircle className="ml-2 h-4 w-4" /></Link>
+                                        </Button>
+                                        <Button asChild className="w-full justify-center rounded-xl h-12 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
+                                            <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400"/></Link>
+                                        </Button>
                                     </div>
-                                    <nav className="flex flex-col p-8 gap-4 overflow-y-auto">
-                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.3em] mb-4 italic">Navegación</p>
-                                        {navLinks.map((link) => (
-                                            <SheetClose asChild key={link.href}>
-                                                <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-2 border-b border-border/50">
-                                                    {link.label}
-                                                </Link>
-                                            </SheetClose>
-                                        ))}
-                                        <div className="pt-8 space-y-4">
-                                            <Button variant="outline" asChild className="w-full justify-center rounded-xl h-12 font-black uppercase text-[10px] tracking-widest border-primary/20">
-                                                <Link href="/login">Acceder <UserCircle className="ml-2 h-4 w-4" /></Link>
-                                            </Button>
-                                            <Button asChild className="w-full justify-center rounded-xl h-12 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
-                                                <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400"/></Link>
-                                            </Button>
-                                        </div>
-                                    </nav>
-                                </SheetContent>
-                            </Sheet>
-                        </div>
+                                </nav>
+                            </SheetContent>
+                        </Sheet>
                     </div>
                 </div>
             </div>
