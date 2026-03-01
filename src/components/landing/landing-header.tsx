@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -23,11 +22,6 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -35,7 +29,6 @@ import { loginOptions } from "@/lib/login-options";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isAccesoOpen, setIsAccesoOpen] = useState(false);
 
     const handleScroll = useCallback(() => {
         const scrolled = window.scrollY > 20;
@@ -91,19 +84,22 @@ export function LandingHeader() {
                     </div>
 
                     {/* Right: Actions + Menú (PC & Móvil) */}
-                    <div className="flex items-center justify-end gap-4 flex-1">
-                        <div className="hidden sm:flex items-center gap-4">
-                            <ThemeToggle />
+                    <div className="flex items-center justify-end gap-2 md:gap-4 flex-1">
+                        <div className="flex items-center gap-2 md:gap-4">
+                            <div className="hidden xs:block">
+                                <ThemeToggle />
+                            </div>
                             
+                            {/* BOTÓN DE ACCESO: Ahora persistente en la barra superior */}
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="outline" className="rounded-xl h-11 px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group">
-                                        <UserCircle className="h-4 w-4 mr-2 text-primary" /> 
-                                        ACCESO
-                                        <ChevronDown className="h-3 w-3 ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
+                                    <Button variant="outline" className="rounded-xl h-10 md:h-11 px-3 md:px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group bg-background/50 backdrop-blur-sm">
+                                        <UserCircle className="h-4 w-4 md:mr-2 text-primary" /> 
+                                        <span className="hidden sm:inline">ACCESO</span>
+                                        <ChevronDown className="h-3 w-3 ml-1 md:ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[600px] p-6 rounded-[2.5rem] border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                                <DropdownMenuContent align="end" className="w-[90vw] sm:w-[600px] p-4 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl animate-in fade-in zoom-in-95 duration-200">
                                     <DropdownMenuLabel className="px-4 py-2 flex items-center gap-3">
                                         <Sparkles className="h-4 w-4 text-primary" />
                                         <div className="flex flex-col">
@@ -112,7 +108,7 @@ export function LandingHeader() {
                                         </div>
                                     </DropdownMenuLabel>
                                     <DropdownMenuSeparator className="my-4 opacity-50" />
-                                    <div className="grid grid-cols-2 gap-3">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto custom-scrollbar">
                                         {loginOptions.map((option) => (
                                             <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-4 cursor-pointer focus:bg-primary/5 group/item border border-transparent focus:border-primary/10 transition-all">
                                                 <Link href={option.href} className="flex items-start gap-4">
@@ -130,14 +126,14 @@ export function LandingHeader() {
                                 </DropdownMenuContent>
                             </DropdownMenu>
 
-                            <Button asChild className="rounded-xl h-11 px-8 btn-3d-primary text-[10px] font-black uppercase tracking-widest shadow-2xl">
+                            <Button asChild className="hidden sm:flex rounded-xl h-11 px-8 btn-3d-primary text-[10px] font-black uppercase tracking-widest shadow-2xl">
                                 <Link href="/register">REGISTRO</Link>
                             </Button>
                         </div>
 
                         <Sheet>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all active:scale-95">
+                                <Button variant="ghost" size="icon" className="rounded-xl h-10 md:h-11 w-10 md:w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all active:scale-95">
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
@@ -161,64 +157,11 @@ export function LandingHeader() {
                                     ))}
                                     
                                     <div className="pt-8 space-y-4 px-2">
-                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic px-2">Portales de Gestión</p>
-                                        <div className="flex flex-col gap-4">
-                                            <Collapsible open={isAccesoOpen} onOpenChange={setIsAccesoOpen} className="w-full">
-                                                <CollapsibleTrigger asChild>
-                                                    <Button variant="outline" className="w-full justify-between rounded-xl h-14 font-black uppercase text-[10px] tracking-widest border-primary/20 shadow-md px-6">
-                                                        <span>ACCESO AL SISTEMA</span> 
-                                                        <ChevronDown className={cn("h-4 w-4 text-primary transition-transform duration-300", isAccesoOpen && "rotate-180")} />
-                                                    </Button>
-                                                </CollapsibleTrigger>
-                                                <CollapsibleContent className="animate-in fade-in slide-in-from-top-2 duration-300 pt-4 space-y-6">
-                                                    {/* Sección Ciudadano con Envoltorio */}
-                                                    <div className="p-4 rounded-[1.5rem] bg-primary/[0.03] border border-primary/10 space-y-4">
-                                                        <div className="flex items-center gap-2 px-2">
-                                                            <User className="h-3 w-3 text-primary" />
-                                                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary">Portal Ciudadano</span>
-                                                        </div>
-                                                        <div className="grid grid-cols-1 gap-2">
-                                                            {loginOptions.filter(o => o.href === '/login-personal').map((option) => (
-                                                                <Link 
-                                                                    key={option.href} 
-                                                                    href={option.href as any}
-                                                                    className="flex items-center gap-4 p-4 rounded-2xl bg-background border border-primary/5 hover:border-primary/20 transition-all group/item shadow-sm hover:shadow-md"
-                                                                >
-                                                                    <div className="p-2 bg-primary/5 rounded-xl shadow-inner">
-                                                                        <option.icon className="h-5 w-5 text-primary" />
-                                                                    </div>
-                                                                    <span className="text-[10px] font-black uppercase tracking-tight italic">{option.label}</span>
-                                                                </Link>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Sección Corporativa con Envoltorio */}
-                                                    <div className="p-4 rounded-[1.5rem] bg-secondary/[0.03] border border-border/50 space-y-4">
-                                                        <div className="flex items-center gap-2 px-2">
-                                                            <Building2 className="h-3 w-3 text-muted-foreground" />
-                                                            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground">Portales Corporativos</span>
-                                                        </div>
-                                                        <div className="grid grid-cols-2 gap-2">
-                                                            {loginOptions.filter(o => o.href !== '/login-personal').map((option) => (
-                                                                <Link 
-                                                                    key={option.href} 
-                                                                    href={option.href as any}
-                                                                    className="flex flex-col items-center justify-center p-4 rounded-2xl bg-background border border-border/50 transition-all text-center group/item h-24 shadow-sm hover:shadow-md hover:border-primary/20"
-                                                                >
-                                                                    <div className="p-2 bg-secondary/5 rounded-xl mb-2 transition-transform shadow-inner group-hover/item:scale-110">
-                                                                        <option.icon className="h-4 w-4 text-primary" />
-                                                                    </div>
-                                                                    <span className="text-[7px] font-black uppercase tracking-tighter leading-tight">{option.label}</span>
-                                                                </Link>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                </CollapsibleContent>
-                                            </Collapsible>
-                                            <Button asChild className="w-full justify-center rounded-xl h-14 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
-                                                <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400"/></Link>
-                                            </Button>
+                                        <Button asChild className="w-full justify-center rounded-xl h-14 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
+                                            <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400"/></Link>
+                                        </Button>
+                                        <div className="flex justify-center sm:hidden">
+                                            <ThemeToggle />
                                         </div>
                                     </div>
                                 </nav>
