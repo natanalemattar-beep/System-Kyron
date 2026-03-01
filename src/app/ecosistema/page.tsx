@@ -1,13 +1,15 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Home, BarChart3, Users, Scale, Leaf, Droplets, Wallet, 
   Wrench, ShieldCheck, ShoppingBag, Fingerprint, Cog, 
   Bell, Search, Menu, X, Plus, ArrowUpRight, ArrowDownRight, 
   CheckCircle2, AlertTriangle, Info, MapPin, Printer, Download,
-  Smartphone, Share2, MessageCircle, ChevronRight, Send, History, Recycle
+  Smartphone, Share2, MessageCircle, ChevronRight, Send, History, Recycle,
+  Trash2, CreditCard, LayoutDashboard, Database, Server, BrainCircuit,
+  Zap, Award, Globe, Key, Lock, Layers, Target, Calculator
 } from 'lucide-react';
 import { 
   LineChart, Line, AreaChart, Area, BarChart, Bar, 
@@ -25,9 +27,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { formatCurrency } from "@/lib/utils";
 
-// --- PALETA DE COLORES ---
+// --- PALETA Y CONSTANTES ---
 const COLORS = {
   primary: '#0A2472',
   accent: '#4CAF50',
@@ -66,12 +70,20 @@ const suppliers = [
   { name: "Suministros Globales", rif: "J-45678912-3", status: "Suspendido", lastVal: "01/02/2026", risk: "Alto" },
 ];
 
+const products = [
+  { id: 1, name: "Samsung Galaxy A54", price: 320, brand: "Samsung", image: "https://picsum.photos/seed/phone1/200/200" },
+  { id: 2, name: "Tablet Pro 11\"", price: 450, brand: "Apple", image: "https://picsum.photos/seed/tablet1/200/200" },
+  { id: 3, name: "Router Fibra 6G", price: 85, brand: "TP-Link", image: "https://picsum.photos/seed/router1/200/200" },
+  { id: 4, name: "Monitor IPS 27\"", price: 190, brand: "Dell", image: "https://picsum.photos/seed/monitor1/200/200" },
+];
+
 // --- COMPONENTE PRINCIPAL ---
 export default function EcosistemaKyron() {
   const [activeTab, setActiveTab] = useState('inicio');
   const [currentDate, setCurrentDate] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [cartCount, setCartCount] = useState(0);
+  const [asistenteOpen, setAsistenteOpen] = useState(false);
   const { toast } = useToast();
 
   // Sostenibilidad State
@@ -79,9 +91,9 @@ export default function EcosistemaKyron() {
   const [greenPoints, setGreenPoints] = useState(12450);
   const [treesSaved, setTreesSaved] = useState(18);
   const [recyclingHistory, setRecyclingHistory] = useState([
-    { date: "2026-02-28 14:20", type: "Papel", weight: 0.3, points: 5 },
-    { date: "2026-02-28 13:45", type: "Plástico", weight: 1.2, points: 15 },
-    { date: "2026-02-28 11:10", type: "Cartón", weight: 5.0, points: 50 },
+    { id: 1, date: "2026-02-28 14:20", type: "Papel", weight: 0.3, points: 5 },
+    { id: 2, date: "2026-02-28 13:45", type: "Plástico", weight: 1.2, points: 15 },
+    { id: 3, date: "2026-02-28 11:10", type: "Cartón", weight: 5.0, points: 50 },
   ]);
 
   useEffect(() => {
@@ -102,6 +114,7 @@ export default function EcosistemaKyron() {
     }
 
     const newEntry = {
+      id: Date.now(),
       date: new Date().toLocaleString('es-VE', { hour12: false }).replace(',', ''),
       type: randomType,
       weight: randomWeight,
@@ -134,12 +147,15 @@ export default function EcosistemaKyron() {
   return (
     <div className="flex h-screen w-full bg-[#f4f7f9] overflow-hidden text-slate-900 font-sans">
       {/* --- SIDEBAR --- */}
-      <aside className={`bg-[#0A2472] text-white flex flex-col transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
+      <aside className={cn(
+        "bg-[#0A2472] text-white flex flex-col transition-all duration-300 z-30 shadow-2xl",
+        isSidebarOpen ? 'w-64' : 'w-20'
+      )}>
         <div className="p-6 flex items-center gap-3 border-b border-white/10">
-          <div className="bg-white p-1.5 rounded-lg shadow-lg">
-            <ShieldCheck className="text-[#0A2472] h-6 w-6" />
+          <div className="bg-white p-1.5 rounded-lg shadow-lg shrink-0">
+            <Zap className="text-[#0A2472] h-6 w-6" />
           </div>
-          {isSidebarOpen && <span className="font-black text-xl tracking-tighter">System Kyron</span>}
+          {isSidebarOpen && <span className="font-black text-xl tracking-tighter uppercase italic">System Kyron</span>}
         </div>
         
         <nav className="flex-grow py-6 px-3 space-y-1 overflow-y-auto custom-scrollbar">
@@ -147,14 +163,15 @@ export default function EcosistemaKyron() {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-4 p-3 rounded-xl transition-all ${
+              className={cn(
+                "w-full flex items-center gap-4 p-3 rounded-xl transition-all duration-200",
                 activeTab === item.id 
                 ? 'bg-white/10 border border-white/20 shadow-inner' 
                 : 'hover:bg-white/5 text-slate-300 hover:text-white'
-              }`}
+              )}
             >
-              <item.icon className={`h-5 w-5 ${activeTab === item.id ? 'text-[#4CAF50]' : ''}`} />
-              {isSidebarOpen && <span className="text-sm font-medium">{item.label}</span>}
+              <item.icon className={cn("h-5 w-5 shrink-0", activeTab === item.id ? 'text-[#4CAF50]' : '')} />
+              {isSidebarOpen && <span className="text-sm font-medium whitespace-nowrap">{item.label}</span>}
             </button>
           ))}
         </nav>
@@ -172,61 +189,100 @@ export default function EcosistemaKyron() {
       {/* --- CONTENT AREA --- */}
       <main className="flex-1 flex flex-col relative overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(76,175,80,0.05),transparent_40%)]">
         {/* HEADER */}
-        <header className="h-16 border-b bg-white/60 backdrop-blur-md flex items-center justify-between px-8 z-10">
+        <header className="h-16 border-b bg-white/60 backdrop-blur-md flex items-center justify-between px-8 z-20">
           <div className="flex flex-col">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Ecosistema Corporativo</span>
-            <h2 className="text-sm font-medium text-slate-600 capitalize">{currentDate}</h2>
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Empresa Ejemplo C.A.</span>
+            <h2 className="text-xs font-medium text-slate-600 capitalize">{currentDate}</h2>
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="hidden md:flex items-center gap-3 px-4 py-1.5 bg-slate-100 rounded-full border">
+            <div className="hidden md:flex items-center gap-3 px-4 py-1.5 bg-slate-100/50 rounded-full border">
               <span className="text-xs font-bold text-slate-500">Bienvenido,</span>
-              <span className="text-xs font-black text-[#0A2472]">Empresa Ejemplo C.A.</span>
+              <span className="text-xs font-black text-[#0A2472]">Administrador</span>
             </div>
             
             <div className="relative">
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative h-10 w-10">
                 <Bell className="h-5 w-5 text-slate-600" />
-                <span className="absolute top-1 right-1 bg-[#F44336] text-white text-[8px] font-black h-4 w-4 flex items-center justify-center rounded-full border-2 border-white">3</span>
+                <span className="absolute top-2 right-2 bg-[#F44336] text-white text-[8px] font-black h-4 w-4 flex items-center justify-center rounded-full border-2 border-white">3</span>
               </Button>
             </div>
 
-            <Avatar className="h-9 w-9 border-2 border-white shadow-md cursor-pointer hover:scale-105 transition-transform">
+            <Avatar className="h-10 w-10 border-2 border-white shadow-md cursor-pointer hover:scale-105 transition-transform">
               <AvatarImage src="" />
-              <AvatarFallback className="bg-[#0A2472] text-white font-black text-xs">EE</AvatarFallback>
+              <AvatarFallback className="bg-[#0A2472] text-white font-black text-xs">AD</AvatarFallback>
             </Avatar>
           </div>
         </header>
 
-        {/* MAIN MODULE RENDERER */}
-        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar relative">
-          {activeTab === 'inicio' && <ModuleInicio />}
-          {activeTab === 'contabilidad' && <ModuleContabilidad />}
-          {activeTab === 'rrhh' && <ModuleRRHH />}
-          {activeTab === 'juridico' && <ModuleJuridico />}
-          {activeTab === 'sostenibilidad' && <ModuleSostenibilidad simulate={simulateRecycling} history={recyclingHistory} points={greenPoints} today={recyclingToday} trees={treesSaved} />}
-          {activeTab === 'petroleo' && <ModulePetroleo />}
-          {activeTab === 'tesoreria' && <ModuleTesoreria />}
-          {activeTab === 'mantenimiento' && <ModuleMantenimiento />}
-          {activeTab === 'fiscalizacion' && <ModuleFiscalizacion />}
-          {activeTab === 'tienda' && <ModuleTienda cartCount={cartCount} addToCart={() => setCartCount(c => c + 1)} />}
-          {activeTab === 'identidad' && <ModuleIdentidad />}
-          {activeTab === 'configuracion' && <ModuleConfiguracion />}
+        {/* MAIN RENDERER */}
+        <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              {activeTab === 'inicio' && <ModuleInicio />}
+              {activeTab === 'contabilidad' && <ModuleContabilidad />}
+              {activeTab === 'rrhh' && <ModuleRRHH />}
+              {activeTab === 'juridico' && <ModuleJuridico />}
+              {activeTab === 'sostenibilidad' && <ModuleSostenibilidad simulate={simulateRecycling} history={recyclingHistory} points={greenPoints} today={recyclingToday} trees={treesSaved} />}
+              {activeTab === 'petroleo' && <ModulePetroleo />}
+              {activeTab === 'tesoreria' && <ModuleTesoreria />}
+              {activeTab === 'mantenimiento' && <ModuleMantenimiento />}
+              {activeTab === 'fiscalizacion' && <ModuleFiscalizacion />}
+              {activeTab === 'tienda' && <ModuleTienda cartCount={cartCount} addToCart={() => setCartCount(c => c + 1)} />}
+              {activeTab === 'identidad' && <ModuleIdentidad />}
+              {activeTab === 'configuracion' && <ModuleConfiguracion />}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        <footer className="p-4 bg-white/40 backdrop-blur-sm border-t text-center">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            © 2026 System Kyron • Inteligencia Empresarial & Sostenibilidad • v2.0.0 (Gold Release)
-          </p>
-        </footer>
-
-        {/* FLOATING ASISTENTE */}
-        <button className="fixed bottom-24 right-8 bg-[#0A2472] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all z-50 group border-4 border-white/20">
-          <MessageCircle className="h-6 w-6" />
-          <span className="absolute right-16 bottom-2 bg-white text-[#0A2472] px-4 py-2 rounded-2xl rounded-br-none shadow-xl text-xs font-bold w-48 opacity-0 group-hover:opacity-100 transition-opacity">
-            ¿Necesitas ayuda? System Kyron está aquí.
-          </span>
-        </button>
+        {/* ASISTENTE VIRTUAL */}
+        <div className="fixed bottom-8 right-8 z-50">
+          <AnimatePresence>
+            {asistenteOpen && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 20 }}
+                className="absolute bottom-20 right-0 w-80 bg-card/95 backdrop-blur-2xl border shadow-2xl rounded-3xl overflow-hidden"
+              >
+                <div className="bg-[#0A2472] p-4 text-white flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <BrainCircuit className="h-5 w-5 text-[#4CAF50] animate-pulse" />
+                    <span className="text-sm font-black uppercase tracking-widest">Asistente Kyron</span>
+                  </div>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/10" onClick={() => setAsistenteOpen(false)}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+                <div className="p-6 h-64 overflow-y-auto space-y-4 text-sm">
+                  <div className="bg-secondary p-3 rounded-2xl rounded-bl-none text-slate-700">
+                    Hola, soy el asistente inteligente de Kyron. ¿En qué puedo apoyarte hoy?
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Button variant="outline" className="justify-start h-9 text-xs rounded-xl" onClick={() => toast({title: "Consulta", description: "Analizando estados financieros..."})}>
+                      ¿Cómo va la rentabilidad?
+                    </Button>
+                    <Button variant="outline" className="justify-start h-9 text-xs rounded-xl" onClick={() => toast({title: "Alerta", description: "Verificando cumplimiento SENIAT..."})}>
+                      ¿Tengo trámites pendientes?
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <Button 
+            onClick={() => setAsistenteOpen(!asistenteOpen)}
+            className="h-14 w-14 rounded-full bg-[#0A2472] hover:scale-110 transition-all shadow-2xl border-4 border-white/20 p-0"
+          >
+            <MessageCircle className="h-6 w-6 text-white" />
+          </Button>
+        </div>
       </main>
 
       <style jsx global>{`
@@ -234,9 +290,11 @@ export default function EcosistemaKyron() {
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(10, 36, 114, 0.1); border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(10, 36, 114, 0.2); }
-        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 16px; box-shadow: 0 8px 32px 0 rgba(10, 36, 114, 0.05); }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 24px; box-shadow: 0 8px 32px 0 rgba(10, 36, 114, 0.05); }
+        .perspective-1000 { perspective: 1000px; }
+        .preserve-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
       `}</style>
     </div>
   );
@@ -246,10 +304,13 @@ export default function EcosistemaKyron() {
 
 function ModuleInicio() {
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Panel de Control Estratégico</h3>
-        <Badge variant="outline" className="bg-[#4CAF50]/10 text-[#4CAF50] border-[#4CAF50]/20 font-bold px-4 py-1">Operación Estable</Badge>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Panel de Control Estratégico</h3>
+          <p className="text-sm text-muted-foreground">Resumen consolidado del rendimiento corporativo.</p>
+        </div>
+        <Badge className="bg-[#4CAF50] text-white px-4 py-1.5 rounded-full font-bold">OPERACIÓN ESTABLE</Badge>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -267,9 +328,9 @@ function ModuleInicio() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-2 glass-card">
+        <Card className="lg:col-span-2 glass-card border-none">
           <CardHeader>
-            <CardTitle className="text-[#0A2472]">Desempeño Financiero</CardTitle>
+            <CardTitle className="text-[#0A2472] flex items-center gap-2"><AreaChart className="h-5 w-5"/> Desempeño Financiero</CardTitle>
             <CardDescription>Comparativa semestral de flujo de caja</CardDescription>
           </CardHeader>
           <CardContent className="h-[300px]">
@@ -277,7 +338,7 @@ function ModuleInicio() {
               <AreaChart data={financialHistory}>
                 <defs>
                   <linearGradient id="colorIng" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#0A2472" stopOpacity={0.3}/>
+                    <stop offset="5%" stopColor="#0A2472" stopOpacity={0.2}/>
                     <stop offset="95%" stopColor="#0A2472" stopOpacity={0}/>
                   </linearGradient>
                   <linearGradient id="colorGas" x1="0" y1="0" x2="0" y2="1">
@@ -288,7 +349,7 @@ function ModuleInicio() {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
                 <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
                 <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-                <Tooltip contentStyle={{borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)'}} />
+                <Tooltip contentStyle={{borderRadius: '16px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)'}} />
                 <Area type="monotone" dataKey="ingresos" stroke="#0A2472" strokeWidth={3} fillOpacity={1} fill="url(#colorIng)" />
                 <Area type="monotone" dataKey="gastos" stroke="#F44336" strokeWidth={2} fillOpacity={1} fill="url(#colorGas)" />
               </AreaChart>
@@ -296,60 +357,58 @@ function ModuleInicio() {
           </CardContent>
         </Card>
 
-        <Card className="glass-card">
+        <Card className="glass-card border-none">
           <CardHeader>
-            <CardTitle className="text-[#0A2472]">Composición de Residuos</CardTitle>
-            <CardDescription>Distribución por tipo de material</CardDescription>
+            <CardTitle className="text-[#0A2472] flex items-center gap-2"><Recycle className="h-5 w-5"/> Residuos por Tipo</CardTitle>
+            <CardDescription>Distribución porcentual de reciclaje</CardDescription>
           </CardHeader>
           <CardContent className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={recyclingMix} innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
+                <Pie data={recyclingMix} innerRadius={60} outerRadius={85} paddingAngle={5} dataKey="value">
                   {recyclingMix.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS.chart[index % COLORS.chart.length]} />
+                    <Cell key={`cell-${index}`} fill={COLORS.chart[index % COLORS.chart.length]} stroke="none" />
                   ))}
                 </Pie>
                 <Tooltip />
-                <Legend layout="vertical" align="right" verticalAlign="middle" iconType="circle" />
+                <Legend iconType="circle" />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="glass-card">
-        <CardHeader>
-          <CardTitle className="text-[#0A2472]">Actividad Reciente del Sistema</CardTitle>
+      <Card className="glass-card border-none overflow-hidden">
+        <CardHeader className="bg-[#0A2472]/5">
+          <CardTitle className="text-[#0A2472] flex items-center gap-2"><History className="h-5 w-5"/> Actividad Reciente</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-slate-50">
               <TableRow>
-                <TableHead>Fecha</TableHead>
-                <TableHead>Acción</TableHead>
-                <TableHead>Módulo</TableHead>
-                <TableHead className="text-right">Estado</TableHead>
+                <TableHead className="pl-6">Fecha</TableHead>
+                <TableHead>Descripción</TableHead>
+                <TableHead className="text-right pr-6">Estado</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell className="text-xs">Hoy, 14:20</TableCell>
-                <TableCell className="font-bold">Factura #F-2026-452 emitida</TableCell>
-                <TableCell><Badge variant="secondary">Contabilidad</Badge></TableCell>
-                <TableCell className="text-right"><CheckCircle2 className="text-[#4CAF50] ml-auto h-4 w-4" /></TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="text-xs">Hoy, 13:10</TableCell>
-                <TableCell className="font-bold">Reciclaje de Papel registrado</TableCell>
-                <TableCell><Badge variant="secondary">Sostenibilidad</Badge></TableCell>
-                <TableCell className="text-right"><CheckCircle2 className="text-[#4CAF50] ml-auto h-4 w-4" /></TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="text-xs">Hoy, 09:30</TableCell>
-                <TableCell className="font-bold">Nómina Q1 Marzo 2026 procesada</TableCell>
-                <TableCell><Badge variant="secondary">RR.HH.</Badge></TableCell>
-                <TableCell className="text-right"><CheckCircle2 className="text-[#4CAF50] ml-auto h-4 w-4" /></TableCell>
-              </TableRow>
+              {[
+                { date: "Hoy, 14:20", desc: "Factura #F-2026-452 emitida", status: "Completado" },
+                { date: "Hoy, 13:10", desc: "Reciclaje de Papel (1.2kg) registrado", status: "Completado" },
+                { date: "Hoy, 09:30", desc: "Nómina Q1 Marzo 2026 procesada", status: "Completado" },
+                { date: "Ayer, 17:45", desc: "Contrato TechSolutions renovado", status: "Completado" },
+                { date: "Ayer, 11:20", desc: "Mantenimiento preventivo Bomba B-45", status: "Pendiente" }
+              ].map((row, i) => (
+                <TableRow key={i} className="hover:bg-slate-50/50">
+                  <TableCell className="pl-6 text-xs text-slate-400 font-bold uppercase">{row.date}</TableCell>
+                  <TableCell className="font-medium text-slate-700">{row.desc}</TableCell>
+                  <TableCell className="text-right pr-6">
+                    <Badge variant="outline" className={row.status === "Completado" ? "text-green-600 border-green-200 bg-green-50" : "text-yellow-600 border-yellow-200 bg-yellow-50"}>
+                      {row.status}
+                    </Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </CardContent>
@@ -360,16 +419,23 @@ function ModuleInicio() {
 
 function StatCard({ title, value, trend, icon: Icon, variant = 'primary' }: any) {
   const colorClass = variant === 'accent' ? 'text-[#4CAF50]' : variant === 'danger' ? 'text-[#F44336]' : 'text-[#0A2472]';
+  const bgColor = variant === 'accent' ? 'bg-[#4CAF50]' : variant === 'danger' ? 'bg-[#F44336]' : 'bg-[#0A2472]';
   return (
-    <Card className="glass-card hover:scale-105 transition-all duration-300 cursor-pointer overflow-hidden border-none shadow-lg">
-      <div className={`h-1.5 w-full ${variant === 'accent' ? 'bg-[#4CAF50]' : variant === 'danger' ? 'bg-[#F44336]' : 'bg-[#0A2472]'}`} />
+    <Card className="glass-card hover:scale-[1.02] transition-all duration-300 border-none shadow-xl overflow-hidden group">
+      <div className={cn("h-1.5 w-full", bgColor)} />
       <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{title}</p>
-          <Icon className={`h-4 w-4 ${colorClass}`} />
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">{title}</p>
+          <div className={cn("p-2 rounded-lg bg-slate-50 group-hover:scale-110 transition-transform", colorClass)}>
+            <Icon className="h-4 w-4" />
+          </div>
         </div>
-        <h4 className={`text-2xl font-black ${colorClass} tracking-tight`}>{value}</h4>
-        {trend && <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase">Tendencia: <span className={trend.startsWith('+') ? 'text-green-500' : trend.startsWith('-') ? 'text-red-500' : ''}>{trend}</span></p>}
+        <h4 className={cn("text-2xl font-black tracking-tight mb-1", colorClass)}>{value}</h4>
+        {trend && (
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+            Trend: <span className={trend.startsWith('+') ? 'text-green-500' : trend.startsWith('-') ? 'text-red-500' : ''}>{trend}</span>
+          </p>
+        )}
       </CardContent>
     </Card>
   );
@@ -379,60 +445,73 @@ function ModuleContabilidad() {
   return (
     <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Gestión Contable y Fiscal</h3>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Centro de Contabilidad Fiscal</h3>
+          <p className="text-sm text-muted-foreground">Gestión de libros, facturación y tributos.</p>
+        </div>
         <div className="flex gap-3">
-          <Button variant="outline" className="rounded-xl border-[#0A2472]/20"><Download className="mr-2 h-4 w-4" /> Exportar Libro</Button>
-          <Button className="bg-[#0A2472] hover:bg-[#0A2472]/90 rounded-xl"><Plus className="mr-2 h-4 w-4" /> Nueva Factura</Button>
+          <Button variant="outline" className="rounded-xl border-[#0A2472]/20 h-11 px-6 font-bold"><Download className="mr-2 h-4 w-4" /> Exportar Libro</Button>
+          <Button className="bg-[#0A2472] hover:bg-[#0A2472]/90 rounded-xl h-11 px-6 font-bold shadow-lg"><Plus className="mr-2 h-4 w-4" /> Nueva Factura</Button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="glass-card p-6 flex flex-col items-center text-center">
-          <div className="p-3 bg-[#0A2472]/10 rounded-full mb-3 text-[#0A2472]"><History className="h-6 w-6"/></div>
-          <p className="text-xs font-bold text-slate-400 uppercase">Declaraciones Mes</p>
-          <h4 className="text-2xl font-black">15</h4>
+        <Card className="glass-card p-6 flex flex-col items-center text-center border-none shadow-lg">
+          <div className="p-4 bg-[#0A2472]/5 rounded-2xl mb-4 text-[#0A2472]"><Calculator className="h-8 w-8"/></div>
+          <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Declaraciones Mes</p>
+          <h4 className="text-3xl font-black text-[#0A2472]">15</h4>
         </Card>
-        <Card className="glass-card p-6 flex flex-col items-center text-center">
-          <div className="p-3 bg-[#4CAF50]/10 rounded-full mb-3 text-[#4CAF50]"><ArrowUpRight className="h-6 w-6"/></div>
-          <p className="text-xs font-bold text-slate-400 uppercase">Facturas Emitidas</p>
-          <h4 className="text-2xl font-black">234</h4>
+        <Card className="glass-card p-6 flex flex-col items-center text-center border-none shadow-lg">
+          <div className="p-4 bg-[#4CAF50]/5 rounded-2xl mb-4 text-[#4CAF50]"><ArrowUpRight className="h-8 w-8"/></div>
+          <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Facturas Emitidas</p>
+          <h4 className="text-3xl font-black text-[#4CAF50]">234</h4>
         </Card>
-        <Card className="glass-card p-6 flex flex-col items-center text-center">
-          <div className="p-3 bg-[#F44336]/10 rounded-full mb-3 text-[#F44336]"><ArrowDownRight className="h-6 w-6"/></div>
-          <p className="text-xs font-bold text-slate-400 uppercase">Facturas Recibidas</p>
-          <h4 className="text-2xl font-black">187</h4>
+        <Card className="glass-card p-6 flex flex-col items-center text-center border-none shadow-lg">
+          <div className="p-4 bg-[#F44336]/5 rounded-2xl mb-4 text-[#F44336]"><ArrowDownRight className="h-8 w-8"/></div>
+          <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Facturas Recibidas</p>
+          <h4 className="text-3xl font-black text-[#F44336]">187</h4>
         </Card>
-        <Card className="glass-card p-6 flex flex-col items-center text-center bg-[#F44336]/5 border-[#F44336]/20">
-          <div className="p-3 bg-[#F44336]/10 rounded-full mb-3 text-[#F44336]"><AlertTriangle className="h-6 w-6"/></div>
-          <p className="text-xs font-bold text-[#F44336] uppercase">Próximo Vencimiento</p>
-          <h4 className="text-lg font-black">IVA (15/03/2026)</h4>
+        <Card className="glass-card p-6 flex flex-col items-center text-center bg-red-50 border border-red-100 shadow-lg">
+          <div className="p-4 bg-red-100/50 rounded-2xl mb-4 text-red-600"><AlertTriangle className="h-8 w-8"/></div>
+          <p className="text-xs font-black text-red-400 uppercase tracking-widest mb-1">Vencimiento IVA</p>
+          <h4 className="text-xl font-black text-red-600">15/03/2026</h4>
         </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-2 glass-card">
-          <CardHeader>
-            <CardTitle className="text-[#0A2472]">Libro de Ventas Recientes</CardTitle>
+        <Card className="lg:col-span-2 glass-card border-none shadow-xl overflow-hidden">
+          <CardHeader className="bg-[#0A2472]/5">
+            <CardTitle className="text-[#0A2472]">Libro de Ventas</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <Table>
-              <TableHeader>
+              <TableHeader className="bg-slate-50">
                 <TableRow>
-                  <TableHead>Número</TableHead>
+                  <TableHead className="pl-6">Número</TableHead>
                   <TableHead>Cliente</TableHead>
                   <TableHead>Fecha</TableHead>
-                  <TableHead>Monto</TableHead>
-                  <TableHead>Estado</TableHead>
+                  <TableHead className="text-right">Monto</TableHead>
+                  <TableHead className="text-right pr-6">Estado</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {['F-452', 'F-451', 'F-450', 'F-449', 'F-448'].map((num, i) => (
-                  <TableRow key={num}>
-                    <TableCell className="font-mono font-bold text-[#0A2472]">{num}</TableCell>
-                    <TableCell>Distribuidora El Éxito C.A.</TableCell>
-                    <TableCell>28/02/2026</TableCell>
-                    <TableCell className="font-bold">$ 1.250,00</TableCell>
-                    <TableCell><Badge className={i % 3 === 0 ? 'bg-yellow-500' : 'bg-green-500'}>{i % 3 === 0 ? 'Pendiente' : 'Pagado'}</Badge></TableCell>
+                {[
+                  { num: 'F-452', client: 'Distribuidora El Éxito', date: '28/02/2026', amount: 1250, status: 'Pagado' },
+                  { num: 'F-451', client: 'Inversiones Los Andes', date: '27/02/2026', amount: 3400, status: 'Pendiente' },
+                  { num: 'F-450', client: 'Suministros Globales', date: '26/02/2026', amount: 890, status: 'Pagado' },
+                  { num: 'F-449', client: 'TechSolutions LLC', date: '25/02/2026', amount: 5600, status: 'Anulado' }
+                ].map((inv, i) => (
+                  <TableRow key={inv.num} className="hover:bg-slate-50/50">
+                    <TableCell className="pl-6 font-mono font-bold text-[#0A2472]">{inv.num}</TableCell>
+                    <TableCell className="font-medium">{inv.client}</TableCell>
+                    <TableCell className="text-xs">{inv.date}</TableCell>
+                    <TableCell className="text-right font-bold text-slate-700">{formatCurrency(inv.amount, "USD")}</TableCell>
+                    <TableCell className="text-right pr-6">
+                      <Badge className={cn(
+                        "rounded-full px-3",
+                        inv.status === 'Pagado' ? 'bg-green-500' : inv.status === 'Pendiente' ? 'bg-yellow-500' : 'bg-red-500'
+                      )}>{inv.status}</Badge>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -440,27 +519,32 @@ function ModuleContabilidad() {
           </CardContent>
         </Card>
 
-        <Card className="glass-card">
+        <Card className="glass-card border-none shadow-xl">
           <CardHeader>
-            <CardTitle className="text-[#0A2472]">Calendario Fiscal</CardTitle>
+            <CardTitle className="text-[#0A2472] flex items-center gap-2"><Calendar className="h-5 w-5"/> Vencimientos</CardTitle>
           </CardHeader>
-          <CardContent className="p-0">
-            <div className="p-6">
-              <div className="grid grid-cols-7 gap-2 text-center text-[10px] font-black uppercase text-slate-400 mb-4">
-                <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span><span>Do</span>
+          <CardContent className="p-6 pt-0">
+            <div className="grid grid-cols-7 gap-2 text-center text-[10px] font-black uppercase text-slate-400 mb-4">
+              <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span><span>Do</span>
+            </div>
+            <div className="grid grid-cols-7 gap-2">
+              {Array.from({length: 31}).map((_, i) => (
+                <div key={i} className={cn(
+                  "h-9 w-full flex items-center justify-center rounded-xl text-xs font-bold transition-all cursor-default",
+                  [15, 22, 30].includes(i+1) ? 'bg-red-500 text-white shadow-lg shadow-red-200' : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                )}>
+                  {i+1}
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 space-y-3">
+              <div className="flex items-center gap-3 p-3 bg-red-50 rounded-2xl border border-red-100">
+                <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse"/>
+                <p className="text-xs font-bold text-red-700">IVA Mensual (Marzo)</p>
               </div>
-              <div className="grid grid-cols-7 gap-2">
-                {Array.from({length: 31}).map((_, i) => (
-                  <div key={i} className={`h-8 w-8 flex items-center justify-center rounded-lg text-xs font-bold ${
-                    [15, 22, 30].includes(i+1) ? 'bg-[#F44336] text-white' : 'hover:bg-slate-100 text-slate-600'
-                  }`}>
-                    {i+1}
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 space-y-2">
-                <div className="flex items-center gap-2 text-xs"><div className="h-2 w-2 rounded-full bg-[#F44336]"/> Declaración de IVA</div>
-                <div className="flex items-center gap-2 text-xs"><div className="h-2 w-2 rounded-full bg-[#F44336]"/> ISLR Trimestral</div>
+              <div className="flex items-center gap-3 p-3 bg-red-50 rounded-2xl border border-red-100">
+                <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse"/>
+                <p className="text-xs font-bold text-red-700">ISLR Trimestral</p>
               </div>
             </div>
           </CardContent>
@@ -474,49 +558,93 @@ function ModuleRRHH() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Gestión de Talento Humano</h3>
-        <Button className="bg-[#0A2472] rounded-xl"><Plus className="mr-2 h-4 w-4" /> Nuevo Empleado</Button>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Gestión de Talento y Cultura</h3>
+          <p className="text-sm text-muted-foreground">Administración de nómina, personal y beneficios.</p>
+        </div>
+        <Button className="bg-[#0A2472] rounded-xl h-11 px-6 font-bold shadow-lg"><Plus className="mr-2 h-4 w-4" /> Nuevo Empleado</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <StatCard title="Empleados Activos" value="124" icon={Users} />
         <StatCard title="Nómina Mensual" value="$ 85.000" icon={Wallet} />
-        <StatCard title="Vacaciones Solicitadas" value="7" icon={Leaf} variant="warning" />
+        <StatCard title="Vacaciones" value="7" icon={Leaf} variant="warning" />
         <StatCard title="Prestaciones" value="100%" icon={CheckCircle2} variant="accent" />
       </div>
 
-      <Card className="glass-card">
-        <CardHeader>
-          <CardTitle className="text-[#0A2472]">Nómina de Personal</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Empleado</TableHead>
-                <TableHead>Cargo</TableHead>
-                <TableHead>Departamento</TableHead>
-                <TableHead>Ingreso</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {initialEmployees.map(emp => (
-                <TableRow key={emp.id}>
-                  <TableCell className="flex items-center gap-3">
-                    <Avatar className="h-8 w-8"><AvatarFallback className="bg-[#4CAF50] text-white text-[10px] font-bold">{emp.name.split(' ').map(n => n[0]).join('')}</AvatarFallback></Avatar>
-                    <span className="font-bold">{emp.name}</span>
-                  </TableCell>
-                  <TableCell>{emp.role}</TableCell>
-                  <TableCell><Badge variant="secondary">{emp.dept}</Badge></TableCell>
-                  <TableCell className="text-xs text-slate-500">{emp.date}</TableCell>
-                  <TableCell className="text-right"><Button variant="ghost" size="sm" className="text-[#0A2472] font-bold">Ver Perfil</Button></TableCell>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <Card className="lg:col-span-2 glass-card border-none shadow-xl overflow-hidden">
+          <CardHeader className="bg-[#0A2472]/5">
+            <CardTitle className="text-[#0A2472]">Nómina de Personal</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader className="bg-slate-50">
+                <TableRow>
+                  <TableHead className="pl-6">Empleado</TableHead>
+                  <TableHead>Cargo</TableHead>
+                  <TableHead>Departamento</TableHead>
+                  <TableHead className="text-right pr-6">Acciones</TableHead>
                 </TableRow>
+              </TableHeader>
+              <TableBody>
+                {initialEmployees.map(emp => (
+                  <TableRow key={emp.id} className="hover:bg-slate-50/50">
+                    <TableCell className="pl-6 flex items-center gap-3 py-4">
+                      <Avatar className="h-10 w-10 border-2 border-white shadow-sm">
+                        <AvatarFallback className="bg-slate-100 text-[#0A2472] font-black text-xs">{emp.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-black text-sm text-slate-700 leading-none mb-1">{emp.name}</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase">Ingreso: {emp.date}</p>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-sm font-medium">{emp.role}</TableCell>
+                    <TableCell><Badge variant="secondary" className="rounded-full bg-slate-100 text-slate-600 border-none">{emp.dept}</Badge></TableCell>
+                    <TableCell className="text-right pr-6"><Button variant="ghost" size="sm" className="text-[#0A2472] font-black hover:bg-[#0A2472]/5">Ver Perfil</Button></TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        <div className="space-y-8">
+          <Card className="glass-card border-none shadow-xl">
+            <CardHeader><CardTitle className="text-[#0A2472] flex items-center gap-2"><BarChart3 className="h-5 w-5"/> Distribución</CardTitle></CardHeader>
+            <CardContent className="h-[200px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={[
+                  { name: 'Adm', val: 12 }, { name: 'Tec', val: 45 }, { name: 'Ops', val: 38 }, { name: 'Ven', val: 29 }
+                ]}>
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 10}} />
+                  <Bar dataKey="val" fill="#0A2472" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          <Card className="glass-card border-none shadow-xl bg-yellow-50/50">
+            <CardHeader><CardTitle className="text-yellow-700 text-sm font-black uppercase tracking-widest">Solicitudes Pendientes</CardTitle></CardHeader>
+            <CardContent className="space-y-4 pt-0">
+              {[
+                { name: "Andrés Rojas", type: "Permiso Médico", date: "05/03" },
+                { name: "Lucia Gil", type: "Vacaciones", date: "12/03" }
+              ].map((req, i) => (
+                <div key={i} className="p-4 bg-white rounded-2xl shadow-sm border border-yellow-100">
+                  <div className="flex justify-between items-start mb-3">
+                    <div><p className="font-bold text-sm">{req.name}</p><p className="text-[10px] font-bold text-slate-400 uppercase">{req.type} - {req.date}</p></div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" className="flex-1 bg-[#4CAF50] hover:bg-[#4CAF50]/90 rounded-lg text-[10px] font-black">APROBAR</Button>
+                    <Button size="sm" variant="outline" className="flex-1 rounded-lg text-[10px] font-black border-red-200 text-red-500 hover:bg-red-50">RECHAZAR</Button>
+                  </div>
+                </div>
               ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }
@@ -525,53 +653,80 @@ function ModuleJuridico() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Control Jurídico y Normativo</h3>
-        <Button className="bg-[#0A2472] rounded-xl">Generar Reporte de Cumplimiento</Button>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Gobierno Corporativo y Legal</h3>
+          <p className="text-sm text-muted-foreground">Control de cumplimiento, contratos y riesgos.</p>
+        </div>
+        <Button className="bg-[#0A2472] rounded-xl h-11 font-black shadow-lg">Generar Reporte de Cumplimiento</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-[#4CAF50]/10 border border-[#4CAF50]/20 p-6 rounded-2xl flex items-center gap-4">
-          <div className="p-3 bg-[#4CAF50]/20 rounded-full text-[#4CAF50]"><CheckCircle2 /></div>
-          <div><p className="text-xs font-bold text-[#4CAF50] uppercase">Alertas</p><h4 className="text-lg font-black text-[#4CAF50]">Ninguna multa activa</h4></div>
+        <div className="bg-green-50 border border-green-100 p-6 rounded-[2rem] flex items-center gap-5 shadow-sm">
+          <div className="p-4 bg-green-500 rounded-2xl text-white shadow-lg shadow-green-200"><CheckCircle2 /></div>
+          <div><p className="text-[10px] font-black text-green-600 uppercase tracking-widest">Alertas Legales</p><h4 className="text-lg font-black text-green-700">Cero multas activas</h4></div>
         </div>
-        <div className="bg-[#FFC107]/10 border border-[#FFC107]/20 p-6 rounded-2xl flex items-center gap-4">
-          <div className="p-3 bg-[#FFC107]/20 rounded-full text-[#FFC107]"><History /></div>
-          <div><p className="text-xs font-bold text-[#FFC107] uppercase">Contratos</p><h4 className="text-lg font-black text-[#FFC107]">3 por renovar</h4></div>
+        <div className="bg-yellow-50 border border-yellow-100 p-6 rounded-[2rem] flex items-center gap-5 shadow-sm">
+          <div className="p-4 bg-yellow-500 rounded-2xl text-white shadow-lg shadow-yellow-200"><History /></div>
+          <div><p className="text-[10px] font-black text-yellow-600 uppercase tracking-widest">Renovaciones</p><h4 className="text-lg font-black text-yellow-700">3 contratos próximos</h4></div>
         </div>
-        <div className="bg-[#0A2472]/10 border border-[#0A2472]/20 p-6 rounded-2xl flex items-center gap-4">
-          <div className="p-3 bg-[#0A2472]/20 rounded-full text-[#0A2472]"><Plus /></div>
-          <div><p className="text-xs font-bold text-[#0A2472] uppercase">Firma</p><h4 className="text-lg font-black text-[#0A2472]">5 documentos pendientes</h4></div>
+        <div className="bg-blue-50 border border-blue-100 p-6 rounded-[2rem] flex items-center gap-5 shadow-sm">
+          <div className="p-4 bg-[#0A2472] rounded-2xl text-white shadow-lg shadow-blue-200"><FileSignature /></div>
+          <div><p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Pendientes</p><h4 className="text-lg font-black text-blue-700">5 firmas digitales</h4></div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="glass-card">
-          <CardHeader><CardTitle className="text-[#0A2472]">Biblioteca de Contratos</CardTitle></CardHeader>
-          <CardContent>
+        <Card className="glass-card border-none shadow-xl">
+          <CardHeader><CardTitle className="text-[#0A2472] flex items-center gap-2"><BookOpen className="h-5 w-5"/> Biblioteca de Contratos</CardTitle></CardHeader>
+          <CardContent className="pt-0">
             <div className="space-y-4">
-              {['Contrato Alquiler Sede Central', 'Servicios IT Outsourcing', 'Convenio Aliado Banesco'].map((c, i) => (
-                <div key={c} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <div><p className="font-bold text-sm">{c}</p><p className="text-[10px] text-slate-400 font-bold uppercase">Expira: 31/12/2026</p></div>
-                  <Badge variant={i === 1 ? 'outline' : 'default'} className={i === 1 ? 'text-yellow-600 border-yellow-200' : 'bg-green-500'}>{i === 1 ? 'Por Vencer' : 'Vigente'}</Badge>
+              {[
+                { name: 'Contrato Alquiler Sede Central', date: '31/12/2026', status: 'Vigente' },
+                { name: 'Servicios IT Outsourcing', date: '15/04/2026', status: 'Por Vencer' },
+                { name: 'Convenio Aliado Banesco', date: '20/02/2027', status: 'Vigente' },
+                { name: 'Licencia de Software SAP', date: '01/01/2026', status: 'Vencido' }
+              ].map((c, i) => (
+                <div key={c.name} className="flex items-center justify-between p-5 bg-white/50 rounded-[1.5rem] border border-slate-100 hover:border-primary/20 transition-all group">
+                  <div className="flex items-center gap-4">
+                    <div className="p-2.5 bg-slate-100 rounded-xl group-hover:bg-primary/5 transition-colors"><FileText className="h-5 w-5 text-slate-400 group-hover:text-primary"/></div>
+                    <div><p className="font-bold text-sm text-slate-700">{c.name}</p><p className="text-[10px] text-slate-400 font-bold uppercase">Expira: {c.date}</p></div>
+                  </div>
+                  <Badge className={cn(
+                    "rounded-full px-3",
+                    c.status === 'Vigente' ? 'bg-green-500' : c.status === 'Por Vencer' ? 'bg-yellow-500' : 'bg-red-500'
+                  )}>{c.status}</Badge>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="glass-card">
-          <CardHeader><CardTitle className="text-[#0A2472]">Checklist de Cumplimiento</CardTitle></CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {['Ley de IVA (Providencia 0071)', 'Cumplimiento LOTTT', 'Registro SAREN actualizado', 'Habilitación Sanitaria'].map((item, i) => (
-                <div key={item} className="flex items-center gap-3">
-                  <div className={`h-5 w-5 rounded border-2 flex items-center justify-center ${i < 3 ? 'bg-[#4CAF50] border-[#4CAF50]' : 'border-slate-300'}`}>
-                    {i < 3 && <CheckCircle2 className="h-3 w-3 text-white" />}
-                  </div>
-                  <span className={`text-sm ${i < 3 ? 'text-slate-700 font-medium' : 'text-slate-400 italic'}`}>{item}</span>
+        <Card className="glass-card border-none shadow-xl">
+          <CardHeader><CardTitle className="text-[#0A2472] flex items-center gap-2"><ShieldCheck className="h-5 w-5"/> Checklist de Cumplimiento</CardTitle></CardHeader>
+          <CardContent className="space-y-6 pt-4">
+            {[
+              { item: 'Ley de IVA (Providencia 0071)', desc: 'Validación de formatos fiscales y control de series.', done: true },
+              { item: 'Cumplimiento LOTTT', desc: 'Cálculo correcto de horas extras y beneficios.', done: true },
+              { item: 'Registro SAREN actualizado', desc: 'Última acta de asamblea inscrita en registro.', done: true },
+              { item: 'Habilitación Sanitaria', desc: 'Renovación de permisos para comedor corporativo.', done: false }
+            ].map((item, i) => (
+              <div key={item.item} className="flex items-start gap-4">
+                <div className={cn(
+                  "h-6 w-6 rounded-lg border-2 flex items-center justify-center shrink-0 mt-1 transition-all",
+                  item.done ? 'bg-[#4CAF50] border-[#4CAF50] shadow-lg shadow-green-100' : 'border-slate-300 bg-white'
+                )}>
+                  {item.done && <CheckCircle2 className="h-4 w-4 text-white" />}
                 </div>
-              ))}
-            </div>
+                <div>
+                  <p className={cn("text-sm font-black", item.done ? 'text-slate-700' : 'text-slate-400')}>{item.item}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+            <Separator className="bg-slate-100"/>
+            <Button variant="ghost" className="w-full h-12 text-[#0A2472] font-black uppercase text-[10px] tracking-[0.2em] rounded-2xl hover:bg-primary/5">
+              Auditar todo el ecosistema <ChevronRight className="ml-2 h-4 w-4"/>
+            </Button>
           </CardContent>
         </Card>
       </div>
@@ -583,44 +738,47 @@ function ModuleSostenibilidad({ simulate, history, points, today, trees }: any) 
   return (
     <div className="space-y-8 animate-in zoom-in-95 duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#4CAF50] tracking-tighter flex items-center gap-3">
-          <Recycle className="h-8 w-8" /> 
-          Papelera Inteligente & Sostenibilidad
-        </h3>
-        <Button onClick={simulate} className="bg-[#4CAF50] hover:bg-[#4CAF50]/90 rounded-xl shadow-lg animate-float">
-          <Plus className="mr-2 h-4 w-4" /> Simular Reciclaje
+        <div>
+          <h3 className="text-2xl font-black text-[#4CAF50] tracking-tighter flex items-center gap-3">
+            <Recycle className="h-8 w-8" /> 
+            Papelera Inteligente & Sostenibilidad
+          </h3>
+          <p className="text-sm text-muted-foreground">Gestión automatizada de residuos y huella de carbono.</p>
+        </div>
+        <Button onClick={simulate} className="bg-[#4CAF50] hover:bg-[#4CAF50]/90 rounded-2xl h-12 px-8 font-black shadow-xl animate-float">
+          <Plus className="mr-2 h-5 w-5" /> SIMULAR RECICLAJE
         </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <StatCard title="Reciclado Hoy" value={`${today.toFixed(1)} kg`} icon={Leaf} variant="accent" />
         <StatCard title="Reciclado Mes" value="3.450 kg" icon={AreaChart} variant="accent" />
-        <StatCard title="Puntos Verdes" value={points.toLocaleString()} icon={Recycle} variant="accent" />
-        <StatCard title="Equivalencia" value={`${trees} Árboles`} icon={History} variant="accent" />
+        <StatCard title="Puntos Verdes" value={points.toLocaleString()} icon={Zap} variant="accent" />
+        <StatCard title="Huella de Impacto" value={`${trees} Árboles`} icon={History} variant="accent" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-2 glass-card">
-          <CardHeader>
-            <CardTitle className="text-[#0A2472] flex items-center gap-2"><History className="h-5 w-5" /> Historial de Depósitos</CardTitle>
+        <Card className="lg:col-span-2 glass-card border-none shadow-2xl overflow-hidden">
+          <CardHeader className="bg-[#4CAF50]/5">
+            <CardTitle className="text-[#0A2472] flex items-center gap-2"><History className="h-5 w-5 text-[#4CAF50]" /> Historial de Depósitos</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <Table>
-              <TableHeader>
+              <TableHeader className="bg-slate-50">
                 <TableRow>
-                  <TableHead>Fecha/Hora</TableHead>
+                  <TableHead className="pl-6">Fecha/Hora</TableHead>
                   <TableHead>Material</TableHead>
                   <TableHead>Peso</TableHead>
-                  <TableHead className="text-right">Puntos</TableHead>
+                  <TableHead className="text-right pr-6">Puntos</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {history.map((h: any, i: number) => (
-                  <TableRow key={i} className="animate-in fade-in slide-in-from-top-2 duration-300">
-                    <TableCell className="text-[10px] font-bold text-slate-400">{h.date}</TableCell>
-                    <TableCell><Badge variant="outline" className="border-[#4CAF50]/20 text-[#4CAF50] font-bold">{h.type}</Badge></TableCell>
-                    <TableCell className="font-medium">{h.weight} kg</TableCell>
-                    <TableCell className="text-right text-[#4CAF50] font-black">+{h.points}</TableCell>
+                {history.map((h: any) => (
+                  <TableRow key={h.id} className="animate-in fade-in slide-in-from-top-2 duration-300">
+                    <TableCell className="pl-6 text-[10px] font-bold text-slate-400 uppercase">{h.date}</TableCell>
+                    <TableCell><Badge variant="outline" className="border-[#4CAF50]/20 text-[#4CAF50] font-bold rounded-lg">{h.type}</Badge></TableCell>
+                    <TableCell className="font-bold text-slate-700">{h.weight} kg</TableCell>
+                    <TableCell className="text-right pr-6 text-[#4CAF50] font-black">+{h.points}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -629,27 +787,38 @@ function ModuleSostenibilidad({ simulate, history, points, today, trees }: any) 
         </Card>
 
         <div className="space-y-8">
-          <Card className="glass-card bg-[#4CAF50]/5 border-[#4CAF50]/20">
-            <CardHeader><CardTitle className="text-sm font-black uppercase text-[#4CAF50] tracking-widest">Estado Papelera</CardTitle></CardHeader>
-            <CardContent className="space-y-4">
-              <div><div className="flex justify-between text-xs font-bold mb-1"><span>Capacidad</span><span>72%</span></div><Progress value={72} className="h-2" /></div>
-              <div className="flex items-center gap-3 p-3 bg-white/50 rounded-xl border border-[#4CAF50]/10">
-                <div className="h-3 w-3 rounded-full bg-[#4CAF50] animate-pulse" />
-                <p className="text-xs font-medium text-slate-600">Último reciclaje: hace 5 minutos - Papel (0.3 kg)</p>
+          <Card className="glass-card border-none shadow-xl bg-[#4CAF50]/5 overflow-hidden">
+            <div className="h-1 bg-[#4CAF50] w-full" />
+            <CardHeader className="pb-2"><CardTitle className="text-xs font-black uppercase text-[#4CAF50] tracking-widest">Estado Papelera Inteligente</CardTitle></CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs font-bold text-slate-600"><span>Capacidad de Almacenamiento</span><span>72%</span></div>
+                <Progress value={72} className="h-3 bg-white" />
+              </div>
+              <div className="flex items-center gap-4 p-4 bg-white/80 rounded-[1.5rem] border border-[#4CAF50]/10 shadow-sm">
+                <div className="h-4 w-4 rounded-full bg-[#4CAF50] animate-ping" />
+                <div className="text-xs">
+                  <p className="font-black text-[#0A2472] uppercase tracking-tighter">Última Detección</p>
+                  <p className="font-medium text-slate-500">Papel (0.3 kg) - Hace 5 min</p>
+                </div>
               </div>
             </CardContent>
           </Card>
 
           <div className="space-y-4">
-            <h4 className="text-sm font-black uppercase text-slate-400 tracking-widest">Catálogo de Canjes</h4>
+            <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Catálogo de Canjes</h4>
             {[
-              { t: "Descuento 10% en proveedores", p: 500 },
-              { t: "Kit Ecológico Corporativo", p: 300 }
+              { t: "Descuento 10% Proveedores", p: 500, icon: ShoppingBag },
+              { t: "Kit Ecológico Corporativo", p: 300, icon: Gift },
+              { t: "Donación Fundación Kyron", p: 200, icon: Heart }
             ].map(item => (
-              <Card key={item.t} className="glass-card p-4 hover:border-[#4CAF50]/50 transition-colors">
+              <Card key={item.t} className="glass-card p-4 hover:border-[#4CAF50]/50 transition-all cursor-pointer group shadow-lg border-none">
                 <div className="flex items-center justify-between">
-                  <div><p className="font-bold text-xs leading-tight">{item.t}</p><p className="text-[#4CAF50] font-black text-sm">{item.p} Pts</p></div>
-                  <Button size="sm" className="bg-[#4CAF50] hover:bg-[#4CAF50]/90 h-8 rounded-lg text-[10px] font-black">CANJEAR</Button>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-[#4CAF50]/10 rounded-lg text-[#4CAF50] group-hover:scale-110 transition-transform"><item.icon className="h-4 w-4"/></div>
+                    <div><p className="font-black text-xs text-slate-700 leading-tight">{item.t}</p><p className="text-[#4CAF50] font-black text-sm">{item.p} Pts</p></div>
+                  </div>
+                  <Button size="sm" className="bg-[#4CAF50] hover:bg-[#4CAF50]/90 h-8 rounded-lg text-[9px] font-black tracking-widest px-4 shadow-lg shadow-green-100">CANJEAR</Button>
                 </div>
               </Card>
             ))}
@@ -664,55 +833,90 @@ function ModulePetroleo() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Monitoreo de Activos (Petróleo)</h3>
-        <Badge className="bg-[#F44336] animate-pulse">1 Alerta Activa</Badge>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter flex items-center gap-3">
+            <Droplets className="h-8 w-8 text-[#0A2472]" /> 
+            Monitoreo de Activos Energéticos
+          </h3>
+          <p className="text-sm text-muted-foreground">Gemelo digital y telemetría en tiempo real.</p>
+        </div>
+        <Badge className="bg-[#F44336] animate-pulse px-4 py-1.5 rounded-full font-bold">1 ALERTA CRÍTICA</Badge>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <Card className="lg:col-span-3 glass-card relative min-h-[500px] bg-[#0A2472]/5 overflow-hidden">
-          <CardHeader className="absolute top-0 left-0 z-10">
-            <CardTitle className="text-xs font-black uppercase text-[#0A2472] tracking-[0.2em]">Mapa de Activos Estratégicos</CardTitle>
-          </CardHeader>
-          {/* SIMULACIÓN DE MAPA */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-[80%] h-[80%] opacity-40 grayscale contrast-125 brightness-75">
-               <Image src="https://picsum.photos/seed/map/800/600" alt="Mapa" layout="fill" className="rounded-2xl object-cover" />
-            </div>
-            {/* MARCADORES */}
-            <div className="absolute top-1/2 left-[40%] cursor-pointer group">
-              <div className="bg-[#4CAF50] h-4 w-4 rounded-full border-2 border-white shadow-lg animate-bounce" />
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-[#0A2472] text-white p-3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity text-[10px] shadow-2xl">
-                <p className="font-black uppercase tracking-widest mb-1 border-b border-white/10 pb-1">Pozo Ayacucho 07</p>
-                <div className="space-y-1 mt-2">
-                  <div className="flex justify-between"><span>Producción:</span><span className="font-bold">4.500 bpd</span></div>
-                  <div className="flex justify-between"><span>Presión:</span><span className="text-green-400 font-bold">3.200 psi</span></div>
-                  <div className="flex justify-between"><span>Temp:</span><span className="text-yellow-400 font-bold">85°C</span></div>
+        <Card className="lg:col-span-3 glass-card relative min-h-[550px] bg-slate-900 border-none shadow-2xl overflow-hidden rounded-[2.5rem]">
+          {/* SIMULACIÓN DE MAPA CON CSS Y GRADIENTES */}
+          <div className="absolute inset-0 bg-[#050505]">
+            <div className="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/seed/map-dark/1200/800')] bg-cover bg-center grayscale mix-blend-overlay" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(10,36,114,0.3),transparent_70%)]" />
+            
+            {/* MARCADORES INTERACTIVOS */}
+            <div className="absolute top-[40%] left-[30%] cursor-pointer group">
+              <div className="relative">
+                <div className="bg-[#4CAF50] h-4 w-4 rounded-full border-2 border-white shadow-lg animate-bounce" />
+                <div className="absolute top-0 left-0 bg-[#4CAF50]/30 h-4 w-4 rounded-full animate-ping" />
+              </div>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-56 bg-card/95 backdrop-blur-xl p-5 rounded-[1.5rem] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-2xl border border-white/20 translate-y-2 group-hover:translate-y-0">
+                <div className="flex items-center gap-2 mb-3 border-b pb-2">
+                  <Server className="h-4 w-4 text-[#4CAF50]"/>
+                  <span className="text-[10px] font-black uppercase text-[#0A2472] tracking-[0.2em]">Pozo Ayacucho 07</span>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs"><span className="text-slate-400">Producción:</span><span className="font-black">4.500 bpd</span></div>
+                  <div className="flex justify-between text-xs"><span className="text-slate-400">Presión:</span><span className="text-green-500 font-black">3.200 psi</span></div>
+                  <div className="flex justify-between text-xs"><span className="text-slate-400">Temp:</span><span className="text-yellow-500 font-black">85°C</span></div>
                 </div>
               </div>
             </div>
-            <div className="absolute top-[30%] left-[65%] cursor-pointer group">
-              <div className="bg-[#F44336] h-4 w-4 rounded-full border-2 border-white shadow-lg animate-ping" />
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-white p-3 rounded-xl border-2 border-[#F44336] text-[10px] shadow-2xl">
-                <p className="font-black uppercase tracking-widest mb-1 border-b border-red-100 pb-1 text-[#F44336]">Pozo Oriente 12</p>
-                <p className="font-bold text-slate-600 mt-2">ALERTA: Presión crítica detectada (4.800 psi)</p>
+
+            <div className="absolute top-[25%] left-[60%] cursor-pointer group">
+              <div className="relative">
+                <div className="bg-[#F44336] h-4 w-4 rounded-full border-2 border-white shadow-lg" />
+                <div className="absolute top-0 left-0 bg-[#F44336]/50 h-4 w-4 rounded-full animate-ping" />
+              </div>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-56 bg-white p-5 rounded-[1.5rem] border-2 border-red-100 shadow-2xl">
+                <div className="flex items-center gap-2 mb-3 border-b border-red-50 pb-2">
+                  <AlertTriangle className="h-4 w-4 text-[#F44336]"/>
+                  <span className="text-[10px] font-black uppercase text-[#F44336] tracking-[0.2em]">Pozo Oriente 12</span>
+                </div>
+                <p className="text-xs font-bold text-slate-600">PRESIÓN CRÍTICA: 4.800 psi. Se requiere intervención inmediata.</p>
               </div>
             </div>
+          </div>
+          
+          <div className="absolute top-6 left-6 z-10 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-3">
+            <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"/>
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Enlace Satelital Activo</span>
           </div>
         </Card>
 
         <div className="space-y-6">
-          <h4 className="text-sm font-black uppercase text-slate-400 tracking-widest">Estado de Infraestructura</h4>
+          <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.2em] ml-2">Infraestructura</h4>
           {[
             { n: "Refinería El Palito", s: "98%", v: "green" },
             { n: "Terminal Jose", s: "100%", v: "green" },
             { n: "Pozo Oriente 12", s: "45%", v: "red" },
             { n: "Estación San Tomé", s: "82%", v: "yellow" }
           ].map(asset => (
-            <div key={asset.n} className="p-4 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-between">
-              <div><p className="text-xs font-bold leading-none mb-1">{asset.n}</p><p className="text-[10px] text-slate-400 font-bold">Eficiencia: {asset.s}</p></div>
-              <div className={`h-3 w-3 rounded-full ${asset.v === 'green' ? 'bg-[#4CAF50]' : asset.v === 'red' ? 'bg-[#F44336]' : 'bg-[#FFC107]'}`} />
+            <div key={asset.n} className="p-5 bg-white rounded-2xl shadow-lg border border-slate-50 flex items-center justify-between hover:scale-[1.02] transition-transform cursor-pointer">
+              <div className="flex items-center gap-4">
+                <div className={cn(
+                  "h-3 w-3 rounded-full shadow-inner",
+                  asset.v === 'green' ? 'bg-[#4CAF50]' : asset.v === 'red' ? 'bg-[#F44336]' : 'bg-[#FFC107]'
+                )} />
+                <div><p className="text-sm font-black text-slate-700 leading-none mb-1">{asset.n}</p><p className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Eficiencia: {asset.s}</p></div>
+              </div>
+              <ChevronRight className="h-4 w-4 text-slate-300" />
             </div>
           ))}
+          
+          <Card className="glass-card border-none shadow-xl bg-[#0A2472] text-white overflow-hidden mt-8">
+            <CardContent className="p-6">
+              <h4 className="text-xs font-black uppercase tracking-[0.2em] text-[#4CAF50] mb-4">Mantenimiento Predictivo</h4>
+              <p className="text-sm font-light italic leading-relaxed opacity-80 mb-6">"Análisis de vibración sugiere cambio de rodamientos en Pozo 07 antes del 15 de Abril."</p>
+              <Button className="w-full bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/10">Ver Detalle IA</Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
@@ -723,51 +927,75 @@ function ModuleTesoreria() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Gestión de Tesorería Multi-Banco</h3>
-        <Button className="bg-[#0A2472] rounded-xl">Conciliación Bancaria</Button>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Tesorería Multi-Divisa</h3>
+          <p className="text-sm text-muted-foreground">Consolidado bancario y flujo de efectivo.</p>
+        </div>
+        <div className="flex gap-3">
+          <Button variant="outline" className="rounded-xl h-11 font-bold">Transferencia Rápida</Button>
+          <Button className="bg-[#0A2472] rounded-xl h-11 font-bold shadow-lg">Conciliación Bancaria</Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { b: "Banesco", bs: "45.678", usd: "1.250" },
-          { b: "Provincial", bs: "23.456", usd: "800" },
-          { b: "Mercantil", bs: "67.890", usd: "2.100" },
-          { b: "Bancaribe", bs: "12.345", usd: "0" }
+          { b: "Banesco", bs: "45.678", usd: "1.250", icon: Building },
+          { b: "Provincial", bs: "23.456", usd: "800", icon: Building },
+          { b: "Mercantil", bs: "67.890", usd: "2.100", icon: Building },
+          { b: "Bancaribe", bs: "12.345", usd: "0", icon: Building }
         ].map(bank => (
-          <Card key={bank.b} className="glass-card p-6 border-l-4 border-l-[#0A2472]">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">{bank.b}</p>
-            <div className="space-y-1">
-              <p className="text-xs font-bold text-slate-500">Bs. <span className="text-lg text-slate-800">{bank.bs}</span></p>
-              <p className="text-xs font-bold text-slate-500">$ <span className="text-lg text-[#4CAF50]">{bank.usd}</span></p>
+          <Card key={bank.b} className="glass-card p-6 border-l-4 border-l-[#0A2472] shadow-xl border-none">
+            <div className="flex items-center gap-2 mb-4">
+              <bank.icon className="h-4 w-4 text-slate-400" />
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{bank.b}</p>
+            </div>
+            <div className="space-y-2">
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase">Saldo VES</p>
+                <p className="text-lg font-black text-slate-800 tracking-tighter">Bs. {bank.bs}</p>
+              </div>
+              <Separator className="opacity-50" />
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase">Saldo USD</p>
+                <p className="text-lg font-black text-[#4CAF50] tracking-tighter">$ {bank.usd}</p>
+              </div>
             </div>
           </Card>
         ))}
       </div>
 
-      <Card className="glass-card">
-        <CardHeader><CardTitle className="text-[#0A2472]">Movimientos de Cuenta (Hoy)</CardTitle></CardHeader>
-        <CardContent>
+      <Card className="glass-card border-none shadow-2xl overflow-hidden">
+        <CardHeader className="bg-[#0A2472]/5">
+          <CardTitle className="text-[#0A2472]">Movimientos de Cuenta (Hoy)</CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-slate-50">
               <TableRow>
-                <TableHead>Banco</TableHead>
+                <TableHead className="pl-6">Banco</TableHead>
                 <TableHead>Descripción</TableHead>
                 <TableHead className="text-right">Monto Bs.</TableHead>
-                <TableHead className="text-right">Monto $</TableHead>
+                <TableHead className="text-right pr-6">Monto $</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell className="font-bold">Banesco</TableCell>
-                <TableCell>Pago de Nómina Q1</TableCell>
-                <TableCell className="text-right text-red-500 font-bold">- Bs. 12.000,00</TableCell>
-                <TableCell className="text-right">- $ 300,00</TableCell>
+              <TableRow className="hover:bg-slate-50/50">
+                <TableCell className="pl-6 font-bold text-slate-700">Banesco</TableCell>
+                <TableCell className="text-sm">Pago de Nómina Q1</TableCell>
+                <TableCell className="text-right text-red-500 font-black">- Bs. 12.000,00</TableCell>
+                <TableCell className="text-right pr-6 font-medium text-slate-500">- $ 300,00</TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell className="font-bold">Mercantil</TableCell>
-                <TableCell>Transferencia Recibida #452</TableCell>
-                <TableCell className="text-right text-green-500 font-bold">+ Bs. 5.400,00</TableCell>
-                <TableCell className="text-right">+ $ 135,00</TableCell>
+              <TableRow className="hover:bg-slate-50/50">
+                <TableCell className="pl-6 font-bold text-slate-700">Mercantil</TableCell>
+                <TableCell className="text-sm">Transferencia Recibida #452</TableCell>
+                <TableCell className="text-right text-green-500 font-black">+ Bs. 5.400,00</TableCell>
+                <TableCell className="text-right pr-6 font-black text-[#4CAF50]">+ $ 135,00</TableCell>
+              </TableRow>
+              <TableRow className="hover:bg-slate-50/50">
+                <TableCell className="pl-6 font-bold text-slate-700">Provincial</TableCell>
+                <TableCell className="text-sm">Pago Proveedor: Daka</TableCell>
+                <TableCell className="text-right text-red-500 font-black">- Bs. 8.200,00</TableCell>
+                <TableCell className="text-right pr-6 font-medium text-slate-500">- $ 205,00</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -781,39 +1009,64 @@ function ModuleMantenimiento() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Mantenimiento Predictivo IA</h3>
-        <Badge variant="secondary" className="bg-[#FFC107]/10 text-[#FFC107] border-[#FFC107]/20 font-bold">2 Equipos en Atención</Badge>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Mantenimiento Predictivo</h3>
+          <p className="text-sm text-muted-foreground">Estado de salud de activos críticos.</p>
+        </div>
+        <Badge className="bg-[#FFC107] text-[#0A2472] px-4 py-1.5 rounded-full font-black">2 ALERTAS DE PRECAUCIÓN</Badge>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { name: "Taladro TX-100", health: 98, status: "green", time: "150h" },
           { name: "Bomba B-45", health: 72, status: "yellow", time: "7 días" },
-          { name: "Compresor C-22", health: 45, status: "red", time: "INMEDIATO" },
+          { name: "Compresor C-22", health: 45, status: "red", time: "URGENTE" },
           { name: "Generador G-03", health: 95, status: "green", time: "240h" }
         ].map(item => (
-          <Card key={item.name} className="glass-card p-6">
-            <div className="flex justify-between items-start mb-4">
-              <p className="text-xs font-bold text-slate-400 uppercase leading-tight">{item.name}</p>
-              <div className={`h-2 w-2 rounded-full ${item.status === 'green' ? 'bg-[#4CAF50]' : item.status === 'red' ? 'bg-[#F44336]' : 'bg-[#FFC107]'}`} />
+          <Card key={item.name} className="glass-card border-none shadow-xl p-6 group transition-all hover:-translate-y-1">
+            <div className="flex justify-between items-start mb-6">
+              <div className="p-3 bg-slate-50 rounded-2xl group-hover:bg-primary/5 transition-colors">
+                <Wrench className={cn(
+                  "h-6 w-6",
+                  item.status === 'green' ? 'text-[#4CAF50]' : item.status === 'red' ? 'text-[#F44336]' : 'text-[#FFC107]'
+                )} />
+              </div>
+              <div className={cn("h-2.5 w-2.5 rounded-full shadow-inner", 
+                item.status === 'green' ? 'bg-[#4CAF50]' : item.status === 'red' ? 'bg-[#F44336]' : 'bg-[#FFC107]'
+              )} />
             </div>
-            <h4 className="text-3xl font-black mb-2">{item.health}%</h4>
-            <Progress value={item.health} className={`h-2 mb-4 ${item.status === 'red' ? 'bg-red-100' : ''}`} />
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Mant. Sugerido: <span className={item.status === 'red' ? 'text-[#F44336]' : ''}>{item.time}</span></p>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-2">{item.name}</p>
+            <h4 className="text-4xl font-black mb-4 tracking-tighter">{item.health}%</h4>
+            <div className="space-y-3">
+              <Progress value={item.health} className="h-2 bg-slate-100" />
+              <div className="flex justify-between text-[10px] font-black uppercase tracking-wider text-slate-400">
+                <span>Próx. Mant.</span>
+                <span className={item.status === 'red' ? 'text-[#F44336]' : 'text-slate-600'}>{item.time}</span>
+              </div>
+            </div>
           </Card>
         ))}
       </div>
 
-      <div className="bg-[#0A2472] text-white p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
-        <div className="absolute right-0 top-0 h-full w-1/3 bg-white/5 skew-x-12 translate-x-12" />
-        <h4 className="text-xl font-bold mb-4 flex items-center gap-3"><Wrench className="text-[#4CAF50]" /> Recomendación del Motor IA</h4>
-        <p className="text-lg font-light leading-relaxed max-w-2xl opacity-90">
-          Se ha detectado una anomalía térmica en los rodamientos del <span className="font-bold underline decoration-[#4CAF50]">Compresor C-22</span>. La probabilidad de falla mecánica catastrófica es del <span className="text-[#F44336] font-bold">85% en las próximas 24 horas</span>. 
-          <br /><br />
-          <span className="text-[#4CAF50] font-bold">Acción Sugerida:</span> Detener equipo y sustituir sellos antes del 20/04/2026.
-        </p>
-        <Button className="mt-8 bg-[#4CAF50] hover:bg-[#4CAF50]/90 text-white font-black px-8 py-6 rounded-2xl shadow-xl">GENERAR ORDEN DE TRABAJO</Button>
-      </div>
+      <Card className="glass-card border-none shadow-2xl overflow-hidden bg-gradient-to-br from-[#0A2472] to-[#1e3a8a] text-white">
+        <CardContent className="p-10 relative">
+          <div className="absolute right-0 top-0 h-full w-1/3 bg-white/5 skew-x-12 translate-x-20" />
+          <div className="max-w-2xl relative z-10">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-[#4CAF50]/20 text-[#4CAF50] rounded-full border border-[#4CAF50]/30 mb-6">
+              <BrainCircuit className="h-4 w-4" />
+              <span className="text-[10px] font-black uppercase tracking-widest">Recomendación IA Engine</span>
+            </div>
+            <h4 className="text-2xl font-black mb-4 tracking-tight">Intervención Crítica Detectada</h4>
+            <p className="text-lg font-light leading-relaxed opacity-90 mb-8">
+              "El análisis de vibración armónica del <span className="font-bold underline decoration-[#4CAF50] decoration-2 underline-offset-4">Compresor C-22</span> indica un desgaste prematuro en los sellos. Existe un riesgo del 85% de detención no programada en las próximas 48 horas de operación continua."
+            </p>
+            <div className="flex gap-4">
+              <Button className="bg-[#4CAF50] hover:bg-[#4CAF50]/90 text-white font-black px-8 h-12 rounded-2xl shadow-xl">GENERAR ORDEN DE TRABAJO</Button>
+              <Button variant="ghost" className="text-white hover:bg-white/10 font-bold h-12 px-6 rounded-2xl border border-white/10">Posponer 24h</Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
@@ -822,52 +1075,82 @@ function ModuleFiscalizacion() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Fiscalización de Proveedores</h3>
-        <Button className="bg-[#0A2472] rounded-xl">Portal de Autoservicio Proveedores</Button>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Fiscalización de Terceros</h3>
+          <p className="text-sm text-muted-foreground">Monitoreo de cumplimiento de proveedores y aliados.</p>
+        </div>
+        <Button className="bg-[#0A2472] rounded-xl h-11 font-black shadow-lg"><Plus className="mr-2 h-4 w-4"/> Registrar Proveedor</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard title="Proveedores Activos" value="47" icon={Users} />
-        <StatCard title="Proveedores en Riesgo" value="3" icon={AlertTriangle} variant="danger" />
-        <StatCard title="Documentos por Vencer" value="8" icon={History} variant="warning" />
+        <StatCard title="En Riesgo Fiscal" value="3" icon={AlertTriangle} variant="danger" />
+        <StatCard title="Expedientes por Vencer" value="8" icon={History} variant="warning" />
       </div>
 
-      <Card className="glass-card">
-        <CardHeader><CardTitle className="text-[#0A2472]">Validación de Terceros (KYC/KYB)</CardTitle></CardHeader>
-        <CardContent>
+      <Card className="glass-card border-none shadow-2xl overflow-hidden">
+        <CardHeader className="bg-[#0A2472]/5">
+          <CardTitle className="text-[#0A2472] flex items-center gap-2"><ShieldCheck className="h-5 w-5"/> Validación de Terceros (KYC/KYB)</CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-slate-50">
               <TableRow>
-                <TableHead>Proveedor</TableHead>
+                <TableHead className="pl-6">Proveedor</TableHead>
                 <TableHead>RIF</TableHead>
                 <TableHead>Estatus Fiscal</TableHead>
                 <TableHead>Riesgo</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
+                <TableHead className="text-right pr-6">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {suppliers.map(s => (
-                <TableRow key={s.rif}>
-                  <TableCell className="font-bold">{s.name}</TableCell>
-                  <TableCell className="font-mono text-xs">{s.rif}</TableCell>
+                <TableRow key={s.rif} className="hover:bg-slate-50/50">
+                  <TableCell className="pl-6 font-black text-slate-700">{s.name}</TableCell>
+                  <TableCell className="font-mono text-xs font-bold text-slate-400">{s.rif}</TableCell>
                   <TableCell>
-                    <Badge className={s.status === 'Activo' ? 'bg-green-500' : s.status === 'Suspendido' ? 'bg-red-500' : 'bg-yellow-500'}>
+                    <Badge className={cn(
+                      "rounded-full px-3",
+                      s.status === 'Activo' ? 'bg-green-500' : s.status === 'Suspendido' ? 'bg-red-500' : 'bg-yellow-500'
+                    )}>
                       {s.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <div className={`h-2 w-2 rounded-full ${s.risk === 'Bajo' ? 'bg-green-500' : s.risk === 'Alto' ? 'bg-red-500' : 'bg-yellow-500'}`} />
-                      <span className="text-xs font-bold">{s.risk}</span>
+                      <div className={cn(
+                        "h-2 w-2 rounded-full",
+                        s.risk === 'Bajo' ? 'bg-green-500' : s.risk === 'Alto' ? 'bg-red-500' : 'bg-yellow-500'
+                      )} />
+                      <span className="text-[10px] font-black uppercase text-slate-500 tracking-tight">{s.risk}</span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-right"><Button variant="ghost" size="sm" className="font-bold text-[#0A2472]">Auditar Documentos</Button></TableCell>
+                  <TableCell className="text-right pr-6"><Button variant="ghost" size="sm" className="font-black text-[#0A2472] hover:bg-[#0A2472]/5">AUDITAR</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </CardContent>
       </Card>
+      
+      <div className="p-8 rounded-[2.5rem] bg-amber-50 border-2 border-amber-100 flex items-start gap-6 shadow-sm">
+        <div className="p-4 bg-amber-500 rounded-3xl text-white shadow-xl shadow-amber-200"><AlertTriangle className="h-8 w-8"/></div>
+        <div>
+          <h4 className="text-xl font-black text-amber-800 mb-2">Inconsistencias Recientes</h4>
+          <ul className="space-y-2">
+            {[
+              "Factura #F-001 de Inversiones Los Andes no concilia con reporte del SENIAT.",
+              "Documento de Solvencia IVSS de Construcciones Mérida expira en 48h.",
+              "RIF del proveedor Suministros Globales registra domicilio fiscal inactivo."
+            ].map((al, i) => (
+              <li key={i} className="text-sm text-amber-700 font-medium flex items-center gap-2">
+                <div className="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"/>
+                {al}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
@@ -876,36 +1159,46 @@ function ModuleTienda({ cartCount, addToCart }: any) {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Marketplace de Equipos Homologados</h3>
+        <div>
+          <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Marketplace Corporativo</h3>
+          <p className="text-sm text-muted-foreground">Equipos homologados por CONATEL para tu empresa.</p>
+        </div>
         <div className="relative">
-          <Button variant="outline" className="rounded-full border-[#0A2472]/20 h-12 w-12 p-0 relative">
-            <ShoppingBag className="h-5 w-5 text-[#0A2472]" />
-            <span className="absolute -top-1 -right-1 bg-[#4CAF50] text-white text-[10px] font-black h-5 w-5 rounded-full flex items-center justify-center border-2 border-white">{cartCount}</span>
+          <Button className="rounded-2xl bg-[#0A2472] hover:bg-[#0A2472]/90 h-12 px-6 font-bold shadow-xl relative group">
+            <ShoppingBag className="mr-2 h-5 w-5" /> Ver Carrito
+            <span className="absolute -top-2 -right-2 bg-[#4CAF50] text-white text-[10px] font-black h-6 w-6 rounded-full flex items-center justify-center border-2 border-white shadow-lg animate-in zoom-in duration-300">{cartCount}</span>
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {[
-          { n: "Samsung Galaxy A54", p: "320", i: Smartphone },
-          { n: "Tablet Pro 11\"", p: "450", i: Smartphone },
-          { n: "Router Fibra 6G", p: "85", i: ShoppingBag },
-          { n: "Monitor IPS 27\"", p: "190", i: BarChart3 }
-        ].map(p => (
-          <Card key={p.n} className="glass-card group hover:scale-105 transition-all overflow-hidden border-none shadow-md">
-            <div className="h-40 bg-slate-100 flex items-center justify-center group-hover:bg-[#0A2472]/5 transition-colors">
-              <p.i className="h-16 w-16 text-slate-300 group-hover:text-[#0A2472]/40 transition-colors" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {products.map(p => (
+          <Card key={p.id} className="glass-card border-none shadow-xl group hover:scale-[1.03] transition-all duration-300 overflow-hidden rounded-[2rem]">
+            <div className="h-48 bg-slate-50 relative flex items-center justify-center group-hover:bg-[#0A2472]/5 transition-colors p-8">
+              <Image src={p.image} alt={p.n} layout="fill" className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute top-4 left-4">
+                <Badge className="bg-[#4CAF50] text-white border-none text-[8px] font-black uppercase tracking-widest">Homologado</Badge>
+              </div>
             </div>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-1 text-[#4CAF50] mb-1"><CheckCircle2 className="h-3 w-3" /><span className="text-[8px] font-black uppercase tracking-widest">Homologado CONATEL</span></div>
-              <h4 className="text-sm font-black text-slate-800 leading-tight mb-2">{p.n}</h4>
-              <p className="text-lg font-black text-[#0A2472]">$ {p.p}</p>
+            <CardContent className="p-6">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{p.brand}</p>
+              <h4 className="text-sm font-black text-slate-800 leading-tight mb-4">{p.name}</h4>
+              <p className="text-xl font-black text-[#0A2472]">{formatCurrency(p.price, "USD")}</p>
             </CardContent>
-            <CardFooter className="p-4 pt-0">
-              <Button onClick={addToCart} className="w-full bg-[#0A2472] hover:bg-[#4CAF50] text-[10px] font-black uppercase tracking-widest rounded-xl transition-colors">Adquirir con Aliado</Button>
+            <CardFooter className="p-6 pt-0">
+              <Button onClick={addToCart} className="w-full bg-[#0A2472] hover:bg-[#4CAF50] text-[10px] font-black uppercase tracking-widest rounded-xl transition-all h-10 shadow-lg shadow-blue-100">ADQUIRIR CON ALIADO</Button>
             </CardFooter>
           </Card>
         ))}
+      </div>
+      
+      <div className="bg-slate-50 p-10 rounded-[3rem] border border-slate-100 text-center">
+        <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.3em] mb-8">Nuestros Aliados Estratégicos</h4>
+        <div className="flex flex-wrap justify-center items-center gap-12 grayscale opacity-40">
+          {['BANESCO', 'DAKA', 'IVOO', 'MOVISTAR'].map(logo => (
+            <span key={logo} className="text-2xl font-black tracking-tighter">{logo}</span>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -914,56 +1207,65 @@ function ModuleTienda({ cartCount, addToCart }: any) {
 function ModuleIdentidad() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500 flex flex-col items-center">
-      <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter self-start">Identidad Digital Soberana</h3>
+      <div className="self-start w-full mb-8">
+        <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Identidad Digital Soberana</h3>
+        <p className="text-sm text-muted-foreground">Credenciales empresariales selladas en Blockchain.</p>
+      </div>
       
       {/* 3D IDENTITY CARD */}
-      <div className="relative w-full max-w-md h-64 mt-12 [perspective:1000px] group">
-        <div className="relative w-full h-full transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)] shadow-2xl rounded-[2rem] overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0A2472] to-[#1e3a8a] p-8 text-white">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-12 translate-x-12" />
+      <div className="relative w-full max-w-md h-64 mt-8 [perspective:1000px] group">
+        <motion.div 
+          className="relative w-full h-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)] shadow-[0_30px_60px_-15px_rgba(10,36,114,0.3)] rounded-[2.5rem] overflow-hidden"
+          whileHover={{ scale: 1.02 }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0A2472] via-[#1e3a8a] to-[#0A2472] p-10 text-white">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-20 translate-x-20 blur-2xl" />
+            
             <div className="flex justify-between items-start mb-12">
-              <div className="flex items-center gap-2">
-                <div className="bg-white p-1 rounded-md"><ShieldCheck className="text-[#0A2472] h-4 w-4" /></div>
-                <span className="text-sm font-black uppercase tracking-tighter">System Kyron ID</span>
+              <div className="flex items-center gap-3">
+                <div className="bg-white p-1.5 rounded-lg shadow-lg"><Zap className="text-[#0A2472] h-5 w-5" /></div>
+                <span className="text-lg font-black uppercase tracking-tighter">KYRON ID</span>
               </div>
-              <Badge className="bg-[#4CAF50] border-none text-[8px] font-black tracking-widest uppercase">Verified</Badge>
+              <Badge className="bg-[#4CAF50] border-none text-[10px] font-black tracking-widest uppercase px-4 py-1 shadow-lg shadow-green-900/20">VERIFIED</Badge>
             </div>
-            <div className="space-y-1">
-              <h4 className="text-2xl font-black tracking-tight">Empresa Ejemplo C.A.</h4>
-              <p className="text-xs font-bold text-white/60 font-mono tracking-widest uppercase">RIF: J-12345678-9</p>
+            
+            <div className="space-y-2">
+              <h4 className="text-3xl font-black tracking-tight leading-none">Empresa Ejemplo C.A.</h4>
+              <p className="text-sm font-bold text-white/60 font-mono tracking-widest uppercase">RIF: J-12345678-9</p>
             </div>
-            <div className="mt-8 flex justify-between items-end">
+            
+            <div className="mt-10 flex justify-between items-end">
               <div className="space-y-1">
-                <p className="text-[8px] font-bold text-white/40 uppercase tracking-widest">Blockchain Anchor</p>
-                <p className="text-[10px] font-mono text-white/80">0x4f2a...9e1b</p>
+                <p className="text-[8px] font-black text-white/40 uppercase tracking-[0.3em]">Blockchain Anchor</p>
+                <p className="text-xs font-mono text-white/80 bg-white/5 px-2 py-1 rounded-md border border-white/10">0x4f2a...9e1b</p>
               </div>
-              <div className="bg-white p-1.5 rounded-lg shadow-inner">
-                <Image src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://systemkyron.com/verify/example" alt="QR" width={48} height={48} />
+              <div className="bg-white p-2 rounded-2xl shadow-2xl border-4 border-white/10">
+                <Image src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://systemkyron.com/verify/example" alt="QR" width={60} height={60} className="rounded-lg"/>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="flex gap-4 mt-8">
-        <Button variant="outline" className="rounded-xl border-[#0A2472]/20 text-[#0A2472] font-bold"><Share2 className="mr-2 h-4 w-4" /> Compartir</Button>
-        <Button variant="outline" className="rounded-xl border-[#0A2472]/20 text-[#0A2472] font-bold"><Download className="mr-2 h-4 w-4" /> Exportar PDF</Button>
-        <Button className="bg-[#0A2472] rounded-xl"><ShieldCheck className="mr-2 h-4 w-4" /> Verificar Blockchain</Button>
+      <div className="flex flex-wrap gap-4 mt-12 justify-center">
+        <Button variant="outline" className="rounded-2xl border-[#0A2472]/20 text-[#0A2472] font-black h-12 px-8 hover:bg-primary/5 transition-all"><Share2 className="mr-2 h-4 w-4" /> COMPARTIR</Button>
+        <Button variant="outline" className="rounded-2xl border-[#0A2472]/20 text-[#0A2472] font-black h-12 px-8 hover:bg-primary/5 transition-all"><Download className="mr-2 h-4 w-4" /> EXPORTAR PDF</Button>
+        <Button className="bg-[#0A2472] hover:bg-[#0A2472]/90 rounded-2xl h-12 px-10 font-black shadow-2xl"><ShieldCheck className="mr-2 h-5 w-5 text-[#4CAF50]" /> VERIFICAR BLOCKCHAIN</Button>
       </div>
 
-      <div className="w-full max-w-2xl mt-12 space-y-4">
-        <h4 className="text-sm font-black uppercase text-slate-400 tracking-widest">Credenciales Verificables</h4>
+      <div className="w-full max-w-2xl mt-16 space-y-6">
+        <h4 className="text-xs font-black uppercase text-slate-400 tracking-[0.3em] ml-2">Credenciales Verificables</h4>
         {[
-          { t: "Certificado de Solvencia Fiscal", d: "28/02/2026", s: "Válido" },
-          { t: "Licencia de Operación Industrial", d: "10/01/2026", s: "Válido" },
-          { t: "Sello de Sostenibilidad Kyron", d: "15/02/2026", s: "Válido" }
+          { t: "Certificado de Solvencia Fiscal", d: "28/02/2026", s: "Válido", icon: ShieldCheck },
+          { t: "Licencia de Operación Industrial", d: "10/01/2026", s: "Válido", icon: Award },
+          { t: "Sello de Sostenibilidad Kyron", d: "15/02/2026", s: "Válido", icon: Leaf }
         ].map(cred => (
-          <div key={cred.t} className="p-4 bg-white rounded-2xl border flex items-center justify-between shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="p-2 bg-green-50 text-green-600 rounded-lg"><CheckCircle2 className="h-5 w-5" /></div>
-              <div><p className="font-bold text-sm leading-tight">{cred.t}</p><p className="text-[10px] text-slate-400 font-bold uppercase">Sellado: {cred.d}</p></div>
+          <div key={cred.t} className="p-6 bg-white rounded-[2rem] border-2 border-slate-50 flex items-center justify-between shadow-sm hover:border-primary/10 transition-all cursor-default">
+            <div className="flex items-center gap-5">
+              <div className="p-3 bg-green-50 text-[#4CAF50] rounded-2xl"><cred.icon className="h-6 w-6" /></div>
+              <div><p className="font-black text-slate-700 leading-tight mb-1">{cred.t}</p><p className="text-[10px] text-slate-400 font-bold uppercase">Sellado en red: {cred.d}</p></div>
             </div>
-            <Badge variant="outline" className="text-green-600 border-green-100 bg-green-50">{cred.s}</Badge>
+            <Badge variant="outline" className="text-green-600 border-green-100 bg-green-50 rounded-full px-4 font-black text-[10px]">{cred.s}</Badge>
           </div>
         ))}
       </div>
@@ -975,22 +1277,39 @@ function ModuleConfiguracion() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <h3 className="text-2xl font-black text-[#0A2472] tracking-tighter">Configuración del Ecosistema</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="glass-card">
-          <CardHeader><CardTitle>Perfil de Empresa</CardTitle></CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid gap-2"><Label>Nombre Legal</Label><Input defaultValue="Empresa Ejemplo C.A." /></div>
-            <div className="grid gap-2"><Label>RIF</Label><Input defaultValue="J-12345678-9" /></div>
-            <div className="grid gap-2"><Label>Correo Notificaciones</Label><Input defaultValue="admin@ejemplo.com" /></div>
-            <Button className="bg-[#0A2472]">Actualizar Perfil</Button>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <Card className="glass-card border-none shadow-xl overflow-hidden rounded-[2.5rem]">
+          <CardHeader className="bg-slate-50 p-8"><CardTitle className="text-lg font-black text-[#0A2472] uppercase tracking-widest">Perfil de Empresa</CardTitle></CardHeader>
+          <CardContent className="p-8 space-y-6">
+            <div className="grid gap-3"><Label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Nombre Legal</Label><Input defaultValue="Empresa Ejemplo C.A." className="h-12 rounded-xl bg-slate-50/50" /></div>
+            <div className="grid gap-3"><Label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Registro de Información Fiscal (RIF)</Label><Input defaultValue="J-12345678-9" className="h-12 rounded-xl bg-slate-50/50" /></div>
+            <div className="grid gap-3"><Label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Correo de Notificaciones</Label><Input defaultValue="admin@ejemplo.com" className="h-12 rounded-xl bg-slate-50/50" /></div>
+            <Button className="bg-[#0A2472] w-full h-12 rounded-2xl font-black shadow-lg">ACTUALIZAR PERFIL</Button>
           </CardContent>
         </Card>
-        <Card className="glass-card">
-          <CardHeader><CardTitle>Preferencias del Sistema</CardTitle></CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex items-center justify-between"><div><p className="font-bold text-sm">Modo Oscuro</p><p className="text-xs text-slate-400 font-bold">Optimiza el ahorro de energía</p></div><Badge variant="outline">Desactivado</Badge></div>
-            <div className="flex items-center justify-between"><div><p className="font-bold text-sm">IA Predictiva</p><p className="text-xs text-slate-400 font-bold">Activa alertas automáticas</p></div><Badge className="bg-[#4CAF50]">Activo</Badge></div>
-            <div className="flex items-center justify-between"><div><p className="font-bold text-sm">Respaldos Diarios</p><p className="text-xs text-slate-400 font-bold">Sincronización con la nube</p></div><Badge className="bg-[#4CAF50]">Activo</Badge></div>
+        
+        <Card className="glass-card border-none shadow-xl overflow-hidden rounded-[2.5rem]">
+          <CardHeader className="bg-slate-50 p-8"><CardTitle className="text-lg font-black text-[#0A2472] uppercase tracking-widest">Preferencias del Sistema</CardTitle></CardHeader>
+          <CardContent className="p-8 space-y-8">
+            <div className="flex items-center justify-between">
+              <div><p className="font-black text-slate-700 text-sm">Modo Oscuro</p><p className="text-[10px] text-slate-400 font-bold uppercase">Optimiza el ahorro de energía</p></div>
+              <Badge variant="outline" className="rounded-full px-4">Desactivado</Badge>
+            </div>
+            <Separator className="opacity-50"/>
+            <div className="flex items-center justify-between">
+              <div><p className="font-black text-slate-700 text-sm">IA Predictiva</p><p className="text-[10px] text-slate-400 font-bold uppercase">Activa alertas preventivas</p></div>
+              <Badge className="bg-[#4CAF50] rounded-full px-4">Activo</Badge>
+            </div>
+            <Separator className="opacity-50"/>
+            <div className="flex items-center justify-between">
+              <div><p className="font-black text-slate-700 text-sm">Sellado Blockchain</p><p className="text-[10px] text-slate-400 font-bold uppercase">Inmutabilidad de registros</p></div>
+              <Badge className="bg-[#4CAF50] rounded-full px-4">Activo</Badge>
+            </div>
+            <Separator className="opacity-50"/>
+            <div className="flex items-center justify-between">
+              <div><p className="font-black text-slate-700 text-sm">Respaldos Diarios Cloud</p><p className="text-[10px] text-slate-400 font-bold uppercase">Sincronización 24/7</p></div>
+              <Badge className="bg-[#4CAF50] rounded-full px-4">Activo</Badge>
+            </div>
           </CardContent>
         </Card>
       </div>
