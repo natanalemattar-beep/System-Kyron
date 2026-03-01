@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -12,6 +13,7 @@ import {
 import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
+import { WelcomeTutorial } from "@/components/welcome-tutorial";
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
@@ -24,6 +26,7 @@ export default function LandingPage() {
   return (
     <div className="relative min-h-screen bg-background flex flex-col overflow-x-hidden">
       <DynamicBackground />
+      <WelcomeTutorial />
       
       {/* Scroll Progress Bar */}
       <motion.div 
