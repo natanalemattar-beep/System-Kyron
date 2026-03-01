@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from "framer-motion";
@@ -13,7 +12,7 @@ export function HeroSection() {
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 text-center">
+      <div className="container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto space-y-10">
           
           <motion.div

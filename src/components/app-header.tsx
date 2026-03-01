@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -70,7 +69,10 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
             
             <div className="hidden md:flex relative max-w-sm">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Buscar en el sistema..." className="pl-9 h-9 w-[200px] lg:w-[300px] bg-secondary/30 border-none rounded-lg text-xs" />
+                <input 
+                  placeholder="Buscar en el sistema..." 
+                  className="pl-9 h-9 w-[200px] lg:w-[300px] bg-secondary/30 border-none rounded-lg text-xs outline-none focus:ring-1 focus:ring-primary/20" 
+                />
             </div>
           </div>
 

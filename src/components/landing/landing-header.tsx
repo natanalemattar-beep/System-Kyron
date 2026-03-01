@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -7,13 +6,8 @@ import { Button } from "@/components/ui/button";
 import { 
     Menu, 
     ChevronDown, 
-    User, 
-    Banknote, 
-    Gavel, 
-    ShoppingCart, 
-    Briefcase, 
-    Users, 
     X,
+    Sparkles
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -51,16 +45,16 @@ export function LandingHeader() {
             "fixed top-0 left-0 right-0 z-[100] transition-all duration-500",
              isScrolled ? "bg-background/95 backdrop-blur-xl py-2 border-b shadow-sm" : "bg-transparent py-6"
         )}>
-            <div className="container mx-auto px-4 md:px-8">
-                <div className="flex h-14 items-center justify-between gap-4">
+            <div className="container mx-auto px-4">
+                <div className="flex h-16 items-center justify-between gap-4">
                     
-                    <div className="flex items-center gap-8">
-                        <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95">
+                    <div className="flex items-center gap-10">
+                        <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95 shrink-0">
                             <Logo className="h-9 w-9" />
                             <span className="text-xl font-bold tracking-tight text-primary whitespace-nowrap">System Kyron</span>
                         </Link>
 
-                        <nav className="hidden md:flex items-center gap-1">
+                        <nav className="hidden lg:flex items-center gap-1">
                             {navLinks.map((link) => (
                                 <Button 
                                     key={link.href} 
@@ -75,7 +69,7 @@ export function LandingHeader() {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <div className="hidden md:flex items-center gap-3">
+                        <div className="hidden sm:flex items-center gap-3">
                             <ThemeToggle />
                             
                             <DropdownMenu>
@@ -110,7 +104,7 @@ export function LandingHeader() {
                             </Button>
                         </div>
 
-                        <div className="md:hidden flex items-center gap-2">
+                        <div className="sm:hidden flex items-center gap-2">
                             <ThemeToggle />
                             <Sheet>
                                 <SheetTrigger asChild>
