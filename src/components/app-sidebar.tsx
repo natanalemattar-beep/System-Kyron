@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Link, usePathname } from "@/navigation";
@@ -28,11 +29,11 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-black/80 backdrop-blur-3xl border-r border-white/10 flex flex-col z-50 hidden lg:flex shadow-[20px_0_100px_rgba(0,0,0,0.8)] overflow-hidden">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-black/90 backdrop-blur-3xl border-r border-white/10 flex flex-col z-50 hidden lg:flex shadow-[20px_0_100px_rgba(0,0,0,0.8)] overflow-hidden">
       {/* Gradiente de Relleno Lateral para eliminar el vacío negro */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent pointer-events-none opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-transparent to-transparent pointer-events-none opacity-80" />
       
-      <div className="p-10 border-b border-white/5 flex flex-col items-center gap-6 relative z-10 bg-white/[0.03]">
+      <div className="p-10 border-b border-white/10 flex flex-col items-center gap-6 relative z-10 bg-white/[0.05]">
         <Link href="/" className="flex flex-col items-center gap-4 transition-all hover:scale-105 group">
           <Logo className="h-16 w-16 drop-shadow-[0_0_30px_rgba(37,99,235,0.6)]" />
           <div className="text-center">
@@ -43,7 +44,7 @@ export function AppSidebar() {
       </div>
       
       <nav className="flex-grow py-10 px-6 space-y-3 overflow-y-auto custom-scrollbar relative z-10">
-        <p className="text-[9px] font-black uppercase text-white/20 tracking-[0.6em] mb-8 px-4 italic">Operativa Global</p>
+        <p className="text-[9px] font-black uppercase text-white/30 tracking-[0.6em] mb-8 px-4 italic">Operativa Global</p>
         {menuItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
           return (
@@ -53,8 +54,8 @@ export function AppSidebar() {
               className={cn(
                 "group flex items-center gap-5 px-5 py-4 rounded-2xl transition-all duration-500 relative overflow-hidden border border-transparent",
                 isActive 
-                  ? "bg-primary text-white border-primary/20 shadow-xl" 
-                  : "text-muted-foreground/70 hover:text-white hover:bg-white/5"
+                  ? "bg-primary text-white border-primary/30 shadow-[0_0_20px_rgba(37,99,235,0.3)]" 
+                  : "text-white/50 hover:text-white hover:bg-white/5"
               )}
             >
               <item.icon className={cn("h-5 w-5 transition-all duration-500", isActive ? "text-white scale-110" : "opacity-40 group-hover:opacity-100")} />
