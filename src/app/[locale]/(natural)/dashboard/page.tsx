@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, ShieldAlert, User, Smartphone, Recycle, Sparkles, ArrowRight, Activity, Fingerprint } from 'lucide-react';
+import { CheckCircle, Clock, ShieldAlert, Smartphone, Recycle, Sparkles, ArrowRight, Activity, Fingerprint } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -19,7 +19,7 @@ const kpiData = [
 export default function DashboardPersonalPage() {
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
-      {/* Header Sección con Identidad Refinada */}
+      {/* Header Sección con Identidad Refinada y Proporcional */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-l-2 border-primary pl-6 py-1">
         <div className="space-y-1">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-primary/5 text-primary text-[8px] font-black uppercase tracking-[0.3em] mb-1 border border-primary/10">
@@ -43,7 +43,7 @@ export default function DashboardPersonalPage() {
         </div>
       </header>
       
-      {/* Grid de KPIs - Proporción Laptop */}
+      {/* Grid de KPIs - Optimizado para resolución de Laptop */}
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {kpiData.map((kpi, index) => (
             <motion.div
@@ -68,7 +68,7 @@ export default function DashboardPersonalPage() {
       </div>
 
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-12 items-start">
-        {/* Historial - Ocupa más espacio */}
+        {/* Historial - Ocupa más espacio central */}
         <Card className="lg:col-span-8 border-none shadow-sm bg-card/40 backdrop-blur-md rounded-[2rem] overflow-hidden">
             <CardHeader className="p-6 border-b border-white/5 bg-muted/5">
               <div className="flex items-center justify-between">
@@ -106,15 +106,15 @@ export default function DashboardPersonalPage() {
             </div>
         </Card>
 
-        {/* Columna Lateral de Acciones */}
+        {/* Columna Lateral de Acciones Compacta */}
         <div className="lg:col-span-4 space-y-4">
            <Card className="border-none shadow-xl bg-primary text-primary-foreground rounded-[2rem] overflow-hidden relative group">
                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform duration-500">
                     <Smartphone className="h-20 w-20" />
                 </div>
                 <CardHeader className="p-6 pb-2">
-                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter">Hardware Pro X</CardTitle>
-                    <CardDescription className="text-primary-foreground/60 text-[8px] font-bold uppercase tracking-widest">Activar Conectividad</CardDescription>
+                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Hardware Pro X</CardTitle>
+                    <CardDescription className="text-white/70 text-[8px] font-bold uppercase tracking-widest">Activar Conectividad</CardDescription>
                 </CardHeader>
                 <CardContent className="px-6 pb-6 space-y-4">
                     <p className="text-[11px] leading-relaxed font-medium opacity-80">

@@ -37,6 +37,10 @@ export const pathnames = {
   '/nominas': '/nominas',
   '/seguridad': '/seguridad',
   '/notificaciones': '/notificaciones',
+  '/declaracion-iva': '/declaracion-iva',
+  '/islr-arc': '/islr-arc',
+  '/libro-compra-venta': '/libro-compra-venta',
+  '/venta-linea': '/venta-linea',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
