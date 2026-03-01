@@ -10,6 +10,13 @@ export const pathnames = {
   '/login': '/login',
   '/login-empresa': '/login-empresa',
   '/login-personal': '/login-personal',
+  '/login-escritorio-juridico': '/login-escritorio-juridico',
+  '/login-ventas': '/login-ventas',
+  '/login-rrhh': '/login-rrhh',
+  '/login-socios': '/login-socios',
+  '/login-marketing': '/login-marketing',
+  '/login-telecom': '/login-telecom',
+  '/login-informatica': '/login-informatica',
   '/register': '/register',
   '/ecosistema': '/ecosistema',
   '/dashboard': '/dashboard',
@@ -19,6 +26,10 @@ export const pathnames = {
   '/escritorio-juridico': '/escritorio-juridico',
   '/analisis-ventas': '/analisis-ventas',
   '/punto-de-venta': '/punto-de-venta',
+  '/tarjeta-digital': '/tarjeta-digital',
+  '/tarjeta-reciclaje': '/tarjeta-reciclaje',
+  '/zero-risk': '/zero-risk',
+  '/general': '/general',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
