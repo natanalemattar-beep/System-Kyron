@@ -31,7 +31,7 @@ export function HeroSection() {
             className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.1] text-foreground"
           >
             Gestión Inteligente <br/> 
-            <span className="text-primary italic">para la Élite Empresarial</span>
+            <span className="text-primary italic text-shadow-glow">para la Élite Empresarial</span>
           </motion.h1>
           
           <motion.p
@@ -40,7 +40,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
           >
-            Automatización fiscal, telecomunicaciones y finanzas blockchain en una plataforma diseñada bajo el ecosistema System Kyron.
+            Automatización fiscal, comercialización tecnológica y finanzas blockchain en una plataforma diseñada bajo el ecosistema System Kyron.
           </motion.p>
           
           <motion.div
@@ -50,7 +50,7 @@ export function HeroSection() {
             className="flex flex-col items-center gap-12 pt-6"
           >
             <div className="flex flex-wrap justify-center gap-4">
-                <Button variant="outline" size="lg" className="h-12 px-10 text-[10px] uppercase tracking-[0.2em] rounded-xl border-primary/20 hover:bg-primary/5 hover:text-primary transition-all font-bold">
+                <Button variant="outline" size="lg" className="h-12 px-10 text-[10px] uppercase tracking-[0.2em] rounded-xl border-primary/20 hover:bg-primary/5 hover:text-primary transition-all font-black">
                     EXPLORAR ECOSISTEMA
                 </Button>
                 <Button size="lg" className="btn-3d-primary h-12 px-10 text-[10px] uppercase tracking-[0.2em] rounded-xl shadow-xl">

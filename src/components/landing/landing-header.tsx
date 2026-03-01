@@ -6,12 +6,20 @@ import { Button } from "@/components/ui/button";
 import { 
     Menu, 
     X,
-    User
+    User,
+    ChevronDown
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { loginOptions } from "@/lib/login-options";
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -42,17 +50,17 @@ export function LandingHeader() {
                     <div className="flex items-center gap-3 shrink-0">
                         <Link href="/" className="flex items-center gap-3 transition-transform active:scale-95">
                             <Logo className="h-10 w-10" />
-                            <span className="text-xl font-black tracking-tighter text-white uppercase">System Kyron</span>
+                            <span className="text-xl font-black tracking-tighter text-foreground uppercase">System Kyron</span>
                         </Link>
                     </div>
 
-                    {/* Navigation Links - Centered and visible on desktops */}
+                    {/* Navigation Links - ALWAYS VISIBLE ON DESKTOP */}
                     <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
                         {navLinks.map((link) => (
                             <Link 
                                 key={link.href} 
                                 href={link.href as any}
-                                className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-white transition-colors"
+                                className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors"
                             >
                                 {link.label}
                             </Link>
@@ -64,13 +72,33 @@ export function LandingHeader() {
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
                             
-                            <Button variant="outline" asChild className="border-white/20 text-white hover:bg-white/10 rounded-lg h-11 px-6 gap-2 font-bold uppercase text-[10px] tracking-widest transition-all">
+                            <Button variant="outline" asChild className="border-border text-foreground hover:bg-muted rounded-xl h-11 px-6 gap-2 font-black uppercase text-[10px] tracking-widest transition-all">
                                 <Link href="/login">Acceder <User className="h-4 w-4" /></Link>
                             </Button>
 
-                            <Button asChild className="bg-white text-black hover:bg-white/90 rounded-lg h-11 px-8 font-bold uppercase text-[10px] tracking-widest transition-all shadow-xl">
-                                <Link href="/register">Registrarse</Link>
-                            </Button>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button className="btn-3d-primary h-11 px-8 text-[10px] uppercase tracking-[0.2em] rounded-xl shadow-xl">
+                                        ACCESO <ChevronDown className="ml-2 h-3 w-3" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-80 p-2 rounded-2xl shadow-2xl border bg-background/98 backdrop-blur-xl">
+                                    <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 border-b mb-2">Módulos de Gestión</p>
+                                    {loginOptions.map((option) => (
+                                        <DropdownMenuItem key={option.href} asChild className="rounded-xl">
+                                            <Link href={option.href} className="flex items-start gap-3 p-3">
+                                                <div className="p-2 bg-primary/10 rounded-lg mt-1">
+                                                    <option.icon className="h-4 w-4 text-primary"/>
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold text-sm">{option.label}</p>
+                                                    <p className="text-[10px] text-muted-foreground leading-tight">{option.description}</p>
+                                                </div>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
 
                         {/* Mobile Menu */}

@@ -1,32 +1,24 @@
 export const initialPermisos = [
     // --- Ministerios - Petróleo y Minería ---
     { id: "PERM-PET-001", tipo: "Transporte Terrestre de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-01-10", fechaVencimiento: "2025-01-10", estado: "Vigente", requisitosInscripcion: ["Copia del RIF", "Registro Mercantil", "Póliza de Seguro de Responsabilidad Civil"], requisitosRenovacion: ["Solvencia de pago de impuestos", "Inspección técnica vehicular vigente"] },
-    { id: "PERM-PET-002", tipo: "Transporte Acuático de Hidrocarburos", emisor: "Min. Petróleo (MINPET)", fechaEmision: "2024-02-15", fechaVencimiento: "2025-02-15", estado: "Vigente", requisitosInscripcion: ["Documento de Propiedad o Contrato de Arrendamiento de la embarcación", "Matrícula de la embarcación", "Certificado de seguridad emitido por el INEA"], requisitosRenovacion: ["Inspección de seguridad actualizada", "Solvencia del INEA"] },
     
     // --- SAPI - Propiedad Intelectual ---
     { 
         id: "PERM-SAPI-DA-001", 
-        tipo: "Registro de Programa de Computación (Software)", 
+        tipo: "Registro de Software y Soluciones IA", 
         emisor: "SAPI", 
         fechaEmision: "2023-03-05", 
         fechaVencimiento: "Vitalicio", 
         estado: "Vigente", 
-        requisitosInscripcion: [
-            "Ejemplar de la obra (Código Fuente en soporte digital)", 
-            "Formulario de solicitud de registro", 
-            "Memoria descriptiva de la arquitectura lógica", 
-            "Comprobante de pago de tasas administrativas"
-        ], 
+        requisitosInscripcion: ["Código Fuente", "Memoria descriptiva"], 
         requisitosRenovacion: [] 
     },
-    { id: "PERM-SAPI-001", tipo: "Registro de Marca Comercial", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente", requisitosInscripcion: ["Búsqueda fonética y gráfica de antecedentes", "Diseño del logo (JPG/PNG)", "Pago de tasas fiscales"], requisitosRenovacion: ["Pago de tasa de renovación decenal"] },
-    { id: "PERM-SAPI-INV-001", tipo: "Patente de Invención", emisor: "SAPI", fechaEmision: "2023-05-20", fechaVencimiento: "2024-11-20", estado: "Vigente", requisitosInscripcion: ["Formulario FP-01", "Memoria descriptiva", "Reivindicaciones", "Dibujos técnicos", "Resumen"], requisitosRenovacion: ["Pago de anualidades de mantenimiento"] },
+    { id: "PERM-SAPI-001", tipo: "Registro de Marca: System Kyron", emisor: "SAPI", fechaEmision: "2022-01-10", fechaVencimiento: "2032-01-10", estado: "Vigente", requisitosInscripcion: ["Búsqueda fonética", "Logo"], requisitosRenovacion: ["Pago decenal"] },
+    { id: "PERM-SAPI-MAG", tipo: "Patente de Tecnología Magnética", emisor: "SAPI", fechaEmision: "2024-05-20", fechaVencimiento: "2034-05-20", estado: "Vigente", requisitosInscripcion: ["Memoria técnica", "Planos de inducción"], requisitosRenovacion: ["Anualidades"] },
 
-    // --- Entes Nacionales y Registros Obligatorios ---
-    { id: "REG-MERC-001", tipo: "Registro Mercantil", emisor: "SAREN", fechaEmision: "2020-01-05", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Acta Constitutiva Visada", "Identificación de los socios", "Pago de tasas SAREN"], requisitosRenovacion: ["Actualización de Actas de Asamblea"] },
-    { id: "PERM-NAC-003", tipo: "Habilitación Postal", emisor: "CONATEL", fechaEmision: "2021-06-01", fechaVencimiento: "2024-06-01", estado: "Vencido", requisitosInscripcion: ["Registro como operador postal", "Descripción de servicios"], requisitosRenovacion: ["Solvencia de tasas postales"] },
-    { id: "PERM-NAC-009", tipo: "Concesión de Espectro Radioeléctrico", emisor: "CONATEL", fechaEmision: "2023-03-20", fechaVencimiento: "2028-03-20", estado: "Vigente", requisitosInscripcion: ["Proyecto técnico de red", "Estudio de factibilidad económica", "Garantía de cumplimiento"], requisitosRenovacion: ["Pago de tasas anuales", "Informe de uso"] },
-    { id: "PERM-NAC-010", tipo: "Licencia de Proveedor de Internet (ISP)", emisor: "CONATEL", fechaEmision: "2023-04-01", fechaVencimiento: "2028-04-01", estado: "Vigente", requisitosInscripcion: ["Objeto social adecuado", "Proyecto técnico detallado", "Solvencia fiscal"], requisitosRenovacion: ["Actualización técnica", "Tasas regulatorias"] },
+    // --- Entes Nacionales ---
+    { id: "REG-MERC-001", tipo: "Registro Mercantil", emisor: "SAREN", fechaEmision: "2020-01-05", fechaVencimiento: "Indefinido", estado: "Vigente", requisitosInscripcion: ["Acta Constitutiva"], requisitosRenovacion: ["Asambleas"] },
+    { id: "PERM-NAC-009", tipo: "Concesión de Espectro Radioeléctrico", emisor: "CONATEL", fechaEmision: "2023-03-20", fechaVencimiento: "2028-03-20", estado: "Vigente", requisitosInscripcion: ["Proyecto técnico", "Garantía"], requisitosRenovacion: ["Tasas anuales"] },
 ];
 
 export const companyData = {
@@ -35,5 +27,5 @@ export const companyData = {
     { nombre: "MARIA TERESA HERNANDEZ BASTIDAS", cedula: "V-13.374.121", rif: "V-13374121-2" },
     { nombre: "JOSE DE JESUS HERRERA BOZZO", cedula: "V-12.459.024", rif: "V-12459024-4" },
   ],
-  objetoSocial: "Distribución, Venta al Mayor y Detal, prestación de servicios de telecomunicaciones móviles y fijas, venta de dispositivos móviles (teléfonos) y asignación de números telefónicos. Desarrollo de soluciones digitales (ERP, CRM, Software Contable) con integración de IA y Blockchain. Venta de artículos de oficina, equipos fiscales homologados y hardware. Fabricación, venta y registro de marca de mobiliario inteligente y papeleras inteligentes con tecnología de magnetismo. Gestión integral de holdings y asesoría estratégica corporativa.",
+  objetoSocial: "Comercialización y venta al mayor y detal de papeleras inteligentes con tecnología de magnetismo, mobiliario de oficina y equipos fiscales homologados. Prestación de servicios de telecomunicaciones móviles y fijas, incluyendo la asignación de números telefónicos y venta de dispositivos móviles (smartphones). Desarrollo de software ERP/CRM bajo el ecosistema System Kyron con integración de IA y Blockchain. Consultoría estratégica y gestión integral de holdings corporativos.",
 };
