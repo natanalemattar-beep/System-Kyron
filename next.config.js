@@ -9,8 +9,7 @@ const nextConfig = {
     scrollRestoration: true,
   },
   allowedDevOrigins: [
-    "https://6000-firebase-fintrack-automation2-1759388821350.cluster-f73ibkkuije66wssuontdtbx6q.cloudworkstations.dev", 
-    "https://9000-firebase-fintrack-automation2-1759388821350.cluster-f73ibkkuije66wssuontdtbx6q.cloudworkstations.dev"
+    "https://6000-firebase-system-kyron-2-1769997556778.cluster-f73ibkkuije66wssuontdtbx6q.cloudworkstations.dev"
   ],
   images: {
     remotePatterns: [
