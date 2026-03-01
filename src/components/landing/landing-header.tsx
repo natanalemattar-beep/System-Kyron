@@ -46,7 +46,7 @@ export function LandingHeader() {
                         </Link>
                     </div>
 
-                    {/* Navigation Links - Centered and always visible on desktops */}
+                    {/* Navigation Links - Centered and visible on desktops */}
                     <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
                         {navLinks.map((link) => (
                             <Link 

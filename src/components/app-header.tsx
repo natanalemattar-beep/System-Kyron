@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -79,7 +78,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
             </div>
           </div>
 
-          {/* Right: Time, Notifs, Theme, Profile - FORCED TO RIGHT */}
+          {/* Right: Time, Notifs, Theme, Profile - ALIGNED TO RIGHT */}
           <div className="flex items-center gap-2 md:gap-6">
             <div className="hidden md:flex flex-col items-end gap-0">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-tight text-primary">
