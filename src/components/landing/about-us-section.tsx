@@ -1,3 +1,4 @@
+
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -24,12 +25,12 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
 
 const testimonials = [
   {
-    name: "Carlos Rodríguez",
-    company: "Director de Contabilidad, U.E.P. Gabriela Mistral",
+    name: "Carlos Mattar",
+    company: "Líder Estratégico, System Kyron",
     avatarId: "testimonial-avatar-1",
-    module: "Contabilidad Educativa",
+    module: "Arquitectura IA",
     icon: BookOpen,
-    text: "System Kyron ha eliminado el riesgo de pérdida de expedientes por humedad. La inmutabilidad de los registros académicos es el blindaje que necesitábamos en La Guaira.",
+    text: "System Kyron ha eliminado el riesgo de pérdida de expedientes por humedad en la U.E.P. Gabriela Mistral. La inmutabilidad de los registros académicos es el blindaje que necesitábamos en La Guaira.",
   },
   {
     name: "Ana Pérez",
@@ -90,8 +91,8 @@ export function AboutUsSection() {
                     >
                         <div className="grid grid-cols-3 gap-8">
                             {[
-                                { val: 500, label: "Unidades", icon: ShieldCheck },
-                                { val: 100, label: "Compliance", suffix: "%", icon: Zap },
+                                { val: 500, label: "Empresas", icon: ShieldCheck },
+                                { val: 100, label: "Cumplimiento", suffix: "%", icon: Zap },
                                 { val: 0, label: "Riesgo", suffix: "%", icon: Zap }
                             ].map((stat, i) => (
                                 <Card key={i} className="glass-card border-none p-10 text-center rounded-[2.5rem] shadow-2xl relative overflow-hidden group">

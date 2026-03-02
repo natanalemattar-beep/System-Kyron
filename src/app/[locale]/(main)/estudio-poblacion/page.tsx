@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -32,7 +33,7 @@ import { Badge } from "@/components/ui/badge";
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "System Kyron", important: true },
   { label: "LÍDER ESTRATÉGICO", value: "Carlos Mattar", important: true },
-  { label: "PERSONAL DE APOYO OPERATIVO", value: "Sebastian Garrido, Marcos Sousa", important: false },
+  { label: "PERSONAL DE APOYO (RELLENO)", value: "Sebastian Garrido, Marcos Sousa", important: false },
   { label: "INSTITUCIÓN BENEFICIARIA", value: "U.E.P. Gabriela Mistral", important: true },
   { label: "UBICACIÓN GEOGRÁFICA", value: "La Guaira, Venezuela", important: true },
 ];
@@ -118,31 +119,40 @@ export default function EstudioTecnicoZEDU() {
             </style>
             </head>
             <body>
-                <div class="title">INFORME TÉCNICO DE INGENIERÍA - SYSTEM KYRON 2025</div>
+                <div class="title">MODELO DE ZEDU - SYSTEM KYRON 2025</div>
                 <div class="section-header">1. IDENTIFICACIÓN DEL PROYECTO</div>
                 <table>${teamData.map(d => `<tr><th>${d.label}</th><td>${d.value}</td></tr>`).join('')}</table>
                 <div class="section-header">2. ESTUDIO DE POBLACIÓN (ZEDU)</div>
                 <table>${zeduData.map(d => `<tr><th>${d.label}</th><td>${d.value}</td></tr>`).join('')}</table>
-                <div class="section-header">3. SOLUCIÓN PROPUESTA</div>
+                <div class="section-header">3. ANÁLISIS DEL PROBLEMA</div>
+                <p><strong>Definición:</strong> ${problemAnalysis.definicion}</p>
+                <p><strong>Consecuencias:</strong> ${problemAnalysis.consecuencias}</p>
+                <div class="section-header">4. SOLUCIÓN PROPUESTA</div>
                 <p>${solutionParagraph}</p>
-                <div class="section-header">4. COMPARATIVA ESTRATÉGICA (VS. MOBIAN)</div>
+                <div class="section-header">5. COMPARATIVA ESTRATÉGICA (VS. MOBIAN)</div>
                 <table>
                     <tr><th>ASPECTO</th><th>MOBIAN</th><th>SYSTEM KYRON</th></tr>
                     ${comparativaData.map(d => `<tr><td>${d.aspecto}</td><td>${d.mobian}</td><td>${d.kyron}</td></tr>`).join('')}
                 </table>
-                <div class="section-header">5. PRESUPUESTO TÉCNICO</div>
+                <div class="section-header">6. DIFERENCIADORES CLAVE</div>
+                <p>Enfoque educativo especializado, chatbot de atención inmediata y sellado inmutable Blockchain.</p>
+                <div class="section-header">7. PRESUPUESTO TÉCNICO EXPANDIDO</div>
                 <table>
                     <tr><th>ÍTEM</th><th>RESPONSABLE</th><th>COSTO</th></tr>
                     ${budgetData.map(d => `<tr><td>${d.item}</td><td>${d.responsable}</td><td>$${d.cost}</td></tr>`).join('')}
                     <tr style="font-weight:bold"><td>TOTAL</td><td></td><td>$${totalBudget}</td></tr>
                 </table>
+                <div class="section-header">8. ALIANZAS ESTRATÉGICAS</div>
+                <table>${alliesData.map(d => `<tr><th>${d.aliado}</th><td>${d.apoyo}</td></tr>`).join('')}</table>
+                <div class="section-header">9. PLAN DE ACCIÓN JERÁRQUICO</div>
+                <p>Liderado por Carlos Mattar.</p>
             </body>
             </html>
         `;
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(content);
         const link = document.createElement("a");
         link.href = source;
-        link.download = 'Informe_Zedu_SystemKyron_Final.doc';
+        link.download = 'Modelo_de_ZEDU_SystemKyron_Final.doc';
         link.click();
         toast({ title: "Informe Maestro Generado", description: "El informe de 9 bloques ha sido exportado exitosamente." });
     };
@@ -154,7 +164,7 @@ export default function EstudioTecnicoZEDU() {
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4 shadow-glow">
                         <Rocket className="h-3 w-3" /> Master Node v2.6.5
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic italic-shadow text-white uppercase leading-none">ESTUDIO <span className="text-primary">TÉCNICO</span></h1>
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic italic-shadow text-white uppercase leading-none">MODELO <span className="text-primary">DE ZEDU</span></h1>
                     <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">U.E.P. Gabriela Mistral • La Guaira • Dirección de Proyecto</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-20 px-16 rounded-2xl shadow-glow text-base font-black" onClick={handleDownload}>

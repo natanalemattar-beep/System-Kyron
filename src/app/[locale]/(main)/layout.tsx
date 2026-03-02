@@ -1,3 +1,4 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -32,7 +33,7 @@ export default function MainLayout({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                  {/* Full Canvas Experience: No restriction on max-width */}
+                  {/* Full Canvas Experience */}
                   <div className="w-full">
                     {children}
                   </div>

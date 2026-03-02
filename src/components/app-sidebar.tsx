@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Link, usePathname } from "@/navigation";
@@ -17,7 +18,7 @@ const menuItems = [
   { id: 'juridico', label: 'Legal y Poderes', icon: Scale, href: '/escritorio-juridico' },
   { id: 'telecom', label: 'Telecom Operaciones', icon: Radio, href: '/dashboard-telecom' },
   { id: 'sistemas', label: 'Ingeniería IT', icon: Wrench, href: '/dashboard-informatica' },
-  { id: 'zedu', label: 'Estudio ZEDU', icon: Activity, href: '/estudio-poblacion' },
+  { id: 'zedu', label: 'Modelo de ZEDU', icon: Activity, href: '/estudio-poblacion' },
   { id: 'fiscal', label: 'Blindaje SENIAT', icon: ShieldCheck, href: '/zero-risk' },
   { id: 'logistica', label: 'Ventas y POS', icon: ShoppingBag, href: '/punto-de-venta' },
   { id: 'identidad', label: 'ID Digital 3D', icon: Fingerprint, href: '/tarjeta-digital' },
