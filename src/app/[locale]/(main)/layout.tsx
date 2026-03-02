@@ -33,7 +33,6 @@ export default function MainLayout({
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                  {/* Contenedor sin restricciones de ancho para pantalla completa real */}
                   <div className="w-full">
                     {children}
                   </div>

@@ -4,9 +4,8 @@
 import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
-  BarChart3, Users, Scale, Recycle, Droplets, Wallet, 
-  Wrench, ShieldCheck, ShoppingBag, Fingerprint, Cog, 
-  LayoutGrid, Activity, Radio, Cpu, Gavel
+  BarChart3, Users, Recycle, Droplets, Wallet, 
+  ShieldCheck, Cog, LayoutGrid, Activity, Radio, Cpu, Gavel
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
@@ -31,7 +30,6 @@ export function AppSidebar() {
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0a] border-r-2 border-primary/20 flex flex-col z-[100] hidden lg:flex shadow-[20px_0_60px_rgba(0,0,0,0.9)] backdrop-blur-3xl overflow-hidden">
       {/* HUD Background Textures */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:30px_30px]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-transparent pointer-events-none" />
       
       {/* Sello Lateral de Luz - Erradica el hueco negro */}
       <div className="absolute top-0 right-0 w-[3px] h-full bg-primary/40 shadow-[0_0_20px_rgba(37,99,235,0.6)]" />
