@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -27,7 +28,6 @@ export default function LandingPage() {
       <DynamicBackground />
       <WelcomeTutorial />
       
-      {/* HUD Scroll Progress */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1.5 bg-primary origin-left z-[200] shadow-glow"
         style={{ scaleX }}
@@ -38,15 +38,34 @@ export default function LandingPage() {
       <main className="relative flex-1 w-full transition-opacity duration-300">
         <div className="w-full">
             <section id="inicio">
-              <HeroSection />
+              <div className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
+                <div className="container mx-auto px-6 relative z-10">
+                  <div className="grid lg:grid-cols-2 gap-20 items-center">
+                    <motion.div
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8 }}
+                      className="space-y-12"
+                    >
+                      <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.8] text-foreground">
+                        SYSTEM <br/> 
+                        <span className="text-primary italic italic-shadow">KYRON</span>
+                      </h1>
+                      <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-snug font-bold border-l-4 border-primary/30 pl-8 opacity-80 uppercase tracking-tight">
+                        Líneas <span className="text-secondary italic">5G Digitales</span>, <br/>
+                        Conectividad <span className="text-primary tracking-tighter">eSIM</span> y Automatización.
+                      </p>
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
             </section>
             
-            <section id="servicios" className="relative z-10 border-y border-white/5 bg-black/40 backdrop-blur-3xl">
+            <section id="servicios">
               <ServicesSection />
             </section>
             
-            <section id="tecnologia" className="bg-[#050505] relative overflow-hidden">
-              <div className="absolute inset-0 bg-primary/5 blur-[150px] -z-10" />
+            <section id="tecnologia">
               <FeaturesSection />
             </section>
             
@@ -54,11 +73,11 @@ export default function LandingPage() {
               <AboutUsSection />
             </section>
             
-            <section id="faq" className="bg-[#020202] border-t border-white/5">
+            <section id="faq">
               <FaqSection />
             </section>
             
-            <section id="contacto" className="bg-black/60 backdrop-blur-3xl border-t border-white/5">
+            <section id="contacto">
               <CtaSection />
             </section>
             
