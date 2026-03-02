@@ -22,51 +22,60 @@ import {
   Target,
   CheckCircle,
   LayoutGrid,
-  Crown
+  Crown,
+  Truck,
+  Monitor,
+  Cpu
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { cn, formatCurrency } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "System Kyron", important: true },
-  { label: "LÍDER DE PROYECTO", value: "Carlos Mattar", important: true },
-  { label: "PERSONAL DE APOYO", value: "Marcos Sousa, Sebastian Garrido", important: false },
-  { label: "INSTITUCIÓN EDUCATIVA", value: "U.E.P. Gabriela Mistral", important: true },
+  { label: "LÍDER ESTRATÉGICO", value: "Carlos Mattar", important: true },
+  { label: "PERSONAL DE APOYO OPERATIVO", value: "Marcos Sousa, Sebastian Garrido", important: false },
+  { label: "INSTITUCIÓN BENEFICIARIA", value: "U.E.P. Gabriela Mistral", important: true },
   { label: "UBICACIÓN GEOGRÁFICA", value: "La Guaira, Venezuela", important: true },
 ];
 
 const zeduData = [
-  { label: "LOCALIZACIÓN ESPECÍFICA", value: "La Atlántida, entre calle 7 a calle 3, Catia La Mar. Pinta Catia, Supermercado Bensica." },
-  { label: "NOMBRE DE LA COMUNIDAD", value: "Comunidad Comercial La Atlántida" },
-  { label: "POBLACIÓN ESTIMADA", value: "500 empresas / 5.000 empleados administrativos." },
-  { label: "GÉNERO", value: "52% Femenino / 48% Masculino." },
-  { label: "RANGO ETARIO", value: "25-40 años (60%) / 41-55 años (30%) / Otros (10%)." },
-  { label: "CARACTERÍSTICAS", value: "Empresas en transición digital con alta generación de residuos de oficina y necesidad de blindaje fiscal." },
-  { label: "CONDICIONES CLIMÁTICAS", value: "Tropical costero. Promedio 28°C. Brisa marina constante." }
+  { label: "LOCALIZACIÓN ESPECÍFICA", value: "La Atlántida, entre calle 7 a calle 3, Catia La Mar. Referencias: Pinta Catia, Supermercado Bensica." },
+  { label: "NOMBRE DE LA COMUNIDAD", value: "Comunidad Comercial y Residencial La Atlántida" },
+  { label: "POBLACIÓN ESTIMADA", value: "500 empresas activas / 5.000 empleados administrativos y civiles." },
+  { label: "DESGLOSE DE GÉNERO", value: "52% Femenino / 48% Masculino." },
+  { label: "RANGO ETARIO DOMINANTE", value: "25-40 años (60%) / 41-55 años (30%) / Otros (10%)." },
+  { label: "CARACTERÍSTICAS SOCIALES", value: "Empresas en transición digital obligatoria con alta necesidad de blindaje fiscal y gestión de residuos." },
+  { label: "CONDICIONES CLIMÁTICAS", value: "Tropical costero. Promedio 28°C. Brisa marina constante con alta salinidad." }
 ];
 
 const problemAnalysis = {
-  causas: ["Archivado físico vulnerable", "Falta de inteligencia en datos", "Presupuesto tecnológico desactualizado"],
-  definicion: "Inexistencia de un ecosistema digital que centralice la gestión académica y fiscal del Colegio Gabriela Mistral.",
-  consecuencias: "Riesgo de pérdida de expedientes y lentitud extrema en trámites de representantes.",
-  importancia: "La automatización es el único camino para la supervivencia operativa en el nuevo marco legal 2025."
+  causas: ["Archivado físico vulnerable a la humedad y salinidad", "Fragmentación de datos contables", "Presupuesto tecnológico desactualizado"],
+  definicion: "Inexistencia de un ecosistema digital inmutable que centralice la gestión académica, administrativa y fiscal de la institución.",
+  consecuencias: "Riesgo crítico de pérdida de expedientes, multas por incumplimiento fiscal y lentitud en la atención al representante.",
+  importancia: "La automatización con IA y Blockchain es la única garantía de supervivencia operativa en el marco legal 2025."
 };
 
 const budgetData = [
-  { item: "Suscripción Kyron Cloud IA (Nodo Maestro)", cost: 450, responsable: "Carlos Mattar" },
-  { item: "Workstation de Gestión Administrativa", cost: 800, responsable: "Marcos Sousa" },
-  { item: "Infraestructura de Red y Servidores", cost: 2400, responsable: "Sebastian Garrido" },
-  { item: "Licencia de Seguridad Ledger Blockchain", cost: 450, responsable: "Carlos Mattar" },
+  { item: "Moto Bera Carguera DT-200 (Logística La Guaira)", cost: 2800, responsable: "Marcos Sousa" },
+  { item: "Workstation de Gestión Maestra (Carlos Mattar)", cost: 1200, responsable: "Carlos Mattar" },
+  { item: "Servidor de Nodo Local Ledger Blockchain", cost: 1500, responsable: "Carlos Mattar" },
+  { item: "Infraestructura de Red Mesh (U.E.P. Gabriela Mistral)", cost: 1800, responsable: "Sebastian Garrido" },
+  { item: "Licencia Anual IA Predictiva Kyron Cloud", cost: 650, responsable: "Carlos Mattar" },
+  { item: "Suministros de Oficina y Hardware Fiscal", cost: 500, responsable: "Marcos Sousa" },
 ];
 
+const totalBudget = budgetData.reduce((sum, item) => sum + item.cost, 0);
+
 const actionPlan = [
-  { tarea: "DIAGNÓSTICO TÉCNICO Y DISEÑO DE RED", responsable: "Carlos Mattar", crono: ["X", "", "", ""] },
-  { tarea: "Adquisición de Hardware y Periféricos", responsable: "Marcos Sousa", crono: ["X", "X", "", ""] },
-  { tarea: "CONFIGURACIÓN DE NODO IA Y LEDGER", responsable: "Carlos Mattar", crono: ["", "X", "X", ""] },
-  { tarea: "Digitalización Masiva de Expedientes", responsable: "Sebastian Garrido", crono: ["", "", "X", "X"] },
-  { tarea: "CAPACITACIÓN Y DESPLIEGUE FINAL", responsable: "Carlos Mattar", crono: ["", "", "", "X"] },
+  { tarea: "DIAGNÓSTICO TÉCNICO Y DISEÑO DE RED ESTRATÉGICA", responsable: "Carlos Mattar", crono: ["X", "", "", ""] },
+  { tarea: "LOGÍSTICA Y ADQUISICIÓN DE EQUIPOS (MOTO BERA)", responsable: "Marcos Sousa", crono: ["X", "X", "", ""] },
+  { tarea: "INSTALACIÓN DE INFRAESTRUCTURA Y REDES", responsable: "Sebastian Garrido", crono: ["", "X", "X", ""] },
+  { tarea: "CONFIGURACIÓN DE NODO IA Y SEGURIDAD LEDGER", responsable: "Carlos Mattar", crono: ["", "X", "X", ""] },
+  { tarea: "DIGITALIZACIÓN MASIVA DE EXPEDIENTES (DATA ENTRY)", responsable: "Sebastian Garrido", crono: ["", "", "X", "X"] },
+  { tarea: "LANZAMIENTO, CAPACITACIÓN Y AUDITORÍA FINAL", responsable: "Carlos Mattar", crono: ["", "", "", "X"] },
 ];
 
 export default function EstudioTecnicoFullPage() {
@@ -77,29 +86,44 @@ export default function EstudioTecnicoFullPage() {
             <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
             <head><meta charset='utf-8'><title>Informe Final System Kyron</title>
             <style>
-                body { font-family: 'Arial', sans-serif; padding: 40px; }
+                body { font-family: 'Arial', sans-serif; padding: 40px; color: #000; }
                 table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
                 th, td { border: 1px solid #000; padding: 10px; text-align: left; font-size: 10pt; }
                 th { background-color: #f2f2f2; text-transform: uppercase; font-weight: bold; }
-                .title { text-align: center; font-size: 18pt; font-weight: bold; margin-bottom: 30px; color: #0A2472; }
-                .section-header { background-color: #0A2472; color: #ffffff; font-weight: bold; padding: 10px; margin-top: 20px; }
+                .title { text-align: center; font-size: 20pt; font-weight: bold; margin-bottom: 30px; color: #0A2472; text-decoration: underline; }
+                .section-header { background-color: #0A2472; color: #ffffff; font-weight: bold; padding: 12px; margin-top: 30px; text-transform: uppercase; }
+                .total-row { background-color: #e6f3ff; font-weight: bold; font-size: 12pt; }
             </style>
             </head>
             <body>
-                <div class="title">INFORME DE INGENIERÍA - SYSTEM KYRON 2025</div>
-                <div class="section-header">BLOQUE 1: IDENTIFICACIÓN ESTRATÉGICA</div>
+                <div class="title">INFORME TÉCNICO DE INGENIERÍA - SYSTEM KYRON 2025</div>
+                <div class="section-header">1. IDENTIFICACIÓN DEL PROYECTO Y EQUIPO</div>
                 <table>${teamData.map(d => `<tr><th>${d.label}</th><td>${d.value}</td></tr>`).join('')}</table>
-                <div class="section-header">BLOQUE 2: ESTUDIO DE POBLACIÓN (ZEDU)</div>
+                
+                <div class="section-header">2. ESTUDIO DE POBLACIÓN (ZEDU - LA GUAIRA)</div>
                 <table>${zeduData.map(d => `<tr><th>${d.label}</th><td>${d.value}</td></tr>`).join('')}</table>
-                <div class="section-header">BLOQUE 3: ANÁLISIS DEL PROBLEMA</div>
+                
+                <div class="section-header">3. ANÁLISIS DEL PROBLEMA DE MISIÓN CRÍTICA</div>
                 <table>
-                    <tr><th>DEFINICIÓN</th><td>${problemAnalysis.definicion}</td></tr>
-                    <tr><th>CAUSAS</th><td>${problemAnalysis.causas.join(', ')}</td></tr>
-                    <tr><th>IMPACTO</th><td>${problemAnalysis.consecuencias}</td></tr>
+                    <tr><th>DEFINICIÓN DEL PROBLEMA</th><td>${problemAnalysis.definicion}</td></tr>
+                    <tr><th>CAUSAS IDENTIFICADAS</th><td>${problemAnalysis.causas.join(', ')}</td></tr>
+                    <tr><th>CONSECUENCIAS OPERATIVAS</th><td>${problemAnalysis.consecuencias}</td></tr>
+                    <tr><th>IMPORTANCIA DE LA SOLUCIÓN</th><td>${problemAnalysis.importancia}</td></tr>
                 </table>
-                <div class="section-header">BLOQUE 4: PLAN DE ACCIÓN OPERATIVO</div>
+
+                <div class="section-header">4. SOLUCIÓN PROPUESTA: ECOSISTEMA DIGITAL INTEGRADO</div>
+                <p>Implementación de la plataforma System Kyron para la digitalización del 100% de los procesos académicos y fiscales de la U.E.P. Gabriela Mistral. La solución incluye un nodo de IA para búsqueda inteligente y sellado Blockchain para la inmutabilidad de los títulos y registros de notas.</p>
+
+                <div class="section-header">5. PRESUPUESTO TÉCNICO DETALLADO</div>
                 <table>
-                    <tr><th>TAREA</th><th>LÍDER RESPONSABLE</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
+                    <tr><th>CONCEPTO</th><th>RESPONSABLE</th><th>INVERSIÓN (USD)</th></tr>
+                    ${budgetData.map(d => `<tr><td>${d.item}</td><td>${d.responsable}</td><td>$${d.cost.toLocaleString()}</td></tr>`).join('')}
+                    <tr class="total-row"><td colspan="2">TOTAL INVERSIÓN DEL PROYECTO</td><td>$${totalBudget.toLocaleString()}</td></tr>
+                </table>
+
+                <div class="section-header">6. PLAN DE ACCIÓN Y CRONOGRAMA</div>
+                <table>
+                    <tr><th>TAREA OPERATIVA</th><th>RESPONSABLE</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
                     ${actionPlan.map(d => `<tr><td>${d.tarea}</td><td>${d.responsable}</td><td>${d.crono[0]}</td><td>${d.crono[1]}</td><td>${d.crono[2]}</td><td>${d.crono[3]}</td></tr>`).join('')}
                 </table>
             </body>
@@ -108,9 +132,9 @@ export default function EstudioTecnicoFullPage() {
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(content);
         const link = document.createElement("a");
         link.href = source;
-        link.download = 'Informe_Maestro_SystemKyron.doc';
+        link.download = 'Estudio_Tecnico_Zedu_SystemKyron.doc';
         link.click();
-        toast({ title: "Informe Maestro Generado", description: "Todos los bloques técnicos han sido exportados." });
+        toast({ title: "Informe Maestro Generado", description: "Todos los bloques técnicos (incluyendo el presupuesto expandido) han sido exportados." });
     };
 
     return (
@@ -118,13 +142,13 @@ export default function EstudioTecnicoFullPage() {
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-8 border-primary pl-10 py-2">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4 shadow-glow">
-                        <Rocket className="h-3 w-3" /> System v2.6.4 Full Project
+                        <Rocket className="h-3 w-3" /> System v2.6.5 Final Build
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic italic-shadow text-white uppercase leading-none">INFORME <span className="text-primary">TÉCNICO</span></h1>
-                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">U.E.P. Gabriela Mistral • La Guaira • Dirección: Carlos Mattar</p>
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic italic-shadow text-white uppercase leading-none">ESTUDIO <span className="text-primary">TÉCNICO</span></h1>
+                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">U.E.P. Gabriela Mistral • La Guaira • Dirección Maestro: Carlos Mattar</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-20 px-16 rounded-2xl shadow-glow text-base font-black" onClick={handleDownload}>
-                    <Download className="mr-4 h-8 w-8" /> EXPORTAR INFORME MAESTRO
+                    <Download className="mr-4 h-8 w-8" /> EXPORTAR DOCUMENTO ZEDU
                 </Button>
             </header>
 
@@ -169,46 +193,61 @@ export default function EstudioTecnicoFullPage() {
                     </section>
                 </div>
 
-                {/* Lado Derecho: Análisis y Planificación */}
+                {/* Lado Derecho: Presupuesto y Planificación */}
                 <div className="xl:col-span-7 space-y-12">
-                    <section className="grid grid-cols-1 gap-10">
-                        <Card className="glass-card border-none p-10 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 p-10 opacity-[0.02] scale-150 rotate-12"><AlertTriangle className="h-48 w-48 text-primary" /></div>
-                            <h3 className="text-2xl font-black uppercase italic flex items-center gap-4 mb-8 text-white">3. ANÁLISIS DEL PROBLEMA</h3>
-                            <div className="space-y-6">
-                                <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-                                    <h4 className="font-black text-[9px] uppercase text-primary mb-3 text-shadow-glow">Definición de Misión Crítica</h4>
-                                    <p className="text-sm font-bold italic text-white/80 leading-relaxed">{problemAnalysis.definicion}</p>
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/10"><p className="text-[8px] font-black text-red-500 uppercase mb-2">Consecuencia Crítica</p><p className="text-xs font-bold text-white/70 italic">{problemAnalysis.consecuencias}</p></div>
-                                    <div className="p-4 rounded-xl bg-primary/5 border border-primary/10"><p className="text-[8px] font-black text-primary uppercase mb-2">Importancia del Cambio</p><p className="text-xs font-bold text-white/70 italic">{problemAnalysis.importancia}</p></div>
-                                </div>
-                            </div>
-                        </Card>
-
-                        <Card className="border-none bg-primary p-12 text-primary-foreground relative overflow-hidden shadow-glow rounded-[3rem]">
-                            <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12"><Zap className="h-64 w-64 text-white" /></div>
-                            <div className="relative z-10 space-y-8">
-                                <div className="inline-flex items-center gap-3 px-4 py-1 rounded-full bg-white/10 text-[10px] font-black uppercase tracking-[0.4em]">4. SOLUCIÓN PROPUESTA</div>
-                                <h3 className="text-4xl font-black uppercase italic tracking-tighter leading-none">DIGITALIZACIÓN <br/> MAESTRA CON IA</h3>
-                                <p className="text-base font-black italic leading-relaxed text-white/90 border-l-4 border-white/30 pl-8 text-justify">
-                                    System Kyron desplegará un nodo de inteligencia artificial bajo la dirección de Carlos Mattar para la digitalización y clasificación de expedientes históricos en la U.E.P. Gabriela Mistral. Eliminamos el papel, blindamos la integridad mediante Ledger y automatizamos la atención al representante.
-                                </p>
-                            </div>
+                    <section>
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
+                            <Calculator className="h-4 w-4" /> 3. Presupuesto Técnico de Misión Crítica
+                        </h3>
+                        <Card className="glass-card border-none overflow-hidden shadow-2xl">
+                            <CardContent className="p-0">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow className="bg-white/[0.03] border-none">
+                                            <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pl-10 py-6">Ítem de Inversión</TableHead>
+                                            <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Responsable</TableHead>
+                                            <TableHead className="text-right font-black text-[10px] uppercase tracking-widest text-primary py-6 pr-10">Inversión</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {budgetData.map((row, i) => (
+                                            <TableRow key={i} className="border-b border-white/5 hover:bg-primary/[0.02] transition-all group">
+                                                <TableCell className="font-bold pl-10 py-6 flex items-center gap-4">
+                                                    {row.item.includes("Bera") ? <Truck className="h-4 w-4 text-secondary" /> : <Cpu className="h-4 w-4 text-primary" />}
+                                                    {row.item}
+                                                </TableCell>
+                                                <TableCell className="text-center">
+                                                    <Badge variant={row.responsable === "Carlos Mattar" ? "default" : "outline"} className="text-[8px] font-black uppercase">
+                                                        {row.responsable}
+                                                    </Badge>
+                                                </TableCell>
+                                                <TableCell className="text-right pr-10 font-black text-white italic group-hover:text-primary transition-colors">
+                                                    {formatCurrency(row.cost, "USD")}
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                        <TableRow className="bg-primary/10 border-none">
+                                            <TableCell className="font-black text-xl pl-10 py-8 italic uppercase" colSpan={2}>Inversión Total Estimada</TableCell>
+                                            <TableCell className="text-right pr-10 font-black text-2xl text-primary italic">
+                                                {formatCurrency(totalBudget, "USD")}
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </CardContent>
                         </Card>
                     </section>
 
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <CalendarRange className="h-4 w-4" /> 5. Plan de Acción Operativo
+                            <CalendarRange className="h-4 w-4" /> 4. Plan de Acción y Jerarquía de Tareas
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl p-2">
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-white/[0.03] border-none">
                                         <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pl-10 py-6">Tarea Operativa</TableHead>
-                                        <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Líder</TableHead>
+                                        <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Responsable</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q1</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q2</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q3</TableHead>
@@ -226,7 +265,7 @@ export default function EstudioTecnicoFullPage() {
                                                 row.responsable === "Carlos Mattar" ? "text-white" : "text-white/60"
                                             )}>{row.tarea}</TableCell>
                                             <TableCell className="text-center">
-                                                <Badge variant={row.responsable === "Carlos Mattar" ? "default" : "outline"} className="text-[8px] font-black uppercase">
+                                                <Badge variant={row.responsable === "Carlos Mattar" ? "default" : "secondary"} className="text-[8px] font-black uppercase">
                                                     {row.responsable}
                                                 </Badge>
                                             </TableCell>
