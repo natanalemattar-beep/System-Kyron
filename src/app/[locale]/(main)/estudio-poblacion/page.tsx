@@ -13,18 +13,19 @@ import {
   Building,
   ThermometerSun,
   Recycle,
-  Layers,
   BookOpen,
   AlertTriangle,
   Zap,
   Rocket,
   ShieldCheck,
-  DollarSign,
-  ShoppingCart
+  Handshake,
+  Box,
+  FileText
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { Logo } from "@/components/logo";
 
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "System Kyron" },
@@ -93,13 +94,21 @@ const budgetData = [
   { item: "Licencia de Seguridad & Blockchain", cantidad: 1, costo: 150, lugar: "Ecosistema Kyron" },
 ];
 
+const alliesData = [
+  { aliado: "SAPI", apoyo: "Asesoría técnica en registro de propiedad intelectual y patentes tecnológicas." },
+  { aliado: "SENIAT", apoyo: "Certificación de cumplimiento y homologación de sistemas de facturación fiscal." },
+  { aliado: "Proveedores de Hardware local", apoyo: "Suministro de estaciones de trabajo y equipos de escaneo de alta gama." },
+  { aliado: "Empresas de Telecomunicaciones", apoyo: "Despliegue de infraestructura de red y conectividad 5G dedicada." },
+  { aliado: "Fundación Kyron", apoyo: "Financiamiento de licencias y programas de formación digital para el personal." },
+];
+
 export default function EstudioPoblacionPage() {
     const { toast } = useToast();
 
     const handleDownloadWord = () => {
         const content = `
             <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head><meta charset='utf-8'><title>Informe Técnico - System Kyron</title>
+            <head><meta charset='utf-8'><title>Informe Técnico Final - System Kyron</title>
             <style>
                 body { font-family: 'Arial', sans-serif; padding: 40px; color: #000; }
                 table { width: 100%; border-collapse: collapse; margin-bottom: 30px; page-break-inside: avoid; }
@@ -143,7 +152,13 @@ export default function EstudioPoblacionPage() {
                     ${budgetData.map(row => `<tr><td>${row.item}</td><td>${row.cantidad}</td><td>$${row.costo}</td><td>${row.lugar}</td></tr>`).join('')}
                 </table>
 
-                <p style="margin-top: 50px; font-size: 9pt; text-align: center; color: #666;">Documento Generado por System Kyron v2.6 • Nodo La Guaira • 2025</p>
+                <div class="section-title">7. ALIADOS ESTRATÉGICOS</div>
+                <table>
+                    <tr><th>ALIADO</th><th>APOYO</th></tr>
+                    ${alliesData.map(row => `<tr><td>${row.aliado}</td><td>${row.apoyo}</td></tr>`).join('')}
+                </table>
+
+                <p style="margin-top: 50px; font-size: 9pt; text-align: center; color: #666;">Documento Final Generado por System Kyron v2.6 • Corporate Intelligence Node • 2025</p>
             </body>
             </html>
         `;
@@ -152,13 +167,13 @@ export default function EstudioPoblacionPage() {
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'Estudio_Tecnico_SystemKyron_Full.doc';
+        fileDownload.download = 'Informe_Final_SystemKyron_Full_8_Bloques.doc';
         fileDownload.click();
         document.body.removeChild(fileDownload);
 
         toast({
             title: "Informe Final Generado",
-            description: "Los 7 bloques técnicos han sido compilados en un documento profesional.",
+            description: "Los 8 bloques técnicos han sido compilados en un documento profesional.",
             action: <CheckCircle className="text-green-500 h-4 w-4" />
         });
     };
@@ -219,7 +234,7 @@ export default function EstudioPoblacionPage() {
                     </section>
                 </div>
 
-                {/* Central: Análisis, Solución y Diferenciadores */}
+                {/* Central: Análisis, Solución, Presupuesto y Aliados */}
                 <div className="xl:col-span-8 space-y-12">
                     <section className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                         <Card className="glass-card border-none p-10 relative overflow-hidden">
@@ -247,24 +262,6 @@ export default function EstudioPoblacionPage() {
                                 <p className="text-base font-black italic leading-relaxed text-white/90 border-l-4 border-white/30 pl-8 text-justify">{proposedSolution.desarrollo}</p>
                             </div>
                         </Card>
-                    </section>
-
-                    {/* Diferenciadores Clave */}
-                    <section>
-                        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6">Diferenciadores Clave</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {[
-                                { title: "Especialización", text: differentiatorText.especializacion, icon: ShieldCheck },
-                                { title: "Alcance de Usuario", text: differentiatorText.alcance, icon: Users },
-                                { title: "De Datos a Estrategia", text: differentiatorText.estrategia, icon: Zap }
-                            ].map((diff, i) => (
-                                <Card key={i} className="glass-card border-none p-8 hover:bg-primary/5 transition-all">
-                                    <diff.icon className="h-8 w-8 text-primary mb-6" />
-                                    <h4 className="font-black text-sm uppercase italic mb-4 text-white">{diff.title}</h4>
-                                    <p className="text-xs font-bold text-white/60 leading-relaxed text-justify">{diff.text}</p>
-                                </Card>
-                            ))}
-                        </div>
                     </section>
 
                     {/* Presupuesto */}
@@ -298,6 +295,49 @@ export default function EstudioPoblacionPage() {
                                 </TableBody>
                             </Table>
                         </Card>
+                    </section>
+
+                    {/* Aliados Estratégicos */}
+                    <section>
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary">Aliados Estratégicos</h3>
+                            <Handshake className="h-5 w-5 text-primary opacity-40" />
+                        </div>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                            <Card className="glass-card border-none p-10 relative overflow-hidden flex flex-col justify-between">
+                                <div className="absolute -top-10 -right-10 p-10 opacity-[0.02] scale-150 rotate-45">
+                                    <Handshake className="h-64 w-64 text-primary" />
+                                </div>
+                                <div className="space-y-6 relative z-10">
+                                    <p className="text-sm font-bold italic text-white/70 leading-relaxed text-justify">
+                                        Para la ejecución exitosa de **System Kyron**, es fundamental contar con una red de aliados que proporcionen soporte técnico, legal y financiero. Los ítems requeridos incluyen desde licencias de software y estaciones de trabajo hasta formación académica especializada y logística de transporte.
+                                    </p>
+                                    <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 flex items-start gap-4">
+                                        <ShieldCheck className="h-6 w-6 text-primary shrink-0 mt-1" />
+                                        <p className="text-xs font-black uppercase tracking-widest text-primary/80">NOTA: Se recomienda gestionar estas alianzas mediante convenios de cooperación institucional.</p>
+                                    </div>
+                                </div>
+                            </Card>
+
+                            <Card className="glass-card border-none overflow-hidden p-2">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow className="bg-white/[0.03] border-none">
+                                            <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pl-8 py-5">Aliado</TableHead>
+                                            <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pr-8 py-5 text-right">Apoyo</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {alliesData.map((row, i) => (
+                                            <TableRow key={i} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                                                <TableCell className="font-black text-xs text-white pl-8 py-5 italic">{row.aliado}</TableCell>
+                                                <TableCell className="text-right text-[10px] font-bold text-white/60 pr-8 py-5 leading-tight">{row.apoyo}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </Card>
+                        </div>
                     </section>
                 </div>
             </div>
