@@ -2,9 +2,23 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { 
+  Card, 
+  CardContent, 
+  CardHeader, 
+  CardTitle, 
+  CardDescription, 
+  CardFooter 
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableRow, 
+  TableHeader, 
+  TableHead 
+} from "@/components/ui/table";
 import { 
   Download, 
   Users, 
@@ -51,7 +65,7 @@ const zeduData = [
   { label: "CONDICIONES CLIMÁTICAS", value: "Tropical costero. Alta salinidad (Riesgo crítico para archivos físicos)." }
 ];
 
-// BLOQUE 7: PRESUPUESTO EXPANDIDO
+// BLOQUE 7: PRESUPUESTO MAESTRO
 const budgetData = [
   { item: "Moto Bera Carguera DT-200 (Logística Litoral)", cost: 2800, responsable: "Marcos Sousa" },
   { item: "Workstation de Gestión Maestra Pro (Dirección)", cost: 2400, responsable: "Carlos Mattar" },
@@ -165,7 +179,8 @@ export default function ModeloZEDUPage() {
                             <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
                                 La U.E.P. Gabriela Mistral enfrenta un riesgo crítico de pérdida de información. El archivado físico tradicional se deteriora rápidamente debido a la **alta salinidad** de Catia La Mar. Además, la fragmentación de la comunicación con los representantes y la complejidad de las nuevas normativas fiscales generan cuellos de botella administrativos que impiden el crecimiento institucional.
                             </p>
-                        </section>
+                        </Card>
+                    </section>
 
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Zap className="h-4 w-4" /> 4. Solución: Ecosistema Kyron</h3>
