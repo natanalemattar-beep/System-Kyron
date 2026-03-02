@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -9,34 +10,30 @@ import {
   Users, 
   MapPin,
   Building,
-  ThermometerSun,
-  Recycle,
-  AlertTriangle,
-  Zap,
   Rocket,
   ShieldCheck,
   FileText,
   CalendarRange,
   Target,
   CheckCircle,
-  LayoutGrid,
   Crown,
   Truck,
   Cpu,
   BrainCircuit,
-  PieChart,
-  Network
+  Network,
+  Zap,
+  Calculator,
+  AlertTriangle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import { cn, formatCurrency } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { motion } from "framer-motion";
 
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "System Kyron", important: true },
   { label: "LÍDER ESTRATÉGICO", value: "Carlos Mattar", important: true },
-  { label: "PERSONAL DE APOYO OPERATIVO", value: "Marcos Sousa, Sebastian Garrido", important: false },
+  { label: "PERSONAL DE APOYO OPERATIVO", value: "Sebastian Garrido, Marcos Sousa", important: false },
   { label: "INSTITUCIÓN BENEFICIARIA", value: "U.E.P. Gabriela Mistral", important: true },
   { label: "UBICACIÓN GEOGRÁFICA", value: "La Guaira, Venezuela", important: true },
 ];
@@ -58,99 +55,87 @@ const problemAnalysis = {
   importancia: "La automatización con IA y Blockchain es la única garantía de supervivencia operativa en el marco legal 2025."
 };
 
+const solutionParagraph = "System Kyron consiste en el desarrollo de una aplicación que transforma el sistema de archivado tradicional de una institución educativa en un entorno digital eficiente y organizado, permitiendo la digitalización, almacenamiento y búsqueda rápida de documentos que antes se gestionaban de forma física. La plataforma integrará un chatbot con atención automatizada dirigida a los representantes de los estudiantes, facilitando respuestas inmediatas y mejorando la comunicación colegio-familia. Además, incorporará herramientas de inteligencia artificial que apoyarán al personal administrativo en la generación de ideas estratégicas, contribuyendo a una gestión más moderna, ágil y orientada a la mejora continua institucional.";
+
 const comparativaData = [
-  { aspecto: "Especialización", mobian: "Genérico (Varios sectores)", kyron: "Específico (Sector Educativo/Corporativo)" },
-  { aspecto: "Comunicación", mobian: "Email tradicional", kyron: "Chatbot Inteligente IA para Representantes" },
-  { aspecto: "Seguridad", mobian: "Base de datos estándar", kyron: "Sellado Inmutable Blockchain" },
-  { aspecto: "Toma de Decisiones", mobian: "Reportes estáticos", kyron: "IA Estratégica para Directivos" },
+  { 
+    aspecto: "Propósito y Enfoque", 
+    mobian: "Optimización de datos para cualquier negocio, enfocado en eficiencia operativa y escalabilidad técnica.", 
+    kyron: "Transformación profunda del sistema de archivado educativo en un entorno digital inteligente y seguro." 
+  },
+  { 
+    aspecto: "Público Objetivo", 
+    mobian: "Equipos técnicos y directivos corporativos generales.", 
+    kyron: "Instituciones educativas, personal administrativo y representantes de estudiantes." 
+  },
+  { 
+    aspecto: "Diferenciadores Clave", 
+    mobian: "Integración de sistemas y aumento de equipo técnico.", 
+    kyron: "Chatbot de atención automatizada, IA para generación de ideas estratégicas y sellado Blockchain." 
+  },
 ];
 
 const budgetData = [
-  { item: "Moto Bera Carguera DT-200 (Logística La Guaira)", cost: 2800, responsable: "Marcos Sousa" },
-  { item: "Workstation de Gestión Maestra (Carlos Mattar)", cost: 1200, responsable: "Carlos Mattar" },
+  { item: "Moto Bera Carguera DT-200 (Logística Litoral)", cost: 2800, responsable: "Marcos Sousa" },
+  { item: "Workstation de Gestión Maestra Pro", cost: 1200, responsable: "Carlos Mattar" },
   { item: "Servidor de Nodo Local Ledger Blockchain", cost: 1500, responsable: "Carlos Mattar" },
-  { item: "Infraestructura de Red Mesh (U.E.P. Gabriela Mistral)", cost: 1800, responsable: "Sebastian Garrido" },
-  { item: "Licencia Anual IA Predictiva Kyron Cloud", cost: 650, responsable: "Carlos Mattar" },
-  { item: "Suministros de Oficina y Hardware Fiscal", cost: 500, responsable: "Marcos Sousa" },
+  { item: "Infraestructura de Red Mesh Gabriela Mistral", cost: 1800, responsable: "Sebastian Garrido" },
+  { item: "Licencia Anual IA Predictiva Kyron Enterprise", cost: 650, responsable: "Carlos Mattar" },
+  { item: "Suministros de Ingeniería y Hardware Fiscal", cost: 500, responsable: "Marcos Sousa" },
 ];
 
 const totalBudget = budgetData.reduce((sum, item) => sum + item.cost, 0);
 
 const alliesData = [
-  { aliado: "SAPI", apoyo: "Registro de Propiedad Intelectual y Patente Magnética" },
+  { aliado: "SAPI", apoyo: "Registro de Propiedad Intelectual y Patente de Software" },
   { aliado: "SENIAT", apoyo: "Homologación de Facturación y Cumplimiento Fiscal" },
-  { aliado: "Fundación Kyron", apoyo: "Donación de Licencias Educativas y Soporte" },
-  { aliado: "Proveedores Tech", apoyo: "Suministro de Hardware y Mantenimiento de Redes" },
+  { aliado: "Fundación Kyron", apoyo: "Donación de Licencias y Soporte a la Comunidad" },
+  { aliado: "Proveedores Tech La Guaira", apoyo: "Suministro de Hardware y Mantenimiento de Redes" },
 ];
 
 const actionPlan = [
-  { tarea: "DIAGNÓSTICO TÉCNICO Y DISEÑO DE RED ESTRATÉGICA", responsable: "Carlos Mattar", crono: ["X", "", "", ""] },
-  { tarea: "LOGÍSTICA Y ADQUISICIÓN DE EQUIPOS (MOTO BERA)", responsable: "Marcos Sousa", crono: ["X", "X", "", ""] },
-  { tarea: "INSTALACIÓN DE INFRAESTRUCTURA Y REDES", responsable: "Sebastian Garrido", crono: ["", "X", "X", ""] },
-  { tarea: "CONFIGURACIÓN DE NODO IA Y SEGURIDAD LEDGER", responsable: "Carlos Mattar", crono: ["", "X", "X", ""] },
-  { tarea: "DIGITALIZACIÓN MASIVA DE EXPEDIENTES (DATA ENTRY)", responsable: "Sebastian Garrido", crono: ["", "", "X", "X"] },
-  { tarea: "LANZAMIENTO, CAPACITACIÓN Y AUDITORÍA FINAL", responsable: "Carlos Mattar", crono: ["", "", "", "X"] },
+  { tarea: "DIAGNÓSTICO TÉCNICO DE MISIÓN CRÍTICA", responsable: "Carlos Mattar", crono: ["X", "", "", ""] },
+  { tarea: "ADQUISICIÓN DE LOGÍSTICA (MOTO BERA)", responsable: "Marcos Sousa", crono: ["X", "X", "", ""] },
+  { tarea: "INSTALACIÓN DE INFRAESTRUCTURA DE RED", responsable: "Sebastian Garrido", crono: ["", "X", "X", ""] },
+  { tarea: "CONFIGURACIÓN DE NODO IA Y SEGURIDAD", responsable: "Carlos Mattar", crono: ["", "X", "X", ""] },
+  { tarea: "DIGITALIZACIÓN MASIVA DE ARCHIVOS", responsable: "Sebastian Garrido", crono: ["", "", "X", "X"] },
+  { tarea: "LANZAMIENTO Y CAPACITACIÓN ESTRATÉGICA", responsable: "Carlos Mattar", crono: ["", "", "", "X"] },
 ];
 
-export default function EstudioTecnicoFullPage() {
+export default function EstudioTecnicoZEDU() {
     const { toast } = useToast();
 
     const handleDownload = () => {
         const content = `
             <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head><meta charset='utf-8'><title>Informe Final System Kyron</title>
+            <head><meta charset='utf-8'><title>Informe Técnico System Kyron</title>
             <style>
                 body { font-family: 'Arial', sans-serif; padding: 40px; color: #000; }
                 table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-                th, td { border: 1px solid #000; padding: 10px; text-align: left; font-size: 10pt; }
+                th, td { border: 1px solid #000; padding: 10px; text-align: left; font-size: 9pt; }
                 th { background-color: #f2f2f2; text-transform: uppercase; font-weight: bold; }
-                .title { text-align: center; font-size: 20pt; font-weight: bold; margin-bottom: 30px; color: #0A2472; text-decoration: underline; }
-                .section-header { background-color: #0A2472; color: #ffffff; font-weight: bold; padding: 12px; margin-top: 30px; text-transform: uppercase; }
-                .total-row { background-color: #e6f3ff; font-weight: bold; font-size: 12pt; }
+                .title { text-align: center; font-size: 18pt; font-weight: bold; margin-bottom: 20px; color: #2563eb; }
+                .section-header { background-color: #2563eb; color: #ffffff; font-weight: bold; padding: 10px; margin-top: 20px; text-transform: uppercase; }
             </style>
             </head>
             <body>
                 <div class="title">INFORME TÉCNICO DE INGENIERÍA - SYSTEM KYRON 2025</div>
-                <div class="section-header">1. IDENTIFICACIÓN DEL PROYECTO Y EQUIPO</div>
+                <div class="section-header">1. IDENTIFICACIÓN DEL PROYECTO</div>
                 <table>${teamData.map(d => `<tr><th>${d.label}</th><td>${d.value}</td></tr>`).join('')}</table>
-                
-                <div class="section-header">2. ESTUDIO DE POBLACIÓN (ZEDU - LA GUAIRA)</div>
+                <div class="section-header">2. ESTUDIO DE POBLACIÓN (ZEDU)</div>
                 <table>${zeduData.map(d => `<tr><th>${d.label}</th><td>${d.value}</td></tr>`).join('')}</table>
-                
-                <div class="section-header">3. ANÁLISIS DEL PROBLEMA DE MISIÓN CRÍTICA</div>
+                <div class="section-header">3. SOLUCIÓN PROPUESTA</div>
+                <p>${solutionParagraph}</p>
+                <div class="section-header">4. COMPARATIVA ESTRATÉGICA (VS. MOBIAN)</div>
                 <table>
-                    <tr><th>DEFINICIÓN DEL PROBLEMA</th><td>${problemAnalysis.definicion}</td></tr>
-                    <tr><th>CAUSAS IDENTIFICADAS</th><td>${problemAnalysis.causas.join(', ')}</td></tr>
-                    <tr><th>CONSECUENCIAS OPERATIVAS</th><td>${problemAnalysis.consecuencias}</td></tr>
-                    <tr><th>IMPORTANCIA DE LA SOLUCIÓN</th><td>${problemAnalysis.importancia}</td></tr>
-                </table>
-
-                <div class="section-header">4. SOLUCIÓN PROPUESTA: ECOSISTEMA DIGITAL INTEGRADO</div>
-                <p>Implementación de la plataforma System Kyron para la digitalización del 100% de los procesos académicos y fiscales de la U.E.P. Gabriela Mistral. La solución incluye un nodo de IA para búsqueda inteligente y sellado Blockchain para la inmutabilidad de los títulos y registros de notas.</p>
-
-                <div class="section-header">5. DIFERENCIADORES ESTRATÉGICOS (VS. MOBIAN)</div>
-                <table>
-                    <tr><th>ASPECTO</th><th>MOBIAN (GENÉRICO)</th><th>SYSTEM KYRON (LÍDER)</th></tr>
+                    <tr><th>ASPECTO</th><th>MOBIAN</th><th>SYSTEM KYRON</th></tr>
                     ${comparativaData.map(d => `<tr><td>${d.aspecto}</td><td>${d.mobian}</td><td>${d.kyron}</td></tr>`).join('')}
                 </table>
-
-                <div class="section-header">6. PRESUPUESTO TÉCNICO EXPANDIDO</div>
+                <div class="section-header">5. PRESUPUESTO TÉCNICO</div>
                 <table>
-                    <tr><th>CONCEPTO DE INVERSIÓN</th><th>RESPONSABLE</th><th>COSTO (USD)</th></tr>
-                    ${budgetData.map(d => `<tr><td>${d.item}</td><td>${d.responsable}</td><td>$${d.cost.toLocaleString()}</td></tr>`).join('')}
-                    <tr class="total-row"><td colspan="2">TOTAL INVERSIÓN DEL PROYECTO</td><td>$${totalBudget.toLocaleString()}</td></tr>
-                </table>
-
-                <div class="section-header">7. ALIANZAS ESTRATÉGICAS</div>
-                <table>
-                    <tr><th>ALIADO</th><th>APOYO / GESTIÓN</th></tr>
-                    ${alliesData.map(d => `<tr><td>${d.aliado}</td><td>${d.apoyo}</td></tr>`).join('')}
-                </table>
-
-                <div class="section-header">8. PLAN DE ACCIÓN Y CRONOGRAMA</div>
-                <table>
-                    <tr><th>TAREA OPERATIVA</th><th>RESPONSABLE</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
-                    ${actionPlan.map(d => `<tr><td>${d.tarea}</td><td>${d.responsable}</td><td>${d.crono[0]}</td><td>${d.crono[1]}</td><td>${d.crono[2]}</td><td>${d.crono[3]}</td></tr>`).join('')}
+                    <tr><th>ÍTEM</th><th>RESPONSABLE</th><th>COSTO</th></tr>
+                    ${budgetData.map(d => `<tr><td>${d.item}</td><td>${d.responsable}</td><td>$${d.cost}</td></tr>`).join('')}
+                    <tr style="font-weight:bold"><td>TOTAL</td><td></td><td>$${totalBudget}</td></tr>
                 </table>
             </body>
             </html>
@@ -158,9 +143,9 @@ export default function EstudioTecnicoFullPage() {
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(content);
         const link = document.createElement("a");
         link.href = source;
-        link.download = 'Informe_Maestro_Zedu_SystemKyron.doc';
+        link.download = 'Informe_Zedu_SystemKyron_Final.doc';
         link.click();
-        toast({ title: "Informe Maestro Generado", description: "Todos los bloques técnicos (incluyendo el presupuesto expandido y plan de acción) han sido exportados." });
+        toast({ title: "Informe Maestro Generado", description: "El informe de 9 bloques ha sido exportado exitosamente." });
     };
 
     return (
@@ -174,7 +159,7 @@ export default function EstudioTecnicoFullPage() {
                     <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">U.E.P. Gabriela Mistral • La Guaira • Dirección de Proyecto</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-20 px-16 rounded-2xl shadow-glow text-base font-black" onClick={handleDownload}>
-                    <Download className="mr-4 h-8 w-8" /> EXPORTAR INFORME ZEDU
+                    <Download className="mr-4 h-8 w-8" /> EXPORTAR INFORME FINAL
                 </Button>
             </header>
 
@@ -245,33 +230,25 @@ export default function EstudioTecnicoFullPage() {
                     </section>
                 </div>
 
-                {/* Lado Derecho: Análisis, Presupuesto y Planificación */}
+                {/* Lado Derecho: Solución, Presupuesto y Planificación */}
                 <div className="xl:col-span-7 space-y-12">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <AlertTriangle className="h-4 w-4" /> 4. Análisis de Misión Crítica
+                            <Zap className="h-4 w-4" /> 4. Solución Propuesta (System Kyron)
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <Card className="glass-card border-none p-8">
-                                <h4 className="text-[10px] font-black uppercase text-primary mb-4 tracking-widest">Causas del Problema</h4>
-                                <ul className="space-y-3">
-                                    {problemAnalysis.causas.map((c, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-sm font-bold text-white/70 italic">
-                                            <div className="h-1.5 w-1.5 bg-red-500 rounded-full" /> {c}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </Card>
-                            <Card className="glass-card border-none p-8">
-                                <h4 className="text-[10px] font-black uppercase text-primary mb-4 tracking-widest">Definición del Problema</h4>
-                                <p className="text-sm font-black italic text-white leading-relaxed">{problemAnalysis.definicion}</p>
-                            </Card>
-                        </div>
+                        <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-8 opacity-[0.02] group-hover:opacity-[0.05] transition-all">
+                                <BrainCircuit className="h-32 w-32" />
+                            </div>
+                            <p className="text-lg font-bold text-white/90 italic text-justify">
+                                {solutionParagraph}
+                            </p>
+                        </Card>
                     </section>
 
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <Calculator className="h-4 w-4" /> 5. Presupuesto Expandido (Misión La Guaira)
+                            <Calculator className="h-4 w-4" /> 5. Presupuesto Expandido
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl">
                             <CardContent className="p-0">
@@ -314,14 +291,14 @@ export default function EstudioTecnicoFullPage() {
 
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <CalendarRange className="h-4 w-4" /> 6. Plan de Acción y Cronograma
+                            <CalendarRange className="h-4 w-4" /> 6. Plan de Acción Jerárquico
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl p-2">
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-white/[0.03] border-none">
-                                        <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pl-10 py-6">Tarea Operativa</TableHead>
-                                        <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Responsable</TableHead>
+                                        <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pl-10 py-6">Tarea Estratégica</TableHead>
+                                        <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Líder</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q1</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q2</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q3</TableHead>
@@ -361,10 +338,4 @@ export default function EstudioTecnicoFullPage() {
             </div>
         </div>
     );
-}
-
-function Calculator(props: any) {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" /><line x1="8" x2="16" y1="6" y2="6" /><line x1="16" x2="16" y1="14" y2="18" /><path d="M16 10h.01" /><path d="M12 10h.01" /><path d="M8 10h.01" /><path d="M12 14h.01" /><path d="M8 14h.01" /><path d="M12 18h.01" /><path d="M8 18h.01" /></svg>
-  );
 }
