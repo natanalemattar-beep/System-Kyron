@@ -32,8 +32,8 @@ import { Badge } from "@/components/ui/badge";
 
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "System Kyron", important: true },
-  { label: "LÍDER ESTRATÉGICO", value: "Carlos Mattar", important: true },
-  { label: "PERSONAL DE APOYO (RELLENO)", value: "Sebastian Garrido, Marcos Sousa", important: false },
+  { label: "LÍDER ESTRATÉGICO (IA & ARQUITECTURA)", value: "Carlos Mattar", important: true },
+  { label: "PERSONAL DE APOYO OPERATIVO", value: "Sebastian Garrido, Marcos Sousa", important: false },
   { label: "INSTITUCIÓN BENEFICIARIA", value: "U.E.P. Gabriela Mistral", important: true },
   { label: "UBICACIÓN GEOGRÁFICA", value: "La Guaira, Venezuela", important: true },
 ];
@@ -44,42 +44,42 @@ const zeduData = [
   { label: "POBLACIÓN ESTIMADA", value: "500 empresas activas / 5.000 empleados administrativos y civiles." },
   { label: "DESGLOSE DE GÉNERO", value: "52% Femenino / 48% Masculino." },
   { label: "RANGO ETARIO DOMINANTE", value: "25-40 años (60%) / 41-55 años (30%) / Otros (10%)." },
-  { label: "CARACTERÍSTICAS SOCIALES", value: "Empresas en transición digital obligatoria con alta necesidad de blindaje fiscal y gestión de residuos." },
-  { label: "CONDICIONES CLIMÁTICAS", value: "Tropical costero. Promedio 28°C. Brisa marina constante con alta salinidad." }
+  { label: "CARACTERÍSTICAS SOCIALES", value: "Entorno con alta necesidad de digitalización y blindaje fiscal ante normativas 2025." },
+  { label: "CONDICIONES CLIMÁTICAS", value: "Tropical costero. Promedio 28°C. Alta salinidad (Riesgo para archivos físicos)." }
 ];
 
 const problemAnalysis = {
-  causas: ["Archivado físico vulnerable a la humedad y salinidad", "Fragmentación de datos contables", "Presupuesto tecnológico desactualizado"],
-  definicion: "Inexistencia de un ecosistema digital inmutable que centralice la gestión académica, administrativa y fiscal de la institución.",
-  consecuencias: "Riesgo crítico de pérdida de expedientes, multas por incumplimiento fiscal y lentitud en la atención al representante.",
-  importancia: "La automatización con IA y Blockchain es la única garantía de supervivencia operativa en el marco legal 2025."
+  causas: ["Vulnerabilidad del papel a la humedad/salinidad", "Fragmentación de datos", "Procesos manuales lentos"],
+  definicion: "Inexistencia de un ecosistema digital inmutable que centralice la gestión administrativa y fiscal de la institución.",
+  consecuencias: "Pérdida de expedientes históricos, sanciones fiscales por errores manuales y deficiente comunicación con representantes.",
+  importancia: "La digitalización es vital para garantizar la integridad legal y la continuidad operativa del colegio."
 };
 
-const solutionParagraph = "System Kyron consiste en el desarrollo de una aplicación que transforma el sistema de archivado tradicional de una institución educativa en un entorno digital eficiente y organizado, permitiendo la digitalización, almacenamiento y búsqueda rápida de documentos que antes se gestionaban de forma física. La plataforma integrará un chatbot con atención automatizada dirigida a los representantes de los estudiantes, facilitando respuestas inmediatas y mejorando la comunicación colegio-familia. Además, incorporará herramientas de inteligencia artificial que apoyarán al personal administrativo en la generación de ideas estratégicas, contribuyendo a una gestión más moderna, ágil y orientada a la mejora continua institucional.";
+const solutionParagraph = "System Kyron transforma el sistema de archivado tradicional de la U.E.P. Gabriela Mistral en un entorno digital eficiente y organizado. Permite la digitalización, almacenamiento y búsqueda ultra-rápida de documentos. La plataforma integra un chatbot inteligente para atención inmediata a representantes, facilitando la comunicación colegio-familia. Además, incorpora IA dirigida por Carlos Mattar para apoyar al personal directivo en la generación de ideas estratégicas y toma de decisiones basadas en datos reales.";
 
 const comparativaData = [
   { 
     aspecto: "Propósito y Enfoque", 
-    mobian: "Optimización de datos para cualquier negocio, enfocado en eficiencia operativa y escalabilidad técnica.", 
-    kyron: "Transformación profunda del sistema de archivado educativo en un entorno digital inteligente y seguro." 
+    mobian: "Optimización de datos genérica para negocios de cualquier tipo.", 
+    kyron: "Transformación profunda del archivado educativo en un ecosistema inteligente." 
   },
   { 
     aspecto: "Público Objetivo", 
     mobian: "Equipos técnicos y directivos corporativos generales.", 
-    kyron: "Instituciones educativas, personal administrativo y representantes de estudiantes." 
+    kyron: "Instituciones educativas, personal administrativo y representantes." 
   },
   { 
-    aspecto: "Diferenciadores Clave", 
-    mobian: "Integración de sistemas y aumento de equipo técnico.", 
-    kyron: "Chatbot de atención automatizada, IA para generación de ideas estratégicas y sellado Blockchain." 
+    aspecto: "Diferenciadores", 
+    mobian: "Integración de sistemas estándar.", 
+    kyron: "Chatbot de atención familiar, IA estratégica y sellado Blockchain inmutable." 
   },
 ];
 
 const budgetData = [
   { item: "Moto Bera Carguera DT-200 (Logística Litoral)", cost: 2800, responsable: "Marcos Sousa" },
-  { item: "Workstation de Gestión Maestra Pro", cost: 1200, responsable: "Carlos Mattar" },
+  { item: "Workstation de Gestión Maestra Pro (Dirección)", cost: 1200, responsable: "Carlos Mattar" },
   { item: "Servidor de Nodo Local Ledger Blockchain", cost: 1500, responsable: "Carlos Mattar" },
-  { item: "Infraestructura de Red Mesh Gabriela Mistral", cost: 1800, responsable: "Sebastian Garrido" },
+  { item: "Infraestructura de Red Mesh Colegio", cost: 1800, responsable: "Sebastian Garrido" },
   { item: "Licencia Anual IA Predictiva Kyron Enterprise", cost: 650, responsable: "Carlos Mattar" },
   { item: "Suministros de Ingeniería y Hardware Fiscal", cost: 500, responsable: "Marcos Sousa" },
 ];
@@ -87,10 +87,10 @@ const budgetData = [
 const totalBudget = budgetData.reduce((sum, item) => sum + item.cost, 0);
 
 const alliesData = [
-  { aliado: "SAPI", apoyo: "Registro de Propiedad Intelectual y Patente de Software" },
-  { aliado: "SENIAT", apoyo: "Homologación de Facturación y Cumplimiento Fiscal" },
-  { aliado: "Fundación Kyron", apoyo: "Donación de Licencias y Soporte a la Comunidad" },
-  { aliado: "Proveedores Tech La Guaira", apoyo: "Suministro de Hardware y Mantenimiento de Redes" },
+  { aliado: "SAPI", apoyo: "Registro de Patente de Software y Marca System Kyron" },
+  { aliado: "SENIAT", apoyo: "Asesoría para Homologación de Facturación Fiscal" },
+  { aliado: "Fundación Kyron", apoyo: "Donación de licencias y formación técnica al personal" },
+  { aliado: "Comunidad La Atlántida", apoyo: "Espacio para pruebas piloto de recolección magnética" },
 ];
 
 const actionPlan = [
@@ -120,13 +120,13 @@ export default function EstudioTecnicoZEDU() {
             </head>
             <body>
                 <div class="title">MODELO DE ZEDU - SYSTEM KYRON 2025</div>
-                <div class="section-header">1. IDENTIFICACIÓN DEL PROYECTO</div>
+                <div class="section-header">1. IDENTIFICACIÓN DEL EQUIPO</div>
                 <table>${teamData.map(d => `<tr><th>${d.label}</th><td>${d.value}</td></tr>`).join('')}</table>
                 <div class="section-header">2. ESTUDIO DE POBLACIÓN (ZEDU)</div>
                 <table>${zeduData.map(d => `<tr><th>${d.label}</th><td>${d.value}</td></tr>`).join('')}</table>
                 <div class="section-header">3. ANÁLISIS DEL PROBLEMA</div>
                 <p><strong>Definición:</strong> ${problemAnalysis.definicion}</p>
-                <p><strong>Consecuencias:</strong> ${problemAnalysis.consecuencias}</p>
+                <p><strong>Importancia:</strong> ${problemAnalysis.importancia}</p>
                 <div class="section-header">4. SOLUCIÓN PROPUESTA</div>
                 <p>${solutionParagraph}</p>
                 <div class="section-header">5. COMPARATIVA ESTRATÉGICA (VS. MOBIAN)</div>
@@ -135,12 +135,12 @@ export default function EstudioTecnicoZEDU() {
                     ${comparativaData.map(d => `<tr><td>${d.aspecto}</td><td>${d.mobian}</td><td>${d.kyron}</td></tr>`).join('')}
                 </table>
                 <div class="section-header">6. DIFERENCIADORES CLAVE</div>
-                <p>Enfoque educativo especializado, chatbot de atención inmediata y sellado inmutable Blockchain.</p>
+                <p>Chatbot inteligente, IA para ideas estratégicas y sellado Blockchain inmutable.</p>
                 <div class="section-header">7. PRESUPUESTO TÉCNICO EXPANDIDO</div>
                 <table>
-                    <tr><th>ÍTEM</th><th>RESPONSABLE</th><th>COSTO</th></tr>
+                    <tr><th>ÍTEM DE INVERSIÓN</th><th>RESPONSABLE</th><th>COSTO</th></tr>
                     ${budgetData.map(d => `<tr><td>${d.item}</td><td>${d.responsable}</td><td>$${d.cost}</td></tr>`).join('')}
-                    <tr style="font-weight:bold"><td>TOTAL</td><td></td><td>$${totalBudget}</td></tr>
+                    <tr style="font-weight:bold"><td>TOTAL PROYECTO</td><td></td><td>$${totalBudget}</td></tr>
                 </table>
                 <div class="section-header">8. ALIANZAS ESTRATÉGICAS</div>
                 <table>${alliesData.map(d => `<tr><th>${d.aliado}</th><td>${d.apoyo}</td></tr>`).join('')}</table>
@@ -257,7 +257,7 @@ export default function EstudioTecnicoZEDU() {
 
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <Calculator className="h-4 w-4" /> 5. Presupuesto Expandido
+                            <Calculator className="h-4 w-4" /> 5. Presupuesto Maestro
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl">
                             <CardContent className="p-0">
@@ -265,7 +265,7 @@ export default function EstudioTecnicoZEDU() {
                                     <TableHeader>
                                         <TableRow className="bg-white/[0.03] border-none">
                                             <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pl-10 py-6">Ítem de Inversión</TableHead>
-                                            <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Responsable</TableHead>
+                                            <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Líder</TableHead>
                                             <TableHead className="text-right font-black text-[10px] uppercase tracking-widest text-primary py-6 pr-10">Inversión</TableHead>
                                         </TableRow>
                                     </TableHeader>
@@ -307,7 +307,7 @@ export default function EstudioTecnicoZEDU() {
                                 <TableHeader>
                                     <TableRow className="bg-white/[0.03] border-none">
                                         <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pl-10 py-6">Tarea Estratégica</TableHead>
-                                        <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Líder</TableHead>
+                                        <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary py-6 text-center">Responsable</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q1</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q2</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase tracking-widest text-primary py-6">Q3</TableHead>
