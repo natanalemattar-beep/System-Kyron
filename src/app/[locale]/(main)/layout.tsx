@@ -41,7 +41,7 @@ export default function MainLayout({
               
               <footer className="p-12 border-t border-white/10 bg-black/60 text-center backdrop-blur-3xl relative z-20">
                 <p className="text-[10px] font-black uppercase tracking-[1em] text-white/20 italic">
-                  System Kyron v2.6 • Quantum Engineering • 2026
+                  System Kyron v2.6 • Final Project Node • 2026
                 </p>
               </footer>
           </div>
