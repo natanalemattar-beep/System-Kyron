@@ -28,7 +28,7 @@ export default function MainLayout({
               <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-informatica" />
               
               <motion.main 
-                className="flex-1 w-full p-8 md:p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-10 md:p-16 lg:p-24 pt-32 md:pt-40 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
