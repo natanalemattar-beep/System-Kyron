@@ -22,7 +22,7 @@ import {
   Calculator,
   Activity,
   History,
-  LayoutGrid
+  AlertTriangle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn, formatCurrency } from "@/lib/utils";
@@ -93,7 +93,6 @@ export default function ModeloZEDUPage() {
 
     return (
         <div className="space-y-16 w-full animate-in fade-in duration-1000 pb-32">
-            {/* Cabecera de Impacto */}
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-8 border-primary pl-10 py-2">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4 shadow-glow">
@@ -108,9 +107,7 @@ export default function ModeloZEDUPage() {
             </header>
 
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 w-full">
-                {/* BLOQUES IZQUIERDOS */}
                 <div className="xl:col-span-5 space-y-12">
-                    {/* 1. Identificación */}
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Crown className="h-4 w-4"/> 1. Identificación del Equipo</h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl rounded-[2.5rem]">
@@ -125,7 +122,6 @@ export default function ModeloZEDUPage() {
                         </Card>
                     </section>
 
-                    {/* 2. Estudio de Población */}
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Users className="h-4 w-4"/> 2. Estudio de Población</h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl rounded-[2.5rem]">
@@ -140,7 +136,6 @@ export default function ModeloZEDUPage() {
                         </Card>
                     </section>
 
-                    {/* 8. Alianzas */}
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Network className="h-4 w-4" /> 8. Alianzas Estratégicas</h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl rounded-[2.5rem]">
@@ -156,9 +151,7 @@ export default function ModeloZEDUPage() {
                     </section>
                 </div>
 
-                {/* BLOQUES DERECHOS */}
                 <div className="xl:col-span-7 space-y-12">
-                    {/* 3. El Problema */}
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><AlertTriangle className="h-4 w-4" /> 3. Análisis del Problema</h3>
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl rounded-[2.5rem]">
@@ -168,7 +161,6 @@ export default function ModeloZEDUPage() {
                         </Card>
                     </section>
 
-                    {/* 4. Solución Propuesta */}
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Zap className="h-4 w-4" /> 4. Solución: Ecosistema Kyron</h3>
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl relative overflow-hidden rounded-[2.5rem]">
@@ -179,7 +171,6 @@ export default function ModeloZEDUPage() {
                         </Card>
                     </section>
 
-                    {/* 5. Comparativa y 6. Diferenciadores */}
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><History className="h-4 w-4" /> 5 & 6. Comparativa Estratégica</h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl rounded-[2.5rem]">
@@ -194,7 +185,6 @@ export default function ModeloZEDUPage() {
                         </Card>
                     </section>
 
-                    {/* 7. Presupuesto */}
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Calculator className="h-4 w-4" /> 7. Presupuesto de Misión Crítica</h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl rounded-[2.5rem]">
@@ -217,7 +207,6 @@ export default function ModeloZEDUPage() {
                         </Card>
                     </section>
 
-                    {/* 9. Plan de Acción */}
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><CalendarRange className="h-4 w-4" /> 9. Plan de Acción Jerárquico</h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl rounded-[2.5rem]">
