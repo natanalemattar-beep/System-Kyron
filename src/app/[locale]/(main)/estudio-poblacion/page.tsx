@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -18,14 +17,15 @@ import {
   ShieldCheck,
   FileText,
   CalendarRange,
-  BrainCircuit,
   Target,
   CheckCircle,
   LayoutGrid,
   Crown,
   Truck,
-  Monitor,
-  Cpu
+  Cpu,
+  BrainCircuit,
+  PieChart,
+  Network
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -58,6 +58,13 @@ const problemAnalysis = {
   importancia: "La automatización con IA y Blockchain es la única garantía de supervivencia operativa en el marco legal 2025."
 };
 
+const comparativaData = [
+  { aspecto: "Especialización", mobian: "Genérico (Varios sectores)", kyron: "Específico (Sector Educativo/Corporativo)" },
+  { aspecto: "Comunicación", mobian: "Email tradicional", kyron: "Chatbot Inteligente IA para Representantes" },
+  { aspecto: "Seguridad", mobian: "Base de datos estándar", kyron: "Sellado Inmutable Blockchain" },
+  { aspecto: "Toma de Decisiones", mobian: "Reportes estáticos", kyron: "IA Estratégica para Directivos" },
+];
+
 const budgetData = [
   { item: "Moto Bera Carguera DT-200 (Logística La Guaira)", cost: 2800, responsable: "Marcos Sousa" },
   { item: "Workstation de Gestión Maestra (Carlos Mattar)", cost: 1200, responsable: "Carlos Mattar" },
@@ -68,6 +75,13 @@ const budgetData = [
 ];
 
 const totalBudget = budgetData.reduce((sum, item) => sum + item.cost, 0);
+
+const alliesData = [
+  { aliado: "SAPI", apoyo: "Registro de Propiedad Intelectual y Patente Magnética" },
+  { aliado: "SENIAT", apoyo: "Homologación de Facturación y Cumplimiento Fiscal" },
+  { aliado: "Fundación Kyron", apoyo: "Donación de Licencias Educativas y Soporte" },
+  { aliado: "Proveedores Tech", apoyo: "Suministro de Hardware y Mantenimiento de Redes" },
+];
 
 const actionPlan = [
   { tarea: "DIAGNÓSTICO TÉCNICO Y DISEÑO DE RED ESTRATÉGICA", responsable: "Carlos Mattar", crono: ["X", "", "", ""] },
@@ -114,14 +128,26 @@ export default function EstudioTecnicoFullPage() {
                 <div class="section-header">4. SOLUCIÓN PROPUESTA: ECOSISTEMA DIGITAL INTEGRADO</div>
                 <p>Implementación de la plataforma System Kyron para la digitalización del 100% de los procesos académicos y fiscales de la U.E.P. Gabriela Mistral. La solución incluye un nodo de IA para búsqueda inteligente y sellado Blockchain para la inmutabilidad de los títulos y registros de notas.</p>
 
-                <div class="section-header">5. PRESUPUESTO TÉCNICO DETALLADO</div>
+                <div class="section-header">5. DIFERENCIADORES ESTRATÉGICOS (VS. MOBIAN)</div>
                 <table>
-                    <tr><th>CONCEPTO</th><th>RESPONSABLE</th><th>INVERSIÓN (USD)</th></tr>
+                    <tr><th>ASPECTO</th><th>MOBIAN (GENÉRICO)</th><th>SYSTEM KYRON (LÍDER)</th></tr>
+                    ${comparativaData.map(d => `<tr><td>${d.aspecto}</td><td>${d.mobian}</td><td>${d.kyron}</td></tr>`).join('')}
+                </table>
+
+                <div class="section-header">6. PRESUPUESTO TÉCNICO EXPANDIDO</div>
+                <table>
+                    <tr><th>CONCEPTO DE INVERSIÓN</th><th>RESPONSABLE</th><th>COSTO (USD)</th></tr>
                     ${budgetData.map(d => `<tr><td>${d.item}</td><td>${d.responsable}</td><td>$${d.cost.toLocaleString()}</td></tr>`).join('')}
                     <tr class="total-row"><td colspan="2">TOTAL INVERSIÓN DEL PROYECTO</td><td>$${totalBudget.toLocaleString()}</td></tr>
                 </table>
 
-                <div class="section-header">6. PLAN DE ACCIÓN Y CRONOGRAMA</div>
+                <div class="section-header">7. ALIANZAS ESTRATÉGICAS</div>
+                <table>
+                    <tr><th>ALIADO</th><th>APOYO / GESTIÓN</th></tr>
+                    ${alliesData.map(d => `<tr><td>${d.aliado}</td><td>${d.apoyo}</td></tr>`).join('')}
+                </table>
+
+                <div class="section-header">8. PLAN DE ACCIÓN Y CRONOGRAMA</div>
                 <table>
                     <tr><th>TAREA OPERATIVA</th><th>RESPONSABLE</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
                     ${actionPlan.map(d => `<tr><td>${d.tarea}</td><td>${d.responsable}</td><td>${d.crono[0]}</td><td>${d.crono[1]}</td><td>${d.crono[2]}</td><td>${d.crono[3]}</td></tr>`).join('')}
@@ -132,9 +158,9 @@ export default function EstudioTecnicoFullPage() {
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(content);
         const link = document.createElement("a");
         link.href = source;
-        link.download = 'Estudio_Tecnico_Zedu_SystemKyron.doc';
+        link.download = 'Informe_Maestro_Zedu_SystemKyron.doc';
         link.click();
-        toast({ title: "Informe Maestro Generado", description: "Todos los bloques técnicos (incluyendo el presupuesto expandido) han sido exportados." });
+        toast({ title: "Informe Maestro Generado", description: "Todos los bloques técnicos (incluyendo el presupuesto expandido y plan de acción) han sido exportados." });
     };
 
     return (
@@ -142,13 +168,13 @@ export default function EstudioTecnicoFullPage() {
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-8 border-primary pl-10 py-2">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4 shadow-glow">
-                        <Rocket className="h-3 w-3" /> System v2.6.5 Final Build
+                        <Rocket className="h-3 w-3" /> Master Node v2.6.5
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic italic-shadow text-white uppercase leading-none">ESTUDIO <span className="text-primary">TÉCNICO</span></h1>
-                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">U.E.P. Gabriela Mistral • La Guaira • Dirección Maestro: Carlos Mattar</p>
+                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">U.E.P. Gabriela Mistral • La Guaira • Dirección de Proyecto</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-20 px-16 rounded-2xl shadow-glow text-base font-black" onClick={handleDownload}>
-                    <Download className="mr-4 h-8 w-8" /> EXPORTAR DOCUMENTO ZEDU
+                    <Download className="mr-4 h-8 w-8" /> EXPORTAR INFORME ZEDU
                 </Button>
             </header>
 
@@ -191,13 +217,61 @@ export default function EstudioTecnicoFullPage() {
                             </CardContent>
                         </Card>
                     </section>
+
+                    <section>
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
+                            <Network className="h-4 w-4" /> 3. Alianzas Estratégicas
+                        </h3>
+                        <Card className="glass-card border-none overflow-hidden shadow-2xl">
+                            <CardContent className="p-0">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow className="bg-white/[0.03] border-none">
+                                            <TableHead className="font-black text-[10px] uppercase tracking-widest text-primary pl-10 py-6">Aliado</TableHead>
+                                            <TableHead className="text-right font-black text-[10px] uppercase tracking-widest text-primary py-6 pr-10">Gestión</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {alliesData.map((row, i) => (
+                                            <TableRow key={i} className="border-b border-white/5 hover:bg-primary/[0.02] transition-all">
+                                                <TableCell className="font-bold pl-10 py-6">{row.aliado}</TableCell>
+                                                <TableCell className="text-right pr-10 text-xs text-white/60 italic">{row.apoyo}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </CardContent>
+                        </Card>
+                    </section>
                 </div>
 
-                {/* Lado Derecho: Presupuesto y Planificación */}
+                {/* Lado Derecho: Análisis, Presupuesto y Planificación */}
                 <div className="xl:col-span-7 space-y-12">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <Calculator className="h-4 w-4" /> 3. Presupuesto Técnico de Misión Crítica
+                            <AlertTriangle className="h-4 w-4" /> 4. Análisis de Misión Crítica
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <Card className="glass-card border-none p-8">
+                                <h4 className="text-[10px] font-black uppercase text-primary mb-4 tracking-widest">Causas del Problema</h4>
+                                <ul className="space-y-3">
+                                    {problemAnalysis.causas.map((c, i) => (
+                                        <li key={i} className="flex items-center gap-3 text-sm font-bold text-white/70 italic">
+                                            <div className="h-1.5 w-1.5 bg-red-500 rounded-full" /> {c}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Card>
+                            <Card className="glass-card border-none p-8">
+                                <h4 className="text-[10px] font-black uppercase text-primary mb-4 tracking-widest">Definición del Problema</h4>
+                                <p className="text-sm font-black italic text-white leading-relaxed">{problemAnalysis.definicion}</p>
+                            </Card>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
+                            <Calculator className="h-4 w-4" /> 5. Presupuesto Expandido (Misión La Guaira)
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl">
                             <CardContent className="p-0">
@@ -240,7 +314,7 @@ export default function EstudioTecnicoFullPage() {
 
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3">
-                            <CalendarRange className="h-4 w-4" /> 4. Plan de Acción y Jerarquía de Tareas
+                            <CalendarRange className="h-4 w-4" /> 6. Plan de Acción y Cronograma
                         </h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl p-2">
                             <Table>
@@ -287,4 +361,10 @@ export default function EstudioTecnicoFullPage() {
             </div>
         </div>
     );
+}
+
+function Calculator(props: any) {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" /><line x1="8" x2="16" y1="6" y2="6" /><line x1="16" x2="16" y1="14" y2="18" /><path d="M16 10h.01" /><path d="M12 10h.01" /><path d="M8 10h.01" /><path d="M12 14h.01" /><path d="M8 14h.01" /><path d="M12 18h.01" /><path d="M8 18h.01" /></svg>
+  );
 }

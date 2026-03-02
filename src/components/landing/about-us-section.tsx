@@ -1,10 +1,9 @@
-
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { Target, Eye, BookOpen, Gavel, Briefcase } from "lucide-react";
+import { Target, Eye, BookOpen, Gavel, Briefcase, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
@@ -24,136 +23,118 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
     return <motion.span ref={ref}>{rounded}</motion.span>;
 }
 
-const clientLogos = [
-    { id: "client-logo-1", name: "Constructora XYZ" },
-    { id: "client-logo-2", name: "Inversiones ABC" },
-    { id: "client-logo-3", name: "Tech Solutions LLC" },
-    { id: "client-logo-4", name: "Innovate Corp" },
-    { id: "client-logo-5", name: "Epsilon Services" },
-];
-
 const testimonials = [
   {
     name: "Carlos Rodríguez",
-    company: "Director de Contabilidad, Constructora XYZ",
+    company: "Director de Contabilidad, U.E.P. Gabriela Mistral",
     avatarId: "testimonial-avatar-1",
-    module: "Centro de Contabilidad",
+    module: "Contabilidad Educativa",
     icon: BookOpen,
-    text: "Reduje 20 horas a la semana en conciliación manual. La automatización del Libro de Compras y Ventas y la conexión con el SENIAT es impecable.",
+    text: "System Kyron ha eliminado el riesgo de pérdida de expedientes por humedad. La inmutabilidad de los registros académicos es el blindaje que necesitábamos en La Guaira.",
   },
   {
     name: "Ana Pérez",
-    company: "Gerente de RR.HH., Inversiones ABC",
+    company: "Gerente RR.HH., Holding Kyron",
     avatarId: "testimonial-avatar-2",
-    module: "Gestión de RR.HH.",
+    module: "Gestión de Talento",
     icon: Briefcase,
-    text: "Calculo y pago la nómina completa de 80 empleados en menos de una hora. El cálculo automático de prestaciones y la generación de recibos me ahorra días de trabajo al mes.",
+    text: "La automatización del Plan de Acción y la jerarquía de mando nos permite ejecutar proyectos a gran escala con una eficiencia nunca antes vista.",
   },
-  {
-    name: "Luis Martínez",
-    company: "Asesor Legal, Tech Solutions LLC",
-    avatarId: "testimonial-avatar-3",
-    module: "Escritorio Jurídico",
-    icon: Gavel,
-    text: "Cero multas del SENIAT este trimestre. El sistema de alertas predictivas y el módulo de cumplimiento son una garantía de tranquilidad que no tiene precio en Venezuela.",
-  }
 ];
 
 export function AboutUsSection() {
-    return (
-        <section id="nosotros" className="py-20 md:py-28 bg-background relative overflow-hidden">
-            <div className="container mx-auto px-6 relative z-10">
-                <motion.div 
-                    className="mb-24"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <h3 className="text-center text-muted-foreground font-black text-[10px] uppercase tracking-[0.5em] mb-10 opacity-40">Trust Network • Alianzas Estratégicas</h3>
-                    <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-8">
-                        {clientLogos.map((logo) => {
-                            const logoImage = PlaceHolderImages.find(img => img.id === logo.id);
-                            return (
-                                logoImage && <Image key={logo.id} src={logoImage.imageUrl} alt={logo.name} width={120} height={50} className="opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110" data-ai-hint={logoImage.imageHint}/>
-                            )
-                        })}
-                    </div>
-                </motion.div>
+    const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
 
-                <div className="grid lg:grid-cols-5 gap-16 items-start">
+    return (
+        <section id="nosotros" className="py-24 md:py-32 bg-[#020202] relative overflow-hidden hud-grid">
+            <div className="absolute inset-0 bg-primary/5 blur-[120px] pointer-events-none -z-10" />
+            
+            <div className="container mx-auto px-6 relative z-10">
+                <div className="grid lg:grid-cols-5 gap-20 items-start">
                     <motion.div 
                         className="lg:col-span-2 space-y-12"
-                         initial={{ opacity: 0, x: -30 }}
+                        initial={{ opacity: 0, x: -40 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
                     >
-                        <div className="space-y-4">
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic italic-shadow">El Equipo</h2>
-                            <p className="text-lg text-muted-foreground font-medium leading-relaxed">Fusionamos la ingeniería de software con la visión de negocios para transformar la realidad operativa de Venezuela.</p>
+                        <div className="space-y-6">
+                            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20">
+                                <Sparkles className="h-3 w-3" /> The Core Team
+                            </div>
+                            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic italic-shadow text-white">System <span className="text-primary">Kyron</span></h2>
+                            <p className="text-lg text-white/40 font-bold uppercase tracking-tight leading-relaxed italic border-l-2 border-primary/30 pl-6">Ingeniería de software de alta precisión diseñada para el cumplimiento y la operatividad de misión crítica.</p>
                         </div>
 
-                        <div className="space-y-8 pt-6">
-                            <div className="group">
-                                <h3 className="text-xl font-black uppercase italic tracking-tight mb-3 flex items-center gap-3 group-hover:text-primary transition-colors"><Target className="text-primary h-5 w-5"/>Nuestra Misión</h3>
-                                <p className="text-muted-foreground font-medium border-l-2 border-primary/20 pl-6">Empoderar a las empresas venezolanas con herramientas inteligentes que garanticen su tranquilidad fiscal y potencien su crecimiento sostenible.</p>
+                        <div className="grid grid-cols-2 gap-8">
+                            <div className="group space-y-4">
+                                <div className="p-4 bg-primary/5 rounded-2xl w-fit group-hover:bg-primary/10 transition-all border border-primary/10">
+                                    <Target className="text-primary h-6 w-6" />
+                                </div>
+                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white">Misión</h3>
+                                <p className="text-xs text-white/40 font-bold uppercase tracking-widest leading-relaxed">Blindar la gestión institucional mediante tecnología inmutable.</p>
                             </div>
-                            <div className="group">
-                                <h3 className="text-xl font-black uppercase italic tracking-tight mb-3 flex items-center gap-3 group-hover:text-primary transition-colors"><Eye className="text-primary h-5 w-5"/>Nuestra Visión</h3>
-                                <p className="text-muted-foreground font-medium border-l-2 border-primary/20 pl-6">Ser el ecosistema de gestión empresarial líder en Latinoamérica, reconocido por nuestra innovación, seguridad y compromiso absoluto.</p>
+                            <div className="group space-y-4">
+                                <div className="p-4 bg-secondary/5 rounded-2xl w-fit group-hover:bg-secondary/10 transition-all border border-secondary/10">
+                                    <Eye className="text-secondary h-6 w-6" />
+                                </div>
+                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white">Visión</h3>
+                                <p className="text-xs text-white/40 font-bold uppercase tracking-widest leading-relaxed">Ser el estándar global de interoperabilidad empresarial.</p>
                             </div>
                         </div>
                     </motion.div>
 
                     <motion.div 
-                        className="lg:col-span-3 space-y-10"
-                         initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="lg:col-span-3 space-y-12"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        <div className="grid grid-cols-3 gap-6">
+                        <div className="grid grid-cols-3 gap-8">
                             {[
-                                { val: 500, label: "Empresas", prefix: "+" },
-                                { val: 10, label: "Declaraciones", suffix: "K+" },
-                                { val: 0, label: "Riesgo Fiscal", suffix: "%" }
+                                { val: 500, label: "Unidades", icon: ShieldCheck },
+                                { val: 100, label: "Compliance", suffix: "%", icon: Zap },
+                                { val: 0, label: "Riesgo", suffix: "%", icon: Zap }
                             ].map((stat, i) => (
-                                <Card key={i} className="bg-primary/[0.02] border-white/5 p-8 text-center rounded-2xl shadow-xl">
-                                    <CardContent className="p-0">
-                                        <p className="text-4xl font-black text-primary italic tracking-tighter mb-1">
-                                            {stat.prefix}<Counter from={0} to={stat.val} />{stat.suffix}
-                                        </p>
-                                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60">{stat.label}</p>
-                                    </CardContent>
+                                <Card key={i} className="glass-card border-none p-10 text-center rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 p-4 opacity-[0.02] group-hover:opacity-[0.05] transition-all">
+                                        <stat.icon className="h-16 w-16" />
+                                    </div>
+                                    <p className="text-4xl font-black text-primary italic tracking-tighter mb-2">
+                                        <Counter from={0} to={stat.val} />{stat.suffix}
+                                    </p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20 group-hover:text-primary transition-colors">{stat.label}</p>
                                 </Card>
                             ))}
                         </div>
 
-                         <div className="space-y-6">
+                        <div className="space-y-8">
                             {testimonials.map((testimonial) => {
                                 const avatar = PlaceHolderImages.find(img => img.id === testimonial.avatarId);
                                 return (
-                                    <Card key={testimonial.name} className="glass-card border-none p-8 relative group overflow-hidden">
+                                    <Card key={testimonial.name} className="glass-card border-none p-10 relative group overflow-hidden rounded-[2.5rem]">
                                         <CardContent className="p-0">
-                                            <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-all">
-                                                <testimonial.icon className="h-20 w-24" />
+                                            <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-all scale-150">
+                                                <testimonial.icon className="h-24 w-24" />
                                             </div>
-                                            <div className="flex items-center gap-3 mb-4">
-                                                <testimonial.icon className="h-4 w-4 text-primary"/>
-                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">{testimonial.module}</span>
+                                            <div className="flex items-center gap-4 mb-6">
+                                                <div className="p-2 bg-primary/10 rounded-lg">
+                                                    <testimonial.icon className="h-4 w-4 text-primary"/>
+                                                </div>
+                                                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">{testimonial.module}</span>
                                             </div>
-                                            <p className="text-base font-bold italic text-foreground/80 leading-relaxed mb-6">"{testimonial.text}"</p>
-                                            <footer className="flex items-center gap-4">
+                                            <p className="text-xl font-bold italic text-white/80 leading-relaxed mb-8">"{testimonial.text}"</p>
+                                            <footer className="flex items-center gap-6">
                                                 {avatar && (
-                                                    <Avatar className="h-12 w-12 border-2 border-primary/20 shadow-lg">
+                                                    <Avatar className="h-14 w-14 border-2 border-primary/20 shadow-xl">
                                                         <AvatarImage src={avatar.imageUrl} alt={testimonial.name} />
                                                         <AvatarFallback className="font-black">{testimonial.name.charAt(0)}</AvatarFallback>
                                                     </Avatar>
                                                 )}
                                                 <div>
-                                                    <p className="font-black text-sm uppercase tracking-tight">{testimonial.name}</p>
-                                                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{testimonial.company}</p>
+                                                    <p className="font-black text-sm uppercase tracking-widest text-white">{testimonial.name}</p>
+                                                    <p className="text-[9px] font-bold text-primary/60 uppercase tracking-[0.2em] mt-1">{testimonial.company}</p>
                                                 </div>
                                             </footer>
                                         </CardContent>
