@@ -44,10 +44,10 @@ const testimonials = [
 
 export function AboutUsSection() {
     return (
-        <section id="nosotros" className="py-24 md:py-32 bg-[#020202] relative overflow-hidden hud-grid">
+        <section id="nosotros" className="py-24 md:py-32 bg-[#020202] relative overflow-hidden hud-grid w-full">
             <div className="absolute inset-0 bg-primary/5 blur-[120px] pointer-events-none -z-10" />
             
-            <div className="w-full px-6 relative z-10">
+            <div className="w-full px-10 relative z-10">
                 <div className="grid lg:grid-cols-5 gap-20 items-start">
                     <motion.div 
                         className="lg:col-span-2 space-y-12"

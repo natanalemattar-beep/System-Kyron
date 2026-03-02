@@ -33,7 +33,7 @@ export default function MainLayout({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                  {/* Full Canvas Experience */}
+                  {/* Full Canvas Experience - No containers */}
                   <div className="w-full">
                     {children}
                   </div>

@@ -6,22 +6,21 @@ import { cn } from "@/lib/utils";
 import { 
   BarChart3, Users, Scale, Recycle, Droplets, Wallet, 
   Wrench, ShieldCheck, ShoppingBag, Fingerprint, Cog, 
-  LayoutGrid, Activity, Radio
+  LayoutGrid, Activity, Radio, Cpu
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
 
 const menuItems = [
   { id: 'inicio', label: 'Dashboard', icon: LayoutGrid, href: '/dashboard' },
-  { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3, href: '/contabilidad' },
-  { id: 'rrhh', label: 'Recursos Humanos', icon: Users, href: '/dashboard-rrhh' },
-  { id: 'juridico', label: 'Legal y Poderes', icon: Scale, href: '/escritorio-juridico' },
-  { id: 'telecom', label: 'Telecom Operaciones', icon: Radio, href: '/dashboard-telecom' },
-  { id: 'sistemas', label: 'Ingeniería IT', icon: Wrench, href: '/dashboard-informatica' },
   { id: 'zedu', label: 'Modelo de ZEDU', icon: Activity, href: '/estudio-poblacion' },
-  { id: 'fiscal', label: 'Blindaje SENIAT', icon: ShieldCheck, href: '/zero-risk' },
-  { id: 'logistica', label: 'Ventas y POS', icon: ShoppingBag, href: '/punto-de-venta' },
-  { id: 'identidad', label: 'ID Digital 3D', icon: Fingerprint, href: '/tarjeta-digital' },
+  { id: 'telecom', label: 'Telecom 5G', icon: Radio, href: '/dashboard-telecom' },
+  { id: 'reciclaje', label: 'Eco-Magnetic', icon: Recycle, href: '/tarjeta-reciclaje' },
+  { id: 'ia', label: 'Ingeniería IA', icon: Cpu, href: '/dashboard-informatica' },
+  { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3, href: '/contabilidad' },
+  { id: 'rrhh', label: 'Gestión Talento', icon: Users, href: '/dashboard-rrhh' },
+  { id: 'juridico', label: 'Legal Center', icon: Scale, href: '/escritorio-juridico' },
+  { id: 'fiscal', label: 'Blindaje Fiscal', icon: ShieldCheck, href: '/zero-risk' },
   { id: 'config', label: 'Ajustes Maestro', icon: Cog, href: '/general' },
 ];
 
