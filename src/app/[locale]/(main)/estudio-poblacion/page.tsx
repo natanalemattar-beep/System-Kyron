@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
 
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "System Kyron" },
