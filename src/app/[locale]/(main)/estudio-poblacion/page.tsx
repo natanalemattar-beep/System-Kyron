@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -28,7 +27,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn, formatCurrency } from "@/lib/utils";
 import { Logo } from "@/components/logo";
-import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
 
 const teamData = [
   { label: "NOMBRE DEL PROYECTO", value: "System Kyron", important: true },

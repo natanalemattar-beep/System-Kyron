@@ -3,10 +3,9 @@
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { Target, Eye, BookOpen, Gavel, Briefcase, Sparkles, ShieldCheck, Zap } from "lucide-react";
+import { Target, Eye, BookOpen, Briefcase, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 
 const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, duration?: number }) => {
     const count = useMotionValue(from);
@@ -43,13 +42,11 @@ const testimonials = [
 ];
 
 export function AboutUsSection() {
-    const aboutImage = PlaceHolderImages.find((img) => img.id === "team-meeting-photo");
-
     return (
         <section id="nosotros" className="py-24 md:py-32 bg-[#020202] relative overflow-hidden hud-grid">
             <div className="absolute inset-0 bg-primary/5 blur-[120px] pointer-events-none -z-10" />
             
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="w-full px-6 relative z-10">
                 <div className="grid lg:grid-cols-5 gap-20 items-start">
                     <motion.div 
                         className="lg:col-span-2 space-y-12"

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Link, usePathname } from "@/navigation";
@@ -29,18 +28,20 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0a]/95 border-r border-primary/50 flex flex-col z-[100] hidden lg:flex shadow-[20px_0_60px_rgba(0,0,0,0.9)] backdrop-blur-3xl overflow-hidden">
-      {/* HUD Overlay Textures - Eradicate the Black Hole */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0a] border-r border-primary/40 flex flex-col z-[100] hidden lg:flex shadow-[15px_0_50px_rgba(0,0,0,0.8)] backdrop-blur-3xl overflow-hidden">
+      {/* HUD Background Textures */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[3px] h-full bg-primary/40 shadow-[0_0_15px_rgba(37,99,235,0.5)]" />
       
-      <div className="p-10 border-b border-white/10 flex flex-col items-center gap-6 relative z-10 bg-black/40">
+      {/* Sello Lateral Visible (Evita el hueco negro) */}
+      <div className="absolute top-0 right-0 w-[2px] h-full bg-primary/30 shadow-[0_0_15px_rgba(37,99,235,0.4)]" />
+      
+      <div className="p-10 border-b border-white/5 flex flex-col items-center gap-6 relative z-10 bg-black/20">
         <Link href="/" className="flex flex-col items-center gap-4 transition-all hover:scale-105 group">
-          <Logo className="h-14 w-14 drop-shadow-[0_0_25px_rgba(37,99,235,0.6)]" />
+          <Logo className="h-14 w-14 drop-shadow-[0_0_20px_rgba(37,99,235,0.5)]" />
           <div className="text-center">
             <span className="text-[11px] font-black tracking-[0.5em] text-white uppercase italic leading-none italic-shadow">System Kyron</span>
-            <p className="text-[8px] font-bold text-primary uppercase tracking-[0.3em] mt-3 opacity-80">Command Terminal v2.6.5</p>
+            <p className="text-[8px] font-bold text-primary uppercase tracking-[0.3em] mt-3 opacity-80">Command Node v2.6.5</p>
           </div>
         </Link>
       </div>
@@ -56,7 +57,7 @@ export function AppSidebar() {
               className={cn(
                 "group flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-300 relative overflow-hidden",
                 isActive 
-                  ? "bg-primary/20 text-white border border-primary/40 shadow-glow" 
+                  ? "bg-primary/20 text-white border border-primary/30 shadow-glow" 
                   : "text-white/40 hover:text-white hover:bg-white/[0.03]"
               )}
             >
@@ -66,7 +67,7 @@ export function AppSidebar() {
               {isActive && (
                 <motion.div 
                     layoutId="active-nav-glow"
-                    className="absolute left-0 w-1.5 h-1/2 bg-primary rounded-r-full shadow-[4px_0_20px_rgba(37,99,235,1)]" 
+                    className="absolute left-0 w-1 h-1/2 bg-primary rounded-r-full shadow-[2px_0_15px_rgba(37,99,235,1)]" 
                 />
               )}
             </Link>
@@ -74,10 +75,10 @@ export function AppSidebar() {
         })}
       </nav>
 
-      <div className="p-6 border-t border-white/10 bg-black/60 relative z-10">
-        <div className="flex items-center justify-center gap-3 p-5 rounded-2xl bg-primary/5 border border-primary/20 shadow-inner group">
-            <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_#10b981]" />
-            <span className="text-[9px] font-black text-white/60 uppercase tracking-[0.3em] group-hover:text-primary transition-colors">Secure Node Active</span>
+      <div className="p-6 border-t border-white/5 bg-black/40 relative z-10">
+        <div className="flex items-center justify-center gap-3 p-5 rounded-2xl bg-primary/5 border border-primary/10 shadow-inner group">
+            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]" />
+            <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.3em] group-hover:text-primary transition-colors">Neural Node Active</span>
         </div>
       </div>
     </aside>
