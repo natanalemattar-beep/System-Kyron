@@ -22,13 +22,16 @@ import {
   Calculator,
   Activity,
   History,
-  AlertTriangle
+  AlertTriangle,
+  Sparkles,
+  Search
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn, formatCurrency } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 
+// BLOQUE 1: IDENTIFICACIÓN
 const teamData = [
   { label: "1. NOMBRE DEL PROYECTO", value: "System Kyron", important: true },
   { label: "LÍDER ESTRATÉGICO (IA & ARQUITECTURA)", value: "Carlos Mattar", important: true },
@@ -37,16 +40,18 @@ const teamData = [
   { label: "UBICACIÓN GEOGRÁFICA", value: "La Guaira, Venezuela", important: true },
 ];
 
+// BLOQUE 2: ESTUDIO DE POBLACIÓN (ZEDUS)
 const zeduData = [
   { label: "LOCALIZACIÓN ESPECÍFICA", value: "La Atlántida, entre calle 7 a calle 3, Catia La Mar. Referencias: Pinta Catia, Supermercado Bensica." },
   { label: "NOMBRE DE LA COMUNIDAD", value: "Comunidad Comercial y Residencial La Atlántida" },
   { label: "POBLACIÓN ESTIMADA", value: "500 empresas activas / 5.000 empleados administrativos y civiles." },
   { label: "DESGLOSE DE GÉNERO", value: "52% Femenino / 48% Masculino." },
   { label: "RANGO ETARIO DOMINANTE", value: "25-40 años (60%) / 41-55 años (30%) / Otros (10%)." },
-  { label: "CARACTERÍSTICAS SOCIALES", value: "Entorno con alta necesidad de digitalización y blindaje fiscal ante normativas 2025." },
-  { label: "CONDICIONES CLIMÁTICAS", value: "Tropical costero. Promedio 28°C. Alta salinidad (Riesgo para archivos físicos)." }
+  { label: "CARACTERÍSTICAS SOCIALES", value: "Entorno con alta necesidad de digitalización y blindaje ante normativas 2025." },
+  { label: "CONDICIONES CLIMÁTICAS", value: "Tropical costero. Alta salinidad (Riesgo crítico para archivos físicos)." }
 ];
 
+// BLOQUE 7: PRESUPUESTO EXPANDIDO
 const budgetData = [
   { item: "Moto Bera Carguera DT-200 (Logística Litoral)", cost: 2800, responsable: "Marcos Sousa" },
   { item: "Workstation de Gestión Maestra Pro (Dirección)", cost: 2400, responsable: "Carlos Mattar" },
@@ -57,6 +62,7 @@ const budgetData = [
 
 const totalBudget = budgetData.reduce((sum, item) => sum + item.cost, 0);
 
+// BLOQUE 9: PLAN DE ACCIÓN JERÁRQUICO
 const actionPlan = [
   { tarea: "DIAGNÓSTICO TÉCNICO DE MISIÓN CRÍTICA", responsable: "Carlos Mattar", crono: ["X", "", "", ""] },
   { tarea: "ADQUISICIÓN DE LOGÍSTICA (MOTO BERA)", responsable: "Marcos Sousa", crono: ["X", "X", "", ""] },
@@ -66,18 +72,12 @@ const actionPlan = [
   { tarea: "LANZAMIENTO Y CAPACITACIÓN ESTRATÉGICA", responsable: "Carlos Mattar", crono: ["", "", "", "X"] },
 ];
 
+// BLOQUE 5 & 6: COMPARATIVA
 const comparisonData = [
   { aspect: "Enfoque", other: "Gestión genérica de datos (MOBIAN)", kyron: "Ecosistema especializado en educación" },
   { aspect: "Seguridad", other: "Base de datos estándar", kyron: "Ledger Blockchain Inmutable" },
   { aspect: "IA", other: "No integrada o básica", kyron: "IA Estratégica para toma de decisiones" },
   { aspect: "Atención", other: "Manual / Telefónica", kyron: "Chatbot Inteligente para Representantes" },
-];
-
-const alliesData = [
-  { aliado: "SAPI", apoyo: "Patente de Software y Registro de Marca" },
-  { aliado: "SENIAT", apoyo: "Homologación Fiscal y Libros Digitales" },
-  { aliado: "Fundación Kyron", apoyo: "Reciclaje Magnético y Equipos" },
-  { aliado: "Alcaldía de Vargas", apoyo: "Permisología Logística y Espacios" },
 ];
 
 export default function ModeloZEDUPage() {
@@ -107,6 +107,7 @@ export default function ModeloZEDUPage() {
             </header>
 
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 w-full">
+                {/* COLUMNA IZQUIERDA: BLOQUES 1, 2, 8 */}
                 <div className="xl:col-span-5 space-y-12">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Crown className="h-4 w-4"/> 1. Identificación del Equipo</h3>
@@ -142,7 +143,12 @@ export default function ModeloZEDUPage() {
                             <Table>
                                 <TableHeader><TableRow className="bg-white/[0.03] border-none"><TableHead className="pl-10 py-6 text-[10px] font-black uppercase text-primary tracking-widest">Aliado</TableHead><TableHead className="pr-10 py-6 text-right text-[10px] font-black uppercase text-primary tracking-widest">Apoyo</TableHead></TableRow></TableHeader>
                                 <TableBody>
-                                    {alliesData.map((row, i) => (
+                                    {[
+                                        { aliado: "SAPI", apoyo: "Patente de Software y Registro de Marca" },
+                                        { aliado: "SENIAT", apoyo: "Homologación Fiscal y Libros Digitales" },
+                                        { aliado: "Fundación Kyron", apoyo: "Reciclaje Magnético y Equipos" },
+                                        { aliado: "Alcaldía de Vargas", apoyo: "Permisología Logística y Espacios" }
+                                    ].map((row, i) => (
                                         <TableRow key={i} className="border-b border-white/5 group hover:bg-primary/[0.02] transition-colors"><TableCell className="font-black text-sm pl-10 italic uppercase">{row.aliado}</TableCell><TableCell className="text-right pr-10 text-[10px] font-bold text-white/40 uppercase tracking-tight">{row.apoyo}</TableCell></TableRow>
                                     ))}
                                 </TableBody>
@@ -151,21 +157,21 @@ export default function ModeloZEDUPage() {
                     </section>
                 </div>
 
+                {/* COLUMNA DERECHA: BLOQUES 3, 4, 5, 6, 7, 9 */}
                 <div className="xl:col-span-7 space-y-12">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><AlertTriangle className="h-4 w-4" /> 3. Análisis del Problema</h3>
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl rounded-[2.5rem]">
-                            <p className="text-lg font-bold text-white/90 italic text-justify">
-                                La U.E.P. Gabriela Mistral enfrenta un riesgo crítico de pérdida de información. El archivado físico tradicional se deteriora rápidamente debido a la **alta salinidad** de Catia La Mar. Además, la fragmentación de la comunicación con los representantes y la complejidad de las nuevas normativas fiscales de 2025 generan cuellos de botella administrativos que impiden el crecimiento institucional.
+                            <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
+                                La U.E.P. Gabriela Mistral enfrenta un riesgo crítico de pérdida de información. El archivado físico tradicional se deteriora rápidamente debido a la **alta salinidad** de Catia La Mar. Además, la fragmentación de la comunicación con los representantes y la complejidad de las nuevas normativas fiscales generan cuellos de botella administrativos que impiden el crecimiento institucional.
                             </p>
-                        </Card>
-                    </section>
+                        </section>
 
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Zap className="h-4 w-4" /> 4. Solución: Ecosistema Kyron</h3>
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl relative overflow-hidden rounded-[2.5rem]">
                             <div className="absolute top-0 right-0 p-8 opacity-[0.02]"><BrainCircuit className="h-32 w-32" /></div>
-                            <p className="text-lg font-bold text-white/90 italic text-justify">
+                            <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
                                 System Kyron transforma el archivado escolar en un **entorno digital inmutable**. Implementamos un **Chatbot Inteligente** para atención 24/7 a representantes, facilitando la consulta de notas y solvencias. La plataforma integra una **IA Maestra** dirigida por Carlos Mattar para apoyar a la directiva en la formulación de ideas estratégicas y proyecciones de inversión, blindando además la contabilidad mediante tecnología Blockchain.
                             </p>
                         </Card>
