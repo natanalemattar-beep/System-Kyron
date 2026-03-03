@@ -14,6 +14,8 @@ import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
@@ -39,7 +41,7 @@ export default function LandingPage() {
         <div className="w-full">
             <section id="inicio">
               <div className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
-                <div className="container mx-auto px-6 relative z-10">
+                <div className="w-full px-6 md:px-12 lg:px-20 relative z-10">
                   <div className="grid lg:grid-cols-2 gap-20 items-center">
                     <motion.div
                       initial={{ opacity: 0, x: -40 }}
@@ -47,14 +49,22 @@ export default function LandingPage() {
                       transition={{ duration: 0.8 }}
                       className="space-y-12"
                     >
-                      <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.8] text-foreground">
+                      <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
+                        <Sparkles className="h-3 w-3" /> Ecosistema de Misión Crítica
+                      </div>
+                      <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.8] text-foreground uppercase italic italic-shadow">
                         SYSTEM <br/> 
-                        <span className="text-primary italic italic-shadow">KYRON</span>
+                        <span className="text-primary">KYRON</span>
                       </h1>
                       <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-snug font-bold border-l-4 border-primary/30 pl-8 opacity-80 uppercase tracking-tight">
                         Líneas <span className="text-secondary italic">5G Digitales</span>, <br/>
                         Conectividad <span className="text-primary tracking-tighter">eSIM</span> y Automatización.
                       </p>
+                      <div className="flex flex-wrap gap-6">
+                        <Button size="lg" className="btn-3d-primary h-16 px-12 text-xs font-black uppercase tracking-widest rounded-2xl group shadow-2xl">
+                            DESPLEGAR SISTEMA <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-2 transition-transform" />
+                        </Button>
+                      </div>
                     </motion.div>
                   </div>
                 </div>
