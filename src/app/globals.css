@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,6 +33,7 @@
   body {
     @apply bg-[#020202] text-foreground antialiased font-sans selection:bg-primary/20;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
 }
 
@@ -71,6 +73,15 @@
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     @apply bg-primary/20 rounded-full hover:bg-primary/40;
+  }
+  
+  /* Elimina scrollbar lateral pero mantiene funcionalidad */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 

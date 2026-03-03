@@ -11,16 +11,15 @@ import { Logo } from "./logo";
 import { motion } from "framer-motion";
 
 const menuItems = [
-  { id: 'inicio', label: 'Dashboard', icon: LayoutGrid, href: '/dashboard' },
+  { id: 'inicio', label: 'Consola Central', icon: LayoutGrid, href: '/dashboard' },
   { id: 'zedu', label: 'Modelo de ZEDU', icon: Activity, href: '/estudio-poblacion' },
-  { id: 'telecom', label: 'Telecom 5G', icon: Radio, href: '/dashboard-telecom' },
+  { id: 'telecom', label: 'Kyron 5G / eSIM', icon: Radio, href: '/dashboard-telecom' },
   { id: 'reciclaje', label: 'Reciclaje Magnético', icon: Recycle, href: '/tarjeta-reciclaje' },
   { id: 'ia', label: 'Ingeniería IA', icon: Cpu, href: '/dashboard-informatica' },
   { id: 'contabilidad', label: 'Finanzas & Nómina', icon: BarChart3, href: '/contabilidad' },
   { id: 'rrhh', label: 'Gestión Talento', icon: Users, href: '/dashboard-rrhh' },
   { id: 'juridico', label: 'Centro Legal', icon: Gavel, href: '/escritorio-juridico' },
-  { id: 'fiscal', label: 'Blindaje Fiscal', icon: ShieldCheck, href: '/zero-risk' },
-  { id: 'config', label: 'Ajustes Maestro', icon: Cog, href: '/general' },
+  { id: 'config', label: 'Configuración', icon: Cog, href: '/general' },
 ];
 
 export function AppSidebar() {
@@ -28,10 +27,10 @@ export function AppSidebar() {
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0a] border-r-2 border-primary/20 flex flex-col z-[100] hidden lg:flex shadow-[20px_0_60px_rgba(0,0,0,0.9)] backdrop-blur-3xl overflow-hidden">
-      {/* HUD Background Textures */}
+      {/* HUD Texture */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:30px_30px]" />
       
-      {/* Sello Lateral de Luz - Erradica el hueco negro */}
+      {/* Sello Lateral de Luz - Elimina el hueco negro */}
       <div className="absolute top-0 right-0 w-[3px] h-full bg-primary/40 shadow-[0_0_20px_rgba(37,99,235,0.6)]" />
       
       <div className="p-10 border-b border-white/5 flex flex-col items-center gap-6 relative z-10 bg-black/40">
@@ -45,7 +44,7 @@ export function AppSidebar() {
       </div>
       
       <nav className="flex-grow py-10 px-6 space-y-2 overflow-y-auto custom-scrollbar relative z-10">
-        <p className="text-[9px] font-black uppercase text-primary/60 tracking-[0.6em] mb-8 px-4 italic border-l-2 border-primary/20 ml-2">Hierarchy Root</p>
+        <p className="text-[9px] font-black uppercase text-primary/60 tracking-[0.6em] mb-8 px-4 italic border-l-2 border-primary/20 ml-2">Hardware Root</p>
         {menuItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
           return (
@@ -76,7 +75,7 @@ export function AppSidebar() {
       <div className="p-6 border-t border-white/10 bg-black/60 relative z-10">
         <div className="flex items-center justify-center gap-3 p-5 rounded-2xl bg-primary/5 border border-primary/10 shadow-inner group transition-all hover:bg-primary/10">
             <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_12px_#10b981]" />
-            <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.4em] group-hover:text-primary transition-colors">Neural Stream Active</span>
+            <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.4em] group-hover:text-primary transition-colors">Secured Stream</span>
         </div>
       </div>
     </aside>

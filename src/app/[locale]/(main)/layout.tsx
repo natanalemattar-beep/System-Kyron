@@ -17,7 +17,7 @@ export default function MainLayout({
       <div className="flex min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
           {/* Fondo Atmosférico Depth */}
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute top-0 right-0 w-[1400px] h-[1400px] bg-primary/15 rounded-full blur-[250px] opacity-60 animate-pulse" />
+            <div className="absolute top-0 right-0 w-full h-[1400px] bg-primary/15 rounded-full blur-[250px] opacity-60 animate-pulse" />
             <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-emerald-600/10 rounded-full blur-[200px] opacity-50" />
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay" />
           </div>
@@ -33,6 +33,7 @@ export default function MainLayout({
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
+                  {/* Arquitectura de Pantalla Completa: Eliminamos contenedores restrictivos */}
                   <div className="w-full">
                     {children}
                   </div>
