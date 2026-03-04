@@ -73,15 +73,17 @@ export default function ModeloZEDUPage() {
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">1. INFORMACIÓN DEL EQUIPO</h3>
             <p><b>PROYECTO:</b> System Kyron</p>
             <p><b>INTEGRANTES:</b> Carlos Mattar (Líder Estratégico), Sebastián Garrido, Marcos Sousa</p>
-            <p><b>INSTITUCIÓN:</b> Colegio Gabriela Mistral (La Guaira)</p>
+            <p><b>INSTITUCIÓN:</b> Colegio Gabriela Mistral</p>
+            <p><b>UBICACIÓN:</b> Venezuela, La Guaira</p>
             
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">2. POBLACIÓN A TRABAJAR</h3>
-            <p><b>UBICACIÓN:</b> Parroquia La Guaira, zona costera.</p>
-            <p><b>COMUNIDAD:</b> Colegio Gabriela Mistral y sector comercial/turístico.</p>
+            <p><b>UBICACIÓN:</b> Venezuela, estado La Guaira, parroquia La Guaira (zona costera).</p>
+            <p><b>NOMBRE DE LA COMUNIDAD:</b> Comunidad educativa del Colegio Gabriela Mistral, pequeñas y medianas empresas del sector comercial y turístico de La Guaira.</p>
             <p><b>HABITANTES:</b> 3.000 personas.</p>
+            <p><b>CARACTERÍSTICAS:</b> Comunidad con alta necesidad de conectividad confiable. El clima costero deteriora archivos físicos por humedad.</p>
 
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">3. ANÁLISIS DEL PROBLEMA</h3>
-            <p>Conectividad deficiente y fragmentación de servicios. El clima costero deteriora archivos físicos por humedad. Desconocimiento de cambios normativos del SENIAT.</p>
+            <p>Conectividad deficiente y fragmentada. Desconocimiento de cambios normativos del SENIAT. Falta de cultura de reciclaje e incentivos digitales.</p>
 
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">4. SOLUCIÓN PROPUESTA: SYSTEM KYRON</h3>
             <p>Ecosistema integral cuya columna vertebral son las telecomunicaciones: Línea 5G/eSIM, internet empresarial, automatización fiscal con IA y reciclaje inteligente magnético.</p>
@@ -91,9 +93,8 @@ export default function ModeloZEDUPage() {
             <p>Incluye contrato mayorista de red, Moto Bera Carguera DT-200 para logística litoral y plataforma billing.</p>
             
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">7. PLAN DE ACCIÓN JERÁRQUICO</h3>
-            <p><b>FASE 0:</b> Constitución empresa Telecom y permisos (Lidera: Carlos Mattar).</p>
-            <p><b>FASE 1:</b> Desarrollo plataforma billing y gestión (Lidera: Carlos Mattar).</p>
-            <p><b>FASE 2:</b> Prototipo Reciclaje Magnético e IA (Lidera: Sebastián Garrido).</p>
+            <p><b>LÍDER:</b> Carlos Mattar (IA, Blockchain, Estrategia).</p>
+            <p><b>APOYO:</b> Sebastián Garrido y Marcos Sousa (Operaciones y Logística).</p>
         `;
 
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'></head><body>";
@@ -139,7 +140,7 @@ export default function ModeloZEDUPage() {
                                 </div>
                                 <div className="p-8 border-b border-white/5">
                                     <h3 className="font-black text-[9px] uppercase tracking-widest text-primary opacity-60 mb-2">INTEGRANTES</h3>
-                                    <p className="text-lg font-black text-white/80 italic">Carlos Mattar, Sebastián Garrido, Marcos Sousa</p>
+                                    <p className="text-lg font-black text-white/80 italic">Carlos Mattar (Líder), Sebastián Garrido, Marcos Sousa</p>
                                 </div>
                                 <div className="p-8">
                                     <h3 className="font-black text-[9px] uppercase tracking-widest text-primary opacity-60 mb-2">INSTITUCIÓN</h3>
@@ -155,19 +156,15 @@ export default function ModeloZEDUPage() {
                             <CardContent className="p-0 text-sm font-bold text-white/70 italic space-y-0">
                                 <div className="p-8 border-b border-white/5">
                                     <span className="text-[9px] block mb-1 opacity-40 uppercase">Ubicación</span>
-                                    Venezuela, Estado La Guaira, Parroquia La Guaira.
-                                </div>
-                                <div className="p-8 border-b border-white/5">
-                                    <span className="text-[9px] block mb-1 opacity-40 uppercase">Comunidad</span>
-                                    Comunidad educativa Gabriela Mistral y sector comercial.
+                                    Venezuela, estado La Guaira, parroquia La Guaira (zona costera).
                                 </div>
                                 <div className="p-8 border-b border-white/5">
                                     <span className="text-[9px] block mb-1 opacity-40 uppercase">Habitantes</span>
-                                    3.000 personas (800 Estudiantes, 1.500 Empleados Locales).
+                                    3.000 personas (Estudiantes, Empleados y Comerciantes).
                                 </div>
                                 <div className="p-8">
-                                    <span className="text-[9px] block mb-1 opacity-40 uppercase">Clima</span>
-                                    Tropical costero (Alta humedad), propicia para digitalización.
+                                    <span className="text-[9px] block mb-1 opacity-40 uppercase">Contexto</span>
+                                    Zona comercial/turística con alta necesidad de conectividad 5G.
                                 </div>
                             </CardContent>
                         </Card>
@@ -180,7 +177,7 @@ export default function ModeloZEDUPage() {
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><AlertTriangle className="h-4 w-4" /> 3. Análisis del Problema</h3>
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl rounded-[2.5rem]">
                             <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
-                                La comunidad de La Guaira sufre de una conectividad limitada y cara. Además, la humedad extrema deteriora archivos físicos escolares. Las empresas operan con servicios fragmentados (internet por un lado, contabilidad por otro), elevando costos y riesgos fiscales.
+                                La comunidad de La Guaira sufre de una conectividad limitada y cara. Además, la humedad extrema deteriora archivos físicos. Las empresas operan con servicios fragmentados, elevando costos y riesgos de multas fiscales por falta de automatización.
                             </p>
                         </Card>
                     </section>
@@ -190,7 +187,7 @@ export default function ModeloZEDUPage() {
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl relative overflow-hidden rounded-[2.5rem]">
                             <div className="absolute top-0 right-0 p-8 opacity-[0.02]"><BrainCircuit className="h-32 w-32" /></div>
                             <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
-                                **System Kyron** es un ecosistema cuya columna vertebral son las telecomunicaciones. Ofrecemos **Líneas 5G (SIM/eSIM)** y equipos homologados. Sobre esta infraestructura, montamos el blindaje fiscal SENIAT y el sistema de reciclaje inteligente magnético.
+                                **Telecomunicaciones como Eje Central**: Ofrecemos planes de datos 5G, eSIM y equipos homologados. Sobre esta red, integramos automatización fiscal con IA, gestión educativa y reciclaje inteligente con incentivos digitales.
                             </p>
                         </Card>
                     </section>
@@ -201,7 +198,7 @@ export default function ModeloZEDUPage() {
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-white/[0.03] border-none">
-                                        <TableHead className="font-black text-[10px] uppercase text-primary pl-10 py-6">Ítem</TableHead>
+                                        <TableHead className="font-black text-[10px] uppercase text-primary pl-10 py-6">Ítem Técnico</TableHead>
                                         <TableHead className="text-center font-black text-[10px] uppercase text-primary py-6">Cat.</TableHead>
                                         <TableHead className="text-right font-black text-[10px] uppercase text-primary py-6 pr-10">Monto</TableHead>
                                     </TableRow>
@@ -229,19 +226,19 @@ export default function ModeloZEDUPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
                     <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">6. Aliados</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Digitel, Movistar, The Factory HKA, Colegio Gabriela Mistral, CONATEL y SENIAT.</p>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Digitel, Movistar, The Factory HKA, Colegio Gabriela Mistral y SENIAT.</p>
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem] border-l-2 border-primary">
-                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">7. Plan de Acción</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">**Lidera Carlos Mattar:** Constitución Telecom, Negociación Red y Desarrollo de Arquitectura Inteligente.</p>
+                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">7. Plan Jerárquico</h4>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">**Lidera Carlos Mattar:** Constitución Telecom, Arquitectura IA y Blindaje Blockchain.</p>
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
                     <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">8. Indicadores</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">800 Líneas activas, 400 equipos vendidos, 3.000kg reciclados y 100% cumplimiento fiscal.</p>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">800 Líneas activas, 400 equipos vendidos y 100% de cumplimiento fiscal garantizado.</p>
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
                     <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">9. Sostenibilidad</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Ingresos recurrentes por SaaS y recargas telefónicas aseguran la operatividad a largo plazo.</p>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Ingresos recurrentes por servicios de red y recargas aseguran la escalabilidad.</p>
                 </Card>
             </div>
         </div>
