@@ -12,20 +12,20 @@ const stats = [
 
 export function StatsCards() {
   return (
-    <div className="grid gap-6 grid-cols-2 lg:grid-cols-4 w-full">
+    <div className="grid gap-4 md:gap-6 grid-cols-2 lg:grid-cols-4 w-full">
       {stats.map((stat, index) => (
-        <Card key={stat.title} className="glass-card border-none group relative overflow-hidden rounded-[1.5rem] hover:scale-[1.02] transition-all shadow-xl">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 p-6">
-            <CardTitle className="text-[8px] font-black uppercase tracking-[0.3em] text-white/30">{stat.title}</CardTitle>
-            <div className={cn("p-2 rounded-xl border border-white/5", stat.bg, stat.color)}>
-                <stat.icon className="h-3.5 w-3.5" />
+        <Card key={stat.title} className="glass-card border-none group relative overflow-hidden rounded-[1.2rem] md:rounded-[1.5rem] hover:scale-[1.02] transition-all shadow-xl">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 md:pb-3 p-4 md:p-6">
+            <CardTitle className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-white/30">{stat.title}</CardTitle>
+            <div className={cn("p-1.5 md:p-2 rounded-lg md:rounded-xl border border-white/5", stat.bg, stat.color)}>
+                <stat.icon className="h-3 w-3 md:h-3.5 md:w-3.5" />
             </div>
           </CardHeader>
-          <CardContent className="pb-6 px-6">
-            <div className="text-2xl font-black tracking-tighter italic text-white mb-1">
+          <CardContent className="pb-4 md:pb-6 px-4 md:px-6">
+            <div className="text-lg md:text-2xl font-black tracking-tighter italic text-white mb-0.5 md:mb-1">
               {index < 3 ? formatCurrency(stat.amount, 'Bs.') : stat.amount}
             </div>
-            <p className={cn("text-[8px] font-bold uppercase tracking-widest", stat.color)}>{stat.trend}</p>
+            <p className={cn("text-[7px] md:text-[8px] font-bold uppercase tracking-widest", stat.color)}>{stat.trend}</p>
           </CardContent>
         </Card>
       ))}
