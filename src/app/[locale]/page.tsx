@@ -53,7 +53,7 @@ export default function LandingPage() {
                       <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
                         <Sparkles className="h-3 w-3" /> Ecosistema de Misión Crítica
                       </div>
-                      <h1 className="text-6xl md:text-8xl lg:text-[7.5rem] font-black tracking-tighter leading-[0.8] text-foreground uppercase italic italic-shadow">
+                      <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.8] text-foreground uppercase italic italic-shadow">
                         SYSTEM <br/> 
                         <span className="text-primary">KYRON</span>
                       </h1>

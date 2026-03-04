@@ -49,33 +49,33 @@ export default function ModeloZEDUPage() {
 
     const teamData = [
       { label: "NOMBRE DEL PROYECTO", value: "System Kyron", important: true },
-      { label: "INTEGRANTES DEL EQUIPO", value: "Carlos Mattar (Líder), Sebastián Garrido, Marcos Sousa", important: true },
+      { label: "INTEGRANTES DEL EQUIPO", value: "Carlos Mattar (Líder Estratégico), Sebastián Garrido, Marcos Sousa", important: true },
       { label: "INSTITUCIÓN EDUCATIVA", value: "Colegio Gabriela Mistral", important: true },
       { label: "PAÍS / CIUDAD", value: "Venezuela, La Guaira", important: true },
     ];
 
     const populationData = [
-      { label: "LOCALIZACIÓN", value: "Venezuela, estado La Guaira, parroquia La Guaira (La Atlántida). Referencia: Supermercado Bensica." },
-      { label: "COMUNIDAD", value: "Comunidad educativa Colegio Gabriela Mistral y sector comercial de Catia La Mar." },
-      { label: "HABITANTES TOTALES", value: "3.000 personas (800 estudiantes/representantes, 1.500 empleados, 700 personal)." },
+      { label: "LOCALIZACIÓN", value: "Venezuela, estado La Guaira, parroquia La Guaira (zona costera)." },
+      { label: "NOMBRE DE LA COMUNIDAD", value: "Comunidad educativa Colegio Gabriela Mistral y sector comercial/turístico de La Guaira." },
+      { label: "HABITANTES TOTALES", value: "3.000 personas (800 estudiantes/representantes, 1.500 empleados locales, 700 personal)." },
       { label: "GÉNERO", value: "52% Femenino / 48% Masculino" },
       { label: "RANGOS ETARIOS", value: "0-18: 800 | 19-40: 1.200 | 41-60: 700 | 60+: 300" },
-      { label: "CARACTERÍSTICAS", value: "Alta necesidad de conectividad 5G. Las empresas requieren modernizar telecomunicaciones y automatizar procesos fiscales ante el SENIAT." },
-      { label: "CLIMA", value: "Tropical costero (28°C promedio, alta salinidad). Crítico para la preservación de documentos físicos." }
+      { label: "CARACTERÍSTICAS", value: "Alta necesidad de conectividad confiable. Problemas de humedad deterioran archivos físicos escolares." },
+      { label: "CLIMA", value: "Tropical costero (28°C promedio, alta humedad). Refuerza necesidad de digitalización." }
     ];
 
     const budgetData = [
-      { item: "Contrato Mayorista Operador (1 año)", cost: 5000, cat: "Telecom" },
-      { item: "SIM Cards Físicas System Kyron (1.000)", cost: 1000, cat: "Telecom" },
+      { item: "Contrato Mayorista Operador (Digitel/Movistar)", cost: 5000, cat: "Telecom" },
+      { item: "Tarjetas SIM Físicas System Kyron (1.000)", cost: 1000, cat: "Telecom" },
       { item: "Plataforma Gestión eSIM/Billing", cost: 2500, cat: "Telecom" },
       { item: "Lote Teléfonos Homologados (50)", cost: 6000, cat: "Equipos" },
       { item: "Tablets Educativas (20)", cost: 3600, cat: "Equipos" },
       { item: "Equipos Internet Fijo (Routers)", cost: 800, cat: "Telecom" },
       { item: "Desarrollo Frontend/Backend (Firebase)", cost: 4500, cat: "Software" },
       { item: "Integración Gemini IA & Blockchain", cost: 1000, cat: "Software" },
-      { item: "Hardware Papelera Inteligente (3)", cost: 683, cat: "Prototipo" },
+      { item: "Hardware Papelera Inteligente (Prototipos)", cost: 683, cat: "Prototipo" },
       { item: "Moto Bera Carguera DT-200 (Logística)", cost: 2800, cat: "Logística" },
-      { item: "Cajas Registradoras Fiscales (3)", cost: 1350, cat: "Fiscal" },
+      { item: "Cajas Registradoras Fiscales", cost: 1350, cat: "Fiscal" },
       { item: "Marketing y Lanzamiento", cost: 2450, cat: "Lanzamiento" },
     ];
 
@@ -83,34 +83,33 @@ export default function ModeloZEDUPage() {
 
     const handleDownloadWord = () => {
         const content = `
-            <h1 style="text-align: center; font-family: Arial;">MODELO ZEDU - SYSTEM KYRON</h1>
+            <h1 style="text-align: center; font-family: Arial;">MODELO DE ZEDU - SYSTEM KYRON</h1>
             <h2 style="color: #2563eb; text-align: center;">Telecomunicaciones como Eje Central + Automatización Fiscal y Reciclaje</h2>
             
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">1. INFORMACIÓN DEL EQUIPO</h3>
-            <p><b>Proyecto:</b> System Kyron</p>
-            <p><b>Líder Estratégico:</b> Carlos Mattar (IA, Blockchain, Diagnóstico)</p>
-            <p><b>Apoyo Operativo:</b> Sebastián Garrido, Marcos Sousa</p>
-            <p><b>Institución:</b> Colegio Gabriela Mistral (La Guaira)</p>
+            <p><b>PROYECTO:</b> System Kyron</p>
+            <p><b>INTEGRANTES:</b> Carlos Mattar (Líder Estratégico), Sebastián Garrido, Marcos Sousa</p>
+            <p><b>INSTITUCIÓN:</b> Colegio Gabriela Mistral (La Guaira)</p>
             
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">2. POBLACIÓN A TRABAJAR</h3>
-            <p><b>Ubicación:</b> La Atlántida, Catia La Mar, La Guaira (Ref: Supermercado Bensica).</p>
-            <p><b>Habitantes:</b> 3.000 personas en el radio de acción.</p>
-            <p><b>Características:</b> Necesidad crítica de digitalización por salinidad y conectividad 5G.</p>
+            <p><b>UBICACIÓN:</b> Parroquia La Guaira, Zona Costera.</p>
+            <p><b>COMUNIDAD:</b> Comunidad educativa Colegio Gabriela Mistral y sector comercial local.</p>
+            <p><b>HABITANTES:</b> 3.000 personas en el radio de acción.</p>
 
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">3. ANÁLISIS DEL PROBLEMA</h3>
-            <p>Conectividad deficiente y fragmentación de servicios. El clima costero deteriora archivos físicos. Desconocimiento normativo fiscal (SENIAT).</p>
+            <p>Conectividad deficiente y fragmentación de servicios. El clima costero deteriora archivos físicos por humedad. Desconocimiento de cambios normativos del SENIAT.</p>
 
-            <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">4. SOLUCIÓN PROPUESTA</h3>
-            <p>Ecosistema integral cuya columna vertebral son las telecomunicaciones: Línea 5G/eSIM System Kyron, venta de equipos, automatización fiscal y reciclaje inteligente magnético.</p>
+            <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">4. SOLUCIÓN PROPUESTA: SYSTEM KYRON</h3>
+            <p>Ecosistema integral cuya columna vertebral son las telecomunicaciones: Línea 5G/eSIM, internet empresarial, automatización fiscal con IA y reciclaje inteligente magnético.</p>
 
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">5. PRESUPUESTO TÉCNICO</h3>
-            <p><b>Inversión Total Estimada:</b> $31.683,00 USD</p>
-            <p>Incluye Moto Bera Carguera DT-200 para distribución litoral y contrato mayorista de red.</p>
+            <p><b>INVERSIÓN TOTAL:</b> $31.683,00 USD</p>
+            <p>Incluye contrato mayorista de red, Moto Bera Carguera DT-200 para logística litoral y plataforma billing.</p>
             
             <h3 style="border-bottom: 2px solid #2563eb; padding-bottom: 5px;">7. PLAN DE ACCIÓN JERÁRQUICO</h3>
-            <p><b>Fase 0:</b> Constitución empresa Telecom (Lidera: Carlos Mattar).</p>
-            <p><b>Fase 1:</b> Desarrollo plataforma billing y gestión (Lidera: Marcos Sousa).</p>
-            <p><b>Fase 2:</b> Prototipo Reciclaje Magnético (Lidera: Sebastián Garrido).</p>
+            <p><b>FASE 0:</b> Constitución empresa Telecom y permisos (Lidera: Carlos Mattar).</p>
+            <p><b>FASE 1:</b> Desarrollo plataforma billing y gestión (Lidera: Marcos Sousa).</p>
+            <p><b>FASE 2:</b> Prototipo Reciclaje Magnético e IA (Lidera: Sebastián Garrido).</p>
         `;
 
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'></head><body>";
@@ -125,7 +124,7 @@ export default function ModeloZEDUPage() {
         link.click();
         document.body.removeChild(link);
 
-        toast({ title: "Documento Word Generado", description: "El Modelo de ZEDU completo ha sido exportado exitosamente." });
+        toast({ title: "Word Generado", description: "El Modelo de ZEDU ha sido exportado exitosamente." });
     };
 
     return (
@@ -133,7 +132,7 @@ export default function ModeloZEDUPage() {
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-8 border-primary pl-10 py-2 w-full">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4 shadow-glow">
-                        <Radio className="h-3 w-3 animate-pulse" /> Eje Central: Telecomunicaciones
+                        <Signal className="h-3 w-3 animate-pulse" /> Factor Principal: Telecomunicaciones
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic italic-shadow text-white uppercase leading-none">MODELO <span className="text-primary">DE ZEDU</span></h1>
                     <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40 italic leading-none">SYSTEM KYRON • CONECTIVIDAD & GESTIÓN • 2026</p>
@@ -181,7 +180,7 @@ export default function ModeloZEDUPage() {
                             <div className="absolute top-0 right-0 p-8 opacity-[0.02]"><Activity className="h-32 w-32" /></div>
                             <div className="space-y-6">
                                 <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
-                                    La comunidad de Catia La Mar carece de un proveedor único que ofrezca **conectividad 5G**, integrando además servicios de automatización fiscal y reciclaje inteligente. La alta salinidad deteriora archivos físicos escolares, requiriendo digitalización inmediata bajo Blockchain.
+                                    La comunidad de La Guaira carece de un proveedor único que ofrezca conectividad 5G integrada con automatización fiscal y reciclaje inteligente. El clima costero deteriora los archivos físicos, requiriendo digitalización inmediata.
                                 </p>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     <Badge variant="outline" className="text-[9px] border-primary/20 text-primary py-2 px-4 uppercase font-black">Telecom</Badge>
@@ -198,7 +197,7 @@ export default function ModeloZEDUPage() {
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl relative overflow-hidden rounded-[2.5rem]">
                             <div className="absolute top-0 right-0 p-8 opacity-[0.02]"><BrainCircuit className="h-32 w-32" /></div>
                             <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
-                                **System Kyron** es un ecosistema cuya columna vertebral son las telecomunicaciones. Ofrecemos **Líneas 5G (SIM/eSIM)** y equipos homologados. Sobre esta infraestructura, montamos el blindaje fiscal SENIAT y el sistema de reciclaje magnético compensado con créditos digitales.
+                                **System Kyron** es un ecosistema cuya columna vertebral son las telecomunicaciones. Ofrecemos **Líneas 5G (SIM/eSIM)** y equipos homologados. Sobre esta infraestructura, montamos el blindaje fiscal SENIAT y el sistema de reciclaje magnético.
                             </p>
                         </Card>
                     </section>
@@ -240,16 +239,16 @@ export default function ModeloZEDUPage() {
                             <CardContent className="p-0">
                                 <div className="p-8 border-b border-white/5 bg-primary/[0.03]">
                                     <h4 className="font-black text-xs text-primary uppercase tracking-widest mb-2 italic">Liderazgo Estratégico: Carlos Mattar</h4>
-                                    <p className="text-xs text-white/60 font-medium">Arquitectura de Red, IA, Blockchain y Permisología CONATEL.</p>
+                                    <p className="text-xs text-white/60 font-medium">Responsable de Arquitectura de Red, IA, Blockchain y Permisología CONATEL.</p>
                                 </div>
                                 <div className="p-8 space-y-6">
                                     <div>
                                         <h4 className="font-black text-xs text-white/40 uppercase tracking-widest mb-4">Gestión Operativa: Sebastián Garrido</h4>
-                                        <p className="text-xs text-white/70 italic"><CheckCircle className="inline mr-2 h-3 w-3 text-primary"/> Entrenamiento IA para Papeleras Inteligentes y Redes.</p>
+                                        <p className="text-xs text-white/70 italic"><CheckCircle className="inline mr-2 h-3 w-3 text-primary"/> Soporte en carga de datos y configuración de equipos.</p>
                                     </div>
                                     <div>
                                         <h4 className="font-black text-xs text-white/40 uppercase tracking-widest mb-4">Arquitectura & Logística: Marcos Sousa</h4>
-                                        <p className="text-xs text-white/70 italic"><CheckCircle className="inline mr-2 h-3 w-3 text-primary"/> Diseño de Sistema de Billing y Moto Bera Carguera.</p>
+                                        <p className="text-xs text-white/70 italic"><CheckCircle className="inline mr-2 h-3 w-3 text-primary"/> Soporte logístico y distribución de equipos (Moto Bera).</p>
                                     </div>
                                 </div>
                             </CardContent>
