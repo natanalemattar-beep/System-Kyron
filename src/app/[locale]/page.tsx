@@ -5,7 +5,6 @@ import {
   FeaturesSection,
   AboutUsSection,
   FaqSection,
-  CtaSection,
   Footer
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
@@ -13,7 +12,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Radio, Send, Building2, ShieldCheck, Zap, Loader2 } from "lucide-react";
+import { ArrowRight, Radio, Send, Building2, ShieldCheck, Zap, Loader2, Cpu } from "lucide-react";
 import { Link } from "@/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -58,133 +57,125 @@ export default function LandingPage() {
 
     if (result.success) {
       toast({
-        title: "TRANSACCIÓN COMPLETADA",
-        description: "Expediente enviado a infosystemkyron@gmail.com. Un analista le contactará.",
+        title: "SOLICITUD RECIBIDA",
+        description: "El expediente ha sido transmitido a infosystemkyron@gmail.com.",
       });
       form.reset();
     } else {
       toast({
         variant: "destructive",
-        title: "ERROR DE RED",
-        description: "No se pudo transmitir. Intente de nuevo.",
+        title: "FALLA DE TRANSMISIÓN",
+        description: "Error en el protocolo de red. Reintente.",
       });
     }
   }
 
   return (
-    <div className="relative min-h-screen bg-[#020202] flex flex-col overflow-x-hidden hud-grid selection:bg-primary/30 w-full">
-      <DynamicBackground />
+    <div className="relative min-h-screen bg-black flex flex-col overflow-x-hidden resend-grid selection:bg-white/10 w-full">
       <WelcomeTutorial />
       
-      <motion.div className="fixed top-0 left-0 right-0 h-1.5 bg-primary origin-left z-[200] shadow-glow" style={{ scaleX }} />
+      <motion.div className="fixed top-0 left-0 right-0 h-[1px] bg-white/20 origin-left z-[200]" style={{ scaleX }} />
       <LandingHeader />
       
-      <main className="relative flex-1 w-full transition-opacity duration-300">
-        <div className="w-full">
+      <main className="relative flex-1 w-full pt-32 md:pt-48">
+        <div className="container mx-auto px-6 max-w-7xl">
             {/* HERO SECTION */}
-            <section id="inicio">
-              <div className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
-                <div className="w-full px-6 md:px-12 lg:px-20 relative z-10">
-                  <div className="grid lg:grid-cols-2 gap-20 items-center w-full">
-                    <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="space-y-12">
-                      <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
-                        <Radio className="h-3 w-3 animate-pulse" /> Ecosistema de Telecomunicaciones v2.6.5
-                      </div>
-                      <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-foreground uppercase italic italic-shadow">
-                        SYSTEM <br/> <span className="text-primary">KYRON</span>
-                      </h1>
-                      <p className="text-lg md:text-2xl text-muted-foreground max-w-xl leading-snug font-bold border-l-4 border-primary/30 pl-8 opacity-80 uppercase tracking-tight text-balance">
-                        Líneas <span className="text-secondary italic">5G Digitales</span>, <br/>
-                        Conectividad <span className="text-primary tracking-tighter">eSIM</span> y Automatización.
-                      </p>
-                      <div className="flex flex-wrap gap-4 md:gap-6">
-                        <Button asChild size="lg" className="btn-3d-primary h-12 px-8 text-[10px] font-black uppercase tracking-widest rounded-2xl group shadow-2xl">
-                            <Link href="/register">REGISTRARSE POR PRIMERA VEZ <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" /></Link>
-                        </Button>
-                        <Button asChild variant="outline" size="lg" className="h-12 px-8 text-[10px] font-black uppercase tracking-widest rounded-2xl border-white/10 hover:bg-white/5 shadow-xl bg-white/[0.02] backdrop-blur-xl transition-all">
-                            <Link href="/estudio-poblacion">MODELO DE ZEDU</Link>
-                        </Button>
-                      </div>
+            <section id="inicio" className="mb-32 md:mb-48">
+                <div className="text-center space-y-10">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/60"
+                    >
+                        <Zap className="h-3 w-3 text-white" /> Version 2.6.5 is now live
                     </motion.div>
-                  </div>
+                    
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="text-5xl md:text-8xl font-black tracking-tight leading-tight text-white"
+                    >
+                        System Kyron <br/>
+                        <span className="text-white/40">The Business Engine</span>
+                    </motion.h1>
+                    
+                    <motion.p 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-medium"
+                    >
+                        Líneas 5G, Automatización Fiscal y Ledger Inmutable. <br/>
+                        La infraestructura definitiva para el comercio moderno.
+                    </motion.p>
+                    
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="flex flex-wrap justify-center gap-4"
+                    >
+                        <Button asChild className="btn-premium h-12 px-8">
+                            <Link href="/register">Registrarse ahora</Link>
+                        </Button>
+                        <Button asChild variant="outline" className="btn-outline-premium h-12 px-8">
+                            <Link href="/kyron-vault">Explorar Bóveda</Link>
+                        </Button>
+                    </motion.div>
                 </div>
-              </div>
             </section>
             
             <ServicesSection />
             <FeaturesSection />
-            <AboutUsSection />
-            <FaqSection />
             
-            {/* CTA / FORM SECTION */}
-            <section id="contacto" className="py-24 bg-transparent relative overflow-hidden hud-grid border-t border-white/5">
-                <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-20 items-start">
+            {/* CTA FORM SECTION */}
+            <section id="contacto" className="py-32 border-t border-white/5">
+                <div className="grid lg:grid-cols-2 gap-20 items-start">
                     <div className="space-y-8">
-                        <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full font-black text-[9px] uppercase tracking-[0.4em] border border-primary/20">
-                           <ShieldCheck className="h-3 w-3"/> Misión Crítica
-                        </div>
-                        <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-white uppercase italic italic-shadow leading-none">
-                            Obtén tu <br/> <span className="text-primary">Demo Oficial</span>
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white">
+                            Solicita tu <span className="text-white/40">Demo Corporativa</span>
                         </h2>
-                        <p className="text-sm md:text-lg text-white/40 max-w-xl leading-relaxed font-bold uppercase tracking-tight italic border-l-4 border-primary/30 pl-8">
-                            Despliegue de ecosistema personalizado. Los datos se transmiten directamente al buzón oficial de System Kyron para auditoría inmediata.
+                        <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
+                            Nuestro equipo técnico realizará un diagnóstico de su infraestructura y preparará un nodo de prueba personalizado.
                         </p>
+                        <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/20">
+                            <ShieldCheck className="h-4 w-4" /> Military Grade Encryption
+                        </div>
                     </div>
 
-                    <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                    >
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 p-8 md:p-12 border border-white/10 rounded-[3rem] shadow-2xl relative overflow-hidden bg-white/[0.02] backdrop-blur-3xl">
-                                <div className="absolute top-0 right-0 p-8 opacity-5"><Building2 className="h-32 w-32 rotate-12" /></div>
-                                <div className="mb-8 relative z-10"><h3 className="text-2xl font-black tracking-tight uppercase italic text-white">Expediente de Solicitud</h3><p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Información de Misión Crítica</p></div>
-                                
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-8 md:p-12 border border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-xl">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <FormField control={form.control} name="name" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Nombre Completo</FormLabel><FormControl><Input placeholder="Ana Pérez" {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
+                                        <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Nombre</FormLabel><FormControl><Input placeholder="Ana Pérez" {...field} className="h-11 bg-black border-white/10 rounded-lg text-sm" /></FormControl><FormMessage /></FormItem>
                                     )} />
-                                    <FormField control={form.control} name="role" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Cargo</FormLabel><FormControl><Input placeholder="CEO / Gerente" {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
-                                    )} />
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <FormField control={form.control} name="email" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Email Corporativo</FormLabel><FormControl><Input type="email" placeholder="tu@empresa.com" {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
-                                    )} />
-                                    <FormField control={form.control} name="phone" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Teléfono</FormLabel><FormControl><Input type="tel" placeholder="0412-1234567" {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
-                                    )} />
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <FormField control={form.control} name="company" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Razón Social</FormLabel><FormControl><Input placeholder="Kyron, C.A." {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
-                                    )} />
-                                    <FormField control={form.control} name="companySize" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Personal</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold"><SelectValue placeholder="Empleados..." /></SelectTrigger></FormControl><SelectContent className="bg-black border-white/10">{["1-10", "11-50", "51-200", "201+"].map(s => <SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s} Personas</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
+                                        <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Empresa</FormLabel><FormControl><Input placeholder="Kyron C.A." {...field} className="h-11 bg-black border-white/10 rounded-lg text-sm" /></FormControl><FormMessage /></FormItem>
                                     )} />
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <FormField control={form.control} name="sector" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Sector</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold"><SelectValue placeholder="Sector..." /></SelectTrigger></FormControl><SelectContent className="bg-black border-white/10">{["Telecom", "Retail", "Legal", "Educación", "Gobierno", "Otro"].map(s => <SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <FormField control={form.control} name="email" render={({ field }) => (
+                                        <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Email</FormLabel><FormControl><Input type="email" placeholder="tu@empresa.com" {...field} className="h-11 bg-black border-white/10 rounded-lg text-sm" /></FormControl><FormMessage /></FormItem>
                                     )} />
-                                    <FormField control={form.control} name="urgency" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Urgencia</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold"><SelectValue placeholder="Tiempo..." /></SelectTrigger></FormControl><SelectContent className="bg-black border-white/10">{["Inmediata", "30 Días", "90 Días", "Solo Consulta"].map(s => <SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
+                                    <FormField control={form.control} name="module" render={({ field }) => (
+                                        <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Interés</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger className="h-11 bg-black border-white/10 rounded-lg text-sm"><SelectValue placeholder="Módulo..." /></SelectTrigger></FormControl><SelectContent className="bg-black border-white/10">{loginOptions.map(opt => <SelectItem key={opt.href} value={opt.label}>{opt.label}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
                                     )} />
                                 </div>
-
-                                <FormField control={form.control} name="module" render={({ field }) => (
-                                    <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Interés Maestro</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold"><SelectValue placeholder="Seleccionar módulo..." /></SelectTrigger></FormControl><SelectContent className="bg-black border-white/10">{loginOptions.map(opt => <SelectItem key={opt.href} value={opt.label} className="text-xs font-bold uppercase">{opt.label}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
-                                )} />
 
                                 <FormField control={form.control} name="message" render={({ field }) => (
-                                    <FormItem><FormLabel className="text-[8px] font-black uppercase text-white/40 tracking-widest ml-1">Requerimientos Específicos</FormLabel><FormControl><Textarea placeholder="Describa sus necesidades..." className="bg-white/[0.03] border-white/10 rounded-xl text-xs font-medium min-h-[100px]" {...field} /></FormControl><FormMessage /></FormItem>
+                                    <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Notas</FormLabel><FormControl><Textarea placeholder="Requerimientos específicos..." className="bg-black border-white/10 rounded-lg text-sm min-h-[100px]" {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
                                 
-                                <Button type="submit" className="w-full text-[10px] font-black h-12 mt-6 shadow-xl btn-3d-primary rounded-xl" disabled={isSubmitting}>
-                                    {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> TRANSMITIENDO...</> : <span className="flex items-center gap-2">SOLICITAR ACCESO AL NODO <Send className="h-3.5 w-3.5" /></span>}
+                                <Button type="submit" className="w-full btn-premium h-12" disabled={isSubmitting}>
+                                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin"/> : "Enviar Solicitud"}
                                 </Button>
-                                <p className="text-center text-[7px] text-white/20 uppercase font-black tracking-[0.4em] mt-4 italic">Encrypted Transmission • Master Server Active • 2026</p>
                             </form>
                         </Form>
                     </motion.div>

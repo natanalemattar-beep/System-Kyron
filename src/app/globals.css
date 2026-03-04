@@ -4,76 +4,59 @@
 
 @layer base {
   :root {
-    --background: 222 47% 2%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 4%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 2%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 142 71% 45%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 8%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 10%;
-    --accent-foreground: 210 40% 98%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 2%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 2%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 12%;
-    --input: 217.2 32.6% 12%;
-    --ring: 224.3 76.3% 48%;
-    --radius: 1rem;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.75rem;
   }
 }
 
 @layer base {
   * { @apply border-border; }
   body {
-    @apply bg-[#020202] text-foreground antialiased font-sans selection:bg-primary/20;
+    @apply bg-black text-foreground antialiased font-sans selection:bg-white/10;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
   }
 }
 
 @layer utilities {
-  .btn-3d-primary {
-    @apply bg-primary text-primary-foreground font-bold px-5 py-2 rounded-xl transition-all duration-300 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_2px_0_#1e40af] hover:shadow-[0_1px_0_#1e40af]
-           uppercase text-[9px] font-black tracking-widest;
+  .btn-premium {
+    @apply inline-flex items-center justify-center rounded-lg bg-white px-4 py-2 text-sm font-bold text-black transition-all hover:bg-white/90 active:scale-[0.98] disabled:opacity-50;
   }
 
-  .btn-3d-secondary {
-    @apply bg-secondary text-secondary-foreground font-bold px-5 py-2 rounded-xl transition-all duration-300 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_2px_0_#166534] hover:shadow-[0_1px_0_#166534]
-           uppercase text-[9px] font-black tracking-widest;
+  .btn-outline-premium {
+    @apply inline-flex items-center justify-center rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-bold text-white transition-all hover:bg-white/[0.03] active:scale-[0.98] disabled:opacity-50;
   }
 
   .glass-card {
-    @apply bg-white/[0.02] backdrop-blur-3xl border border-white/5 shadow-2xl transition-all duration-500 hover:bg-white/[0.04];
+    @apply bg-[#050505] border border-[#1f1f1f] shadow-2xl transition-all duration-500 hover:border-[#333];
   }
   
-  .italic-shadow {
-    @apply [text-shadow:2px_2px_0px_rgba(37,99,235,0.15)];
-  }
-
-  .hud-grid {
-    background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+  .resend-grid {
+    background-image: radial-gradient(#1f1f1f 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
-  .shadow-glow {
-    box-shadow: 0 0 20px rgba(37, 99, 235, 0.1);
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
   }
 
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-primary/20 rounded-full hover:bg-primary/40;
-  }
-  
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -83,10 +66,10 @@
   }
 }
 
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
 }
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
 }

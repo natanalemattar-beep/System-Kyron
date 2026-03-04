@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle, TrendingDown, AlertTriangle, Users, Sparkles, LayoutGrid, Zap } from "lucide-react";
+import { CheckCircle, TrendingDown, AlertTriangle, Users, LayoutGrid, Zap, Lock, ArrowRight } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
@@ -10,94 +10,69 @@ import { SplashScreen } from "@/components/splash-screen";
 import { useEffect, useState } from "react";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { motion } from "framer-motion";
+import { Card, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/navigation";
 
 const recentActivities = [
-  {
-    description: "La declaración de IVA para Junio 2024 fue enviada.",
-    time: "hace 2 horas",
-    icon: CheckCircle,
-    iconColor: "text-green-500",
-  },
-  {
-    description: "Se ha registrado un nuevo gasto de Bs. 1.200 en suministros de oficina.",
-    time: "hace 5 horas",
-    icon: TrendingDown,
-    iconColor: "text-red-500",
-  },
-  {
-    description: "La factura INV-005 para Epsilon Services está próxima a vencer.",
-    time: "hace 1 día",
-    icon: AlertTriangle,
-    iconColor: "text-orange-500",
-  },
-  {
-    description: "Nómina de la 1ra quincena de Julio procesada.",
-    time: "hace 2 días",
-    icon: Users,
-    iconColor: "text-blue-500",
-  },
+  { description: "IVA Junio 2024 despachado.", time: "hace 2h", icon: CheckCircle, iconColor: "text-emerald-500" },
+  { description: "Gasto Bs. 1.200 registrado.", time: "hace 5h", icon: TrendingDown, iconColor: "text-rose-500" },
+  { description: "Factura INV-005 en mora.", time: "hace 1d", icon: AlertTriangle, iconColor: "text-amber-500" },
+  { description: "Nómina Q1 procesada.", time: "hace 2d", icon: Users, iconColor: "text-blue-500" },
 ];
 
 export default function DashboardPage() {
    const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-        setIsLoading(false);
-    }, 500); 
+    const timer = setTimeout(() => setIsLoading(false), 300); 
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) {
-    return <SplashScreen />;
-  }
+  if (isLoading) return <SplashScreen />;
 
   return (
-    <div className="space-y-20 w-full animate-in fade-in duration-1000">
+    <div className="space-y-12 w-full animate-in fade-in duration-700 px-6 md:px-10 pb-20">
       
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
-        <div className="space-y-4">
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
-                <LayoutGrid className="h-3 w-3" /> Master Control
+      <header className="flex flex-col md:flex-row justify-between items-end gap-6 border-l border-white/10 pl-10 py-2">
+        <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-white/5 text-white/40 text-[9px] font-bold uppercase tracking-widest border border-white/5">
+                <LayoutGrid className="h-3 w-3" /> Console
             </div>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-none italic-shadow">Centro de Mando</h1>
-            <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40">Operaciones Consolidadas y Gestión de Activos</p>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none">Centro de <span className="text-white/20">Mando</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest opacity-40">System Kyron • Distributed Node 2.6</p>
         </div>
-        <div className="flex gap-4">
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-xl flex items-center gap-4">
-                <div className="h-10 w-10 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30">
-                    <Zap className="h-5 w-5 text-green-500" />
-                </div>
-                <div className="text-left">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-white/40">Status</p>
-                    <p className="text-xs font-black text-white">SYSTEM OPTIMAL</p>
-                </div>
-            </div>
+        <div className="flex gap-3">
+            <Button asChild className="btn-premium h-9 px-6 text-[10px] uppercase tracking-widest">
+                <Link href="/kyron-vault">Entrar a Bóveda</Link>
+            </Button>
         </div>
       </header>
 
-      <div className="space-y-12">
+      <div className="space-y-10">
         <StatsCards />
         
-        <div className="grid gap-12 lg:grid-cols-5">
-            <div className="lg:col-span-3">
+        <div className="grid gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-8">
                 <OverviewChart />
             </div>
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-4">
                 <ActivityCard recentActivities={recentActivities} />
             </div>
         </div>
 
-        <div className="space-y-10">
-          <div className="flex items-center gap-6">
-            <h2 className="text-3xl font-black uppercase italic tracking-tighter text-white">Módulos Maestro</h2>
-            <div className="h-px flex-1 bg-white/5"></div>
-          </div>
-          <QuickAccess navGroups={adminNavGroups} />
+        <div className="grid gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-12">
+                <div className="flex items-center gap-6 mb-8">
+                    <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">Módulos de Ecosistema</h2>
+                    <div className="h-[1px] flex-1 bg-white/5"></div>
+                </div>
+                <QuickAccess navGroups={adminNavGroups} />
+            </div>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-5 pb-10">
-            <div className="lg:col-span-3">
+        <div className="grid gap-10 lg:grid-cols-12 pb-10">
+            <div className="lg:col-span-12">
                  <RecentInvoices />
             </div>
         </div>
