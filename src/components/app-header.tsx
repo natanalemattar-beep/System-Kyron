@@ -35,9 +35,10 @@ interface AppHeaderProps {
         icon: any;
         items: { href: string; label: string; icon: any }[];
     }[];
+    showSidebarOffset?: boolean;
 }
 
-export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
+export function AppHeader({ user, dashboardHref, navGroups, showSidebarOffset = true }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
 
@@ -50,12 +51,14 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 lg:left-64 right-0 z-40 border-b bg-background/80 backdrop-blur-xl h-16 flex items-center shadow-sm">
+    <header className={cn(
+        "fixed top-0 left-0 right-0 z-40 border-b bg-background/80 backdrop-blur-xl h-16 flex items-center shadow-sm transition-all duration-300",
+        showSidebarOffset && "lg:left-64"
+    )}>
       <div className="w-full px-4 md:px-10">
         <div className="flex items-center justify-between w-full">
           
           <div className="flex items-center gap-4 overflow-hidden">
-            {/* Quick Menu Trigger - Now visible on all screen sizes */}
             <div>
               <Sheet>
                 <SheetTrigger asChild>

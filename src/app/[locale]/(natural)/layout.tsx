@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -25,11 +24,12 @@ export default function NaturalLayout({
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
                 user={{...user, color: "bg-primary"}} 
-                dashboardHref="/dashboard" 
+                dashboardHref="/dashboard"
+                showSidebarOffset={false}
               />
               
               <motion.main 
-                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 lg:p-20 pt-28 md:pt-36 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
