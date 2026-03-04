@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Link, usePathname } from "@/navigation";
@@ -10,7 +11,7 @@ import { motion } from "framer-motion";
 
 const menuItems = [
   { id: 'inicio', label: 'Consola Central', icon: LayoutGrid, href: '/dashboard-empresa' },
-  { id: 'zedu', label: 'Modelo de ZEDU', icon: Activity, href: '/estudio-poblacion' },
+  { id: 'zedu', label: 'Protocolo ZEDU', icon: Activity, href: '/estudio-poblacion' },
   { id: 'telecom', label: 'Kyron 5G / eSIM', icon: Radio, href: '/dashboard-telecom' },
   { id: 'reciclaje', label: 'Reciclaje Magnético', icon: Recycle, href: '/tarjeta-reciclaje' },
   { id: 'ia', label: 'Ingeniería IA', icon: Cpu, href: '/dashboard-informatica' },

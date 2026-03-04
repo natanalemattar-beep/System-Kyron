@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -24,14 +25,14 @@ const budgetData = [
   { item: "Hardware Papeleras Magnéticas (Sensores)", cost: 683 },
   { item: "Moto Bera Carguera DT-200 (Logística)", cost: 2800 },
   { item: "Equipos Fiscales Homologados SENIAT", cost: 1350 },
-  { item: "Despliegue Operativo La Guaira", cost: 3250 },
+  { item: "Despliegue Operativo Nodo Regional", cost: 3250 },
 ];
 
 const zeduModules = [
-    { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Óptimo" },
+    { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento total.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Óptimo" },
     { id: "M2", title: "BLOCKCHAIN", desc: "Sellado inmutable de registros transaccionales.", icon: Lock, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Sincronizado" },
-    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de baja latencia.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
-    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
+    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de baja latencia asignable.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
+    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con inducción magnética síncrona.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
     { id: "M5", title: "CONTROL ZEDU", desc: "Matriz Maestra de desarrollo económico.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Maestro" },
     { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica 3D unificada.", icon: Database, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Verificado" }
 ];
@@ -47,9 +48,9 @@ export default function SectorPrivadoPage() {
     const handleDownloadExpediente = () => {
         const text = `
 ==================================================
-      SYSTEM KYRON • SECTOR PRIVADO MAESTRO
+      SYSTEM KYRON • CORPORATE INTELLIGENCE
 ==================================================
-EXPEDIENTE TÉCNICO MAESTRO: MODELO ZEDU
+EXPEDIENTE TÉCNICO MAESTRO: MODELO ZEDU 2.6
 ID NODO: MASTER-VAULT-PRO-001
 FECHA: ${new Date().toLocaleDateString()}
 ESTADO: VERIFICADO POR NODO MAESTRO
@@ -68,7 +69,7 @@ TOTAL INVERSIÓN PROYECTADA: ${formatCurrency(budgetData.reduce((a, b) => a + b.
 DICTAMEN TÉCNICO:
 Viabilidad Económica Sobresaliente. El modelo SaaS 
 permite una escalabilidad del 300% en el primer 
-ejercicio fiscal bajo protocolo ZEDU.
+ejercicio fiscal bajo protocolo ZEDU de Kyron.
 
 FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
 ==================================================
@@ -77,13 +78,13 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = "EXPEDIENTE_PRIVADO_ZEDU_KYRON.txt";
+        a.download = "EXPEDIENTE_ZEDU_KYRON_PRO.txt";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         toast({ 
             title: "PROTOCOLO FINALIZADO", 
-            description: "Expediente del Sector Privado exportado con éxito.",
+            description: "Expediente Maestro exportado con éxito.",
             action: <ShieldCheck className="text-primary h-4 w-4" />
         });
     };
@@ -97,10 +98,10 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Lock className="h-3 w-3" /> SECTOR PRIVADO
+                        <Lock className="h-3 w-3" /> NODO ESTRATÉGICO
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Bóveda <span className="text-primary italic">Kyron</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">ACCESO MAESTRO • TERMINAL ZEDU 2.6.5</p>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Sector <span className="text-primary italic">Privado</span></h1>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">BÓVEDA DE INTELIGENCIA • TERMINAL ZEDU 2.6.5</p>
                 </div>
                 <div className="flex gap-3">
                     <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 hover:bg-white/10 text-white transition-all" onClick={() => window.print()}>
@@ -114,7 +115,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
 
             <Tabs defaultValue="zedu" className="w-full relative z-10">
                 <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner">
-                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Matriz ZEDU</TabsTrigger>
+                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Protocolo ZEDU</TabsTrigger>
                     <TabsTrigger value="budget" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Presupuesto CapEx</TabsTrigger>
                 </TabsList>
 
@@ -155,7 +156,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-white/[0.03] border-none hover:bg-white/[0.03]">
-                                        <TableHead className="pl-12 py-8 font-black uppercase text-primary text-[11px] tracking-[0.4em]">Componente de Inversión</TableHead>
+                                        <TableHead className="pl-12 py-8 font-black uppercase text-primary text-[11px] tracking-[0.4em]">Inversión Estratégica</TableHead>
                                         <TableHead className="text-right pr-12 py-8 font-black uppercase text-primary text-[11px] tracking-[0.4em]">Monto (USD)</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -175,7 +176,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                                         <TableCell className="pl-12 py-12 text-2xl font-black text-white italic uppercase tracking-tighter">
                                             <div className="flex items-center gap-4">
                                                 <TerminalIcon className="h-8 w-8 text-primary" />
-                                                TOTAL INVERSIÓN ESTRATÉGICA
+                                                TOTAL INVERSIÓN
                                             </div>
                                         </TableCell>
                                         <TableCell className="text-right pr-12 text-5xl font-mono font-black text-primary italic shadow-glow-text">

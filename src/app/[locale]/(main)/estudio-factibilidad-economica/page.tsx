@@ -1,101 +1,149 @@
+
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { BarChart3, Loader2, Sparkles, Download, TrendingUp, Calculator } from "lucide-react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { formatCurrency, formatPercentage } from "@/lib/utils";
+import { 
+  Download, 
+  Printer, 
+  TrendingUp, 
+  BarChart, 
+  CheckCircle, 
+  Zap,
+  FileText,
+  ShieldCheck,
+  Activity,
+  ChevronRight
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { formatCurrency } from "@/lib/utils";
+import { Logo } from "@/components/logo";
+import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
 
-export default function GenericFactibilidadPage() {
-    const [companyName, setCompanyName] = useState("");
-    const [isGenerating, setIsGenerating] = useState(false);
-    const [analysis, setAnalysis] = useState<any | null>(null);
+const indicators = [
+    { label: "Valor Actual Neto (VAN)", value: 450000, desc: "Flujo de caja descontado proyectado." },
+    { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Rendimiento anual del capital." },
+    { label: "Payback Period", value: "2.4 años", desc: "Retorno de inversión inicial." },
+    { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por transacción." },
+];
+
+const projections = [
+    { year: 1, revenue: 125000, costs: 85000, profit: 40000, margin: 0.32 },
+    { year: 2, revenue: 210000, costs: 110000, profit: 100000, margin: 0.47 },
+    { year: 3, revenue: 380000, costs: 140000, profit: 240000, margin: 0.63 },
+    { year: 4, revenue: 550000, costs: 180000, profit: 370000, margin: 0.67 },
+    { year: 5, revenue: 820000, costs: 220000, profit: 600000, margin: 0.73 },
+];
+
+export default function EstudioFactibilidadPage() {
     const { toast } = useToast();
+    const [isClient, setIsClient] = useState(false);
 
-    const handleGenerate = () => {
-        if (!companyName.trim()) return;
-        setIsGenerating(true);
-        setTimeout(() => {
-            setAnalysis({
-                van: 125000 + Math.random() * 50000,
-                tir: "22.4%",
-                payback: "3.1 años",
-                conclusion: `El proyecto para ${companyName} presenta una rentabilidad sólida con un riesgo controlado bajo las condiciones de mercado actuales.`
-            });
-            setIsGenerating(false);
-            toast({ title: "Análisis Completado", description: "Cálculos de factibilidad listos." });
-        }, 2000);
-    };
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    if (!isClient) return null;
 
     return (
-        <div className="space-y-12 w-full px-4 md:px-10">
-            <header className="border-l-4 border-primary pl-8 py-2">
-                <h1 className="text-4xl font-black tracking-tighter uppercase italic text-white">Dictamen de <span className="text-primary">Factibilidad Económica</span></h1>
-                <p className="text-muted-foreground font-medium text-xs uppercase tracking-widest opacity-60">Análisis financiero dinámico por IA</p>
+        <div className="space-y-12 w-full px-6 md:px-16 pb-20 animate-in fade-in duration-700">
+            <style>
+                {`
+                    @media print {
+                        body * { visibility: hidden; }
+                        #printable-report, #printable-report * { visibility: visible; }
+                        #printable-report { position: absolute; left: 0; top: 0; width: 100%; }
+                        .no-print { display: none !important; }
+                    }
+                `}
+            </style>
+            
+            <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 no-print border-l-4 border-primary pl-8 py-2">
+                <div className="space-y-2">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary">
+                        <Activity className="h-3 w-3" /> Audit: 2026-Q1
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow">Dictamen de <span className="text-primary">Factibilidad</span></h1>
+                    <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest opacity-40">Análisis Técnico-Financiero • System Kyron</p>
+                </div>
+                <div className="flex gap-3">
+                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5" onClick={() => window.print()}>
+                        <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
+                    </Button>
+                    <Button className="btn-3d-primary h-12 px-8 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-2xl">
+                        <Download className="mr-2 h-4 w-4" /> EXPORTAR PDF
+                    </Button>
+                </div>
             </header>
 
-            <div className="grid lg:grid-cols-12 gap-12">
-                <Card className="lg:col-span-4 bg-white/[0.02] border-white/5 rounded-[2.5rem] p-10 h-fit shadow-2xl">
-                    <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-lg font-black uppercase tracking-tight flex items-center gap-3">
-                            <Calculator className="text-primary" /> Parámetros
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0 space-y-6">
-                        <div className="space-y-3">
-                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40">Nombre de la Empresa</Label>
-                            <Input 
-                                placeholder="Ej: Tech Innovators Inc." 
-                                value={companyName}
-                                onChange={(e) => setCompanyName(e.target.value)}
-                                className="h-14 rounded-2xl bg-white/5 border-none text-lg font-bold"
-                            />
-                        </div>
-                        <Button 
-                            className="w-full h-16 rounded-2xl btn-3d-primary font-black text-sm" 
-                            disabled={isGenerating || !companyName}
-                            onClick={handleGenerate}
-                        >
-                            {isGenerating ? <Loader2 className="animate-spin mr-2"/> : <Sparkles className="mr-2 h-5 w-5"/>}
-                            EJECUTAR ANÁLISIS
-                        </Button>
-                    </CardContent>
-                </Card>
+            <div id="printable-report" className="space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {indicators.map((ind, i) => (
+                        <Card key={i} className="glass-card border-white/5 p-8 rounded-[2rem] hover:scale-[1.02] transition-all">
+                            <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-3">{ind.label}</p>
+                            <p className="text-3xl font-black italic text-white leading-none mb-3">
+                                {typeof ind.value === 'number' ? 
+                                    (ind.value < 1 ? formatPercentage(ind.value) : formatCurrency(ind.value, 'USD')) 
+                                    : ind.value}
+                            </p>
+                            <p className="text-[9px] text-white/30 uppercase font-bold tracking-tight">{ind.desc}</p>
+                        </Card>
+                    ))}
+                </div>
 
-                <div className="lg:col-span-8">
-                    {analysis ? (
-                        <div className="space-y-10 animate-in fade-in slide-in-from-right-4 duration-700">
-                            <div className="grid grid-cols-3 gap-6">
-                                {[
-                                    { label: "VAN", val: formatCurrency(analysis.van, 'USD') },
-                                    { label: "TIR", val: analysis.tir },
-                                    { label: "Payback", val: analysis.payback }
-                                ].map((stat, i) => (
-                                    <Card key={i} className="glass-card border-none p-8 rounded-[2rem] text-center">
-                                        <p className="text-[9px] font-black uppercase tracking-widest text-primary mb-2">{stat.label}</p>
-                                        <p className="text-2xl font-black italic text-white leading-none">{stat.val}</p>
-                                    </Card>
-                                ))}
-                            </div>
-                            <Card className="glass-card border-none p-12 rounded-[3rem] bg-emerald-500/[0.03]">
-                                <h3 className="text-xl font-black uppercase italic text-emerald-400 mb-4 flex items-center gap-3">
-                                    <TrendingUp className="h-6 w-6"/> Conclusión Financiera
-                                </h3>
-                                <p className="text-lg font-medium italic text-white/80 leading-relaxed text-justify">{analysis.conclusion}</p>
-                            </Card>
-                            <Button variant="outline" className="w-full h-14 rounded-2xl font-black uppercase text-[10px] tracking-widest">
-                                <Download className="mr-2 h-4 w-4"/> Exportar Reporte de Factibilidad
-                            </Button>
+                <div className="grid lg:grid-cols-3 gap-8">
+                    <Card className="lg:col-span-2 glass-card rounded-[2.5rem] border-white/5 overflow-hidden">
+                        <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
+                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] flex items-center gap-3">
+                                <TrendingUp className="text-primary h-5 w-5" /> Proyección Quinquenal
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-white/[0.02] border-none">
+                                        <TableHead className="pl-10 font-black uppercase text-[10px] tracking-widest text-white/40">Periodo</TableHead>
+                                        <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Ingresos</TableHead>
+                                        <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Utilidad Neta</TableHead>
+                                        <TableHead className="text-right pr-10 font-black uppercase text-[10px] tracking-widest text-white/40">Margen</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {projections.map(row => (
+                                        <TableRow key={row.year} className="border-white/5 hover:bg-primary/5 transition-colors group">
+                                            <TableCell className="pl-10 font-black text-primary italic">AÑO 0{row.year}</TableCell>
+                                            <TableCell className="text-right font-mono text-sm font-bold text-white/70">{formatCurrency(row.revenue, 'USD')}</TableCell>
+                                            <TableCell className="text-right font-mono text-sm font-black text-white">{formatCurrency(row.profit, 'USD')}</TableCell>
+                                            <TableCell className="text-right pr-10">
+                                                <Badge variant="outline" className="text-[9px] font-black border-primary/20 text-primary bg-primary/5">{formatPercentage(row.margin)}</Badge>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </CardContent>
+                    </Card>
+
+                    <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow">
+                        <div className="absolute top-0 right-0 p-8 opacity-10">
+                            <ShieldCheck className="h-48 w-48" />
                         </div>
-                    ) : (
-                        <div className="h-[500px] rounded-[3rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center text-center p-12 bg-white/[0.01]">
-                            <BarChart3 className="h-20 w-20 text-white/10 mb-6" />
-                            <p className="text-white/20 font-black uppercase tracking-[0.4em] text-sm italic">Esperando datos de simulación...</p>
+                        <div>
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 flex items-center gap-3">
+                                <CheckCircle className="h-6 w-6" /> DICTAMEN FINAL
+                            </h3>
+                            <p className="text-lg font-medium italic leading-relaxed opacity-90 text-justify">
+                                "El ecosistema Kyron demuestra una viabilidad estructural basada en la inmutabilidad de datos y la escalabilidad del modelo SaaS. Se proyecta un retorno total de inversión en el mes 28 de operación."
+                            </p>
                         </div>
-                    )}
+                        <div className="pt-10 border-t border-white/20">
+                            <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60">Firma Autorizada</p>
+                            <p className="text-sm font-black uppercase italic mt-2 tracking-widest">NODO MAESTRO 2026</p>
+                        </div>
+                    </Card>
                 </div>
             </div>
         </div>

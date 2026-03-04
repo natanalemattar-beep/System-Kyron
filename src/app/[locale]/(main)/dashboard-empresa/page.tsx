@@ -1,3 +1,4 @@
+
 'use client';
 
 import { CheckCircle, TrendingDown, AlertTriangle, Users, LayoutGrid, Zap, Lock, ArrowRight } from "lucide-react";
