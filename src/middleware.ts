@@ -1,13 +1,10 @@
 
-import createMiddleware from 'next-intl/middleware';
-import {locales, defaultLocale} from './navigation';
- 
-export default createMiddleware({
-  locales,
-  defaultLocale,
-  localePrefix: 'as-needed'
-});
- 
+import { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  return;
+}
+
 export const config = {
   // Match all pathnames except for
   // - API routes

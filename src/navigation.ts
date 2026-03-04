@@ -1,4 +1,6 @@
-import {createLocalizedPathnamesNavigation} from 'next-intl/navigation';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export const locales = ['en', 'es'] as const;
 export const defaultLocale = 'es';
@@ -52,8 +54,4 @@ export const pathnames = {
   '/estudio-poblacion': '/estudio-poblacion',
 } as const;
 
-export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
-  locales,
-  localePrefix,
-  pathnames
-});
+export { Link, redirect, usePathname, useRouter };
