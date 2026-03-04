@@ -20,17 +20,15 @@ export default function MainLayout({
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
-              <AppHeader user={{...user, color: "bg-primary shadow-glow"}} dashboardHref="/dashboard-informatica" />
+              <AppHeader user={{...user, color: "bg-primary shadow-glow"}} dashboardHref="/dashboard-empresa" />
               
               <motion.main 
-                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 pt-24 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                  <div className="w-full">
-                    {children}
-                  </div>
+                  {children}
               </motion.main>
               
               <footer className="p-12 border-t border-white/5 bg-black/80 text-center backdrop-blur-3xl relative z-20">

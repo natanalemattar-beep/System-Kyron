@@ -20,10 +20,10 @@ export default function SociosLayout({
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay" />
           </div>
 
-          <div className="flex-1 flex flex-col min-h-screen relative">
+          <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader user={{...user, color: "bg-indigo-900"}} dashboardHref="/dashboard-socios" />
               <motion.main 
-                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 pt-24 relative z-10"
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
@@ -31,9 +31,7 @@ export default function SociosLayout({
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] pointer-events-none -z-10">
                     <Globe className="w-[800px] h-[800px] text-primary" />
                   </div>
-                  <div className="w-full">
-                    {children}
-                  </div>
+                  {children}
               </motion.main>
               <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">

@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -14,7 +13,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Radio } from "lucide-react";
 import { Link } from "@/navigation";
 
 export default function LandingPage() {
@@ -50,7 +49,7 @@ export default function LandingPage() {
                       className="space-y-12"
                     >
                       <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
-                        <Sparkles className="h-3 w-3" /> Ecosistema de Misión Crítica v2.6.5
+                        <Radio className="h-3 w-3 animate-pulse" /> Ecosistema de Telecomunicaciones v2.6.5
                       </div>
                       <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.8] text-foreground uppercase italic italic-shadow">
                         SYSTEM <br/> 

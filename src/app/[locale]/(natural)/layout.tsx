@@ -34,9 +34,7 @@ export default function NaturalLayout({
                   <div className="absolute top-1/4 right-20 opacity-[0.01] pointer-events-none -z-10">
                     <Sparkles className="w-[600px] h-[600px] text-primary" />
                   </div>
-                  <div className="w-full">
-                    {children}
-                  </div>
+                  {children}
               </motion.main>
               
               <footer className="p-10 border-t border-white/5 text-center">

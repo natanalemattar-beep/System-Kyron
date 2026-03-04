@@ -24,10 +24,10 @@ export default function TelecomLayout({
             />
           </div>
 
-          <div className="flex-1 flex flex-col min-h-screen relative">
+          <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader user={{...user, color: "bg-amber-600"}} dashboardHref="/dashboard-telecom" />
               <motion.main 
-                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 pt-24 relative z-10"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
@@ -35,9 +35,7 @@ export default function TelecomLayout({
                   <div className="absolute bottom-20 right-20 opacity-[0.03] pointer-events-none -z-10">
                     <Signal className="w-[500px] h-[500px] text-amber-500" />
                   </div>
-                  <div className="w-full">
-                    {children}
-                  </div>
+                  {children}
               </motion.main>
               <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
