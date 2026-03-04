@@ -121,7 +121,7 @@ export default function EstudioFactibilidadPage() {
                                             <TableCell className="text-right font-mono text-sm font-bold text-white/70">{formatCurrency(row.revenue, 'USD')}</TableCell>
                                             <TableCell className="text-right font-mono text-sm font-black text-white">{formatCurrency(row.profit, 'USD')}</TableCell>
                                             <TableCell className="text-right pr-10">
-                                                <Badge variant="outline" className="text-[9px] font-black border-primary/20 text-primary bg-primary/5">{formatPercentage(row.margin)}</Badge>
+                                                <Badge variant="outline" className="text-[8px] font-black border-primary/20 text-primary bg-primary/5">{formatPercentage(row.margin)}</Badge>
                                             </TableCell>
                                         </TableRow>
                                     ))}

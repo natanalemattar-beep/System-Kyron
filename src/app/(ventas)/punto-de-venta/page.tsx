@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo } from "react";
@@ -131,7 +132,7 @@ export default function PuntoDeVentaPage() {
                          {products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase())).map(product => (
                             <Card key={product.id} onClick={() => addToCart(product)} className="group cursor-pointer hover:border-primary transition-all rounded-2xl overflow-hidden bg-background">
                                 <div className="aspect-square relative overflow-hidden">
-                                    <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500"/>
+                                    <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                                 </div>
                                 <div className="p-3">
                                     <p className="font-bold text-[10px] leading-tight mb-1">{product.name}</p>
@@ -195,7 +196,10 @@ export default function PuntoDeVentaPage() {
             
             <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
                 <DialogContent className="rounded-[2rem]">
-                    <DialogHeader><DialogTitle className="text-xl font-black italic uppercase">Finalizar Cobro</DialogTitle></DialogHeader>
+                    <DialogHeader>
+                        <DialogTitle className="text-xl font-black italic uppercase">Finalizar Cobro</DialogTitle>
+                        <DialogDescription className="sr-only">Seleccione el método de pago para completar la transacción.</DialogDescription>
+                    </DialogHeader>
                     <div className="grid grid-cols-2 gap-3 py-4">
                         {["Punto de Venta", "Pago Móvil", "Efectivo", "Transferencia"].map((method) => (
                             <Button 
@@ -218,6 +222,10 @@ export default function PuntoDeVentaPage() {
 
             <Dialog open={isReceiptOpen} onOpenChange={setIsReceiptOpen}>
                 <DialogContent className="sm:max-w-md rounded-[2.5rem]">
+                    <DialogHeader>
+                        <DialogTitle className="sr-only">Factura de Venta Registrada</DialogTitle>
+                        <DialogDescription className="sr-only">Confirmación de la transacción exitosa y código QR fiscal.</DialogDescription>
+                    </DialogHeader>
                     <div className="p-6 text-center space-y-6">
                         <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
                         <h2 className="text-2xl font-black tracking-tighter uppercase italic">Venta Registrada</h2>
