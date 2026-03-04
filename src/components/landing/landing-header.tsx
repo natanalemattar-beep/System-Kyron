@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -9,7 +10,8 @@ import {
     ChevronDown,
     Sparkles,
     ArrowRight,
-    BookOpen
+    BookOpen,
+    X
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { 
@@ -53,7 +55,7 @@ export function LandingHeader() {
     return (
         <header className={cn(
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-300 gpu-accelerated w-full",
-             isScrolled ? "bg-black/90 backdrop-blur-xl py-2 border-b border-white/5 shadow-2xl" : "bg-transparent py-6"
+             isScrolled ? "bg-black/95 backdrop-blur-2xl py-2 border-b border-white/5 shadow-2xl" : "bg-transparent py-6"
         )}>
             <div className="w-full px-6 md:px-12">
                 <div className="grid grid-cols-3 items-center h-16 w-full">
@@ -74,7 +76,7 @@ export function LandingHeader() {
                         </nav>
                     </div>
 
-                    {/* SECCIÓN CENTRAL: Identidad Maestra */}
+                    {/* SECCIÓN CENTRAL: Identidad Maestra (Eje Absoluto) */}
                     <div className="flex justify-center items-center">
                         <Link href="/" className="flex flex-col items-center group">
                             <Logo className="h-10 w-10 mb-1.5 transition-transform duration-500 group-hover:scale-110 drop-shadow-glow" /> 
@@ -176,17 +178,13 @@ export function LandingHeader() {
                                     </Button>
                                 </SheetTrigger>
                                 <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-black border-l-white/5">
-                                    <SheetHeader className="sr-only">
-                                        <SheetTitle>Menú móvil System Kyron</SheetTitle>
-                                        <SheetDescription>Navegación principal para dispositivos móviles.</SheetDescription>
-                                    </SheetHeader>
-                                    <div className="p-10 border-b border-white/5 flex flex-col items-center gap-4 bg-primary/5">
-                                        <Logo className="h-16 w-16" /> 
-                                        <div className="text-center">
-                                            <span className="text-xl font-black tracking-tighter text-primary uppercase italic">System Kyron</span>
-                                            <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mt-2">NODO MÓVIL</p>
+                                    <SheetHeader className="p-8 border-b border-white/5 flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <Logo className="h-8 w-8" />
+                                            <SheetTitle className="text-lg font-black tracking-tight text-white uppercase italic">KYRON MENU</SheetTitle>
                                         </div>
-                                    </div>
+                                        <SheetDescription className="sr-only">Navegación móvil del sistema Kyron.</SheetDescription>
+                                    </SheetHeader>
                                     <nav className="flex-grow p-8 space-y-10 overflow-y-auto">
                                         <div className="space-y-4">
                                             <p className="text-[10px] font-black uppercase text-white/20 tracking-[0.4em] italic">Navegación</p>
