@@ -1,17 +1,15 @@
-
 'use client';
 
 import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
-  BarChart3, Users, Recycle, Droplets, Wallet, 
-  ShieldCheck, Cog, LayoutGrid, Activity, Radio, Cpu, Gavel, Lock
+  BarChart3, Users, Recycle, Radio, Cpu, Gavel, Lock, LayoutGrid, Cog, Activity
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
 
 const menuItems = [
-  { id: 'inicio', label: 'Consola Central', icon: LayoutGrid, href: '/dashboard' },
+  { id: 'inicio', label: 'Consola Central', icon: LayoutGrid, href: '/dashboard-empresa' },
   { id: 'zedu', label: 'Modelo de ZEDU', icon: Activity, href: '/estudio-poblacion' },
   { id: 'telecom', label: 'Kyron 5G / eSIM', icon: Radio, href: '/dashboard-telecom' },
   { id: 'reciclaje', label: 'Reciclaje Magnético', icon: Recycle, href: '/tarjeta-reciclaje' },
@@ -19,7 +17,7 @@ const menuItems = [
   { id: 'contabilidad', label: 'Finanzas & Nómina', icon: BarChart3, href: '/contabilidad' },
   { id: 'rrhh', label: 'Gestión Talento', icon: Users, href: '/dashboard-rrhh' },
   { id: 'juridico', label: 'Centro Legal', icon: Gavel, href: '/escritorio-juridico' },
-  { id: 'vault', label: 'Bóveda Maestra', icon: Lock, href: '/terminal' },
+  { id: 'vault', label: 'Bóveda Maestra', icon: Lock, href: '/kyron-vault' },
   { id: 'config', label: 'Configuración', icon: Cog, href: '/general' },
 ];
 
