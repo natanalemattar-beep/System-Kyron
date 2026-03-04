@@ -51,36 +51,38 @@ export function LandingHeader() {
 
     return (
         <header className={cn(
-            "fixed top-0 left-0 right-0 z-[150] transition-all duration-300 gpu-accelerated",
-             isScrolled ? "bg-black/90 backdrop-blur-xl py-2 border-b border-white/5" : "bg-transparent py-6"
+            "fixed top-0 left-0 right-0 z-[150] transition-all duration-300 gpu-accelerated w-full",
+             isScrolled ? "bg-black/90 backdrop-blur-xl py-2 border-b border-white/5 shadow-2xl" : "bg-transparent py-6"
         )}>
             <div className="w-full px-6 md:px-12">
-                <div className="grid grid-cols-3 items-center h-16">
+                <div className="grid grid-cols-3 items-center h-16 w-full">
                     
-                    {/* IZQUIERDA: Navegación Principal */}
-                    <nav className="hidden lg:flex items-center gap-10">
-                        {leftLinks.map((link) => (
-                            <Link 
-                                key={link.href} 
-                                href={link.href as any} 
-                                className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
-                            >
-                                {link.label}
-                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full"></span>
-                            </Link>
-                        ))}
-                    </nav>
+                    {/* SECCIÓN IZQUIERDA: Navegación Primaria */}
+                    <div className="flex justify-start items-center">
+                        <nav className="hidden lg:flex items-center gap-10">
+                            {leftLinks.map((link) => (
+                                <Link 
+                                    key={link.href} 
+                                    href={link.href as any} 
+                                    className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
+                                >
+                                    {link.label}
+                                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                                </Link>
+                            ))}
+                        </nav>
+                    </div>
 
-                    {/* CENTRO: Identidad Maestra (Logo centrado matemáticamente) */}
-                    <div className="flex flex-col items-center">
+                    {/* SECCIÓN CENTRAL: Identidad Maestra (CENTRO MATEMÁTICO) */}
+                    <div className="flex justify-center items-center">
                         <Link href="/" className="flex flex-col items-center group">
                             <Logo className="h-10 w-10 mb-1.5 transition-transform duration-500 group-hover:scale-110 drop-shadow-glow" /> 
                             <span className="text-[9px] font-black tracking-[0.5em] text-primary uppercase italic italic-shadow">System Kyron</span>
                         </Link>
                     </div>
 
-                    {/* DERECHA: Navegación Secundaria y Acceso */}
-                    <div className="flex items-center justify-end gap-10">
+                    {/* SECCIÓN DERECHA: Navegación Secundaria y Controles */}
+                    <div className="flex justify-end items-center gap-10">
                         <nav className="hidden lg:flex items-center gap-10">
                             {rightLinks.map((link) => (
                                 <Link 
@@ -89,7 +91,7 @@ export function LandingHeader() {
                                     className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
                                 >
                                     {link.label}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full"></span>
+                                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                                 </Link>
                             ))}
                         </nav>
@@ -113,7 +115,7 @@ export function LandingHeader() {
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-[11px] font-black uppercase tracking-[0.3em] text-primary">Ecosistema Kyron</span>
-                                                <span className="text-[8px] font-bold text-white/30 uppercase tracking-widest">Selecciona tu portal de gestión</span>
+                                                <span className="text-[8px] font-bold text-white/30 uppercase tracking-widest">Selecciona tu portal maestro</span>
                                             </div>
                                         </DropdownMenuLabel>
                                     </div>

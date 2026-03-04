@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { 
   Download, Crown, Zap, ShieldCheck, 
-  Globe, Lock, Printer, BrainCircuit, Activity, Network, Cpu, Database
+  Globe, Lock, Printer, BrainCircuit, Activity, Network, Cpu, Database, Sparkles
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, cn } from "@/lib/utils";
@@ -26,12 +26,12 @@ const budgetData = [
 ];
 
 const zeduModules = [
-    { id: "M1", title: "IA FISCAL", desc: "Motor de inferencia para automatización contable.", icon: BrainCircuit, color: "text-primary", border: "neon-border-blue", bg: "bg-primary/5" },
-    { id: "M2", title: "LEDGER BLOCKCHAIN", desc: "Sellado inmutable de transacciones fiscales.", icon: Lock, color: "text-secondary", border: "neon-border-green", bg: "bg-secondary/5" },
-    { id: "M3", title: "NODO TELECOM 5G", desc: "Conectividad redundante de grado militar.", icon: Network, color: "text-primary", border: "neon-border-blue", bg: "bg-primary/5" },
-    { id: "M4", title: "SENSOR MAGNÉTICO", desc: "Tecnología de reciclaje para activos verdes.", icon: Zap, color: "text-secondary", border: "neon-border-green", bg: "bg-secondary/5" },
-    { id: "M5", title: "CONTROL ZEDU", desc: "Matriz de desarrollo urbano y económico.", icon: Cpu, color: "text-primary", border: "neon-border-blue", bg: "bg-primary/5" },
-    { id: "M6", title: "CENTRAL DE DATOS", desc: "Bóveda de expedientes digitales inmutables.", icon: Database, color: "text-secondary", border: "neon-border-green", bg: "bg-secondary/5" }
+    { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "neon-border-blue", bg: "bg-primary/5" },
+    { id: "M2", title: "BLOCKCHAIN", desc: "Sellado inmutable de libros y registros.", icon: Lock, color: "text-secondary", border: "neon-border-green", bg: "bg-secondary/5" },
+    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de alta velocidad.", icon: Network, color: "text-primary", border: "neon-border-blue", bg: "bg-primary/5" },
+    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con tecnología de magnetismo.", icon: Zap, color: "text-secondary", border: "neon-border-green", bg: "bg-secondary/5" },
+    { id: "M5", title: "CONTROL ZEDU", desc: "Matriz de desarrollo económico local.", icon: Cpu, color: "text-primary", border: "neon-border-blue", bg: "bg-primary/5" },
+    { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica unificada.", icon: Database, color: "text-secondary", border: "neon-border-green", bg: "bg-secondary/5" }
 ];
 
 export default function KyronVaultPage() {
@@ -39,13 +39,14 @@ export default function KyronVaultPage() {
 
     const handleDownloadExpediente = () => {
         const text = `
-============================================================
-      EXPEDIENTE TÉCNICO MAESTRO: MODELO ZEDU KYRON
-============================================================
+╔══════════════════════════════════════════════════════════╗
+║      EXPEDIENTE TÉCNICO MAESTRO: MODELO ZEDU KYRON       ║
+╚══════════════════════════════════════════════════════════╝
 SISTEMA: SYSTEM KYRON V2.6.5
 ID NODO: MASTER-VAULT-001
 FECHA: ${new Date().toLocaleDateString('es-VE')}
 SEGURIDAD: NIVEL 5 (BLACK)
+ESTADO: VERIFICADO POR NODO MAESTRO
 ------------------------------------------------------------
 
 1. ARQUITECTURA DE INGENIERÍA (MATRIZ DE MÓDULOS)
@@ -53,7 +54,7 @@ SEGURIDAD: NIVEL 5 (BLACK)
 ${zeduModules.map(m => `
 [${m.id}] ${m.title}
    - FUNCIÓN: ${m.desc}
-   - ESTADO: OPERATIVO / VERIFICADO
+   - ESTADO: OPERATIVO / SELLADO INMUTABLE
 `).join('\n')}
 
 2. ANÁLISIS DE FACTIBILIDAD Y COSTOS (USD)
@@ -62,27 +63,27 @@ ${budgetData.map(d => `- ${d.item.padEnd(45)} | ${formatCurrency(d.cost, 'USD')}
 
 TOTAL CAPEX DESPLEGADO: ${formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
 
-3. DICTAMEN DE IMPACTO OPERATIVO
+3. DICTAMEN TÉCNICO DE IMPACTO
 ------------------------------------------------------------
 El modelo ZEDU implementado garantiza una reducción del 100% 
 en el riesgo fiscal residual mediante la inyección de IA 
-en el flujo de caja y el sellado Blockchain de libros.
+y el sellado Blockchain. Protocolo de cumplimiento activo.
 
 ============================================================
       VALIDADO POR EL NODO ESTRATÉGICO SYSTEM KYRON
-      SELLADO DIGITAL INMUTABLE - NO REQUIERE FIRMA
+      ID DE SELLO: ${Math.random().toString(36).substring(2, 15).toUpperCase()}
 ============================================================
         `;
         const blob = new Blob([text], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = "ZEDU_MASTER_EXPEDIENTE_KYRON.txt";
+        a.download = "EXPEDIENTE_ZEDU_KYRON_MAESTRO.txt";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         
-        toast({ title: "EXPEDIENTE DESPACHADO", description: "Descarga de alta fidelidad completada." });
+        toast({ title: "EXPEDIENTE GENERADO", description: "Descarga de alta fidelidad completada exitosamente." });
     };
 
     return (
@@ -90,10 +91,10 @@ en el flujo de caja y el sellado Blockchain de libros.
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-2 mt-10">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Lock className="h-3 w-3" /> NODO CIFRADO MAESTRO
+                        <Lock className="h-3 w-3" /> NODO CIFRADO NIVEL 5
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Bóveda <span className="text-primary italic">Kyron</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">ACCESO NIVEL 5 • MISIÓN CRÍTICA • © 2026</p>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">ESTRATEGIA • MISIÓN CRÍTICA • © 2026</p>
                 </div>
                 <div className="flex gap-3">
                     <Button variant="outline" className="h-10 px-6 text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 hover:bg-white/10 text-white" onClick={() => window.print()}>
@@ -107,9 +108,9 @@ en el flujo de caja y el sellado Blockchain de libros.
 
             <Tabs defaultValue="zedu" className="w-full">
                 <TabsList className="flex h-12 bg-white/[0.02] border border-white/5 rounded-xl p-1 mb-12 backdrop-blur-xl">
-                    <TabsTrigger value="zedu" className="flex-1 rounded-lg font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Matriz ZEDU (Módulos)</TabsTrigger>
-                    <TabsTrigger value="factibilidad" className="flex-1 rounded-lg font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Factibilidad Real</TabsTrigger>
-                    <TabsTrigger value="budget" className="flex-1 rounded-lg font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Presupuesto de Inversión</TabsTrigger>
+                    <TabsTrigger value="zedu" className="flex-1 rounded-lg font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Matriz ZEDU (Ingeniería)</TabsTrigger>
+                    <TabsTrigger value="factibilidad" className="flex-1 rounded-lg font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Dictamen de Factibilidad</TabsTrigger>
+                    <TabsTrigger value="budget" className="flex-1 rounded-lg font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Inversión CapEx</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="zedu" className="space-y-12">
@@ -117,11 +118,11 @@ en el flujo de caja y el sellado Blockchain de libros.
                         {zeduModules.map((m, i) => (
                             <motion.div
                                 key={m.id}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1 }}
                             >
-                                <Card className={cn("glass-card p-10 rounded-[2.5rem] h-full flex flex-col items-center text-center group hover:scale-[1.05] transition-all duration-500 border-2", m.border, m.bg)}>
+                                <Card className={cn("glass-card p-10 rounded-[2.5rem] h-full flex flex-col items-center text-center group hover:scale-[1.02] transition-all duration-500 border-2", m.border, m.bg)}>
                                     <div className={cn("p-5 rounded-2xl mb-8 shadow-inner border border-white/10 group-hover:shadow-glow transition-all", m.color)}>
                                         <m.icon className="h-10 w-10" />
                                     </div>
@@ -130,7 +131,7 @@ en el flujo de caja y el sellado Blockchain de libros.
                                     <div className="mt-8 pt-6 border-t border-white/5 w-full flex justify-between items-center">
                                         <span className="text-[8px] font-black text-primary uppercase tracking-widest">{m.id}</span>
                                         <span className="text-[8px] font-black text-secondary uppercase tracking-widest flex items-center gap-1">
-                                            <ShieldCheck className="h-3 w-3"/> VERIFICADO
+                                            <ShieldCheck className="h-3 w-3"/> OPERATIVO
                                         </span>
                                     </div>
                                 </Card>
@@ -144,8 +145,8 @@ en el flujo de caja y el sellado Blockchain de libros.
                         {[
                             { label: "VAN", val: "$450,000", color: "text-primary", glow: "shadow-glow" },
                             { label: "TIR", val: "28.5%", color: "text-secondary", glow: "shadow-glow-secondary" },
-                            { label: "Payback", val: "2.4 Años", color: "text-primary", glow: "shadow-glow" },
-                            { label: "Margen", val: "32%", color: "text-secondary", glow: "shadow-glow-secondary" }
+                            { label: "RECUPERACIÓN", val: "2.4 Años", color: "text-primary", glow: "shadow-glow" },
+                            { label: "MARGEN", val: "32%", color: "text-secondary", glow: "shadow-glow-secondary" }
                         ].map((stat, i) => (
                             <Card key={i} className="glass-card p-10 rounded-[2rem] text-center border-white/5 group hover:border-primary/30 transition-all">
                                 <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4">{stat.label}</p>
@@ -155,9 +156,12 @@ en el flujo de caja y el sellado Blockchain de libros.
                     </div>
                     <Card className="bg-primary text-white p-16 rounded-[4rem] relative overflow-hidden shadow-glow border-none">
                         <div className="absolute top-0 right-0 p-16 opacity-10 group-hover:rotate-12 transition-all duration-1000"><ShieldCheck className="h-64 w-64" /></div>
-                        <h3 className="text-3xl font-black mb-6 tracking-tighter uppercase italic">Dictamen de Misión Crítica</h3>
+                        <h3 className="text-3xl font-black mb-6 tracking-tighter uppercase italic flex items-center gap-4">
+                            <Sparkles className="h-8 w-8 text-yellow-400" />
+                            Dictamen de Viabilidad Pro
+                        </h3>
                         <p className="text-2xl leading-relaxed font-bold text-justify italic opacity-90">
-                            "El análisis de interoperabilidad confirma que la inyección de tecnología de tercera generación en los procesos de System Kyron anula el riesgo fiscal residual, permitiendo una escalabilidad exponencial del capital invertido."
+                            "La integración de tecnología de magnetismo para activos verdes y el blindaje fiscal mediante IA predictiva posicionan a System Kyron como un ecosistema de bajo riesgo y alta escalabilidad, garantizando la rentabilidad del capital desplegado en el corto plazo."
                         </p>
                     </Card>
                 </TabsContent>
@@ -165,12 +169,12 @@ en el flujo de caja y el sellado Blockchain de libros.
                 <TabsContent value="budget" className="space-y-10">
                     <Card className="glass-card overflow-hidden rounded-[2.5rem] border-white/5 shadow-2xl">
                         <Table>
-                            <TableHeader><TableRow className="bg-white/[0.03] border-none"><TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.3em]">Concepto Estratégico</TableHead><TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.3em]">Inversión (USD)</TableHead></TableRow></TableHeader>
+                            <TableHeader><TableRow className="bg-white/[0.03] border-none"><TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.3em]">Módulo de Inversión</TableHead><TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.3em]">Costo Estimado (USD)</TableHead></TableRow></TableHeader>
                             <TableBody>
                                 {budgetData.map((d, i) => (
                                     <TableRow key={i} className="border-white/5 hover:bg-primary/[0.03] transition-colors"><TableCell className="pl-10 py-5 text-xs font-bold text-white/70 uppercase tracking-tight">{d.item}</TableCell><TableCell className="text-right pr-10 font-mono font-black text-white text-base italic">{formatCurrency(d.cost, 'USD')}</TableCell></TableRow>
                                 ))}
-                                <TableRow className="bg-primary/10 border-none"><TableCell className="pl-10 py-10 text-xl font-black text-white italic uppercase tracking-tighter">Total Inversión Proyectada</TableCell><TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">{formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}</TableCell></TableRow>
+                                <TableRow className="bg-primary/10 border-none"><TableCell className="pl-10 py-10 text-xl font-black text-white italic uppercase tracking-tighter">TOTAL CAPEX ESTRATÉGICO</TableCell><TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">{formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}</TableCell></TableRow>
                             </TableBody>
                         </Table>
                     </Card>
