@@ -4,8 +4,6 @@
 import {
   ServicesSection,
   FeaturesSection,
-  AboutUsSection,
-  FaqSection,
   Footer
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
@@ -80,7 +78,6 @@ export default function LandingPage() {
       
       <main className="relative flex-1 w-full pt-32 md:pt-40">
         <div className="container mx-auto px-6 max-w-7xl">
-            {/* SECCIÓN HERO CON GLOBO MAESTRO */}
             <section id="inicio" className="mb-32 md:mb-48 relative min-h-[75vh] flex flex-col items-center justify-center">
                 <div className="absolute inset-0 z-0 pointer-events-none opacity-70">
                     <FloatingOrb />

@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@
 import { 
   Download, Zap, ShieldCheck, 
   Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Sparkles, Activity, FileText
+  Sparkles
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, cn } from "@/lib/utils";
