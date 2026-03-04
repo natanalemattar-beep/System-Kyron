@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from 'react';
@@ -12,7 +13,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 import { motion } from 'framer-motion';
 import { useToast } from "@/hooks/use-toast";
@@ -60,16 +60,14 @@ export default function EcosistemaKyron() {
 
   return (
     <div className="flex min-h-screen bg-background overflow-hidden hud-grid">
-      <AppSidebar />
-      
-      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col min-h-screen">
         <AppHeader user={user} dashboardHref="/ecosistema" />
         
-        <main className="flex-1 container mx-auto p-6 md:p-12 pt-24 md:pt-32 overflow-y-auto custom-scrollbar">
+        <main className="flex-1 w-full p-6 md:p-12 pt-24 md:pt-32 overflow-y-auto custom-scrollbar">
           <motion.div 
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="space-y-16"
+                className="space-y-16 w-full max-w-[100%] mx-auto"
             >
               <div className="flex flex-col md:flex-row justify-between md:items-end gap-8 border-l-8 border-primary pl-10 py-4">
                 <div>
@@ -187,8 +185,8 @@ export default function EcosistemaKyron() {
             </div>
             <div className="h-8 w-px bg-white/5" />
             <div className="flex flex-col">
-                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">Seguridad</span>
-                <span className="text-xs font-mono font-bold text-primary">AES-512-QS</span>
+                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em]">Cifrado</span>
+                <span className="text-xs font-mono font-bold text-primary">AES-XTS-512</span>
             </div>
           </div>
           <p className="text-[10px] font-black text-white/10 uppercase tracking-[0.8em]">
