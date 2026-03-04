@@ -1,10 +1,8 @@
-
 /**
- * Redundant page neutralized to resolve conflict with /(main)/kyron-vault/page.tsx.
- * This file no longer exports a default component to prevent Next.js parallel route errors.
+ * DEACTIVATED: This route is now handled by src/app/[locale]/(main)/kyron-vault/page.tsx
+ * to avoid Next.js parallel route conflicts.
  */
 export const dynamic = 'force-static';
 
-export default function RedundantVaultInfo() {
-  return null;
-}
+// Este archivo se mantiene vacío para liberar la ruta y permitir la compilación.
+// La lógica profesional reside en el nodo (main).

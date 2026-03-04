@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -46,7 +45,18 @@ export default function LandingPage() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", role: "", email: "", phone: "", company: "", companySize: "", sector: "", urgency: "", module: "", message: "" },
+    defaultValues: { 
+      name: "", 
+      role: "", 
+      email: "", 
+      phone: "", 
+      company: "", 
+      companySize: "", 
+      sector: "", 
+      urgency: "", 
+      module: "", 
+      message: "" 
+    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -73,7 +83,10 @@ export default function LandingPage() {
     <div className="relative min-h-screen bg-black flex flex-col overflow-x-hidden hud-grid selection:bg-primary/20 w-full">
       <WelcomeTutorial />
       
-      <motion.div className="fixed top-0 left-0 right-0 h-[1px] bg-primary/40 shadow-glow origin-left z-[200]" style={{ scaleX }} />
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-[1px] bg-primary/40 shadow-glow origin-left z-[200]" 
+        style={{ scaleX }} 
+      />
       <LandingHeader />
       
       <main className="relative flex-1 w-full pt-32 md:pt-40">
@@ -151,24 +164,65 @@ export default function LandingPage() {
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-8 md:p-12 border border-white/10 rounded-[2.5rem] bg-white/[0.02] backdrop-blur-3xl shadow-2xl">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <FormField control={form.control} name="name" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Nombre</FormLabel><FormControl><Input placeholder="Tu nombre..." {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
+                                        <FormItem>
+                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Nombre</FormLabel>
+                                          <FormControl>
+                                            <Input placeholder="Tu nombre..." {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" />
+                                          </FormControl>
+                                          <FormMessage />
+                                        </FormItem>
                                     )} />
                                     <FormField control={form.control} name="company" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Empresa</FormLabel><FormControl><Input placeholder="Nombre empresa..." {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
+                                        <FormItem>
+                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Empresa</FormLabel>
+                                          <FormControl>
+                                            <Input placeholder="Nombre empresa..." {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" />
+                                          </FormControl>
+                                          <FormMessage />
+                                        </FormItem>
                                     )} />
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <FormField control={form.control} name="email" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Email</FormLabel><FormControl><Input type="email" placeholder="tu@correo.com" {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
+                                        <FormItem>
+                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Email</FormLabel>
+                                          <FormControl>
+                                            <Input type="email" placeholder="tu@correo.com" {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" />
+                                          </FormControl>
+                                          <FormMessage />
+                                        </FormItem>
                                     )} />
                                     <FormField control={form.control} name="module" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Módulo</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold"><SelectValue placeholder="Elegir módulo..." /></SelectTrigger></FormControl><SelectContent className="bg-black border-white/10">{loginOptions.map(opt => <SelectItem key={opt.href} value={opt.label} className="text-xs font-bold uppercase">{opt.label}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
+                                        <FormItem>
+                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Módulo</FormLabel>
+                                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <FormControl>
+                                              <SelectTrigger className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold">
+                                                <SelectValue placeholder="Elegir módulo..." />
+                                              </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent className="bg-black border-white/10">
+                                              {loginOptions.map(opt => (
+                                                <SelectItem key={opt.href} value={opt.label} className="text-xs font-bold uppercase">
+                                                  {opt.label}
+                                                </SelectItem>
+                                              ))}
+                                            </SelectContent>
+                                          </Select>
+                                          <FormMessage />
+                                        </FormItem>
                                     )} />
                                 </div>
 
                                 <FormField control={form.control} name="message" render={({ field }) => (
-                                    <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Requerimientos</FormLabel><FormControl><Textarea placeholder="Describe tus necesidades..." className="bg-white/5 border-white/10 rounded-xl text-xs font-medium min-h-[100px]" {...field} /></FormControl><FormMessage /></FormItem>
+                                    <FormItem>
+                                      <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Requerimientos</FormLabel>
+                                      <FormControl>
+                                        <Textarea placeholder="Describe tus necesidades..." className="bg-white/5 border-white/10 rounded-xl text-xs font-medium min-h-[100px]" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
                                 )} />
                                 
                                 <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black text-[10px] uppercase tracking-widest" disabled={isSubmitting}>
