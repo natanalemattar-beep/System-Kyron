@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -155,7 +154,7 @@ export function LandingHeader() {
 
                         <Sheet>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all">
+                                <Button variant="ghost" size="icon" className="lg:hidden rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all">
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
