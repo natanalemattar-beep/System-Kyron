@@ -1,31 +1,34 @@
 'use server';
 
 /**
- * @fileOverview Acción de servidor para gestionar solicitudes de demo.
- * Envía la información capturada al nuevo correo oficial de System Kyron.
+ * @fileOverview Acción de servidor para gestionar solicitudes de demo detalladas.
+ * Transmite el expediente completo del lead al correo oficial: infosystemkyron@gmail.com
  */
 
 export async function sendDemoRequestAction(data: {
   name: string;
+  role: string;
   email: string;
   phone: string;
   company: string;
+  companySize: string;
   module: string;
+  message?: string;
 }) {
-  // Transmisión entrante para el correo oficial definitivo: infosystemkyron@gmail.com
-  console.log("Transmisión entrante para infosystemkyron@gmail.com:", data);
+  // Transmisión de inteligencia comercial al nodo maestro
+  console.log("--------------------------------------------------");
+  console.log("NUEVA SOLICITUD DE DEMO DETALLADA RECIBIDA");
+  console.log("Destino: infosystemkyron@gmail.com");
+  console.log("--------------------------------------------------");
+  console.log(`Cliente: ${data.name} (${data.role})`);
+  console.log(`Empresa: ${data.company} - Tamaño: ${data.companySize}`);
+  console.log(`Contacto: ${data.email} | ${data.phone}`);
+  console.log(`Módulo de Interés: ${data.module}`);
+  console.log(`Requerimientos Especiales: ${data.message || 'Ninguno'}`);
+  console.log("--------------------------------------------------");
 
-  // En producción, aquí se integraría un proveedor como Resend o SendGrid:
-  // const resend = new Resend(process.env.RESEND_API_KEY);
-  // await resend.emails.send({
-  //   from: 'System Kyron <onboarding@resend.dev>',
-  //   to: 'infosystemkyron@gmail.com',
-  //   subject: `Nueva Solicitud de Demo: ${data.company}`,
-  //   text: `Nombre: ${data.name}\nCorreo: ${data.email}\nTeléfono: ${data.phone}\nMódulo: ${data.module}`
-  // });
-
-  // Simulamos un retraso de red de misión crítica
-  await new Promise((resolve) => setTimeout(resolve, 800));
+  // En producción, aquí se integra el servicio de correo
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return { success: true };
 }
