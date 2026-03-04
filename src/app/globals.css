@@ -38,15 +38,15 @@
 
 @layer utilities {
   .btn-3d-primary {
-    @apply bg-primary text-primary-foreground font-bold px-6 py-2.5 rounded-xl transition-all duration-300 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_3px_0_#1e40af] hover:shadow-[0_1px_0_#1e40af]
-           uppercase text-[9px] tracking-widest;
+    @apply bg-primary text-primary-foreground font-bold px-5 py-2 rounded-xl transition-all duration-300 
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_2px_0_#1e40af] hover:shadow-[0_1px_0_#1e40af]
+           uppercase text-[9px] font-black tracking-widest;
   }
 
   .btn-3d-secondary {
-    @apply bg-secondary text-secondary-foreground font-bold px-6 py-2.5 rounded-xl transition-all duration-300 
-           hover:brightness-110 active:translate-y-0.5 shadow-[0_3px_0_#166534] hover:shadow-[0_1px_0_#166534]
-           uppercase text-[9px] tracking-widest;
+    @apply bg-secondary text-secondary-foreground font-bold px-5 py-2 rounded-xl transition-all duration-300 
+           hover:brightness-110 active:translate-y-0.5 shadow-[0_2px_0_#166534] hover:shadow-[0_1px_0_#166534]
+           uppercase text-[9px] font-black tracking-widest;
   }
 
   .glass-card {

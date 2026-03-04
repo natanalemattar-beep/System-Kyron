@@ -1,7 +1,6 @@
-
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield } from "lucide-react";
 
 export default function PoliticaPrivacidadPage() {
@@ -12,70 +11,42 @@ export default function PoliticaPrivacidadPage() {
   });
 
   return (
-    <div className="space-y-8 max-w-4xl w-full">
-      <header className="mb-8 text-center">
-        <h1 className="text-3xl font-bold tracking-tight flex items-center justify-center gap-2">
-            <Shield className="h-8 w-8" />
-            Política de Privacidad
-        </h1>
-        <p className="text-muted-foreground mt-2">
+    <div className="space-y-8 max-w-4xl w-full p-6 md:p-12">
+      <header className="mb-12 text-center space-y-4">
+        <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20">
+            <Shield className="h-3.5 w-3.5" /> Seguridad de Datos
+        </div>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic text-white">Política de Privacidad</h1>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">
           Última actualización: {lastUpdatedDate}
         </p>
       </header>
 
-      <Card>
-        <CardContent className="p-8 prose prose-sm dark:prose-invert max-w-none text-justify">
-            <h4>1. Introducción</h4>
-            <p>
-                Bienvenido a Kyron, C.A. ("nosotros", "nuestro"). Nos comprometemos a proteger su privacidad. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y salvaguardamos su información cuando utiliza nuestra plataforma.
-            </p>
+      <Card className="bg-white/[0.02] border-white/5 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden shadow-2xl">
+        <CardContent className="p-10 md:p-16 prose prose-sm dark:prose-invert max-w-none text-justify space-y-8 text-white/70">
+            <section>
+                <h4 className="text-primary font-black uppercase tracking-widest text-xs mb-4">1. Protocolo de Identidad</h4>
+                <p>
+                    Bienvenido a System Kyron. Nos comprometemos a proteger la integridad de su información bajo estándares de cifrado militar. Esta política detalla la captura y el sellado inmutable de sus activos digitales.
+                </p>
+            </section>
 
-            <h4>2. Información que Recopilamos</h4>
-            <p>
-                Podemos recopilar información personal y fiscal sobre usted y su empresa de diversas maneras. La información que podemos recopilar incluye:
-            </p>
-             <ul>
-                <li><strong>Datos Personales y de Contacto:</strong> Nombre, dirección, dirección de correo electrónico, número de teléfono.</li>
-                <li><strong>Datos Fiscales y Corporativos:</strong> RIF, razón social, actas constitutivas, estados financieros y otros documentos necesarios para la prestación de nuestros servicios.</li>
-                <li><strong>Datos de Uso:</strong> Información que su navegador envía automáticamente cada vez que visita nuestro sitio, como su dirección IP, tipo de navegador, y las páginas que visita.</li>
-            </ul>
+            <section>
+                <h4 className="text-primary font-black uppercase tracking-widest text-xs mb-4">2. Captura de Activos</h4>
+                <ul className="list-disc pl-5 space-y-2">
+                    <li><strong>Datos Fiscales:</strong> RIF, Razón Social y registros transaccionales sellados en Blockchain.</li>
+                    <li><strong>Identidad Biométrica:</strong> Patrones de acceso para la ID Digital 3D.</li>
+                    <li><strong>Telemetría:</strong> Registros de conectividad 5G y uso de nodos eSIM.</li>
+                </ul>
+            </section>
 
-            <h4>3. Cómo Usamos su Información</h4>
-            <p>
-                Usamos la información recopilada para:
-            </p>
-             <ul>
-                <li>Crear y gestionar su cuenta.</li>
-                <li>Proveer, operar y mantener nuestros servicios.</li>
-                <li>Procesar sus transacciones y gestionar sus pagos.</li>
-                <li>Cumplir con las obligaciones legales y fiscales en su nombre.</li>
-                 <li>Enviarle correos electrónicos administrativos, técnicos o de marketing, de los cuales puede optar por no recibirlos.</li>
-            </ul>
-
-            <h4>4. Divulgación de su Información</h4>
-            <p>
-                No compartiremos su información personal con terceros, excepto en las siguientes situaciones:
-            </p>
-            <ul>
-                <li><strong>Con su Consentimiento:</strong> Podemos divulgar su información para cualquier otro propósito con su consentimiento.</li>
-                <li><strong>Para Cumplir con la Ley:</strong> Podemos divulgar su información cuando estemos legalmente obligados a hacerlo para cumplir con la ley aplicable, solicitudes gubernamentales, o procesos judiciales.</li>
-                <li><strong>Proveedores de Servicios:</strong> Podemos compartir su información con proveedores externos que realizan servicios para nosotros o en nuestro nombre, como procesamiento de pagos y análisis de datos.</li>
-            </ul>
-
-            <h4>5. Seguridad de su Información</h4>
-            <p>
-                Utilizamos medidas de seguridad administrativas, técnicas y físicas para ayudar a proteger su información personal. Si bien hemos tomado medidas razonables para asegurar la información que nos proporciona, tenga en cuenta que ningún sistema de seguridad es impenetrable.
-            </p>
-
-             <h4>6. Derechos del Usuario</h4>
-            <p>
-                Usted tiene derecho a acceder, corregir o eliminar su información personal. Puede revisar y cambiar la información de su cuenta en cualquier momento iniciando sesión en la configuración de su cuenta y actualizándola.
-            </p>
-
-            <h4>7. Contacto</h4>
-            <p>
-                Si tiene preguntas o comentarios sobre esta Política de Privacidad, por favor contáctenos en: <a href="mailto:privacidad@kyron.com">privacidad@kyron.com</a>.
-            </p>
+            <section>
+                <h4 className="text-primary font-black uppercase tracking-widest text-xs mb-4">3. Contacto Maestro</h4>
+                <p>
+                    Para auditorías de datos o solicitudes de eliminación, puede contactar al nodo central en: <br/>
+                    <a href="mailto:systemkyronofficial@gmail.com" className="text-primary font-black underline decoration-primary/30">systemkyronofficial@gmail.com</a>
+                </p>
+            </section>
         </CardContent>
       </Card>
     </div>

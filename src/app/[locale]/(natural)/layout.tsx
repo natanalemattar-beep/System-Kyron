@@ -3,7 +3,6 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 
 export default function NaturalLayout({
   children,
@@ -21,19 +20,16 @@ export default function NaturalLayout({
           
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
-                user={{...user, color: "bg-primary/30 text-primary"}} 
+                user={{...user, color: "bg-primary/30 text-primary shadow-glow"}} 
                 dashboardHref="/dashboard"
               />
               
               <motion.main 
-                className="flex-1 w-full pt-24 pb-12 relative z-10"
+                className="flex-1 w-full pt-20 pb-12 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}
               >
-                  <div className="absolute top-1/4 right-20 opacity-[0.01] pointer-events-none -z-10">
-                    <Sparkles className="w-[600px] h-[600px] text-primary" />
-                  </div>
                   {children}
               </motion.main>
               

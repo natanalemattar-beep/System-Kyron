@@ -12,14 +12,14 @@ export async function sendDemoRequestAction(data: {
   company: string;
   module: string;
 }) {
-  // Simulación de envío al correo oficial: info@systemkyron.com
-  console.log("Transmisión entrante para info@systemkyron.com:", data);
+  // Transmisión entrante para el nuevo correo oficial: systemkyronofficial@gmail.com
+  console.log("Transmisión entrante para systemkyronofficial@gmail.com:", data);
 
   // En producción, aquí se integraría un proveedor como Resend o SendGrid:
   // const resend = new Resend(process.env.RESEND_API_KEY);
   // await resend.emails.send({
   //   from: 'System Kyron <onboarding@resend.dev>',
-  //   to: 'info@systemkyron.com',
+  //   to: 'systemkyronofficial@gmail.com',
   //   subject: `Nueva Solicitud de Demo: ${data.company}`,
   //   text: `Nombre: ${data.name}\nCorreo: ${data.email}\nTeléfono: ${data.phone}\nMódulo: ${data.module}`
   // });

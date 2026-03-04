@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Receipt, TrendingDown, TrendingUp } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
@@ -16,17 +15,17 @@ export function StatsCards() {
     <div className="grid gap-6 grid-cols-2 lg:grid-cols-4 w-full">
       {stats.map((stat, index) => (
         <Card key={stat.title} className="glass-card border-none group relative overflow-hidden rounded-[1.5rem] hover:scale-[1.02] transition-all shadow-xl">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 p-6">
             <CardTitle className="text-[8px] font-black uppercase tracking-[0.3em] text-white/30">{stat.title}</CardTitle>
             <div className={cn("p-2 rounded-xl border border-white/5", stat.bg, stat.color)}>
-                <stat.icon className="h-4 w-4" />
+                <stat.icon className="h-3.5 w-3.5" />
             </div>
           </CardHeader>
-          <CardContent className="pb-6">
-            <div className="text-3xl font-black tracking-tighter italic text-white mb-1">
+          <CardContent className="pb-6 px-6">
+            <div className="text-2xl font-black tracking-tighter italic text-white mb-1">
               {index < 3 ? formatCurrency(stat.amount, 'Bs.') : stat.amount}
             </div>
-            <p className={cn("text-[9px] font-bold uppercase tracking-widest", stat.color)}>{stat.trend}</p>
+            <p className={cn("text-[8px] font-bold uppercase tracking-widest", stat.color)}>{stat.trend}</p>
           </CardContent>
         </Card>
       ))}
