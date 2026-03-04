@@ -29,11 +29,11 @@ const budgetData = [
 
 const zeduModules = [
     { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Óptimo" },
-    { id: "M2", title: "BLOCKCHAIN", desc: "Sellado inmutable de libros y registros.", icon: Lock, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Sincronizado" },
-    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de alta velocidad.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
-    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con tecnología de magnetismo.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
-    { id: "M5", title: "CONTROL ZEDU", desc: "Matriz de desarrollo económico local.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Maestro" },
-    { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica unificada.", icon: Database, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Verificado" }
+    { id: "M2", title: "BLOCKCHAIN", desc: "Sellado inmutable de registros transaccionales.", icon: Lock, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Sincronizado" },
+    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de baja latencia y alta velocidad.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
+    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con tecnología de inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
+    { id: "M5", title: "CONTROL ZEDU", desc: "Matriz Maestra de desarrollo económico local.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Maestro" },
+    { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica 3D unificada.", icon: Database, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Verificado" }
 ];
 
 export default function KyronVaultPage() {
@@ -161,13 +161,13 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                             </Card>
                         ))}
                     </div>
-                    <Card className="bg-primary text-white p-16 rounded-[4rem] relative overflow-hidden shadow-glow border-none">
+                    <Card className="bg-primary text-white p-16 rounded-[4rem] relative overflow-hidden shadow-glow border-none text-center">
                         <div className="absolute top-0 right-0 p-16 opacity-10 group-hover:rotate-12 transition-all duration-1000"><ShieldCheck className="h-64 w-64" /></div>
-                        <h3 className="text-3xl font-black mb-6 tracking-tighter uppercase italic flex items-center gap-4">
+                        <h3 className="text-3xl font-black mb-6 tracking-tighter uppercase italic flex items-center justify-center gap-4">
                             <Sparkles className="h-8 w-8 text-yellow-400" />
                             Dictamen de Viabilidad Estratégica
                         </h3>
-                        <p className="text-2xl leading-relaxed font-bold text-justify italic opacity-90">
+                        <p className="text-2xl leading-relaxed font-bold italic opacity-90 mx-auto max-w-4xl">
                             "La integración de tecnología de magnetismo para activos verdes y el blindaje fiscal mediante IA predictiva posicionan a System Kyron como un ecosistema de bajo riesgo y alta escalabilidad, garantizando la rentabilidad del capital desplegado en el corto plazo bajo cualquier escenario de mercado."
                         </p>
                     </Card>

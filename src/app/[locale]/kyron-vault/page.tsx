@@ -1,8 +1,10 @@
 /**
- * @fileOverview RESOLUCIÓN DE CONFLICTO DE RUTAS
- * Este archivo ha sido desactivado eliminando su exportación por defecto
- * para permitir que la ruta /kyron-vault sea manejada exclusivamente 
- * por el componente profesional en el grupo (main).
+ * @fileOverview NODO NEUTRALIZADO
+ * Este archivo ha sido desactivado para resolver el conflicto de rutas paralelas en Next.js.
+ * La inteligencia estratégica reside ahora exclusivamente en /(main)/kyron-vault.
  */
-// No export default component to avoid route conflict
-export const metadata = { title: "Ruta Redirigida" };
+export const dynamic = 'force-dynamic';
+
+export default function NeutralizedPage() {
+  return null;
+}
