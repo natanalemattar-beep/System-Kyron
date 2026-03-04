@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 /**
  * @fileOverview Redirección de seguridad para purgar el nodo conflictivo kyron-vault.
  */
-export default function KyronVaultMainPurge() {
+export default function KyronVaultPurge() {
   useEffect(() => {
     redirect('/sector-privado-system-kyron');
   }, []);
