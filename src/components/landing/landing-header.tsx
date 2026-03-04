@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -12,7 +11,7 @@ import {
     ArrowRight,
     BookOpen
 } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { 
     DropdownMenu, 
     DropdownMenuContent, 
@@ -177,6 +176,10 @@ export function LandingHeader() {
                                     </Button>
                                 </SheetTrigger>
                                 <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-black border-l-white/5">
+                                    <SheetHeader className="sr-only">
+                                        <SheetTitle>Menú móvil System Kyron</SheetTitle>
+                                        <SheetDescription>Navegación principal para dispositivos móviles.</SheetDescription>
+                                    </SheetHeader>
                                     <div className="p-10 border-b border-white/5 flex flex-col items-center gap-4 bg-primary/5">
                                         <Logo className="h-16 w-16" /> 
                                         <div className="text-center">

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,11 +6,12 @@ import { Button } from "@/components/ui/button";
 import { 
   Download, Zap, ShieldCheck, 
   Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Sparkles, Activity, Users, MapPin, AlertTriangle, FileText, ChevronRight
+  Sparkles, Activity, Terminal as TerminalIcon
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { motion } from "framer-motion";
 
 const zeduModel2025 = {
@@ -31,6 +31,19 @@ const zeduModel2025 = {
         definicion: "Las empresas en Venezuela operan con un 'Frankenstein' de sistemas aislados (contables, tributarios, inventarios) que no se comunican entre sí, generando ineficiencias críticas y riesgos de sanciones por falta de sincronización absoluta."
     }
 };
+
+const budgetData = [
+  { item: "Infraestructura Telecom (5G/Contrato Mayorista)", cost: 5000 },
+  { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", cost: 1000 },
+  { item: "Gestión eSIM y Nodo de Datos", cost: 2500 },
+  { item: "Equipos Homologados (Smartphones/Tablets)", cost: 9600 },
+  { item: "Ecosistema Web & Cloud Ledger", cost: 4500 },
+  { item: "Módulo Inteligencia Artificial Fiscal", cost: 1000 },
+  { item: "Hardware Papeleras Magnéticas (Sensores)", cost: 683 },
+  { item: "Moto Bera Carguera DT-200 (Logística)", cost: 2800 },
+  { item: "Equipos Fiscales Homologados SENIAT", cost: 1350 },
+  { item: "Despliegue Operativo La Guaira", cost: 3250 },
+];
 
 const zeduModules = [
     { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", status: "Óptimo" },
@@ -53,6 +66,7 @@ export default function SectorPrivadoPage() {
       SYSTEM KYRON • MODELO ZEDU 2025
 ==================================================
 EXPEDIENTE TÉCNICO MAESTRO: NODO LA GUAIRA
+FECHA: ${new Date().toLocaleDateString()}
 --------------------------------------------------
 
 1. IDENTIFICACIÓN DEL PROYECTO
@@ -66,10 +80,12 @@ EXPEDIENTE TÉCNICO MAESTRO: NODO LA GUAIRA
 - Comunidad: ${zeduModel2025.estudioPoblacion.comunidad}
 - Estimada: ${zeduModel2025.estudioPoblacion.estimada}
 
-3. ANÁLISIS DEL PROBLEMA
-- Definición: ${zeduModel2025.analisisProblema.definicion}
+3. INVERSIÓN ESTRATÉGICA (CAPEX)
+${budgetData.map(d => `- ${d.item}: ${formatCurrency(d.cost, 'USD')}`).join('\n')}
 
-FIRMA DIGITAL: [KYRON-MASTER-AUTH-2025]
+TOTAL INVERSIÓN: ${formatCurrency(budgetData.reduce((a,b) => a+b.cost, 0), 'USD')}
+
+FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2025]
 ==================================================
         `;
         const blob = new Blob([text], { type: 'text/plain' });
@@ -109,8 +125,8 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-2025]
                 <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner">
                     <TabsTrigger value="identificacion" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">1. Identificación</TabsTrigger>
                     <TabsTrigger value="poblacion" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">2. Población ZEDU</TabsTrigger>
-                    <TabsTrigger value="problema" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">3. Análisis del Problema</TabsTrigger>
-                    <TabsTrigger value="ingenieria" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">4. Ingeniería Kyron</TabsTrigger>
+                    <TabsTrigger value="ingenieria" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">3. Ingeniería Kyron</TabsTrigger>
+                    <TabsTrigger value="presupuesto" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">4. Presupuesto CapEx</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="identificacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -155,17 +171,6 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-2025]
                     </Card>
                 </TabsContent>
 
-                <TabsContent value="problema" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <Card className="glass-card p-10 rounded-[3rem] border-red-500/20 bg-black/40">
-                        <CardHeader className="p-0 mb-6"><CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-red-500 italic">Definición de Ineficiencia</CardTitle></CardHeader>
-                        <CardContent className="p-0">
-                            <p className="text-xs font-medium text-white/50 leading-relaxed text-justify border-l-2 border-red-500/30 pl-6 italic">
-                                "{zeduModel2025.analisisProblema.definicion}"
-                            </p>
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-
                 <TabsContent value="ingenieria" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {zeduModules.map((m, i) => (
@@ -183,6 +188,33 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-2025]
                             </Card>
                         ))}
                     </div>
+                </TabsContent>
+
+                <TabsContent value="presupuesto" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <Card className="glass-card overflow-hidden rounded-[3rem] border-white/5 shadow-2xl bg-black/40">
+                        <Table>
+                            <TableHeader>
+                                <TableRow className="bg-white/[0.03] border-none">
+                                    <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Componente de Inversión</TableHead>
+                                    <TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Monto (USD)</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {budgetData.map((d, i) => (
+                                    <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
+                                        <TableCell className="pl-10 py-4 text-xs font-bold text-white/60 uppercase">{d.item}</TableCell>
+                                        <TableCell className="text-right pr-10 font-mono font-black text-white italic">{formatCurrency(d.cost, 'USD')}</TableCell>
+                                    </TableRow>
+                                ))}
+                                <TableRow className="bg-primary/10 border-none">
+                                    <TableCell className="pl-10 py-8 text-xl font-black text-white italic uppercase tracking-tighter">Total Inversión Proyectada</TableCell>
+                                    <TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">
+                                        {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </Card>
                 </TabsContent>
             </Tabs>
 

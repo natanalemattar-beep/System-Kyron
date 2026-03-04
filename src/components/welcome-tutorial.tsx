@@ -114,6 +114,10 @@ export function WelcomeTutorial() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden border-none bg-background/80 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl">
+        <DialogHeader className="sr-only">
+            <DialogTitle>Bienvenido al Ecosistema Kyron</DialogTitle>
+            <DialogDescription>Tutorial paso a paso para conocer las capacidades de la plataforma.</DialogDescription>
+        </DialogHeader>
         <div className="relative">
             {/* Progress Bar */}
             <div className="absolute top-0 left-0 w-full h-1.5 bg-muted flex">
