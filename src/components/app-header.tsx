@@ -20,7 +20,8 @@ import {
     Lock,
     Clock,
     LayoutGrid,
-    ShieldCheck
+    ShieldCheck,
+    Zap
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -43,7 +44,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#020202]/90 backdrop-blur-2xl h-16 flex items-center w-full">
+    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#020202]/90 backdrop-blur-3xl h-16 flex items-center w-full">
       <div className="w-full px-6 md:px-10">
         <div className="flex items-center justify-between w-full">
           
@@ -53,12 +54,15 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                 <span className="text-xs font-black tracking-[0.3em] uppercase text-primary italic hidden sm:block">System Kyron</span>
             </Link>
             <div className="h-6 w-px bg-white/10 hidden sm:block" />
-            <nav className="hidden md:flex items-center gap-6">
-                <Link href="/dashboard-empresa" className="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-primary transition-colors flex items-center gap-2">
-                    <LayoutGrid className="h-3 w-3" /> Dashboard
+            <nav className="hidden md:flex items-center gap-8">
+                <Link href="/dashboard-empresa" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-colors flex items-center gap-2">
+                    <LayoutGrid className="h-3.5 w-3.5" /> Consola
                 </Link>
-                <Link href="/estudio-poblacion" className="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-primary transition-colors flex items-center gap-2">
-                    <ShieldCheck className="h-3 w-3" /> Kyron Vault
+                <Link href="/kyron-vault" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-colors flex items-center gap-2">
+                    <Lock className="h-3.5 w-3.5" /> Bóveda
+                </Link>
+                <Link href="/ecosistema" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-colors flex items-center gap-2">
+                    <Zap className="h-3.5 w-3.5" /> Ecosistema
                 </Link>
             </nav>
           </div>
