@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -51,19 +52,19 @@ export default function LandingPage() {
                       <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
                         <Radio className="h-3 w-3 animate-pulse" /> Ecosistema de Telecomunicaciones v2.6.5
                       </div>
-                      <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.8] text-foreground uppercase italic italic-shadow">
+                      <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-foreground uppercase italic italic-shadow">
                         SYSTEM <br/> 
                         <span className="text-primary">KYRON</span>
                       </h1>
-                      <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-snug font-bold border-l-4 border-primary/30 pl-8 opacity-80 uppercase tracking-tight">
+                      <p className="text-lg md:text-2xl text-muted-foreground max-w-xl leading-snug font-bold border-l-4 border-primary/30 pl-8 opacity-80 uppercase tracking-tight text-balance">
                         Líneas <span className="text-secondary italic">5G Digitales</span>, <br/>
                         Conectividad <span className="text-primary tracking-tighter">eSIM</span> y Automatización.
                       </p>
-                      <div className="flex flex-wrap gap-6">
-                        <Button asChild size="lg" className="btn-3d-primary h-16 px-12 text-xs font-black uppercase tracking-widest rounded-2xl group shadow-2xl">
-                            <Link href="/login">DESPLEGAR SISTEMA <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-2 transition-transform" /></Link>
+                      <div className="flex flex-wrap gap-4 md:gap-6">
+                        <Button asChild size="lg" className="btn-3d-primary h-12 md:h-14 px-8 md:px-10 text-[10px] font-black uppercase tracking-widest rounded-2xl group shadow-2xl">
+                            <Link href="/register">REGISTRARSE POR PRIMERA VEZ <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" /></Link>
                         </Button>
-                        <Button asChild variant="outline" size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-widest rounded-2xl border-white/10 hover:bg-white/5 shadow-xl bg-white/[0.02] backdrop-blur-xl transition-all">
+                        <Button asChild variant="outline" size="lg" className="h-12 md:h-14 px-8 md:px-10 text-[10px] font-black uppercase tracking-widest rounded-2xl border-white/10 hover:bg-white/5 shadow-xl bg-white/[0.02] backdrop-blur-xl transition-all">
                             <Link href="/estudio-poblacion">MODELO DE ZEDU</Link>
                         </Button>
                       </div>
