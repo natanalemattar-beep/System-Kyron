@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -8,7 +9,8 @@ import {
     UserCircle,
     ChevronDown,
     Sparkles,
-    ArrowRight
+    ArrowRight,
+    BookOpen
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { 
@@ -46,7 +48,7 @@ export function LandingHeader() {
 
     const rightLinks = [
       { href: "#servicios", label: "Servicios" },
-      { href: "#nosotros", label: "Nosotros" },
+      { href: "/manual-usuario", label: "Manual", icon: BookOpen },
     ];
 
     return (
@@ -73,7 +75,7 @@ export function LandingHeader() {
                         </nav>
                     </div>
 
-                    {/* SECCIÓN CENTRAL: Identidad Maestra (CENTRO MATEMÁTICO) */}
+                    {/* SECCIÓN CENTRAL: Identidad Maestra */}
                     <div className="flex justify-center items-center">
                         <Link href="/" className="flex flex-col items-center group">
                             <Logo className="h-10 w-10 mb-1.5 transition-transform duration-500 group-hover:scale-110 drop-shadow-glow" /> 
@@ -88,8 +90,12 @@ export function LandingHeader() {
                                 <Link 
                                     key={link.href} 
                                     href={link.href as any} 
-                                    className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
+                                    className={cn(
+                                        "text-[10px] font-black uppercase tracking-[0.4em] transition-all relative group flex items-center gap-2",
+                                        link.href === '/manual-usuario' ? "text-primary" : "text-white/40 hover:text-primary"
+                                    )}
                                 >
+                                    {link.icon && <link.icon className="h-3 w-3" />}
                                     {link.label}
                                     <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                                 </Link>
