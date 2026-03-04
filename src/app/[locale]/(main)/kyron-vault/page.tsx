@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -92,7 +93,6 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
 
     return (
         <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen bg-black relative">
-            {/* Background Texture Overlay */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none [background-image:radial-gradient(circle_at_center,white_1px,transparent_1px)] [background-size:40px_40px]"></div>
 
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10">
@@ -190,7 +190,6 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                 </TabsContent>
             </Tabs>
 
-            {/* Bottom Footer Info */}
             <div className="mt-20 flex justify-center pb-10">
                 <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-white/10">
                     <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Encrypt: AES-512</span>

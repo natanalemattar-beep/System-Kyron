@@ -1,16 +1,12 @@
+
 'use client';
 
-import { useEffect } from 'react';
-import { redirect } from '@/navigation';
-
 /**
- * NODO DE REDIRECCIÓN ESTRATÉGICA
- * Neutraliza el conflicto de rutas paralelas moviendo el tráfico al nodo profesional.
+ * NODO DESACTIVADO
+ * Este archivo ha sido neutralizado para resolver el conflicto de rutas paralelas
+ * con src/app/[locale]/(main)/kyron-vault/page.tsx.
+ * Next.js no permite dos páginas que resuelvan a la misma ruta.
  */
-export default function KyronVaultRedirect() {
-  useEffect(() => {
-    redirect('/kyron-vault');
-  }, []);
-
+export default function RedundantVaultPage() {
   return null;
 }

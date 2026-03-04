@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -112,7 +113,7 @@ export default function LandingPage() {
                         transition={{ delay: 0.1 }}
                         className="text-5xl md:text-[7.5rem] font-black tracking-tighter leading-none text-white uppercase italic italic-shadow"
                     >
-                        System Kyron <br/>
+                        System Kyron <br />
                         <span className="text-primary/40">El Motor de tu Empresa</span>
                     </motion.h1>
                     
@@ -122,7 +123,7 @@ export default function LandingPage() {
                         transition={{ delay: 0.2 }}
                         className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto font-bold uppercase tracking-tight italic border-l-4 border-primary/30 pl-8"
                     >
-                        Líneas 5G, Tecnología Magnética y Ledger Inmutable. <br/>
+                        Líneas 5G, Tecnología Magnética y Ledger Inmutable. <br />
                         Infraestructura de Misión Crítica para el mercado venezolano.
                     </motion.p>
                     
