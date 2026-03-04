@@ -52,7 +52,7 @@ export function AppHeader({ user }: AppHeaderProps) {
                     <LayoutGrid className="h-3 w-3" /> Consola
                 </Link>
                 <Link href="/sector-privado-system-kyron" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
-                    <Lock className="h-3 w-3" /> Bóveda
+                    <Lock className="h-3 w-3" /> Sector Privado
                 </Link>
             </nav>
           </div>

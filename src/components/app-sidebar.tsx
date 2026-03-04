@@ -4,7 +4,7 @@ import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
   BarChart3, Users, Recycle, Radio, Cpu, Gavel, Lock, LayoutGrid, Cog, Activity
-} from "lucide-center";
+} from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
 
