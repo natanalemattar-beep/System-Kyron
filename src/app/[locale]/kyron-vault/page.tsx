@@ -1,9 +1,10 @@
+
 /**
- * NODO DESACTIVADO - SYSTEM KYRON
- * ------------------------------
- * Este archivo ha sido neutralizado para resolver el conflicto de rutas paralelas.
- * La inteligencia estratégica reside en: src/app/[locale]/(main)/kyron-vault/page.tsx
+ * Redundant page neutralized to resolve conflict with /(main)/kyron-vault/page.tsx.
+ * This file no longer exports a default component to prevent Next.js parallel route errors.
  */
-export default function InactivePage() {
+export const dynamic = 'force-static';
+
+export function RedundantVaultInfo() {
   return null;
 }
