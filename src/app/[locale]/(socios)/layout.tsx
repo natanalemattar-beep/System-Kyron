@@ -28,14 +28,11 @@ export default function SociosLayout({
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
               >
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] pointer-events-none -z-10">
-                    <Globe className="w-[800px] h-[800px] text-primary" />
-                  </div>
                   {children}
               </motion.main>
               <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
-                  System Kyron v2.6 • Strategy & Holding Node • 2026
+                  System Kyron v2.6 • Strategy Node • 2026
                 </p>
               </footer>
           </div>

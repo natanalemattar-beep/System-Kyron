@@ -28,14 +28,11 @@ export default function HRLayout({
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
               >
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] pointer-events-none -z-10">
-                    <Heart className="w-[700px] h-[700px] text-secondary" />
-                  </div>
                   {children}
               </motion.main>
               <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
-                  System Kyron v2.6 • Culture & Talent Node • 2026
+                  System Kyron v2.6 • Culture Node • 2026
                 </p>
               </footer>
           </div>

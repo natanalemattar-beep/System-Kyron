@@ -40,9 +40,9 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#020202]/80 backdrop-blur-xl h-16 flex items-center">
+    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#020202]/80 backdrop-blur-xl h-16 flex items-center w-full">
       <div className="w-full px-6 md:px-10">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between w-full">
           
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-3 group">

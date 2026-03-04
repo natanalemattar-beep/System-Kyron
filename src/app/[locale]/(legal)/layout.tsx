@@ -28,9 +28,6 @@ export default function LegalLayout({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                  <div className="absolute top-20 right-20 opacity-[0.02] pointer-events-none -z-10">
-                    <ShieldCheck className="w-[600px] h-[600px] text-slate-400" />
-                  </div>
                   {children}
               </motion.main>
               <footer className="p-12 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">

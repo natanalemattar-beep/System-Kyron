@@ -33,7 +33,7 @@ export default function MainLayout({
               
               <footer className="p-12 border-t border-white/5 bg-black/80 text-center backdrop-blur-3xl relative z-20">
                 <p className="text-[10px] font-black uppercase tracking-[1.2em] text-white/10 italic">
-                  SYSTEM KYRON v2.6.5 • COMMAND HIERARCHY • 2026
+                  SYSTEM KYRON v2.6.5 • COMMAND HUB • 2026
                 </p>
               </footer>
           </div>
