@@ -39,34 +39,34 @@ export function QuickAccess({ navGroups }: QuickAccessProps) {
     );
     
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {groupsToShow.map((group) => (
           (group.items.length > 0 || group.subGroups.length > 0) && (
             <div key={group.title} className="w-full">
                 <Card className="glass-card border-none h-full flex flex-col group overflow-hidden">
-                    <CardHeader className="p-8 border-b border-white/5 bg-white/[0.01]">
-                        <CardTitle className="flex items-center gap-4">
-                            <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 shadow-inner group-hover:scale-110 transition-transform">
-                                <group.icon className="h-6 w-6 text-primary"/>
+                    <CardHeader className="p-6 border-b border-white/5 bg-white/[0.01]">
+                        <CardTitle className="flex items-center gap-3">
+                            <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/10 shadow-inner group-hover:scale-105 transition-transform">
+                                <group.icon className="h-5 w-5 text-primary"/>
                             </div>
-                            <span className="text-[11px] font-black uppercase tracking-[0.4em] text-white/80">{group.title}</span>
+                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/70">{group.title}</span>
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-8 flex-grow">
-                        <div className="flex flex-col gap-3">
-                            {(group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items) : group.items).slice(0, 5).map((item) => (
+                    <CardContent className="p-6 flex-grow">
+                        <div className="flex flex-col gap-2">
+                            {(group.subGroups && group.subGroups.length > 0 ? group.subGroups.flatMap(sg => sg.items) : group.items).slice(0, 6).map((item) => (
                             <Button
                                 key={`${item.href}-${item.label}`}
                                 asChild
                                 variant="ghost"
-                                className="justify-between h-12 w-full px-4 rounded-xl text-[10px] font-black uppercase tracking-widest bg-white/[0.02] border border-white/5 hover:bg-primary/5 hover:border-primary/20 hover:text-primary transition-all duration-300"
+                                className="justify-between h-9 w-full px-3 rounded-lg text-[9px] font-bold uppercase tracking-wider bg-white/[0.01] border border-white/5 hover:bg-primary/10 hover:text-primary transition-all duration-200"
                             >
                                 <Link href={item.href as any}>
-                                    <div className="flex items-center gap-3">
-                                        <item.icon className="h-4 w-4 opacity-40 group-hover:opacity-100" />
+                                    <div className="flex items-center gap-2.5">
+                                        <item.icon className="h-3.5 w-3.5 opacity-30 group-hover:opacity-100" />
                                         <span>{item.label}</span>
                                     </div>
-                                    <ChevronRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                    <ChevronRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                                 </Link>
                             </Button>
                             ))}

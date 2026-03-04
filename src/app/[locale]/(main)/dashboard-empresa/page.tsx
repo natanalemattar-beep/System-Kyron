@@ -1,7 +1,6 @@
-
 'use client';
 
-import { CheckCircle, TrendingDown, AlertTriangle, Users, Sparkles, LayoutGrid, Zap, Lock, ArrowRight, BarChart3, FileText, Activity } from "lucide-react";
+import { CheckCircle, TrendingDown, AlertTriangle, Users, LayoutGrid, Zap, Lock, ArrowRight, Activity } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
@@ -33,55 +32,54 @@ export default function DashboardPage() {
   if (isLoading) return <SplashScreen />;
 
   return (
-    <div className="space-y-16 w-full animate-in fade-in duration-1000 px-4 md:px-10">
+    <div className="space-y-12 w-full animate-in fade-in duration-1000 px-4 md:px-10 pb-20">
       
       <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-8 py-2">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/20">
                 <LayoutGrid className="h-3 w-3" /> Master Control
             </div>
-            <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic leading-none italic-shadow text-white">Centro de Mando</h1>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow">Centro de Mando</h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Operaciones Consolidadas • System Kyron 2.6.5</p>
         </div>
         <div className="flex gap-4">
-            <div className="px-6 py-3 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-xl flex items-center gap-4">
-                <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30">
-                    <Zap className="h-4 w-4 text-green-500" />
+            <div className="px-5 py-2.5 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-xl flex items-center gap-4">
+                <div className="h-7 w-7 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30">
+                    <Zap className="h-3.5 w-3.5 text-green-500" />
                 </div>
                 <div className="text-left">
                     <p className="text-[8px] font-black uppercase tracking-widest text-white/30 leading-none mb-1">Status</p>
-                    <p className="text-[10px] font-black text-white leading-none">OPTIMAL</p>
+                    <p className="text-[10px] font-bold text-white leading-none uppercase">Optimal</p>
                 </div>
             </div>
         </div>
       </header>
 
-      <div className="space-y-12">
+      <div className="space-y-10">
         <StatsCards />
         
         <div className="grid gap-10 lg:grid-cols-12">
             {/* Private Vault Entry */}
-            <Card className="lg:col-span-4 bg-primary text-primary-foreground rounded-[2.5rem] overflow-hidden relative group p-1 shadow-[0_0_50px_rgba(37,99,235,0.2)] border-none">
-                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                    <Lock className="h-40 w-40" />
+            <Card className="lg:col-span-4 bg-primary text-primary-foreground rounded-[2rem] overflow-hidden relative group p-1 shadow-[0_0_40px_rgba(37,99,235,0.15)] border-none">
+                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-all duration-1000">
+                    <Lock className="h-32 w-32" />
                 </div>
-                <div className="p-10 space-y-8 relative z-10 bg-primary rounded-[2.4rem] h-full flex flex-col justify-between">
-                    <div className="space-y-2">
-                        <CardTitle className="text-3xl font-black uppercase italic tracking-tighter">Bóveda Kyron</CardTitle>
-                        <p className="text-[10px] font-black uppercase tracking-[0.5em] opacity-40">Dashboard Privado Estratégico</p>
+                <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[1.9rem] h-full flex flex-col justify-between">
+                    <div className="space-y-1">
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter">Bóveda Kyron</CardTitle>
+                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Nodo Privado Estratégico</p>
                     </div>
                     <div className="space-y-4">
-                        <p className="text-sm font-bold opacity-80 leading-relaxed italic">
-                            Acceso restringido a los informes técnicos de factibilidad, modelo ZEDU y propuestas maestras de System Kyron.
+                        <p className="text-xs font-bold opacity-80 leading-relaxed italic">
+                            Acceso restringido a los informes técnicos de factibilidad y modelo ZEDU maestro.
                         </p>
-                        <Button variant="secondary" asChild className="w-full h-14 text-[11px] font-black bg-white text-primary hover:bg-white/90 rounded-2xl uppercase tracking-widest shadow-2xl transition-all hover:scale-[1.02]">
+                        <Button variant="secondary" asChild className="w-full h-11 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest transition-all">
                             <Link href="/kyron-vault" className="flex justify-between w-full px-4">
                                 <span>ENTRAR A LA BÓVEDA</span> 
-                                <ArrowRight className="h-5 w-5"/>
+                                <ArrowRight className="h-4 w-4"/>
                             </Link>
                         </Button>
                     </div>
-                    <p className="text-[9px] font-bold opacity-40 uppercase tracking-widest text-center italic">Personal Jerárquico Solamente</p>
                 </div>
             </Card>
 
@@ -99,9 +97,9 @@ export default function DashboardPage() {
             </div>
         </div>
 
-        <div className="space-y-10">
+        <div className="space-y-8">
           <div className="flex items-center gap-6">
-            <h2 className="text-3xl font-black uppercase italic tracking-tighter text-white">Módulos del Ecosistema</h2>
+            <h2 className="text-2xl font-black uppercase italic tracking-tighter text-white/90">Módulos del Ecosistema</h2>
             <div className="h-px flex-1 bg-white/5"></div>
           </div>
           <QuickAccess navGroups={adminNavGroups} />
