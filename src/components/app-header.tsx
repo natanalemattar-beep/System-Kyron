@@ -60,7 +60,7 @@ export function AppHeader({ user }: AppHeaderProps) {
             </nav>
           </div>
 
-          {/* SECCIÓN CENTRAL: Identidad (Perfectamente Centrada) */}
+          {/* SECCIÓN CENTRAL: Identidad (CENTRO MATEMÁTICO) */}
           <div className="flex justify-center">
             <Link href="/" className="flex items-center gap-3 group shrink-0">
                 <Logo className="h-6 w-6 transition-transform group-hover:scale-110 drop-shadow-glow" />

@@ -12,7 +12,7 @@
     --popover-foreground: 0 0% 98%;
     --primary: 210 100% 50%; /* Azul Ciber */
     --primary-foreground: 0 0% 100%;
-    --secondary: 142 100% 50%; /* Verde Neón */
+    --secondary: 145 100% 50%; /* Verde Neón */
     --secondary-foreground: 240 10% 2%;
     --muted: 240 10% 10%;
     --muted-foreground: 240 5% 64%;
@@ -36,10 +36,6 @@
 }
 
 @layer utilities {
-  .btn-premium {
-    @apply inline-flex items-center justify-center rounded-xl bg-white px-6 py-2 text-sm font-black text-black transition-all hover:bg-primary hover:text-white hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] active:scale-[0.98];
-  }
-
   .btn-3d-primary {
     @apply bg-primary text-white shadow-[0_4px_0_0_#1d4ed8] active:shadow-none active:translate-y-1 transition-all;
   }
@@ -49,11 +45,11 @@
   }
   
   .neon-border-blue {
-    @apply border border-primary/40 shadow-[0_0_15px_rgba(37,99,235,0.3)];
+    @apply border-2 border-primary/40 shadow-[0_0_20px_rgba(37,99,235,0.4)];
   }
 
   .neon-border-green {
-    @apply border border-secondary/40 shadow-[0_0_15px_rgba(34,197,94,0.3)];
+    @apply border-2 border-secondary/40 shadow-[0_0_20px_rgba(34,197,94,0.4)];
   }
 
   .italic-shadow {
@@ -61,15 +57,15 @@
   }
 
   .shadow-glow {
-    box-shadow: 0 0 25px hsla(210, 100%, 50%, 0.4);
+    box-shadow: 0 0 30px hsla(210, 100%, 50%, 0.4);
   }
 
   .shadow-glow-secondary {
-    box-shadow: 0 0 25px hsla(142, 100%, 50%, 0.4);
+    box-shadow: 0 0 30px hsla(145, 100%, 50%, 0.4);
   }
 
   .shadow-glow-text {
-    text-shadow: 0 0 10px hsla(210, 100%, 50%, 0.6);
+    text-shadow: 0 0 15px hsla(210, 100%, 50%, 0.6);
   }
 
   .hud-grid {
@@ -81,32 +77,15 @@
 
   .gradient-mesh {
     background: radial-gradient(at 0% 0%, hsla(210, 100%, 50%, 0.15) 0, transparent 50%),
-                radial-gradient(at 100% 100%, hsla(142, 100%, 50%, 0.1) 0, transparent 50%);
+                radial-gradient(at 100% 100%, hsla(145, 100%, 50%, 0.1) 0, transparent 50%);
   }
 }
 
-@keyframes spin-slow {
+.animate-spin-slow {
+  animation: spin 12s linear infinite;
+}
+
+@keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 12s linear infinite;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(37, 99, 235, 0.4);
 }
