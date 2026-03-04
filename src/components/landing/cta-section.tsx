@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Ticket, Loader2 } from "lucide-react";
+import { Ticket, Loader2, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";
@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { loginOptions } from "@/lib/login-options";
 import { useToast } from "@/hooks/use-toast";
+import { sendDemoRequestAction } from "@/app/actions/send-demo-request";
 
 const formSchema = z.object({
   name: z.string().min(2, "El nombre es muy corto"),
@@ -52,11 +53,11 @@ const CountdownTimer = () => {
     if (!timeLeft) return null;
 
     return (
-        <div className="flex justify-center lg:justify-start gap-4 my-6">
+        <div className="flex justify-center lg:justify-start gap-3 my-4">
             {Object.entries(timeLeft).map(([unit, value]) => (
-                <div key={unit} className="text-center p-2 bg-background/50 rounded-lg w-20 border border-border/50 backdrop-blur-sm shadow-inner">
-                    <div className="text-3xl font-bold tracking-tighter">{String(value).padStart(2, '0')}</div>
-                    <div className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">{unit}</div>
+                <div key={unit} className="text-center p-2 bg-white/[0.03] rounded-xl w-16 border border-white/5 backdrop-blur-sm shadow-inner">
+                    <div className="text-xl font-black tracking-tighter text-white">{String(value).padStart(2, '0')}</div>
+                    <div className="text-[8px] uppercase font-black tracking-[0.2em] text-white/30">{unit}</div>
                 </div>
             ))}
         </div>
@@ -80,41 +81,51 @@ export function CtaSection() {
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         setIsSubmitting(true);
-        setTimeout(() => {
+        try {
+            const result = await sendDemoRequestAction(values);
+            if (result.success) {
+                toast({
+                    title: "SOLICITUD TRANSMITIDA",
+                    description: "La información ha sido enviada al correo oficial de System Kyron. Un consultor te contactará pronto.",
+                });
+                form.reset();
+            }
+        } catch (error) {
             toast({
-                title: "¡Solicitud Recibida!",
-                description: "Gracias, nos pondremos en contacto contigo pronto para agendar tu demo.",
+                variant: "destructive",
+                title: "ERROR DE CONEXIÓN",
+                description: "No se pudo transmitir la solicitud. Inténtalo de nuevo.",
             });
-            form.reset();
+        } finally {
             setIsSubmitting(false);
-        }, 1500);
+        }
     }
 
     return (
-        <section id="contacto" className="py-24 md:py-32 bg-background border-t">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <section id="contacto" className="py-24 md:py-32 bg-[#020202] border-t border-white/5 relative overflow-hidden hud-grid">
+            <div className="container mx-auto px-6 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-20 items-center">
                     <motion.div 
                         className="space-y-8 text-center lg:text-left"
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 0, x: -40 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1 rounded-full font-bold text-xs uppercase tracking-widest">
-                           <Ticket className="h-4 w-4"/> Oferta por tiempo limitado
+                        <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full font-black text-[9px] uppercase tracking-[0.4em] border border-primary/20">
+                           <Ticket className="h-3 w-3"/> Oferta Limitada
                         </div>
-                        <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter leading-[1]">
-                            Da el Salto a la <br/> <span className="text-primary">Gestión Inteligente</span>
+                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-white uppercase italic italic-shadow">
+                            Inyecta Inteligencia <br/> <span className="text-primary">a tu Negocio</span>
                         </h2>
-                        <p className="text-xl text-muted-foreground max-w-xl leading-relaxed">
-                            Únete a las cientos de empresas que ya han eliminado la fragmentación operativa. Regístrate hoy y obtén 30 días de acceso premium sin costo.
+                        <p className="text-lg text-white/40 max-w-xl leading-relaxed font-bold uppercase tracking-tight italic border-l-2 border-primary/30 pl-6">
+                            Elimina la fragmentación operativa. Únete al ecosistema Kyron y obtén acceso total nivel corporativo.
                         </p>
                         
                         <div className="pt-4">
-                            <p className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">La oferta expira en:</p>
+                            <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 italic">Expira en:</p>
                             <CountdownTimer />
                         </div>
                     </motion.div>
@@ -123,32 +134,29 @@ export function CtaSection() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.8 }}
                     >
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className={cn(
-                                "space-y-5 p-8 md:p-10 border rounded-[2rem] shadow-2xl relative overflow-hidden bg-card/40 backdrop-blur-3xl",
-                                isHolidayActive ? "border-primary/20" : "border-border"
-                            )}>
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 p-8 md:p-10 border border-white/10 rounded-[3rem] shadow-2xl relative overflow-hidden bg-white/[0.02] backdrop-blur-3xl">
                                 <div className="absolute top-0 right-0 p-8 opacity-5">
-                                    <Ticket className="h-32 w-32 rotate-12" />
+                                    <Send className="h-32 w-32 rotate-12" />
                                 </div>
                                 
-                                <div className="space-y-1 mb-8 relative z-10">
-                                    <h3 className="text-3xl font-bold">Solicita tu Demo Gratis</h3>
-                                    <p className="text-muted-foreground">Un consultor se contactará contigo para una sesión personalizada.</p>
+                                <div className="space-y-1 mb-6 relative z-10">
+                                    <h3 className="text-2xl font-black tracking-tight uppercase italic text-white">Solicitar Demo</h3>
+                                    <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Transmisión directa al equipo central</p>
                                 </div>
                                 
                                 <FormField
                                     control={form.control}
                                     name="name"
                                     render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Nombre Completo</FormLabel>
+                                        <FormItem className="space-y-1.5">
+                                            <FormLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Nombre Completo</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Ej: Ana Pérez" {...field} className="h-12 bg-background/50 rounded-xl" />
+                                                <Input placeholder="Ej: Ana Pérez" {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl focus-visible:ring-primary text-xs font-bold" />
                                             </FormControl>
-                                            <FormMessage />
+                                            <FormMessage className="text-[10px] font-bold" />
                                         </FormItem>
                                     )}
                                 />
@@ -157,12 +165,12 @@ export function CtaSection() {
                                         control={form.control}
                                         name="company"
                                         render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Empresa</FormLabel>
+                                            <FormItem className="space-y-1.5">
+                                                <FormLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Empresa</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Ej: Kyron, C.A." {...field} className="h-12 bg-background/50 rounded-xl" />
+                                                    <Input placeholder="Ej: Kyron, C.A." {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl focus-visible:ring-primary text-xs font-bold" />
                                                 </FormControl>
-                                                <FormMessage />
+                                                <FormMessage className="text-[10px] font-bold" />
                                             </FormItem>
                                         )}
                                     />
@@ -170,12 +178,12 @@ export function CtaSection() {
                                         control={form.control}
                                         name="phone"
                                         render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Teléfono</FormLabel>
+                                            <FormItem className="space-y-1.5">
+                                                <FormLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Teléfono</FormLabel>
                                                 <FormControl>
-                                                    <Input type="tel" placeholder="0412-1234567" {...field} className="h-12 bg-background/50 rounded-xl" />
+                                                    <Input type="tel" placeholder="0412-1234567" {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl focus-visible:ring-primary text-xs font-bold" />
                                                 </FormControl>
-                                                <FormMessage />
+                                                <FormMessage className="text-[10px] font-bold" />
                                             </FormItem>
                                         )}
                                     />
@@ -184,12 +192,12 @@ export function CtaSection() {
                                     control={form.control}
                                     name="email"
                                     render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Correo Electrónico Corporativo</FormLabel>
+                                        <FormItem className="space-y-1.5">
+                                            <FormLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Email Corporativo</FormLabel>
                                             <FormControl>
-                                                <Input type="email" placeholder="tu@correo.com" {...field} className="h-12 bg-background/50 rounded-xl" />
+                                                <Input type="email" placeholder="tu@correo.com" {...field} className="h-11 bg-white/[0.03] border-white/10 rounded-xl focus-visible:ring-primary text-xs font-bold" />
                                             </FormControl>
-                                            <FormMessage />
+                                            <FormMessage className="text-[10px] font-bold" />
                                         </FormItem>
                                     )}
                                 />
@@ -197,33 +205,33 @@ export function CtaSection() {
                                     control={form.control}
                                     name="module"
                                     render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Módulo de Interés</FormLabel>
+                                        <FormItem className="space-y-1.5">
+                                            <FormLabel className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Módulo de Interés</FormLabel>
                                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger className="h-12 bg-background/50 rounded-xl">
-                                                        <SelectValue placeholder="Selecciona un módulo..." />
+                                                    <SelectTrigger className="h-11 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold">
+                                                        <SelectValue placeholder="Seleccionar módulo..." />
                                                     </SelectTrigger>
                                                 </FormControl>
-                                                <SelectContent>
+                                                <SelectContent className="rounded-xl border-white/10 bg-black/95">
                                                     {loginOptions.map(opt => (
-                                                        <SelectItem key={opt.href} value={opt.label}>{opt.label}</SelectItem>
+                                                        <SelectItem key={opt.href} value={opt.label} className="text-xs font-bold uppercase">{opt.label}</SelectItem>
                                                     ))}
                                                 </SelectContent>
                                             </Select>
-                                            <FormMessage />
+                                            <FormMessage className="text-[10px] font-bold" />
                                         </FormItem>
                                     )}
                                 />
                                 
-                                <Button type="submit" size="lg" className="w-full text-lg h-14 font-bold mt-6 shadow-xl btn-3d-primary rounded-xl" disabled={isSubmitting}>
+                                <Button type="submit" className="w-full text-[10px] font-black h-11 mt-4 shadow-xl btn-3d-primary rounded-xl" disabled={isSubmitting}>
                                     {isSubmitting ? (
-                                        <><Loader2 className="mr-2 h-5 w-5 animate-spin"/> Procesando...</>
+                                        <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> TRANSMITIENDO...</>
                                     ) : (
-                                        "Comenzar mi Prueba Gratis"
+                                        "COMENZAR PRUEBA GRATIS"
                                     )}
                                 </Button>
-                                <p className="text-center text-[10px] text-muted-foreground uppercase font-black tracking-[0.2em] mt-4 opacity-60">Sin compromisos | Implementación guiada</p>
+                                <p className="text-center text-[8px] text-white/20 uppercase font-black tracking-[0.4em] mt-4">Safe Data Protocol • SSL Layer Active</p>
                             </form>
                         </Form>
                     </motion.div>
