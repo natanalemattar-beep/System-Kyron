@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -28,7 +29,11 @@ import {
   AlertTriangle,
   Signal,
   BadgeCheck,
-  BrainCircuit
+  BrainCircuit,
+  Globe,
+  Users,
+  ShieldCheck,
+  Recycle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn, formatCurrency } from "@/lib/utils";
@@ -41,44 +46,43 @@ export default function ModeloZEDUPage() {
       { item: "Contrato Mayorista Operador (Digitel/Movistar)", cost: 5000, cat: "Telecom" },
       { item: "Tarjetas SIM Físicas System Kyron (1.000)", cost: 1000, cat: "Telecom" },
       { item: "Plataforma Gestión eSIM/Billing", cost: 2500, cat: "Telecom" },
-      { item: "Lote Teléfonos Homologados (50)", cost: 6000, cat: "Equipos" },
-      { item: "Tablets Educativas (20)", cost: 3600, cat: "Equipos" },
-      { item: "Equipos Internet Fijo (Routers)", cost: 800, cat: "Telecom" },
+      { item: "Teléfonos Homologados (Samsung/Xiaomi)", cost: 6000, cat: "Equipos" },
+      { item: "Tablets Educativas Gabriela Mistral", cost: 3600, cat: "Equipos" },
+      { item: "Equipos Internet Fijo (Routers/Antenas)", cost: 800, cat: "Telecom" },
       { item: "Desarrollo Frontend/Backend (Firebase)", cost: 4500, cat: "Software" },
       { item: "Integración Gemini IA & Blockchain", cost: 1000, cat: "Software" },
-      { item: "Hardware Papelera Inteligente (Prototipos)", cost: 683, cat: "Prototipo" },
+      { item: "Hardware Papelera Inteligente (Magnet)", cost: 683, cat: "Prototipo" },
       { item: "Moto Bera Carguera DT-200 (Logística)", cost: 2800, cat: "Logística" },
       { item: "Cajas Registradoras Fiscales (HKA)", cost: 1350, cat: "Fiscal" },
-      { item: "Capacitación y Lanzamiento", cost: 2450, cat: "Operaciones" },
+      { item: "Marketing y Lanzamiento Litoral", cost: 1450, cat: "Operaciones" },
     ];
 
-    const totalBudget = budgetData.reduce((sum, item) => sum + item.cost, 0);
+    const totalBudget = 31683;
 
     const handleDownloadWord = () => {
         const content = `
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                <h1 style="text-align: center; color: #2563eb; text-transform: uppercase;">MODELO DE ZEDU - SYSTEM KYRON</h1>
+                <h1 style="text-align: center; color: #2563eb; text-transform: uppercase;">MODELO ZEDU - SYSTEM KYRON</h1>
                 <h2 style="text-align: center; color: #666;">Telecomunicaciones como Eje Central + Automatización Fiscal y Reciclaje</h2>
                 
                 <hr style="border: 1px solid #eee; margin: 20px 0;" />
 
                 <h3>1. INFORMACIÓN DEL EQUIPO</h3>
                 <p><b>PROYECTO:</b> System Kyron</p>
-                <p><b>LÍDER ESTRATÉGICO:</b> Carlos Mattar (Inteligencia, IA, Blockchain)</p>
-                <p><b>EQUIPO OPERATIVO:</b> Sebastián Garrido, Marcos Sousa</p>
+                <p><b>INTEGRANTES:</b> Carlos Mattar (Líder Inteligencia), Sebastián Garrido, Marcos Sousa</p>
                 <p><b>INSTITUCIÓN:</b> Colegio Gabriela Mistral</p>
-                <p><b>UBICACIÓN:</b> Venezuela, La Guaira</p>
+                <p><b>UBICACIÓN:</b> Venezuela, La Guaira (Catia La Mar)</p>
 
                 <h3>2. POBLACIÓN A TRABAJAR</h3>
-                <p><b>COMUNIDAD:</b> Colegio Gabriela Mistral y sector comercial de La Guaira.</p>
+                <p><b>COMUNIDAD:</b> Colegio Gabriela Mistral y sector comercial de La Atlántida (Supermercado Bensica).</p>
                 <p><b>HABITANTES:</b> 3.000 personas (800 estudiantes, 1.500 empleados, 700 administrativos).</p>
-                <p><b>CARACTERÍSTICAS:</b> Necesidad crítica de conectividad 5G. El clima costero daña archivos físicos.</p>
+                <p><b>CARACTERÍSTICAS:</b> Necesidad crítica de conectividad 5G. Clima costero deteriora archivos físicos.</p>
 
                 <h3>3. ANÁLISIS DEL PROBLEMA</h3>
-                <p>Conectividad deficiente y fragmentada. El archivado tradicional del colegio se deteriora por la salinidad. Falta de automatización fiscal ante cambios del SENIAT.</p>
+                <p>Conectividad deficiente y fragmentada. El archivado tradicional se deteriora por la salinidad. Falta de automatización fiscal ante cambios del SENIAT.</p>
 
-                <h3>4. SOLUCIÓN PROPUESTA</h3>
-                <p>System Kyron es un ecosistema cuya columna vertebral son las telecomunicaciones. Ofrecemos Línea 5G, eSIM, venta de equipos homologados y sobre esta red montamos IA de gestión fiscal y reciclaje magnético.</p>
+                <h3>4. SOLUCIÓN PROPUESTA (Eje Telecom)</h3>
+                <p>System Kyron es un ecosistema cuya columna vertebral son las telecomunicaciones. Ofrecemos Línea 5G, eSIM, venta de equipos y sobre esta red montamos IA de gestión y reciclaje.</p>
 
                 <h3>5. PRESUPUESTO TÉCNICO</h3>
                 <p><b>INVERSIÓN TOTAL:</b> $31.683,00 USD</p>
@@ -102,18 +106,19 @@ export default function ModeloZEDUPage() {
         link.click();
         document.body.removeChild(link);
 
-        toast({ title: "Word Generado", description: "El informe técnico ha sido descargado." });
+        toast({ title: "Documento Word Generado", description: "El informe Modelo ZEDU ha sido descargado exitosamente." });
     };
 
     return (
         <div className="space-y-16 w-full animate-in fade-in duration-700 pb-32">
+            {/* Header Maestro */}
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-8 border-primary pl-10 py-2 w-full">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4 shadow-glow">
-                        <Signal className="h-3 w-3 animate-pulse" /> Eje Central: Telecomunicaciones
+                        <Signal className="h-3 w-3 animate-pulse" /> Factor Principal: Telecomunicaciones
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic italic-shadow text-white uppercase leading-none">MODELO <span className="text-primary">DE ZEDU</span></h1>
-                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40 italic leading-none">SYSTEM KYRON • CONECTIVIDAD & GESTIÓN • 2026</p>
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic italic-shadow text-white uppercase leading-none">MODELO <span className="text-primary">ZEDU</span></h1>
+                    <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.6em] opacity-40 italic leading-none">KYRON • CONECTIVIDAD & GESTIÓN • 2026</p>
                 </div>
                 <Button size="lg" className="btn-3d-primary h-20 px-16 rounded-2xl shadow-glow text-base font-black" onClick={handleDownloadWord}>
                     <Download className="mr-4 h-8 w-8" /> EXPORTAR .DOC (WORD)
@@ -121,6 +126,7 @@ export default function ModeloZEDUPage() {
             </header>
 
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 w-full">
+                {/* Panel Izquierdo: Identificación y Población */}
                 <div className="xl:col-span-5 space-y-12">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Crown className="h-4 w-4"/> 1. Información del Equipo</h3>
@@ -131,44 +137,45 @@ export default function ModeloZEDUPage() {
                                     <p className="text-2xl font-black italic text-white">System Kyron</p>
                                 </div>
                                 <div className="p-8 border-b border-white/5">
-                                    <h3 className="font-black text-[9px] uppercase tracking-widest text-primary opacity-60 mb-2">LÍDER ESTRATÉGICO</h3>
-                                    <p className="text-lg font-black text-white italic">Carlos Mattar (IA, Blockchain, Estrategia)</p>
+                                    <h3 className="font-black text-[9px] uppercase tracking-widest text-primary opacity-60 mb-2">INTEGRANTES DEL EQUIPO</h3>
+                                    <p className="text-lg font-black text-white italic">Carlos Mattar (Líder), Sebastián Garrido, Marcos Sousa</p>
                                 </div>
                                 <div className="p-8">
-                                    <h3 className="font-black text-[9px] uppercase tracking-widest text-primary opacity-60 mb-2">APOYO OPERATIVO</h3>
-                                    <p className="text-lg font-black text-white/60 italic">Sebastián Garrido, Marcos Sousa</p>
+                                    <h3 className="font-black text-[9px] uppercase tracking-widest text-primary opacity-60 mb-2">INSTITUCIÓN EDUCATIVA</h3>
+                                    <p className="text-lg font-black text-white/60 italic">Colegio Gabriela Mistral</p>
                                 </div>
                             </CardContent>
                         </Card>
                     </section>
 
                     <section>
-                        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><BadgeCheck className="h-4 w-4"/> 2. Población a Trabajar</h3>
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Globe className="h-4 w-4"/> 2. Población a Trabajar</h3>
                         <Card className="glass-card border-none overflow-hidden shadow-2xl rounded-[2.5rem]">
                             <CardContent className="p-0 text-sm font-bold text-white/70 italic">
                                 <div className="p-8 border-b border-white/5">
-                                    <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Localidad</span>
-                                    La Guaira, Parroquia La Guaira (Zona Costera).
+                                    <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Localidad Específica</span>
+                                    Venezuela, La Guaira, Parroquia La Guaira (Catia La Mar).
                                 </div>
                                 <div className="p-8 border-b border-white/5">
-                                    <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Habitantes</span>
-                                    3.000 personas (Comunidad Educativa y Comercial).
+                                    <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Comunidad</span>
+                                    La Atlántida (Supermercado Bensica) y Comunidad Educativa Gabriela Mistral.
                                 </div>
                                 <div className="p-8">
-                                    <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Necesidad</span>
-                                    Conectividad robusta 5G y digitalización contra la salinidad.
+                                    <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Población Impactada</span>
+                                    3.000 personas (Estudiantes, Comerciantes y Vecinos).
                                 </div>
                             </CardContent>
                         </Card>
                     </section>
                 </div>
 
+                {/* Panel Derecho: Problema y Solución */}
                 <div className="xl:col-span-7 space-y-12">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><AlertTriangle className="h-4 w-4" /> 3. Análisis del Problema</h3>
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl rounded-[2.5rem]">
                             <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
-                                El archivado físico tradicional del Colegio Gabriela Mistral se deteriora rápidamente por la alta salinidad de La Guaira. Además, la comunidad carece de un proveedor de conectividad que integre automatización fiscal y reciclaje inteligente en una sola plataforma.
+                                El archivado físico del Colegio Gabriela Mistral enfrenta un riesgo crítico por la **salinidad** de la zona costera. Además, el sector comercial de La Atlántida padece una conectividad fragmentada que eleva costos y dificulta el cumplimiento ante el SENIAT. No existe un proveedor único que integre telecomunicaciones, gestión fiscal y reciclaje inteligente.
                             </p>
                         </Card>
                     </section>
@@ -178,7 +185,7 @@ export default function ModeloZEDUPage() {
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl relative overflow-hidden rounded-[2.5rem]">
                             <div className="absolute top-0 right-0 p-8 opacity-[0.02]"><BrainCircuit className="h-32 w-32" /></div>
                             <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
-                                **Telecomunicaciones como Eje**: Operador virtual con líneas 5G y eSIM. Sobre esta base, implementamos módulos de IA para gestión escolar (archivado digital) y reciclaje inteligente magnético con incentivos digitales.
+                                **Telecomunicaciones como Eje**: Operador virtual con líneas 5G y eSIM (Factor Principal). Sobre esta infraestructura, montamos una IA para el archivado digital del colegio (blindaje contra humedad), automatización fiscal y un sistema de reciclaje magnético con incentivos digitales.
                             </p>
                         </Card>
                     </section>
@@ -195,7 +202,7 @@ export default function ModeloZEDUPage() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {budgetData.slice(0, 6).map((row, i) => (
+                                    {budgetData.slice(0, 7).map((row, i) => (
                                         <TableRow key={i} className="border-b border-white/5 group hover:bg-primary/[0.02] transition-colors">
                                             <TableCell className="font-bold pl-10 py-6 text-white/80">{row.item}</TableCell>
                                             <TableCell className="text-center"><Badge variant="outline" className="text-[8px] uppercase">{row.cat}</Badge></TableCell>
@@ -203,7 +210,7 @@ export default function ModeloZEDUPage() {
                                         </TableRow>
                                     ))}
                                     <TableRow className="bg-primary/10 border-none">
-                                        <TableCell className="font-black text-xl pl-10 py-10 italic uppercase text-white" colSpan={2}>Inversión Total</TableCell>
+                                        <TableCell className="font-black text-xl pl-10 py-10 italic uppercase text-white" colSpan={2}>Inversión Total de Misión Crítica</TableCell>
                                         <TableCell className="text-right pr-10 font-black text-3xl text-primary italic">{formatCurrency(totalBudget, "USD")}</TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -213,22 +220,23 @@ export default function ModeloZEDUPage() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Grid Inferior: Bloques restantes */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
-                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">6. Aliados</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Digitel, Movistar, The Factory HKA y Colegio Gabriela Mistral.</p>
+                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4 flex items-center gap-2"><ShieldCheck className="h-3 w-3"/> 6. Aliados</h4>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Digitel, Movistar (Red), The Factory HKA (Fiscal) y Colegio Gabriela Mistral (Piloto).</p>
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem] border-l-2 border-primary">
-                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">7. Plan Jerárquico</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">**Lidera Carlos Mattar:** Estrategia IA y Blindaje. Sebastian y Marcos: Logística litoral.</p>
+                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4 flex items-center gap-2"><Users className="h-3 w-3"/> 7. Plan Jerárquico</h4>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">**Lidera Carlos Mattar:** Estrategia e IA. Sebastián y Marcos: Soporte técnico y logística.</p>
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
-                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">8. Indicadores</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">800 Líneas activas y 100% de expedientes blindados contra la humedad.</p>
+                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4 flex items-center gap-2"><BadgeCheck className="h-3 w-3"/> 8. Métricas</h4>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">800 Líneas activas, 400 equipos vendidos y 100% de blindaje fiscal.</p>
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
-                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4">9. Sostenibilidad</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Ingresos por conectividad financian el ecosistema de reciclaje magnético.</p>
+                    <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4 flex items-center gap-2"><Recycle className="h-3 w-3"/> 9. Sostenibilidad</h4>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Los ingresos por conectividad subsidian el reciclaje magnético en La Guaira.</p>
                 </Card>
             </div>
         </div>
