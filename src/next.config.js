@@ -1,3 +1,4 @@
+
 const createNextIntlPlugin = require('next-intl/plugin');
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
@@ -8,10 +9,6 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  allowedDevOrigins: [
-    "https://6000-firebase-fintrack-automation2-1759388821350.cluster-f73ibkkuije66wssuontdtbx6q.cloudworkstations.dev", 
-    "https://9000-firebase-fintrack-automation2-1759388821350.cluster-f73ibkkuije66wssuontdtbx6q.cloudworkstations.dev"
-  ],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'flagcdn.com' },

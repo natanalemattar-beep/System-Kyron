@@ -8,7 +8,7 @@ import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@
 import { 
   Download, Zap, ShieldCheck, 
   Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Activity, Sparkles, AlertTriangle, FileText
+  Activity, Sparkles, AlertTriangle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, cn } from "@/lib/utils";
@@ -199,14 +199,6 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                             </TableBody>
                         </Table>
                     </Card>
-                    
-                    <div className="p-8 rounded-3xl bg-amber-500/5 border border-amber-500/20 flex items-start gap-6">
-                        <AlertTriangle className="h-6 w-6 text-amber-500 shrink-0 mt-1" />
-                        <div className="space-y-1">
-                            <p className="font-black text-amber-500 uppercase tracking-widest text-[10px]">Aviso de Confidencialidad</p>
-                            <p className="text-xs text-amber-500/60 font-medium">Este presupuesto es de carácter estrictamente confidencial y ha sido validado bajo el protocolo de cifrado AES-512 del nodo maestro Kyron.</p>
-                        </div>
-                    </div>
                 </TabsContent>
             </Tabs>
         </div>
