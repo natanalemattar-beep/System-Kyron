@@ -18,7 +18,6 @@ import {
     Lock,
     Clock,
     LayoutGrid,
-    Zap,
     ShieldCheck
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
@@ -43,10 +42,11 @@ export function AppHeader({ user }: AppHeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-black/80 backdrop-blur-md h-14 flex items-center w-full">
       <div className="w-full px-6 md:px-10">
+        {/* Grilla de 3 columnas para centrado matemático exacto */}
         <div className="grid grid-cols-3 items-center w-full">
           
-          {/* SECCIÓN IZQUIERDA: Navegación */}
-          <div className="flex items-center gap-8">
+          {/* COLUMNA IZQUIERDA: Navegación de Control */}
+          <div className="flex justify-start items-center gap-8">
             <nav className="hidden lg:flex items-center gap-6">
                 <Link href="/dashboard-empresa" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
                     <LayoutGrid className="h-3 w-3" /> Consola
@@ -54,21 +54,18 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <Link href="/kyron-vault" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
                     <Lock className="h-3 w-3" /> Bóveda
                 </Link>
-                <Link href="/ecosistema" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
-                    <Zap className="h-3 w-3" /> Ecosistema
-                </Link>
             </nav>
           </div>
 
-          {/* SECCIÓN CENTRAL: Identidad (CENTRO MATEMÁTICO) */}
-          <div className="flex justify-center">
+          {/* COLUMNA CENTRAL: Identidad Maestra (Eje de Simetría) */}
+          <div className="flex justify-center items-center">
             <Link href="/" className="flex items-center gap-3 group shrink-0">
                 <Logo className="h-6 w-6 transition-transform group-hover:scale-110 drop-shadow-glow" />
                 <span className="text-[10px] font-black tracking-[0.4em] uppercase text-white italic italic-shadow">System Kyron</span>
             </Link>
           </div>
 
-          {/* SECCIÓN DERECHA: Perfil y Tiempo */}
+          {/* COLUMNA DERECHA: Telemetría y Perfil */}
           <div className="flex items-center justify-end gap-6">
             <div className="hidden sm:flex items-center gap-3 text-[9px] font-mono font-black text-primary bg-primary/5 px-3 py-1 rounded-md border border-primary/10 shadow-glow">
                 <Clock className="h-3 w-3" />
@@ -79,7 +76,7 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <ThemeToggle />
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-8 w-8 rounded-full border border-white/10 p-0 overflow-hidden hover:border-primary/40 transition-all bg-white/5">
+                    <Button variant="ghost" className="relative h-8 w-8 rounded-full border border-white/10 p-0 overflow-hidden hover:border-primary/40 transition-all bg-white/5 shadow-inner">
                       <Avatar className="h-full w-full rounded-none">
                         <AvatarFallback className="rounded-none font-black text-[9px] text-white bg-transparent">
                             {user.fallback}

@@ -1,8 +1,8 @@
 /**
- * @fileOverview ARCHIVO DESACTIVADO
- * Este archivo ha sido desactivado para resolver el conflicto de rutas paralelas de Next.js.
- * La lógica reside ahora exclusivamente en src/app/[locale]/(main)/kyron-vault/page.tsx
+ * @fileOverview RESOLUCIÓN DE CONFLICTO DE RUTAS
+ * Este archivo ha sido desactivado eliminando su exportación por defecto
+ * para permitir que la ruta /kyron-vault sea manejada exclusivamente 
+ * por el componente profesional en el grupo (main).
  */
-export default function ConflictResolutionPage() {
-  return null;
-}
+// No export default component to avoid route conflict
+export const metadata = { title: "Ruta Redirigida" };
