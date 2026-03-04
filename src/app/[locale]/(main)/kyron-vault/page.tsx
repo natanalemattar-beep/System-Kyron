@@ -2,7 +2,15 @@
 
 /**
  * NODO NEUTRALIZADO
- * Este archivo ha sido desactivado para resolver el conflicto de rutas paralelas.
- * La Bóveda ahora reside en /terminal.
+ * El acceso ha sido consolidado en /terminal para optimizar el árbol de rutas.
  */
-export const metadata = { title: "Vault Neutralized" };
+import { redirect } from '@/navigation';
+import { useEffect } from 'react';
+
+export default function VaultMainRedirect() {
+  useEffect(() => {
+    redirect('/terminal');
+  }, []);
+
+  return null;
+}

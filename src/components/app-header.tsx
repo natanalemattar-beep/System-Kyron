@@ -19,7 +19,7 @@ import {
     Clock,
     LayoutGrid,
     ShieldCheck
-} from "lucide-react";
+} from "lucide-center";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
