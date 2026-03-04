@@ -50,7 +50,7 @@ export const pathnames = {
   '/proformas': '/proformas',
   '/estudio-factibilidad-economica': '/estudio-factibilidad-economica',
   '/estudio-poblacion': '/estudio-poblacion',
-  '/terminal': '/terminal',
+  '/sector-privado-system-kyron': '/sector-privado-system-kyron',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({

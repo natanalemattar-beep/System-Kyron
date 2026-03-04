@@ -4,7 +4,7 @@ import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
   BarChart3, Users, Recycle, Radio, Cpu, Gavel, Lock, LayoutGrid, Cog, Activity
-} from "lucide-react";
+} from "lucide-center";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
 
@@ -17,7 +17,7 @@ const menuItems = [
   { id: 'contabilidad', label: 'Finanzas & Nómina', icon: BarChart3, href: '/contabilidad' },
   { id: 'rrhh', label: 'Gestión Talento', icon: Users, href: '/dashboard-rrhh' },
   { id: 'juridico', label: 'Centro Legal', icon: Gavel, href: '/escritorio-juridico' },
-  { id: 'vault', label: 'Bóveda Maestra', icon: Lock, href: '/terminal' },
+  { id: 'vault', label: 'Sector Privado', icon: Lock, href: '/sector-privado-system-kyron' },
   { id: 'config', label: 'Configuración', icon: Cog, href: '/general' },
 ];
 

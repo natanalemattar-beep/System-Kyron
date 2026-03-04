@@ -19,7 +19,7 @@ import {
     Clock,
     LayoutGrid,
     ShieldCheck
-} from "lucide-center";
+} from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
@@ -51,13 +51,13 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <Link href="/dashboard-empresa" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
                     <LayoutGrid className="h-3 w-3" /> Consola
                 </Link>
-                <Link href="/terminal" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
+                <Link href="/sector-privado-system-kyron" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
                     <Lock className="h-3 w-3" /> Bóveda
                 </Link>
             </nav>
           </div>
 
-          {/* COLUMNA CENTRAL: Eje de Simetría Absoluto */}
+          {/* COLUMNA CENTRAL */}
           <div className="flex justify-center items-center">
             <Link href="/" className="flex items-center gap-3 group shrink-0">
                 <Logo className="h-6 w-6 transition-transform group-hover:scale-110 drop-shadow-glow" />
