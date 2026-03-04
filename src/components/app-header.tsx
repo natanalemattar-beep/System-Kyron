@@ -20,7 +20,6 @@ import {
     Lock,
     Clock,
     LayoutGrid,
-    ShieldCheck,
     Zap
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
@@ -44,36 +43,36 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#020202]/90 backdrop-blur-3xl h-16 flex items-center w-full">
+    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#020202]/90 backdrop-blur-3xl h-16 flex items-center w-full shadow-2xl">
       <div className="w-full px-6 md:px-10">
         <div className="flex items-center justify-between w-full">
           
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-10">
             <Link href="/" className="flex items-center gap-3 group">
-                <Logo className="h-8 w-8 transition-transform group-hover:scale-110" />
+                <Logo className="h-8 w-8 transition-transform group-hover:scale-110 shadow-glow" />
                 <span className="text-xs font-black tracking-[0.3em] uppercase text-primary italic hidden sm:block">System Kyron</span>
             </Link>
-            <div className="h-6 w-px bg-white/10 hidden sm:block" />
-            <nav className="hidden md:flex items-center gap-8">
-                <Link href="/dashboard-empresa" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-colors flex items-center gap-2">
+            <div className="h-6 w-px bg-white/10 hidden lg:block" />
+            <nav className="hidden lg:flex items-center gap-10">
+                <Link href="/dashboard-empresa" className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5">
                     <LayoutGrid className="h-3.5 w-3.5" /> Consola
                 </Link>
-                <Link href="/kyron-vault" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-colors flex items-center gap-2">
+                <Link href="/kyron-vault" className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5">
                     <Lock className="h-3.5 w-3.5" /> Bóveda
                 </Link>
-                <Link href="/ecosistema" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-colors flex items-center gap-2">
+                <Link href="/ecosistema" className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5">
                     <Zap className="h-3.5 w-3.5" /> Ecosistema
                 </Link>
             </nav>
           </div>
 
-          <div className="flex items-center gap-4 md:gap-8">
-            <div className="hidden sm:flex items-center gap-3 text-[10px] font-mono font-black text-primary/60 italic bg-primary/5 px-4 py-1.5 rounded-full border border-primary/10">
-                <Clock className="h-3.5 w-3.5" />
+          <div className="flex items-center gap-6">
+            <div className="hidden sm:flex items-center gap-3 text-[10px] font-mono font-black text-primary/60 italic bg-primary/5 px-5 py-2 rounded-full border border-primary/10 shadow-inner">
+                <Clock className="h-3.5 w-3.5 animate-pulse" />
                 {mounted ? time : '--:--:--'}
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 border-l border-white/10 pl-6">
                 <Button variant="ghost" size="icon" className="h-10 w-10 text-white/30 hover:bg-white/5 rounded-xl border border-transparent hover:border-white/5">
                     <Bell className="h-4 w-4" />
                 </Button>

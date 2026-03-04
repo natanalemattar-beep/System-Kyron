@@ -1,7 +1,7 @@
 
 'use client';
 
-import { CheckCircle, TrendingDown, AlertTriangle, Users, Sparkles, LayoutGrid, Zap, ShieldCheck, FileText, BarChart3, ArrowRight, Lock } from "lucide-react";
+import { CheckCircle, TrendingDown, AlertTriangle, Users, Sparkles, LayoutGrid, Zap, Lock, ArrowRight, BarChart3, FileText, Activity } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
@@ -11,7 +11,7 @@ import { SplashScreen } from "@/components/splash-screen";
 import { useEffect, useState } from "react";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { motion } from "framer-motion";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 
@@ -57,18 +57,17 @@ export default function DashboardPage() {
       </header>
 
       <div className="space-y-12">
-        {/* KPIs compactos semi-minimalistas */}
         <StatsCards />
         
         <div className="grid gap-10 lg:grid-cols-12">
-            {/* Private Vault Entry - La idea del usuario */}
+            {/* Private Vault Entry */}
             <Card className="lg:col-span-4 bg-primary text-primary-foreground rounded-[2.5rem] overflow-hidden relative group p-1 shadow-[0_0_50px_rgba(37,99,235,0.2)] border-none">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all duration-1000">
                     <Lock className="h-40 w-40" />
                 </div>
                 <div className="p-10 space-y-8 relative z-10 bg-primary rounded-[2.4rem] h-full flex flex-col justify-between">
                     <div className="space-y-2">
-                        <CardTitle className="text-3xl font-black uppercase italic tracking-tighter">Bóveda Kyron</TableHead>
+                        <CardTitle className="text-3xl font-black uppercase italic tracking-tighter">Bóveda Kyron</CardTitle>
                         <p className="text-[10px] font-black uppercase tracking-[0.5em] opacity-40">Dashboard Privado Estratégico</p>
                     </div>
                     <div className="space-y-4">
