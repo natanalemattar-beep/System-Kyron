@@ -1,8 +1,6 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
-import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { Signal } from "lucide-react";
@@ -16,7 +14,6 @@ export default function TelecomLayout({
 
     return (
       <div className="flex min-h-screen bg-[#080602] text-white relative overflow-hidden hud-grid">
-          {/* Fondo Atmosférico Telecom */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:20px_20px]" />
             <div className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-amber-500/[0.06] rounded-full blur-[200px] opacity-40" />
@@ -27,16 +24,14 @@ export default function TelecomLayout({
             />
           </div>
 
-          <AppSidebar />
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
-              <AppHeader user={{...user, color: "bg-amber-600"}} navGroups={telecomNavGroups as any} dashboardHref="/dashboard-telecom" />
+          <div className="flex-1 flex flex-col min-h-screen relative">
+              <AppHeader user={{...user, color: "bg-amber-600"}} dashboardHref="/dashboard-telecom" />
               <motion.main 
-                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                  {/* Watermark Telecom */}
                   <div className="absolute bottom-20 right-20 opacity-[0.03] pointer-events-none -z-10">
                     <Signal className="w-[500px] h-[500px] text-amber-500" />
                   </div>

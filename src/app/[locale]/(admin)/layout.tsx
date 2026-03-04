@@ -1,8 +1,6 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 
@@ -20,12 +18,10 @@ export default function AdminLayout({
             <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.05] rounded-full blur-[300px]" />
           </div>
 
-          <AppSidebar />
-          
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
+          <div className="flex-1 flex flex-col min-h-screen relative">
               <AppHeader user={{...user, color: "bg-primary"}} dashboardHref="/dashboard-empresa" />
               <motion.main 
-                className="flex-1 w-full p-10 md:p-16 lg:p-24 pt-32 md:pt-40 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}

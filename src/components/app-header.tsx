@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -18,25 +17,17 @@ import {
     Bell, 
     LogOut, 
     Lock,
-    Clock,
-    Search
+    Clock
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
-import { Input } from "./ui/input";
 
 interface AppHeaderProps {
     user: any;
     dashboardHref: string;
-    navGroups?: {
-        title: string;
-        icon: any;
-        items: { href: string; label: string; icon: any }[];
-    }[];
-    showSidebarOffset?: boolean;
 }
 
-export function AppHeader({ user, dashboardHref, navGroups, showSidebarOffset = true }: AppHeaderProps) {
+export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
 
@@ -49,32 +40,24 @@ export function AppHeader({ user, dashboardHref, navGroups, showSidebarOffset = 
   }, []);
 
   return (
-    <header className={cn(
-        "fixed top-0 right-0 z-40 border-b border-white/5 bg-[#020202]/80 backdrop-blur-xl h-16 flex items-center transition-all duration-300",
-        showSidebarOffset ? "lg:left-64 left-0" : "left-0"
-    )}>
-      <div className="w-full px-8">
-        <div className="flex items-center justify-between gap-12">
+    <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/5 bg-[#020202]/80 backdrop-blur-xl h-16 flex items-center">
+      <div className="w-full px-6 md:px-10">
+        <div className="flex items-center justify-between">
           
-          <div className="flex items-center gap-8 flex-1">
-            <Link href="/" className="flex items-center gap-3 shrink-0">
-                <Logo className="h-8 w-8" />
-                {!showSidebarOffset && <span className="text-xs font-black tracking-[0.2em] uppercase text-primary italic hidden sm:block">System Kyron</span>}
+          <div className="flex items-center gap-4">
+            <Link href="/" className="flex items-center gap-3 group">
+                <Logo className="h-8 w-8 transition-transform group-hover:scale-110" />
+                <span className="text-xs font-black tracking-[0.2em] uppercase text-primary italic hidden sm:block">System Kyron</span>
             </Link>
-
-            <div className="hidden md:flex relative max-w-sm w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
-                <Input placeholder="Buscar en consola maestro..." className="h-10 bg-white/[0.03] border-white/5 rounded-xl pl-11 text-[10px] uppercase font-bold tracking-widest focus-visible:ring-primary/20" />
-            </div>
           </div>
 
-          <div className="flex items-center gap-6 shrink-0">
+          <div className="flex items-center gap-4 md:gap-6">
             <div className="hidden sm:flex items-center gap-3 text-[10px] font-mono font-black text-primary/40 italic">
                 <Clock className="h-3.5 w-3.5" />
                 {mounted ? time : '--:--:--'}
             </div>
 
-            <div className="h-6 w-px bg-white/5" />
+            <div className="h-6 w-px bg-white/5 hidden sm:block" />
 
             <div className="flex items-center gap-2">
                 <Button variant="ghost" size="icon" className="h-10 w-10 text-white/30 hover:bg-white/5 rounded-xl">

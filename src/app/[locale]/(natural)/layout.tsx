@@ -14,7 +14,6 @@ export default function NaturalLayout({
 
     return (
       <div className="flex min-h-screen bg-background relative overflow-hidden">
-          {/* Fondo Atmosférico Refinado */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.03] rounded-full blur-[150px] opacity-50" />
             <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-blue-600/[0.02] rounded-full blur-[120px] opacity-40" />
@@ -24,7 +23,6 @@ export default function NaturalLayout({
               <AppHeader 
                 user={{...user, color: "bg-primary/30 text-primary"}} 
                 dashboardHref="/dashboard"
-                showSidebarOffset={false}
               />
               
               <motion.main 
@@ -33,11 +31,9 @@ export default function NaturalLayout({
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}
               >
-                  {/* Sello de agua minimalista */}
                   <div className="absolute top-1/4 right-20 opacity-[0.01] pointer-events-none -z-10">
                     <Sparkles className="w-[600px] h-[600px] text-primary" />
                   </div>
-                  
                   <div className="w-full">
                     {children}
                   </div>

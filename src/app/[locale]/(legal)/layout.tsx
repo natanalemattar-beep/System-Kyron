@@ -1,8 +1,6 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
-import { legalNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
@@ -16,23 +14,20 @@ export default function LegalLayout({
 
     return (
       <div className="flex min-h-screen bg-[#05070a] text-white relative overflow-hidden hud-grid">
-          {/* Fondo Atmosférico Blindaje Legal */}
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(30deg,#1e293b_12%,transparent_12.5%,transparent_87%,#1e293b_87.5%,#1e293b),linear-gradient(150deg,#1e293b_12%,transparent_12.5%,transparent_87%,#1e293b_87.5%,#1e293b)] [background-size:80px_140px]" />
+            <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(30deg,#1e293b_12%,transparent_12.5%,transparent_87%,#1e293b_87.5%,#1e293b)] [background-size:80px_140px]" />
             <div className="absolute top-0 right-0 w-full h-full bg-slate-900/[0.05] rounded-full blur-[250px]" />
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
           </div>
 
-          <AppSidebar />
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
-              <AppHeader user={{...user, color: "bg-slate-800"}} navGroups={legalNavGroups as any} dashboardHref="/escritorio-juridico" />
+          <div className="flex-1 flex flex-col min-h-screen relative">
+              <AppHeader user={{...user, color: "bg-slate-800"}} dashboardHref="/escritorio-juridico" />
               <motion.main 
-                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                  {/* Watermark Blindaje */}
                   <div className="absolute top-20 right-20 opacity-[0.02] pointer-events-none -z-10">
                     <ShieldCheck className="w-[600px] h-[600px] text-slate-400" />
                   </div>

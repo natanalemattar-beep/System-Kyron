@@ -1,8 +1,6 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
-import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { Globe } from "lucide-react";
@@ -16,23 +14,20 @@ export default function SociosLayout({
 
     return (
       <div className="flex min-h-screen bg-[#03040a] text-white relative overflow-hidden hud-grid">
-          {/* Fondo Atmosférico Holding */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.08] rounded-full blur-[200px] opacity-40 animate-pulse" />
             <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-slate-800/[0.08] rounded-full blur-[180px] opacity-30" />
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay" />
           </div>
 
-          <AppSidebar />
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
-              <AppHeader user={{...user, color: "bg-indigo-900"}} navGroups={sociosNavGroups as any} dashboardHref="/dashboard-socios" />
+          <div className="flex-1 flex flex-col min-h-screen relative">
+              <AppHeader user={{...user, color: "bg-indigo-900"}} dashboardHref="/dashboard-socios" />
               <motion.main 
-                className="flex-1 w-full p-10 md:p-16 lg:p-20 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-24 md:pt-32 relative z-10"
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
               >
-                  {/* Watermark Holding */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] pointer-events-none -z-10">
                     <Globe className="w-[800px] h-[800px] text-primary" />
                   </div>
