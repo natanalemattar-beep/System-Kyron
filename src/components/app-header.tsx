@@ -21,6 +21,7 @@ import {
     ShieldCheck
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
+import { cn } from "@/lib/utils";
 
 interface AppHeaderProps {
     user: any;
@@ -42,7 +43,7 @@ export function AppHeader({ user }: AppHeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-black/80 backdrop-blur-md h-14 flex items-center w-full">
       <div className="w-full px-6 md:px-10">
-        {/* Grilla de 3 columnas reales para centrado matemático exacto del logo */}
+        {/* Grilla de 3 columnas para centrado matemático exacto */}
         <div className="grid grid-cols-3 items-center w-full">
           
           {/* COLUMNA IZQUIERDA: Navegación */}
@@ -57,7 +58,7 @@ export function AppHeader({ user }: AppHeaderProps) {
             </nav>
           </div>
 
-          {/* COLUMNA CENTRAL: Identidad Maestra (Centro Absoluto) */}
+          {/* COLUMNA CENTRAL: Identidad Maestra (Eje de Simetría) */}
           <div className="flex justify-center items-center">
             <Link href="/" className="flex items-center gap-3 group shrink-0">
                 <Logo className="h-6 w-6 transition-transform group-hover:scale-110 drop-shadow-glow" />
