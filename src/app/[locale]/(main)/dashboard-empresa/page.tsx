@@ -74,7 +74,7 @@ export default function DashboardPage() {
                             Acceso restringido a los informes técnicos de factibilidad y modelo ZEDU maestro.
                         </p>
                         <Button variant="secondary" asChild className="w-full h-10 text-[8px] md:text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest transition-all">
-                            <Link href="/kyron-vault" className="flex justify-between w-full px-3 md:px-4">
+                            <Link href="/terminal" className="flex justify-between w-full px-3 md:px-4">
                                 <span>ENTRAR A LA BÓVEDA</span> 
                                 <ArrowRight className="h-3.5 w-3.5 md:h-4 md:w-4"/>
                             </Link>

@@ -5,7 +5,7 @@ import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
   BarChart3, Users, Recycle, Droplets, Wallet, 
-  ShieldCheck, Cog, LayoutGrid, Activity, Radio, Cpu, Gavel
+  ShieldCheck, Cog, LayoutGrid, Activity, Radio, Cpu, Gavel, Lock
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
@@ -19,6 +19,7 @@ const menuItems = [
   { id: 'contabilidad', label: 'Finanzas & Nómina', icon: BarChart3, href: '/contabilidad' },
   { id: 'rrhh', label: 'Gestión Talento', icon: Users, href: '/dashboard-rrhh' },
   { id: 'juridico', label: 'Centro Legal', icon: Gavel, href: '/escritorio-juridico' },
+  { id: 'vault', label: 'Bóveda Maestra', icon: Lock, href: '/terminal' },
   { id: 'config', label: 'Configuración', icon: Cog, href: '/general' },
 ];
 
@@ -27,10 +28,8 @@ export function AppSidebar() {
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0a] border-r-2 border-primary/20 flex flex-col z-[100] hidden lg:flex shadow-[20px_0_60px_rgba(0,0,0,0.9)] backdrop-blur-3xl overflow-hidden">
-      {/* HUD Texture */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:30px_30px]" />
       
-      {/* Sello Lateral de Luz - Elimina el hueco negro */}
       <div className="absolute top-0 right-0 w-[3px] h-full bg-primary/40 shadow-[0_0_20px_rgba(37,99,235,0.6)]" />
       
       <div className="p-10 border-b border-white/5 flex flex-col items-center gap-6 relative z-10 bg-black/40">

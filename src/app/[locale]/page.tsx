@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -87,6 +88,7 @@ export default function LandingPage() {
         className="fixed top-0 left-0 right-0 h-[1px] bg-primary/40 shadow-glow origin-left z-[200]" 
         style={{ scaleX }} 
       />
+      
       <LandingHeader />
       
       <main className="relative flex-1 w-full pt-32 md:pt-40">

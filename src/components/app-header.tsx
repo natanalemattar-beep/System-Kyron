@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -52,7 +53,7 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <Link href="/dashboard-empresa" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
                     <LayoutGrid className="h-3 w-3" /> Consola
                 </Link>
-                <Link href="/kyron-vault" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
+                <Link href="/terminal" className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-all flex items-center gap-2">
                     <Lock className="h-3 w-3" /> Bóveda
                 </Link>
             </nav>
