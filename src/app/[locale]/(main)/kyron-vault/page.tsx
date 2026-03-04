@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -8,7 +7,7 @@ import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@
 import { 
   Download, Zap, ShieldCheck, 
   Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Activity, Sparkles, AlertTriangle
+  Sparkles, Activity
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, cn } from "@/lib/utils";
@@ -31,9 +30,9 @@ const budgetData = [
 const zeduModules = [
     { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Óptimo" },
     { id: "M2", title: "BLOCKCHAIN", desc: "Sellado inmutable de registros transaccionales.", icon: Lock, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Sincronizado" },
-    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de baja latencia y alta velocidad.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
-    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con tecnología de inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
-    { id: "M5", title: "CONTROL ZEDU", desc: "Matriz Maestra de desarrollo económico local.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Maestro" },
+    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de baja latencia.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
+    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
+    { id: "M5", title: "CONTROL ZEDU", desc: "Matriz Maestra de desarrollo económico.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Maestro" },
     { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica 3D unificada.", icon: Database, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Verificado" }
 ];
 
@@ -70,7 +69,6 @@ TOTAL INVERSIÓN ESTRATÉGICA: ${formatCurrency(budgetData.reduce((a, b) => a + 
 ----------------------------------------------------------------------------
 El modelo ZEDU implementado garantiza una reducción del 100% en el riesgo 
 fiscal residual mediante la inyección de IA y el sellado Blockchain. 
-Protocolo de cumplimiento activo bajo estándares de misión crítica.
 
 ============================================================================
       VALIDADO POR EL NODO ESTRATÉGICO SYSTEM KYRON - BLACK LABEL
@@ -90,7 +88,7 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
     };
 
     return (
-        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen">
+        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen bg-[#020202]">
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-2 mt-10">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
@@ -125,7 +123,7 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1 }}
                             >
-                                <Card className={cn("glass-card p-10 rounded-[2.5rem] h-full flex flex-col items-center text-center group hover:scale-[1.02] transition-all duration-500 border-2", m.border)}>
+                                <Card className={cn("glass-card p-10 rounded-[2.5rem] h-full flex flex-col items-center text-center group hover:scale-[1.02] transition-all duration-500 border-2 bg-black", m.border)}>
                                     <div className={cn("p-5 rounded-2xl mb-8 shadow-inner border border-white/5 group-hover:shadow-glow transition-all", m.color, m.glow)}>
                                         <m.icon className="h-10 w-10" />
                                     </div>
@@ -147,12 +145,12 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                 <TabsContent value="factibilidad" className="space-y-12">
                     <div className="grid md:grid-cols-4 gap-8">
                         {[
-                            { label: "VAN", val: "$450,000", color: "text-primary", glow: "shadow-glow", desc: "Valor Actual Neto" },
-                            { label: "TIR", val: "28.5%", color: "text-secondary", glow: "shadow-glow-secondary", desc: "Tasa Interna Retorno" },
-                            { label: "RECUPERACIÓN", val: "2.4 Años", color: "text-primary", glow: "shadow-glow", desc: "Payback Period" },
-                            { label: "MARGEN", val: "32%", color: "text-secondary", glow: "shadow-glow-secondary", desc: "Margen de Utilidad" }
+                            { label: "VAN", val: "$450,000", color: "text-primary", desc: "Valor Actual Neto" },
+                            { label: "TIR", val: "28.5%", color: "text-secondary", desc: "Tasa Interna Retorno" },
+                            { label: "RECUPERACIÓN", val: "2.4 Años", color: "text-primary", desc: "Payback Period" },
+                            { label: "MARGEN", val: "32%", color: "text-secondary", desc: "Margen de Utilidad" }
                         ].map((stat, i) => (
-                            <Card key={i} className="glass-card p-10 rounded-[2rem] text-center border-white/5 group hover:border-primary/30 transition-all">
+                            <Card key={i} className="glass-card p-10 rounded-[2rem] text-center border-white/5 group hover:border-primary/30 transition-all bg-black">
                                 <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4">{stat.label}</p>
                                 <p className={cn("text-3xl font-black tracking-tighter italic", stat.color)}>{stat.val}</p>
                                 <p className="text-[8px] font-bold uppercase tracking-widest text-white/10 mt-4">{stat.desc}</p>
@@ -163,20 +161,20 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                         <div className="absolute top-0 right-0 p-16 opacity-10 group-hover:rotate-12 transition-all duration-1000"><ShieldCheck className="h-64 w-64" /></div>
                         <h3 className="text-3xl font-black mb-6 tracking-tighter uppercase italic flex items-center justify-center gap-4">
                             <Sparkles className="h-8 w-8 text-yellow-400" />
-                            Dictamen de Viabilidad Estratégica
+                            Dictamen de Viabilidad
                         </h3>
                         <p className="text-2xl leading-relaxed font-bold italic opacity-90 mx-auto max-w-4xl">
-                            "La integración de tecnología de magnetismo para activos verdes y el blindaje fiscal mediante IA predictiva posicionan a System Kyron como un ecosistema de bajo riesgo y alta escalabilidad, garantizando la rentabilidad del capital desplegado en el corto plazo bajo cualquier escenario de mercado."
+                            "La inyección de IA predictiva y el blindaje mediante sellado Blockchain garantizan la rentabilidad del capital desplegado, posicionando a System Kyron como un ecosistema de bajo riesgo y alta escalabilidad."
                         </p>
                     </Card>
                 </TabsContent>
 
                 <TabsContent value="budget" className="space-y-10">
-                    <Card className="glass-card overflow-hidden rounded-[2.5rem] border-white/5 shadow-2xl">
+                    <Card className="glass-card overflow-hidden rounded-[2.5rem] border-white/5 shadow-2xl bg-black">
                         <Table>
                             <TableHeader>
                                 <TableRow className="bg-white/[0.03] border-none">
-                                    <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.3em]">Módulo de Inversión Estratégica</TableHead>
+                                    <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.3em]">Módulo de Inversión</TableHead>
                                     <TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.3em]">Costo (USD)</TableHead>
                                 </TableRow>
                             </TableHeader>
@@ -193,7 +191,7 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                                     </TableRow>
                                 ))}
                                 <TableRow className="bg-primary/10 border-none shadow-glow">
-                                    <TableCell className="pl-10 py-10 text-xl font-black text-white italic uppercase tracking-tighter">TOTAL CAPEX DE DESPLIEGUE</TableCell>
+                                    <TableCell className="pl-10 py-10 text-xl font-black text-white italic uppercase tracking-tighter">TOTAL CAPEX</TableCell>
                                     <TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">{formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}</TableCell>
                                 </TableRow>
                             </TableBody>
