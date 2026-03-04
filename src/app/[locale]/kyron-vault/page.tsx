@@ -1,5 +1,7 @@
-// ESTE ARCHIVO HA SIDO ELIMINADO PARA RESOLVER EL CONFLICTO DE RUTAS PARALELAS.
-// LA LÓGICA RESIDE AHORA EN src/app/[locale]/(main)/kyron-vault/page.tsx
-export default function DeletedPage() {
+/**
+ * @fileOverview Archivo desactivado para resolver el conflicto de rutas paralelas de Next.js.
+ * La lógica principal reside ahora en src/app/[locale]/(main)/kyron-vault/page.tsx
+ */
+export default function ConflictResolverPage() {
     return null;
 }

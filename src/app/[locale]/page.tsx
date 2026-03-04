@@ -11,7 +11,7 @@ import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { Button } from "@/components/ui/button";
-import { Zap, ShieldCheck, Loader2 } from "lucide-react";
+import { Zap, ShieldCheck, Loader2, ArrowRight } from "lucide-react";
 import { Link } from "@/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -57,7 +57,7 @@ export default function LandingPage() {
     if (result.success) {
       toast({
         title: "SOLICITUD RECIBIDA",
-        description: "El expediente ha sido transmitido a infosystemkyron@gmail.com.",
+        description: "El expediente ha sido transmitido exitosamente.",
       });
       form.reset();
     } else {
@@ -70,10 +70,10 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-black flex flex-col overflow-x-hidden resend-grid selection:bg-white/10 w-full">
+    <div className="relative min-h-screen bg-black flex flex-col overflow-x-hidden hud-grid selection:bg-primary/20 w-full">
       <WelcomeTutorial />
       
-      <motion.div className="fixed top-0 left-0 right-0 h-[1px] bg-white/20 origin-left z-[200]" style={{ scaleX }} />
+      <motion.div className="fixed top-0 left-0 right-0 h-[1px] bg-primary/40 shadow-glow origin-left z-[200]" style={{ scaleX }} />
       <LandingHeader />
       
       <main className="relative flex-1 w-full pt-32 md:pt-48">
@@ -84,26 +84,26 @@ export default function LandingPage() {
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/60"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-glow"
                     >
-                        <Zap className="h-3 w-3 text-white" /> Versión 2.6.5 activa
+                        <Zap className="h-3 w-3" /> VERSIÓN 2.6.5 ACTIVA
                     </motion.div>
                     
                     <motion.h1 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-8xl font-black tracking-tight leading-tight text-white"
+                        className="text-5xl md:text-[7rem] font-black tracking-tighter leading-none text-white uppercase italic italic-shadow"
                     >
                         System Kyron <br/>
-                        <span className="text-white/40 uppercase">El Motor de tu Empresa</span>
+                        <span className="text-primary/40">El Motor de tu Empresa</span>
                     </motion.h1>
                     
                     <motion.p 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-medium"
+                        className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto font-bold uppercase tracking-tight italic border-l-4 border-primary/30 pl-8"
                     >
                         Líneas 5G, Automatización Fiscal y Ledger Inmutable. <br/>
                         La infraestructura definitiva para el comercio moderno.
@@ -113,10 +113,10 @@ export default function LandingPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="flex flex-wrap justify-center gap-4"
+                        className="flex flex-wrap justify-center gap-6"
                     >
-                        <Button asChild className="btn-premium h-12 px-8">
-                            <Link href="/register">REGISTRARSE POR PRIMERA VEZ</Link>
+                        <Button asChild size="lg" className="h-14 px-10 rounded-2xl bg-white text-black hover:bg-primary hover:text-white font-black uppercase tracking-widest text-[10px] transition-all shadow-2xl btn-3d-primary">
+                            <Link href="/register" className="flex items-center gap-2">COMENZAR REGISTRO <ArrowRight className="h-4 w-4"/></Link>
                         </Button>
                     </motion.div>
                 </div>
@@ -125,18 +125,17 @@ export default function LandingPage() {
             <ServicesSection />
             <FeaturesSection />
             
-            {/* SECCIÓN FORMULARIO CTA */}
             <section id="contacto" className="py-32 border-t border-white/5">
                 <div className="grid lg:grid-cols-2 gap-20 items-start">
                     <div className="space-y-8">
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white">
-                            Solicita tu <span className="text-white/40">Demo Corporativa</span>
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase italic">
+                            Solicita tu <span className="text-primary/40">Demo Corporativa</span>
                         </h2>
-                        <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
+                        <p className="text-lg text-white/40 font-bold uppercase tracking-tight leading-relaxed max-w-lg italic border-l-4 border-primary/30 pl-8">
                             Nuestro equipo técnico realizará un diagnóstico de su infraestructura y preparará un nodo de prueba personalizado.
                         </p>
-                        <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/20">
-                            <ShieldCheck className="h-4 w-4" /> Cifrado de Grado Militar Activo
+                        <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] text-primary/40">
+                            <ShieldCheck className="h-4 w-4 text-primary" /> Cifrado de Grado Militar Activo
                         </div>
                     </div>
 
@@ -146,31 +145,31 @@ export default function LandingPage() {
                         viewport={{ once: true }}
                     >
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-8 md:p-12 border border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-xl">
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-8 md:p-12 border border-white/10 rounded-[2.5rem] bg-white/[0.02] backdrop-blur-3xl shadow-2xl">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <FormField control={form.control} name="name" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Nombre</FormLabel><FormControl><Input placeholder="Ana Pérez" {...field} className="h-11 bg-black border-white/10 rounded-lg text-sm" /></FormControl><FormMessage /></FormItem>
+                                        <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Nombre</FormLabel><FormControl><Input placeholder="Ana Pérez" {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
                                     )} />
                                     <FormField control={form.control} name="company" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Empresa</FormLabel><FormControl><Input placeholder="Kyron C.A." {...field} className="h-11 bg-black border-white/10 rounded-lg text-sm" /></FormControl><FormMessage /></FormItem>
+                                        <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Empresa</FormLabel><FormControl><Input placeholder="Kyron C.A." {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
                                     )} />
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <FormField control={form.control} name="email" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Email</FormLabel><FormControl><Input type="email" placeholder="tu@empresa.com" {...field} className="h-11 bg-black border-white/10 rounded-lg text-sm" /></FormControl><FormMessage /></FormItem>
+                                        <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Email</FormLabel><FormControl><Input type="email" placeholder="tu@empresa.com" {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" /></FormControl><FormMessage /></FormItem>
                                     )} />
                                     <FormField control={form.control} name="module" render={({ field }) => (
-                                        <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Interés</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger className="h-11 bg-black border-white/10 rounded-lg text-sm"><SelectValue placeholder="Módulo..." /></SelectTrigger></FormControl><SelectContent className="bg-black border-white/10">{loginOptions.map(opt => <SelectItem key={opt.href} value={opt.label}>{opt.label}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
+                                        <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Interés</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold"><SelectValue placeholder="Módulo..." /></SelectTrigger></FormControl><SelectContent className="bg-black border-white/10">{loginOptions.map(opt => <SelectItem key={opt.href} value={opt.label} className="text-xs font-bold uppercase">{opt.label}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
                                     )} />
                                 </div>
 
                                 <FormField control={form.control} name="message" render={({ field }) => (
-                                    <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Notas Estratégicas</FormLabel><FormControl><Textarea placeholder="Requerimientos específicos de su operación..." className="bg-black border-white/10 rounded-lg text-sm min-h-[100px]" {...field} /></FormControl><FormMessage /></FormItem>
+                                    <FormItem><FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Notas Estratégicas</FormLabel><FormControl><Textarea placeholder="Requerimientos operativos..." className="bg-white/5 border-white/10 rounded-xl text-xs font-medium min-h-[100px]" {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
                                 
-                                <Button type="submit" className="w-full btn-premium h-12" disabled={isSubmitting}>
-                                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin"/> : "TRANSMITIR SOLICITUD"}
+                                <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black text-[10px] uppercase tracking-widest" disabled={isSubmitting}>
+                                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin"/> : "TRANSMITIR SOLICITUD AL NODO"}
                                 </Button>
                             </form>
                         </Form>

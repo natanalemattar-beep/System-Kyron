@@ -71,7 +71,7 @@ export function LandingHeader() {
                         ))}
                     </nav>
 
-                    {/* CENTRO: Identidad Maestra (Logo centrado) */}
+                    {/* CENTRO: Identidad Maestra (Logo centrado matemáticamente) */}
                     <div className="flex flex-col items-center">
                         <Link href="/" className="flex flex-col items-center group">
                             <Logo className="h-10 w-10 mb-1.5 transition-transform duration-500 group-hover:scale-110 drop-shadow-glow" /> 
@@ -79,7 +79,7 @@ export function LandingHeader() {
                         </Link>
                     </div>
 
-                    {/* DERECHA: Navegación Secundaria y Acciones */}
+                    {/* DERECHA: Navegación Secundaria y Acceso */}
                     <div className="flex items-center justify-end gap-10">
                         <nav className="hidden lg:flex items-center gap-10">
                             {rightLinks.map((link) => (
