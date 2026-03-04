@@ -75,7 +75,6 @@
     @apply bg-primary/20 rounded-full hover:bg-primary/40;
   }
   
-  /* Elimina scrollbar lateral pero mantiene funcionalidad */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }

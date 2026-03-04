@@ -21,8 +21,6 @@ import {
 } from "@/components/ui/table";
 import { 
   Download, 
-  Rocket, 
-  FileText, 
   Crown, 
   Zap, 
   Calculator,
@@ -36,7 +34,7 @@ import {
   Recycle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { cn, formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 export default function ModeloZEDUPage() {
@@ -57,7 +55,7 @@ export default function ModeloZEDUPage() {
       { item: "Marketing y Lanzamiento Litoral", cost: 1450, cat: "Operaciones" },
     ];
 
-    const totalBudget = 31683;
+    const totalBudget = budgetData.reduce((acc, curr) => acc + curr.cost, 0);
 
     const handleDownloadWord = () => {
         const content = `
@@ -85,7 +83,7 @@ export default function ModeloZEDUPage() {
                 <p>System Kyron es un ecosistema cuya columna vertebral son las telecomunicaciones. Ofrecemos Línea 5G, eSIM, venta de equipos y sobre esta red montamos IA de gestión y reciclaje.</p>
 
                 <h3>5. PRESUPUESTO TÉCNICO</h3>
-                <p><b>INVERSIÓN TOTAL:</b> $31.683,00 USD</p>
+                <p><b>INVERSIÓN TOTAL:</b> $${totalBudget.toLocaleString()},00 USD</p>
                 <p>Incluye contrato mayorista de red, Moto Bera Carguera DT-200 para logística y plataforma cloud.</p>
 
                 <h3>7. PLAN DE ACCIÓN JERÁRQUICO</h3>
@@ -111,7 +109,6 @@ export default function ModeloZEDUPage() {
 
     return (
         <div className="space-y-16 w-full animate-in fade-in duration-700 pb-32">
-            {/* Header Maestro */}
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-8 border-primary pl-10 py-2 w-full">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4 shadow-glow">
@@ -126,7 +123,6 @@ export default function ModeloZEDUPage() {
             </header>
 
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 w-full">
-                {/* Panel Izquierdo: Identificación y Población */}
                 <div className="xl:col-span-5 space-y-12">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><Crown className="h-4 w-4"/> 1. Información del Equipo</h3>
@@ -154,28 +150,27 @@ export default function ModeloZEDUPage() {
                             <CardContent className="p-0 text-sm font-bold text-white/70 italic">
                                 <div className="p-8 border-b border-white/5">
                                     <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Localidad Específica</span>
-                                    Venezuela, La Guaira, Parroquia La Guaira (Catia La Mar).
+                                    La Guaira, Parroquia La Guaira (Catia La Mar).
                                 </div>
                                 <div className="p-8 border-b border-white/5">
                                     <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Comunidad</span>
-                                    La Atlántida (Supermercado Bensica) y Comunidad Educativa Gabriela Mistral.
+                                    La Atlántida (Supermercado Bensica) y U.E.P. Gabriela Mistral.
                                 </div>
                                 <div className="p-8">
                                     <span className="text-[9px] block mb-1 opacity-40 uppercase tracking-widest">Población Impactada</span>
-                                    3.000 personas (Estudiantes, Comerciantes y Vecinos).
+                                    3.000 personas (Eje educativo y comercial).
                                 </div>
                             </CardContent>
                         </Card>
                     </section>
                 </div>
 
-                {/* Panel Derecho: Problema y Solución */}
                 <div className="xl:col-span-7 space-y-12">
                     <section>
                         <h3 className="text-[11px] font-black uppercase tracking-[0.5em] text-primary mb-6 flex items-center gap-3"><AlertTriangle className="h-4 w-4" /> 3. Análisis del Problema</h3>
                         <Card className="glass-card border-none p-10 leading-relaxed shadow-2xl rounded-[2.5rem]">
                             <p className="text-lg font-bold text-white/90 italic text-justify leading-relaxed">
-                                El archivado físico del Colegio Gabriela Mistral enfrenta un riesgo crítico por la **salinidad** de la zona costera. Además, el sector comercial de La Atlántida padece una conectividad fragmentada que eleva costos y dificulta el cumplimiento ante el SENIAT. No existe un proveedor único que integre telecomunicaciones, gestión fiscal y reciclaje inteligente.
+                                La U.E.P. Gabriela Mistral enfrenta un riesgo crítico de pérdida de información. El archivado físico tradicional se deteriora rápidamente debido a la **alta salinidad** de Catia La Mar. Además, la fragmentación de la comunicación con los representantes y la complejidad de las nuevas normativas fiscales generan cuellos de botella administrativos que impiden el crecimiento institucional.
                             </p>
                         </Card>
                     </section>
@@ -210,7 +205,7 @@ export default function ModeloZEDUPage() {
                                         </TableRow>
                                     ))}
                                     <TableRow className="bg-primary/10 border-none">
-                                        <TableCell className="font-black text-xl pl-10 py-10 italic uppercase text-white" colSpan={2}>Inversión Total de Misión Crítica</TableCell>
+                                        <TableCell className="font-black text-xl pl-10 py-10 italic uppercase text-white" colSpan={2}>Inversión Total del Ecosistema</TableCell>
                                         <TableCell className="text-right pr-10 font-black text-3xl text-primary italic">{formatCurrency(totalBudget, "USD")}</TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -220,7 +215,6 @@ export default function ModeloZEDUPage() {
                 </div>
             </div>
 
-            {/* Grid Inferior: Bloques restantes */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
                     <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4 flex items-center gap-2"><ShieldCheck className="h-3 w-3"/> 6. Aliados</h4>
@@ -228,15 +222,15 @@ export default function ModeloZEDUPage() {
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem] border-l-2 border-primary">
                     <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4 flex items-center gap-2"><Users className="h-3 w-3"/> 7. Plan Jerárquico</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">**Lidera Carlos Mattar:** Estrategia e IA. Sebastián y Marcos: Soporte técnico y logística.</p>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">**Lidera Carlos Mattar:** Inteligencia y Estrategia. Sebastián y Marcos: Soporte técnico y logística litoral.</p>
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
                     <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4 flex items-center gap-2"><BadgeCheck className="h-3 w-3"/> 8. Métricas</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">800 Líneas activas, 400 equipos vendidos y 100% de blindaje fiscal.</p>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">800 Líneas activas, 400 equipos vendidos y 100% de blindaje contra la salinidad.</p>
                 </Card>
                 <Card className="glass-card border-none p-8 rounded-[2rem]">
                     <h4 className="text-[10px] font-black uppercase text-primary tracking-widest mb-4 flex items-center gap-2"><Recycle className="h-3 w-3"/> 9. Sostenibilidad</h4>
-                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Los ingresos por conectividad subsidian el reciclaje magnético en La Guaira.</p>
+                    <p className="text-xs font-bold text-white/60 italic leading-relaxed">Los ingresos por conectividad 5G subsidian la red de reciclaje magnético en La Guaira.</p>
                 </Card>
             </div>
         </div>
