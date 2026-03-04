@@ -14,7 +14,6 @@ import {
 import { Link } from "@/navigation";
 import { Logo } from "./logo";
 import { 
-    Bell, 
     LogOut, 
     Lock,
     Clock,
@@ -23,14 +22,13 @@ import {
     ShieldCheck
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
-import { cn } from "@/lib/utils";
 
 interface AppHeaderProps {
     user: any;
     dashboardHref: string;
 }
 
-export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
+export function AppHeader({ user }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
 

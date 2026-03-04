@@ -9,10 +9,9 @@ import {
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Radio, Send, Building2, ShieldCheck, Zap, Loader2, Cpu } from "lucide-react";
+import { Zap, ShieldCheck, Loader2 } from "lucide-react";
 import { Link } from "@/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -79,7 +78,7 @@ export default function LandingPage() {
       
       <main className="relative flex-1 w-full pt-32 md:pt-48">
         <div className="container mx-auto px-6 max-w-7xl">
-            {/* HERO SECTION */}
+            {/* SECCIÓN HERO */}
             <section id="inicio" className="mb-32 md:mb-48">
                 <div className="text-center space-y-10">
                     <motion.div 
@@ -87,7 +86,7 @@ export default function LandingPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/60"
                     >
-                        <Zap className="h-3 w-3 text-white" /> Version 2.6.5 is now live
+                        <Zap className="h-3 w-3 text-white" /> Versión 2.6.5 activa
                     </motion.div>
                     
                     <motion.h1 
@@ -97,7 +96,7 @@ export default function LandingPage() {
                         className="text-5xl md:text-8xl font-black tracking-tight leading-tight text-white"
                     >
                         System Kyron <br/>
-                        <span className="text-white/40">The Business Engine</span>
+                        <span className="text-white/40">El Motor de tu Negocio</span>
                     </motion.h1>
                     
                     <motion.p 
@@ -126,7 +125,7 @@ export default function LandingPage() {
             <ServicesSection />
             <FeaturesSection />
             
-            {/* CTA FORM SECTION */}
+            {/* SECCIÓN FORMULARIO CTA */}
             <section id="contacto" className="py-32 border-t border-white/5">
                 <div className="grid lg:grid-cols-2 gap-20 items-start">
                     <div className="space-y-8">
@@ -137,7 +136,7 @@ export default function LandingPage() {
                             Nuestro equipo técnico realizará un diagnóstico de su infraestructura y preparará un nodo de prueba personalizado.
                         </p>
                         <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/20">
-                            <ShieldCheck className="h-4 w-4" /> Military Grade Encryption
+                            <ShieldCheck className="h-4 w-4" /> Cifrado de Grado Militar Activo
                         </div>
                     </div>
 
@@ -167,11 +166,11 @@ export default function LandingPage() {
                                 </div>
 
                                 <FormField control={form.control} name="message" render={({ field }) => (
-                                    <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Notas</FormLabel><FormControl><Textarea placeholder="Requerimientos específicos..." className="bg-black border-white/10 rounded-lg text-sm min-h-[100px]" {...field} /></FormControl><FormMessage /></FormItem>
+                                    <FormItem><FormLabel className="text-[10px] font-bold uppercase tracking-widest text-white/40">Notas Estratégicas</FormLabel><FormControl><Textarea placeholder="Requerimientos específicos de su operación..." className="bg-black border-white/10 rounded-lg text-sm min-h-[100px]" {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
                                 
                                 <Button type="submit" className="w-full btn-premium h-12" disabled={isSubmitting}>
-                                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin"/> : "Enviar Solicitud"}
+                                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin"/> : "TRANSMITIR SOLICITUD"}
                                 </Button>
                             </form>
                         </Form>

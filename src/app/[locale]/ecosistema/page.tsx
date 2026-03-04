@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { 
   BarChart3, Droplets, Wallet, ShieldCheck, Recycle, Fingerprint,
-  Activity, Calendar, ShieldAlert, Radio
+  Activity, Calendar, ShieldAlert
 } from 'lucide-react';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, 
@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { cn, formatCurrency } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { AppHeader } from "@/components/app-header";
 import { motion } from 'framer-motion';
 import { useToast } from "@/hooks/use-toast";
@@ -75,7 +75,7 @@ export default function EcosistemaKyron() {
                 </div>
                 <div className="flex gap-2 md:gap-3">
                     <Button variant="outline" className="h-9 md:h-10 px-4 md:px-6 rounded-xl text-[8px] md:text-[9px] font-black uppercase tracking-widest border-white/10 bg-white/5 hover:bg-white/10 transition-all">Sincronización</Button>
-                    <Button className="btn-3d-primary h-9 md:h-10 px-6 md:px-8">Acceso Nivel 5</Button>
+                    <Button className="btn-3d-primary h-9 md:h-10 px-6 md:px-8 text-[9px] font-bold uppercase tracking-widest">Acceso Nivel 5</Button>
                 </div>
               </div>
 
@@ -149,7 +149,7 @@ export default function EcosistemaKyron() {
                             <CardDescription className="text-primary text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] mt-1">Conectividad 5G</CardDescription>
                         </CardHeader>
                         <CardFooter className="p-6 md:p-8 pt-0 relative z-10">
-                            <Button variant="secondary" className="w-full h-10 md:h-12 text-[8px] md:text-[9px] font-black uppercase tracking-widest btn-3d-secondary">Asignar Número</Button>
+                            <Button variant="secondary" className="w-full h-10 md:h-12 text-[8px] md:text-[9px] font-black uppercase tracking-widest">Asignar Número</Button>
                         </CardFooter>
                     </Card>
                 </div>
@@ -183,7 +183,7 @@ export default function EcosistemaKyron() {
             </div>
           </div>
           <p className="text-[7px] md:text-[9px] font-black text-white/10 uppercase tracking-[0.4em] md:tracking-[0.8em] text-right">
-            System Kyron Master Console
+            Consola Maestra System Kyron
           </p>
         </footer>
       </div>

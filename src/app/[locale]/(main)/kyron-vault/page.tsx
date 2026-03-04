@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { 
   Download, Crown, Zap, ShieldCheck, 
-  Globe, Activity, Lock, Printer
+  Globe, Lock, Printer
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
@@ -38,16 +37,16 @@ export default function KyronVaultPage() {
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l border-white/10 pl-10 py-2">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-[9px] font-bold uppercase tracking-widest text-white/60">
-                        <Lock className="h-3 w-3" /> Encrypted Node
+                        <Lock className="h-3 w-3" /> Nodo Cifrado
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white uppercase leading-none">Kyron <span className="text-white/20">Vault</span></h1>
+                    <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white uppercase leading-none">Bóveda <span className="text-white/20">Kyron</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest opacity-40">Acceso restringido • Misión Crítica</p>
                 </div>
                 <div className="flex gap-3">
-                    <Button variant="outline" className="btn-outline-premium h-10 px-6" onClick={() => window.print()}>
+                    <Button variant="outline" className="h-10 px-6 text-[10px] font-bold uppercase tracking-widest" onClick={() => window.print()}>
                         <Printer className="mr-2 h-3.5 w-3.5" /> Imprimir
                     </Button>
-                    <Button className="btn-premium h-10 px-8" onClick={() => handleExport('Master_Vault')}>
+                    <Button className="btn-premium h-10 px-8 text-[10px] font-bold uppercase tracking-widest" onClick={() => handleExport('Master_Vault')}>
                         <Download className="mr-2 h-3.5 w-3.5" /> Exportar Expediente
                     </Button>
                 </div>
@@ -60,7 +59,7 @@ export default function KyronVaultPage() {
                     <TabsTrigger value="propuesta" className="flex-1 rounded-md font-bold uppercase text-[9px] tracking-widest">Propuesta Corporativa</TabsTrigger>
                 </TabsList>
 
-                {/* ZEDU CONTENT */}
+                {/* CONTENIDO ZEDU */}
                 <TabsContent value="zedu" className="space-y-12">
                     <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
                         <div className="xl:col-span-4 space-y-8">
@@ -68,11 +67,11 @@ export default function KyronVaultPage() {
                                 <h3 className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-8 flex items-center gap-3"><Crown className="h-4 w-4"/> Jerarquía</h3>
                                 <div className="space-y-6">
                                     <div className="border-l border-white/20 pl-6">
-                                        <p className="text-[8px] font-bold uppercase text-white/30 mb-1">Director</p>
+                                        <p className="text-[8px] font-bold uppercase text-white/30 mb-1">Director de Estrategia</p>
                                         <p className="text-lg font-bold text-white tracking-tight">Carlos Mattar</p>
                                     </div>
                                     <div className="border-l border-white/5 pl-6">
-                                        <p className="text-[8px] font-bold uppercase text-white/30 mb-1">Soporte</p>
+                                        <p className="text-[8px] font-bold uppercase text-white/30 mb-1">Soporte Técnico</p>
                                         <p className="text-sm font-medium text-white/60">Sebastián Garrido</p>
                                         <p className="text-sm font-medium text-white/60">Marcos Sousa</p>
                                     </div>
@@ -98,7 +97,7 @@ export default function KyronVaultPage() {
                                         {budgetData.map((d, i) => (
                                             <TableRow key={i} className="border-white/5 hover:bg-white/[0.01]"><TableCell className="pl-10 py-3 text-xs font-medium text-white/70">{d.item}</TableCell><TableCell className="text-right pr-10 font-mono font-bold text-white text-sm">{formatCurrency(d.cost, 'USD')}</TableCell></TableRow>
                                         ))}
-                                        <TableRow className="bg-white/5 border-none"><TableCell className="pl-10 py-6 text-base font-bold text-white">CAPEX TOTAL</TableCell><TableCell className="text-right pr-10 text-xl font-mono font-black text-white">{formatCurrency(31683, 'USD')}</TableCell></TableRow>
+                                        <TableRow className="bg-white/5 border-none"><TableCell className="pl-10 py-6 text-base font-bold text-white">INVERSIÓN TOTAL (CAPEX)</TableCell><TableCell className="text-right pr-10 text-xl font-mono font-black text-white">{formatCurrency(31683, 'USD')}</TableCell></TableRow>
                                     </TableBody>
                                 </Table>
                             </Card>
@@ -106,13 +105,13 @@ export default function KyronVaultPage() {
                     </div>
                 </TabsContent>
 
-                {/* FACTIBILIDAD CONTENT */}
+                {/* CONTENIDO FACTIBILIDAD */}
                 <TabsContent value="factibilidad">
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                         {[
                             { label: "VAN", val: "$450,000" },
                             { label: "TIR", val: "28.5%" },
-                            { label: "Payback", val: "2.4 Años" },
+                            { label: "Recuperación", val: "2.4 Años" },
                             { label: "Margen", val: "32%" }
                         ].map((stat, i) => (
                             <Card key={i} className="bg-[#050505] border border-white/5 p-8 rounded-xl text-center">
@@ -130,7 +129,7 @@ export default function KyronVaultPage() {
                     </Card>
                 </TabsContent>
 
-                {/* PROPUESTA CONTENT */}
+                {/* CONTENIDO PROPUESTA */}
                 <TabsContent value="propuesta">
                     <Card className="bg-[#050505] border border-white/5 p-16 rounded-2xl max-w-4xl mx-auto">
                         <div className="flex justify-between items-start mb-16">
@@ -146,7 +145,7 @@ export default function KyronVaultPage() {
                             <div className="pt-16 text-center">
                                 <div className="w-32 h-[1px] bg-white/10 mx-auto mb-4"></div>
                                 <p className="font-bold text-xs uppercase tracking-widest">Carlos Mattar</p>
-                                <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">Strategy Node Lead</p>
+                                <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest">Líder de Nodo Estratégico</p>
                             </div>
                         </div>
                     </Card>

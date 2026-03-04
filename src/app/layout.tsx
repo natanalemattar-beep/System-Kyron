@@ -5,8 +5,8 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata = {
-  title: "System Kyron | Ecosistema Integral",
-  description: "Gestión, Telecomunicaciones y Finanzas de Próxima Generación.",
+  title: "System Kyron | Ecosistema de Gestión Integral",
+  description: "Líneas 5G, Automatización Fiscal y Finanzas de Próxima Generación.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
