@@ -1,8 +1,6 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
-import { naturalNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
@@ -22,18 +20,15 @@ export default function NaturalLayout({
             <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-blue-600/5 rounded-full blur-[180px] opacity-40" />
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
           </div>
-
-          <AppSidebar />
           
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative">
+          <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
                 user={{...user, color: "bg-primary"}} 
                 dashboardHref="/dashboard" 
-                navGroups={naturalNavGroups as any}
               />
               
               <motion.main 
-                className="flex-1 w-full p-10 md:p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
+                className="flex-1 w-full p-6 md:p-12 lg:p-16 pt-28 md:pt-36 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
@@ -43,7 +38,6 @@ export default function NaturalLayout({
                     <Sparkles className="w-[800px] h-[800px] text-primary" />
                   </div>
                   
-                  {/* Contenido sin contenedores restrictivos para pantalla completa real */}
                   <div className="w-full">
                     {children}
                   </div>
