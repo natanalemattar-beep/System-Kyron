@@ -1,8 +1,8 @@
 'use client';
 
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
-import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react";
+import { Mail, MapPin, Linkedin, Twitter } from "lucide-react";
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +40,7 @@ export function Footer() {
                     <div className="space-y-4 text-[10px] font-black uppercase tracking-widest">
                         <div className="flex items-center gap-3 text-white/40">
                             <Mail className="h-4 w-4 text-primary" />
-                            <a href="mailto:systemkyronofficial@gmail.com" className="hover:text-primary transition-colors">systemkyronofficial@gmail.com</a>
+                            <a href="mailto:infosystemkyron@gmail.com" className="hover:text-primary transition-colors">infosystemkyron@gmail.com</a>
                         </div>
                         <div className="flex items-center gap-3 text-white/40">
                             <MapPin className="h-4 w-4 text-primary" />

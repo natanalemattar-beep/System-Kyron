@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Ticket, Loader2, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import { useHoliday } from "@/hooks/use-holiday";
-import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -66,7 +65,6 @@ const CountdownTimer = () => {
 
 
 export function CtaSection() {
-    const { isHolidayActive } = useHoliday();
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -88,7 +86,7 @@ export function CtaSection() {
             if (result.success) {
                 toast({
                     title: "SOLICITUD TRANSMITIDA",
-                    description: "La información ha sido enviada al correo oficial de System Kyron. Un consultor te contactará pronto.",
+                    description: "La información ha sido enviada al correo oficial: infosystemkyron@gmail.com. Un consultor te contactará pronto.",
                 });
                 form.reset();
             }
@@ -120,7 +118,7 @@ export function CtaSection() {
                         <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-white uppercase italic italic-shadow">
                             Inyecta Inteligencia <br/> <span className="text-primary">a tu Negocio</span>
                         </h2>
-                        <p className="text-lg text-white/40 max-w-xl leading-relaxed font-bold uppercase tracking-tight italic border-l-2 border-primary/30 pl-6">
+                        <p className="text-lg text-white/40 max-w-xl leading-relaxed font-bold uppercase tracking-tight italic border-l-4 border-primary/30 pl-8">
                             Elimina la fragmentación operativa. Únete al ecosistema Kyron y obtén acceso total nivel corporativo.
                         </p>
                         
