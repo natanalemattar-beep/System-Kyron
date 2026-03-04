@@ -6,13 +6,8 @@ import { Button } from "@/components/ui/button";
 import { 
     Menu, 
     UserCircle,
-    Zap,
     ChevronDown,
-    LayoutGrid,
     Sparkles,
-    Smartphone,
-    Briefcase,
-    ShieldCheck,
     ArrowRight
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
@@ -44,9 +39,12 @@ export function LandingHeader() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [handleScroll]);
 
-    const navLinks = [
+    const leftLinks = [
       { href: "#inicio", label: "Inicio" },
       { href: "/ecosistema", label: "Ecosistema" },
+    ];
+
+    const rightLinks = [
       { href: "#servicios", label: "Servicios" },
       { href: "#nosotros", label: "Nosotros" },
     ];
@@ -59,9 +57,9 @@ export function LandingHeader() {
             <div className="container mx-auto px-6">
                 <div className="flex items-center justify-between h-16 relative">
                     
-                    {/* Left: Navigation (Desktop) */}
+                    {/* Izquierda: Navegación (Escritorio) */}
                     <nav className="hidden lg:flex items-center gap-8 flex-1">
-                        {navLinks.map((link) => (
+                        {leftLinks.map((link) => (
                             <Link 
                                 key={link.href} 
                                 href={link.href as any} 
@@ -73,7 +71,7 @@ export function LandingHeader() {
                         ))}
                     </nav>
 
-                    {/* Center: Brand Identity */}
+                    {/* Centro: Identidad de Marca */}
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none">
                         <Link href="/" className="flex flex-col items-center group pointer-events-auto">
                             <Logo className="h-12 w-12 mb-1 transition-transform duration-300 group-hover:scale-105" /> 
@@ -81,8 +79,21 @@ export function LandingHeader() {
                         </Link>
                     </div>
 
-                    {/* Right: Actions */}
-                    <div className="flex items-center justify-end gap-2 md:gap-4 flex-1">
+                    {/* Derecha: Acciones y Navegación Secundaria */}
+                    <div className="flex items-center justify-end gap-6 flex-1">
+                        <nav className="hidden lg:flex items-center gap-8 mr-4">
+                            {rightLinks.map((link) => (
+                                <Link 
+                                    key={link.href} 
+                                    href={link.href as any} 
+                                    className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/70 hover:text-primary transition-colors relative group"
+                                >
+                                    {link.label}
+                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                                </Link>
+                            ))}
+                        </nav>
+
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
                             
@@ -163,14 +174,14 @@ export function LandingHeader() {
                                     <Logo className="h-14 w-14" /> 
                                     <div className="text-center">
                                         <span className="text-lg font-black tracking-tighter text-primary uppercase italic">System Kyron</span>
-                                        <p className="text-[8px] font-black uppercase tracking-[0.5em] opacity-40 mt-1">Mobile Interface</p>
+                                        <p className="text-[8px] font-black uppercase tracking-[0.5em] opacity-40 mt-1">Interfaz Móvil</p>
                                     </div>
                                 </div>
                                 <nav className="flex-grow p-6 space-y-8 overflow-y-auto">
                                     <section>
                                         <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic">Navegación</p>
                                         <div className="flex flex-col gap-1">
-                                            {navLinks.map((link) => (
+                                            {[...leftLinks, ...rightLinks].map((link) => (
                                                 <SheetClose asChild key={link.href}>
                                                     <Link href={link.href as any} className="text-[10px] font-black uppercase tracking-[0.2em] py-4 px-4 border-b border-white/5 flex items-center justify-between group">
                                                         {link.label}
@@ -198,7 +209,7 @@ export function LandingHeader() {
                                     </section>
                                 </nav>
                                 <div className="p-6 border-t border-white/5 bg-muted/20 text-center">
-                                    <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">System Status: Connected</p>
+                                    <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">Estado del Sistema: Conectado</p>
                                 </div>
                             </SheetContent>
                         </Sheet>

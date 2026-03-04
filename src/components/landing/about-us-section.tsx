@@ -1,4 +1,3 @@
-
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -58,7 +57,7 @@ export function AboutUsSection() {
                     >
                         <div className="space-y-6">
                             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20">
-                                <Sparkles className="h-3 w-3" /> The Core Team
+                                <Sparkles className="h-3 w-3" /> El Equipo Central
                             </div>
                             <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic italic-shadow text-white">System <span className="text-primary">Kyron</span></h2>
                             <p className="text-lg text-white/40 font-bold uppercase tracking-tight leading-relaxed italic border-l-2 border-primary/30 pl-6">Ingeniería de software de alta precisión diseñada para el cumplimiento y la operatividad de misión crítica.</p>

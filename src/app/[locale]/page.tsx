@@ -96,7 +96,7 @@ export default function LandingPage() {
                         className="text-5xl md:text-8xl font-black tracking-tight leading-tight text-white"
                     >
                         System Kyron <br/>
-                        <span className="text-white/40">El Motor de tu Negocio</span>
+                        <span className="text-white/40 uppercase">El Motor de tu Empresa</span>
                     </motion.h1>
                     
                     <motion.p 
