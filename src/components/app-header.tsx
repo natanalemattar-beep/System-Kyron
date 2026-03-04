@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { Logo } from "./logo";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
@@ -70,7 +70,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                   </div>
                   <nav className="px-4 space-y-6 flex-grow overflow-y-auto custom-scrollbar">
                       <Button variant="secondary" asChild className="w-full justify-start h-11 rounded-xl">
-                        <Link href={dashboardHref as any}><LayoutGrid className="mr-3 h-5 w-5"/> Dashboard</Link>
+                        <Link href={dashboardHref}><LayoutGrid className="mr-3 h-5 w-5"/> Dashboard</Link>
                       </Button>
                       
                       {navGroups?.map(group => (
@@ -79,7 +79,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                           <div className="space-y-1">
                             {group.items.map(item => (
                               <Button key={item.href} variant="ghost" asChild className="w-full justify-start h-10 rounded-xl text-xs font-bold">
-                                <Link href={item.href as any}>
+                                <Link href={item.href}>
                                   <item.icon className="mr-3 h-4 w-4" />
                                   {item.label}
                                 </Link>
@@ -95,7 +95,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
             
             <div className="hidden lg:flex items-center gap-3 overflow-x-auto no-scrollbar">
                 <Button variant="ghost" asChild className="h-10 px-5 rounded-2xl text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary shrink-0 border border-primary/10 shadow-sm">
-                    <Link href={dashboardHref as any}><LayoutGrid className="mr-2 h-4 w-4"/> Dashboard</Link>
+                    <Link href={dashboardHref}><LayoutGrid className="mr-2 h-4 w-4"/> Dashboard</Link>
                 </Button>
                 
                 {navGroups && (
@@ -112,7 +112,7 @@ export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
                           <DropdownMenuSeparator className="opacity-50" />
                           {group.items.map(item => (
                             <DropdownMenuItem key={item.href} asChild className="rounded-xl mt-1">
-                              <Link href={item.href as any} className="flex items-center py-2.5 px-3">
+                              <Link href={item.href} className="flex items-center py-2.5 px-3">
                                 <div className="p-2 bg-primary/5 rounded-lg mr-3">
                                     <item.icon className="h-4 w-4 text-primary" />
                                 </div>

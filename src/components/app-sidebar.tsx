@@ -1,7 +1,8 @@
 
 'use client';
 
-import { Link, usePathname } from "@/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { 
   BarChart3, Users, Recycle, Droplets, Wallet, 
@@ -50,7 +51,7 @@ export function AppSidebar() {
           return (
             <Link 
               key={item.id} 
-              href={item.href as any}
+              href={item.href}
               className={cn(
                 "group flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 relative overflow-hidden",
                 isActive 

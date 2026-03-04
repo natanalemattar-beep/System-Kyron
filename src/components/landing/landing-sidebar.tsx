@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from "react";
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { 
@@ -64,7 +64,7 @@ export function LandingSidebar() {
                 {navLinks.map((link) => (
                     <Link 
                         key={link.href} 
-                        href={link.href as any}
+                        href={link.href}
                         className="group flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-primary/5 text-muted-foreground hover:text-primary relative overflow-hidden"
                     >
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary scale-y-0 group-hover:scale-y-100 transition-transform"></div>
@@ -107,7 +107,7 @@ export function LandingSidebar() {
                             {loginOptions.slice(0, 4).map((option) => (
                                 <Link 
                                     key={option.href} 
-                                    href={option.href as any}
+                                    href={option.href}
                                     className="flex flex-col items-center justify-center p-2 rounded-xl bg-background/50 hover:bg-primary/5 border border-transparent hover:border-primary/10 transition-all text-center"
                                 >
                                     <option.icon className="h-3.5 w-3.5 text-primary mb-1" />

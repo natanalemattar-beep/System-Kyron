@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { 
     Menu, 
@@ -62,7 +62,7 @@ export function LandingHeader() {
                         {navLinks.slice(0, 4).map((link) => (
                             <Link 
                                 key={link.href} 
-                                href={link.href as any} 
+                                href={link.href} 
                                 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/70 hover:text-primary transition-colors relative group"
                             >
                                 {link.label}
@@ -190,7 +190,7 @@ export function LandingHeader() {
                                     <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic px-4">Navegación</p>
                                     {navLinks.map((link) => (
                                         <SheetClose asChild key={link.href}>
-                                            <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-4 px-4 border-b border-border/30 hover:pl-6 transition-all flex items-center justify-between group">
+                                            <Link href={link.href} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-4 px-4 border-b border-border/30 hover:pl-6 transition-all flex items-center justify-between group">
                                                 {link.label}
                                                 <LayoutGrid className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             </Link>
