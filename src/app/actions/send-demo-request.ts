@@ -1,9 +1,15 @@
 'use server';
 
 /**
- * @fileOverview Acción de servidor para gestionar solicitudes de demo detalladas.
- * Transmite el expediente completo del lead al correo oficial: infosystemkyron@gmail.com
+ * @fileOverview Acción de servidor para gestionar solicitudes de demo de alta fidelidad.
+ * Despacha correos electrónicos mediante Resend y respalda datos en Firestore.
  */
+
+import { Resend } from 'resend';
+import { initializeFirebase } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder_123');
 
 export async function sendDemoRequestAction(data: {
   name: string;
@@ -12,23 +18,53 @@ export async function sendDemoRequestAction(data: {
   phone: string;
   company: string;
   companySize: string;
+  sector: string;
+  urgency: string;
   module: string;
   message?: string;
 }) {
-  // Transmisión de inteligencia comercial al nodo maestro
-  console.log("--------------------------------------------------");
-  console.log("NUEVA SOLICITUD DE DEMO DETALLADA RECIBIDA");
-  console.log("Destino: infosystemkyron@gmail.com");
-  console.log("--------------------------------------------------");
-  console.log(`Cliente: ${data.name} (${data.role})`);
-  console.log(`Empresa: ${data.company} - Tamaño: ${data.companySize}`);
-  console.log(`Contacto: ${data.email} | ${data.phone}`);
-  console.log(`Módulo de Interés: ${data.module}`);
-  console.log(`Requerimientos Especiales: ${data.message || 'Ninguno'}`);
-  console.log("--------------------------------------------------");
+  try {
+    // 1. Respaldo Inmutable en Firestore (Nodo Maestro)
+    const { firestore } = initializeFirebase();
+    await addDoc(collection(firestore, 'demoRequests'), {
+      ...data,
+      source: 'Landing Page v2.6',
+      status: 'new',
+      timestamp: serverTimestamp(),
+    });
 
-  // En producción, aquí se integra el servicio de correo
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+    // 2. Despacho de Correo Real vía Resend
+    // Nota: El correo llegará a infosystemkyron@gmail.com
+    await resend.emails.send({
+      from: 'System Kyron <onboarding@resend.dev>',
+      to: 'infosystemkyron@gmail.com',
+      subject: `🚀 NUEVA SOLICITUD DE DEMO: ${data.company}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
+          <h2 style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px;">EXPEDIENTE DE INTELIGENCIA COMERCIAL</h2>
+          <p><strong>Cliente:</strong> ${data.name} (${data.role})</p>
+          <p><strong>Empresa:</strong> ${data.company}</p>
+          <p><strong>Tamaño:</strong> ${data.companySize} empleados</p>
+          <p><strong>Sector:</strong> ${data.sector}</p>
+          <hr style="border: 0; border-top: 1px solid #eee;" />
+          <p><strong>Contacto:</strong> <a href="mailto:${data.email}">${data.email}</a> | ${data.phone}</p>
+          <p><strong>Módulo Maestro:</strong> ${data.module}</p>
+          <p><strong>Urgencia:</strong> ${data.urgency}</p>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 5px; margin-top: 20px;">
+            <strong>Notas del Cliente:</strong><br/>
+            ${data.message || 'Sin comentarios adicionales.'}
+          </div>
+          <p style="font-size: 10px; color: #9ca3af; margin-top: 30px; text-align: center;">
+            Este es un mensaje automático generado por el Ecosistema Kyron v2.6.5
+          </p>
+        </div>
+      `,
+    });
 
-  return { success: true };
+    return { success: true };
+  } catch (error) {
+    console.error("Error en protocolo de despacho:", error);
+    // Retornamos éxito falso pero con log para auditoría técnica
+    return { success: false, error: "Falla en transmisión" };
+  }
 }

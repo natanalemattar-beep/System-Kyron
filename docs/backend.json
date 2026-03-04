@@ -1,46 +1,41 @@
 {
   "entities": {
+    "DemoRequest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "DemoRequest",
+      "type": "object",
+      "description": "Represents a high-fidelity request for a product demonstration.",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "company": { "type": "string" },
+        "role": { "type": "string" },
+        "companySize": { "type": "string" },
+        "sector": { "type": "string" },
+        "urgency": { "type": "string" },
+        "module": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string", "enum": ["new", "contacted", "demo_done", "closed"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "company", "module"]
+    },
     "FinancialDocument": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "FinancialDocument",
       "type": "object",
       "description": "Represents a financial document uploaded to the system.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the financial document."
-        },
-        "userId": {
-          "type": "string",
-          "description": "Reference to User. (Relationship: User 1:N FinancialDocument)"
-        },
-        "filename": {
-          "type": "string",
-          "description": "The name of the uploaded file."
-        },
-        "uploadDate": {
-          "type": "string",
-          "description": "The date and time the document was uploaded.",
-          "format": "date-time"
-        },
-        "documentType": {
-          "type": "string",
-          "description": "The type of the financial document (e.g., bank statement, invoice).",
-          "format": "string"
-        },
-        "extractedData": {
-          "type": "string",
-          "description": "JSON string containing extracted data from the document using OCR."
-        }
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "filename": { "type": "string" },
+        "uploadDate": { "type": "string", "format": "date-time" },
+        "documentType": { "type": "string" },
+        "extractedData": { "type": "string" }
       },
-      "required": [
-        "id",
-        "userId",
-        "filename",
-        "uploadDate",
-        "documentType",
-        "extractedData"
-      ]
+      "required": ["id", "userId", "filename", "uploadDate", "documentType", "extractedData"]
     },
     "Transaction": {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -48,45 +43,15 @@
       "type": "object",
       "description": "Represents a financial transaction.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the transaction."
-        },
-        "userId": {
-          "type": "string",
-          "description": "Reference to User. (Relationship: User 1:N Transaction)"
-        },
-        "financialDocumentId": {
-          "type": "string",
-          "description": "Reference to FinancialDocument. (Relationship: FinancialDocument 1:N Transaction)"
-        },
-        "date": {
-          "type": "string",
-          "description": "The date of the transaction.",
-          "format": "date-time"
-        },
-        "description": {
-          "type": "string",
-          "description": "A description of the transaction."
-        },
-        "amount": {
-          "type": "number",
-          "description": "The amount of the transaction."
-        },
-        "category": {
-          "type": "string",
-          "description": "The category of the transaction (e.g., income, expense)."
-        }
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "financialDocumentId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "category": { "type": "string" }
       },
-      "required": [
-        "id",
-        "userId",
-        "financialDocumentId",
-        "date",
-        "description",
-        "amount",
-        "category"
-      ]
+      "required": ["id", "userId", "financialDocumentId", "date", "description", "amount", "category"]
     },
     "Invoice": {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -94,57 +59,17 @@
       "type": "object",
       "description": "Represents an invoice.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the invoice."
-        },
-        "userId": {
-          "type": "string",
-          "description": "Reference to User. (Relationship: User 1:N Invoice)"
-        },
-        "invoiceNumber": {
-          "type": "string",
-          "description": "The invoice number."
-        },
-        "issueDate": {
-          "type": "string",
-          "description": "The date the invoice was issued.",
-          "format": "date-time"
-        },
-        "dueDate": {
-          "type": "string",
-          "description": "The date the invoice is due.",
-          "format": "date-time"
-        },
-        "amount": {
-          "type": "number",
-          "description": "The total amount of the invoice."
-        },
-        "status": {
-          "type": "string",
-          "description": "The status of the invoice (e.g., sent, paid, overdue)."
-        },
-        "customerName": {
-          "type": "string",
-          "description": "The name of the customer the invoice is for."
-        },
-        "customerEmail": {
-          "type": "string",
-          "description": "The email of the customer the invoice is for.",
-          "format": "email"
-        }
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "issueDate": { "type": "string", "format": "date-time" },
+        "dueDate": { "type": "string", "format": "date-time" },
+        "amount": { "type": "number" },
+        "status": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerEmail": { "type": "string", "format": "email" }
       },
-      "required": [
-        "id",
-        "userId",
-        "invoiceNumber",
-        "issueDate",
-        "dueDate",
-        "amount",
-        "status",
-        "customerName",
-        "customerEmail"
-      ]
+      "required": ["id", "userId", "invoiceNumber", "issueDate", "dueDate", "amount", "status", "customerName", "customerEmail"]
     },
     "User": {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -152,121 +77,19 @@
       "type": "object",
       "description": "Represents a user of the application.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the user."
-        },
-        "email": {
-          "type": "string",
-          "description": "The user's email address.",
-          "format": "email"
-        },
-        "firstName": {
-          "type": "string",
-          "description": "The user's first name."
-        },
-        "lastName": {
-          "type": "string",
-          "description": "The user's last name."
-        }
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" }
       },
-      "required": [
-        "id",
-        "email",
-        "firstName",
-        "lastName"
-      ]
+      "required": ["id", "email", "firstName", "lastName"]
     }
   },
-  "auth": {
-    "providers": [
-      "password",
-      "anonymous"
-    ]
-  },
+  "auth": { "providers": ["password", "anonymous"] },
   "firestore": {
     "structure": [
-      {
-        "path": "/users/{userId}",
-        "definition": {
-          "entityName": "User",
-          "schema": {
-            "$ref": "#/backend/entities/User"
-          },
-          "description": "Stores user profiles. Only the user themselves can read/write their profile.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/financialDocuments/{financialDocumentId}",
-        "definition": {
-          "entityName": "FinancialDocument",
-          "schema": {
-            "$ref": "#/backend/entities/FinancialDocument"
-          },
-          "description": "Stores financial documents uploaded by the user. Allows the user to manage their financial documents.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            },
-            {
-              "name": "financialDocumentId",
-              "description": "The unique identifier of the financial document."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/financialDocuments/{financialDocumentId}/transactions/{transactionId}",
-        "definition": {
-          "entityName": "Transaction",
-          "schema": {
-            "$ref": "#/backend/entities/Transaction"
-          },
-          "description": "Stores transactions associated with a specific financial document for a user.  Allows the user to manage transactions within a financial document.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            },
-            {
-              "name": "financialDocumentId",
-              "description": "The unique identifier of the financial document."
-            },
-            {
-              "name": "transactionId",
-              "description": "The unique identifier of the transaction."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/invoices/{invoiceId}",
-        "definition": {
-          "entityName": "Invoice",
-          "schema": {
-            "$ref": "#/backend/entities/Invoice"
-          },
-          "description": "Stores invoices created by the user. Allows the user to manage their invoices.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            },
-            {
-              "name": "invoiceId",
-              "description": "The unique identifier of the invoice."
-            }
-          ]
-        }
-      }
-    ],
-    "reasoning": "The Firestore structure is designed to provide a secure and scalable solution for FinTrack Automation, prioritizing authorization independence, clarity, and ease of debugging. The structure adheres to the principle of storing user-related data under user-specific paths to ensure data privacy and simplified security rules. This design assumes that only authenticated users have access to their own data. The design implements Authorization Independence via Path-Based Ownership:\n\n1.  **FinancialDocuments**: Documents are stored under `/users/{userId}/financialDocuments/{financialDocumentId}`. This allows simple security rules based on `request.auth.uid == userId`. The security rules do not need to `get()` any data from other collections to authorize the request.\n2.  **Transactions**: Transactions are stored under `/users/{userId}/financialDocuments/{financialDocumentId}/transactions/{transactionId}`. This allows simple security rules based on `request.auth.uid == userId`. The security rules do not need to `get()` any data from other collections to authorize the request.\n3.  **Invoices**: Invoices are stored under `/users/{userId}/invoices/{invoiceId}`. This allows simple security rules based on `request.auth.uid == userId`. The security rules do not need to `get()` any data from other collections to authorize the request.\n\nThis design enables secure list operations (QAPs) because all data is scoped to the user's ID. A user can only list documents or transactions within their own user ID space. There is no need to filter documents based on user ID inside the rules. It also allows for atomic batch operations because the rules do not rely on `get()` calls to other documents."
+      { "path": "/demoRequests/{requestId}", "definition": { "entityName": "DemoRequest", "schema": { "$ref": "#/backend/entities/DemoRequest" }, "description": "Respaldo digital de solicitudes de demo comerciales.", "params": [{ "name": "requestId", "description": "ID de la solicitud." }] } },
+      { "path": "/users/{userId}", "definition": { "entityName": "User", "schema": { "$ref": "#/backend/entities/User" }, "description": "Perfiles de usuario.", "params": [{ "name": "userId", "description": "UID del usuario." }] } }
+    ]
   }
 }
