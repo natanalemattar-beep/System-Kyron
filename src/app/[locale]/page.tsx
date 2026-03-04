@@ -11,7 +11,7 @@ import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { Button } from "@/components/ui/button";
-import { Zap, ShieldCheck, Loader2, ArrowRight } from "lucide-react";
+import { Zap, ShieldCheck, Loader2, ArrowRight, LayoutGrid } from "lucide-react";
 import { Link } from "@/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,6 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { sendDemoRequestAction } from "@/app/actions/send-demo-request";
 import { loginOptions } from "@/lib/login-options";
+import { FloatingOrb } from "@/components/ui/floating-orb";
 
 const formSchema = z.object({
   name: z.string().min(2, "Mínimo 2 caracteres"),
@@ -76,17 +77,22 @@ export default function LandingPage() {
       <motion.div className="fixed top-0 left-0 right-0 h-[1px] bg-primary/40 shadow-glow origin-left z-[200]" style={{ scaleX }} />
       <LandingHeader />
       
-      <main className="relative flex-1 w-full pt-32 md:pt-48">
+      <main className="relative flex-1 w-full pt-32 md:pt-40">
         <div className="container mx-auto px-6 max-w-7xl">
-            {/* SECCIÓN HERO */}
-            <section id="inicio" className="mb-32 md:mb-48">
-                <div className="text-center space-y-10">
+            {/* SECCIÓN HERO CON GLOBO FLOTANTE */}
+            <section id="inicio" className="mb-32 md:mb-48 relative min-h-[70vh] flex flex-col items-center justify-center">
+                {/* Globo Flotante en el fondo del Hero */}
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
+                    <FloatingOrb />
+                </div>
+
+                <div className="text-center space-y-10 relative z-10">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-glow"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-glow backdrop-blur-xl"
                     >
-                        <Zap className="h-3 w-3" /> VERSIÓN 2.6.5 ACTIVA
+                        <Zap className="h-3 w-3" /> VERSIÓN 2.6.5 NODO MAESTRO
                     </motion.div>
                     
                     <motion.h1 
@@ -105,7 +111,7 @@ export default function LandingPage() {
                         transition={{ delay: 0.2 }}
                         className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto font-bold uppercase tracking-tight italic border-l-4 border-primary/30 pl-8"
                     >
-                        Líneas 5G, Automatización Fiscal y Ledger Inmutable. <br/>
+                        Líneas 5G, Tecnología Magnética y Ledger Inmutable. <br/>
                         La infraestructura definitiva para el comercio moderno.
                     </motion.p>
                     
