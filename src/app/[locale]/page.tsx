@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -19,10 +18,8 @@ import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { sendDemoRequestAction } from "@/app/actions/send-demo-request";
-import { loginOptions } from "@/lib/login-options";
 import { FloatingOrb } from "@/components/ui/floating-orb";
 
 const formSchema = z.object({
@@ -55,7 +52,7 @@ export default function LandingPage() {
       companySize: "", 
       sector: "", 
       urgency: "", 
-      module: "", 
+      module: "Centro de Contabilidad", 
       message: "" 
     },
   });
@@ -195,23 +192,12 @@ export default function LandingPage() {
                                           <FormMessage />
                                         </FormItem>
                                     )} />
-                                    <FormField control={form.control} name="module" render={({ field }) => (
+                                    <FormField control={form.control} name="phone" render={({ field }) => (
                                         <FormItem>
-                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Módulo</FormLabel>
-                                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <FormControl>
-                                              <SelectTrigger className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold">
-                                                <SelectValue placeholder="Elegir módulo..." />
-                                              </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent className="bg-black border-white/10">
-                                              {loginOptions.map(opt => (
-                                                <SelectItem key={opt.href} value={opt.label} className="text-xs font-bold uppercase">
-                                                  {opt.label}
-                                                </SelectItem>
-                                              ))}
-                                            </SelectContent>
-                                          </Select>
+                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Teléfono</FormLabel>
+                                          <FormControl>
+                                            <Input placeholder="0412-1234567" {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" />
+                                          </FormControl>
                                           <FormMessage />
                                         </FormItem>
                                     )} />

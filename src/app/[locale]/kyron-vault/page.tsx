@@ -1,12 +1,8 @@
-
 'use client';
 
 /**
- * NODO DESACTIVADO
- * Este archivo ha sido neutralizado para resolver el conflicto de rutas paralelas
- * con src/app/[locale]/(main)/kyron-vault/page.tsx.
- * Next.js no permite dos páginas que resuelvan a la misma ruta.
+ * NODO NEUTRALIZADO
+ * Este archivo ha sido desactivado para resolver el conflicto de rutas paralelas
+ * con el nuevo nodo maestro /terminal.
  */
-export default function RedundantVaultPage() {
-  return null;
-}
+export const metadata = { title: "Vault Redirect" };

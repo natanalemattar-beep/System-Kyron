@@ -17,7 +17,7 @@ const menuItems = [
   { id: 'contabilidad', label: 'Finanzas & Nómina', icon: BarChart3, href: '/contabilidad' },
   { id: 'rrhh', label: 'Gestión Talento', icon: Users, href: '/dashboard-rrhh' },
   { id: 'juridico', label: 'Centro Legal', icon: Gavel, href: '/escritorio-juridico' },
-  { id: 'vault', label: 'Bóveda Maestra', icon: Lock, href: '/kyron-vault' },
+  { id: 'vault', label: 'Bóveda Maestra', icon: Lock, href: '/terminal' },
   { id: 'config', label: 'Configuración', icon: Cog, href: '/general' },
 ];
 
