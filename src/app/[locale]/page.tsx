@@ -15,7 +15,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Radio } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "@/navigation";
 
 export default function LandingPage() {
@@ -47,7 +47,7 @@ export default function LandingPage() {
                     <motion.div
                       initial={{ opacity: 0, x: -40 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.8 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
                       className="space-y-12"
                     >
                       <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20 shadow-glow">
