@@ -1,9 +1,9 @@
+
 /**
- * @fileOverview NODO NEUTRALIZADO
- * Este archivo ha sido desactivado para resolver el conflicto de rutas paralelas en Next.js.
- * La inteligencia estratégica reside ahora exclusivamente en /(main)/kyron-vault.
+ * @fileOverview NODO DESACTIVADO
+ * Este archivo ha sido neutralizado para resolver el conflicto de rutas paralelas en Next.js.
+ * La ruta /kyron-vault está ahora gestionada exclusivamente por /(main)/kyron-vault/page.tsx.
  */
-export const dynamic = 'force-dynamic';
 
 export default function NeutralizedPage() {
   return null;

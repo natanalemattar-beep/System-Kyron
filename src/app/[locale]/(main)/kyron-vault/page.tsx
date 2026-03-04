@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -90,7 +91,6 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
 
     return (
         <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen">
-            {/* Header de la Bóveda con estilo HUD */}
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-2 mt-10">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
@@ -116,7 +116,6 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                     <TabsTrigger value="budget" className="flex-1 rounded-lg font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Inversión CapEx</TabsTrigger>
                 </TabsList>
 
-                {/* --- MATRIZ ZEDU (CUADROS) --- */}
                 <TabsContent value="zedu" className="space-y-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {zeduModules.map((m, i) => (
@@ -145,7 +144,6 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                     </div>
                 </TabsContent>
 
-                {/* --- DICTAMEN DE FACTIBILIDAD --- */}
                 <TabsContent value="factibilidad" className="space-y-12">
                     <div className="grid md:grid-cols-4 gap-8">
                         {[
@@ -173,7 +171,6 @@ Protocolo de cumplimiento activo bajo estándares de misión crítica.
                     </Card>
                 </TabsContent>
 
-                {/* --- INVERSIÓN CAPEX --- */}
                 <TabsContent value="budget" className="space-y-10">
                     <Card className="glass-card overflow-hidden rounded-[2.5rem] border-white/5 shadow-2xl">
                         <Table>
