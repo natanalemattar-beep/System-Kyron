@@ -13,6 +13,7 @@ export default function AdminLayout({
 
     return (
       <div className="flex min-h-screen bg-[#050505] text-white relative overflow-hidden">
+          {/* HUD Texture Background */}
           <div className="fixed inset-0 pointer-events-none -z-10">
             <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:60px_60px]" />
             <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.05] rounded-full blur-[300px]" />
