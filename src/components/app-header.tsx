@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -43,7 +42,7 @@ export function AppHeader({ user }: AppHeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-black/80 backdrop-blur-md h-14 flex items-center w-full">
       <div className="w-full px-6 md:px-10">
-        {/* Grilla de 3 columnas para centrado matemático exacto del logo */}
+        {/* Grilla de 3 columnas reales para centrado matemático exacto del logo */}
         <div className="grid grid-cols-3 items-center w-full">
           
           {/* COLUMNA IZQUIERDA: Navegación */}
@@ -79,7 +78,7 @@ export function AppHeader({ user }: AppHeaderProps) {
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full border border-white/10 p-0 overflow-hidden hover:border-primary/40 transition-all bg-white/5 shadow-inner">
                       <Avatar className="h-full w-full rounded-none">
-                        <AvatarFallback className="rounded-none font-black text-[9px] text-white bg-transparent">
+                        <AvatarFallback className={cn("rounded-none font-black text-[9px] text-white", user.color || "bg-transparent")}>
                             {user.fallback}
                         </AvatarFallback>
                       </Avatar>

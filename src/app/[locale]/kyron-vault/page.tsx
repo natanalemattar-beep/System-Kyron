@@ -1,14 +1,11 @@
 /**
- * NODO DESACTIVADO
- * ----------------
- * Este archivo ha sido neutralizado para resolver el conflicto de rutas paralelas 
- * reportado por el motor de Next.js. 
- * 
- * La lógica operativa reside ahora exclusivamente en:
+ * NODO DESACTIVADO - SYSTEM KYRON
+ * ------------------------------
+ * Este archivo ha sido neutralizado para resolver el conflicto de rutas paralelas.
+ * La lógica operativa reside exclusivamente en: 
  * src/app/[locale]/(main)/kyron-vault/page.tsx
  * 
- * No restaurar este export default para evitar colapsos en la tabla de rutas.
+ * Protocolo de seguridad: AES-512 Encrypted Node.
  */
-
-// Sin export default para que Next.js no lo considere una página.
-export const metadata = { robots: { index: false } };
+// No export default component to avoid Next.js page resolution conflict
+export const metadata = { title: "Kyron Vault - Redirecting" };
