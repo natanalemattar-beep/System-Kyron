@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -10,6 +11,10 @@ import {
     ChevronDown,
     LayoutGrid,
     Sparkles,
+    Smartphone,
+    Briefcase,
+    ShieldCheck,
+    ArrowRight
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { 
@@ -44,9 +49,7 @@ export function LandingHeader() {
       { href: "#inicio", label: "Inicio" },
       { href: "/ecosistema", label: "Ecosistema" },
       { href: "#servicios", label: "Servicios" },
-      { href: "#tecnologia", label: "Tecnología" },
       { href: "#nosotros", label: "Nosotros" },
-      { href: "#faq", label: "FAQ" },
     ];
 
     return (
@@ -59,7 +62,7 @@ export function LandingHeader() {
                     
                     {/* Left: Navigation (Desktop) */}
                     <nav className="hidden lg:flex items-center gap-8 flex-1">
-                        {navLinks.slice(0, 4).map((link) => (
+                        {navLinks.map((link) => (
                             <Link 
                                 key={link.href} 
                                 href={link.href as any} 
@@ -71,33 +74,28 @@ export function LandingHeader() {
                         ))}
                     </nav>
 
-                    {/* Center: Absolute Brand Identity */}
+                    {/* Center: Brand Identity */}
                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none">
                         <Link href="/" className="flex flex-col items-center group pointer-events-auto">
-                            <div className="relative">
-                                <Logo className="h-12 w-12 mb-1 relative z-10 transition-transform duration-300 group-hover:scale-105" /> 
-                            </div>
-                            <span className="text-sm font-black tracking-tighter text-primary uppercase leading-none mt-1 italic">System Kyron</span>
+                            <Logo className="h-12 w-12 mb-1 transition-transform duration-300 group-hover:scale-105" /> 
+                            <span className="text-xs font-black tracking-tighter text-primary uppercase italic">System Kyron</span>
                         </Link>
                     </div>
 
                     {/* Right: Actions */}
                     <div className="flex items-center justify-end gap-2 md:gap-4 flex-1">
-                        <div className="flex items-center gap-2 md:gap-4">
-                            <div className="hidden xs:block">
-                                <ThemeToggle />
-                            </div>
+                        <div className="hidden sm:flex items-center gap-4">
+                            <ThemeToggle />
                             
-                            {/* BOTÓN DE ACCESO: Organizado por Secciones */}
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="outline" className="rounded-xl h-10 md:h-11 px-3 md:px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group bg-background/50 backdrop-blur-sm transition-all duration-200">
-                                        <UserCircle className="h-4 w-4 md:mr-2 text-primary" /> 
-                                        <span className="hidden sm:inline">ACCESO</span>
-                                        <ChevronDown className="h-3 w-3 ml-1 md:ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
+                                    <Button variant="outline" className="rounded-xl h-11 px-6 text-[10px] font-black uppercase tracking-widest border-primary/20 hover:bg-primary/5 shadow-inner group transition-all">
+                                        <UserCircle className="h-4 w-4 mr-2 text-primary" /> 
+                                        ACCESO
+                                        <ChevronDown className="h-3 w-3 ml-2 opacity-40 group-data-[state=open]:rotate-180 transition-transform" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[90vw] sm:w-[640px] p-0 rounded-[2.5rem] border-primary/10 bg-background/95 backdrop-blur-3xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 overflow-hidden">
+                                <DropdownMenuContent align="end" className="w-[640px] p-0 rounded-[2rem] border-primary/10 bg-background/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
                                     <div className="p-8 pb-4">
                                         <DropdownMenuLabel className="px-0 py-0 flex items-center gap-3">
                                             <div className="p-2 bg-primary/10 rounded-lg">
@@ -109,50 +107,41 @@ export function LandingHeader() {
                                             </div>
                                         </DropdownMenuLabel>
                                     </div>
-                                    
-                                    <div className="px-8 pb-8 pt-2 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                                        {/* Sección Ciudadana */}
+                                    <div className="px-8 pb-8 pt-2 space-y-6 max-h-[60vh] overflow-y-auto">
                                         <section>
                                             <div className="flex items-center gap-3 mb-4">
                                                 <span className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">Portal Ciudadano</span>
                                                 <div className="h-px flex-1 bg-border/50"></div>
                                             </div>
-                                            <div className="grid grid-cols-1">
-                                                {loginOptions.filter(o => o.href === '/login-personal').map((option) => (
-                                                    <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-5 cursor-pointer focus:bg-primary/5 group/item border border-primary/5 hover:border-primary/20 transition-all bg-primary/[0.02]">
-                                                        <Link href={option.href} className="flex items-center gap-6">
-                                                            <div className="p-4 bg-primary/10 rounded-2xl group-hover/item:bg-primary/20 transition-all shadow-inner">
-                                                                <option.icon className="h-7 w-7 text-primary" />
-                                                            </div>
-                                                            <div className="flex flex-col gap-1.5 flex-1">
-                                                                <div className="flex items-center gap-2">
-                                                                    <span className="font-black text-sm tracking-tight uppercase italic text-primary">{option.label}</span>
-                                                                    <span className="text-[8px] font-black px-2 py-0.5 rounded-full bg-primary/10 text-primary uppercase">Biométrico</span>
-                                                                </div>
-                                                                <p className="text-xs text-muted-foreground leading-relaxed font-medium opacity-80">{option.description}</p>
-                                                            </div>
-                                                        </Link>
-                                                    </DropdownMenuItem>
-                                                ))}
-                                            </div>
+                                            {loginOptions.filter(o => o.href === '/login-personal').map((option) => (
+                                                <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-4 cursor-pointer focus:bg-primary/5 border border-primary/5 mb-4">
+                                                    <Link href={option.href} className="flex items-center gap-4">
+                                                        <div className="p-3 bg-primary/10 rounded-xl">
+                                                            <option.icon className="h-6 w-6 text-primary" />
+                                                        </div>
+                                                        <div className="flex-1">
+                                                            <span className="font-black text-xs uppercase italic text-primary">{option.label}</span>
+                                                            <p className="text-[10px] text-muted-foreground leading-tight">{option.description}</p>
+                                                        </div>
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                            ))}
                                         </section>
-
-                                        {/* Sección Corporativa */}
                                         <section>
                                             <div className="flex items-center gap-3 mb-4">
                                                 <span className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">Portales Corporativos</span>
                                                 <div className="h-px flex-1 bg-border/50"></div>
                                             </div>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <div className="grid grid-cols-2 gap-3">
                                                 {loginOptions.filter(o => o.href !== '/login-personal').map((option) => (
-                                                    <DropdownMenuItem key={option.href} asChild className="rounded-xl p-4 cursor-pointer focus:bg-primary/5 group/item border border-transparent focus:border-primary/10 transition-all">
-                                                        <Link href={option.href} className="flex items-start gap-4">
-                                                            <div className="p-2.5 bg-primary/5 rounded-xl group-hover/item:bg-primary/10 transition-all shadow-inner">
-                                                                <option.icon className="h-5 w-5 text-primary" />
+                                                    <DropdownMenuItem key={option.href} asChild className="rounded-xl p-3 cursor-pointer focus:bg-primary/5">
+                                                        <Link href={option.href} className="flex items-start gap-3">
+                                                            <div className="p-2 bg-primary/5 rounded-lg">
+                                                                <option.icon className="h-4 w-4 text-primary" />
                                                             </div>
-                                                            <div className="flex flex-col gap-1">
-                                                                <span className="font-black text-xs tracking-tight uppercase italic leading-none">{option.label}</span>
-                                                                <p className="text-[9px] text-muted-foreground leading-tight font-medium opacity-70 group-hover/item:opacity-100 line-clamp-2">{option.description}</p>
+                                                            <div className="flex flex-col gap-0.5">
+                                                                <span className="font-black text-[10px] uppercase italic">{option.label}</span>
+                                                                <p className="text-[8px] text-muted-foreground line-clamp-1">{option.description}</p>
                                                             </div>
                                                         </Link>
                                                     </DropdownMenuItem>
@@ -160,54 +149,57 @@ export function LandingHeader() {
                                             </div>
                                         </section>
                                     </div>
-                                    
-                                    <div className="p-4 bg-muted/30 border-t flex justify-center">
-                                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic">System Kyron Secured • Nivel 5</p>
-                                    </div>
                                 </DropdownMenuContent>
                             </DropdownMenu>
-
-                            <Button asChild className="hidden sm:flex rounded-xl h-11 px-8 btn-3d-primary text-[10px] font-black uppercase tracking-widest shadow-2xl">
-                                <Link href="/register">REGISTRO</Link>
-                            </Button>
                         </div>
 
                         <Sheet>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-xl h-10 md:h-11 w-10 md:w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all active:scale-95">
+                                <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-muted/50 shadow-inner hover:bg-primary/10 transition-all">
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:max-w-md p-0 flex flex-col overflow-hidden border-l-primary/10 shadow-2xl">
-                                <div className="p-10 border-b flex flex-col items-center gap-4 bg-gradient-to-br from-primary/10 to-transparent">
-                                    <Logo className="h-16 w-16" /> 
+                            <SheetContent side="right" className="w-full sm:max-w-md p-0 flex flex-col overflow-hidden border-l-primary/10">
+                                <div className="p-8 border-b flex flex-col items-center gap-4 bg-primary/5">
+                                    <Logo className="h-14 w-14" /> 
                                     <div className="text-center">
-                                        <span className="text-xl font-black tracking-tighter text-primary uppercase italic">System Kyron</span>
-                                        <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40 mt-1">Ecosistema Global</p>
+                                        <span className="text-lg font-black tracking-tighter text-primary uppercase italic">System Kyron</span>
+                                        <p className="text-[8px] font-black uppercase tracking-[0.5em] opacity-40 mt-1">Mobile Interface</p>
                                     </div>
                                 </div>
-                                <nav className="flex-grow flex flex-col p-6 gap-2 overflow-y-auto custom-scrollbar">
-                                    <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic px-4">Navegación</p>
-                                    {navLinks.map((link) => (
-                                        <SheetClose asChild key={link.href}>
-                                            <Link href={link.href as any} className="text-xs font-black uppercase tracking-[0.2em] text-foreground hover:text-primary py-4 px-4 border-b border-border/30 hover:pl-6 transition-all flex items-center justify-between group">
-                                                {link.label}
-                                                <LayoutGrid className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                            </Link>
-                                        </SheetClose>
-                                    ))}
-                                    
-                                    <div className="pt-8 space-y-4 px-2">
-                                        <Button asChild className="w-full justify-center rounded-xl h-14 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl">
-                                            <Link href="/register">REGISTRARSE <Zap className="ml-2 h-4 w-4 text-yellow-400 fill-yellow-400"/></Link>
-                                        </Button>
-                                        <div className="flex justify-center sm:hidden">
-                                            <ThemeToggle />
+                                <nav className="flex-grow p-6 space-y-8 overflow-y-auto">
+                                    <section>
+                                        <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.4em] mb-4 italic">Navegación</p>
+                                        <div className="flex flex-col gap-1">
+                                            {navLinks.map((link) => (
+                                                <SheetClose asChild key={link.href}>
+                                                    <Link href={link.href as any} className="text-[10px] font-black uppercase tracking-[0.2em] py-4 px-4 border-b border-white/5 flex items-center justify-between group">
+                                                        {link.label}
+                                                        <ArrowRight className="h-3 w-3 text-primary opacity-0 group-hover:opacity-100 transition-all" />
+                                                    </Link>
+                                                </SheetClose>
+                                            ))}
                                         </div>
-                                    </div>
+                                    </section>
+
+                                    <section>
+                                        <p className="text-[9px] font-black uppercase text-primary/60 tracking-[0.4em] mb-4 italic">Portales de Acceso</p>
+                                        <div className="grid grid-cols-1 gap-2">
+                                            {loginOptions.map((option) => (
+                                                <SheetClose asChild key={option.href}>
+                                                    <Link href={option.href as any} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5 active:bg-primary/5 transition-all">
+                                                        <div className="p-2 bg-primary/10 rounded-lg">
+                                                            <option.icon className="h-5 w-5 text-primary" />
+                                                        </div>
+                                                        <span className="font-black text-[10px] uppercase italic">{option.label}</span>
+                                                    </Link>
+                                                </SheetClose>
+                                            ))}
+                                        </div>
+                                    </section>
                                 </nav>
-                                <div className="mt-auto p-8 text-center border-t border-border/50 bg-muted/20">
-                                    <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">System Status: Synchronized</span>
+                                <div className="p-6 border-t border-white/5 bg-muted/20 text-center">
+                                    <p className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">System Status: Connected</p>
                                 </div>
                             </SheetContent>
                         </Sheet>
