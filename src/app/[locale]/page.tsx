@@ -117,10 +117,7 @@ export default function LandingPage() {
                         className="flex flex-wrap justify-center gap-4"
                     >
                         <Button asChild className="btn-premium h-12 px-8">
-                            <Link href="/register">Registrarse ahora</Link>
-                        </Button>
-                        <Button asChild variant="outline" className="btn-outline-premium h-12 px-8">
-                            <Link href="/kyron-vault">Explorar Bóveda</Link>
+                            <Link href="/register">REGISTRARSE POR PRIMERA VEZ</Link>
                         </Button>
                     </motion.div>
                 </div>
