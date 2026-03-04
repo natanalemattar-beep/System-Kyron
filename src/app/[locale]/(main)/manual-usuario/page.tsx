@@ -28,7 +28,8 @@ import {
     FileScan,
     BrainCircuit,
     Fingerprint,
-    Radio
+    Radio,
+    TabletSmartphone
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
@@ -160,7 +161,6 @@ export default function ManualUsuarioPage() {
         if (format === 'pdf') {
             window.print();
         } else {
-            // Generar contenido para Word
             const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'></head><body>";
             const footer = "</body></html>";
             let body = "<h1>MANUAL MAESTRO DE USUARIO - SYSTEM KYRON v2.6.5</h1>";
@@ -183,7 +183,6 @@ export default function ManualUsuarioPage() {
 
     return (
         <div className="space-y-12 w-full px-6 md:px-16 pb-24 animate-in fade-in duration-1000">
-            {/* Header de Ingeniería */}
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-4 border-primary pl-8 py-2 mt-10 print:hidden">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary">
@@ -203,7 +202,6 @@ export default function ManualUsuarioPage() {
             </header>
 
             <div className="grid lg:grid-cols-12 gap-12">
-                {/* Navegador Lateral */}
                 <div className="lg:col-span-4 space-y-6 print:hidden">
                     <Card className="glass-card p-8 rounded-[2.5rem] sticky top-24 border-white/5 bg-black/40">
                         <CardHeader className="p-0 mb-6">
@@ -225,7 +223,6 @@ export default function ManualUsuarioPage() {
                     </Card>
                 </div>
 
-                {/* Contenido del Manual */}
                 <div className="lg:col-span-8 space-y-10">
                     <div className="relative mb-12 print:hidden">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/20" />
