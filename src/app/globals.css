@@ -10,9 +10,9 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 2%;
     --popover-foreground: 0 0% 98%;
-    --primary: 210 100% 50%; /* Azul Ciber Fosforescente */
+    --primary: 210 100% 50%; /* Azul Ciber */
     --primary-foreground: 0 0% 100%;
-    --secondary: 145 100% 50%; /* Verde Neón Fosforescente */
+    --secondary: 145 100% 50%; /* Verde Neón */
     --secondary-foreground: 240 10% 2%;
     --muted: 240 10% 10%;
     --muted-foreground: 240 5% 64%;
@@ -80,12 +80,8 @@
   }
 
   .gradient-mesh {
-    background: radial-gradient(at 0% 0%, hsla(210, 100%, 50%, 0.12) 0, transparent 55%),
-                radial-gradient(at 100% 100%, hsla(145, 100%, 50%, 0.08) 0, transparent 55%);
-  }
-  
-  .drop-shadow-glow {
-    filter: drop-shadow(0 0 15px hsla(210, 100%, 50%, 0.5));
+    background: radial-gradient(at 0% 0%, hsla(210, 100% , 50%, 0.15) 0, transparent 55%),
+                radial-gradient(at 100% 100%, hsla(145, 100%, 50%, 0.1) 0, transparent 55%);
   }
 }
 
