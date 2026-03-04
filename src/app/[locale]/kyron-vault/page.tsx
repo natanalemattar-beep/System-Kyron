@@ -5,6 +5,6 @@
  */
 export const dynamic = 'force-static';
 
-export function RedundantVaultInfo() {
+export default function RedundantVaultInfo() {
   return null;
 }
