@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -67,7 +66,7 @@ export function LandingHeader() {
                             Ecosistema
                             <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                         </Link>
-                        <Link href="/manual-usuario#nosotros" className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-secondary transition-all relative group">
+                        <Link href="/#nosotros" className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-secondary transition-all relative group">
                             Nosotros
                             <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-secondary transition-all group-hover:w-full shadow-glow-secondary"></span>
                         </Link>
@@ -141,7 +140,7 @@ export function LandingHeader() {
                                     <div className="flex flex-col gap-2">
                                         {['Inicio', 'Ecosistema', 'Nosotros', 'Manual'].map((item) => (
                                             <SheetClose key={item} asChild>
-                                                <Link href={item === 'Inicio' ? '/#inicio' : item === 'Nosotros' ? '/manual-usuario#nosotros' : `/${item.toLowerCase()}` as any} className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all">
+                                                <Link href={item === 'Inicio' ? '/#inicio' : item === 'Nosotros' ? '/#nosotros' : `/${item.toLowerCase()}` as any} className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all">
                                                     {item}
                                                 </Link>
                                             </SheetClose>

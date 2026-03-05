@@ -1,9 +1,11 @@
-
 'use client';
 
 import {
   ServicesSection,
   FeaturesSection,
+  AboutUsSection,
+  FaqSection,
+  CtaSection,
   Footer
 } from "@/components/landing";
 import { LandingHeader } from "@/components/landing/landing-header";
@@ -141,89 +143,9 @@ export default function LandingPage() {
             
             <ServicesSection />
             <FeaturesSection />
-            
-            {/* CONTACT SECTION */}
-            <section id="contacto" className="py-32 border-t border-white/5">
-                <div className="grid lg:grid-cols-2 gap-20 items-start">
-                    <div className="space-y-8">
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase italic">
-                            Solicita tu <span className="text-primary/40">Demo Maestra</span>
-                        </h2>
-                        <p className="text-lg text-white/40 font-bold uppercase tracking-tight leading-relaxed max-w-lg italic border-l-4 border-primary/30 pl-8">
-                            Auditamos tu infraestructura actual y configuramos un nodo de prueba personalizado para tu empresa.
-                        </p>
-                        <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] text-primary/40">
-                            <ShieldCheck className="h-4 w-4 text-primary" /> Protocolo Seguro SSL Activo
-                        </div>
-                    </div>
-
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                    >
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-8 md:p-12 border border-white/10 rounded-[2.5rem] bg-white/[0.02] backdrop-blur-3xl shadow-2xl">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <FormField control={form.control} name="name" render={({ field }) => (
-                                        <FormItem>
-                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Nombre</FormLabel>
-                                          <FormControl>
-                                            <Input placeholder="Tu nombre..." {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" />
-                                          </FormControl>
-                                          <FormMessage />
-                                        </FormItem>
-                                    )} />
-                                    <FormField control={form.control} name="company" render={({ field }) => (
-                                        <FormItem>
-                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Empresa</FormLabel>
-                                          <FormControl>
-                                            <Input placeholder="Nombre empresa..." {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" />
-                                          </FormControl>
-                                          <FormMessage />
-                                        </FormItem>
-                                    )} />
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <FormField control={form.control} name="email" render={({ field }) => (
-                                        <FormItem>
-                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Email</FormLabel>
-                                          <FormControl>
-                                            <Input type="email" placeholder="tu@correo.com" {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" />
-                                          </FormControl>
-                                          <FormMessage />
-                                        </FormItem>
-                                    )} />
-                                    <FormField control={form.control} name="phone" render={({ field }) => (
-                                        <FormItem>
-                                          <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Teléfono</FormLabel>
-                                          <FormControl>
-                                            <Input placeholder="0412-1234567" {...field} className="h-11 bg-white/5 border-white/10 rounded-xl text-xs font-bold" />
-                                          </FormControl>
-                                          <FormMessage />
-                                        </FormItem>
-                                    )} />
-                                </div>
-
-                                <FormField control={form.control} name="message" render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="text-[9px] font-black uppercase tracking-widest text-white/40">Requerimientos</FormLabel>
-                                      <FormControl>
-                                        <Textarea placeholder="Describe tus necesidades..." className="bg-white/5 border-white/10 rounded-xl text-xs font-medium min-h-[100px]" {...field} />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                )} />
-                                
-                                <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black text-[10px] uppercase tracking-widest" disabled={isSubmitting}>
-                                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin"/> : "ENVIAR SOLICITUD AL NODO CENTRAL"}
-                                </Button>
-                            </form>
-                        </Form>
-                    </motion.div>
-                </div>
-            </section>
+            <AboutUsSection />
+            <FaqSection />
+            <CtaSection />
             
             <Footer />
         </div>
