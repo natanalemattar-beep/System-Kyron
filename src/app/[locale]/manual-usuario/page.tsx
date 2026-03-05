@@ -27,7 +27,8 @@ import {
     Lock,
     Zap,
     ArrowDown,
-    Shield
+    ListTree,
+    ExternalLink
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
@@ -35,8 +36,9 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
 /**
- * @fileOverview MANUAL DE USUARIO - INSTITUCIONAL v2.6.5
+ * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
  * Documentación técnica de grado ministerial diseñada para el cumplimiento de misión crítica.
+ * Este nodo opera de forma independiente a la navegación global para garantizar el enfoque técnico.
  */
 
 const manualModules = [
@@ -210,17 +212,26 @@ export default function ManualUsuarioPage() {
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const headerOffset = 100;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
         }
     };
 
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
+        <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid selection:bg-primary/20">
+            {/* ESTILOS DE PRIORIDAD PARA OCULTAR ELEMENTOS EXTERNOS */}
             <style jsx global>{`
                 header.fixed.top-0, 
                 footer.border-t,
+                nav.fixed,
                 .no-print {
                     display: none !important;
                 }
@@ -232,15 +243,17 @@ export default function ManualUsuarioPage() {
                     .text-white { color: black !important; }
                     .text-primary { color: #2563eb !important; }
                     .text-white\/40 { color: #666 !important; }
+                    .border-white\/5 { border-color: #eee !important; }
                 }
             `}</style>
 
+            {/* HEADER INSTITUCIONAL DEL MANUAL */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-20 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-16 justify-between no-print shadow-2xl">
                 <div className="flex items-center gap-6">
                     <Logo className="h-10 w-10 shadow-glow" />
                     <div className="flex flex-col">
                         <span className="text-xs font-black tracking-[0.6em] uppercase italic">SYSTEM KYRON</span>
-                        <span className="text-[9px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Manual de Usuario Oficial</span>
+                        <span className="text-[9px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Manual de Usuario Institucional</span>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -253,49 +266,66 @@ export default function ManualUsuarioPage() {
                 </div>
             </header>
 
-            <main className="container mx-auto px-6 max-w-6xl pt-32 pb-40 relative z-10">
-                <div className="text-center space-y-8 mb-24">
-                    <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary shadow-glow">
-                        <Terminal className="h-3.5 w-3.5" /> EXPEDIENTE TÉCNICO v2.6.5
-                    </div>
-                    <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <span className="text-primary">Usuario</span></h1>
-                    <p className="text-lg md:text-xl text-white/40 max-w-3xl mx-auto font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 text-justify">
-                        Esta documentación constituye la guía oficial para la operación de los terminales del ecosistema de gestión integral. Todo procedimiento descrito se ajusta al marco legal vigente.
-                    </p>
-                </div>
-
+            <main className="container mx-auto px-6 max-w-7xl pt-32 pb-40 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-16">
+                    
+                    {/* PANEL DE NAVEGACIÓN POR ANCLAS */}
                     <aside className="lg:col-span-4 no-print">
-                        <Card className="glass-card p-8 rounded-[2.5rem] sticky top-32 border-white/5 bg-black/60 shadow-2xl">
-                            <CardHeader className="p-0 mb-8 border-b border-white/5 pb-6">
-                                <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] text-primary flex items-center gap-3">
-                                    <Activity className="h-4 w-4 animate-pulse" /> Índice de Módulos
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-0 space-y-1">
-                                {manualModules.map((mod) => (
-                                    <button 
-                                        key={mod.id}
-                                        onClick={() => scrollToSection(mod.id)}
-                                        className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-primary/10 hover:text-primary transition-all text-white/30 text-left border border-transparent hover:border-primary/20 group"
-                                    >
-                                        <mod.icon className="h-3.5 w-3.5 opacity-30 group-hover:opacity-100 transition-opacity" />
-                                        <span>{mod.title.split('. ')[1]}</span>
-                                    </button>
-                                ))}
-                            </CardContent>
-                        </Card>
+                        <div className="sticky top-32 space-y-8">
+                            <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden relative group">
+                                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:rotate-12 transition-transform duration-1000">
+                                    <ListTree className="h-20 w-20" />
+                                </div>
+                                <CardHeader className="p-0 mb-8 border-b border-white/5 pb-6">
+                                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] text-primary flex items-center gap-3">
+                                        <Terminal className="h-4 w-4" /> Índice de Protocolos
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-0 space-y-1">
+                                    {manualModules.map((mod) => (
+                                        <button 
+                                            key={mod.id}
+                                            onClick={() => scrollToSection(mod.id)}
+                                            className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-primary/10 hover:text-primary transition-all text-white/30 text-left border border-transparent hover:border-primary/20 group"
+                                        >
+                                            <div className="h-1.5 w-1.5 rounded-full bg-white/10 group-hover:bg-primary transition-colors" />
+                                            <span>{mod.title.split('. ')[1]}</span>
+                                        </button>
+                                    ))}
+                                </CardContent>
+                            </Card>
+
+                            <Card className="bg-primary/5 border border-primary/20 rounded-[2rem] p-8">
+                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-2">Estado del Nodo</p>
+                                <div className="flex items-center gap-3">
+                                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-glow" />
+                                    <span className="text-xs font-bold text-white/80">Operativo v2.6.5</span>
+                                </div>
+                            </Card>
+                        </div>
                     </aside>
 
+                    {/* CUERPO TÉCNICO DEL MANUAL */}
                     <div className="lg:col-span-8 space-y-32">
+                        {/* PORTADA INTERNA */}
+                        <section className="space-y-10">
+                            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary shadow-glow">
+                                <Activity className="h-3.5 w-3.5" /> EXPEDIENTE TÉCNICO INSTITUCIONAL
+                            </div>
+                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <span className="text-primary">Usuario</span></h1>
+                            <p className="text-lg md:text-xl text-white/40 max-w-3xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 text-justify leading-relaxed">
+                                Este documento constituye la norma técnica oficial para la operación del ecosistema System Kyron. Todo procedimiento descrito se ajusta al marco legal de la República Bolivariana de Venezuela.
+                            </p>
+                        </section>
+
                         {manualModules.map((mod) => (
                             <section key={mod.id} id={mod.id} className="scroll-mt-32">
                                 <Card className="glass-card rounded-[3.5rem] border-white/5 overflow-hidden bg-black/60 shadow-2xl group transition-all duration-1000 hover:border-primary/20">
-                                    <CardHeader className="p-12 md:p-16 border-b border-white/5 flex flex-row items-center gap-12 bg-white/[0.01]">
+                                    <CardHeader className="p-12 md:p-16 border-b border-white/5 flex flex-col md:flex-row items-center gap-12 bg-white/[0.01]">
                                         <div className="p-8 bg-primary/10 rounded-[2.5rem] border border-primary/20 shadow-glow group-hover:scale-110 transition-transform duration-700">
                                             <mod.icon className="h-12 w-12 text-primary" />
                                         </div>
-                                        <div className="space-y-4">
+                                        <div className="space-y-4 text-center md:text-left">
                                             <CardTitle className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white leading-none">{mod.title}</CardTitle>
                                             <CardDescription className="text-[10px] font-black uppercase tracking-[0.5em] opacity-40 text-primary">{mod.description}</CardDescription>
                                         </div>
@@ -320,40 +350,41 @@ export default function ManualUsuarioPage() {
                                             <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">Protocolo Verificado</span>
                                         </div>
                                         <Button variant="link" className="text-[9px] font-black uppercase text-primary p-0 hover:shadow-glow-text" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-                                            IR AL INICIO <ArrowDown className="ml-2 h-3.5 w-3.5 rotate-180" />
+                                            VOLVER AL INICIO <ArrowDown className="ml-2 h-3.5 w-3.5 rotate-180" />
                                         </Button>
                                     </CardFooter>
                                 </Card>
                             </section>
                         ))}
 
+                        {/* SECCIÓN DE ASISTENCIA */}
                         <Card className="bg-primary text-primary-foreground rounded-[3.5rem] p-16 text-center shadow-glow border-none relative overflow-hidden group no-print">
                             <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                                <Shield className="h-64 w-64" />
+                                <Zap className="h-64 w-64" />
                             </div>
                             <div className="relative z-10 space-y-10">
-                                <h3 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Asistencia Institucional</h3>
+                                <h3 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Soporte Técnico</h3>
                                 <p className="text-xl font-bold opacity-90 leading-relaxed italic border-l-4 border-white/30 pl-10 text-justify">
-                                    En caso de incidencias técnicas, contacte al nodo de ingeniería central. Nuestro personal está facultado para la resolución de conflictos bajo protocolos de alta prioridad.
+                                    En caso de incidencias en el despliegue operativo de los módulos institucionales, contacte al nodo de ingeniería central para resolución bajo protocolos de alta prioridad.
                                 </p>
                                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-2xl h-20 px-16 font-black text-sm uppercase tracking-widest shadow-2xl transition-all">
-                                    CONTACTAR INGENIERÍA
+                                    ESTABLECER CONEXIÓN CON INGENIERÍA
                                 </Button>
                             </div>
                         </Card>
                     </div>
                 </div>
 
-                <div className="mt-40 text-center space-y-10 opacity-20 no-print pb-20">
+                {/* FOOTER DEL MANUAL */}
+                <div className="mt-40 text-center space-y-10 opacity-20 no-print pb-20 border-t border-white/5 pt-20">
                     <div className="flex justify-center gap-16 text-[10px] font-black uppercase tracking-[0.8em]">
                         <span className="flex items-center gap-4"><Lock className="h-4 w-4" /> SECURED</span>
                         <span className="flex items-center gap-4"><Database className="h-4 w-4" /> LEDGER</span>
                         <span className="flex items-center gap-4"><Activity className="h-4 w-4" /> STATUS: OK</span>
                     </div>
-                    <div className="w-full h-px bg-white/10" />
                     <p className="max-w-4xl mx-auto text-[9px] font-bold uppercase tracking-[0.4em] leading-relaxed italic">
                         © {new Date().getFullYear()} System Kyron, C.A. • RIF J-12345678-9 • Caracas, Venezuela. <br/>
-                        Documento oficial amparado bajo propiedad intelectual registrada.
+                        Documento amparado bajo propiedad intelectual registrada ante el SAPI.
                     </p>
                 </div>
             </main>
