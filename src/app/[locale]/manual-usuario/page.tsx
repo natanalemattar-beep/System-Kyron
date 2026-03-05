@@ -2,7 +2,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { 
+    Card, 
+    CardContent, 
+    CardHeader, 
+    CardTitle, 
+    CardDescription, 
+    CardFooter 
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -42,141 +49,146 @@ import {
     BarChart3,
     Users,
     Target,
-    Activity as ActivityIcon,
-    Briefcase
+    Briefcase,
+    School,
+    Clock,
+    CheckCircle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import React from "react";
 
 /**
  * @fileOverview Manual de Usuario Maestro System Kyron v2.6.5.
- * Versión de Grado Corporativo con Máxima Densidad Conceptual.
+ * DOCUMENTO DE GRADO CORPORATIVO - MÁXIMA DENSIDAD CONCEPTUAL.
  */
 
 const introSection = {
     title: "1.0 Introducción al Ecosistema de Misión Crítica",
-    mission: "Garantizar la soberanía operativa y solvencia legal del sector privado mediante tecnología inmutable.",
-    text: "System Kyron v2.6.5 no es una simple aplicación de gestión; es una infraestructura de ingeniería convergente diseñada para operar en el complejo entorno regulatorio venezolano. La plataforma se fundamenta sobre una red de telecomunicaciones 5G soberana, permitiendo que cada nodo administrativo (Fiscal, Legal, RRHH, Financiero) funcione con latencia cero y respaldo Blockchain. Este manual es el protocolo definitivo para la implementación y operación del sistema, asegurando que su organización alcance el estándar de 'Riesgo Cero' ante los entes reguladores del Estado: SENIAT, CONATEL, SAREN, SAPI, LOTTT e IVSS."
+    mission: "Blindar la gestión institucional mediante tecnología inmutable y conectividad soberana, garantizando el cumplimiento con el 100% de los entes regulatorios nacionales.",
+    text: "System Kyron v2.6.5 es una infraestructura de ingeniería convergente diseñada para operar en el complejo entorno regulatorio de la República Bolivariana de Venezuela. No es solo un software; es un nodo de inteligencia que fusiona telecomunicaciones 5G, ciberseguridad cuántica y fiscalidad predictiva. Este protocolo garantiza la operación legal absoluta ante instituciones como el SENIAT, CONATEL, SAREN, SAPI, LOTTT e IVSS."
 };
 
 const quickStartSteps = [
-    { step: "01", title: "Configuración de Nodo", desc: "Ingrese credenciales maestras y realice el primer Enrolamiento Biométrico 3D.", icon: Terminal },
-    { step: "02", title: "Sincronización Legal", desc: "Sincronice el sistema con la Gaceta Oficial y los índices INPC del BCV en tiempo real.", icon: RefreshCw },
-    { step: "03", title: "Activación de Flotas", desc: "Habilite las líneas eSIM y los smartphones homologados para el personal clave.", icon: Smartphone },
-    { step: "04", title: "Sellado de Ledger", desc: "Inicie el primer ciclo contable para activar el blindaje de inmutabilidad Blockchain.", icon: ShieldCheck }
+    { step: "01", title: "Configuración de Nodo", desc: "Instalación de certificados raíz y primer enrolamiento biométrico de administradores.", icon: Terminal },
+    { step: "02", title: "Sincronización Fiscal", desc: "Carga de índices INPC del BCV y sincronización con el calendario de contribuyentes especiales.", icon: RefreshCw },
+    { step: "03", title: "Activación de Red", desc: "Aprovisionamiento de perfiles eSIM en dispositivos homologados para conectividad segura.", icon: Radio },
+    { step: "04", title: "Sellado de Ledger", desc: "Activación de la cadena de bloques para la inmutabilidad de los registros históricos.", icon: ShieldCheck }
 ];
 
 const manualModules = [
     {
         id: "identidad",
-        title: "Módulo 1: Identidad Digital Biométrica",
+        title: "Módulo 1: Identidad Digital Biométrica 3D",
         icon: Fingerprint,
-        concept: "La identidad es el eje de la seguridad. Kyron utiliza patrones vectoriales 3D para crear una firma civil digital inerrante.",
-        procedure: "1. Iniciar Enrolamiento. 2. Captura facial (512 puntos). 3. Verificación de Prueba de Vida (Liveness). 4. Sellado de ID Digital.",
-        technical: "Cumplimiento total con el estándar europeo eIDAS. Algoritmos de reconocimiento con margen de error de 1:1.000.000."
+        concept: "La identidad es el núcleo de la soberanía digital. Implementamos protocolos de captura de 512 puntos vectoriales faciales bajo el estándar europeo eIDAS, garantizando que cada acción en el sistema sea atribuible de forma inequívoca al titular.",
+        procedure: "1. Iniciar Nodo de Enrolamiento. 2. Captura de datos biográficos. 3. Escaneo facial 3D con prueba de vida (Liveness Detection). 4. Generación de Hash de Identidad inmutable en Blockchain.",
+        technical: "Cifrado de datos biométricos mediante AES-512. El sistema no almacena imágenes, sino vectores matemáticos procesados en un enclave seguro de hardware."
     },
     {
         id: "telecom",
-        title: "Módulo 2: Telecomunicaciones y eSIM",
+        title: "Módulo 2: Telecomunicaciones y Gestión eSIM",
         icon: Radio,
-        concept: "Infraestructura de conectividad soberana basada en estándares GSMA para flotas corporativas.",
-        procedure: "1. Selección de perfil eUICC. 2. Aprovisionamiento remoto vía SM-DP+. 3. Activación de Network Slicing para datos críticos.",
-        technical: "Soporte Multi-IMSI para redundancia de red. Cifrado EAP-AKA en la capa de transporte 5G."
+        concept: "Infraestructura de red soberana basada en estándares GSMA. Permitimos la gestión remota de flotas móviles mediante aprovisionamiento SM-DP+, asegurando comunicaciones cifradas punto a punto para operaciones corporativas.",
+        procedure: "1. Acceder al panel de Telecom. 2. Seleccionar dispositivo homologado. 3. Generar código de activación eUICC. 4. Descarga automática de perfil de red y activación de datos 5G.",
+        technical: "Soporte para Network Slicing (priorización de tráfico crítico) y túneles IPsec automáticos para el tráfico administrativo."
     },
     {
         id: "tpv",
-        title: "Módulo 3: Punto de Venta (TPV) IA",
-        icon: TabletSmartphone,
-        concept: "Terminal de facturación inteligente que garantiza el cumplimiento fiscal en cada transacción.",
-        procedure: "1. Validación de RIF automática. 2. Escaneo de activos. 3. Aplicación de IGTF/IVA según ley. 4. Emisión de Factura Fiscal QR.",
-        technical: "Sincronización síncrona con el Ledger Contable y la Providencia Administrativa SNAT/2011/0071 del SENIAT."
+        title: "Módulo 3: Punto de Venta (TPV) IA y Fiscalidad",
+        concept: "Terminal de facturación inteligente diseñado para el cumplimiento estricto de la Providencia SNAT/2011/0071. Integra validación de RIF en tiempo real y cálculo automatizado de IGTF e IVA.",
+        procedure: "1. Escaneo de productos/servicios. 2. Validación instantánea del cliente vía Cédula/RIF. 3. Selección de método de pago (Multimoneda). 4. Emisión de Factura Fiscal con código QR verificable.",
+        technical: "Sincronización síncrona con el Libro de Ventas. Capacidad de operación offline con re-sincronización automática al detectar nodo de red.",
+        icon: TabletSmartphone
     },
     {
         id: "contabilidad",
-        title: "Módulo 4: Contabilidad y RIPF",
+        title: "Módulo 4: Contabilidad Avanzada y RIPF",
         icon: BarChart3,
-        concept: "Automatización integral del ciclo contable bajo normativas VEN-NIF y leyes de impuesto sobre la renta.",
-        procedure: "1. Ejecución de Asientos Automáticos. 2. Ajuste por Inflación Fiscal (RIPF). 3. Generación de Estados Financieros Consolidados.",
-        technical: "Motor actuarial integrado con los índices del Banco Central de Venezuela para cálculos de reajuste regulares."
+        concept: "Automatización total de la contabilidad bajo normativas VEN-NIF. El sistema realiza el Reajuste por Inflación Fiscal (RIPF) de forma actuarial, eliminando el error humano en balances complejos.",
+        procedure: "1. Carga de transacciones del periodo. 2. Ejecución de asientos de ajuste automáticos. 3. Generación de Estado de Situación Financiera. 4. Cierre de ejercicio con sellado de libros digitales.",
+        technical: "Integración API directa con los índices INPC del Banco Central de Venezuela. Algoritmos de cuadre por partida doble con tolerancia cero."
     },
     {
         id: "rrhh",
         title: "Módulo 5: Gestión de Talento y LOTTT",
         icon: Users,
-        concept: "Administración estratégica del capital humano con blindaje legal ante normativas laborales venezolanas.",
-        procedure: "1. Alta de ficha laboral. 2. Cálculo de conceptos LOTTT (Utilidades, Vacaciones). 3. Declaración de Parafiscales (IVSS, FAOV).",
-        technical: "Módulo LOPNNA integrado para el registro de cargas familiares y cumplimiento de obligaciones de manutención."
+        concept: "Administración integral del capital humano centrada en el cumplimiento de la LOTTT y LOPNNA. Garantiza que cada cálculo de nómina y liquidación sea legalmente inatacable.",
+        procedure: "1. Registro de trabajador y carga familiar. 2. Configuración de beneficios (Cesta Ticket, Bonos). 3. Cálculo de quincena y aportes parafiscales (IVSS, FAOV). 4. Generación de Constancias AR-C.",
+        technical: "Motor de cálculo parametrizable según convenciones colectivas. Generación de archivos TXT para carga masiva en portales gubernamentales."
     },
     {
         id: "juridico",
         title: "Módulo 6: Bóveda Jurídica y SAREN",
         icon: Gavel,
-        concept: "Resguardo inmutable de la estructura legal y societaria de la empresa mediante sellado de tiempo RFC 3161.",
-        procedure: "1. Registro de Actas de Asamblea. 2. Gestión de Poderes Notariados. 3. Control de Marcas y Patentes ante el SAPI.",
-        technical: "Bóveda digital con cifrado AES-512 y arquitectura Zero-Knowledge: solo el representante legal tiene acceso a las llaves."
+        concept: "Archivo digital de grado legal para el resguardo de Actas Constitutivas, Poderes y Marcas. Utiliza sellado de tiempo RFC 3161 para garantizar la preexistencia de documentos.",
+        procedure: "1. Digitalización de instrumentos legales. 2. Clasificación por expediente. 3. Configuración de alertas de vencimiento de poderes. 4. Gestión de propiedad industrial ante el SAPI.",
+        technical: "Cifrado de archivos en reposo con arquitectura Zero-Knowledge. Los documentos solo pueden ser desencriptados mediante la llave biométrica del representante legal."
     },
     {
         id: "ingenieria",
         title: "Módulo 7: Ingeniería y Fotogrametría IA",
         icon: Cpu,
-        concept: "Planificación técnica de espacios físicos mediante visión artificial para presupuestos de alta precisión.",
-        procedure: "1. Captura de imagen del local. 2. Procesamiento de nube de puntos. 3. Generación de planos métricos. 4. Cómputos métricos.",
-        technical: "Integración de base de datos de precios unitarios (APU) para la generación automática de presupuestos de obra civil."
+        concept: "Planificación técnica de activos físicos. Nuestra IA procesa imágenes para generar planos a escala y cómputos métricos, facilitando la elaboración de presupuestos de obra civil y mantenimiento.",
+        procedure: "1. Carga de registro fotográfico del local. 2. Procesamiento de nube de puntos. 3. Extracción de medidas y áreas. 4. Generación de presupuesto basado en APU actualizados.",
+        technical: "Motor de visión artificial entrenado para detección de elementos estructurales. Exportación de planos en formatos estándar (DWG/PDF)."
     },
     {
         id: "sostenibilidad",
-        title: "Módulo 8: Economía Circular Magnética",
+        title: "Módulo 8: Economía Circular y Activos Verdes",
         icon: Recycle,
-        concept: "Monetización de la responsabilidad ambiental mediante tecnología de inducción magnética síncrona.",
-        procedure: "1. Autenticación en Smart Bin. 2. Depósito de residuos. 3. Clasificación magnética. 4. Tokenización de Eco-Créditos.",
-        technical: "Protocolo de trazabilidad Blockchain para cada kilogramo reciclado, validable para auditorías de Carbono Neutralidad."
+        concept: "Iniciativa de la Fundación Kyron para la monetización de residuos. Implementamos tecnología de inducción magnética para clasificar residuos y transformarlos en Eco-Créditos tokenizados.",
+        procedure: "1. Autenticación en Smart Bin. 2. Depósito de envases. 3. Validación magnética de material. 4. Acreditación de puntos en la Billetera Digital.",
+        technical: "Cada transacción de reciclaje se registra como un activo digital en el Ledger Kyron, permitiendo a las empresas certificar su Carbono Neutralidad."
     },
     {
         id: "bi",
         title: "Módulo 9: Inteligencia de Negocio (BI)",
         icon: TrendingUp,
-        concept: "Analítica predictiva de datos masivos para la toma de decisiones estratégicas de nivel ejecutivo.",
-        procedure: "1. Definición de KPI Maestro. 2. Análisis de Sensibilidad Financiera. 3. Proyección de Escenarios de Mercado.",
-        technical: "Motores de inferencia basados en redes neuronales recurrentes para la detección de anomalías en el flujo de caja."
+        concept: "Analítica predictiva de alto nivel. Transforma datos operativos en tableros de control ejecutivos para la toma de decisiones basada en evidencia y no en intuición.",
+        procedure: "1. Definición de umbrales críticos. 2. Monitoreo de KPIs en tiempo real. 3. Análisis de tendencias de mercado. 4. Proyección de escenarios financieros (What-if analysis).",
+        technical: "Integración de modelos de Machine Learning para la detección de anomalías y prevención de fraudes financieros."
     },
     {
         id: "seguridad",
-        title: "Módulo 10: Ciberseguridad Militar",
+        title: "Módulo 10: Ciberseguridad y Cifrado Militar",
         icon: ShieldCheck,
-        concept: "Defensa proactiva de la infraestructura digital contra amenazas externas e internas.",
-        procedure: "1. Monitoreo de Nodos. 2. Auditoría de Accesos. 3. Verificación de Integridad de Ledger. 4. Respuesta a Incidentes.",
-        technical: "Implementación de arquitectura de confianza cero (Zero Trust) y cifrado cuánticamente resistente para activos críticos."
+        concept: "Blindaje proactivo de la infraestructura. Aplicamos una arquitectura de Confianza Cero (Zero Trust) para asegurar que el ecosistema sea resistente a ataques dirigidos y exfiltración de datos.",
+        procedure: "1. Auditoría de accesos. 2. Monitoreo de integridad de archivos. 3. Gestión de llaves de cifrado. 4. Respuesta automatizada ante incidentes.",
+        technical: "Implementación de protocolos de seguridad cuánticamente resistentes. Registro de logs inmutable para auditorías de forense digital."
     }
 ];
 
 const innovationTier2 = [
     {
         id: "voice",
-        title: "Kyron Voice: Asistente V-IA",
+        title: "Kyron Voice: Inferencia por Lenguaje Natural",
         icon: Volume2,
-        concept: "Interacción mediante lenguaje natural procesado por IA para consultas rápidas.",
-        procedure: "Active el micrófono y consulte: '¿Cuándo vence mi declaración de IVA?' o 'Calcula la liquidación de Ana Pérez'.",
-        technical: "Modelo NLP entrenado en el corpus legal y administrativo de la República Bolivariana de Venezuela."
+        concept: "Interacción humano-máquina mediante voz. Nuestro asistente IA entiende el lenguaje administrativo venezolano para agilizar consultas críticas sin necesidad de teclado.",
+        procedure: "Presione el icono de volumen y consulte: '¿Cuál es el saldo actual en el Ledger?' o 'Genera el borrador del contrato de arrendamiento para el local A'.",
+        technical: "Procesamiento en el borde (Edge AI) para garantizar privacidad. Modelos NLP optimizados para términos legales y contables específicos.",
+        details: "Capacidad de lectura de reportes y alertas críticas mediante síntesis de voz de alta fidelidad."
     },
     {
-        id: "ecocreditos",
-        title: "Mercado de Eco-Créditos",
-        icon: Coins,
-        concept: "Exchange de activos verdes tokenizados para la compensación de huella de carbono entre empresas.",
-        procedure: "1. Verificar saldo de E-CR. 2. Publicar oferta en el Ledger. 3. Ejecutar transacción inmutable entre nodos.",
-        technical: "Contratos inteligentes (Smart Contracts) para la liquidación instantánea de bonos de sostenibilidad."
-    },
-    {
-        id: "generador",
-        title: "Generador de Contratos IA",
+        id: "generador-ia",
+        title: "Generador Jurídico IA: Redacción Automatizada",
         icon: Wand2,
-        concept: "Redacción automatizada de instrumentos legales de alta complejidad bajo el marco civil y mercantil.",
-        procedure: "1. Seleccionar plantilla. 2. Inyectar datos de las partes. 3. Definir cláusulas específicas. 4. Validar firma digital.",
-        technical: "Sincronización con el módulo jurídico para asegurar que los firmantes poseen los poderes vigentes necesarios."
+        concept: "Motor de generación de instrumentos legales. Crea borradores de contratos y actas basados en plantillas certificadas por nuestro departamento legal y adaptadas a la ley vigente.",
+        procedure: "1. Elegir tipo de documento. 2. Inyectar datos de las partes. 3. Definir condiciones comerciales. 4. Obtener borrador profesional editable.",
+        technical: "Sincronización con el módulo de Poderes para validar que los firmantes tienen la capacidad legal requerida.",
+        details: "Reduce el tiempo de redacción legal en un 90%, minimizando el riesgo de errores en cláusulas de jurisdicción y domicilio."
+    },
+    {
+        id: "market-ecr",
+        title: "Exchange de Eco-Créditos: Mercado de Activos Verdes",
+        icon: Coins,
+        concept: "Plataforma de trading para la sostenibilidad. Las empresas pueden intercambiar Eco-Créditos para compensar su impacto ambiental y cumplir con normativas internacionales de ESG.",
+        procedure: "1. Verificar balance de E-CR. 2. Publicar oferta de venta o compra. 3. Ejecutar transacción con firma digital. 4. Obtener certificado de compensación.",
+        technical: "Arquitectura basada en Smart Contracts para garantizar que cada Eco-Crédito solo pueda ser canjeado una vez.",
+        details: "Fomenta una economía circular real donde la responsabilidad ambiental se convierte en un activo financiero tangible."
     }
 ];
 
@@ -189,56 +201,83 @@ export default function ManualMaestroPage() {
     }, []);
 
     const handleDownloadDoc = () => {
-        const docContent = `
-            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40pt; color: #1a1a1a;">
-                <div style="text-align: center; border-bottom: 3pt solid #0ea5e9; padding-bottom: 20pt; margin-bottom: 40pt;">
-                    <h1 style="color: #0ea5e9; font-size: 38pt; margin-bottom: 0;">SYSTEM KYRON</h1>
-                    <p style="text-transform: uppercase; letter-spacing: 5pt; font-weight: bold; color: #64748b;">Manual Maestro de Operaciones v2.6.5</p>
-                    <p style="font-size: 10pt; color: #94a3b8;">EXPEDIENTE DE GRADO CORPORATIVO • CONFIDENCIALIDAD NIVEL 5</p>
+        const content = `
+            <div style="font-family: 'Times New Roman', serif; padding: 40pt; color: #1a1a1a;">
+                <!-- PORTADA -->
+                <div style="text-align: center; border: 2pt solid #0ea5e9; padding: 50pt; margin-bottom: 50pt; border-radius: 20pt;">
+                    <h1 style="color: #0ea5e9; font-size: 42pt; margin-bottom: 10pt;">SYSTEM KYRON</h1>
+                    <p style="font-size: 18pt; font-weight: bold; color: #64748b;">EXPEDIENTE MAESTRO DE OPERACIONES</p>
+                    <p style="font-size: 14pt; color: #94a3b8; margin-top: 20pt;">VERSIÓN 2.6.5 • GRADO CORPORATIVO</p>
+                    <div style="margin-top: 40pt;">
+                        <p style="font-size: 10pt; color: #ef4444; font-weight: bold; text-transform: uppercase; letter-spacing: 2pt;">[ CONFIDENCIALIDAD NIVEL 5 - USO RESTRINGIDO ]</p>
+                    </div>
                 </div>
 
-                <h2 style="color: #0ea5e9; border-left: 10pt solid #0ea5e9; padding-left: 15pt; margin-bottom: 20pt;">1.0 INTRODUCCIÓN ESTRATÉGICA</h2>
-                <p style="text-align: justify; font-size: 11pt; line-height: 1.6;">${introSection.text}</p>
-                <div style="background-color: #f8fafc; padding: 15pt; border-radius: 10pt; margin-top: 15pt; border: 1pt solid #e2e8f0;">
-                    <p style="font-weight: bold; color: #0ea5e9; margin-bottom: 5pt;">MISIÓN DEL NODO MAESTRO:</p>
-                    <p style="font-style: italic;">${introSection.mission}</p>
+                <!-- INTRODUCCIÓN -->
+                <h2 style="color: #0ea5e9; border-bottom: 2pt solid #0ea5e9; padding-bottom: 5pt; margin-top: 40pt;">1.0 INTRODUCCIÓN ESTRATÉGICA</h2>
+                <p style="text-align: justify; line-height: 1.6;">${introSection.text}</p>
+                <div style="background-color: #f0f9ff; padding: 15pt; border-left: 5pt solid #0ea5e9; margin: 20pt 0;">
+                    <p style="font-weight: bold; color: #0369a1; margin: 0;">MISIÓN DEL SISTEMA:</p>
+                    <p style="font-style: italic; margin: 5pt 0 0 0;">"${introSection.mission}"</p>
                 </div>
 
-                <h2 style="color: #0ea5e9; border-left: 10pt solid #0ea5e9; padding-left: 15pt; margin-top: 40pt; margin-bottom: 20pt;">2.0 PROTOCOLOS OPERATIVOS MAESTROS</h2>
+                <!-- MÓDULOS -->
+                <h2 style="color: #0ea5e9; border-bottom: 2pt solid #0ea5e9; padding-bottom: 5pt; margin-top: 40pt;">2.0 PROTOCOLOS OPERATIVOS DE INGENIERÍA</h2>
                 ${manualModules.map(mod => `
-                    <div style="margin-bottom: 30pt; page-break-inside: avoid;">
-                        <h3 style="background-color: #0ea5e9; color: white; padding: 8pt 15pt; border-radius: 5pt; text-transform: uppercase;">${mod.title}</h3>
-                        <div style="padding: 10pt;">
-                            <p><strong>CONCEPTO FUNDAMENTAL:</strong> ${mod.concept}</p>
-                            <div style="background-color: #f1f5f9; padding: 10pt; border-radius: 5pt; margin: 10pt 0;">
-                                <p style="font-weight: bold; font-size: 9pt; color: #0369a1;">PROCEDIMIENTO PASO A PASO:</p>
+                    <div style="margin-bottom: 35pt; page-break-inside: avoid;">
+                        <h3 style="background-color: #0ea5e9; color: white; padding: 10pt 20pt; border-radius: 5pt;">${mod.title}</h3>
+                        <div style="padding: 10pt 0;">
+                            <p><strong>CONCEPTO MAESTRO:</strong> ${mod.concept}</p>
+                            <div style="background-color: #f8fafc; padding: 12pt; border: 1pt solid #e2e8f0; border-radius: 8pt; margin: 10pt 0;">
+                                <p style="font-weight: bold; color: #0ea5e9; margin-bottom: 5pt;">PROTOCOLO DE EJECUCIÓN:</p>
                                 <p>${mod.procedure}</p>
                             </div>
-                            <p style="font-size: 9pt; color: #64748b; border-top: 1pt solid #eee; padding-top: 5pt;"><strong>RESPALDO TÉCNICO:</strong> ${mod.technical}</p>
+                            <p style="font-size: 10pt; color: #64748b;"><strong>ARQUITECTURA TÉCNICA:</strong> ${mod.technical}</p>
                         </div>
                     </div>
                 `).join('')}
 
-                <h2 style="color: #0ea5e9; border-left: 10pt solid #0ea5e9; padding-left: 15pt; margin-top: 40pt; margin-bottom: 20pt;">3.0 INNOVACIONES DE GRADO SUPERIOR (TIER 2)</h2>
+                <!-- INNOVACIONES -->
+                <h2 style="color: #22c55e; border-bottom: 2pt solid #22c55e; padding-bottom: 5pt; margin-top: 40pt;">3.0 INNOVACIONES DE VANGUARDIA (TIER 2)</h2>
                 ${innovationTier2.map(inn => `
-                    <div style="margin-bottom: 25pt; border: 1pt solid #e2e8f0; border-radius: 8pt; padding: 15pt; background-color: #f0f9ff;">
-                        <h3 style="color: #0369a1; margin-top: 0;">${inn.title}</h3>
-                        <p><strong>OBJETIVO:</strong> ${inn.concept}</p>
-                        <p style="font-size: 10pt; color: #334155;"><strong>OPERACIÓN:</strong> ${inn.procedure}</p>
-                        <p style="font-size: 9pt; font-style: italic; color: #64748b; margin-top: 10pt;">Integración de Ingeniería: ${inn.technical}</p>
+                    <div style="margin-bottom: 30pt; border: 1pt solid #d1fae5; border-radius: 10pt; padding: 20pt; background-color: #f0fdf4;">
+                        <h3 style="color: #15803d; margin-top: 0;">${inn.title}</h3>
+                        <p><strong>VALOR ESTRATÉGICO:</strong> ${inn.concept}</p>
+                        <p><strong>MODO DE OPERACIÓN:</strong> ${inn.procedure}</p>
+                        <p style="font-size: 9pt; color: #166534; margin-top: 10pt; font-style: italic;">Respaldo: ${inn.technical}</p>
                     </div>
                 `).join('')}
 
-                <div style="margin-top: 60pt; text-align: center; border-top: 2pt solid #eee; padding-top: 30pt;">
-                    <p style="font-size: 9pt; color: #94a3b8; text-transform: uppercase; letter-spacing: 3pt;">System Kyron Corporate Node • © 2026</p>
-                    <p style="font-size: 8pt; color: #cbd5e1;">Todos los derechos reservados. El uso no autorizado de este protocolo será perseguido legalmente.</p>
+                <!-- ANEXOS TÉCNICOS -->
+                <h2 style="color: #0ea5e9; border-bottom: 2pt solid #0ea5e9; padding-bottom: 5pt; margin-top: 40pt;">4.0 ANEXOS Y SOPORTE</h2>
+                <div style="margin-bottom: 20pt;">
+                    <h4 style="color: #0369a1;">4.1 Requisitos de Sistema (Hardware & Red)</h4>
+                    <ul style="color: #475569;">
+                        <li><strong>Terminales Móviles:</strong> Android 11+ / iOS 15+ con soporte eSIM y Biometría.</li>
+                        <li><strong>Conectividad:</strong> Red 5G / 4G LTE con latencia < 50ms para transacciones Blockchain.</li>
+                        <li><strong>Estación de Trabajo:</strong> Chrome 110+, Edge o Firefox actualizados.</li>
+                        <li><strong>Seguridad Local:</strong> Cámara HD 1080p para enrolamiento facial de alta fidelidad.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 20pt;">
+                    <h4 style="color: #0369a1;">4.2 Glosario de Ingeniería</h4>
+                    <p><strong>eIDAS:</strong> Reglamento europeo para la identificación electrónica y servicios de confianza.</p>
+                    <p><strong>SM-DP+:</strong> Servidor de preparación de datos de suscripción para eSIM (estándar GSMA).</p>
+                    <p><strong>Ledger:</strong> Libro contable distribuido e inmutable basado en tecnología Blockchain.</p>
+                    <p><strong>RIPF:</strong> Reajuste por Inflación Fiscal, proceso legal obligatorio para balances reales.</p>
+                </div>
+
+                <div style="margin-top: 60pt; text-align: center; border-top: 2pt solid #eee; padding-top: 20pt;">
+                    <p style="font-size: 9pt; color: #94a3b8;">SYSTEM KYRON • CORPORATE INTELLIGENCE HUB • © 2026</p>
+                    <p style="font-size: 8pt; color: #cbd5e1;">DOCUMENTO SELLADO DIGITALMENTE - ID: KYR-MSTR-V265-SEC5</p>
                 </div>
             </div>
         `;
 
         const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual Maestro Kyron</title></head><body style='padding: 0; margin: 0;'>";
         const footerHtml = "</body></html>";
-        const blob = new Blob([headerHtml + docContent + footerHtml], { type: 'application/msword' });
+        const blob = new Blob([headerHtml + content + footerHtml], { type: 'application/msword' });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "MANUAL_MAESTRO_SYSTEM_KYRON_V2.6.5.doc";
@@ -246,7 +285,11 @@ export default function ManualMaestroPage() {
         link.click();
         document.body.removeChild(link);
 
-        toast({ title: "EXPEDIENTE EXPORTADO", description: "Manual Maestro v2.6.5 descargado con éxito bajo protocolo seguro." });
+        toast({ 
+            title: "EXPEDIENTE EXPORTADO", 
+            description: "Manual Maestro v2.6.5 generado bajo protocolo de alta fidelidad.",
+            action: <CheckCircle className="text-primary h-4 w-4" />
+        });
     };
 
     const scrollToSection = (id: string) => {
@@ -260,7 +303,7 @@ export default function ManualMaestroPage() {
 
     return (
         <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
-            {/* Header Flotante HUD */}
+            {/* Header HUD Permanente */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-16 bg-black/90 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-12 justify-between shadow-glow">
                 <div className="flex items-center gap-4">
                     <Logo className="h-8 w-8 drop-shadow-glow" />
@@ -284,7 +327,7 @@ export default function ManualMaestroPage() {
                     {/* Navegación Lateral HUD */}
                     <aside className="lg:col-span-4 hidden lg:block">
                         <Card className="glass-card p-6 rounded-[2.5rem] sticky top-24 border-white/5 bg-black/60 shadow-2xl overflow-hidden">
-                            <div className="absolute top-0 right-0 p-4 opacity-5"><ActivityIcon className="h-20 w-20 text-primary" /></div>
+                            <div className="absolute top-0 right-0 p-4 opacity-5"><Activity className="h-20 w-20 text-primary" /></div>
                             <CardHeader className="p-0 mb-6 border-b border-white/5 pb-4">
                                 <CardTitle className="text-[9px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-2">
                                     <ListTree className="h-3.5 w-3.5" /> Nodo de Navegación
@@ -297,10 +340,13 @@ export default function ManualMaestroPage() {
                                 {manualModules.map(mod => (
                                     <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
                                 ))}
-                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Innovaciones de Vanguardia</div>
+                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Innovaciones Tier 2</div>
                                 {innovationTier2.map(mod => (
                                     <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
                                 ))}
+                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Soporte Maestro</div>
+                                <NavButton label="Requisitos Técnicos" onClick={() => scrollToSection("intro")} icon={Monitor} />
+                                <NavButton label="Glosario" onClick={() => scrollToSection("intro")} icon={BookOpen} />
                             </CardContent>
                         </Card>
                     </aside>
@@ -365,7 +411,30 @@ export default function ManualMaestroPage() {
                             ))}
                         </div>
 
-                        {/* Footer del Manual */}
+                        {/* Soporte y Troubleshooting */}
+                        <section id="support" className="space-y-12 scroll-mt-24">
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                                <Activity className="h-6 w-6 text-emerald-500" /> 5.0 Soporte y Resolución
+                            </h3>
+                            <div className="grid gap-6">
+                                <Card className="glass-card p-10 rounded-[3rem] border-white/5 bg-white/[0.01]">
+                                    <h4 className="text-lg font-black uppercase italic text-primary mb-6">Troubleshooting Maestro</h4>
+                                    <div className="space-y-6">
+                                        {[
+                                            { q: "Falla en Validación Biométrica", a: "Asegure iluminación de 300 lux, limpie lente óptico y evite accesorios que cubran puntos vectoriales clave." },
+                                            { q: "Latencia en Ledger Blockchain", a: "Verifique que el firewall permita tráfico por los puertos del nodo Kyron y que la conexión 5G esté en modo 'Low Latency'." },
+                                            { q: "Desconexión de Smart Bin", a: "Reinicie el nodo de inducción magnética y valide el estado de los sensores de proximidad." }
+                                        ].map((item, i) => (
+                                            <div key={i} className="space-y-2">
+                                                <p className="font-black text-xs uppercase text-white/80">{item.q}</p>
+                                                <p className="text-xs text-muted-foreground font-medium italic">{item.a}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </Card>
+                            </div>
+                        </section>
+
                         <footer className="pt-20 border-t border-white/5 text-center space-y-6">
                             <Logo className="h-12 w-12 mx-auto opacity-20" />
                             <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
