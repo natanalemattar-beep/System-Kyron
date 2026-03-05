@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -12,9 +11,9 @@ import {
   Camera, 
   FileImage, 
   FileCode,
-  Zap,
   Box,
-  Monitor
+  Monitor,
+  Printer
 } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -22,7 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 /**
  * @fileOverview Página de Identidad de Marca Pro.
  * Presenta el logo oficial hexagonal en gran formato estático.
- * Incluye protocolos de exportación para resoluciones 5x5 (512px) y 4K (4096px).
+ * Incluye protocolos de exportación para resoluciones 5x5 cm (impresión), 512px y 4K.
  */
 
 export default function IdentidadMarcaPage() {
@@ -44,14 +43,14 @@ export default function IdentidadMarcaPage() {
     const svgUrl = URL.createObjectURL(svgBlob);
     const downloadLink = document.createElement("a");
     downloadLink.href = svgUrl;
-    downloadLink.download = "system_kyron_logo_official_vector.svg";
+    downloadLink.download = "system_kyron_logo_vector.svg";
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
 
     toast({
       title: "PROTOCOLO VECTORIAL ACTIVO",
-      description: "Activo SVG exportado con éxito.",
+      description: "Logo SVG exportado con éxito.",
     });
   };
 
@@ -82,7 +81,7 @@ export default function IdentidadMarcaPage() {
       
       toast({
         title: `EXPORTACIÓN ${label.toUpperCase()} COMPLETADA`,
-        description: `Resolución: ${size}x${size} px.`,
+        description: `Resolución optimizada para ${label}.`,
       });
     };
     
@@ -93,14 +92,11 @@ export default function IdentidadMarcaPage() {
 
   return (
     <div className="min-h-screen bg-[#020202] flex flex-col items-center justify-center relative overflow-hidden hud-grid">
-      {/* Elementos de Ambientación HUD */}
+      {/* Elementos HUD */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.05)_0,transparent_70%)]" />
         <div className="absolute top-10 left-10 text-[10px] font-black uppercase tracking-[0.5em] text-white/20 italic">
           Master Brand Node: 2.6.5
-        </div>
-        <div className="absolute bottom-10 right-10 text-[10px] font-black uppercase tracking-[0.5em] text-white/20 italic text-right">
-          System Kyron • Official Identity <br/> 4K UHD Assets
         </div>
       </div>
 
@@ -111,31 +107,24 @@ export default function IdentidadMarcaPage() {
         transition={{ duration: 1 }}
       >
         <div className="relative" ref={logoRef}>
-          {/* Resplandor de Fondo */}
           <div className="absolute inset-0 bg-primary/10 blur-[180px] rounded-full scale-150" />
-          
-          {/* Logo Hexagonal Estático para Capture */}
-          <div className="relative drop-shadow-[0_0_100px_rgba(37,99,235,0.4)] transition-transform duration-700 hover:scale-[1.02]">
+          <div className="relative drop-shadow-[0_0_100px_rgba(37,99,235,0.4)]">
             <Logo className="h-64 w-64 md:h-[512px] md:w-[512px]" />
           </div>
         </div>
 
         <div className="text-center space-y-6">
           <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.5em] text-primary shadow-glow">
-            <ShieldCheck className="h-3.5 w-3.5" /> Activo Maestro Verificado
+            <ShieldCheck className="h-3.5 w-3.5" /> Activo Institucional Verificado
           </div>
           
           <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
             SYSTEM <span className="text-primary">KYRON</span>
           </h1>
-          
-          <p className="text-xs md:text-sm text-white/40 max-w-lg mx-auto font-bold uppercase tracking-[0.4em] italic leading-relaxed">
-            Identidad Visual de Misión Crítica <br/> Red de Inteligencia Corporativa
-          </p>
         </div>
 
         {/* Panel de Descargas */}
-        <div className="flex flex-wrap justify-center gap-4 pt-8 no-print max-w-4xl">
+        <div className="flex flex-wrap justify-center gap-4 pt-8 no-print max-w-5xl">
           <Button variant="ghost" asChild className="rounded-xl h-14 px-8 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 border border-white/5">
             <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER</Link>
           </Button>
@@ -151,9 +140,17 @@ export default function IdentidadMarcaPage() {
           <Button 
             variant="outline" 
             className="rounded-xl h-14 px-8 text-[10px] font-black uppercase tracking-widest border-secondary/20 bg-secondary/5 text-secondary hover:bg-secondary/10 shadow-glow-secondary"
-            onClick={() => handleDownloadPNG(512, 'icon_5x5')}
+            onClick={() => handleDownloadPNG(591, '5x5cm_print')}
           >
-            <Box className="mr-2 h-4 w-4" /> ICONO 5x5
+            <Printer className="mr-2 h-4 w-4" /> 5x5 CM (PRINT)
+          </Button>
+
+          <Button 
+            variant="outline" 
+            className="rounded-xl h-14 px-8 text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white hover:bg-white/10"
+            onClick={() => handleDownloadPNG(512, 'icon_512px')}
+          >
+            <Box className="mr-2 h-4 w-4" /> ICONO 512px
           </Button>
 
           <Button 
@@ -172,9 +169,6 @@ export default function IdentidadMarcaPage() {
           </Button>
         </div>
       </motion.div>
-
-      {/* Grid HUD Inferior */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary/5 to-transparent opacity-30 pointer-events-none" />
     </div>
   );
 }
