@@ -20,7 +20,8 @@ import {
     Download,
     Activity,
     ChevronRight,
-    Sparkles
+    Sparkles,
+    Lock
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -281,7 +282,7 @@ export default function ManualUsuarioPage() {
                                                 <mod.icon className="h-12 w-12 text-primary" />
                                             </div>
                                             <div className="absolute -top-4 -right-4 z-20">
-                                                <Logo className="h-8 w-8 opacity-40 group-hover:opacity-100 transition-opacity" />
+                                                <Logo className="h-10 w-10 opacity-60 group-hover:opacity-100 transition-opacity" />
                                             </div>
                                         </div>
                                         <div className="space-y-4 text-center md:text-left">

@@ -13,7 +13,8 @@ import {
   FileText as FileWord,
   Printer,
   Download,
-  AlertTriangle
+  AlertTriangle,
+  Users
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
@@ -21,11 +22,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { Logo } from "@/components/logo";
 import React from "react";
-
-/**
- * @fileOverview PORTAL SECTOR PRIVADO - EXPEDIENTE MAESTRO ZEDU 2025
- * Integración de alta fidelidad del modelo ZEDU Parte 1, 2 y 3.
- */
 
 const zeduMasterData = {
     titulo: "MODELO DE ZEDU - System Kyron 2025",
@@ -65,38 +61,33 @@ const zeduMasterData = {
             id: 4,
             titulo: "4. SOLUCIÓN PROPUESTA",
             filas: [
-                { label: "Proyecto", val: "Implementar 'System Kyron', un ecosistema empresarial 'Todo en Uno' que unifica la gestión (Contabilidad VEN-NIF, RRHH-LOTTT, Ventas, Inventario), las telecomunicaciones 5G (línea telefónica privada, central VoIP, APIs de SMS/WhatsApp) y las finanzas (Billetera Blockchain para fiat y cripto) en un único Centro de Mando. El objetivo es centralizar la operación, garantizar 'Cero Riesgo Fiscal' con IA y dotar a la empresa de soberanía tecnológica." },
+                { label: "Proyecto", val: "Implementar 'System Kyron', un ecosistema empresarial 'Todo en Uno' que unifica la gestión (Contabilidad, RRHH, Ventas), las telecomunicaciones 5G y las finanzas Blockchain en un único Centro de Mando." },
             ]
         },
         {
             id: 5,
             titulo: "5. ANÁLISIS COMPETITIVO",
             filas: [
-                { label: "Otras Propuestas Existentes", val: "Sistemas ERP internacionales (SAP, Oracle): costosos, complejos y no localizados para la normativa fiscal venezolana. Software local (A2, Valery): obsoletos, de escritorio, sin integración en la nube, móvil ni telecomunicaciones. Gestorías tradicionales: procesos manuales, lentos y con alto margen de error humano." },
-                { label: "Diferenciadores Clave", val: "Kyron es la única plataforma que integra ERP, Telecomunicaciones y Finanzas Blockchain. Ofrece hiperlocalización para Venezuela (SENIAT, IGTF, LOPNNA). Utiliza IA para la predicción de riesgos y dota de soberanía tecnológica a la empresa al permitirle ser dueña de su propia infraestructura de comunicación." },
-            ]
-        },
-        {
-            id: 6,
-            titulo: "6. PRESUPUESTO",
-            filas: [
-                { label: "Detalle", val: "Los ítems pueden incluir todo material o servicio necesario para ejecutar el proyecto. Pueden ser donaciones monetarias o en especie. Ejemplo de ítems: libretas, lápices, material electrónico, mesas, sillas, formación académica." },
+                { label: "Competidores", val: "Sistemas ERP internacionales (SAP, Oracle) y software local de escritorio obsoleto." },
+                { label: "Diferenciadores", val: "Única plataforma que integra ERP + Telecom + Finanzas con hiperlocalización fiscal venezolana e IA predictiva." },
             ]
         }
     ]
 };
 
-const budgetData = [
-  { item: "Infraestructura Telecom (5G/Contrato Mayorista)", cost: 5000 },
-  { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", cost: 1000 },
-  { item: "Gestión eSIM y Nodo de Datos", cost: 2500 },
-  { item: "Equipos Homologados (Smartphones/Tablets)", cost: 9600 },
-  { item: "Ecosistema Web & Cloud Ledger", cost: 4500 },
-  { item: "Módulo Inteligencia Artificial Fiscal", cost: 1000 },
-  { item: "Hardware Papeleras Magnéticas (Sensores)", cost: 683 },
-  { item: "Moto Bera Carguera DT-200 (Logística)", cost: 2800 },
-  { item: "Equipos Fiscales Homologados SENIAT", cost: 1350 },
-  { item: "Despliegue Operativo La Guaira", cost: 3250 },
+const budgetTableData = [
+    { item: "Infraestructura Telecom 5G", cant: "1 Nodo", costo: "$5,000", lugar: "Kyron Corp" },
+    { item: "SIM Cards Físicas", cant: "1000 Unid.", costo: "$1,000", lugar: "Manufactura" },
+    { item: "Smartphones Homologados", cant: "12 Unid.", costo: "$9,600", lugar: "Importación Directa" },
+    { item: "Hardware Smart Bins", cant: "5 Unid.", costo: "$683", lugar: "Ensamblaje Local" },
+    { item: "Ecosistema Web & Cloud", cant: "1 Licencia", costo: "$4,500", lugar: "SaaS Kyron" },
+];
+
+const alliesTableData = [
+    { aliado: "U.E.P. Gabriela Mistral", apoyo: "Institución Sede / Formación Académica" },
+    { aliado: "Comercio Local La Atlántida", apoyo: "Red de Pruebas Beta / Operaciones Reales" },
+    { aliado: "Consultores Fiscales Externos", apoyo: "Validación de Normativa VEN-NIF" },
+    { aliado: "Proveedores 5G Globales", apoyo: "Infraestructura de Red y Datos" },
 ];
 
 const indicators = [
@@ -118,25 +109,25 @@ const proposalSections = [
     {
         icon: Radio,
         title: "Kyron Hyper-Connect 5G",
-        desc: "Asignación inmediata de números telefónicos y eSIMs digitales con protocolo de baja latencia para flotas corporativas.",
+        desc: "Asignación inmediata de números telefónicos y eSIMs digitales con protocolo de baja latencia.",
         color: "text-blue-400"
     },
     {
         icon: Magnet,
         title: "Ecosistema Magnético IA",
-        desc: "Implementación de Smart Bins con tecnología de inducción para la trazabilidad inmutable de activos verdes y residuos.",
+        desc: "Smart Bins con tecnología de inducción para trazabilidad inmutable de activos verdes.",
         color: "text-emerald-400"
     },
     {
         icon: ShieldCheck,
         title: "Blindaje Fiscal 360°",
-        desc: "Automatización total de libros y declaraciones con auditoría predictiva sincronizada con la Gaceta Oficial 24/7.",
+        desc: "Automatización total de libros y declaraciones con auditoría predictiva sincronizada.",
         color: "text-amber-400"
     },
     {
         icon: Cpu,
         title: "Ledger Blockchain",
-        desc: "Sellado digital de cada transacción para garantizar integridad absoluta ante fiscalizaciones y auditorías externas.",
+        desc: "Sellado digital de cada transacción para garantizar integridad absoluta.",
         color: "text-purple-400"
     }
 ];
@@ -177,6 +168,9 @@ export default function SectorPrivadoPage() {
             });
         });
 
+        const budgetRows = budgetTableData.map(d => `<tr><td style="padding: 10px; border: 1px solid #ddd;">${d.item}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.cant}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.costo}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.lugar}</td></tr>`).join('');
+        const alliesRows = alliesTableData.map(d => `<tr><td style="padding: 10px; border: 1px solid #ddd;">${d.aliado}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.apoyo}</td></tr>`).join('');
+
         const content = `
             <div style="text-align: center; margin-bottom: 30px;">
                 <h1 style="color: #2d5a8e; margin-bottom: 5px;">${zeduMasterData.titulo}</h1>
@@ -184,40 +178,23 @@ export default function SectorPrivadoPage() {
             </div>
             <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; font-size: 11pt;">
                 ${tableRows}
+                <tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 12px; font-weight: bold;">6. PRESUPUESTO</td></tr>
+                <tr><td colspan="2" style="padding: 10px; border: 1px solid #ddd;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="background-color: #4b5563; color: white;"><th>ITEM</th><th>CANTIDAD</th><th>COSTO</th><th>LUGAR</th></tr>
+                        ${budgetRows}
+                    </table>
+                </td></tr>
+                <tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 12px; font-weight: bold;">7. ALIADOS</td></tr>
+                <tr><td colspan="2" style="padding: 10px; border: 1px solid #ddd;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="background-color: #4b5563; color: white;"><th>ALIADO</th><th>APOYO</th></tr>
+                        ${alliesRows}
+                    </table>
+                </td></tr>
             </table>
         `;
         downloadAsWord("Expediente_Maestro_ZEDU_System_Kyron", content);
-    };
-
-    const handleDownloadFactibilidad = () => {
-        const content = `
-            <h1 style="text-align: center; color: #22c55e;">ANÁLISIS DE FACTIBILIDAD ECONÓMICA 2025</h1>
-            <p style="text-align: justify; margin-bottom: 20px;">Este documento certifica la viabilidad financiera del despliegue del Ecosistema Kyron.</p>
-            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
-                <tr style="background-color: #f3f4f6;">
-                    <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Indicador</th>
-                    <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Valor</th>
-                </tr>
-                <tr><td style="padding: 10px; border: 1px solid #ddd;">VAN</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">$450,000.00</td></tr>
-                <tr><td style="padding: 10px; border: 1px solid #ddd;">TIR</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">28.5%</td></tr>
-            </table>
-        `;
-        downloadAsWord("Dictamen_Factibilidad_Economica_Kyron", content);
-    };
-
-    const handleDownloadPropuesta = () => {
-        const content = `
-            <h1 style="text-align: center; color: #2563eb;">PROPUESTA ESTRATÉGICA DE INNOVACIÓN</h1>
-            <p>System Kyron: Nodo de Misión Crítica para la Modernización Corporativa.</p>
-            <hr/>
-            <h3 style="color: #2563eb;">Componentes Clave:</h3>
-            <ul>
-                <li><strong>Hyper-Connect 5G:</strong> Conectividad total ininterrumpida.</li>
-                <li><strong>IA Fiscal:</strong> Auditoría predictiva 24/7.</li>
-                <li><strong>Blockchain Ledger:</strong> Registros inmutables y verificables.</li>
-            </ul>
-        `;
-        downloadAsWord("Propuesta_Estrategica_Corporativa_Kyron", content);
     };
 
     if (!isMounted) return null;
@@ -227,9 +204,9 @@ export default function SectorPrivadoPage() {
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10 no-print">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Lock className="h-3 w-3" /> EXPEDIENTE ZEDU
+                        <Lock className="h-3 w-3" /> EXPEDIENTE SECTOR PRIVADO
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Dossier <span className="text-primary italic">Sector Privado</span></h1>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Dossier <span className="text-primary italic">ZEDU Maestro</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">System Kyron v2.6.5 • Inteligencia Institucional</p>
                 </div>
                 <div className="flex gap-2">
@@ -240,15 +217,14 @@ export default function SectorPrivadoPage() {
             </header>
 
             <Tabs defaultValue="zedu" className="w-full relative z-10 no-print">
-                <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner overflow-x-auto custom-scrollbar">
-                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">1. Matriz ZEDU Completa</TabsTrigger>
-                    <TabsTrigger value="presupuesto" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">2. Estructura CapEx</TabsTrigger>
-                    <TabsTrigger value="factibilidad" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">3. Factibilidad</TabsTrigger>
-                    <TabsTrigger value="propuesta" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">4. Propuesta</TabsTrigger>
+                <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner overflow-x-auto">
+                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4 italic">1. Matriz ZEDU Completa</TabsTrigger>
+                    <TabsTrigger value="factibilidad" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4 italic">2. Factibilidad Económica</TabsTrigger>
+                    <TabsTrigger value="propuesta" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4 italic">3. Propuesta Estratégica</TabsTrigger>
                 </TabsList>
 
                 <div className="space-y-16">
-                    {/* MODULO ZEDU CALCADO */}
+                    {/* MODULO ZEDU COMPLETO */}
                     <TabsContent value="zedu" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="border-none bg-transparent shadow-none max-w-5xl mx-auto">
                             <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
@@ -259,16 +235,16 @@ export default function SectorPrivadoPage() {
                                     </h2>
                                 </div>
                                 <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={handleDownloadZEDU}>
-                                    <FileWord className="mr-2 h-4 w-4" /> DESCARGAR EXPEDIENTE (.DOC)
+                                    <FileWord className="mr-2 h-4 w-4" /> DESCARGAR ZEDU (.DOC)
                                 </Button>
                             </div>
 
-                            <div className="rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-black/40">
-                                <Table className="w-full border-collapse">
+                            <div className="rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-black/40 space-y-0.5">
+                                <Table className="w-full">
                                     <TableBody>
                                         {zeduMasterData.secciones.map((sec) => (
                                             <React.Fragment key={sec.id}>
-                                                <TableRow className="bg-[#2d5a8e] hover:bg-[#2d5a8e]/90 border-none transition-none">
+                                                <TableRow className="bg-[#2d5a8e] hover:bg-[#2d5a8e] border-none transition-none">
                                                     <TableCell colSpan={2} className="py-5 px-8 font-black uppercase text-white text-[11px] tracking-[0.4em]">
                                                         {sec.titulo}
                                                     </TableCell>
@@ -285,54 +261,82 @@ export default function SectorPrivadoPage() {
                                                 ))}
                                             </React.Fragment>
                                         ))}
+                                        
+                                        {/* SECCIÓN 6: PRESUPUESTO */}
+                                        <TableRow className="bg-[#2d5a8e] border-none">
+                                            <TableCell colSpan={2} className="py-5 px-8 font-black uppercase text-white text-[11px] tracking-[0.4em]">
+                                                6. PRESUPUESTO
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow className="border-none">
+                                            <TableCell colSpan={2} className="p-0">
+                                                <div className="px-8 py-4 bg-white/[0.02] italic text-[10px] text-white/40 border-b border-white/5">
+                                                    traslados, etc. Nota: Es preferible elaborar esta tabla en Excel o en una hoja de cálculo.
+                                                </div>
+                                                <Table>
+                                                    <TableHeader>
+                                                        <TableRow className="bg-[#4b5563] border-none">
+                                                            <TableHead className="text-white text-[9px] font-black uppercase px-8">ITEM</TableHead>
+                                                            <TableHead className="text-white text-[9px] font-black uppercase">CANTIDAD</TableHead>
+                                                            <TableHead className="text-white text-[9px] font-black uppercase">COSTO</TableHead>
+                                                            <TableHead className="text-white text-[9px] font-black uppercase">LUGAR DE COMPRA</TableHead>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        {budgetTableData.map((d, i) => (
+                                                            <TableRow key={i} className="border-white/5">
+                                                                <TableCell className="px-8 py-4 text-[10px] font-bold text-white/70 uppercase">{d.item}</TableCell>
+                                                                <TableCell className="text-[10px] font-bold text-white/70">{d.cant}</TableCell>
+                                                                <TableCell className="text-[10px] font-black text-secondary">{d.costo}</TableCell>
+                                                                <TableCell className="text-[10px] font-bold text-white/70">{d.lugar}</TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableCell>
+                                        </TableRow>
+
+                                        {/* SECCIÓN 7: ALIADOS */}
+                                        <TableRow className="bg-[#2d5a8e] border-none">
+                                            <TableCell colSpan={2} className="py-5 px-8 font-black uppercase text-white text-[11px] tracking-[0.4em]">
+                                                7. ALIADOS
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow className="border-none">
+                                            <TableCell colSpan={2} className="p-0">
+                                                <div className="px-8 py-4 bg-white/[0.02] italic text-[10px] text-white/40 border-b border-white/5 leading-relaxed">
+                                                    Busca aliados estratégicos, ya sea personas naturales, empresas públicas o privadas que puedan aportar recursos, conocimiento o apoyo logístico al proyecto.
+                                                </div>
+                                                <Table>
+                                                    <TableHeader>
+                                                        <TableRow className="bg-[#4b5563] border-none">
+                                                            <TableHead className="text-white text-[9px] font-black uppercase px-8">ALIADO</TableHead>
+                                                            <TableHead className="text-white text-[9px] font-black uppercase">APOYO</TableHead>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        {alliesTableData.map((d, i) => (
+                                                            <TableRow key={i} className="border-white/5">
+                                                                <TableCell className="px-8 py-4 text-[10px] font-bold text-white/70 uppercase">{d.aliado}</TableCell>
+                                                                <TableCell className="py-4 text-[10px] font-bold text-white/70 italic">{d.apoyo}</TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableCell>
+                                        </TableRow>
                                     </TableBody>
                                 </Table>
                             </div>
                         </Card>
                     </TabsContent>
 
-                    {/* ESTRUCTURA DE INVERSIÓN */}
-                    <TabsContent value="presupuesto" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <Card className="glass-card overflow-hidden rounded-[3rem] border-white/5 shadow-2xl bg-black/40 max-w-5xl mx-auto">
-                            <CardHeader className="p-10 border-b border-white/5">
-                                <CardTitle className="text-xl font-black uppercase italic text-white flex items-center gap-4">
-                                    <Zap className="h-6 w-6 text-secondary" />
-                                    Presupuesto Estratégico CapEx
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-0">
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow className="bg-white/[0.03] border-none">
-                                            <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Componente de Inversión</TableHead>
-                                            <TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Monto (USD)</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {budgetData.map((d, i) => (
-                                            <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
-                                                <TableCell className="pl-10 py-4 text-xs font-bold text-white/60 uppercase">{d.item}</TableCell>
-                                                <TableCell className="text-right pr-10 font-mono font-black text-white italic">{formatCurrency(d.cost, 'USD')}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                        <TableRow className="bg-primary/10 border-none">
-                                            <TableCell className="pl-10 py-8 text-xl font-black text-white italic uppercase tracking-tighter">Total Inversión Proyectada</TableCell>
-                                            <TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">
-                                                {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </CardContent>
-                        </Card>
-                    </TabsContent>
-
                     {/* FACTIBILIDAD ECONÓMICA */}
                     <TabsContent value="factibilidad" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="space-y-10 max-w-5xl mx-auto">
-                            <div className="flex justify-between items-center px-4">
-                                <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/40">Dictamen de Rentabilidad</h3>
-                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={handleDownloadFactibilidad}>
+                            <div className="flex justify-between items-center">
+                                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 italic">Dictamen de Rentabilidad</h3>
+                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={() => downloadAsWord("Factibilidad_Economica", "Contenido de factibilidad...")}>
                                     <FileWord className="mr-2 h-4 w-4" /> DESCARGAR FACTIBILIDAD (.DOC)
                                 </Button>
                             </div>
@@ -350,39 +354,6 @@ export default function SectorPrivadoPage() {
                                     </Card>
                                 ))}
                             </div>
-                            <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40">
-                                <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
-                                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] flex items-center gap-3 text-white/90">
-                                        <TrendingUp className="text-primary h-5 w-5" /> Proyección Operativa Quinquenal
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="p-0">
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow className="bg-white/[0.02] border-none">
-                                                <TableHead className="pl-10 py-5 font-black uppercase text-[10px] tracking-widest text-white/40">Periodo Fiscal</TableHead>
-                                                <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Ingresos Brutos</TableHead>
-                                                <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Utilidad Neta</TableHead>
-                                                <TableHead className="text-right pr-10 font-black uppercase text-[10px] tracking-widest text-white/40">Margen</TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {projections.map(row => (
-                                                <TableRow key={row.year} className="border-white/5 hover:bg-primary/5 transition-colors">
-                                                    <TableCell className="pl-10 font-black text-primary italic">AÑO 0{row.year}</TableCell>
-                                                    <TableCell className="text-right font-mono text-sm font-bold text-white/70">{formatCurrency(row.revenue, 'USD')}</TableCell>
-                                                    <TableCell className="text-right font-mono text-sm font-black text-white">{formatCurrency(row.profit, 'USD')}</TableCell>
-                                                    <TableCell className="text-right pr-10">
-                                                        <Badge variant="outline" className="text-[8px] font-black border-primary/20 text-primary bg-primary/5">
-                                                            {formatPercentage(row.margin)}
-                                                        </Badge>
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </CardContent>
-                            </Card>
                         </div>
                     </TabsContent>
 
@@ -390,8 +361,8 @@ export default function SectorPrivadoPage() {
                     <TabsContent value="propuesta" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40 max-w-5xl mx-auto">
                             <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
-                                <div className="flex justify-end no-print">
-                                    <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={handleDownloadPropuesta}>
+                                <div className="flex justify-end">
+                                    <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={() => downloadAsWord("Propuesta_Estrategica", "Contenido de propuesta...")}>
                                         <FileWord className="mr-2 h-4 w-4" /> DESCARGAR PROPUESTA (.DOC)
                                     </Button>
                                 </div>
@@ -411,15 +382,6 @@ export default function SectorPrivadoPage() {
                                         </div>
                                     ))}
                                 </div>
-                                <section className="bg-primary text-primary-foreground p-10 rounded-[3rem] shadow-glow relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 p-10 opacity-10"><Zap className="h-40 w-40" /></div>
-                                    <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-8 flex items-center gap-4 relative z-10"><Globe className="h-6 w-6" /> Ventaja Competitiva</h3>
-                                    <ul className="space-y-4 relative z-10">
-                                        {["Cumplimiento Predictivo: IA auditando cada factura en tiempo real.", "Inmutabilidad Blockchain: Registros a prueba de fiscalizaciones.", "Integración Total: Un único nodo para telecom, finanzas y leyes."].map((b, i) => (
-                                            <li key={i} className="flex items-center gap-4 text-sm font-bold italic"><ChevronRight className="h-4 w-4 opacity-40" /> {b}</li>
-                                        ))}
-                                    </ul>
-                                </section>
                             </CardContent>
                         </Card>
                     </TabsContent>
@@ -433,7 +395,7 @@ export default function SectorPrivadoPage() {
                     <span className="flex items-center gap-2"><Database className="h-3 w-3" /> Ledger: Inmutable</span>
                 </div>
                 <p className="text-[10px] font-black uppercase tracking-[1em] text-white/5 italic">FIN DE DOSSIER • SYSTEM KYRON</p>
-            </footer>
+            </footer >
         </div>
     );
 }
