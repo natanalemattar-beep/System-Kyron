@@ -16,6 +16,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { Logo } from "@/components/logo";
 
+/**
+ * @fileOverview DOSSIER TÉCNICO MAESTRO - SECTOR PRIVADO v2.6.5
+ * Nodo centralizado para Factibilidad, ZEDU y Propuesta Estratégica.
+ */
+
 const zeduModel2025 = {
     identificacion: {
         nombre: "System Kyron",
