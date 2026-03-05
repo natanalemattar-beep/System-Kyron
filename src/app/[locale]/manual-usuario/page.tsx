@@ -23,10 +23,10 @@ import {
     CheckCircle,
     ChevronRight,
     Lock,
-    Scale,
-    FileText,
     Printer,
-    Activity
+    Activity,
+    Scale,
+    FileText
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -37,8 +37,8 @@ import React from "react";
 
 /**
  * @fileOverview Manual de Usuario Maestro de System Kyron v2.6.5.
- * Documentación técnica exhaustiva de los 10 módulos operativos.
- * Optimizado para exportación compacta y densa a Microsoft Word (.doc) incluyendo Logo PNG.
+ * Documentación técnica masiva y exhaustiva.
+ * Optimizada para exportación a Word (.doc) replicando la cabecera institucional.
  */
 
 const manualModules = [
@@ -50,15 +50,11 @@ const manualModules = [
         content: [
             {
                 sub: "Arquitectura de Validación Biométrica 3D y Prueba de Vida (Liveness Detection)",
-                text: "El núcleo de seguridad de System Kyron se fundamenta en la soberanía absoluta de la identidad digital. El proceso de enrolamiento despliega un motor de visión artificial de alta precisión que ejecuta un escaneo facial tridimensional exhaustivo, mapeando más de 512 puntos vectoriales únicos y analizando la profundidad geométrica de las facciones con una tolerancia de error de 1 entre 1.000.000. El sistema exige una validación de 'Prueba de Vida' activa, que detecta micro-movimientos involuntarios, reflejos pupilares ante estímulos lumínicos y patrones de parpadeo síncrono para garantizar la imposibilidad técnica de suplantación mediante deepfakes, fotografías de alta resolución o máscaras realistas. Este protocolo cumple rigurosamente con los estándares internacionales de firmas electrónicas avanzadas y niveles de seguridad eIDAS (Electronic Identification, Authentication and Trust Services). La base de datos biométrica utiliza un hash unidireccional de 512 bits, lo que significa que el rostro original nunca se almacena en el servidor, solo su representación matemática cifrada, garantizando la privacidad total del usuario bajo el principio de 'Privacy by Design'. Este motor es capaz de procesar validaciones en menos de 0.8 segundos incluso en condiciones de baja luminosidad extrema, integrando un algoritmo de compensación espectral infrarroja. Cada nodo de validación está sincronizado con el Ledger inmutable de la Fundación Kyron, asegurando que la identidad sea única, intransferible y persistente en todo el ecosistema corporativo, permitiendo el inicio de sesión sin contraseñas tradicionales, eliminando el riesgo de phishing o robo de credenciales."
+                text: "El núcleo de seguridad de System Kyron se fundamenta en la soberanía absoluta de la identidad digital. El proceso de enrolamiento despliega un motor de visión artificial de alta precisión que ejecuta un escaneo facial tridimensional exhaustivo, mapeando más de 512 puntos vectoriales únicos y analizando la profundidad geométrica de las facciones con una tolerancia de error de 1 entre 1.000.000. El sistema exige una validación de 'Prueba de Vida' activa, que detecta micro-movimientos involuntarios, reflejos pupilares ante estímulos lumínicos y patrones de parpadeo síncrono para garantizar la imposibilidad técnica de suplantación mediante deepfakes, fotografías de alta resolución o máscaras realistas. Este protocolo cumple rigurosamente con los estándares internacionales de firmas electrónicas avanzadas y niveles de seguridad eIDAS (Electronic Identification, Authentication and Trust Services). La base de datos biométrica utiliza un hash unidireccional de 512 bits, lo que significa que el rostro original nunca se almacena en el servidor, solo su representación matemática cifrada, garantizando la privacidad total del usuario bajo el principio de 'Privacy by Design'. Este motor es capaz de procesar validaciones en menos de 0.8 segundos incluso en condiciones de baja luminosidad extrema, integrando un algoritmo de compensación espectral infrarroja. Cada nodo de validación está sincronizado con el Ledger inmutable de la Fundación Kyron, asegurando que la identidad sea única, intransferible y persistente en todo el ecosistema corporativo, permitiendo el inicio de sesión sin contraseñas tradicionales, eliminando el riesgo de phishing o robo de credenciales. La integración con el marco legal venezolano permite que esta validación tenga el mismo peso que una firma autógrafa ante el SAREN."
             },
             {
                 sub: "Bóveda de Resguardo de Activos Civiles y Entropía de Cifrado AES-512",
-                text: "Los documentos maestros, tales como Cédulas de Identidad, registros de RIF y Pasaportes, se someten a un proceso de fragmentación digital y cifrado distribuido bajo el estándar AES-512 (Advanced Encryption Standard con llaves de 512 bits). La arquitectura de 'Zero Knowledge' asegura que los datos permanezcan cifrados y sean inaccesibles incluso para los administradores de red de Kyron; los datos solo pueden ser desencriptados por el titular legítimo tras una secuencia de autenticación biométrica exitosa. Cada activo depositado cuenta con un sellado de tiempo (Timestamping) inmutable basado en el protocolo RFC 3161, lo que otorga a cada copia digital una validez legal equivalente al original físico. Esto permite la portabilidad legal completa y verificable mediante códigos QR dinámicos que expiran en 60 segundos, ideales para gestiones ante notarías o registros sin necesidad de portar documentos físicos. El motor de búsqueda en la bóveda utiliza indexación por metadatos anonimizados, permitiendo una recuperación instantánea de documentos específicos sin comprometer el contenido cifrado del archivo original. El sistema realiza respaldos geodistribuidos en tres nodos independientes ubicados en jurisdicciones seguras, garantizando una disponibilidad del 99.999% y una integridad de datos absoluta frente a desastres naturales o fallos de infraestructura local."
-            },
-            {
-                sub: "Gestión de Permisos Delegados y Auditoría de Acceso",
-                text: "El usuario dispone de un panel de control de acceso granular donde puede visualizar en tiempo real qué entidades o funcionarios han consultado su documentación. Es posible otorgar 'Permisos de Lectura Temporales' que expiran automáticamente tras cumplirse el trámite solicitado. Cada acceso es registrado en un log de auditoría inalterable, proporcionando una traza de control total sobre la privacidad. El sistema alerta proactivamente al móvil del usuario ante cualquier intento de consulta no autorizado, permitiendo el bloqueo instantáneo de la identidad digital en caso de sospecha de compromiso de seguridad. Esta funcionalidad es vital para el cumplimiento de normativas de protección de datos personales de grado internacional como el GDPR, adaptadas al marco jurídico venezolano."
+                text: "Los documentos maestros, tales como Cédulas de Identidad, registros de RIF y Pasaportes, se someten a un proceso de fragmentación digital y cifrado distribuido bajo el estándar AES-512. La arquitectura de 'Zero Knowledge' asegura que los datos permanezcan cifrados y sean inaccesibles incluso para los administradores de red de Kyron; los datos solo pueden ser desencriptados por el titular legítimo tras una secuencia de autenticación biométrica exitosa. Cada activo depositado cuenta con un sellado de tiempo (Timestamping) inmutable basado en el protocolo RFC 3161, lo que otorga a cada copia digital una validez legal equivalente al original físico. Esto permite la portabilidad legal completa y verificable mediante códigos QR dinámicos que expiran en 60 segundos, ideales para gestiones ante notarías o registros sin necesidad de portar documentos físicos. El motor de búsqueda en la bóveda utiliza indexación por metadatos anonimizados, permitiendo una recuperación instantánea de documentos específicos sin comprometer el contenido cifrado del archivo original. El sistema realiza respaldos geodistribuidos en tres nodos independientes ubicados en jurisdicciones seguras, garantizando una disponibilidad del 99.999% y una integridad de datos absoluta frente a desastres naturales o fallos de infraestructura local. Este módulo es el pilar de la digitalización civil masiva propuesta para el territorio nacional."
             }
         ]
     },
@@ -70,11 +66,11 @@ const manualModules = [
         content: [
             {
                 sub: "Protocolo de Aprovisionamiento Dinámico de eSIM (GSMA SM-DP+)",
-                text: "Kyron opera un servidor de aprovisionamiento remoto certificado (SM-DP+) que permite la generación, gestión e instalación instantánea de perfiles eSIM en dispositivos móviles, tablets y módems industriales. Tras la validación de la identidad biométrica, el sistema empaqueta las credenciales de red bajo un túnel cifrado y las inyecta en el chip embebido (eUICC) del terminal del usuario final sin necesidad de contacto físico. Este proceso elimina la logística de tarjetas SIM de plástico, reduciendo la huella de carbono y permitiendo la activación de líneas de voz y datos 5G en cuestión de segundos desde el portal. El sistema facilita la gestión remota masiva de flotas corporativas (Bulk Provisioning), permitiendo al departamento de IT desplegar políticas de conectividad personalizadas para cientos de empleados de forma simultánea. La seguridad del enlace se garantiza mediante el protocolo de autenticación mutua EAP-AKA, protegiendo las llaves de cifrado contra intentos de clonación. El sistema soporta el 'Multi-IMSI', permitiendo que un mismo terminal conmute dinámicamente entre diferentes operadores nacionales o internacionales para garantizar siempre la mejor cobertura disponible, una característica esencial para operaciones de transporte y logística en zonas remotas."
+                text: "Kyron opera un servidor de aprovisionamiento remoto certificado (SM-DP+) que permite la generación, gestión e instalación instantánea de perfiles eSIM en dispositivos móviles, tablets y módems industriales. Tras la validación de la identidad biométrica, el sistema empaqueta las credenciales de red bajo un túnel cifrado y las inyecta en el chip embebido (eUICC) del terminal del usuario final sin necesidad de contacto físico. Este proceso elimina la logística de tarjetas SIM de plástico, reduciendo la huella de carbono y permitiendo la activación de líneas de voz y datos 5G en cuestión de segundos desde el portal. El sistema facilita la gestión remota masiva de flotas corporativas (Bulk Provisioning), permitiendo al departamento de IT desplegar políticas de conectividad personalizadas para cientos de empleados de forma simultánea. La seguridad del enlace se garantiza mediante el protocolo de autenticación mutua EAP-AKA, protegiendo las llaves de cifrado contra intentos de clonación. El sistema soporta el 'Multi-IMSI', permitiendo que un mismo terminal conmute dinámicamente entre diferentes operadores para garantizar siempre la mejor cobertura disponible."
             },
             {
                 sub: "Arquitectura de Red Core 5G y Conectividad de Misión Crítica",
-                text: "La infraestructura de telecomunicaciones de Kyron se asienta sobre una red core virtualizada (VNF) de última generación, optimizada para ofrecer una latencia de extremo a extremo inferior a 10 milisegundos. Este parámetro es crítico para la sincronización de bases de datos financieras y transaccionales distribuidas, evitando colisiones de datos en entornos multimoneda. El sistema gestiona troncales SIP (Session Initiation Protocol) para servicios de voz sobre IP de alta definición, permitiendo el despliegue de centrales telefónicas virtuales corporativas. Estas centrales incluyen motores de IA para el análisis de sentimientos en llamadas de atención al cliente y transcripción automática de grabaciones para auditoría legal. Toda la transmisión de datos se encuentra encapsulada en túneles VPN con cifrado IPsec de grado militar, protegiendo la comunicación corporativa contra ataques de interceptación (Man-in-the-Middle). El monitoreo NOC (Network Operations Center) está integrado directamente en la consola de mando de Kyron, proporcionando telemetría en tiempo real sobre el jitter, la pérdida de paquetes y el ancho de banda disponible por cada nodo de la organización. El sistema aplica técnicas de 'Network Slicing' para priorizar el tráfico de facturación fiscal y pagos sobre el tráfico general, asegurando que el punto de venta nunca pierda conectividad en momentos de alta saturación de la red urbana."
+                text: "La infraestructura de telecomunicaciones de Kyron se asienta sobre una red core virtualizada (VNF) de última generación, optimizada para ofrecer una latencia de extremo a extremo inferior a 10 milisegundos. Este parámetro es crítico para la sincronización de bases de datos financieras y transaccionales distribuidas, evitando colisiones de datos en entornos multimoneda. El sistema gestiona troncales SIP (Session Initiation Protocol) para servicios de voz sobre IP de alta definición, permitiendo el despliegue de centrales telefónicas virtuales corporativas. Estas centrales incluyen motores de IA para el análisis de sentimientos en llamadas de atención al cliente y transcripción automática de grabaciones para auditoría legal. Toda la transmisión de datos se encuentra encapsulada en túneles VPN con cifrado IPsec de grado militar, protegiendo la comunicación corporativa contra ataques de interceptación. El monitoreo NOC (Network Operations Center) está integrado directamente en la consola de mando de Kyron, proporcionando telemetría en tiempo real sobre el jitter, la pérdida de paquetes y el ancho de banda disponible. El sistema aplica técnicas de 'Network Slicing' para priorizar el tráfico de facturación fiscal y pagos sobre el tráfico general, asegurando la operatividad 24/7 de los puntos de venta."
             }
         ]
     },
@@ -85,12 +81,12 @@ const manualModules = [
         description: "Ecosistema comercial con inteligencia fiscal adaptativa y validación síncrona de registros corporativos.",
         content: [
             {
-                sub: "Motores de Validación Fiscal Síncrona y Cumplimiento de Providencias SENIAT",
-                text: "Al procesar una transacción, el motor de inteligencia fiscal de Kyron ejecuta una consulta síncrona a las bases de datos de la administración tributaria para validar el RIF, la Razón Social y el domicilio fiscal del cliente en milisegundos. Este protocolo garantiza que el 100% de los documentos emitidos (Facturas, Notas de Débito/Crédito) cumplan estrictamente con la Providencia Administrativa SNAT/2011/0071. El sistema automatiza el cálculo y aplicación del IGTF (Impuesto a las Grandes Transacciones Financieras), detectando mediante sensores el origen de los fondos (efectivo en divisas, transferencias internacionales o bolívares) y aplicando la alícuota legal correspondiente de forma transparente para el cajero. El TPV está integrado nativamente con máquinas fiscales de última generación, enviando los comandos de impresión bajo protocolos de verificación para evitar la alteración de los registros de la memoria fiscal física. El sistema maneja múltiples alícuotas de IVA simultáneamente, permitiendo facturar ítems exentos y gravados en un mismo documento sin errores matemáticos. El motor de 'Facturación Rápida' permite completar ventas complejas con métodos de pago combinados en menos de 20 segundos, optimizando el flujo en tiendas de alto volumen."
+                sub: "Motores de Validación Fiscal Síncrona y Cumplimiento SENIAT",
+                text: "Al procesar una transacción, el motor de inteligencia fiscal de Kyron ejecuta una consulta síncrona a las bases de datos de la administración tributaria para validar el RIF, la Razón Social y el domicilio fiscal del cliente en milisegundos. Este protocolo garantiza que el 100% de los documentos emitidos (Facturas, Notas de Débito/Crédito) cumplan estrictamente con la Providencia Administrativa SNAT/2011/0071. El sistema automatiza el cálculo y aplicación del IGTF, detectando mediante sensores el origen de los fondos y aplicando la alícuota legal correspondiente de forma transparente. El TPV está integrado nativamente con máquinas fiscales de última generación, enviando los comandos de impresión bajo protocolos de verificación para evitar la alteración de los registros. El sistema maneja múltiples alícuotas de IVA simultáneamente, permitiendo facturar ítems exentos y gravados en un mismo documento sin errores matemáticos. El motor de 'Facturación Rápida' permite completar ventas complejas con métodos de pago combinados en tiempo récord, optimizando el flujo en tiendas de alto volumen."
             },
             {
                 sub: "Gestión de Inventario Multipunto y Kardex de Precisión VEN-NIF",
-                text: "El control de existencias opera bajo una arquitectura de Kardex perpetuo con actualizaciones en tiempo real tras cada factura o nota de entrega. Cada SKU cuenta con trazabilidad absoluta mediante números de serie, lotes y fechas de vencimiento, permitiendo la aplicación de métodos de valoración técnica como Promedio Ponderado o FIFO, totalmente ajustados a las normativas contables VEN-NIF. La interfaz gestiona depósitos múltiples y sucursales distribuidas, donde cada movimiento de mercancía (traslados entre bodegas, ajustes por merma, recepciones de proveedores) es validado mediante escaneo de códigos de barras industriales y firmas digitales de los responsables de almacén. El sistema genera alertas inteligentes sobre niveles de stock crítico basándose en el análisis predictivo de la demanda estacional, sugiriendo cantidades de pedido óptimas para maximizar la rotación del capital de trabajo. La integración con terminales de inventario móviles permite realizar tomas físicas sin paralizar la operación de venta, comparando automáticamente el stock físico con el teórico y generando reportes de discrepancia inmediatos listos para auditoría gerencial."
+                text: "El control de existencias opera bajo una arquitectura de Kardex perpetuo con actualizaciones en tiempo real tras cada factura o nota de entrega. Cada SKU cuenta con trazabilidad absoluta mediante números de serie, lotes y fechas de vencimiento, permitiendo la aplicación de métodos de valoración técnica como Promedio Ponderado o FIFO, totalmente ajustados a las normativas contables VEN-NIF. La interfaz gestiona depósitos múltiples y sucursales distribuidas, donde cada movimiento de mercancía es validado mediante escaneo de códigos de barras industriales y firmas digitales de los responsables. El sistema genera alertas inteligentes sobre niveles de stock crítico basándose en el análisis predictivo de la demanda estacional, sugiriendo cantidades de pedido óptimas. La integración con terminales de inventario móviles permite realizar tomas físicas sin paralizar la operación de venta, comparando automáticamente el stock físico con el teórico y generando reportes de discrepancia inmediatos."
             }
         ]
     },
@@ -102,11 +98,11 @@ const manualModules = [
         content: [
             {
                 sub: "Motor de Auditoría Preventiva 24/7 y Conciliación Fiscal Automatizada",
-                text: "System Kyron neutraliza cualquier vulnerabilidad administrativa mediante un motor de auditoría preventiva que cruza sistemáticamente los ingresos declarados con los movimientos bancarios efectivos y el libro de ventas digital. El sistema genera de forma autónoma los Libros de Compras y Ventas mensuales, exportando archivos en formatos XML y TXT con la estructura exacta requerida por el portal fiscal nacional. Nuestra IA ejecuta 'Pruebas de Coherencia' que detectan discrepancias en decimales, fechas de retención o números de control, permitiendo al departamento contable realizar ajustes antes de que ocurra cualquier fiscalización oficial. Este enfoque proactivo reduce el riesgo de sanciones pecuniarias o cierres temporales a niveles estadísticamente insignificantes, proporcionando una capa de protección jurídica inestimable para los directivos de la empresa. El sistema archiva digitalmente cada comprobante de retención, permitiendo su recuperación inmediata ante cualquier requerimiento de la administración tributaria. Cada periodo fiscal cerrado queda sellado en el Ledger Blockchain, impidiendo modificaciones retroactivas accidentales que pudieran comprometer la integridad ante auditorías de largo plazo."
+                text: "System Kyron neutraliza cualquier vulnerabilidad administrativa mediante un motor de auditoría preventiva que cruza sistemáticamente los ingresos declarados con los movimientos bancarios efectivos y el libro de ventas digital. El sistema genera de forma autónoma los Libros de Compras y Ventas mensuales, exportando archivos en formatos XML y TXT con la estructura exacta requerida por el portal fiscal nacional. Nuestra IA ejecuta 'Pruebas de Coherencia' que detectan discrepancias en decimales, fechas de retención o números de control, permitiendo al departamento contable realizar ajustes antes de que ocurra cualquier fiscalización oficial. Este enfoque proactivo reduce el riesgo de sanciones pecuniarias a niveles insignificantes. El sistema archiva digitalmente cada comprobante de retención, permitiendo su recuperación inmediata ante cualquier requerimiento. Cada periodo fiscal cerrado queda sellado en el Ledger Blockchain, impidiendo modificaciones retroactivas que pudieran comprometer la integridad ante auditorías de largo plazo."
             },
             {
                 sub: "Automatización del Reajuste por Inflación Fiscal (RIPF) y Diferidos",
-                text: "Dada la complejidad del entorno económico, el sistema carga diariamente los índices INPC publicados por el Banco Central de Venezuela. El módulo identifica automáticamente las partidas no monetarias del Balance General (Inventarios, Propiedades, Planta y Equipo, Patrimonio) y aplica los factores de corrección actuariales correspondientes de acuerdo a la Ley de Impuesto Sobre la Renta (LISLR). El sistema genera los asientos contables de ajuste de forma impecable y calcula automáticamente el impuesto diferido. Este procedimiento protege el patrimonio real de la organización contra la erosión fiscal y proporciona un sustento técnico inatacable ante inspecciones del SENIAT, garantizando que el cálculo de las ganancias o pérdidas monetarias sea matemáticamente exacto y legalmente sólido. El motor RIPF está configurado para manejar cierres de ejercicio fiscal en cualquier mes del año, adaptándose a la planificación específica de la corporación. La robustez de este cálculo permite a la gerencia visualizar el 'Equity' real de la empresa descontando el efecto inflacionario, facilitando una valoración corporativa precisa para potenciales inversionistas o socios estratégicos."
+                text: "Dada la complejidad del entorno económico, el sistema carga diariamente los índices INPC publicados por el Banco Central de Venezuela. El módulo identifica automáticamente las partidas no monetarias del Balance General y aplica los factores de corrección actuariales correspondientes de acuerdo a la Ley de Impuesto Sobre la Renta (LISLR). El sistema genera los asientos contables de ajuste de forma impecable y calcula automáticamente el impuesto diferido. Este procedimiento protege el patrimonio real de la organización contra la erosión fiscal y proporciona un sustento técnico inatacable ante inspecciones, garantizando que el cálculo de las ganancias o pérdidas monetarias sea matemáticamente exacto y legalmente sólido. El motor RIPF está configurado para manejar cierres de ejercicio fiscal en cualquier mes del año, adaptándose a la planificación específica de la corporación."
             }
         ]
     },
@@ -118,11 +114,11 @@ const manualModules = [
         content: [
             {
                 sub: "Modelado de Inversiones y Análisis de Sensibilidad Financiera (VAN/TIR)",
-                text: "El sistema dota a la alta gerencia de herramientas avanzadas para la evaluación de proyectos de capital, permitiendo calcular indicadores de rentabilidad como el Valor Actual Neto (VAN) y la Tasa Interna de Retorno (TIR) en tiempo real. El simulador financiero permite crear escenarios multivariables alterando parámetros críticos como costos de insumos, fluctuación de la tasa cambiaria y variaciones en el volumen de ventas. Este análisis de sensibilidad proporciona una base científica rigurosa para la aprobación de planes de expansión o adquisiciones, permitiendo visualizar el periodo de recuperación de la inversión (Payback) y el margen de seguridad operativa. Los informes generados cuentan con un diseño de grado ejecutivo, ideal para presentaciones ante juntas directivas o instituciones financieras para la solicitud de líneas de crédito. Cada escenario puede ser guardado y comparado, permitiendo una trazabilidad estratégica de la visión corporativa a largo plazo. La IA financiera proyecta además el flujo de caja libre para los próximos 24 meses, detectando ventanas de oportunidad para inversiones de excedentes en activos líquidos o reducción de deuda estructurada."
+                text: "El sistema dota a la alta gerencia de herramientas avanzadas para la evaluación de proyectos de capital, permitiendo calcular indicadores de rentabilidad como el Valor Actual Neto (VAN) y la Tasa Interna de Retorno (TIR) en tiempo real. El simulador financiero permite crear escenarios multivariables alterando parámetros críticos como costos de insumos, fluctuación de la tasa cambiaria y variaciones en el volumen de ventas. Este análisis de sensibilidad proporciona una base científica rigurosa para la aprobación de planes de expansión, permitiendo visualizar el periodo de recuperación de la inversión (Payback) y el margen de seguridad operativa. Los informes generados cuentan con un diseño de grado ejecutivo, ideal para presentaciones ante juntas directivas. La IA financiera proyecta además el flujo de caja libre para los próximos 24 meses, detectando ventanas de oportunidad para inversiones estratégicas."
             },
             {
                 sub: "Conciliación Bancaria Inteligente y Tesorería Multimoneda",
-                text: "Gestiona la tesorería corporativa en múltiples divisas bajo las tasas oficiales del BCV. El protocolo de conciliación inteligente utiliza algoritmos de coincidencia de patrones para vincular automáticamente transferencias entrantes y pagos móviles con sus facturas correspondientes. Detecta duplicidades, pagos parciales y errores en referencias bancarias, asegurando que la disponibilidad de fondos reportada sea un espejo exacto de la realidad bancaria. Este módulo optimiza el flujo de caja operativo (Cash Flow) y reduce el tiempo administrativo de conciliación en un 85%. Además, integra un sistema de alertas para pagos programados a proveedores y obligaciones tributarias, evitando cargos por mora y manteniendo una relación saludable con la cadena de suministro. El motor de tesorería soporta la integración vía API con las principales entidades bancarias para la descarga automatizada de estados de cuenta. El sistema también gestiona el flujo de activos digitales, permitiendo una integración contable fluida de las cripto-finanzas en el balance general consolidado de la empresa."
+                text: "Gestiona la tesorería corporativa en múltiples divisas bajo las tasas oficiales del BCV. El protocolo de conciliación inteligente utiliza algoritmos de coincidencia de patrones para vincular automáticamente transferencias entrantes y pagos móviles con sus facturas correspondientes. Detecta duplicidades, pagos parciales y errores en referencias bancarias, asegurando que la disponibilidad de fondos reportada sea un espejo exacto de la realidad bancaria. Este módulo optimiza el flujo de caja operativo (Cash Flow) y reduce el tiempo administrativo de conciliación en un 85%. Además, integra un sistema de alertas para pagos programados a proveedores, evitando cargos por mora. El motor de tesorería soporta la integración vía API con las principales entidades bancarias para la descarga automatizada de estados de cuenta."
             }
         ]
     },
@@ -134,11 +130,11 @@ const manualModules = [
         content: [
             {
                 sub: "Motor de Cálculo de Nómina Automatizado y Liquidaciones Técnicas",
-                text: "Kyron integra la lógica jurídica completa de la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT) para automatizar el cálculo de salarios integrales, bonificaciones nocturnas, horas extras y deducciones obligatorias (IVSS, SPF, FAOV). Genera recibos de pago digitales con validez probatoria y resguarda el historial remunerativo de cada colaborador en el Ledger inmutable. El sistema gestiona automáticamente el cálculo de las prestaciones sociales, manteniendo actualizado el fondo de garantía de antigüedad y generando proyecciones de pasivos laborales para el balance financiero. En caso de desvinculación, el módulo genera el finiquito de liquidación detallado, asegurando que todos los conceptos legales sean cancelados correctamente, mitigando riesgos de demandas laborales por errores de cálculo. El motor permite configurar turnos rotativos complejos y gestionar incidencias como ausencias justificadas o permisos médicos vinculados al IVSS. El sistema de nómina está preparado para manejar pagos bimonetarios, calculando el impacto fiscal de las bonificaciones en divisas según la jurisprudencia vigente del TSJ."
+                text: "Kyron integra la lógica jurídica completa de la LOTTT para automatizar el cálculo de salarios integrales, bonificaciones nocturnas, horas extras y deducciones obligatorias (IVSS, SPF, FAOV). Genera recibos de pago digitales con validez probatoria y resguarda el historial remunerativo en el Ledger inmutable. El sistema gestiona automáticamente el cálculo de las prestaciones sociales, manteniendo actualizado el fondo de garantía de antigüedad y generando proyecciones de pasivos laborales. En caso de desvinculación, el módulo genera el finiquito de liquidación detallado, asegurando que todos los conceptos legales sean cancelados correctamente, mitigando riesgos de demandas laborales. El motor permite configurar turnos rotativos complejos y gestionar incidencias vinculadas al IVSS. El sistema de nómina está preparado para manejar pagos bimonetarios según la jurisprudencia vigente del TSJ."
             },
             {
                 sub: "Gestión de Solvencias y Control de Registros Parafiscales (TIUNA/FAOV)",
-                text: "El módulo laboral actualiza de forma autónoma los libros legales de vacaciones, horas extras y registros de personal retirado. Gestiona las retenciones y aportes patronales, generando archivos de carga masiva para los portales institucionales del IVSS y BANAVIH. Este nivel de automatización garantiza que la organización mantenga sus solvencias laborales al día, factor crítico para la participación en licitaciones y el mantenimiento de una imagen corporativa responsable. El sistema también permite la gestión de perfiles de cargos, evaluaciones de desempeño y planes de formación, vinculando el crecimiento del talento con los objetivos estratégicos de la organización, todo centralizado en un expediente digital único por empleado. La integración con el módulo jurídico permite que los contratos de trabajo sean firmados digitalmente por ambas partes, sellando la relación laboral con transparencia absoluta desde el primer día."
+                text: "El módulo laboral actualiza de forma autónoma los libros legales de vacaciones, horas extras y registros de personal retirado. Gestiona las retenciones y aportes patronales, generando archivos de carga masiva para los portales institucionales del IVSS y BANAVIH. Este nivel de automatización garantiza que la organización mantenga sus solvencias laborales al día, factor crítico para la participación en licitaciones. El sistema también permite la gestión de perfiles de cargos, evaluaciones de desempeño y planes de formación, vinculando el crecimiento del talento con los objetivos estratégicos, todo centralizado en un expediente digital único. La integración con el módulo jurídico permite que los contratos de trabajo sean firmados digitalmente por ambas partes."
             }
         ]
     },
@@ -150,11 +146,11 @@ const manualModules = [
         content: [
             {
                 sub: "Gestión de Ciclo de Vida de Contratos (CLM) y Firmas Digitales Biométricas",
-                text: "Centraliza la redacción, revisión y firma de todos los instrumentos legales de la empresa (contratos de servicios, acuerdos de confidencialidad, alianzas) mediante un repositorio de plantillas visadas por el equipo jurídico. El sistema de control de versiones registra cada modificación en el Ledger, garantizando la trazabilidad histórica de los acuerdos. La integración con la Identidad Digital permite que solo los apoderados autorizados firmen biométricamente los documentos, otorgándoles una capa de seguridad técnica superior a la firma tradicional y eliminando el riesgo de manipulación. El módulo también gestiona el flujo de aprobaciones internas, asegurando que ningún contrato sea firmado sin la debida revisión de los departamentos involucrados. Cada documento firmado genera un certificado de integridad que puede ser verificado públicamente por terceros interesados sin revelar el contenido sensible del contrato. El sistema permite la creación de contratos inteligentes que ejecutan acciones automáticas tras el cumplimiento de hitos."
+                text: "Centraliza la redacción, revisión y firma de todos los instrumentos legales de la empresa mediante un repositorio de plantillas visadas por el equipo jurídico. El sistema de control de versiones registra cada modificación en el Ledger, garantizando la trazabilidad histórica de los acuerdos. La integración con la Identidad Digital permite que solo los apoderados autorizados firmen biométricamente los documentos, eliminando el riesgo de manipulación. El módulo también gestiona el flujo de aprobaciones internas, asegurando que ningún contrato sea firmado sin la debida revisión técnica. Cada documento firmado genera un certificado de integridad que puede ser verificado públicamente sin revelar contenido sensible. El sistema permite la creación de contratos inteligentes con ejecución automática de condiciones."
             },
             {
                 sub: "Vigilancia de Vencimientos de Activos Legales y Poderes Notariados",
-                text: "Genera alertas inteligentes y escalables antes del vencimiento de poderes de representación, registros de marcas ante el SAPI, patentes de invención o habilitaciones de telecomunicaciones. Este sistema de alerta temprana permite al departamento legal coordinar renovaciones ante registros mercantiles y notarías públicas con antelación suficiente, evitando la paralización de gestiones comerciales por falta de vigencia en la representación. El sistema también permite la gestión de expedientes judiciales, centralizando las actuaciones, citaciones y sentencias asociadas a la empresa, facilitando la coordinación con abogados externos y manteniendo a la directiva informada sobre el estatus de cualquier litigio o proceso legal en curso. El repositorio legal admite el archivo de escrituras, títulos de propiedad y actas de asamblea con indexación avanzada por categorías de derecho."
+                text: "Genera alertas inteligentes antes del vencimiento de poderes de representación, registros de marcas ante el SAPI, patentes o habilitaciones de telecomunicaciones. Este sistema permite al departamento legal coordinar renovaciones con antelación suficiente, evitando la paralización de gestiones comerciales. El sistema también permite la gestión de expedientes judiciales, centralizando actuaciones, citaciones y sentencias, facilitando la coordinación con abogados externos y manteniendo a la directiva informada sobre litigios en curso. El repositorio legal admite el archivo de escrituras, títulos de propiedad y actas de asamblea con indexación avanzada por categorías de derecho."
             }
         ]
     },
@@ -166,11 +162,11 @@ const manualModules = [
         content: [
             {
                 sub: "Fotogrametría Digital y Generación de Planos Vectoriales Automatizada",
-                text: "Este módulo avanzado permite digitalizar espacios físicos de forma remota mediante el procesamiento de imágenes de alta resolución capturadas con dispositivos móviles u otros sensores. El motor de visión artificial identifica geometrías, muros y aberturas, escalando el espacio automáticamente al detectar un patrón de referencia conocido. El resultado es un plano arquitectónico vectorial que sirve como base técnica para proyectos de remodelación o expansión de sucursales. Esta tecnología reduce drásticamente los costos y tiempos asociados a levantamientos técnicos manuales, permitiendo a la empresa mantener un inventario digital exacto de su infraestructura física distribuida. Los planos generados son exportables en formatos industriales (DWG, PDF) para su integración en sistemas CAD tradicionales, manteniendo una precisión milimétrica validada algorítmicamente. El sistema también permite realizar recorridos virtuales 360° de las instalaciones."
+                text: "Este módulo avanzado permite digitalizar espacios físicos de forma remota mediante el procesamiento de imágenes de alta resolución. El motor de visión artificial identifica geometrías, muros y aberturas, escalando el espacio automáticamente al detectar un patrón de referencia. El resultado es un plano arquitectónico vectorial que sirve como base técnica para proyectos de remodelación o expansión. Esta tecnología reduce drásticamente los costos y tiempos asociados a levantamientos técnicos manuales, permitiendo mantener un inventario digital exacto de la infraestructura física. Los planos generados son exportables en formatos industriales (DWG, PDF) para su integración en sistemas CAD tradicionales, manteniendo una precisión milimétrica validada algorítmicamente."
             },
             {
                 sub: "Cómputos Métricos y Análisis de Precios Unitarios (APU) Dinámicos",
-                text: "Vincula los planos generados con una base de datos de materiales y mano de obra para realizar cómputos métricos de alta precisión. Genera presupuestos de ingeniería dinámicos que validan los costos proyectados contra el mercado real de proveedores registrados en el ecosistema. Este nivel de integración asegura que las obras civiles o despliegues tecnológicos de la empresa se mantengan dentro de los márgenes financieros presupuestados, alertando sobre desviaciones mediante dashboards de control de obra en tiempo real. El sistema permite la exportación de presupuestos técnicos detallados listos para licitaciones o solicitudes de financiamiento bancario. El motor APU gestiona automáticamente el cálculo de desperdicios, rendimientos por jornada y leyes sociales asociadas a la construcción, garantizando un presupuesto 100% auditable y financieramente viable."
+                text: "Vincula los planos generados con una base de datos de materiales y mano de obra para realizar cómputos métricos de alta precisión. Genera presupuestos de ingeniería dinámicos que validan los costos proyectados contra el mercado real de proveedores registrados. Este nivel de integración asegura que las obras civiles se mantengan dentro de los márgenes financieros presupuestados, alertando sobre desviaciones mediante dashboards de control en tiempo real. El sistema permite la exportación de presupuestos técnicos detallados listos para licitaciones o solicitudes bancarias. El motor APU gestiona automáticamente el cálculo de desperdicios y leyes sociales asociadas a la construcción."
             }
         ]
     },
@@ -182,11 +178,11 @@ const manualModules = [
         content: [
             {
                 sub: "Sensores de Inducción Magnética en Smart Bins y Clasificación IA",
-                text: "Kyron implementa estaciones de reciclaje inteligentes dotadas de sensores de inducción magnética que detectan la firma electromagnética única de los materiales depositados. El sistema clasifica de forma autónoma metales ferrosos de polímeros plásticos PET, garantizando una pureza del residuo recolectado superior al 99%. Esta tecnología asegura que la cadena de suministro de economía circular se inicie con datos de alta fidelidad, permitiendo a la empresa certificar sus procesos de sostenibilidad mediante reportes auditables. Los contenedores están conectados al nodo central, informando sobre niveles de llenado y optimizando las rutas de recolección logística mediante el análisis de telemetría constante. El sistema de compactación interna se activa automáticamente al alcanzar umbrales de densidad preestablecidos, maximizando la capacidad de almacenamiento por estación."
+                text: "Kyron implementa estaciones de reciclaje inteligentes dotadas de sensores de inducción magnética que detectan la firma electromagnética única de los materiales depositados. El sistema clasifica de forma autónoma metales ferrosos de polímeros plásticos PET, garantizando una pureza del residuo superior al 99%. Esta tecnología asegura que la cadena de suministro de economía circular se inicie con datos de alta fidelidad, permitiendo certificar procesos de sostenibilidad mediante reportes auditables. Los contenedores informan sobre niveles de llenado y optimizan rutas de recolección logística mediante análisis de telemetría constante. El sistema de compactación interna maximiza la capacidad de almacenamiento por estación."
             },
             {
                 sub: "Tokenización de Impacto: Eco-Créditos y Reportes ESG Corporativos",
-                text: "Cada acción de reciclaje verificada por el hardware se traduce en activos digitales denominados 'Eco-Créditos', los cuales son transferidos instantáneamente a la billetera digital del colaborador o cliente. Para las organizaciones, el sistema consolida estos datos para generar Reportes ESG (Environmental, Social, and Governance) de alta fidelidad. Estos documentos certifican la reducción real de la huella de carbono de la empresa mediante una traza de datos inalterable respaldada por el Blockchain institucional. Esto mejora el scoring crediticio y permite a la empresa participar en mercados de bonos de carbono. El dashboard de sostenibilidad permite visualizar en tiempo real el ahorro en emisiones de CO2, agua y energía eléctrica derivado de la recuperación de materiales procesados por el ecosistema Kyron."
+                text: "Cada acción de reciclaje verificada se traduce en activos digitales denominados 'Eco-Créditos', transferidos instantáneamente a la billetera digital del usuario. Para las organizaciones, el sistema consolida estos datos para generar Reportes ESG de alta fidelidad. Estos documentos certifican la reducción real de la huella de carbono mediante una traza de datos inalterable respaldada por el Blockchain institucional. Esto mejora el scoring crediticio y permite participar en mercados de bonos de carbono. El dashboard de sostenibilidad permite visualizar en tiempo real el ahorro en emisiones de CO2, agua y energía eléctrica derivado de la operación del ecosistema."
             }
         ]
     },
@@ -198,11 +194,11 @@ const manualModules = [
         content: [
             {
                 sub: "Bóveda Civil y Portabilidad de Salud Inteligente para Colaboradores",
-                text: "El portal ciudadano centraliza copias certificadas de documentos vitales bajo el control exclusivo del titular mediante su identidad biométrica. Adicionalmente, integra un módulo de salud inteligente donde el historial médico básico, alergias y tipos de sangre son portátiles y accesibles en emergencias mediante un código QR seguro. Este enfoque pone la soberanía de la información en manos del individuo, simplificando trámites personales ante organismos públicos y asegurando una respuesta médica informada en cualquier nodo de la red de salud afiliada. Las empresas pueden ofrecer este módulo como un beneficio adicional para sus empleados, promoviendo el bienestar y la organización familiar mediante una gestión digital eficiente de sus activos personales y de salud."
+                text: "El portal ciudadano centraliza copias certificadas de documentos vitales bajo el control exclusivo del titular mediante su identidad biométrica. Integra un módulo de salud inteligente donde el historial médico básico, alergias y tipos de sangre son portátiles y accesibles en emergencias mediante un código QR seguro. Este enfoque pone la soberanía de la información en manos del individuo, simplificando trámites personales ante organismos públicos y asegurando una respuesta médica informada. Las empresas pueden ofrecer este módulo como un beneficio adicional para sus empleados, promoviendo el bienestar y la organización familiar mediante una gestión digital eficiente."
             },
             {
                 sub: "Calculadora de Manutención Técnica y Asistente RIF para Menores",
-                text: "Simplifica el cumplimiento de las responsabilidades familiares establecidas en la LOPNNA mediante una calculadora técnica basada en unidades tributarias, ingresos documentados y necesidades específicas del menor. El asistente de RIF para menores automatiza el llenado de los formularios oficiales del SENIAT, facilitando la inscripción de los hijos como carga familiar para la obtención de rebajas fiscales en el ISLR. El sistema emite constancias de cumplimiento que pueden ser presentadas ante tribunales de protección, garantizando una traza de pagos y acuerdos inalterable. El asistente guía al representante en la actualización anual de la carga familiar ante el portal fiscal, evitando la pérdida de beneficios tributarios por omisión administrativa."
+                text: "Simplifica el cumplimiento de las responsabilidades familiares establecidas en la LOPNNA mediante una calculadora técnica basada en unidades tributarias, ingresos documentados y necesidades específicas del menor. El asistente de RIF para menores automatiza el llenado de los formularios oficiales del SENIAT, facilitando la inscripción de los hijos como carga familiar para la obtención de rebajas fiscales en el ISLR. El sistema emite constancias de cumplimiento que pueden ser presentadas ante tribunales de protección, garantizando una traza de pagos inalterable. El asistente guía al representante en la actualización anual de la carga familiar, evitando la pérdida de beneficios tributarios."
             }
         ]
     }
@@ -229,7 +225,6 @@ export default function ManualUsuarioPage() {
     };
 
     const handleDownload = async () => {
-        // Captura del logo final preciso para el Word
         const svgElement = document.getElementById('master-logo-export-source');
         if (!svgElement) return;
 
@@ -249,38 +244,38 @@ export default function ManualUsuarioPage() {
             
             let docContent = "";
             docContent += `
-                <div style="border-bottom: 2pt solid #0ea5e9; margin-bottom: 25pt; padding-bottom: 15pt;">
+                <div style="border-bottom: 2pt solid #0ea5e9; margin-bottom: 30pt; padding-bottom: 20pt;">
                     <table style="width: 100%; border: none;">
                         <tr>
-                            <td style="width: 90pt; border: none; vertical-align: middle;">
-                                <img src="${pngDataUrl}" width="85" height="85" style="display: block;" />
+                            <td style="width: 100pt; border: none; vertical-align: middle;">
+                                <img src="${pngDataUrl}" width="90" height="90" style="display: block;" />
                             </td>
                             <td style="border: none; vertical-align: middle;">
-                                <h1 style="color: #0ea5e9; margin: 0; font-size: 26pt; font-family: 'Arial Black', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: 2.5pt; font-style: italic;">SYSTEM KYRON</h1>
-                                <p style="color: #64748b; margin: 0; font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5pt;">MANUAL TÉCNICO INTEGRAL v2.6.5 • CORPORATE INTELLIGENCE</p>
+                                <h1 style="color: #0ea5e9; margin: 0; font-size: 32pt; font-family: 'Arial Black', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: 3pt; font-style: italic;">SYSTEM KYRON</h1>
+                                <p style="color: #64748b; margin: 0; font-size: 11pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2pt;">MANUAL TÉCNICO INTEGRAL V2.6.5 • CORPORATE INTELLIGENCE</p>
                             </td>
                         </tr>
                     </table>
                 </div>
                 
-                <div style="margin-bottom: 35pt; border-left: 12pt solid #0ea5e9; padding-left: 25pt; background-color: #f8fafc; padding-top: 20pt; padding-bottom: 20pt; border-radius: 4pt;">
-                    <h2 style="color: #1e293b; font-size: 20pt; margin: 0; font-family: 'Arial', sans-serif; text-transform: uppercase; font-weight: bold; letter-spacing: 1pt;">DOCUMENTACIÓN TÉCNICA MAESTRA</h2>
-                    <p style="font-style: italic; color: #475569; margin-top: 8pt; font-size: 12pt; line-height: 1.4;">Compendio exhaustivo de protocolos operativos y de ingeniería de misión crítica.</p>
+                <div style="margin-bottom: 40pt; border-left: 12pt solid #0ea5e9; padding-left: 25pt; background-color: #f8fafc; padding-top: 25pt; padding-bottom: 25pt;">
+                    <h2 style="color: #1e293b; font-size: 22pt; margin: 0; font-family: 'Arial', sans-serif; text-transform: uppercase; font-weight: bold; letter-spacing: 1pt;">DOCUMENTACIÓN TÉCNICA MAESTRA</h2>
+                    <p style="font-style: italic; color: #475569; margin-top: 10pt; font-size: 13pt; line-height: 1.4;">Compendio exhaustivo de protocolos operativos y de ingeniería de misión crítica para el despliegue del ecosistema integral.</p>
                 </div>
             `;
 
             manualModules.forEach(mod => {
                 docContent += `
-                    <div style="margin-top: 30pt; margin-bottom: 25pt;">
-                        <h2 style="color: #0ea5e9; text-transform: uppercase; border-bottom: 2pt solid #e2e8f0; padding-bottom: 10pt; margin-bottom: 20pt; font-size: 18pt; font-family: 'Arial Black', sans-serif; font-weight: 900; font-style: italic;">${mod.title}</h2>
-                        <p style="font-weight: bold; color: #1e293b; margin-bottom: 20pt; font-size: 11pt; text-transform: uppercase; font-family: 'Arial', sans-serif; background-color: #f1f5f9; padding: 12pt; border-radius: 6pt; border-left: 4pt solid #22c55e;">${mod.description}</p>
+                    <div style="margin-top: 35pt; margin-bottom: 30pt;">
+                        <h2 style="color: #0ea5e9; text-transform: uppercase; border-bottom: 2pt solid #e2e8f0; padding-bottom: 12pt; margin-bottom: 25pt; font-size: 20pt; font-family: 'Arial Black', sans-serif; font-weight: 900; font-style: italic;">${mod.title}</h2>
+                        <p style="font-weight: bold; color: #1e293b; margin-bottom: 25pt; font-size: 12pt; text-transform: uppercase; font-family: 'Arial', sans-serif; background-color: #f1f5f9; padding: 15pt; border-left: 5pt solid #22c55e;">${mod.description}</p>
                 `;
                 
                 mod.content.forEach(item => {
                     docContent += `
-                        <div style="margin-bottom: 22pt; padding: 15pt; border: 1pt solid #f1f5f9; border-radius: 8pt; background-color: #ffffff;">
-                            <h3 style="color: #1e293b; font-size: 13pt; margin-bottom: 10pt; border-left: 5pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial', sans-serif; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5pt;">${item.sub}</h3>
-                            <p style="text-align: justify; line-height: 1.7; font-size: 11.5pt; color: #334155; font-family: 'Times New Roman', serif;">${item.text}</p>
+                        <div style="margin-bottom: 25pt; padding: 15pt; border: 1pt solid #f1f5f9; background-color: #ffffff;">
+                            <h3 style="color: #1e293b; font-size: 14pt; margin-bottom: 12pt; border-left: 6pt solid #0ea5e9; padding-left: 18pt; font-family: 'Arial', sans-serif; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5pt;">${item.sub}</h3>
+                            <p style="text-align: justify; line-height: 1.8; font-size: 12pt; color: #334155; font-family: 'Times New Roman', serif;">${item.text}</p>
                         </div>
                     `;
                 });
@@ -289,13 +284,13 @@ export default function ManualUsuarioPage() {
             });
 
             const footer = `
-                <div style="margin-top: 50pt; border-top: 2pt solid #0ea5e9; padding-top: 25pt; text-align: center; font-size: 9pt; color: #94a3b8; font-family: 'Arial', sans-serif; letter-spacing: 1.2pt;">
+                <div style="margin-top: 60pt; border-top: 3pt solid #0ea5e9; padding-top: 30pt; text-align: center; font-size: 10pt; color: #94a3b8; font-family: 'Arial', sans-serif; letter-spacing: 1.5pt;">
                     <p style="text-transform: uppercase; font-weight: bold;">SYSTEM KYRON, C.A. • RIF: J-12345678-9 • EXPEDIENTE DE GRADO CORPORATIVO</p>
-                    <p style="margin-top: 8pt; font-style: italic;">PROPIEDAD INTELECTUAL RESERVADA • © 2026 • ID PROTOCOLO: SK-MASTER-2.6.5-FULL</p>
+                    <p style="margin-top: 10pt; font-style: italic;">PROPIEDAD INTELECTUAL RESERVADA • © 2026 • PROTOCOLO SEGURO ACTIVO</p>
                 </div>
             `;
 
-            const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual Maestro System Kyron</title></head><body style='padding: 50pt; background-color: #ffffff;'>";
+            const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual Maestro System Kyron</title></head><body style='padding: 60pt; background-color: #ffffff;'>";
             const finalSource = headerHtml + docContent + footer + "</body></html>";
 
             const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(finalSource);
@@ -307,8 +302,8 @@ export default function ManualUsuarioPage() {
             document.body.removeChild(link);
 
             toast({
-                title: "DESCARGA INSTITUCIONAL INICIADA",
-                description: "Manual técnico expandido con logo final exportado a Word.",
+                title: "DESCARGA MAESTRA INICIADA",
+                description: "Manual técnico denso con logo PNG exportado a Word.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
         };
@@ -355,7 +350,7 @@ export default function ManualUsuarioPage() {
 
             <main className="container mx-auto px-6 max-w-7xl pt-24 pb-20 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
-                    {/* Navigation Sidebar (HUD Table of Contents) */}
+                    {/* Navigation Sidebar */}
                     <aside className="lg:col-span-4 no-print">
                         <div className="sticky top-24 space-y-6">
                             <Card className="glass-card p-6 rounded-[2rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
@@ -396,7 +391,7 @@ export default function ManualUsuarioPage() {
                         </div>
                     </aside>
 
-                    {/* Main Documentation Flow */}
+                    {/* Main Content */}
                     <div className="lg:col-span-8 space-y-12">
                         <motion.section 
                             className="space-y-6"
@@ -410,7 +405,7 @@ export default function ManualUsuarioPage() {
                                 Manual de Usuario de System Kyron
                             </h1>
                             <p className="text-base text-white/40 max-w-xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-8 leading-relaxed">
-                                Documentación técnica exhaustiva para la operatividad del ecosistema integral de gestión administrativa, fiscal y telecomunicaciones.
+                                Documentación técnica masiva para la operatividad del ecosistema integral de gestión administrativa, fiscal y telecomunicaciones.
                             </p>
                         </motion.section>
 
@@ -458,11 +453,11 @@ export default function ManualUsuarioPage() {
                                     <CardFooter className="p-6 border-t border-white/5 flex justify-center bg-white/[0.01] gap-6">
                                         <div className="flex items-center gap-2">
                                             <Server className="h-3 w-3 text-white/20" />
-                                            <span className="text-[7px] font-black uppercase tracking-[0.3em] text-white/20">Operational Status: Optimal</span>
+                                            <span className="text-[7px] font-black uppercase tracking-widest text-white/20">Operational: Optimal</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <Database className="h-3 w-3 text-white/20" />
-                                            <span className="text-[7px] font-black uppercase tracking-[0.3em] text-white/20">Data Integrity: Verified</span>
+                                            <span className="text-[7px] font-black uppercase tracking-widest text-white/20">Data: Verified</span>
                                         </div>
                                     </CardFooter>
                                 </Card>

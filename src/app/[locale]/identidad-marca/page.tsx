@@ -20,8 +20,7 @@ import { useToast } from "@/hooks/use-toast";
 
 /**
  * @fileOverview Página de Identidad de Marca Consolidada.
- * Presenta el logo oficial hexagonal en su versión final estática.
- * Optimizada para capturas de pantalla institucionales y exportación multiformato.
+ * Logo con fondo de contraste integrado para visualización profesional.
  */
 
 export default function IdentidadMarcaPage() {
@@ -92,7 +91,6 @@ export default function IdentidadMarcaPage() {
 
   return (
     <div className="min-h-screen bg-[#020202] flex flex-col items-center justify-center relative overflow-hidden hud-grid select-none">
-      {/* HUD Ambient Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.08)_0,transparent_70%)]" />
         <div className="absolute top-12 left-12 border-l border-primary/20 pl-4">
@@ -107,7 +105,6 @@ export default function IdentidadMarcaPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       >
-        {/* Logo Container - Static & Precise */}
         <div className="relative" ref={logoRef}>
           <div className="absolute inset-0 bg-primary/5 blur-[150px] rounded-full scale-150" />
           <div className="relative p-12 bg-white/[0.01] border border-white/5 rounded-[4rem] backdrop-blur-sm shadow-2xl">
@@ -115,7 +112,6 @@ export default function IdentidadMarcaPage() {
           </div>
         </div>
 
-        {/* Branding Info */}
         <div className="text-center space-y-6">
           <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.5em] text-primary shadow-glow">
             <ShieldCheck className="h-4 w-4" /> IDENTIDAD CORPORATIVA PROTEGIDA
@@ -129,7 +125,6 @@ export default function IdentidadMarcaPage() {
           </div>
         </div>
 
-        {/* Action Panel */}
         <div className="flex flex-wrap justify-center gap-4 pt-10 no-print max-w-4xl">
           <Button variant="ghost" asChild className="rounded-2xl h-14 px-8 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 border border-white/5 transition-all">
             <Link href="/"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
@@ -176,7 +171,6 @@ export default function IdentidadMarcaPage() {
         </div>
       </motion.div>
 
-      {/* Footer Info */}
       <div className="absolute bottom-10 flex items-center gap-8 text-[8px] font-black uppercase tracking-[0.4em] text-white/10 italic">
         <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> Precision Graphics</span>
         <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Auth: Verified</span>
