@@ -40,8 +40,7 @@ import { motion } from "framer-motion";
 
 /**
  * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
- * Documentación técnica consolidada de misión crítica.
- * Incluye todos los nodos del ecosistema Kyron.
+ * Documentación técnica consolidada de misión crítica con sello de identidad.
  */
 
 const manualModules = [

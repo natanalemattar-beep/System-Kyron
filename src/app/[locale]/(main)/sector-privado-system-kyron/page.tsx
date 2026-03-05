@@ -24,7 +24,7 @@ import React from "react";
 
 /**
  * @fileOverview PORTAL SECTOR PRIVADO - EXPEDIENTE MAESTRO ZEDU 2025
- * Integración de alta fidelidad del modelo ZEDU, Factibilidad y Propuesta.
+ * Integración de alta fidelidad del modelo ZEDU Parte 1 y 2.
  */
 
 const zeduMasterData = {
@@ -54,7 +54,11 @@ const zeduMasterData = {
             id: 3,
             titulo: "3. ANÁLISIS DEL PROBLEMA",
             filas: [
-                { label: "Definición", val: "Las empresas en Venezuela operan con un 'Frankenstein' de sistemas aislados (contables, fiscales y administrativos), generando brechas de seguridad, pérdida de datos por factores ambientales y un alto riesgo de sanciones ante el SENIAT por falta de sincronización en tiempo real." },
+                { label: "Definición", val: "Fragmentación de procesos (administrativos, de comunicación) que no se comunican entre sí. Esto crea silos de datos, genera ineficiencia operativa y una alta vulnerabilidad ante entes como el SENIAT y CONATEL, debido a la dependencia de herramientas no corporativas como WhatsApp para comunicaciones críticas." },
+                { label: "Importancia", val: "La desintegración de sistemas genera sobrecarga de trabajo manual, dificulta la toma de decisiones estratégicas al no tener una visión 360°, aumenta el riesgo de errores y sanciones fiscales, y eleva los costos al tener que contratar y mantener múltiples proveedores de software, hardware y telecomunicaciones." },
+                { label: "Causas", val: "Sistemas obsoletos no adaptados a la economía multimoneda (Bs./USD), complejidad de la legislación fiscal venezolana (ej. IGTF), y una adopción reactiva de tecnología que ha creado una infraestructura frágil e ineficiente, incapaz de afrontar la dinámica del país." },
+                { label: "Consecuencias", val: "Pérdida de tiempo y dinero, errores en declaraciones de impuestos, multas del SENIAT, comunicación deficiente entre departamentos, falta de visibilidad financiera en tiempo real para la junta directiva y una incapacidad para escalar el negocio de forma ágil." },
+                { label: "Origen", val: "Históricamente, las empresas han parchado sus operaciones con soluciones aisladas para problemas específicos, sin una visión de ecosistema. Esto ha resultado en una infraestructura tecnológica fragmentada que no puede operar de forma unificada y segura." },
             ]
         }
     ]
@@ -116,8 +120,8 @@ export default function SectorPrivadoPage() {
         document.body.removeChild(fileDownload);
         
         toast({
-            title: "DESCARGA INICIADA",
-            description: `Documento exportado exitosamente.`,
+            title: "PROTOCOLO DE DESCARGA ACTIVO",
+            description: `Documento exportado en formato .doc institucional.`,
             action: <CheckCircle className="text-primary h-4 w-4" />
         });
     };
@@ -125,50 +129,55 @@ export default function SectorPrivadoPage() {
     const handleDownloadZEDU = () => {
         let tableRows = "";
         zeduMasterData.secciones.forEach(sec => {
-            tableRows += `<tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 10px; font-weight: bold;">${sec.titulo}</td></tr>`;
+            tableRows += `<tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 12px; font-weight: bold; text-transform: uppercase;">${sec.titulo}</td></tr>`;
             sec.filas.forEach(f => {
-                tableRows += `<tr><td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; width: 30%;">${f.label}</td><td style="padding: 10px; border: 1px solid #ddd;">${f.val}</td></tr>`;
+                tableRows += `<tr><td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; width: 30%; background-color: #f9fafb;">${f.label}</td><td style="padding: 10px; border: 1px solid #ddd;">${f.val}</td></tr>`;
             });
         });
 
         const content = `
-            <h1 style="text-align: center; color: #2d5a8e;">${zeduMasterData.titulo}</h1>
-            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #2d5a8e; margin-bottom: 5px;">${zeduMasterData.titulo}</h1>
+                <p style="color: #666;">Expediente de Inteligencia Corporativa - Nodo v2.6.5</p>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; font-size: 11pt;">
                 ${tableRows}
             </table>
         `;
-        downloadAsWord("Modelo_ZEDU_System_Kyron_2025", content);
+        downloadAsWord("Expediente_Maestro_ZEDU_System_Kyron", content);
     };
 
     const handleDownloadFactibilidad = () => {
         const content = `
-            <h1 style="text-align: center; color: #22c55e;">FACTIBILIDAD ECONÓMICA KYRON 2025</h1>
-            <h2>Indicadores de Rentabilidad</h2>
-            <ul>
-                <li>VAN: $450,000.00</li>
-                <li>TIR: 28.5%</li>
-                <li>Período de Recuperación: 2.4 años</li>
-            </ul>
-            <hr/>
-            <p>El análisis financiero demuestra una viabilidad sobresaliente basada en el modelo de ingresos SaaS y la reducción de costos operativos mediante IA.</p>
+            <h1 style="text-align: center; color: #22c55e;">ANÁLISIS DE FACTIBILIDAD ECONÓMICA 2025</h1>
+            <p style="text-align: justify; margin-bottom: 20px;">Este documento certifica la viabilidad financiera del despliegue del Ecosistema Kyron bajo el modelo de ingresos SaaS y conectividad 5G.</p>
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+                <tr style="background-color: #f3f4f6;">
+                    <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Indicador</th>
+                    <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Valor</th>
+                </tr>
+                <tr><td style="padding: 10px; border: 1px solid #ddd;">Valor Actual Neto (VAN)</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">$450,000.00</td></tr>
+                <tr><td style="padding: 10px; border: 1px solid #ddd;">Tasa Interna de Retorno (TIR)</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">28.5%</td></tr>
+                <tr><td style="padding: 10px; border: 1px solid #ddd;">Período de Recuperación</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">2.4 años</td></tr>
+            </table>
         `;
-        downloadAsWord("Factibilidad_Economica_Kyron", content);
+        downloadAsWord("Dictamen_Factibilidad_Economica_Kyron", content);
     };
 
     const handleDownloadPropuesta = () => {
         const content = `
-            <h1 style="text-align: center; color: #2563eb;">PROPUESTA ESTRATÉGICA SYSTEM KYRON</h1>
-            <h2>Pilares de Innovación</h2>
-            <ol>
-                <li>Kyron Hyper-Connect 5G</li>
-                <li>Ecosistema Magnético IA</li>
-                <li>Blindaje Fiscal 360</li>
-                <li>Ledger Blockchain</li>
-            </ol>
+            <h1 style="text-align: center; color: #2563eb;">PROPUESTA ESTRATÉGICA DE INNOVACIÓN</h1>
+            <p>System Kyron: Nodo de Misión Crítica para la Modernización Corporativa.</p>
             <hr/>
-            <p>Propuesta técnica para la modernización de la infraestructura corporativa venezolana.</p>
+            <h3 style="color: #2563eb;">Componentes Clave:</h3>
+            <ul>
+                <li><strong>Hyper-Connect 5G:</strong> Conectividad total ininterrumpida.</li>
+                <li><strong>IA Fiscal:</strong> Auditoría predictiva 24/7.</li>
+                <li><strong>Blockchain Ledger:</strong> Registros inmutables y verificables.</li>
+                <li><strong>Hardware Magnético:</strong> Trazabilidad de activos sostenibles.</li>
+            </ul>
         `;
-        downloadAsWord("Propuesta_Estrategica_Kyron", content);
+        downloadAsWord("Propuesta_Estrategica_Corporativa_Kyron", content);
     };
 
     if (!isMounted) return null;
@@ -178,10 +187,10 @@ export default function SectorPrivadoPage() {
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10 no-print">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Lock className="h-3 w-3" /> DOSSIER TÉCNICO
+                        <Lock className="h-3 w-3" /> EXPEDIENTE ZEDU
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Sector <span className="text-primary italic">Privado Kyron</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Expediente de Inteligencia Corporativa • Nodo 2.6.5</p>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Dossier <span className="text-primary italic">Sector Privado</span></h1>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">System Kyron v2.6.5 • Inteligencia Institucional</p>
                 </div>
                 <div className="flex gap-2">
                     <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white" onClick={() => window.print()}>
@@ -192,25 +201,25 @@ export default function SectorPrivadoPage() {
 
             <Tabs defaultValue="zedu" className="w-full relative z-10 no-print">
                 <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner overflow-x-auto custom-scrollbar">
-                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">1. Modelo ZEDU</TabsTrigger>
-                    <TabsTrigger value="presupuesto" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">2. Inversión CapEx</TabsTrigger>
+                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">1. Matriz ZEDU Completa</TabsTrigger>
+                    <TabsTrigger value="presupuesto" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">2. Estructura CapEx</TabsTrigger>
                     <TabsTrigger value="factibilidad" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">3. Factibilidad</TabsTrigger>
                     <TabsTrigger value="propuesta" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">4. Propuesta</TabsTrigger>
                 </TabsList>
 
                 <div className="space-y-16">
-                    {/* MODULO ZEDU CALCADO */}
+                    {/* MODULO ZEDU CALCADO - PARTE 1 Y 2 */}
                     <TabsContent value="zedu" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="border-none bg-transparent shadow-none max-w-5xl mx-auto">
                             <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
                                 <div className="flex items-center gap-6">
                                     <Logo className="h-16 w-16 drop-shadow-glow" />
                                     <h2 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter border-l-4 border-primary pl-6">
-                                        {zeduMasterData.titulo}
+                                        EXPEDIENTE MAESTRO ZEDU
                                     </h2>
                                 </div>
                                 <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={handleDownloadZEDU}>
-                                    <FileWord className="mr-2 h-4 w-4" /> DESCARGAR ZEDU (.DOC)
+                                    <FileWord className="mr-2 h-4 w-4" /> DESCARGAR EXPEDIENTE (.DOC)
                                 </Button>
                             </div>
 
@@ -242,38 +251,47 @@ export default function SectorPrivadoPage() {
                         </Card>
                     </TabsContent>
 
-                    {/* CAPEX */}
+                    {/* ESTRUCTURA DE INVERSIÓN */}
                     <TabsContent value="presupuesto" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card overflow-hidden rounded-[3rem] border-white/5 shadow-2xl bg-black/40 max-w-5xl mx-auto">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow className="bg-white/[0.03] border-none">
-                                        <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Componente de Inversión Estratégica (CapEx)</TableHead>
-                                        <TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Monto (USD)</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {budgetData.map((d, i) => (
-                                        <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
-                                            <TableCell className="pl-10 py-4 text-xs font-bold text-white/60 uppercase">{d.item}</TableCell>
-                                            <TableCell className="text-right pr-10 font-mono font-black text-white italic">{formatCurrency(d.cost, 'USD')}</TableCell>
+                            <CardHeader className="p-10 border-b border-white/5">
+                                <CardTitle className="text-xl font-black uppercase italic text-white flex items-center gap-4">
+                                    <Zap className="h-6 w-6 text-secondary" />
+                                    Presupuesto Estratégico CapEx
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-0">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow className="bg-white/[0.03] border-none">
+                                            <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Componente de Inversión</TableHead>
+                                            <TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Monto (USD)</TableHead>
                                         </TableRow>
-                                    ))}
-                                    <TableRow className="bg-primary/10 border-none">
-                                        <TableCell className="pl-10 py-8 text-xl font-black text-white italic uppercase tracking-tighter">Total Inversión Inicial</TableCell>
-                                        <TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">
-                                            {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {budgetData.map((d, i) => (
+                                            <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
+                                                <TableCell className="pl-10 py-4 text-xs font-bold text-white/60 uppercase">{d.item}</TableCell>
+                                                <TableCell className="text-right pr-10 font-mono font-black text-white italic">{formatCurrency(d.cost, 'USD')}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                        <TableRow className="bg-primary/10 border-none">
+                                            <TableCell className="pl-10 py-8 text-xl font-black text-white italic uppercase tracking-tighter">Total Inversión Proyectada</TableCell>
+                                            <TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">
+                                                {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </CardContent>
                         </Card>
                     </TabsContent>
 
-                    {/* FACTIBILIDAD */}
+                    {/* FACTIBILIDAD ECONÓMICA */}
                     <TabsContent value="factibilidad" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="space-y-10 max-w-5xl mx-auto">
-                            <div className="flex justify-end">
+                            <div className="flex justify-between items-center px-4">
+                                <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/40">Dictamen de Rentabilidad</h3>
                                 <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={handleDownloadFactibilidad}>
                                     <FileWord className="mr-2 h-4 w-4" /> DESCARGAR FACTIBILIDAD (.DOC)
                                 </Button>
@@ -302,7 +320,7 @@ export default function SectorPrivadoPage() {
                                     <Table>
                                         <TableHeader>
                                             <TableRow className="bg-white/[0.02] border-none">
-                                                <TableHead className="pl-10 py-5 font-black uppercase text-[10px] tracking-widest text-white/40">Periodo</TableHead>
+                                                <TableHead className="pl-10 py-5 font-black uppercase text-[10px] tracking-widest text-white/40">Periodo Fiscal</TableHead>
                                                 <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Ingresos Brutos</TableHead>
                                                 <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Utilidad Neta</TableHead>
                                                 <TableHead className="text-right pr-10 font-black uppercase text-[10px] tracking-widest text-white/40">Margen</TableHead>
@@ -328,7 +346,7 @@ export default function SectorPrivadoPage() {
                         </div>
                     </TabsContent>
 
-                    {/* PROPUESTA */}
+                    {/* PROPUESTA ESTRATÉGICA */}
                     <TabsContent value="propuesta" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40 max-w-5xl mx-auto">
                             <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
