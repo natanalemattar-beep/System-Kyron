@@ -8,7 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Download, Zap, ShieldCheck, 
   Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Sparkles, Activity, TrendingUp, Target, BarChart3, FileText, ChevronRight, Globe, Radio, Magnet, FileDown
+  Sparkles, Activity, TrendingUp, Target, BarChart3, FileText, ChevronRight, Globe, Radio, Magnet, FileDown,
+  CheckCircle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
@@ -99,71 +100,32 @@ export default function SectorPrivadoPage() {
         });
     };
 
-    const handleDownloadFactibilidad = () => {
+    const handleDownloadDossierCompleto = () => {
         const content = `
-            <h1 style="text-align: center; color: #2563eb;">ESTUDIO DE FACTIBILIDAD ECONÓMICA 2025</h1>
-            <p><strong>Institución:</strong> System Kyron, C.A.</p>
-            <p><strong>Fecha:</strong> ${new Date().toLocaleDateString()}</p>
+            <h1 style="text-align: center; color: #2563eb;">DOSSIER TÉCNICO MAESTRO SYSTEM KYRON 2025</h1>
+            <p><strong>Clasificación:</strong> Confidencial / Sector Privado</p>
+            <p><strong>Fecha de Emisión:</strong> ${new Date().toLocaleDateString()}</p>
             <hr/>
-            <h2>1. RESUMEN EJECUTIVO</h2>
-            <p>El presente estudio de factibilidad analiza la viabilidad financiera del despliegue del ecosistema Kyron v2.6.5. Los indicadores demuestran una robustez operativa capaz de absorber los costos de CapEx en un plazo menor a 30 meses.</p>
-            
-            <h2>2. INDICADORES DE RENTABILIDAD</h2>
+            <h2>1. FACTIBILIDAD ECONÓMICA</h2>
+            <p>Indicadores clave:</p>
             <ul>
-                <li>VAN (Valor Actual Neto): $450,000.00 USD</li>
-                <li>TIR (Tasa Interna de Retorno): 28.5%</li>
+                <li>VAN: $450,000.00</li>
+                <li>TIR: 28.5%</li>
                 <li>Punto de Equilibrio: 2.4 años</li>
-                <li>Margen Operativo: 32%</li>
             </ul>
-
-            <h2>3. PROYECCIONES FINANCIERAS</h2>
-            <table border="1" style="width: 100%; border-collapse: collapse;">
-                <tr style="background-color: #f3f4f6;">
-                    <th>Año</th>
-                    <th>Ingresos</th>
-                    <th>Utilidad</th>
-                    <th>Margen</th>
-                </tr>
-                ${projections.map(p => `
-                    <tr>
-                        <td style="text-align: center;">Año 0${p.year}</td>
-                        <td style="text-align: right;">${formatCurrency(p.revenue, 'USD')}</td>
-                        <td style="text-align: right;">${formatCurrency(p.profit, 'USD')}</td>
-                        <td style="text-align: center;">${formatPercentage(p.margin)}</td>
-                    </tr>
-                `).join('')}
-            </table>
-            <br/>
-            <p><em>Este documento es un dictamen técnico oficial generado por la consola maestra de System Kyron.</em></p>
-        `;
-        downloadAsWord("Factibilidad_Economica_Kyron_2025", content);
-    };
-
-    const handleDownloadPropuesta = () => {
-        const content = `
-            <h1 style="text-align: center; color: #2563eb;">PROPUESTA ESTRATÉGICA DE PROYECTO</h1>
-            <p><strong>Para:</strong> Sector Privado y Aliados Estratégicos</p>
-            <p><strong>De:</strong> Dirección de Ingeniería - System Kyron</p>
             <hr/>
-            <h2>1. VISIÓN DEL ECOSISTEMA</h2>
-            <p>System Kyron representa la convergencia entre telecomunicaciones de alta velocidad y blindaje fiscal inmutable. Nuestra arquitectura permite una gestión soberana de los activos empresariales.</p>
-            
-            <h2>2. PILARES DE INNOVACIÓN</h2>
-            ${proposalSections.map(s => `
-                <h3>${s.title}</h3>
-                <p>${s.desc}</p>
-            `).join('')}
-
-            <h2>3. VENTAJAS COMPETITIVAS</h2>
+            <h2>2. PROPUESTA ESTRATÉGICA</h2>
+            <p>Pilares tecnológicos:</p>
             <ul>
-                <li>Cumplimiento Predictivo: IA auditando cada factura en tiempo real.</li>
-                <li>Inmutabilidad Blockchain: Registros a prueba de fiscalizaciones.</li>
-                <li>Integración Total: Un único nodo para telecom, finanzas y leyes.</li>
+                <li>Conectividad Hyper-Connect 5G</li>
+                <li>Reciclaje por Inducción Magnética</li>
+                <li>Blindaje Fiscal IA 360°</li>
+                <li>Ledger Inmutable Blockchain</li>
             </ul>
-            <br/>
-            <p>Atentamente,<br/><strong>Nodo Maestro System Kyron</strong></p>
+            <hr/>
+            <p style="text-align: center; font-size: 10px;">Generado por el Nodo Maestro de Inteligencia Corporativa Kyron</p>
         `;
-        downloadAsWord("Propuesta_Estrategica_Kyron_2025", content);
+        downloadAsWord("Dossier_Maestro_Kyron_2025", content);
     };
 
     if (!isMounted) return null;
@@ -181,8 +143,8 @@ export default function SectorPrivadoPage() {
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Expediente de Inteligencia Corporativa • Nodo 2.6.5</p>
                 </div>
                 <div className="flex gap-3">
-                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white" onClick={() => window.print()}>
-                        <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
+                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white" onClick={handleDownloadDossierCompleto}>
+                        <FileDown className="mr-2 h-4 w-4" /> DESCARGAR EXPEDIENTE (.DOC)
                     </Button>
                 </div>
             </header>
@@ -268,15 +230,6 @@ export default function SectorPrivadoPage() {
 
                     <TabsContent value="factibilidad" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="space-y-10">
-                            <div className="flex justify-between items-center bg-white/[0.03] p-6 rounded-2xl border border-white/5">
-                                <div>
-                                    <h3 className="text-lg font-black uppercase text-white italic">Factibilidad Económica Actualizada</h3>
-                                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Dictamen Técnico • VAN / TIR</p>
-                                </div>
-                                <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase" onClick={handleDownloadFactibilidad}>
-                                    <FileDown className="mr-2 h-4 w-4"/> DESCARGAR WORD (.DOC)
-                                </Button>
-                            </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {indicators.map((ind, i) => (
                                     <Card key={i} className="glass-card p-8 rounded-[2.5rem] bg-white/[0.02] border-white/5 group hover:border-primary/30 transition-all">
@@ -330,16 +283,8 @@ export default function SectorPrivadoPage() {
                     <TabsContent value="propuesta" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40">
                             <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
-                                <div className="flex justify-between items-start w-full no-print">
-                                    <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 shadow-glow">
-                                        <Logo className="h-12 w-12" />
-                                    </div>
-                                    <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase shadow-2xl" onClick={handleDownloadPropuesta}>
-                                        <Download className="mr-2 h-4 w-4"/> EXPORTAR PROPUESTA WORD
-                                    </Button>
-                                </div>
                                 <div className="mx-auto w-fit bg-black p-6 rounded-[2.5rem] shadow-glow border border-primary/20"><Logo className="h-16 w-16" /></div>
-                                <CardTitle className="text-4xl font-black uppercase tracking-tighter italic text-white italic-shadow">Ecosistema Kyron <br/> Eficiencia Sin Fronteras</CardTitle>
+                                <CardTitle className="text-4xl font-black uppercase tracking-tighter italic text-white italic-shadow leading-tight">Ecosistema Kyron <br/> Eficiencia Sin Fronteras</CardTitle>
                                 <CardDescription className="text-primary font-black uppercase tracking-[0.6em] text-xs">Propuesta Maestra de Gestión 2025</CardDescription>
                             </CardHeader>
                             <CardContent className="p-12 space-y-16">
