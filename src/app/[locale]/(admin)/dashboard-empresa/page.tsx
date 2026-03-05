@@ -1,3 +1,4 @@
+
 'use client';
 
 import { CheckCircle, TrendingDown, AlertTriangle, Users, LayoutGrid, Zap, Lock, ArrowRight } from "lucide-react";
@@ -38,12 +39,12 @@ export default function DashboardPage() {
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-white/5 text-white/40 text-[9px] font-bold uppercase tracking-widest border border-white/5">
                 <LayoutGrid className="h-3 w-3" /> Consola
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none">Centro de <span className="text-white/20">Mando</span></h1>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none text-white italic italic-shadow">Centro de <span className="text-white/20">Mando</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest opacity-40">System Kyron • Nodo Distribuido 2.6</p>
         </div>
         <div className="flex gap-3">
             <div className="px-4 py-2 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-xl flex items-center gap-3">
-                <div className="h-6 w-6 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30">
+                <div className="h-6 w-6 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30 shadow-glow-secondary">
                     <Zap className="h-3 w-3 text-green-500" />
                 </div>
                 <div className="text-left">
@@ -72,8 +73,8 @@ export default function DashboardPage() {
                             Acceso restringido a informes técnicos de factibilidad y modelo ZEDU maestro.
                         </p>
                         <Button variant="secondary" asChild className="w-full h-10 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest transition-all">
-                            <Link href="/kyron-vault" className="flex justify-between w-full px-4">
-                                <span>ENTRAR A LA BÓVEDA</span> 
+                            <Link href="/manual-usuario" className="flex justify-between w-full px-4">
+                                <span>DOCUMENTACIÓN</span> 
                                 <ArrowRight className="h-4 w-4"/>
                             </Link>
                         </Button>
