@@ -114,6 +114,33 @@ const projections = [
     { year: 5, revenue: 820000, profit: 600000, margin: 0.73 },
 ];
 
+const proposalSections = [
+    {
+        icon: Radio,
+        title: "Kyron Hyper-Connect 5G",
+        desc: "Asignación inmediata de números telefónicos y eSIMs digitales con protocolo de baja latencia para flotas corporativas.",
+        color: "text-blue-400"
+    },
+    {
+        icon: Magnet,
+        title: "Ecosistema Magnético IA",
+        desc: "Implementación de Smart Bins con tecnología de inducción para la trazabilidad inmutable de activos verdes y residuos.",
+        color: "text-emerald-400"
+    },
+    {
+        icon: ShieldCheck,
+        title: "Blindaje Fiscal 360°",
+        desc: "Automatización total de libros y declaraciones con auditoría predictiva sincronizada con la Gaceta Oficial 24/7.",
+        color: "text-amber-400"
+    },
+    {
+        icon: Cpu,
+        title: "Ledger Blockchain",
+        desc: "Sellado digital de cada transacción para garantizar integridad absoluta ante fiscalizaciones y auditorías externas.",
+        color: "text-purple-400"
+    }
+];
+
 export default function SectorPrivadoPage() {
     const { toast } = useToast();
     const [isMounted, setIsMounted] = useState(false);
