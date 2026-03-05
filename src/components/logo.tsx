@@ -2,8 +2,8 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Logo Institucional de System Kyron v2.6.5.
- * Diseño con fondo de contraste integrado para evitar el efecto de "vacío" en fondos claros.
- * Hexágono de precisión con núcleo vectorial 'K' y nodo de inteligencia.
+ * Diseño fiel a la identidad visual: Hexágono de precisión con glifo de inducción y nodo central.
+ * Sustituye la 'K' por la arquitectura vectorial de la marca.
  */
 
 export function Logo({ className, id }: { className?: string; id?: string }) {
@@ -23,23 +23,23 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           </linearGradient>
           
           <linearGradient id="hex-gradient-master" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stopColor="rgba(14, 165, 233, 0.6)" />
-            <stop offset="100%" stopColor="rgba(34, 197, 94, 0.4)" />
+            <stop offset="0%" stopColor="rgba(14, 165, 233, 0.8)" />
+            <stop offset="100%" stopColor="rgba(34, 197, 94, 0.6)" />
           </linearGradient>
 
           <filter id="master-glow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feGaussianBlur stdDeviation="3" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
         
-        {/* Fondo del Hexágono - Proporciona el contraste solicitado */}
+        {/* Fondo del Hexágono - Contraste Corporativo */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           fill="#050505"
         />
 
-        {/* Borde del Hexágono */}
+        {/* Borde del Hexágono Neón */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           stroke="url(#hex-gradient-master)"
@@ -47,30 +47,24 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           strokeLinejoin="round"
         />
         
-        {/* Acentos de Vértice */}
-        <circle cx="50" cy="5" r="2" fill="#0ea5e9" />
-        <circle cx="50" cy="95" r="2" fill="#22c55e" />
-        
-        {/* Glifo 'K' - Arquitectura de Datos */}
+        {/* Glifo de Inducción - Identidad Visual Real */}
         <g filter="url(#master-glow)">
           <path
-            d="M36 28V72"
+            d="M68 28L38 50L68 72"
             stroke="url(#logo-gradient-master)"
-            strokeWidth="8"
-            strokeLinecap="round"
-          />
-          <path
-            d="M64 28L36 50L64 72"
-            stroke="url(#logo-gradient-master)"
-            strokeWidth="8"
+            strokeWidth="10"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           
-          {/* Nodo Central */}
-          <circle cx="44" cy="50" r="4" fill="#ffffff" />
-          <circle cx="44" cy="50" r="2" fill="#22c55e" />
+          {/* Nodo de Inteligencia Central */}
+          <circle cx="46" cy="50" r="6" fill="#ffffff" />
+          <circle cx="46" cy="50" r="3" fill="#22c55e" />
         </g>
+
+        {/* Detalles de Vértice */}
+        <circle cx="50" cy="5" r="2" fill="#0ea5e9" />
+        <circle cx="50" cy="95" r="2" fill="#22c55e" />
       </svg>
     </div>
   );
