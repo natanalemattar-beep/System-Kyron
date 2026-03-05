@@ -14,36 +14,27 @@ import {
     Gavel,
     Cpu,
     Recycle,
-    HeartHandshake,
-    Download,
-    Home,
     Sparkles,
-    Server,
     Database,
     Zap,
     CheckCircle,
-    ChevronRight,
     Lock,
-    Printer,
-    Activity,
-    Scale,
-    FileText,
+    Download,
+    ChevronLeft,
     ListTree,
-    HelpCircle,
-    ShieldAlert,
-    Rocket,
-    Globe,
     Terminal,
     RefreshCw,
-    Search,
-    BookOpen,
-    Eye,
-    Calculator,
-    Mail,
-    Shield,
+    Activity,
+    ShieldAlert,
+    HelpCircle,
+    Info,
     Smartphone,
-    Bell,
-    Clock
+    Globe,
+    Scale,
+    FileText,
+    BookOpen,
+    Clock,
+    Search
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -54,7 +45,7 @@ import React from "react";
 
 /**
  * @fileOverview Manual de Usuario Maestro de System Kyron v2.6.5.
- * DOCUMENTACIÓN TÉCNICA MASIVA Y EXHAUSTIVA.
+ * DOCUMENTACIÓN TÉCNICA MASIVA, EXHAUSTIVA Y PROFESIONAL.
  */
 
 const introSection = {
@@ -87,24 +78,24 @@ const manualModules = [
         title: "1. Gestión de Identidad Digital 3D",
         icon: Fingerprint,
         description: "Protocolo maestro de autenticación biométrica y resguardo de documentos civiles.",
-        procedure: "1. Acceda al Portal Personal. 2. Seleccione 'Enrolamiento Biométrico'. 3. Realice el mapeo facial siguiendo los puntos vectoriales. 4. Firme el acta de soberanía digital con su huella cifrada.",
-        details: "El sistema utiliza algoritmos de visión artificial para extraer 512 puntos vectoriales del rostro, garantizando una tasa de error de 1 entre 1.000.000. Los documentos en la Bóveda Civil están fragmentados y cifrados, lo que significa que ni siquiera los administradores de Kyron pueden ver su contenido (Arquitectura Zero-Knowledge)."
+        procedure: "1. Acceda al Portal Personal > 'Enrolamiento'. 2. Colóquese en un área iluminada. 3. Realice el mapeo facial siguiendo los indicadores. 4. Firme el acta de soberanía digital con su huella cifrada.",
+        details: "El sistema utiliza algoritmos de visión artificial para extraer 512 puntos vectoriales del rostro, garantizando una tasa de error de 1 entre 1.000.000. Los documentos en la Bóveda Civil están fragmentados y cifrados bajo arquitectura Zero-Knowledge."
     },
     {
         id: "telecom",
         title: "2. Infraestructura Telecom 5G y eSIM",
         icon: Radio,
         description: "Despliegue y administración de redes convergentes y telefonía digital.",
-        procedure: "1. Ingrese a Gestión de Telecom. 2. Seleccione 'Aprovisionar eSIM'. 3. Escanee el código QR dinámico generado por el servidor SM-DP+. 4. Active el perfil de red corporativo.",
-        details: "Nuestra red utiliza Network Slicing para priorizar el tráfico de datos fiscales y transaccionales sobre el tráfico recreativo. La gestión de eSIM permite a las empresas reasignar números telefónicos de forma remota, eliminando la necesidad de logística física de tarjetas SIM tradicionales."
+        procedure: "1. Ingrese a Gestión de Telecom > 'Aprovisionar'. 2. Escanee el código QR dinámico generado por el servidor SM-DP+. 3. Reinicie el terminal para cargar el perfil de red. 4. Verifique señal 5G Kyron.",
+        details: "Nuestra red utiliza Network Slicing para priorizar el tráfico de datos fiscales y transaccionales. La gestión de eSIM permite a las empresas reasignar números telefónicos de forma remota mediante el estándar GSMA."
     },
     {
         id: "tpv",
         title: "3. Punto de Venta (TPV) y Facturación",
         icon: TabletSmartphone,
         description: "Operativa comercial con validación fiscal síncrona ante el SENIAT.",
-        procedure: "1. Valide su ID de Operador. 2. Ingrese el RIF/Cédula del cliente (la IA autocompletará datos). 3. Escanee productos. 4. Procese el pago y emita la factura homologada.",
-        details: "El TPV Kyron está integrado con el motor de Prevención de Sanciones. Si detecta un RIF vencido o una inconsistencia en el cálculo de IGTF, el sistema bloqueará la transacción y sugerirá la corrección legal inmediata según la Providencia 0071."
+        procedure: "1. Valide su ID de Operador. 2. Ingrese el RIF del cliente. 3. Escanee productos (el sistema verificará stock en tiempo real). 4. Procese el pago. 5. Emita la factura fiscal homologada.",
+        details: "El TPV está integrado con el motor de Prevención de Sanciones. Si detecta un RIF vencido o inconsistencia en IGTF, el sistema bloqueará la transacción y sugerirá la corrección legal inmediata según Prov. 0071."
     },
     {
         id: "contabilidad",
@@ -112,55 +103,55 @@ const manualModules = [
         icon: TrendingUp,
         description: "Consolidación financiera y cumplimiento fiscal automatizado.",
         procedure: "1. Ejecute el 'Cierre de Periodo'. 2. Verifique el Reajuste por Inflación Fiscal (RIPF). 3. Genere los archivos .TXT para el SENIAT. 4. Selle el periodo en el Ledger Blockchain.",
-        details: "La IA contable monitorea las fluctuaciones del INPC publicadas por el BCV para realizar ajustes actuariales precisos. Cada asiento contable genera un hash único que se inyecta en el blockchain, impidiendo la 'contabilidad creativa' y blindando a la empresa ante futuras auditorías."
+        details: "La IA contable monitorea las fluctuaciones del INPC publicadas por el BCV. Cada asiento contable genera un hash único que se inyecta en el blockchain, impidiendo la alteración de registros y blindando la empresa."
     },
     {
         id: "rrhh",
         title: "5. Gestión de Talento y Cultura",
         icon: Briefcase,
         description: "Administración integral del personal y cumplimiento de la LOTTT.",
-        procedure: "1. Cargue el perfil del empleado. 2. Genere el contrato de trabajo parametrizado. 3. Procese la nómina quincenal. 4. Emita los recibos de pago con firma digital verificable.",
-        details: "El módulo de RR.HH. automatiza el cálculo de prestaciones sociales, vacaciones y utilidades, ajustándose a la última jurisprudencia del TSJ. La plataforma permite la gestión de expedientes de personal con sellado de tiempo para evitar reclamos laborales por falta de documentación."
+        procedure: "1. Cargue el perfil del empleado. 2. Genere el contrato de trabajo. 3. Procese la nómina quincenal. 4. Emita los recibos de pago con firma digital verificable.",
+        details: "Automatiza el cálculo de prestaciones sociales, vacaciones y utilidades. El sistema permite la gestión de expedientes de personal con sellado de tiempo para evitar reclamos laborales por falta de documentación."
     },
     {
         id: "legal",
         title: "6. Centro de Mando Jurídico",
         icon: Gavel,
         description: "Control de contratos, poderes y cumplimiento corporativo.",
-        procedure: "1. Repositorio de Contratos. 2. Cargue el borrador. 3. Ejecute el flujo de aprobaciones. 4. Archive el documento final con sellado blockchain.",
-        details: "Centralizamos la gestión de habilitaciones de CONATEL, registros mercantiles ante el SAREN y derechos de propiedad industrial en el SAPI. El sistema emite alertas automáticas 30 días antes del vencimiento de cualquier poder o permiso legal."
+        procedure: "1. Ingrese al Repositorio de Contratos. 2. Cargue el borrador legal. 3. Ejecute el flujo de firmas. 4. Archive el documento final en la bóveda inmutable.",
+        details: "Centralizamos la gestión de habilitaciones de CONATEL y registros ante el SAREN. El sistema emite alertas automáticas 30 días antes del vencimiento de cualquier poder o permiso legal."
     },
     {
         id: "ia-ingenieria",
         title: "7. Ingeniería e Inteligencia Artificial",
         icon: Cpu,
         description: "Soluciones de visión artificial y planificación de infraestructura.",
-        procedure: "1. Ingrese a Ingeniería IA. 2. Suba fotos del local comercial. 3. Genere el plano arquitectónico por fotogrametría. 4. Calcule el presupuesto de materiales automático.",
-        details: "Nuestra IA de ingeniería utiliza redes neuronales convolucionales para estimar áreas y volúmenes con una precisión del 98%. Esto reduce en un 70% el tiempo de planificación de nuevas sucursales o remodelaciones corporativas."
+        procedure: "1. Acceda a Ingeniería IA. 2. Cargue fotos del local comercial. 3. Genere el plano arquitectónico. 4. Ejecute el cálculo de presupuesto de materiales.",
+        details: "Utiliza redes neuronales convolucionales para estimar áreas y volúmenes con precisión del 98%. Reduce significativamente el tiempo de planificación de nuevas sucursales o remodelaciones."
     },
     {
         id: "reciclaje",
         title: "8. Sostenibilidad y Eco-Créditos",
         icon: Recycle,
         description: "Monetización de residuos mediante tecnología magnética.",
-        procedure: "1. Deposite envases en el Smart Bin. 2. Los sensores de inducción validarán el material. 3. Escanee su ID Digital. 4. Reciba sus puntos en la billetera de Eco-Créditos.",
-        details: "Impulsado por la Fundación Kyron, este módulo transforma la responsabilidad ambiental en activos digitales. Las empresas pueden canjear Eco-Créditos por beneficios fiscales o utilizarlos como parte de su programa de beneficios para empleados."
+        procedure: "1. Deposite envases en el Smart Bin. 2. Los sensores de inducción validarán el material. 3. Escanee su ID Digital. 4. Reciba sus Eco-Créditos en la billetera.",
+        details: "Este módulo transforma la responsabilidad ambiental en activos digitales. Las empresas pueden canjear Eco-Créditos por beneficios fiscales o incluirlos en su programa de incentivos laborales."
     },
     {
         id: "marketing",
         title: "9. Inteligencia de Negocio (BI)",
         icon: Sparkles,
         description: "Análisis competitivo y estrategias de crecimiento basadas en datos.",
-        procedure: "1. Ejecute el Análisis de Mercado. 2. Cargue datos de competencia. 3. Genere estrategias de venta con IA. 4. Implemente el programa de fidelización.",
-        details: "El motor de BI de Kyron analiza patrones de consumo y demografía local para sugerir ajustes de precios y lanzamientos de productos. Utiliza procesamiento de lenguaje natural (NLP) para medir el sentimiento de los clientes en redes sociales."
+        procedure: "1. Ejecute el 'Análisis de Mercado'. 2. Cargue datos de competencia. 3. Genere estrategias de venta con IA. 4. Implemente el programa de fidelización.",
+        details: "El motor de BI analiza patrones de consumo y demografía local para sugerir ajustes de precios y lanzamientos de productos, utilizando NLP para medir el sentimiento de los clientes."
     },
     {
         id: "seguridad",
-        title: "10. Ciberseguridad y Nodo Estratégico",
+        title: "10. Ciberseguridad y Nodo Maestro",
         icon: Lock,
-        description: "Protección de la infraestructura y gestión de niveles de acceso.",
-        procedure: "1. Configure el cortafuegos del nodo. 2. Asigne niveles de seguridad a los usuarios. 3. Realice auditorías de logs de acceso. 4. Ejecute el protocolo de respaldo externo.",
-        details: "Todo el tráfico de red está encapsulado en túneles VPN con cifrado de grado militar. Implementamos detección de intrusiones mediante IA que bloquea ataques de fuerza bruta y denegación de servicio (DDoS) en el borde de la red."
+        description: "Protección de la infraestructura y gestión de accesos.",
+        procedure: "1. Configure el firewall del nodo. 2. Asigne niveles de seguridad a los usuarios. 3. Audite los logs de acceso. 4. Ejecute el protocolo de respaldo externo.",
+        details: "Todo el tráfico de red está encapsulado en túneles VPN con cifrado militar. La detección de intrusiones mediante IA bloquea ataques de fuerza bruta en el borde de la red (Edge Security)."
     }
 ];
 
@@ -243,7 +234,7 @@ export default function ManualUsuarioPage() {
 
         const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual Maestro Kyron</title></head><body style='padding: 50pt; font-family: Arial, sans-serif; color: #1a1a1a;'>";
         const footerHtml = "</body></html>";
-        const blob = new Blob([headerHtml + docContent + footerHtml], { type: 'application/msword' });
+        const blob = new Blob([headerHtml + content + footerHtml], { type: 'application/msword' });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "MANUAL_MAESTRO_SYSTEM_KYRON_V2.6.5.doc";
