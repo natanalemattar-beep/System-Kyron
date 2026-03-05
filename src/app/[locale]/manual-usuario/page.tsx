@@ -160,18 +160,14 @@ const manualModules = [
         ]
     },
     {
-        id: "nosotros",
-        title: "11. Quiénes Somos: System Kyron",
-        icon: Shield,
-        description: "La institución detrás del motor tecnológico de próxima generación.",
+        id: "privado",
+        title: "11. Sector Privado y Matriz ZEDU",
+        icon: Lock,
+        description: "Dossiers estratégicos, factibilidad económica y planes de acción institucional.",
         content: [
             {
-                sub: "Identidad Institucional",
-                text: "System Kyron es un nodo de ingeniería avanzada dedicado a la simplificación de la complejidad operativa."
-            },
-            {
-                sub: "Misión Corporativa",
-                text: "Diseñamos infraestructura de misión crítica que garantiza el 100% de cumplimiento legal e integridad de datos."
+                sub: "Protocolo ZEDU Maestro",
+                text: "Metodología de ingeniería para el despliegue de nodos de desarrollo en comunidades específicas."
             }
         ]
     }

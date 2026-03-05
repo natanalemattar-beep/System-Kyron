@@ -14,7 +14,9 @@ import {
   Printer,
   Download,
   AlertTriangle,
-  Users
+  Users,
+  Smartphone,
+  ChevronDown
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
@@ -61,7 +63,7 @@ const zeduMasterData = {
             id: 4,
             titulo: "4. SOLUCIÓN PROPUESTA",
             filas: [
-                { label: "Proyecto", val: "Implementar 'System Kyron', un ecosistema empresarial 'Todo en Uno' que unifica la gestión (Contabilidad, RRHH, Ventas), las telecomunicaciones 5G y las finanzas Blockchain en un único Centro de Mando." },
+                { label: "Proyecto", val: "Implementar 'System Kyron', un ecosistema empresarial 'Todo en Uno' que unifica la gestión, las telecomunicaciones 5G y las finanzas Blockchain en un único Centro de Mando." },
             ]
         },
         {
@@ -88,6 +90,15 @@ const alliesTableData = [
     { aliado: "Comercio Local La Atlántida", apoyo: "Red de Pruebas Beta / Operaciones Reales" },
     { aliado: "Consultores Fiscales Externos", apoyo: "Validación de Normativa VEN-NIF" },
     { aliado: "Proveedores 5G Globales", apoyo: "Infraestructura de Red y Datos" },
+];
+
+const planAccionData = [
+    { tarea: "Análisis de Mercado Detallado y Validación de Requerimientos con Empresas Piloto.", responsable: "Carlos Mattar, Líder de Estrategia", cronograma: "Semanas 1-2" },
+    { tarea: "Desarrollo del Core ERP: Módulos Contable (VEN-NIF) y Administrativo (Inventario, CXC/P).", responsable: "Sebastián Garrido, Líder de Desarrollo", cronograma: "Semanas 3-8" },
+    { tarea: "Despliegue de nodos de VoIP en AWS y configuración de troncales SIP para la OMV.", responsable: "Marcos Sousa, Líder de Telecom", cronograma: "Semanas 6-10" },
+    { tarea: "Desarrollo de la Billetera Blockchain y Pruebas de Seguridad de Contratos Inteligentes.", responsable: "Sebastián Garrido, Líder de Desarrollo", cronograma: "Semanas 7-11" },
+    { tarea: "Fase de Pruebas de Aceptación de Usuario (UAT) con Clientes Piloto en entorno real.", responsable: "Equipo de QA", cronograma: "Semanas 11-12" },
+    { tarea: "Lanzamiento oficial del MVP y campaña de marketing digital inicial.", responsable: "Equipo de Marketing", cronograma: "Semana 12 en adelante" },
 ];
 
 const indicators = [
@@ -170,6 +181,7 @@ export default function SectorPrivadoPage() {
 
         const budgetRows = budgetTableData.map(d => `<tr><td style="padding: 10px; border: 1px solid #ddd;">${d.item}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.cant}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.costo}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.lugar}</td></tr>`).join('');
         const alliesRows = alliesTableData.map(d => `<tr><td style="padding: 10px; border: 1px solid #ddd;">${d.aliado}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.apoyo}</td></tr>`).join('');
+        const planRows = planAccionData.map(d => `<tr><td style="padding: 10px; border: 1px solid #ddd;">${d.tarea}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.responsable}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.cronograma}</td></tr>`).join('');
 
         const content = `
             <div style="text-align: center; margin-bottom: 30px;">
@@ -190,6 +202,13 @@ export default function SectorPrivadoPage() {
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr style="background-color: #4b5563; color: white;"><th>ALIADO</th><th>APOYO</th></tr>
                         ${alliesRows}
+                    </table>
+                </td></tr>
+                <tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 12px; font-weight: bold;">8. PLAN DE ACCIÓN</td></tr>
+                <tr><td colspan="2" style="padding: 10px; border: 1px solid #ddd;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="background-color: #4b5563; color: white;"><th>TAREA</th><th>RESPONSABLE</th><th>CRONOGRAMA</th></tr>
+                        ${planRows}
                     </table>
                 </td></tr>
             </table>
@@ -224,7 +243,6 @@ export default function SectorPrivadoPage() {
                 </TabsList>
 
                 <div className="space-y-16">
-                    {/* MODULO ZEDU COMPLETO */}
                     <TabsContent value="zedu" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="border-none bg-transparent shadow-none max-w-5xl mx-auto">
                             <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
@@ -262,7 +280,6 @@ export default function SectorPrivadoPage() {
                                             </React.Fragment>
                                         ))}
                                         
-                                        {/* SECCIÓN 6: PRESUPUESTO */}
                                         <TableRow className="bg-[#2d5a8e] border-none">
                                             <TableCell colSpan={2} className="py-5 px-8 font-black uppercase text-white text-[11px] tracking-[0.4em]">
                                                 6. PRESUPUESTO
@@ -271,7 +288,7 @@ export default function SectorPrivadoPage() {
                                         <TableRow className="border-none">
                                             <TableCell colSpan={2} className="p-0">
                                                 <div className="px-8 py-4 bg-white/[0.02] italic text-[10px] text-white/40 border-b border-white/5">
-                                                    traslados, etc. Nota: Es preferible elaborar esta tabla en Excel o en una hoja de cálculo.
+                                                    Nota: Se recomienda el uso de hojas de cálculo para la gestión dinámica.
                                                 </div>
                                                 <Table>
                                                     <TableHeader>
@@ -279,7 +296,7 @@ export default function SectorPrivadoPage() {
                                                             <TableHead className="text-white text-[9px] font-black uppercase px-8">ITEM</TableHead>
                                                             <TableHead className="text-white text-[9px] font-black uppercase">CANTIDAD</TableHead>
                                                             <TableHead className="text-white text-[9px] font-black uppercase">COSTO</TableHead>
-                                                            <TableHead className="text-white text-[9px] font-black uppercase">LUGAR DE COMPRA</TableHead>
+                                                            <TableHead className="text-white text-[9px] font-black uppercase">LUGAR</TableHead>
                                                         </TableRow>
                                                     </TableHeader>
                                                     <TableBody>
@@ -296,7 +313,6 @@ export default function SectorPrivadoPage() {
                                             </TableCell>
                                         </TableRow>
 
-                                        {/* SECCIÓN 7: ALIADOS */}
                                         <TableRow className="bg-[#2d5a8e] border-none">
                                             <TableCell colSpan={2} className="py-5 px-8 font-black uppercase text-white text-[11px] tracking-[0.4em]">
                                                 7. ALIADOS
@@ -304,9 +320,6 @@ export default function SectorPrivadoPage() {
                                         </TableRow>
                                         <TableRow className="border-none">
                                             <TableCell colSpan={2} className="p-0">
-                                                <div className="px-8 py-4 bg-white/[0.02] italic text-[10px] text-white/40 border-b border-white/5 leading-relaxed">
-                                                    Busca aliados estratégicos, ya sea personas naturales, empresas públicas o privadas que puedan aportar recursos, conocimiento o apoyo logístico al proyecto.
-                                                </div>
                                                 <Table>
                                                     <TableHeader>
                                                         <TableRow className="bg-[#4b5563] border-none">
@@ -325,13 +338,43 @@ export default function SectorPrivadoPage() {
                                                 </Table>
                                             </TableCell>
                                         </TableRow>
+
+                                        <TableRow className="bg-[#2d5a8e] border-none">
+                                            <TableCell colSpan={2} className="py-5 px-8 font-black uppercase text-white text-[11px] tracking-[0.4em]">
+                                                8. PLAN DE ACCIÓN
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow className="border-none">
+                                            <TableCell colSpan={2} className="p-0">
+                                                <div className="px-8 py-4 bg-white/[0.02] italic text-[10px] text-white/40 border-b border-white/5 leading-relaxed">
+                                                    El plan de acción debe incluir todas las tareas a realizar, indicando el responsable, las fechas, el presupuesto y los recursos necesarios.
+                                                </div>
+                                                <Table>
+                                                    <TableHeader>
+                                                        <TableRow className="bg-[#4b5563] border-none">
+                                                            <TableHead className="text-white text-[9px] font-black uppercase px-8">TAREAS</TableHead>
+                                                            <TableHead className="text-white text-[9px] font-black uppercase">RESPONSABLE</TableHead>
+                                                            <TableHead className="text-white text-[9px] font-black uppercase">CRONOGRAMA (Fechas)</TableHead>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        {planAccionData.map((d, i) => (
+                                                            <TableRow key={i} className="border-white/5">
+                                                                <TableCell className="px-8 py-4 text-[10px] font-bold text-white/70 uppercase leading-snug">{d.tarea}</TableCell>
+                                                                <TableCell className="py-4 text-[10px] font-bold text-white/70 uppercase">{d.responsable}</TableCell>
+                                                                <TableCell className="py-4 text-[10px] font-black text-secondary italic">{d.cronograma}</TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableCell>
+                                        </TableRow>
                                     </TableBody>
                                 </Table>
                             </div>
                         </Card>
                     </TabsContent>
 
-                    {/* FACTIBILIDAD ECONÓMICA */}
                     <TabsContent value="factibilidad" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="space-y-10 max-w-5xl mx-auto">
                             <div className="flex justify-between items-center">
@@ -357,7 +400,6 @@ export default function SectorPrivadoPage() {
                         </div>
                     </TabsContent>
 
-                    {/* PROPUESTA ESTRATÉGICA */}
                     <TabsContent value="propuesta" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40 max-w-5xl mx-auto">
                             <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
