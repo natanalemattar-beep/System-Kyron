@@ -8,29 +8,19 @@ import {
     Fingerprint,
     Radio,
     TabletSmartphone,
-    Calculator,
-    Users,
-    Gavel,
-    CreditCard,
-    Recycle,
-    Cpu,
-    BrainCircuit,
-    Download,
     ShieldCheck,
-    Database,
-    Activity,
-    Lock,
-    Zap,
-    Home,
-    Sparkles,
-    Shield,
-    ChevronRight,
-    Scale,
     TrendingUp,
-    Building,
     Briefcase,
+    Gavel,
+    Cpu,
+    Recycle,
     HeartHandshake,
-    FileText
+    Shield,
+    Home,
+    Download,
+    Activity,
+    ChevronRight,
+    Sparkles
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -40,7 +30,7 @@ import { motion } from "framer-motion";
 
 /**
  * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
- * Documentación técnica consolidada de misión crítica con sello de identidad.
+ * Documentación técnica consolidada de misión crítica con sello de identidad oficial.
  */
 
 const manualModules = [
@@ -52,11 +42,11 @@ const manualModules = [
         content: [
             {
                 sub: "Protocolo de Validación Biométrica 3D",
-                text: "El ciudadano debe realizar un escaneo facial tridimensional para vincular su identidad física con un hash criptográfico inmutable. Este proceso garantiza que cada trámite posea una firma digital de alta fidelidad y sea resistente a suplantaciones."
+                text: "El ciudadano debe realizar un escaneo facial tridimensional para vincular su identidad física con un hash criptográfico inmutable. Este proceso garantiza que cada trámite posea una firma digital de alta fidelidad."
             },
             {
                 sub: "Resguardo de Activos Civiles",
-                text: "La plataforma permite el almacenamiento seguro de Cédulas de Identidad, RIF y Pasaportes. El sistema aplica validación por OCR de precisión para garantizar que los datos fiscales coincidan con los documentos físicos cargados."
+                text: "La plataforma permite el almacenamiento seguro de Cédulas de Identidad, RIF y Pasaportes bajo cifrado AES-512."
             }
         ]
     },
@@ -68,11 +58,7 @@ const manualModules = [
         content: [
             {
                 sub: "Aprovisionamiento de eSIM Digital",
-                text: "Activación inmediata de perfiles de red virtuales. Tras la validación de identidad, el sistema genera un código QR único que permite la descarga del perfil de red directamente en el dispositivo móvil del usuario."
-            },
-            {
-                sub: "Gestión de Flotas Corporativas",
-                text: "Las empresas pueden asignar números telefónicos y planes de datos 5G de forma masiva a sus empleados, controlando el consumo y la operatividad desde un nodo centralizado."
+                text: "Activación inmediata de perfiles de red virtuales mediante código QR único tras la validación de identidad."
             }
         ]
     },
@@ -84,11 +70,7 @@ const manualModules = [
         content: [
             {
                 sub: "Sincronización Fiscal Directa",
-                text: "Al ingresar un RIF en el TPV, el sistema consulta sincrónicamente la base de datos fiscal para extraer Razón Social y Dirección, bloqueando los campos para evitar errores manuales en la facturación."
-            },
-            {
-                sub: "Control de Kardex Automatizado",
-                text: "Cada venta descuenta automáticamente del inventario centralizado. El sistema genera alertas de stock bajo y valoriza el activo corriente de la empresa en tiempo real."
+                text: "Consulta sincrónica de bases de datos fiscales para extracción de Razón Social y Dirección en tiempo real."
             }
         ]
     },
@@ -100,11 +82,7 @@ const manualModules = [
         content: [
             {
                 sub: "Declaraciones de IVA e ISLR",
-                text: "Generación automática de archivos TXT homologados para el portal del SENIAT. La IA audita cada transacción contra la Providencia Administrativa vigente antes de consolidar el libro de compra y venta."
-            },
-            {
-                sub: "Ajuste por Inflación (RIPF)",
-                text: "Módulo especializado para el reajuste por inflación fiscal, calculando la posición monetaria neta para determinar la base imponible real del ISLR."
+                text: "Generación automática de archivos TXT homologados para el portal del SENIAT con auditoría IA predictiva."
             }
         ]
     },
@@ -116,11 +94,7 @@ const manualModules = [
         content: [
             {
                 sub: "Análisis de Rentabilidad (VAN/TIR)",
-                text: "Cálculo de indicadores financieros para evaluar la viabilidad de proyectos. El sistema proyecta flujos de caja a 5 años, determinando el punto de equilibrio y el retorno de inversión."
-            },
-            {
-                sub: "Billetera de Cambio Multimoneda",
-                text: "Gestión de saldos en VES, USD y EUR con aplicación de tasas de cambio oficiales del BCV para la conciliación de pagos mixtos."
+                text: "Cálculo de indicadores financieros para evaluar la viabilidad de proyectos y retorno de inversión."
             }
         ]
     },
@@ -132,11 +106,7 @@ const manualModules = [
         content: [
             {
                 sub: "Cálculo de Nómina y Prestaciones",
-                text: "Automatización del pago quincenal, cálculo de horas extras, bono vacacional y liquidaciones. El sistema genera recibos de pago digitales con firma electrónica verificable."
-            },
-            {
-                sub: "Libros de Control Laboral",
-                text: "Mantenimiento inmutable de los libros de vacaciones, horas extras y personal retirado, listos para inspecciones del Ministerio del Trabajo."
+                text: "Automatización del pago quincenal, cálculo de horas extras y liquidaciones con firma electrónica."
             }
         ]
     },
@@ -148,11 +118,7 @@ const manualModules = [
         content: [
             {
                 sub: "Ciclo de Vida de Contratos",
-                text: "Redacción y seguimiento de contratos comerciales y laborales. El sistema emite alertas de vencimiento para renovaciones oportunas de poderes y habilitaciones."
-            },
-            {
-                sub: "Asistente Legal Gaceta 6952",
-                text: "Motor de IA especializado en la normativa legal vigente, permitiendo consultas técnicas sobre decretos de exoneración de IVA y reformas arancelarias."
+                text: "Redacción y seguimiento de contratos comerciales con alertas de vencimiento automatizadas."
             }
         ]
     },
@@ -164,11 +130,7 @@ const manualModules = [
         content: [
             {
                 sub: "Planimetría Generativa",
-                text: "A partir de una imagen del local, la IA genera un plano a escala para la planificación de infraestructura y cálculo de materiales de construcción."
-            },
-            {
-                sub: "Estudio de Población ZEDU",
-                text: "Análisis demográfico detallado por cuadrantes para determinar la factibilidad de nuevos nodos operativos en zonas de desarrollo estratégico."
+                text: "La IA genera planos a escala a partir de imágenes para la planificación de infraestructura física."
             }
         ]
     },
@@ -180,7 +142,7 @@ const manualModules = [
         content: [
             {
                 sub: "Reciclaje Magnético IA",
-                text: "Implementación de papeleras inteligentes con sensores de inducción. El sistema identifica materiales y recompensa al ciudadano con eco-créditos en su billetera digital."
+                text: "Identificación de materiales mediante inducción magnética y recompensa mediante eco-créditos."
             }
         ]
     },
@@ -192,11 +154,7 @@ const manualModules = [
         content: [
             {
                 sub: "Documentación Civil Certificada",
-                text: "Solicitud y descarga de copias certificadas de Partidas de Nacimiento y Actas de Matrimonio. Seguimiento de antecedentes penales internacionales."
-            },
-            {
-                sub: "Cumplimiento LOPNNA",
-                text: "Gestión de obligaciones de manutención y registro de RIF para menores de edad, facilitando la protección legal de la carga familiar."
+                text: "Solicitud y descarga de copias certificadas de Partidas de Nacimiento y Actas de Matrimonio."
             }
         ]
     },
@@ -208,11 +166,11 @@ const manualModules = [
         content: [
             {
                 sub: "Identidad Institucional",
-                text: "System Kyron es un nodo de ingeniería avanzada dedicado a la simplificación de la complejidad operativa. Nuestro propósito es dotar a empresas y ciudadanos de herramientas inmutables para el crecimiento sostenible en Venezuela."
+                text: "System Kyron es un nodo de ingeniería avanzada dedicado a la simplificación de la complejidad operativa."
             },
             {
-                sub: "Misión de Grado Corporativo",
-                text: "Diseñamos infraestructura de misión crítica que garantiza el 100% de cumplimiento legal y la integridad absoluta de los datos transaccionales mediante Ledger Blockchain."
+                sub: "Misión Corporativa",
+                text: "Diseñamos infraestructura de misión crítica que garantiza el 100% de cumplimiento legal e integridad de datos."
             }
         ]
     }
@@ -245,7 +203,6 @@ export default function ManualUsuarioPage() {
                 <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-secondary/5 rounded-full blur-[200px] opacity-30" />
             </div>
 
-            {/* HEADER DOCUMENTAL */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-20 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-16 justify-between no-print">
                 <div className="flex items-center gap-6">
                     <Link href="/" className="hover:scale-105 transition-transform">
@@ -268,8 +225,6 @@ export default function ManualUsuarioPage() {
 
             <main className="container mx-auto px-6 max-w-7xl pt-32 pb-40 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-16">
-                    
-                    {/* PANEL DE NAVEGACIÓN */}
                     <aside className="lg:col-span-4 no-print">
                         <div className="sticky top-32 space-y-8">
                             <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
@@ -294,7 +249,6 @@ export default function ManualUsuarioPage() {
                         </div>
                     </aside>
 
-                    {/* CONTENIDO TÉCNICO EXPANDIDO */}
                     <div className="lg:col-span-8 space-y-32">
                         <motion.section 
                             className="space-y-10"
@@ -306,7 +260,7 @@ export default function ManualUsuarioPage() {
                             </div>
                             <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Expediente <br/> <span className="text-primary">Técnico</span></h1>
                             <p className="text-lg text-white/40 max-w-2xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 leading-relaxed">
-                                Guía de operación absoluta para el ecosistema Kyron. Documentación de grado corporativo v2.6.5.
+                                Guía de operación absoluta para el ecosistema Kyron v2.6.5.
                             </p>
                         </motion.section>
 
@@ -327,7 +281,7 @@ export default function ManualUsuarioPage() {
                                                 <mod.icon className="h-12 w-12 text-primary" />
                                             </div>
                                             <div className="absolute -top-4 -right-4 z-20">
-                                                <Logo className="h-8 w-8 opacity-20 group-hover:opacity-100 transition-opacity" />
+                                                <Logo className="h-8 w-8 opacity-40 group-hover:opacity-100 transition-opacity" />
                                             </div>
                                         </div>
                                         <div className="space-y-4 text-center md:text-left">

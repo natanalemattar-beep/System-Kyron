@@ -24,7 +24,7 @@ import React from "react";
 
 /**
  * @fileOverview PORTAL SECTOR PRIVADO - EXPEDIENTE MAESTRO ZEDU 2025
- * Integración de alta fidelidad del modelo ZEDU Parte 1 y 2.
+ * Integración de alta fidelidad del modelo ZEDU Parte 1, 2 y 3.
  */
 
 const zeduMasterData = {
@@ -54,11 +54,33 @@ const zeduMasterData = {
             id: 3,
             titulo: "3. ANÁLISIS DEL PROBLEMA",
             filas: [
-                { label: "Definición", val: "Fragmentación de procesos (administrativos, de comunicación) que no se comunican entre sí. Esto crea silos de datos, genera ineficiencia operativa y una alta vulnerabilidad ante entes como el SENIAT y CONATEL, debido a la dependencia de herramientas no corporativas como WhatsApp para comunicaciones críticas." },
-                { label: "Importancia", val: "La desintegración de sistemas genera sobrecarga de trabajo manual, dificulta la toma de decisiones estratégicas al no tener una visión 360°, aumenta el riesgo de errores y sanciones fiscales, y eleva los costos al tener que contratar y mantener múltiples proveedores de software, hardware y telecomunicaciones." },
-                { label: "Causas", val: "Sistemas obsoletos no adaptados a la economía multimoneda (Bs./USD), complejidad de la legislación fiscal venezolana (ej. IGTF), y una adopción reactiva de tecnología que ha creado una infraestructura frágil e ineficiente, incapaz de afrontar la dinámica del país." },
-                { label: "Consecuencias", val: "Pérdida de tiempo y dinero, errores en declaraciones de impuestos, multas del SENIAT, comunicación deficiente entre departamentos, falta de visibilidad financiera en tiempo real para la junta directiva y una incapacidad para escalar el negocio de forma ágil." },
-                { label: "Origen", val: "Históricamente, las empresas han parchado sus operaciones con soluciones aisladas para problemas específicos, sin una visión de ecosistema. Esto ha resultado en una infraestructura tecnológica fragmentada que no puede operar de forma unificada y segura." },
+                { label: "Definición", val: "Fragmentación de procesos (administrativos, de comunicación) que no se comunican entre sí. Esto crea silos de datos e ineficiencia operativa." },
+                { label: "Importancia", val: "La desintegración de sistemas genera sobrecarga de trabajo manual y dificulta la toma de decisiones estratégicas." },
+                { label: "Causas", val: "Sistemas obsoletos no adaptados a la economía multimoneda y complejidad de la legislación fiscal venezolana." },
+                { label: "Consecuencias", val: "Pérdida de tiempo y dinero, errores en declaraciones de impuestos y multas del SENIAT." },
+                { label: "Origen", val: "Adopción reactiva de tecnología que ha creado una infraestructura frágil e ineficiente." },
+            ]
+        },
+        {
+            id: 4,
+            titulo: "4. SOLUCIÓN PROPUESTA",
+            filas: [
+                { label: "Proyecto", val: "Implementar 'System Kyron', un ecosistema empresarial 'Todo en Uno' que unifica la gestión (Contabilidad VEN-NIF, RRHH-LOTTT, Ventas, Inventario), las telecomunicaciones 5G (línea telefónica privada, central VoIP, APIs de SMS/WhatsApp) y las finanzas (Billetera Blockchain para fiat y cripto) en un único Centro de Mando. El objetivo es centralizar la operación, garantizar 'Cero Riesgo Fiscal' con IA y dotar a la empresa de soberanía tecnológica." },
+            ]
+        },
+        {
+            id: 5,
+            titulo: "5. ANÁLISIS COMPETITIVO",
+            filas: [
+                { label: "Otras Propuestas Existentes", val: "Sistemas ERP internacionales (SAP, Oracle): costosos, complejos y no localizados para la normativa fiscal venezolana. Software local (A2, Valery): obsoletos, de escritorio, sin integración en la nube, móvil ni telecomunicaciones. Gestorías tradicionales: procesos manuales, lentos y con alto margen de error humano." },
+                { label: "Diferenciadores Clave", val: "Kyron es la única plataforma que integra ERP, Telecomunicaciones y Finanzas Blockchain. Ofrece hiperlocalización para Venezuela (SENIAT, IGTF, LOPNNA). Utiliza IA para la predicción de riesgos y dota de soberanía tecnológica a la empresa al permitirle ser dueña de su propia infraestructura de comunicación." },
+            ]
+        },
+        {
+            id: 6,
+            titulo: "6. PRESUPUESTO",
+            filas: [
+                { label: "Detalle", val: "Los ítems pueden incluir todo material o servicio necesario para ejecutar el proyecto. Pueden ser donaciones monetarias o en especie. Ejemplo de ítems: libretas, lápices, material electrónico, mesas, sillas, formación académica." },
             ]
         }
     ]
@@ -90,13 +112,6 @@ const projections = [
     { year: 3, revenue: 380000, profit: 240000, margin: 0.63 },
     { year: 4, revenue: 550000, profit: 370000, margin: 0.67 },
     { year: 5, revenue: 820000, profit: 600000, margin: 0.73 },
-];
-
-const proposalSections = [
-    { icon: Radio, title: "Kyron Hyper-Connect 5G", desc: "Asignación inmediata de números telefónicos y eSIMs digitales con protocolo de baja latencia.", color: "text-blue-400" },
-    { icon: Magnet, title: "Ecosistema Magnético IA", desc: "Smart Bins con tecnología de inducción para la trazabilidad inmutable de residuos.", color: "text-emerald-400" },
-    { icon: ShieldCheck, title: "Blindaje Fiscal 360°", desc: "Automatización total de libros y declaraciones con auditoría predictiva sincronizada 24/7.", color: "text-amber-400" },
-    { icon: Cpu, title: "Ledger Blockchain", desc: "Sellado digital de cada transacción para garantizar integridad absoluta ante auditorías.", color: "text-purple-400" }
 ];
 
 export default function SectorPrivadoPage() {
@@ -150,15 +165,14 @@ export default function SectorPrivadoPage() {
     const handleDownloadFactibilidad = () => {
         const content = `
             <h1 style="text-align: center; color: #22c55e;">ANÁLISIS DE FACTIBILIDAD ECONÓMICA 2025</h1>
-            <p style="text-align: justify; margin-bottom: 20px;">Este documento certifica la viabilidad financiera del despliegue del Ecosistema Kyron bajo el modelo de ingresos SaaS y conectividad 5G.</p>
+            <p style="text-align: justify; margin-bottom: 20px;">Este documento certifica la viabilidad financiera del despliegue del Ecosistema Kyron.</p>
             <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
                 <tr style="background-color: #f3f4f6;">
                     <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Indicador</th>
                     <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Valor</th>
                 </tr>
-                <tr><td style="padding: 10px; border: 1px solid #ddd;">Valor Actual Neto (VAN)</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">$450,000.00</td></tr>
-                <tr><td style="padding: 10px; border: 1px solid #ddd;">Tasa Interna de Retorno (TIR)</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">28.5%</td></tr>
-                <tr><td style="padding: 10px; border: 1px solid #ddd;">Período de Recuperación</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">2.4 años</td></tr>
+                <tr><td style="padding: 10px; border: 1px solid #ddd;">VAN</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">$450,000.00</td></tr>
+                <tr><td style="padding: 10px; border: 1px solid #ddd;">TIR</td><td style="padding: 10px; border: 1px solid #ddd; text-align: right;">28.5%</td></tr>
             </table>
         `;
         downloadAsWord("Dictamen_Factibilidad_Economica_Kyron", content);
@@ -174,7 +188,6 @@ export default function SectorPrivadoPage() {
                 <li><strong>Hyper-Connect 5G:</strong> Conectividad total ininterrumpida.</li>
                 <li><strong>IA Fiscal:</strong> Auditoría predictiva 24/7.</li>
                 <li><strong>Blockchain Ledger:</strong> Registros inmutables y verificables.</li>
-                <li><strong>Hardware Magnético:</strong> Trazabilidad de activos sostenibles.</li>
             </ul>
         `;
         downloadAsWord("Propuesta_Estrategica_Corporativa_Kyron", content);
@@ -208,7 +221,7 @@ export default function SectorPrivadoPage() {
                 </TabsList>
 
                 <div className="space-y-16">
-                    {/* MODULO ZEDU CALCADO - PARTE 1 Y 2 */}
+                    {/* MODULO ZEDU CALCADO */}
                     <TabsContent value="zedu" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="border-none bg-transparent shadow-none max-w-5xl mx-auto">
                             <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
