@@ -29,11 +29,6 @@ import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 
-/**
- * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
- * Documentación técnica consolidada de misión crítica con sello de identidad oficial.
- */
-
 const manualModules = [
     {
         id: "identidad",

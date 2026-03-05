@@ -6,22 +6,17 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { 
     Menu, 
-    UserCircle,
     ChevronDown,
     Sparkles,
-    BookOpen,
-    Users2,
-    LayoutGrid,
     ShieldCheck
 } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { 
     DropdownMenu, 
     DropdownMenuContent, 
     DropdownMenuItem, 
     DropdownMenuTrigger,
-    DropdownMenuLabel,
-    DropdownMenuSeparator
+    DropdownMenuLabel
 } from "@/components/ui/dropdown-menu";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";

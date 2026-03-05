@@ -25,6 +25,48 @@ import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@
 import { Logo } from "@/components/logo";
 import React from "react";
 
+const proposalSections = [
+    {
+        icon: Radio,
+        title: "Kyron Hyper-Connect 5G",
+        desc: "Asignación de números y eSIMs digitales con protocolo de baja latencia.",
+        color: "text-blue-400"
+    },
+    {
+        icon: Magnet,
+        title: "Ecosistema Magnético IA",
+        desc: "Smart Bins con inducción para trazabilidad inmutable de activos.",
+        color: "text-emerald-400"
+    },
+    {
+        icon: ShieldCheck,
+        title: "Blindaje Fiscal 360°",
+        desc: "Automatización total de libros y declaraciones sincronizada con la Gaceta.",
+        color: "text-amber-400"
+    },
+    {
+        icon: Cpu,
+        title: "Ledger Blockchain",
+        desc: "Sellado digital de transacciones para integridad absoluta.",
+        color: "text-purple-400"
+    }
+];
+
+const indicators = [
+    { label: "Valor Actual Neto (VAN)", value: 450000, desc: "Rendimiento en valor presente.", icon: TrendingUp },
+    { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Eficiencia anual del capital.", icon: Target },
+    { label: "Periodo de Recuperación", value: "2.4 años", desc: "Retorno total de inversión.", icon: Activity },
+    { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por flujo.", icon: BarChart3 },
+];
+
+const projections = [
+    { year: 1, revenue: 125000, profit: 40000, margin: 0.32 },
+    { year: 2, revenue: 210000, profit: 100000, margin: 0.47 },
+    { year: 3, revenue: 380000, profit: 240000, margin: 0.63 },
+    { year: 4, revenue: 550000, profit: 370000, margin: 0.67 },
+    { year: 5, revenue: 820000, profit: 600000, margin: 0.73 },
+];
+
 const zeduMasterData = {
     titulo: "Modelo Zedu",
     secciones: [
@@ -101,48 +143,6 @@ const planAccionData = [
     { tarea: "Lanzamiento oficial y despliegue del Nodo Maestro.", responsable: "Equipo Directivo", cronograma: "Despliegue" },
 ];
 
-const indicators = [
-    { label: "Valor Actual Neto (VAN)", value: 450000, desc: "Rendimiento en valor presente.", icon: TrendingUp },
-    { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Eficiencia anual del capital.", icon: Target },
-    { label: "Periodo de Recuperación", value: "2.4 años", desc: "Retorno total de inversión.", icon: Activity },
-    { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por flujo.", icon: BarChart3 },
-];
-
-const projections = [
-    { year: 1, revenue: 125000, profit: 40000, margin: 0.32 },
-    { year: 2, revenue: 210000, profit: 100000, margin: 0.47 },
-    { year: 3, revenue: 380000, profit: 240000, margin: 0.63 },
-    { year: 4, revenue: 550000, profit: 370000, margin: 0.67 },
-    { year: 5, revenue: 820000, profit: 600000, margin: 0.73 },
-];
-
-const proposalSections = [
-    {
-        icon: Radio,
-        title: "Kyron Hyper-Connect 5G",
-        desc: "Asignación de números y eSIMs digitales con protocolo de baja latencia.",
-        color: "text-blue-400"
-    },
-    {
-        icon: Magnet,
-        title: "Ecosistema Magnético IA",
-        desc: "Smart Bins con inducción para trazabilidad inmutable de activos.",
-        color: "text-emerald-400"
-    },
-    {
-        icon: ShieldCheck,
-        title: "Blindaje Fiscal 360°",
-        desc: "Automatización total de libros y declaraciones sincronizada con la Gaceta.",
-        color: "text-amber-400"
-    },
-    {
-        icon: Cpu,
-        title: "Ledger Blockchain",
-        desc: "Sellado digital de transacciones para integridad absoluta.",
-        color: "text-purple-400"
-    }
-];
-
 export default function SectorPrivadoPage() {
     const { toast } = useToast();
     const [isMounted, setIsMounted] = useState(false);
@@ -214,7 +214,7 @@ export default function SectorPrivadoPage() {
             });
         });
 
-        const budgetRows = budgetTableData.map(d => `<tr><td>${d.item}</td><td>${d.cant}</td><td class="accent-text">${d.cost}</td><td>${d.lugar}</td></tr>`).join('');
+        const budgetRows = budgetTableData.map(d => `<tr><td>${d.item}</td><td>${d.cant}</td><td class="accent-text">${d.costo}</td><td>${d.lugar}</td></tr>`).join('');
         const alliesRows = alliesTableData.map(d => `<tr><td class="label-cell">${d.aliado}</td><td>${d.apoyo}</td></tr>`).join('');
         const planRows = planAccionData.map(d => `<tr><td>${d.tarea}</td><td>${d.responsable}</td><td class="accent-text">${d.cronograma}</td></tr>`).join('');
 
