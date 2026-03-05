@@ -11,7 +11,7 @@ import {
     Sparkles,
     ArrowRight,
     BookOpen,
-    X
+    Users2
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { 
@@ -60,8 +60,8 @@ export function LandingHeader() {
             <div className="w-full px-6 md:px-12">
                 <div className="grid grid-cols-3 items-center h-16 w-full">
                     
-                    {/* SECCIÓN IZQUIERDA: Navegación Primaria */}
-                    <div className="flex justify-start items-center">
+                    {/* SECCIÓN IZQUIERDA */}
+                    <div className="flex justify-start items-center gap-10">
                         <nav className="hidden lg:flex items-center gap-10">
                             {leftLinks.map((link) => (
                                 <Link 
@@ -76,7 +76,7 @@ export function LandingHeader() {
                         </nav>
                     </div>
 
-                    {/* SECCIÓN CENTRAL: Identidad Maestra (Eje Absoluto) */}
+                    {/* SECCIÓN CENTRAL */}
                     <div className="flex justify-center items-center">
                         <Link href="/" className="flex flex-col items-center group">
                             <Logo className="h-10 w-10 mb-1.5 transition-transform duration-500 group-hover:scale-110 drop-shadow-glow" /> 
@@ -84,9 +84,16 @@ export function LandingHeader() {
                         </Link>
                     </div>
 
-                    {/* SECCIÓN DERECHA: Navegación Secundaria y Controles */}
-                    <div className="flex justify-end items-center gap-10">
+                    {/* SECCIÓN DERECHA */}
+                    <div className="flex justify-end items-center gap-8">
                         <nav className="hidden lg:flex items-center gap-10">
+                            <Link 
+                                href="#nosotros" 
+                                className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
+                            >
+                                Nosotros
+                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                            </Link>
                             {rightLinks.map((link) => (
                                 <Link 
                                     key={link.href} 
@@ -188,14 +195,30 @@ export function LandingHeader() {
                                     <nav className="flex-grow p-8 space-y-10 overflow-y-auto">
                                         <div className="space-y-4">
                                             <p className="text-[10px] font-black uppercase text-white/20 tracking-[0.4em] italic">Navegación</p>
-                                            {[...leftLinks, ...rightLinks].map((link) => (
-                                                <SheetClose asChild key={link.href}>
-                                                    <Link href={link.href as any} className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
-                                                        {link.label}
-                                                        <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
-                                                    </Link>
-                                                </SheetClose>
-                                            ))}
+                                            <SheetClose asChild>
+                                                <Link href="#inicio" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
+                                                    Inicio
+                                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
+                                                </Link>
+                                            </SheetClose>
+                                            <SheetClose asChild>
+                                                <Link href="/ecosistema" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
+                                                    Ecosistema
+                                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
+                                                </Link>
+                                            </SheetClose>
+                                            <SheetClose asChild>
+                                                <Link href="#nosotros" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
+                                                    Nosotros
+                                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
+                                                </Link>
+                                            </SheetClose>
+                                            <SheetClose asChild>
+                                                <Link href="/manual-usuario" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
+                                                    Manual de Usuario
+                                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
+                                                </Link>
+                                            </SheetClose>
                                         </div>
                                     </nav>
                                 </SheetContent>

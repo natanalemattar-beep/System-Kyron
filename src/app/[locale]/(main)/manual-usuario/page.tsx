@@ -1,18 +1,8 @@
 
-'use client';
-
-import { redirect } from '@/navigation';
-import { useEffect } from 'react';
-
 /**
- * @fileOverview NODO PURGADO - REDIRECCIÓN DE SEGURIDAD
- * Este punto de entrada ha sido desactivado para resolver el conflicto de rutas paralelas.
- * La documentación oficial reside ahora en la ruta raíz: /manual-usuario
+ * @fileOverview NODO DESACTIVADO - EVITANDO CONFLICTO DE RUTAS PARALELAS.
+ * El Manual de Usuario oficial ha sido centralizado en la ruta raíz: /src/app/[locale]/manual-usuario/page.tsx
  */
-export default function ManualUsuarioRedirect() {
-  useEffect(() => {
-    redirect('/manual-usuario');
-  }, []);
-
+export default function ConflictResolution() {
   return null;
 }

@@ -28,7 +28,7 @@ import {
     Zap,
     ArrowDown,
     ListTree,
-    ExternalLink
+    Shield
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
@@ -38,7 +38,7 @@ import { Logo } from "@/components/logo";
 /**
  * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
  * Documentación técnica de grado ministerial diseñada para el cumplimiento de misión crítica.
- * Este nodo opera de forma independiente a la navegación global para garantizar el enfoque técnico.
+ * Este nodo opera de forma independiente para garantizar el enfoque técnico y la seguridad.
  */
 
 const manualModules = [
@@ -50,11 +50,11 @@ const manualModules = [
         content: [
             {
                 sub: "Protocolo de Validación Biométrica 3D",
-                text: "Usted deberá realizar el escaneo facial tridimensional para vincular su identidad física con un hash criptográfico inmutable. Este proceso garantiza que cada trámite posea una firma digital de alta fidelidad. Asegure una iluminación uniforme y realice un giro lento de la cabeza para el sellado de su identidad en el Ledger distribuido."
+                text: "El ciudadano debe realizar un escaneo facial tridimensional para vincular su identidad física con un hash criptográfico inmutable. Este proceso garantiza que cada trámite posea una firma digital de alta fidelidad. Instrucciones: Asegure una iluminación uniforme, retire accesorios que cubran el rostro y realice un movimiento circular lento según las guías en pantalla para el sellado de su identidad en el Ledger distribuido."
             },
             {
-                sub: "Bóveda de Documentos Institucionales",
-                text: "La Institución permite el resguardo de copias certificadas de Partidas de Nacimiento y Actas de Matrimonio. La carga de datos requiere precisión absoluta en los campos de Tomo, Folio y Acta. Una vez verificado, el documento se emite con un sello QR institucional verificable 24/7."
+                sub: "Gestión de Documentos de Identidad",
+                text: "La plataforma permite el resguardo y verificación de Cédulas de Identidad, RIF Personal y Pasaportes. Cada documento cargado es sometido a una validación por OCR (Reconocimiento Óptico de Caracteres) para asegurar que la información coincida con las bases de datos institucionales. Los documentos permanecen cifrados bajo estándar AES-256."
             }
         ]
     },
@@ -62,15 +62,15 @@ const manualModules = [
         id: "telecom",
         title: "2. Infraestructura Telecom 5G y eSIM",
         icon: Radio,
-        description: "Administración de redes móviles y servicios de conectividad global.",
+        description: "Administración de redes móviles, asignación de numeración y conectividad global.",
         content: [
             {
                 sub: "Aprovisionamiento de eSIM Digital",
-                text: "El sistema permite la descarga inmediata de perfiles de red virtuales. Tras la validación, se genera un código QR único que configura automáticamente los parámetros de red 5G en el dispositivo del usuario, asegurando latencia mínima y cifrado de extremo a extremo."
+                text: "Usted podrá activar perfiles de red virtuales sin necesidad de hardware físico. El sistema genera un código QR de activación tras validar la titularidad. Este perfil configura automáticamente los puntos de acceso (APN) y protocolos de seguridad 5G, permitiendo conectividad inmediata con cifrado de grado militar de extremo a extremo."
             },
             {
-                sub: "Monitoreo Regulatorio CONATEL",
-                text: "La plataforma emite alertas críticas sesenta (60) días antes del vencimiento de concesiones, facilitando la renovación electrónica inmediata y evitando penalizaciones administrativas por mora."
+                sub: "Cumplimiento Regulatorio CONATEL",
+                text: "Para operadoras y servicios postales, el sistema integra un monitor de cumplimiento. Este emite alertas críticas 60 días antes del vencimiento de habilitaciones. El usuario debe cargar los recaudos en formato PDF para la auditoría técnica previa a la presentación ante el ente regulador."
             }
         ]
     },
@@ -78,15 +78,15 @@ const manualModules = [
         id: "tpv",
         title: "3. Terminal de Punto de Venta (TPV) IA",
         icon: TabletSmartphone,
-        description: "Procesamiento de transacciones comerciales con integración fiscal automatizada.",
+        description: "Procesamiento comercial con integración fiscal y validación de identidad.",
         content: [
             {
                 sub: "Sincronización Fiscal por RIF",
-                text: "Al ingresar el número de RIF del cliente, el sistema sincroniza instantáneamente la Razón Social y Dirección Fiscal, garantizando el cumplimiento estricto de la Providencia SNAT/2011/0071 y eliminando errores de transcripción."
+                text: "Al ingresar el RIF del cliente, el TPV realiza una consulta sincrónica al nodo fiscal para extraer Razón Social y Dirección. Este proceso cumple con la Providencia SNAT/2011/0071, asegurando que el 100% de las facturas emitidas posean datos válidos, eliminando el riesgo de facturación errónea."
             },
             {
-                sub: "Protocolo de Arqueo y Cierre",
-                text: "Al finalizar la jornada, se debe ejecutar el protocolo de arqueo que cruza los ingresos registrados con el conteo físico. Cualquier discrepancia es registrada automáticamente en el Libro de Sobrantes y Faltantes para su auditoría."
+                sub: "Protocolo de Cierre y Arqueo Maestro",
+                text: "Al finalizar el turno, el cajero debe ejecutar el protocolo de arqueo. El sistema solicita el conteo físico por denominación de billete (VES/USD/EUR). Si existe una discrepancia, la IA de riesgo solicita una justificación obligatoria que se anexa al Libro de Sobrantes y Faltantes para auditoría de gerencia."
             }
         ]
     },
@@ -94,15 +94,15 @@ const manualModules = [
         id: "facturacion",
         title: "4. Facturación, Crédito y BNPL",
         icon: CreditCard,
-        description: "Control de documentos de venta y gestión de financiamiento comercial.",
+        description: "Control de documentos de venta y gestión de plataformas de financiamiento.",
         content: [
             {
-                sub: "Emisión de Documentos Fiscales",
-                text: "Generación automatizada de facturas, notas de débito y crédito con correlatividad inalterable. El sistema asegura que cada documento cumpla con los requisitos de ley, incluyendo número de control y firma digital."
+                sub: "Emisión de Documentos Legales",
+                text: "El sistema genera Facturas, Notas de Débito y Notas de Crédito con numeración de control inalterable. Cada documento incluye un código QR que permite la validación inmediata de su autenticidad por parte del cliente o autoridades fiscales mediante el escaneo directo."
             },
             {
-                sub: "Integración de Financiamiento (Cashea/Krece)",
-                text: "El sistema valida el nivel de crédito del usuario, procesa el pago inicial y programa las cuotas restantes en el calendario de cobranza institucional."
+                sub: "Gestión de Crédito 'Compra Ahora, Paga Después'",
+                text: "Kyron se integra con Cashea, Krece y otros proveedores BNPL. El sistema valida el nivel de crédito del usuario en tiempo real, procesa el pago inicial y automatiza la programación de cuotas, enviando recordatorios mediante canales seguros para mantener la mora en 0%."
             }
         ]
     },
@@ -110,15 +110,15 @@ const manualModules = [
         id: "fiscal",
         title: "5. Blindaje Fiscal SENIAT y Libros",
         icon: Calculator,
-        description: "Automatización total de la carga impositiva y registros oficiales.",
+        description: "Automatización total de obligaciones tributarias y libros oficiales.",
         content: [
             {
-                sub: "Libros de Compra y Venta Digitales",
-                text: "Mantenimiento diario de registros fiscales. El sistema genera los archivos planos (.txt) requeridos para la carga masiva en el portal del SENIAT, garantizando precisión matemática en el cálculo de débitos y créditos."
+                sub: "Mantenimiento de Libros Electrónicos",
+                text: "Los Libros de Compra y Venta se alimentan automáticamente de las transacciones del TPV. El sistema genera los archivos planos (.txt) necesarios para la declaración de IVA e ISLR, garantizando que el reporte digital sea un espejo exacto de la operación comercial física."
             },
             {
-                sub: "Auditoría Predictiva de Riesgo 0%",
-                text: "El motor de cumplimiento analiza cada asiento contable contra la Gaceta Oficial vigente, permitiendo correcciones proactivas que eliminan el riesgo de multas."
+                sub: "Motor de Auditoría Predictiva",
+                text: "Esta tecnología analiza cada asiento contable contra la Gaceta Oficial vigente. Si se detecta un cambio en la alícuota del IVA o nuevas contribuciones (ej. Protección de Pensiones), el sistema recalcula los pasivos impositivos y alerta al contador para su liquidación proactiva."
             }
         ]
     },
@@ -126,15 +126,15 @@ const manualModules = [
         id: "rrhh",
         title: "6. Gestión de Personal y Nómina (LOTTT)",
         icon: Users,
-        description: "Administración integral de la relación laboral y cumplimiento social.",
+        description: "Administración integral del capital humano y cumplimiento sociolaboral.",
         content: [
             {
-                sub: "Cómputo de Nómina y Parafiscales",
-                text: "Cálculo automatizado de salarios y retenciones de IVSS, FAOV e INCES. El sistema emite recibos de pago digitales con validez legal transmitidos al trabajador mediante protocolo seguro."
+                sub: "Cómputo de Remuneraciones y Parafiscales",
+                text: "El sistema calcula sueldos, vacaciones, utilidades y prestaciones sociales conforme a la LOTTT. Asimismo, gestiona las retenciones de IVSS, FAOV e INCES, emitiendo las planillas de pago digitalizadas para su archivo histórico en el expediente del trabajador."
             },
             {
-                sub: "Liquidación y Finiquitos Técnicos",
-                text: "Procesamiento de prestaciones sociales conforme al Artículo 142 de la LOTTT, emitiendo el documento de finiquito listo para archivo ministerial."
+                sub: "Emisión de Recibos y Constancias",
+                text: "Cada trabajador posee acceso a sus recibos de pago con sello QR. El departamento de RR.HH. puede emitir Cartas de Trabajo y Liquidaciones (Finiquitos) con un solo clic, asegurando la trazabilidad de la relación laboral desde el ingreso hasta el retiro."
             }
         ]
     },
@@ -142,15 +142,15 @@ const manualModules = [
         id: "legal",
         title: "7. Escritorio Jurídico y Contratos",
         icon: Gavel,
-        description: "Centralización de minutas, poderes y cumplimiento corporativo.",
+        description: "Centralización de minutas, poderes y representación corporativa.",
         content: [
             {
-                sub: "Archivo Digital de Contratos",
-                text: "Repositorio central con control de versiones. El sistema rastrea vencimientos y cláusulas de renovación, alertando sobre la necesidad de actualización de acuerdos estratégicos."
+                sub: "Administración de Poderes y Representación",
+                text: "El sistema rastrea la vigencia de poderes notariales y actas de asamblea. Emite alertas automáticas sobre la extinción de facultades de representación, asegurando que la empresa siempre actúe bajo personería jurídica vigente y apoderados facultados."
             },
             {
-                sub: "Control de Poderes y Socios",
-                text: "Seguimiento de facultades de representación, asegurando que la Institución mantenga su personalidad jurídica y apoderados debidamente facultados."
+                sub: "Repositorio Inmutable de Contratos",
+                text: "Gestión de contratos de servicios, arrendamientos y licencias de software. El uso de tecnología Blockchain permite verificar que el documento digital no ha sido alterado desde su firma, protegiendo los intereses legales de la Institución."
             }
         ]
     },
@@ -158,11 +158,11 @@ const manualModules = [
         id: "bi",
         title: "8. Inteligencia de Negocio y Estrategia",
         icon: BrainCircuit,
-        description: "Análisis predictivo y visualización de datos para la dirección.",
+        description: "Análisis predictivo y visualización de KPIs de misión crítica.",
         content: [
             {
-                sub: "Cuadro de Mando Ejecutivo (HUD)",
-                text: "Visualización de métricas de misión crítica: Liquidez neta, ROI y Punto de Equilibrio. La interfaz presenta datos vectoriales para identificar desviaciones operativas."
+                sub: "Análisis de Rentabilidad y ROI",
+                text: "El tablero ejecutivo visualiza el Punto de Equilibrio y la Tasa Interna de Retorno (TIR). Los datos se presentan en interfaces HUD optimizadas para la toma de decisiones estratégicas, permitiendo identificar unidades de negocio ineficientes en segundos."
             }
         ]
     },
@@ -170,11 +170,11 @@ const manualModules = [
         id: "sostenibilidad",
         title: "9. Sostenibilidad y Reciclaje Magnético",
         icon: Recycle,
-        description: "Operación de infraestructuras verdes y activos digitales.",
+        description: "Operación de infraestructuras verdes y generación de eco-créditos.",
         content: [
             {
-                sub: "Smart Bins con Tecnología de Inducción",
-                text: "Las estaciones emplean sensores magnéticos para clasificar materiales. El sistema valida la inyección del residuo y transfiere Eco-Créditos a la billetera ciudadana."
+                sub: "Tecnología de Inducción en Smart Bins",
+                text: "Las estaciones de recolección utilizan sensores de magnetismo para clasificar residuos. El ciudadano sincroniza su ID Digital, deposita el material y recibe automáticamente Eco-Créditos en su billetera, fomentando una economía circular verificable por Blockchain."
             }
         ]
     },
@@ -182,11 +182,11 @@ const manualModules = [
         id: "ingenieria",
         title: "10. Planificación de Ingeniería e IA",
         icon: Cpu,
-        description: "Diseño técnico, presupuestos de obra y soluciones IA.",
+        description: "Diseño técnico, presupuestos de obra y modelado inteligente.",
         content: [
             {
                 sub: "Generación de Planos por Visión Artificial",
-                text: "Utilizando levantamientos fotográficos, la IA genera planos arquitectónicos con precisión técnica, optimizando los tiempos de diseño."
+                text: "Usted podrá cargar fotografías de un espacio físico y la IA de ingeniería generará planos a escala con precisión técnica. Este módulo incluye un calculador de materiales (m²/unidades) vinculado a presupuestos CapEx para proyectos de expansión institucional."
             }
         ]
     }
@@ -226,7 +226,7 @@ export default function ManualUsuarioPage() {
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid selection:bg-primary/20">
+        <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid selection:bg-primary/20 font-sans">
             {/* ESTILOS DE PRIORIDAD PARA OCULTAR ELEMENTOS EXTERNOS */}
             <style jsx global>{`
                 header.fixed.top-0, 
@@ -253,7 +253,7 @@ export default function ManualUsuarioPage() {
                     <Logo className="h-10 w-10 shadow-glow" />
                     <div className="flex flex-col">
                         <span className="text-xs font-black tracking-[0.6em] uppercase italic">SYSTEM KYRON</span>
-                        <span className="text-[9px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Manual de Usuario Institucional</span>
+                        <span className="text-[9px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Expediente Técnico: Manual de Usuario</span>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -278,7 +278,7 @@ export default function ManualUsuarioPage() {
                                 </div>
                                 <CardHeader className="p-0 mb-8 border-b border-white/5 pb-6">
                                     <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] text-primary flex items-center gap-3">
-                                        <Terminal className="h-4 w-4" /> Índice de Protocolos
+                                        <Terminal className="h-4 w-4" /> Índice de Módulos
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="p-0 space-y-1">
@@ -296,10 +296,13 @@ export default function ManualUsuarioPage() {
                             </Card>
 
                             <Card className="bg-primary/5 border border-primary/20 rounded-[2rem] p-8">
-                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-2">Estado del Nodo</p>
+                                <div className="flex items-center gap-3 mb-4">
+                                    <Shield className="h-4 w-4 text-primary" />
+                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary">Estado del Nodo</p>
+                                </div>
                                 <div className="flex items-center gap-3">
                                     <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-glow" />
-                                    <span className="text-xs font-bold text-white/80">Operativo v2.6.5</span>
+                                    <span className="text-xs font-bold text-white/80">Sincronizado v2.6.5</span>
                                 </div>
                             </Card>
                         </div>
@@ -310,11 +313,11 @@ export default function ManualUsuarioPage() {
                         {/* PORTADA INTERNA */}
                         <section className="space-y-10">
                             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary shadow-glow">
-                                <Activity className="h-3.5 w-3.5" /> EXPEDIENTE TÉCNICO INSTITUCIONAL
+                                <Activity className="h-3.5 w-3.5" /> EXPEDIENTE TÉCNICO OFICIAL
                             </div>
                             <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <span className="text-primary">Usuario</span></h1>
                             <p className="text-lg md:text-xl text-white/40 max-w-3xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 text-justify leading-relaxed">
-                                Este documento constituye la norma técnica oficial para la operación del ecosistema System Kyron. Todo procedimiento descrito se ajusta al marco legal de la República Bolivariana de Venezuela.
+                                Este documento constituye la guía técnica definitiva para la operación del ecosistema System Kyron. Los procedimientos descritos se ajustan estrictamente al marco legal y administrativo de la República Bolivariana de Venezuela.
                             </p>
                         </section>
 
@@ -349,7 +352,7 @@ export default function ManualUsuarioPage() {
                                             <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
                                             <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">Protocolo Verificado</span>
                                         </div>
-                                        <Button variant="link" className="text-[9px] font-black uppercase text-primary p-0 hover:shadow-glow-text" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+                                        <Button variant="link" className="text-[9px] font-black uppercase text-primary p-0 hover:shadow-glow-text no-print" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
                                             VOLVER AL INICIO <ArrowDown className="ml-2 h-3.5 w-3.5 rotate-180" />
                                         </Button>
                                     </CardFooter>
@@ -365,10 +368,10 @@ export default function ManualUsuarioPage() {
                             <div className="relative z-10 space-y-10">
                                 <h3 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Soporte Técnico</h3>
                                 <p className="text-xl font-bold opacity-90 leading-relaxed italic border-l-4 border-white/30 pl-10 text-justify">
-                                    En caso de incidencias en el despliegue operativo de los módulos institucionales, contacte al nodo de ingeniería central para resolución bajo protocolos de alta prioridad.
+                                    En caso de incidencias en el despliegue operativo de los módulos institucionales o fallas en el protocolo de sincronización, contacte al nodo de ingeniería central para resolución prioritaria.
                                 </p>
                                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-2xl h-20 px-16 font-black text-sm uppercase tracking-widest shadow-2xl transition-all">
-                                    ESTABLECER CONEXIÓN CON INGENIERÍA
+                                    ESTABLECER CONEXIÓN DIRECTA
                                 </Button>
                             </div>
                         </Card>
@@ -378,9 +381,9 @@ export default function ManualUsuarioPage() {
                 {/* FOOTER DEL MANUAL */}
                 <div className="mt-40 text-center space-y-10 opacity-20 no-print pb-20 border-t border-white/5 pt-20">
                     <div className="flex justify-center gap-16 text-[10px] font-black uppercase tracking-[0.8em]">
-                        <span className="flex items-center gap-4"><Lock className="h-4 w-4" /> SECURED</span>
-                        <span className="flex items-center gap-4"><Database className="h-4 w-4" /> LEDGER</span>
-                        <span className="flex items-center gap-4"><Activity className="h-4 w-4" /> STATUS: OK</span>
+                        <span className="flex items-center gap-4"><Lock className="h-4 w-4" /> SECURED DATA</span>
+                        <span className="flex items-center gap-4"><Database className="h-4 w-4" /> LEDGER NODE</span>
+                        <span className="flex items-center gap-4"><Activity className="h-4 w-4" /> STATUS: OPTIMAL</span>
                     </div>
                     <p className="max-w-4xl mx-auto text-[9px] font-bold uppercase tracking-[0.4em] leading-relaxed italic">
                         © {new Date().getFullYear()} System Kyron, C.A. • RIF J-12345678-9 • Caracas, Venezuela. <br/>
