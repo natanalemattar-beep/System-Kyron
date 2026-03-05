@@ -1,17 +1,9 @@
 
-'use client';
-
-import { redirect } from '@/navigation';
-import { useEffect } from 'react';
-
 /**
- * @fileOverview Redirección de seguridad para purgar el nodo conflictivo del grupo (main).
- * Se consolida la documentación en la ruta raíz para evitar errores de páginas paralelas en Next.js.
+ * @fileOverview NODO PURGADO
+ * Este archivo ha sido desactivado para resolver el conflicto de rutas paralelas (Next.js Parallel Pages).
+ * La documentación maestra ha sido consolidada en: src/app/[locale]/manual-usuario/page.tsx
  */
-export default function ManualUsuarioRedirect() {
-  useEffect(() => {
-    redirect('/manual-usuario');
-  }, []);
-
+export default function PurgueNode() {
   return null;
 }
