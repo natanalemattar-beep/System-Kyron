@@ -24,9 +24,9 @@ export const initialPermisos = [
 
 export const companyData = {
   socios: [
-    { nombre: "ALEJANDRO RODRÍGUEZ VELÁSQUEZ", cedula: "V-32.855.496", rif: "V-32856496-4" },
-    { nombre: "BEATRIZ MARTÍNEZ HERNÁNDEZ", cedula: "V-13.374.121", rif: "V-13374121-2" },
-    { nombre: "RICARDO FALCÓN MENDOZA", cedula: "V-12.459.024", rif: "V-12459024-4" },
+    { nombre: "ING. CARLOS MATTAR", cedula: "V-32.855.496", rif: "V-32856496-4", cargo: "Director General de Tecnología" },
+    { nombre: "LIC. BEATRIZ MARTÍNEZ", cedula: "V-13.374.121", rif: "V-13374121-2", cargo: "Directora de Gestión de Talento" },
+    { nombre: "ABOG. MARÍA TERESA HERNÁNDEZ", cedula: "V-12.459.024", rif: "V-12459024-4", cargo: "Consultora Jurídica Senior" },
   ],
   objetoSocial: "Comercialización y distribución a escala corporativa de terminales inteligentes con tecnología de inducción magnética síncrona, mobiliario ergonómico de oficina y sistemas fiscales homologados. Provisión de servicios de telecomunicaciones convergentes, incluyendo la gestión de perfiles eSIM y conectividad 5G. Desarrollo, mantenimiento y consultoría de arquitectura de software bajo el ecosistema de inteligencia de negocios System Kyron. Gestión integral de holdings empresariales y optimización de activos estratégicos.",
 };
