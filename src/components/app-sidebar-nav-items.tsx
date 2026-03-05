@@ -97,6 +97,7 @@ import {
   Cpu,
   Phone,
   Atom,
+  Coins,
 } from "lucide-react";
 
 
@@ -121,6 +122,15 @@ export const naturalNavGroups = [
             { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
             { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
             { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
+        ],
+        subGroups: [],
+    },
+    {
+        title: "Sustentabilidad",
+        icon: Recycle,
+        items: [
+            { href: "/tarjeta-reciclaje", label: "Tarjeta de Reciclaje", icon: Recycle },
+            { href: "/mercado-ecocreditos", label: "Mercado E-CR", icon: Coins },
         ],
         subGroups: [],
     },
@@ -274,6 +284,7 @@ const rrhhNavGroupsData = {
         items: [
             { href: "/dashboard-rrhh", label: "Dashboard RR.HH.", icon: LayoutDashboard },
             { href: "/nominas", label: "Nóminas", icon: Users },
+            { href: "/academia-kyron", label: "Kyron Academy (Cursos)", icon: School },
             { href: "/modelo-contrato-trabajo", label: "Modelo Contrato de Trabajo", icon: FileSignature },
             { href: "/prestaciones-sociales", label: "Prestaciones Sociales", icon: Calculator },
             { href: "/resumen-anual-empleados", label: "Resumen Anual de Empleados", icon: BookOpen },
@@ -309,6 +320,7 @@ const legalNavGroupsData = {
           icon: Gavel,
           items: [
             { href: "/escritorio-juridico", label: "Centro de Mando Legal", icon: Gavel },
+            { href: "/generador-documentos", label: "Generador de Contratos IA", icon: Wand2 },
             { href: "/departamento-juridico", label: "Departamento Jurídico", icon: Gavel },
             { href: "/permisos", label: "Trámites y Permisos", icon: UserCheck },
             { href: "/carta-aval-ingenieria", label: "Carta Aval de Ingeniería", icon: HardHat },
@@ -357,6 +369,7 @@ const advisoryNavGroups = {
             items: [
                 { href: "/asesoria", label: "Centro de Asesoría", icon: Megaphone },
                 { href: "/estudio-factibilidad-economica", label: "Estudio de Factibilidad", icon: Bot },
+                { href: "/mercado-ecocreditos", label: "Mercado de Eco-Créditos", icon: Coins },
                 { href: "/asesoria-importaciones", label: "Asesoría de Importaciones", icon: Ship },
                 { href: "/asesoria-publicidad", label: "Asesoría de Publicidad", icon: Megaphone },
                 { href: "/asesoria-bolsa-valores", label: "Asesoría de Inversión", icon: CandlestickChart },
@@ -384,6 +397,7 @@ const advisoryNavGroups = {
             icon: BookOpen,
             items: [
                 { href: "/ecosistema-negocio", label: "Ecosistema de Negocio (Kyron)", icon: GitBranch },
+                { href: "/academia-kyron", label: "Academia Kyron", icon: School },
                 { href: "/ferias-eventos", label: "Ferias y Eventos", icon: Calendar },
                 { href: "/analisis-empresa-hibrida", label: "Análisis Empresa Híbrida", icon: Layers },
                 { href: "/analisis-empresas-no-digitales", label: "Análisis Empresas No Digitales", icon: SlidersHorizontal },
@@ -407,6 +421,7 @@ export const adminNavGroups = [
     subGroups: [],
     items: [
         ...facturacionGeneralMenuItems,
+        { href: "/mercado-ecocreditos", label: "Mercado de Eco-Créditos", icon: Coins },
         { href: "/fidelizacion-clientes", label: "Fidelización de Clientes", icon: Heart },
     ]
   },
@@ -465,6 +480,7 @@ export const ventasNavGroups = [
     ], subGroups: [] },
      { title: "Estrategias", icon: Lightbulb, items: [
         { href: "/estrategias-ventas", label: "Descuentos y Promociones", icon: Lightbulb },
+        { href: "/mercado-ecocreditos", label: "Mercado Eco-Créditos", icon: Coins },
     ], subGroups: [] },
     { title: "Facturación", icon: ShoppingCart, items: [
         { href: "/facturacion", label: "Centro de Facturación", icon: FileText },
@@ -482,6 +498,7 @@ export const sociosNavGroups = [
         { href: "/poderes-representacion", label: "Empresas y Poderes", icon: Gavel },
         { href: "/organigrama", label: "Organigrama", icon: Network },
         { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
+        { href: "/academia-kyron", label: "Formación Ejecutiva", icon: School },
     ], subGroups: [] },
     advisoryNavGroups
 ];
@@ -530,6 +547,7 @@ export const informaticaNavGroups = [
   { title: "Dashboard", icon: LayoutDashboard, items: [ { href: "/dashboard-informatica", label: "Dashboard de IT", icon: LayoutDashboard } ], subGroups: [] },
   { title: "Soluciones IA", icon: BrainCircuit, items: [ 
       { href: "/soluciones-ia", label: "Soluciones con IA", icon: BrainCircuit },
+      { href: "/generador-documentos", label: "Generador de Documentos", icon: Wand2 },
       { href: "/analisis-suelo-foto", label: "Análisis de Suelo (IA)", icon: Search },
    ], subGroups: [] },
   { title: "Arquitectura", icon: Puzzle, items: [ 
