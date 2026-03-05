@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from "framer-motion";
@@ -7,10 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+import { Link } from "@/navigation";
 
 export function HeroSection() {
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
+    <section id="inicio" className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
       
       {/* Background Animated Elements */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden gpu-accelerated">
@@ -57,7 +57,7 @@ export function HeroSection() {
           >
             <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-primary/10 text-[10px] font-black uppercase tracking-[0.4em] text-primary backdrop-blur-xl border border-primary/20 shadow-glow">
               <Sparkles className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-              Ecosistema de Misión Crítica v2.6
+              Ecosistema de Misión Crítica v2.6.5
             </div>
 
             <div className="space-y-6">
@@ -72,13 +72,13 @@ export function HeroSection() {
             </div>
             
             <div className="flex flex-wrap gap-6 pt-4">
-                <Button size="lg" className="btn-3d-primary h-16 px-12 text-xs font-black uppercase tracking-widest rounded-2xl group shadow-2xl">
-                    <span className="relative z-10 flex items-center gap-3">
+                <Button asChild size="lg" className="btn-3d-primary h-16 px-12 text-xs font-black uppercase tracking-widest rounded-2xl group shadow-2xl">
+                    <Link href="/register" className="relative z-10 flex items-center gap-3">
                         DESPLEGAR SISTEMA <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
-                    </span>
+                    </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-widest rounded-2xl border-white/10 hover:bg-white/5 shadow-xl bg-white/[0.02] backdrop-blur-xl transition-all">
-                    DOCUMENTACIÓN
+                <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-widest rounded-2xl border-white/10 hover:bg-white/5 shadow-xl bg-white/[0.02] backdrop-blur-xl transition-all">
+                    <Link href="/manual-usuario">DOCUMENTACIÓN</Link>
                 </Button>
             </div>
 
@@ -107,7 +107,7 @@ export function HeroSection() {
                     <div className="p-6 bg-primary/10 rounded-[2rem] w-fit mb-8 shadow-inner border border-primary/10">
                         <Radio className="h-10 w-10 text-primary group-hover:animate-pulse" />
                     </div>
-                    <h3 className="font-black text-xl uppercase italic mb-2">Líneas Kyron</h3>
+                    <h3 className="font-black text-xl uppercase italic mb-2 text-white">Líneas Kyron</h3>
                     <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-40">Activación 5G</p>
                 </Card>
                 
@@ -115,7 +115,7 @@ export function HeroSection() {
                     <div className="p-6 bg-secondary/10 rounded-[2rem] w-fit mb-8 shadow-inner border border-secondary/10">
                         <Magnet className="h-10 w-10 text-secondary" />
                     </div>
-                    <h3 className="font-black text-xl uppercase italic mb-2">Smart Bins</h3>
+                    <h3 className="font-black text-xl uppercase italic mb-2 text-white">Smart Bins</h3>
                     <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-40">Magnético IA</p>
                 </Card>
                 
@@ -123,7 +123,7 @@ export function HeroSection() {
                     <div className="p-6 bg-primary/10 rounded-[2rem] w-fit mb-8 shadow-inner border border-primary/10">
                         <Phone className="h-10 w-10 text-primary" />
                     </div>
-                    <h3 className="font-black text-xl uppercase italic mb-2">SIM Digital</h3>
+                    <h3 className="font-black text-xl uppercase italic mb-2 text-white">SIM Digital</h3>
                     <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-40">Gestión eSIM</p>
                 </Card>
                 

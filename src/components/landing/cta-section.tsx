@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Ticket, Loader2, Send, Building2, User, HelpCircle } from "lucide-react";
+import { Ticket, Loader2, Send, Building2, User, HelpCircle, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,10 +21,15 @@ const formSchema = z.object({
   email: z.string().email("Correo electrónico inválido"),
   phone: z.string().min(10, "Número de teléfono inválido"),
   company: z.string().min(2, "El nombre de la empresa es muy corto"),
-  companySize: z.string().nonempty("Selecciona el tamaño"),
-  module: z.string().nonempty("Selecciona un módulo"),
+  companySize: z.string().min(1, "Selecciona el tamaño"),
+  sector: z.string().min(1, "Selecciona el sector"),
+  urgency: z.string().min(1, "Selecciona la urgencia"),
+  module: z.string().min(1, "Selecciona un módulo"),
   message: z.string().optional(),
 });
+
+const sectorOptions = ["Tecnología", "Comercio", "Construcción", "Salud", "Educación", "Logística", "Servicios", "Otros"];
+const urgencyOptions = ["Baja (Planificación)", "Media (Próximo Mes)", "Alta (Inmediata)"];
 
 const CountdownTimer = () => {
     const [timeLeft, setTimeLeft] = useState<{ [key: string]: number } | null>(null);
@@ -79,7 +84,9 @@ export function CtaSection() {
             phone: "",
             company: "",
             companySize: "",
-            module: "",
+            sector: "",
+            urgency: "",
+            module: "Centro de Contabilidad",
             message: "",
         },
     });
@@ -90,16 +97,17 @@ export function CtaSection() {
             const result = await sendDemoRequestAction(values);
             if (result.success) {
                 toast({
-                    title: "TRANSACCIÓN COMPLETADA",
-                    description: "Tus requerimientos han sido enviados a infosystemkyron@gmail.com. Un oficial de cuenta te contactará.",
+                    title: "TRANSMISIÓN COMPLETADA",
+                    description: "Expediente enviado a infosystemkyron@gmail.com. Un oficial de cuenta iniciará contacto.",
+                    action: <ShieldCheck className="text-primary h-4 w-4" />
                 });
                 form.reset();
             }
         } catch (error) {
             toast({
                 variant: "destructive",
-                title: "ERROR DE PROTOCOLO",
-                description: "No se pudo transmitir la solicitud. Intenta de nuevo.",
+                title: "FALLA DE PROTOCOLO",
+                description: "No se pudo transmitir la solicitud. Verifique su conexión.",
             });
         } finally {
             setIsSubmitting(false);
@@ -123,12 +131,12 @@ export function CtaSection() {
                         <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] text-white uppercase italic italic-shadow">
                             Inyecta Inteligencia <br/> <span className="text-primary">a tu Operación</span>
                         </h2>
-                        <p className="text-sm md:text-lg text-white/40 max-w-xl leading-relaxed font-bold uppercase tracking-tight italic border-l-4 border-primary/30 pl-6 md:pl-8">
-                            Despliegue de ecosistema personalizado. Completa el expediente técnico para iniciar la auditoría de tu negocio.
+                        <p className="text-sm md:text-lg text-white/40 max-w-xl leading-relaxed font-bold uppercase tracking-tight italic border-l-4 border-primary/30 pl-6 md:pl-8 text-justify">
+                            Despliegue de ecosistema personalizado. Complete el expediente técnico detallando sector y nivel de urgencia para priorizar su auditoría de nodo.
                         </p>
                         
                         <div className="pt-4 hidden md:block">
-                            <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 italic">Expira en:</p>
+                            <p className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 italic">Ventana de oportunidad expira en:</p>
                             <CountdownTimer />
                         </div>
                     </motion.div>
@@ -147,7 +155,7 @@ export function CtaSection() {
                                 
                                 <div className="space-y-1 mb-6 relative z-10">
                                     <h3 className="text-xl md:text-2xl font-black tracking-tight uppercase italic text-white">Expediente de Demo</h3>
-                                    <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Información para auditoría técnica</p>
+                                    <p className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Información para auditoría técnica v2.6.5</p>
                                 </div>
                                 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -156,7 +164,7 @@ export function CtaSection() {
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem className="space-y-1.5">
-                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Nombre Completo</FormLabel>
+                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Nombre Maestro</FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Ej: Ana Pérez" {...field} className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" />
                                                 </FormControl>
@@ -169,7 +177,7 @@ export function CtaSection() {
                                         name="role"
                                         render={({ field }) => (
                                             <FormItem className="space-y-1.5">
-                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Cargo / Puesto</FormLabel>
+                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Cargo Institucional</FormLabel>
                                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                     <FormControl>
                                                         <SelectTrigger className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold">
@@ -177,7 +185,7 @@ export function CtaSection() {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent className="rounded-xl bg-black border-white/10">
-                                                        {["CEO / Dueño", "Gerente General", "Administrador", "Contador", "Director Legal", "Socio", "Otro"].map(r => (
+                                                        {["CEO / Dueño", "Gerente General", "Administrador", "Contador", "Director Legal", "Socio"].map(r => (
                                                             <SelectItem key={r} value={r} className="text-xs uppercase font-bold">{r}</SelectItem>
                                                         ))}
                                                     </SelectContent>
@@ -194,7 +202,7 @@ export function CtaSection() {
                                         name="company"
                                         render={({ field }) => (
                                             <FormItem className="space-y-1.5">
-                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Empresa</FormLabel>
+                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Razón Social</FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Ej: Kyron, C.A." {...field} className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" />
                                                 </FormControl>
@@ -207,11 +215,11 @@ export function CtaSection() {
                                         name="companySize"
                                         render={({ field }) => (
                                             <FormItem className="space-y-1.5">
-                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Tamaño</FormLabel>
+                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Escalabilidad</FormLabel>
                                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                     <FormControl>
                                                         <SelectTrigger className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold">
-                                                            <SelectValue placeholder="Empleados..." />
+                                                            <SelectValue placeholder="Nº Empleados..." />
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent className="rounded-xl bg-black border-white/10">
@@ -229,10 +237,57 @@ export function CtaSection() {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <FormField
                                         control={form.control}
+                                        name="sector"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-1.5">
+                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Sector Económico</FormLabel>
+                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold">
+                                                            <SelectValue placeholder="Sector..." />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent className="rounded-xl bg-black border-white/10">
+                                                        {sectorOptions.map(s => (
+                                                            <SelectItem key={s} value={s} className="text-xs uppercase font-bold">{s}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage className="text-[9px]" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="urgency"
+                                        render={({ field }) => (
+                                            <FormItem className="space-y-1.5">
+                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Urgencia Operativa</FormLabel>
+                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold">
+                                                            <SelectValue placeholder="Nivel..." />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent className="rounded-xl bg-black border-white/10">
+                                                        {urgencyOptions.map(u => (
+                                                            <SelectItem key={u} value={u} className="text-xs uppercase font-bold">{u}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage className="text-[9px]" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <FormField
+                                        control={form.control}
                                         name="email"
                                         render={({ field }) => (
                                             <FormItem className="space-y-1.5">
-                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Email Corporativo</FormLabel>
+                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Email Nodo</FormLabel>
                                                 <FormControl>
                                                     <Input type="email" placeholder="tu@correo.com" {...field} className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" />
                                                 </FormControl>
@@ -245,7 +300,7 @@ export function CtaSection() {
                                         name="phone"
                                         render={({ field }) => (
                                             <FormItem className="space-y-1.5">
-                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Teléfono</FormLabel>
+                                                <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Terminal Tlf.</FormLabel>
                                                 <FormControl>
                                                     <Input type="tel" placeholder="0412-1234567" {...field} className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold" />
                                                 </FormControl>
@@ -260,11 +315,11 @@ export function CtaSection() {
                                     name="module"
                                     render={({ field }) => (
                                         <FormItem className="space-y-1.5">
-                                            <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Módulo Maestro</FormLabel>
+                                            <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Módulo de Interés</FormLabel>
                                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                 <FormControl>
                                                     <SelectTrigger className="h-10 bg-white/[0.03] border-white/10 rounded-xl text-xs font-bold">
-                                                        <SelectValue placeholder="Seleccionar interés..." />
+                                                        <SelectValue placeholder="Seleccionar nodo..." />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="rounded-xl border-white/10 bg-black/95">
@@ -283,10 +338,10 @@ export function CtaSection() {
                                     name="message"
                                     render={({ field }) => (
                                         <FormItem className="space-y-1.5">
-                                            <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Requerimientos / Notas</FormLabel>
+                                            <FormLabel className="text-[8px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Notas del Expediente</FormLabel>
                                             <FormControl>
                                                 <Textarea 
-                                                    placeholder="Describe brevemente tus necesidades operativas..." 
+                                                    placeholder="Breve descripción de necesidades operativas..." 
                                                     className="bg-white/[0.03] border-white/10 rounded-xl text-xs font-medium min-h-[80px]"
                                                     {...field}
                                                 />
@@ -300,10 +355,10 @@ export function CtaSection() {
                                     {isSubmitting ? (
                                         <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> TRANSMITIENDO...</>
                                     ) : (
-                                        <span className="flex items-center gap-2">SOLICITAR ACCESO AL NODO <Send className="h-3 w-3" /></span>
+                                        <span className="flex items-center gap-2">SOLICITAR AUDITORÍA DE NODO <Send className="h-3 w-3" /></span>
                                     )}
                                 </Button>
-                                <p className="text-center text-[7px] text-white/20 uppercase font-black tracking-[0.4em] mt-4">Safe Data Protocol • SSL Layer Active • 2026</p>
+                                <p className="text-center text-[7px] text-white/20 uppercase font-black tracking-[0.4em] mt-4">Protocolo de Datos Seguro • SSL AES-256 • 2026</p>
                             </form>
                         </Form>
                     </motion.div>

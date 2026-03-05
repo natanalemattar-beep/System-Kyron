@@ -2,16 +2,15 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Volume2, X, Bot, Send, Loader2, User, Sparkles } from "lucide-react";
+import { Mic, MicOff, Volume2, X, Bot, Send, Loader2, User, Sparkles, Smartphone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chat } from "@/ai/flows/chat";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 /**
- * @fileOverview Kyron Voice: Nodo de Comunicación IA.
- * Evolución de asistente de voz a Consola de Chat IA Integral.
+ * @fileOverview Kyron Voice IA: Interfaz de Comunicación Neuronal.
+ * Consola de chat interactiva con soporte para comandos de voz y texto.
  */
 
 type Message = {
@@ -46,11 +45,11 @@ export function VoiceAssistant() {
         try {
             const response = await chat({ 
                 message: query, 
-                context: "Asistente Kyron Voice interactuando en el ecosistema" 
+                context: "Asistente Kyron Voice interactuando en el ecosistema operativo venezolano." 
             });
             setMessages([...newMessages, { role: 'bot', text: response }]);
         } catch (error) {
-            setMessages([...newMessages, { role: 'bot', text: "Falla en el enlace con el nodo IA maestro." }]);
+            setMessages([...newMessages, { role: 'bot', text: "Falla en el enlace con el nodo IA maestro. Reintente protocolo." }]);
         } finally {
             setIsProcessing(false);
         }
@@ -61,10 +60,13 @@ export function VoiceAssistant() {
             setIsListening(false);
         } else {
             setIsListening(true);
-            // Simulación de captura de voz para demo
+            // Simulación de captura de voz para fines de demostración de interfaz
             setTimeout(() => {
                 setIsListening(false);
-                if (!isProcessing) handleSendMessage("¿Cómo funciona el sellado Blockchain?");
+                if (!isProcessing) {
+                    const demoQueries = ["¿Cómo funciona el sellado Blockchain?", "¿Qué es la Gaceta 6952?", "¿Cómo activo una eSIM?"];
+                    handleSendMessage(demoQueries[Math.floor(Math.random() * demoQueries.length)]);
+                }
             }, 3000);
         }
     };
@@ -101,7 +103,7 @@ export function VoiceAssistant() {
                                         <div className="py-16 text-center space-y-6 opacity-40">
                                             <Sparkles className="h-10 w-10 mx-auto text-primary animate-pulse" />
                                             <p className="text-[10px] font-black uppercase tracking-[0.4em] leading-relaxed">
-                                                Enlace neuronal establecido. <br/> Inicie comunicación.
+                                                Enlace neuronal establecido. <br/> Inicie comunicación por texto o voz.
                                             </p>
                                         </div>
                                     )}
@@ -122,7 +124,7 @@ export function VoiceAssistant() {
                                                 {msg.role === 'user' ? <User className="h-3 w-3 text-primary" /> : <Bot className="h-3 w-3 text-emerald-500" />}
                                             </div>
                                             <div className={cn(
-                                                "max-w-[80%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed",
+                                                "max-w-[80%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed shadow-sm",
                                                 msg.role === 'user' ? "bg-primary text-white" : "bg-white/5 text-white/80"
                                             )}>
                                                 {msg.text}
@@ -134,7 +136,7 @@ export function VoiceAssistant() {
                                             <div className="p-2 rounded-lg bg-white/5 border border-white/10">
                                                 <Loader2 className="h-3 w-3 text-primary animate-spin" />
                                             </div>
-                                            <p className="text-[9px] font-black text-primary uppercase tracking-widest animate-pulse italic">Procesando Inferencia...</p>
+                                            <p className="text-[9px] font-black text-primary uppercase tracking-widest animate-pulse italic">Procesando Inferencia IA...</p>
                                         </div>
                                     )}
                                 </div>
@@ -146,7 +148,7 @@ export function VoiceAssistant() {
                                 <Input 
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Escriba comando..." 
+                                    placeholder="Comando de sistema..." 
                                     className="h-10 rounded-xl bg-black border-white/10 text-[11px] font-bold focus-visible:ring-primary shadow-inner"
                                     disabled={isProcessing}
                                 />
@@ -155,7 +157,7 @@ export function VoiceAssistant() {
                                     size="icon" 
                                     className={cn(
                                         "h-10 w-10 rounded-xl transition-all",
-                                        isListening ? "bg-red-500 animate-pulse" : "btn-3d-primary"
+                                        isListening ? "bg-red-500 animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.5)]" : "btn-3d-primary"
                                     )}
                                     onClick={toggleListening}
                                     disabled={isProcessing}
