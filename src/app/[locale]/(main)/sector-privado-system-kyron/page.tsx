@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,13 +7,15 @@ import { Button } from "@/components/ui/button";
 import { 
   Download, Zap, ShieldCheck, 
   Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Sparkles, Activity, Terminal as TerminalIcon
+  Sparkles, Activity, Terminal as TerminalIcon,
+  TrendingUp, Target, BarChart3, FileText, ChevronRight, Globe, Radio, Magnet
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { formatCurrency, cn } from "@/lib/utils";
+import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { motion } from "framer-motion";
+import { Logo } from "@/components/logo";
 
 const zeduModel2025 = {
     identificacion: {
@@ -26,9 +29,6 @@ const zeduModel2025 = {
         localizacion: "La Atlántida, entre calle 7 a calle 3, Catia La Mar. Referencias: Pinta Catia, Supermercado Bensica.",
         comunidad: "Comunidad Comercial y Residencial La Atlántida",
         estimada: "500 empresas activas / 5.000 empleados administrativos y civiles."
-    },
-    analisisProblema: {
-        definicion: "Las empresas en Venezuela operan con un 'Frankenstein' de sistemas aislados (contables, tributarios, inventarios) que no se comunican entre sí, generando ineficiencias críticas y riesgos de sanciones por falta de sincronización absoluta."
     }
 };
 
@@ -45,11 +45,26 @@ const budgetData = [
   { item: "Despliegue Operativo La Guaira", cost: 3250 },
 ];
 
-const zeduModules = [
-    { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", status: "Óptimo" },
-    { id: "M2", title: "BLOCKCHAIN", desc: "Sellado inmutable de registros transaccionales.", icon: Lock, color: "text-secondary", border: "border-secondary/40", status: "Sincronizado" },
-    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de baja latencia Kyron.", icon: Network, color: "text-primary", border: "border-primary/40", status: "Activo" },
-    { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con inducción magnética síncrona.", icon: Zap, color: "text-secondary", border: "border-secondary/40", status: "Operacional" }
+const indicators = [
+    { label: "Valor Actual Neto (VAN)", value: 450000, desc: "Flujo de caja descontado proyectado.", icon: TrendingUp },
+    { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Rendimiento anual del capital.", icon: Target },
+    { label: "Período de Recuperación", value: "2.4 años", desc: "Retorno total de inversión inicial.", icon: Activity },
+    { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por transacción.", icon: BarChart3 },
+];
+
+const projections = [
+    { year: 1, revenue: 125000, profit: 40000, margin: 0.32 },
+    { year: 2, revenue: 210000, profit: 100000, margin: 0.47 },
+    { year: 3, revenue: 380000, profit: 240000, margin: 0.63 },
+    { year: 4, revenue: 550000, profit: 370000, margin: 0.67 },
+    { year: 5, revenue: 820000, profit: 600000, margin: 0.73 },
+];
+
+const proposalSections = [
+    { icon: Radio, title: "Kyron Hyper-Connect 5G", desc: "Asignación inmediata de números telefónicos y eSIMs digitales con protocolo de baja latencia.", color: "text-blue-400" },
+    { icon: Magnet, title: "Ecosistema Magnético IA", desc: "Smart Bins con tecnología de inducción para la trazabilidad inmutable de residuos.", color: "text-emerald-400" },
+    { icon: ShieldCheck, title: "Blindaje Fiscal 360°", desc: "Automatización total de libros y declaraciones con auditoría predictiva sincronizada 24/7.", color: "text-amber-400" },
+    { icon: Cpu, title: "Ledger Blockchain", desc: "Sellado digital de cada transacción para garantizar integridad absoluta ante auditorías.", color: "text-purple-400" }
 ];
 
 export default function SectorPrivadoPage() {
@@ -60,171 +75,204 @@ export default function SectorPrivadoPage() {
         setIsMounted(true);
     }, []);
 
-    const handleDownloadExpediente = () => {
-        const text = `
-==================================================
-      SYSTEM KYRON • MODELO ZEDU 2025
-==================================================
-EXPEDIENTE TÉCNICO MAESTRO: NODO LA GUAIRA
-FECHA: ${new Date().toLocaleDateString()}
---------------------------------------------------
-
-1. IDENTIFICACIÓN DEL PROYECTO
-- Nombre: ${zeduModel2025.identificacion.nombre}
-- Líderes: ${zeduModel2025.identificacion.lideres}
-- Institución: ${zeduModel2025.identificacion.institucion}
-- Ubicación: ${zeduModel2025.identificacion.ubicacion}
-
-2. ESTUDIO DE POBLACIÓN (ZEDU)
-- Localización: ${zeduModel2025.estudioPoblacion.localizacion}
-- Comunidad: ${zeduModel2025.estudioPoblacion.comunidad}
-- Estimada: ${zeduModel2025.estudioPoblacion.estimada}
-
-3. INVERSIÓN ESTRATÉGICA (CAPEX)
-${budgetData.map(d => `- ${d.item}: ${formatCurrency(d.cost, 'USD')}`).join('\n')}
-
-TOTAL INVERSIÓN: ${formatCurrency(budgetData.reduce((a,b) => a+b.cost, 0), 'USD')}
-
-FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2025]
-==================================================
-        `;
-        const blob = new Blob([text], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = "EXPEDIENTE_ZEDU_KYRON_2025.txt";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        toast({ title: "EXPEDIENTE ZEDU 2025", description: "Protocolo de exportación finalizado." });
+    const handleExport = () => {
+        toast({ title: "EXPEDIENTE MAESTRO GENERADO", description: "Iniciando descarga de protocolo ZEDU cifrado." });
+        window.print();
     };
 
     if (!isMounted) return null;
 
     return (
-        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen bg-black relative">
-            <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10">
+        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen bg-black relative selection:bg-primary/20">
+            <style>{`@media print { body * { visibility: hidden; } .print-area, .print-area * { visibility: visible; } .print-area { position: absolute; left: 0; top: 0; width: 100%; border: none !important; } .no-print { display: none !important; } }`}</style>
+
+            <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10 no-print">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Lock className="h-3 w-3" /> SECTOR PRIVADO
+                        <Lock className="h-3 w-3" /> DOSSIER TÉCNICO
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Modelo <span className="text-primary italic">ZEDU 2025</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">System Kyron • Nodo de Inteligencia Maestra</p>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Sector <span className="text-primary italic">Privado Kyron</span></h1>
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Expediente de Inteligencia Corporativa • Nodo 2.6.5</p>
                 </div>
                 <div className="flex gap-3">
                     <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white" onClick={() => window.print()}>
                         <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                     </Button>
-                    <Button className="btn-3d-primary h-12 px-10 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-2xl" onClick={handleDownloadExpediente}>
-                        <Download className="mr-2 h-4 w-4" /> EXPORTAR EXPEDIENTE
+                    <Button className="btn-3d-primary h-12 px-10 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-2xl" onClick={handleExport}>
+                        <Download className="mr-2 h-4 w-4" /> EXPORTAR FULL DOSSIER
                     </Button>
                 </div>
             </header>
 
-            <Tabs defaultValue="identificacion" className="w-full relative z-10">
-                <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner">
-                    <TabsTrigger value="identificacion" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">1. Identificación</TabsTrigger>
-                    <TabsTrigger value="poblacion" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">2. Población ZEDU</TabsTrigger>
-                    <TabsTrigger value="ingenieria" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">3. Ingeniería Kyron</TabsTrigger>
-                    <TabsTrigger value="presupuesto" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary transition-all">4. Presupuesto CapEx</TabsTrigger>
+            <Tabs defaultValue="identificacion" className="w-full relative z-10 no-print">
+                <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner overflow-x-auto custom-scrollbar">
+                    <TabsTrigger value="identificacion" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">1. Datos</TabsTrigger>
+                    <TabsTrigger value="poblacion" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">2. ZEDU</TabsTrigger>
+                    <TabsTrigger value="presupuesto" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">3. CapEx</TabsTrigger>
+                    <TabsTrigger value="factibilidad" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">4. Factibilidad</TabsTrigger>
+                    <TabsTrigger value="propuesta" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">5. Propuesta</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="identificacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <Card className="glass-card p-10 rounded-[3rem] border-primary/20 bg-black/40">
-                        <CardHeader className="p-0 mb-8"><CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Datos del Proyecto</CardTitle></CardHeader>
-                        <CardContent className="p-0 space-y-6">
-                            {[
-                                { label: "Nombre", val: zeduModel2025.identificacion.nombre },
-                                { label: "Líderes", val: zeduModel2025.identificacion.lideres },
-                                { label: "Apoyo", val: zeduModel2025.identificacion.apoyo },
-                                { label: "Institución", val: zeduModel2025.identificacion.institucion },
-                                { label: "Ubicación", val: zeduModel2025.identificacion.ubicacion },
-                            ].map((item, i) => (
-                                <div key={i} className="flex flex-col border-b border-white/5 pb-4 last:border-none">
-                                    <span className="text-[8px] font-black uppercase tracking-widest text-white/30 mb-1">{item.label}</span>
-                                    <span className="text-sm font-bold text-white/90">{item.val}</span>
-                                </div>
-                            ))}
-                        </CardContent>
-                    </Card>
-                </TabsContent>
+                <div className="print-area space-y-16">
+                    <TabsContent value="identificacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <Card className="glass-card p-10 rounded-[3rem] border-primary/20 bg-black/40 shadow-2xl">
+                            <CardHeader className="p-0 mb-8"><CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Identificación del Nodo</CardTitle></CardHeader>
+                            <CardContent className="p-0 space-y-6">
+                                {[
+                                    { label: "Nombre del Proyecto", val: zeduModel2025.identificacion.nombre },
+                                    { label: "Líderes de Ingeniería", val: zeduModel2025.identificacion.lideres },
+                                    { label: "Comité de Apoyo", val: zeduModel2025.identificacion.apoyo },
+                                    { label: "Sede de Operaciones", val: zeduModel2025.identificacion.institucion },
+                                    { label: "Jurisdicción", val: zeduModel2025.identificacion.ubicacion },
+                                ].map((item, i) => (
+                                    <div key={i} className="flex flex-col border-b border-white/5 pb-4 last:border-none">
+                                        <span className="text-[8px] font-black uppercase tracking-widest text-white/30 mb-1">{item.label}</span>
+                                        <span className="text-sm font-bold text-white/90">{item.val}</span>
+                                    </div>
+                                ))}
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
 
-                <TabsContent value="poblacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <Card className="glass-card p-10 rounded-[3rem] border-secondary/20 bg-black/40">
-                        <CardHeader className="p-0 mb-8"><CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-secondary italic">Estudio Demográfico</CardTitle></CardHeader>
-                        <CardContent className="p-0 space-y-8">
-                            <div className="space-y-2">
-                                <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Localización Técnica</span>
-                                <p className="text-xs font-bold text-white/70 leading-relaxed uppercase">{zeduModel2025.estudioPoblacion.localizacion}</p>
-                            </div>
-                            <div className="grid grid-cols-2 gap-8">
+                    <TabsContent value="poblacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <Card className="glass-card p-10 rounded-[3rem] border-secondary/20 bg-black/40 shadow-2xl">
+                            <CardHeader className="p-0 mb-8"><CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-secondary italic">Estudio Poblacional (ZEDU)</CardTitle></CardHeader>
+                            <CardContent className="p-0 space-y-8">
                                 <div className="space-y-2">
-                                    <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Comunidad</span>
-                                    <p className="text-xs font-bold text-white/70 uppercase">{zeduModel2025.estudioPoblacion.comunidad}</p>
+                                    <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Localización Técnica</span>
+                                    <p className="text-xs font-bold text-white/70 leading-relaxed uppercase">{zeduModel2025.estudioPoblacion.localizacion}</p>
                                 </div>
-                                <div className="space-y-2">
-                                    <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Población Estimada</span>
-                                    <p className="text-xs font-black text-secondary uppercase italic">{zeduModel2025.estudioPoblacion.estimada}</p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-
-                <TabsContent value="ingenieria" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {zeduModules.map((m, i) => (
-                            <Card key={i} className={cn("glass-card p-8 rounded-[2rem] flex flex-col items-center text-center border-2 bg-black/40", m.border)}>
-                                <div className={cn("p-4 rounded-2xl mb-6 shadow-inner", m.color)}>
-                                    <m.icon className="h-10 w-10" />
-                                </div>
-                                <h4 className="font-black uppercase text-xs tracking-widest mb-2 text-white italic">{m.title}</h4>
-                                <p className="text-[10px] font-bold text-white/30 uppercase leading-relaxed">{m.desc}</p>
-                                <div className="mt-auto pt-6 w-full border-t border-white/5">
-                                    <div className={cn("text-[8px] font-black uppercase tracking-widest px-3 h-6 flex items-center bg-white/5 rounded-full justify-center", m.color)}>
-                                        {m.status}
+                                <div className="grid grid-cols-2 gap-8">
+                                    <div className="space-y-2">
+                                        <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Comunidad</span>
+                                        <p className="text-xs font-bold text-white/70 uppercase">{zeduModel2025.estudioPoblacion.comunidad}</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Alcance Estimado</span>
+                                        <p className="text-xs font-black text-secondary uppercase italic">{zeduModel2025.estudioPoblacion.estimada}</p>
                                     </div>
                                 </div>
-                            </Card>
-                        ))}
-                    </div>
-                </TabsContent>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
 
-                <TabsContent value="presupuesto" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <Card className="glass-card overflow-hidden rounded-[3rem] border-white/5 shadow-2xl bg-black/40">
-                        <Table>
-                            <TableHeader>
-                                <TableRow className="bg-white/[0.03] border-none">
-                                    <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Componente de Inversión</TableHead>
-                                    <TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Monto (USD)</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {budgetData.map((d, i) => (
-                                    <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
-                                        <TableCell className="pl-10 py-4 text-xs font-bold text-white/60 uppercase">{d.item}</TableCell>
-                                        <TableCell className="text-right pr-10 font-mono font-black text-white italic">{formatCurrency(d.cost, 'USD')}</TableCell>
+                    <TabsContent value="presupuesto" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <Card className="glass-card overflow-hidden rounded-[3rem] border-white/5 shadow-2xl bg-black/40">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-white/[0.03] border-none">
+                                        <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Inversión Estratégica (CapEx)</TableHead>
+                                        <TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Monto (USD)</TableHead>
                                     </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {budgetData.map((d, i) => (
+                                        <TableRow key={i} className="border-white/5 hover:bg-white/[0.02] transition-colors">
+                                            <TableCell className="pl-10 py-4 text-xs font-bold text-white/60 uppercase">{d.item}</TableCell>
+                                            <TableCell className="text-right pr-10 font-mono font-black text-white italic">{formatCurrency(d.cost, 'USD')}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                    <TableRow className="bg-primary/10 border-none">
+                                        <TableCell className="pl-10 py-8 text-xl font-black text-white italic uppercase tracking-tighter">Total CapEx 2025</TableCell>
+                                        <TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">
+                                            {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </Card>
+                    </TabsContent>
+
+                    <TabsContent value="factibilidad" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <div className="space-y-10">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {indicators.map((ind, i) => (
+                                    <Card key={i} className="glass-card p-8 rounded-[2.5rem] bg-white/[0.02] border-white/5 group hover:border-primary/30 transition-all">
+                                        <div className="flex justify-between items-start mb-6">
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">{ind.label}</p>
+                                            <ind.icon className="h-4 w-4 text-primary animate-pulse" />
+                                        </div>
+                                        <p className="text-3xl font-black italic text-white mb-2">
+                                            {typeof ind.value === 'number' ? (ind.value < 1 ? formatPercentage(ind.value) : formatCurrency(ind.value, 'USD')) : ind.value}
+                                        </p>
+                                        <p className="text-[9px] text-white/20 uppercase font-bold">{ind.desc}</p>
+                                    </Card>
                                 ))}
-                                <TableRow className="bg-primary/10 border-none">
-                                    <TableCell className="pl-10 py-8 text-xl font-black text-white italic uppercase tracking-tighter">Total Inversión Proyectada</TableCell>
-                                    <TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">
-                                        {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    </Card>
-                </TabsContent>
+                            </div>
+                            <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40">
+                                <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
+                                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] flex items-center gap-3 text-white/90">
+                                        <TrendingUp className="text-primary h-5 w-5" /> Proyección Operativa Quinquenal
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-0">
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow className="bg-white/[0.02] border-none">
+                                                <TableHead className="pl-10 py-5 font-black uppercase text-[10px] tracking-widest text-white/40">Periodo</TableHead>
+                                                <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Ingresos Brutos</TableHead>
+                                                <TableHead className="text-right font-black uppercase text-[10px] tracking-widest text-white/40">Utilidad Neta</TableHead>
+                                                <TableHead className="text-right pr-10 font-black uppercase text-[10px] tracking-widest text-white/40">Margen</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {projections.map(row => (
+                                                <TableRow key={row.year} className="border-white/5 hover:bg-primary/5 transition-colors">
+                                                    <TableCell className="pl-10 font-black text-primary italic">AÑO {row.year}</TableCell>
+                                                    <TableCell className="text-right font-mono text-sm font-bold text-white/70">{formatCurrency(row.revenue, 'USD')}</TableCell>
+                                                    <TableCell className="text-right font-mono text-sm font-black text-white">{formatCurrency(row.profit, 'USD')}</TableCell>
+                                                    <TableCell className="text-right pr-10"><Badge variant="outline" className="text-[8px] font-black border-primary/20 text-primary">{formatPercentage(row.margin)}</Badge></TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </TabsContent>
+
+                    <TabsContent value="propuesta" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40">
+                            <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
+                                <div className="mx-auto w-fit bg-black p-6 rounded-[2.5rem] shadow-glow border border-primary/20"><Logo className="h-16 w-16" /></div>
+                                <CardTitle className="text-4xl font-black uppercase tracking-tighter italic text-white italic-shadow">Ecosistema Kyron <br/> Eficiencia Sin Fronteras</CardTitle>
+                                <CardDescription className="text-primary font-black uppercase tracking-[0.6em] text-xs">Propuesta Maestra de Gestión 2025</CardDescription>
+                            </CardHeader>
+                            <CardContent className="p-12 space-y-16">
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    {proposalSections.map((sec, i) => (
+                                        <div key={i} className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all group">
+                                            <div className="p-4 bg-white/5 rounded-2xl w-fit mb-6 border border-white/5 group-hover:scale-110 transition-transform">
+                                                <sec.icon className={cn("h-6 w-6", sec.color)} />
+                                            </div>
+                                            <h4 className="font-black uppercase text-sm tracking-widest text-white mb-3 italic">{sec.title}</h4>
+                                            <p className="text-[10px] font-bold text-white/30 uppercase leading-relaxed">{sec.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                <section className="bg-primary text-primary-foreground p-10 rounded-[3rem] shadow-glow relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 p-10 opacity-10"><Zap className="h-40 w-40" /></div>
+                                    <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-8 flex items-center gap-4 relative z-10"><Globe className="h-6 w-6" /> Ventaja Competitiva</h3>
+                                    <ul className="space-y-4 relative z-10">
+                                        {["Cumplimiento Predictivo: IA auditando cada factura en tiempo real.", "Inmutabilidad Blockchain: Registros a prueba de fiscalizaciones.", "Integración Total: Un único nodo para telecom, finanzas y leyes."].map((b, i) => (
+                                            <li key={i} className="flex items-center gap-4 text-sm font-bold italic"><ChevronRight className="h-4 w-4 opacity-40" /> {b}</li>
+                                        ))}
+                                    </ul>
+                                </section>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                </div>
             </Tabs>
 
-            <div className="mt-20 flex justify-center pb-10">
+            <footer className="mt-20 flex flex-col items-center gap-10 no-print pb-10">
                 <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-white/10">
                     <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Encrypt: AES-512</span>
-                    <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> AI Engine: Active</span>
-                    <span className="flex items-center gap-2"><Database className="h-3 w-3" /> Ledger: Verified</span>
+                    <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> AI Node: Active</span>
+                    <span className="flex items-center gap-2"><Database className="h-3 w-3" /> Ledger: Inmutable</span>
                 </div>
-            </div>
+                <p className="text-[10px] font-black uppercase tracking-[1em] text-white/5 italic">FIN DE DOSSIER • SYSTEM KYRON</p>
+            </footer>
         </div>
     );
 }
