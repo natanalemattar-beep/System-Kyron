@@ -1,9 +1,10 @@
+
 import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Logo Institucional de System Kyron v2.6.5.
- * Diseño fiel a la identidad visual: Hexágono de precisión con glifo de inducción y nodo central.
- * Sustituye la 'K' por la arquitectura vectorial de la marca tal como se muestra en la referencia.
+ * Diseño final: Hexágono negro, glifo de ángulo neón y nodo central.
+ * Sincronizado cromáticamente con el ecosistema.
  */
 
 export function Logo({ className, id }: { className?: string; id?: string }) {
@@ -23,8 +24,8 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           </linearGradient>
           
           <linearGradient id="hex-gradient-master" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stopColor="rgba(14, 165, 233, 0.8)" />
-            <stop offset="100%" stopColor="rgba(34, 197, 94, 0.6)" />
+            <stop offset="0%" stopColor="#0ea5e9" />
+            <stop offset="100%" stopColor="#22c55e" />
           </linearGradient>
 
           <filter id="master-glow" x="-30%" y="-30%" width="160%" height="160%">
@@ -33,13 +34,13 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           </filter>
         </defs>
         
-        {/* Fondo del Hexágono - Contraste Corporativo */}
+        {/* Fondo del Hexágono - Negro Sólido */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           fill="#050505"
         />
 
-        {/* Borde del Hexágono Neón */}
+        {/* Borde del Hexágono - Gradiente Ciber */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           stroke="url(#hex-gradient-master)"
@@ -47,7 +48,7 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           strokeLinejoin="round"
         />
         
-        {/* Glifo de Inducción - Ángulo Chevron según referencia */}
+        {/* Glifo de Inducción - Ángulo Neón */}
         <g filter="url(#master-glow)">
           <path
             d="M65 30L40 50L65 70"
@@ -57,11 +58,11 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
             strokeLinejoin="round"
           />
           
-          {/* Nodo de Inteligencia Central Blanco (Referencia Imagen) */}
+          {/* Nodo de Inteligencia Central Blanco */}
           <circle cx="40" cy="50" r="5" fill="#ffffff" stroke="#0ea5e9" strokeWidth="1" />
         </g>
 
-        {/* Detalles de Vértice */}
+        {/* Vértices de Control */}
         <circle cx="50" cy="5" r="2" fill="#0ea5e9" />
         <circle cx="50" cy="95" r="2" fill="#22c55e" />
       </svg>
