@@ -54,6 +54,9 @@ export const pathnames = {
   '/sector-privado-system-kyron': '/sector-privado-system-kyron',
   '/manual-usuario': '/manual-usuario',
   '/identidad-marca': '/identidad-marca',
+  '/mercado-ecocreditos': '/mercado-ecocreditos',
+  '/generador-documentos': '/generador-documentos',
+  '/academia-kyron': '/academia-kyron',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
