@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -13,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
  * @fileOverview Página de Identidad de Marca.
  * Presenta el logo oficial en gran formato, estático para capturas de pantalla
  * y permite la descarga del activo en formatos SVG y PNG.
+ * Incluye ahora el fondo hexagonal distintivo.
  */
 
 export default function IdentidadMarcaPage() {
@@ -74,7 +74,6 @@ export default function IdentidadMarcaPage() {
       });
     };
     
-    // Ensure styles are inline or simple for the image conversion
     img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
   };
 

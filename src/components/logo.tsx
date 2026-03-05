@@ -14,38 +14,48 @@ export function Logo({ className }: { className?: string }) {
             <stop offset="0%" stopColor="#0A2472" />
             <stop offset="100%" stopColor="#4CAF50" />
           </linearGradient>
-          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+          <linearGradient id="hex-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="rgba(37, 99, 235, 0.6)" />
+            <stop offset="100%" stopColor="rgba(34, 197, 94, 0.4)" />
+          </linearGradient>
+          <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="2" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
         
-        {/* Outer Hexagon */}
+        {/* Hexágono Tecnológico de Fondo */}
         <path
-          d="M50 5L89.5 27.5V72.5L50 95L10.5 72.5V27.5L50 5Z"
-          className="fill-primary/5 stroke-primary/20"
+          d="M50 2L93.3 27V73L50 98L6.7 73V27L50 2Z"
+          stroke="url(#hex-gradient)"
           strokeWidth="1.5"
+          fill="rgba(37, 99, 235, 0.03)"
+          strokeLinejoin="round"
         />
         
-        {/* Dynamic 'K' Shapes */}
+        {/* Detalles de Esquina Hexagonal (Acentos) */}
+        <path d="M50 2L60 7.7" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" />
+        <path d="M50 98L40 92.3" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" />
+        
+        {/* Forma de 'K' Estilizada (Vectores de Precisión) */}
         <path
-          d="M35 28V72"
+          d="M32 30V70"
           stroke="url(#logo-gradient)"
           strokeWidth="9"
           strokeLinecap="round"
-          filter="url(#glow)"
+          filter="url(#logo-glow)"
         />
         <path
-          d="M68 28L35 50L68 72"
+          d="M68 30L32 50L68 70"
           stroke="url(#logo-gradient)"
           strokeWidth="9"
           strokeLinecap="round"
           strokeLinejoin="round"
-          filter="url(#glow)"
+          filter="url(#logo-glow)"
         />
         
-        {/* Core Connection Point */}
-        <circle cx="50" cy="50" r="3" fill="#4CAF50" className="animate-pulse" />
+        {/* Nodo Central de Inteligencia (Punto de Conexión) */}
+        <circle cx="46" cy="50" r="4.5" fill="#4CAF50" filter="url(#logo-glow)" />
       </svg>
     </div>
   );
