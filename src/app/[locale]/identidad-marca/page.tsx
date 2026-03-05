@@ -5,26 +5,30 @@ import { motion } from "framer-motion";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
-import { ChevronLeft, ShieldCheck, Download, Camera, Sparkles } from "lucide-react";
-import { useRef } from "react";
+import { ChevronLeft, ShieldCheck, Download, Camera, FileImage, FileCode } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 /**
  * @fileOverview Página de Identidad de Marca.
  * Presenta el logo oficial en gran formato, estático para capturas de pantalla
- * y permite la descarga del activo en formato vectorial.
+ * y permite la descarga del activo en formatos SVG y PNG.
  */
 
 export default function IdentidadMarcaPage() {
   const { toast } = useToast();
   const logoRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleDownloadSVG = () => {
     if (!logoRef.current) return;
     const svgElement = logoRef.current.querySelector("svg");
     if (!svgElement) return;
 
-    // Clonar para no afectar la vista y limpiar clases de Tailwind si fuera necesario
     const svgData = new XMLSerializer().serializeToString(svgElement);
     const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
     const svgUrl = URL.createObjectURL(svgBlob);
@@ -41,6 +45,41 @@ export default function IdentidadMarcaPage() {
     });
   };
 
+  const handleDownloadPNG = () => {
+    if (!logoRef.current) return;
+    const svgElement = logoRef.current.querySelector("svg");
+    if (!svgElement) return;
+
+    const svgData = new XMLSerializer().serializeToString(svgElement);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    
+    img.onload = () => {
+      canvas.width = 2048; // Ultra High Res
+      canvas.height = 2048;
+      ctx?.clearRect(0, 0, canvas.width, canvas.height);
+      ctx?.drawImage(img, 0, 0, 2048, 2048);
+      const pngUrl = canvas.toDataURL("image/png");
+      const downloadLink = document.createElement("a");
+      downloadLink.href = pngUrl;
+      downloadLink.download = "system_kyron_logo_hq.png";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      
+      toast({
+        title: "EXPORTACIÓN PNG COMPLETADA",
+        description: "Activo en alta resolución generado (2048x2048).",
+      });
+    };
+    
+    // Ensure styles are inline or simple for the image conversion
+    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+  };
+
+  if (!isMounted) return null;
+
   return (
     <div className="min-h-screen bg-[#020202] flex flex-col items-center justify-center relative overflow-hidden hud-grid">
       {/* Elementos de Ambientación HUD */}
@@ -50,23 +89,23 @@ export default function IdentidadMarcaPage() {
           Identity Master Node: 2.6.5
         </div>
         <div className="absolute bottom-10 right-10 text-[10px] font-black uppercase tracking-[0.5em] text-white/20 italic">
-          System Kyron • Corporate Assets
+          System Kyron • Official Assets
         </div>
       </div>
 
       <motion.div 
-        className="relative z-10 flex flex-col items-center gap-16"
+        className="relative z-10 flex flex-col items-center gap-16 p-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
         <div className="relative group" ref={logoRef}>
           {/* Resplandor Maestro Estático */}
-          <div className="absolute inset-0 bg-primary/20 blur-[120px] rounded-full scale-150" />
+          <div className="absolute inset-0 bg-primary/20 blur-[150px] rounded-full scale-150" />
           
           {/* Logo en Gran Formato Estático para Capture */}
-          <div className="relative drop-shadow-[0_0_60px_rgba(37,99,235,0.5)]">
-            <Logo className="h-64 w-64 md:h-96 md:w-96" />
+          <div className="relative drop-shadow-[0_0_80px_rgba(37,99,235,0.6)]">
+            <Logo className="h-64 w-64 md:h-[500px] md:w-[500px]" />
           </div>
         </div>
 
@@ -75,7 +114,7 @@ export default function IdentidadMarcaPage() {
             <ShieldCheck className="h-3.5 w-3.5" /> Activo Oficial Verificado
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
+          <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
             SYSTEM <span className="text-primary">KYRON</span>
           </h1>
           
@@ -84,9 +123,9 @@ export default function IdentidadMarcaPage() {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 pt-8 no-print">
+        <div className="flex flex-wrap justify-center gap-4 pt-8 no-print max-w-2xl">
           <Button variant="ghost" asChild className="rounded-xl h-12 px-8 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5">
-            <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL INICIO</Link>
+            <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER</Link>
           </Button>
           
           <Button 
@@ -94,7 +133,15 @@ export default function IdentidadMarcaPage() {
             className="rounded-xl h-12 px-8 text-[10px] font-black uppercase tracking-widest border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 shadow-glow"
             onClick={handleDownloadSVG}
           >
-            <Download className="mr-2 h-4 w-4" /> DESCARGAR SVG (VECTOR)
+            <FileCode className="mr-2 h-4 w-4" /> DESCARGAR SVG
+          </Button>
+
+          <Button 
+            variant="outline" 
+            className="rounded-xl h-12 px-8 text-[10px] font-black uppercase tracking-widest border-secondary/20 bg-secondary/5 text-secondary hover:bg-secondary/10 shadow-glow-secondary"
+            onClick={handleDownloadPNG}
+          >
+            <FileImage className="mr-2 h-4 w-4" /> DESCARGAR PNG (HQ)
           </Button>
 
           <Button 
