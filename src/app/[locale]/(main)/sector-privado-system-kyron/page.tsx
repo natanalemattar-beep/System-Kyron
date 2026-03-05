@@ -4,17 +4,16 @@
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
   Download, Zap, ShieldCheck, 
   Lock, Printer, BrainCircuit, Network, Cpu, Database, 
-  Sparkles, Activity, Terminal as TerminalIcon,
-  TrendingUp, Target, BarChart3, FileText, ChevronRight, Globe, Radio, Magnet
+  Sparkles, Activity, TrendingUp, Target, BarChart3, FileText, ChevronRight, Globe, Radio, Magnet
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
-import { motion } from "framer-motion";
 import { Logo } from "@/components/logo";
 
 const zeduModel2025 = {
@@ -221,7 +220,11 @@ export default function SectorPrivadoPage() {
                                                     <TableCell className="pl-10 font-black text-primary italic">AÑO {row.year}</TableCell>
                                                     <TableCell className="text-right font-mono text-sm font-bold text-white/70">{formatCurrency(row.revenue, 'USD')}</TableCell>
                                                     <TableCell className="text-right font-mono text-sm font-black text-white">{formatCurrency(row.profit, 'USD')}</TableCell>
-                                                    <TableCell className="text-right pr-10"><Badge variant="outline" className="text-[8px] font-black border-primary/20 text-primary">{formatPercentage(row.margin)}</Badge></TableCell>
+                                                    <TableCell className="text-right pr-10">
+                                                        <Badge variant="outline" className="text-[8px] font-black border-primary/20 text-primary bg-primary/5">
+                                                            {formatPercentage(row.margin)}
+                                                        </Badge>
+                                                    </TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
