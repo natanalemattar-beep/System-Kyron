@@ -25,16 +25,19 @@ import {
     Lock,
     Zap,
     ArrowDown,
-    ChevronRight
+    ChevronRight,
+    Target,
+    ListTree
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 /**
  * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
- * Documentación técnica de grado ministerial diseñada para el cumplimiento de misión crítica.
- * Incluye sistema de navegación por anclas para acceso directo a protocolos.
+ * Documentación técnica de misión crítica.
+ * Incluye sistema de JUMP LINKS (Enlaces de Salto) para navegación directa.
  */
 
 const manualModules = [
@@ -50,7 +53,7 @@ const manualModules = [
             },
             {
                 sub: "Gestión de Documentos de Identidad",
-                text: "La plataforma permite el resguardo y verificación de Cédulas de Identidad, RIF Personal y Pasaportes. Cada documento cargado es sometido a una validación por OCR (Reconocimiento Óptico de Caracteres) para asegurar que la información coincida con las bases de datos institucionales. Los documentos permanecen cifrados bajo estándar AES-256."
+                text: "La plataforma permite el resguardo y verificación de Cédulas de Identidad, RIF Personal y Pasaportes. Cada documento cargado es sometido a una validación por OCR (Reconocimiento Óptico de Caracteres) para asegurar que la información coincida con las bases de datos institucionales. Los documentos permanecen cifrados bajo estándar AES-512."
             }
         ]
     },
@@ -222,8 +225,8 @@ export default function ManualUsuarioPage() {
                     .glass-card { background: white !important; border: 1px solid #ddd !important; box-shadow: none !important; }
                     .text-white { color: black !important; }
                     .text-primary { color: #2563eb !important; }
-                    .text-white\/40 { color: #666 !important; }
-                    .border-white\/5 { border-color: #eee !important; }
+                    .text-white/40 { color: #666 !important; }
+                    .border-white/5 { border-color: #eee !important; }
                 }
             `}</style>
 
@@ -249,13 +252,13 @@ export default function ManualUsuarioPage() {
             <main className="container mx-auto px-6 max-w-7xl pt-32 pb-40 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-16">
                     
-                    {/* NAVEGACIÓN POR ANCLAS (SIDEBAR) */}
+                    {/* NAVEGACIÓN POR ANCLAS (JUMP LINKS) */}
                     <aside className="lg:col-span-4 no-print">
                         <div className="sticky top-32 space-y-8">
                             <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
                                 <CardHeader className="p-0 mb-8 border-b border-white/5 pb-6">
                                     <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] text-primary flex items-center gap-3">
-                                        <Terminal className="h-4 w-4" /> Índice Técnico
+                                        <ListTree className="h-4 w-4" /> Protocolos Maestros
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="p-0 space-y-1">
@@ -272,10 +275,11 @@ export default function ManualUsuarioPage() {
                                 </CardContent>
                             </Card>
 
-                            <Card className="bg-primary/5 border border-primary/20 rounded-[2rem] p-8 text-center">
+                            <Card className="bg-primary/5 border border-primary/20 rounded-[2rem] p-8 text-center relative overflow-hidden group">
+                                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <ShieldCheck className="h-8 w-8 text-primary mx-auto mb-4" />
-                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-2">Protocolo Validado</p>
-                                <span className="text-xs font-bold text-white/80">Versión 2.6.5 Final</span>
+                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-2">Seguridad Validada</p>
+                                <span className="text-xs font-bold text-white/80">Protocolo v2.6.5 Final</span>
                             </Card>
                         </div>
                     </aside>
@@ -288,7 +292,7 @@ export default function ManualUsuarioPage() {
                             </div>
                             <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <br/> <span className="text-primary">Usuario</span></h1>
                             <p className="text-lg md:text-xl text-white/40 max-w-3xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 text-justify leading-relaxed">
-                                Guía técnica integral para la operación del ecosistema System Kyron. Los procedimientos descritos son de carácter institucional y obligatorio cumplimiento.
+                                Guía técnica integral para la operación soberana del ecosistema System Kyron. Los procedimientos descritos son de carácter institucional y cumplimiento obligatorio.
                             </p>
                         </section>
 
@@ -338,7 +342,7 @@ export default function ManualUsuarioPage() {
                             <div className="relative z-10 space-y-10">
                                 <h3 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Soporte Maestro</h3>
                                 <p className="text-xl font-bold opacity-90 leading-relaxed italic border-l-4 border-white/30 pl-10 text-justify">
-                                    Para incidencias en el despliegue operativo de los módulos o fallas en el protocolo de sincronización, contacte al nodo de ingeniería central.
+                                    Para incidencias en el despliegue operativo de los módulos o fallas en el protocolo de sincronización, establezca conexión con el nodo de ingeniería central.
                                 </p>
                                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-2xl h-20 px-16 font-black text-sm uppercase tracking-widest shadow-2xl transition-all">
                                     ESTABLECER CONEXIÓN MAESTRA

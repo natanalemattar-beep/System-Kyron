@@ -5,8 +5,9 @@ import { redirect } from '@/navigation';
 import { useEffect } from 'react';
 
 /**
- * @fileOverview Redirección de seguridad para resolver el conflicto de rutas paralelas.
- * Este nodo en (main) ha sido purgado para consolidar la documentación en el nodo raíz.
+ * @fileOverview NODO PURGADO - REDIRECCIÓN DE SEGURIDAD.
+ * Se ha desactivado este punto de entrada para eliminar el conflicto de rutas paralelas.
+ * Toda la documentación reside ahora en el nodo institucional /manual-usuario.
  */
 export default function ManualUsuarioRedirect() {
   useEffect(() => {

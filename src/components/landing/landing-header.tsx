@@ -13,7 +13,8 @@ import {
     BookOpen,
     Users2,
     Info,
-    LayoutGrid
+    LayoutGrid,
+    Target
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { 
@@ -81,7 +82,7 @@ export function LandingHeader() {
                                 href="/#nosotros" 
                                 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group flex items-center gap-2"
                             >
-                                <Users2 className="h-3 w-3 opacity-40 group-hover:opacity-100" />
+                                <Users2 className="h-3.5 w-3.5 opacity-40 group-hover:opacity-100" />
                                 NOSOTROS
                                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                             </Link>
@@ -89,7 +90,7 @@ export function LandingHeader() {
                                 href="/manual-usuario" 
                                 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-glow-text transition-all relative group flex items-center gap-2"
                             >
-                                <BookOpen className="h-3 w-3" />
+                                <BookOpen className="h-3.5 w-3.5" />
                                 MANUAL
                                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                             </Link>
