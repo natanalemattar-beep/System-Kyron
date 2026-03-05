@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 /**
  * @fileOverview Redirección de seguridad para purgar el nodo conflictivo del grupo (main).
- * Se mantiene este archivo temporalmente como puente hacia la ruta raíz consolidada.
+ * Se consolida la documentación en la ruta raíz para evitar errores de páginas paralelas en Next.js.
  */
 export default function ManualUsuarioRedirect() {
   useEffect(() => {
