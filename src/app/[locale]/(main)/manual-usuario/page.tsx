@@ -1,8 +1,18 @@
 
+'use client';
+
+import { redirect } from '@/navigation';
+import { useEffect } from 'react';
+
 /**
- * @fileOverview NODO DESACTIVADO - EVITANDO CONFLICTO DE RUTAS PARALELAS.
- * El Manual de Usuario oficial ha sido centralizado en la ruta raíz: /src/app/[locale]/manual-usuario/page.tsx
+ * @fileOverview NODO DESACTIVADO - RESOLUCIÓN DE CONFLICTO DE RUTAS.
+ * Este archivo ha sido purgado para evitar la colisión de páginas paralelas en Next.js.
+ * El Manual de Usuario oficial se encuentra ahora en el nodo raíz: /manual-usuario
  */
-export default function ConflictResolution() {
+export default function ManualUsuarioRedirect() {
+  useEffect(() => {
+    redirect('/manual-usuario');
+  }, []);
+
   return null;
 }

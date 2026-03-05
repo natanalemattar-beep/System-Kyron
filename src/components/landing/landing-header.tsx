@@ -11,7 +11,9 @@ import {
     Sparkles,
     ArrowRight,
     BookOpen,
-    Users2
+    Users2,
+    Info,
+    LayoutGrid
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { 
@@ -42,16 +44,6 @@ export function LandingHeader() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [handleScroll]);
 
-    const leftLinks = [
-      { href: "#inicio", label: "Inicio" },
-      { href: "/ecosistema", label: "Ecosistema" },
-    ];
-
-    const rightLinks = [
-      { href: "#servicios", label: "Servicios" },
-      { href: "/manual-usuario", label: "Manual", icon: BookOpen },
-    ];
-
     return (
         <header className={cn(
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-300 gpu-accelerated w-full",
@@ -63,16 +55,14 @@ export function LandingHeader() {
                     {/* SECCIÓN IZQUIERDA */}
                     <div className="flex justify-start items-center gap-10">
                         <nav className="hidden lg:flex items-center gap-10">
-                            {leftLinks.map((link) => (
-                                <Link 
-                                    key={link.href} 
-                                    href={link.href as any} 
-                                    className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
-                                >
-                                    {link.label}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
-                                </Link>
-                            ))}
+                            <Link href="/#inicio" className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group">
+                                Inicio
+                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                            </Link>
+                            <Link href="/ecosistema" className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group">
+                                Ecosistema
+                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                            </Link>
                         </nav>
                     </div>
 
@@ -88,26 +78,21 @@ export function LandingHeader() {
                     <div className="flex justify-end items-center gap-8">
                         <nav className="hidden lg:flex items-center gap-10">
                             <Link 
-                                href="#nosotros" 
-                                className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
+                                href="/#nosotros" 
+                                className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group flex items-center gap-2"
                             >
-                                Nosotros
+                                <Users2 className="h-3 w-3 opacity-40 group-hover:opacity-100" />
+                                NOSOTROS
                                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                             </Link>
-                            {rightLinks.map((link) => (
-                                <Link 
-                                    key={link.href} 
-                                    href={link.href as any} 
-                                    className={cn(
-                                        "text-[10px] font-black uppercase tracking-[0.4em] transition-all relative group flex items-center gap-2",
-                                        link.href === '/manual-usuario' ? "text-primary shadow-glow-text" : "text-white/40 hover:text-primary"
-                                    )}
-                                >
-                                    {link.icon && <link.icon className="h-3 w-3" />}
-                                    {link.label}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
-                                </Link>
-                            ))}
+                            <Link 
+                                href="/manual-usuario" 
+                                className="text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-glow-text transition-all relative group flex items-center gap-2"
+                            >
+                                <BookOpen className="h-3 w-3" />
+                                MANUAL
+                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                            </Link>
                         </nav>
 
                         <div className="flex items-center gap-4">
@@ -190,35 +175,15 @@ export function LandingHeader() {
                                             <Logo className="h-8 w-8" />
                                             <SheetTitle className="text-lg font-black tracking-tight text-white uppercase italic">KYRON MENU</SheetTitle>
                                         </div>
-                                        <SheetDescription className="sr-only">Navegación móvil del sistema Kyron.</SheetDescription>
+                                        <SheetDescription className="sr-only">Navegación móvil institucional.</SheetDescription>
                                     </SheetHeader>
                                     <nav className="flex-grow p-8 space-y-10 overflow-y-auto">
                                         <div className="space-y-4">
                                             <p className="text-[10px] font-black uppercase text-white/20 tracking-[0.4em] italic">Navegación</p>
-                                            <SheetClose asChild>
-                                                <Link href="#inicio" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
-                                                    Inicio
-                                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
-                                                </Link>
-                                            </SheetClose>
-                                            <SheetClose asChild>
-                                                <Link href="/ecosistema" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
-                                                    Ecosistema
-                                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
-                                                </Link>
-                                            </SheetClose>
-                                            <SheetClose asChild>
-                                                <Link href="#nosotros" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
-                                                    Nosotros
-                                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
-                                                </Link>
-                                            </SheetClose>
-                                            <SheetClose asChild>
-                                                <Link href="/manual-usuario" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">
-                                                    Manual de Usuario
-                                                    <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-all" />
-                                                </Link>
-                                            </SheetClose>
+                                            <SheetClose asChild><Link href="/#inicio" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">Inicio</Link></SheetClose>
+                                            <SheetClose asChild><Link href="/ecosistema" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">Ecosistema</Link></SheetClose>
+                                            <SheetClose asChild><Link href="/#nosotros" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">Nosotros</Link></SheetClose>
+                                            <SheetClose asChild><Link href="/manual-usuario" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group text-primary">Manual de Usuario</Link></SheetClose>
                                         </div>
                                     </nav>
                                 </SheetContent>

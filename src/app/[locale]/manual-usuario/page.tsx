@@ -17,20 +17,17 @@ import {
     BrainCircuit,
     Download,
     FileText,
-    ChevronRight,
     Terminal,
     ShieldCheck,
     Database,
     Activity,
-    Printer,
     CheckCircle2,
     Lock,
     Zap,
     ArrowDown,
-    ListTree,
+    ChevronRight,
     Shield
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
@@ -38,7 +35,7 @@ import { Logo } from "@/components/logo";
 /**
  * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
  * Documentación técnica de grado ministerial diseñada para el cumplimiento de misión crítica.
- * Este nodo opera de forma independiente para garantizar el enfoque técnico y la seguridad.
+ * Sistema de navegación por anclas (Jump Links) integrado para acceso directo.
  */
 
 const manualModules = [
@@ -66,11 +63,11 @@ const manualModules = [
         content: [
             {
                 sub: "Aprovisionamiento de eSIM Digital",
-                text: "Usted podrá activar perfiles de red virtuales sin necesidad de hardware físico. El sistema genera un código QR de activación tras validar la titularidad. Este perfil configura automáticamente los puntos de acceso (APN) y protocolos de seguridad 5G, permitiendo conectividad inmediata con cifrado de grado militar de extremo a extremo."
+                text: "Activación de perfiles de red virtuales sin necesidad de hardware físico. El sistema genera un código QR de activación tras validar la titularidad. Este perfil configura automáticamente los puntos de acceso (APN) y protocolos de seguridad 5G, permitiendo conectividad inmediata con cifrado de grado militar de extremo a extremo."
             },
             {
                 sub: "Cumplimiento Regulatorio CONATEL",
-                text: "Para operadoras y servicios postales, el sistema integra un monitor de cumplimiento. Este emite alertas críticas 60 días antes del vencimiento de habilitaciones. El usuario debe cargar los recaudos en formato PDF para la auditoría técnica previa a la presentación ante el ente regulador."
+                text: "Monitor de cumplimiento para operadoras. Emite alertas críticas 60 días antes del vencimiento de habilitaciones. El usuario debe cargar los recaudos en formato PDF para la auditoría técnica previa a la presentación ante el ente regulador."
             }
         ]
     },
@@ -86,7 +83,7 @@ const manualModules = [
             },
             {
                 sub: "Protocolo de Cierre y Arqueo Maestro",
-                text: "Al finalizar el turno, el cajero debe ejecutar el protocolo de arqueo. El sistema solicita el conteo físico por denominación de billete (VES/USD/EUR). Si existe una discrepancia, la IA de riesgo solicita una justificación obligatoria que se anexa al Libro de Sobrantes y Faltantes para auditoría de gerencia."
+                text: "Al finalizar el turno, el cajero debe ejecutar el protocolo de arqueo. El sistema solicita el conteo físico por denominación de billete (VES/USD/EUR). Si existe una discrepancia, la IA de riesgo solicita una justificación obligatoria que se anexa al Libro de Sobrantes y Faltantes."
             }
         ]
     },
@@ -98,11 +95,11 @@ const manualModules = [
         content: [
             {
                 sub: "Emisión de Documentos Legales",
-                text: "El sistema genera Facturas, Notas de Débito y Notas de Crédito con numeración de control inalterable. Cada documento incluye un código QR que permite la validación inmediata de su autenticidad por parte del cliente o autoridades fiscales mediante el escaneo directo."
+                text: "Generación de Facturas, Notas de Débito y Notas de Crédito con numeración de control inalterable. Cada documento incluye un código QR que permite la validación inmediata de su autenticidad por parte de las autoridades fiscales."
             },
             {
                 sub: "Gestión de Crédito 'Compra Ahora, Paga Después'",
-                text: "Kyron se integra con Cashea, Krece y otros proveedores BNPL. El sistema valida el nivel de crédito del usuario en tiempo real, procesa el pago inicial y automatiza la programación de cuotas, enviando recordatorios mediante canales seguros para mantener la mora en 0%."
+                text: "Integración con Cashea, Krece y otros proveedores. El sistema valida el nivel de crédito del usuario en tiempo real, procesa el pago inicial y automatiza la programación de cuotas, enviando recordatorios mediante canales seguros."
             }
         ]
     },
@@ -114,11 +111,11 @@ const manualModules = [
         content: [
             {
                 sub: "Mantenimiento de Libros Electrónicos",
-                text: "Los Libros de Compra y Venta se alimentan automáticamente de las transacciones del TPV. El sistema genera los archivos planos (.txt) necesarios para la declaración de IVA e ISLR, garantizando que el reporte digital sea un espejo exacto de la operación comercial física."
+                text: "Los Libros de Compra y Venta se alimentan automáticamente de las transacciones del TPV. El sistema genera los archivos planos (.txt) necesarios para la declaración de IVA e ISLR, garantizando que el reporte digital sea un espejo exacto de la operación comercial."
             },
             {
                 sub: "Motor de Auditoría Predictiva",
-                text: "Esta tecnología analiza cada asiento contable contra la Gaceta Oficial vigente. Si se detecta un cambio en la alícuota del IVA o nuevas contribuciones (ej. Protección de Pensiones), el sistema recalcula los pasivos impositivos y alerta al contador para su liquidación proactiva."
+                text: "Tecnología que analiza cada asiento contable contra la Gaceta Oficial vigente. Si se detecta un cambio en la alícuota del IVA o nuevas contribuciones, el sistema recalcula los pasivos impositivos y alerta al contador para su liquidación proactiva."
             }
         ]
     },
@@ -130,11 +127,7 @@ const manualModules = [
         content: [
             {
                 sub: "Cómputo de Remuneraciones y Parafiscales",
-                text: "El sistema calcula sueldos, vacaciones, utilidades y prestaciones sociales conforme a la LOTTT. Asimismo, gestiona las retenciones de IVSS, FAOV e INCES, emitiendo las planillas de pago digitalizadas para su archivo histórico en el expediente del trabajador."
-            },
-            {
-                sub: "Emisión de Recibos y Constancias",
-                text: "Cada trabajador posee acceso a sus recibos de pago con sello QR. El departamento de RR.HH. puede emitir Cartas de Trabajo y Liquidaciones (Finiquitos) con un solo clic, asegurando la trazabilidad de la relación laboral desde el ingreso hasta el retiro."
+                text: "Cálculo de sueldos, vacaciones, utilidades y prestaciones sociales conforme a la LOTTT. Gestión de retenciones de IVSS, FAOV e INCES, emitiendo las planillas de pago digitalizadas para su archivo histórico en el expediente del trabajador."
             }
         ]
     },
@@ -146,11 +139,7 @@ const manualModules = [
         content: [
             {
                 sub: "Administración de Poderes y Representación",
-                text: "El sistema rastrea la vigencia de poderes notariales y actas de asamblea. Emite alertas automáticas sobre la extinción de facultades de representación, asegurando que la empresa siempre actúe bajo personería jurídica vigente y apoderados facultados."
-            },
-            {
-                sub: "Repositorio Inmutable de Contratos",
-                text: "Gestión de contratos de servicios, arrendamientos y licencias de software. El uso de tecnología Blockchain permite verificar que el documento digital no ha sido alterado desde su firma, protegiendo los intereses legales de la Institución."
+                text: "Rastreo de la vigencia de poderes notariales y actas de asamblea. Emisión de alertas automáticas sobre la extinción de facultades de representación, asegurando que la institución siempre actúe bajo apoderados facultados."
             }
         ]
     },
@@ -162,7 +151,7 @@ const manualModules = [
         content: [
             {
                 sub: "Análisis de Rentabilidad y ROI",
-                text: "El tablero ejecutivo visualiza el Punto de Equilibrio y la Tasa Interna de Retorno (TIR). Los datos se presentan en interfaces HUD optimizadas para la toma de decisiones estratégicas, permitiendo identificar unidades de negocio ineficientes en segundos."
+                text: "Tablero ejecutivo que visualiza el Punto de Equilibrio y la Tasa Interna de Retorno (TIR). Los datos se presentan en interfaces HUD optimizadas para la toma de decisiones estratégicas de alta dirección."
             }
         ]
     },
@@ -174,7 +163,7 @@ const manualModules = [
         content: [
             {
                 sub: "Tecnología de Inducción en Smart Bins",
-                text: "Las estaciones de recolección utilizan sensores de magnetismo para clasificar residuos. El ciudadano sincroniza su ID Digital, deposita el material y recibe automáticamente Eco-Créditos en su billetera, fomentando una economía circular verificable por Blockchain."
+                text: "Estaciones de recolección con sensores de magnetismo para clasificar residuos. El ciudadano sincroniza su ID Digital, deposita el material y recibe automáticamente Eco-Créditos en su billetera digital."
             }
         ]
     },
@@ -186,7 +175,7 @@ const manualModules = [
         content: [
             {
                 sub: "Generación de Planos por Visión Artificial",
-                text: "Usted podrá cargar fotografías de un espacio físico y la IA de ingeniería generará planos a escala con precisión técnica. Este módulo incluye un calculador de materiales (m²/unidades) vinculado a presupuestos CapEx para proyectos de expansión institucional."
+                text: "Carga de fotografías de espacios físicos para generar planos a escala con precisión técnica. Incluye calculador de materiales (m²/unidades) vinculado a presupuestos CapEx para proyectos institucionales."
             }
         ]
     }
@@ -203,7 +192,7 @@ export default function ManualUsuarioPage() {
     const handleDownload = (format: 'pdf' | 'doc') => {
         toast({
             title: `PROTOCOLO DE EXPORTACIÓN ${format.toUpperCase()} ACTIVADO`,
-            description: "Procesando expediente técnico oficial para descarga.",
+            description: "Procesando expediente técnico oficial para descarga institucional.",
             action: <CheckCircle2 className="text-primary h-4 w-4" />
         });
         window.print();
@@ -226,8 +215,8 @@ export default function ManualUsuarioPage() {
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid selection:bg-primary/20 font-sans">
-            {/* ESTILOS DE PRIORIDAD PARA OCULTAR ELEMENTOS EXTERNOS */}
+        <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid selection:bg-primary/20">
+            {/* ESTILOS PARA OCULTAR ELEMENTOS GLOBALES Y MANEJAR PRINT */}
             <style jsx global>{`
                 header.fixed.top-0, 
                 footer.border-t,
@@ -247,13 +236,13 @@ export default function ManualUsuarioPage() {
                 }
             `}</style>
 
-            {/* HEADER INSTITUCIONAL DEL MANUAL */}
+            {/* HEADER INSTITUCIONAL */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-20 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-16 justify-between no-print shadow-2xl">
                 <div className="flex items-center gap-6">
                     <Logo className="h-10 w-10 shadow-glow" />
                     <div className="flex flex-col">
                         <span className="text-xs font-black tracking-[0.6em] uppercase italic">SYSTEM KYRON</span>
-                        <span className="text-[9px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Expediente Técnico: Manual de Usuario</span>
+                        <span className="text-[9px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Manual de Usuario Institucional</span>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -269,16 +258,13 @@ export default function ManualUsuarioPage() {
             <main className="container mx-auto px-6 max-w-7xl pt-32 pb-40 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-16">
                     
-                    {/* PANEL DE NAVEGACIÓN POR ANCLAS */}
+                    {/* NAVEGACIÓN POR ANCLAS (JUMP LINKS) */}
                     <aside className="lg:col-span-4 no-print">
                         <div className="sticky top-32 space-y-8">
-                            <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden relative group">
-                                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:rotate-12 transition-transform duration-1000">
-                                    <ListTree className="h-20 w-20" />
-                                </div>
+                            <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
                                 <CardHeader className="p-0 mb-8 border-b border-white/5 pb-6">
                                     <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] text-primary flex items-center gap-3">
-                                        <Terminal className="h-4 w-4" /> Índice de Módulos
+                                        <Terminal className="h-4 w-4" /> Índice Técnico
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="p-0 space-y-1">
@@ -295,29 +281,23 @@ export default function ManualUsuarioPage() {
                                 </CardContent>
                             </Card>
 
-                            <Card className="bg-primary/5 border border-primary/20 rounded-[2rem] p-8">
-                                <div className="flex items-center gap-3 mb-4">
-                                    <Shield className="h-4 w-4 text-primary" />
-                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary">Estado del Nodo</p>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-glow" />
-                                    <span className="text-xs font-bold text-white/80">Sincronizado v2.6.5</span>
-                                </div>
+                            <Card className="bg-primary/5 border border-primary/20 rounded-[2rem] p-8 text-center">
+                                <ShieldCheck className="h-8 w-8 text-primary mx-auto mb-4" />
+                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-2">Estado del Nodo</p>
+                                <span className="text-xs font-bold text-white/80">Verificado v2.6.5</span>
                             </Card>
                         </div>
                     </aside>
 
-                    {/* CUERPO TÉCNICO DEL MANUAL */}
+                    {/* CONTENIDO TÉCNICO DETALLADO */}
                     <div className="lg:col-span-8 space-y-32">
-                        {/* PORTADA INTERNA */}
                         <section className="space-y-10">
                             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary shadow-glow">
                                 <Activity className="h-3.5 w-3.5" /> EXPEDIENTE TÉCNICO OFICIAL
                             </div>
-                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <span className="text-primary">Usuario</span></h1>
+                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <br/> <span className="text-primary">Usuario</span></h1>
                             <p className="text-lg md:text-xl text-white/40 max-w-3xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 text-justify leading-relaxed">
-                                Este documento constituye la guía técnica definitiva para la operación del ecosistema System Kyron. Los procedimientos descritos se ajustan estrictamente al marco legal y administrativo de la República Bolivariana de Venezuela.
+                                Este documento constituye la guía técnica definitiva para la operación del ecosistema System Kyron. Los protocolos descritos se ajustan estrictamente al marco legal y administrativo vigente.
                             </p>
                         </section>
 
@@ -360,25 +340,23 @@ export default function ManualUsuarioPage() {
                             </section>
                         ))}
 
-                        {/* SECCIÓN DE ASISTENCIA */}
                         <Card className="bg-primary text-primary-foreground rounded-[3.5rem] p-16 text-center shadow-glow border-none relative overflow-hidden group no-print">
                             <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-all duration-1000">
                                 <Zap className="h-64 w-64" />
                             </div>
                             <div className="relative z-10 space-y-10">
-                                <h3 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Soporte Técnico</h3>
+                                <h3 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Soporte Maestro</h3>
                                 <p className="text-xl font-bold opacity-90 leading-relaxed italic border-l-4 border-white/30 pl-10 text-justify">
-                                    En caso de incidencias en el despliegue operativo de los módulos institucionales o fallas en el protocolo de sincronización, contacte al nodo de ingeniería central para resolución prioritaria.
+                                    Para incidencias en el despliegue operativo de los módulos institucionales o fallas en el protocolo de sincronización, contacte al nodo de ingeniería central.
                                 </p>
                                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-2xl h-20 px-16 font-black text-sm uppercase tracking-widest shadow-2xl transition-all">
-                                    ESTABLECER CONEXIÓN DIRECTA
+                                    ESTABLECER CONEXIÓN MAESTRA
                                 </Button>
                             </div>
                         </Card>
                     </div>
                 </div>
 
-                {/* FOOTER DEL MANUAL */}
                 <div className="mt-40 text-center space-y-10 opacity-20 no-print pb-20 border-t border-white/5 pt-20">
                     <div className="flex justify-center gap-16 text-[10px] font-black uppercase tracking-[0.8em]">
                         <span className="flex items-center gap-4"><Lock className="h-4 w-4" /> SECURED DATA</span>
@@ -387,7 +365,7 @@ export default function ManualUsuarioPage() {
                     </div>
                     <p className="max-w-4xl mx-auto text-[9px] font-bold uppercase tracking-[0.4em] leading-relaxed italic">
                         © {new Date().getFullYear()} System Kyron, C.A. • RIF J-12345678-9 • Caracas, Venezuela. <br/>
-                        Documento amparado bajo propiedad intelectual registrada ante el SAPI.
+                        Documento amparado bajo propiedad intelectual institucional.
                     </p>
                 </div>
             </main>
