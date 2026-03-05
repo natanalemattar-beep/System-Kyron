@@ -8,9 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Zap, ShieldCheck, 
   Lock, BrainCircuit, Network, Cpu, Database, 
-  Sparkles, Activity, TrendingUp, Target, BarChart3, FileText, ChevronRight, Globe, Radio, Magnet, FileDown,
+  Sparkles, Activity, TrendingUp, Target, BarChart3, FileText, ChevronRight, Globe, Radio, Magnet,
   CheckCircle,
-  FileText as FileWord
+  FileText as FileWord,
+  Printer,
+  Download,
+  AlertTriangle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
@@ -18,19 +21,42 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { Logo } from "@/components/logo";
 
-const zeduModel2025 = {
-    identificacion: {
-        nombre: "System Kyron",
-        lideres: "Carlos Mattar, Sebastián Garrido, Marcos Sousa",
-        apoyo: "Wilmer López, Mireya Corro, María Hernández",
-        institucion: "U.E.P. Gabriela Mistral",
-        ubicacion: "La Guaira, Venezuela"
-    },
-    estudioPoblacion: {
-        localizacion: "La Atlántida, entre calle 7 a calle 3, Catia La Mar. Referencias: Pinta Catia, Supermercado Bensica.",
-        comunidad: "Comunidad Comercial y Residencial La Atlántida",
-        estimada: "500 empresas activas / 5.000 empleados administrativos y civiles."
-    }
+/**
+ * @fileOverview PORTAL SECTOR PRIVADO - EXPEDIENTE MAESTRO ZEDU 2025
+ * Integración de alta fidelidad del modelo ZEDU, Factibilidad y Propuesta.
+ */
+
+const zeduMasterData = {
+    titulo: "MODELO DE ZEDU - System Kyron 2025",
+    secciones: [
+        {
+            id: 1,
+            titulo: "1. IDENTIFICACIÓN DEL PROYECTO",
+            filas: [
+                { label: "Nombre", val: "System Kyron" },
+                { label: "Líder", val: "Carlos Mattar, Sebastián Garrido, Marcos Sousa" },
+                { label: "Apoyo", val: "Wilmer López, Mireya Corro, María Hernández" },
+                { label: "Institución", val: "U.E.P. Gabriela Mistral" },
+                { label: "Ubicación", val: "La Guaira, Venezuela" },
+            ]
+        },
+        {
+            id: 2,
+            titulo: "2. ESTUDIO DE POBLACIÓN (ZEDU)",
+            filas: [
+                { label: "Localización", val: "La Atlántida, entre calle 7 a calle 3, Catia La Mar. Referencias: Pinta Catia, Supermercado Bensica." },
+                { label: "Comunidad", val: "Comunidad Comercial y Residencial La Atlántida" },
+                { label: "Estimada", val: "500 empresas activas / 5.000 empleados administrativos y civiles." },
+            ]
+        },
+        {
+            id: 3,
+            titulo: "3. ANÁLISIS DEL PROBLEMA",
+            filas: [
+                { label: "Definición", val: "Las empresas en Venezuela operan con un 'Frankenstein' de sistemas aislados (contables, fiscales y administrativos), generando brechas de seguridad, pérdida de datos por factores ambientales y un alto riesgo de sanciones ante el SENIAT por falta de sincronización en tiempo real." },
+            ]
+        }
+    ]
 };
 
 const budgetData = [
@@ -90,21 +116,27 @@ export default function SectorPrivadoPage() {
         
         toast({
             title: "DESCARGA INICIADA",
-            description: `Documento "${title}" exportado a Word exitosamente.`,
+            description: `Documento exportado exitosamente.`,
             action: <CheckCircle className="text-primary h-4 w-4" />
         });
     };
 
     const handleDownloadZEDU = () => {
+        let tableRows = "";
+        zeduMasterData.secciones.forEach(sec => {
+            tableRows += `<tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 10px; font-weight: bold;">${sec.titulo}</td></tr>`;
+            sec.filas.forEach(f => {
+                tableRows += `<tr><td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; width: 30%;">${f.label}</td><td style="padding: 10px; border: 1px solid #ddd;">${f.val}</td></tr>`;
+            });
+        });
+
         const content = `
-            <h1 style="text-align: center; color: #2563eb;">MODELO ZEDU - ESTUDIO POBLACIONAL 2025</h1>
-            <p><strong>Institución:</strong> ${zeduModel2025.identificacion.institucion}</p>
-            <p><strong>Localización:</strong> ${zeduModel2025.estudioPoblacion.localizacion}</p>
-            <p><strong>Alcance:</strong> ${zeduModel2025.estudioPoblacion.estimada}</p>
-            <hr/>
-            <p>Este documento constituye el análisis demográfico base para el despliegue del Ecosistema Kyron en la región.</p>
+            <h1 style="text-align: center; color: #2d5a8e;">${zeduMasterData.titulo}</h1>
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+                ${tableRows}
+            </table>
         `;
-        downloadAsWord("Modelo_ZEDU_System_Kyron", content);
+        downloadAsWord("Modelo_ZEDU_System_Kyron_2025", content);
     };
 
     const handleDownloadFactibilidad = () => {
@@ -150,71 +182,72 @@ export default function SectorPrivadoPage() {
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Sector <span className="text-primary italic">Privado Kyron</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Expediente de Inteligencia Corporativa • Nodo 2.6.5</p>
                 </div>
+                <div className="flex gap-2">
+                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white" onClick={() => window.print()}>
+                        <Printer className="mr-2 h-4 w-4" /> IMPRIMIR VISTA
+                    </Button>
+                </div>
             </header>
 
-            <Tabs defaultValue="identificacion" className="w-full relative z-10 no-print">
+            <Tabs defaultValue="zedu" className="w-full relative z-10 no-print">
                 <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner overflow-x-auto custom-scrollbar">
-                    <TabsTrigger value="identificacion" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">1. Datos</TabsTrigger>
-                    <TabsTrigger value="poblacion" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">2. ZEDU</TabsTrigger>
-                    <TabsTrigger value="presupuesto" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">3. CapEx</TabsTrigger>
-                    <TabsTrigger value="factibilidad" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">4. Factibilidad</TabsTrigger>
-                    <TabsTrigger value="propuesta" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">5. Propuesta</TabsTrigger>
+                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">1. Modelo ZEDU</TabsTrigger>
+                    <TabsTrigger value="presupuesto" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">2. Inversión CapEx</TabsTrigger>
+                    <TabsTrigger value="factibilidad" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">3. Factibilidad</TabsTrigger>
+                    <TabsTrigger value="propuesta" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">4. Propuesta</TabsTrigger>
                 </TabsList>
 
                 <div className="space-y-16">
-                    <TabsContent value="identificacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <Card className="glass-card p-10 rounded-[3rem] border-primary/20 bg-black/40 shadow-2xl">
-                            <CardHeader className="p-0 mb-8"><CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Identificación del Nodo</CardTitle></CardHeader>
-                            <CardContent className="p-0 space-y-6">
-                                {[
-                                    { label: "Nombre del Proyecto", val: zeduModel2025.identificacion.nombre },
-                                    { label: "Líderes de Ingeniería", val: zeduModel2025.identificacion.lideres },
-                                    { label: "Comité de Apoyo", val: zeduModel2025.identificacion.apoyo },
-                                    { label: "Sede de Operaciones", val: zeduModel2025.identificacion.institucion },
-                                    { label: "Jurisdicción", val: zeduModel2025.identificacion.ubicacion },
-                                ].map((item, i) => (
-                                    <div key={i} className="flex flex-col border-b border-white/5 pb-4 last:border-none">
-                                        <span className="text-[8px] font-black uppercase tracking-widest text-white/30 mb-1">{item.label}</span>
-                                        <span className="text-sm font-bold text-white/90">{item.val}</span>
-                                    </div>
-                                ))}
-                            </CardContent>
-                        </Card>
-                    </TabsContent>
-
-                    <TabsContent value="poblacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <Card className="glass-card p-10 rounded-[3rem] border-secondary/20 bg-black/40 shadow-2xl">
-                            <CardHeader className="p-0 mb-8 flex flex-row items-center justify-between">
-                                <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-secondary italic">Estudio Poblacional (ZEDU)</CardTitle>
-                                <Button size="sm" variant="outline" className="rounded-xl h-9 text-[8px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={handleDownloadZEDU}>
-                                    <FileWord className="mr-2 h-3 w-3" /> DESCARGAR ZEDU (.DOC)
+                    {/* MODULO ZEDU CALCADO */}
+                    <TabsContent value="zedu" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <Card className="border-none bg-transparent shadow-none max-w-5xl mx-auto">
+                            <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+                                <div className="flex items-center gap-6">
+                                    <Logo className="h-16 w-16 drop-shadow-glow" />
+                                    <h2 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter border-l-4 border-primary pl-6">
+                                        {zeduMasterData.titulo}
+                                    </h2>
+                                </div>
+                                <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={handleDownloadZEDU}>
+                                    <FileWord className="mr-2 h-4 w-4" /> DESCARGAR ZEDU (.DOC)
                                 </Button>
-                            </CardHeader>
-                            <CardContent className="p-0 space-y-8">
-                                <div className="space-y-2">
-                                    <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Localización Técnica</span>
-                                    <p className="text-xs font-bold text-white/70 leading-relaxed uppercase">{zeduModel2025.estudioPoblacion.localizacion}</p>
-                                </div>
-                                <div className="grid grid-cols-2 gap-8">
-                                    <div className="space-y-2">
-                                        <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Comunidad</span>
-                                        <p className="text-xs font-bold text-white/70 uppercase">{zeduModel2025.estudioPoblacion.comunidad}</p>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Alcance Estimado</span>
-                                        <p className="text-xs font-black text-secondary uppercase italic">{zeduModel2025.estudioPoblacion.estimada}</p>
-                                    </div>
-                                </div>
-                            </CardContent>
+                            </div>
+
+                            <div className="rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-black/40">
+                                <Table className="w-full border-collapse">
+                                    <TableBody>
+                                        {zeduMasterData.secciones.map((sec) => (
+                                            <React.Fragment key={sec.id}>
+                                                <TableRow className="bg-[#2d5a8e] hover:bg-[#2d5a8e]/90 border-none transition-none">
+                                                    <TableCell colSpan={2} className="py-5 px-8 font-black uppercase text-white text-[11px] tracking-[0.4em]">
+                                                        {sec.titulo}
+                                                    </TableCell>
+                                                </TableRow>
+                                                {sec.filas.map((fila, idx) => (
+                                                    <TableRow key={idx} className="border-white/5 hover:bg-white/[0.02] transition-colors">
+                                                        <TableCell className="w-[30%] py-6 px-8 text-[10px] font-black uppercase tracking-widest text-primary/80 border-r border-white/5 bg-white/[0.01]">
+                                                            {fila.label}
+                                                        </TableCell>
+                                                        <TableCell className="py-6 px-8 text-sm font-bold text-white/80 leading-relaxed italic">
+                                                            {fila.val}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </React.Fragment>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </Card>
                     </TabsContent>
 
+                    {/* CAPEX */}
                     <TabsContent value="presupuesto" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <Card className="glass-card overflow-hidden rounded-[3rem] border-white/5 shadow-2xl bg-black/40">
+                        <Card className="glass-card overflow-hidden rounded-[3rem] border-white/5 shadow-2xl bg-black/40 max-w-5xl mx-auto">
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-white/[0.03] border-none">
-                                        <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Inversión Estratégica (CapEx)</TableHead>
+                                        <TableHead className="pl-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Componente de Inversión Estratégica (CapEx)</TableHead>
                                         <TableHead className="text-right pr-10 py-6 font-black uppercase text-primary text-[10px] tracking-[0.4em]">Monto (USD)</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -226,7 +259,7 @@ export default function SectorPrivadoPage() {
                                         </TableRow>
                                     ))}
                                     <TableRow className="bg-primary/10 border-none">
-                                        <TableCell className="pl-10 py-8 text-xl font-black text-white italic uppercase tracking-tighter">Total CapEx 2025</TableCell>
+                                        <TableCell className="pl-10 py-8 text-xl font-black text-white italic uppercase tracking-tighter">Total Inversión Inicial</TableCell>
                                         <TableCell className="text-right pr-10 text-4xl font-mono font-black text-primary italic shadow-glow-text">
                                             {formatCurrency(budgetData.reduce((a, b) => a + b.cost, 0), 'USD')}
                                         </TableCell>
@@ -236,10 +269,11 @@ export default function SectorPrivadoPage() {
                         </Card>
                     </TabsContent>
 
+                    {/* FACTIBILIDAD */}
                     <TabsContent value="factibilidad" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="space-y-10">
+                        <div className="space-y-10 max-w-5xl mx-auto">
                             <div className="flex justify-end">
-                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={handleDownloadFactibilidad}>
+                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={handleDownloadFactibilidad}>
                                     <FileWord className="mr-2 h-4 w-4" /> DESCARGAR FACTIBILIDAD (.DOC)
                                 </Button>
                             </div>
@@ -276,7 +310,7 @@ export default function SectorPrivadoPage() {
                                         <TableBody>
                                             {projections.map(row => (
                                                 <TableRow key={row.year} className="border-white/5 hover:bg-primary/5 transition-colors">
-                                                    <TableCell className="pl-10 font-black text-primary italic">AÑO {row.year}</TableCell>
+                                                    <TableCell className="pl-10 font-black text-primary italic">AÑO 0{row.year}</TableCell>
                                                     <TableCell className="text-right font-mono text-sm font-bold text-white/70">{formatCurrency(row.revenue, 'USD')}</TableCell>
                                                     <TableCell className="text-right font-mono text-sm font-black text-white">{formatCurrency(row.profit, 'USD')}</TableCell>
                                                     <TableCell className="text-right pr-10">
@@ -293,8 +327,9 @@ export default function SectorPrivadoPage() {
                         </div>
                     </TabsContent>
 
+                    {/* PROPUESTA */}
                     <TabsContent value="propuesta" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40">
+                        <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40 max-w-5xl mx-auto">
                             <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
                                 <div className="flex justify-end no-print">
                                     <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={handleDownloadPropuesta}>
@@ -302,7 +337,7 @@ export default function SectorPrivadoPage() {
                                     </Button>
                                 </div>
                                 <div className="mx-auto w-fit bg-black p-6 rounded-[2.5rem] shadow-glow border border-primary/20"><Logo className="h-16 w-16" /></div>
-                                <CardTitle className="text-4xl font-black uppercase tracking-tighter italic text-white italic-shadow leading-tight">Ecosistema Kyron <br/> Eficiencia Sin Fronteras</CardTitle>
+                                <CardTitle className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic text-white italic-shadow leading-tight">Ecosistema Kyron <br/> Eficiencia Sin Fronteras</CardTitle>
                                 <CardDescription className="text-primary font-black uppercase tracking-[0.6em] text-xs">Propuesta Maestra de Gestión 2025</CardDescription>
                             </CardHeader>
                             <CardContent className="p-12 space-y-16">
@@ -343,3 +378,4 @@ export default function SectorPrivadoPage() {
         </div>
     );
 }
+import React from "react";
