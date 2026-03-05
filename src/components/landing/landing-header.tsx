@@ -93,7 +93,7 @@ export function LandingHeader() {
                                     href={link.href as any} 
                                     className={cn(
                                         "text-[10px] font-black uppercase tracking-[0.4em] transition-all relative group flex items-center gap-2",
-                                        link.href === '/manual-usuario' ? "text-primary" : "text-white/40 hover:text-primary"
+                                        link.href === '/manual-usuario' ? "text-primary shadow-glow-text" : "text-white/40 hover:text-primary"
                                     )}
                                 >
                                     {link.icon && <link.icon className="h-3 w-3" />}
