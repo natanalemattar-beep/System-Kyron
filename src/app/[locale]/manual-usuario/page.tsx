@@ -65,7 +65,7 @@ import React from "react";
 /**
  * @fileOverview Manual de Usuario Maestro System Kyron v2.6.5.
  * DOCUMENTO DE ACCESO PÚBLICO UNIVERSAL - MÁXIMA DENSIDAD TÉCNICA Y LEGAL.
- * Este expediente integra los 13 nodos operativos del ecosistema.
+ * Integra los 13 nodos operativos del ecosistema incluyendo innovaciones Tier 2.
  */
 
 const introSection = {
@@ -309,7 +309,7 @@ export default function ManualMaestroPage() {
 
             <main className="container mx-auto px-6 max-w-7xl pt-24 pb-20 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-12">
-                    {/* Navegación Lateral HUD (ÍNDICE AUTOMATIZADO) */}
+                    {/* Navegación Lateral HUD */}
                     <aside className="lg:col-span-4 hidden lg:block">
                         <Card className="glass-card p-6 rounded-[2.5rem] sticky top-24 border-white/5 bg-black/60 shadow-2xl overflow-hidden">
                             <div className="absolute top-0 right-0 p-4 opacity-5"><Activity className="h-20 w-20 text-primary" /></div>
@@ -344,7 +344,7 @@ export default function ManualMaestroPage() {
                             </div>
                             <p className="text-xl font-medium italic text-white/60 leading-relaxed text-justify border-l-4 border-primary/20 pl-8">{introSection.text}</p>
                             <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] text-primary/40 pt-4">
-                                <Clock className="h-4 w-4" /> Última revisión: Marzo 2026 • Acceso Público
+                                <Clock className="h-4 w-4" /> Última revisión: Marzo 2026 • Acceso Público Universal
                             </div>
                         </section>
 
@@ -371,24 +371,6 @@ export default function ManualMaestroPage() {
                                         <p className="text-xs text-muted-foreground font-medium leading-relaxed">{item.desc}</p>
                                     </Card>
                                 ))}
-                            </div>
-                        </section>
-
-                        {/* 3.0 Visualización Dash */}
-                        <section id="screenshot" className="space-y-8 scroll-mt-24">
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
-                                <Monitor className="h-6 w-6 text-primary" /> 3.0 Visualización del Centro de Mando
-                            </h3>
-                            <p className="text-sm text-muted-foreground italic">Ejemplo de interfaz HUD: Análisis de Business Intelligence en tiempo real.</p>
-                            <div className="relative aspect-video rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group bg-black">
-                                <Image src="https://picsum.photos/seed/dashboard-v2/1200/800" alt="Dashboard Preview" fill className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000" />
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="p-10 bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] text-center">
-                                        <Activity className="h-12 w-12 text-primary mx-auto mb-4 animate-pulse" />
-                                        <Badge className="bg-primary text-white font-black text-[8px] uppercase tracking-widest mb-4">KYRON-OS v2.6.5</Badge>
-                                        <p className="text-lg font-black uppercase italic text-white">INTERFAZ DE GRADO CORPORATIVO</p>
-                                    </div>
-                                </div>
                             </div>
                         </section>
 

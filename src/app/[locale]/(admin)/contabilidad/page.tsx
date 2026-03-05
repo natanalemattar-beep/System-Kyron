@@ -5,13 +5,29 @@ import { StatsCards } from "@/components/dashboard/stats-cards";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { QuickAccess } from "@/components/dashboard/quick-access";
-import { BookOpen, Scale, ArrowRight, ShieldCheck, Terminal, Calculator, Landmark } from "lucide-react";
+import { 
+    BookOpen, 
+    Scale, 
+    ArrowRight, 
+    ShieldCheck, 
+    Terminal, 
+    Calculator, 
+    Landmark,
+    Coins,
+    TrendingUp,
+    Zap
+} from "lucide-react";
 import { librosContablesNavItems } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+
+/**
+ * @fileOverview Centro de Contabilidad v2.6.5.
+ * Integra protocolos de Reajuste RIPF y Mercado de Eco-Créditos.
+ */
 
 export default function ContabilidadPage() {
   return (
@@ -30,6 +46,11 @@ export default function ContabilidadPage() {
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Automatización bajo VEN-NIF • Gestión RIPF Activa</p>
         </div>
         <div className="flex gap-2">
+            <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-secondary/30 bg-secondary/5 text-secondary">
+                <Link href="/mercado-ecocreditos">
+                    <Coins className="mr-2 h-4 w-4" /> MERCADO E-CR
+                </Link>
+            </Button>
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white">
                 Sincronizar BCV
             </Button>
