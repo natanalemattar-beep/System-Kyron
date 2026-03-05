@@ -20,6 +20,7 @@ import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { Logo } from "@/components/logo";
+import React from "react";
 
 /**
  * @fileOverview PORTAL SECTOR PRIVADO - EXPEDIENTE MAESTRO ZEDU 2025
@@ -378,4 +379,3 @@ export default function SectorPrivadoPage() {
         </div>
     );
 }
-import React from "react";
