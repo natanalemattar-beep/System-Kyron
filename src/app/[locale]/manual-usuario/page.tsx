@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -14,13 +15,11 @@ import {
     Cpu,
     Recycle,
     HeartHandshake,
-    Shield,
-    Home,
     Download,
     Activity,
-    ChevronRight,
+    Home,
     Sparkles,
-    Lock
+    Shield
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -41,7 +40,7 @@ const manualModules = [
             },
             {
                 sub: "Resguardo de Activos Civiles",
-                text: "La plataforma permite el almacenamiento seguro de Cédulas de Identidad, RIF y Pasaportes bajo cifrado AES-512."
+                text: "La plataforma permite el almacenamiento seguro de Cédulas de Identidad, RIF y Pasaportes bajo cifrado AES-512 de grado militar."
             }
         ]
     },
@@ -53,7 +52,11 @@ const manualModules = [
         content: [
             {
                 sub: "Aprovisionamiento de eSIM Digital",
-                text: "Activación inmediata de perfiles de red virtuales mediante código QR único tras la validación de identidad."
+                text: "Activación inmediata de perfiles de red virtuales mediante código QR único tras la validación de identidad en el nodo central."
+            },
+            {
+                sub: "Gestión de Flotas",
+                text: "Control centralizado de líneas corporativas con monitoreo de consumo de datos y roaming internacional."
             }
         ]
     },
@@ -65,7 +68,11 @@ const manualModules = [
         content: [
             {
                 sub: "Sincronización Fiscal Directa",
-                text: "Consulta sincrónica de bases de datos fiscales para extracción de Razón Social y Dirección en tiempo real."
+                text: "Consulta sincrónica de bases de datos fiscales para extracción de Razón Social y Dirección en tiempo real, agilizando el proceso de facturación rápida."
+            },
+            {
+                sub: "Kardex de Existencias",
+                text: "Control automatizado de stock con alertas de reposición crítica basadas en el flujo de ventas diario."
             }
         ]
     },
@@ -77,7 +84,11 @@ const manualModules = [
         content: [
             {
                 sub: "Declaraciones de IVA e ISLR",
-                text: "Generación automática de archivos TXT homologados para el portal del SENIAT con auditoría IA predictiva."
+                text: "Generación automática de archivos TXT homologados para el portal del SENIAT con auditoría IA predictiva para evitar sanciones."
+            },
+            {
+                sub: "Ajuste por Inflación (RIPF)",
+                text: "Cálculo técnico del reajuste fiscal según el INPC, garantizando la sinceración de la base imponible."
             }
         ]
     },
@@ -89,7 +100,11 @@ const manualModules = [
         content: [
             {
                 sub: "Análisis de Rentabilidad (VAN/TIR)",
-                text: "Cálculo de indicadores financieros para evaluar la viabilidad de proyectos y retorno de inversión."
+                text: "Cálculo de indicadores financieros para evaluar la viabilidad de proyectos y el retorno de inversión del capital operativo."
+            },
+            {
+                sub: "Billetera Multimoneda",
+                text: "Gestión de saldos en VES, USD y EUR con tasas de cambio actualizadas y registro inmutable de transacciones."
             }
         ]
     },
@@ -101,7 +116,11 @@ const manualModules = [
         content: [
             {
                 sub: "Cálculo de Nómina y Prestaciones",
-                text: "Automatización del pago quincenal, cálculo de horas extras y liquidaciones con firma electrónica."
+                text: "Automatización del pago quincenal, cálculo de horas extras y liquidaciones laborales con generación de recibos digitales."
+            },
+            {
+                sub: "Libros Laborales Oficiales",
+                text: "Mantenimiento automatizado del Libro de Vacaciones, Horas Extras y Horario Nocturno exigidos por el Ministerio del Trabajo."
             }
         ]
     },
@@ -113,7 +132,11 @@ const manualModules = [
         content: [
             {
                 sub: "Ciclo de Vida de Contratos",
-                text: "Redacción y seguimiento de contratos comerciales con alertas de vencimiento automatizadas."
+                text: "Redacción y seguimiento de contratos comerciales con alertas de vencimiento automatizadas y repositorio de firmas electrónicas."
+            },
+            {
+                sub: "Asesoría de Gaceta IA",
+                text: "Consultante legal entrenado en la Gaceta Oficial N° 6.952 para asesoría técnica inmediata sobre decretos vigentes."
             }
         ]
     },
@@ -125,7 +148,7 @@ const manualModules = [
         content: [
             {
                 sub: "Planimetría Generativa",
-                text: "La IA genera planos a escala a partir de imágenes para la planificación de infraestructura física."
+                text: "Uso de visión artificial para generar planos a escala a partir de capturas fotográficas, facilitando el cálculo de materiales de construcción."
             }
         ]
     },
@@ -133,11 +156,11 @@ const manualModules = [
         id: "sostenibilidad",
         title: "9. Sostenibilidad y Fundación Kyron",
         icon: Recycle,
-        description: "Operación de infraestructuras verdes y monetización de residuos.",
+        description: "Operación de infraestructuras verdes y monetización de residuos mediante activos digitales.",
         content: [
             {
                 sub: "Reciclaje Magnético IA",
-                text: "Identificación de materiales mediante inducción magnética y recompensa mediante eco-créditos."
+                text: "Identificación de materiales mediante inducción magnética síncrona en Smart Bins, transformando el reciclaje en eco-créditos canjeables."
             }
         ]
     },
@@ -145,23 +168,15 @@ const manualModules = [
         id: "personal",
         title: "10. Portal Ciudadano y LOPNNA",
         icon: HeartHandshake,
-        description: "Gestión de trámites familiares, salud y obligaciones civiles.",
+        description: "Gestión de trámites familiares, salud y obligaciones civiles del ciudadano.",
         content: [
             {
                 sub: "Documentación Civil Certificada",
-                text: "Solicitud y descarga de copias certificadas de Partidas de Nacimiento y Actas de Matrimonio."
-            }
-        ]
-    },
-    {
-        id: "privado",
-        title: "11. Sector Privado y Matriz ZEDU",
-        icon: Lock,
-        description: "Dossiers estratégicos, factibilidad económica y planes de acción institucional.",
-        content: [
+                text: "Gestión de Partidas de Nacimiento y Actas de Matrimonio digitalizadas con validez para trámites legales nacionales."
+            },
             {
-                sub: "Protocolo ZEDU Maestro",
-                text: "Metodología de ingeniería para el despliegue de nodos de desarrollo en comunidades específicas."
+                sub: "Manutención y RIF Menores",
+                text: "Calculadora de obligación de manutención según LOPNNA y guía para inscripción de cargas familiares ante el SENIAT."
             }
         ]
     }
@@ -189,11 +204,13 @@ export default function ManualUsuarioPage() {
 
     return (
         <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
+            {/* Background Effects */}
             <div className="fixed inset-0 pointer-events-none -z-10">
                 <div className="absolute top-0 right-0 w-full h-[1400px] bg-primary/5 rounded-full blur-[250px] opacity-40 animate-pulse" />
                 <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-secondary/5 rounded-full blur-[200px] opacity-30" />
             </div>
 
+            {/* Header Fijo */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-20 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-16 justify-between no-print">
                 <div className="flex items-center gap-6">
                     <Link href="/" className="hover:scale-105 transition-transform">
@@ -216,6 +233,7 @@ export default function ManualUsuarioPage() {
 
             <main className="container mx-auto px-6 max-w-7xl pt-32 pb-40 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-16">
+                    {/* Navegación Lateral */}
                     <aside className="lg:col-span-4 no-print">
                         <div className="sticky top-32 space-y-8">
                             <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
@@ -240,6 +258,7 @@ export default function ManualUsuarioPage() {
                         </div>
                     </aside>
 
+                    {/* Contenido Principal */}
                     <div className="lg:col-span-8 space-y-32">
                         <motion.section 
                             className="space-y-10"
@@ -247,11 +266,11 @@ export default function ManualUsuarioPage() {
                             animate={{ opacity: 1, x: 0 }}
                         >
                             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary">
-                                <ShieldCheck className="h-3.5 w-3.5" /> PROTOCOLO INSTITUCIONAL
+                                <ShieldCheck className="h-3.5 w-3.5" /> PROTOCOLO DE USUARIO
                             </div>
-                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de Usuario <br/> <span className="text-primary">System Kyron</span></h1>
+                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de Usuario <br/> <span className="text-primary text-4xl md:text-6xl">de System Kyron</span></h1>
                             <p className="text-lg text-white/40 max-w-2xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 leading-relaxed">
-                                Guía de operación absoluta para el ecosistema Kyron v2.6.5.
+                                Guía de operación para el ecosistema integral de gestión, telecomunicaciones y finanzas.
                             </p>
                         </motion.section>
 
