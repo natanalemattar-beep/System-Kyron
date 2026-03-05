@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Volume2, X, Bot, Send, Loader2, User } from "lucide-react";
+import { Mic, MicOff, Volume2, X, Bot, Send, Loader2, User, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chat } from "@/ai/flows/chat";
@@ -37,7 +37,8 @@ export function VoiceAssistant() {
         const query = textOverride || input;
         if (!query.trim() || isProcessing) return;
 
-        const newMessages: Message[] = [...messages, { role: 'user', text: query }];
+        const userMessage: Message = { role: 'user', text: query };
+        const newMessages: Message[] = [...messages, userMessage];
         setMessages(newMessages);
         setInput("");
         setIsProcessing(true);
@@ -45,11 +46,11 @@ export function VoiceAssistant() {
         try {
             const response = await chat({ 
                 message: query, 
-                context: "Asistente Kyron Voice activo en tiempo real" 
+                context: "Asistente Kyron Voice interactuando en el ecosistema" 
             });
             setMessages([...newMessages, { role: 'bot', text: response }]);
         } catch (error) {
-            setMessages([...newMessages, { role: 'bot', text: "Falla en el enlace con el nodo IA." }]);
+            setMessages([...newMessages, { role: 'bot', text: "Falla en el enlace con el nodo IA maestro." }]);
         } finally {
             setIsProcessing(false);
         }
@@ -60,10 +61,10 @@ export function VoiceAssistant() {
             setIsListening(false);
         } else {
             setIsListening(true);
-            // Simulación de captura de voz
+            // Simulación de captura de voz para demo
             setTimeout(() => {
                 setIsListening(false);
-                handleSendMessage("¿Cuáles son los requisitos para el RIF empresarial?");
+                if (!isProcessing) handleSendMessage("¿Cómo funciona el sellado Blockchain?");
             }, 3000);
         }
     };
@@ -76,7 +77,7 @@ export function VoiceAssistant() {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="mb-4 w-[350px] h-[500px] glass-card flex flex-col rounded-[2.5rem] border-primary/20 shadow-glow overflow-hidden bg-black/95"
+                        className="mb-4 w-[350px] h-[500px] glass-card flex flex-col rounded-[2.5rem] border-primary/20 shadow-glow overflow-hidden bg-black/95 backdrop-blur-3xl"
                     >
                         <header className="p-6 border-b border-white/5 bg-white/[0.02] flex items-center justify-between">
                             <div className="flex items-center gap-3">
@@ -84,8 +85,8 @@ export function VoiceAssistant() {
                                     <Bot className="h-4 w-4 text-primary" />
                                 </div>
                                 <div>
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Kyron Voice</span>
-                                    <p className="text-[7px] font-bold text-emerald-500 uppercase tracking-widest">IA Node Active</p>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Kyron Voice IA</span>
+                                    <p className="text-[7px] font-bold text-emerald-500 uppercase tracking-widest">Neural Node Active</p>
                                 </div>
                             </div>
                             <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-white/10" onClick={() => setIsOpen(false)}>
@@ -94,12 +95,14 @@ export function VoiceAssistant() {
                         </header>
 
                         <div className="flex-1 overflow-hidden p-4">
-                            <ScrollArea className="h-full pr-4" ref={scrollRef}>
+                            <div className="h-full overflow-y-auto pr-2 custom-scrollbar" ref={scrollRef}>
                                 <div className="space-y-4">
                                     {messages.length === 0 && (
-                                        <div className="py-10 text-center space-y-4 opacity-40">
-                                            <Sparkles className="h-8 w-8 mx-auto text-primary" />
-                                            <p className="text-[10px] font-black uppercase tracking-widest leading-relaxed">Inicie comunicación con el <br/> ecosistema maestro</p>
+                                        <div className="py-16 text-center space-y-6 opacity-40">
+                                            <Sparkles className="h-10 w-10 mx-auto text-primary animate-pulse" />
+                                            <p className="text-[10px] font-black uppercase tracking-[0.4em] leading-relaxed">
+                                                Enlace neuronal establecido. <br/> Inicie comunicación.
+                                            </p>
                                         </div>
                                     )}
                                     {messages.map((msg, i) => (
@@ -113,14 +116,14 @@ export function VoiceAssistant() {
                                             )}
                                         >
                                             <div className={cn(
-                                                "p-2 rounded-lg border",
+                                                "p-2 rounded-lg border shrink-0",
                                                 msg.role === 'user' ? "bg-primary/10 border-primary/20" : "bg-white/5 border-white/10"
                                             )}>
                                                 {msg.role === 'user' ? <User className="h-3 w-3 text-primary" /> : <Bot className="h-3 w-3 text-emerald-500" />}
                                             </div>
                                             <div className={cn(
                                                 "max-w-[80%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed",
-                                                msg.role === 'user' ? "bg-primary text-white" : "bg-secondary/10 text-white/80"
+                                                msg.role === 'user' ? "bg-primary text-white" : "bg-white/5 text-white/80"
                                             )}>
                                                 {msg.text}
                                             </div>
@@ -131,11 +134,11 @@ export function VoiceAssistant() {
                                             <div className="p-2 rounded-lg bg-white/5 border border-white/10">
                                                 <Loader2 className="h-3 w-3 text-primary animate-spin" />
                                             </div>
-                                            <p className="text-[9px] font-black text-primary uppercase tracking-widest animate-pulse">Inferencia en curso...</p>
+                                            <p className="text-[9px] font-black text-primary uppercase tracking-widest animate-pulse italic">Procesando Inferencia...</p>
                                         </div>
                                     )}
                                 </div>
-                            </ScrollArea>
+                            </div>
                         </div>
 
                         <footer className="p-6 bg-white/[0.02] border-t border-white/5">
@@ -144,7 +147,7 @@ export function VoiceAssistant() {
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     placeholder="Escriba comando..." 
-                                    className="h-10 rounded-xl bg-black border-white/10 text-[11px] font-bold focus-visible:ring-primary"
+                                    className="h-10 rounded-xl bg-black border-white/10 text-[11px] font-bold focus-visible:ring-primary shadow-inner"
                                     disabled={isProcessing}
                                 />
                                 <Button 
@@ -174,7 +177,7 @@ export function VoiceAssistant() {
                     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                         <Button 
                             size="icon" 
-                            className="h-16 w-16 rounded-full shadow-glow btn-3d-primary relative group"
+                            className="h-16 w-16 rounded-full shadow-glow btn-3d-primary relative group border-2 border-white/10"
                             onClick={() => setIsOpen(true)}
                         >
                             <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />

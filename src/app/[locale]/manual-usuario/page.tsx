@@ -35,7 +35,8 @@ import {
     Coins,
     Wand2,
     Printer,
-    LayoutGrid
+    LayoutGrid,
+    BookOpen
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -185,17 +186,17 @@ export default function ManualMaestroPage() {
             modulesHtml += `
                 <div style="margin-bottom: 40pt; border-bottom: 1px solid #eee; padding-bottom: 20pt; page-break-inside: avoid;">
                     <h2 style="color: #0ea5e9; font-size: 18pt; text-transform: uppercase; font-style: italic; font-weight: 900; margin-bottom: 15pt;">${mod.title}</h2>
-                    <p style="font-size: 9pt; font-weight: bold; color: #0ea5e9; text-transform: uppercase; letter-spacing: 2pt; margin-bottom: 5pt;">[ CONCEPTO ]</p>
+                    <p style="font-size: 9pt; font-weight: bold; color: #0ea5e9; text-transform: uppercase; letter-spacing: 2pt; margin-bottom: 5pt;">[ CONCEPTO MAESTRO ]</p>
                     <p style="text-align: justify; font-size: 11pt; line-height: 1.6; color: #334155;">${mod.concept}</p>
                     
                     <div style="background-color: #f8fafc; padding: 15pt; border-left: 5pt solid #22c55e; margin: 15pt 0; border-radius: 10pt;">
-                        <p style="font-size: 9pt; font-weight: bold; color: #15803d; text-transform: uppercase; letter-spacing: 2pt; margin-bottom: 8pt;">[ PROTOCOLO ]</p>
+                        <p style="font-size: 9pt; font-weight: bold; color: #15803d; text-transform: uppercase; letter-spacing: 2pt; margin-bottom: 8pt;">[ PROTOCOLO DE EJECUCIÓN ]</p>
                         <div style="font-size: 10.5pt; color: #475569;">
                             ${mod.procedure.split('. ').map(s => `<p style="margin-bottom: 4pt;">• ${s}</p>`).join('')}
                         </div>
                     </div>
 
-                    <p style="font-size: 8pt; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 1pt; margin-top: 15pt;">[ ARQUITECTURA ]: ${mod.technical}</p>
+                    <p style="font-size: 8pt; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 1pt; margin-top: 15pt;">[ ARQUITECTURA TÉCNICA ]: ${mod.technical}</p>
                 </div>
             `;
         });
@@ -203,38 +204,40 @@ export default function ManualMaestroPage() {
         const content = `
             <div style="font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a;">
                 
-                <!-- PORTADA REMAKE (REPLICA IMAGEN) -->
+                <!-- PORTADA MAESTRA (RÉPLICA EXACTA IMAGEN) -->
                 <div style="text-align: center; margin-bottom: 60pt;">
-                    <!-- Bloque Logo Superior -->
-                    <div style="background-color: #000; width: 120pt; height: 120pt; margin: 0 auto 30pt; border-radius: 30pt; display: table;">
-                        <div style="display: table-cell; vertical-align: middle; text-align: center;">
-                            <img src="data:image/svg+xml;base64,${logoSvgBase64}" width="100" height="100" />
+                    <!-- Banner Negro de Logo -->
+                    <div style="background-color: #000; width: 100%; padding: 40pt 0; border-radius: 30pt 30pt 0 0; margin-bottom: 2pt;">
+                        <div style="text-align: center;">
+                            <img src="data:image/svg+xml;base64,${logoSvgBase64}" width="120" height="120" />
                         </div>
                     </div>
 
-                    <!-- Bloque Marca Maestro -->
-                    <div style="background-color: #000; padding: 60pt 20pt; border-radius: 40pt; border: 4pt solid #0ea5e9;">
+                    <!-- Bloque de Marca Maestro -->
+                    <div style="background-color: #000; padding: 60pt 20pt; border-radius: 0 0 40pt 40pt; border-bottom: 10pt solid #0ea5e9;">
                         <h1 style="color: #ffffff; font-size: 64pt; font-style: italic; font-weight: 900; margin: 0; line-height: 1; text-transform: uppercase; letter-spacing: -4pt;">SYSTEM KYRON</h1>
                         <p style="color: #0ea5e9; font-size: 22pt; font-weight: bold; text-transform: uppercase; letter-spacing: 8pt; margin: 20pt 0 10pt;">ENCICLOPEDIA TÉCNICA DE OPERACIONES</p>
-                        <p style="color: #94a3b8; font-size: 12pt; font-weight: bold; text-transform: uppercase; letter-spacing: 4pt;">PROTOCOLO MAESTRO v2.6.5 • 2026</p>
+                        <p style="color: #94a3b8; font-size: 12pt; font-weight: bold; text-transform: uppercase; letter-spacing: 4pt;">VERSIÓN 2.6.5 • PROTOCOLO MAESTRO 2026</p>
                     </div>
 
                     <div style="margin-top: 50pt;">
-                        <p style="font-size: 12pt; font-weight: 900; text-transform: uppercase; letter-spacing: 6pt; color: #22c55e; border: 2pt solid #22c55e; display: inline-block; padding: 10pt 30pt; border-radius: 15pt;">[ ACCESO PÚBLICO UNIVERSAL ]</p>
-                        <p style="font-size: 10pt; color: #64748b; margin-top: 20pt; font-weight: bold;">Última revisión: Marzo 2026 • Nodo Validado</p>
+                        <div style="border: 3pt solid #22c55e; padding: 15pt 40pt; border-radius: 20pt; display: inline-block;">
+                            <p style="font-size: 14pt; font-weight: 900; text-transform: uppercase; letter-spacing: 6pt; color: #22c55e; margin: 0;">[ ACCESO PÚBLICO UNIVERSAL ]</p>
+                        </div>
+                        <p style="font-size: 10pt; color: #64748b; margin-top: 25pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2pt;">Última revisión: Marzo 2026 • Nodo Maestro Validado</p>
                     </div>
                 </div>
 
                 <div style="page-break-before: always;"></div>
 
-                <!-- ÍNDICE INTERACTIVO -->
+                <!-- ÍNDICE DE NODOS -->
                 <div style="padding: 40pt; border: 2px solid #0ea5e9; border-radius: 30pt; background-color: #f8fafc; margin-bottom: 50pt;">
                     <h2 style="color: #0ea5e9; font-size: 24pt; border-bottom: 4pt solid #0ea5e9; padding-bottom: 15pt; margin-bottom: 30pt; text-transform: uppercase; font-style: italic; font-weight: 900; text-decoration: underline;">ÍNDICE DE NODOS OPERATIVOS</h2>
                     <div style="font-size: 12pt; line-height: 2.2; color: #1e293b;">
                         ${manualModules.map((m, i) => `
                             <div style="display: table; width: 100%; border-bottom: 1px dotted #cbd5e1;">
-                                <div style="display: table-cell; text-align: left; font-weight: bold;">${String(i + 1).padStart(2, '0')}. ${m.title.toUpperCase()}</div>
-                                <div style="display: table-cell; text-align: right; color: #0ea5e9;">...................................</div>
+                                <div style="display: table-cell; text-align: left; font-weight: bold; padding: 5pt 0;">${String(i + 1).padStart(2, '0')}. ${m.title.toUpperCase()}</div>
+                                <div style="display: table-cell; text-align: right; color: #0ea5e9; vertical-align: bottom;">PÁG. ${i + 3}</div>
                             </div>
                         `).join('')}
                     </div>
@@ -242,10 +245,10 @@ export default function ManualMaestroPage() {
 
                 <div style="page-break-before: always;"></div>
 
-                <!-- CONTENIDO TÉCNICO -->
+                <!-- CONTENIDO TÉCNICO COMPACTO -->
                 ${modulesHtml}
 
-                <!-- PIE DE PÁGINA -->
+                <!-- PIE DE PÁGINA INSTITUCIONAL -->
                 <div style="margin-top: 100pt; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 30pt;">
                     <p style="font-size: 9pt; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 3pt;">SYSTEM KYRON v2.6.5 • NODO DE CONOCIMIENTO MAESTRO • © 2026</p>
                 </div>
@@ -260,13 +263,13 @@ export default function ManualMaestroPage() {
         link.click();
         document.body.removeChild(link);
 
-        toast({ title: "EXPEDIENTE DESCARGADO", description: "El Manual de Usuario v2.6.5 ha sido generado con éxito." });
+        toast({ title: "EXPEDIENTE DESCARGADO", description: "El Manual de Usuario v2.6.5 ha sido generado con éxito bajo protocolo corporativo." });
     };
 
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-[#020202] text-white selection:bg-primary/20">
+        <div className="min-h-screen bg-[#020202] text-white selection:bg-primary/20 hud-grid">
             {/* HUD HEADER */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-20 bg-black/80 backdrop-blur-xl border-b border-white/5 flex items-center px-6 md:px-12 justify-between">
                 <div className="flex items-center gap-6">
@@ -279,7 +282,7 @@ export default function ManualMaestroPage() {
                     </div>
                 </div>
                 <div className="flex gap-4">
-                    <Button variant="ghost" asChild className="h-10 px-6 rounded-xl text-[10px] font-black uppercase border border-white/5 hover:bg-white/5">
+                    <Button variant="ghost" asChild className="h-10 px-6 rounded-xl text-[10px] font-black uppercase border border-white/5 hover:bg-white/5 transition-all">
                         <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> Volver</Link>
                     </Button>
                     <Button className="btn-3d-primary h-10 px-8 rounded-xl text-[10px] font-black uppercase" onClick={handleDownloadDoc}>
@@ -299,7 +302,7 @@ export default function ManualMaestroPage() {
                                     <div className="p-4 bg-black rounded-2xl border border-primary/20 w-fit mx-auto mb-4 shadow-glow">
                                         <Logo className="h-12 w-12" />
                                     </div>
-                                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Directorio de Nodos</CardTitle>
+                                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic">Directorio de Nodos</CardTitle>
                                 </CardHeader>
                                 <CardContent className="p-0 space-y-1 max-h-[60vh] overflow-y-auto custom-scrollbar pr-4">
                                     {manualModules.map(mod => (
@@ -320,14 +323,14 @@ export default function ManualMaestroPage() {
                     {/* DENSE CONTENT */}
                     <div className="lg:col-span-8 space-y-24">
                         <section className="space-y-8">
-                            <div className="bg-primary/5 border border-primary/20 p-12 rounded-[3rem] text-center space-y-8 relative overflow-hidden">
+                            <div className="bg-primary/5 border border-primary/20 p-12 rounded-[3rem] text-center space-y-8 relative overflow-hidden shadow-2xl">
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
-                                <h1 className="text-5xl font-black tracking-tighter uppercase italic text-white italic-shadow">Manual de Usuario</h1>
+                                <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow">Manual Maestro</h1>
                                 <p className="text-lg font-medium text-white/60 italic leading-relaxed max-w-2xl mx-auto">
                                     Enciclopedia Técnica de Operaciones v2.6.5. El estándar definitivo para la gestión institucional y corporativa bajo protocolos de misión crítica.
                                 </p>
                                 <div className="flex justify-center gap-4 pt-4">
-                                    <Badge variant="outline" className="px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border-primary/20 text-primary bg-primary/10">Revisión: Marzo 2026</Badge>
+                                    <Badge variant="outline" className="px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border-primary/20 text-primary bg-primary/10 shadow-glow-sm">Revisión: Marzo 2026</Badge>
                                     <Badge variant="outline" className="px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border-emerald-500/20 text-emerald-400 bg-emerald-500/10">Acceso Público</Badge>
                                 </div>
                             </div>
@@ -335,7 +338,7 @@ export default function ManualMaestroPage() {
 
                         <div className="space-y-32">
                             {manualModules.map(mod => (
-                                <section id={mod.id} key={mod.id} className="scroll-mt-32 group">
+                                <section id={mod.id} key={mod.id} className="scroll-mt-32 group animate-in fade-in duration-1000">
                                     <div className="space-y-8">
                                         <div className="flex items-center gap-6">
                                             <div className={cn("p-4 rounded-2xl bg-white/5 border border-white/10 transition-transform group-hover:rotate-3 shadow-glow-sm", mod.color)}>
@@ -345,11 +348,11 @@ export default function ManualMaestroPage() {
                                         </div>
                                         <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-10 space-y-10">
                                             <div className="space-y-4">
-                                                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Fundamento Conceptual</h4>
+                                                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Concepto Maestro</h4>
                                                 <p className="text-xl font-bold italic text-white/70 leading-relaxed text-justify">{mod.concept}</p>
                                             </div>
                                             <div className="p-8 rounded-3xl bg-black border border-white/5 shadow-inner">
-                                                <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-6">Protocolo de Operación</h4>
+                                                <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-6">Protocolo Operativo</h4>
                                                 <div className="text-sm font-medium italic text-white/60 space-y-4">
                                                     {mod.procedure.split('. ').map((step, idx) => (
                                                         <div key={idx} className="flex gap-6 items-start">
@@ -373,7 +376,7 @@ export default function ManualMaestroPage() {
                             <div className="p-6 bg-black rounded-[2rem] border border-white/5 w-fit mx-auto shadow-glow">
                                 <Logo className="h-16 w-16 opacity-80" />
                             </div>
-                            <p className="text-[10px] font-black uppercase tracking-[1em] text-white/10 italic">SYSTEM KYRON CORPORATE INTELLIGENCE • 2026</p>
+                            <p className="text-[10px] font-black uppercase tracking-[1em] text-white/10 italic leading-none">SYSTEM KYRON CORPORATE INTELLIGENCE • 2026</p>
                         </footer>
                     </div>
                 </div>
