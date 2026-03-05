@@ -1,9 +1,12 @@
 
 /**
- * @fileOverview NODO PURGADO
- * Este archivo ha sido desactivado para resolver el conflicto de rutas paralelas (Next.js Parallel Pages).
- * La documentación maestra ha sido consolidada en: src/app/[locale]/manual-usuario/page.tsx
+ * @fileOverview NODO PURGADO - REDIRECCIÓN DE SEGURIDAD
+ * Este punto de entrada ha sido desactivado para resolver el conflicto de rutas paralelas.
+ * La documentación oficial reside ahora en la ruta raíz: /manual-usuario
  */
-export default function PurgueNode() {
-  return null;
+import { redirect } from "@/navigation";
+
+export default function ManualUsuarioRedirect() {
+    redirect("/manual-usuario");
+    return null;
 }

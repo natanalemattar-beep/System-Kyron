@@ -17,7 +17,6 @@ import {
     BrainCircuit,
     Download,
     FileText,
-    Search,
     ChevronRight,
     Terminal,
     ShieldCheck,
@@ -27,23 +26,17 @@ import {
     CheckCircle2,
     Lock,
     Zap,
-    Scale,
-    Shield,
-    Smartphone,
-    Globe,
-    Info,
     ArrowDown,
-    ExternalLink
+    Shield
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
 /**
- * @fileOverview MANUAL DE USUARIO INSTITUCIONAL - ECOSISTEMA KYRON v2.6.5
+ * @fileOverview MANUAL DE USUARIO - INSTITUCIONAL v2.6.5
  * Documentación técnica de grado ministerial diseñada para el cumplimiento de misión crítica.
- * Este documento es de acceso público y permite la descarga en formatos oficiales.
  */
 
 const manualModules = [
@@ -55,15 +48,11 @@ const manualModules = [
         content: [
             {
                 sub: "Protocolo de Validación Biométrica 3D",
-                text: "El sistema emplea tecnología de reconocimiento facial avanzada para vincular la identidad física del usuario con un hash criptográfico inmutable. Este proceso garantiza que cada trámite posea una firma digital de alta fidelidad. El usuario debe posicionarse frente a la cámara, asegurar una iluminación uniforme y realizar el escaneo tridimensional para el sellado de su identidad en el Ledger distribuido."
+                text: "Usted deberá realizar el escaneo facial tridimensional para vincular su identidad física con un hash criptográfico inmutable. Este proceso garantiza que cada trámite posea una firma digital de alta fidelidad. Asegure una iluminación uniforme y realice un giro lento de la cabeza para el sellado de su identidad en el Ledger distribuido."
             },
             {
-                sub: "Gestión de Documentos Civiles",
-                text: "La Institución permite la solicitud y resguardo de copias certificadas de Partidas de Nacimiento, Actas de Matrimonio y Defunción. La carga de datos requiere precisión absoluta en los campos de Tomo, Folio y Acta. Una vez verificado por el registrador ministerial, el documento se emite con un sello QR institucional verificable 24/7, eliminando la burocracia física."
-            },
-            {
-                sub: "Cifrado de Datos de Grado Militar",
-                text: "Toda la información personal y civil reside en una base de datos cifrada bajo el estándar internacional AES-512. El acceso a documentos sensibles está protegido por un protocolo de autenticación multifactor (MFA), asegurando que solo el titular o el representante legal facultado pueda consultar la información institucional."
+                sub: "Bóveda de Documentos Institucionales",
+                text: "La Institución permite el resguardo de copias certificadas de Partidas de Nacimiento y Actas de Matrimonio. La carga de datos requiere precisión absoluta en los campos de Tomo, Folio y Acta. Una vez verificado, el documento se emite con un sello QR institucional verificable 24/7."
             }
         ]
     },
@@ -71,39 +60,31 @@ const manualModules = [
         id: "telecom",
         title: "2. Infraestructura Telecom 5G y eSIM",
         icon: Radio,
-        description: "Administración de redes móviles, activación de líneas y servicios de conectividad global.",
+        description: "Administración de redes móviles y servicios de conectividad global.",
         content: [
             {
-                sub: "Aprovisionamiento Instantáneo de eSIM",
-                text: "Mediante el nodo de telecomunicaciones, el sistema permite la descarga de perfiles de red virtuales. Tras la validación biométrica, se genera un código QR único que configura automáticamente los parámetros de red 5G en el dispositivo. Este protocolo asegura una latencia mínima y una encriptación de extremo a extremo en todas las transmisiones de voz y datos."
-            },
-            {
-                sub: "Control de Flotas Corporativas",
-                text: "El administrador del sistema puede supervisar en tiempo real el consumo de recursos de cada terminal vinculado. El panel de telemetría permite la asignación dinámica de cuotas de ancho de banda y la monitorización de la ubicación de los nodos móviles, garantizando la continuidad operativa en despliegues de campo."
+                sub: "Aprovisionamiento de eSIM Digital",
+                text: "El sistema permite la descarga inmediata de perfiles de red virtuales. Tras la validación, se genera un código QR único que configura automáticamente los parámetros de red 5G en el dispositivo del usuario, asegurando latencia mínima y cifrado de extremo a extremo."
             },
             {
                 sub: "Monitoreo Regulatorio CONATEL",
-                text: "Sincronización continua con el marco regulatorio. La plataforma emite alertas críticas sesenta (60) días antes del vencimiento de concesiones de espectro o habilitaciones postales, facilitando la renovación electrónica inmediata y evitando penalizaciones administrativas por mora."
+                text: "La plataforma emite alertas críticas sesenta (60) días antes del vencimiento de concesiones, facilitando la renovación electrónica inmediata y evitando penalizaciones administrativas por mora."
             }
         ]
     },
     {
-        id: "ventas",
+        id: "tpv",
         title: "3. Terminal de Punto de Venta (TPV) IA",
         icon: TabletSmartphone,
         description: "Procesamiento de transacciones comerciales con integración fiscal automatizada.",
         content: [
             {
-                sub: "Validación Fiscal por RIF",
-                text: "El operador del TPV solo requiere el ingreso del número de RIF o Cédula. El sistema sincroniza instantáneamente la Razón Social y Dirección Fiscal desde el nodo maestro, garantizando el cumplimiento estricto de la Providencia SNAT/2011/0071. Este protocolo elimina errores de transcripción y asegura la integridad de la base imponible."
+                sub: "Sincronización Fiscal por RIF",
+                text: "Al ingresar el número de RIF del cliente, el sistema sincroniza instantáneamente la Razón Social y Dirección Fiscal, garantizando el cumplimiento estricto de la Providencia SNAT/2011/0071 y eliminando errores de transcripción."
             },
             {
-                sub: "Arqueo de Caja Multimoneda",
-                text: "Al cierre de la jornada, el sistema ejecuta un protocolo de arqueo que cruza los ingresos registrados (Bs, USD, EUR, Pago Móvil) con el conteo físico del operador. Cualquier discrepancia es registrada en el Libro de Sobrantes y Faltantes para su auditoría inmediata por el departamento de cumplimiento."
-            },
-            {
-                sub: "Inteligencia de Inventario Sincronizada",
-                text: "Cada venta confirmada actualiza el inventario global del holding en milisegundos. El motor de IA genera alertas de reabastecimiento crítico y detecta productos de baja rotación, sugiriendo ajustes estratégicos para optimizar el flujo de caja."
+                sub: "Protocolo de Arqueo y Cierre",
+                text: "Al finalizar la jornada, se debe ejecutar el protocolo de arqueo que cruza los ingresos registrados con el conteo físico. Cualquier discrepancia es registrada automáticamente en el Libro de Sobrantes y Faltantes para su auditoría."
             }
         ]
     },
@@ -115,91 +96,83 @@ const manualModules = [
         content: [
             {
                 sub: "Emisión de Documentos Fiscales",
-                text: "Generación automatizada de facturas, notas de débito y notas de crédito. Todos los documentos mantienen una correlatividad inalterable y cumplen con los requisitos de ley, incluyendo número de control y firma digital del emisor."
+                text: "Generación automatizada de facturas, notas de débito y crédito con correlatividad inalterable. El sistema asegura que cada documento cumpla con los requisitos de ley, incluyendo número de control y firma digital."
             },
             {
-                sub: "Gestión de Financiamiento Cashea/Krece",
-                text: "Integración con plataformas BNPL (Buy Now, Pay Later). El sistema valida el nivel de crédito del usuario, procesa el pago inicial y programa las cuotas restantes en el calendario de cobranza, enviando recordatorios automáticos al terminal del cliente para asegurar el retorno de inversión."
+                sub: "Integración de Financiamiento (Cashea/Krece)",
+                text: "El sistema valida el nivel de crédito del usuario, procesa el pago inicial y programa las cuotas restantes en el calendario de cobranza institucional."
             }
         ]
     },
     {
-        id: "contabilidad",
+        id: "fiscal",
         title: "5. Blindaje Fiscal SENIAT y Libros",
         icon: Calculator,
-        description: "Automatización total de la carga impositiva y mantenimiento de registros oficiales.",
+        description: "Automatización total de la carga impositiva y registros oficiales.",
         content: [
             {
                 sub: "Libros de Compra y Venta Digitales",
-                text: "Mantenimiento diario de registros fiscales. El sistema genera automáticamente los archivos planos (.txt) requeridos para la carga masiva en el portal del SENIAT, garantizando una precisión matemática del 100% en el cálculo de débitos y créditos."
+                text: "Mantenimiento diario de registros fiscales. El sistema genera los archivos planos (.txt) requeridos para la carga masiva en el portal del SENIAT, garantizando precisión matemática en el cálculo de débitos y créditos."
             },
             {
                 sub: "Auditoría Predictiva de Riesgo 0%",
-                text: "El motor de cumplimiento analiza cada asiento contable contra la Gaceta Oficial vigente. Esta tecnología detecta anomalías fiscales antes de la declaración definitiva, permitiendo correcciones proactivas que eliminan el riesgo de multas o sanciones."
-            }
-        ]
-    },
-    {
-        id: "bi",
-        title: "6. Inteligencia de Negocio y Estrategia",
-        icon: BrainCircuit,
-        description: "Análisis predictivo y visualización de datos para la alta dirección.",
-        content: [
-            {
-                sub: "Cuadro de Mando Ejecutivo (HUD)",
-                text: "Visualización de métricas de misión crítica: Liquidez neta, ROI por proyecto y Punto de Equilibrio. La interfaz presenta datos vectoriales que permiten a los socios identificar desviaciones operativas y tomar decisiones basadas en evidencia en tiempo real."
-            },
-            {
-                sub: "Simulador de Escenarios Económicos",
-                text: "Módulo de IA que proyecta el impacto de cambios en precios, costos de materia prima o fluctuaciones cambiarias. El simulador permite evaluar la factibilidad económica de nuevas líneas de negocio antes del despliegue de capital."
+                text: "El motor de cumplimiento analiza cada asiento contable contra la Gaceta Oficial vigente, permitiendo correcciones proactivas que eliminan el riesgo de multas."
             }
         ]
     },
     {
         id: "rrhh",
-        title: "7. Gestión de Personal y Nómina (LOTTT)",
+        title: "6. Gestión de Personal y Nómina (LOTTT)",
         icon: Users,
         description: "Administración integral de la relación laboral y cumplimiento social.",
         content: [
             {
                 sub: "Cómputo de Nómina y Parafiscales",
-                text: "Cálculo automatizado de salarios, utilidades y bono vacacional. El sistema gestiona las retenciones de IVSS, FAOV e INCES, emitiendo recibos de pago digitales con validez legal que son transmitidos al trabajador para su firma electrónica."
+                text: "Cálculo automatizado de salarios y retenciones de IVSS, FAOV e INCES. El sistema emite recibos de pago digitales con validez legal transmitidos al trabajador mediante protocolo seguro."
             },
             {
                 sub: "Liquidación y Finiquitos Técnicos",
-                text: "Procesamiento de prestaciones sociales conforme al Artículo 142 de la LOTTT. En caso de terminación laboral, el sistema genera el cálculo de antigüedad y conceptos fraccionados, emitiendo el documento de finiquito listo para archivo ministerial."
+                text: "Procesamiento de prestaciones sociales conforme al Artículo 142 de la LOTTT, emitiendo el documento de finiquito listo para archivo ministerial."
             }
         ]
     },
     {
         id: "legal",
-        title: "8. Escritorio Jurídico y Contratos",
+        title: "7. Escritorio Jurídico y Contratos",
         icon: Gavel,
-        description: "Centralización de minutas, poderes y cumplimiento normativo corporativo.",
+        description: "Centralización de minutas, poderes y cumplimiento corporativo.",
         content: [
             {
                 sub: "Archivo Digital de Contratos",
-                text: "Repositorio central de documentos legales con control de versiones. El sistema rastrea fechas de vencimiento y cláusulas de renovación, alertando al departamento legal sobre la necesidad de actualización de acuerdos estratégicos."
+                text: "Repositorio central con control de versiones. El sistema rastrea vencimientos y cláusulas de renovación, alertando sobre la necesidad de actualización de acuerdos estratégicos."
             },
             {
                 sub: "Control de Poderes y Socios",
-                text: "Seguimiento de facultades de representación y actas de asamblea. El módulo garantiza que la Institución mantenga su personalidad jurídica vigente y sus apoderados estén debidamente facultados ante registros y notarías."
+                text: "Seguimiento de facultades de representación, asegurando que la Institución mantenga su personalidad jurídica y apoderados debidamente facultados."
             }
         ]
     },
     {
-        id: "reciclaje",
+        id: "bi",
+        title: "8. Inteligencia de Negocio y Estrategia",
+        icon: BrainCircuit,
+        description: "Análisis predictivo y visualización de datos para la dirección.",
+        content: [
+            {
+                sub: "Cuadro de Mando Ejecutivo (HUD)",
+                text: "Visualización de métricas de misión crítica: Liquidez neta, ROI y Punto de Equilibrio. La interfaz presenta datos vectoriales para identificar desviaciones operativas."
+            }
+        ]
+    },
+    {
+        id: "sostenibilidad",
         title: "9. Sostenibilidad y Reciclaje Magnético",
         icon: Recycle,
-        description: "Operación de infraestructuras verdes y activos digitales ambientales.",
+        description: "Operación de infraestructuras verdes y activos digitales.",
         content: [
             {
                 sub: "Smart Bins con Tecnología de Inducción",
-                text: "Las estaciones de reciclaje emplean sensores de magnetismo síncrono para clasificar materiales metálicos y plásticos. El sistema valida la inyección del residuo y transfiere automáticamente los Eco-Créditos a la billetera del ciudadano."
-            },
-            {
-                sub: "Certificación de Huella de Carbono",
-                text: "Cada kilogramo reciclado es sellado en Blockchain, permitiendo a la empresa generar reportes de sostenibilidad auditables. Estos activos verdes pueden ser utilizados para incentivos fiscales o cumplimiento de responsabilidad social."
+                text: "Las estaciones emplean sensores magnéticos para clasificar materiales. El sistema valida la inyección del residuo y transfiere Eco-Créditos a la billetera ciudadana."
             }
         ]
     },
@@ -207,15 +180,11 @@ const manualModules = [
         id: "ingenieria",
         title: "10. Planificación de Ingeniería e IA",
         icon: Cpu,
-        description: "Diseño técnico, presupuestos de obra y soluciones IA aplicadas.",
+        description: "Diseño técnico, presupuestos de obra y soluciones IA.",
         content: [
             {
                 sub: "Generación de Planos por Visión Artificial",
-                text: "Utilizando levantamientos fotográficos, la IA genera planos arquitectónicos y de infraestructura con precisión técnica. Esta herramienta optimiza los tiempos de diseño y reduce costos en la fase de planificación de proyectos civiles."
-            },
-            {
-                sub: "Presupuestos CapEx Estructurados",
-                text: "Cálculo detallado de inversión vinculando requerimientos técnicos con costos de mercado. El sistema emite dictámenes de factibilidad económica listos para su presentación ante entes de financiamiento o juntas directivas."
+                text: "Utilizando levantamientos fotográficos, la IA genera planos arquitectónicos con precisión técnica, optimizando los tiempos de diseño."
             }
         ]
     }
@@ -229,57 +198,19 @@ export default function ManualUsuarioPage() {
         setMounted(true);
     }, []);
 
-    const handleDownload = (format: 'pdf' | 'word') => {
+    const handleDownload = (format: 'pdf' | 'doc') => {
         toast({
             title: `PROTOCOLO DE EXPORTACIÓN ${format.toUpperCase()} ACTIVADO`,
             description: "Procesando expediente técnico oficial para descarga.",
             action: <CheckCircle2 className="text-primary h-4 w-4" />
         });
+        window.print();
+    };
 
-        if (format === 'pdf') {
-            window.print();
-        } else {
-            const header = `
-                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                <head>
-                    <meta charset='utf-8'>
-                    <style>
-                        body { font-family: 'Arial', sans-serif; line-height: 1.6; padding: 40px; color: #000; }
-                        h1 { text-align: center; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px; font-size: 24pt; }
-                        h2 { color: #000; border-bottom: 1px solid #333; margin-top: 40px; text-transform: uppercase; font-size: 18pt; }
-                        h3 { color: #444; margin-top: 25px; text-decoration: underline; font-size: 14pt; }
-                        p { text-align: justify; margin-bottom: 15px; font-size: 11pt; }
-                        .footer { font-size: 9pt; text-align: center; color: #666; margin-top: 60px; border-top: 1px solid #ddd; padding-top: 10px; }
-                    </style>
-                </head>
-                <body>
-                    <h1>MANUAL DE USUARIO OFICIAL</h1>
-                    <p style="text-align: center; font-weight: bold; font-size: 14pt;">Ecosistema de Gestión de Misión Crítica Kyron v2.6.5</p>
-                    <p style="text-align: center; font-style: italic;">Expediente Técnico para Uso Ministerial y Administrativo</p>
-            `;
-            
-            let body = "";
-            manualModules.forEach(mod => {
-                body += `<h2>${mod.title}</h2><p><strong>Descripción:</strong> ${mod.description}</p>`;
-                mod.content.forEach(c => {
-                    body += `<h3>${c.sub}</h3><p>${c.text}</p>`;
-                });
-            });
-
-            const footer = `
-                    <div class="footer">
-                        © ${new Date().getFullYear()} System Kyron, C.A. • RIF J-12345678-9 • Caracas, Venezuela.
-                    </div>
-                </body></html>
-            `;
-
-            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(header + body + footer);
-            const fileDownload = document.createElement("a");
-            document.body.appendChild(fileDownload);
-            fileDownload.href = source;
-            fileDownload.download = `Manual_Usuario_Kyron_Oficial.doc`;
-            fileDownload.click();
-            document.body.removeChild(fileDownload);
+    const scrollToSection = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     };
 
@@ -287,7 +218,6 @@ export default function ManualUsuarioPage() {
 
     return (
         <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
-            {/* ESTILOS PARA OCULTAR BARRA SUPERIOR GLOBAL */}
             <style jsx global>{`
                 header.fixed.top-0, 
                 footer.border-t,
@@ -305,137 +235,125 @@ export default function ManualUsuarioPage() {
                 }
             `}</style>
 
-            {/* HEADER LOCAL DEL MANUAL */}
-            <header className="fixed top-0 left-0 right-0 z-[150] h-24 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-16 justify-between no-print">
+            <header className="fixed top-0 left-0 right-0 z-[150] h-20 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-16 justify-between no-print shadow-2xl">
                 <div className="flex items-center gap-6">
-                    <Logo className="h-12 w-12 shadow-glow" />
+                    <Logo className="h-10 w-10 shadow-glow" />
                     <div className="flex flex-col">
-                        <span className="text-sm font-black tracking-[0.6em] uppercase italic">SYSTEM KYRON</span>
-                        <span className="text-[10px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Expediente Técnico de Usuario</span>
+                        <span className="text-xs font-black tracking-[0.6em] uppercase italic">SYSTEM KYRON</span>
+                        <span className="text-[9px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Manual de Usuario Oficial</span>
                     </div>
                 </div>
-                <div className="flex items-center gap-4">
-                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase border-white/10 hover:bg-white/5" onClick={() => handleDownload('word')}>
-                        <FileText className="mr-2 h-4 w-4" /> EXPORTAR .DOC
+                <div className="flex items-center gap-3">
+                    <Button variant="outline" className="h-10 px-5 rounded-xl text-[9px] font-black uppercase border-white/10 hover:bg-white/5" onClick={() => handleDownload('doc')}>
+                        <FileText className="mr-2 h-3.5 w-3.5" /> EXPORTAR .DOC
                     </Button>
-                    <Button className="btn-3d-primary h-12 px-10 rounded-xl text-[10px] font-black uppercase shadow-glow" onClick={() => handleDownload('pdf')}>
-                        <Download className="mr-2 h-4 w-4" /> DESCARGAR PDF
+                    <Button className="btn-3d-primary h-10 px-6 rounded-xl text-[9px] font-black uppercase shadow-glow" onClick={() => handleDownload('pdf')}>
+                        <Download className="mr-2 h-3.5 w-3.5" /> DESCARGAR PDF
                     </Button>
                 </div>
             </header>
 
-            <main className="container mx-auto px-6 max-w-6xl pt-40 pb-40 relative z-10">
-                {/* HERO DEL MANUAL */}
-                <div className="text-center space-y-10 mb-32">
-                    <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-black uppercase tracking-[0.6em] text-primary">
-                        <Terminal className="h-4 w-4" /> PROTOCOLO INSTITUCIONAL v2.6.5
+            <main className="container mx-auto px-6 max-w-6xl pt-32 pb-40 relative z-10">
+                <div className="text-center space-y-8 mb-24">
+                    <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary shadow-glow">
+                        <Terminal className="h-3.5 w-3.5" /> EXPEDIENTE TÉCNICO v2.6.5
                     </div>
-                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <span className="text-primary">Usuario</span></h1>
-                    <p className="text-xl md:text-2xl text-white/40 max-w-4xl mx-auto font-bold uppercase tracking-tight italic border-l-4 border-primary/20 pl-10">
-                        Guía técnica exhaustiva para la operación de nodos en el ecosistema nacional de gestión integral.
+                    <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <span className="text-primary">Usuario</span></h1>
+                    <p className="text-lg md:text-xl text-white/40 max-w-3xl mx-auto font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 text-justify">
+                        Esta documentación constituye la guía oficial para la operación de los terminales del ecosistema de gestión integral. Todo procedimiento descrito se ajusta al marco legal vigente.
                     </p>
                 </div>
 
-                <div className="grid lg:grid-cols-12 gap-20">
-                    {/* NAVEGACIÓN POR ANCLAS (PANEL LATERAL) */}
+                <div className="grid lg:grid-cols-12 gap-16">
                     <aside className="lg:col-span-4 no-print">
-                        <Card className="glass-card p-10 rounded-[3rem] sticky top-40 border-white/5 bg-black/60 shadow-2xl">
-                            <CardHeader className="p-0 mb-10 border-b border-white/5 pb-8">
-                                <CardTitle className="text-[11px] font-black uppercase tracking-[0.5em] text-primary flex items-center gap-4">
-                                    <Activity className="h-5 w-5 animate-pulse" /> Índice Técnico
+                        <Card className="glass-card p-8 rounded-[2.5rem] sticky top-32 border-white/5 bg-black/60 shadow-2xl">
+                            <CardHeader className="p-0 mb-8 border-b border-white/5 pb-6">
+                                <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] text-primary flex items-center gap-3">
+                                    <Activity className="h-4 w-4 animate-pulse" /> Índice de Módulos
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent className="p-0 space-y-2">
+                            <CardContent className="p-0 space-y-1">
                                 {manualModules.map((mod) => (
-                                    <a 
+                                    <button 
                                         key={mod.id}
-                                        href={`#${mod.id}`}
-                                        className="flex items-center gap-4 px-5 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-primary/10 hover:text-primary transition-all text-white/30 group border border-transparent hover:border-primary/20"
+                                        onClick={() => scrollToSection(mod.id)}
+                                        className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-primary/10 hover:text-primary transition-all text-white/30 text-left border border-transparent hover:border-primary/20 group"
                                     >
-                                        <mod.icon className="h-4 w-4 opacity-30 group-hover:opacity-100 transition-opacity" />
+                                        <mod.icon className="h-3.5 w-3.5 opacity-30 group-hover:opacity-100 transition-opacity" />
                                         <span>{mod.title.split('. ')[1]}</span>
-                                    </a>
+                                    </button>
                                 ))}
                             </CardContent>
                         </Card>
                     </aside>
 
-                    {/* CONTENIDO DETALLADO */}
-                    <div className="lg:col-span-8 space-y-40">
+                    <div className="lg:col-span-8 space-y-32">
                         {manualModules.map((mod) => (
-                            <motion.section 
-                                key={mod.id} 
-                                id={mod.id}
-                                initial={{ opacity: 0, y: 60 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                className="scroll-mt-40"
-                            >
-                                <Card className="glass-card rounded-[4rem] border-white/5 overflow-hidden bg-black/60 shadow-2xl group transition-all duration-1000 hover:border-primary/30">
-                                    <CardHeader className="p-16 md:p-24 border-b border-white/5 flex flex-row items-center gap-16 bg-white/[0.01]">
-                                        <div className="p-10 bg-primary/10 rounded-[3rem] border border-primary/20 shadow-glow group-hover:scale-110 transition-transform duration-700">
-                                            <mod.icon className="h-16 w-16 text-primary" />
+                            <section key={mod.id} id={mod.id} className="scroll-mt-32">
+                                <Card className="glass-card rounded-[3.5rem] border-white/5 overflow-hidden bg-black/60 shadow-2xl group transition-all duration-1000 hover:border-primary/20">
+                                    <CardHeader className="p-12 md:p-16 border-b border-white/5 flex flex-row items-center gap-12 bg-white/[0.01]">
+                                        <div className="p-8 bg-primary/10 rounded-[2.5rem] border border-primary/20 shadow-glow group-hover:scale-110 transition-transform duration-700">
+                                            <mod.icon className="h-12 w-12 text-primary" />
                                         </div>
-                                        <div className="space-y-6">
-                                            <CardTitle className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter text-white leading-none">{mod.title}</CardTitle>
-                                            <CardDescription className="text-sm font-black uppercase tracking-[0.5em] opacity-40 text-primary">{mod.description}</CardDescription>
+                                        <div className="space-y-4">
+                                            <CardTitle className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white leading-none">{mod.title}</CardTitle>
+                                            <CardDescription className="text-[10px] font-black uppercase tracking-[0.5em] opacity-40 text-primary">{mod.description}</CardDescription>
                                         </div>
                                     </CardHeader>
-                                    <CardContent className="p-16 md:p-24 space-y-24">
+                                    <CardContent className="p-12 md:p-16 space-y-16">
                                         {mod.content.map((item, i) => (
-                                            <div key={i} className="space-y-10">
-                                                <div className="flex items-center gap-10">
-                                                    <div className="h-[2px] flex-1 bg-white/5" />
-                                                    <h4 className="text-sm font-black uppercase tracking-[0.8em] text-primary italic shadow-glow-text">{item.sub}</h4>
-                                                    <div className="h-[2px] w-20 bg-white/5" />
+                                            <div key={i} className="space-y-8">
+                                                <div className="flex items-center gap-8">
+                                                    <div className="h-[1px] flex-1 bg-white/5" />
+                                                    <h4 className="text-[11px] font-black uppercase tracking-[0.6em] text-primary italic shadow-glow-text">{item.sub}</h4>
+                                                    <div className="h-[1px] w-12 bg-white/5" />
                                                 </div>
-                                                <p className="text-xl font-medium text-white/60 leading-relaxed text-justify indent-20 border-l-4 border-primary/10 pl-20 italic">
+                                                <p className="text-lg font-medium text-white/60 leading-relaxed text-justify indent-12 border-l-2 border-primary/10 pl-12 italic">
                                                     {item.text}
                                                 </p>
                                             </div>
                                         ))}
                                     </CardContent>
-                                    <CardFooter className="p-12 bg-white/[0.01] border-t border-white/5 flex justify-between items-center">
-                                        <div className="flex items-center gap-3">
-                                            <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                                            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Documento Verificado por Nodo Maestro</span>
+                                    <CardFooter className="p-10 bg-white/[0.01] border-t border-white/5 flex justify-between items-center">
+                                        <div className="flex items-center gap-2">
+                                            <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
+                                            <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">Protocolo Verificado</span>
                                         </div>
-                                        <Button variant="link" className="text-[10px] font-black uppercase text-primary p-0 hover:shadow-glow-text" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-                                            VOLVER AL ÍNDICE <ArrowDown className="ml-3 h-4 w-4 rotate-180" />
+                                        <Button variant="link" className="text-[9px] font-black uppercase text-primary p-0 hover:shadow-glow-text" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+                                            IR AL INICIO <ArrowDown className="ml-2 h-3.5 w-3.5 rotate-180" />
                                         </Button>
                                     </CardFooter>
                                 </Card>
-                            </motion.section>
+                            </section>
                         ))}
 
-                        <Card className="bg-primary text-primary-foreground rounded-[4rem] p-24 text-center shadow-glow border-none relative overflow-hidden group no-print mt-40">
-                            <div className="absolute top-0 right-0 p-16 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                                <ShieldCheck className="h-[400px] w-[400px]" />
+                        <Card className="bg-primary text-primary-foreground rounded-[3.5rem] p-16 text-center shadow-glow border-none relative overflow-hidden group no-print">
+                            <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-all duration-1000">
+                                <Shield className="h-64 w-64" />
                             </div>
-                            <div className="relative z-10 max-w-3xl mx-auto space-y-16">
-                                <h3 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Asistencia Técnica Institucional</h3>
-                                <p className="text-2xl font-bold opacity-90 leading-relaxed italic border-l-4 border-white/30 pl-12 text-justify">
-                                    Nuestra mesa de ayuda está facultada para la resolución de incidencias operativas bajo protocolos de alta prioridad y seguridad de datos blindada.
+                            <div className="relative z-10 space-y-10">
+                                <h3 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Asistencia Institucional</h3>
+                                <p className="text-xl font-bold opacity-90 leading-relaxed italic border-l-4 border-white/30 pl-10 text-justify">
+                                    En caso de incidencias técnicas, contacte al nodo de ingeniería central. Nuestro personal está facultado para la resolución de conflictos bajo protocolos de alta prioridad.
                                 </p>
-                                <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-3xl h-24 px-20 font-black text-lg uppercase tracking-widest shadow-2xl transition-all hover:scale-105 active:scale-95">
-                                    CONTACTAR INGENIERÍA CENTRAL
+                                <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-2xl h-20 px-16 font-black text-sm uppercase tracking-widest shadow-2xl transition-all">
+                                    CONTACTAR INGENIERÍA
                                 </Button>
                             </div>
                         </Card>
                     </div>
                 </div>
 
-                {/* FOOTER LOCAL */}
-                <div className="mt-60 text-center space-y-12 opacity-30 no-print pb-20">
-                    <div className="flex justify-center gap-20 text-[11px] font-black uppercase tracking-[1em]">
-                        <span className="flex items-center gap-5"><Lock className="h-5 w-5" /> CIFRADO AES-512</span>
-                        <span className="flex items-center gap-5"><Database className="h-5 w-5" /> LEDGER VERIFIED</span>
-                        <span className="flex items-center gap-5"><Activity className="h-5 w-5" /> STATUS: OPERATIONAL</span>
+                <div className="mt-40 text-center space-y-10 opacity-20 no-print pb-20">
+                    <div className="flex justify-center gap-16 text-[10px] font-black uppercase tracking-[0.8em]">
+                        <span className="flex items-center gap-4"><Lock className="h-4 w-4" /> SECURED</span>
+                        <span className="flex items-center gap-4"><Database className="h-4 w-4" /> LEDGER</span>
+                        <span className="flex items-center gap-4"><Activity className="h-4 w-4" /> STATUS: OK</span>
                     </div>
                     <div className="w-full h-px bg-white/10" />
-                    <p className="max-w-5xl mx-auto text-[10px] font-bold uppercase tracking-[0.5em] leading-relaxed italic">
+                    <p className="max-w-4xl mx-auto text-[9px] font-bold uppercase tracking-[0.4em] leading-relaxed italic">
                         © {new Date().getFullYear()} System Kyron, C.A. • RIF J-12345678-9 • Caracas, Venezuela. <br/>
-                        Todos los derechos reservados. Documento oficial de propiedad intelectual bajo registro SAPI.
+                        Documento oficial amparado bajo propiedad intelectual registrada.
                     </p>
                 </div>
             </main>
