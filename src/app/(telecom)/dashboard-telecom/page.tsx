@@ -4,14 +4,24 @@
 import {
   Signal,
   ArrowRight,
+  ShieldCheck,
+  Terminal,
+  Activity,
+  Radio,
+  Lock,
+  Zap,
+  Globe,
+  Cpu,
+  Database
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { formatDate } from "@/lib/utils";
-import Link from 'next/link';
+import { formatDate, cn } from "@/lib/utils";
+import { Link } from '@/navigation';
+import { Logo } from "@/components/logo";
 
 const initialComplianceStatus = [
     { id: "CON-001", name: "Concesión de Espectro Radioeléctrico", expires: "2028-03-20", status: "Vigente" },
@@ -29,61 +39,68 @@ export default function DashboardTelecomPage() {
     const licenciaVencida = initialComplianceStatus.find(l => l.status === 'Vencida');
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12 pb-20 px-6 md:px-10">
       
-      <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight flex items-center gap-3">
-            <Signal className="h-8 w-8 md:h-10 md:w-10 text-primary" />
-            <span className="font-mono">Plataforma de Operaciones Telecom</span>
-        </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl">Visión de misión crítica para la gestión integral de la operadora.</p>
+      <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-amber-500 pl-8 py-2 mt-10">
+        <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-500 shadow-glow mb-4">
+                <Signal className="h-3 w-3" /> NODO NOC
+            </div>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Plataforma de <span className="text-amber-500 italic">Operaciones Telecom</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Infraestructura 5G Digital • Provisión eUICC v2.6</p>
+        </div>
+        <div className="flex gap-2">
+            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white">
+                Telemetría de Red
+            </Button>
+        </div>
       </header>
       
        {licenciaVencida && (
-           <Alert variant="destructive" className="mb-8 bg-destructive/10 border-l-4 border-destructive">
-                <span className="font-bold absolute left-4 top-4 text-sm">[TX!]</span>
-                <AlertTitle className="ml-10 font-bold">ALERTA DE CUMPLIMIENTO CRÍTICO</AlertTitle>
-                <AlertDescription className="ml-10 flex items-center justify-between">
-                    <span>Su "{licenciaVencida.name}" está <strong>VENCIDA</strong> desde el {formatDate(licenciaVencida.expires)}. Existe riesgo de multas.</span>
-                    <Button asChild variant="destructive" size="sm">
-                       <Link href="/conatel/licenses">Iniciar Renovación Urgente</Link>
+           <Alert variant="destructive" className="mb-10 bg-destructive/10 border-l-4 border-destructive rounded-[2rem] p-8 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-110 transition-transform"><Activity className="h-20 w-20" /></div>
+                <AlertTitle className="ml-12 font-black uppercase tracking-widest text-lg">ALERTA DE CUMPLIMIENTO CRÍTICO</AlertTitle>
+                <AlertDescription className="ml-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mt-4">
+                    <span className="text-sm font-bold text-white/70 italic uppercase">Su "{licenciaVencida.name}" está <strong>VENCIDA</strong> desde el {formatDate(licenciaVencida.expires)}. Existe riesgo de sanciones por parte de CONATEL.</span>
+                    <Button asChild variant="destructive" className="h-12 px-8 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-2xl">
+                       <Link href="/conatel/licenses">INICIAR RENOVACIÓN URGENTE</Link>
                     </Button>
                 </AlertDescription>
             </Alert>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            <div className="lg:col-span-3 space-y-8">
-               <Card>
-                    <CardHeader>
-                        <CardTitle>Resumen de Cumplimiento (CONATEL)</CardTitle>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <div className="lg:col-span-7">
+               <Card className="glass-card border-none rounded-[3rem] bg-white/[0.01] overflow-hidden shadow-2xl">
+                    <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                            <Radio className="h-6 w-6 text-amber-500" /> Resumen de Cumplimiento (CONATEL)
+                        </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
                         <Table>
                         <TableHeader>
-                            <TableRow>
-                            <TableHead className="text-primary">Licencia / Permiso</TableHead>
-                            <TableHead className="text-primary">Estado</TableHead>
-                            <TableHead className="text-right text-primary">Acciones</TableHead>
+                            <TableRow className="bg-white/[0.02] border-none">
+                                <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Licencia / Permiso</TableHead>
+                                <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Estado</TableHead>
+                                <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/30">Acciones</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {initialComplianceStatus.map(item => (
-                                <TableRow key={item.id} className="border-b border-border/50">
-                                    <TableCell className="font-mono text-sm">
-                                        {item.name} ({item.id})
-                                        <p className="text-xs text-muted-foreground">Vence: {formatDate(item.expires)}</p>
+                                <TableRow key={item.id} className="border-white/5 hover:bg-white/[0.02] transition-colors group">
+                                    <TableCell className="pl-10 py-6">
+                                        <p className="font-black text-sm text-white/80 uppercase italic tracking-tight">{item.name}</p>
+                                        <p className="text-[9px] font-mono font-bold text-white/20 uppercase mt-1">ID: {item.id} • VENCE: {formatDate(item.expires)}</p>
                                     </TableCell>
-                                    <TableCell>
-                                       <span className={`font-bold text-sm ${statusVariant[item.status as keyof typeof statusVariant].color}`}>
+                                    <TableCell className="py-6">
+                                       <span className={cn("font-black text-[10px] tracking-widest uppercase italic", statusVariant[item.status as keyof typeof statusVariant].color)}>
                                           {statusVariant[item.status as keyof typeof statusVariant].text}
                                        </span>
                                     </TableCell>
-                                    <TableCell className="text-right">
-                                        <Button asChild variant="outline" size="sm">
-                                            <Link href="/conatel/licenses">
-                                                Gestionar <ArrowRight className="ml-2 h-4 w-4"/>
-                                            </Link>
+                                    <TableCell className="text-right pr-10 py-6">
+                                        <Button asChild variant="outline" size="sm" className="rounded-lg h-9 px-4 text-[9px] font-black uppercase tracking-widest border-white/10 hover:bg-white/5">
+                                            <Link href="/conatel/licenses">GESTIONAR</Link>
                                         </Button>
                                     </TableCell>
                                 </TableRow>
@@ -93,23 +110,80 @@ export default function DashboardTelecomPage() {
                     </CardContent>
                 </Card>
           </div>
-          <div className="lg:col-span-2">
-             <Card className="sticky top-24">
-                <CardHeader>
-                    <CardTitle>Información de Contacto CONATEL</CardTitle>
+          
+          <div className="lg:col-span-5">
+             <Card className="glass-card border-none bg-amber-500/5 rounded-[3rem] p-10 border border-amber-500/10">
+                <CardHeader className="p-0 mb-8">
+                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Información de Contacto CONATEL</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4 text-sm font-mono">
-                    <h4 className="font-bold text-primary">[ PRESENTACIÓN PRESENCIAL OBLIGATORIA ]</h4>
-                    <ul className="list-disc pl-5 text-muted-foreground space-y-2">
-                        <li><strong className="text-foreground">Lugar:</strong> Oficina de Atención al Ciudadano.</li>
-                        <li><strong className="text-foreground">Horario:</strong> L-V, 8:00-12:00 / 13:30-16:30.</li>
-                        <li><strong className="text-foreground">Requisito:</strong> Representante legal o apoderado.</li>
-                        <li><strong className="text-foreground">Base Legal:</strong> LOTEL, Art. 26.</li>
+                <CardContent className="p-0 space-y-6 text-xs font-bold uppercase tracking-widest text-white/40 leading-relaxed">
+                    <h4 className="text-amber-500 font-black text-sm mb-4 italic underline decoration-amber-500/30 underline-offset-8">[ PRESENTACIÓN PRESENCIAL OBLIGATORIA ]</h4>
+                    <ul className="space-y-4">
+                        <li className="flex items-center gap-4"><div className="h-1.5 w-1.5 rounded-full bg-amber-500"></div> <span><strong className="text-white/70">Lugar:</strong> Oficina de Atención al Ciudadano, Caracas.</span></li>
+                        <li className="flex items-center gap-4"><div className="h-1.5 w-1.5 rounded-full bg-amber-500"></div> <span><strong className="text-white/70">Horario:</strong> L-V, 08:00 - 16:30 (Horario Corrido).</span></li>
+                        <li className="flex items-center gap-4"><div className="h-1.5 w-1.5 rounded-full bg-amber-500"></div> <span><strong className="text-white/70">Requisito:</strong> Representante legal autenticado vía biometría.</span></li>
+                        <li className="flex items-center gap-4"><div className="h-1.5 w-1.5 rounded-full bg-amber-500"></div> <span><strong className="text-white/70">Base Legal:</strong> LOTEL, Art. 26 - Transparencia Administrativa.</span></li>
                     </ul>
                 </CardContent>
              </Card>
           </div>
        </div>
+
+       {/* SECCIÓN DETALLADA DE INTELIGENCIA TÉCNICA (TELECOM) */}
+       <Card className="glass-card border-none p-12 md:p-20 rounded-[4rem] bg-white/[0.02] mt-20 overflow-hidden relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/40 to-transparent"></div>
+          <div className="grid lg:grid-cols-12 gap-16 md:gap-24 relative z-10">
+              <div className="lg:col-span-5 space-y-10">
+                  <div className="flex items-center gap-6">
+                      <Logo className="h-16 w-16 drop-shadow-glow" />
+                      <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none">
+                          Telecom <br/> <span className="text-amber-500">5G Slicing</span>
+                      </h2>
+                  </div>
+                  <p className="text-xl font-bold italic text-white/60 leading-relaxed text-justify border-l-4 border-amber-500/20 pl-10">
+                      Infraestructura de red soberana basada en estándares internacionales de la GSMA. Kyron opera como un nodo de gestión inteligente para flotas corporativas mediante aprovisionamiento SM-DP+ (Subscription Manager Data Preparation), asegurando comunicaciones cifradas de extremo a extremo para operaciones de misión crítica y soberanía de datos.
+                  </p>
+                  <div className="flex items-center gap-10 pt-6 text-[9px] font-black uppercase tracking-[0.5em] text-white/10">
+                      <span className="flex items-center gap-2"><Globe className="h-3 w-3" /> GSMA COMPLIANT</span>
+                      <span className="flex items-center gap-2"><Cpu className="h-3 w-3" /> SM-DP+ AUTH</span>
+                  </div>
+              </div>
+
+              <div className="lg:col-span-7 space-y-12">
+                  <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 shadow-inner">
+                      <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-amber-400 mb-10 flex items-center gap-3">
+                          <Terminal className="h-4 w-4" /> Protocolo de Aprovisionamiento eUICC
+                      </h4>
+                      <div className="text-sm font-bold italic text-white/70 leading-relaxed text-justify space-y-6">
+                          <div className="flex gap-8 items-start">
+                              <span className="font-black text-xs text-amber-500">[1]</span>
+                              <span>Asignación de números y perfiles de datos 5G mediante activación remota OTA (Over-the-Air).</span>
+                          </div>
+                          <div className="flex gap-8 items-start">
+                              <span className="font-black text-xs text-amber-500">[2]</span>
+                              <span>Configuración de túneles IPsec automáticos para el aislamiento del tráfico administrativo.</span>
+                          </div>
+                          <div className="flex gap-8 items-start">
+                              <span className="font-black text-xs text-amber-500">[3]</span>
+                              <span>Priorización de red (Network Slicing) para garantizar latencia cero en módulos fiscales.</span>
+                          </div>
+                          <div className="flex gap-8 items-start">
+                              <span className="font-black text-xs text-amber-500">[4]</span>
+                              <span>Gestión remota de dispositivos homologados Kyron Pro X vinculados a la ID Digital.</span>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <Card className="bg-amber-500/5 border border-amber-500/20 p-10 rounded-[3rem] flex items-center justify-between">
+                      <div className="space-y-2">
+                          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-400">Estado de la Red</p>
+                          <p className="text-2xl font-black text-white italic tracking-tighter uppercase">5G OPTIMIZED</p>
+                      </div>
+                      <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[9px] font-black px-6 py-2 rounded-xl shadow-glow-secondary uppercase">Low Latency Active</Badge>
+                  </Card>
+              </div>
+          </div>
+      </Card>
     </div>
   );
 }
