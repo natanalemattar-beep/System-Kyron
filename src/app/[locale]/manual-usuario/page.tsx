@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -250,7 +249,7 @@ export default function ManualUsuarioPage() {
                             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary">
                                 <ShieldCheck className="h-3.5 w-3.5" /> PROTOCOLO INSTITUCIONAL
                             </div>
-                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Expediente <br/> <span className="text-primary">Técnico</span></h1>
+                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de Usuario <br/> <span className="text-primary">System Kyron</span></h1>
                             <p className="text-lg text-white/40 max-w-2xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 leading-relaxed">
                                 Guía de operación absoluta para el ecosistema Kyron v2.6.5.
                             </p>
@@ -308,7 +307,7 @@ export default function ManualUsuarioPage() {
             
             <footer className="py-20 border-t border-white/5 bg-black/80 text-center relative z-20">
                 <p className="text-[10px] font-black uppercase tracking-[1em] text-white/10 italic">
-                    FIN DE EXPEDIENTE TÉCNICO • MK-2.6.5
+                    FIN DE MANUAL DE USUARIO • MK-2.6.5
                 </p>
             </footer>
         </div>
