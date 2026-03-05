@@ -26,52 +26,52 @@ import { Logo } from "@/components/logo";
 import React from "react";
 
 const zeduMasterData = {
-    titulo: "Modelo Zedu - System Kyron",
+    titulo: "Modelo Zedu",
     secciones: [
         {
             id: 1,
             titulo: "1. IDENTIFICACIÓN DEL PROYECTO",
             filas: [
                 { label: "Nombre", val: "System Kyron" },
-                { label: "Líder", val: "Carlos Mattar, Sebastián Garrido, Marcos Sousa" },
-                { label: "Apoyo", val: "Wilmer López, Mireya Corro, María Hernández" },
-                { label: "Institución", val: "U.E.P. Gabriela Mistral" },
-                { label: "Ubicación", val: "La Guaira, Venezuela" },
+                { label: "Liderazgo", val: "Carlos Mattar, Sebastián Garrido, Marcos Sousa" },
+                { label: "Soporte Institucional", val: "Wilmer López, Mireya Corro, María Hernández" },
+                { label: "Institución Sede", val: "U.E.P. Gabriela Mistral" },
+                { label: "Localización Técnica", val: "La Guaira, Venezuela" },
             ]
         },
         {
             id: 2,
             titulo: "2. ESTUDIO DE POBLACIÓN (ZEDU)",
             filas: [
-                { label: "Localización", val: "La Atlántida, entre calle 7 a calle 3, Catia La Mar. Referencias: Pinta Catia, Supermercado Bensica." },
-                { label: "Comunidad", val: "Comunidad Comercial y Residencial La Atlántida" },
-                { label: "Estimada", val: "500 empresas activas / 5.000 empleados administrativos y civiles." },
+                { label: "Localización Específica", val: "La Atlántida, entre calle 7 a calle 3, Catia La Mar. Referencias: Pinta Catia, Supermercado Bensica." },
+                { label: "Segmento de Comunidad", val: "Comunidad Comercial y Residencial La Atlántida" },
+                { label: "Alcance Estimado", val: "500 empresas activas / 5.000 empleados administrativos y civiles." },
             ]
         },
         {
             id: 3,
             titulo: "3. ANÁLISIS DEL PROBLEMA",
             filas: [
-                { label: "Definición", val: "Fragmentación de procesos (administrativos, de comunicación) que no se comunican entre sí. Esto crea silos de datos e ineficiencia operativa." },
-                { label: "Importancia", val: "La desintegración de sistemas genera sobrecarga de trabajo manual y dificulta la toma de decisiones estratégicas." },
-                { label: "Causas", val: "Sistemas obsoletos no adaptados a la economía multimoneda y complejidad de la legislación fiscal venezolana." },
-                { label: "Consecuencias", val: "Pérdida de tiempo y dinero, errores en declaraciones de impuestos y multas del SENIAT." },
-                { label: "Origen", val: "Adopción reactiva de tecnología que ha creado una infraestructura frágil e ineficiente." },
+                { label: "Definición Crítica", val: "Fragmentación de procesos que no se comunican entre sí, creando silos de datos e ineficiencia operativa absoluta." },
+                { label: "Impacto Estratégico", val: "La desintegración genera sobrecarga manual y dificulta la toma de decisiones basadas en datos reales." },
+                { label: "Causas Raíz", val: "Sistemas obsoletos no adaptados a la economía multimoneda ni a la complejidad legislativa venezolana." },
+                { label: "Consecuencias", val: "Pérdida de capital, errores en declaraciones fiscales y exposición a sanciones administrativas." },
+                { label: "Origen Técnico", val: "Infraestructura frágil derivada de adopciones tecnológicas reactivas y no integradas." },
             ]
         },
         {
             id: 4,
             titulo: "4. SOLUCIÓN PROPUESTA",
             filas: [
-                { label: "Proyecto", val: "Implementar 'System Kyron', un ecosistema empresarial 'Todo en Uno' que unifica la gestión, las telecomunicaciones 5G y las finanzas Blockchain en un único Centro de Mando." },
+                { label: "Proyecto Maestro", val: "Despliegue de 'System Kyron', un ecosistema 'Todo en Uno' que unifica gestión ERP, Telecom 5G y Finanzas Blockchain." },
             ]
         },
         {
             id: 5,
-            titulo: "5. ANÁLISIS COMPETITIVO",
+            titulo: "5. DIFERENCIADORES COMPETITIVOS",
             filas: [
-                { label: "Competidores", val: "Sistemas ERP internacionales (SAP, Oracle) y software local de escritorio obsoleto." },
-                { label: "Diferenciadores", val: "Única plataforma que integra ERP + Telecom + Finanzas con hiperlocalización fiscal venezolana e IA predictiva." },
+                { label: "Mercado Global", val: "Sistemas ERP (SAP, Oracle) carentes de localización profunda para el mercado nacional." },
+                { label: "Ventaja Kyron", val: "Única plataforma con hiperlocalización fiscal VEN-NIF e IA predictiva integrada nativamente." },
             ]
         }
     ]
@@ -93,19 +93,19 @@ const alliesTableData = [
 ];
 
 const planAccionData = [
-    { tarea: "Análisis de Mercado Detallado y Validación de Requerimientos con Empresas Piloto.", responsable: "Carlos Mattar, Líder de Estrategia", cronograma: "Fase Inicial" },
-    { tarea: "Desarrollo del Core ERP: Módulos Contable (VEN-NIF) y Administrativo (Inventario, CXC/P).", responsable: "Sebastián Garrido, Líder de Desarrollo", cronograma: "Fase Beta" },
-    { tarea: "Despliegue de nodos de VoIP en AWS y configuración de troncales SIP para la OMV.", responsable: "Marcos Sousa, Líder de Telecom", cronograma: "Fase de Red" },
-    { tarea: "Desarrollo de la Billetera Blockchain y Pruebas de Seguridad de Contratos Inteligentes.", responsable: "Sebastián Garrido, Líder de Desarrollo", cronograma: "Fase de Seguridad" },
-    { tarea: "Fase de Pruebas de Aceptación de Usuario (UAT) con Clientes Piloto en entorno real.", responsable: "Equipo de QA", cronograma: "Validación" },
-    { tarea: "Lanzamiento oficial del MVP y campaña de marketing digital inicial.", responsable: "Equipo de Marketing", cronograma: "Despliegue" },
+    { tarea: "Análisis de Mercado y Validación de Requerimientos Piloto.", responsable: "Carlos Mattar", cronograma: "Fase Inicial" },
+    { tarea: "Desarrollo del Core ERP: Módulos Contable y Administrativo.", responsable: "Sebastián Garrido", cronograma: "Fase Beta" },
+    { tarea: "Despliegue de nodos VoIP y configuración de troncales SIP.", responsable: "Marcos Sousa", cronograma: "Fase de Red" },
+    { tarea: "Seguridad Blockchain y Contratos Inteligentes.", responsable: "Sebastián Garrido", cronograma: "Fase de Seguridad" },
+    { tarea: "Pruebas de Aceptación de Usuario (UAT).", responsable: "Equipo QA", cronograma: "Validación" },
+    { tarea: "Lanzamiento oficial y despliegue del Nodo Maestro.", responsable: "Equipo Directivo", cronograma: "Despliegue" },
 ];
 
 const indicators = [
-    { label: "Valor Actual Neto (VAN)", value: 450000, desc: "Flujo de caja descontado proyectado.", icon: TrendingUp },
-    { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Rendimiento anual del capital.", icon: Target },
-    { label: "Período de Recuperación", value: "2.4 años", desc: "Retorno total de inversión inicial.", icon: Activity },
-    { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por transacción.", icon: BarChart3 },
+    { label: "Valor Actual Neto (VAN)", value: 450000, desc: "Rendimiento en valor presente.", icon: TrendingUp },
+    { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Eficiencia anual del capital.", icon: Target },
+    { label: "Periodo de Recuperación", value: "2.4 años", desc: "Retorno total de inversión.", icon: Activity },
+    { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por flujo.", icon: BarChart3 },
 ];
 
 const projections = [
@@ -120,25 +120,25 @@ const proposalSections = [
     {
         icon: Radio,
         title: "Kyron Hyper-Connect 5G",
-        desc: "Asignación inmediata de números telefónicos y eSIMs digitales con protocolo de baja latencia.",
+        desc: "Asignación de números y eSIMs digitales con protocolo de baja latencia.",
         color: "text-blue-400"
     },
     {
         icon: Magnet,
         title: "Ecosistema Magnético IA",
-        desc: "Smart Bins con tecnología de inducción para trazabilidad inmutable de activos verdes.",
+        desc: "Smart Bins con inducción para trazabilidad inmutable de activos.",
         color: "text-emerald-400"
     },
     {
         icon: ShieldCheck,
         title: "Blindaje Fiscal 360°",
-        desc: "Automatización total de libros y declaraciones con auditoría predictiva sincronizada.",
+        desc: "Automatización total de libros y declaraciones sincronizada con la Gaceta.",
         color: "text-amber-400"
     },
     {
         icon: Cpu,
         title: "Ledger Blockchain",
-        desc: "Sellado digital de cada transacción para garantizar integridad absoluta.",
+        desc: "Sellado digital de transacciones para integridad absoluta.",
         color: "text-purple-400"
     }
 ];
@@ -158,24 +158,37 @@ export default function SectorPrivadoPage() {
                 <meta charset='utf-8'>
                 <title>${title}</title>
                 <style>
-                    body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; }
-                    .header { text-align: center; border-bottom: 2px solid #2d5a8e; padding-bottom: 20px; margin-bottom: 30px; }
-                    .logo-text { font-size: 24pt; font-weight: 900; color: #2d5a8e; letter-spacing: 5px; }
-                    .subtitle { font-size: 10pt; color: #666; text-transform: uppercase; letter-spacing: 2px; }
-                    h1 { color: #2d5a8e; font-size: 18pt; text-transform: uppercase; }
+                    body { font-family: 'Times New Roman', serif; padding: 50px; line-height: 1.5; color: #1a1a1a; }
                     table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-                    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-                    .section-header { background-color: #2d5a8e; color: white; font-weight: bold; }
-                    .label-cell { background-color: #f3f4f6; font-weight: bold; width: 30%; }
+                    .header-table { border: none; margin-bottom: 40px; border-bottom: 3px solid #2d5a8e; }
+                    .logo-box { width: 60px; height: 60px; background-color: #2d5a8e; text-align: center; color: white; line-height: 60px; font-weight: bold; font-size: 24pt; }
+                    .brand-name { font-size: 22pt; font-weight: 900; color: #2d5a8e; letter-spacing: 3px; text-transform: uppercase; }
+                    .brand-tagline { font-size: 9pt; color: #666; text-transform: uppercase; letter-spacing: 2px; }
+                    h1 { color: #2d5a8e; font-size: 20pt; text-transform: uppercase; margin-bottom: 25px; border-left: 10px solid #2d5a8e; padding-left: 15px; }
+                    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; font-size: 10pt; }
+                    .section-header { background-color: #2d5a8e; color: white; font-weight: bold; text-transform: uppercase; }
+                    .label-cell { background-color: #f8f9fa; font-weight: bold; width: 30%; color: #2d5a8e; }
+                    .accent-text { color: #15803d; font-weight: bold; }
+                    .footer { margin-top: 50px; text-align: center; font-size: 8pt; color: #999; border-top: 1px solid #eee; padding-top: 20px; }
                 </style>
             </head>
             <body>
-                <div class="header">
-                    <div class="logo-text">SYSTEM KYRON</div>
-                    <div class="subtitle">Ecosistema de Inteligencia Corporativa</div>
-                </div>
+                <table class="header-table">
+                    <tr>
+                        <td style="border:none; width: 70px;">
+                            <div class="logo-box">K</div>
+                        </td>
+                        <td style="border:none;">
+                            <div class="brand-name">SYSTEM KYRON</div>
+                            <div class="brand-tagline">Corporate Intelligence Ecosystem</div>
+                        </td>
+                        <td style="border:none; text-align: right; vertical-align: bottom;">
+                            <div style="font-size: 8pt; color: #999;">ID: MASTER-PROTOCOL-NODE</div>
+                        </td>
+                    </tr>
+                </table>
         `;
-        const footer = "</body></html>";
+        const footer = `<div class="footer">DOCUMENTO DE GRADO CORPORATIVO • SYSTEM KYRON • PROPIEDAD INTELECTUAL RESERVADA</div></body></html>`;
         const sourceHTML = header + content + footer;
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
         const fileDownload = document.createElement("a");
@@ -186,8 +199,8 @@ export default function SectorPrivadoPage() {
         document.body.removeChild(fileDownload);
         
         toast({
-            title: "PROTOCOLO DE DESCARGA ACTIVO",
-            description: `Documento "${title}" exportado con sello de identidad.`,
+            title: "DESCARGA INSTITUCIONAL ACTIVA",
+            description: `Dossier "${title}" exportado con éxito.`,
             action: <CheckCircle className="text-primary h-4 w-4" />
         });
     };
@@ -201,38 +214,80 @@ export default function SectorPrivadoPage() {
             });
         });
 
-        const budgetRows = budgetTableData.map(d => `<tr><td>${d.item}</td><td>${d.cant}</td><td>${d.costo}</td><td>${d.lugar}</td></tr>`).join('');
-        const alliesRows = alliesTableData.map(d => `<tr><td>${d.aliado}</td><td>${d.apoyo}</td></tr>`).join('');
-        const planRows = planAccionData.map(d => `<tr><td>${d.tarea}</td><td>${d.responsable}</td><td>${d.cronograma}</td></tr>`).join('');
+        const budgetRows = budgetTableData.map(d => `<tr><td>${d.item}</td><td>${d.cant}</td><td class="accent-text">${d.cost}</td><td>${d.lugar}</td></tr>`).join('');
+        const alliesRows = alliesTableData.map(d => `<tr><td class="label-cell">${d.aliado}</td><td>${d.apoyo}</td></tr>`).join('');
+        const planRows = planAccionData.map(d => `<tr><td>${d.tarea}</td><td>${d.responsable}</td><td class="accent-text">${d.cronograma}</td></tr>`).join('');
 
         const content = `
-            <h1>Modelo Zedu - Dossier Técnico</h1>
+            <h1>Modelo Zedu - Dossier Maestro</h1>
             <table>
                 ${tableRows}
-                <tr class="section-header"><td colspan="2">6. PRESUPUESTO</td></tr>
-                <tr><td colspan="2">
+                <tr class="section-header"><td colspan="2">6. PRESUPUESTO OPERATIVO</td></tr>
+                <tr><td colspan="2" style="padding:0;">
                     <table>
                         <tr style="background-color: #4b5563; color: white;"><th>ITEM</th><th>CANTIDAD</th><th>COSTO</th><th>LUGAR</th></tr>
                         ${budgetRows}
                     </table>
                 </td></tr>
-                <tr class="section-header"><td colspan="2">7. ALIADOS</td></tr>
-                <tr><td colspan="2">
+                <tr class="section-header"><td colspan="2">7. ALIANZAS ESTRATÉGICAS</td></tr>
+                <tr><td colspan="2" style="padding:0;">
                     <table>
-                        <tr style="background-color: #4b5563; color: white;"><th>ALIADO</th><th>APOYO</th></tr>
+                        <tr style="background-color: #4b5563; color: white;"><th>ALIADO</th><th>APOYO INSTITUCIONAL</th></tr>
                         ${alliesRows}
                     </table>
                 </td></tr>
-                <tr class="section-header"><td colspan="2">8. PLAN DE ACCIÓN</td></tr>
-                <tr><td colspan="2">
+                <tr class="section-header"><td colspan="2">8. PROTOCOLO DE ACCIÓN</td></tr>
+                <tr><td colspan="2" style="padding:0;">
                     <table>
-                        <tr style="background-color: #4b5563; color: white;"><th>TAREA</th><th>RESPONSABLE</th><th>CRONOGRAMA</th></tr>
+                        <tr style="background-color: #4b5563; color: white;"><th>TAREA</th><th>RESPONSABLE</th><th>ESTADO</th></tr>
                         ${planRows}
                     </table>
                 </td></tr>
             </table>
         `;
         downloadAsWord("Modelo_Zedu_System_Kyron", content);
+    };
+
+    const handleDownloadFactibilidad = () => {
+        const indicatorsContent = indicators.map(i => `<tr><td class="label-cell">${i.label}</td><td>${typeof i.value === 'number' ? (i.value < 1 ? formatPercentage(i.value) : formatCurrency(i.value, 'USD')) : i.value}</td><td>${i.desc}</td></tr>`).join('');
+        const projectionRows = projections.map(p => `<tr><td class="label-cell">AÑO 0${p.year}</td><td>${formatCurrency(p.revenue, 'USD')}</td><td class="accent-text">${formatCurrency(p.profit, 'USD')}</td><td>${formatPercentage(p.margin)}</td></tr>`).join('');
+
+        const content = `
+            <h1>Dictamen de Factibilidad Económica</h1>
+            <p style="font-style: italic; margin-bottom: 20px;">Análisis de viabilidad financiera y proyección de rentabilidad del Ecosistema Kyron.</p>
+            <table>
+                <tr class="section-header"><td>INDICADOR</td><td>VALOR</td><td>DESCRIPCIÓN TÉCNICA</td></tr>
+                ${indicatorsContent}
+            </table>
+            <h1>Proyección Quinquenal</h1>
+            <table>
+                <tr class="section-header"><td>PERIODO</td><td>INGRESOS</td><td>UTILIDAD</td><td>MARGEN</td></tr>
+                ${projectionRows}
+            </table>
+            <div style="background-color: #f3f4f6; padding: 20px; border-radius: 10px; margin-top: 30px;">
+                <h3 style="color: #2d5a8e;">Conclusión Técnica</h3>
+                <p>El proyecto demuestra una viabilidad económica sobresaliente con una TIR proyectada del 28.5%, superando ampliamente el costo de capital sectorial.</p>
+            </div>
+        `;
+        downloadAsWord("Factibilidad_Economica_Kyron", content);
+    };
+
+    const handleDownloadPropuesta = () => {
+        const sections = proposalSections.map(s => `<div style="margin-bottom: 20px;"><h3 style="color: #2d5a8e;">${s.title}</h3><p>${s.desc}</p></div>`).join('');
+        const content = `
+            <h1>Propuesta Estratégica de Gestión</h1>
+            <p><strong>Fecha de Emisión:</strong> ${new Date().toLocaleDateString()}</p>
+            <div style="margin-top: 30px;">
+                ${sections}
+            </div>
+            <h1>Ventajas de Ecosistema</h1>
+            <ul style="list-style-type: square; color: #444;">
+                <li>Centralización Total: Un único nodo para telecom, finanzas y leyes.</li>
+                <li>Cumplimiento Predictivo: Auditoría IA en tiempo real.</li>
+                <li>Seguridad Blockchain: Ledger inmutable de transacciones.</li>
+            </ul>
+        `;
+        downloadAsWord("Propuesta_Estrategica_Kyron", content);
     };
 
     if (!isMounted) return null;
@@ -398,7 +453,7 @@ export default function SectorPrivadoPage() {
                         <div className="space-y-10 max-w-5xl mx-auto">
                             <div className="flex justify-between items-center">
                                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 italic">Dictamen de Rentabilidad</h3>
-                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={() => downloadAsWord("Factibilidad_Economica_System_Kyron", "<h1>Dictamen de Factibilidad</h1><p>Indicadores VAN/TIR positivos...</p>")}>
+                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={handleDownloadFactibilidad}>
                                     <FileWord className="mr-2 h-4 w-4" /> DESCARGAR FACTIBILIDAD (.DOC)
                                 </Button>
                             </div>
@@ -423,7 +478,7 @@ export default function SectorPrivadoPage() {
                         <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40 max-w-5xl mx-auto">
                             <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
                                 <div className="flex justify-end">
-                                    <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={() => downloadAsWord("Propuesta_Estrategica_System_Kyron", "<h1>Propuesta Maestra</h1><p>Pilares de innovación...</p>")}>
+                                    <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={handleDownloadPropuesta}>
                                         <FileWord className="mr-2 h-4 w-4" /> DESCARGAR PROPUESTA (.DOC)
                                     </Button>
                                 </div>
