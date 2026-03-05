@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
     Fingerprint,
     Radio,
@@ -62,10 +63,10 @@ const introSection = {
 };
 
 const quickStartSteps = [
-    { step: "01", title: "Alta de Empresa", desc: "Registro de RIF y Acta Constitutiva en el Nodo Central." },
-    { step: "02", title: "Enrolamiento ID", desc: "Activación de identidad biométrica del Administrador Maestro." },
-    { step: "03", title: "Nodo Conectividad", desc: "Aprovisionamiento de líneas 5G y perfiles eSIM corporativos." },
-    { step: "04", title: "Despliegue TPV", desc: "Configuración de Punto de Venta y sincronización fiscal inicial." }
+    { step: "01", title: "Configuración de Nodo", desc: "Ingrese sus credenciales maestras y valide su identidad biométrica inicial.", icon: Terminal },
+    { step: "02", title: "Sincronización de Base", desc: "El sistema cargará automáticamente los últimos índices INPC y parámetros de ley.", icon: RefreshCw },
+    { step: "03", title: "Habilitación de Módulos", desc: "Active los servicios necesarios (Telecom, Fiscal, RRHH) desde el selector modular.", icon: Zap },
+    { step: "04", title: "Inyección de Datos", desc: "Suba su base de clientes y productos mediante el motor de importación masiva.", icon: Database }
 ];
 
 const technicalRequirements = {
@@ -168,8 +169,6 @@ export default function ManualUsuarioPage() {
     }, []);
 
     const handleDownload = () => {
-        const logoBase64 = "https://systemkyron.com/logo-hex.png"; // Placeholder for actual implementation
-        
         const content = `
             <div style="text-align: center; margin-bottom: 50pt;">
                 <h1 style="color: #0ea5e9; font-size: 32pt; font-family: 'Arial Black', sans-serif; margin-bottom: 5pt; text-transform: uppercase;">SYSTEM KYRON</h1>
