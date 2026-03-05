@@ -52,7 +52,7 @@ import React from "react";
 
 /**
  * @fileOverview Manual de Usuario Maestro de System Kyron v2.6.5.
- * DOCUMENTACIÓN TÉCNICA MASIVA, EXHAUSTIVA Y PROFESIONAL.
+ * DOCUMENTACIÓN TÉCNICA MASIVA, EXHAUSTIVA Y DE GRADO CORPORATIVO.
  */
 
 const introSection = {
@@ -72,25 +72,30 @@ const quickStartSteps = [
 const technicalRequirements = {
     title: "Requisitos Técnicos de Operación",
     items: [
-        { label: "Conectividad", desc: "Enlace simétrico > 10Mbps. Latencia < 50ms para sincronización Ledger." },
-        { label: "Navegación", desc: "Chromium v115+ / WebKit. Aceleración por hardware habilitada." },
-        { label: "Biometría", desc: "Cámara HD 1080p con soporte para profundidad (IR recomendado)." },
-        { label: "Seguridad", desc: "Habilitación de TPM 2.0 y soporte para cifrado AES-NI en hardware." }
+        { label: "Navegación", desc: "Chromium v115+ (Chrome/Edge) / WebKit (Safari 15+). Aceleración por hardware habilitada." },
+        { label: "Sistemas Móviles", desc: "Android 11+ o iOS 15+. Soporte para tecnología eSIM (eUICC) requerido para módulos telecom." },
+        { label: "Hardware Estación", desc: "Mínimo 4GB RAM (8GB recomendado). Cámara HD 1080p con soporte para profundidad." },
+        { label: "Conectividad Red", desc: "Enlace simétrico > 5Mbps estable. Latencia < 50ms para sincronización Ledger." },
+        { label: "Seguridad Hardware", desc: "Habilitación de TPM 2.0 y soporte para cifrado AES-NI en procesador." }
     ]
 };
 
 const glossaryTerms = [
-    { term: "Ledger Inmutable", def: "Registro de transacciones encadenado mediante hashes criptográficos que impide cualquier alteración posterior." },
-    { term: "eSIM (eUICC)", def: "Chip integrado que permite el aprovisionamiento de perfiles de red móvil de forma remota (Over-the-Air)." },
-    { term: "Validación eIDAS", def: "Estándar de la Unión Europea para la identificación electrónica y servicios de confianza." },
-    { term: "RIPF Automatizado", def: "Reajuste por Inflación Fiscal calculado en tiempo real según el INPC del Banco Central de Venezuela." },
-    { term: "Zero-Knowledge Proof", def: "Método criptográfico que permite validar información sin revelar los datos sensibles subyacentes." }
+    { term: "AES-512", def: "Protocolo de cifrado de grado militar utilizado para el blindaje de la bóveda de documentos." },
+    { term: "eIDAS", def: "Estándar de la Unión Europea para la identificación electrónica y servicios de confianza." },
+    { term: "SM-DP+", def: "Servidor de gestión de datos de suscripción para el aprovisionamiento remoto de eSIMs." },
+    { term: "Network Slicing", def: "Capacidad de la red 5G para crear sub-redes virtuales con parámetros de QoS específicos." },
+    { term: "VNF", def: "Funciones de Red Virtualizadas que permiten ejecutar servicios de telecom en la nube." },
+    { term: "RIPF Automatizado", def: "Reajuste por Inflación Fiscal calculado en tiempo real según el INPC del BCV." },
+    { term: "Ledger Inmutable", def: "Registro de transacciones encadenado criptográficamente que impide alteraciones posteriores." },
+    { term: "Zero-Knowledge Proof", def: "Método criptográfico que permite validar información sin revelar los datos sensibles." }
 ];
 
 const troubleshooting = [
-    { issue: "Falla de Validación Biométrica", cause: "Iluminación insuficiente o ángulo de cámara incorrecto.", solution: "Asegure luz frontal uniforme y mantenga el rostro a 30cm del lente." },
-    { issue: "Error de Sincronización Ledger", cause: "Micro-cortes en el enlace de red local.", solution: "Verifique estado del nodo 5G y ejecute el protocolo 'Refresh Data' en el Dashboard." },
-    { issue: "Bloqueo de Facturación", cause: "RIF del cliente vencido o inconsistente en la base del SENIAT.", solution: "Actualice la ficha del cliente mediante el motor de búsqueda automática de RIF." }
+    { issue: "Falla de Validación Biométrica", cause: "Iluminación insuficiente o ángulo de cámara incorrecto.", solution: "Asegure luz frontal uniforme y mantenga el rostro a 30cm del lente sin accesorios." },
+    { issue: "Error de Sincronización Ledger", cause: "Micro-cortes en el enlace de red local o saturación de nodo.", solution: "Verifique estado del nodo 5G y ejecute el protocolo 'Refresh Data' en el Dashboard." },
+    { issue: "Bloqueo de Facturación Fiscal", cause: "RIF del cliente vencido o inconsistente en la base del SENIAT.", solution: "Actualice la ficha del cliente mediante el motor de búsqueda automática de RIF integrado." },
+    { issue: "Perfil eSIM no descarga", cause: "Terminal no compatible o falta de certificado de confianza.", solution: "Verifique que el equipo esté desbloqueado para cualquier operadora y soporte eUICC." }
 ];
 
 const manualModules = [
@@ -99,7 +104,7 @@ const manualModules = [
         title: "Identidad Digital 3D",
         icon: Fingerprint,
         description: "Protocolo maestro de autenticación y resguardo de documentos civiles.",
-        procedure: "1. Acceda a 'Mi ID Digital'. 2. Inicie 'Enrolamiento'. 3. Siga la guía visual de mapeo facial. 4. Firme el acta digital.",
+        procedure: "1. Acceda a 'Mi ID Digital'. 2. Inicie 'Enrolamiento'. 3. Siga la guía visual de mapeo facial. 4. Firme el acta digital con clave maestra.",
         details: "Utiliza 512 puntos vectoriales para crear un hash de identidad único vinculado a su Cédula/RIF. Cumple con estándares eIDAS de alta confianza."
     },
     {
@@ -107,7 +112,7 @@ const manualModules = [
         title: "Telecom 5G y eSIM",
         icon: Radio,
         description: "Administración de redes convergentes y telefonía digital corporativa.",
-        procedure: "1. Ingrese a Gestión de Telecom. 2. Genere perfil eSIM. 3. Escanee el código QR en el terminal. 4. Active el nodo de datos.",
+        procedure: "1. Ingrese a Gestión de Telecom. 2. Genere perfil eSIM. 3. Escanee el código QR en el terminal. 4. Active el nodo de datos y valide señal.",
         details: "Soporte para Multi-IMSI y Network Slicing. Gestión de flota mediante servidor SM-DP+ certificado por GSMA."
     },
     {
@@ -115,48 +120,48 @@ const manualModules = [
         title: "Punto de Venta IA",
         icon: TabletSmartphone,
         description: "Operativa comercial con validación fiscal síncrona en tiempo real.",
-        procedure: "1. Valide operador. 2. Escanee productos. 3. Ingrese pago multimoneda. 4. Imprima factura fiscal.",
-        details: "Integración nativa con máquinas fiscales y pasarelas de pago. Detección automática de IGTF y exenciones de IVA."
+        procedure: "1. Valide operador biométricamente. 2. Escanee productos. 3. Ingrese pago multimoneda. 4. Emita factura fiscal homologada.",
+        details: "Integración nativa con máquinas fiscales y pasarelas de pago. Detección automática de IGTF y exenciones de IVA por IA."
     },
     {
         id: "contabilidad",
         title: "Finanzas y Auditoría",
         icon: TrendingUp,
         description: "Consolidación financiera y cumplimiento fiscal automatizado.",
-        procedure: "1. Cargue asientos. 2. Ejecute Auditoría Predictiva. 3. Genere Libros Oficiales. 4. Selle periodo fiscal.",
-        details: "Cálculo automático de RIPF. Generación de archivos TXT para SENIAT libres de errores humanos mediante IA."
+        procedure: "1. Cargue asientos contables. 2. Ejecute Auditoría Predictiva. 3. Genere Libros Oficiales. 4. Selle el periodo fiscal en Blockchain.",
+        details: "Cálculo automático de RIPF. Generación de archivos TXT para SENIAT libres de errores mediante motores de inferencia lógica."
     },
     {
         id: "rrhh",
         title: "Gestión de Talento",
         icon: Briefcase,
         description: "Administración integral de nómina y cumplimiento laboral LOTTT.",
-        procedure: "1. Cree perfil empleado. 2. Firme contrato digital. 3. Procese nómina quincenal. 4. Archive en Bóveda RRHH.",
-        details: "Motor de cálculo actuarial para prestaciones sociales y vacaciones. Generación de constancias AR-C con código QR."
+        procedure: "1. Cree perfil de empleado. 2. Firme contrato digital. 3. Procese nómina quincenal. 4. Archive recibos en Bóveda RRHH.",
+        details: "Motor de cálculo actuarial para prestaciones sociales y vacaciones. Generación de constancias AR-C con validación mediante código QR."
     },
     {
         id: "legal",
         title: "Mando Jurídico",
         icon: Gavel,
         description: "Control de contratos, poderes y habilitaciones corporativas.",
-        procedure: "1. Cargue borrador. 2. Asigne firmantes. 3. Ejecute flujo legal. 4. Monitoree vencimientos.",
-        details: "Alertas tempranas de vencimiento de poderes ante el SAREN y licencias CONATEL. Repositorio inmutable de actas."
+        procedure: "1. Cargue borrador legal. 2. Asigne firmantes autorizados. 3. Ejecute flujo de firmas. 4. Monitoree alertas de vencimiento.",
+        details: "Alertas tempranas de vencimiento de poderes ante el SAREN y licencias CONATEL. Repositorio inmutable de actas de asamblea."
     },
     {
         id: "ingenieria",
         title: "Ingeniería e IA",
         icon: Cpu,
         description: "Fotogrametría para planos y presupuestos de infraestructura.",
-        procedure: "1. Suba fotos del local. 2. Genere plano 2D/3D. 3. Seleccione materiales. 4. Exporte presupuesto.",
-        details: "Algoritmos de visión artificial para estimación de áreas y optimización de materiales de construcción."
+        procedure: "1. Suba capturas del local. 2. Genere plano 2D/3D a escala. 3. Seleccione materiales del catálogo. 4. Exporte presupuesto técnico.",
+        details: "Algoritmos de visión artificial para estimación de áreas y optimización de materiales de construcción con margen de error < 1%."
     },
     {
         id: "reciclaje",
         title: "Reciclaje Magnético",
         icon: Recycle,
-        description: "Monetización de residuos mediante tecnología de inducción.",
-        procedure: "1. Deposite envase. 2. Espere validación magnética. 3. Escanee ID. 4. Reciba Eco-Créditos.",
-        details: "Sistema patentado de clasificación de polímeros y metales vinculado a una billetera de activos verdes."
+        description: "Monetización de residuos mediante tecnología de inducción síncrona.",
+        procedure: "1. Deposite el envase. 2. Espere validación magnética de sensores. 3. Escanee su ID Digital. 4. Reciba Eco-Créditos en billetera.",
+        details: "Sistema patentado de clasificación de polímeros y metales vinculado a una billetera de activos verdes inmutable."
     }
 ];
 
@@ -170,86 +175,106 @@ export default function ManualUsuarioPage() {
 
     const handleDownload = () => {
         const content = `
-            <div style="text-align: center; margin-bottom: 50pt;">
-                <h1 style="color: #0ea5e9; font-size: 32pt; font-family: 'Arial Black', sans-serif; margin-bottom: 5pt; text-transform: uppercase;">SYSTEM KYRON</h1>
-                <p style="color: #64748b; font-size: 14pt; font-weight: bold; text-transform: uppercase; letter-spacing: 3pt;">Expediente Técnico Maestro v2.6.5</p>
-                <p style="color: #94a3b8; font-size: 10pt; margin-top: 30pt;">© 2026 • DOCUMENTO DE GRADO CORPORATIVO • PROPIEDAD INTELECTUAL RESERVADA</p>
+            <div style="text-align: center; margin-bottom: 60pt; border: 4pt double #0ea5e9; padding: 40pt; border-radius: 20pt; background-color: #f0f9ff;">
+                <h1 style="color: #0ea5e9; font-size: 42pt; font-family: 'Arial Black', sans-serif; margin-bottom: 10pt; text-transform: uppercase;">SYSTEM KYRON</h1>
+                <p style="color: #1e293b; font-size: 18pt; font-weight: bold; text-transform: uppercase; letter-spacing: 5pt; margin-bottom: 30pt;">Expediente Técnico Maestro v2.6.5</p>
+                <div style="width: 100pt; height: 2pt; background-color: #0ea5e9; margin: 0 auto 20pt;"></div>
+                <p style="color: #64748b; font-size: 12pt; font-style: italic;">Documento de Grado Corporativo • Acceso Nivel 5</p>
+                <p style="color: #ef4444; font-size: 10pt; font-weight: bold; margin-top: 40pt; text-transform: uppercase;">CONFIDENCIAL - PROPIEDAD INTELECTUAL RESERVADA</p>
             </div>
 
-            <div style="page-break-after: always; padding: 20pt; border: 2pt solid #0ea5e9; border-radius: 10pt; background: #f8fafc;">
-                <h2 style="color: #0ea5e9; text-align: center;">ÍNDICE GENERAL</h2>
-                <ul style="list-style: none; padding: 0; line-height: 2;">
-                    <li><strong>1.0 Introducción al Ecosistema</strong> ..................................................... Pág. 03</li>
-                    <li><strong>2.0 Guía de Inicio Rápido</strong> ........................................................... Pág. 05</li>
-                    <li><strong>3.0 Requisitos del Sistema</strong> ........................................................... Pág. 07</li>
-                    <li><strong>4.0 Módulos de Operación Maestra</strong> .............................................. Pág. 09</li>
-                    <li><strong>5.0 Soberanía y Seguridad de Datos</strong> ............................................ Pág. 25</li>
-                    <li><strong>6.0 Resolución de Incidencias</strong> ..................................................... Pág. 28</li>
-                    <li><strong>7.0 Glosario y Soporte Técnico</strong> ................................................... Pág. 30</li>
+            <div style="page-break-after: always; padding: 30pt; border: 1pt solid #e2e8f0; border-radius: 15pt;">
+                <h2 style="color: #0ea5e9; text-align: center; font-family: 'Arial Black'; margin-bottom: 20pt;">ÍNDICE ESTRATÉGICO</h2>
+                <ul style="list-style: none; padding: 0; line-height: 2.2; font-size: 11pt;">
+                    <li style="border-bottom: 1px dotted #cbd5e1;"><strong>1.0 Introducción al Ecosistema</strong> <span style="float: right;">Pág. 03</span></li>
+                    <li style="border-bottom: 1px dotted #cbd5e1;"><strong>2.0 Guía de Inicio Rápido (Quick Start)</strong> <span style="float: right;">Pág. 05</span></li>
+                    <li style="border-bottom: 1px dotted #cbd5e1;"><strong>3.0 Requisitos Técnicos de Operación</strong> <span style="float: right;">Pág. 07</span></li>
+                    <li style="border-bottom: 1px dotted #cbd5e1;"><strong>4.0 Protocolos de Módulos Maestros</strong> <span style="float: right;">Pág. 09</span></li>
+                    <li style="border-bottom: 1px dotted #cbd5e1;"><strong>5.0 Ciberseguridad y Soberanía del Dato</strong> <span style="float: right;">Pág. 25</span></li>
+                    <li style="border-bottom: 1px dotted #cbd5e1;"><strong>6.0 Resolución de Incidencias (Troubleshooting)</strong> <span style="float: right;">Pág. 28</span></li>
+                    <li style="border-bottom: 1px dotted #cbd5e1;"><strong>7.0 Glosario de Ingeniería</strong> <span style="float: right;">Pág. 30</span></li>
+                    <li style="border-bottom: 1px dotted #cbd5e1;"><strong>8.0 Soporte Maestro y Contacto</strong> <span style="float: right;">Pág. 32</span></li>
                 </ul>
             </div>
 
-            <h2 style="color: #0ea5e9; border-left: 15pt solid #0ea5e9; padding-left: 10pt; margin-top: 40pt;">1.0 INTRODUCCIÓN GENERAL</h2>
-            <p style="text-align: justify; font-size: 11pt; line-height: 1.6;">${introSection.text}</p>
-            <p style="font-weight: bold; color: #1e293b;">Misión:</p>
-            <p style="font-style: italic; color: #475569;">${introSection.mission}</p>
-            <p style="font-weight: bold; color: #1e293b;">Audiencia:</p>
-            <p style="color: #475569;">${introSection.target}</p>
+            <h2 style="color: #0ea5e9; border-left: 15pt solid #0ea5e9; padding-left: 15pt; margin-top: 40pt; font-family: 'Arial Black';">1.0 INTRODUCCIÓN GENERAL</h2>
+            <p style="text-align: justify; font-size: 11pt; line-height: 1.8; color: #334155;">${introSection.text}</p>
+            <div style="background-color: #f1f5f9; padding: 15pt; border-radius: 10pt; margin-top: 20pt;">
+                <p style="font-weight: bold; color: #0ea5e9; margin-bottom: 5pt; text-transform: uppercase;">Misión de Misión Crítica:</p>
+                <p style="font-style: italic; color: #475569;">${introSection.mission}</p>
+            </div>
 
-            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 15pt solid #0ea5e9; padding-left: 10pt;">2.0 GUÍA DE INICIO RÁPIDO (QUICK START)</h2>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 15pt;">
+            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">2.0 INICIO RÁPIDO (QUICK START)</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20pt;">
                 <tr style="background-color: #0ea5e9; color: white;">
-                    <th style="padding: 12pt; text-align: left; width: 10%;">PASO</th>
-                    <th style="padding: 12pt; text-align: left;">PROTOCOLO DE ACCIÓN</th>
+                    <th style="padding: 15pt; text-align: left; width: 15%; border-radius: 8pt 0 0 0;">FASE</th>
+                    <th style="padding: 15pt; text-align: left; border-radius: 0 8pt 0 0;">PROTOCOLO OPERATIVO</th>
                 </tr>
                 ${quickStartSteps.map(s => `
                     <tr>
-                        <td style="padding: 12pt; border-bottom: 1pt solid #e2e8f0; font-weight: bold; color: #0ea5e9;">${s.step}</td>
-                        <td style="padding: 12pt; border-bottom: 1pt solid #e2e8f0;">
-                            <strong>${s.title}</strong>: ${s.desc}
+                        <td style="padding: 15pt; border-bottom: 1pt solid #e2e8f0; font-weight: bold; color: #0ea5e9; background-color: #f8fafc;">${s.step}</td>
+                        <td style="padding: 15pt; border-bottom: 1pt solid #e2e8f0;">
+                            <strong style="color: #1e293b;">${s.title}</strong>: <span style="color: #64748b;">${s.desc}</span>
                         </td>
                     </tr>
                 `).join('')}
             </table>
 
-            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 15pt solid #0ea5e9; padding-left: 10pt;">3.0 MÓDULOS OPERATIVOS</h2>
-            ${manualModules.map(mod => `
-                <div style="margin-top: 30pt; padding: 15pt; border: 1pt solid #e2e8f0; border-radius: 8pt; background: #ffffff;">
-                    <h3 style="color: #0ea5e9; margin-top: 0; text-transform: uppercase;">${mod.title}</h3>
-                    <p style="font-size: 10pt; color: #64748b;">${mod.description}</p>
-                    <div style="background: #f1f5f9; padding: 10pt; margin: 10pt 0; border-radius: 5pt;">
-                        <p style="font-weight: bold; margin-bottom: 5pt;">PROCEDIMIENTO PASO A PASO:</p>
-                        <p style="font-size: 10pt;">${mod.procedure}</p>
+            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">3.0 REQUISITOS DEL SISTEMA</h2>
+            <div style="margin-top: 20pt;">
+                ${technicalRequirements.items.map(req => `
+                    <div style="margin-bottom: 15pt; border-bottom: 1pt solid #f1f5f9; padding-bottom: 10pt;">
+                        <p style="font-weight: bold; color: #334155; margin-bottom: 2pt; text-transform: uppercase; font-size: 10pt;">${req.label}</p>
+                        <p style="color: #64748b; font-size: 10pt;">${req.desc}</p>
                     </div>
-                    <p style="font-weight: bold; margin-top: 10pt;">ANÁLISIS DE INGENIERÍA:</p>
-                    <p style="text-align: justify; font-size: 9pt; color: #475569;">${mod.details}</p>
+                `).join('')}
+            </div>
+
+            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">4.0 PROTOCOLOS POR MÓDULO</h2>
+            ${manualModules.map(mod => `
+                <div style="margin-top: 40pt; padding: 25pt; border: 1pt solid #e2e8f0; border-radius: 15pt; background: #ffffff; box-shadow: 0 4pt 6pt -1pt rgba(0,0,0,0.1);">
+                    <h3 style="color: #0ea5e9; margin-top: 0; text-transform: uppercase; font-family: 'Arial Black'; font-size: 16pt;">${mod.title}</h3>
+                    <p style="font-size: 11pt; color: #64748b; margin-bottom: 20pt; font-weight: bold;">${mod.description}</p>
+                    <div style="background: #f8fafc; padding: 15pt; margin: 15pt 0; border-radius: 10pt; border-left: 5pt solid #0ea5e9;">
+                        <p style="font-weight: bold; color: #1e293b; margin-bottom: 8pt; text-transform: uppercase; font-size: 9pt;">PROCEDIMIENTO DE EJECUCIÓN:</p>
+                        <p style="font-size: 10pt; line-height: 1.6;">${mod.procedure}</p>
+                    </div>
+                    <p style="font-weight: bold; color: #334155; margin-top: 15pt; font-size: 9pt; text-transform: uppercase;">DETALLES DE INGENIERÍA:</p>
+                    <p style="text-align: justify; font-size: 10pt; color: #475569; line-height: 1.6;">${mod.details}</p>
                 </div>
             `).join('')}
 
-            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 15pt solid #0ea5e9; padding-left: 10pt;">4.0 RESOLUCIÓN DE INCIDENCIAS (TROUBLESHOOTING)</h2>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 15pt;">
+            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">5.0 TROUBLESHOOTING</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20pt;">
                 <tr style="background-color: #4b5563; color: white;">
-                    <th style="padding: 10pt; text-align: left;">SÍNTOMA / ERROR</th>
-                    <th style="padding: 10pt; text-align: left;">SOLUCIÓN MAESTRA</th>
+                    <th style="padding: 12pt; text-align: left; width: 40%;">INCIDENCIA / CAUSA</th>
+                    <th style="padding: 12pt; text-align: left;">PROTOCOLO DE RESOLUCIÓN</th>
                 </tr>
                 ${troubleshooting.map(t => `
                     <tr>
-                        <td style="padding: 10pt; border-bottom: 1pt solid #e2e8f0; font-size: 10pt;"><strong>${t.issue}</strong><br/><small>${t.cause}</small></td>
-                        <td style="padding: 10pt; border-bottom: 1pt solid #e2e8f0; font-size: 10pt; color: #15803d;">${t.solution}</td>
+                        <td style="padding: 12pt; border-bottom: 1pt solid #e2e8f0; font-size: 10pt;">
+                            <strong style="color: #ef4444;">${t.issue}</strong><br/>
+                            <small style="color: #64748b;">${t.cause}</small>
+                        </td>
+                        <td style="padding: 12pt; border-bottom: 1pt solid #e2e8f0; font-size: 10pt; color: #15803d; font-weight: bold;">${t.solution}</td>
                     </tr>
                 `).join('')}
             </table>
 
-            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 15pt solid #0ea5e9; padding-left: 10pt;">5.0 GLOSARIO TÉCNICO</h2>
-            <div style="margin-top: 15pt;">
+            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">6.0 GLOSARIO TÉCNICO</h2>
+            <div style="margin-top: 20pt; column-count: 2; column-gap: 30pt;">
                 ${glossaryTerms.map(g => `
-                    <p style="margin-bottom: 10pt;"><strong>${g.term}</strong>: <span style="font-size: 10pt; color: #475569;">${g.def}</span></p>
+                    <p style="margin-bottom: 15pt; break-inside: avoid;">
+                        <strong style="color: #0ea5e9; text-transform: uppercase; font-size: 9pt;">${g.term}</strong><br/>
+                        <span style="font-size: 9pt; color: #475569;">${g.def}</span>
+                    </p>
                 `).join('')}
             </div>
 
-            <div style="margin-top: 60pt; text-align: center; border-top: 2pt solid #0ea5e9; padding-top: 20pt;">
-                <p style="font-weight: bold; font-size: 12pt;">CENTRO DE SOPORTE MAESTRO</p>
-                <p style="color: #64748b;">infosystemkyron@gmail.com | Atenci&oacute;n 24/7 Nivel 5</p>
+            <div style="margin-top: 80pt; text-align: center; border-top: 3pt solid #0ea5e9; padding-top: 30pt;">
+                <h3 style="color: #1e293b; font-family: 'Arial Black'; margin-bottom: 5pt;">CENTRO DE SOPORTE MAESTRO</h3>
+                <p style="color: #64748b; font-size: 11pt; font-weight: bold;">infosystemkyron@gmail.com | Atenci&oacute;n Nivel 5 (24/7)</p>
+                <p style="color: #94a3b8; font-size: 9pt; margin-top: 10pt;">Sincronizado con Nodo Central System Kyron v2.6.5</p>
             </div>
         `;
 
@@ -326,10 +351,10 @@ export default function ManualUsuarioPage() {
                                     <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
                                 ))}
                                 <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20">Anexos</div>
-                                <NavButton label="Seguridad & Privacidad" onClick={() => scrollToSection("security")} />
-                                <NavButton label="Troubleshooting" onClick={() => scrollToSection("troubleshooting")} />
-                                <NavButton label="Glosario Técnico" onClick={() => scrollToSection("glossary")} />
-                                <NavButton label="Soporte Maestro" onClick={() => scrollToSection("support")} />
+                                <NavButton label="Seguridad & Privacidad" onClick={() => scrollToSection("security")} icon={ShieldCheck} />
+                                <NavButton label="Troubleshooting" onClick={() => scrollToSection("troubleshooting")} icon={ShieldAlert} />
+                                <NavButton label="Glosario Técnico" onClick={() => scrollToSection("glossary")} icon={BookOpen} />
+                                <NavButton label="Soporte Maestro" onClick={() => scrollToSection("support")} icon={HelpCircle} />
                             </CardContent>
                         </Card>
                     </aside>
