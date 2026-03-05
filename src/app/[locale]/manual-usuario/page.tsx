@@ -42,139 +42,145 @@ import {
     BarChart3,
     Users,
     Target,
-    Activity as ActivityIcon
+    Activity as ActivityIcon,
+    Briefcase
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { Link } from "@/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
 
+/**
+ * @fileOverview Manual de Usuario Maestro System Kyron v2.6.5.
+ * Versión de Grado Corporativo con Máxima Densidad Conceptual.
+ */
+
 const introSection = {
-    title: "1.0 Bienvenido a System Kyron v2.6.5",
-    mission: "Blindar la gestión institucional mediante tecnología inmutable y conectividad soberana, garantizando el cumplimiento con el 100% de los entes regulatorios nacionales.",
-    text: "System Kyron v2.6.5 es una plataforma de telecomunicaciones de misión crítica que ofrece líneas 5G, gestión eSIM y equipos homologados como servicio base. Sobre esta infraestructura de red, desplegamos un ecosistema de cumplimiento normativo total que garantiza la operación legal de su empresa ante todas las instituciones rectoras del Estado venezolano: tributario (SENIAT), telecomunicaciones (CONATEL), registral (SAREN), propiedad intelectual (SAPI), laboral (LOTTT, IVSS, FAOV, INCES) y protección del menor (LOPNNA). Cada transacción y registro es blindado por inteligencia artificial predictiva y un ledger blockchain que asegura su inmutabilidad. Este manual proporciona los protocolos para operar los nodos del sistema con absoluta solvencia legal."
+    title: "1.0 Introducción al Ecosistema de Misión Crítica",
+    mission: "Garantizar la soberanía operativa y solvencia legal del sector privado mediante tecnología inmutable.",
+    text: "System Kyron v2.6.5 no es una simple aplicación de gestión; es una infraestructura de ingeniería convergente diseñada para operar en el complejo entorno regulatorio venezolano. La plataforma se fundamenta sobre una red de telecomunicaciones 5G soberana, permitiendo que cada nodo administrativo (Fiscal, Legal, RRHH, Financiero) funcione con latencia cero y respaldo Blockchain. Este manual es el protocolo definitivo para la implementación y operación del sistema, asegurando que su organización alcance el estándar de 'Riesgo Cero' ante los entes reguladores del Estado: SENIAT, CONATEL, SAREN, SAPI, LOTTT e IVSS."
 };
 
 const quickStartSteps = [
-    { step: "01", title: "Configuración de Nodo", desc: "Ingrese sus credenciales maestras y valide su identidad biométrica inicial mediante el escaneo facial 3D.", icon: Terminal },
-    { step: "02", title: "Sincronización de Base", desc: "El sistema cargará automáticamente los últimos índices INPC del BCV y los parámetros de ley vigentes.", icon: RefreshCw },
-    { step: "03", title: "Habilitación de Módulos", desc: "Active los servicios necesarios (Telecom, Fiscal, RRHH) desde el selector de arquitectura modular.", icon: Zap },
-    { step: "04", title: "Inyección de Datos", desc: "Suba su base de clientes, productos y activos mediante el motor de importación masiva con validación IA.", icon: Database }
+    { step: "01", title: "Configuración de Nodo", desc: "Ingrese credenciales maestras y realice el primer Enrolamiento Biométrico 3D.", icon: Terminal },
+    { step: "02", title: "Sincronización Legal", desc: "Sincronice el sistema con la Gaceta Oficial y los índices INPC del BCV en tiempo real.", icon: RefreshCw },
+    { step: "03", title: "Activación de Flotas", desc: "Habilite las líneas eSIM y los smartphones homologados para el personal clave.", icon: Smartphone },
+    { step: "04", title: "Sellado de Ledger", desc: "Inicie el primer ciclo contable para activar el blindaje de inmutabilidad Blockchain.", icon: ShieldCheck }
 ];
 
 const manualModules = [
     {
         id: "identidad",
-        title: "Módulo 1: Identidad Digital 3D",
+        title: "Módulo 1: Identidad Digital Biométrica",
         icon: Fingerprint,
-        description: "Sistema maestro de autenticación biométrica y resguardo de identidad civil.",
-        procedure: "1. Iniciar sesión segura. 2. Acceder a Enrolamiento Facial. 3. Captura de 512 puntos vectoriales. 4. Vinculación de Cédula/RIF. 5. Emisión de ID Digital.",
-        details: "Protocolo de 'Prueba de Vida' (Liveness Detection) para prevenir suplantación. Cumplimiento con estándares eIDAS."
+        concept: "La identidad es el eje de la seguridad. Kyron utiliza patrones vectoriales 3D para crear una firma civil digital inerrante.",
+        procedure: "1. Iniciar Enrolamiento. 2. Captura facial (512 puntos). 3. Verificación de Prueba de Vida (Liveness). 4. Sellado de ID Digital.",
+        technical: "Cumplimiento total con el estándar europeo eIDAS. Algoritmos de reconocimiento con margen de error de 1:1.000.000."
     },
     {
         id: "telecom",
-        title: "Módulo 2: Telecom 5G y eSIM",
+        title: "Módulo 2: Telecomunicaciones y eSIM",
         icon: Radio,
-        description: "Gestión de conectividad convergente y aprovisionamiento remoto de líneas.",
-        procedure: "1. Selección de plan de datos. 2. Generación de perfil eUICC. 3. Escaneo de código de activación. 4. Registro en el HLR corporativo.",
-        details: "Integración nativa con servidores SM-DP+ de Kyron. Soporte para Network Slicing."
+        concept: "Infraestructura de conectividad soberana basada en estándares GSMA para flotas corporativas.",
+        procedure: "1. Selección de perfil eUICC. 2. Aprovisionamiento remoto vía SM-DP+. 3. Activación de Network Slicing para datos críticos.",
+        technical: "Soporte Multi-IMSI para redundancia de red. Cifrado EAP-AKA en la capa de transporte 5G."
     },
     {
         id: "tpv",
-        title: "Módulo 3: Punto de Venta IA",
+        title: "Módulo 3: Punto de Venta (TPV) IA",
         icon: TabletSmartphone,
-        description: "Terminal de facturación inteligente con validación fiscal síncrona.",
-        procedure: "1. Validación de operador. 2. Escaneo de activos/productos. 3. Cálculo automático de IVA/IGTF. 4. Cierre de venta y emisión de factura QR.",
-        details: "Sincronización con inventario y libros de venta. Detección de exenciones según Gaceta Oficial."
+        concept: "Terminal de facturación inteligente que garantiza el cumplimiento fiscal en cada transacción.",
+        procedure: "1. Validación de RIF automática. 2. Escaneo de activos. 3. Aplicación de IGTF/IVA según ley. 4. Emisión de Factura Fiscal QR.",
+        technical: "Sincronización síncrona con el Ledger Contable y la Providencia Administrativa SNAT/2011/0071 del SENIAT."
     },
     {
         id: "contabilidad",
-        title: "Módulo 4: Finanzas y Contabilidad",
+        title: "Módulo 4: Contabilidad y RIPF",
         icon: BarChart3,
-        description: "Automatización total del ciclo contable bajo estándares VEN-NIF.",
-        procedure: "1. Carga de transacciones por Ledger. 2. Ejecución de asientos automáticos. 3. Cálculo de RIPF. 4. Generación de Estados Financieros.",
-        details: "Integración con el INPC del BCV para cálculos actuariales precisos y auditoría de balance."
+        concept: "Automatización integral del ciclo contable bajo normativas VEN-NIF y leyes de impuesto sobre la renta.",
+        procedure: "1. Ejecución de Asientos Automáticos. 2. Ajuste por Inflación Fiscal (RIPF). 3. Generación de Estados Financieros Consolidados.",
+        technical: "Motor actuarial integrado con los índices del Banco Central de Venezuela para cálculos de reajuste regulares."
     },
     {
         id: "rrhh",
-        title: "Módulo 5: Gestión de Talento",
+        title: "Módulo 5: Gestión de Talento y LOTTT",
         icon: Users,
-        description: "Administración estratégica de capital humano y nómina automatizada.",
-        procedure: "1. Alta de ficha de trabajador. 2. Configuración de conceptos prestacionales. 3. Cálculo de quincena y aportes. 4. Envío de recibos digitales.",
-        details: "Cálculo de IVSS, FAOV e INCES. Módulo de LOPNNA para registro de cargas familiares."
+        concept: "Administración estratégica del capital humano con blindaje legal ante normativas laborales venezolanas.",
+        procedure: "1. Alta de ficha laboral. 2. Cálculo de conceptos LOTTT (Utilidades, Vacaciones). 3. Declaración de Parafiscales (IVSS, FAOV).",
+        technical: "Módulo LOPNNA integrado para el registro de cargas familiares y cumplimiento de obligaciones de manutención."
     },
     {
         id: "juridico",
-        title: "Módulo 6: Centro Jurídico Corporativo",
+        title: "Módulo 6: Bóveda Jurídica y SAREN",
         icon: Gavel,
-        description: "Gestión de contratos, poderes y cumplimiento normativo integral.",
-        procedure: "1. Registro de actas de asamblea. 2. Control de vigencia de poderes. 3. Seguimiento de trámites en SAREN/SAPI. 4. Alertas de vencimiento legal.",
-        details: "Bóveda segura para resguardo de títulos de propiedad con sello de tiempo inmutable."
+        concept: "Resguardo inmutable de la estructura legal y societaria de la empresa mediante sellado de tiempo RFC 3161.",
+        procedure: "1. Registro de Actas de Asamblea. 2. Gestión de Poderes Notariados. 3. Control de Marcas y Patentes ante el SAPI.",
+        technical: "Bóveda digital con cifrado AES-512 y arquitectura Zero-Knowledge: solo el representante legal tiene acceso a las llaves."
     },
     {
         id: "ingenieria",
-        title: "Módulo 7: Ingeniería y Proyectos IA",
+        title: "Módulo 7: Ingeniería y Fotogrametría IA",
         icon: Cpu,
-        description: "Planificación técnica basada en fotogrametría y presupuestos automatizados.",
-        procedure: "1. Carga de captura visual del local. 2. Generación de plano a escala por IA. 3. Cálculo métrico de materiales. 4. Exportación de presupuesto.",
-        details: "Optimización de costos mediante inteligencia espacial y base de datos de precios actualizada."
+        concept: "Planificación técnica de espacios físicos mediante visión artificial para presupuestos de alta precisión.",
+        procedure: "1. Captura de imagen del local. 2. Procesamiento de nube de puntos. 3. Generación de planos métricos. 4. Cómputos métricos.",
+        technical: "Integración de base de datos de precios unitarios (APU) para la generación automática de presupuestos de obra civil."
     },
     {
         id: "sostenibilidad",
-        title: "Módulo 8: Sostenibilidad Magnética",
+        title: "Módulo 8: Economía Circular Magnética",
         icon: Recycle,
-        description: "Gestión de residuos mediante tecnología de inducción magnética.",
-        procedure: "1. Ubicación de Smart Bin. 2. Autenticación de usuario. 3. Depósito y clasificación magnética. 4. Tokenización de Eco-Créditos.",
-        details: "Transformación de residuos en activos transaccionables en el mercado interno Kyron."
+        concept: "Monetización de la responsabilidad ambiental mediante tecnología de inducción magnética síncrona.",
+        procedure: "1. Autenticación en Smart Bin. 2. Depósito de residuos. 3. Clasificación magnética. 4. Tokenización de Eco-Créditos.",
+        technical: "Protocolo de trazabilidad Blockchain para cada kilogramo reciclado, validable para auditorías de Carbono Neutralidad."
     },
     {
         id: "bi",
         title: "Módulo 9: Inteligencia de Negocio (BI)",
         icon: TrendingUp,
-        description: "Dashboard ejecutivo para la toma de decisiones basada en datos.",
-        procedure: "1. Selección de nodo de análisis. 2. Definición de KPI estratégico. 3. Visualización predictiva. 4. Exportación de reporte ejecutivo.",
-        details: "Análisis multidimensional de rentabilidad y riesgo de mercado mediante redes neuronales."
+        concept: "Analítica predictiva de datos masivos para la toma de decisiones estratégicas de nivel ejecutivo.",
+        procedure: "1. Definición de KPI Maestro. 2. Análisis de Sensibilidad Financiera. 3. Proyección de Escenarios de Mercado.",
+        technical: "Motores de inferencia basados en redes neuronales recurrentes para la detección de anomalías en el flujo de caja."
     },
     {
-        id: "ciberseguridad",
+        id: "seguridad",
         title: "Módulo 10: Ciberseguridad Militar",
         icon: ShieldCheck,
-        description: "Blindaje de infraestructura y soberanía de los datos corporativos.",
-        procedure: "1. Monitoreo de nodos. 2. Auditoría biométrica. 3. Verificación de Ledger. 4. Escaneo de vulnerabilidades.",
-        details: "Cifrado AES-512. Arquitectura Zero-Knowledge: control total del usuario sobre sus llaves."
+        concept: "Defensa proactiva de la infraestructura digital contra amenazas externas e internas.",
+        procedure: "1. Monitoreo de Nodos. 2. Auditoría de Accesos. 3. Verificación de Integridad de Ledger. 4. Respuesta a Incidentes.",
+        technical: "Implementación de arquitectura de confianza cero (Zero Trust) y cifrado cuánticamente resistente para activos críticos."
     }
 ];
 
-const innovationModules = [
+const innovationTier2 = [
     {
         id: "voice",
-        title: "Interacción por Voz (V-IA)",
+        title: "Kyron Voice: Asistente V-IA",
         icon: Volume2,
-        description: "Asistente inteligente con procesamiento de lenguaje natural (NLP).",
-        procedure: "1. Active el botón de voz. 2. Realice su consulta técnica. 3. Escuche la inferencia de la IA. 4. Confirme la acción.",
-        details: "Entrenamiento basado en jurisprudencia y normativa administrativa venezolana."
+        concept: "Interacción mediante lenguaje natural procesado por IA para consultas rápidas.",
+        procedure: "Active el micrófono y consulte: '¿Cuándo vence mi declaración de IVA?' o 'Calcula la liquidación de Ana Pérez'.",
+        technical: "Modelo NLP entrenado en el corpus legal y administrativo de la República Bolivariana de Venezuela."
     },
     {
-        id: "mercado",
+        id: "ecocreditos",
         title: "Mercado de Eco-Créditos",
         icon: Coins,
-        description: "Exchange de bonos verdes tokenizados para monetización ambiental.",
-        procedure: "1. Inyecte residuos. 2. Valide créditos. 3. Publique oferta en el mercado. 4. Liquide activos.",
-        details: "Garantiza la trazabilidad de cada kilogramo transformado en activo digital."
+        concept: "Exchange de activos verdes tokenizados para la compensación de huella de carbono entre empresas.",
+        procedure: "1. Verificar saldo de E-CR. 2. Publicar oferta en el Ledger. 3. Ejecutar transacción inmutable entre nodos.",
+        technical: "Contratos inteligentes (Smart Contracts) para la liquidación instantánea de bonos de sostenibilidad."
     },
     {
         id: "generador",
-        title: "Generador IA de Documentos",
+        title: "Generador de Contratos IA",
         icon: Wand2,
-        description: "Motor de redacción jurídica automatizada bajo el marco legal vigente.",
-        procedure: "1. Seleccione instrumento. 2. Identifique partes. 3. Defina condiciones. 4. Obtenga borrador legal.",
-        details: "Sincronización con el módulo de permisos para validación de poderes."
+        concept: "Redacción automatizada de instrumentos legales de alta complejidad bajo el marco civil y mercantil.",
+        procedure: "1. Seleccionar plantilla. 2. Inyectar datos de las partes. 3. Definir cláusulas específicas. 4. Validar firma digital.",
+        technical: "Sincronización con el módulo jurídico para asegurar que los firmantes poseen los poderes vigentes necesarios."
     }
 ];
 
-export default function ManualUsuarioPage() {
+export default function ManualMaestroPage() {
     const { toast } = useToast();
     const [mounted, setMounted] = useState(false);
 
@@ -182,59 +188,57 @@ export default function ManualUsuarioPage() {
         setMounted(true);
     }, []);
 
-    const handleDownload = () => {
-        const content = `
-            <div style="text-align: center; margin-bottom: 40pt; border: 4pt double #0ea5e9; padding: 30pt; border-radius: 15pt; background-color: #f8fafc;">
-                <h1 style="color: #0ea5e9; font-size: 36pt; font-family: 'Arial Black', sans-serif; margin-bottom: 5pt; text-transform: uppercase;">SYSTEM KYRON</h1>
-                <p style="color: #1e293b; font-size: 16pt; font-weight: bold; text-transform: uppercase; letter-spacing: 4pt; margin-bottom: 20pt;">Manual de Usuario Maestro v2.6.5</p>
-                <div style="width: 80pt; height: 3pt; background-color: #0ea5e9; margin: 0 auto 15pt;"></div>
-                <p style="color: #64748b; font-size: 10pt; font-style: italic;">Documento de Grado Corporativo • Confidencialidad Nivel 5</p>
-            </div>
-
-            <h2 style="color: #0ea5e9; border-left: 10pt solid #0ea5e9; padding-left: 15pt; margin-top: 30pt; font-family: 'Arial Black';">1.0 INTRODUCCIÓN GENERAL</h2>
-            <p style="text-align: justify; font-size: 11pt; line-height: 1.6; color: #334155;">${introSection.text}</p>
-
-            <h2 style="color: #0ea5e9; margin-top: 30pt; border-left: 10pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">2.0 INICIO RÁPIDO (QUICK START)</h2>
-            ${quickStartSteps.map(step => `
-                <div style="margin-top: 10pt; padding: 12pt; border: 1pt solid #e2e8f0; border-radius: 8pt; background: #ffffff;">
-                    <h3 style="color: #0ea5e9; margin-top: 0; font-size: 12pt;">${step.step}. ${step.title}</h3>
-                    <p style="font-size: 10pt; color: #64748b;">${step.desc}</p>
+    const handleDownloadDoc = () => {
+        const docContent = `
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40pt; color: #1a1a1a;">
+                <div style="text-align: center; border-bottom: 3pt solid #0ea5e9; padding-bottom: 20pt; margin-bottom: 40pt;">
+                    <h1 style="color: #0ea5e9; font-size: 38pt; margin-bottom: 0;">SYSTEM KYRON</h1>
+                    <p style="text-transform: uppercase; letter-spacing: 5pt; font-weight: bold; color: #64748b;">Manual Maestro de Operaciones v2.6.5</p>
+                    <p style="font-size: 10pt; color: #94a3b8;">EXPEDIENTE DE GRADO CORPORATIVO • CONFIDENCIALIDAD NIVEL 5</p>
                 </div>
-            `).join('')}
 
-            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 10pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">3.0 PROTOCOLOS OPERATIVOS POR MÓDULO</h2>
-            ${manualModules.map(mod => `
-                <div style="margin-top: 20pt; padding: 15pt; border: 1pt solid #cbd5e1; border-radius: 10pt; background: #fdfdfd;">
-                    <h3 style="color: #0ea5e9; margin-top: 0; text-transform: uppercase; font-size: 14pt;">${mod.title}</h3>
-                    <p style="font-weight: bold; color: #475569; font-size: 10pt;">OBJETIVO: ${mod.description}</p>
-                    <div style="margin-top: 10pt; padding: 10pt; background: #f1f5f9; border-radius: 5pt;">
-                        <p style="font-weight: bold; font-size: 9pt; color: #0ea5e9;">PROCEDIMIENTO PASO A PASO:</p>
-                        <p style="font-size: 10pt; color: #334155;">${mod.procedure}</p>
+                <h2 style="color: #0ea5e9; border-left: 10pt solid #0ea5e9; padding-left: 15pt; margin-bottom: 20pt;">1.0 INTRODUCCIÓN ESTRATÉGICA</h2>
+                <p style="text-align: justify; font-size: 11pt; line-height: 1.6;">${introSection.text}</p>
+                <div style="background-color: #f8fafc; padding: 15pt; border-radius: 10pt; margin-top: 15pt; border: 1pt solid #e2e8f0;">
+                    <p style="font-weight: bold; color: #0ea5e9; margin-bottom: 5pt;">MISIÓN DEL NODO MAESTRO:</p>
+                    <p style="font-style: italic;">${introSection.mission}</p>
+                </div>
+
+                <h2 style="color: #0ea5e9; border-left: 10pt solid #0ea5e9; padding-left: 15pt; margin-top: 40pt; margin-bottom: 20pt;">2.0 PROTOCOLOS OPERATIVOS MAESTROS</h2>
+                ${manualModules.map(mod => `
+                    <div style="margin-bottom: 30pt; page-break-inside: avoid;">
+                        <h3 style="background-color: #0ea5e9; color: white; padding: 8pt 15pt; border-radius: 5pt; text-transform: uppercase;">${mod.title}</h3>
+                        <div style="padding: 10pt;">
+                            <p><strong>CONCEPTO FUNDAMENTAL:</strong> ${mod.concept}</p>
+                            <div style="background-color: #f1f5f9; padding: 10pt; border-radius: 5pt; margin: 10pt 0;">
+                                <p style="font-weight: bold; font-size: 9pt; color: #0369a1;">PROCEDIMIENTO PASO A PASO:</p>
+                                <p>${mod.procedure}</p>
+                            </div>
+                            <p style="font-size: 9pt; color: #64748b; border-top: 1pt solid #eee; padding-top: 5pt;"><strong>RESPALDO TÉCNICO:</strong> ${mod.technical}</p>
+                        </div>
                     </div>
-                    <p style="font-size: 9pt; margin-top: 10pt; color: #94a3b8; font-style: italic;"><strong>ARQUITECTURA:</strong> ${mod.details}</p>
-                </div>
-            `).join('')}
+                `).join('')}
 
-            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 10pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">4.0 INNOVACIONES ESTRATÉGICAS TIER 2</h2>
-            ${innovationModules.map(mod => `
-                <div style="margin-top: 15pt; padding: 15pt; border: 1pt solid #0ea5e9; border-radius: 10pt; background: #f0f9ff;">
-                    <h3 style="color: #0369a1; margin-top: 0; font-family: 'Arial Black';">${mod.title}</h3>
-                    <p style="font-size: 10pt; font-weight: bold; color: #0ea5e9;">${mod.description}</p>
-                    <p style="font-size: 10pt; margin-top: 8pt;"><strong>OPERACIÓN:</strong> ${mod.procedure}</p>
-                    <p style="font-size: 9pt; margin-top: 5pt; color: #64748b; font-style: italic;">${mod.details}</p>
-                </div>
-            `).join('')}
+                <h2 style="color: #0ea5e9; border-left: 10pt solid #0ea5e9; padding-left: 15pt; margin-top: 40pt; margin-bottom: 20pt;">3.0 INNOVACIONES DE GRADO SUPERIOR (TIER 2)</h2>
+                ${innovationTier2.map(inn => `
+                    <div style="margin-bottom: 25pt; border: 1pt solid #e2e8f0; border-radius: 8pt; padding: 15pt; background-color: #f0f9ff;">
+                        <h3 style="color: #0369a1; margin-top: 0;">${inn.title}</h3>
+                        <p><strong>OBJETIVO:</strong> ${inn.concept}</p>
+                        <p style="font-size: 10pt; color: #334155;"><strong>OPERACIÓN:</strong> ${inn.procedure}</p>
+                        <p style="font-size: 9pt; font-style: italic; color: #64748b; margin-top: 10pt;">Integración de Ingeniería: ${inn.technical}</p>
+                    </div>
+                `).join('')}
 
-            <div style="margin-top: 50pt; padding: 20pt; border: 2pt solid #ef4444; border-radius: 10pt; background: #fef2f2; text-align: center;">
-                <h3 style="color: #ef4444; margin-top: 0; font-family: 'Arial Black';">SOPORTE MAESTRO 24/7</h3>
-                <p style="font-size: 11pt; font-weight: bold;">Asistencia Crítica: infosystemkyron@gmail.com</p>
-                <p style="font-size: 9pt; color: #b91c1c;">Protocolo de respuesta: < 2 horas para Nivel 5.</p>
+                <div style="margin-top: 60pt; text-align: center; border-top: 2pt solid #eee; padding-top: 30pt;">
+                    <p style="font-size: 9pt; color: #94a3b8; text-transform: uppercase; letter-spacing: 3pt;">System Kyron Corporate Node • © 2026</p>
+                    <p style="font-size: 8pt; color: #cbd5e1;">Todos los derechos reservados. El uso no autorizado de este protocolo será perseguido legalmente.</p>
+                </div>
             </div>
         `;
 
-        const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual Maestro Kyron</title><style>table { width: 100%; border-collapse: collapse; } th, td { border: 1pt solid #ddd; padding: 10pt; text-align: left; font-size: 10pt; }</style></head><body style='padding: 50pt; font-family: Arial, sans-serif; color: #1a1a1a;'>";
+        const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual Maestro Kyron</title></head><body style='padding: 0; margin: 0;'>";
         const footerHtml = "</body></html>";
-        const blob = new Blob([headerHtml + content + footerHtml], { type: 'application/msword' });
+        const blob = new Blob([headerHtml + docContent + footerHtml], { type: 'application/msword' });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "MANUAL_MAESTRO_SYSTEM_KYRON_V2.6.5.doc";
@@ -242,7 +246,7 @@ export default function ManualUsuarioPage() {
         link.click();
         document.body.removeChild(link);
 
-        toast({ title: "EXPEDIENTE EXPORTADO", description: "Manual Maestro v2.6.5 generado bajo protocolo seguro." });
+        toast({ title: "EXPEDIENTE EXPORTADO", description: "Manual Maestro v2.6.5 descargado con éxito bajo protocolo seguro." });
     };
 
     const scrollToSection = (id: string) => {
@@ -256,6 +260,7 @@ export default function ManualUsuarioPage() {
 
     return (
         <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
+            {/* Header Flotante HUD */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-16 bg-black/90 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-12 justify-between shadow-glow">
                 <div className="flex items-center gap-4">
                     <Logo className="h-8 w-8 drop-shadow-glow" />
@@ -268,82 +273,105 @@ export default function ManualUsuarioPage() {
                     <Button variant="ghost" asChild className="h-9 px-4 rounded-xl text-[8px] font-black uppercase tracking-widest text-white/40 hover:text-white">
                         <Link href="/"><ChevronLeft className="mr-2 h-3 w-3" /> VOLVER</Link>
                     </Button>
-                    <Button className="btn-3d-primary h-9 px-6 rounded-xl text-[8px] font-black uppercase shadow-glow" onClick={handleDownload}>
-                        <Download className="mr-2 h-3 w-3" /> DESCARGAR (.DOC)
+                    <Button className="btn-3d-primary h-9 px-6 rounded-xl text-[8px] font-black uppercase shadow-glow" onClick={handleDownloadDoc}>
+                        <Download className="mr-2 h-3 w-3" /> DESCARGAR EXPEDIENTE
                     </Button>
                 </div>
             </header>
 
             <main className="container mx-auto px-6 max-w-7xl pt-24 pb-20 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-12">
-                    <aside className="lg:col-span-4 no-print">
-                        <Card className="glass-card p-6 rounded-[2.5rem] sticky top-24 border-white/5 bg-black/60 shadow-2xl">
+                    {/* Navegación Lateral HUD */}
+                    <aside className="lg:col-span-4 hidden lg:block">
+                        <Card className="glass-card p-6 rounded-[2.5rem] sticky top-24 border-white/5 bg-black/60 shadow-2xl overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-5"><ActivityIcon className="h-20 w-20 text-primary" /></div>
                             <CardHeader className="p-0 mb-6 border-b border-white/5 pb-4">
                                 <CardTitle className="text-[9px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-2">
                                     <ListTree className="h-3.5 w-3.5" /> Nodo de Navegación
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent className="p-0 space-y-1 max-h-[60vh] overflow-y-auto custom-scrollbar pr-2">
+                            <CardContent className="p-0 space-y-1 max-h-[60vh] overflow-y-auto custom-scrollbar pr-2 relative z-10">
                                 <NavButton label="1.0 Introducción" onClick={() => scrollToSection("intro")} icon={Info} />
                                 <NavButton label="2.0 Inicio Rápido" onClick={() => scrollToSection("quick")} icon={Zap} />
                                 <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Módulos de Operación</div>
                                 {manualModules.map(mod => (
                                     <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
                                 ))}
-                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Innovaciones Tier 2</div>
-                                {innovationModules.map(mod => (
+                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Innovaciones de Vanguardia</div>
+                                {innovationTier2.map(mod => (
                                     <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
                                 ))}
                             </CardContent>
                         </Card>
                     </aside>
 
+                    {/* Contenido Principal de Alta Densidad */}
                     <div className="lg:col-span-8 space-y-32">
+                        {/* 1.0 Introducción */}
                         <section id="intro" className="space-y-8 scroll-mt-24">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[8px] font-black uppercase tracking-[0.5em] text-primary shadow-glow mb-6">
+                            <motion.div 
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[8px] font-black uppercase tracking-[0.5em] text-primary shadow-glow mb-6"
+                            >
                                 <Sparkles className="h-3 w-3" /> NODO CENTRAL v2.6.5
-                            </div>
+                            </motion.div>
                             <h2 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">{introSection.title}</h2>
                             <p className="text-xl font-medium italic text-white/60 leading-relaxed text-justify border-l-4 border-primary/20 pl-8">{introSection.text}</p>
+                            <Card className="bg-primary/5 border-primary/20 p-8 rounded-[2rem]">
+                                <p className="text-xs font-black uppercase tracking-[0.4em] text-primary mb-2">Misión Institucional</p>
+                                <p className="text-lg font-bold italic text-white/90">{introSection.mission}</p>
+                            </Card>
                         </section>
 
+                        {/* 2.0 Quick Start */}
                         <section id="quick" className="space-y-12 scroll-mt-24">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
-                                <Zap className="h-6 w-6 text-yellow-500" /> 2.0 Inicio Rápido
+                                <Zap className="h-6 w-6 text-yellow-500" /> 2.0 Guía de Inicio Rápido
                             </h3>
                             <div className="grid sm:grid-cols-2 gap-6">
                                 {quickStartSteps.map((item, i) => (
-                                    <Card key={i} className="glass-card p-8 rounded-[2rem] border-white/5 bg-white/[0.01]">
+                                    <Card key={i} className="glass-card p-8 rounded-[2rem] border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-all">
                                         <div className="flex items-center gap-4 mb-4">
                                             <span className="text-2xl font-black text-primary/40 italic">{item.step}</span>
                                             <div className="p-3 bg-primary/10 rounded-xl">
                                                 <item.icon className="h-5 w-5 text-primary" />
                                             </div>
                                         </div>
-                                        <h4 className="font-black uppercase text-sm mb-2">{item.title}</h4>
-                                        <p className="text-xs text-muted-foreground font-medium">{item.desc}</p>
+                                        <h4 className="font-black uppercase text-sm mb-2 text-white/90 tracking-widest">{item.title}</h4>
+                                        <p className="text-xs text-muted-foreground font-medium leading-relaxed">{item.desc}</p>
                                     </Card>
                                 ))}
                             </div>
                         </section>
 
+                        {/* Módulos de Operación */}
                         <div className="space-y-24">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-primary flex items-center gap-4">
                                 <Cpu className="h-6 w-6" /> 3.0 Protocolos Operativos
                             </h3>
                             {manualModules.map(mod => (
-                                <ModuleCard key={mod.id} mod={mod} color="text-primary" />
+                                <ModuleSection key={mod.id} mod={mod} color="text-primary" />
                             ))}
                         </div>
 
+                        {/* Innovaciones Tier 2 */}
                         <div className="space-y-24">
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-yellow-500 flex items-center gap-4">
-                                <Zap className="h-6 w-6" /> 4.0 Innovaciones Tier 2
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-secondary flex items-center gap-4">
+                                <Sparkles className="h-6 w-6" /> 4.0 Innovaciones de Vanguardia
                             </h3>
-                            {innovationModules.map(mod => (
-                                <ModuleCard key={mod.id} mod={mod} color="text-yellow-500" />
+                            {innovationTier2.map(mod => (
+                                <ModuleSection key={mod.id} mod={mod} color="text-secondary" />
                             ))}
                         </div>
+
+                        {/* Footer del Manual */}
+                        <footer className="pt-20 border-t border-white/5 text-center space-y-6">
+                            <Logo className="h-12 w-12 mx-auto opacity-20" />
+                            <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
+                                SYSTEM KYRON MASTER PROTOCOL • END OF FILE
+                            </p>
+                        </footer>
                     </div>
                 </div>
             </main>
@@ -355,7 +383,7 @@ function NavButton({ label, onClick, icon: Icon }: { label: string, onClick: () 
     return (
         <button 
             onClick={onClick} 
-            className="group w-full text-left px-4 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest text-white/30 hover:text-primary hover:bg-primary/10 transition-all flex items-center justify-between"
+            className="group w-full text-left px-4 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest text-white/30 hover:text-primary hover:bg-primary/10 transition-all flex items-center justify-between border border-transparent hover:border-primary/20"
         >
             <div className="flex items-center gap-3">
                 {Icon && <Icon className="h-3.5 w-3.5 opacity-40 group-hover:opacity-100" />}
@@ -366,40 +394,51 @@ function NavButton({ label, onClick, icon: Icon }: { label: string, onClick: () 
     );
 }
 
-function ModuleCard({ mod, color }: { mod: any, color: string }) {
+function ModuleSection({ mod, color }: { mod: any, color: string }) {
     return (
-        <section id={mod.id} className="scroll-mt-24">
-            <Card className="glass-card rounded-[3.5rem] border-white/5 overflow-hidden bg-black/60 shadow-2xl transition-all hover:border-primary/20">
+        <section id={mod.id} className="scroll-mt-24 group">
+            <Card className="glass-card rounded-[3.5rem] border-white/5 overflow-hidden bg-black/60 shadow-2xl transition-all duration-700 hover:border-primary/30">
                 <CardHeader className="p-12 border-b border-white/5 flex flex-col md:flex-row items-center gap-10 bg-white/[0.01]">
-                    <div className={cn("p-8 rounded-[3rem] border border-white/10 shadow-inner", color === 'text-yellow-500' ? 'bg-yellow-500/10' : 'bg-primary/10')}>
+                    <div className={cn("p-8 rounded-[3rem] border border-white/10 shadow-inner group-hover:scale-110 transition-transform duration-700", color === 'text-secondary' ? 'bg-secondary/10' : 'bg-primary/10')}>
                         <mod.icon className={cn("h-12 w-12", color)} />
                     </div>
                     <div className="space-y-3 text-center md:text-left">
                         <CardTitle className="text-3xl font-black uppercase italic tracking-tighter text-white leading-none">{mod.title}</CardTitle>
-                        <CardDescription className="text-[10px] font-black uppercase tracking-[0.5em] italic opacity-60">{mod.description}</CardDescription>
+                        <CardDescription className="text-[10px] font-black uppercase tracking-[0.5em] italic opacity-60">Protocolo Operativo Verificado</CardDescription>
                     </div>
                 </CardHeader>
                 <CardContent className="p-12 space-y-12">
+                    <div className="space-y-4">
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-white/30 flex items-center gap-2">
+                            <BookOpen className="h-3 w-3" /> Concepto Fundamental
+                        </h4>
+                        <p className="text-xl font-bold italic text-white/80 leading-relaxed text-justify">{mod.concept || mod.description}</p>
+                    </div>
+
                     <div className="p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 shadow-inner">
                         <h4 className={cn("text-[10px] font-black uppercase tracking-[0.6em] mb-8 flex items-center gap-3", color)}>
-                            <Terminal className="h-4 w-4" /> Procedimiento Operativo
+                            <Terminal className="h-4 w-4" /> Procedimiento de Ejecución
                         </h4>
-                        <div className="text-sm font-bold italic text-white/80 leading-relaxed text-justify space-y-4">
+                        <div className="text-sm font-bold italic text-white/70 leading-relaxed text-justify space-y-4">
                             {mod.procedure.split('. ').map((step: string, idx: number) => (
-                                <p key={idx} className="flex gap-4"><span className={color}>[{idx + 1}]</span> {step}</p>
+                                <div key={idx} className="flex gap-6 items-start">
+                                    <span className={cn("font-black text-xs", color)}>[{idx + 1}]</span>
+                                    <span>{step}</span>
+                                </div>
                             ))}
                         </div>
                     </div>
+
                     <div className="space-y-6">
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-white/20 italic border-l-4 border-white/10 pl-6">Arquitectura Técnica</h4>
-                        <p className="text-lg font-medium text-white/50 leading-relaxed italic text-justify">{mod.details}</p>
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-white/20 italic border-l-4 border-white/10 pl-6">Arquitectura de Ingeniería</h4>
+                        <p className="text-lg font-medium text-white/40 leading-relaxed italic text-justify">{mod.technical || mod.details}</p>
                     </div>
                 </CardContent>
                 <CardFooter className="p-12 border-t border-white/5 flex justify-between items-center bg-white/[0.01]">
                     <div className="flex items-center gap-3 text-[8px] font-black uppercase tracking-widest text-white/20">
-                        <ShieldCheck className="h-3.5 w-3.5" /> AES-512 SECURED
+                        <ShieldCheck className="h-3.5 w-3.5" /> SECURE-NODE AUTH
                     </div>
-                    <Badge variant="outline" className="border-primary/20 text-primary text-[8px] font-black px-4 py-1.5 rounded-lg">VERIFIED BY NODO MAESTRO</Badge>
+                    <Badge variant="outline" className="border-primary/20 text-primary text-[8px] font-black px-4 py-1.5 rounded-lg shadow-glow">VERIFIED BY MASTER NODE</Badge>
                 </CardFooter>
             </Card>
         </section>
