@@ -26,7 +26,7 @@ import { Logo } from "@/components/logo";
 import React from "react";
 
 const zeduMasterData = {
-    titulo: "MODELO DE ZEDU - System Kyron 2025",
+    titulo: "EXPEDIENTE MAESTRO ZEDU - System Kyron",
     secciones: [
         {
             id: 1,
@@ -93,12 +93,12 @@ const alliesTableData = [
 ];
 
 const planAccionData = [
-    { tarea: "Análisis de Mercado Detallado y Validación de Requerimientos con Empresas Piloto.", responsable: "Carlos Mattar, Líder de Estrategia", cronograma: "Semanas 1-2" },
-    { tarea: "Desarrollo del Core ERP: Módulos Contable (VEN-NIF) y Administrativo (Inventario, CXC/P).", responsable: "Sebastián Garrido, Líder de Desarrollo", cronograma: "Semanas 3-8" },
-    { tarea: "Despliegue de nodos de VoIP en AWS y configuración de troncales SIP para la OMV.", responsable: "Marcos Sousa, Líder de Telecom", cronograma: "Semanas 6-10" },
-    { tarea: "Desarrollo de la Billetera Blockchain y Pruebas de Seguridad de Contratos Inteligentes.", responsable: "Sebastián Garrido, Líder de Desarrollo", cronograma: "Semanas 7-11" },
-    { tarea: "Fase de Pruebas de Aceptación de Usuario (UAT) con Clientes Piloto en entorno real.", responsable: "Equipo de QA", cronograma: "Semanas 11-12" },
-    { tarea: "Lanzamiento oficial del MVP y campaña de marketing digital inicial.", responsable: "Equipo de Marketing", cronograma: "Semana 12 en adelante" },
+    { tarea: "Análisis de Mercado Detallado y Validación de Requerimientos con Empresas Piloto.", responsable: "Carlos Mattar, Líder de Estrategia", cronograma: "Fase Inicial" },
+    { tarea: "Desarrollo del Core ERP: Módulos Contable (VEN-NIF) y Administrativo (Inventario, CXC/P).", responsable: "Sebastián Garrido, Líder de Desarrollo", cronograma: "Fase Beta" },
+    { tarea: "Despliegue de nodos de VoIP en AWS y configuración de troncales SIP para la OMV.", responsable: "Marcos Sousa, Líder de Telecom", cronograma: "Fase de Red" },
+    { tarea: "Desarrollo de la Billetera Blockchain y Pruebas de Seguridad de Contratos Inteligentes.", responsable: "Sebastián Garrido, Líder de Desarrollo", cronograma: "Fase de Seguridad" },
+    { tarea: "Fase de Pruebas de Aceptación de Usuario (UAT) con Clientes Piloto en entorno real.", responsable: "Equipo de QA", cronograma: "Validación" },
+    { tarea: "Lanzamiento oficial del MVP y campaña de marketing digital inicial.", responsable: "Equipo de Marketing", cronograma: "Despliegue" },
 ];
 
 const indicators = [
@@ -410,7 +410,7 @@ export default function SectorPrivadoPage() {
                                 </div>
                                 <div className="mx-auto w-fit bg-black p-6 rounded-[2.5rem] shadow-glow border border-primary/20"><Logo className="h-16 w-16" /></div>
                                 <CardTitle className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic text-white italic-shadow leading-tight">Ecosistema Kyron <br/> Eficiencia Sin Fronteras</CardTitle>
-                                <CardDescription className="text-primary font-black uppercase tracking-[0.6em] text-xs">Propuesta Maestra de Gestión 2025</CardDescription>
+                                <CardDescription className="text-primary font-black uppercase tracking-[0.6em] text-xs">Propuesta Maestra de Gestión</CardDescription>
                             </CardHeader>
                             <CardContent className="p-12 space-y-16">
                                 <div className="grid md:grid-cols-2 gap-8">

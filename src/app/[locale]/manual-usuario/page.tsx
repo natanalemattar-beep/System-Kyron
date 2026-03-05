@@ -302,7 +302,7 @@ export default function ManualUsuarioPage() {
                                     </CardContent>
                                     <CardFooter className="p-8 border-t border-white/5 flex justify-center bg-white/[0.01]">
                                         <Logo className="h-4 w-4 mr-3 opacity-20" />
-                                        <span className="text-[8px] font-black uppercase tracking-[0.8em] text-white/10 italic">Kyron Intelligence Ecosystem • 2026</span>
+                                        <span className="text-[8px] font-black uppercase tracking-[0.8em] text-white/10 italic">Kyron Intelligence Ecosystem</span>
                                     </CardFooter>
                                 </Card>
                             </motion.section>
