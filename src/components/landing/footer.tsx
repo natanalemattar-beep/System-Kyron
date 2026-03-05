@@ -5,6 +5,7 @@ import { Logo } from "@/components/logo";
 import { Mail, MapPin, Linkedin, Twitter } from "lucide-react";
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";
+import { useTranslations } from 'next-intl';
 
 const SocialIcon = ({ href, children }: { href: string, children: React.ReactNode }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
@@ -14,13 +15,18 @@ const SocialIcon = ({ href, children }: { href: string, children: React.ReactNod
 
 export function Footer() {
     const { isHolidayActive } = useHoliday();
+    const t = useTranslations('HeroSection');
+
     return (
         <footer id="footer" className={cn("py-16 border-t border-white/5", isHolidayActive ? "bg-transparent" : "bg-[#020202]")}>
             <div className="container mx-auto px-6 grid md:grid-cols-3 gap-16">
                 <div className="space-y-6">
                     <div className="flex items-center gap-3">
                         <Logo className="h-10 w-10" />
-                        <span className="text-xl font-black uppercase italic tracking-tighter text-white">System Kyron</span>
+                        <div className="flex flex-col">
+                            <span className="text-xl font-black uppercase italic tracking-tighter text-white leading-none">System Kyron</span>
+                            <span className="text-[8px] font-bold text-primary uppercase tracking-widest mt-1 opacity-60 italic">{t('slogan')}</span>
+                        </div>
                     </div>
                     <p className="text-xs font-bold uppercase tracking-widest text-white/40 leading-relaxed">
                         Ingeniería de software de misión crítica. <br/> Simplificamos la complejidad operativa.

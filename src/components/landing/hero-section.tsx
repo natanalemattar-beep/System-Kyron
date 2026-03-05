@@ -7,8 +7,11 @@ import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/navigation";
+import { useTranslations } from 'next-intl';
 
 export function HeroSection() {
+  const t = useTranslations('HeroSection');
+
   return (
     <section id="inicio" className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
       
@@ -65,7 +68,10 @@ export function HeroSection() {
                   KYRON <br/> 
                   <span className="text-primary italic italic-shadow">SYSTEM</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-snug font-bold border-l-4 border-primary/30 pl-8 opacity-80 uppercase tracking-tight">
+                <p className="text-primary font-black uppercase tracking-[0.5em] text-xs md:text-sm mt-4">
+                  {t('slogan')}
+                </p>
+                <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-snug font-bold border-l-4 border-primary/30 pl-8 opacity-80 uppercase tracking-tight pt-4">
                   Líneas <span className="text-secondary italic">5G Digitales</span>, <br/>
                   Conectividad <span className="text-primary tracking-tighter">eSIM</span> y Blindaje Fiscal.
                 </p>

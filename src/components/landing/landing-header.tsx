@@ -21,9 +21,11 @@ import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { loginOptions } from "@/lib/login-options";
+import { useTranslations } from 'next-intl';
 
 export function LandingHeader() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const t = useTranslations('HeroSection');
 
     const handleScroll = useCallback(() => {
         const scrolled = window.scrollY > 20;
@@ -51,7 +53,9 @@ export function LandingHeader() {
                             <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 drop-shadow-glow" /> 
                             <div className="flex flex-col">
                                 <span className="text-xs font-black tracking-[0.5em] text-white uppercase italic italic-shadow leading-none">KYRON</span>
-                                <span className="text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-60">Master Node</span>
+                                <span className="hidden md:inline-block text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-60">
+                                    {t('slogan')}
+                                </span>
                             </div>
                         </Link>
                     </div>
