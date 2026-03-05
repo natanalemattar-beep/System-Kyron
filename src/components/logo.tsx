@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 /**
  * @fileOverview Logo Institucional de System Kyron v2.6.5.
  * Diseño fiel a la identidad visual: Hexágono de precisión con glifo de inducción y nodo central.
- * Sustituye la 'K' por la arquitectura vectorial de la marca.
+ * Sustituye la 'K' por la arquitectura vectorial de la marca tal como se muestra en la referencia.
  */
 
 export function Logo({ className, id }: { className?: string; id?: string }) {
@@ -47,19 +47,18 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           strokeLinejoin="round"
         />
         
-        {/* Glifo de Inducción - Identidad Visual Real */}
+        {/* Glifo de Inducción - Ángulo Chevron según referencia */}
         <g filter="url(#master-glow)">
           <path
-            d="M68 28L38 50L68 72"
+            d="M65 30L40 50L65 70"
             stroke="url(#logo-gradient-master)"
-            strokeWidth="10"
+            strokeWidth="12"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           
-          {/* Nodo de Inteligencia Central */}
-          <circle cx="46" cy="50" r="6" fill="#ffffff" />
-          <circle cx="46" cy="50" r="3" fill="#22c55e" />
+          {/* Nodo de Inteligencia Central Blanco (Referencia Imagen) */}
+          <circle cx="40" cy="50" r="5" fill="#ffffff" stroke="#0ea5e9" strokeWidth="1" />
         </g>
 
         {/* Detalles de Vértice */}
