@@ -6,22 +6,17 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
-  Download, Zap, ShieldCheck, 
-  Lock, Printer, BrainCircuit, Network, Cpu, Database, 
+  Zap, ShieldCheck, 
+  Lock, BrainCircuit, Network, Cpu, Database, 
   Sparkles, Activity, TrendingUp, Target, BarChart3, FileText, ChevronRight, Globe, Radio, Magnet, FileDown,
-  CheckCircle
+  CheckCircle,
+  FileText as FileWord
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { Logo } from "@/components/logo";
-
-/**
- * @fileOverview DOSSIER TÉCNICO MAESTRO - SECTOR PRIVADO v2.6.5
- * Nodo centralizado para Factibilidad, ZEDU y Propuesta Estratégica.
- * Incluye exportación a Word de última generación.
- */
 
 const zeduModel2025 = {
     identificacion: {
@@ -100,40 +95,53 @@ export default function SectorPrivadoPage() {
         });
     };
 
-    const handleDownloadDossierCompleto = () => {
+    const handleDownloadZEDU = () => {
         const content = `
-            <h1 style="text-align: center; color: #2563eb;">DOSSIER TÉCNICO MAESTRO SYSTEM KYRON 2025</h1>
-            <p><strong>Clasificación:</strong> Confidencial / Sector Privado</p>
-            <p><strong>Fecha de Emisión:</strong> ${new Date().toLocaleDateString()}</p>
+            <h1 style="text-align: center; color: #2563eb;">MODELO ZEDU - ESTUDIO POBLACIONAL 2025</h1>
+            <p><strong>Institución:</strong> ${zeduModel2025.identificacion.institucion}</p>
+            <p><strong>Localización:</strong> ${zeduModel2025.estudioPoblacion.localizacion}</p>
+            <p><strong>Alcance:</strong> ${zeduModel2025.estudioPoblacion.estimada}</p>
             <hr/>
-            <h2>1. FACTIBILIDAD ECONÓMICA</h2>
-            <p>Indicadores clave:</p>
+            <p>Este documento constituye el análisis demográfico base para el despliegue del Ecosistema Kyron en la región.</p>
+        `;
+        downloadAsWord("Modelo_ZEDU_System_Kyron", content);
+    };
+
+    const handleDownloadFactibilidad = () => {
+        const content = `
+            <h1 style="text-align: center; color: #22c55e;">FACTIBILIDAD ECONÓMICA KYRON 2025</h1>
+            <h2>Indicadores de Rentabilidad</h2>
             <ul>
                 <li>VAN: $450,000.00</li>
                 <li>TIR: 28.5%</li>
-                <li>Punto de Equilibrio: 2.4 años</li>
+                <li>Período de Recuperación: 2.4 años</li>
             </ul>
             <hr/>
-            <h2>2. PROPUESTA ESTRATÉGICA</h2>
-            <p>Pilares tecnológicos:</p>
-            <ul>
-                <li>Conectividad Hyper-Connect 5G</li>
-                <li>Reciclaje por Inducción Magnética</li>
-                <li>Blindaje Fiscal IA 360°</li>
-                <li>Ledger Inmutable Blockchain</li>
-            </ul>
-            <hr/>
-            <p style="text-align: center; font-size: 10px;">Generado por el Nodo Maestro de Inteligencia Corporativa Kyron</p>
+            <p>El análisis financiero demuestra una viabilidad sobresaliente basada en el modelo de ingresos SaaS y la reducción de costos operativos mediante IA.</p>
         `;
-        downloadAsWord("Dossier_Maestro_Kyron_2025", content);
+        downloadAsWord("Factibilidad_Economica_Kyron", content);
+    };
+
+    const handleDownloadPropuesta = () => {
+        const content = `
+            <h1 style="text-align: center; color: #2563eb;">PROPUESTA ESTRATÉGICA SYSTEM KYRON</h1>
+            <h2>Pilares de Innovación</h2>
+            <ol>
+                <li>Kyron Hyper-Connect 5G</li>
+                <li>Ecosistema Magnético IA</li>
+                <li>Blindaje Fiscal 360</li>
+                <li>Ledger Blockchain</li>
+            </ol>
+            <hr/>
+            <p>Propuesta técnica para la modernización de la infraestructura corporativa venezolana.</p>
+        `;
+        downloadAsWord("Propuesta_Estrategica_Kyron", content);
     };
 
     if (!isMounted) return null;
 
     return (
         <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen bg-black relative">
-            <style>{`@media print { body * { visibility: hidden; } .print-area, .print-area * { visibility: visible; } .print-area { position: absolute; left: 0; top: 0; width: 100%; border: none !important; } .no-print { display: none !important; } }`}</style>
-
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10 no-print">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
@@ -141,11 +149,6 @@ export default function SectorPrivadoPage() {
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Sector <span className="text-primary italic">Privado Kyron</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Expediente de Inteligencia Corporativa • Nodo 2.6.5</p>
-                </div>
-                <div className="flex gap-3">
-                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white" onClick={handleDownloadDossierCompleto}>
-                        <FileDown className="mr-2 h-4 w-4" /> DESCARGAR EXPEDIENTE (.DOC)
-                    </Button>
                 </div>
             </header>
 
@@ -158,7 +161,7 @@ export default function SectorPrivadoPage() {
                     <TabsTrigger value="propuesta" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4">5. Propuesta</TabsTrigger>
                 </TabsList>
 
-                <div className="print-area space-y-16">
+                <div className="space-y-16">
                     <TabsContent value="identificacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card p-10 rounded-[3rem] border-primary/20 bg-black/40 shadow-2xl">
                             <CardHeader className="p-0 mb-8"><CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Identificación del Nodo</CardTitle></CardHeader>
@@ -181,7 +184,12 @@ export default function SectorPrivadoPage() {
 
                     <TabsContent value="poblacion" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card p-10 rounded-[3rem] border-secondary/20 bg-black/40 shadow-2xl">
-                            <CardHeader className="p-0 mb-8"><CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-secondary italic">Estudio Poblacional (ZEDU)</CardTitle></CardHeader>
+                            <CardHeader className="p-0 mb-8 flex flex-row items-center justify-between">
+                                <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-secondary italic">Estudio Poblacional (ZEDU)</CardTitle>
+                                <Button size="sm" variant="outline" className="rounded-xl h-9 text-[8px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={handleDownloadZEDU}>
+                                    <FileWord className="mr-2 h-3 w-3" /> DESCARGAR ZEDU (.DOC)
+                                </Button>
+                            </CardHeader>
                             <CardContent className="p-0 space-y-8">
                                 <div className="space-y-2">
                                     <span className="text-[8px] font-black uppercase tracking-widest text-white/30">Localización Técnica</span>
@@ -230,6 +238,11 @@ export default function SectorPrivadoPage() {
 
                     <TabsContent value="factibilidad" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="space-y-10">
+                            <div className="flex justify-end">
+                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={handleDownloadFactibilidad}>
+                                    <FileWord className="mr-2 h-4 w-4" /> DESCARGAR FACTIBILIDAD (.DOC)
+                                </Button>
+                            </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {indicators.map((ind, i) => (
                                     <Card key={i} className="glass-card p-8 rounded-[2.5rem] bg-white/[0.02] border-white/5 group hover:border-primary/30 transition-all">
@@ -283,6 +296,11 @@ export default function SectorPrivadoPage() {
                     <TabsContent value="propuesta" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40">
                             <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
+                                <div className="flex justify-end no-print">
+                                    <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={handleDownloadPropuesta}>
+                                        <FileWord className="mr-2 h-4 w-4" /> DESCARGAR PROPUESTA (.DOC)
+                                    </Button>
+                                </div>
                                 <div className="mx-auto w-fit bg-black p-6 rounded-[2.5rem] shadow-glow border border-primary/20"><Logo className="h-16 w-16" /></div>
                                 <CardTitle className="text-4xl font-black uppercase tracking-tighter italic text-white italic-shadow leading-tight">Ecosistema Kyron <br/> Eficiencia Sin Fronteras</CardTitle>
                                 <CardDescription className="text-primary font-black uppercase tracking-[0.6em] text-xs">Propuesta Maestra de Gestión 2025</CardDescription>
