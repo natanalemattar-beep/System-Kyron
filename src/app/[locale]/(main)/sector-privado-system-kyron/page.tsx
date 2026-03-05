@@ -26,7 +26,7 @@ import { Logo } from "@/components/logo";
 import React from "react";
 
 const zeduMasterData = {
-    titulo: "EXPEDIENTE MAESTRO ZEDU - System Kyron",
+    titulo: "Modelo Zedu - System Kyron",
     secciones: [
         {
             id: 1,
@@ -152,9 +152,31 @@ export default function SectorPrivadoPage() {
     }, []);
 
     const downloadAsWord = (title: string, content: string) => {
-        const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>"+title+"</title></head><body>";
+        const header = `
+            <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+            <head>
+                <meta charset='utf-8'>
+                <title>${title}</title>
+                <style>
+                    body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; }
+                    .header { text-align: center; border-bottom: 2px solid #2d5a8e; padding-bottom: 20px; margin-bottom: 30px; }
+                    .logo-text { font-size: 24pt; font-weight: 900; color: #2d5a8e; letter-spacing: 5px; }
+                    .subtitle { font-size: 10pt; color: #666; text-transform: uppercase; letter-spacing: 2px; }
+                    h1 { color: #2d5a8e; font-size: 18pt; text-transform: uppercase; }
+                    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+                    .section-header { background-color: #2d5a8e; color: white; font-weight: bold; }
+                    .label-cell { background-color: #f3f4f6; font-weight: bold; width: 30%; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <div class="logo-text">SYSTEM KYRON</div>
+                    <div class="subtitle">Ecosistema de Inteligencia Corporativa</div>
+                </div>
+        `;
         const footer = "</body></html>";
-        const sourceHTML = header + `<div style="font-family: Arial, sans-serif; padding: 20px;">${content}</div>` + footer;
+        const sourceHTML = header + content + footer;
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
         const fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
@@ -165,7 +187,7 @@ export default function SectorPrivadoPage() {
         
         toast({
             title: "PROTOCOLO DE DESCARGA ACTIVO",
-            description: `Documento exportado en formato .doc institucional.`,
+            description: `Documento "${title}" exportado con sello de identidad.`,
             action: <CheckCircle className="text-primary h-4 w-4" />
         });
     };
@@ -173,47 +195,44 @@ export default function SectorPrivadoPage() {
     const handleDownloadZEDU = () => {
         let tableRows = "";
         zeduMasterData.secciones.forEach(sec => {
-            tableRows += `<tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 12px; font-weight: bold; text-transform: uppercase;">${sec.titulo}</td></tr>`;
+            tableRows += `<tr class="section-header"><td colspan="2">${sec.titulo}</td></tr>`;
             sec.filas.forEach(f => {
-                tableRows += `<tr><td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; width: 30%; background-color: #f9fafb;">${f.label}</td><td style="padding: 10px; border: 1px solid #ddd;">${f.val}</td></tr>`;
+                tableRows += `<tr><td class="label-cell">${f.label}</td><td>${f.val}</td></tr>`;
             });
         });
 
-        const budgetRows = budgetTableData.map(d => `<tr><td style="padding: 10px; border: 1px solid #ddd;">${d.item}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.cant}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.costo}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.lugar}</td></tr>`).join('');
-        const alliesRows = alliesTableData.map(d => `<tr><td style="padding: 10px; border: 1px solid #ddd;">${d.aliado}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.apoyo}</td></tr>`).join('');
-        const planRows = planAccionData.map(d => `<tr><td style="padding: 10px; border: 1px solid #ddd;">${d.tarea}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.responsable}</td><td style="padding: 10px; border: 1px solid #ddd;">${d.cronograma}</td></tr>`).join('');
+        const budgetRows = budgetTableData.map(d => `<tr><td>${d.item}</td><td>${d.cant}</td><td>${d.costo}</td><td>${d.lugar}</td></tr>`).join('');
+        const alliesRows = alliesTableData.map(d => `<tr><td>${d.aliado}</td><td>${d.apoyo}</td></tr>`).join('');
+        const planRows = planAccionData.map(d => `<tr><td>${d.tarea}</td><td>${d.responsable}</td><td>${d.cronograma}</td></tr>`).join('');
 
         const content = `
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h1 style="color: #2d5a8e; margin-bottom: 5px;">${zeduMasterData.titulo}</h1>
-                <p style="color: #666;">Expediente de Inteligencia Corporativa - Nodo v2.6.5</p>
-            </div>
-            <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd; font-size: 11pt;">
+            <h1>Modelo Zedu - Dossier Técnico</h1>
+            <table>
                 ${tableRows}
-                <tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 12px; font-weight: bold;">6. PRESUPUESTO</td></tr>
-                <tr><td colspan="2" style="padding: 10px; border: 1px solid #ddd;">
-                    <table style="width: 100%; border-collapse: collapse;">
+                <tr class="section-header"><td colspan="2">6. PRESUPUESTO</td></tr>
+                <tr><td colspan="2">
+                    <table>
                         <tr style="background-color: #4b5563; color: white;"><th>ITEM</th><th>CANTIDAD</th><th>COSTO</th><th>LUGAR</th></tr>
                         ${budgetRows}
                     </table>
                 </td></tr>
-                <tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 12px; font-weight: bold;">7. ALIADOS</td></tr>
-                <tr><td colspan="2" style="padding: 10px; border: 1px solid #ddd;">
-                    <table style="width: 100%; border-collapse: collapse;">
+                <tr class="section-header"><td colspan="2">7. ALIADOS</td></tr>
+                <tr><td colspan="2">
+                    <table>
                         <tr style="background-color: #4b5563; color: white;"><th>ALIADO</th><th>APOYO</th></tr>
                         ${alliesRows}
                     </table>
                 </td></tr>
-                <tr style="background-color: #2d5a8e; color: white;"><td colspan="2" style="padding: 12px; font-weight: bold;">8. PLAN DE ACCIÓN</td></tr>
-                <tr><td colspan="2" style="padding: 10px; border: 1px solid #ddd;">
-                    <table style="width: 100%; border-collapse: collapse;">
+                <tr class="section-header"><td colspan="2">8. PLAN DE ACCIÓN</td></tr>
+                <tr><td colspan="2">
+                    <table>
                         <tr style="background-color: #4b5563; color: white;"><th>TAREA</th><th>RESPONSABLE</th><th>CRONOGRAMA</th></tr>
                         ${planRows}
                     </table>
                 </td></tr>
             </table>
         `;
-        downloadAsWord("Expediente_Maestro_ZEDU_System_Kyron", content);
+        downloadAsWord("Modelo_Zedu_System_Kyron", content);
     };
 
     if (!isMounted) return null;
@@ -223,9 +242,9 @@ export default function SectorPrivadoPage() {
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10 no-print">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Lock className="h-3 w-3" /> EXPEDIENTE SECTOR PRIVADO
+                        <Lock className="h-3 w-3" /> SECTOR PRIVADO
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Dossier <span className="text-primary italic">ZEDU Maestro</span></h1>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Dossier <span className="text-primary italic">Modelo Zedu</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">System Kyron v2.6.5 • Inteligencia Institucional</p>
                 </div>
                 <div className="flex gap-2">
@@ -237,7 +256,7 @@ export default function SectorPrivadoPage() {
 
             <Tabs defaultValue="zedu" className="w-full relative z-10 no-print">
                 <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner overflow-x-auto">
-                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4 italic">1. Matriz ZEDU Completa</TabsTrigger>
+                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4 italic">1. Matriz Modelo Zedu</TabsTrigger>
                     <TabsTrigger value="factibilidad" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4 italic">2. Factibilidad Económica</TabsTrigger>
                     <TabsTrigger value="propuesta" className="flex-1 rounded-xl font-black uppercase text-[8px] tracking-[0.2em] data-[state=active]:bg-primary transition-all px-4 italic">3. Propuesta Estratégica</TabsTrigger>
                 </TabsList>
@@ -249,11 +268,11 @@ export default function SectorPrivadoPage() {
                                 <div className="flex items-center gap-6">
                                     <Logo className="h-16 w-16 drop-shadow-glow" />
                                     <h2 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter border-l-4 border-primary pl-6">
-                                        EXPEDIENTE MAESTRO ZEDU
+                                        MODELO ZEDU
                                     </h2>
                                 </div>
                                 <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl" onClick={handleDownloadZEDU}>
-                                    <FileWord className="mr-2 h-4 w-4" /> DESCARGAR ZEDU (.DOC)
+                                    <FileWord className="mr-2 h-4 w-4" /> DESCARGAR MODELO (.DOC)
                                 </Button>
                             </div>
 
@@ -354,7 +373,7 @@ export default function SectorPrivadoPage() {
                                                         <TableRow className="bg-[#4b5563] border-none">
                                                             <TableHead className="text-white text-[9px] font-black uppercase px-8">TAREAS</TableHead>
                                                             <TableHead className="text-white text-[9px] font-black uppercase">RESPONSABLE</TableHead>
-                                                            <TableHead className="text-white text-[9px] font-black uppercase">CRONOGRAMA (Fechas)</TableHead>
+                                                            <TableHead className="text-white text-[9px] font-black uppercase">CRONOGRAMA</TableHead>
                                                         </TableRow>
                                                     </TableHeader>
                                                     <TableBody>
@@ -379,7 +398,7 @@ export default function SectorPrivadoPage() {
                         <div className="space-y-10 max-w-5xl mx-auto">
                             <div className="flex justify-between items-center">
                                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 italic">Dictamen de Rentabilidad</h3>
-                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={() => downloadAsWord("Factibilidad_Economica", "Contenido de factibilidad...")}>
+                                <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-secondary hover:bg-secondary/10" onClick={() => downloadAsWord("Factibilidad_Economica_System_Kyron", "<h1>Dictamen de Factibilidad</h1><p>Indicadores VAN/TIR positivos...</p>")}>
                                     <FileWord className="mr-2 h-4 w-4" /> DESCARGAR FACTIBILIDAD (.DOC)
                                 </Button>
                             </div>
@@ -404,7 +423,7 @@ export default function SectorPrivadoPage() {
                         <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40 max-w-5xl mx-auto">
                             <CardHeader className="p-12 text-center border-b border-white/5 bg-white/[0.01] space-y-6">
                                 <div className="flex justify-end">
-                                    <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={() => downloadAsWord("Propuesta_Estrategica", "Contenido de propuesta...")}>
+                                    <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={() => downloadAsWord("Propuesta_Estrategica_System_Kyron", "<h1>Propuesta Maestra</h1><p>Pilares de innovación...</p>")}>
                                         <FileWord className="mr-2 h-4 w-4" /> DESCARGAR PROPUESTA (.DOC)
                                     </Button>
                                 </div>
