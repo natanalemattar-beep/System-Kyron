@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -14,7 +13,8 @@ import {
     Users2,
     Info,
     LayoutGrid,
-    Target
+    Target,
+    ShieldCheck
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { 
@@ -64,6 +64,11 @@ export function LandingHeader() {
                                 Ecosistema
                                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                             </Link>
+                            <Link href="/#nosotros" className="text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-glow-text transition-all relative group flex items-center gap-2">
+                                <ShieldCheck className="h-3.5 w-3.5" />
+                                NOSOTROS
+                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                            </Link>
                         </nav>
                     </div>
 
@@ -76,21 +81,13 @@ export function LandingHeader() {
                     </div>
 
                     {/* SECCIÓN DERECHA */}
-                    <div className="flex justify-end items-center gap-8">
+                    <div className="flex items-center justify-end gap-8">
                         <nav className="hidden lg:flex items-center gap-10">
                             <Link 
-                                href="/#nosotros" 
+                                href="/manual-usuario" 
                                 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group flex items-center gap-2"
                             >
-                                <Users2 className="h-3.5 w-3.5 opacity-40 group-hover:opacity-100" />
-                                NOSOTROS
-                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
-                            </Link>
-                            <Link 
-                                href="/manual-usuario" 
-                                className="text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-glow-text transition-all relative group flex items-center gap-2"
-                            >
-                                <BookOpen className="h-3.5 w-3.5" />
+                                <BookOpen className="h-3.5 w-3.5 opacity-40 group-hover:opacity-100" />
                                 MANUAL
                                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                             </Link>
