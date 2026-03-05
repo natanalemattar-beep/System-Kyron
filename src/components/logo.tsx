@@ -1,10 +1,9 @@
-
 import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Logo Institucional de System Kyron v2.6.5.
- * Diseño final: Hexágono negro, glifo de ángulo neón y nodo central.
- * Sincronizado cromáticamente con el ecosistema.
+ * Diseño final: Hexágono negro, glifo de ángulo neón y nodo central de inteligencia.
+ * Sincronizado cromáticamente con el ecosistema (Azul Ciber y Verde Neón).
  */
 
 export function Logo({ className, id }: { className?: string; id?: string }) {
@@ -58,11 +57,11 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
             strokeLinejoin="round"
           />
           
-          {/* Nodo de Inteligencia Central Blanco */}
+          {/* Nodo de Inteligencia Central Blanco Puro */}
           <circle cx="40" cy="50" r="5" fill="#ffffff" stroke="#0ea5e9" strokeWidth="1" />
         </g>
 
-        {/* Vértices de Control */}
+        {/* Vértices de Control de Nodo */}
         <circle cx="50" cy="5" r="2" fill="#0ea5e9" />
         <circle cx="50" cy="95" r="2" fill="#22c55e" />
       </svg>
