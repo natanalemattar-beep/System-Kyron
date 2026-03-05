@@ -145,7 +145,7 @@ const manualModules = [
             },
             {
                 sub: "Control de Libros Laborales Obligatorios y Gestión de Solvencias",
-                text: "El cumplimiento de las obligaciones laborales en Venezuela exige el mantenimiento de registros administrativos sumamente rigurosos. Kyron automatiza de forma nativa la actualización del Libro de Vacaciones, el Libro de Horas Extras y el Libro de Personal Retirado, entre otros. Paralelamente, el sistema gestiona íntegramente las retenciones y los aportes patronales obligatorios de ley (IVSS, FAOV, INCES), generando los archivos de carga masiva necesarios para los portales institucionales (como el sistema TIUNA). El manual proporciona una guía clara sobre cómo mantener las solvencias laborales al día, evitando bloqueos administrativos innecesarios y garantizando que la organización esté siempre habilitada para licitar, contratar con el estado o realizar trámites notariales sin impedimentos derivados de deudas laborales o retrasos en la declaración parafiscal. Se incluye un calendario de alertas para la presentación de informes trimestrales ante el Ministerio del Trabajo."
+                text: "El cumplimiento de las obligaciones laborales en Venezuela exige el mantenimiento de registros administrativos sumamente rigosoros. Kyron automatiza de forma nativa la actualización del Libro de Vacaciones, el Libro de Horas Extras y el Libro de Personal Retirado, entre otros. Paralelamente, el sistema gestiona íntegramente las retenciones y los aportes patronales obligatorios de ley (IVSS, FAOV, INCES), generando los archivos de carga masiva necesarios para los portales institucionales (como el sistema TIUNA). El manual proporciona una guía clara sobre cómo mantener las solvencias laborales al día, evitando bloqueos administrativos innecesarios y garantizando que la organización esté siempre habilitada para licitar, contratar con el estado o realizar trámites notariales sin impedimentos derivados de deudas laborales o retrasos en la declaración parafiscal. Se incluye un calendario de alertas para la presentación de informes trimestrales ante el Ministerio del Trabajo."
             },
             {
                 sub: "Protocolo de Finiquito, Liquidación Técnica y Cálculo de Retroactividad",
@@ -259,38 +259,38 @@ export default function ManualUsuarioPage() {
         let docContent = "";
         
         docContent += `
-            <div style="border-bottom: 2px solid #2563eb; padding-bottom: 20px; margin-bottom: 40px;">
+            <div style="padding: 20px; border-bottom: 3px solid #2563eb; margin-bottom: 30px;">
                 <table style="width: 100%; border: none;">
                     <tr>
-                        <td style="width: 80px; border: none;">
-                            <div style="background-color: #2563eb; color: white; width: 60px; height: 60px; text-align: center; line-height: 60px; font-weight: bold; font-size: 24pt; border-radius: 10px;">K</div>
+                        <td style="width: 70px; border: none;">
+                            <div style="background-color: #2563eb; color: white; width: 60px; height: 60px; text-align: center; line-height: 60px; font-weight: bold; font-size: 24pt; border-radius: 8px;">K</div>
                         </td>
                         <td style="border: none; vertical-align: middle;">
-                            <h1 style="color: #2563eb; margin: 0; font-size: 28pt; text-transform: uppercase; font-family: 'Arial Black', sans-serif;">SYSTEM KYRON</h1>
-                            <p style="color: #666; margin: 0; font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Manual de Operaciones Maestro v2.6.5</p>
+                            <h1 style="color: #2563eb; margin: 0; font-size: 26pt; font-family: 'Arial Black', sans-serif;">SYSTEM KYRON</h1>
+                            <p style="color: #666; margin: 0; font-size: 9pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Manual de Operaciones Maestro v2.6.5</p>
                         </td>
                     </tr>
                 </table>
             </div>
             
-            <div style="margin-bottom: 50px;">
-                <h2 style="color: #1e293b; border-left: 10px solid #2563eb; padding-left: 20px; margin-bottom: 20px;">DOCUMENTACIÓN TÉCNICA INTEGRAL</h2>
-                <p style="font-style: italic; color: #475569;">Este documento contiene los protocolos operativos de misión crítica para el ecosistema integral de gestión administrativa, telecomunicaciones avanzadas y activos digitales inmutables.</p>
+            <div style="margin-bottom: 40px; border-left: 10px solid #2563eb; padding-left: 20px;">
+                <h2 style="color: #1e293b; font-size: 20pt; margin: 0;">DOCUMENTACIÓN TÉCNICA INTEGRAL</h2>
+                <p style="font-style: italic; color: #475569; margin-top: 10px; font-size: 11pt;">Este documento contiene los protocolos operativos de misión crítica para el ecosistema integral de gestión administrativa, telecomunicaciones avanzadas y activos digitales inmutables.</p>
             </div>
         `;
 
         manualModules.forEach(mod => {
             docContent += `
-                <div style="page-break-before: always; margin-top: 40px;">
-                    <h2 style="color: #2563eb; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 30px;">${mod.title}</h2>
-                    <p style="font-weight: bold; color: #475569; margin-bottom: 25px;">${mod.description}</p>
+                <div style="page-break-before: always; margin-top: 30px;">
+                    <h2 style="color: #2563eb; text-transform: uppercase; border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 20px; font-size: 18pt;">${mod.title}</h2>
+                    <p style="font-weight: bold; color: #475569; margin-bottom: 20px; font-size: 10pt; text-transform: uppercase;">${mod.description}</p>
             `;
             
             mod.content.forEach(item => {
                 docContent += `
-                    <div style="margin-bottom: 35px;">
-                        <h3 style="color: #1e293b; font-size: 14pt; margin-bottom: 15px; background-color: #f8fafc; padding: 10px; border-radius: 5px;">${item.sub}</h3>
-                        <p style="text-align: justify; line-height: 1.6; font-size: 11pt; color: #334155;">${item.text}</p>
+                    <div style="margin-bottom: 25px;">
+                        <h3 style="color: #1e293b; font-size: 13pt; margin-bottom: 10px; background-color: #f1f5f9; padding: 10px; border-radius: 4px;">${item.sub}</h3>
+                        <p style="text-align: justify; line-height: 1.5; font-size: 10.5pt; color: #334155;">${item.text}</p>
                     </div>
                 `;
             });
@@ -299,13 +299,13 @@ export default function ManualUsuarioPage() {
         });
 
         const footer = `
-            <div style="margin-top: 100px; border-top: 1px solid #eee; pt: 20px; text-align: center; font-size: 8pt; color: #94a3b8;">
+            <div style="margin-top: 80px; border-top: 1px solid #eee; padding-top: 20px; text-align: center; font-size: 8pt; color: #94a3b8;">
                 <p>PROPIEDAD INTELECTUAL DE SYSTEM KYRON, C.A. • DOCUMENTO CONFIDENCIAL • 2026</p>
                 <p>VALIDADO POR EL NODO DE SEGURIDAD MAESTRO • ID: SK-OPER-2.6.5</p>
             </div>
         `;
 
-        const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual de Usuario System Kyron</title></head><body style='font-family: Arial, sans-serif;'>";
+        const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual de Usuario System Kyron</title></head><body style='font-family: Arial, sans-serif; padding: 40px;'>";
         const finalSource = headerHtml + docContent + footer + "</body></html>";
 
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(finalSource);
@@ -329,55 +329,55 @@ export default function ManualUsuarioPage() {
         <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid selection:bg-primary/20">
             {/* Ambient Background */}
             <div className="fixed inset-0 pointer-events-none -z-10">
-                <div className="absolute top-0 right-0 w-full h-[1400px] bg-primary/5 rounded-full blur-[250px] opacity-40 animate-pulse" />
-                <div className="absolute bottom-0 left-0 w-[1200px] h-[1200px] bg-secondary/5 rounded-full blur-[200px] opacity-30" />
+                <div className="absolute top-0 right-0 w-full h-[1200px] bg-primary/5 rounded-full blur-[200px] opacity-40 animate-pulse" />
+                <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-secondary/5 rounded-full blur-[180px] opacity-30" />
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
             </div>
 
             {/* Header Fijo */}
-            <header className="fixed top-0 left-0 right-0 z-[150] h-20 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-16 justify-between no-print">
-                <div className="flex items-center gap-6">
+            <header className="fixed top-0 left-0 right-0 z-[150] h-16 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-12 justify-between no-print">
+                <div className="flex items-center gap-4">
                     <Link href="/" className="hover:scale-105 transition-transform">
-                        <Logo className="h-10 w-10 shadow-glow" />
+                        <Logo className="h-8 w-8 shadow-glow" />
                     </Link>
-                    <div className="flex flex-col border-l border-white/10 pl-6 ml-2">
-                        <span className="text-xs font-black tracking-[0.6em] uppercase italic text-white/90">SYSTEM KYRON</span>
-                        <span className="text-[9px] font-bold text-primary uppercase tracking-[0.4em] opacity-60">Manual de Operaciones v2.6.5</span>
+                    <div className="flex flex-col border-l border-white/10 pl-4 ml-1">
+                        <span className="text-[10px] font-black tracking-[0.5em] uppercase italic text-white/90">SYSTEM KYRON</span>
+                        <span className="text-[8px] font-bold text-primary uppercase tracking-[0.3em] opacity-60">Manual Maestro v2.6.5</span>
                     </div>
                 </div>
-                <div className="flex items-center gap-4">
-                    <Button variant="ghost" asChild className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5">
-                        <Link href="/"><Home className="mr-2 h-3.5 w-3.5" /> INICIO</Link>
+                <div className="flex items-center gap-3">
+                    <Button variant="ghost" asChild className="rounded-xl h-9 px-4 text-[8px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5">
+                        <Link href="/"><Home className="mr-2 h-3 w-3" /> INICIO</Link>
                     </Button>
-                    <Button className="btn-3d-primary h-10 px-8 rounded-xl text-[9px] font-black uppercase shadow-glow" onClick={handleDownload}>
-                        <Download className="mr-2 h-3.5 w-3.5" /> EXPORTAR WORD (.DOC)
+                    <Button className="btn-3d-primary h-9 px-6 rounded-xl text-[8px] font-black uppercase shadow-glow" onClick={handleDownload}>
+                        <Download className="mr-2 h-3 w-3" /> EXPORTAR WORD (.DOC)
                     </Button>
                 </div>
             </header>
 
-            <main className="container mx-auto px-6 max-w-7xl pt-32 pb-40 relative z-10">
-                <div className="grid lg:grid-cols-12 gap-16">
+            <main className="container mx-auto px-6 max-w-7xl pt-24 pb-20 relative z-10">
+                <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
                     {/* Navegación Lateral (HUD Table of Contents) */}
                     <aside className="lg:col-span-4 no-print">
-                        <div className="sticky top-32 space-y-8">
-                            <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
-                                <CardHeader className="p-0 mb-8 border-b border-white/5 pb-6">
-                                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] text-primary flex items-center gap-3">
-                                        <Activity className="h-4 w-4" /> Protocolos Maestros
+                        <div className="sticky top-24 space-y-6">
+                            <Card className="glass-card p-6 rounded-[2rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
+                                <CardHeader className="p-0 mb-6 border-b border-white/5 pb-4">
+                                    <CardTitle className="text-[9px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-2">
+                                        <Activity className="h-3.5 w-3.5" /> Protocolos Maestros
                                     </CardTitle>
                                 </CardHeader>
-                                <CardContent className="p-0 space-y-1">
+                                <CardContent className="p-0 space-y-0.5">
                                     {manualModules.map((mod) => (
                                         <button 
                                             key={mod.id}
                                             onClick={() => scrollToSection(mod.id)}
                                             className={cn(
-                                                "w-full flex items-center gap-4 px-4 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all text-left group",
+                                                "w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[8px] font-black uppercase tracking-widest transition-all text-left group",
                                                 activeTab === mod.id ? "bg-primary/10 text-primary border border-primary/20 shadow-glow" : "text-white/30 hover:text-white/60 hover:bg-white/5 border border-transparent"
                                             )}
                                         >
                                             <div className={cn(
-                                                "h-1.5 w-1.5 rounded-full transition-all shadow-glow",
+                                                "h-1 w-1 rounded-full transition-all shadow-glow",
                                                 activeTab === mod.id ? "bg-primary" : "bg-white/10 group-hover:bg-white/30"
                                             )} />
                                             <span>{mod.title.split('. ')[1]}</span>
@@ -386,12 +386,12 @@ export default function ManualUsuarioPage() {
                                 </CardContent>
                             </Card>
                             
-                            <Card className="bg-primary/5 border-primary/20 p-6 rounded-[2rem]">
-                                <div className="flex items-start gap-4">
-                                    <Sparkles className="h-5 w-5 text-primary shrink-0" />
-                                    <div className="space-y-2">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-white/80">Inteligencia de Soporte</p>
-                                        <p className="text-[9px] font-bold text-white/40 leading-relaxed uppercase">Para asistencia técnica inmediata sobre protocolos de red o cifrado, inicie el chat con el nodo maestro.</p>
+                            <Card className="bg-primary/5 border-primary/20 p-5 rounded-[1.5rem]">
+                                <div className="flex items-start gap-3">
+                                    <Sparkles className="h-4 w-4 text-primary shrink-0" />
+                                    <div className="space-y-1">
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-white/80 leading-none">Inteligencia de Soporte</p>
+                                        <p className="text-[8px] font-bold text-white/30 leading-relaxed uppercase">Asistencia técnica sobre protocolos de red o cifrado activa.</p>
                                     </div>
                                 </div>
                             </Card>
@@ -399,21 +399,21 @@ export default function ManualUsuarioPage() {
                     </aside>
 
                     {/* Contenido Principal */}
-                    <div className="lg:col-span-8 space-y-32">
+                    <div className="lg:col-span-8 space-y-12 md:space-y-16">
                         <motion.section 
-                            className="space-y-10"
+                            className="space-y-6"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                         >
-                            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary">
-                                <ShieldCheck className="h-3.5 w-3.5" /> MASTER USER GUIDE 2.6.5
+                            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary/10 border border-primary/20 text-[8px] font-black uppercase tracking-[0.5em] text-primary">
+                                <ShieldCheck className="h-3 w-3" /> MASTER USER GUIDE v2.6.5
                             </div>
-                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
+                            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
                                 Manual de Usuario <br/> 
-                                <span className="text-primary text-4xl md:text-6xl">System Kyron</span>
+                                <span className="text-primary text-3xl md:text-5xl">System Kyron</span>
                             </h1>
-                            <p className="text-lg text-white/40 max-w-2xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 leading-relaxed">
-                                Documentación técnica exhaustiva para la operatividad del ecosistema integral de gestión administrativa, telecomunicaciones avanzadas y activos digitales inmutables.
+                            <p className="text-base text-white/40 max-w-xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-8 leading-relaxed">
+                                Documentación técnica para la operatividad del ecosistema integral de gestión administrativa y telecomunicaciones avanzadas.
                             </p>
                         </motion.section>
 
@@ -421,51 +421,51 @@ export default function ManualUsuarioPage() {
                             <motion.section 
                                 key={mod.id} 
                                 id={mod.id} 
-                                className="scroll-mt-32"
-                                initial={{ opacity: 0, y: 40 }}
+                                className="scroll-mt-24"
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.05 }}
                             >
-                                <Card className="glass-card rounded-[3.5rem] border-white/5 overflow-hidden bg-black/60 shadow-2xl group transition-all duration-1000 hover:border-primary/20">
-                                    <CardHeader className="p-12 md:p-16 border-b border-white/5 flex flex-col md:flex-row items-center gap-12 bg-white/[0.01]">
+                                <Card className="glass-card rounded-[2.5rem] border-white/5 overflow-hidden bg-black/60 shadow-2xl group transition-all duration-700 hover:border-primary/20">
+                                    <CardHeader className="p-8 md:p-10 border-b border-white/5 flex flex-col md:flex-row items-center gap-8 bg-white/[0.01]">
                                         <div className="relative">
-                                            <div className="p-8 bg-primary/10 rounded-[2.5rem] border border-primary/20 shadow-glow group-hover:scale-110 transition-transform relative z-10">
-                                                <mod.icon className="h-12 w-12 text-primary" />
+                                            <div className="p-6 bg-primary/10 rounded-[2rem] border border-primary/20 shadow-glow group-hover:scale-110 transition-transform relative z-10">
+                                                <mod.icon className="h-10 w-10 text-primary" />
                                             </div>
-                                            <div className="absolute -top-4 -right-4 z-20">
-                                                <Logo className="h-10 w-10 opacity-60 group-hover:opacity-100 transition-opacity" />
+                                            <div className="absolute -top-3 -right-3 z-20">
+                                                <Logo className="h-8 w-8 opacity-60 group-hover:opacity-100 transition-opacity" />
                                             </div>
                                         </div>
-                                        <div className="space-y-4 text-center md:text-left">
-                                            <CardTitle className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white leading-none">{mod.title}</CardTitle>
-                                            <CardDescription className="text-[10px] font-black uppercase tracking-[0.5em] opacity-40 text-primary">{mod.description}</CardDescription>
+                                        <div className="space-y-2 text-center md:text-left">
+                                            <CardTitle className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-white leading-none">{mod.title}</CardTitle>
+                                            <CardDescription className="text-[9px] font-black uppercase tracking-[0.4em] opacity-40 text-primary">{mod.description}</CardDescription>
                                         </div>
                                     </CardHeader>
-                                    <CardContent className="p-12 md:p-16 space-y-24">
+                                    <CardContent className="p-8 md:p-10 space-y-10">
                                         {mod.content.map((item, i) => (
-                                            <div key={i} className="space-y-10 group/item">
-                                                <div className="flex items-center gap-8">
-                                                    <h4 className="text-[11px] font-black uppercase tracking-[0.6em] text-primary italic whitespace-nowrap">{item.sub}</h4>
+                                            <div key={i} className="space-y-6 group/item">
+                                                <div className="flex items-center gap-6">
+                                                    <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary italic whitespace-nowrap">{item.sub}</h4>
                                                     <div className="h-[1px] flex-1 bg-white/5 group-hover/item:bg-primary/20 transition-colors" />
                                                 </div>
                                                 <div className="relative">
-                                                    <div className="absolute -left-10 top-0 bottom-0 w-[2px] bg-primary/10 group-hover/item:bg-primary/40 transition-colors rounded-full" />
-                                                    <p className="text-lg font-medium text-white/60 leading-relaxed text-justify italic">
+                                                    <div className="absolute -left-6 top-0 bottom-0 w-[1.5px] bg-primary/10 group-hover/item:bg-primary/40 transition-colors rounded-full" />
+                                                    <p className="text-base font-medium text-white/60 leading-relaxed text-justify italic">
                                                         {item.text}
                                                     </p>
                                                 </div>
                                             </div>
                                         ))}
                                     </CardContent>
-                                    <CardFooter className="p-10 border-t border-white/5 flex justify-center bg-white/[0.01] gap-8">
-                                        <div className="flex items-center gap-3">
-                                            <Server className="h-3.5 w-3.5 text-white/20" />
-                                            <span className="text-[8px] font-black uppercase tracking-[0.4em] text-white/20">Operational Status: Optimal</span>
+                                    <CardFooter className="p-6 border-t border-white/5 flex justify-center bg-white/[0.01] gap-6">
+                                        <div className="flex items-center gap-2">
+                                            <Server className="h-3 w-3 text-white/20" />
+                                            <span className="text-[7px] font-black uppercase tracking-[0.3em] text-white/20">Operational Status: Optimal</span>
                                         </div>
-                                        <div className="flex items-center gap-3">
-                                            <Database className="h-3.5 w-3.5 text-white/20" />
-                                            <span className="text-[8px] font-black uppercase tracking-[0.4em] text-white/20">Data Integrity: Verified</span>
+                                        <div className="flex items-center gap-2">
+                                            <Database className="h-3 w-3 text-white/20" />
+                                            <span className="text-[7px] font-black uppercase tracking-[0.3em] text-white/20">Data Integrity: Verified</span>
                                         </div>
                                     </CardFooter>
                                 </Card>
@@ -475,11 +475,11 @@ export default function ManualUsuarioPage() {
                 </div>
             </main>
             
-            <footer className="py-24 border-t border-white/5 bg-black/80 text-center relative z-20">
-                <div className="mb-8 opacity-20 hover:opacity-50 transition-opacity">
-                    <Logo className="h-12 w-12 mx-auto" />
+            <footer className="py-16 border-t border-white/5 bg-black/80 text-center relative z-20">
+                <div className="mb-6 opacity-20 hover:opacity-50 transition-opacity">
+                    <Logo className="h-10 w-10 mx-auto" />
                 </div>
-                <p className="text-[10px] font-black uppercase tracking-[1em] text-white/10 italic">
+                <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white/10 italic">
                     SYSTEM KYRON • MASTER USER MANUAL • MK-2.6.5 • 2026
                 </p>
             </footer>
