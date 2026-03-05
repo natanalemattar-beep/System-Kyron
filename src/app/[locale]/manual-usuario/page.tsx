@@ -109,7 +109,7 @@ const manualModules = [
     },
     {
         id: "rrhh",
-        title: "Módulo 5: Gestión de Talento y LOTTT",
+        title: "Módulo 5: Gestión de Talento",
         icon: Users,
         concept: "Administración estratégica de capital humano centrada en la LOTTT y LOPNNA. El sistema blinda la relación laboral mediante expedientes inmutables y cálculos prestacionales precisos al 100%.",
         procedure: "1. Registre la ficha del trabajador con validación de carga familiar (LOPNNA). 2. Configure los conceptos prestacionales (Vacaciones, Utilidades). 3. El sistema calculará automáticamente aportes al IVSS, FAOV e INCES y la contribución de Protección de Pensiones.",
@@ -190,8 +190,6 @@ export default function ManualMaestroPage() {
     }, []);
 
     const handleDownloadDoc = () => {
-        const timestamp = new Date().toLocaleDateString('es-VE', { day: '2-digit', month: 'long', year: 'numeric' });
-        
         let modulesContent = "";
         manualModules.forEach(mod => {
             modulesContent += `
@@ -205,7 +203,6 @@ export default function ManualMaestroPage() {
                     <div style="margin-top: 15pt; padding: 10pt; background-color: #f1f5f9; border-radius: 5pt;">
                         <p style="font-size: 9pt; color: #64748b; font-style: italic;"><strong>RESPALDO DE INGENIERÍA:</strong> ${mod.technical}</p>
                     </div>
-                    <div style="margin-top: 10pt; font-size: 8pt; color: #94a3b8; text-align: right;">Protocolo v2.6.5 • Nodo: ${mod.id.toUpperCase()}</div>
                 </div>
             `;
         });
@@ -213,10 +210,12 @@ export default function ManualMaestroPage() {
         const content = `
             <div style="font-family: 'Times New Roman', serif; color: #0f172a;">
                 <!-- PORTADA DE GRADO CORPORATIVO -->
-                <div style="text-align: center; border: 5pt double #0ea5e9; padding: 80pt 40pt; margin-bottom: 100pt; border-radius: 20pt; background-color: #fafafa;">
-                    <div style="margin-bottom: 40pt;"><span style="font-size: 80pt; color: #0ea5e9; font-weight: bold;">K</span></div>
-                    <h1 style="color: #0f172a; font-size: 48pt; margin-bottom: 10pt; letter-spacing: 5pt; text-transform: uppercase; font-family: 'Arial Black', sans-serif;">SYSTEM KYRON</h1>
-                    <p style="font-size: 22pt; font-weight: bold; color: #64748b; margin-bottom: 20pt;">ENCICLOPEDIA TÉCNICA DE OPERACIONES</p>
+                <div style="text-align: center; border: 5pt double #0ea5e9; padding: 80pt 40pt; margin-bottom: 100pt; border-radius: 20pt; background-color: #050505;">
+                    <div style="margin-bottom: 40pt; display: inline-block; padding: 20pt; background-color: #000; border: 2pt solid #0ea5e9; border-radius: 20pt;">
+                        <span style="font-size: 80pt; color: #0ea5e9; font-weight: bold;">K</span>
+                    </div>
+                    <h1 style="color: #ffffff; font-size: 48pt; margin-bottom: 10pt; letter-spacing: 5pt; text-transform: uppercase; font-family: 'Arial Black', sans-serif;">SYSTEM KYRON</h1>
+                    <p style="font-size: 22pt; font-weight: bold; color: #0ea5e9; margin-bottom: 20pt;">ENCICLOPEDIA TÉCNICA DE OPERACIONES</p>
                     <div style="border-top: 2pt solid #0ea5e9; width: 200pt; margin: 20pt auto;"></div>
                     <p style="font-size: 14pt; color: #94a3b8; font-weight: bold;">VERSIÓN 2.6.5 • PROTOCOLO MAESTRO</p>
                     <p style="font-size: 12pt; color: #0ea5e9; font-weight: bold; margin-top: 40pt;">ÚLTIMA REVISIÓN: MARZO 2026</p>
@@ -225,23 +224,17 @@ export default function ManualMaestroPage() {
                     </div>
                 </div>
 
-                <!-- ÍNDICE MAESTRO AUTOMATIZADO -->
                 <div style="page-break-before: always; padding: 40pt;">
                     <h2 style="color: #0ea5e9; font-size: 24pt; border-bottom: 3pt solid #0ea5e9; padding-bottom: 10pt; text-transform: uppercase; font-family: 'Arial Black', sans-serif;">Índice General de Nodos</h2>
                     <div style="line-height: 2.2; font-size: 12pt; margin-top: 30pt;">
                         <p>1.0 Visión Estratégica del Ecosistema ........................................................... 02</p>
                         <p>2.0 Guía de Inicio Rápido (Quick Start) ............................................................. 03</p>
-                        <p>3.0 Visualización del Sistema (Dashboards) ....................................................... 04</p>
                         ${manualModules.map((m, i) => `<p>Módulo ${i+1}: ${m.title} ................................................................... 0${i+5}</p>`).join('')}
-                        <p>4.0 Soporte y Resolución de Conflictos ............................................................ 18</p>
-                        <p>5.0 Requisitos Técnicos de Grado Militar ......................................................... 19</p>
-                        <p>6.0 Glosario de Ingeniería y Leyes .................................................................... 20</p>
                     </div>
                 </div>
 
                 <div style="page-break-after: always;"></div>
 
-                <!-- INTRODUCCIÓN -->
                 <h2 style="color: #0ea5e9; border-bottom: 2pt solid #0ea5e9; padding-bottom: 10pt; margin-top: 40pt; font-size: 22pt;">1.0 VISIÓN ESTRATÉGICA</h2>
                 <p style="text-align: justify; line-height: 1.8; font-size: 12pt; color: #334155;">${introSection.text}</p>
                 <div style="background-color: #f0f9ff; padding: 20pt; border-left: 6pt solid #0ea5e9; margin: 30pt 0; border-radius: 8pt;">
@@ -249,11 +242,9 @@ export default function ManualMaestroPage() {
                     <p style="font-style: italic; margin: 10pt 0 0 0; font-size: 13pt; color: #0c4a6e;">"${introSection.mission}"</p>
                 </div>
 
-                <!-- MÓDULOS -->
                 <h2 style="color: #0ea5e9; border-bottom: 2pt solid #0ea5e9; padding-bottom: 10pt; margin-top: 40pt; font-size: 22pt;">2.0 PROTOCOLOS DE INGENIERÍA POR NODO</h2>
                 ${modulesContent}
 
-                <!-- PIE DE PÁGINA GLOBAL (SIMULADO EN DOC) -->
                 <div style="margin-top: 100pt; text-align: center; border-top: 1pt solid #cbd5e1; padding-top: 20pt;">
                     <p style="font-size: 9pt; color: #94a3b8; font-weight: bold;">Manual Maestro System Kyron v2.6.5 • Revisión Marzo 2026 • Expediente Público #KYR-2026-FINAL</p>
                 </div>
@@ -288,10 +279,11 @@ export default function ManualMaestroPage() {
 
     return (
         <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
-            {/* Header HUD Permanente */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-16 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-12 justify-between shadow-glow">
                 <div className="flex items-center gap-4">
-                    <Logo className="h-8 w-8 drop-shadow-glow" />
+                    <div className="p-1.5 bg-black border border-primary/20 rounded-lg shadow-glow">
+                        <Logo className="h-7 w-7" />
+                    </div>
                     <div className="flex flex-col border-l border-white/10 pl-4">
                         <span className="text-[10px] font-black tracking-[0.5em] uppercase italic text-white">SYSTEM KYRON</span>
                         <span className="text-[8px] font-bold text-primary uppercase tracking-[0.3em] opacity-60">Manual Maestro v2.6.5 • Revisión Marzo 2026</span>
@@ -309,12 +301,13 @@ export default function ManualMaestroPage() {
 
             <main className="container mx-auto px-6 max-w-7xl pt-24 pb-20 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-12">
-                    {/* Navegación Lateral HUD */}
                     <aside className="lg:col-span-4 hidden lg:block">
                         <Card className="glass-card p-6 rounded-[2.5rem] sticky top-24 border-white/5 bg-black/60 shadow-2xl overflow-hidden">
                             <div className="absolute top-0 right-0 p-4 opacity-5"><Activity className="h-20 w-20 text-primary" /></div>
                             <CardHeader className="p-0 mb-6 border-b border-white/5 pb-4 text-center">
-                                <Logo className="h-12 w-12 mx-auto mb-4" />
+                                <div className="p-4 bg-black border-2 border-primary/20 rounded-[2rem] w-fit mx-auto mb-4 shadow-glow">
+                                    <Logo className="h-12 w-12" />
+                                </div>
                                 <CardTitle className="text-[9px] font-black uppercase tracking-[0.4em] text-primary flex items-center justify-center gap-2">
                                     <ListTree className="h-3.5 w-3.5" /> Índice Maestro Interactivo
                                 </CardTitle>
@@ -322,7 +315,6 @@ export default function ManualMaestroPage() {
                             <CardContent className="p-0 space-y-1 max-h-[60vh] overflow-y-auto custom-scrollbar pr-2 relative z-10">
                                 <NavButton label="1.0 Visión Estratégica" onClick={() => scrollToSection("intro")} icon={Info} />
                                 <NavButton label="2.0 Inicio Rápido" onClick={() => scrollToSection("quick")} icon={Zap} />
-                                <NavButton label="3.0 Visualización Dash" onClick={() => scrollToSection("screenshot")} icon={Monitor} />
                                 <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Protocolos por Nodo</div>
                                 {manualModules.map(mod => (
                                     <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
@@ -334,12 +326,12 @@ export default function ManualMaestroPage() {
                         </Card>
                     </aside>
 
-                    {/* Contenido Principal */}
                     <div className="lg:col-span-8 space-y-32">
-                        {/* 1.0 Introducción */}
                         <section id="intro" className="space-y-8 scroll-mt-24">
                             <div className="flex items-center gap-6 mb-10">
-                                <Logo className="h-20 w-20 drop-shadow-glow" />
+                                <div className="p-6 bg-black border-4 border-primary/20 rounded-[3rem] shadow-glow">
+                                    <Logo className="h-20 w-20" />
+                                </div>
                                 <h2 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Visión <span className="text-primary">Maestra</span></h2>
                             </div>
                             <p className="text-xl font-medium italic text-white/60 leading-relaxed text-justify border-l-4 border-primary/20 pl-8">{introSection.text}</p>
@@ -348,7 +340,6 @@ export default function ManualMaestroPage() {
                             </div>
                         </section>
 
-                        {/* 2.0 Quick Start */}
                         <section id="quick" className="space-y-12 scroll-mt-24">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
                                 <Zap className="h-6 w-6 text-yellow-500" /> 2.0 Guía de Inicio Rápido (Quick Start)
@@ -374,7 +365,6 @@ export default function ManualMaestroPage() {
                             </div>
                         </section>
 
-                        {/* Módulos de Operación */}
                         <div className="space-y-32">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-primary flex items-center gap-4 border-b border-primary/20 pb-4">
                                 <Cpu className="h-6 w-6" /> 4.0 Protocolos de Ingeniería por Nodo
@@ -429,7 +419,6 @@ export default function ManualMaestroPage() {
                             ))}
                         </div>
 
-                        {/* Troubleshooting */}
                         <section id="trouble" className="space-y-12 scroll-mt-24">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-red-500 flex items-center gap-4">
                                 <AlertTriangle className="h-6 w-6 text-red-500" /> 5.0 Soporte y Resolución de Conflictos
@@ -449,7 +438,6 @@ export default function ManualMaestroPage() {
                             </div>
                         </section>
 
-                        {/* Requisitos Técnicos */}
                         <section id="specs" className="space-y-12 scroll-mt-24">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
                                 <Monitor className="h-6 w-6 text-primary" /> 6.0 Requisitos Técnicos de Grado Militar
@@ -476,7 +464,6 @@ export default function ManualMaestroPage() {
                             </div>
                         </section>
 
-                        {/* Glosario */}
                         <section id="glossary" className="space-y-12 scroll-mt-24">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
                                 <BookOpen className="h-6 w-6 text-primary" /> 7.0 Glosario de Ingeniería y Leyes
@@ -498,7 +485,9 @@ export default function ManualMaestroPage() {
                         </section>
 
                         <footer className="pt-20 border-t border-white/5 text-center space-y-8 pb-10">
-                            <Logo className="h-16 w-16 mx-auto opacity-40 drop-shadow-glow" />
+                            <div className="p-6 bg-black border border-white/10 rounded-[3rem] w-fit mx-auto shadow-glow opacity-40">
+                                <Logo className="h-16 w-16" />
+                            </div>
                             <p className="text-[10px] font-black uppercase tracking-[1em] text-white/10 italic">
                                 SYSTEM KYRON MASTER PROTOCOL • v2.6.5 • MARZO 2026
                             </p>
