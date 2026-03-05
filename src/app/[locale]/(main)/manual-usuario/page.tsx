@@ -5,9 +5,8 @@ import { redirect } from '@/navigation';
 import { useEffect } from 'react';
 
 /**
- * @fileOverview NODO DESACTIVADO - RESOLUCIÓN DE CONFLICTO DE RUTAS.
- * Este archivo ha sido purgado para evitar la colisión de páginas paralelas en Next.js.
- * El Manual de Usuario oficial se encuentra ahora en el nodo raíz: /manual-usuario
+ * @fileOverview Redirección de seguridad para resolver el conflicto de rutas paralelas.
+ * Este nodo en (main) ha sido purgado para consolidar la documentación en el nodo raíz.
  */
 export default function ManualUsuarioRedirect() {
   useEffect(() => {

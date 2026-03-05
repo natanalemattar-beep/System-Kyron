@@ -25,17 +25,16 @@ import {
     Lock,
     Zap,
     ArrowDown,
-    ChevronRight,
-    Shield
+    ChevronRight
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
  * Documentación técnica de grado ministerial diseñada para el cumplimiento de misión crítica.
- * Sistema de navegación por anclas (Jump Links) integrado para acceso directo.
+ * Incluye sistema de navegación por anclas para acceso directo a protocolos.
  */
 
 const manualModules = [
@@ -215,16 +214,8 @@ export default function ManualUsuarioPage() {
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid selection:bg-primary/20">
-            {/* ESTILOS PARA OCULTAR ELEMENTOS GLOBALES Y MANEJAR PRINT */}
+        <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid">
             <style jsx global>{`
-                header.fixed.top-0, 
-                footer.border-t,
-                nav.fixed,
-                .no-print {
-                    display: none !important;
-                }
-                body { padding-top: 0 !important; }
                 @media print {
                     .no-print { display: none !important; }
                     body { background: white !important; color: black !important; }
@@ -236,7 +227,7 @@ export default function ManualUsuarioPage() {
                 }
             `}</style>
 
-            {/* HEADER INSTITUCIONAL */}
+            {/* CABECERA DOCUMENTAL */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-20 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-16 justify-between no-print shadow-2xl">
                 <div className="flex items-center gap-6">
                     <Logo className="h-10 w-10 shadow-glow" />
@@ -258,7 +249,7 @@ export default function ManualUsuarioPage() {
             <main className="container mx-auto px-6 max-w-7xl pt-32 pb-40 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-16">
                     
-                    {/* NAVEGACIÓN POR ANCLAS (JUMP LINKS) */}
+                    {/* NAVEGACIÓN POR ANCLAS (SIDEBAR) */}
                     <aside className="lg:col-span-4 no-print">
                         <div className="sticky top-32 space-y-8">
                             <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
@@ -283,21 +274,21 @@ export default function ManualUsuarioPage() {
 
                             <Card className="bg-primary/5 border border-primary/20 rounded-[2rem] p-8 text-center">
                                 <ShieldCheck className="h-8 w-8 text-primary mx-auto mb-4" />
-                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-2">Estado del Nodo</p>
-                                <span className="text-xs font-bold text-white/80">Verificado v2.6.5</span>
+                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-2">Protocolo Validado</p>
+                                <span className="text-xs font-bold text-white/80">Versión 2.6.5 Final</span>
                             </Card>
                         </div>
                     </aside>
 
-                    {/* CONTENIDO TÉCNICO DETALLADO */}
+                    {/* CONTENIDO TÉCNICO JERARQUIZADO */}
                     <div className="lg:col-span-8 space-y-32">
                         <section className="space-y-10">
                             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary shadow-glow">
-                                <Activity className="h-3.5 w-3.5" /> EXPEDIENTE TÉCNICO OFICIAL
+                                <Activity className="h-3.5 w-3.5" /> EXPEDIENTE DE MISIÓN CRÍTICA
                             </div>
                             <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <br/> <span className="text-primary">Usuario</span></h1>
                             <p className="text-lg md:text-xl text-white/40 max-w-3xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 text-justify leading-relaxed">
-                                Este documento constituye la guía técnica definitiva para la operación del ecosistema System Kyron. Los protocolos descritos se ajustan estrictamente al marco legal y administrativo vigente.
+                                Guía técnica integral para la operación del ecosistema System Kyron. Los procedimientos descritos son de carácter institucional y obligatorio cumplimiento.
                             </p>
                         </section>
 
@@ -330,7 +321,7 @@ export default function ManualUsuarioPage() {
                                     <CardFooter className="p-10 bg-white/[0.01] border-t border-white/5 flex justify-between items-center">
                                         <div className="flex items-center gap-2">
                                             <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
-                                            <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">Protocolo Verificado</span>
+                                            <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20">Verificado v2.6.5</span>
                                         </div>
                                         <Button variant="link" className="text-[9px] font-black uppercase text-primary p-0 hover:shadow-glow-text no-print" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
                                             VOLVER AL INICIO <ArrowDown className="ml-2 h-3.5 w-3.5 rotate-180" />
@@ -347,7 +338,7 @@ export default function ManualUsuarioPage() {
                             <div className="relative z-10 space-y-10">
                                 <h3 className="text-5xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight italic-shadow">Soporte Maestro</h3>
                                 <p className="text-xl font-bold opacity-90 leading-relaxed italic border-l-4 border-white/30 pl-10 text-justify">
-                                    Para incidencias en el despliegue operativo de los módulos institucionales o fallas en el protocolo de sincronización, contacte al nodo de ingeniería central.
+                                    Para incidencias en el despliegue operativo de los módulos o fallas en el protocolo de sincronización, contacte al nodo de ingeniería central.
                                 </p>
                                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-2xl h-20 px-16 font-black text-sm uppercase tracking-widest shadow-2xl transition-all">
                                     ESTABLECER CONEXIÓN MAESTRA
