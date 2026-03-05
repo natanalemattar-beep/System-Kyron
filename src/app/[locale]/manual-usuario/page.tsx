@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -16,7 +15,6 @@ import {
     Recycle,
     HeartHandshake,
     Download,
-    Activity,
     Home,
     Sparkles,
     Server,
@@ -27,7 +25,8 @@ import {
     Lock,
     Scale,
     FileText,
-    Printer
+    Printer,
+    Activity
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -38,7 +37,7 @@ import React from "react";
 
 /**
  * @fileOverview Manual de Usuario Maestro de System Kyron v2.6.5.
- * Documentación técnica ultra-detallada de los 10 módulos operativos.
+ * Documentación técnica exhaustiva de los 10 módulos operativos.
  * Optimizado para exportación compacta y densa a Microsoft Word (.doc) incluyendo Logo PNG.
  */
 
@@ -230,8 +229,8 @@ export default function ManualUsuarioPage() {
     };
 
     const handleDownload = async () => {
-        // Obtenemos el logo en PNG mediante un canvas temporal para garantizar compatibilidad con Word
-        const svgElement = document.getElementById('master-logo-svg');
+        // Captura del logo final preciso para el Word
+        const svgElement = document.getElementById('master-logo-export-source');
         if (!svgElement) return;
 
         const svgData = new XMLSerializer().serializeToString(svgElement);
@@ -240,48 +239,48 @@ export default function ManualUsuarioPage() {
         const img = new Image();
         
         img.onload = () => {
-            canvas.width = 300;
-            canvas.height = 300;
+            canvas.width = 400;
+            canvas.height = 400;
             if (ctx) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, 300, 300);
+                ctx.drawImage(img, 0, 0, 400, 400);
             }
             const pngDataUrl = canvas.toDataURL("image/png");
             
             let docContent = "";
             docContent += `
-                <div style="border-bottom: 2pt solid #2d5a8e; margin-bottom: 20pt; padding-bottom: 10pt;">
+                <div style="border-bottom: 2pt solid #0ea5e9; margin-bottom: 25pt; padding-bottom: 15pt;">
                     <table style="width: 100%; border: none;">
                         <tr>
-                            <td style="width: 100pt; border: none; vertical-align: middle;">
-                                <img src="${pngDataUrl}" width="80" height="80" style="display: block;" />
+                            <td style="width: 90pt; border: none; vertical-align: middle;">
+                                <img src="${pngDataUrl}" width="85" height="85" style="display: block;" />
                             </td>
                             <td style="border: none; vertical-align: middle;">
-                                <h1 style="color: #2d5a8e; margin: 0; font-size: 24pt; font-family: 'Arial Black', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: 2pt;">SYSTEM KYRON</h1>
-                                <p style="color: #64748b; margin: 0; font-size: 9pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1pt;">Manual de Usuario Maestro v2.6.5 • Corporate Intelligence</p>
+                                <h1 style="color: #0ea5e9; margin: 0; font-size: 26pt; font-family: 'Arial Black', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: 2.5pt; font-style: italic;">SYSTEM KYRON</h1>
+                                <p style="color: #64748b; margin: 0; font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5pt;">MANUAL TÉCNICO INTEGRAL v2.6.5 • CORPORATE INTELLIGENCE</p>
                             </td>
                         </tr>
                     </table>
                 </div>
                 
-                <div style="margin-bottom: 30pt; border-left: 10pt solid #2d5a8e; padding-left: 20pt; background-color: #f8fafc; padding-top: 15pt; padding-bottom: 15pt;">
-                    <h2 style="color: #1e293b; font-size: 18pt; margin: 0; font-family: 'Arial', sans-serif; text-transform: uppercase; font-weight: bold;">DOCUMENTACIÓN TÉCNICA MAESTRA</h2>
-                    <p style="font-style: italic; color: #475569; margin-top: 5pt; font-size: 11pt;">Compendio de protocolos operativos y de ingeniería de misión crítica.</p>
+                <div style="margin-bottom: 35pt; border-left: 12pt solid #0ea5e9; padding-left: 25pt; background-color: #f8fafc; padding-top: 20pt; padding-bottom: 20pt; border-radius: 4pt;">
+                    <h2 style="color: #1e293b; font-size: 20pt; margin: 0; font-family: 'Arial', sans-serif; text-transform: uppercase; font-weight: bold; letter-spacing: 1pt;">DOCUMENTACIÓN TÉCNICA MAESTRA</h2>
+                    <p style="font-style: italic; color: #475569; margin-top: 8pt; font-size: 12pt; line-height: 1.4;">Compendio exhaustivo de protocolos operativos y de ingeniería de misión crítica.</p>
                 </div>
             `;
 
             manualModules.forEach(mod => {
                 docContent += `
-                    <div style="margin-top: 25pt; margin-bottom: 20pt;">
-                        <h2 style="color: #2d5a8e; text-transform: uppercase; border-bottom: 2pt solid #e2e8f0; padding-bottom: 8pt; margin-bottom: 15pt; font-size: 16pt; font-family: 'Arial Black', sans-serif; font-weight: 900;">${mod.title}</h2>
-                        <p style="font-weight: bold; color: #1e293b; margin-bottom: 15pt; font-size: 10pt; text-transform: uppercase; font-family: 'Arial', sans-serif; background-color: #f1f5f9; padding: 10pt; border-radius: 4pt;">${mod.description}</p>
+                    <div style="margin-top: 30pt; margin-bottom: 25pt;">
+                        <h2 style="color: #0ea5e9; text-transform: uppercase; border-bottom: 2pt solid #e2e8f0; padding-bottom: 10pt; margin-bottom: 20pt; font-size: 18pt; font-family: 'Arial Black', sans-serif; font-weight: 900; font-style: italic;">${mod.title}</h2>
+                        <p style="font-weight: bold; color: #1e293b; margin-bottom: 20pt; font-size: 11pt; text-transform: uppercase; font-family: 'Arial', sans-serif; background-color: #f1f5f9; padding: 12pt; border-radius: 6pt; border-left: 4pt solid #22c55e;">${mod.description}</p>
                 `;
                 
                 mod.content.forEach(item => {
                     docContent += `
-                        <div style="margin-bottom: 18pt; padding: 12pt; border: 1pt solid #f1f5f9; border-radius: 6pt;">
-                            <h3 style="color: #1e293b; font-size: 12pt; margin-bottom: 8pt; border-left: 4pt solid #2d5a8e; padding-left: 12pt; font-family: 'Arial', sans-serif; text-transform: uppercase; font-weight: bold;">${item.sub}</h3>
-                            <p style="text-align: justify; line-height: 1.6; font-size: 11pt; color: #334155; font-family: 'Times New Roman', serif;">${item.text}</p>
+                        <div style="margin-bottom: 22pt; padding: 15pt; border: 1pt solid #f1f5f9; border-radius: 8pt; background-color: #ffffff;">
+                            <h3 style="color: #1e293b; font-size: 13pt; margin-bottom: 10pt; border-left: 5pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial', sans-serif; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5pt;">${item.sub}</h3>
+                            <p style="text-align: justify; line-height: 1.7; font-size: 11.5pt; color: #334155; font-family: 'Times New Roman', serif;">${item.text}</p>
                         </div>
                     `;
                 });
@@ -290,26 +289,26 @@ export default function ManualUsuarioPage() {
             });
 
             const footer = `
-                <div style="margin-top: 40pt; border-top: 2pt solid #2d5a8e; padding-top: 20pt; text-align: center; font-size: 8pt; color: #94a3b8; font-family: 'Arial', sans-serif; letter-spacing: 1pt;">
-                    <p style="text-transform: uppercase; font-weight: bold;">SYSTEM KYRON, C.A. • RIF: J-12345678-9 • DOCUMENTO DE GRADO CORPORATIVO</p>
-                    <p style="margin-top: 5pt; font-style: italic;">PROPIEDAD INTELECTUAL RESERVADA • © 2026 • ID EXPEDIENTE: SK-MASTER-MANUAL-PRO-2.6.5</p>
+                <div style="margin-top: 50pt; border-top: 2pt solid #0ea5e9; padding-top: 25pt; text-align: center; font-size: 9pt; color: #94a3b8; font-family: 'Arial', sans-serif; letter-spacing: 1.2pt;">
+                    <p style="text-transform: uppercase; font-weight: bold;">SYSTEM KYRON, C.A. • RIF: J-12345678-9 • EXPEDIENTE DE GRADO CORPORATIVO</p>
+                    <p style="margin-top: 8pt; font-style: italic;">PROPIEDAD INTELECTUAL RESERVADA • © 2026 • ID PROTOCOLO: SK-MASTER-2.6.5-FULL</p>
                 </div>
             `;
 
-            const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual Maestro System Kyron</title></head><body style='padding: 40pt; background-color: #ffffff;'>";
+            const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual Maestro System Kyron</title></head><body style='padding: 50pt; background-color: #ffffff;'>";
             const finalSource = headerHtml + docContent + footer + "</body></html>";
 
             const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(finalSource);
             const link = document.createElement("a");
             document.body.appendChild(link);
             link.href = source;
-            link.download = "Manual_Usuario_System_Kyron_Maestro_v2.6.5.doc";
+            link.download = "Manual_Usuario_System_Kyron_v2.6.5_Maestro.doc";
             link.click();
             document.body.removeChild(link);
 
             toast({
-                title: "DESCARGA MAESTRA INICIADA",
-                description: "El manual técnico exhaustivo con logo PNG se está exportando a Word.",
+                title: "DESCARGA INSTITUCIONAL INICIADA",
+                description: "Manual técnico expandido con logo final exportado a Word.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
         };
@@ -321,23 +320,23 @@ export default function ManualUsuarioPage() {
 
     return (
         <div className="min-h-screen bg-[#020202] text-white relative overflow-hidden hud-grid selection:bg-primary/20">
-            {/* Logo Invisible para Captura de Exportación */}
+            {/* Master Export Source Logo (Hidden) */}
             <div className="sr-only">
-                <Logo id="master-logo-svg" className="h-[300px] w-[300px]" />
+                <Logo id="master-logo-export-source" className="h-[400px] w-[400px]" />
             </div>
 
-            {/* Ambient Background */}
+            {/* Ambient Background Glows */}
             <div className="fixed inset-0 pointer-events-none -z-10">
                 <div className="absolute top-0 right-0 w-full h-[1200px] bg-primary/5 rounded-full blur-[200px] opacity-40 animate-pulse" />
-                <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-secondary/5 rounded-full blur-[180px] opacity-30" />
+                <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-emerald-600/5 rounded-full blur-[180px] opacity-30" />
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
             </div>
 
-            {/* Header Fijo */}
+            {/* Sticky HUD Header */}
             <header className="fixed top-0 left-0 right-0 z-[150] h-16 bg-black/95 backdrop-blur-3xl border-b border-white/5 flex items-center px-6 md:px-12 justify-between no-print">
                 <div className="flex items-center gap-4">
-                    <Link href="/" className="hover:scale-105 transition-transform">
-                        <Logo className="h-8 w-8 shadow-glow" />
+                    <Link href="/" className="hover:scale-105 transition-transform group">
+                        <Logo className="h-8 w-8 drop-shadow-glow" />
                     </Link>
                     <div className="flex flex-col border-l border-white/10 pl-4 ml-1">
                         <span className="text-[10px] font-black tracking-[0.5em] uppercase italic text-white/90">SYSTEM KYRON</span>
@@ -356,7 +355,7 @@ export default function ManualUsuarioPage() {
 
             <main className="container mx-auto px-6 max-w-7xl pt-24 pb-20 relative z-10">
                 <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
-                    {/* Navegación Lateral (HUD Table of Contents) */}
+                    {/* Navigation Sidebar (HUD Table of Contents) */}
                     <aside className="lg:col-span-4 no-print">
                         <div className="sticky top-24 space-y-6">
                             <Card className="glass-card p-6 rounded-[2rem] border-white/5 bg-black/60 shadow-2xl overflow-hidden">
@@ -397,7 +396,7 @@ export default function ManualUsuarioPage() {
                         </div>
                     </aside>
 
-                    {/* Contenido Principal */}
+                    {/* Main Documentation Flow */}
                     <div className="lg:col-span-8 space-y-12">
                         <motion.section 
                             className="space-y-6"
@@ -474,8 +473,8 @@ export default function ManualUsuarioPage() {
             </main>
             
             <footer className="py-16 border-t border-white/5 bg-black/80 text-center relative z-20">
-                <div className="mb-6 opacity-20 hover:opacity-50 transition-opacity">
-                    <Logo className="h-10 w-10 mx-auto" />
+                <div className="mb-6 opacity-20 hover:opacity-50 transition-opacity group">
+                    <Logo className="h-10 w-10 mx-auto group-hover:drop-shadow-glow transition-all" />
                 </div>
                 <p className="text-[9px] font-black uppercase tracking-[0.8em] text-white/10 italic">
                     SYSTEM KYRON • MASTER USER MANUAL • MK-2.6.5 • 2026
