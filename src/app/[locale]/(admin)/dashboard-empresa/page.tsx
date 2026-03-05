@@ -37,10 +37,10 @@ export default function DashboardPage() {
       <header className="flex flex-col md:flex-row justify-between items-end gap-6 border-l border-white/10 pl-10 py-2">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-white/5 text-white/40 text-[9px] font-bold uppercase tracking-widest border border-white/5">
-                <LayoutGrid className="h-3 w-3" /> Consola
+                <LayoutGrid className="h-3 w-3" /> Consola Maestra
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none text-white italic italic-shadow">Centro de <span className="text-white/20">Mando</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest opacity-40">System Kyron • Nodo Distribuido 2.6</p>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic italic-shadow">Centro de <span className="text-white/20">Mando</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest opacity-40">System Kyron • Nodo Distribuido 2.6.5</p>
         </div>
         <div className="flex gap-3">
             <div className="px-4 py-2 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-xl flex items-center gap-3">
@@ -48,8 +48,8 @@ export default function DashboardPage() {
                     <Zap className="h-3 w-3 text-green-500" />
                 </div>
                 <div className="text-left">
-                    <p className="text-[7px] font-black uppercase tracking-widest text-white/30 leading-none mb-1">Estado</p>
-                    <p className="text-[9px] font-bold text-white leading-none uppercase">Óptimo</p>
+                    <p className="text-[7px] font-black uppercase tracking-widest text-white/30 leading-none mb-1">Status</p>
+                    <p className="text-[9px] font-bold text-white leading-none uppercase">Online</p>
                 </div>
             </div>
         </div>
@@ -65,16 +65,16 @@ export default function DashboardPage() {
                 </div>
                 <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[1.9rem] h-full flex flex-col justify-between min-h-[240px]">
                     <div className="space-y-1">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-tight">Bóveda Kyron</CardTitle>
-                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Nodo Privado Estratégico</p>
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-tight">Bóveda Privada</CardTitle>
+                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Nodo de Seguridad 2026</p>
                     </div>
                     <div className="space-y-4">
                         <p className="text-xs font-bold opacity-80 leading-relaxed italic">
-                            Acceso restringido a informes técnicos de factibilidad y modelo ZEDU maestro.
+                            Acceso restringido a expedientes maestros y protocolos de factibilidad económica ZEDU.
                         </p>
                         <Button variant="secondary" asChild className="w-full h-10 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest transition-all">
                             <Link href="/manual-usuario" className="flex justify-between w-full px-4">
-                                <span>DOCUMENTACIÓN</span> 
+                                <span>PROTOCOLOS</span> 
                                 <ArrowRight className="h-4 w-4"/>
                             </Link>
                         </Button>

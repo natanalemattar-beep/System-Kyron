@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -14,7 +15,8 @@ import {
     Info,
     LayoutGrid,
     Target,
-    ShieldCheck
+    ShieldCheck,
+    Briefcase
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { 
@@ -55,7 +57,7 @@ export function LandingHeader() {
                     
                     {/* SECCIÓN IZQUIERDA */}
                     <div className="flex justify-start items-center gap-10">
-                        <nav className="hidden lg:flex items-center gap-10">
+                        <nav className="hidden lg:flex items-center gap-8">
                             <Link href="/#inicio" className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group">
                                 Inicio
                                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
@@ -64,10 +66,13 @@ export function LandingHeader() {
                                 Ecosistema
                                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
                             </Link>
-                            <Link href="/#nosotros" className="text-[10px] font-black uppercase tracking-[0.4em] text-primary shadow-glow-text transition-all relative group flex items-center gap-2">
-                                <ShieldCheck className="h-3.5 w-3.5" />
+                            <Link 
+                                href="/manual-usuario#nosotros" 
+                                className="text-[10px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary transition-all relative group flex items-center gap-2 border border-secondary/20 px-3 py-1 rounded-lg bg-secondary/5"
+                            >
+                                <Users2 className="h-3 w-3" />
                                 NOSOTROS
-                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-secondary transition-all group-hover:w-full shadow-glow-secondary"></span>
                             </Link>
                         </nav>
                     </div>
@@ -112,7 +117,7 @@ export function LandingHeader() {
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-[11px] font-black uppercase tracking-[0.3em] text-primary">Ecosistema Kyron</span>
-                                                <span className="text-[8px] font-bold text-white/30 uppercase tracking-widest">Selecciona tu portal maestro</span>
+                                                <span className="text-[8px] font-bold text-white/30 uppercase tracking-widest">Protocolo de Identidad Distribuido</span>
                                             </div>
                                         </DropdownMenuLabel>
                                     </div>
@@ -180,7 +185,7 @@ export function LandingHeader() {
                                             <p className="text-[10px] font-black uppercase text-white/20 tracking-[0.4em] italic">Navegación</p>
                                             <SheetClose asChild><Link href="/#inicio" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">Inicio</Link></SheetClose>
                                             <SheetClose asChild><Link href="/ecosistema" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">Ecosistema</Link></SheetClose>
-                                            <SheetClose asChild><Link href="/#nosotros" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group">Nosotros</Link></SheetClose>
+                                            <SheetClose asChild><Link href="/manual-usuario#nosotros" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group text-secondary">Quiénes Somos</Link></SheetClose>
                                             <SheetClose asChild><Link href="/manual-usuario" className="text-sm font-black uppercase tracking-widest py-4 border-b border-white/5 flex items-center justify-between group text-primary">Manual de Usuario</Link></SheetClose>
                                         </div>
                                     </nav>
