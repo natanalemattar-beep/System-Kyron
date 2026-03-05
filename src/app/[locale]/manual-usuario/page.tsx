@@ -47,7 +47,11 @@ import {
     School,
     Wand2,
     Printer,
-    X
+    X,
+    Monitor,
+    BarChart3,
+    Network,
+    Atom
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -59,37 +63,36 @@ import React from "react";
 const introSection = {
     title: "1.0 Bienvenido a System Kyron v2.6.5",
     mission: "Blindar la gestión institucional mediante tecnología inmutable y conectividad soberana, garantizando el cumplimiento con el 100% de los entes regulatorios nacionales.",
-    target: "Empresas de alto rendimiento, instituciones de misión crítica y ciudadanos digitales.",
-    text: "System Kyron v2.6.5 es una plataforma de telecomunicaciones de misión crítica que ofrece líneas 5G, gestión eSIM y equipos homologados como servicio base. Sobre esta infraestructura de red, desplegamos un ecosistema de cumplimiento normativo total que garantiza la operación legal de su empresa ante todas las instituciones rectoras del Estado venezolano: tributario (SENIAT), telecomunicaciones (CONATEL), registral (SAREN), propiedad intelectual (SAPI), laboral (LOTTT, IVSS, FAOV, INCES) y protección del menor (LOPNNA). Cada transacción y registro es blindado por inteligencia artificial predictiva y un ledger blockchain que asegura su inmutabilidad. Este manual proporciona los protocolos para operar los nodos del sistema con absoluta solvencia legal.  Misión: Blindar la gestión institucional mediante tecnología inmutable y conectividad soberana, garantizando el cumplimiento con el 100% de los entes regulatorios nacionales."
+    text: "System Kyron v2.6.5 es una plataforma de telecomunicaciones de misión crítica que ofrece líneas 5G, gestión eSIM y equipos homologados como servicio base. Sobre esta infraestructura de red, desplegamos un ecosistema de cumplimiento normativo total que garantiza la operación legal de su empresa ante todas las instituciones rectoras del Estado venezolano: tributario (SENIAT), telecomunicaciones (CONATEL), registral (SAREN), propiedad intelectual (SAPI), laboral (LOTTT, IVSS, FAOV, INCES) y protección del menor (LOPNNA). Cada transacción y registro es blindado por inteligencia artificial predictiva y un ledger blockchain que asegura su inmutabilidad. Este manual proporciona los protocolos para operar los nodos del sistema con absoluta solvencia legal."
 };
 
 const quickStartSteps = [
-    { step: "01", title: "Configuración de Nodo", desc: "Ingrese sus credenciales maestras y valide su identidad biométrica inicial.", icon: Terminal },
-    { step: "02", title: "Sincronización de Base", desc: "El sistema cargará automáticamente los últimos índices INPC y parámetros de ley.", icon: RefreshCw },
-    { step: "03", title: "Habilitación de Módulos", desc: "Active los servicios necesarios (Telecom, Fiscal, RRHH) desde el selector modular.", icon: Zap },
-    { step: "04", title: "Inyección de Datos", desc: "Suba su base de clientes y productos mediante el motor de importación masiva.", icon: Database }
+    { step: "01", title: "Configuración de Nodo", desc: "Ingrese sus credenciales maestras y valide su identidad biométrica inicial mediante el escaneo facial 3D.", icon: Terminal },
+    { step: "02", title: "Sincronización de Base", desc: "El sistema cargará automáticamente los últimos índices INPC del BCV y los parámetros de ley vigentes.", icon: RefreshCw },
+    { step: "03", title: "Habilitación de Módulos", desc: "Active los servicios necesarios (Telecom, Fiscal, RRHH) desde el selector de arquitectura modular.", icon: Zap },
+    { step: "04", title: "Inyección de Datos", desc: "Suba su base de clientes, productos y activos mediante el motor de importación masiva con validación IA.", icon: Database }
 ];
 
 const technicalRequirements = {
     title: "Requisitos Técnicos de Operación",
     items: [
-        { label: "Navegación", desc: "Chromium v115+ (Chrome/Edge) / WebKit (Safari 15+). Aceleración por hardware habilitada." },
-        { label: "Sistemas Móviles", desc: "Android 11+ o iOS 15+. Soporte para tecnología eSIM (eUICC) requerido para módulos telecom." },
-        { label: "Hardware Estación", desc: "Mínimo 4GB RAM (8GB recomendado). Cámara HD 1080p con soporte para profundidad." },
-        { label: "Conectividad Red", desc: "Enlace simétrico > 5Mbps estable. Latencia < 50ms para sincronización Ledger." },
-        { label: "Seguridad Hardware", desc: "Habilitación de TPM 2.0 y soporte para cifrado AES-NI en procesador." }
+        { label: "Navegación", desc: "Chromium v115+ (Chrome/Edge), Firefox 110+, Safari 16+. Aceleración por hardware requerida." },
+        { label: "Sistemas Móviles", desc: "Android 11+ o iOS 15+. Compatibilidad con tecnología eSIM (eUICC) para gestión de líneas." },
+        { label: "Hardware Estación", desc: "Mínimo 4GB RAM (8GB recomendado). Cámara HD con profundidad para biometría facial." },
+        { label: "Conectividad Red", desc: "Enlace simétrico > 10Mbps. Latencia < 40ms para sincronización de Ledger Blockchain." },
+        { label: "Seguridad Local", desc: "TPM 2.0 habilitado. Firewall corporativo con puertos 443/8443 abiertos para túneles IPsec." }
     ]
 };
 
 const glossaryTerms = [
-    { term: "AES-512", def: "Protocolo de cifrado de grado militar utilizado para el blindaje de la bóveda de documentos." },
-    { term: "eIDAS", def: "Estándar de la Unión Europea para la identificación electrónica y servicios de confianza." },
-    { term: "SM-DP+", def: "Servidor de gestión de datos de suscripción para el aprovisionamiento remoto de eSIMs." },
-    { term: "Network Slicing", def: "Capacidad de la red 5G para crear sub-redes virtuales con parámetros de QoS específicos." },
-    { term: "VNF", def: "Funciones de Red Virtualizadas que permiten ejecutar servicios de telecom en la nube." },
-    { term: "RIPF Automatizado", def: "Reajuste por Inflación Fiscal calculado en tiempo real según el INPC del BCV." },
-    { term: "Ledger Inmutable", def: "Registro de transacciones encadenado criptográficamente que impide alteraciones posteriores." },
-    { term: "Eco-Créditos (ECR)", def: "Activos digitales tokenizados que representan la huella de carbono compensada." }
+    { term: "AES-512", def: "Estándar de cifrado avanzado con llaves de 512 bits para blindaje de activos digitales." },
+    { term: "eIDAS", def: "Reglamento de la UE sobre identificación electrónica y servicios de confianza." },
+    { term: "SM-DP+", def: "Subscription Manager Data Preparation para el aprovisionamiento remoto de perfiles eSIM." },
+    { term: "Network Slicing", def: "Segmentación virtual de la red 5G para garantizar ancho de banda a aplicaciones críticas." },
+    { term: "VEN-NIF", def: "Normas de Información Financiera adoptadas en Venezuela para transparencia contable." },
+    { term: "RIPF", def: "Reajuste por Inflación Fiscal, cálculo obligatorio para la determinación del ISLR." },
+    { term: "Ledger Blockchain", def: "Libro contable digital distribuido donde los registros son permanentes e inalterables." },
+    { term: "Zero-Knowledge Proof", def: "Protocolo criptográfico que permite validar datos sin revelar la información sensible subyacente." }
 ];
 
 const innovationModules = [
@@ -97,52 +100,108 @@ const innovationModules = [
         id: "voice",
         title: "Interacción por Voz (V-IA)",
         icon: Volume2,
-        description: "Asistente inteligente con procesamiento de lenguaje natural venezolano.",
-        procedure: "1. Active el botón flotante. 2. Realice su consulta (ej: '¿Cuándo vence el IVA?'). 3. El sistema procesará y responderá por audio y texto.",
-        details: "Utiliza motores de reconocimiento de voz de alta precisión entrenados con el corpus legal y fiscal de Venezuela."
+        description: "Asistente inteligente con procesamiento de lenguaje natural (NLP) adaptado al léxico venezolano.",
+        procedure: "1. Active el botón de voz en el HUD. 2. Realice su consulta técnica o legal. 3. Escuche la inferencia de la IA basada en la Gaceta Oficial. 4. Confirme la acción ejecutada.",
+        details: "Reducción del 60% en tiempos de consulta documental. Entrenamiento basado en jurisprudencia y normativa administrativa nacional."
     },
     {
         id: "mercado",
         title: "Mercado de Eco-Créditos",
         icon: Coins,
-        description: "Exchange descentralizado para la comercialización de bonos verdes.",
-        procedure: "1. Acceda al Mercado. 2. Seleccione 'Vender' o 'Comprar'. 3. Ejecute la transacción en el Ledger. 4. Obtenga su certificado de Carbono Neutral.",
-        details: "Crea una economía secundaria basada en la sustentabilidad, permitiendo a empresas rentabilizar sus hábitos de reciclaje."
+        description: "Exchange de bonos verdes tokenizados para la monetización de la responsabilidad ambiental.",
+        procedure: "1. Inyecte residuos en Smart Bins. 2. Valide créditos en su billetera digital. 3. Publique oferta en el mercado secundario. 4. Liquide activos o compense huella.",
+        details: "Arquitectura basada en Smart Contracts que garantiza la trazabilidad de cada kilogramo de residuo transformado en activo digital."
     },
     {
         id: "generador",
         title: "Generador IA de Documentos",
         icon: Wand2,
-        description: "Redacción automatizada de contratos bajo normativa legal vigente.",
-        procedure: "1. Elija el tipo de contrato. 2. Ingrese los datos de las partes. 3. Defina condiciones especiales. 4. Genere y firme el borrador.",
-        details: "Integración con el nodo jurídico para asegurar que cada cláusula cumpla con el Código Civil y de Comercio."
+        description: "Motor de redacción jurídica automatizada bajo el marco del Código Civil y de Comercio.",
+        procedure: "1. Seleccione tipo de instrumento. 2. Identifique a las partes. 3. Defina condiciones de negocio. 4. Obtenga borrador de grado legal para firma.",
+        details: "Elimina el 90% de los errores de redacción comunes. Sincronización con el módulo de permisos para validación de poderes vigentes."
     }
 ];
 
 const manualModules = [
     {
         id: "identidad",
-        title: "Identidad Digital 3D",
+        title: "Módulo 1: Identidad Digital 3D",
         icon: Fingerprint,
-        description: "Protocolo maestro de autenticación y resguardo de documentos civiles.",
-        procedure: "1. Acceda a 'Mi ID Digital'. 2. Inicie 'Enrolamiento'. 3. Siga la guía visual de mapeo facial. 4. Firme el acta digital con clave maestra.",
-        details: "Utiliza 512 puntos vectoriales para crear un hash de identidad único vinculado a su Cédula/RIF. Cumple con estándares eIDAS de alta confianza."
+        description: "Sistema maestro de autenticación biométrica y resguardo de identidad civil.",
+        procedure: "1. Iniciar sesión segura. 2. Acceder a Enrolamiento Facial. 3. Captura de 512 puntos vectoriales. 4. Vinculación de Cédula/RIF. 5. Emisión de ID Digital.",
+        details: "Protocolo de 'Prueba de Vida' (Liveness Detection) para prevenir suplantación por fotos o videos. Cumplimiento con estándares internacionales eIDAS."
     },
     {
         id: "telecom",
-        title: "Telecom 5G y eSIM",
+        title: "Módulo 2: Telecom 5G y eSIM",
         icon: Radio,
-        description: "Administración de redes convergentes y telefonía digital corporativa.",
-        procedure: "1. Ingrese a Gestión de Telecom. 2. Genere perfil eSIM. 3. Escanee el código QR en el terminal. 4. Active el nodo de datos y valide señal.",
-        details: "Soporte para Multi-IMSI y Network Slicing. Gestión de flota mediante servidor SM-DP+ certificado por GSMA."
+        description: "Gestión de conectividad convergente y aprovisionamiento remoto de líneas.",
+        procedure: "1. Selección de plan de datos. 2. Generación de perfil eUICC. 3. Escaneo de código de activación. 4. Registro en el HLR/HSS corporativo.",
+        details: "Integración nativa con servidores SM-DP+ de Kyron. Soporte para Network Slicing para priorizar tráfico de TPV y Contabilidad."
     },
     {
         id: "tpv",
-        title: "Punto de Venta IA",
+        title: "Módulo 3: Punto de Venta IA",
         icon: TabletSmartphone,
-        description: "Operativa comercial con validación fiscal síncrona en tiempo real.",
-        procedure: "1. Valide operador biométricamente. 2. Escanee productos. 3. Ingrese pago multimoneda. 4. Emita factura fiscal homologada.",
-        details: "Integración nativa con máquinas fiscales y pasarelas de pago. Detección automática de IGTF y exenciones de IVA por IA."
+        description: "Terminal de facturación inteligente con validación fiscal síncrona.",
+        procedure: "1. Validación de operador. 2. Escaneo de activos/productos. 3. Cálculo automático de IVA/IGTF. 4. Cierre de venta y emisión de factura QR.",
+        details: "Sincronización automática con inventario y libros de venta. Detección de exenciones de IVA según decretos presidenciales vigentes."
+    },
+    {
+        id: "contabilidad",
+        title: "Módulo 4: Finanzas y Contabilidad",
+        icon: BarChart3,
+        description: "Automatización total del ciclo contable bajo estándares VEN-NIF.",
+        procedure: "1. Carga de transacciones por Ledger. 2. Ejecución de asientos automáticos. 3. Cálculo de RIPF (Ajuste por Inflación). 4. Generación de Estados Financieros.",
+        details: "Integración con el INPC del Banco Central de Venezuela para cálculos actuariales precisos y auditoría de balance en tiempo real."
+    },
+    {
+        id: "rrhh",
+        title: "Módulo 5: Gestión de Talento",
+        icon: Users,
+        description: "Administración estratégica de capital humano y nómina automatizada.",
+        procedure: "1. Alta de ficha de trabajador. 2. Configuración de conceptos prestacionales. 3. Cálculo de quincena y aportes. 4. Envío de recibos digitales.",
+        details: "Cálculo preciso de IVSS, FAOV e INCES. Módulo de LOPNNA para protección de menores y registro de cargas familiares."
+    },
+    {
+        id: "juridico",
+        title: "Módulo 6: Centro Jurídico Corporativo",
+        icon: Gavel,
+        description: "Gestión de contratos, poderes y cumplimiento normativo integral.",
+        procedure: "1. Registro de actas de asamblea. 2. Control de vigencia de poderes. 3. Seguimiento de trámites en SAREN/SAPI. 4. Alertas de vencimiento legal.",
+        details: "Bóveda segura para resguardo de títulos de propiedad y documentos constitutivos con sello de tiempo inmutable."
+    },
+    {
+        id: "ingenieria",
+        title: "Módulo 7: Ingeniería y Proyectos IA",
+        icon: Cpu,
+        description: "Planificación técnica basada en fotogrametría y presupuestos automatizados.",
+        procedure: "1. Carga de captura visual del local. 2. Generación de plano a escala por IA. 3. Cálculo métrico de materiales. 4. Exportación de presupuesto CapEx.",
+        details: "Optimización de costos de obra civil mediante algoritmos de inteligencia espacial y base de datos de precios de materiales actualizada."
+    },
+    {
+        id: "sostenibilidad",
+        title: "Módulo 8: Ecosistema de Sostenibilidad",
+        icon: Recycle,
+        description: "Gestión de residuos mediante tecnología de inducción magnética.",
+        procedure: "1. Ubicación de Smart Bin. 2. Autenticación de usuario. 3. Depósito y clasificación magnética. 4. Tokenización de impacto en Eco-Créditos.",
+        details: "Implementación del modelo de economía circular Kyron. Transformación de residuos en activos transaccionables en el mercado interno."
+    },
+    {
+        id: "bi",
+        title: "Módulo 9: Inteligencia de Negocio (BI)",
+        icon: TrendingUp,
+        description: "Dashboard ejecutivo para la toma de decisiones basada en datos.",
+        procedure: "1. Selección de nodo de análisis. 2. Definición de KPI estratégico. 3. Visualización de tendencias predictivas. 4. Exportación de reporte ejecutivo.",
+        details: "Análisis multidimensional de rentabilidad, riesgo de mercado y comportamiento del consumidor mediante redes neuronales recurrentes."
+    },
+    {
+        id: "ciberseguridad",
+        title: "Módulo 10: Ciberseguridad Militar",
+        icon: ShieldCheck,
+        description: "Blindaje de infraestructura y soberanía de los datos corporativos.",
+        procedure: "1. Monitoreo de nodos activos. 2. Auditoría de accesos biométricos. 3. Verificación de integridad del Ledger. 4. Escaneo de vulnerabilidades.",
+        details: "Cifrado AES-512 en reposo y TLS 1.3 en tránsito. Arquitectura Zero-Knowledge: Kyron no conoce sus llaves privadas, solo usted tiene el control."
     }
 ];
 
@@ -156,62 +215,74 @@ export default function ManualUsuarioPage() {
 
     const handleDownload = () => {
         const content = `
-            <div style="text-align: center; margin-bottom: 60pt; border: 4pt double #0ea5e9; padding: 40pt; border-radius: 20pt; background-color: #f0f9ff;">
-                <h1 style="color: #0ea5e9; font-size: 42pt; font-family: 'Arial Black', sans-serif; margin-bottom: 10pt; text-transform: uppercase;">SYSTEM KYRON</h1>
-                <p style="color: #1e293b; font-size: 18pt; font-weight: bold; text-transform: uppercase; letter-spacing: 5pt; margin-bottom: 30pt;">Expediente Técnico Maestro v2.6.5</p>
-                <div style="width: 100pt; height: 2pt; background-color: #0ea5e9; margin: 0 auto 20pt;"></div>
-                <p style="color: #64748b; font-size: 12pt; font-style: italic;">Manual de Operaciones de Grado Corporativo • Innovación IA & Sustentabilidad</p>
+            <div style="text-align: center; margin-bottom: 40pt; border: 4pt double #0ea5e9; padding: 30pt; border-radius: 15pt; background-color: #f8fafc;">
+                <h1 style="color: #0ea5e9; font-size: 36pt; font-family: 'Arial Black', sans-serif; margin-bottom: 5pt; text-transform: uppercase;">SYSTEM KYRON</h1>
+                <p style="color: #1e293b; font-size: 16pt; font-weight: bold; text-transform: uppercase; letter-spacing: 4pt; margin-bottom: 20pt;">Manual de Usuario Maestro v2.6.5</p>
+                <div style="width: 80pt; height: 3pt; background-color: #0ea5e9; margin: 0 auto 15pt;"></div>
+                <p style="color: #64748b; font-size: 10pt; font-style: italic;">Documento de Grado Corporativo • Confidencialidad Nivel 5</p>
             </div>
 
-            <h2 style="color: #0ea5e9; border-left: 15pt solid #0ea5e9; padding-left: 15pt; margin-top: 40pt; font-family: 'Arial Black';">1.0 INTRODUCCIÓN GENERAL</h2>
-            <p style="text-align: justify; font-size: 11pt; line-height: 1.8; color: #334155;">${introSection.text}</p>
+            <h2 style="color: #0ea5e9; border-left: 10pt solid #0ea5e9; padding-left: 15pt; margin-top: 30pt; font-family: 'Arial Black';">1.0 INTRODUCCIÓN GENERAL</h2>
+            <p style="text-align: justify; font-size: 11pt; line-height: 1.6; color: #334155;">${introSection.text}</p>
 
-            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">2.0 REQUISITOS TÉCNICOS DE OPERACIÓN</h2>
-            <table>
-                <tr style="background-color: #0ea5e9; color: white;"><th>CATEGORÍA</th><th>ESPECIFICACIÓN MAESTRA</th></tr>
-                ${technicalRequirements.items.map(req => `<tr><td style="font-weight:bold;">${req.label}</td><td>${req.desc}</td></tr>`).join('')}
-            </table>
-
-            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">3.0 GUÍA DE INICIO RÁPIDO (QUICK START)</h2>
+            <h2 style="color: #0ea5e9; margin-top: 30pt; border-left: 10pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">2.0 INICIO RÁPIDO (QUICK START)</h2>
             ${quickStartSteps.map(step => `
-                <div style="margin-top: 15pt; padding: 15pt; border: 1pt solid #e2e8f0; border-radius: 10pt;">
-                    <h3 style="color: #0ea5e9; margin-top: 0;">PASO ${step.step}: ${step.title}</h3>
+                <div style="margin-top: 10pt; padding: 12pt; border: 1pt solid #e2e8f0; border-radius: 8pt; background: #ffffff;">
+                    <h3 style="color: #0ea5e9; margin-top: 0; font-size: 12pt;">${step.step}. ${step.title}</h3>
                     <p style="font-size: 10pt; color: #64748b;">${step.desc}</p>
                 </div>
             `).join('')}
 
-            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">4.0 INNOVACIONES DE GRADO SUPERIOR (TIER 2)</h2>
-            ${innovationModules.map(mod => `
-                <div style="margin-top: 20pt; padding: 20pt; border: 1pt solid #e2e8f0; border-radius: 10pt; background: #f8fafc;">
-                    <h3 style="color: #0ea5e9; margin-top: 0; text-transform: uppercase; font-family: 'Arial Black'; font-size: 14pt;">${mod.title}</h3>
-                    <p style="font-size: 10pt; color: #64748b; font-weight: bold;">${mod.description}</p>
-                    <p style="font-size: 9pt; margin-top: 10pt;"><strong>PROCEDIMIENTO:</strong> ${mod.procedure}</p>
-                    <p style="font-size: 9pt; margin-top: 5pt; color: #94a3b8; font-style: italic;">${mod.details}</p>
-                </div>
-            `).join('')}
-
-            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">5.0 PROTOCOLOS POR MÓDULO (EXPANDIDO)</h2>
+            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 10pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">3.0 PROTOCOLOS OPERATIVOS POR MÓDULO</h2>
             ${manualModules.map(mod => `
-                <div style="margin-top: 20pt; padding: 20pt; border: 1pt solid #e2e8f0; border-radius: 10pt;">
-                    <h3 style="color: #0ea5e9; margin-top: 0;">${mod.title}</h3>
-                    <p style="font-weight:bold; color:#64748b;">${mod.description}</p>
-                    <p><strong>PROCEDIMIENTO DE EJECUCIÓN:</strong> ${mod.procedure}</p>
-                    <p style="font-size: 9pt; margin-top: 10pt; color: #94a3b8;">${mod.details}</p>
+                <div style="margin-top: 20pt; padding: 15pt; border: 1pt solid #cbd5e1; border-radius: 10pt; background: #fdfdfd;">
+                    <h3 style="color: #0ea5e9; margin-top: 0; text-transform: uppercase; font-size: 14pt;">${mod.title}</h3>
+                    <p style="font-weight: bold; color: #475569; font-size: 10pt;">OBJETIVO: ${mod.description}</p>
+                    <div style="margin-top: 10pt; padding: 10pt; background: #f1f5f9; border-radius: 5pt;">
+                        <p style="font-weight: bold; font-size: 9pt; color: #0ea5e9;">PROCEDIMIENTO PASO A PASO:</p>
+                        <p style="font-size: 10pt; color: #334155;">${mod.procedure}</p>
+                    </div>
+                    <p style="font-size: 9pt; margin-top: 10pt; color: #94a3b8; font-style: italic;"><strong>ARQUITECTURA:</strong> ${mod.details}</p>
                 </div>
             `).join('')}
 
-            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">6.0 GLOSARIO DE INGENIERÍA</h2>
-            <table>
-                <tr style="background-color: #0ea5e9; color: white;"><th>TÉRMINO</th><th>DEFINICIÓN TÉCNICA</th></tr>
-                ${glossaryTerms.map(term => `<tr><td style="font-weight:bold; color:#0ea5e9;">${term.term}</td><td>${term.def}</td></tr>`).join('')}
+            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 10pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">4.0 INNOVACIONES ESTRATÉGICAS TIER 2</h2>
+            ${innovationModules.map(mod => `
+                <div style="margin-top: 15pt; padding: 15pt; border: 1pt solid #0ea5e9; border-radius: 10pt; background: #f0f9ff;">
+                    <h3 style="color: #0369a1; margin-top: 0; font-family: 'Arial Black';">${mod.title}</h3>
+                    <p style="font-size: 10pt; font-weight: bold; color: #0ea5e9;">${mod.description}</p>
+                    <p style="font-size: 10pt; margin-top: 8pt;"><strong>OPERACIÓN:</strong> ${mod.procedure}</p>
+                    <p style="font-size: 9pt; margin-top: 5pt; color: #64748b; font-style: italic;">${mod.details}</p>
+                </div>
+            `).join('')}
+
+            <h2 style="color: #0ea5e9; margin-top: 40pt; border-left: 10pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">5.0 REQUISITOS TÉCNICOS Y GLOSARIO</h2>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10pt;">
+                <tr style="background-color: #0ea5e9; color: white;">
+                    <th style="padding: 10pt; text-align: left; border: 1pt solid #ddd;">CATEGORÍA</th>
+                    <th style="padding: 10pt; text-align: left; border: 1pt solid #ddd;">ESPECIFICACIÓN</th>
+                </tr>
+                ${technicalRequirements.items.map(req => `
+                    <tr>
+                        <td style="padding: 10pt; border: 1pt solid #ddd; font-weight: bold; background: #f8fafc;">${req.label}</td>
+                        <td style="padding: 10pt; border: 1pt solid #ddd; font-size: 9pt;">${req.desc}</td>
+                    </tr>
+                `).join('')}
             </table>
 
-            <h2 style="color: #0ea5e9; margin-top: 50pt; border-left: 15pt solid #0ea5e9; padding-left: 15pt; font-family: 'Arial Black';">7.0 SOPORTE Y RESOLUCIÓN DE INCIDENCIAS</h2>
-            <div style="padding: 20pt; border: 1pt solid #ef4444; border-radius: 10pt; background: #fef2f2;">
-                <h3 style="color: #ef4444; margin-top: 0;">TROUBLESHOOTING MAESTRO</h3>
-                <p><strong>Falla en Biometría:</strong> Limpie el sensor óptico y asegure iluminación frontal > 500 lux.</p>
-                <p><strong>Error de Sincronización:</strong> Verifique latencia de red. El Ledger requiere < 50ms.</p>
-                <p><strong>Falla eSIM:</strong> Valide compatibilidad eUICC del terminal móvil.</p>
+            <div style="margin-top: 30pt;">
+                <h3 style="color: #0ea5e9; font-family: 'Arial Black';">GLOSARIO DE TÉRMINOS</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10pt;">
+                    ${glossaryTerms.map(term => `
+                        <p style="font-size: 9pt; margin-bottom: 5pt;"><strong>${term.term}:</strong> ${term.def}</p>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div style="margin-top: 50pt; padding: 20pt; border: 2pt solid #ef4444; border-radius: 10pt; background: #fef2f2; text-align: center;">
+                <h3 style="color: #ef4444; margin-top: 0; font-family: 'Arial Black';">SOPORTE MAESTRO 24/7</h3>
+                <p style="font-size: 11pt; font-weight: bold;">Para asistencia crítica: infosystemkyron@gmail.com</p>
+                <p style="font-size: 9pt; color: #b91c1c;">Protocolo de respuesta: < 2 horas para Nivel 5.</p>
             </div>
         `;
 
@@ -225,7 +296,7 @@ export default function ManualUsuarioPage() {
         link.click();
         document.body.removeChild(link);
 
-        toast({ title: "EXPEDIENTE EXPORTADO", description: "Manual v2.6.5 generado con éxito bajo protocolo seguro." });
+        toast({ title: "EXPEDIENTE EXPORTADO", description: "Manual Maestro v2.6.5 generado bajo protocolo seguro." });
     };
 
     const scrollToSection = (id: string) => {
@@ -266,17 +337,18 @@ export default function ManualUsuarioPage() {
                                     <ListTree className="h-3.5 w-3.5" /> Nodo de Navegación
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent className="p-0 space-y-1">
+                            <CardContent className="p-0 space-y-1 max-h-[60vh] overflow-y-auto custom-scrollbar pr-2">
                                 <NavButton label="1.0 Introducción" onClick={() => scrollToSection("intro")} icon={Info} />
                                 <NavButton label="2.0 Inicio Rápido" onClick={() => scrollToSection("quick")} icon={Zap} />
-                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Módulos de Innovación</div>
-                                {innovationModules.map(mod => (
-                                    <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
-                                ))}
-                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Módulos Base</div>
+                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Módulos de Operación</div>
                                 {manualModules.map(mod => (
                                     <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
                                 ))}
+                                <div className="py-4 px-3 text-[7px] font-black uppercase tracking-[0.5em] text-white/20 italic">Innovaciones Tier 2</div>
+                                {innovationModules.map(mod => (
+                                    <NavButton key={mod.id} label={mod.title} onClick={() => scrollToSection(mod.id)} icon={mod.icon} />
+                                ))}
+                                <NavButton label="Apéndice: Requisitos" onClick={() => scrollToSection("tech")} icon={Monitor} />
                                 <NavButton label="Apéndice: Glosario" onClick={() => scrollToSection("glossary")} icon={BookOpen} />
                             </CardContent>
                         </Card>
@@ -293,7 +365,7 @@ export default function ManualUsuarioPage() {
 
                         <section id="quick" className="space-y-12 scroll-mt-24">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
-                                <Zap className="h-6 w-6 text-yellow-500" /> 2.0 Inicio Rápido (Quick Start)
+                                <Zap className="h-6 w-6 text-yellow-500" /> 2.0 Inicio Rápido
                             </h3>
                             <div className="grid sm:grid-cols-2 gap-6">
                                 {quickStartSteps.map((item, i) => (
@@ -312,32 +384,56 @@ export default function ManualUsuarioPage() {
                         </section>
 
                         <div className="space-y-24">
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-yellow-500 flex items-center gap-4">
-                                <Zap className="h-6 w-6" /> Innovaciones Tier 2
-                            </h3>
-                            {innovationModules.map(mod => (
-                                <ModuleCard key={mod.id} mod={mod} color="text-yellow-500" />
-                            ))}
-                        </div>
-
-                        <div className="space-y-24">
                             <h3 className="text-2xl font-black uppercase italic tracking-tighter text-primary flex items-center gap-4">
-                                <Cpu className="h-6 w-6" /> Módulos Corporativos
+                                <Cpu className="h-6 w-6" /> 3.0 Protocolos Operativos
                             </h3>
                             {manualModules.map(mod => (
                                 <ModuleCard key={mod.id} mod={mod} color="text-primary" />
                             ))}
                         </div>
 
-                        <section id="glossary" className="space-y-12 scroll-mt-24">
-                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
-                                <BookOpen className="h-6 w-6 text-primary" /> Apéndice: Glosario Técnico
+                        <div className="space-y-24">
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-yellow-500 flex items-center gap-4">
+                                <Zap className="h-6 w-6" /> 4.0 Innovaciones Tier 2
                             </h3>
-                            <div className="grid gap-4">
+                            {innovationModules.map(mod => (
+                                <ModuleCard key={mod.id} mod={mod} color="text-yellow-500" />
+                            ))}
+                        </div>
+
+                        <section id="tech" className="space-y-12 scroll-mt-24">
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                                <Monitor className="h-6 w-6 text-primary" /> Apéndice A: Requisitos Técnicos
+                            </h3>
+                            <Card className="glass-card overflow-hidden rounded-[2.5rem] border-white/5 bg-white/[0.01]">
+                                <Table className="w-full">
+                                    <TableHeader>
+                                        <TableRow className="bg-white/[0.03] border-none">
+                                            <TableHead className="pl-10 font-black uppercase text-[10px] tracking-widest text-primary">CATEGORÍA</TableHead>
+                                            <TableHead className="font-black uppercase text-[10px] tracking-widest text-primary">ESPECIFICACIÓN</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {technicalRequirements.items.map((req, i) => (
+                                            <TableRow key={i} className="border-white/5">
+                                                <TableCell className="pl-10 font-black text-xs text-white/80 uppercase">{req.label}</TableCell>
+                                                <TableCell className="text-xs text-muted-foreground font-medium">{req.desc}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </Card>
+                        </section>
+
+                        <section id="glossary" className="space-y-12 scroll-mt-24 pb-20">
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white flex items-center gap-4">
+                                <BookOpen className="h-6 w-6 text-primary" /> Apéndice B: Glosario de Ingeniería
+                            </h3>
+                            <div className="grid sm:grid-cols-2 gap-4">
                                 {glossaryTerms.map((term, i) => (
-                                    <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col md:flex-row gap-4">
-                                        <span className="text-xs font-black text-primary uppercase tracking-widest min-w-[120px]">{term.term}</span>
-                                        <p className="text-xs text-muted-foreground font-medium leading-relaxed">{term.def}</p>
+                                    <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-all">
+                                        <span className="text-[10px] font-black text-primary uppercase tracking-widest block mb-2">{term.term}</span>
+                                        <p className="text-[10px] text-white/40 font-bold leading-relaxed">{term.def}</p>
                                     </div>
                                 ))}
                             </div>
