@@ -21,11 +21,16 @@ import {
     Activity,
     Lock,
     Zap,
-    ListTree,
     Home,
     Sparkles,
     Shield,
-    ChevronRight
+    ChevronRight,
+    Scale,
+    TrendingUp,
+    Building,
+    Briefcase,
+    HeartHandshake,
+    FileText
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -35,8 +40,8 @@ import { motion } from "framer-motion";
 
 /**
  * @fileOverview MANUAL DE USUARIO INSTITUCIONAL v2.6.5
- * Documentación técnica de misión crítica.
- * Incluye Jump Links y Módulo "Quiénes Somos".
+ * Documentación técnica consolidada de misión crítica.
+ * Incluye todos los nodos del ecosistema Kyron.
  */
 
 const manualModules = [
@@ -48,11 +53,11 @@ const manualModules = [
         content: [
             {
                 sub: "Protocolo de Validación Biométrica 3D",
-                text: "El ciudadano debe realizar un escaneo facial tridimensional para vincular su identidad física con un hash criptográfico inmutable. Este proceso garantiza que cada trámite posea una firma digital de alta fidelidad."
+                text: "El ciudadano debe realizar un escaneo facial tridimensional para vincular su identidad física con un hash criptográfico inmutable. Este proceso garantiza que cada trámite posea una firma digital de alta fidelidad y sea resistente a suplantaciones."
             },
             {
-                sub: "Gestión de Documentos de Identidad",
-                text: "La plataforma permite el resguardo y verificación de Cédulas de Identidad, RIF Personal y Pasaportes mediante validación por OCR de precisión."
+                sub: "Resguardo de Activos Civiles",
+                text: "La plataforma permite el almacenamiento seguro de Cédulas de Identidad, RIF y Pasaportes. El sistema aplica validación por OCR de precisión para garantizar que los datos fiscales coincidan con los documentos físicos cargados."
             }
         ]
     },
@@ -60,47 +65,139 @@ const manualModules = [
         id: "telecom",
         title: "2. Infraestructura Telecom 5G y eSIM",
         icon: Radio,
-        description: "Administración de redes móviles, asignación de numeración y conectividad global.",
+        description: "Administración de redes móviles, asignación de numeración y conectividad de baja latencia.",
         content: [
             {
                 sub: "Aprovisionamiento de eSIM Digital",
-                text: "Activación inmediata de perfiles de red virtuales. El sistema genera un código QR tras validar la titularidad corporativa o personal."
+                text: "Activación inmediata de perfiles de red virtuales. Tras la validación de identidad, el sistema genera un código QR único que permite la descarga del perfil de red directamente en el dispositivo móvil del usuario."
+            },
+            {
+                sub: "Gestión de Flotas Corporativas",
+                text: "Las empresas pueden asignar números telefónicos y planes de datos 5G de forma masiva a sus empleados, controlando el consumo y la operatividad desde un nodo centralizado."
             }
         ]
     },
     {
         id: "tpv",
-        title: "3. Terminal de Punto de Venta (TPV) IA",
+        title: "3. Punto de Venta (TPV) e Inventario",
         icon: TabletSmartphone,
-        description: "Procesamiento comercial con integración fiscal y validación de identidad.",
+        description: "Procesamiento comercial con integración fiscal y control de existencias en tiempo real.",
         content: [
             {
                 sub: "Sincronización Fiscal Directa",
-                text: "Consulta sincrónica al nodo fiscal SENIAT para extraer Razón Social y Dirección basándose en el RIF ingresado."
+                text: "Al ingresar un RIF en el TPV, el sistema consulta sincrónicamente la base de datos fiscal para extraer Razón Social y Dirección, bloqueando los campos para evitar errores manuales en la facturación."
+            },
+            {
+                sub: "Control de Kardex Automatizado",
+                text: "Cada venta descuenta automáticamente del inventario centralizado. El sistema genera alertas de stock bajo y valoriza el activo corriente de la empresa en tiempo real."
             }
         ]
     },
     {
         id: "fiscal",
-        title: "4. Blindaje Fiscal SENIAT",
-        icon: Calculator,
-        description: "Automatización total de obligaciones tributarias y libros oficiales.",
+        title: "4. Blindaje Fiscal y SENIAT",
+        icon: ShieldCheck,
+        description: "Automatización total de obligaciones tributarias bajo el estándar 'Cero Riesgo'.",
         content: [
             {
-                sub: "Cero Riesgo Fiscal",
-                text: "Auditoría predictiva 24/7 contra la Gaceta Oficial vigente. Generación de archivos TXT homologados para el portal del SENIAT."
+                sub: "Declaraciones de IVA e ISLR",
+                text: "Generación automática de archivos TXT homologados para el portal del SENIAT. La IA audita cada transacción contra la Providencia Administrativa vigente antes de consolidar el libro de compra y venta."
+            },
+            {
+                sub: "Ajuste por Inflación (RIPF)",
+                text: "Módulo especializado para el reajuste por inflación fiscal, calculando la posición monetaria neta para determinar la base imponible real del ISLR."
+            }
+        ]
+    },
+    {
+        id: "finanzas",
+        title: "5. Inteligencia Financiera y BI",
+        icon: TrendingUp,
+        description: "Análisis de rentabilidad, flujo de caja y toma de decisiones basadas en datos.",
+        content: [
+            {
+                sub: "Análisis de Rentabilidad (VAN/TIR)",
+                text: "Cálculo de indicadores financieros para evaluar la viabilidad de proyectos. El sistema proyecta flujos de caja a 5 años, determinando el punto de equilibrio y el retorno de inversión."
+            },
+            {
+                sub: "Billetera de Cambio Multimoneda",
+                text: "Gestión de saldos en VES, USD y EUR con aplicación de tasas de cambio oficiales del BCV para la conciliación de pagos mixtos."
+            }
+        ]
+    },
+    {
+        id: "rrhh",
+        title: "6. Gestión de Talento y RR.HH.",
+        icon: Briefcase,
+        description: "Administración integral del personal, nóminas y cumplimiento laboral (LOTTT).",
+        content: [
+            {
+                sub: "Cálculo de Nómina y Prestaciones",
+                text: "Automatización del pago quincenal, cálculo de horas extras, bono vacacional y liquidaciones. El sistema genera recibos de pago digitales con firma electrónica verificable."
+            },
+            {
+                sub: "Libros de Control Laboral",
+                text: "Mantenimiento inmutable de los libros de vacaciones, horas extras y personal retirado, listos para inspecciones del Ministerio del Trabajo."
+            }
+        ]
+    },
+    {
+        id: "juridico",
+        title: "7. Centro de Mando Jurídico",
+        icon: Gavel,
+        description: "Control de contratos, poderes de representación y expedientes legales.",
+        content: [
+            {
+                sub: "Ciclo de Vida de Contratos",
+                text: "Redacción y seguimiento de contratos comerciales y laborales. El sistema emite alertas de vencimiento para renovaciones oportunas de poderes y habilitaciones."
+            },
+            {
+                sub: "Asistente Legal Gaceta 6952",
+                text: "Motor de IA especializado en la normativa legal vigente, permitiendo consultas técnicas sobre decretos de exoneración de IVA y reformas arancelarias."
+            }
+        ]
+    },
+    {
+        id: "ingenieria",
+        title: "8. Ingeniería y Planificación IA",
+        icon: Cpu,
+        description: "Generación de planos, presupuestos de obra y estudios de factibilidad técnica.",
+        content: [
+            {
+                sub: "Planimetría Generativa",
+                text: "A partir de una imagen del local, la IA genera un plano a escala para la planificación de infraestructura y cálculo de materiales de construcción."
+            },
+            {
+                sub: "Estudio de Población ZEDU",
+                text: "Análisis demográfico detallado por cuadrantes para determinar la factibilidad de nuevos nodos operativos en zonas de desarrollo estratégico."
             }
         ]
     },
     {
         id: "sostenibilidad",
-        title: "5. Sostenibilidad y Reciclaje Magnético",
+        title: "9. Sostenibilidad y Fundación Kyron",
         icon: Recycle,
-        description: "Operación de infraestructuras verdes y generación de eco-créditos.",
+        description: "Operación de infraestructuras verdes y monetización de residuos.",
         content: [
             {
-                sub: "Inducción Magnética",
-                text: "Uso de sensores de proximidad y clasificación magnética para transformar residuos en puntos para la billetera digital."
+                sub: "Reciclaje Magnético IA",
+                text: "Implementación de papeleras inteligentes con sensores de inducción. El sistema identifica materiales y recompensa al ciudadano con eco-créditos en su billetera digital."
+            }
+        ]
+    },
+    {
+        id: "personal",
+        title: "10. Portal Ciudadano y LOPNNA",
+        icon: HeartHandshake,
+        description: "Gestión de trámites familiares, salud y obligaciones civiles.",
+        content: [
+            {
+                sub: "Documentación Civil Certificada",
+                text: "Solicitud y descarga de copias certificadas de Partidas de Nacimiento y Actas de Matrimonio. Seguimiento de antecedentes penales internacionales."
+            },
+            {
+                sub: "Cumplimiento LOPNNA",
+                text: "Gestión de obligaciones de manutención y registro de RIF para menores de edad, facilitando la protección legal de la carga familiar."
             }
         ]
     },
@@ -112,7 +209,7 @@ const manualModules = [
         content: [
             {
                 sub: "Identidad Institucional",
-                text: "Somos un nodo de ingeniería avanzada dedicado a la simplificación de la complejidad operativa. Nuestro propósito es dotar a las empresas y ciudadanos de herramientas inmutables para el crecimiento sostenible en la República Bolivariana de Venezuela."
+                text: "System Kyron es un nodo de ingeniería avanzada dedicado a la simplificación de la complejidad operativa. Nuestro propósito es dotar a empresas y ciudadanos de herramientas inmutables para el crecimiento sostenible en Venezuela."
             },
             {
                 sub: "Misión de Grado Corporativo",
@@ -198,7 +295,7 @@ export default function ManualUsuarioPage() {
                         </div>
                     </aside>
 
-                    {/* CONTENIDO TÉCNICO */}
+                    {/* CONTENIDO TÉCNICO EXPANDIDO */}
                     <div className="lg:col-span-8 space-y-32">
                         <motion.section 
                             className="space-y-10"
@@ -208,9 +305,9 @@ export default function ManualUsuarioPage() {
                             <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.6em] text-primary">
                                 <ShieldCheck className="h-3.5 w-3.5" /> PROTOCOLO INSTITUCIONAL
                             </div>
-                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de <br/> <span className="text-primary">Operación</span></h1>
+                            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Expediente <br/> <span className="text-primary">Técnico</span></h1>
                             <p className="text-lg text-white/40 max-w-2xl font-bold uppercase tracking-widest italic border-l-4 border-primary/20 pl-10 leading-relaxed">
-                                Expediente técnico para la operatividad absoluta del nodo System Kyron.
+                                Guía de operación absoluta para el ecosistema Kyron. Documentación de grado corporativo v2.6.5.
                             </p>
                         </motion.section>
 
@@ -226,8 +323,13 @@ export default function ManualUsuarioPage() {
                             >
                                 <Card className="glass-card rounded-[3.5rem] border-white/5 overflow-hidden bg-black/60 shadow-2xl group transition-all duration-1000 hover:border-primary/20">
                                     <CardHeader className="p-12 md:p-16 border-b border-white/5 flex flex-col md:flex-row items-center gap-12 bg-white/[0.01]">
-                                        <div className="p-8 bg-primary/10 rounded-[2.5rem] border border-primary/20 shadow-glow group-hover:scale-110 transition-transform">
-                                            <mod.icon className="h-12 w-12 text-primary" />
+                                        <div className="relative">
+                                            <div className="p-8 bg-primary/10 rounded-[2.5rem] border border-primary/20 shadow-glow group-hover:scale-110 transition-transform relative z-10">
+                                                <mod.icon className="h-12 w-12 text-primary" />
+                                            </div>
+                                            <div className="absolute -top-4 -right-4 z-20">
+                                                <Logo className="h-8 w-8 opacity-20 group-hover:opacity-100 transition-opacity" />
+                                            </div>
                                         </div>
                                         <div className="space-y-4 text-center md:text-left">
                                             <CardTitle className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white leading-none">{mod.title}</CardTitle>
@@ -249,7 +351,8 @@ export default function ManualUsuarioPage() {
                                         ))}
                                     </CardContent>
                                     <CardFooter className="p-8 border-t border-white/5 flex justify-center bg-white/[0.01]">
-                                        <span className="text-[8px] font-black uppercase tracking-[0.8em] text-white/10 italic">Kyron Distributed Ledger Technology • 2026</span>
+                                        <Logo className="h-4 w-4 mr-3 opacity-20" />
+                                        <span className="text-[8px] font-black uppercase tracking-[0.8em] text-white/10 italic">Kyron Intelligence Ecosystem • 2026</span>
                                     </CardFooter>
                                 </Card>
                             </motion.section>
