@@ -201,7 +201,7 @@ const manualModules = [
         content: [
             {
                 sub: "Tecnología de Inducción Magnética Síncrona en Smart Bins de Kyron",
-                text: "System Kyron implementa una solución de economía circular de vanguardia a nivel urbano y corporativo a través de sus estaciones de reciclaje inteligentes (Smart Bins). El manual operativo desglosa la base científica: cada estación está equipada con sensores de inducción magnética síncrona de alta sensibilidad que detectan la firma electromagnética específica de los materiales depositados. Esta tecnología permite clasificar de forma autónoma y en milisegundos los metales ferrosos y no ferrosos de los polímeros plásticos (PET, HDPE) y otros residuos reciclables. Cuando un ciudadano o empleado interactúa con la estación, el sistema valida la composición del residuo, su peso neto y su grado de pureza. Esta clasificación automatizada en el punto de origen es el pilar fundamental para un reciclaje industrial eficiente, ya que elimina los elevados costos de separación manual posterior y garantiza una calidad superior de la materia prima recuperada para su reinserción en la cadena productiva. El hardware incluye un sistema de compactación neumática para maximizar la capacidad de almacenamiento."
+                text: "System Kyron implementa una solución de economía circular de vanguardia a nivel urbano y corporativo a través de sus estaciones de reciclaje inteligentes (Smart Bins). El manual operativo desglosa la base científica: cada estación está equipada con sensores de inducción magnética síncrona de alta sensibilidad que detectan la firma electromagnética específica de los materiales depositados. Esta tecnología permite clasificas de forma autónoma y en milisegundos los metales ferrosos y no ferrosos de los polímeros plásticos (PET, HDPE) y otros residuos reciclables. Cuando un ciudadano o empleado interactúa con la estación, el sistema valida la composición del residuo, su peso neto y su grado de pureza. Esta clasificación automatizada en el punto de origen es el pilar fundamental para un reciclaje industrial eficiente, ya que elimina los elevados costos de separación manual posterior y garantiza una calidad superior de la materia prima recuperada para su reinserción en la cadena productiva. El hardware incluye un sistema de compactación neumática para maximizar la capacidad de almacenamiento."
             },
             {
                 sub: "Eco-Créditos: Protocolo de Tokenización de Hábitos Sostenibles",
@@ -259,38 +259,38 @@ export default function ManualUsuarioPage() {
         let docContent = "";
         
         docContent += `
-            <div style="padding: 20px; border-bottom: 3px solid #2563eb; margin-bottom: 30px;">
+            <div style="padding: 10pt; border-bottom: 2pt solid #2563eb; margin-bottom: 20pt;">
                 <table style="width: 100%; border: none;">
                     <tr>
-                        <td style="width: 70px; border: none;">
-                            <div style="background-color: #2563eb; color: white; width: 60px; height: 60px; text-align: center; line-height: 60px; font-weight: bold; font-size: 24pt; border-radius: 8px;">K</div>
+                        <td style="width: 50pt; border: none;">
+                            <div style="background-color: #2563eb; color: white; width: 45pt; height: 45pt; text-align: center; line-height: 45pt; font-weight: bold; font-size: 20pt; border-radius: 6pt;">K</div>
                         </td>
                         <td style="border: none; vertical-align: middle;">
-                            <h1 style="color: #2563eb; margin: 0; font-size: 26pt; font-family: 'Arial Black', sans-serif;">SYSTEM KYRON</h1>
-                            <p style="color: #666; margin: 0; font-size: 9pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Manual de Operaciones Maestro v2.6.5</p>
+                            <h1 style="color: #2563eb; margin: 0; font-size: 22pt; font-family: 'Arial Black', sans-serif;">SYSTEM KYRON</h1>
+                            <p style="color: #666; margin: 0; font-size: 8pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5pt;">Manual de Operaciones Maestro v2.6.5</p>
                         </td>
                     </tr>
                 </table>
             </div>
             
-            <div style="margin-bottom: 40px; border-left: 10px solid #2563eb; padding-left: 20px;">
-                <h2 style="color: #1e293b; font-size: 20pt; margin: 0;">DOCUMENTACIÓN TÉCNICA INTEGRAL</h2>
-                <p style="font-style: italic; color: #475569; margin-top: 10px; font-size: 11pt;">Este documento contiene los protocolos operativos de misión crítica para el ecosistema integral de gestión administrativa, telecomunicaciones avanzadas y activos digitales inmutables.</p>
+            <div style="margin-bottom: 20pt; border-left: 8pt solid #2563eb; padding-left: 15pt;">
+                <h2 style="color: #1e293b; font-size: 18pt; margin: 0; font-family: 'Arial', sans-serif;">DOCUMENTACIÓN TÉCNICA INTEGRAL</h2>
+                <p style="font-style: italic; color: #475569; margin-top: 5pt; font-size: 10pt;">Consolidado operativo de misión crítica.</p>
             </div>
         `;
 
         manualModules.forEach(mod => {
             docContent += `
-                <div style="page-break-before: always; margin-top: 30px;">
-                    <h2 style="color: #2563eb; text-transform: uppercase; border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 20px; font-size: 18pt;">${mod.title}</h2>
-                    <p style="font-weight: bold; color: #475569; margin-bottom: 20px; font-size: 10pt; text-transform: uppercase;">${mod.description}</p>
+                <div style="margin-top: 15pt;">
+                    <h2 style="color: #2563eb; text-transform: uppercase; border-bottom: 1pt solid #ddd; padding-bottom: 5pt; margin-bottom: 10pt; font-size: 16pt; font-family: 'Arial', sans-serif;">${mod.title}</h2>
+                    <p style="font-weight: bold; color: #475569; margin-bottom: 10pt; font-size: 9pt; text-transform: uppercase; font-family: 'Arial', sans-serif;">${mod.description}</p>
             `;
             
             mod.content.forEach(item => {
                 docContent += `
-                    <div style="margin-bottom: 25px;">
-                        <h3 style="color: #1e293b; font-size: 13pt; margin-bottom: 10px; background-color: #f1f5f9; padding: 10px; border-radius: 4px;">${item.sub}</h3>
-                        <p style="text-align: justify; line-height: 1.5; font-size: 10.5pt; color: #334155;">${item.text}</p>
+                    <div style="margin-bottom: 12pt;">
+                        <h3 style="color: #1e293b; font-size: 12pt; margin-bottom: 5pt; padding: 5pt; border-left: 3pt solid #2563eb; font-family: 'Arial', sans-serif; background-color: #f8fafc;">${item.sub}</h3>
+                        <p style="text-align: justify; line-height: 1.4; font-size: 10pt; color: #334155; font-family: 'Times New Roman', serif;">${item.text}</p>
                     </div>
                 `;
             });
@@ -299,13 +299,12 @@ export default function ManualUsuarioPage() {
         });
 
         const footer = `
-            <div style="margin-top: 80px; border-top: 1px solid #eee; padding-top: 20px; text-align: center; font-size: 8pt; color: #94a3b8;">
-                <p>PROPIEDAD INTELECTUAL DE SYSTEM KYRON, C.A. • DOCUMENTO CONFIDENCIAL • 2026</p>
-                <p>VALIDADO POR EL NODO DE SEGURIDAD MAESTRO • ID: SK-OPER-2.6.5</p>
+            <div style="margin-top: 40pt; border-top: 1pt solid #eee; padding-top: 15pt; text-align: center; font-size: 7pt; color: #94a3b8; font-family: 'Arial', sans-serif;">
+                <p>PROPIEDAD INTELECTUAL DE SYSTEM KYRON, C.A. • DOCUMENTO CONFIDENCIAL • ID: SK-OPER-2.6.5</p>
             </div>
         `;
 
-        const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual de Usuario System Kyron</title></head><body style='font-family: Arial, sans-serif; padding: 40px;'>";
+        const headerHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Manual de Usuario System Kyron</title></head><body style='padding: 20pt;'>";
         const finalSource = headerHtml + docContent + footer + "</body></html>";
 
         const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(finalSource);
