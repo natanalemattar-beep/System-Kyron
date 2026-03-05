@@ -2,8 +2,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Logo Institucional de System Kyron v2.6.5.
- * Diseño final: Hexágono negro, glifo de ángulo neón y nodo central de inteligencia.
- * Sincronizado cromáticamente con el ecosistema (Azul Ciber y Verde Neón).
+ * Diseño final: Hexágono de precisión, glifo de inducción neón y núcleo de inteligencia.
  */
 
 export function Logo({ className, id }: { className?: string; id?: string }) {
@@ -33,13 +32,13 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           </filter>
         </defs>
         
-        {/* Fondo del Hexágono - Negro Sólido */}
+        {/* Cuerpo del Hexágono - Negro Profundo */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           fill="#050505"
         />
 
-        {/* Borde del Hexágono - Gradiente Ciber */}
+        {/* Borde Estructural - Gradiente Neón */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           stroke="url(#hex-gradient-master)"
@@ -47,7 +46,7 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           strokeLinejoin="round"
         />
         
-        {/* Glifo de Inducción - Ángulo Neón */}
+        {/* Glifo de Inducción de Datos */}
         <g filter="url(#master-glow)">
           <path
             d="M65 30L40 50L65 70"
@@ -57,11 +56,12 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
             strokeLinejoin="round"
           />
           
-          {/* Nodo de Inteligencia Central Blanco Puro */}
-          <circle cx="40" cy="50" r="5" fill="#ffffff" stroke="#0ea5e9" strokeWidth="1" />
+          {/* Núcleo de Inteligencia Central */}
+          <circle cx="40" cy="50" r="5" fill="#ffffff" />
+          <circle cx="40" cy="50" r="2" fill="#22c55e" />
         </g>
 
-        {/* Vértices de Control de Nodo */}
+        {/* Nodos de Sincronización */}
         <circle cx="50" cy="5" r="2" fill="#0ea5e9" />
         <circle cx="50" cy="95" r="2" fill="#22c55e" />
       </svg>
