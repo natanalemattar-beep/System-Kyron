@@ -48,7 +48,7 @@ import React from "react";
 /**
  * @fileOverview Manual de Usuario Maestro v2.6.5.
  * Enciclopedia técnica de alta densidad con motor de exportación de alta fidelidad.
- * Sincronizado con la identidad visual corporativa (Azul Ciber / Verde Neón).
+ * Logo institucional perfectamente centrado en la portada de descarga.
  */
 
 const manualModules = [
@@ -142,6 +142,7 @@ export default function ManualMaestroPage() {
                     <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000; border-radius: 25pt; border-bottom: 12pt solid #0ea5e9;">
                         <tr>
                             <td align="center" style="padding: 50pt 0 30pt 0;">
+                                <!-- LOGO PERFECTAMENTE CENTRADO -->
                                 <img src="data:image/svg+xml;base64,${logoSvgBase64}" width="140" height="140" />
                             </td>
                         </tr>
