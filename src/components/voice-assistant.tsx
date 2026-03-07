@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -12,7 +11,6 @@ import { Input } from "@/components/ui/input";
 /**
  * @fileOverview Kyron Voice IA: Interfaz de Comunicación Neuronal.
  * Consola de chat interactiva con soporte para comandos de voz y texto.
- * Integrada con el motor Gemini 1.5 Pro.
  */
 
 type Message = {
@@ -47,7 +45,7 @@ export function VoiceAssistant() {
         try {
             const response = await chat({ 
                 message: query, 
-                context: "Kyron Voice Assistant interactuando desde el ecosistema central. Soporte para consultas legales, fiscales y de telecomunicaciones. El usuario desea información sobre eficiencia operativa y finanzas de próxima generación." 
+                context: "Kyron Voice Assistant interactuando desde el ecosistema central. El usuario tiene acceso maestro a todos los nodos operativos. El tono de la respuesta debe ser técnico, preciso y profesional." 
             });
             setMessages([...newMessages, { role: 'bot', text: response }]);
         } catch (error) {
@@ -62,11 +60,11 @@ export function VoiceAssistant() {
             setIsListening(false);
         } else {
             setIsListening(true);
-            // Simulación de reconocimiento de voz
+            // Simulación de reconocimiento de voz para el remake
             setTimeout(() => {
                 setIsListening(false);
                 if (!isProcessing) {
-                    handleSendMessage("Explicación del sellado inmutable Blockchain.");
+                    handleSendMessage("Explicación del protocolo Zero Risk.");
                 }
             }, 3000);
         }
@@ -80,14 +78,14 @@ export function VoiceAssistant() {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="mb-4 w-[350px] h-[500px] glass-card flex flex-col rounded-[2.5rem] border-primary/20 shadow-glow overflow-hidden bg-black/95 backdrop-blur-3xl"
+                        className="mb-4 w-[350px] h-[550px] glass-card flex flex-col rounded-[2.5rem] border-primary/20 shadow-glow overflow-hidden bg-black/95 backdrop-blur-3xl"
                     >
                         <header className="p-6 border-b border-white/5 bg-white/[0.02] flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <div className="p-2 bg-primary/10 rounded-xl border border-primary/20">
+                                <div className="p-2 bg-primary/10 rounded-xl border border-primary/20 shadow-glow-sm">
                                     <Bot className="h-4 w-4 text-primary" />
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Consola Kyron IA</span>
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Kyron Voice IA</span>
                             </div>
                             <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-white/10" onClick={() => setIsOpen(false)}>
                                 <X className="h-4 w-4 text-white/40" />
@@ -101,7 +99,7 @@ export function VoiceAssistant() {
                                         <div className="py-16 text-center space-y-6 opacity-40">
                                             <Sparkles className="h-10 w-10 mx-auto text-primary animate-pulse" />
                                             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-center px-4 leading-relaxed">
-                                                Enlace neuronal activo. <br/> Inicie comunicación por voz o texto.
+                                                Enlace neuronal activo. <br/> Inicie comandos de voz o texto.
                                             </p>
                                         </div>
                                     )}
@@ -146,7 +144,7 @@ export function VoiceAssistant() {
                                 <Input 
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Ingrese comando..." 
+                                    placeholder="Comando de texto..." 
                                     className="h-10 rounded-xl bg-black border-white/10 text-[11px] font-bold focus-visible:ring-primary shadow-inner"
                                     disabled={isProcessing}
                                 />
@@ -154,7 +152,7 @@ export function VoiceAssistant() {
                                     type="button" 
                                     size="icon" 
                                     className={cn(
-                                        "h-10 w-10 rounded-xl transition-all",
+                                        "h-10 w-10 rounded-xl transition-all shadow-glow-sm",
                                         isListening ? "bg-red-500 animate-pulse" : "btn-3d-primary"
                                     )}
                                     onClick={toggleListening}

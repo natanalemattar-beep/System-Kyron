@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 /**
  * @fileOverview Logo Institucional de System Kyron v2.6.5.
  * Diseño HUD de precisión: Hexágono de fibra de carbono, glifo de inducción neón y núcleo de inteligencia cuántico.
- * Sincronizado con la identidad visual corporativa (Sin caracteres alfabéticos).
  */
 
 export function Logo({ className, id }: { className?: string; id?: string }) {
@@ -33,13 +32,11 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           </filter>
         </defs>
         
-        {/* Cuerpo del Hexágono - Negro Profundo HUD */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           fill="#050505"
         />
 
-        {/* Borde Estructural de Precisión */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           stroke="url(#hex-gradient-master)"
@@ -47,7 +44,6 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           strokeLinejoin="round"
         />
         
-        {/* Glifo de Inducción - Ángulo de Verificación 40,50 */}
         <g filter="url(#master-glow)">
           <path
             d="M65 30L40 50L65 70"
@@ -56,13 +52,10 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          
-          {/* Núcleo de Inteligencia Central Quantum */}
           <circle cx="40" cy="50" r="5" fill="#ffffff" />
           <circle cx="40" cy="50" r="2" fill="#22c55e" />
         </g>
 
-        {/* Nodos de Sincronización de Red */}
         <circle cx="50" cy="5" r="2" fill="#0ea5e9" />
         <circle cx="50" cy="95" r="2" fill="#22c55e" />
       </svg>
