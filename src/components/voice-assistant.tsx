@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -46,7 +47,7 @@ export function VoiceAssistant() {
         try {
             const response = await chat({ 
                 message: query, 
-                context: "Kyron Voice Assistant interactuando desde el ecosistema central. Soporte para consultas legales, fiscales y de telecomunicaciones." 
+                context: "Kyron Voice Assistant interactuando desde el ecosistema central. Soporte para consultas legales, fiscales y de telecomunicaciones. El usuario desea información sobre eficiencia operativa y finanzas de próxima generación." 
             });
             setMessages([...newMessages, { role: 'bot', text: response }]);
         } catch (error) {
@@ -61,7 +62,7 @@ export function VoiceAssistant() {
             setIsListening(false);
         } else {
             setIsListening(true);
-            // Simulación de reconocimiento de voz si no hay API activa
+            // Simulación de reconocimiento de voz
             setTimeout(() => {
                 setIsListening(false);
                 if (!isProcessing) {
@@ -99,7 +100,7 @@ export function VoiceAssistant() {
                                     {messages.length === 0 && (
                                         <div className="py-16 text-center space-y-6 opacity-40">
                                             <Sparkles className="h-10 w-10 mx-auto text-primary animate-pulse" />
-                                            <p className="text-[10px] font-black uppercase tracking-[0.4em] leading-relaxed">
+                                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-center px-4 leading-relaxed">
                                                 Enlace neuronal activo. <br/> Inicie comunicación por voz o texto.
                                             </p>
                                         </div>
