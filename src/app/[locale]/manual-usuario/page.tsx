@@ -37,7 +37,12 @@ import {
     Wand2,
     Printer,
     LayoutGrid,
-    BookOpen
+    BookOpen,
+    Calculator,
+    Magnet,
+    School,
+    Shield,
+    Target
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -48,8 +53,8 @@ import React from "react";
 
 /**
  * @fileOverview Manual de Usuario Maestro v2.6.5.
- * Enciclopedia técnica de alta densidad con motor de exportación de alta fidelidad.
- * Logo institucional perfectamente centrado en la portada de descarga.
+ * Enciclopedia técnica de máxima densidad que cubre todo el ecosistema Kyron.
+ * Motor de exportación sincronizado con la identidad visual UHD.
  */
 
 const manualModules = [
@@ -58,54 +63,117 @@ const manualModules = [
         title: "Módulo 1: Identidad Digital Biométrica 3D",
         icon: Fingerprint,
         color: "text-[#0ea5e9]",
-        concept: "Implementación de un marco de confianza digital basado en el reglamento eIDAS de la Unión Europea y adaptado a la Ley de Mensajes de Datos y Firmas Electrónicas de Venezuela. El sistema utiliza biometría facial de profundidad para generar una identidad única e inmutable vinculada al RIF del ciudadano o empresa.",
-        procedure: "1. Calibración del sensor óptico UHD. 2. Captura multiaxial de rasgos (512 vectores). 3. Validación de vitalidad (Anti-spoofing). 4. Generación de par de llaves criptográficas. 5. Sellado del identificador en el Ledger distribuido.",
-        technical: "Cifrado asimétrico ECC con almacenamiento en enclave seguro (TEE) y hashing SHA-512."
+        concept: "Marco de confianza digital basado en el reglamento eIDAS y la Ley de Firmas Electrónicas de Venezuela. Utiliza biometría facial UHD para generar un identificador inmutable vinculado al RIF.",
+        procedure: "1. Calibración UHD. 2. Captura de 512 vectores faciales. 3. Validación de vitalidad (Anti-spoofing). 4. Generación de llave privada en enclave seguro (TEE). 5. Sellado en Blockchain.",
+        technical: "Cifrado ECC, Hashing SHA-512, Almacenamiento Zero-Knowledge."
     },
     {
         id: "telecom",
         title: "Módulo 2: Telecomunicaciones y eSIM 5G",
         icon: Radio,
         color: "text-[#22c55e]",
-        concept: "Gestión de red móvil virtual (MVNE) bajo estándar GSMA SGP.22. La infraestructura Kyron garantiza comunicaciones cifradas de extremo a extremo mediante Network Slicing 5G, priorizando el tráfico de datos fiscales.",
-        procedure: "1. Identificación de EID del terminal. 2. Descarga de perfil eSIM cifrado vía OTA. 3. Activación de nodo 5G de baja latencia. 4. Monitoreo constante desde el NOC Central.",
-        technical: "Arquitectura SDN con aprovisionamiento SM-DP+ y túneles IPsec automáticos."
+        concept: "Gestión de red móvil virtual (MVNE) bajo estándar GSMA. Aprovisionamiento remoto de perfiles eSIM y Network Slicing para priorizar datos fiscales críticos.",
+        procedure: "1. Registro de EID. 2. Descarga de perfil OTA (Over-the-Air). 3. Activación de túnel IPsec. 4. Monitoreo de latencia en tiempo real desde el NOC Central.",
+        technical: "Protocolo SM-DP+, Arquitectura SDN, Conectividad 5G Low Latency."
     },
     {
         id: "tpv",
-        title: "Módulo 3: Punto de Venta e Inteligencia Fiscal",
+        title: "Módulo 3: Punto de Venta (TPV) y Arqueo",
         icon: TabletSmartphone,
         color: "text-[#0ea5e9]",
-        concept: "Automatización de la Providencia Administrativa SNAT/2011/0071. Nodo de facturación inteligente que integra el inventario, las tasas BCV y las retenciones en un solo flujo transaccional.",
-        procedure: "1. Autenticación del operador. 2. Carga instantánea por RIF. 3. Escaneo de activos. 4. Selección de pago (Multimoneda/Cashea). 5. Emisión de QR fiscal inmutable.",
-        technical: "Motor de reglas de negocio sincronizado con la Gaceta Oficial 24/7."
+        concept: "Terminal de ventas inteligente adaptado a la Providencia SNAT/2011/0071. Integra gestión de inventario, tasas BCV y control de cierre de caja (Arqueo).",
+        procedure: "1. Autenticación de cajero. 2. Carga automática de datos fiscales vía RIF. 3. Escaneo de productos. 4. Cobro multimoneda. 5. Arqueo físico vs sistema al cierre de turno.",
+        technical: "Motor de reglas sincronizado con BCV, Registro de Sobrantes y Faltantes."
+    },
+    {
+        id: "financiamiento",
+        title: "Módulo 4: Facturación a Crédito y BNPL",
+        icon: Smartphone,
+        color: "text-[#22c55e]",
+        concept: "Gestión de ventas con financiamiento integrado. Soporte nativo para plataformas 'Compra Ahora, Paga Después' como Cashea (Niveles 1-6), Lysto y Zueño.",
+        procedure: "1. Validación de crédito del cliente. 2. Selección de plataforma (Cashea/Directo). 3. Cálculo de cuotas quincenales. 4. Emisión de factura a crédito. 5. Control de cobranza y bloqueos.",
+        technical: "Integración con API de BNPL, Motor de Scoring de Riesgo propio."
     },
     {
         id: "contabilidad",
-        title: "Módulo 4: Contabilidad y Reajuste RIPF",
+        title: "Módulo 5: Contabilidad y Reajuste RIPF",
         icon: BarChart3,
+        color: "text-[#0ea5e9]",
+        concept: "Gestión financiera bajo VEN-NIF. Motor automático de Reajuste por Inflación Fiscal (RIPF) basado en los índices INPC históricos del BCV.",
+        procedure: "1. Consolidación de Ledger. 2. Clasificación de partidas monetarias. 3. Ejecución de reajuste. 4. Generación de Balances y Flujos de Efectivo UHD.",
+        technical: "Procesamiento OLAP, Auditoría de Integridad Contable 100%."
+    },
+    {
+        id: "seniat",
+        title: "Módulo 6: Cumplimiento SENIAT (Zero Risk)",
+        icon: ShieldCheck,
         color: "text-[#22c55e]",
-        concept: "Gestión financiera de grado ejecutivo bajo normas VEN-NIF. Ejecución automatizada del Reajuste por Inflación Fiscal (RIPF) utilizando el historial de índices INPC del BCV.",
-        procedure: "1. Consolidación de movimientos del Ledger. 2. Clasificación de partidas monetarias. 3. Cálculo de reajuste extraordinario. 4. Generación de estados financieros UHD. 5. Sellado digital de libros oficiales.",
-        technical: "Procesamiento OLAP para análisis de rentabilidad multidimensional."
+        concept: "Sistema de protección fiscal absoluta. Auditoría IA predictiva que valida declaraciones de IVA, ISLR e IGTF antes de su presentación para garantizar cero sanciones.",
+        procedure: "1. Monitoreo de Gaceta Oficial. 2. Cruce de Libros de Compra/Venta. 3. Validación de retenciones. 4. Generación de archivos TXT para el portal fiscal.",
+        technical: "Algoritmos de verificación triple, Escudo Predictivo 45 días."
     },
     {
         id: "rrhh",
-        title: "Módulo 5: Gestión de Talento y LOTTT",
+        title: "Módulo 7: Gestión de Talento y LOTTT",
         icon: Users,
         color: "text-[#0ea5e9]",
-        concept: "Administración estratégica del capital humano cumpliendo rigurosamente con la LOTTT, LOPNNA y la Ley de Protección de Pensiones de Seguridad Social.",
-        procedure: "1. Registro de trabajador con carga familiar. 2. Parametrización de beneficios. 3. Ejecución de nómina quincenal. 4. Despacho automatizado de recibos. 5. Auditoría de solvencias laborales.",
-        technical: "Algoritmos de cálculo recursivo para prestaciones sociales y pasivos en tiempo real."
+        concept: "Administración de nómina y capital humano. Automatiza cálculos de la LOTTT, LOPNNA y la nueva Contribución de Protección de Pensiones.",
+        procedure: "1. Registro de ficha técnica. 2. Control de asistencia y horas extras. 3. Cálculo quincenal. 4. Despacho digital de recibos. 5. Liquidación de prestaciones sociales.",
+        technical: "Cálculo recursivo de pasivos laborales, Sellado digital de libros de personal."
     },
     {
         id: "juridico",
-        title: "Módulo 6: Bóveda Jurídica Zero-Knowledge",
+        title: "Módulo 8: Bóveda Jurídica y Contratos IA",
         icon: Gavel,
         color: "text-[#22c55e]",
-        concept: "Resguardo inmutable de activos intangibles y documentos legales. Arquitectura Zero-Knowledge que garantiza que solo los titulares autorizados puedan acceder a la información.",
-        procedure: "1. Escaneo UHD de documentos. 2. Clasificación SAREN/SAPI por IA. 3. Marcado de tiempo RFC 3161. 4. Configuración de alertas de vencimiento. 5. Control de poderes de representación.",
-        technical: "Cifrado de grado militar AES-256-GCM con rotación de llaves automática."
+        concept: "Gestión de activos legales inmutables. Generador de contratos mediante IA basado en el marco jurídico venezolano y Bóveda Zero-Knowledge.",
+        procedure: "1. Redacción asistida por IA. 2. Revisión técnica. 3. Firma digital certificada. 4. Resguardo en bóveda cifrada. 5. Control de vencimientos de poderes.",
+        technical: "Cifrado AES-256-GCM, Marcado de tiempo RFC 3161, IA Generativa Legal."
+    },
+    {
+        id: "civiles",
+        title: "Módulo 9: Trámites Civiles y Ciudadanía",
+        icon: FileText,
+        color: "text-[#0ea5e9]",
+        concept: "Nodo personal para la gestión de documentos de identidad, partidas de nacimiento, actas de matrimonio y antecedentes penales.",
+        procedure: "1. Carga de datos base. 2. Digitalización UHD de documentos físicos. 3. Validación en el Registro Civil. 4. Descarga de copias certificadas digitales.",
+        technical: "Integración con Bóveda de Identidad, OCR para extracción de datos civiles."
+    },
+    {
+        id: "sustentabilidad",
+        title: "Módulo 10: Eco-Créditos y Reciclaje Magnético",
+        icon: Recycle,
+        color: "text-[#22c55e]",
+        concept: "Monetización de residuos mediante tecnología de inducción magnética. Los ciudadanos inyectan sustentabilidad y reciben Eco-Créditos transables.",
+        procedure: "1. Identificación en Smart Bin. 2. Depósito de residuos. 3. Clasificación magnética. 4. Asignación de puntos al Ledger. 5. Canje en comercios aliados.",
+        technical: "Sensores de inducción síncrona, Blockchain para trazabilidad verde."
+    },
+    {
+        id: "analitica",
+        title: "Módulo 11: Analítica y Factibilidad",
+        icon: TrendingUp,
+        color: "text-[#0ea5e9]",
+        concept: "Dashboard de Business Intelligence para la toma de decisiones. Cálculo de indicadores de factibilidad económica (VAN, TIR, Payback) y análisis demográfico.",
+        procedure: "1. Inyección de datos operativos. 2. Análisis predictivo de mercado. 3. Cálculo de indicadores financieros. 4. Visualización de mapas de calor poblacionales.",
+        technical: "Motores estadísticos avanzados, Inferencia de datos demográficos por IA."
+    },
+    {
+        id: "ingenieria",
+        title: "Módulo 12: Ingeniería y Proyectos IA",
+        icon: Cpu,
+        color: "text-[#22c55e]",
+        concept: "Sistema de planificación técnica. Generación de planos a partir de imágenes, cálculo de materiales por área y elaboración de presupuestos de construcción.",
+        procedure: "1. Carga de foto del local. 2. Generación de plano a escala por IA. 3. Selección de materiales. 4. Cálculo de cómputos métricos. 5. Emisión de presupuesto.",
+        technical: "Visión Artificial (Computer Vision), Base de datos de rendimientos constructivos."
+    },
+    {
+        id: "academia",
+        title: "Módulo 13: Academia Kyron y Formación",
+        icon: School,
+        color: "text-[#0ea5e9]",
+        concept: "Centro de capacitación técnica para operadores del ecosistema. Cursos de formación profesional en gestión fiscal, telecomunicaciones y tecnología Blockchain.",
+        procedure: "1. Inscripción en plan de estudio. 2. Visualización de lecciones UHD. 3. Evaluación práctica. 4. Obtención de certificado verificado en Blockchain.",
+        technical: "LMS integrado, Credenciales verificables (Verifiable Credentials)."
     }
 ];
 
@@ -118,58 +186,60 @@ export default function ManualMaestroPage() {
     }, []);
 
     const handleDownloadDoc = () => {
+        // Logo en Base64 para inserción directa en Word
         const logoSvgBase64 = "PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgNUw4OSAyNy41VjcyLjVMNTAgOTVMMTEgNzIuNVYyNy41TDUwIDVaIiBmaWxsPSIjMDcwNzA3Ii8+PHBhdGggZD0iTTUwIDVMODkgMjcuNVY3Mi41TDUwIDk1TDExIDcyLjVWMjcuNUw1MCA1WiIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNNjUgMzBMNDAgNTBMNjUgNzAiIHN0cm9rZT0iIzBlYTVlOSIgc3Ryb2tlLXdpZHRoPSIxMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PGNpcmNsZSBjeD0iNDAiIGN5PSI1MCIgcj0iNSIgZmlsbD0iI2ZmZmZmZiIvPjxjaXJjbGUgY3g9IjQwIiBjeT0iNTAiIHI9IjIiIGZpbGw9IiMyMmM1NWUiLz48L3N2Zz4=";
 
         let modulesHtml = "";
         manualModules.forEach((mod) => {
             modulesHtml += `
-                <div style="margin-bottom: 30pt; border-bottom: 1px solid #e2e8f0; padding-bottom: 20pt; page-break-inside: avoid;">
-                    <h2 style="color: #0ea5e9; font-size: 20pt; text-transform: uppercase; font-style: italic; font-weight: 900; margin-bottom: 15pt; border-left: 6pt solid #0ea5e9; padding-left: 15pt;">${mod.title}</h2>
-                    <p style="font-size: 9pt; font-weight: bold; color: #0ea5e9; text-transform: uppercase; letter-spacing: 2pt; margin-bottom: 8pt;">[ CONCEPTO MAESTRO ]</p>
-                    <p style="text-align: justify; font-size: 11pt; line-height: 1.6; color: #1e293b;">${mod.concept}</p>
-                    <div style="background-color: #f8fafc; padding: 15pt; border-left: 4pt solid #22c55e; margin: 15pt 0; border-radius: 10pt;">
-                        <p style="font-size: 9pt; font-weight: bold; color: #15803d; text-transform: uppercase; letter-spacing: 2pt; margin-bottom: 10pt;">[ PROTOCOLO DE EJECUCIÓN ]</p>
-                        <div style="font-size: 10pt; color: #475569; line-height: 1.5;">${mod.procedure}</div>
+                <div style="margin-bottom: 25pt; border-bottom: 1px solid #eee; padding-bottom: 15pt; page-break-inside: avoid;">
+                    <h2 style="color: #0ea5e9; font-size: 18pt; text-transform: uppercase; font-style: italic; font-weight: 900; margin-bottom: 10pt; border-left: 5pt solid #0ea5e9; padding-left: 12pt;">${mod.title}</h2>
+                    <p style="font-size: 8pt; font-weight: bold; color: #0ea5e9; text-transform: uppercase; letter-spacing: 1.5pt; margin-bottom: 5pt;">[ CONCEPTO MAESTRO ]</p>
+                    <p style="text-align: justify; font-size: 10pt; line-height: 1.5; color: #333; margin-bottom: 10pt;">${mod.concept}</p>
+                    <div style="background-color: #f9fafb; padding: 12pt; border-left: 3pt solid #22c55e; margin: 10pt 0;">
+                        <p style="font-size: 8pt; font-weight: bold; color: #15803d; text-transform: uppercase; letter-spacing: 1.5pt; margin-bottom: 5pt;">[ PROTOCOLO DE EJECUCIÓN ]</p>
+                        <div style="font-size: 9.5pt; color: #444; line-height: 1.4;">${mod.procedure}</div>
                     </div>
-                    <p style="font-size: 8pt; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 1pt;">Arquitectura Técnica: ${mod.technical}</p>
+                    <p style="font-size: 7.5pt; font-weight: bold; color: #999; text-transform: uppercase;">Arquitectura: ${mod.technical}</p>
                 </div>
             `;
         });
 
         const content = `
-            <div style="font-family: 'Segoe UI', Helvetica, Arial, sans-serif; color: #0f172a;">
-                <div style="text-align: center; margin-bottom: 50pt;">
-                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000; border-radius: 25pt; border-bottom: 12pt solid #0ea5e9;">
+            <div style="font-family: 'Segoe UI', Arial, sans-serif; color: #111;">
+                <!-- PORTADA MAESTRA REPLICA EXACTA -->
+                <div style="text-align: center; margin-bottom: 40pt;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000; border-bottom: 10pt solid #0ea5e9;">
                         <tr>
-                            <td align="center" style="padding: 50pt 0 30pt 0;">
-                                <img src="data:image/svg+xml;base64,${logoSvgBase64}" width="140" height="140" />
+                            <td align="center" style="padding: 40pt 0 20pt 0;">
+                                <img src="data:image/svg+xml;base64,${logoSvgBase64}" width="120" height="120" />
                             </td>
                         </tr>
                         <tr>
-                            <td align="center" style="padding: 0 30pt 50pt 30pt;">
-                                <h1 style="color: #ffffff; font-size: 56pt; font-style: italic; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: -2pt;">SYSTEM KYRON</h1>
-                                <p style="color: #0ea5e9; font-size: 18pt; font-weight: bold; text-transform: uppercase; letter-spacing: 6pt; margin: 20pt 0 10pt 0;">ENCICLOPEDIA TÉCNICA DE OPERACIONES</p>
-                                <p style="color: #94a3b8; font-size: 11pt; font-weight: bold; text-transform: uppercase; letter-spacing: 4pt;">VERSIÓN 2.6.5 • PROTOCOLO MAESTRO 2026</p>
+                            <td align="center" style="padding: 0 20pt 40pt 20pt;">
+                                <h1 style="color: #ffffff; font-size: 48pt; font-style: italic; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: -1pt;">SYSTEM KYRON</h1>
+                                <p style="color: #0ea5e9; font-size: 16pt; font-weight: bold; text-transform: uppercase; letter-spacing: 5pt; margin: 15pt 0 5pt 0;">ENCICLOPEDIA TÉCNICA DE OPERACIONES</p>
+                                <p style="color: #888; font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 3pt;">VERSIÓN 2.6.5 • PROTOCOLO MAESTRO 2026</p>
                             </td>
                         </tr>
                     </table>
                     
-                    <div style="margin-top: 40pt; text-align: center;">
-                        <div style="border: 2pt solid #22c55e; padding: 12pt 40pt; border-radius: 20pt; display: inline-block;">
-                            <p style="font-size: 14pt; font-weight: 900; text-transform: uppercase; letter-spacing: 5pt; color: #22c55e; margin: 0;">[ ACCESO PÚBLICO UNIVERSAL ]</p>
+                    <div style="margin-top: 30pt;">
+                        <div style="border: 1.5pt solid #22c55e; padding: 10pt 30pt; border-radius: 15pt; display: inline-block;">
+                            <p style="font-size: 12pt; font-weight: 900; text-transform: uppercase; letter-spacing: 4pt; color: #22c55e; margin: 0;">[ ACCESO PÚBLICO UNIVERSAL ]</p>
                         </div>
-                        <p style="font-size: 9pt; color: #94a3b8; font-weight: bold; text-transform: uppercase; margin-top: 15pt; letter-spacing: 2pt;">REVISIÓN TÉCNICA COMPLETA: MARZO 2026</p>
+                        <p style="font-size: 8pt; color: #999; font-weight: bold; text-transform: uppercase; margin-top: 12pt;">ÚLTIMA REVISIÓN: MARZO 2026</p>
                     </div>
                 </div>
 
                 <div style="page-break-before: always;"></div>
                 
-                <h3 style="color: #0ea5e9; font-size: 14pt; font-weight: 900; text-transform: uppercase; font-style: italic; border-bottom: 2pt solid #0ea5e9; padding-bottom: 5pt; margin-bottom: 30pt;">ÍNDICE DE NODOS OPERATIVOS</h3>
+                <h3 style="color: #0ea5e9; font-size: 13pt; font-weight: 900; text-transform: uppercase; font-style: italic; border-bottom: 1.5pt solid #0ea5e9; padding-bottom: 4pt; margin-bottom: 25pt;">ÍNDICE DE NODOS OPERATIVOS</h3>
                 
                 ${modulesHtml}
 
-                <div style="margin-top: 50pt; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20pt;">
-                    <p style="font-size: 8pt; color: #94a3b8; font-weight: bold; text-transform: uppercase; letter-spacing: 2pt;">EXPEDIENTE ELECTRÓNICO • SYSTEM KYRON CORPORATE • TODOS LOS DERECHOS RESERVADOS</p>
+                <div style="margin-top: 40pt; text-align: center; border-top: 1px solid #eee; padding-top: 15pt;">
+                    <p style="font-size: 7.5pt; color: #999; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5pt;">SYSTEM KYRON CORPORATE • TODOS LOS DERECHOS RESERVADOS • 2026</p>
                 </div>
             </div>
         `;
@@ -240,12 +310,12 @@ export default function ManualMaestroPage() {
                         </div>
                     </aside>
 
-                    <div className="lg:col-span-8 space-y-24">
+                    <div className="lg:col-span-8 space-y-20">
                         <section className="bg-primary/5 border border-primary/20 p-12 rounded-[3rem] text-center space-y-8 relative overflow-hidden shadow-2xl">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
                             <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Enciclopedia Técnica</h1>
                             <p className="text-lg font-medium text-white/60 italic leading-relaxed max-w-2xl mx-auto">
-                                Protocolo Maestro v2.6.5. El estándar definitivo para la gestión institucional bajo protocolos de misión crítica y soberanía de datos.
+                                Protocolo Maestro v2.6.5. El estándar definitivo para la gestión integral bajo protocolos de misión crítica y soberanía de datos.
                             </p>
                         </section>
 
@@ -266,7 +336,7 @@ export default function ManualMaestroPage() {
                                             </div>
                                             <div className="p-8 rounded-3xl bg-black border border-white/5 shadow-inner">
                                                 <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-6">Protocolo Operativo</h4>
-                                                <p className="text-sm font-medium italic text-white/60">{mod.procedure}</p>
+                                                <p className="text-sm font-medium italic text-white/60 leading-relaxed">{mod.procedure}</p>
                                             </div>
                                             <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.2em] text-white/20">
                                                 <Terminal className="h-4 w-4" />
