@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -41,7 +42,8 @@ import {
     Magnet,
     School,
     Shield,
-    Target
+    Target,
+    TrendingUp
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -98,7 +100,7 @@ const manualModules = [
         icon: Calculator,
         color: "text-[#0ea5e9]",
         concept: "Automatización contable integral bajo normas VEN-NIF. Ejecuta de forma actuarial el Reajuste por Inflación Fiscal (RIPF) integrando los índices INPC del Banco Central de Venezuela.",
-        procedure: "1. Consolidación de asientos desde TPV y Nómina. 2. Clasificación de partidas monetarias y no monetarias. 3. Ejecución de motor de ajuste por inflación. 4. Emisión de estados financieros UHD.",
+        procedure: "1. Consolización de asientos desde TPV y Nómina. 2. Clasificación de partidas monetarias y no monetarias. 3. Ejecución de motor de ajuste por inflación. 4. Emisión de estados financieros UHD.",
         technical: "Cálculo recursivo de índices, Auditoría de integridad contable 100%."
     },
     {
@@ -184,7 +186,8 @@ export default function ManualUsuarioPage() {
     }, []);
 
     const handleDownloadDoc = () => {
-        const logoSvgBase64 = "PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgNUw4OSAyNy41VjcyLjVMNTAgOTVMMTEgNzIuNVYyNy41TDUwIDVaIiBmaWxsPSIjMDcwNzA3Ii8+PHBhdGggZD0iTTUwIDVMODkgMjcuNVY3Mi41TDUwIDk1TDExIDcyLjVWMjcuNUw1MCA1WiIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjMiLz48ZyBmaWx0ZXI9InVybCgjZ2xvdykiPjxwYXRoIGQ9Ik02NSAzMEw0MCA1MEw2NSA3MCIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjUwIiByPSI1IiBmaWxsPSIjZmZmZmZmIi8+PGNpcmNsZSBjeD0iNDAiIGN5PSI1MCIgcj0iMiIgZmlsbD0iIzIyYzU1ZSIvPjwvZz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUiIHI9IjIiIGZpbGw9IiMwZWE1ZTkiLz48Y2lyY2xlIGN4=DA9IjUwIiBjeT0iOTUiIHI9IjIiIGZpbGw9IiMyMmM1NWUiLz48L3N2Zz4=";
+        // SVG Base64 del Logo Institucional Exacto (Hexágono + Glifo Neón + Nodo Central)
+        const logoSvgBase64 = "PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgNUw4OSAyNy41VjcyLjVMNTAgOTVMMTEgNzIuNVYyNy41TDUwIDVaIiBmaWxsPSIjMDUwNTA1Ii8+PHBhdGggZD0iTTUwIDVMODkgMjcuNVY3Mi41TDUwIDk1TDExIDcyLjVWMjcuNUw1MCA1WiIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjMiLz48ZyBmaWx0ZXI9InVybCgjZ2xvdykiPjxwYXRoIGQ9Ik02NSAzMEw0MCA1MEw2NSA3MCIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjUwIiByPSI1IiBmaWxsPSIjZmZmZmZmIi8+PGNpcmNsZSBjeD0iNDAiIGN5PSI1MCIgcj0iMiIgZmlsbD0iIzIyYzU1ZSIvPjwvZz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUiIHI9IjIiIGZpbGw9IiMwZWE1ZTkiLz48Y2lyY2xlIGN4PSI1MCIgY3k9Ijk1IiByPSIyIiBmaWxsPSIjMjJjNTVlIi8+PC9zdmc+";
 
         let modulesHtml = "";
         manualModules.forEach((mod) => {
@@ -204,7 +207,7 @@ export default function ManualUsuarioPage() {
 
         const content = `
             <div style="font-family: 'Segoe UI', Arial, sans-serif; color: #000;">
-                <!-- PORTADA MAESTRA REPLICA EXACTA -->
+                <!-- PORTADA MAESTRA RÉPLICA EXACTA -->
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000; border-bottom: 15pt solid #0ea5e9;">
                     <tr>
                         <td align="center" style="padding: 50pt 0 30pt 0;">

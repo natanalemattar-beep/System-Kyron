@@ -1,8 +1,9 @@
+
 import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Logo Institucional de System Kyron v2.6.5.
- * Diseño HUD de precisión: Hexágono de fibra de carbono, glifo de inducción neón y núcleo de inteligencia cuántico.
+ * Diseño HUD de precisión: Hexágono negro, glifo de inducción neón y nodo de inteligencia central.
  */
 
 export function Logo({ className, id }: { className?: string; id?: string }) {
@@ -26,17 +27,19 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
             <stop offset="100%" stopColor="#22c55e" />
           </linearGradient>
 
-          <filter id="master-glow" x="-30%" y="-30%" width="160%" height="160%">
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur stdDeviation="3" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
         
+        {/* Hexágono Negro de Fondo */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           fill="#050505"
         />
 
+        {/* Borde del Hexágono con Gradiente */}
         <path
           d="M50 5L89 27.5V72.5L50 95L11 72.5V27.5L50 5Z"
           stroke="url(#hex-gradient-master)"
@@ -44,7 +47,8 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
           strokeLinejoin="round"
         />
         
-        <g filter="url(#master-glow)">
+        {/* Glifo de Inducción Neón (Ángulo) */}
+        <g filter="url(#glow)">
           <path
             d="M65 30L40 50L65 70"
             stroke="url(#logo-gradient-master)"
@@ -52,10 +56,12 @@ export function Logo({ className, id }: { className?: string; id?: string }) {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
+          {/* Nodo de Inteligencia Central */}
           <circle cx="40" cy="50" r="5" fill="#ffffff" />
           <circle cx="40" cy="50" r="2" fill="#22c55e" />
         </g>
 
+        {/* Sensores de Precisión */}
         <circle cx="50" cy="5" r="2" fill="#0ea5e9" />
         <circle cx="50" cy="95" r="2" fill="#22c55e" />
       </svg>
