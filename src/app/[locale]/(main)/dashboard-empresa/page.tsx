@@ -2,7 +2,7 @@
 import { redirect } from '@/navigation';
 
 export default function DashboardEmpresaRedirect() {
-  // Protocolo de seguridad: Evitar colisión de rutas paralelas en Next.js
+  // ARCHIVO NEUTRALIZADO PARA EVITAR COLISIÓN CON EL GRUPO (ADMIN)
   redirect('/dashboard-empresa');
   return null;
 }

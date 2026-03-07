@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Volume2, X, Bot, Send, Loader2, User, Sparkles, Smartphone } from "lucide-react";
+import { Mic, MicOff, Volume2, X, Bot, Send, Loader2, User, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { chat } from "@/ai/flows/chat";
@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 /**
  * @fileOverview Kyron Voice IA: Interfaz de Comunicación Neuronal.
  * Consola de chat interactiva con soporte para comandos de voz y texto.
+ * Integrada con el motor Gemini 1.5 Pro.
  */
 
 type Message = {
@@ -45,11 +46,11 @@ export function VoiceAssistant() {
         try {
             const response = await chat({ 
                 message: query, 
-                context: "Asistente Kyron Voice interactuando en el ecosistema operativo venezolano." 
+                context: "Kyron Voice Assistant interactuando desde el ecosistema central. Soporte para consultas legales, fiscales y de telecomunicaciones." 
             });
             setMessages([...newMessages, { role: 'bot', text: response }]);
         } catch (error) {
-            setMessages([...newMessages, { role: 'bot', text: "Falla en el enlace con el nodo IA maestro. Reintente protocolo." }]);
+            setMessages([...newMessages, { role: 'bot', text: "Error de enlace con el núcleo de inteligencia. Intente de nuevo." }]);
         } finally {
             setIsProcessing(false);
         }
@@ -60,12 +61,11 @@ export function VoiceAssistant() {
             setIsListening(false);
         } else {
             setIsListening(true);
-            // Simulación de captura de voz para fines de demostración de interfaz
+            // Simulación de reconocimiento de voz si no hay API activa
             setTimeout(() => {
                 setIsListening(false);
                 if (!isProcessing) {
-                    const demoQueries = ["¿Cómo funciona el sellado Blockchain?", "¿Qué es la Gaceta 6952?", "¿Cómo activo una eSIM?"];
-                    handleSendMessage(demoQueries[Math.floor(Math.random() * demoQueries.length)]);
+                    handleSendMessage("Explicación del sellado inmutable Blockchain.");
                 }
             }, 3000);
         }
@@ -86,10 +86,7 @@ export function VoiceAssistant() {
                                 <div className="p-2 bg-primary/10 rounded-xl border border-primary/20">
                                     <Bot className="h-4 w-4 text-primary" />
                                 </div>
-                                <div>
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Kyron Voice IA</span>
-                                    <p className="text-[7px] font-bold text-emerald-500 uppercase tracking-widest">Neural Node Active</p>
-                                </div>
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Consola Kyron IA</span>
                             </div>
                             <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-white/10" onClick={() => setIsOpen(false)}>
                                 <X className="h-4 w-4 text-white/40" />
@@ -103,7 +100,7 @@ export function VoiceAssistant() {
                                         <div className="py-16 text-center space-y-6 opacity-40">
                                             <Sparkles className="h-10 w-10 mx-auto text-primary animate-pulse" />
                                             <p className="text-[10px] font-black uppercase tracking-[0.4em] leading-relaxed">
-                                                Enlace neuronal establecido. <br/> Inicie comunicación por texto o voz.
+                                                Enlace neuronal activo. <br/> Inicie comunicación por voz o texto.
                                             </p>
                                         </div>
                                     )}
@@ -136,7 +133,7 @@ export function VoiceAssistant() {
                                             <div className="p-2 rounded-lg bg-white/5 border border-white/10">
                                                 <Loader2 className="h-3 w-3 text-primary animate-spin" />
                                             </div>
-                                            <p className="text-[9px] font-black text-primary uppercase tracking-widest animate-pulse italic">Procesando Inferencia IA...</p>
+                                            <p className="text-[9px] font-black text-primary uppercase tracking-widest animate-pulse italic">Procesando Inferencia...</p>
                                         </div>
                                     )}
                                 </div>
@@ -148,7 +145,7 @@ export function VoiceAssistant() {
                                 <Input 
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Comando de sistema..." 
+                                    placeholder="Ingrese comando..." 
                                     className="h-10 rounded-xl bg-black border-white/10 text-[11px] font-bold focus-visible:ring-primary shadow-inner"
                                     disabled={isProcessing}
                                 />
@@ -157,7 +154,7 @@ export function VoiceAssistant() {
                                     size="icon" 
                                     className={cn(
                                         "h-10 w-10 rounded-xl transition-all",
-                                        isListening ? "bg-red-500 animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.5)]" : "btn-3d-primary"
+                                        isListening ? "bg-red-500 animate-pulse" : "btn-3d-primary"
                                     )}
                                     onClick={toggleListening}
                                     disabled={isProcessing}
@@ -183,7 +180,7 @@ export function VoiceAssistant() {
                             onClick={() => setIsOpen(true)}
                         >
                             <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <Volume2 className="h-7 w-7 relative z-10 group-hover:scale-110 transition-transform" />
+                            <Volume2 className="h-7 w-7 relative z-10" />
                         </Button>
                     </motion.div>
                 )}

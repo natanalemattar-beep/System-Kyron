@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils";
 
 /**
  * @fileOverview Logo Institucional de System Kyron v2.6.5.
- * Diseño HUD de precisión: Hexágono de fibra de carbono, glifo de inducción neón y núcleo cuántico.
+ * Diseño HUD de precisión: Hexágono de fibra de carbono, glifo de inducción neón y núcleo de inteligencia cuántico.
+ * Sincronizado con la identidad visual corporativa (Sin caracteres alfabéticos).
  */
 
 export function Logo({ className, id }: { className?: string; id?: string }) {

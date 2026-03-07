@@ -1,9 +1,7 @@
-
-import { redirect } from '@/navigation';
-
-export default function ManualUsuarioRedirect() {
-  // Protocolo de seguridad: Evitar colisión de rutas paralelas y mantener integridad de nodos
-  // Redirigir a la ruta maestra fuera del grupo para evitar errores de Next.js
-  redirect('/manual-usuario');
+/**
+ * @fileOverview Archivo neutralizado para evitar colisión de rutas paralelas en Next.js 15.
+ * El Manual Maestro reside ahora en la ruta raíz: src/app/[locale]/manual-usuario/page.tsx
+ */
+export default function RedirectPlaceholder() {
   return null;
 }
