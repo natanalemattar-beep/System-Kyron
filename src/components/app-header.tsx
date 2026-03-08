@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -18,8 +17,7 @@ import {
     LogOut, 
     ShieldCheck, 
     Cpu,
-    ChevronDown,
-    Activity
+    ChevronDown
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -49,14 +47,9 @@ interface AppHeaderProps {
 
 export function AppHeader({ user, navGroups }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
-  const [time, setTime] = useState("");
 
   useEffect(() => {
     setMounted(true);
-    const updateTime = () => setTime(new Date().toLocaleTimeString('es-VE', { hour12: false }));
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -105,20 +98,8 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
             </nav>
           </div>
 
-          {/* RIGHT: HUD TELEMETRY & USER */}
-          <div className="flex items-center justify-end gap-4 md:gap-6 min-w-[240px]">
-            
-            <div className="hidden md:flex items-center gap-4 px-5 py-2 rounded-full bg-white/[0.02] border border-white/5 backdrop-blur-xl shadow-inner">
-                <div className="flex items-center gap-2.5">
-                    <Activity className="h-3 w-3 text-primary animate-pulse" />
-                    <span className="text-xs font-mono font-black text-white tracking-widest leading-none">
-                        {mounted ? time : '--:--:--'}
-                    </span>
-                </div>
-                <div className="h-4 w-px bg-white/10" />
-                <span className="text-[8px] font-black uppercase tracking-[0.3em] text-white/20 whitespace-nowrap">Real-Time Node</span>
-            </div>
-
+          {/* RIGHT: HUD USER CONTROLS */}
+          <div className="flex items-center justify-end gap-4 md:gap-6 min-w-[120px]">
             <div className="flex items-center gap-4">
                 <ThemeToggle />
                 
