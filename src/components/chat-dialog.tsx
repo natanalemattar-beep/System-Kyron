@@ -1,17 +1,25 @@
+
 'use client';
 
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Bot, Send, Loader2, MessageCircle, ChevronRight, X, User, Wallet, Activity } from "lucide-react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
+import { 
+  Sheet, 
+  SheetContent, 
+  SheetHeader, 
+  SheetTitle, 
+  SheetDescription, 
+  SheetTrigger 
+} from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { cn, formatCurrency } from "@/lib/utils";
 import { chat } from "@/ai/flows/chat";
 import { ThinkingAnimation } from "./thinking-animation";
 import { useToast } from "@/hooks/use-toast";
-import { Badge } from "./ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 type Message = {
   role: 'user' | 'bot';
