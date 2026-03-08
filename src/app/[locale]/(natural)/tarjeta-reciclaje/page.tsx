@@ -3,7 +3,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Gift, Zap, Coffee, Ticket, Recycling, TrendingUp, Handshake, CheckCircle, Magnet } from "lucide-react";
+import { ArrowRight, Gift, Zap, Coffee, Ticket, Recycle, TrendingUp, Handshake, CheckCircle, Magnet } from "lucide-react";
 import { motion } from "framer-motion";
 
 const howItWorks = [
@@ -29,7 +29,7 @@ export default function TarjetaReciclajePage() {
                     animate={{ scale: 1, opacity: 1 }}
                     className="inline-block p-6 bg-primary/10 text-primary rounded-full mb-4 shadow-inner"
                 >
-                    <Recycling className="h-16 w-16 animate-spin-slow" />
+                    <Recycle className="h-16 w-16 animate-spin-slow" />
                 </motion.div>
                 <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic italic-shadow text-white">Tarjeta de Reciclaje Pro</h1>
                 <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">

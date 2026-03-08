@@ -21,7 +21,9 @@ import {
     Eye,
     Bell,
     Settings,
-    MoreHorizontal
+    MoreHorizontal,
+    HeartPulse,
+    Search
 } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
@@ -36,9 +38,10 @@ const kpiData = [
 ];
 
 const misDocumentos = [
-    { id: "V-32...", doc: "Cédula de Identidad", estado: "Vigente", vencimiento: "2031", validez: "OK" },
-    { id: "J-12...", doc: "RIF Personal", estado: "Por Renovar", vencimiento: "15 días", validez: "Alert" },
-    { id: "PAS-...", doc: "Pasaporte", estado: "Vigente", vencimiento: "2028", validez: "OK" },
+    { id: "V-32.855.496", doc: "Cédula de Identidad", estado: "Vigente", vencimiento: "2031", validez: "OK" },
+    { id: "J-12345678-9", doc: "RIF Personal", estado: "Por Renovar", vencimiento: "15 días", validez: "Alert" },
+    { id: "PAS-V00123", doc: "Pasaporte", estado: "Vigente", vencimiento: "2028", validez: "OK" },
+    { id: "MS-9988", doc: "Carnet de Salud", estado: "Vigente", vencimiento: "2026", validez: "OK" },
 ];
 
 export default function DashboardPersonalPage() {
@@ -97,7 +100,7 @@ export default function DashboardPersonalPage() {
         <Card className="lg:col-span-8 bg-white/[0.01] border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
             <CardHeader className="p-10 border-b border-white/5 flex flex-row items-center justify-between bg-white/[0.01]">
                 <div className="space-y-1">
-                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-4">
+                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-4 text-white">
                         <Fingerprint className="text-primary h-6 w-6" /> Tu Identidad Digital
                     </CardTitle>
                     <p className="text-[9px] font-bold uppercase text-white/20 tracking-widest italic">Expedientes activos en Bóveda</p>
@@ -150,7 +153,7 @@ export default function DashboardPersonalPage() {
                 </div>
                 <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[2.4rem]">
                     <div className="space-y-1">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none">Mi Línea 5G</CardTitle>
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none text-white">Mi Línea 5G</CardTitle>
                         <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo de Datos en Tiempo Real</p>
                     </div>
                     <div className="space-y-4">
@@ -190,6 +193,30 @@ export default function DashboardPersonalPage() {
            </Card>
         </div>
       </div>
+
+      {/* ALERTAS PERSONALES */}
+      <Card className="bg-rose-500/5 border border-rose-500/20 rounded-[2rem] p-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-5"><ShieldAlert className="h-32 w-32" /></div>
+          <h3 className="text-lg font-black uppercase italic tracking-tighter text-rose-500 mb-6 flex items-center gap-3">
+              <Bell className="h-5 w-5" /> Alertas Importantes
+          </h3>
+          <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-black/40 rounded-xl border border-white/5">
+                  <div className="flex items-center gap-4">
+                      <ShieldAlert className="h-5 w-5 text-amber-500" />
+                      <span className="text-xs font-bold text-white/80 uppercase">RIF Personal por vencer (15 días)</span>
+                  </div>
+                  <Button size="sm" className="btn-3d-primary h-8 px-4 text-[8px] font-black uppercase">RENOVAR AHORA</Button>
+              </div>
+              <div className="flex items-center justify-between p-4 bg-black/40 rounded-xl border border-white/5">
+                  <div className="flex items-center gap-4">
+                      <Sparkles className="h-5 w-5 text-primary" />
+                      <span className="text-xs font-bold text-white/80 uppercase">Nuevo beneficio: 2x1 en puntos verdes este fin de semana</span>
+                  </div>
+                  <Button size="sm" variant="ghost" className="h-8 px-4 text-[8px] font-black uppercase text-white/40">VER DETALLE</Button>
+              </div>
+          </div>
+      </Card>
 
       {/* OTROS MÓDULOS (ACCESOS RÁPIDOS) */}
       <section className="space-y-8 pt-10">
