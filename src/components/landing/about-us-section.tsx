@@ -7,6 +7,7 @@ import { Target, Eye, BookOpen, Briefcase, Sparkles, ShieldCheck, Zap } from "lu
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, duration?: number }) => {
     const count = useMotionValue(from);

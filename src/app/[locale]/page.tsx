@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -16,8 +15,8 @@ import { WelcomeTutorial } from "@/components/welcome-tutorial";
 import { use } from 'react';
 
 /**
- * @fileOverview Página de Inicio Kyron - Transparencia Total.
- * Se eliminan fondos sólidos para permitir que el fondo dinámico fluya por toda la interfaz.
+ * @fileOverview Página de Inicio Kyron - Transparencia de Nodo.
+ * Fondos transparentes para permitir el flujo visual del background dinámico.
  */
 
 export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {

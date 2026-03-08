@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from "next/image";
@@ -71,6 +70,7 @@ export function FeaturesSection() {
             </motion.div>
 
              <div className="relative p-2">
+                 <div className="absolute inset-0 bg-primary/10 blur-[120px] rounded-full opacity-30" />
                  <Card className="relative glass-card border-none p-2 rounded-[2.5rem] bg-white/[0.03] overflow-hidden shadow-2xl">
                     <div className="aspect-[4/5] sm:aspect-video lg:aspect-[4/5] relative rounded-[2.2rem] overflow-hidden">
                         {infrastructureImage && (

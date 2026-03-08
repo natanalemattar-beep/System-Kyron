@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from "framer-motion";
@@ -12,7 +11,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 /**
  * @fileOverview Hero Section: Ingeniería Estética y Adaptabilidad Total.
- * Diseño HUD con líneas de precisión y cuadrícula adaptable.
+ * Diseño HUD con líneas de precisión y cuadrícula adaptable para móviles.
  */
 export function HeroSection() {
   const t = useTranslations('HeroSection');
@@ -45,7 +44,7 @@ export function HeroSection() {
             </div>
 
             <div className="space-y-4">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase italic leading-tight italic-shadow">
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase italic leading-tight italic-shadow">
                   KYRON <span className="text-primary not-italic">SYSTEM</span>
                 </h1>
                 <p className="text-primary font-black uppercase tracking-[0.4em] text-[9px] opacity-60">
