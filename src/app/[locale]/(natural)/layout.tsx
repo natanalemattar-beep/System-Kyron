@@ -1,10 +1,10 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
+import { AppSidebar } from "@/components/app-sidebar";
+import { naturalNavGroups } from "@/components/app-sidebar-nav-items";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Fingerprint, Recycle, File, HeartHandshake, FileText } from "lucide-react";
 
 export default function NaturalLayout({
   children,
@@ -12,14 +12,6 @@ export default function NaturalLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Usuario Natural", email: "usuario@kyron.com", fallback: "UN" };
-
-    const navItems = [
-        { href: "/tarjeta-digital", label: "ID Digital", icon: Fingerprint },
-        { href: "/tarjeta-reciclaje", label: "Eco-Créditos", icon: Recycle },
-        { href: "/documentos", label: "Documentos", icon: File },
-        { href: "/directorio-medico", label: "Salud", icon: HeartHandshake },
-        { href: "/partidas-nacimiento", label: "Trámites", icon: FileText },
-    ];
 
     return (
       <div className="flex min-h-screen bg-background relative overflow-hidden">
@@ -32,7 +24,7 @@ export default function NaturalLayout({
               <AppHeader 
                 user={{...user, color: "bg-primary/30 text-primary shadow-glow"}} 
                 dashboardHref="/dashboard"
-                navItems={navItems}
+                navGroups={naturalNavGroups}
               />
               
               <motion.main 
@@ -45,7 +37,7 @@ export default function NaturalLayout({
               </motion.main>
               
               <footer className="p-10 border-t border-white/5 text-center">
-                <p className="text-[9px] font-black uppercase tracking-[0.6em] text-white/10 italic">
+                <p className="text-[10px] font-black uppercase tracking-[0.6em] text-white/10 italic">
                   System Kyron v2.6 • Distributed Ledger Node • 2026
                 </p>
               </footer>

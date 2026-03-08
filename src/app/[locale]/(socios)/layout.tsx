@@ -1,10 +1,9 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Users, Building, TrendingUp, Rocket } from "lucide-react";
+import { sociosNavGroups } from "@/components/app-sidebar-nav-items";
 
 export default function SociosLayout({
   children,
@@ -12,13 +11,6 @@ export default function SociosLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Socio", email: "socio@kyron.com", fallback: "SO" };
-
-    const navItems = [
-        { href: "/dashboard-socios", label: "Holding", icon: Users },
-        { href: "/poderes-representacion", label: "Empresas", icon: Building },
-        { href: "/estudio-factibilidad-economica", label: "Factibilidad", icon: TrendingUp },
-        { href: "/planes-crecimiento", label: "Crecimiento", icon: Rocket },
-    ];
 
     return (
       <div className="flex min-h-screen bg-[#03040a] text-white relative overflow-hidden hud-grid">
@@ -32,7 +24,7 @@ export default function SociosLayout({
               <AppHeader 
                 user={{...user, color: "bg-indigo-900 shadow-glow"}} 
                 dashboardHref="/dashboard-socios" 
-                navItems={navItems}
+                navGroups={sociosNavGroups}
               />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"

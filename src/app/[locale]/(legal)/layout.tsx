@@ -1,10 +1,9 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Gavel, Wand2, FileSignature, ShieldCheck } from "lucide-react";
+import { legalNavGroups } from "@/components/app-sidebar-nav-items";
 
 export default function LegalLayout({
   children,
@@ -12,13 +11,6 @@ export default function LegalLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Abogado", email: "legal@kyron.com", fallback: "AB" };
-
-    const navItems = [
-        { href: "/escritorio-juridico", label: "Bóveda", icon: Gavel },
-        { href: "/generador-documentos", label: "Generador IA", icon: Wand2 },
-        { href: "/contratos", label: "Contratos", icon: FileSignature },
-        { href: "/poderes-representacion", label: "Poderes", icon: ShieldCheck },
-    ];
 
     return (
       <div className="flex min-h-screen bg-[#05070a] text-white relative overflow-hidden hud-grid">
@@ -32,7 +24,7 @@ export default function LegalLayout({
               <AppHeader 
                 user={{...user, color: "bg-slate-800 shadow-glow"}} 
                 dashboardHref="/escritorio-juridico" 
-                navItems={navItems}
+                navGroups={legalNavGroups}
               />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"

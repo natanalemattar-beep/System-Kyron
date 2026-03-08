@@ -1,10 +1,9 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { FileText, Radio, Signal, AlertTriangle } from "lucide-react";
+import { telecomNavGroups } from "@/components/app-sidebar-nav-items";
 
 export default function TelecomLayout({
   children,
@@ -12,13 +11,6 @@ export default function TelecomLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Telecom Admin", email: "telecom@kyron.com", fallback: "TE" };
-
-    const navItems = [
-        { href: "/dashboard-telecom", label: "NOC", icon: Signal },
-        { href: "/conatel/licenses", label: "Licencias", icon: FileText },
-        { href: "/conatel/alerts", label: "Alertas", icon: AlertTriangle },
-        { href: "/venta-linea", label: "Venta Línea", icon: Radio },
-    ];
 
     return (
       <div className="flex min-h-screen bg-[#080602] text-white relative overflow-hidden hud-grid">
@@ -31,7 +23,7 @@ export default function TelecomLayout({
               <AppHeader 
                 user={{...user, color: "bg-amber-600 shadow-glow"}} 
                 dashboardHref="/dashboard-telecom" 
-                navItems={navItems}
+                navGroups={telecomNavGroups}
               />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"

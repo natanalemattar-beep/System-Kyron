@@ -1,10 +1,9 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Calculator, Lock, LayoutGrid, ShoppingCart } from "lucide-react";
+import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 
 export default function AdminLayout({
   children,
@@ -12,13 +11,6 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Administrador", email: "admin@kyron.com", fallback: "AD" };
-
-    const navItems = [
-        { href: "/dashboard-empresa", label: "Consola", icon: LayoutGrid },
-        { href: "/contabilidad", label: "Contabilidad", icon: Calculator },
-        { href: "/punto-de-venta", label: "Ventas", icon: ShoppingCart },
-        { href: "/sector-privado-system-kyron", label: "Sector Privado", icon: Lock },
-    ];
 
     return (
       <div className="flex min-h-screen bg-[#050505] text-white relative overflow-hidden">
@@ -32,7 +24,7 @@ export default function AdminLayout({
               <AppHeader 
                 user={{...user, color: "bg-primary shadow-glow"}} 
                 dashboardHref="/dashboard-empresa" 
-                navItems={navItems}
+                navGroups={adminNavGroups}
               />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"

@@ -1,10 +1,9 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Users, UserPlus, School, FileSignature } from "lucide-react";
+import { rrhhNavGroups } from "@/components/app-sidebar-nav-items";
 
 export default function HRLayout({
   children,
@@ -12,13 +11,6 @@ export default function HRLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "RR.HH.", email: "rrhh@kyron.com", fallback: "RH" };
-
-    const navItems = [
-        { href: "/nominas", label: "Nóminas", icon: Users },
-        { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
-        { href: "/academia-kyron", label: "Academia", icon: School },
-        { href: "/modelo-contrato-trabajo", label: "Contratos", icon: FileSignature },
-    ];
 
     return (
       <div className="flex min-h-screen bg-[#020502] text-white relative overflow-hidden hud-grid">
@@ -32,7 +24,7 @@ export default function HRLayout({
               <AppHeader 
                 user={{...user, color: "bg-secondary shadow-glow"}} 
                 dashboardHref="/dashboard-rrhh" 
-                navItems={navItems}
+                navGroups={rrhhNavGroups}
               />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
