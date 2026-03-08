@@ -1,7 +1,10 @@
 import { redirect } from "@/navigation";
 
+/**
+ * @fileOverview Redirección obligatoria para evitar conflicto de rutas paralelas en Next.js 15.
+ * Se eliminó la página duplicada y se redirige a la ruta raíz limpia.
+ */
 export default function ConflictRedirect() {
-  // Redirección forzada para eliminar el conflicto de rutas paralelas
   redirect("/sector-privado-system-kyron");
   return null;
 }

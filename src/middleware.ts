@@ -1,7 +1,10 @@
-
 import createMiddleware from 'next-intl/middleware';
 import {locales, defaultLocale, localePrefix} from './navigation';
  
+/**
+ * @fileOverview Middleware de i18n optimizado.
+ * Se excluye específicamente la ruta 'sector-privado-system-kyron' para permitir una URL limpia sin prefijo.
+ */
 export default createMiddleware({
   locales,
   defaultLocale,
@@ -9,9 +12,6 @@ export default createMiddleware({
 });
  
 export const config = {
-  // Match all pathnames except for
-  // - API routes
-  // - _next (Next.js internals)
-  // - static files (e.g. /favicon.ico, /images/*)
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  // Se excluye la ruta de expediente técnico para cumplir con la solicitud de URL limpia
+  matcher: ['/((?!api|_next|sector-privado-system-kyron|.*\\..*).*)']
 };

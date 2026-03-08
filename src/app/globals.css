@@ -14,12 +14,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     
-    /* Azul institucional #0A2472 */
-    --primary: 225 84% 25%;
+    --primary: 221.2 83.2% 53.3%;
     --primary-foreground: 210 40% 98%;
     
-    /* Verde corporativo #00A86B */
-    --secondary: 158 100% 33%;
+    --secondary: 142.1 70.6% 45.3%;
     --secondary-foreground: 210 40% 98%;
     
     --muted: 214.3 31.8% 91.4%;
@@ -33,9 +31,9 @@
     
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 225 84% 25%;
+    --ring: 221.2 83.2% 53.3%;
     
-    --radius: 1.25rem;
+    --radius: 1rem;
   }
 
   .dark {
@@ -49,10 +47,10 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     
-    --primary: 210 100% 50%;
+    --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 222.2 47.4% 11.2%;
     
-    --secondary: 145 100% 50%;
+    --secondary: 142.1 70.6% 45.3%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     
     --muted: 217.2 32.6% 17.5%;
@@ -66,7 +64,7 @@
     
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 224.3 76.3% 48%;
   }
 }
 
@@ -81,63 +79,57 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight font-black;
+    @apply tracking-tighter font-black;
   }
 }
 
 @layer utilities {
   .btn-3d-primary {
-    @apply bg-primary text-primary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.15)] active:shadow-none active:translate-y-1 transition-all;
+    @apply bg-primary text-primary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-none active:translate-y-1 transition-all;
   }
 
   .btn-3d-secondary {
-    @apply bg-secondary text-secondary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.15)] active:shadow-none active:translate-y-1 transition-all;
+    @apply bg-secondary text-secondary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-none active:translate-y-1 transition-all;
   }
 
   .glass-card {
-    @apply bg-card/70 border border-white/40 backdrop-blur-xl shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-primary/10;
+    @apply bg-white/[0.03] border border-white/10 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-primary/30;
   }
 
-  .dark .glass-card {
-    @apply bg-card/40 border-white/5 shadow-none;
-  }
-  
   .shadow-glow {
-    box-shadow: 0 0 25px hsla(var(--primary), 0.15);
+    box-shadow: 0 0 35px hsla(var(--primary), 0.25);
   }
 
   .shadow-glow-secondary {
-    box-shadow: 0 0 25px hsla(var(--secondary), 0.15);
+    box-shadow: 0 0 35px hsla(var(--secondary), 0.25);
   }
 
   .italic-shadow {
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
   }
 
   .hud-grid {
     background-image: 
-      linear-gradient(to right, hsla(var(--primary) / 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, hsla(var(--primary) / 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
+      linear-gradient(to right, hsla(var(--primary) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsla(var(--primary) / 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
 
-  .dark .hud-grid {
-    background-image: 
-      linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
   }
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
   }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white/5 rounded-full hover:bg-white/10 transition-colors;
   }
 }
 
 .animate-spin-slow {
-  animation: spin 20s linear infinite;
+  animation: spin 120s linear infinite;
 }
 
 @keyframes spin {
@@ -159,20 +151,4 @@
 
 .rotate-y-180 {
   transform: rotateY(180deg);
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-primary/10 rounded-full hover:bg-primary/20 transition-colors;
-}
-
-.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-white/5 hover:bg-white/10;
 }

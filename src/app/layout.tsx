@@ -1,11 +1,21 @@
 import type { ReactNode } from "react";
 import "./globals.css";
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+import { Providers } from "@/components/providers";
 
 /**
- * @fileOverview Root Layout pass-through.
- * La estructura HTML real se maneja en [locale]/layout.tsx para soportar i18n correctamente.
- * En Next.js 15, el layout raíz debe ser lo más minimalista posible si se usa i18n en [locale].
+ * @fileOverview Root Layout unificado.
+ * Proporciona el shell HTML básico y la tipografía Geist para todas las rutas del sistema.
  */
 export default function RootLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <html lang="es" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-[#020202] text-white overflow-x-hidden">
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
+  );
 }

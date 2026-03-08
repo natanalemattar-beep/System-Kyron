@@ -1,13 +1,10 @@
 import { ReactNode } from "react";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Providers } from "@/components/providers";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { VoiceAssistant } from "@/components/voice-assistant";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -19,33 +16,25 @@ interface LocaleLayoutProps {
 }
 
 /**
- * @fileOverview Layout principal por idioma.
- * Proporciona el contexto de i18n, los proveedores globales y la estructura HTML base con tipografía Geist.
+ * @fileOverview Layout i18n para rutas localizadas.
+ * Actúa como un wrapper de contexto dentro del RootLayout principal.
  */
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
 
-  // Verificar que el locale sea válido
   if (!locales.includes(locale as any)) {
     notFound();
   }
 
-  // Obtener mensajes para el proveedor
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
-      <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-background text-foreground overflow-x-hidden">
-        <Providers>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            <DynamicBackground />
-            <div className="relative flex min-h-screen flex-col">
-              {children}
-              <VoiceAssistant />
-            </div>
-          </NextIntlClientProvider>
-        </Providers>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <DynamicBackground />
+      <div className="relative flex min-h-screen flex-col">
+        {children}
+        <VoiceAssistant />
+      </div>
+    </NextIntlClientProvider>
   );
 }
