@@ -27,15 +27,15 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
 const testimonials = [
   {
     name: "Carlos Mattar",
-    company: "Líder de Proyecto, System Kyron",
+    company: "Ingeniero Maestro, System Kyron",
     avatarId: "testimonial-avatar-1",
-    module: "Inteligencia Artificial",
+    module: "Gestión IA",
     icon: BookOpen,
     text: "La plataforma ha eliminado el riesgo de pérdida de documentos. El registro seguro de los expedientes es la garantía que necesitábamos.",
   },
   {
     name: "Ana Pérez",
-    company: "Gerente, Holding Kyron",
+    company: "Directora, Holding Kyron",
     avatarId: "testimonial-avatar-2",
     module: "Recursos Humanos",
     icon: Briefcase,

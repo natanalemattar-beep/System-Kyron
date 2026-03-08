@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -23,7 +22,8 @@ import {
   TrendingUp,
   ChevronRight,
   Lock,
-  Sparkles
+  Sparkles,
+  RefreshCw
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
@@ -75,13 +75,6 @@ const zeduMasterData = {
         }
     ]
 };
-
-const budgetTableData = [
-    { item: "Infraestructura Telecom (5G)", cant: "1 Nodo", costo: "$5,000", total: "$5,000" },
-    { item: "Gestión eSIM / SIM Kyron", cant: "1000 Unid.", costo: "$1,00", total: "$1,000" },
-    { item: "Smart Bins (Inducción Magnética)", cant: "5 Unid.", costo: "$683", total: "$3,415" },
-    { item: "Licenciamiento Cloud Ledger", cant: "1 Nodo", costo: "$4,500", total: "$4,500" },
-];
 
 const indicators = [
     { label: "VAN Proyectado", value: 450000, icon: TrendingUp },
@@ -171,14 +164,11 @@ export default function SectorPrivadoPage() {
     if (!isMounted) return null;
 
     return (
-        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-4 md:px-16 min-h-screen bg-[#050505] relative">
-            {/* HUD Grid Background */}
-            <div className="fixed inset-0 pointer-events-none opacity-[0.03] hud-grid" />
-
+        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-4 md:px-16 min-h-screen relative">
             <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-4 border-primary pl-6 md:pl-10 py-4 mt-10 relative z-10 no-print">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Terminal className="h-3 w-3" /> NODO DE INGENIERÍA
+                        <Terminal className="h-3 w-3" /> ARCHIVO ESTRATÉGICO
                     </div>
                     <h1 className="text-3xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Expediente <span className="text-primary italic">ZEDU</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Zona Económica Digital Unificada • Dossier v2.6.5</p>
@@ -197,13 +187,12 @@ export default function SectorPrivadoPage() {
                         ) : (
                             <FileWord className="mr-3 h-4 w-4 group-hover:scale-110 transition-transform" />
                         )}
-                        {isVerifying ? "VERIFICANDO NODO..." : "DESCARGAR MASTER DOC"}
+                        {isVerifying ? "VERIFICANDO..." : "DESCARGAR EXPEDIENTE"}
                     </Button>
                 </div>
             </header>
 
             <div className="grid lg:grid-cols-12 gap-10 relative z-10">
-                {/* Dossier Visual en Pantalla */}
                 <div className="lg:col-span-8 space-y-10">
                     <Card className="glass-card border-none rounded-[3rem] bg-white/[0.01] overflow-hidden shadow-2xl relative">
                         <AnimatePresence>
@@ -224,7 +213,7 @@ export default function SectorPrivadoPage() {
                         <div className="p-8 md:p-10 border-b border-white/5 bg-white/[0.02] flex items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <Logo className="h-10 w-10 drop-shadow-glow" />
-                                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/60">Ledger de Implementación</span>
+                                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/60">Registro Institucional</span>
                             </div>
                             <Badge variant="outline" className="border-primary/20 text-primary text-[8px] font-black px-4 py-1 rounded-lg uppercase bg-primary/5">Confidencial</Badge>
                         </div>
@@ -252,7 +241,7 @@ export default function SectorPrivadoPage() {
                                     <ShieldCheck className="h-32 w-32" />
                                 </div>
                                 <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-6 flex items-center gap-3">
-                                    <CheckCircle className="h-4 w-4" /> Dictamen Maestro IA
+                                    <CheckCircle className="h-4 w-4" /> Dictamen Maestro
                                 </h4>
                                 <p className="text-base md:text-lg font-bold italic text-white/70 leading-relaxed text-justify">
                                     "El análisis de viabilidad técnica bajo protocolos VEN-NIF arroja un cumplimiento del 100%. La arquitectura System Kyron garantiza la inmutabilidad de los registros fiscales, eliminando el riesgo operativo y optimizando la liquidez del sector privado mediante la digitalización unificada."
@@ -262,23 +251,22 @@ export default function SectorPrivadoPage() {
 
                         <CardFooter className="p-10 border-t border-white/5 bg-white/[0.01] flex flex-col md:flex-row justify-between items-center gap-6">
                             <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em] text-white/20">
-                                <Activity className="h-4 w-4 animate-pulse text-emerald-500" /> INTEGRIDAD DE DATOS: 100%
+                                <Activity className="h-4 w-4 animate-pulse text-emerald-500" /> INTEGRIDAD: 100%
                             </div>
                             <div className="flex items-center gap-8">
                                 <div className="text-center">
                                     <div className="w-32 h-[1px] bg-white/20 mb-2" />
-                                    <p className="text-[7px] font-bold text-white/30 uppercase">Firma Digital Kyron</p>
+                                    <p className="text-[7px] font-bold text-white/30 uppercase">Firma Digital</p>
                                 </div>
                                 <div className="text-center">
                                     <div className="w-32 h-[1px] bg-white/20 mb-2" />
-                                    <p className="text-[7px] font-bold text-white/30 uppercase">Sello de Bóveda</p>
+                                    <p className="text-[7px] font-bold text-white/30 uppercase">Sello Institucional</p>
                                 </div>
                             </div>
                         </CardFooter>
                     </Card>
                 </div>
 
-                {/* Lateral de Indicadores */}
                 <div className="lg:col-span-4 space-y-8">
                     <Card className="glass-card border-none p-10 rounded-[2.5rem] bg-primary text-white relative overflow-hidden shadow-glow group">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000">
@@ -288,10 +276,10 @@ export default function SectorPrivadoPage() {
                             <Sparkles className="h-6 w-6" /> Status Pro
                         </h3>
                         <p className="text-sm font-bold opacity-90 leading-relaxed italic text-justify relative z-10 mb-8 uppercase">
-                            Este dossier representa la cima de la consultoría digital automatizada.
+                            Dossier de implementación estratégica validado para el ejercicio fiscal 2026.
                         </p>
                         <Button variant="secondary" className="w-full h-14 rounded-2xl bg-white text-primary font-black uppercase text-[10px] tracking-widest shadow-2xl relative z-10">
-                            ACTUALIZAR MÉTRICAS <RefreshCw className="ml-3 h-4 w-4" />
+                            ACTUALIZAR DATOS <RefreshCw className="ml-3 h-4 w-4" />
                         </Button>
                     </Card>
 
@@ -314,7 +302,7 @@ export default function SectorPrivadoPage() {
                     <Card className="glass-card border-none bg-white/[0.01] rounded-[2.5rem] p-8 border border-white/5">
                         <CardHeader className="p-0 mb-6">
                             <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 flex items-center gap-3 italic">
-                                <Lock className="h-4 w-4" /> Seguridad de Dossier
+                                <Lock className="h-4 w-4" /> Seguridad
                             </CardTitle>
                         </CardHeader>
                         <div className="space-y-4 text-[9px] font-bold uppercase tracking-widest text-white/20">
@@ -327,26 +315,4 @@ export default function SectorPrivadoPage() {
             </div>
         </div>
     );
-}
-
-function RefreshCw(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-      <path d="M21 3v5h-5" />
-      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-      <path d="M3 21v-5h5" />
-    </svg>
-  )
 }
