@@ -8,7 +8,7 @@ import { Logo } from "@/components/logo";
 
 /**
  * @fileOverview Fondo dinámico optimizado con el logo integrado.
- * El logo actúa como una marca de agua tecnológica de escala refinada (máx 400px).
+ * El logo actúa como una marca de agua tecnológica de escala refinada (280px).
  */
 
 export function DynamicBackground() {
@@ -23,8 +23,8 @@ export function DynamicBackground() {
         {/* Rejilla HUD sutil */}
         <div className="absolute inset-0 -z-10 h-full w-full opacity-20 hud-grid [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_60%,transparent_100%)]" />
 
-        {/* Logo de Fondo Maestro - Refinado y pequeño */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[400px] aspect-square opacity-[0.03] dark:opacity-[0.05] pointer-events-none p-12">
+        {/* Logo de Fondo Maestro - Refinado y pequeño (Aesthetic) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[280px] aspect-square opacity-[0.04] dark:opacity-[0.06] pointer-events-none p-8">
             <motion.div
               animate={{ 
                 rotate: [0, 360],

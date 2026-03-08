@@ -12,7 +12,7 @@ export default getRequestConfig(async ({requestLocale}) => {
   const locale = await requestLocale;
   
   // Basic validation or fallback to default
-  const validLocale = locales.includes(locale as any) ? locale : 'es';
+  const validLocale = locales.includes(locale as any) ? (locale as any) : 'es';
  
   return {
     locale: validLocale,

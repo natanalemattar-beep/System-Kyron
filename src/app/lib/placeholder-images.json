@@ -1,46 +1,41 @@
+
 {
   "placeholderImages": [
     {
       "id": "user-avatar",
-      "description": "A placeholder for a user's avatar.",
+      "description": "Avatar de usuario para perfiles y testimonios.",
       "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-      "imageHint": "user avatar"
+      "imageHint": "user portrait"
     },
     {
       "id": "hero-tech-visual",
-      "description": "High-tech server and connectivity visualization.",
-      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
-      "imageHint": "high tech"
+      "description": "Visualización de infraestructura de red y servidores de alta tecnología.",
+      "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=1200&auto=format&fit=crop",
+      "imageHint": "server infrastructure"
     },
     {
       "id": "corporate-infrastructure",
-      "description": "Modern corporate building representing growth and stability.",
+      "description": "Arquitectura corporativa moderna que representa solidez y escala.",
       "imageUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
-      "imageHint": "corporate building"
-    },
-    {
-      "id": "team-meeting-photo",
-      "description": "A group of professionals in a meeting, representing a collaborative team.",
-      "imageUrl": "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?q=80&w=1200&auto=format&fit=crop",
-      "imageHint": "team meeting"
+      "imageHint": "corporate architecture"
     },
     {
       "id": "digital-economy",
-      "description": "Representation of the digital economy and blockchain security.",
+      "description": "Representación visual de la economía digital y seguridad blockchain.",
       "imageUrl": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1200&auto=format&fit=crop",
       "imageHint": "digital economy"
     },
     {
       "id": "testimonial-avatar-1",
-      "description": "A placeholder image for a testimonial avatar, showing a businessman.",
+      "description": "Retrato profesional de un líder estratégico.",
       "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026701d",
-      "imageHint": "businessman"
+      "imageHint": "businessman portrait"
     },
     {
       "id": "testimonial-avatar-2",
-      "description": "A placeholder image for a testimonial avatar, showing a businesswoman.",
+      "description": "Retrato profesional de una gerente corporativa.",
       "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026702d",
-      "imageHint": "businesswoman"
+      "imageHint": "businesswoman portrait"
     }
   ]
 }

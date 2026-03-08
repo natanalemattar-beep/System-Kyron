@@ -11,8 +11,8 @@ import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 /**
- * @fileOverview Hero Section refinado: Ingeniería estética y adaptabilidad móvil total.
- * Branding a escala reducida y marcos HUD integrados.
+ * @fileOverview Hero Section refinado: Diseño de Ingeniería Estética.
+ * Título pequeño y sofisticado, líneas HUD de precisión y adaptabilidad móvil total.
  */
 
 export function HeroSection() {
@@ -22,7 +22,7 @@ export function HeroSection() {
   return (
     <section id="inicio" className="relative pt-24 pb-12 md:pt-48 md:pb-32 overflow-hidden min-h-[90vh] flex items-center bg-transparent">
       
-      {/* HUD Architectural Lines */}
+      {/* HUD Architectural Lines - Decorative precision elements */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden hidden md:block">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-primary/20 via-transparent to-transparent opacity-20" />
         <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
@@ -48,7 +48,7 @@ export function HeroSection() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
-              MASTER PROTOCOL v2.6.5
+              CORE NODE 2.6.5
             </div>
 
             <div className="space-y-4 md:space-y-6">
@@ -60,14 +60,14 @@ export function HeroSection() {
                 </p>
                 <div className="h-1 w-20 bg-primary/20 mx-auto lg:ml-0 rounded-full" />
                 <p className="text-sm md:text-lg text-muted-foreground max-w-lg mx-auto lg:ml-0 leading-relaxed font-bold uppercase tracking-tight italic">
-                  Ecosistema de <span className="text-primary">Ingeniería Digital</span> para operaciones de misión crítica.
+                  Ecosistema de <span className="text-primary">Ingeniería Digital</span> para operaciones de misión crítica y soberanía de datos.
                 </p>
             </div>
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
                 <Button asChild size="lg" className="btn-3d-primary h-12 md:h-14 px-8 md:px-10 text-[10px] font-black uppercase tracking-widest rounded-xl group shadow-2xl w-full sm:w-auto">
                     <Link href="/register" className="flex items-center gap-3 justify-center">
-                        DESPLEGAR NODO <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        INICIAR AFILIACIÓN <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </Button>
                 <Button variant="outline" asChild size="lg" className="h-12 md:h-14 px-8 md:px-10 text-[10px] font-black uppercase tracking-widest rounded-xl border-white/10 hover:bg-white/5 bg-white/[0.02] backdrop-blur-sm transition-all w-full sm:w-auto">
@@ -80,7 +80,7 @@ export function HeroSection() {
                     { label: "LATENCIA", val: "14ms", icon: Zap },
                     { label: "CIFRADO", val: "AES-512", icon: ShieldCheck },
                     { label: "RED", val: "5G+", icon: Radio },
-                    { label: "UPTIME", val: "99.9%", icon: Globe }
+                    { label: "VALIDACIÓN", val: "100%", icon: Globe }
                 ].map((stat, i) => (
                     <div key={i} className="space-y-1">
                         <div className="flex items-center gap-2 text-[8px] font-black text-white/30 uppercase tracking-widest">
@@ -101,7 +101,7 @@ export function HeroSection() {
                 <div className="absolute -inset-4 bg-primary/10 blur-[100px] rounded-full opacity-20 animate-pulse hidden md:block" />
                 
                 <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                    <Card className="col-span-1 sm:col-span-2 glass-card p-2 rounded-[2rem] shadow-2xl overflow-hidden group border-primary/20">
+                    <Card className="col-span-1 sm:col-span-2 glass-card p-2 rounded-[2.5rem] shadow-2xl overflow-hidden group border-primary/20">
                         <div className="aspect-[16/9] relative rounded-[1.8rem] overflow-hidden">
                             {heroImage && (
                                 <Image 
@@ -114,7 +114,7 @@ export function HeroSection() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                             <div className="absolute bottom-4 left-6 md:bottom-6 md:left-8 text-left">
                                 <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-1">INFRAESTRUCTURA_HÍBRIDA</p>
-                                <h3 className="text-base md:text-lg font-black text-white uppercase italic tracking-tighter">NODO VISUAL ACTIVO</h3>
+                                <h3 className="text-base md:text-lg font-black text-white uppercase italic tracking-tighter">ESTADO DEL NODO: ÓPTIMO</h3>
                             </div>
                         </div>
                     </Card>
@@ -122,13 +122,13 @@ export function HeroSection() {
                     <Card className="glass-card p-6 rounded-[2rem] shadow-xl hover:translate-y-[-4px] transition-all duration-500 group border-secondary/10 bg-white/[0.02]">
                         <Magnet className="h-6 w-6 md:h-8 md:w-8 text-secondary mb-4 md:mb-6 group-hover:rotate-12 transition-transform" />
                         <h3 className="font-black text-[10px] md:text-xs uppercase italic mb-1 text-white">INDUCCIÓN MAGNÉTICA</h3>
-                        <p className="text-[8px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Trazabilidad inmutable para activos circulares.</p>
+                        <p className="text-[8px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Trazabilidad para activos circulares en el Ledger.</p>
                     </Card>
                     
                     <Card className="glass-card p-6 rounded-[2rem] shadow-xl hover:translate-y-[-4px] transition-all duration-500 group border-primary/10 bg-white/[0.02]">
                         <Smartphone className="h-6 w-6 md:h-8 md:w-8 text-primary mb-4 md:mb-6 group-hover:scale-110 transition-transform" />
                         <h3 className="font-black text-[10px] md:text-xs uppercase italic mb-1 text-white">TERMINALES PRO X</h3>
-                        <p className="text-[8px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Autenticación biométrica síncrona integrada.</p>
+                        <p className="text-[8px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Validación biométrica síncrona integrada.</p>
                     </Card>
                 </div>
           </motion.div>

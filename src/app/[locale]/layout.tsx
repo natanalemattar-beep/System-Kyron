@@ -22,7 +22,7 @@ export default async function LocaleLayout({
   children: ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  // Await params in Next.js 15
+  // Await params in Next.js 15 to ensure stable locale access
   const { locale } = await params;
   
   // Enable static rendering
