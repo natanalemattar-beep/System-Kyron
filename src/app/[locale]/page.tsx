@@ -23,7 +23,7 @@ export default function LandingPage() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 40, restDelta: 0.001 });
 
   return (
-    <div className="relative min-h-screen bg-black flex flex-col overflow-x-hidden hud-grid selection:bg-primary/20 w-full">
+    <div className="relative min-h-screen bg-transparent flex flex-col overflow-x-hidden hud-grid selection:bg-primary/20 w-full">
       <WelcomeTutorial />
       
       {/* Progress Bar HUD */}

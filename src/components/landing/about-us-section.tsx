@@ -1,4 +1,3 @@
-
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -44,7 +43,7 @@ const testimonials = [
 
 export function AboutUsSection() {
     return (
-        <section id="nosotros" className="py-24 md:py-32 bg-[#020202] relative overflow-hidden hud-grid w-full">
+        <section id="nosotros" className="py-24 md:py-32 bg-transparent relative overflow-hidden w-full">
             <div className="absolute inset-0 bg-primary/5 blur-[120px] pointer-events-none -z-10" />
             
             <div className="w-full px-10 relative z-10">
@@ -60,24 +59,24 @@ export function AboutUsSection() {
                             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20">
                                 <Sparkles className="h-3 w-3" /> El Equipo Central
                             </div>
-                            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic italic-shadow text-white">System <span className="text-primary">Kyron</span></h2>
-                            <p className="text-lg text-white/40 font-bold uppercase tracking-tight leading-relaxed italic border-l-2 border-primary/30 pl-6">Ingeniería de software de alta precisión diseñada para el cumplimiento y la operatividad de misión crítica.</p>
+                            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic italic-shadow text-foreground">System <span className="text-primary">Kyron</span></h2>
+                            <p className="text-lg text-muted-foreground font-bold uppercase tracking-tight leading-relaxed italic border-l-2 border-primary/30 pl-6">Ingeniería de software de alta precisión diseñada para el cumplimiento y la operatividad de misión crítica.</p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-8">
                             <div className="group space-y-4">
-                                <div className="p-4 bg-primary/5 rounded-2xl w-fit group-hover:bg-primary/10 transition-all border border-primary/10">
+                                <div className="p-4 bg-primary/10 rounded-2xl w-fit group-hover:bg-primary/20 transition-all border border-primary/10">
                                     <Target className="text-primary h-6 w-6" />
                                 </div>
-                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white">Misión</h3>
-                                <p className="text-xs text-white/40 font-bold uppercase tracking-widest leading-relaxed">Blindar la gestión institucional mediante tecnología inmutable.</p>
+                                <h3 className="text-lg font-black uppercase italic tracking-tight text-foreground">Misión</h3>
+                                <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">Blindar la gestión institucional mediante tecnología inmutable.</p>
                             </div>
                             <div className="group space-y-4">
-                                <div className="p-4 bg-secondary/5 rounded-2xl w-fit group-hover:bg-secondary/10 transition-all border border-secondary/10">
+                                <div className="p-4 bg-secondary/10 rounded-2xl w-fit group-hover:bg-secondary/20 transition-all border border-secondary/10">
                                     <Eye className="text-secondary h-6 w-6" />
                                 </div>
-                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white">Visión</h3>
-                                <p className="text-xs text-white/40 font-bold uppercase tracking-widest leading-relaxed">Ser el estándar global de interoperabilidad empresarial.</p>
+                                <h3 className="text-lg font-black uppercase italic tracking-tight text-foreground">Visión</h3>
+                                <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">Ser el estándar global de interoperabilidad empresarial.</p>
                             </div>
                         </div>
                     </motion.div>
@@ -96,13 +95,13 @@ export function AboutUsSection() {
                                 { val: 0, label: "Riesgo", suffix: "%", icon: Zap }
                             ].map((stat, i) => (
                                 <Card key={i} className="glass-card border-none p-10 text-center rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-4 opacity-[0.02] group-hover:opacity-[0.05] transition-all">
+                                    <div className="absolute top-0 right-0 p-4 opacity-[0.05] group-hover:opacity-[0.1] transition-all">
                                         <stat.icon className="h-16 w-16" />
                                     </div>
                                     <p className="text-4xl font-black text-primary italic tracking-tighter mb-2">
                                         <Counter from={0} to={stat.val} />{stat.suffix}
                                     </p>
-                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20 group-hover:text-primary transition-colors">{stat.label}</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground group-hover:text-primary transition-colors">{stat.label}</p>
                                 </Card>
                             ))}
                         </div>
@@ -113,7 +112,7 @@ export function AboutUsSection() {
                                 return (
                                     <Card key={testimonial.name} className="glass-card border-none p-10 relative group overflow-hidden rounded-[2.5rem]">
                                         <CardContent className="p-0">
-                                            <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-all scale-150">
+                                            <div className="absolute top-0 right-0 p-8 opacity-[0.05] group-hover:opacity-[0.1] transition-all scale-150">
                                                 <testimonial.icon className="h-24 w-24" />
                                             </div>
                                             <div className="flex items-center gap-4 mb-6">
@@ -122,7 +121,7 @@ export function AboutUsSection() {
                                                 </div>
                                                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">{testimonial.module}</span>
                                             </div>
-                                            <p className="text-xl font-bold italic text-white/80 leading-relaxed mb-8">"{testimonial.text}"</p>
+                                            <p className="text-xl font-bold italic text-foreground leading-relaxed mb-8">"{testimonial.text}"</p>
                                             <footer className="flex items-center gap-6">
                                                 {avatar && (
                                                     <Avatar className="h-14 w-14 border-2 border-primary/20 shadow-xl">
@@ -131,7 +130,7 @@ export function AboutUsSection() {
                                                     </Avatar>
                                                 )}
                                                 <div>
-                                                    <p className="font-black text-sm uppercase tracking-widest text-white">{testimonial.name}</p>
+                                                    <p className="font-black text-sm uppercase tracking-widest text-foreground">{testimonial.name}</p>
                                                     <p className="text-[9px] font-bold text-primary/60 uppercase tracking-[0.2em] mt-1">{testimonial.company}</p>
                                                 </div>
                                             </footer>
