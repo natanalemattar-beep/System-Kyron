@@ -186,7 +186,6 @@ export default function ManualUsuarioPage() {
     }, []);
 
     const handleDownloadDoc = () => {
-        // SVG Base64 del Logo Institucional Exacto (Hexágono + Glifo Neón + Nodo Central)
         const logoSvgBase64 = "PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgNUw4OSAyNy41VjcyLjVMNTAgOTVMMTEgNzIuNVYyNy41TDUwIDVaIiBmaWxsPSIjMDUwNTA1Ii8+PHBhdGggZD0iTTUwIDVMODkgMjcuNVY3Mi41TDUwIDk1TDExIDcyLjVWMjcuNUw1MCA1WiIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjMiLz48ZyBmaWx0ZXI9InVybCgjZ2xvdykiPjxwYXRoIGQ9Ik02NSAzMEw0MCA1MEw2NSA3MCIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjUwIiByPSI1IiBmaWxsPSIjZmZmZmZmIi8+PGNpcmNsZSBjeD0iNDAiIGN5PSI1MCIgcj0iMiIgZmlsbD0iIzIyYzU1ZSIvPjwvZz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUiIHI9IjIiIGZpbGw9IiMwZWE1ZTkiLz48Y2lyY2xlIGN4PSI1MCIgY3k9Ijk1IiByPSIyIiBmaWxsPSIjMjJjNTVlIi8+PC9zdmc+";
 
         let modulesHtml = "";
@@ -207,7 +206,6 @@ export default function ManualUsuarioPage() {
 
         const content = `
             <div style="font-family: 'Segoe UI', Arial, sans-serif; color: #000;">
-                <!-- PORTADA MAESTRA RÉPLICA EXACTA -->
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000; border-bottom: 15pt solid #0ea5e9;">
                     <tr>
                         <td align="center" style="padding: 50pt 0 30pt 0;">
@@ -285,14 +283,14 @@ export default function ManualUsuarioPage() {
                 <div className="grid lg:grid-cols-12 gap-16">
                     <aside className="lg:col-span-4 hidden lg:block">
                         <div className="sticky top-32 space-y-6">
-                            <Card className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-white/[0.01]">
-                                <CardHeader className="p-0 mb-8 text-center border-b border-white/5 pb-6">
+                            <Card className="glass-card p-0 rounded-[2.5rem] border-white/5 bg-white/[0.01] overflow-hidden">
+                                <CardHeader className="p-8 pb-4 text-center border-b border-white/5">
                                     <div className="p-4 bg-black rounded-2xl border border-primary/20 w-fit mx-auto mb-4 shadow-glow">
                                         <Logo className="h-12 w-12" />
                                     </div>
                                     <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic">Manual de Usuario</CardTitle>
                                 </CardHeader>
-                                <CardContent className="p-0 space-y-1">
+                                <CardContent className="p-4 max-h-[calc(100vh-25rem)] overflow-y-auto custom-scrollbar space-y-1">
                                     {manualModules.map(mod => (
                                         <button 
                                             key={mod.id}

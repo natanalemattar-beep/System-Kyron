@@ -1,3 +1,4 @@
+
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -29,7 +30,7 @@ const testimonials = [
     avatarId: "testimonial-avatar-1",
     module: "Arquitectura IA",
     icon: BookOpen,
-    text: "System Kyron ha eliminado el riesgo de pérdida de expedientes por humedad en la U.E.P. Gabriela Mistral. La inmutabilidad de los registros académicos es el blindaje que necesitábamos en La Guaira.",
+    text: "System Kyron ha eliminado el riesgo de pérdida de expedientes por humedad en nuestra Sede Central. La inmutabilidad de los registros académicos es el blindaje que necesitábamos en La Guaira.",
   },
   {
     name: "Ana Pérez",
