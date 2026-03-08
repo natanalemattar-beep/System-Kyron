@@ -15,8 +15,8 @@ import { Logo } from "@/components/logo";
 import Link from "next/link";
 
 /**
- * @fileOverview Modelo Zedu - Parte 1: Información del Equipo.
- * Réplica exacta del formato de documento oficial proporcionado por el usuario.
+ * @fileOverview Modelo Zedu - Expediente de Ingeniería de Alta Fidelidad.
+ * Réplica exacta del formato de documento oficial.
  */
 
 export default function SectorPrivadoPage() {
@@ -34,7 +34,7 @@ export default function SectorPrivadoPage() {
             setIsVerifying(false);
             toast({
                 title: "DOCUMENTO GENERADO",
-                description: "Se ha descargado la Parte 1 del Modelo Zedu.",
+                description: "Se ha descargado el Expediente Maestro (Partes 1 y 2).",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
             window.print();
@@ -65,66 +65,122 @@ export default function SectorPrivadoPage() {
                 </div>
             </div>
 
-            {/* DOCUMENTO - ESTILO OFICIAL */}
-            <div className="max-w-[800px] mx-auto bg-white p-8 md:p-20 shadow-xl border border-slate-200 print:shadow-none print:border-none print:p-0">
+            {/* DOCUMENTO - ESTILO OFICIAL ZEDU */}
+            <div className="max-w-[850px] mx-auto bg-white p-8 md:p-16 shadow-2xl border border-slate-200 print:shadow-none print:border-none print:p-0">
                 
                 {/* Título Principal */}
-                <div className="text-center mb-16">
-                    <h1 className="text-2xl font-bold uppercase tracking-[0.1em] border-b-2 border-black inline-block pb-1 px-4">
+                <div className="text-center mb-12">
+                    <h1 className="text-3xl font-black uppercase tracking-[0.2em] border-b-4 border-black inline-block pb-2 px-6">
                         Modelo Zedu
                     </h1>
                 </div>
 
                 {/* SECCIÓN 1: INFORMACIÓN DEL EQUIPO */}
-                <div className="space-y-6 mb-16">
-                    <h2 className="text-lg font-bold uppercase tracking-widest">
+                <div className="space-y-4 mb-12">
+                    <h2 className="text-lg font-black uppercase tracking-widest">
                         INFORMACIÓN DEL EQUIPO
                     </h2>
                     
-                    <div className="border-[1.5px] border-black overflow-hidden">
-                        {/* NOMBRE DEL PROYECTO */}
-                        <div className="border-b-[1.5px] border-black p-2 bg-white">
-                            <p className="text-sm font-bold uppercase">NOMBRE DEL PROYECTO</p>
+                    <div className="border-[2px] border-black overflow-hidden font-mono">
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">NOMBRE DEL PROYECTO</p>
                         </div>
-                        <div className="border-b-[1.5px] border-black p-3 bg-white min-h-[45px]">
-                            <p className="text-sm font-medium italic">System Kyron</p>
-                        </div>
-
-                        {/* INTEGRANTES DEL EQUIPO */}
-                        <div className="border-b-[1.5px] border-black p-2 bg-white">
-                            <p className="text-sm font-bold uppercase">INTEGRANTES DEL EQUIPO</p>
-                        </div>
-                        <div className="border-b-[1.5px] border-black p-3 bg-white min-h-[45px]">
-                            <p className="text-sm font-medium italic">Carlos Mattar, Sebastian Garrido, Marcos Sousa</p>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-bold italic uppercase tracking-tight">System Kyron</p>
                         </div>
 
-                        {/* INSTITUCIÓN EDUCATIVA */}
-                        <div className="border-b-[1.5px] border-black p-2 bg-white">
-                            <p className="text-sm font-bold uppercase">INSTITUCIÓN EDUCATIVA</p>
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">INTEGRANTES DEL EQUIPO</p>
                         </div>
-                        <div className="border-b-[1.5px] border-black p-3 bg-white min-h-[45px]">
-                            <p className="text-sm font-medium italic">Gabriela Mistral</p>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-bold uppercase">Carlos Mattar, Sebastian Garrido, Marcos Sousa</p>
                         </div>
 
-                        {/* PAÍS/CIUDAD */}
-                        <div className="p-2 bg-white border-b-[1.5px] border-black">
-                            <p className="text-sm font-bold uppercase">PAÍS/CIUDAD</p>
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">INSTITUCIÓN EDUCATIVA</p>
                         </div>
-                        <div className="p-3 bg-white min-h-[45px]">
-                            <p className="text-sm font-medium italic">La Guaira, Catia La Mar, Venezuela</p>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-bold uppercase">U.E.P. Gabriela Mistral</p>
+                        </div>
+
+                        <div className="p-2 bg-slate-50 border-b-[2px] border-black">
+                            <p className="text-[11px] font-black uppercase">PAÍS/CIUDAD</p>
+                        </div>
+                        <div className="p-3 bg-white">
+                            <p className="text-sm font-bold uppercase">Venezuela, La Guaira, Catia La Mar</p>
                         </div>
                     </div>
                 </div>
 
-                {/* Mensaje de espera para la Parte 2 */}
+                {/* SECCIÓN 2: POBLACIÓN A TRABAJAR */}
+                <div className="space-y-4 mb-12">
+                    <h2 className="text-lg font-black uppercase tracking-widest">
+                        POBLACIÓN A TRABAJAR
+                    </h2>
+                    
+                    <div className="border-[2px] border-black overflow-hidden font-mono">
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">PAÍS/ CIUDAD/ MUNICIPIO/ LOCALIDAD ESPECÍFICA</p>
+                        </div>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-bold uppercase">Venezuela, Caracas, Baruta, Santa Rosa de Lima</p>
+                        </div>
+
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">NOMBRE DE LA COMUNIDAD</p>
+                        </div>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-bold uppercase">Santa Rosa de Lima</p>
+                        </div>
+
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">CANTIDAD TOTAL DE HABITANTES</p>
+                        </div>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-bold uppercase">12.450 Habitantes (Aprox.)</p>
+                        </div>
+
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">CANTIDAD DE HABITANTES POR GÉNERO</p>
+                        </div>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-bold uppercase">Femenino: 6.474 (52%) | Masculino: 5.976 (48%)</p>
+                        </div>
+
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">CANTIDAD DE HABITANTES POR EDAD</p>
+                        </div>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-bold uppercase">0-14: 15% | 15-29: 25% | 30-59: 45% | 60+: 15%</p>
+                        </div>
+
+                        <div className="border-b-[2px] border-black p-2 bg-slate-50">
+                            <p className="text-[11px] font-black uppercase">CARACTERÍSTICAS DE LA POBLACIÓN</p>
+                        </div>
+                        <div className="border-b-[2px] border-black p-3 bg-white">
+                            <p className="text-sm font-medium italic leading-relaxed text-justify">
+                                Población de clase media-alta con alta densidad de profesionales y emprendedores. Comunidad con acceso a servicios privados, alta demanda de digitalización y conectividad, y un fuerte enfoque en la seguridad transaccional y el cumplimiento normativo.
+                            </p>
+                        </div>
+
+                        <div className="p-2 bg-slate-50 border-b-[2px] border-black">
+                            <p className="text-[11px] font-black uppercase">CLIMA</p>
+                        </div>
+                        <div className="p-3 bg-white">
+                            <p className="text-sm font-bold uppercase tracking-wide">Tropical de montaña (Temperaturas entre 18°C y 26°C)</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mensaje de espera para la Parte 3 */}
                 <div className="mt-20 p-12 border-2 border-dashed border-slate-100 rounded-3xl text-center bg-slate-50/30 no-print">
-                    <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-300">Esperando inyección de la Parte 2: Población a trabajar...</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-300">Esperando inyección de la Parte 3: Diagnóstico Participativo...</p>
                 </div>
 
                 {/* Footer del Documento */}
-                <div className="mt-32 pt-8 border-t border-slate-100 flex justify-between items-center opacity-20 italic text-[8px] font-bold uppercase tracking-widest">
-                    <span>Kyron Strategic Document • Master Version 2.6.5</span>
-                    <span>Pag. 1 / X</span>
+                <div className="mt-32 pt-8 border-t-2 border-black flex justify-between items-center opacity-40 italic text-[9px] font-black uppercase tracking-widest">
+                    <span>Kyron Strategic Document • Internal Protocol 2.6.5</span>
+                    <span>Página 2 / X</span>
                 </div>
             </div>
         </div>
