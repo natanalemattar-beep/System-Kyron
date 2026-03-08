@@ -1,9 +1,9 @@
 
 "use client";
 
-import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardTitle, CardDescription, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, ShieldAlert, Fingerprint, ArrowRight, Activity, Sparkles } from 'lucide-react';
+import { CheckCircle, Clock, ShieldAlert, Fingerprint, ArrowRight, Activity, Sparkles, Home, FileText, Recycle } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -11,9 +11,9 @@ import { Badge } from "@/components/ui/badge";
 import { formatDate, cn } from "@/lib/utils";
 
 const kpiData = [
-  { title: "Gestiones", value: "2", icon: Clock, color: "text-blue-400", bg: "bg-blue-400/5" },
-  { title: "ID Digital", value: "VALIDADA", icon: CheckCircle, color: "text-emerald-400", bg: "bg-emerald-400/5" },
-  { title: "Alertas", value: "1 CRÍTICA", icon: ShieldAlert, color: "text-rose-400", bg: "bg-rose-400/5" },
+  { title: "Mis Trámites", value: "2", icon: Clock, color: "text-blue-400", bg: "bg-blue-400/5" },
+  { title: "Estado de Cuenta", value: "ACTIVA", icon: CheckCircle, color: "text-emerald-400", bg: "bg-emerald-400/5" },
+  { title: "Avisos Pendientes", value: "1 URGENTE", icon: ShieldAlert, color: "text-rose-400", bg: "bg-rose-400/5" },
 ];
 
 export default function DashboardPersonalPage() {
@@ -23,19 +23,19 @@ export default function DashboardPersonalPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-4 border-primary pl-8 py-2">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/10">
-                <Sparkles className="h-3 w-3 text-yellow-400/80" /> Secure Node 2.6.5
+                <Home className="h-3 w-3" /> MI PORTAL PERSONAL
             </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow">Mi Identidad</h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Activos Legales y Civiles Consolidados</p>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow">Inicio</h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Tus Documentos y Gestiones en un solo lugar</p>
         </div>
         
         <div className="flex gap-3">
             <Button asChild variant="outline" className="h-10 px-6 rounded-xl font-bold text-[9px] uppercase tracking-widest border-white/5 hover:bg-white/5 transition-all shadow-xl">
-                <Link href="/tarjeta-reciclaje">ECO-CRÉDITOS</Link>
+                <Link href="/tarjeta-reciclaje">MIS ECO-PUNTOS</Link>
             </Button>
             <Button asChild className="h-10 px-8 rounded-xl bg-primary text-primary-foreground font-black text-[9px] uppercase tracking-widest btn-3d-primary">
                 <Link href="/tarjeta-digital" className="flex items-center gap-2.5">
-                    <Fingerprint className="h-4 w-4" /> ID DIGITAL
+                    <Fingerprint className="h-4 w-4" /> MI ID DIGITAL
                 </Link>
             </Button>
         </div>
@@ -68,16 +68,16 @@ export default function DashboardPersonalPage() {
       <div className="grid gap-8 grid-cols-1 lg:grid-cols-12">
         <Card className="lg:col-span-8 bg-white/[0.01] border-white/5 rounded-[2rem] overflow-hidden shadow-2xl">
             <div className="p-8 border-b border-white/5 flex items-center justify-between">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Operaciones Inmutables</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Resumen de mis Actividades</h3>
                 <Activity className="h-4 w-4 text-primary/20" />
             </div>
             <CardContent className="p-0">
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-white/[0.01] border-none">
-                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Referencia</TableHead>
-                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Servicio</TableHead>
-                            <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estado</TableHead>
+                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Nº de Orden</TableHead>
+                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Tipo de Servicio</TableHead>
+                            <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -85,12 +85,12 @@ export default function DashboardPersonalPage() {
                             <TableCell className="font-mono text-[10px] font-black text-primary pl-10 py-6 italic">ID-2026-X1-KYR</TableCell>
                             <TableCell className="py-6">
                                 <div className="flex flex-col gap-1">
-                                    <span className="text-xs font-black uppercase tracking-tight text-white/80">Verificación Biométrica 3D</span>
-                                    <span className="text-[9px] text-muted-foreground font-bold uppercase opacity-30 tracking-widest">04 Mar, 2026</span>
+                                    <span className="text-xs font-black uppercase tracking-tight text-white/80">Activación de Cuenta Personal</span>
+                                    <span className="text-[9px] text-muted-foreground font-bold uppercase opacity-30 tracking-widest">Registrado hoy</span>
                                 </div>
                             </TableCell>
                             <TableCell className="text-right pr-10 py-6">
-                                <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest border-emerald-500/20 text-emerald-400 bg-emerald-500/5 h-7 px-3 rounded-lg">VALIDADO</Badge>
+                                <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest border-emerald-500/20 text-emerald-400 bg-emerald-500/5 h-7 px-3 rounded-lg">LISTO</Badge>
                             </TableCell>
                         </TableRow>
                     </TableBody>
@@ -101,18 +101,18 @@ export default function DashboardPersonalPage() {
         <div className="lg:col-span-4 space-y-8">
            <Card className="border-none bg-primary text-primary-foreground rounded-[2rem] overflow-hidden relative group p-1 shadow-2xl">
                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                    <Activity className="h-32 w-32" />
+                    <Smartphone className="h-32 w-32" />
                 </div>
                 <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[1.9rem]">
-                    <div className="space-y-1">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter">Línea Kyron</CardTitle>
-                        <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40">Hyper-Connect 5G</p>
-                    </div>
+                    <CardHeader className="p-0">
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter">Mi Línea</CardTitle>
+                        <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40">Internet y Datos 5G</p>
+                    </CardHeader>
                     <p className="text-xs leading-relaxed font-bold opacity-80 italic">
-                        Activa tu línea vinculada a tu ID digital oficial para acceso preferente.
+                        Activa tu línea telefónica ahora mismo y disfruta de la mejor velocidad del país.
                     </p>
                     <Button variant="secondary" asChild className="w-full h-11 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest">
-                        <Link href="/venta-linea">ACTIVAR <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                        <Link href="/venta-linea">COMPRAR LÍNEA <ArrowRight className="ml-2 h-4 w-4"/></Link>
                     </Button>
                 </div>
            </Card>
@@ -124,8 +124,8 @@ export default function DashboardPersonalPage() {
                     </div>
                     <div className="space-y-2">
                         <p className="font-black text-rose-500 uppercase tracking-[0.3em] text-[9px]">Alerta</p>
-                        <p className="text-white/90 font-black text-base uppercase tracking-tight italic">Renovación RIF</p>
-                        <p className="text-muted-foreground text-[10px] leading-relaxed font-medium">Su registro requiere actualización inmediata para el ciclo 2026.</p>
+                        <p className="text-white/90 font-black text-base uppercase tracking-tight italic">Documentos</p>
+                        <p className="text-muted-foreground text-[10px] leading-relaxed font-medium">Tienes una actualización pendiente sobre tu RIF personal.</p>
                     </div>
                 </div>
            </Card>

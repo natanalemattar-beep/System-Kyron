@@ -11,13 +11,13 @@ import { motion } from "framer-motion";
 
 const menuItems = [
   { id: 'inicio', label: 'Consola Central', icon: LayoutGrid, href: '/dashboard-empresa' },
-  { id: 'zedu', label: 'Protocolo ZEDU', icon: Activity, href: '/estudio-poblacion' },
-  { id: 'telecom', label: 'Kyron 5G / eSIM', icon: Radio, href: '/dashboard-telecom' },
-  { id: 'reciclaje', label: 'Reciclaje Magnético', icon: Recycle, href: '/tarjeta-reciclaje' },
-  { id: 'ia', label: 'Ingeniería IA', icon: Cpu, href: '/dashboard-informatica' },
-  { id: 'contabilidad', label: 'Finanzas & Nómina', icon: BarChart3, href: '/contabilidad' },
-  { id: 'rrhh', label: 'Gestión Talento', icon: Users, href: '/dashboard-rrhh' },
-  { id: 'juridico', label: 'Centro Legal', icon: Gavel, href: '/escritorio-juridico' },
+  { id: 'poblacion', label: 'Estudios de Mercado', icon: Activity, href: '/estudio-poblacion' },
+  { id: 'telecom', label: 'Líneas y Datos', icon: Radio, href: '/dashboard-telecom' },
+  { id: 'reciclaje', label: 'Reciclaje y Puntos', icon: Recycle, href: '/tarjeta-reciclaje' },
+  { id: 'ia', label: 'Proyectos Técnicos', icon: Cpu, href: '/dashboard-informatica' },
+  { id: 'contabilidad', label: 'Contabilidad y Pagos', icon: BarChart3, href: '/contabilidad' },
+  { id: 'rrhh', label: 'Gestión de Empleados', icon: Users, href: '/dashboard-rrhh' },
+  { id: 'juridico', label: 'Asesoría Legal', icon: Gavel, href: '/escritorio-juridico' },
   { id: 'vault', label: 'Sector Privado', icon: Lock, href: '/sector-privado-system-kyron' },
   { id: 'config', label: 'Configuración', icon: Cog, href: '/general' },
 ];
@@ -36,13 +36,13 @@ export function AppSidebar() {
           <Logo className="h-16 w-16 drop-shadow-[0_0_25px_rgba(37,99,235,0.6)]" />
           <div className="text-center">
             <span className="text-[12px] font-black tracking-[0.5em] text-white uppercase italic leading-none italic-shadow">System Kyron</span>
-            <p className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-80">Command Hub v2.6.5</p>
+            <p className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-80">Dashboard v2.6.5</p>
           </div>
         </Link>
       </div>
       
       <nav className="flex-grow py-10 px-6 space-y-2 overflow-y-auto custom-scrollbar relative z-10">
-        <p className="text-[9px] font-black uppercase text-primary/60 tracking-[0.6em] mb-8 px-4 italic border-l-2 border-primary/20 ml-2">Hardware Root</p>
+        <p className="text-[9px] font-black uppercase text-primary/60 tracking-[0.6em] mb-8 px-4 italic border-l-2 border-primary/20 ml-2">Menú Principal</p>
         {menuItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
           return (
@@ -73,7 +73,7 @@ export function AppSidebar() {
       <div className="p-6 border-t border-white/10 bg-black/60 relative z-10">
         <div className="flex items-center justify-center gap-3 p-5 rounded-2xl bg-primary/5 border border-primary/10 shadow-inner group transition-all hover:bg-primary/10">
             <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_12px_#10b981]" />
-            <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.4em] group-hover:text-primary transition-colors">Secured Stream</span>
+            <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.4em] group-hover:text-primary transition-colors">En Línea</span>
         </div>
       </div>
     </aside>

@@ -1,59 +1,59 @@
 
-import { User, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Banknote, Signal } from "lucide-react";
+import { User, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Banknote, Signal, Recycle } from "lucide-react";
 
 export const loginOptions = [
     { 
         href: "/login-personal", 
-        label: "Acceso Personal", 
+        label: "Mi Cuenta Personal", 
         icon: User, 
-        description: "Bóveda digital ciudadana para gestionar documentos de identidad, trámites civiles y servicios de salud integrados de forma segura." 
+        description: "Accede a tus documentos de identidad, trámites civiles y servicios de salud en un solo lugar seguro." 
     },
     { 
         href: "/login-empresa", 
-        label: "Centro de Contabilidad", 
+        label: "Contabilidad", 
         icon: Banknote, 
-        description: "Dashboard de gestión financiera integral con automatización contable, cumplimiento fiscal SENIAT y auditoría predictiva continua." 
+        description: "Gestiona las finanzas de tu negocio, impuestos y reportes bancarios de forma automática." 
     },
     { 
         href: "/login-escritorio-juridico", 
-        label: "Escritorio Jurídico", 
+        label: "Asesoría Legal", 
         icon: Gavel, 
-        description: "Gestión legal corporativa avanzada para el control de contratos, poderes de representación y monitoreo de cumplimiento normativo." 
+        description: "Control total de tus contratos, documentos legales y trámites ante registros y notarías." 
     },
     { 
         href: "/login-ventas", 
-        label: "Ventas y Facturación", 
+        label: "Facturación y Ventas", 
         icon: ShoppingCart, 
-        description: "Punto de Venta (TPV) inteligente con sincronización de inventario en tiempo real, facturación fiscal y procesamiento de pagos multimoneda." 
+        description: "Tu punto de venta para cobrar, controlar el inventario y recibir pagos en cualquier moneda." 
     },
     { 
         href: "/login-rrhh", 
-        label: "Gestión de RR.HH.", 
+        label: "Empleados", 
         icon: Briefcase, 
-        description: "Portal de talento humano para la administración de nóminas, beneficios laborales, reclutamiento y expedientes de personal automatizados." 
+        description: "Administra el pago de nóminas, beneficios, vacaciones y expedientes de todo tu equipo." 
     },
     { 
         href: "/login-socios", 
-        label: "Portal de Socios", 
+        label: "Socios y Holdings", 
         icon: Users, 
-        description: "Centro de mando ejecutivo para la supervisión de holdings, análisis de rentabilidad del grupo y toma de decisiones estratégicas basadas en datos." 
+        description: "Supervisión de empresas, reparto de ganancias y análisis de crecimiento para dueños y directivos." 
     },
     { 
         href: "/login-marketing", 
-        label: "Marketing y Crecimiento", 
+        label: "Marketing", 
         icon: Megaphone, 
-        description: "Herramientas de Business Intelligence para análisis de competencia, generación de estrategias de venta con IA y fidelización de clientes." 
+        description: "Mejora tus ventas con análisis de clientes, publicidad y estrategias inteligentes." 
     },
     { 
         href: "/login-telecom", 
-        label: "Gestión de Telecom", 
+        label: "Líneas y Conectividad", 
         icon: Signal, 
-        description: "Administración operativa de infraestructura de redes, cumplimiento ante CONATEL y sistemas de activación de líneas de comunicación." 
+        description: "Gestiona tus líneas telefónicas, planes de datos 5G y equipos de comunicación." 
     },
     { 
         href: "/login-informatica", 
-        label: "Ingeniería e IT", 
+        label: "Proyectos Técnicos", 
         icon: Cpu, 
-        description: "Control de infraestructura tecnológica, arquitectura de software, ciberseguridad avanzada y despliegue de soluciones de IA aplicadas." 
+        description: "Control de infraestructura tecnológica, planos, presupuestos y soporte técnico avanzado." 
     },
 ];
