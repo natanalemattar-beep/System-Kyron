@@ -1,8 +1,5 @@
 
-import { redirect } from '@/navigation';
-
-export default function DashboardEmpresaRedirect() {
-  // ARCHIVO NEUTRALIZADO PARA EVITAR COLISIÓN CON EL GRUPO (ADMIN)
-  redirect('/dashboard-empresa');
+// ESTE ARCHIVO HA SIDO DESHABILITADO PARA EVITAR COLISIÓN DE RUTAS CON (ADMIN)
+export default function DisabledPage() {
   return null;
 }

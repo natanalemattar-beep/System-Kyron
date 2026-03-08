@@ -35,7 +35,7 @@ export default function LoginPersonalPage() {
         
         setTimeout(() => {
             if (email === DEMO_EMAIL && password === DEMO_PASS) {
-                toast({ title: "¡Hola de nuevo!", description: "Acceso concedido a tu portal personal." });
+                toast({ title: "¡Bienvenido, Carlos!", description: "Acceso concedido a tu cuenta personal." });
                 router.push('/dashboard');
             } else {
                 setError("Correo o contraseña incorrectos.");
@@ -50,7 +50,7 @@ export default function LoginPersonalPage() {
             setIsScanning(false);
             toast({ 
                 title: "✅ Identidad Confirmada", 
-                description: "Bienvenido Carlos. Accediendo con biometría 3D." 
+                description: "Acceso biométrico exitoso. Bienvenido, Carlos." 
             });
             router.push('/dashboard');
         }, 2000);
@@ -93,7 +93,7 @@ export default function LoginPersonalPage() {
                             
                             <div className="space-y-2">
                                 <Label htmlFor="email" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 ml-1">Correo Electrónico</Label>
-                                <Input id="email" name="email" type="email" placeholder="carlos@ejemplo.com" required className="h-12 text-sm px-5 rounded-xl bg-white/[0.03] border-white/10 text-white focus-visible:ring-primary font-medium" />
+                                <Input id="email" name="email" type="email" placeholder="ejemplo@correo.com" required className="h-12 text-sm px-5 rounded-xl bg-white/[0.03] border-white/10 text-white focus-visible:ring-primary font-medium" />
                             </div>
                             
                             <div className="space-y-2">
@@ -105,7 +105,7 @@ export default function LoginPersonalPage() {
                             </div>
 
                             <Button type="submit" className="w-full text-xs font-black h-14 rounded-2xl shadow-glow btn-3d-primary uppercase tracking-widest" disabled={isLoading || isScanning}>
-                                {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'ENTRAR AL PORTAL'}
+                                {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'ACCEDER AL PORTAL'}
                             </Button>
                         </form>
 
@@ -139,17 +139,17 @@ export default function LoginPersonalPage() {
                                 )}
                             </button>
                             <p className="text-[10px] font-black text-white/30 uppercase tracking-widest text-center">
-                                {isScanning ? "ESCANEANDO HUELLA..." : "Toca el lector para acceso biométrico"}
+                                {isScanning ? "VERIFICANDO BIOMETRÍA..." : "Toca para iniciar escaneo facial/huella"}
                             </p>
                         </div>
                     </CardContent>
 
                     <CardFooter className="p-10 pt-0 border-t border-white/5 bg-white/[0.01] flex flex-col items-center">
-                        <p className="text-[10px] text-white/40 uppercase font-bold tracking-widest mb-4">¿Aún no eres parte del ecosistema?</p>
+                        <p className="text-[10px] text-white/40 uppercase font-bold tracking-widest mb-4">¿No tienes una cuenta personal?</p>
                         <Button variant="outline" asChild className="w-full h-12 rounded-xl border-white/10 bg-white/5 text-[9px] font-black uppercase tracking-widest hover:bg-white/10">
-                            <Link href="/register/natural">CREAR MI CUENTA PERSONAL</Link>
+                            <Link href="/register/natural">REGISTRARSE AHORA</Link>
                         </Button>
-                        <p className="mt-8 text-[8px] text-white/10 uppercase font-black tracking-[0.5em]">System Kyron v2.6.5 • SSL Secure Node</p>
+                        <p className="mt-8 text-[8px] text-white/10 uppercase font-black tracking-[0.5em]">System Kyron v2.6.5 • SSL Secure Connection</p>
                     </CardFooter>
                 </Card>
             </motion.div>

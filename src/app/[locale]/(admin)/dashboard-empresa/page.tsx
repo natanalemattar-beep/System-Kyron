@@ -37,9 +37,9 @@ export default function DashboardPage() {
       <header className="flex flex-col md:flex-row justify-between items-end gap-6 border-l border-white/10 pl-10 py-2">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-white/5 text-white/40 text-[9px] font-bold uppercase tracking-widest border border-white/5">
-                <LayoutGrid className="h-3 w-3" /> Panel de Control
+                <LayoutGrid className="h-3 w-3" /> PANEL DE CONTROL
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic italic-shadow">Centro de <span className="text-white/20">Mando</span></h1>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic italic-shadow">Resumen de <span className="text-white/20">Negocio</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest opacity-40">System Kyron • Gestión Corporativa 2.6</p>
         </div>
         <div className="flex gap-3">
@@ -90,7 +90,7 @@ export default function DashboardPage() {
         <div className="grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-12">
                 <div className="flex items-center gap-6 mb-8">
-                    <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">Módulos del Sistema</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">Módulos de Gestión</h2>
                     <div className="h-[1px] flex-1 bg-white/5"></div>
                 </div>
                 <QuickAccess navGroups={adminNavGroups} />

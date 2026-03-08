@@ -16,23 +16,23 @@ const personalMenu = [
   { id: 'identidad', label: 'Mi Identidad', icon: Fingerprint, href: '/dashboard' },
   { id: 'documentos', label: 'Mis Documentos', icon: FileText, href: '/documentos' },
   { id: 'linea', label: 'Mi Línea', icon: Smartphone, href: '/venta-linea' },
-  { id: 'reciclaje', label: 'Mis Puntos', icon: Recycle, href: '/tarjeta-reciclaje' },
+  { id: 'reciclaje', label: 'Mis Puntos Verdes', icon: Recycle, href: '/tarjeta-reciclaje' },
   { id: 'alertas', label: 'Mis Avisos', icon: Bell, href: '/notificaciones' },
   { id: 'config', label: 'Configuración', icon: Cog, href: '/seguridad' },
 ];
 
 const corporativoMenu = [
-  { id: 'admin', label: 'Empresa', icon: Briefcase, href: '/dashboard-empresa' },
+  { id: 'admin', label: 'Administración', icon: Briefcase, href: '/dashboard-empresa' },
   { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3, href: '/contabilidad' },
   { id: 'legal', label: 'Asesoría Legal', icon: Gavel, href: '/escritorio-juridico' },
-  { id: 'holding', label: 'Socios y Junta', icon: Users, href: '/dashboard-socios' },
+  { id: 'holding', label: 'Socios y Directivos', icon: Users, href: '/dashboard-socios' },
 ];
 
 export function AppSidebar() {
   const pathname = usePathname();
 
   const MenuItem = ({ item }: { item: any }) => {
-    const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
+    const isActive = pathname === item.href || (item.href !== '/inicio' && pathname.startsWith(item.href));
     return (
       <Link 
         href={item.href as any}
@@ -65,7 +65,7 @@ export function AppSidebar() {
           <Logo className="h-14 w-14 drop-shadow-[0_0_20px_rgba(37,99,235,0.4)]" />
           <div className="text-center">
             <span className="text-[11px] font-black tracking-[0.5em] text-white uppercase italic italic-shadow">System Kyron</span>
-            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-60 italic">Plataforma de Gestión v2.6</p>
+            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-60 italic">Gestión Integral v2.6</p>
           </div>
         </Link>
       </div>
