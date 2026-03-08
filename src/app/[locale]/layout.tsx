@@ -1,40 +1,46 @@
-
-import type { ReactNode } from "react";
+import { ReactNode } from "react";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
+import { Providers } from "@/components/providers";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { VoiceAssistant } from "@/components/voice-assistant";
-import { locales } from "@/navigation";
-import { Providers } from "@/components/providers";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import "@/app/globals.css";
+import { locales } from '@/navigation';
+import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({
-  children,
-  params
-}: {
+interface LocaleLayoutProps {
   children: ReactNode;
   params: Promise<{ locale: string }>;
-}) {
+}
+
+/**
+ * @fileOverview Layout principal por idioma.
+ * Proporciona el contexto de i18n, los proveedores globales y la estructura HTML base.
+ */
+export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+
+  // Verificar que el locale sea válido
+  if (!locales.includes(locale as any)) {
+    notFound();
+  }
+
+  // Obtener mensajes para el proveedor
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang={locale} suppressHydrationWarning>
       <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-background text-foreground overflow-x-hidden">
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
-              <DynamicBackground />
-              <div className="relative flex min-h-screen flex-col">
-                  {children}
-                  <VoiceAssistant />
-              </div>
+            <DynamicBackground />
+            <div className="relative flex min-h-screen flex-col">
+              {children}
+              <VoiceAssistant />
+            </div>
           </NextIntlClientProvider>
         </Providers>
       </body>

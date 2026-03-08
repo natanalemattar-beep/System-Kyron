@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Bot, Send, MessageCircle, ChevronRight, X, User, Wallet, Activity, Loader2 } from "lucide-react";
+import { Bot, Send, MessageCircle, ChevronRight, X, User, Wallet, Activity, Loader2, Sparkles } from "lucide-react";
 import { 
   Sheet, 
   SheetContent, 
@@ -31,7 +31,7 @@ const getPageContext = (pathname: string) => {
   if (pathname.includes('/contabilidad')) return "el dashboard del portal de Contabilidad";
   if (pathname.includes('/analisis-ventas')) return "el dashboard de Análisis de Ventas";
   if (pathname.includes('/dashboard-rrhh')) return "el dashboard de Recursos Humanos";
-  if (pathname.includes('/asesoria-legal')) return "el dashboard del Escritorio Jurídico";
+  if (pathname.includes('/escritorio-juridico')) return "el dashboard del Escritorio Jurídico";
   if (pathname.includes('/dashboard-socios')) return "el dashboard para Socios y Directivos (Holding)";
   if (pathname.includes('/dashboard-informatica')) return "el dashboard de Ingeniería e Informática";
   if (pathname.includes('/dashboard-telecom')) return "el dashboard de Telecomunicaciones";
@@ -62,12 +62,13 @@ export function ChatDialog() {
 
     const userMessage: Message = { role: 'user', text: input };
     setMessages(prev => [...prev, userMessage]);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
 
     try {
-      const pageContext = getPageContext(pathname);
-      const botResponse = await chat({ message: input, context: pageContext });
+      const pageContext = getPageContext(pathname || "");
+      const botResponse = await chat({ message: currentInput, context: pageContext });
       const botMessage: Message = { role: 'bot', text: botResponse };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
@@ -89,13 +90,13 @@ export function ChatDialog() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size="icon" className="fixed bottom-6 right-6 h-14 w-14 md:h-16 md:w-16 rounded-full shadow-glow btn-3d-primary z-[100] group">
+        <Button size="icon" className="fixed bottom-6 right-6 h-14 w-14 md:h-16 md:w-16 rounded-full shadow-glow btn-3d-primary z-[100] group border-2 border-white/10">
           <Bot className="h-7 w-7 md:h-8 md:w-8 group-hover:scale-110 transition-transform" />
-          <div className="absolute -top-1 -right-1 h-4 w-4 bg-emerald-500 rounded-full border-2 border-background animate-pulse" />
+          <div className="absolute -top-1 -right-1 h-4 w-4 bg-emerald-500 rounded-full border-2 border-[#020202] animate-pulse shadow-glow-secondary" />
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-black/95 backdrop-blur-3xl border-l-white/10 flex flex-col h-full">
-        <SheetHeader className="p-6 md:p-8 border-b border-white/5">
+        <SheetHeader className="p-6 md:p-8 border-b border-white/5 bg-white/[0.02]">
           <div className="flex items-center gap-4">
             <div className="p-2 bg-primary/10 rounded-xl border border-primary/20 shadow-glow-sm">
               <Bot className="h-6 w-6 text-primary" />
@@ -107,7 +108,7 @@ export function ChatDialog() {
           </div>
         </SheetHeader>
 
-        <div className="p-4 bg-white/5 border-b border-white/5 flex gap-2 overflow-x-auto no-scrollbar">
+        <div className="p-4 bg-white/[0.01] border-b border-white/5 flex gap-2 overflow-x-auto no-scrollbar">
             <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-primary/20 text-primary bg-primary/5 shrink-0" onClick={showWalletSummary}>
                 <Wallet className="mr-2 h-3 w-3" /> Ver Billetera
             </Button>
@@ -152,7 +153,7 @@ export function ChatDialog() {
                   <p className="text-xs font-bold text-white/80">{item.text}</p>
                   <p className="text-[8px] font-medium text-white/20 uppercase">{item.time}</p>
                 </div>
-                <Badge variant="outline" className="text-[7px] border-primary/20 text-primary uppercase">{item.status}</Badge>
+                <Badge variant="outline" className="text-[7px] border-primary/20 text-primary uppercase h-5">{item.status}</Badge>
               </div>
             ))}
           </TabsContent>
@@ -183,7 +184,7 @@ export function ChatDialog() {
               {messages.length === 0 && !isLoading ? (
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-30 px-8">
                   <MessageCircle className="h-12 w-12 mb-4" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.4em]">¿En qué puedo ayudarte hoy?</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em]">Enlace Neuronal Activo</p>
                 </div>
               ) : (
                 messages.map((msg, index) => (
@@ -191,7 +192,7 @@ export function ChatDialog() {
                     <div className={cn('p-2 rounded-lg border shrink-0', msg.role === 'user' ? 'bg-primary/10 border-primary/20' : 'bg-white/5 border-white/10')}>
                       {msg.role === 'user' ? <User className="h-3 w-3 text-primary" /> : <Bot className="h-3 w-3 text-emerald-500" />}
                     </div>
-                    <div className={cn('max-w-[85%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed', msg.role === 'user' ? 'bg-primary text-white' : 'bg-white/5 text-white/80')}>
+                    <div className={cn('max-w-[85%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed', msg.role === 'user' ? 'bg-primary text-white' : 'bg-white/5 text-white/80 shadow-sm')}>
                       {msg.text}
                     </div>
                   </div>
@@ -200,7 +201,7 @@ export function ChatDialog() {
               {isLoading && (
                 <div className="flex items-start gap-3">
                   <div className="p-2 rounded-lg bg-white/5 border border-white/10 shrink-0"><Bot className="h-3 w-3 text-emerald-500" /></div>
-                  <div className="bg-white/5 rounded-2xl p-4"><ThinkingAnimation /></div>
+                  <div className="bg-white/5 rounded-2xl p-4 shadow-inner"><ThinkingAnimation /></div>
                 </div>
               )}
             </div>
@@ -209,7 +210,7 @@ export function ChatDialog() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Escribir comando..." 
-                className="h-12 rounded-xl bg-white/5 border-white/10 text-xs font-bold focus-visible:ring-primary shadow-inner"
+                className="h-12 rounded-xl bg-white/5 border-white/10 text-xs font-bold focus-visible:ring-primary shadow-inner text-white"
                 disabled={isLoading}
               />
               <Button type="submit" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-10 w-10 btn-3d-primary rounded-lg" disabled={isLoading || !input.trim()}>
@@ -219,8 +220,8 @@ export function ChatDialog() {
           </TabsContent>
         </Tabs>
 
-        <footer className="p-6 border-t border-white/5 bg-white/[0.02] text-center">
-          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10">System Kyron • 2026</p>
+        <footer className="p-6 border-t border-white/5 bg-black/40 text-center">
+          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10 italic">Kyron Intelligence • 2026</p>
         </footer>
       </SheetContent>
     </Sheet>

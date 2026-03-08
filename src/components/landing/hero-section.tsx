@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from "framer-motion";
@@ -8,23 +7,21 @@ import { Card } from "@/components/ui/card";
 import { Link } from "@/navigation";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { useTranslations } from 'next-intl';
 
-/**
- * @fileOverview Hero Section: Ingeniería Estética y Adaptabilidad Total.
- * Diseño HUD con nombres normales y adaptabilidad móvil pro.
- */
 export function HeroSection() {
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-tech-visual");
+  const t = useTranslations('HeroSection');
 
   return (
     <section id="inicio" className="relative pt-32 pb-12 md:pt-48 md:pb-32 overflow-hidden min-h-[90vh] flex items-center bg-transparent">
       
-      {/* Líneas HUD de Arquitectura */}
+      {/* Líneas HUD de Arquitectura Técnica */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden opacity-20">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-primary/40 via-transparent to-transparent" />
         <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
         
-        {/* Marcadores de Esquina */}
+        {/* Marcadores de Esquina de Precisión */}
         <div className="absolute top-24 left-6 md:left-10 w-6 md:w-8 h-6 md:h-8 border-t-2 border-l-2 border-primary/30" />
         <div className="absolute top-24 right-6 md:right-10 w-6 md:w-8 h-6 md:h-8 border-t-2 border-r-2 border-primary/30" />
       </div>
@@ -38,30 +35,30 @@ export function HeroSection() {
             transition={{ duration: 0.8 }}
             className="space-y-8 text-center lg:text-left"
           >
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-lg bg-primary/5 text-[8px] md:text-[9px] font-black uppercase tracking-[0.4em] text-primary border border-primary/10 mx-auto lg:ml-0">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-lg bg-primary/5 text-[8px] md:text-[9px] font-black uppercase tracking-[0.4em] text-primary border border-primary/10 mx-auto lg:ml-0 shadow-glow-sm">
               <Activity className="h-3 w-3 animate-pulse" /> SISTEMA OPERATIVO ACTIVO
             </div>
 
             <div className="space-y-4">
-                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase italic leading-tight italic-shadow">
-                  KYRON <span className="text-primary not-italic">SYSTEM</span>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase italic leading-tight italic-shadow">
+                  {t('title')}
                 </h1>
-                <p className="text-primary font-black uppercase tracking-[0.4em] text-[9px] opacity-60">
-                  EFICIENCIA SIN FRONTERAS • 2026
+                <p className="text-primary font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] opacity-60">
+                  {t('slogan')}
                 </p>
                 <p className="text-sm md:text-lg text-white/60 max-w-lg mx-auto lg:ml-0 font-bold uppercase tracking-tight italic border-l-0 lg:border-l-4 border-primary/20 lg:pl-6">
-                  Ecosistema de gestión integral para empresas de alto rendimiento.
+                  {t('subtitle')}
                 </p>
             </div>
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
                 <Button asChild size="lg" className="btn-3d-primary h-12 md:h-14 px-8 text-[9px] font-black uppercase tracking-widest rounded-xl w-full sm:w-auto shadow-2xl">
                     <Link href="/register" className="flex items-center gap-3 justify-center">
-                        SOLICITAR AFILIACIÓN <ArrowRight className="h-4 w-4" />
+                        {t('cta_main')} <ArrowRight className="h-4 w-4" />
                     </Link>
                 </Button>
-                <Button variant="outline" asChild size="lg" className="h-12 md:h-14 px-8 text-[9px] font-black uppercase tracking-widest rounded-xl border-white/10 bg-white/[0.02] w-full sm:w-auto">
-                    <Link href="/manual-usuario">GUÍA DE USUARIO</Link>
+                <Button variant="outline" asChild size="lg" className="h-12 md:h-14 px-8 text-[9px] font-black uppercase tracking-widest rounded-xl border-white/10 bg-white/[0.02] w-full sm:w-auto hover:bg-white/5">
+                    <Link href="/manual-usuario">{t('cta_secondary')}</Link>
                 </Button>
             </div>
 

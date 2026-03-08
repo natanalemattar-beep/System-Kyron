@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from "next/image";
@@ -56,7 +55,7 @@ export function FeaturesSection() {
                         key={feature.title} 
                         className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 md:p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all group"
                     >
-                        <div className="p-4 bg-primary/10 text-primary rounded-2xl shrink-0 group-hover:scale-110 transition-transform">
+                        <div className="p-4 bg-primary/10 text-primary rounded-2xl shrink-0 group-hover:scale-110 transition-transform shadow-inner">
                           <feature.icon className="h-6 w-6" />
                         </div>
                         <div className="space-y-2 text-center sm:text-left">
