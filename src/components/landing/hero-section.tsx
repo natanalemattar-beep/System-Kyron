@@ -88,8 +88,8 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.2 }}
             className="relative w-full"
           >
-                <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                    <Card className="col-span-1 sm:col-span-2 glass-card border-none p-2 rounded-[2.5rem] shadow-2xl overflow-hidden group bg-white/[0.03]">
+                <div className="relative grid grid-cols-1 gap-4 md:gap-6">
+                    <Card className="glass-card border-none p-2 rounded-[2.5rem] shadow-2xl overflow-hidden group bg-white/[0.03]">
                         <div className="aspect-video relative rounded-[2.2rem] overflow-hidden">
                             {heroImage && (
                                 <Image 
@@ -110,13 +110,7 @@ export function HeroSection() {
                     <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left">
                         <Magnet className="h-6 w-6 text-secondary mb-4" />
                         <h3 className="font-black text-[9px] uppercase italic text-white mb-1">SENSOR MAGNÉTICO</h3>
-                        <p className="text-[7px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Trazabilidad de activos garantizada.</p>
-                    </Card>
-                    
-                    <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left">
-                        <Smartphone className="h-6 w-6 text-primary mb-4" />
-                        <h3 className="font-black text-[9px] uppercase italic text-white mb-1">EQUIPOS PRO X</h3>
-                        <p className="text-[7px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Validación digital integrada.</p>
+                        <p className="text-[7px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Trazabilidad de activos y reciclaje inteligente.</p>
                     </Card>
                 </div>
           </motion.div>

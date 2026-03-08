@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -104,10 +105,10 @@ export default function DashboardPersonalPage() {
                 </CardHeader>
                 <CardContent className="px-8 pb-8 space-y-4">
                     <p className="text-xs leading-relaxed font-medium">
-                        Adquiere tu Smartphone Kyron Pro X y activa tu línea con asignación inmediata de número desde este portal.
+                        Activa tu línea 5G con asignación inmediata de número y disfruta de la red más rápida del ecosistema.
                     </p>
                     <Button variant="secondary" asChild className="w-full h-12 text-xs font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-tighter">
-                        <Link href="/venta-linea">EXPLORAR TIENDA</Link>
+                        <Link href="/venta-linea">GESTIONAR LÍNEA</Link>
                     </Button>
                 </CardContent>
            </Card>

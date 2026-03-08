@@ -55,7 +55,7 @@ export default function VentaLineaPage() {
                     Activación de Líneas Kyron
                 </h1>
                 <p className="text-muted-foreground mt-2 text-xs md:text-sm font-medium uppercase tracking-widest opacity-60">
-                    Asignación inmediata de números telefónicos y servicios 5G.
+                    Asignación inmediata de números telefónicos y servicios de datos 5G.
                 </p>
             </header>
 

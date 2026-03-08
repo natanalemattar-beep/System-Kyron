@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -18,7 +19,6 @@ const budgetData = [
   { item: "Infraestructura Telecom (5G/Contrato Mayorista)", cost: 5000 },
   { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", cost: 1000 },
   { item: "Gestión eSIM y Nodo de Datos", cost: 2500 },
-  { item: "Equipos Homologados (Smartphones/Tablets)", cost: 9600 },
   { item: "Ecosistema Web & Cloud Ledger", cost: 4500 },
   { item: "Módulo Inteligencia Artificial Fiscal", cost: 1000 },
   { item: "Hardware Papeleras Magnéticas (Sensores)", cost: 683 },

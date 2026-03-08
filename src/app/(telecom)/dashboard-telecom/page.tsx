@@ -46,7 +46,7 @@ export default function DashboardTelecomPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-amber-500 shadow-glow mb-4">
                 <Signal className="h-3 w-3" /> NODO NOC
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Plataforma de <span className="text-amber-500 italic">Operaciones Telecom</span></h1>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Operaciones <span className="text-amber-500 italic">Telecom</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Infraestructura 5G Digital • Provisión eUICC v2.6</p>
         </div>
         <div className="flex gap-2">
@@ -169,7 +169,7 @@ export default function DashboardTelecomPage() {
                           </div>
                           <div className="flex gap-8 items-start">
                               <span className="font-black text-xs text-amber-500">[4]</span>
-                              <span>Gestión remota de dispositivos homologados Kyron Pro X vinculados a la ID Digital.</span>
+                              <span>Gestión remota de perfiles eSIM vinculados a la ID Digital.</span>
                           </div>
                       </div>
                   </div>

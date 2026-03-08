@@ -54,7 +54,7 @@ const proposalSections = [
 
 const indicators = [
     { label: "Valor Actual Neto (VAN)", value: 450000, desc: "Rendimiento neto proyectado en valor presente.", icon: TrendingUp },
-    { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Eficiencia anual esperada del capital invertido.", icon: Target },
+    { label: "Tasa Interna de Retorno (TIR)", value: 0.285, desc: "Eficiencia anual esperada del capital investido.", icon: Target },
     { label: "Periodo de Recuperación", value: "2.4 años", desc: "Tiempo estimado de retorno de inversión inicial.", icon: Activity },
     { label: "Margen de Contribución", value: 0.32, desc: "Eficiencia neta por cada flujo transaccional.", icon: BarChart3 },
 ];
@@ -77,7 +77,7 @@ const zeduMasterData = {
                 { label: "Denominación del Nodo", val: "System Kyron v2.6.5" },
                 { label: "Dirección de Liderazgo", val: "C. Mattar, S. Garrido, M. Sousa" },
                 { label: "Consejo Consultivo", val: "W. López, M. Corro, M. Hernández" },
-                { label: "Institución Sede Administrativa", val: "U.E.P. Gabriela Mistral" },
+                { label: "Institución Sede Administrativa", val: "Nodo de Operaciones Central" },
                 { label: "Localización de Nodo Maestro", val: "Estado La Guaira, República Bolivariana de Venezuela" },
             ]
         },
@@ -112,14 +112,13 @@ const zeduMasterData = {
 
 const budgetTableData = [
     { item: "Infraestructura de Red 5G / Core", cant: "1 Nodo", costo: "$5,000", lugar: "Kyron Corp" },
-    { item: "Lote Terminales eSIM Habilitados", cant: "1000 Unid.", costo: "$1,000", lugar: "Manufactura" },
-    { item: "Dispositivos Móviles Homologados", cant: "12 Unid.", costo: "$9,600", lugar: "Suministros" },
+    { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", cant: "1000 Unid.", costo: "$1,000", lugar: "Manufactura" },
     { item: "Módulos de Inducción Smart Bins", cant: "5 Unid.", costo: "$683", lugar: "Ensamblaje" },
     { item: "Licenciamiento Cloud Enterprise", cant: "1 Nodo", costo: "$4,500", lugar: "SaaS Kyron" },
 ];
 
 const alliesTableData = [
-    { aliado: "U.E.P. Gabriela Mistral", apoyo: "Centro de Operaciones / Nodo Educativo" },
+    { aliado: "Centro de Operaciones Kyron", apoyo: "Sede de Operaciones / Nodo Educativo" },
     { aliado: "Federación de Comercios La Atlántida", apoyo: "Red de Validación Operativa Beta" },
     { aliado: "Consorcio Legal & Fiscal Nacional", apoyo: "Certificación de Normativa VEN-NIF" },
 ];

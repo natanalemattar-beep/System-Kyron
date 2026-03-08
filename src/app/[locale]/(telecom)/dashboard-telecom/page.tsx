@@ -12,7 +12,8 @@ import {
   Globe,
   Cpu,
   Database,
-  FileText
+  FileText,
+  Terminal
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -151,7 +152,7 @@ export default function DashboardTelecomPage() {
               <div className="lg:col-span-7 space-y-12">
                   <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 shadow-inner">
                       <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-amber-400 mb-10 flex items-center gap-3">
-                          <Activity className="h-4 w-4" /> Gestión de Servicios Digitales
+                          <Terminal className="h-4 w-4" /> Gestión de Servicios Digitales
                       </h4>
                       <div className="text-sm font-bold italic text-white/70 leading-relaxed text-justify space-y-6">
                           <div className="flex gap-8 items-start">
@@ -168,7 +169,7 @@ export default function DashboardTelecomPage() {
                           </div>
                           <div className="flex gap-8 items-start">
                               <span className="font-black text-xs text-amber-500">[4]</span>
-                              <span>Administración centralizada de dispositivos móviles de la empresa.</span>
+                              <span>Administración centralizada de perfiles eSIM vinculados a la ID Digital.</span>
                           </div>
                       </div>
                   </div>
