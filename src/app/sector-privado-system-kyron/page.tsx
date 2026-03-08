@@ -16,17 +16,21 @@ import {
   Activity,
   Zap,
   Terminal,
-  Database
+  Database,
+  Users,
+  Target,
+  BarChart3
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 /**
  * @fileOverview Expediente Maestro ZEDU - Ingeniería de Alta Fidelidad.
- * Remake estético total con identidad Kyron (Azul/Verde) y exportación institucional.
+ * Estructura de 4 partes basada en el modelo oficial con colores azul/verde Kyron.
  */
 
 export default function SectorPrivadoPage() {
@@ -55,8 +59,6 @@ export default function SectorPrivadoPage() {
                         .section-title { background-color: #f0f7ff; font-weight: bold; text-transform: uppercase; font-size: 14pt; padding: 12px; border: 1.5pt solid #000; }
                         .label { font-weight: bold; font-size: 9pt; text-transform: uppercase; color: #444; }
                         .value { font-size: 11pt; font-weight: bold; }
-                        .header-table { border: none; margin-bottom: 40px; }
-                        .header-table td { border: none; }
                     </style>
                 </head>
                 <body>
@@ -141,7 +143,7 @@ export default function SectorPrivadoPage() {
                         <Logo className="w-[600px] h-[600px] grayscale" />
                     </div>
 
-                    {/* Sello de Verificación Superior */}
+                    {/* Encabezado Institucional */}
                     <div className="flex justify-between items-start mb-12 border-b-2 border-primary/20 pb-8">
                         <div className="space-y-1">
                             <div className="flex items-center gap-3">
@@ -159,20 +161,11 @@ export default function SectorPrivadoPage() {
                         </div>
                     </div>
 
-                    {/* Título Principal */}
-                    <div className="text-center mb-16 space-y-4">
-                        <h1 className="text-5xl font-black uppercase tracking-[0.2em] italic-shadow leading-none">
-                            Modelo ZEDU
-                        </h1>
-                        <div className="h-1.5 w-24 bg-primary mx-auto rounded-full" />
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.6em] mt-4">Expediente de Ingeniería Maestro</p>
-                    </div>
-
-                    {/* SECCIÓN 1: INFORMACIÓN DEL EQUIPO */}
+                    {/* PARTE 1: INFORMACIÓN DEL EQUIPO */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Users className="h-5 w-5 text-primary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">1. Información del Equipo Técnico</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">1. Información del Equipo Técnico</h2>
                         </div>
                         
                         <div className="border-[1.5px] border-black overflow-hidden rounded-2xl shadow-sm">
@@ -181,181 +174,124 @@ export default function SectorPrivadoPage() {
                                     <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
                                         <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Proyecto</p>
                                     </div>
-                                    <div className="p-5">
-                                        <p className="text-sm font-black uppercase italic text-primary">System Kyron</p>
-                                    </div>
+                                    <div className="p-5"><p className="text-sm font-black uppercase italic text-primary">System Kyron</p></div>
                                 </div>
                                 <div className="col-span-2">
                                     <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Integrantes del Equipo</p>
+                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Integrantes</p>
                                     </div>
                                     <div className="p-5 font-mono">
-                                        <p className="text-xs font-bold uppercase leading-relaxed">
-                                            Carlos Mattar <span className="text-slate-300 mx-3">|</span> 
-                                            Sebastian Garrido <span className="text-slate-300 mx-3">|</span> 
-                                            Marcos Sousa
-                                        </p>
+                                        <p className="text-xs font-bold uppercase">Carlos Mattar, Sebastian Garrido, Marcos Sousa</p>
                                     </div>
                                 </div>
                             </div>
-
                             <div className="grid grid-cols-1 md:grid-cols-2 border-t-[1.5px] border-black">
                                 <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Institución Educativa</p>
-                                    </div>
-                                    <div className="p-5">
-                                        <p className="text-sm font-black uppercase text-slate-800">U.E.P. Gabriela Mistral</p>
-                                    </div>
+                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Institución</p></div>
+                                    <div className="p-5"><p className="text-sm font-black uppercase text-slate-800">U.E.P. Gabriela Mistral</p></div>
                                 </div>
                                 <div>
-                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Ubicación Geográfica</p>
-                                    </div>
-                                    <div className="p-5">
-                                        <p className="text-xs font-bold uppercase italic text-slate-600">La Guaira, Catia La Mar, Venezuela</p>
-                                    </div>
+                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Lugar</p></div>
+                                    <div className="p-5"><p className="text-xs font-bold uppercase italic text-slate-600">La Guaira, Catia La Mar, Venezuela</p></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* SECCIÓN 2: POBLACIÓN A TRABAJAR */}
+                    {/* PARTE 2: POBLACIÓN A TRABAJAR */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
                             <Activity className="h-5 w-5 text-secondary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">2. Población a Trabajar</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">2. Población a Trabajar</h2>
                         </div>
-                        
                         <div className="border-[1.5px] border-black overflow-hidden rounded-2xl shadow-sm">
-                            <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Localidad Específica / Comunidad</p>
-                            </div>
-                            <div className="p-5 border-b-[1.5px] border-black bg-white">
-                                <p className="text-sm font-bold uppercase text-slate-800">Santa Rosa de Lima, Baruta, Caracas</p>
-                            </div>
-
+                            <div className="p-3 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Localidad y Comunidad</p></div>
+                            <div className="p-5 border-b-[1.5px] border-black bg-white"><p className="text-sm font-bold uppercase text-slate-800">Santa Rosa de Lima, Baruta, Caracas</p></div>
                             <div className="grid grid-cols-1 md:grid-cols-3">
                                 <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Habitantes (Est.)</p>
-                                    </div>
-                                    <div className="p-5 text-center">
-                                        <p className="text-2xl font-black text-secondary italic">12.450</p>
-                                    </div>
+                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Habitantes</p></div>
+                                    <div className="p-5 text-center"><p className="text-2xl font-black text-secondary italic">12.450</p></div>
                                 </div>
-                                <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black col-span-2">
-                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Perfil Demográfico</p>
-                                    </div>
-                                    <div className="p-5 font-mono">
-                                        <p className="text-[10px] font-bold uppercase leading-relaxed text-slate-600">Profesionales, Comerciantes y Sector Estudiantil de alto impacto tecnológico.</p>
-                                    </div>
+                                <div className="col-span-2">
+                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Perfil</p></div>
+                                    <div className="p-5 font-mono"><p className="text-[10px] font-bold uppercase text-slate-600">Sector Comercial y Residencial de alto impacto tecnológico.</p></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* SECCIÓN 3: ANÁLISIS DEL PROBLEMA */}
+                    {/* PARTE 3: ANÁLISIS DEL PROBLEMA */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Terminal className="h-5 w-5 text-primary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">3. Análisis del Problema</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">3. Análisis del Problema (Diagnóstico)</h2>
                         </div>
-                        
                         <div className="border-[1.5px] border-black overflow-hidden rounded-2xl shadow-sm font-mono text-xs">
                             <div className="grid grid-cols-1 md:grid-cols-2">
                                 <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Causas del Problema</p>
-                                    </div>
-                                    <div className="p-5 space-y-2 uppercase font-bold text-slate-700">
-                                        <p>• Falta de organización estructural</p>
-                                        <p>• Poca disposición operativa</p>
-                                        <p>• Escaso presupuesto asignado</p>
-                                        <p>• Desactualización tecnológica severa</p>
-                                    </div>
+                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Causas</p></div>
+                                    <div className="p-5 space-y-2 font-bold text-slate-700 uppercase"><p>• Falta de organización estructural</p><p>• Poca disposición operativa</p><p>• Desactualización tecnológica</p></div>
                                 </div>
                                 <div>
-                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Consecuencias</p>
-                                    </div>
-                                    <div className="p-5 italic font-bold uppercase text-slate-600 leading-relaxed">
-                                        Pérdida crítica de tiempo en la búsqueda de archivos y parálisis administrativa por burocracia física.
-                                    </div>
+                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Consecuencias</p></div>
+                                    <div className="p-5 italic font-bold uppercase text-slate-600">Pérdida crítica de tiempo y parálisis administrativa por burocracia física.</div>
                                 </div>
                             </div>
-
-                            <div className="p-3 bg-slate-50 border-t-[1.5px] border-b-[1.5px] border-black">
-                                <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Definición del Problema</p>
-                            </div>
-                            <div className="p-6 border-b-[1.5px] border-black bg-white">
+                            <div className="p-3 bg-slate-50 border-t-[1.5px] border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Definición del Problema</p></div>
+                            <div className="p-6 bg-white border-b-[1.5px] border-black">
                                 <p className="text-[13px] font-medium italic leading-relaxed text-justify border-l-4 border-primary/20 pl-6 text-slate-800">
-                                    "En la Institución el sistema de archivado es muy pobre, ya que el método de archivado es netamente físico. Esto no permite agilidad a la hora de buscar información respecto a un estudiante de la institución."
+                                    "En la Institución el sistema de archivado es muy pobre, ya que el método de archivado es netamente físico. Esto no permite agilidad a la hora de buscar información respecto a un estudiante."
                                 </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2">
-                                <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Importancia de Resolver</p>
-                                    </div>
-                                    <div className="p-5 uppercase font-bold text-primary italic">
-                                        Disminuir drásticamente la carga de trabajo y optimizar el acceso a la información institucional.
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Origen del Problema</p>
-                                    </div>
-                                    <div className="p-5 uppercase font-bold text-slate-400">
-                                        Desactualización e ignorancia en la gestión de nuevas tecnologías e implementaciones digitales masivas.
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* SECCIÓN 4: SOLUCIÓN PROPUESTA */}
+                    {/* PARTE 4: SOLUCIÓN PROPUESTA */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
                             <Zap className="h-5 w-5 text-secondary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">4. Solución Propuesta</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">4. Solución Propuesta</h2>
                         </div>
-                        
                         <div className="border-[1.5px] border-black overflow-hidden rounded-2xl shadow-sm">
-                            <div className="p-3 bg-slate-50 border-b-[1.5px] border-black">
-                                <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Desarrolla tu Proyecto</p>
-                            </div>
+                            <div className="p-3 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Desarrolla tu Proyecto</p></div>
                             <div className="p-8 bg-white font-mono text-sm leading-relaxed text-justify space-y-6">
-                                <p className="font-bold uppercase text-slate-800">
-                                    Implementación de un Ecosistema Digital de Grado Corporativo bajo el protocolo <span className="text-primary">System Kyron</span>.
+                                <p className="font-bold uppercase text-slate-800">Implementación de un Ecosistema Digital de Grado Corporativo bajo el protocolo <span className="text-primary">System Kyron</span>.</p>
+                                <p className="text-slate-600 font-medium italic">
+                                    Se propone la sustitución del archivado físico mediante una Bóveda de Datos Inmutable. Se integrará conectividad 5G de baja latencia y sellado digital por cada registro, asegurando la integridad legal de los documentos y reduciendo el tiempo de gestión administrativa en un 95%.
                                 </p>
-                                <p className="text-slate-600 font-medium">
-                                    La solución propuesta sustituye el archivado físico mediante la creación de una <span className="font-bold">Bóveda de Datos Inmutable</span>. Este sistema utiliza inteligencia artificial para la digitalización y clasificación automática de expedientes estudiantiles, permitiendo búsquedas instantáneas mediante terminales seguras. Se integrará conectividad 5G de baja latencia para garantizar la operatividad del nodo y se implementará un sellado digital por cada registro para asegurar la integridad legal de los documentos ante fiscalizaciones y auditorías.
-                                </p>
-                                <div className="grid grid-cols-2 gap-4 mt-6">
-                                    <div className="p-4 bg-primary/5 rounded-xl border border-primary/10">
-                                        <p className="text-[8px] font-black uppercase text-primary mb-2">Pilar Técnico</p>
-                                        <p className="text-[10px] font-bold uppercase text-slate-500 leading-tight">Digitalización con Visión Artificial y Ledger Blockchain.</p>
-                                    </div>
-                                    <div className="p-4 bg-secondary/5 rounded-xl border border-secondary/10">
-                                        <p className="text-[8px] font-black uppercase text-secondary mb-2">Impacto Directo</p>
-                                        <p className="text-[10px] font-bold uppercase text-slate-500 leading-tight">Reducción del 95% en tiempos de gestión administrativa.</p>
-                                    </div>
-                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* SECCIÓN ADICIONAL: FACTIBILIDAD ECONÓMICA (AZUL/VERDE) */}
+                    <div className="space-y-6 mb-16">
+                        <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
+                            <BarChart3 className="h-5 w-5 text-primary" />
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">Análisis de Factibilidad Económica</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {[
+                                { label: "VAN", val: "$450.000", desc: "Rentabilidad Neta", color: "text-primary" },
+                                { label: "TIR", val: "28.5%", desc: "Retorno Anual", color: "text-secondary" },
+                                { label: "PAYBACK", val: "2.4 Años", desc: "Recuperación", color: "text-primary" }
+                            ].map(item => (
+                                <div key={item.label} className="p-6 rounded-2xl border-[1.5px] border-black bg-white flex flex-col items-center text-center">
+                                    <p className="text-[10px] font-black uppercase text-slate-400 mb-2">{item.label}</p>
+                                    <p className={cn("text-2xl font-black italic", item.color)}>{item.val}</p>
+                                    <p className="text-[8px] font-bold uppercase text-slate-300 mt-1">{item.desc}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
                     {/* Footer Técnico */}
                     <div className="mt-20 pt-12 border-t-2 border-slate-100 flex justify-between items-end no-print">
                         <div className="flex items-center gap-4">
-                            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 rotate-3 shadow-inner">
-                                <ShieldCheck className="h-8 w-8 text-secondary" />
+                            <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 rotate-3 shadow-inner">
+                                <ShieldCheck className="h-8 w-8 text-emerald-600" />
                             </div>
                             <div className="space-y-1">
-                                <p className="text-[10px] font-black uppercase text-slate-400">Certificación de Nodo</p>
+                                <p className="text-[10px] font-black uppercase text-slate-400">Certificación</p>
                                 <p className="text-xs font-black uppercase italic text-primary">ZEDU MASTER APPROVED</p>
                             </div>
                         </div>
@@ -364,23 +300,8 @@ export default function SectorPrivadoPage() {
                             <div className="w-48 h-12 border-b-2 border-slate-300 italic text-slate-300 text-xs flex items-end justify-center pb-2">Auth: Kyron Admin Node</div>
                         </div>
                     </div>
-
-                    <div className="mt-12 text-[8px] font-black uppercase tracking-[0.6em] text-slate-300 flex justify-between items-center">
-                        <span className="flex items-center gap-2"><Database className="h-3 w-3 opacity-40" /> Página 4 de 12 • Propuesta Técnica</span>
-                        <span className="text-slate-200 font-mono">Kyron Master Ledger © 2026</span>
-                    </div>
                 </div>
             </motion.div>
-
-            {/* Créditos Finales HUD */}
-            <div className="mt-24 text-center space-y-6 pb-20 no-print">
-                <div className="flex justify-center gap-12 opacity-30">
-                    <span className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.5em] text-primary"><Lock className="h-3.5 w-3.5" /> Encrypted</span>
-                    <span className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.5em] text-secondary"><Activity className="h-3.5 w-3.5" /> 5G Slicing</span>
-                    <span className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.5em] text-white"><Sparkles className="h-3.5 w-3.5" /> AI Engine</span>
-                </div>
-                <div className="text-[8px] font-bold text-white/5 uppercase tracking-[1em]">SYSTEM KYRON CORPORATE DOSSIER</div>
-            </div>
         </div>
     );
 }
