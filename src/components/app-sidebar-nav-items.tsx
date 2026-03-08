@@ -98,6 +98,7 @@ import {
   Phone,
   Atom,
   Coins,
+  Recycle,
 } from "lucide-react";
 
 
