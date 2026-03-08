@@ -18,7 +18,6 @@ import {
     ShieldCheck, 
     Cpu,
     ChevronDown,
-    Activity
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -92,7 +91,7 @@ export function AppHeader({ user, navItems, navGroups }: AppHeaderProps) {
                             <DropdownMenuLabel className="px-4 py-3 text-[8px] font-black uppercase tracking-[0.4em] text-primary/60 border-b border-white/5 mb-2">
                                 {group.title}
                             </DropdownMenuLabel>
-                            {(group.items.length > 0 ? group.items : (group.subGroups?.flatMap(sg => sg.items) || [])).map((item) => (
+                            {(group.items && group.items.length > 0 ? group.items : (group.subGroups?.flatMap(sg => sg.items) || [])).map((item) => (
                                 <DropdownMenuItem key={item.href} asChild className="rounded-xl">
                                     <Link href={item.href as any} className="flex items-center py-3 px-4 text-[9px] font-bold uppercase tracking-widest text-white/70 hover:text-white">
                                         <item.icon className="mr-4 h-4 w-4 opacity-40" />

@@ -83,6 +83,14 @@
     background: radial-gradient(at 0% 0%, hsla(210, 100% , 50%, 0.15) 0, transparent 55%),
                 radial-gradient(at 100% 100%, hsla(145, 100%, 50%, 0.1) 0, transparent 55%);
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 .animate-spin-slow {
