@@ -1,3 +1,4 @@
+
 import createMiddleware from 'next-intl/middleware';
 import {locales, defaultLocale, localePrefix} from './navigation';
  
@@ -12,6 +13,8 @@ export default createMiddleware({
 });
  
 export const config = {
-  // Se excluye la ruta de expediente técnico para cumplir con la solicitud de URL limpia
-  matcher: ['/((?!api|_next|sector-privado-system-kyron|.*\\..*).*)']
+  // Se excluyen rutas específicas y archivos estáticos
+  matcher: [
+    '/((?!api|_next|sector-privado-system-kyron|favicon.ico|.*\\..*).*)'
+  ]
 };
