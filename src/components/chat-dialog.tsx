@@ -4,14 +4,15 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Bot, Send, Loader2, Sparkles, Activity, MessageCircle, Info, ChevronRight, X, User } from "lucide-react";
+import { Bot, Send, Loader2, Sparkles, Activity, MessageCircle, Info, ChevronRight, X, User, Wallet } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 import { chat, type ChatInput, type ChatOutput } from "@/ai/flows/chat";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ThinkingAnimation } from "./thinking-animation";
+import { useToast } from "@/hooks/use-toast";
 
 type Message = {
   role: 'user' | 'bot';
@@ -19,18 +20,17 @@ type Message = {
 };
 
 const getPageContext = (pathname: string) => {
-  if (pathname.includes('dashboard-empresa')) return "el dashboard principal de administración de la empresa (Centro de Mando)";
+  if (pathname.includes('resumen-negocio')) return "el dashboard principal de administración de la empresa (Centro de Mando)";
   if (pathname.includes('/contabilidad')) return "el dashboard del portal de Contabilidad";
   if (pathname.includes('/analisis-ventas')) return "el dashboard de Análisis de Ventas";
   if (pathname.includes('/dashboard-rrhh')) return "el dashboard de Recursos Humanos";
-  if (pathname.includes('/escritorio-juridico')) return "el dashboard del Escritorio Jurídico";
+  if (pathname.includes('/asesoria-legal')) return "el dashboard del Escritorio Jurídico";
   if (pathname.includes('/dashboard-socios')) return "el dashboard para Socios y Directivos (Holding)";
   if (pathname.includes('/dashboard-informatica')) return "el dashboard de Ingeniería e Informática";
   if (pathname.includes('/dashboard-telecom')) return "el dashboard de Telecomunicaciones";
-  if (pathname.includes('/asesoria-publicidad')) return "el dashboard de Marketing y Publicidad";
+  if (pathname.includes('/notificaciones')) return "el buzón de notificaciones";
   if (pathname.includes('/dashboard')) return "el dashboard personal para trámites civiles de una persona natural";
-  if (pathname.includes('/cuentas-por-cobrar')) return "el módulo de Cuentas por Cobrar";
-  if (pathname.includes('/cuentas-por-pagar')) return "el módulo de Cuentas por Pagar";
+  if (pathname.includes('/cobranzas')) return "el módulo de Cobranzas";
   if (pathname.includes('/punto-de-venta')) return "el Punto de Venta (TPV) para facturar";
   if (pathname === '/') return "la página de inicio de Kyron. Describe los servicios, características y testimonios.";
   return "una página general de la aplicación Kyron";
@@ -40,8 +40,10 @@ export function ChatDialog() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isWalletOpen, setIsWalletOpen] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -71,6 +73,14 @@ export function ChatDialog() {
     }
   };
 
+  const showWalletSummary = () => {
+    setIsWalletOpen(true);
+    toast({
+        title: "CONSULTA DE SALDO",
+        description: "Obteniendo saldos de Caja Digital en tiempo real...",
+    });
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -86,27 +96,51 @@ export function ChatDialog() {
               <Bot className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Consola de Agente IA</SheetTitle>
-              <SheetDescription className="text-[9px] font-black uppercase tracking-[0.3em] text-white/30">Protocolo de Asistencia Neuronal</SheetDescription>
+              <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Asistente Maestro</SheetTitle>
+              <SheetDescription className="text-[9px] font-black uppercase tracking-[0.3em] text-white/30">Protocolo de Inteligencia Kyron</SheetDescription>
             </div>
           </div>
-        </SheetHeader>
+        </header>
 
-        <Tabs defaultValue="acciones" className="flex-1 flex flex-col">
+        <div className="p-4 bg-white/5 border-b border-white/5 flex gap-2 overflow-x-auto no-scrollbar">
+            <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-primary/20 text-primary bg-primary/5 shrink-0" onClick={showWalletSummary}>
+                <Wallet className="mr-2 h-3 w-3" /> Consultar Billetera
+            </Button>
+            <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-white/10 text-white/40 shrink-0">
+                <Activity className="mr-2 h-3 w-3" /> Estado de Red
+            </Button>
+        </div>
+
+        <Tabs defaultValue="acciones" className="flex-1 flex flex-col overflow-hidden">
           <TabsList className="grid grid-cols-3 bg-white/5 p-1 rounded-none border-b border-white/5">
             <TabsTrigger value="acciones" className="text-[8px] font-black uppercase tracking-widest">Acciones</TabsTrigger>
             <TabsTrigger value="sugerencias" className="text-[8px] font-black uppercase tracking-widest">Sugerencias</TabsTrigger>
-            <TabsTrigger value="consulta" className="text-[8px] font-black uppercase tracking-widest">Consulta</TabsTrigger>
+            <TabsTrigger value="consulta" className="text-[8px] font-black uppercase tracking-widest">Chat</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="acciones" className="flex-1 overflow-y-auto p-6 space-y-4">
+          <TabsContent value="acciones" className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-primary flex items-center gap-2">
               <Activity className="h-3 w-3" /> Eventos del Periodo
             </h4>
+            
+            {isWalletOpen && (
+                <div className="p-6 bg-primary/10 rounded-2xl border border-primary/30 space-y-4 animate-in slide-in-from-top-4">
+                    <div className="flex justify-between items-center">
+                        <span className="text-[9px] font-black text-primary uppercase">Caja Digital</span>
+                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setIsWalletOpen(false)}><X className="h-3 w-3"/></Button>
+                    </div>
+                    <div className="space-y-2">
+                        <div className="flex justify-between text-xs font-bold"><span>Bs.</span> <span>45.678,90</span></div>
+                        <div className="flex justify-between text-xs font-bold text-primary"><span>USD</span> <span>$ 12.345,67</span></div>
+                        <div className="flex justify-between text-xs font-bold"><span>EUR</span> <span>€ 890,12</span></div>
+                    </div>
+                </div>
+            )}
+
             {[
-              { mod: "Contabilidad", text: "Prórroga IVA solicitada", status: "Aprobada", time: "hace 2h" },
-              { mod: "Ventas", text: "IGTF corregido automáticamente", status: "Sincronizado", time: "hace 4h" },
-              { mod: "Legal", text: "Análisis IDP Contrato #098", status: "Completado", time: "hace 1d" },
+              { mod: "Tesorería", text: "Cobro Cliente Epsilon procesado", status: "Inmutable", time: "hace 15m" },
+              { mod: "Contabilidad", text: "Balance Q1 automatizado", status: "Verificado", time: "hace 2h" },
+              { mod: "Ventas", text: "Ajuste IGTF Factura #0045", status: "Sincronizado", time: "hace 4h" },
             ].map((item, i) => (
               <div key={i} className="p-4 bg-white/5 rounded-2xl border border-white/5 flex justify-between items-start group hover:bg-white/10 transition-all">
                 <div className="space-y-1">
@@ -119,14 +153,14 @@ export function ChatDialog() {
             ))}
           </TabsContent>
 
-          <TabsContent value="sugerencias" className="flex-1 overflow-y-auto p-6 space-y-4">
+          <TabsContent value="sugerencias" className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-secondary flex items-center gap-2">
-              <Sparkles className="h-3 w-3" /> Optimizaciones Disponibles
+              <Sparkles className="h-3 w-3" /> Optimizaciones
             </h4>
             {[
-              { mod: "Identidad", text: "RIF por vencer en 15 días", action: "Iniciar renovación" },
-              { mod: "Ventas", text: "Factura duplicada detectada", action: "Revisar ledger" },
-              { mod: "Ambiental", text: "Pico de mercado E-CR", action: "Vender créditos" },
+              { mod: "Tesorería", text: "Convertir Bs. 5.000 a USD para proteger liquidez.", action: "Ejecutar Cambio" },
+              { mod: "Identidad", text: "RIF por vencer en 15 días. Iniciar renovación.", action: "Tramitar Ahora" },
+              { mod: "Ventas", text: "Factura duplicada detectada en Ledger #F123.", action: "Eliminar Duplicado" },
             ].map((item, i) => (
               <div key={i} className="p-4 bg-secondary/5 rounded-2xl border border-secondary/10 space-y-3">
                 <div>
@@ -150,7 +184,7 @@ export function ChatDialog() {
               ) : (
                 messages.map((msg, index) => (
                   <div key={index} className={cn('flex items-start gap-3', msg.role === 'user' ? 'flex-row-reverse' : 'flex-row')}>
-                    <div className={cn('p-2 rounded-lg border', msg.role === 'user' ? 'bg-primary/10 border-primary/20' : 'bg-white/5 border-white/10')}>
+                    <div className={cn('p-2 rounded-lg border shrink-0', msg.role === 'user' ? 'bg-primary/10 border-primary/20' : 'bg-white/5 border-white/10')}>
                       {msg.role === 'user' ? <User className="h-3 w-3 text-primary" /> : <Bot className="h-3 w-3 text-emerald-500" />}
                     </div>
                     <div className={cn('max-w-[80%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed', msg.role === 'user' ? 'bg-primary text-white' : 'bg-white/5 text-white/80')}>
@@ -161,7 +195,7 @@ export function ChatDialog() {
               )}
               {isLoading && (
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-white/5 border border-white/10"><Bot className="h-3 w-3 text-emerald-500" /></div>
+                  <div className="p-2 rounded-lg bg-white/5 border border-white/10 shrink-0"><Bot className="h-3 w-3 text-emerald-500" /></div>
                   <div className="bg-white/5 rounded-2xl p-4"><ThinkingAnimation /></div>
                 </div>
               )}
@@ -182,7 +216,7 @@ export function ChatDialog() {
         </Tabs>
 
         <footer className="p-6 border-t border-white/5 bg-white/[0.02] text-center">
-          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10">System Kyron Neuronal Hub • v2.6.5</p>
+          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10">System Kyron Intelligence • v2.6.5</p>
         </footer>
       </SheetContent>
     </Sheet>

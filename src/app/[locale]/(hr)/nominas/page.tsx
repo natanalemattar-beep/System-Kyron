@@ -6,7 +6,7 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, Download, HelpCircle, Activity } from "lucide-react";
+import { Users, PlusCircle, Calculator, Eye, Send, Mail, MessageCircle, Cloud, Download, HelpCircle, Activity, Wallet, CheckCircle, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -16,6 +16,7 @@ import Image from "next/image";
 const empleados = [
     { id: 1, nombre: "Ana Pérez", cedula: "V-12.345.678", cargo: "Gerente de Proyectos", salarioBase: 12000, estado: "Activo", email: "ana.perez@email.com", tlf: "0412-1112233" },
     { id: 2, nombre: "Luis Gómez", cedula: "V-18.765.432", cargo: "Dev Senior", salarioBase: 10500, estado: "Activo", email: "luis.g@email.com", tlf: "0414-4445566" },
+    { id: 3, nombre: "Carlos Mattar", cedula: "V-32.855.496", cargo: "Ingeniero Maestro", salarioBase: 15000, estado: "Activo", email: "carlos.m@kyron.com", tlf: "0414-9377068" },
 ];
 
 const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
@@ -26,6 +27,24 @@ const statusVariant: { [key: string]: "default" | "secondary" | "outline" } = {
 
 export default function NominasPage() {
   const { toast } = useToast();
+  const [isPayingAll, setIsPayingAll] = useState(false);
+
+  const handlePayToWallet = () => {
+    setIsPayingAll(true);
+    toast({
+        title: "PAGO DE NÓMINA INICIADO",
+        description: "Sincronizando con Caja Digital de la empresa...",
+    });
+
+    setTimeout(() => {
+        setIsPayingAll(false);
+        toast({
+            title: "NÓMINA DISPERSADA",
+            description: "Fondos acreditados a 3 empleados. Registros sellados en Ledger.",
+            action: <CheckCircle className="text-primary h-4 w-4" />
+        });
+    }, 2500);
+  };
 
   return (
     <div className="space-y-12 pb-20">
@@ -37,9 +56,13 @@ export default function NominasPage() {
                 </h1>
                 <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Control de Personal • Protocolo LOTTT 2026</p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
                 <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white">
                     <Download className="mr-2 h-4 w-4" /> Exportar Ledger
+                </Button>
+                <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-primary/20 bg-primary/5 text-primary" onClick={handlePayToWallet} disabled={isPayingAll}>
+                    {isPayingAll ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wallet className="mr-2 h-4 w-4" />}
+                    Pagar a Billetera
                 </Button>
                 <Button className="btn-3d-secondary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
                     <Calculator className="mr-2 h-4 w-4" /> CALCULAR Q1
@@ -67,7 +90,7 @@ export default function NominasPage() {
                             <TableRow key={emp.id} className="border-white/5 hover:bg-white/[0.02] transition-all group">
                                 <TableCell className="pl-10 py-6">
                                     <div className="flex flex-col gap-1">
-                                        <span className="font-black text-xs text-white/80 uppercase tracking-tight group-hover:text-white">{emp.nombre}</span>
+                                        <span className="text-xs font-black uppercase tracking-tight text-white/80 group-hover:text-white">{emp.nombre}</span>
                                         <span className="text-[9px] font-bold text-white/20 uppercase tracking-widest">{emp.cedula}</span>
                                     </div>
                                 </TableCell>

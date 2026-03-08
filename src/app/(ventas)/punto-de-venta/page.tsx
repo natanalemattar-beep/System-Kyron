@@ -5,7 +5,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { TabletSmartphone, Plus, Minus, X, CheckCircle, Smartphone, Phone, Landmark, CreditCard, Banknote, Loader2, Search, Radio } from "lucide-react";
+import { TabletSmartphone, Plus, Minus, X, CheckCircle, Smartphone, Phone, Landmark, CreditCard, Banknote, Loader2, Search, Radio, Wallet, Lock } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -36,7 +36,7 @@ type CartItem = {
 };
 
 type Currency = "Bs." | "USD";
-type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Transferencia" | "Efectivo";
+type PaymentMethod = "Punto de Venta" | "Pago Móvil" | "Transferencia" | "Efectivo" | "Billetera Kyron";
 
 export default function PuntoDeVentaPage() {
     const [cart, setCart] = useState<CartItem[]>([]);
@@ -95,7 +95,13 @@ export default function PuntoDeVentaPage() {
             setIsProcessing(false);
             setIsCheckoutOpen(false);
             setIsReceiptOpen(true);
-            toast({ title: "Venta Exitosa", description: "La factura ha sido generada.", action: <CheckCircle className="text-green-500" /> });
+            toast({ 
+                title: "Venta Exitosa", 
+                description: paymentMethod === "Billetera Kyron" 
+                    ? "Monto descontado de Caja Digital y factura sellada." 
+                    : "La factura ha sido generada.", 
+                action: <CheckCircle className="text-green-500" /> 
+            });
         }, 1500);
     };
 
@@ -201,13 +207,18 @@ export default function PuntoDeVentaPage() {
                         <DialogDescription className="sr-only">Seleccione el método de pago para completar la transacción.</DialogDescription>
                     </DialogHeader>
                     <div className="grid grid-cols-2 gap-3 py-4">
-                        {["Punto de Venta", "Pago Móvil", "Efectivo", "Transferencia"].map((method) => (
+                        {["Punto de Venta", "Pago Móvil", "Efectivo", "Transferencia", "Billetera Kyron"].map((method) => (
                             <Button 
                                 key={method}
                                 variant={paymentMethod === method ? "default" : "outline"}
-                                className={cn("h-12 rounded-xl text-[10px] font-black uppercase tracking-widest", paymentMethod === method && "bg-primary text-white")}
+                                className={cn(
+                                    "h-12 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2", 
+                                    paymentMethod === method && "bg-primary text-white",
+                                    method === "Billetera Kyron" && "border-primary/40 text-primary"
+                                )}
                                 onClick={() => setPaymentMethod(method as any)}
                             >
+                                {method === "Billetera Kyron" && <Wallet className="h-3 w-3" />}
                                 {method}
                             </Button>
                         ))}
@@ -228,8 +239,13 @@ export default function PuntoDeVentaPage() {
                     </DialogHeader>
                     <div className="p-6 text-center space-y-6">
                         <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
-                        <h2 className="text-2xl font-black tracking-tighter uppercase italic">Venta Registrada</h2>
-                        <div className="p-4 bg-secondary/30 rounded-2xl">
+                        <div className="space-y-1">
+                            <h2 className="text-2xl font-black tracking-tighter uppercase italic">Venta Registrada</h2>
+                            <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-muted-foreground uppercase">
+                                <Lock className="h-3 w-3" /> Sellado en Ledger Digital
+                            </div>
+                        </div>
+                        <div className="p-4 bg-secondary/30 rounded-2xl border border-primary/10">
                             <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SystemKyron-Factura-${Math.random().toString(36).substr(2, 9)}`} alt="Factura QR" width={120} height={120} className="mx-auto border p-2 bg-white rounded-xl" />
                         </div>
                         <Button onClick={() => { setIsReceiptOpen(false); setCart([]); }} className="w-full h-12 rounded-xl font-black uppercase text-xs">Nueva Venta</Button>
