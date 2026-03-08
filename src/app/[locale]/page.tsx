@@ -13,14 +13,16 @@ import {
 import { LandingHeader } from "@/components/landing/landing-header";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
+import { use } from 'react';
 
 /**
- * @fileOverview Página de Inicio Kyron - Rediseño Estético 2025.
- * Enfoque en limpieza, elegancia y solidez corporativa.
- * Se ha eliminado el fondo sólido para mostrar el DynamicBackground.
+ * @fileOverview Página de Inicio Kyron - Transparencia Total.
+ * Se eliminan fondos sólidos para permitir que el fondo dinámico fluya por toda la interfaz.
  */
 
-export default function LandingPage() {
+export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+  
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 40, restDelta: 0.001 });
 
@@ -39,16 +41,18 @@ export default function LandingPage() {
       <main className="relative flex-1 w-full">
         <HeroSection />
         
-        <div className="space-y-32 md:space-y-48 pb-32">
-            <ServicesSection />
+        <div className="space-y-24 md:space-y-48 pb-32">
+            <div className="container mx-auto px-4 md:px-10 max-w-7xl">
+                <ServicesSection />
+            </div>
             
-            <div className="container mx-auto px-6 max-w-7xl">
+            <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                 <FeaturesSection />
             </div>
 
             <AboutUsSection />
             
-            <div className="container mx-auto px-6 max-w-7xl">
+            <div className="container mx-auto px-4 md:px-10 max-w-7xl">
                 <FaqSection />
                 <CtaSection />
             </div>
@@ -57,7 +61,7 @@ export default function LandingPage() {
         </div>
       </main>
 
-      {/* Rejilla HUD Suavizada Global */}
+      {/* Rejilla HUD sutil */}
       <div className="fixed inset-0 pointer-events-none -z-10 opacity-[0.03] dark:opacity-[0.05] hud-grid" />
     </div>
   );

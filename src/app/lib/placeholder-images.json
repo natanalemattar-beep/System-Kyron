@@ -1,0 +1,46 @@
+{
+  "placeholderImages": [
+    {
+      "id": "user-avatar",
+      "description": "A placeholder for a user's avatar.",
+      "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+      "imageHint": "user avatar"
+    },
+    {
+      "id": "hero-tech-visual",
+      "description": "High-tech server and connectivity visualization.",
+      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
+      "imageHint": "high tech"
+    },
+    {
+      "id": "corporate-infrastructure",
+      "description": "Modern corporate building representing growth and stability.",
+      "imageUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+      "imageHint": "corporate building"
+    },
+    {
+      "id": "team-meeting-photo",
+      "description": "A group of professionals in a meeting, representing a collaborative team.",
+      "imageUrl": "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?q=80&w=1200&auto=format&fit=crop",
+      "imageHint": "team meeting"
+    },
+    {
+      "id": "digital-economy",
+      "description": "Representation of the digital economy and blockchain security.",
+      "imageUrl": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1200&auto=format&fit=crop",
+      "imageHint": "digital economy"
+    },
+    {
+      "id": "testimonial-avatar-1",
+      "description": "A placeholder image for a testimonial avatar, showing a businessman.",
+      "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026701d",
+      "imageHint": "businessman"
+    },
+    {
+      "id": "testimonial-avatar-2",
+      "description": "A placeholder image for a testimonial avatar, showing a businesswoman.",
+      "imageUrl": "https://i.pravatar.cc/150?u=a042581f4e29026702d",
+      "imageHint": "businesswoman"
+    }
+  ]
+}

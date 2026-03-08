@@ -1,12 +1,18 @@
+
 import {getRequestConfig} from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { locales } from './src/i18n';
- 
-export default getRequestConfig(async ({locale}) => {
-  // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) notFound();
+import {locales} from './src/navigation';
+
+/**
+ * @fileOverview Punto de entrada de configuración i18n raíz.
+ * Redirigido a la lógica asíncrona de src/i18n/request.ts.
+ */
+
+export default getRequestConfig(async ({requestLocale}) => {
+  const locale = await requestLocale;
+  const validLocale = locales.includes(locale as any) ? locale : 'es';
  
   return {
-    messages: (await import(`./src/messages/${locale}.json`)).default
+    locale: validLocale,
+    messages: (await import(`./src/messages/${validLocale}.json`)).default
   };
 });
