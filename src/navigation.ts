@@ -57,6 +57,14 @@ export const pathnames = {
   '/mercado-ecocreditos': '/mercado-ecocreditos',
   '/generador-documentos': '/generador-documentos',
   '/academia-kyron': '/academia-kyron',
+  '/documentos': '/documentos',
+  '/partidas-nacimiento': '/partidas-nacimiento',
+  '/actas-matrimonio': '/actas-matrimonio',
+  '/documentos-judiciales': '/documentos-judiciales',
+  '/antecedentes-penales': '/antecedentes-penales',
+  '/directorio-medico': '/directorio-medico',
+  '/manutencion': '/manutencion',
+  '/registro-rif': '/registro-rif',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({

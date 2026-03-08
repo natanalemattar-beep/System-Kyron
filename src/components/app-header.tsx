@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -18,6 +19,7 @@ import {
     ShieldCheck, 
     Cpu,
     ChevronDown,
+    Activity
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -42,11 +44,10 @@ interface NavGroup {
 interface AppHeaderProps {
     user: any;
     dashboardHref: string;
-    navItems?: NavItem[];
     navGroups?: NavGroup[];
 }
 
-export function AppHeader({ user, navItems, navGroups }: AppHeaderProps) {
+export function AppHeader({ user, navGroups }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
 
@@ -71,16 +72,15 @@ export function AppHeader({ user, navItems, navGroups }: AppHeaderProps) {
             </Link>
           </div>
 
-          {/* CENTER: CONTEXTUAL NAV (DROPDOWNS) */}
+          {/* CENTER: CONTEXTUAL NAV (NODES) */}
           <div className="flex-1 flex justify-center overflow-x-auto no-scrollbar">
             <nav className="flex items-center gap-2 md:gap-4 px-4">
-                {/* Render Groups as Dropdowns */}
                 {navGroups && navGroups.map((group) => (
                     <DropdownMenu key={group.title}>
                         <DropdownMenuTrigger asChild>
                             <Button 
                                 variant="ghost" 
-                                className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5 h-10 px-4 rounded-xl hover:bg-white/5 group"
+                                className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5 h-10 px-4 rounded-xl hover:bg-white/5 group whitespace-nowrap"
                             >
                                 <group.icon className="h-3.5 w-3.5 opacity-50 group-hover:opacity-100 group-hover:text-primary transition-all" /> 
                                 <span className="group-hover:text-white transition-colors">{group.title}</span>
@@ -102,28 +102,15 @@ export function AppHeader({ user, navItems, navGroups }: AppHeaderProps) {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 ))}
-
-                {/* Legacy simple items */}
-                {navItems && navItems.map((item) => (
-                    <Link 
-                        key={item.href} 
-                        href={item.href as any} 
-                        className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5 whitespace-nowrap h-10 px-4 rounded-xl hover:bg-white/5 group"
-                    >
-                        <item.icon className="h-3.5 w-3.5 opacity-50 group-hover:opacity-100 group-hover:text-primary transition-all" /> 
-                        <span className="group-hover:text-white transition-colors">{item.label}</span>
-                    </Link>
-                ))}
             </nav>
           </div>
 
-          {/* RIGHT: TIME & USER ACTIONS */}
+          {/* RIGHT: HUD TELEMETRY & USER */}
           <div className="flex items-center justify-end gap-4 md:gap-6 min-w-[240px]">
             
-            {/* COMPACT TIME HUD CAPSULE */}
             <div className="hidden md:flex items-center gap-4 px-5 py-2 rounded-full bg-white/[0.02] border border-white/5 backdrop-blur-xl shadow-inner">
                 <div className="flex items-center gap-2.5">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse shadow-glow" />
+                    <Activity className="h-3 w-3 text-primary animate-pulse" />
                     <span className="text-xs font-mono font-black text-white tracking-widest leading-none">
                         {mounted ? time : '--:--:--'}
                     </span>
