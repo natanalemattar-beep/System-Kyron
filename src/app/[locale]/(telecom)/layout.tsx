@@ -10,7 +10,7 @@ export default function TelecomLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const user = { name: "Telecom Admin", email: "telecom@kyron.com", fallback: "TE" };
+    const user = { name: "Área Técnica", email: "telecom@kyron.com", fallback: "TE" };
 
     return (
       <div className="flex min-h-screen bg-[#080602] text-white relative overflow-hidden hud-grid">
@@ -35,7 +35,7 @@ export default function TelecomLayout({
               </motion.main>
               <footer className="p-10 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
-                  System Kyron v2.6 • Telecom Node • 2026
+                  System Kyron v2.6 • Telecom Central • 2026
                 </p>
               </footer>
           </div>

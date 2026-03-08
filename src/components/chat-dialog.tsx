@@ -1,18 +1,17 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Bot, Send, Loader2, Sparkles, Activity, MessageCircle, Info, ChevronRight, X, User, Wallet } from "lucide-react";
+import { Bot, Send, Loader2, MessageCircle, ChevronRight, X, User, Wallet, Activity } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { cn, formatCurrency } from "@/lib/utils";
-import { chat, type ChatInput, type ChatOutput } from "@/ai/flows/chat";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { chat } from "@/ai/flows/chat";
 import { ThinkingAnimation } from "./thinking-animation";
 import { useToast } from "@/hooks/use-toast";
+import { Badge } from "./ui/badge";
 
 type Message = {
   role: 'user' | 'bot';
@@ -30,9 +29,7 @@ const getPageContext = (pathname: string) => {
   if (pathname.includes('/dashboard-telecom')) return "el dashboard de Telecomunicaciones";
   if (pathname.includes('/notificaciones')) return "el buzón de notificaciones";
   if (pathname.includes('/dashboard')) return "el dashboard personal para trámites civiles de una persona natural";
-  if (pathname.includes('/cobranzas')) return "el módulo de Cobranzas";
-  if (pathname.includes('/punto-de-venta')) return "el Punto de Venta (TPV) para facturar";
-  if (pathname === '/') return "la página de inicio de Kyron. Describe los servicios, características y testimonios.";
+  if (pathname.includes('/mi-linea')) return "el dashboard de gestión de línea telefónica 5G";
   return "una página general de la aplicación Kyron";
 };
 
@@ -77,50 +74,50 @@ export function ChatDialog() {
     setIsWalletOpen(true);
     toast({
         title: "CONSULTA DE SALDO",
-        description: "Obteniendo saldos de Caja Digital en tiempo real...",
+        description: "Obteniendo saldos de Caja Digital...",
     });
   };
 
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size="icon" className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-glow btn-3d-primary z-[100] group">
-          <Bot className="h-8 w-8 group-hover:scale-110 transition-transform" />
+        <Button size="icon" className="fixed bottom-6 right-6 h-14 w-14 md:h-16 md:w-16 rounded-full shadow-glow btn-3d-primary z-[100] group">
+          <Bot className="h-7 w-7 md:h-8 md:w-8 group-hover:scale-110 transition-transform" />
           <div className="absolute -top-1 -right-1 h-4 w-4 bg-emerald-500 rounded-full border-2 border-background animate-pulse" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="sm:max-w-md p-0 bg-black/95 backdrop-blur-3xl border-l-white/10 flex flex-col h-full">
-        <SheetHeader className="p-8 border-b border-white/5">
+      <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-black/95 backdrop-blur-3xl border-l-white/10 flex flex-col h-full">
+        <SheetHeader className="p-6 md:p-8 border-b border-white/5">
           <div className="flex items-center gap-4">
             <div className="p-2 bg-primary/10 rounded-xl border border-primary/20 shadow-glow-sm">
               <Bot className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Asistente Maestro</SheetTitle>
-              <SheetDescription className="text-[9px] font-black uppercase tracking-[0.3em] text-white/30">Protocolo de Inteligencia Kyron</SheetDescription>
+              <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-white text-left">Asistente Kyron</SheetTitle>
+              <SheetDescription className="text-[9px] font-black uppercase tracking-[0.3em] text-white/30 text-left">Inteligencia de Soporte Activa</SheetDescription>
             </div>
           </div>
-        </header>
+        </SheetHeader>
 
         <div className="p-4 bg-white/5 border-b border-white/5 flex gap-2 overflow-x-auto no-scrollbar">
             <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-primary/20 text-primary bg-primary/5 shrink-0" onClick={showWalletSummary}>
-                <Wallet className="mr-2 h-3 w-3" /> Consultar Billetera
+                <Wallet className="mr-2 h-3 w-3" /> Ver Billetera
             </Button>
             <Button variant="outline" size="sm" className="h-8 px-4 rounded-lg text-[8px] font-black uppercase border-white/10 text-white/40 shrink-0">
                 <Activity className="mr-2 h-3 w-3" /> Estado de Red
             </Button>
         </div>
 
-        <Tabs defaultValue="acciones" className="flex-1 flex flex-col overflow-hidden">
+        <Tabs defaultValue="consulta" className="flex-1 flex flex-col overflow-hidden">
           <TabsList className="grid grid-cols-3 bg-white/5 p-1 rounded-none border-b border-white/5">
-            <TabsTrigger value="acciones" className="text-[8px] font-black uppercase tracking-widest">Acciones</TabsTrigger>
-            <TabsTrigger value="sugerencias" className="text-[8px] font-black uppercase tracking-widest">Sugerencias</TabsTrigger>
+            <TabsTrigger value="acciones" className="text-[8px] font-black uppercase tracking-widest">Eventos</TabsTrigger>
+            <TabsTrigger value="sugerencias" className="text-[8px] font-black uppercase tracking-widest">IA Tips</TabsTrigger>
             <TabsTrigger value="consulta" className="text-[8px] font-black uppercase tracking-widest">Chat</TabsTrigger>
           </TabsList>
 
           <TabsContent value="acciones" className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-primary flex items-center gap-2">
-              <Activity className="h-3 w-3" /> Eventos del Periodo
+              <Activity className="h-3 w-3" /> Registro Operativo
             </h4>
             
             {isWalletOpen && (
@@ -132,15 +129,14 @@ export function ChatDialog() {
                     <div className="space-y-2">
                         <div className="flex justify-between text-xs font-bold"><span>Bs.</span> <span>45.678,90</span></div>
                         <div className="flex justify-between text-xs font-bold text-primary"><span>USD</span> <span>$ 12.345,67</span></div>
-                        <div className="flex justify-between text-xs font-bold"><span>EUR</span> <span>€ 890,12</span></div>
                     </div>
                 </div>
             )}
 
             {[
-              { mod: "Tesorería", text: "Cobro Cliente Epsilon procesado", status: "Inmutable", time: "hace 15m" },
-              { mod: "Contabilidad", text: "Balance Q1 automatizado", status: "Verificado", time: "hace 2h" },
-              { mod: "Ventas", text: "Ajuste IGTF Factura #0045", status: "Sincronizado", time: "hace 4h" },
+              { mod: "Tesorería", text: "Cobro Cliente procesado", status: "Seguro", time: "hace 15m" },
+              { mod: "Contabilidad", text: "Balance automatizado", status: "Ok", time: "hace 2h" },
+              { mod: "Ventas", text: "Ajuste fiscal realizado", status: "Sinc", time: "hace 4h" },
             ].map((item, i) => (
               <div key={i} className="p-4 bg-white/5 rounded-2xl border border-white/5 flex justify-between items-start group hover:bg-white/10 transition-all">
                 <div className="space-y-1">
@@ -148,19 +144,19 @@ export function ChatDialog() {
                   <p className="text-xs font-bold text-white/80">{item.text}</p>
                   <p className="text-[8px] font-medium text-white/20 uppercase">{item.time}</p>
                 </div>
-                <Badge variant="outline" className="text-[7px] border-primary/20 text-primary">{item.status}</Badge>
+                <Badge variant="outline" className="text-[7px] border-primary/20 text-primary uppercase">{item.status}</Badge>
               </div>
             ))}
           </TabsContent>
 
           <TabsContent value="sugerencias" className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-secondary flex items-center gap-2">
-              <Sparkles className="h-3 w-3" /> Optimizaciones
+              <Bot className="h-3 w-3" /> Recomendaciones
             </h4>
             {[
-              { mod: "Tesorería", text: "Convertir Bs. 5.000 a USD para proteger liquidez.", action: "Ejecutar Cambio" },
-              { mod: "Identidad", text: "RIF por vencer en 15 días. Iniciar renovación.", action: "Tramitar Ahora" },
-              { mod: "Ventas", text: "Factura duplicada detectada en Ledger #F123.", action: "Eliminar Duplicado" },
+              { mod: "Tesorería", text: "Proteger liquidez en USD.", action: "Ver Cambio" },
+              { mod: "Identidad", text: "Actualizar RIF (15 días).", action: "Tramitar" },
+              { mod: "Ventas", text: "Revisar facturas duplicadas.", action: "Auditar" },
             ].map((item, i) => (
               <div key={i} className="p-4 bg-secondary/5 rounded-2xl border border-secondary/10 space-y-3">
                 <div>
@@ -179,7 +175,7 @@ export function ChatDialog() {
               {messages.length === 0 && !isLoading ? (
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-30 px-8">
                   <MessageCircle className="h-12 w-12 mb-4" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.4em]">Núcleo de inteligencia en espera...</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em]">¿En qué puedo ayudarte hoy?</p>
                 </div>
               ) : (
                 messages.map((msg, index) => (
@@ -187,7 +183,7 @@ export function ChatDialog() {
                     <div className={cn('p-2 rounded-lg border shrink-0', msg.role === 'user' ? 'bg-primary/10 border-primary/20' : 'bg-white/5 border-white/10')}>
                       {msg.role === 'user' ? <User className="h-3 w-3 text-primary" /> : <Bot className="h-3 w-3 text-emerald-500" />}
                     </div>
-                    <div className={cn('max-w-[80%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed', msg.role === 'user' ? 'bg-primary text-white' : 'bg-white/5 text-white/80')}>
+                    <div className={cn('max-w-[85%] p-3 rounded-2xl text-[11px] font-medium leading-relaxed', msg.role === 'user' ? 'bg-primary text-white' : 'bg-white/5 text-white/80')}>
                       {msg.text}
                     </div>
                   </div>
@@ -216,7 +212,7 @@ export function ChatDialog() {
         </Tabs>
 
         <footer className="p-6 border-t border-white/5 bg-white/[0.02] text-center">
-          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10">System Kyron Intelligence • v2.6.5</p>
+          <p className="text-[7px] font-black uppercase tracking-[0.5em] text-white/10">System Kyron • 2026</p>
         </footer>
       </SheetContent>
     </Sheet>
