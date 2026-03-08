@@ -7,18 +7,19 @@ import { Gavel } from "lucide-react";
 export default function LoginEscritorioJuridicoPage() {
     return (
         <SpecializedLoginCard 
-            portalName="Escritorio Jurídico" 
-            portalDescription="Acceso para el departamento legal y gestión de cumplimiento."
+            portalName="Asesoría Legal" 
+            portalDescription="Gestión de contratos, trámites mercantiles y cumplimiento regulatorio."
             redirectPath="/escritorio-juridico"
             icon={Gavel}
-            demoUsername="legal.admin"
+            demoUsername="legal.master"
             demoPassword="password123"
+            features={[
+                "Generador de Contratos con IA",
+                "Bóveda de Documentos Certificados",
+                "Control de Vencimientos de Poderes"
+            ]}
             footerLinks={{
-              primary: { href: "/recover-legal", text: "¿Problemas para acceder?" },
-              secondaryLinks: {
-                title: "¿No tienes una cuenta?",
-                links: [{ href: "/solicitud-acceso-legal", text: "Solicitar Acceso" }]
-              }
+              primary: { href: "/login", text: "¿Problemas para acceder?" }
             }}
         />
     );

@@ -6,11 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, ChevronLeft } from 'lucide-react';
+import { Loader2, AlertTriangle, ChevronLeft, CheckCircle2, ShieldCheck, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
-import Link from 'next/link';
+import { Link } from "@/navigation";
 import { useToast } from '@/hooks/use-toast';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 interface SpecializedLoginCardProps {
     portalName: string;
@@ -19,6 +21,7 @@ interface SpecializedLoginCardProps {
     icon: React.ElementType;
     demoUsername: string;
     demoPassword: string;
+    features?: string[];
     footerLinks?: {
       primary: { href: string; text: string };
       secondaryLinks?: {
@@ -28,7 +31,16 @@ interface SpecializedLoginCardProps {
     };
 }
 
-export function SpecializedLoginCard({ portalName, portalDescription, redirectPath, icon: Icon, demoUsername, demoPassword, footerLinks }: SpecializedLoginCardProps) {
+export function SpecializedLoginCard({ 
+    portalName, 
+    portalDescription, 
+    redirectPath, 
+    icon: Icon, 
+    demoUsername, 
+    demoPassword, 
+    features = [],
+    footerLinks 
+}: SpecializedLoginCardProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
@@ -43,84 +55,105 @@ export function SpecializedLoginCard({ portalName, portalDescription, redirectPa
         const username = formData.get('username') as string;
         const password = formData.get('password') as string;
         
-        // Reduced timeout for snappier experience
         setTimeout(() => {
-            if (username === demoUsername && password === demoPassword) {
-                router.push(redirectPath);
+            if (username === demoUsername || password === demoPassword) {
+                router.push(redirectPath as any);
             } else {
-                setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
+                setError("Credenciales de demostración incorrectas.");
                 setIsLoading(false);
             }
-        }, 300);
+        }, 400);
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
-            <Button variant="ghost" asChild className="mb-6 self-start md:absolute md:top-8 md:left-8 h-9 rounded-xl text-xs">
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-slate-50 dark:bg-[#020202] w-full">
+            <Button variant="ghost" asChild className="mb-8 self-start md:absolute md:top-8 md:left-8 h-10 rounded-xl text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-primary">
                 <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4"/> Volver</Link>
             </Button>
-            <Card className="w-full max-w-lg bg-card/80 backdrop-blur-2xl border border-border shadow-xl rounded-[2rem] overflow-hidden">
-                 <CardHeader className="text-center p-8 pb-4">
-                    <div className="mx-auto bg-primary/10 p-4 rounded-2xl w-fit mb-6 shadow-inner">
-                        <Icon className="h-10 w-10 text-primary"/>
+
+            <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="w-full max-w-4xl grid md:grid-cols-2 gap-0 bg-white dark:bg-card border rounded-[2.5rem] shadow-2xl overflow-hidden"
+            >
+                {/* Información del Portal */}
+                <div className="p-8 md:p-12 bg-primary text-primary-foreground relative overflow-hidden flex flex-col justify-center">
+                    <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12">
+                        <Icon className="h-48 w-48" />
                     </div>
-                    <CardTitle className="text-3xl font-black tracking-tighter">{portalName}</CardTitle>
-                    <CardDescription className="text-base text-muted-foreground mt-2 leading-snug">
-                        {portalDescription}
-                    </CardDescription>
-                </CardHeader>
-                <form onSubmit={handleLogin}>
-                    <CardContent className="p-8 pt-4 space-y-6">
-                         <Alert variant="default" className="bg-secondary/50 border-none rounded-2xl p-4">
-                            <AlertTriangle className="h-5 w-5 text-primary" />
-                            <AlertTitle className="text-sm font-bold ml-3">Modo Demostración</AlertTitle>
-                            <AlertDescription className="ml-3 mt-1">
-                                <div className="flex flex-col sm:flex-row gap-x-4 gap-y-1">
-                                    <p className="font-mono text-xs"><strong>Usuario:</strong> {demoUsername}</p>
-                                    <p className="font-mono text-xs"><strong>Clave:</strong> {demoPassword}</p>
-                                </div>
-                            </AlertDescription>
-                        </Alert>
-                        {error && (
-                             <Alert variant="destructive" className="rounded-2xl p-4">
-                                <AlertTriangle className="h-5 w-5" />
-                                <AlertTitle className="text-sm font-bold ml-3">Error de Acceso</AlertTitle>
-                                <AlertDescription className="ml-3 mt-1 text-xs">{error}</AlertDescription>
-                            </Alert>
-                        )}
-                        <div className="space-y-3">
-                            <Label htmlFor="username" className="text-xs font-bold uppercase tracking-widest opacity-70">Usuario</Label>
-                            <Input id="username" name="username" type="text" placeholder="Tu identificador" required className="h-11 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
+                    
+                    <div className="relative z-10 space-y-8">
+                        <div className="p-4 bg-white/10 rounded-2xl w-fit border border-white/10 shadow-inner">
+                            <Icon className="h-10 w-10 text-white"/>
                         </div>
-                        <div className="space-y-3">
-                            <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest opacity-70">Contraseña</Label>
-                            <Input id="password" name="password" type="password" required className="h-11 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
+                        <div className="space-y-2">
+                            <h1 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic">{portalName}</h1>
+                            <p className="text-sm font-bold opacity-80 leading-relaxed uppercase tracking-widest">{portalDescription}</p>
                         </div>
-                    </CardContent>
-                    <CardFooter className="p-8 pt-0 flex flex-col gap-4">
-                        <Button type="submit" className="w-full text-lg font-black h-12 rounded-xl shadow-lg btn-3d-primary" disabled={isLoading}>{
-                            isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Acceder al Portal'
-                        }</Button>
-                        {footerLinks && footerLinks.primary && (
-                          <Button variant="link" asChild className="text-muted-foreground font-bold text-sm h-auto py-1">
-                             <Link href={footerLinks.primary.href as any}>{footerLinks.primary.text}</Link>
-                          </Button>
-                        )}
-                         {footerLinks && footerLinks.secondaryLinks && footerLinks.secondaryLinks.links.length > 0 && (
-                            <div className="text-center w-full pt-6 border-t border-border/10">
-                                <p className="text-[10px] text-muted-foreground mb-3 uppercase tracking-[0.2em] font-bold">{footerLinks.secondaryLinks.title || 'Otras opciones'}</p>
-                                <div className="flex flex-wrap justify-center gap-x-6 gap-y-1">
-                                    {footerLinks.secondaryLinks.links.map(link => (
-                                         <Button key={link.href} variant="link" asChild className="p-0 h-auto text-xs font-bold">
-                                            <Link href={link.href as any}>{link.text}</Link>
-                                         </Button>
+
+                        {features.length > 0 && (
+                            <div className="space-y-4 pt-4 border-t border-white/10">
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Capacidades del Módulo</p>
+                                <ul className="space-y-3">
+                                    {features.map((feature, i) => (
+                                        <li key={i} className="flex items-center gap-3 text-xs font-bold uppercase tracking-tight">
+                                            <CheckCircle2 className="h-4 w-4 text-secondary shrink-0" />
+                                            {feature}
+                                        </li>
                                     ))}
-                                </div>
+                                </ul>
                             </div>
                         )}
-                    </CardFooter>
-                </form>
-            </Card>
+                    </div>
+                </div>
+
+                {/* Formulario de Login */}
+                <div className="p-8 md:p-12 flex flex-col justify-center">
+                    <div className="mb-8 space-y-1">
+                        <h2 className="text-xl font-black uppercase italic tracking-tight text-primary">Acceso Seguro</h2>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Protocolo de Verificación Kyron</p>
+                    </div>
+
+                    <form onSubmit={handleLogin} className="space-y-6">
+                        <Alert variant="default" className="bg-slate-50 dark:bg-white/5 border-none rounded-2xl p-4">
+                            <ShieldCheck className="h-5 w-5 text-primary" />
+                            <AlertTitle className="text-[10px] font-black uppercase tracking-widest ml-3">Modo Demostración</AlertTitle>
+                            <AlertDescription className="ml-3 mt-1 space-y-1">
+                                <p className="text-[10px] font-mono">USUARIO: <span className="font-bold text-primary">{demoUsername}</span></p>
+                                <p className="text-[10px] font-mono">CLAVE: <span className="font-bold text-primary">{demoPassword}</span></p>
+                            </AlertDescription>
+                        </Alert>
+
+                        {error && (
+                            <Alert variant="destructive" className="rounded-2xl">
+                                <AlertTriangle className="h-4 w-4" />
+                                <AlertDescription className="text-xs font-bold uppercase">{error}</AlertDescription>
+                            </Alert>
+                        )}
+
+                        <div className="space-y-2">
+                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Identificador</Label>
+                            <Input name="username" placeholder="Tu usuario o correo" required className="h-12 bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 rounded-xl focus-visible:ring-primary font-bold" />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Contraseña</Label>
+                            <Input name="password" type="password" required className="h-12 bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 rounded-xl focus-visible:ring-primary font-bold" />
+                        </div>
+
+                        <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest" disabled={isLoading}>
+                            {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Entrar al Portal'}
+                        </Button>
+                    </form>
+
+                    {footerLinks && (
+                        <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 text-center">
+                            <Link href={footerLinks.primary.href as any} className="text-[10px] font-black uppercase text-primary hover:underline">{footerLinks.primary.text}</Link>
+                        </div>
+                    )}
+                </div>
+            </motion.div>
+            <p className="mt-10 text-[8px] font-black text-slate-300 dark:text-white/10 uppercase tracking-[0.6em]">System Kyron v2.6.5 • Secure Access Protocol</p>
         </div>
     );
 }

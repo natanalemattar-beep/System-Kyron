@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -14,8 +15,8 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { WelcomeTutorial } from "@/components/welcome-tutorial";
 
 /**
- * @fileOverview Página de Inicio Consolidada v2.6.5.
- * Implementa el flujo completo de conversión y el Hero de Alta Fidelidad.
+ * @fileOverview Página de Inicio Kyron - Rediseño Estético 2025.
+ * Enfoque en limpieza, elegancia y solidez corporativa.
  */
 
 export default function LandingPage() {
@@ -23,30 +24,40 @@ export default function LandingPage() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 40, restDelta: 0.001 });
 
   return (
-    <div className="relative min-h-screen bg-transparent flex flex-col overflow-x-hidden hud-grid selection:bg-primary/20 w-full">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-[#020202] flex flex-col overflow-x-hidden selection:bg-primary/20 w-full">
       <WelcomeTutorial />
       
-      {/* Progress Bar HUD */}
+      {/* HUD Progress Bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-[1px] bg-primary/40 shadow-glow origin-left z-[200]" 
+        className="fixed top-0 left-0 right-0 h-1 bg-primary/60 shadow-glow origin-left z-[200]" 
         style={{ scaleX }} 
       />
       
       <LandingHeader />
       
       <main className="relative flex-1 w-full">
-        {/* HERO SECTION COMPONENTE MAESTRO */}
         <HeroSection />
         
-        <div className="container mx-auto px-6 max-w-7xl space-y-32 md:space-y-48 pb-24">
+        <div className="space-y-32 md:space-y-48 pb-32">
             <ServicesSection />
-            <FeaturesSection />
+            
+            <div className="container mx-auto px-6 max-w-7xl">
+                <FeaturesSection />
+            </div>
+
             <AboutUsSection />
-            <FaqSection />
-            <CtaSection />
+            
+            <div className="container mx-auto px-6 max-w-7xl">
+                <FaqSection />
+                <CtaSection />
+            </div>
+            
             <Footer />
         </div>
       </main>
+
+      {/* Rejilla HUD Suavizada */}
+      <div className="fixed inset-0 pointer-events-none -z-10 opacity-[0.03] dark:opacity-[0.05] hud-grid" />
     </div>
   );
 }

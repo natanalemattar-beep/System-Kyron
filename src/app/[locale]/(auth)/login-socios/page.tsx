@@ -7,12 +7,20 @@ import { Users } from "lucide-react";
 export default function LoginSociosPage() {
     return (
         <SpecializedLoginCard 
-            portalName="Portal de Socios" 
-            portalDescription="Dashboard de supervisión para socios y junta directiva."
+            portalName="Socios y Directivos" 
+            portalDescription="Dashboard estratégico para la supervisión de resultados y rentabilidad."
             redirectPath="/dashboard-socios"
             icon={Users}
-            demoUsername="socio.principal"
+            demoUsername="socio.maestro"
             demoPassword="password123"
+            features={[
+                "Simulador Estratégico (Gemelo Digital)",
+                "Reparto de Beneficios y Dividendos",
+                "Auditoría de Holding Consolidada"
+            ]}
+            footerLinks={{
+              primary: { href: "/login", text: "Acceso Corporativo" }
+            }}
         />
     );
 }
