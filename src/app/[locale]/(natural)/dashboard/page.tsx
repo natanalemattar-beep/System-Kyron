@@ -8,32 +8,23 @@ import {
     ShieldAlert, 
     Fingerprint, 
     ArrowRight, 
-    Activity, 
-    Sparkles, 
     FileText, 
     Recycle, 
     Smartphone,
-    CreditCard,
-    Zap,
-    Download,
-    Eye,
     Bell,
     Settings,
-    MoreHorizontal,
-    HeartPulse,
-    Search,
     ShieldCheck
 } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { formatDate, cn, formatCurrency } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
 
 const kpiData = [
   { title: "Mis Documentos", value: "4 Activos", icon: FileText, desc: "RIF vence en 15 días", color: "text-blue-400", bg: "bg-blue-400/5" },
-  { title: "Mi Línea Kyron", value: "Activa", icon: CheckCircle, desc: "+58 424-1234567", color: "text-emerald-400", bg: "bg-emerald-400/5" },
-  { title: "Mis Puntos Verdes", value: "1,250 pts", icon: Recycle, desc: "340kg CO₂ ahorrado", color: "text-secondary", bg: "bg-secondary/10" },
+  { title: "Estado de Cuenta", value: "Al día", icon: CheckCircle, desc: "+58 424-1234567", color: "text-emerald-400", bg: "bg-emerald-400/5" },
+  { title: "Eco-Créditos", value: "1,250 pts", icon: Recycle, desc: "340kg CO₂ evitado", color: "text-secondary", bg: "bg-secondary/10" },
 ];
 
 const misDocumentos = [
@@ -50,10 +41,10 @@ export default function DashboardPersonalPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-4 border-primary pl-8 py-2">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/10">
-                <ShieldCheck className="h-3 w-3" /> IDENTIDAD VERIFICADA (BIOMÉTRICA)
+                <ShieldCheck className="h-3 w-3" /> IDENTIDAD VERIFICADA
             </div>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow">¡Hola, Carlos! 👋</h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Acceso Seguro • Última actividad: Hoy 9:30 AM</p>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow">¡Hola, Carlos!</h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Acceso Seguro • Último ingreso: Hoy 9:30 AM</p>
         </div>
         
         <div className="flex gap-3">
@@ -95,21 +86,21 @@ export default function DashboardPersonalPage() {
             <CardHeader className="p-10 border-b border-white/5 flex flex-row items-center justify-between bg-white/[0.01]">
                 <div className="space-y-1">
                     <CardTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-4 text-white">
-                        <Fingerprint className="text-primary h-6 w-6" /> Mi Identidad Digital
+                        <Fingerprint className="text-primary h-6 w-6" /> Mis Documentos
                     </CardTitle>
-                    <p className="text-[9px] font-bold uppercase text-white/20 tracking-widest italic">Expedientes Personales Protegidos</p>
+                    <p className="text-[9px] font-bold uppercase text-white/20 tracking-widest italic">Archivo Personal Protegido</p>
                 </div>
                 <Button variant="ghost" asChild size="sm" className="text-[9px] font-black uppercase tracking-widest text-primary hover:text-white">
-                    <Link href="/documentos">Ver Bóveda Completa</Link>
+                    <Link href="/documentos">Ver Todo</Link>
                 </Button>
             </CardHeader>
             <CardContent className="p-0">
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-white/[0.01] border-none">
-                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Instrumento</TableHead>
+                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Documento</TableHead>
                             <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estado</TableHead>
-                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Validez</TableHead>
+                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Vencimiento</TableHead>
                             <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Acción</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -148,8 +139,8 @@ export default function DashboardPersonalPage() {
                 </div>
                 <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[2.4rem]">
                     <div className="space-y-1">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none text-white">Mi Línea de Datos</CardTitle>
-                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo 5G Actual</p>
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none text-white">Mi Línea Kyron</CardTitle>
+                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo de Datos 5G</p>
                     </div>
                     <div className="space-y-4">
                         <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
@@ -169,8 +160,8 @@ export default function DashboardPersonalPage() {
 
            <Card className="bg-white/[0.02] border-white/5 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group border-l-4 border-secondary">
                 <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Recycle className="h-20 w-20" /></div>
-                <h3 className="text-sm font-black text-secondary uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
-                    <Sparkles className="h-4 w-4" /> Mis Puntos Verdes
+                <h3 className="text-sm font-black text-secondary uppercase tracking-[0.3em] mb-6 flex items-center gap-3 text-white">
+                    Eco-Créditos Acumulados
                 </h3>
                 <div className="space-y-6">
                     <div>
@@ -188,22 +179,15 @@ export default function DashboardPersonalPage() {
       <Card className="bg-rose-500/5 border border-rose-500/20 rounded-[2rem] p-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-8 opacity-5"><Bell className="h-32 w-32" /></div>
           <h3 className="text-lg font-black uppercase italic tracking-tighter text-rose-500 mb-6 flex items-center gap-3">
-              <Bell className="h-5 w-5" /> Avisos Importantes
+              <Bell className="h-5 w-5" /> Avisos Pendientes
           </h3>
           <div className="space-y-4">
               <div className="flex items-center justify-between p-4 bg-black/40 rounded-xl border border-white/5">
                   <div className="flex items-center gap-4">
                       <ShieldAlert className="h-5 w-5 text-amber-500" />
-                      <span className="text-xs font-bold text-white/80 uppercase">Renovación de RIF pendiente (Vence en 15 días)</span>
+                      <span className="text-xs font-bold text-white/80 uppercase">Renovación de RIF (Vence en 15 días)</span>
                   </div>
                   <Button size="sm" className="btn-3d-primary h-8 px-4 text-[8px] font-black uppercase">RENOVAR</Button>
-              </div>
-              <div className="flex items-center justify-between p-4 bg-black/40 rounded-xl border border-white/5">
-                  <div className="flex items-center gap-4">
-                      <Sparkles className="h-5 w-5 text-primary" />
-                      <span className="text-xs font-bold text-white/80 uppercase">Nuevo beneficio: 2x1 en puntos de reciclaje en Sede Central</span>
-                  </div>
-                  <Button size="sm" variant="ghost" className="h-8 px-4 text-[8px] font-black uppercase text-white/40">MÁS INFO</Button>
               </div>
           </div>
       </Card>

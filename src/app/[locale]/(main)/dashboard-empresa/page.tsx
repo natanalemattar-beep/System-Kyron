@@ -1,5 +1,8 @@
 
-// ESTE ARCHIVO HA SIDO DESHABILITADO PARA EVITAR COLISIÓN DE RUTAS CON (ADMIN)
-export default function DisabledPage() {
+import { redirect } from "@/navigation";
+
+export default function RedirectPage() {
+  // Redirección al nuevo nombre normalizado para evitar colisiones
+  redirect("/resumen-negocio");
   return null;
 }
