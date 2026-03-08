@@ -129,7 +129,12 @@ export function LandingHeader() {
 
                         <Sheet>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="lg:hidden rounded-xl h-10 w-10 bg-white/5 border border-white/5">
+                                <Button 
+                                    variant="ghost" 
+                                    size="icon" 
+                                    className="lg:hidden rounded-xl h-10 w-10 bg-white/5 border border-white/5"
+                                    aria-label="Menú móvil de navegación"
+                                >
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
