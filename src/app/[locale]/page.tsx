@@ -17,6 +17,7 @@ import { WelcomeTutorial } from "@/components/welcome-tutorial";
 /**
  * @fileOverview Página de Inicio Kyron - Rediseño Estético 2025.
  * Enfoque en limpieza, elegancia y solidez corporativa.
+ * Se ha eliminado el fondo sólido para mostrar el DynamicBackground.
  */
 
 export default function LandingPage() {
@@ -24,7 +25,7 @@ export default function LandingPage() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 40, restDelta: 0.001 });
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-[#020202] flex flex-col overflow-x-hidden selection:bg-primary/20 w-full">
+    <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
       <WelcomeTutorial />
       
       {/* HUD Progress Bar */}
@@ -56,7 +57,7 @@ export default function LandingPage() {
         </div>
       </main>
 
-      {/* Rejilla HUD Suavizada */}
+      {/* Rejilla HUD Suavizada Global */}
       <div className="fixed inset-0 pointer-events-none -z-10 opacity-[0.03] dark:opacity-[0.05] hud-grid" />
     </div>
   );

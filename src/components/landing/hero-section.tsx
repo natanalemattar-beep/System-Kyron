@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from "framer-motion";
@@ -9,44 +10,27 @@ import { Card } from "@/components/ui/card";
 import { Link } from "@/navigation";
 import { useTranslations } from 'next-intl';
 
+/**
+ * @fileOverview Hero Section refinado con estética de ingeniería.
+ * Se han agregado líneas de precisión y marcos HUD sutiles.
+ */
+
 export function HeroSection() {
   const t = useTranslations('HeroSection');
 
   return (
     <section id="inicio" className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-screen flex items-center bg-transparent">
       
-      {/* Background Animated Elements */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden gpu-accelerated">
-        <motion.div 
-          animate={{ 
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-            opacity: [0.2, 0.3, 0.2]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]"
-        />
-        <motion.div 
-          animate={{ 
-            x: [0, -40, 0],
-            y: [0, 40, 0],
-            opacity: [0.1, 0.2, 0.1]
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-secondary/10 rounded-full blur-[100px]"
-        />
+      {/* HUD Architectural Lines */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-primary/20 via-transparent to-transparent opacity-20" />
+        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
         
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square opacity-[0.03] flex items-center justify-center pointer-events-none">
-            <motion.div
-              animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }}
-              transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-              className="w-full h-full"
-            >
-              <Logo className="w-full h-full" />
-            </motion.div>
-        </div>
-
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.01] mix-blend-overlay"></div>
+        {/* Corner Markers */}
+        <div className="absolute top-20 left-10 w-8 h-8 border-t-2 border-l-2 border-primary/20" />
+        <div className="absolute top-20 right-10 w-8 h-8 border-t-2 border-r-2 border-primary/20" />
+        <div className="absolute bottom-20 left-10 w-8 h-8 border-b-2 border-l-2 border-primary/20" />
+        <div className="absolute bottom-20 right-10 w-8 h-8 border-b-2 border-r-2 border-primary/20" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -56,96 +40,80 @@ export function HeroSection() {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-12"
+            className="space-y-10"
           >
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-primary/10 text-[10px] font-black uppercase tracking-[0.4em] text-primary backdrop-blur-xl border border-primary/20 shadow-glow">
-              <Sparkles className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-              Ecosistema de Misión Crítica v2.6.5
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-lg bg-primary/5 text-[9px] font-black uppercase tracking-[0.4em] text-primary backdrop-blur-md border border-primary/10">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              CORE SYSTEM v2.6.5
             </div>
 
-            <div className="space-y-6">
-                <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.8] text-foreground">
-                  KYRON <br/> 
-                  <span className="text-primary italic italic-shadow">SYSTEM</span>
+            <div className="space-y-4">
+                <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground uppercase italic leading-none">
+                  KYRON <span className="text-primary not-italic">SYSTEM</span>
                 </h1>
-                <p className="text-primary font-black uppercase tracking-[0.5em] text-xs md:text-sm mt-4">
+                <p className="text-primary font-black uppercase tracking-[0.6em] text-[9px] md:text-[10px] mt-2 opacity-60">
                   {t('slogan')}
                 </p>
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-xl leading-snug font-bold border-l-4 border-primary/30 pl-8 opacity-80 uppercase tracking-tight pt-4">
-                  Líneas <span className="text-secondary italic">5G Digitales</span>, <br/>
-                  Conectividad <span className="text-primary tracking-tighter">eSIM</span> y Blindaje Fiscal.
+                <p className="text-base md:text-lg text-muted-foreground max-w-lg leading-relaxed font-bold uppercase tracking-tight italic border-l-2 border-primary/20 pl-6 mt-6">
+                  Infraestructura <span className="text-primary">Digital Soberana</span> para operaciones de misión crítica.
                 </p>
             </div>
             
-            <div className="flex flex-wrap gap-6 pt-4">
-                <Button asChild size="lg" className="btn-3d-primary h-16 px-12 text-xs font-black uppercase tracking-widest rounded-2xl group shadow-2xl">
-                    <Link href="/register" className="relative z-10 flex items-center gap-3">
-                        DESPLEGAR SISTEMA <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
+            <div className="flex flex-wrap gap-4">
+                <Button asChild size="lg" className="btn-3d-primary h-14 px-10 text-[10px] font-black uppercase tracking-widest rounded-xl group shadow-2xl">
+                    <Link href="/register" className="flex items-center gap-3">
+                        DESPLEGAR <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </Button>
-                <Button variant="outline" asChild size="lg" className="h-16 px-10 text-xs font-black uppercase tracking-widest rounded-2xl border-white/10 hover:bg-white/5 shadow-xl bg-white/[0.02] backdrop-blur-xl transition-all">
-                    <Link href="/manual-usuario">DOCUMENTACIÓN</Link>
+                <Button variant="outline" asChild size="lg" className="h-14 px-10 text-[10px] font-black uppercase tracking-widest rounded-xl border-white/10 hover:bg-white/5 bg-white/[0.02] backdrop-blur-sm transition-all">
+                    <Link href="/manual-usuario">MANUAL TÉCNICO</Link>
                 </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-12 pt-12 border-t border-white/5 max-w-lg">
-                {[
-                    { val: "100%", lab: "COMPLIANCE", color: "text-primary" },
-                    { val: "3D", lab: "MAGNETIC", color: "text-secondary" },
-                    { val: "AI", lab: "SHIELD", color: "text-primary" }
-                ].map((stat, i) => (
-                    <div key={i} className="flex flex-col gap-2">
-                        <span className={cn("font-black text-3xl tracking-tighter block italic", stat.color)}>{stat.val}</span>
-                        <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-30">{stat.lab}</span>
-                    </div>
-                ))}
+            <div className="flex items-center gap-8 pt-8 opacity-40">
+                <div className="flex flex-col gap-1">
+                    <span className="text-xs font-black italic">5G_CONNECT</span>
+                    <div className="h-1 w-12 bg-primary rounded-full" />
+                </div>
+                <div className="flex flex-col gap-1">
+                    <span className="text-xs font-black italic">AUTH_SECURE</span>
+                    <div className="h-1 w-12 bg-secondary rounded-full" />
+                </div>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 40 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="relative grid grid-cols-2 gap-6 p-4"
           >
-            <div className="grid grid-cols-2 gap-8 p-4">
-                <Card className="glass-card p-10 rounded-[3rem] shadow-2xl hover:scale-105 transition-all duration-500 group overflow-hidden border-none bg-primary/5">
-                    <div className="p-6 bg-primary/10 rounded-[2rem] w-fit mb-8 shadow-inner border border-primary/10">
-                        <Radio className="h-10 w-10 text-primary group-hover:animate-pulse" />
-                    </div>
-                    <h3 className="font-black text-xl uppercase italic mb-2 text-white">Líneas Kyron</h3>
-                    <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-40">Activación 5G</p>
+                <Card className="glass-card p-8 rounded-3xl shadow-xl hover:translate-y-[-4px] transition-all duration-500 group border-primary/10">
+                    <Radio className="h-8 w-8 text-primary mb-6" />
+                    <h3 className="font-black text-sm uppercase italic mb-1">Red 5G</h3>
+                    <p className="text-[8px] text-muted-foreground font-black uppercase tracking-widest">Activación eSIM</p>
                 </Card>
                 
-                <Card className="glass-card p-10 rounded-[3rem] shadow-2xl hover:scale-105 transition-all duration-500 mt-20 group overflow-hidden border-none bg-secondary/5">
-                    <div className="p-6 bg-secondary/10 rounded-[2rem] w-fit mb-8 shadow-inner border border-secondary/10">
-                        <Magnet className="h-10 w-10 text-secondary" />
-                    </div>
-                    <h3 className="font-black text-xl uppercase italic mb-2 text-white">Smart Bins</h3>
-                    <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-40">Magnético IA</p>
+                <Card className="glass-card p-8 rounded-3xl shadow-xl hover:translate-y-[-4px] transition-all duration-500 mt-12 group border-secondary/10">
+                    <Magnet className="h-8 w-8 text-secondary mb-6" />
+                    <h3 className="font-black text-sm uppercase italic mb-1">Smart Bins</h3>
+                    <p className="text-[8px] text-muted-foreground font-black uppercase tracking-widest">Mag-Induction</p>
                 </Card>
                 
-                <Card className="glass-card p-10 rounded-[3rem] shadow-2xl hover:scale-105 transition-all duration-500 -mt-10 group overflow-hidden border-none bg-primary/5">
-                    <div className="p-6 bg-primary/10 rounded-[2rem] w-fit mb-8 shadow-inner border border-primary/10">
-                        <Phone className="h-10 w-10 text-primary" />
-                    </div>
-                    <h3 className="font-black text-xl uppercase italic mb-2 text-white">SIM Digital</h3>
-                    <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-40">Gestión eSIM</p>
+                <Card className="glass-card p-8 rounded-3xl shadow-xl hover:translate-y-[-4px] transition-all duration-500 -mt-6 group border-primary/10">
+                    <Phone className="h-8 w-8 text-primary mb-6" />
+                    <h3 className="font-black text-sm uppercase italic mb-1">Terminales</h3>
+                    <p className="text-[8px] text-muted-foreground font-black uppercase tracking-widest">Kyron Pro X</p>
                 </Card>
                 
-                <div className="glass-card p-10 bg-primary text-white rounded-[3rem] shadow-[0_0_100px_-20px_rgba(37,99,235,0.5)] hover:scale-105 transition-all duration-500 mt-10 group overflow-hidden border-none relative flex flex-col justify-end">
-                    <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-180 transition-all duration-1000">
-                        <Globe className="h-32 w-32" />
-                    </div>
-                    <div className="p-6 bg-white/10 rounded-[2rem] w-fit mb-8 shadow-xl backdrop-blur-md relative z-10 border border-white/10">
-                        <Globe className="h-10 w-10 text-white animate-spin-slow" />
-                    </div>
-                    <h3 className="font-black text-xl uppercase italic mb-2 relative z-10">Ecosistema</h3>
-                    <p className="text-[10px] text-white/50 font-black uppercase tracking-[0.2em] relative z-10">Ledger Inmutable</p>
-                </div>
-            </div>
-            
-            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-primary/5 rounded-full blur-[150px] opacity-50" />
+                <Card className="p-8 bg-primary text-white rounded-3xl shadow-glow hover:translate-y-[-4px] transition-all duration-500 mt-6 group border-none relative overflow-hidden">
+                    <Globe className="h-8 w-8 text-white mb-6 animate-spin-slow" />
+                    <h3 className="font-black text-sm uppercase italic mb-1">Ecosistema</h3>
+                    <p className="text-[8px] text-white/50 font-black uppercase tracking-widest">Ledger Validated</p>
+                </Card>
           </motion.div>
 
         </div>
