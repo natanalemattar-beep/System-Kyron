@@ -15,18 +15,26 @@ import {
     Signal, 
     Loader2,
     ArrowUpRight,
-    Wifi
+    Wifi,
+    ChevronDown,
+    Lock
 } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function MiLineaPage() {
     const { toast } = useToast();
-    const [isRecharging, setIsRepaying] = useState(false);
+    const [isRecharging, setIsRecharging] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
+    const [activeNumber, setActiveNumber] = useState("0414-9377068");
 
     const dataInfo = {
         total: 30,
@@ -41,12 +49,12 @@ export default function MiLineaPage() {
     }, []);
 
     const handleRecharge = () => {
-        setIsRepaying(true);
+        setIsRecharging(true);
         setTimeout(() => {
-            setIsRepaying(false);
+            setIsRecharging(false);
             toast({
                 title: "RECARGA EXITOSA",
-                description: "Saldo acreditado instantáneamente a su línea.",
+                description: `Saldo acreditado a la línea ${activeNumber}.`,
                 action: <Zap className="text-yellow-400 h-4 w-4" />
             });
         }, 2000);
@@ -58,16 +66,37 @@ export default function MiLineaPage() {
         <div className="space-y-12 pb-20 px-6 md:px-16 animate-in fade-in duration-1000">
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-8 py-2 mt-10">
                 <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Signal className="h-3 w-3" /> NODO DE USUARIO
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+                        <Signal className="h-3 w-3" /> NODO DE CONECTIVIDAD
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Mi Línea <span className="text-primary italic">5G Pro</span></h1>
-                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Gestión de Conectividad Personal v2.6.5</p>
+                    
+                    <div className="flex items-center gap-6">
+                        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Mi Línea <span className="text-primary italic">5G Pro</span></h1>
+                        
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline" className="h-12 px-6 rounded-xl border-primary/20 bg-primary/5 text-primary text-[10px] font-black uppercase tracking-widest shadow-glow group">
+                                    {activeNumber}
+                                    <ChevronDown className="ml-3 h-4 w-4 opacity-40 group-hover:opacity-100 transition-all" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-64 bg-black/95 border-white/10 backdrop-blur-xl rounded-2xl p-2">
+                                <p className="p-3 text-[8px] font-black uppercase tracking-widest text-white/20">Cambiar línea activa</p>
+                                <DropdownMenuItem className="rounded-xl h-12 text-xs font-bold uppercase italic focus:bg-primary/10" onClick={() => setActiveNumber("0414-9377068")}>0414-9377068 (Personal)</DropdownMenuItem>
+                                <DropdownMenuItem className="rounded-xl h-12 text-xs font-bold uppercase italic focus:bg-primary/10" onClick={() => setActiveNumber("0412-1234567")}>0412-1234567 (Tablet)</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                    
+                    <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Asignación Inmediata • Provisión eUICC v2.6.5</p>
                 </div>
-                <Badge variant="outline" className="h-12 px-6 rounded-xl border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[10px] font-black uppercase tracking-widest shadow-glow-secondary">
-                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse mr-3" />
-                    ESTADO: ACTIVO
-                </Badge>
+                
+                <div className="flex gap-3">
+                    <Badge variant="outline" className="h-12 px-6 rounded-xl border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[10px] font-black uppercase tracking-widest shadow-glow-secondary">
+                        <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse mr-3" />
+                        ESTADO: ACTIVO
+                    </Badge>
+                </div>
             </header>
 
             <div className="grid lg:grid-cols-12 gap-10">
@@ -81,7 +110,7 @@ export default function MiLineaPage() {
                     </CardHeader>
                     <CardContent className="p-0 space-y-10">
                         <div className="relative flex flex-col items-center justify-center p-12 bg-white/[0.02] border border-white/5 rounded-[2.5rem] shadow-inner">
-                            <div className="absolute top-6 left-8 text-[9px] font-black uppercase tracking-widest text-primary">Inyección de Red Active</div>
+                            <div className="absolute top-6 left-8 text-[9px] font-black uppercase tracking-widest text-primary">Inyección de Red Activa</div>
                             
                             <div className="flex items-baseline gap-4 mb-6">
                                 <span className="text-7xl font-black italic text-white tracking-tighter leading-none">{dataInfo.used}</span>
@@ -110,7 +139,7 @@ export default function MiLineaPage() {
                                 { label: "Velocidad", val: "1.2 Gbps", icon: Zap, color: "text-yellow-400" },
                                 { label: "Latencia", val: "14 ms", icon: Activity, color: "text-emerald-400" },
                                 { label: "Red", val: "5G SA", icon: Wifi, color: "text-blue-400" },
-                                { label: "Cobertura", val: "Óptima", icon: Globe, color: "text-primary" }
+                                { label: "Seguridad", val: "AES-512", icon: Lock, color: "text-primary" }
                             ].map(stat => (
                                 <div key={stat.label} className="p-4 bg-white/[0.01] border border-white/5 rounded-2xl text-center group hover:bg-white/5 transition-all">
                                     <stat.icon className={cn("h-4 w-4 mx-auto mb-3 opacity-40 group-hover:opacity-100 transition-all", stat.color)} />
@@ -135,9 +164,9 @@ export default function MiLineaPage() {
                             </div>
                             
                             <div className="space-y-4">
-                                <p className="text-[10px] font-bold uppercase tracking-widest leading-relaxed opacity-80">Su plan se renovará automáticamente en 12 días.</p>
+                                <p className="text-[10px] font-bold uppercase tracking-widest leading-relaxed opacity-80 italic">Su plan se renovará automáticamente en 12 días.</p>
                                 <Button 
-                                    className="w-full h-14 rounded-2xl bg-white text-primary hover:bg-white/90 font-black uppercase text-xs tracking-widest shadow-2xl"
+                                    className="w-full h-14 rounded-2xl bg-white text-primary hover:bg-white/90 font-black uppercase text-xs tracking-widest shadow-2xl transition-all"
                                     onClick={handleRecharge}
                                     disabled={isRecharging}
                                 >
