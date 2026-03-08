@@ -4,11 +4,13 @@
 
 @layer base {
   :root {
-    /* Light Mode - System Kyron Corporate Identity */
-    --background: 0 0% 100%;
+    /* Light Mode - System Kyron Professional Precision */
+    --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
+    
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
+    
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     
@@ -20,41 +22,48 @@
     --secondary: 158 100% 33%;
     --secondary-foreground: 210 40% 98%;
     
-    --muted: 210 40% 96.1%;
+    --muted: 214.3 31.8% 91.4%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
+    
+    --accent: 214.3 31.8% 91.4%;
     --accent-foreground: 222.2 47.4% 11.2%;
+    
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+    
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 225 84% 25%;
-    --radius: 1rem;
+    
+    --radius: 1.25rem;
   }
 
   .dark {
-    /* Dark Mode - System Kyron Dark Identity */
+    /* Dark Mode - System Kyron Tech Identity */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+    
     --card: 222.2 84% 6.9%;
     --card-foreground: 210 40% 98%;
+    
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     
-    /* A bit lighter blue for visibility in dark mode */
     --primary: 210 100% 50%;
     --primary-foreground: 222.2 47.4% 11.2%;
     
-    /* A bit lighter green for visibility */
     --secondary: 145 100% 50%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
+    
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
+    
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+    
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -71,34 +80,38 @@
 
 @layer utilities {
   .btn-3d-primary {
-    @apply bg-primary text-primary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-none active:translate-y-1 transition-all;
+    @apply bg-primary text-primary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.15)] active:shadow-none active:translate-y-1 transition-all;
   }
 
   .btn-3d-secondary {
-    @apply bg-secondary text-secondary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-none active:translate-y-1 transition-all;
+    @apply bg-secondary text-secondary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.15)] active:shadow-none active:translate-y-1 transition-all;
   }
 
   .glass-card {
-    @apply bg-card/40 border border-border/50 backdrop-blur-md shadow-sm transition-all duration-300 hover:shadow-md;
+    @apply bg-card/70 border border-white/40 backdrop-blur-xl shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-primary/10;
+  }
+
+  .dark .glass-card {
+    @apply bg-card/40 border-white/5 shadow-none;
   }
   
   .shadow-glow {
-    box-shadow: 0 0 20px hsla(var(--primary), 0.2);
+    box-shadow: 0 0 25px hsla(var(--primary), 0.15);
   }
 
   .shadow-glow-secondary {
-    box-shadow: 0 0 20px hsla(var(--secondary), 0.2);
+    box-shadow: 0 0 25px hsla(var(--secondary), 0.15);
   }
 
   .italic-shadow {
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
   }
 
   .hud-grid {
     background-image: 
-      linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(to right, hsla(var(--primary) / 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, hsla(var(--primary) / 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
   }
 
   .dark .hud-grid {
@@ -117,7 +130,7 @@
 }
 
 .animate-spin-slow {
-  animation: spin 15s linear infinite;
+  animation: spin 20s linear infinite;
 }
 
 @keyframes spin {
@@ -142,22 +155,17 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+  @apply bg-transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  @apply bg-primary/10 rounded-full hover:bg-primary/20 transition-colors;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary));
+  @apply bg-white/5 hover:bg-white/10;
 }

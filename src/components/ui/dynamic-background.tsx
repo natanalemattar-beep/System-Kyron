@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -14,29 +13,27 @@ export function DynamicBackground() {
     <div className="fixed inset-0 -z-50 h-full w-full overflow-hidden bg-background gpu-accelerated">
         {isSnow && <FestiveEffect type="snow" />}
         
-        {/* Modern Optimized Grid */}
-        <div className="absolute inset-0 -z-10 h-full w-full opacity-30">
-            <div className="absolute h-full w-full bg-[radial-gradient(#0A2472_1px,transparent_1px)] [background-size:32px_32px] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-        </div>
+        {/* Rejilla HUD optimizada */}
+        <div className="absolute inset-0 -z-10 h-full w-full opacity-50 hud-grid [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_60%,transparent_100%)]" />
 
-        {/* Dynamic Ambient Glows - Optimized Blur and Motion */}
+        {/* Resplandores ambientales dinámicos */}
         <motion.div 
             animate={{ 
-                x: [0, 30, 0],
-                y: [0, -20, 0],
-                opacity: [0.3, 0.4, 0.3],
+                x: [0, 40, 0],
+                y: [0, -30, 0],
+                opacity: [0.1, 0.2, 0.1],
             }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[90px] -translate-y-1/2 pointer-events-none" 
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none" 
         />
         <motion.div 
             animate={{ 
-                x: [0, -30, 0],
+                x: [0, -40, 0],
                 y: [0, 30, 0],
-                opacity: [0.2, 0.3, 0.2],
+                opacity: [0.05, 0.15, 0.05],
             }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[80px] translate-y-1/2 pointer-events-none" 
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px] translate-y-1/2 pointer-events-none" 
         />
     </div>
   );
