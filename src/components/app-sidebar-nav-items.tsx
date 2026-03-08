@@ -37,23 +37,23 @@ import {
 
 export const naturalNavGroups = [
     {
-        title: "Principal",
+        title: "Inicio",
         icon: Home,
         items: [
-            { href: "/dashboard", label: "Inicio", icon: Home },
+            { href: "/dashboard", label: "Dashboard", icon: Home },
             { href: "/tarjeta-digital", label: "Mi Perfil", icon: User },
-            { href: "/seguridad", label: "Ajustes de Seguridad", icon: Shield },
-            { href: "/notificaciones", label: "Avisos Pendientes", icon: Bell },
+            { href: "/seguridad", label: "Seguridad", icon: Shield },
+            { href: "/notificaciones", label: "Avisos", icon: Bell },
         ],
         subGroups: [],
     },
     {
-        title: "Trámites y Documentos",
+        title: "Trámites",
         icon: FileText,
         items: [
             { href: "/documentos", label: "Mis Documentos", icon: File },
-            { href: "/partidas-nacimiento", label: "Partidas de Nacimiento", icon: Heart },
-            { href: "/actas-matrimonio", label: "Actas de Matrimonio", icon: FileText },
+            { href: "/partidas-nacimiento", label: "Partida de Nacimiento", icon: Heart },
+            { href: "/actas-matrimonio", label: "Acta de Matrimonio", icon: FileText },
             { href: "/documentos-judiciales", label: "Documentos Judiciales", icon: Gavel },
             { href: "/antecedentes-penales", label: "Antecedentes Penales", icon: Shield },
         ],
@@ -63,8 +63,8 @@ export const naturalNavGroups = [
         title: "Sustentabilidad",
         icon: Recycle,
         items: [
-            { href: "/tarjeta-reciclaje", label: "Mis Puntos Verdes", icon: Recycle },
-            { href: "/mercado-ecocreditos", label: "Canje de Recompensas", icon: Coins },
+            { href: "/tarjeta-reciclaje", label: "Puntos Verdes", icon: Recycle },
+            { href: "/mercado-ecocreditos", label: "Canje de Puntos", icon: Coins },
         ],
         subGroups: [],
     },
@@ -72,8 +72,8 @@ export const naturalNavGroups = [
         title: "Familia",
         icon: Users,
         items: [
-            { href: "/manutencion", label: "Pagos de Pensión", icon: Gavel },
-            { href: "/registro-rif", label: "RIF Familiar", icon: FileEdit },
+            { href: "/manutencion", label: "Manutención", icon: Gavel },
+            { href: "/registro-rif", label: "Registro RIF", icon: FileEdit },
         ],
         subGroups: [],
     }
@@ -81,18 +81,18 @@ export const naturalNavGroups = [
 
 export const adminNavGroups = [
   { 
-    title: "Resumen", 
+    title: "Administración", 
     icon: LayoutDashboard, 
-    items: [{ href: "/resumen-negocio", label: "Estado del Negocio", icon: LayoutDashboard }], 
+    items: [{ href: "/resumen-negocio", label: "Resumen de Negocio", icon: LayoutDashboard }], 
     subGroups: [] 
   },
   { 
-    title: "Facturación y Ventas", 
+    title: "Ventas", 
     icon: ShoppingCart, 
     subGroups: [],
     items: [
-        { href: "/facturacion", label: "Centro de Ventas", icon: FileText },
-        { href: "/punto-de-venta", label: "Cobro en Caja", icon: TabletSmartphone },
+        { href: "/facturacion", label: "Facturación", icon: FileText },
+        { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/proformas", label: "Cotizaciones", icon: Receipt },
         { href: "/facturacion-credito", label: "Ventas a Crédito", icon: CreditCard },
     ]
@@ -102,10 +102,10 @@ export const adminNavGroups = [
     icon: Calculator,
     subGroups: [
       {
-        title: "Análisis Financiero",
+        title: "Finanzas",
         icon: TrendingUp,
         items: [
-          { href: "/analisis-ventas", label: "Reporte de Ingresos", icon: TrendingUp },
+          { href: "/analisis-ventas", label: "Reporte de Ventas", icon: TrendingUp },
           { href: "/cierre-caja", label: "Cierre de Caja", icon: Calculator },
           { href: "/estructura-costos", label: "Estructura de Gastos", icon: PieChart },
         ]
@@ -114,7 +114,7 @@ export const adminNavGroups = [
         title: "Impuestos",
         icon: ShieldCheck,
         items: [
-          { href: "/declaracion-iva", label: "Declaración de IVA", icon: FileText },
+          { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
           { href: "/islr-arc", label: "Comprobantes ISLR", icon: Banknote },
         ]
       }
@@ -122,16 +122,16 @@ export const adminNavGroups = [
     items: []
   },
   {
-    title: "Empleados",
+    title: "Recursos Humanos",
     icon: Briefcase,
     subGroups: [
       {
-        title: "Gestión de Personal",
+        title: "Empleados",
         icon: Users,
         items: [
-            { href: "/dashboard-rrhh", label: "Recursos Humanos", icon: LayoutDashboard },
-            { href: "/nominas", label: "Pagos de Nómina", icon: Users },
-            { href: "/reclutamiento", label: "Nuevas Vacantes", icon: UserPlus },
+            { href: "/dashboard-rrhh", label: "Inicio RR.HH.", icon: LayoutDashboard },
+            { href: "/nominas", label: "Pago de Nómina", icon: Users },
+            { href: "/reclutamiento", label: "Vacantes", icon: UserPlus },
         ]
       }
     ],
@@ -142,13 +142,13 @@ export const adminNavGroups = [
     icon: Gavel, 
     subGroups: [
         {
-          title: "Legal y Contratos",
+          title: "Legal",
           icon: FileSignature,
           items: [
-            { href: "/escritorio-juridico", label: "Área Legal", icon: Gavel },
+            { href: "/escritorio-juridico", label: "Inicio Legal", icon: Gavel },
             { href: "/generador-documentos", label: "Crear Contratos", icon: Wand2 },
             { href: "/contratos", label: "Archivo de Contratos", icon: FileSignature },
-            { href: "/permisos", label: "Permisos Vigentes", icon: UserCheck },
+            { href: "/permisos", label: "Permisos y Licencias", icon: UserCheck },
           ]
         }
     ], 
@@ -157,7 +157,7 @@ export const adminNavGroups = [
 ];
 
 export const legalNavGroups = [
-  { title: "Inicio", icon: Gavel, items: [{ href: "/escritorio-juridico", label: "Asesoría Legal", icon: Gavel }], subGroups: [] },
+  { title: "Inicio", icon: Gavel, items: [{ href: "/escritorio-juridico", label: "Inicio Legal", icon: Gavel }], subGroups: [] },
   { 
     title: "Documentación", 
     icon: Gavel, 
@@ -171,12 +171,12 @@ export const legalNavGroups = [
 ];
 
 export const rrhhNavGroups = [
-    { title: "Inicio", icon: Briefcase, items: [{ href: "/dashboard-rrhh", label: "Recursos Humanos", icon: LayoutDashboard }], subGroups: []},
+    { title: "Inicio", icon: Briefcase, items: [{ href: "/dashboard-rrhh", label: "Inicio RR.HH.", icon: LayoutDashboard }], subGroups: []},
     { 
-        title: "Pagos", 
+        title: "Operaciones", 
         icon: Users, 
         items: [
-            { href: "/nominas", label: "Pagos de Nómina", icon: Users },
+            { href: "/nominas", label: "Pago de Nómina", icon: Users },
             { href: "/prestaciones-sociales", label: "Liquidaciones", icon: Calculator },
         ],
         subGroups: []
@@ -188,7 +188,7 @@ export const telecomNavGroups = [
     title: "Estado Técnico", 
     icon: Signal, 
     items: [ 
-      { href: "/dashboard-telecom", label: "Seguimiento de Red", icon: Signal },
+      { href: "/dashboard-telecom", label: "Estado de Red", icon: Signal },
     ], 
     subGroups: [] 
   },
@@ -197,7 +197,7 @@ export const telecomNavGroups = [
     icon: Smartphone, 
     items: [ 
       { href: "/venta-linea", label: "Nueva Línea", icon: Phone },
-      { href: "/conatel/licenses", label: "Estado de Licencias", icon: FileText },
+      { href: "/conatel/licenses", label: "Licencias Conatel", icon: FileText },
     ], 
     subGroups: [] 
   },
@@ -205,7 +205,7 @@ export const telecomNavGroups = [
 
 export const sociosNavGroups = [
     { title: "Estrategia", icon: Briefcase, items: [
-        { href: "/dashboard-socios", label: "Socios y Directivos", icon: LayoutDashboard },
-        { href: "/poderes-representacion", label: "Empresas del Grupo", icon: Gavel },
+        { href: "/dashboard-socios", label: "Socios", icon: LayoutDashboard },
+        { href: "/poderes-representacion", label: "Empresas", icon: Gavel },
     ], subGroups: [] },
 ];
