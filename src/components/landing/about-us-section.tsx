@@ -27,11 +27,11 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
 const testimonials = [
   {
     name: "Carlos Mattar",
-    company: "Ingeniero Maestro, System Kyron",
+    company: "Director de Tecnología, System Kyron",
     avatarId: "testimonial-avatar-1",
-    module: "Gestión IA",
+    module: "Gestión Inteligente",
     icon: BookOpen,
-    text: "La plataforma ha eliminado el riesgo de pérdida de documentos. El registro seguro de los expedientes es la garantía que necesitábamos.",
+    text: "Nuestra plataforma ha eliminado el riesgo de pérdida de documentos. El registro seguro de los expedientes es la garantía que el sector privado necesitaba.",
   },
   {
     name: "Ana Pérez",
@@ -39,7 +39,7 @@ const testimonials = [
     avatarId: "testimonial-avatar-2",
     module: "Recursos Humanos",
     icon: Briefcase,
-    text: "La automatización de procesos nos permite gestionar proyectos a gran escala con una eficiencia profesional nunca antes vista.",
+    text: "La automatización de procesos nos permite gestionar proyectos a gran escala con una eficiencia profesional nunca antes vista en la región.",
   },
 ];
 
@@ -65,7 +65,7 @@ export function AboutUsSection() {
                                 <Sparkles className="h-3 w-3" /> Equipo Profesional
                             </div>
                             <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow">Sobre <span className="text-primary not-italic">Nosotros</span></h2>
-                            <p className="text-base md:text-xl text-white/60 font-bold uppercase tracking-tight leading-relaxed italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">Desarrollamos soluciones de gestión diseñadas para la excelencia empresarial.</p>
+                            <p className="text-base md:text-xl text-white/60 font-bold uppercase tracking-tight leading-relaxed italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">Desarrollamos ingeniería de software diseñada para la excelencia operativa.</p>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -74,14 +74,14 @@ export function AboutUsSection() {
                                     <Target className="text-primary h-6 w-6" />
                                 </div>
                                 <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2">Misión</h3>
-                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Garantizar la gestión empresarial mediante registros seguros y transparentes.</p>
+                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Garantizar la gestión empresarial mediante registros seguros, transparentes e inmutables.</p>
                             </Card>
                             <Card className="glass-card border-none p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.05] transition-all group shadow-2xl">
                                 <div className="p-3 bg-secondary/10 rounded-xl w-fit group-hover:scale-110 transition-transform mb-6 mx-auto lg:ml-0 shadow-inner border border-secondary/10">
                                     <Eye className="text-secondary h-6 w-6" />
                                 </div>
                                 <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2">Visión</h3>
-                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Consolidarnos como el estándar de eficiencia para empresas e instituciones.</p>
+                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Consolidarnos como el estándar global de eficiencia para empresas e instituciones de vanguardia.</p>
                             </Card>
                         </div>
 
