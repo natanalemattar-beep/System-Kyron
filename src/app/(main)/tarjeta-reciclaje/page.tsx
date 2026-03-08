@@ -1,8 +1,9 @@
+
 "use client";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Gift, Zap, Award, Coffee, Ticket, Recycling, TrendingUp, Handshake, CheckCircle, Smartphone, Cpu, Package, Coins, Magnet } from "lucide-react";
+import { ArrowRight, Download, Gift, Zap, Award, Coffee, Ticket, Recycling, TrendingUp, Handshake, CheckCircle, Smartphone, Cpu, Package, Coins, Magnet, BarChart3, Clock } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { motion } from "framer-motion";
 
@@ -57,6 +58,47 @@ export default function TarjetaReciclajePage() {
                     Nuestra iniciativa ambiental impulsada por la <strong>Fundación Kyron</strong>. Implementamos papeleras inteligentes con **tecnología de magnetismo** para transformar residuos en activos digitales.
                 </p>
             </header>
+
+            {/* Nueva Funcionalidad: Análisis Predictivo de Residuos */}
+            <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <Card className="glass-card border-secondary/20 p-8 rounded-[3rem] bg-secondary/5">
+                <div className="grid md:grid-cols-2 gap-12">
+                  <div className="space-y-6">
+                    <CardTitle className="flex items-center gap-3 text-2xl font-black uppercase italic tracking-tighter">
+                      <BarChart3 className="h-8 w-8 text-secondary" />
+                      Análisis Predictivo de Residuos
+                    </CardTitle>
+                    <p className="text-muted-foreground text-sm leading-relaxed">Anticipa la generación de activos verdes basándote en la telemetría de tus nodos de recolección.</p>
+                    <div className="space-y-4">
+                      <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
+                        <div className="flex justify-between items-center mb-2">
+                          <p className="text-[10px] font-black uppercase tracking-widest text-secondary">Predicción: Próximos 7 días</p>
+                          <Badge variant="outline" className="border-secondary/20 text-secondary">Alta confianza</Badge>
+                        </div>
+                        <p className="text-2xl font-black italic">145.8 kg <span className="text-xs opacity-40 tracking-normal">Proyectados</span></p>
+                      </div>
+                      <div className="flex gap-4">
+                        <div className="flex-1 p-4 bg-primary/5 rounded-2xl border border-primary/10">
+                          <p className="text-[8px] font-black uppercase tracking-[0.2em] text-primary/60 mb-1">Mejor momento para venta</p>
+                          <p className="text-xs font-bold flex items-center gap-2"><Clock className="h-3 w-3" /> Martes, 10:00 AM</p>
+                        </div>
+                        <div className="flex-1 p-4 bg-secondary/5 rounded-2xl border border-secondary/10">
+                          <p className="text-[8px] font-black uppercase tracking-[0.2em] text-secondary/60 mb-1">Valor E-CR estimado</p>
+                          <p className="text-xs font-bold text-secondary flex items-center gap-2"><TrendingUp className="h-3 w-3" /> +12.4% vs promedio</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col justify-between p-8 bg-black/40 rounded-[2rem] border border-white/5">
+                    <h4 className="text-xs font-black uppercase tracking-widest text-white/40 mb-6">Inyectar Liquidez Ambiental</h4>
+                    <p className="text-sm italic font-medium text-white/70 mb-8 leading-relaxed">"Sugerencia de la IA: Los precios de los créditos de carbono en el mercado nacional están en su pico mensual. Se recomienda vender el 40% de los Eco-Créditos acumulados."</p>
+                    <Button asChild className="w-full h-12 btn-3d-secondary rounded-xl font-black text-[10px] uppercase tracking-widest">
+                      <Link href="/mercado-ecocreditos">Conectar con Mercado de Compensación <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            </motion.section>
 
             <div className="grid lg:grid-cols-5 gap-12 items-start">
                 <Card className="lg:col-span-3 bg-card/50 backdrop-blur-sm border-primary/5 rounded-[3rem] shadow-xl overflow-hidden">
@@ -131,7 +173,7 @@ export default function TarjetaReciclajePage() {
 
             <Card className="bg-card/50 backdrop-blur-sm border-primary/5 rounded-[3rem] shadow-2xl p-12">
                 <CardHeader className="text-center mb-12">
-                    <CardTitle className="text-3xl font-black uppercase tracking-tighter italic flex items-center justify-center gap-4">
+                    <CardTitle className="text-3xl font-black uppercase tracking-tighter italic flex items-center justify-center gap-4 text-white">
                         <Gift className="h-10 w-10 text-primary"/>
                         Catálogo de Eco-Recompensas
                     </CardTitle>
@@ -155,7 +197,7 @@ export default function TarjetaReciclajePage() {
             
              <div className="grid sm:grid-cols-2 gap-12">
                  <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 text-center shadow-xl relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-10 transition-opacity" />
                     <CardHeader className="p-0 mb-6">
                         <CardTitle className="text-2xl font-black uppercase italic tracking-tighter">Obtén tu ID Digital</CardTitle>
                     </CardHeader>

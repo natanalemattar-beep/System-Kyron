@@ -7,15 +7,27 @@ import {
   DollarSign,
   TrendingUp,
   LayoutDashboard,
-  Network
+  Network,
+  Cpu,
+  Zap,
+  ArrowRight,
+  Download,
+  AlertTriangle,
+  LineChart,
+  BarChart,
+  BarChart3
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { QuickAccess } from "@/components/dashboard/quick-access";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { adminNavGroups } from "@/components/app-sidebar-nav-items";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const kpiData = [
   { title: "Empresas en el Holding", value: "5", icon: Building },
@@ -36,6 +48,20 @@ const rendimientoVariant: { [key: string]: "default" | "secondary" | "outline" }
 };
 
 export default function DashboardSociosPage() {
+  const { toast } = useToast();
+  const [simulation, setSimulation] = useState<string | null>(null);
+
+  const runSimulation = (type: string) => {
+    setSimulation(null);
+    setTimeout(() => {
+      setSimulation(type);
+      toast({
+        title: "Simulación Completada",
+        description: "El gemelo digital ha proyectado los resultados del escenario.",
+      });
+    }, 1000);
+  };
+
   return (
     <div className="space-y-8">
       
@@ -47,6 +73,106 @@ export default function DashboardSociosPage() {
         </h1>
         <p className="text-muted-foreground mt-2 max-w-2xl">Supervisión estratégica del grupo empresarial y acceso total al ecosistema.</p>
       </header>
+
+      {/* Nueva Funcionalidad: Gemelo Digital */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <Card className="glass-card border-primary/20 overflow-hidden bg-white/[0.02]">
+          <CardHeader className="p-8 border-b border-white/5 bg-primary/5">
+            <CardTitle className="flex items-center gap-3 text-2xl font-black uppercase italic tracking-tighter">
+              <Cpu className="h-8 w-8 text-primary" />
+              Simulador Estratégico (Gemelo Digital)
+            </CardTitle>
+            <CardDescription className="text-primary font-bold uppercase text-[10px] tracking-[0.2em]">Modelado predictivo de decisiones financieras.</CardDescription>
+          </CardHeader>
+          <CardContent className="p-8">
+            <div className="grid lg:grid-cols-12 gap-8">
+              <div className="lg:col-span-4 space-y-4">
+                <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-4">Seleccionar Escenario</h4>
+                <Button 
+                  onClick={() => runSimulation("sucursales")} 
+                  variant="outline" 
+                  className="w-full justify-start h-14 rounded-2xl border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/40 group"
+                >
+                  <Building className="mr-4 h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="text-left">
+                    <p className="text-xs font-bold">¿Qué pasa si abro 3 nuevas sucursales?</p>
+                    <p className="text-[10px] opacity-40 uppercase">Análisis de expansión física</p>
+                  </div>
+                </Button>
+                <Button 
+                  onClick={() => runSimulation("ventas")} 
+                  variant="outline" 
+                  className="w-full justify-start h-14 rounded-2xl border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/40 group"
+                >
+                  <TrendingUp className="mr-4 h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="text-left">
+                    <p className="text-xs font-bold">Simular aumento de ventas del 20%</p>
+                    <p className="text-[10px] opacity-40 uppercase">Proyección de rentabilidad neta</p>
+                  </div>
+                </Button>
+                <Button 
+                  onClick={() => runSimulation("crisis")} 
+                  variant="outline" 
+                  className="w-full justify-start h-14 rounded-2xl border-white/10 bg-white/5 hover:bg-rose-500/10 hover:border-rose-500/40 group"
+                >
+                  <AlertTriangle className="mr-4 h-5 w-5 text-rose-500 group-hover:scale-110 transition-transform" />
+                  <div className="text-left">
+                    <p className="text-xs font-bold">Escenario de crisis: caída del 15%</p>
+                    <p className="text-[10px] opacity-40 uppercase">Plan de contingencia y liquidez</p>
+                  </div>
+                </Button>
+              </div>
+
+              <div className="lg:col-span-8 bg-black/40 rounded-[2rem] p-8 border border-white/5 min-h-[300px] flex items-center justify-center text-center">
+                <AnimatePresence mode="wait">
+                  {simulation ? (
+                    <motion.div key={simulation} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full space-y-8">
+                      <div className="flex justify-between items-end">
+                        <div className="text-left">
+                          <h5 className="text-2xl font-black uppercase italic text-primary">Resultados Proyectados</h5>
+                          <p className="text-[10px] font-bold uppercase text-muted-foreground tracking-widest">Horizonte: 12 meses • Confianza: 94%</p>
+                        </div>
+                        <Button size="sm" variant="outline" className="rounded-xl border-primary/20 text-primary">
+                          <Download className="mr-2 h-4 w-4" /> Exportar Informe PDF
+                        </Button>
+                      </div>
+                      
+                      <div className="grid md:grid-cols-3 gap-6">
+                        <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
+                          <p className="text-[9px] font-black uppercase text-muted-foreground mb-2">Impacto Caja</p>
+                          <p className={cn("text-xl font-bold", simulation === "crisis" ? "text-rose-500" : "text-emerald-500")}>
+                            {simulation === "sucursales" ? "-$45,000" : simulation === "ventas" ? "+$120,000" : "-$80,000"}
+                          </p>
+                        </div>
+                        <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
+                          <p className="text-[9px] font-black uppercase text-muted-foreground mb-2">Rentabilidad</p>
+                          <p className={cn("text-xl font-bold", simulation === "crisis" ? "text-rose-500" : "text-emerald-500")}>
+                            {simulation === "sucursales" ? "+12%" : simulation === "ventas" ? "+28%" : "-15%"}
+                          </p>
+                        </div>
+                        <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
+                          <p className="text-[9px] font-black uppercase text-muted-foreground mb-2">Escalabilidad</p>
+                          <p className="text-xl font-bold text-primary">Tier {simulation === "sucursales" ? "A+" : simulation === "ventas" ? "S" : "C"}</p>
+                        </div>
+                      </div>
+
+                      <div className="h-32 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-center p-4">
+                        {simulation === "ventas" ? <TrendingUp className="h-16 w-full text-emerald-500 opacity-20" /> : <BarChart3 className="h-16 w-full text-primary opacity-20" />}
+                        <p className="absolute text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Visualización Vectorial Activa</p>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <div className="space-y-4 opacity-20 italic">
+                      <Zap className="h-16 w-16 mx-auto" />
+                      <p className="text-[10px] font-black uppercase tracking-[0.4em]">Esperando parámetros de inyección...</p>
+                    </div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.section>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {kpiData.map((kpi, index) => (

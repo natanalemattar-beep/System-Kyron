@@ -17,7 +17,10 @@ import {
   Lock,
   Wand2,
   Terminal,
-  ArrowRight
+  ArrowRight,
+  UploadCloud,
+  Loader2,
+  CheckCircle2
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -28,6 +31,8 @@ import { motion } from "framer-motion";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const kpiData = [
   { title: "Contratos Activos", value: "24", icon: FileSignature, color: "text-blue-400", bg: "bg-blue-400/5" },
@@ -49,6 +54,20 @@ const statusVariant: { [key: string]: "default" | "secondary" | "destructive" | 
 };
 
 export default function EscritorioJuridicoPage() {
+  const { toast } = useToast();
+  const [idpStatus, setIdpStatus] = useState<"idle" | "loading" | "done">("idle");
+
+  const handleIdpDemo = () => {
+    setIdpStatus("loading");
+    setTimeout(() => {
+      setIdpStatus("done");
+      toast({
+        title: "Análisis Completado",
+        description: "Se han extraído con éxito los metadatos del contrato.",
+      });
+    }, 2000);
+  };
+
   return (
     <div className="space-y-12 pb-20 px-6 md:px-10">
       
@@ -69,6 +88,65 @@ export default function EscritorioJuridicoPage() {
           </Button>
         </div>
       </header>
+
+      {/* Nueva Funcionalidad: Procesamiento Inteligente de Documentos */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="grid lg:grid-cols-3 gap-8"
+      >
+        <Card className="lg:col-span-3 glass-card border-primary/20 p-8 rounded-[3rem] bg-white/[0.02]">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black uppercase italic italic-shadow">Análisis Automático de Documentos (IDP)</h3>
+                <p className="text-muted-foreground text-sm font-medium uppercase tracking-widest">Extracción masiva de datos mediante visión artificial.</p>
+              </div>
+              <div 
+                className="border-2 border-dashed border-white/10 rounded-[2rem] p-12 text-center hover:border-primary/40 transition-all cursor-pointer bg-black/20 group"
+                onClick={handleIdpDemo}
+              >
+                <UploadCloud className="h-12 w-12 mx-auto text-white/20 group-hover:text-primary transition-colors" />
+                <p className="mt-4 text-xs font-bold text-white/40 uppercase tracking-widest">Arrastra aquí un contrato o factura (PDF/imagen)</p>
+                <Button variant="link" className="mt-2 text-primary">Probar demo</Button>
+              </div>
+            </div>
+
+            <div className="min-h-[250px] flex items-center justify-center">
+              {idpStatus === "loading" && (
+                <div className="text-center space-y-4">
+                  <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em] animate-pulse">Procesando metadatos...</p>
+                </div>
+              )}
+              {idpStatus === "done" && (
+                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="w-full space-y-6">
+                  <div className="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-3xl space-y-4">
+                    <h4 className="text-xs font-black uppercase text-emerald-400 flex items-center gap-2">
+                      <CheckCircle2 className="h-4 w-4" /> Datos Extraídos
+                    </h4>
+                    <div className="grid grid-cols-2 gap-4 text-[10px] font-bold uppercase tracking-widest">
+                      <div><p className="opacity-40">Proveedor</p><p>Suministros Globales C.A.</p></div>
+                      <div><p className="opacity-40">RIF</p><p>J-12345678-9</p></div>
+                      <div><p className="opacity-40">Monto</p><p>$12,450.00</p></div>
+                      <div><p className="opacity-40">Vencimiento</p><p>15/08/2024</p></div>
+                    </div>
+                  </div>
+                  <Button asChild className="w-full h-12 btn-3d-primary rounded-xl font-black uppercase text-[10px] tracking-widest">
+                    <Link href="/generador-documentos">Generar borrador de contrato <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                  </Button>
+                </motion.div>
+              )}
+              {idpStatus === "idle" && (
+                <div className="text-center opacity-20 italic">
+                  <Terminal className="h-16 w-16 mx-auto mb-4" />
+                  <p className="text-[10px] font-black uppercase tracking-[0.4em]">Esperando inyección de datos...</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </Card>
+      </motion.section>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {kpiData.map((kpi, index) => (
@@ -184,7 +262,6 @@ export default function EscritorioJuridicoPage() {
         </div>
       </div>
 
-      {/* SECCIÓN DETALLADA DE INTELIGENCIA TÉCNICA (JURÍDICO) */}
       <Card className="glass-card border-none p-12 md:p-20 rounded-[4rem] bg-white/[0.02] mt-20 overflow-hidden relative">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-slate-500/40 to-transparent"></div>
           <div className="grid lg:grid-cols-12 gap-16 md:gap-24 relative z-10">
