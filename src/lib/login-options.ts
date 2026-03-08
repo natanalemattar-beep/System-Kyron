@@ -1,5 +1,5 @@
 
-import { User, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Banknote, Signal, Smartphone } from "lucide-react";
+import { User, Gavel, ShoppingCart, Briefcase, Users, Cpu, Banknote, Signal, Smartphone } from "lucide-react";
 
 export const loginOptions = [
     { 

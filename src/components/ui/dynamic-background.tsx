@@ -8,7 +8,7 @@ import { Logo } from "@/components/logo";
 
 /**
  * @fileOverview Fondo dinámico con marca de agua técnica refinada.
- * El logo actúa como un detalle sutil y rotatorio a escala controlada (280px).
+ * El logo actúa como un detalle sutil y rotatorio a escala controlada.
  */
 export function DynamicBackground() {
   const { activeHoliday, isHolidayActive } = useHoliday();

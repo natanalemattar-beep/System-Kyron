@@ -2,11 +2,10 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ArrowRight, Radio, Magnet, ShieldCheck, Zap, Globe, Smartphone, Activity } from "lucide-react";
+import { ArrowRight, Radio, ShieldCheck, Zap, Activity, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/navigation";
-import { useTranslations } from 'next-intl';
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
@@ -15,7 +14,6 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
  * Diseño HUD con nombres normales y adaptabilidad móvil pro.
  */
 export function HeroSection() {
-  const t = useTranslations('HeroSection');
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-tech-visual");
 
   return (
@@ -107,11 +105,18 @@ export function HeroSection() {
                         </div>
                     </Card>
 
-                    <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left">
-                        <Magnet className="h-6 w-6 text-secondary mb-4" />
-                        <h3 className="font-black text-[9px] uppercase italic text-white mb-1">SENSOR MAGNÉTICO</h3>
-                        <p className="text-[7px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Trazabilidad de activos y reciclaje inteligente.</p>
-                    </Card>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                        <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left">
+                            <Radio className="h-6 w-6 text-primary mb-4" />
+                            <h3 className="font-black text-[9px] uppercase italic text-white mb-1">RED 5G ACTIVA</h3>
+                            <p className="text-[7px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Conectividad de baja latencia para empresas.</p>
+                        </Card>
+                        <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left">
+                            <Smartphone className="h-6 w-6 text-secondary mb-4" />
+                            <h3 className="font-black text-[9px] uppercase italic text-white mb-1">GESTIÓN DE LÍNEA</h3>
+                            <p className="text-[7px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Control total de consumo y recargas.</p>
+                        </Card>
+                    </div>
                 </div>
           </motion.div>
 
