@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -19,7 +18,10 @@ import {
     ShieldCheck, 
     Cpu,
     ChevronDown,
-    Activity
+    Activity,
+    FileText,
+    User,
+    Settings
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -59,7 +61,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
       <div className="w-full px-6 md:px-12">
         <div className="flex items-center justify-between w-full gap-4">
           
-          {/* LEFT: BRAND */}
+          {/* IZQUIERDA: MARCA */}
           <div className="flex items-center justify-start min-w-[120px]">
             <Link href="/" className="flex items-center gap-4 group shrink-0">
                 <Logo className="h-8 w-8 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
@@ -67,7 +69,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
             </Link>
           </div>
 
-          {/* CENTER: CONTEXTUAL NAV (SECTIONS) */}
+          {/* CENTRO: NAVEGACIÓN POR SECCIONES */}
           <div className="flex-1 flex justify-center overflow-x-auto no-scrollbar">
             <nav className="flex items-center gap-2 md:gap-4 px-4">
                 {navGroups && navGroups.map((group) => (
@@ -100,7 +102,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
             </nav>
           </div>
 
-          {/* RIGHT: CONTROLS */}
+          {/* DERECHA: CONTROLES DE USUARIO */}
           <div className="flex items-center justify-end gap-4 md:gap-6 min-w-[120px]">
             <div className="flex items-center gap-4">
                 <ThemeToggle />
@@ -133,7 +135,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
                     <DropdownMenuItem asChild className="rounded-xl">
                       <Link href="/manual-usuario" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-[0.2em]">
                           <FileText className="mr-4 h-4 w-4 text-primary/40" />
-                          <span>Manual de Ayuda</span>
+                          <span>Guía de Ayuda</span>
                       </Link>
                     </DropdownMenuItem>
                     
