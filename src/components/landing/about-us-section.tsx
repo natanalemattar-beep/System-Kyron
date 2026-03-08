@@ -27,15 +27,15 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
 const testimonials = [
   {
     name: "Carlos Mattar",
-    company: "Director de Tecnología, System Kyron",
+    company: "Ingeniero Maestro, System Kyron",
     avatarId: "testimonial-avatar-1",
-    module: "Gestión Inteligente",
+    module: "Área de Gestión",
     icon: BookOpen,
     text: "Nuestra plataforma ha eliminado el riesgo de pérdida de documentos. El registro seguro de los expedientes es la garantía que el sector privado necesitaba.",
   },
   {
     name: "Ana Pérez",
-    company: "Directora, Holding Kyron",
+    company: "Directora Administrativa, Holding Kyron",
     avatarId: "testimonial-avatar-2",
     module: "Recursos Humanos",
     icon: Briefcase,
@@ -64,7 +64,7 @@ export function AboutUsSection() {
                             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/20 mx-auto lg:ml-0 shadow-glow-sm">
                                 <Sparkles className="h-3 w-3" /> Equipo Profesional
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow">Sobre <span className="text-primary not-italic">Nosotros</span></h2>
+                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Sobre <span className="text-primary not-italic">Nosotros</span></h2>
                             <p className="text-base md:text-xl text-white/60 font-bold uppercase tracking-tight leading-relaxed italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">Desarrollamos ingeniería de software diseñada para la excelencia operativa.</p>
                         </div>
 
@@ -73,14 +73,14 @@ export function AboutUsSection() {
                                 <div className="p-3 bg-primary/10 rounded-xl w-fit group-hover:scale-110 transition-transform mb-6 mx-auto lg:ml-0 shadow-inner border border-primary/10">
                                     <Target className="text-primary h-6 w-6" />
                                 </div>
-                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2">Misión</h3>
+                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2 leading-none">Misión</h3>
                                 <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Garantizar la gestión empresarial mediante registros seguros, transparentes e inmutables.</p>
                             </Card>
                             <Card className="glass-card border-none p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.05] transition-all group shadow-2xl">
                                 <div className="p-3 bg-secondary/10 rounded-xl w-fit group-hover:scale-110 transition-transform mb-6 mx-auto lg:ml-0 shadow-inner border border-secondary/10">
                                     <Eye className="text-secondary h-6 w-6" />
                                 </div>
-                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2">Visión</h3>
+                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2 leading-none">Visión</h3>
                                 <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Consolidarnos como el estándar global de eficiencia para empresas e instituciones de vanguardia.</p>
                             </Card>
                         </div>
@@ -98,7 +98,7 @@ export function AboutUsSection() {
                     <motion.div 
                         className="lg:col-span-7 space-y-16"
                         initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
@@ -137,7 +137,7 @@ export function AboutUsSection() {
                                                     </Avatar>
                                                 )}
                                                 <div className="text-center sm:text-left space-y-1">
-                                                    <p className="font-black text-sm uppercase tracking-widest text-white">{testimonial.name}</p>
+                                                    <p className="font-black text-sm uppercase tracking-widest text-white leading-none">{testimonial.name}</p>
                                                     <p className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em]">{testimonial.company}</p>
                                                 </div>
                                             </footer>

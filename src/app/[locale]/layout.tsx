@@ -6,6 +6,8 @@ import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { VoiceAssistant } from "@/components/voice-assistant";
 import { locales } from '@/navigation';
 import { notFound } from 'next/navigation';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -18,7 +20,7 @@ interface LocaleLayoutProps {
 
 /**
  * @fileOverview Layout principal por idioma.
- * Proporciona el contexto de i18n, los proveedores globales y la estructura HTML base.
+ * Proporciona el contexto de i18n, los proveedores globales y la estructura HTML base con tipografía Geist.
  */
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
@@ -32,7 +34,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-background text-foreground overflow-x-hidden">
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>

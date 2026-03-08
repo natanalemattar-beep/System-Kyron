@@ -11,16 +11,12 @@ import {
   Download,
   Activity,
   Terminal,
-  FileCheck2,
   Loader2,
-  ArrowRight,
   Zap,
   CheckCircle,
   Gavel,
   Target,
-  BarChart3,
   TrendingUp,
-  ChevronRight,
   Lock,
   Sparkles,
   RefreshCw
@@ -29,7 +25,6 @@ import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableRow, TableHeader, TableHead } from "@/components/ui/table";
 import { Logo } from "@/components/logo";
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const zeduMasterData = {
@@ -241,7 +236,7 @@ export default function SectorPrivadoPage() {
                                     <ShieldCheck className="h-32 w-32" />
                                 </div>
                                 <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-6 flex items-center gap-3">
-                                    <CheckCircle className="h-4 w-4" /> Dictamen de Viabilidad
+                                    <CheckCircle className="h-4 w-4" /> Dictamen de Viabilidad Pro
                                 </h4>
                                 <p className="text-base md:text-lg font-bold italic text-white/70 leading-relaxed text-justify">
                                     "El análisis de implementación bajo estándares profesionales garantiza un cumplimiento del 100%. La arquitectura del sistema asegura la inmutabilidad de los registros, optimizando la gestión financiera mediante la digitalización unificada de procesos."

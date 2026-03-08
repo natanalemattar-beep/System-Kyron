@@ -74,7 +74,14 @@
   * { @apply border-border; }
   body {
     @apply bg-background text-foreground antialiased font-sans selection:bg-primary/20;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-black;
   }
 }
 

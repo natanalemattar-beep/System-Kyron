@@ -40,13 +40,13 @@ export function HeroSection() {
             </div>
 
             <div className="space-y-4">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase italic leading-tight italic-shadow">
+                <h1 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tight text-white uppercase italic leading-[0.9] italic-shadow">
                   {t('title')}
                 </h1>
                 <p className="text-primary font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] opacity-60">
                   {t('slogan')}
                 </p>
-                <p className="text-sm md:text-lg text-white/60 max-w-lg mx-auto lg:ml-0 font-bold uppercase tracking-tight italic border-l-0 lg:border-l-4 border-primary/20 lg:pl-6">
+                <p className="text-sm md:text-lg text-white/60 max-w-lg mx-auto lg:ml-0 font-bold uppercase tracking-tight italic border-l-0 lg:border-l-4 border-primary/20 lg:pl-6 leading-relaxed">
                   {t('subtitle')}
                 </p>
             </div>
@@ -57,7 +57,7 @@ export function HeroSection() {
                         {t('cta_main')} <ArrowRight className="h-4 w-4" />
                     </Link>
                 </Button>
-                <Button variant="outline" asChild size="lg" className="h-12 md:h-14 px-8 text-[9px] font-black uppercase tracking-widest rounded-xl border-white/10 bg-white/[0.02] w-full sm:w-auto hover:bg-white/5">
+                <Button variant="outline" asChild size="lg" className="h-12 md:h-14 px-8 text-[9px] font-black uppercase tracking-widest rounded-xl border-white/10 bg-white/[0.02] w-full sm:w-auto hover:bg-white/5 transition-all">
                     <Link href="/manual-usuario">{t('cta_secondary')}</Link>
                 </Button>
             </div>
@@ -97,20 +97,20 @@ export function HeroSection() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                             <div className="absolute bottom-6 left-6 text-left">
                                 <p className="text-[8px] font-black uppercase tracking-[0.4em] text-primary mb-1">INFRAESTRUCTURA_DIGITAL</p>
-                                <h3 className="text-sm md:text-lg font-black text-white uppercase italic">ESTADO: ÓPTIMO</h3>
+                                <h3 className="text-sm md:text-lg font-black text-white uppercase italic tracking-tighter">ESTADO: ÓPTIMO</h3>
                             </div>
                         </div>
                     </Card>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                        <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left">
+                        <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:bg-white/[0.04]">
                             <Radio className="h-6 w-6 text-primary mb-4" />
-                            <h3 className="font-black text-[9px] uppercase italic text-white mb-1">RED 5G ACTIVA</h3>
+                            <h3 className="font-black text-[9px] uppercase italic text-white mb-1 tracking-widest">RED 5G ACTIVA</h3>
                             <p className="text-[7px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Conectividad de baja latencia para empresas.</p>
                         </Card>
-                        <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left">
+                        <Card className="glass-card border-none p-6 md:p-8 rounded-[2rem] bg-white/[0.02] flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:bg-white/[0.04]">
                             <Smartphone className="h-6 w-6 text-secondary mb-4" />
-                            <h3 className="font-black text-[9px] uppercase italic text-white mb-1">GESTIÓN DE LÍNEA</h3>
+                            <h3 className="font-black text-[9px] uppercase italic text-white mb-1 tracking-widest">GESTIÓN DE LÍNEA</h3>
                             <p className="text-[7px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Control total de consumo y recargas.</p>
                         </Card>
                     </div>
