@@ -1,3 +1,4 @@
+
 'use client';
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -27,19 +28,19 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
 const testimonials = [
   {
     name: "Carlos Mattar",
-    company: "Líder Estratégico, System Kyron",
+    company: "Líder de Proyecto, System Kyron",
     avatarId: "testimonial-avatar-1",
-    module: "Arquitectura IA",
+    module: "Inteligencia Artificial",
     icon: BookOpen,
-    text: "System Kyron ha eliminado el riesgo de pérdida de expedientes. La inmutabilidad de los registros es el blindaje que necesitábamos.",
+    text: "La plataforma ha eliminado el riesgo de pérdida de documentos. El registro seguro de los expedientes es la garantía que necesitábamos.",
   },
   {
     name: "Ana Pérez",
-    company: "Gerente RR.HH., Holding Kyron",
+    company: "Gerente, Holding Kyron",
     avatarId: "testimonial-avatar-2",
-    module: "Gestión de Talento",
+    module: "Recursos Humanos",
     icon: Briefcase,
-    text: "La automatización y la jerarquía de mando nos permite ejecutar proyectos a gran escala con una eficiencia nunca antes vista.",
+    text: "La automatización de procesos nos permite gestionar proyectos a gran escala con una eficiencia profesional nunca antes vista.",
   },
 ];
 
@@ -62,10 +63,10 @@ export function AboutUsSection() {
                     >
                         <div className="space-y-6">
                             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/20 mx-auto lg:ml-0">
-                                <Sparkles className="h-3 w-3" /> Equipo Central
+                                <Sparkles className="h-3 w-3" /> Equipo Profesional
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white">System <span className="text-primary not-italic">Kyron</span></h2>
-                            <p className="text-base md:text-xl text-white/60 font-bold uppercase tracking-tight leading-relaxed italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">Ingeniería de software de alta precisión diseñada para el cumplimiento de misión crítica.</p>
+                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white">Sobre <span className="text-primary not-italic">Nosotros</span></h2>
+                            <p className="text-base md:text-xl text-white/60 font-bold uppercase tracking-tight leading-relaxed italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">Desarrollamos soluciones de gestión diseñadas para la excelencia empresarial.</p>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -74,14 +75,14 @@ export function AboutUsSection() {
                                     <Target className="text-primary h-6 w-6" />
                                 </div>
                                 <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2">Misión</h3>
-                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Blindar la gestión institucional mediante tecnología inmutable y soberana.</p>
+                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Garantizar la gestión empresarial mediante registros seguros y transparentes.</p>
                             </Card>
                             <Card className="glass-card border-none p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.05] transition-all group">
                                 <div className="p-3 bg-secondary/10 rounded-xl w-fit group-hover:scale-110 transition-transform mb-6 mx-auto lg:ml-0">
                                     <Eye className="text-secondary h-6 w-6" />
                                 </div>
                                 <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2">Visión</h3>
-                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Ser el estándar global de interoperabilidad empresarial y gubernamental.</p>
+                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Consolidarnos como el estándar de eficiencia para empresas e instituciones.</p>
                             </Card>
                         </div>
 
@@ -106,7 +107,7 @@ export function AboutUsSection() {
                             {[
                                 { val: 500, label: "EMPRESAS", icon: ShieldCheck, color: "text-primary" },
                                 { val: 100, label: "CUMPLIMIENTO", suffix: "%", icon: Zap, color: "text-secondary" },
-                                { val: 0, label: "RIESGO FISCAL", suffix: "%", icon: Zap, color: "text-red-400" }
+                                { val: 0, label: "ERRORES FISCALES", suffix: "%", icon: Zap, color: "text-red-400" }
                             ].map((stat, i) => (
                                 <Card key={i} className="glass-card border-none p-8 text-center rounded-[2rem] bg-white/[0.02] relative overflow-hidden group shadow-2xl">
                                     <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-all"><stat.icon className="h-16 w-16" /></div>

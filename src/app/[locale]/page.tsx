@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -16,7 +17,7 @@ import { use } from 'react';
 
 /**
  * @fileOverview Página de Inicio Kyron - Transparencia de Nodo.
- * Fondos transparentes para permitir el flujo visual del background dinámico.
+ * Fondos transparentes para permitir el flujo visual del fondo dinámico.
  */
 
 export default function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -29,7 +30,7 @@ export default function LandingPage({ params }: { params: Promise<{ locale: stri
     <div className="relative min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/20 w-full bg-transparent">
       <WelcomeTutorial />
       
-      {/* HUD Progress Bar */}
+      {/* Barra de Progreso HUD */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-primary/60 shadow-glow origin-left z-[200]" 
         style={{ scaleX }} 

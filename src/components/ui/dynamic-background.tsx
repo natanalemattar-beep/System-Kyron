@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion } from "framer-motion";
@@ -7,7 +8,7 @@ import { Logo } from "@/components/logo";
 
 /**
  * @fileOverview Fondo dinámico con marca de agua técnica refinada.
- * El logo actúa como un detalle sutil y rotatorio a escala controlada.
+ * El logo actúa como un detalle sutil y rotatorio a escala controlada (280px).
  */
 export function DynamicBackground() {
   const { activeHoliday, isHolidayActive } = useHoliday();
@@ -20,7 +21,7 @@ export function DynamicBackground() {
         {/* Rejilla HUD sutil */}
         <div className="absolute inset-0 -z-10 h-full w-full opacity-20 hud-grid [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_60%,transparent_100%)]" />
 
-        {/* Logo de Fondo Refinado (Marca de agua sutil) */}
+        {/* Logo de Fondo Refinado (Marca de agua sutil reducida) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[200px] md:max-w-[280px] aspect-square opacity-[0.03] dark:opacity-[0.05] pointer-events-none p-8">
             <motion.div
               animate={{ 

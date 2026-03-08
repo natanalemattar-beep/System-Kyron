@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from "next/image";
@@ -10,20 +11,18 @@ import { Card } from "@/components/ui/card";
 
 /**
  * @fileOverview Sección de Características: Ingeniería de Datos.
- * Totalmente responsiva para celulares con apilamiento vertical automático.
+ * Normalización de nombres para una comunicación clara.
  */
 const features = [
     { 
-        title: "IA Fiscal Predictiva", 
+        title: "Inteligencia Fiscal", 
         description: "Análisis transaccional contra normativa vigente en tiempo real.", 
-        icon: BrainCircuit,
-        ref: "IA_NODE"
+        icon: BrainCircuit
     },
     { 
-        title: "Registro Inmutable", 
-        description: "Sellado de registros en Blockchain para integridad absoluta.", 
-        icon: Lock,
-        ref: "LEDGER_AUTH"
+        title: "Registro Seguro", 
+        description: "Sellado de registros digitales para integridad absoluta de la información.", 
+        icon: Lock
     }
 ];
 
@@ -46,9 +45,9 @@ export function FeaturesSection() {
             >
                 <div className="space-y-6 text-center lg:text-left">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-[7px] font-black uppercase tracking-[0.3em] text-secondary mx-auto lg:ml-0">
-                        <ShieldCheck className="h-3 w-3" /> Blindaje Corporativo
+                        <ShieldCheck className="h-3 w-3" /> Seguridad Corporativa
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase italic italic-shadow leading-tight">Control <br className="hidden sm:block"/> <span className="text-primary not-italic">Sistémico</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase italic italic-shadow leading-tight">Control <br className="hidden sm:block"/> <span className="text-primary not-italic">Financiero</span></h2>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 md:gap-6">
@@ -62,7 +61,7 @@ export function FeaturesSection() {
                         </div>
                         <div className="space-y-2 text-center sm:text-left">
                           <h4 className="font-black text-sm uppercase text-white/90">{feature.title}</h4>
-                          <p className="text-[10px] text-white/40 font-medium leading-relaxed uppercase">{feature.description}</p>
+                          <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">{feature.description}</p>
                         </div>
                     </div>
                     ))}

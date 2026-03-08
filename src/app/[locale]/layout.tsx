@@ -1,3 +1,4 @@
+
 import type { ReactNode } from "react";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
