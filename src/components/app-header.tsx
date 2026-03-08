@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -15,19 +16,9 @@ import { Link } from "@/navigation";
 import { Logo } from "./logo";
 import { 
     LogOut, 
-    Lock,
-    Clock,
-    LayoutGrid,
-    ShieldCheck,
+    ShieldCheck, 
     Cpu,
-    User,
-    Recycle,
-    Calculator,
-    Briefcase,
-    Signal,
-    Users,
-    Wand2,
-    FileText
+    LayoutGrid
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -59,43 +50,45 @@ export function AppHeader({ user, navItems }: AppHeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-black/80 backdrop-blur-3xl h-16 flex items-center w-full">
       <div className="w-full px-6 md:px-12">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full gap-4">
           
-          {/* LEFT: BRAND & CONTEXTUAL NAV */}
-          <div className="flex items-center gap-10 flex-1 justify-start">
+          {/* LEFT: BRAND */}
+          <div className="flex items-center justify-start min-w-[120px]">
             <Link href="/" className="flex items-center gap-4 group shrink-0">
                 <Logo className="h-8 w-8 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
-                <span className="hidden sm:inline-block text-[11px] font-black tracking-[0.5em] uppercase text-white italic italic-shadow">KYRON</span>
+                <span className="hidden sm:inline-block text-[11px] font-black tracking-[0.5em] uppercase text-white italic italic-shadow leading-none">KYRON</span>
             </Link>
-            
+          </div>
+
+          {/* CENTER: CONTEXTUAL NAV (EXPANDED) */}
+          <div className="flex-1 flex justify-center overflow-x-auto no-scrollbar">
             {navItems && navItems.length > 0 && (
-                <nav className="hidden lg:flex items-center gap-6 border-l border-white/10 pl-10">
+                <nav className="flex items-center gap-4 md:gap-8 px-4">
                     {navItems.map((item) => (
                         <Link 
                             key={item.href} 
                             href={item.href as any} 
-                            className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5 whitespace-nowrap"
+                            className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5 whitespace-nowrap group"
                         >
-                            <item.icon className="h-3.5 w-3.5 opacity-50" /> {item.label}
+                            <item.icon className="h-3.5 w-3.5 opacity-50 group-hover:opacity-100 group-hover:text-primary transition-all" /> 
+                            <span className="group-hover:text-white transition-colors">{item.label}</span>
                         </Link>
                     ))}
                 </nav>
             )}
           </div>
 
-          {/* CENTER: TIME HUD */}
-          <div className="hidden md:flex justify-center items-center flex-1">
-            <div className="flex items-center gap-4 px-5 py-1.5 rounded-full bg-white/[0.03] border border-white/5 backdrop-blur-xl shadow-inner">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse shadow-glow" />
+          {/* RIGHT: TIME & USER ACTIONS */}
+          <div className="flex items-center justify-end gap-4 md:gap-6 min-w-[240px]">
+            
+            {/* COMPACT TIME HUD */}
+            <div className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/5 backdrop-blur-xl shadow-inner">
+                <div className="h-1 w-1 rounded-full bg-primary animate-pulse shadow-glow" />
                 <span className="text-[10px] font-mono font-black text-white/80 tracking-widest uppercase">
                     {mounted ? time : '--:--:--'}
                 </span>
-                <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] ml-2">Real-Time Node</span>
             </div>
-          </div>
 
-          {/* RIGHT: USER ACTIONS */}
-          <div className="flex items-center justify-end gap-6 flex-1">
             <div className="flex items-center gap-4">
                 <ThemeToggle />
                 
