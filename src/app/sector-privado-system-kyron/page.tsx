@@ -24,7 +24,10 @@ import {
   Radio,
   Magnet,
   Cpu,
-  Scale
+  Scale,
+  TrendingUp,
+  ArrowRight,
+  ChevronRight
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -36,6 +39,7 @@ import { Badge } from "@/components/ui/badge";
 /**
  * @fileOverview Expediente Maestro ZEDU - Sistema Kyron v2.6.5
  * Consolidación total de las 5 partes del modelo ZEDU con respuestas técnicas expandidas.
+ * Estética UHD en Azul y Verde.
  */
 
 export default function SectorPrivadoPage() {
@@ -120,7 +124,7 @@ export default function SectorPrivadoPage() {
                     
                     <div className="flex items-center gap-6">
                         <Button variant="ghost" asChild className="rounded-xl h-12 px-6 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">
-                            <Link href="/" className="flex items-center"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
+                            <Link href="/"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
                         </Button>
                         <div className="h-10 w-px bg-white/10" />
                         <div className="flex flex-col">
@@ -178,7 +182,7 @@ export default function SectorPrivadoPage() {
                         </div>
                     </div>
 
-                    {/* PARTE 1: INFORMACIÓN DEL EQUIPO TÉCNICO */}
+                    {/* PARTE 1: EQUIPO TÉCNICO */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Users className="h-5 w-5 text-primary" />
@@ -215,7 +219,7 @@ export default function SectorPrivadoPage() {
                         </div>
                     </div>
 
-                    {/* PARTE 2: POBLACIÓN A TRABAJAR */}
+                    {/* PARTE 2: POBLACIÓN */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
                             <Activity className="h-5 w-5 text-secondary" />
@@ -237,7 +241,7 @@ export default function SectorPrivadoPage() {
                         </div>
                     </div>
 
-                    {/* PARTE 3: ANÁLISIS DEL PROBLEMA */}
+                    {/* PARTE 3: DIAGNÓSTICO */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Terminal className="h-5 w-5 text-primary" />
@@ -269,7 +273,7 @@ export default function SectorPrivadoPage() {
                         </div>
                     </div>
 
-                    {/* PARTE 4: FACTIBILIDAD ECONÓMICA */}
+                    {/* PARTE 4: FACTIBILIDAD */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
                             <TrendingUp className="h-5 w-5 text-secondary" />
@@ -297,7 +301,7 @@ export default function SectorPrivadoPage() {
                         </div>
                     </div>
 
-                    {/* PARTE 5: DESARROLLA TU PROYECTO (SIGUIENDO LA IMAGEN) */}
+                    {/* PARTE 5: SOLUCIÓN MAESTRA */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Zap className="h-5 w-5 text-primary" />
@@ -305,12 +309,16 @@ export default function SectorPrivadoPage() {
                         </div>
                         
                         <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white font-mono text-[11px] leading-relaxed">
-                            <div className="p-8 text-justify text-slate-800 space-y-6 border-b-[1.5px] border-black">
-                                <p className="font-bold">
-                                    System Kyron consiste en el desarrollo de un ecosistema de inteligencia corporativa que transforma el archivado tradicional de una institución educativa en un entorno digital eficiente y organizado. Permite la digitalización inmutable mediante Blockchain, almacenamiento seguro en la nube y búsqueda inteligente de expedientes que antes se gestionaban de forma física. 
+                            <div className="p-8 text-justify text-slate-800 space-y-6 border-b-[1.5px] border-black bg-slate-50/30">
+                                <p className="font-bold text-[13px] text-primary uppercase italic mb-4">Ecosistema Intelligence: Protocolo AutoMind AI</p>
+                                <p>
+                                    System Kyron es el nodo maestro de un ecosistema de inteligencia corporativa diseñado para la transición hacia la economía digital 2026. El núcleo de nuestra solución transforma el archivado tradicional en un entorno digital de alta fidelidad mediante la implementación de una **Bóveda de Datos Inmutable**. Esta arquitectura utiliza cifrado de grado militar para garantizar que cada expediente sea legalmente inatacable y accesible instantáneamente desde cualquier nodo de la red.
                                 </p>
                                 <p>
-                                    La plataforma integra un asistente de IA con atención automatizada dirigida a representantes y personal administrativo, facilitando respuestas inmediatas y mejorando la comunicación institucional. Además, incorpora herramientas de análisis predictivo que apoyan a la gerencia en la generación de ideas estratégicas, contribuyendo a una gestión más moderna, ágil y orientada a la excelencia operativa.
+                                    La plataforma integra el protocolo **Hyper-Connect 5G**, permitiendo una conectividad de baja latencia necesaria para la sincronización síncrona de datos financieros y académicos. Además, el ecosistema incorpora tecnología de **Inducción Magnética** en puntos de recolección inteligentes, transformando la gestión de residuos en activos digitales verificables en el Ledger central, incentivando así la sostenibilidad institucional.
+                                </p>
+                                <p>
+                                    A diferencia de las soluciones convencionales, Kyron actúa como un **Oficial de Cumplimiento IA**, auditando cada transacción y documento contra la Gaceta Oficial en tiempo real, eliminando el riesgo fiscal y optimizando la toma de decisiones gerenciales mediante tableros de control predictivos.
                                 </p>
                             </div>
 
@@ -318,16 +326,16 @@ export default function SectorPrivadoPage() {
                                 <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Otras Propuestas Existentes</p></div>
                                     <div className="p-6 italic font-bold text-slate-600">
-                                        Los proyectos más similares son MOBIAN, enfocado en la optimización de datos para negocios generales, buscando eficiencia operativa y escalabilidad técnica dirigida a equipos directivos con integración de sistemas.
+                                        Las alternativas actuales, como el modelo MOBIAN, se limitan a la gestión administrativa general sin integración de infraestructura física. Kyron supera estas propuestas al fusionar servicios de telecomunicaciones propios con blindaje legal automatizado y hardware inteligente.
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Diferenciadores de Tu Solución</p></div>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Diferenciadores Clave Kyron</p></div>
                                     <div className="p-6 space-y-3 font-black text-primary uppercase italic">
-                                        <p>• Conectividad 5G Slicing Dedicada.</p>
-                                        <p>• Tecnología de Inducción Magnética.</p>
-                                        <p>• Blindaje Fiscal con IA Predictiva.</p>
-                                        <p>• Bóveda de Datos Inmutable (Ledger).</p>
+                                        <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Conectividad 5G Slicing Dedicada.</span></div>
+                                        <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Tecnología de Inducción Magnética.</span></div>
+                                        <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Blindaje Fiscal con IA Predictiva.</span></div>
+                                        <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Bóveda de Datos Inmutable (Ledger).</span></div>
                                     </div>
                                 </div>
                             </div>
