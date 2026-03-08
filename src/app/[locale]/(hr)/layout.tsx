@@ -1,9 +1,10 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Users, UserPlus } from "lucide-react";
+import { Users, UserPlus, School, FileSignature } from "lucide-react";
 
 export default function HRLayout({
   children,
@@ -15,6 +16,8 @@ export default function HRLayout({
     const navItems = [
         { href: "/nominas", label: "Nóminas", icon: Users },
         { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
+        { href: "/academia-kyron", label: "Academia", icon: School },
+        { href: "/modelo-contrato-trabajo", label: "Contratos", icon: FileSignature },
     ];
 
     return (

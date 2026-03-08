@@ -1,9 +1,10 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Calculator, Lock } from "lucide-react";
+import { Calculator, Lock, LayoutGrid, ShoppingCart } from "lucide-react";
 
 export default function AdminLayout({
   children,
@@ -13,7 +14,9 @@ export default function AdminLayout({
     const user = { name: "Administrador", email: "admin@kyron.com", fallback: "AD" };
 
     const navItems = [
+        { href: "/dashboard-empresa", label: "Consola", icon: LayoutGrid },
         { href: "/contabilidad", label: "Contabilidad", icon: Calculator },
+        { href: "/punto-de-venta", label: "Ventas", icon: ShoppingCart },
         { href: "/sector-privado-system-kyron", label: "Sector Privado", icon: Lock },
     ];
 

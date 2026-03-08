@@ -1,9 +1,10 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Fingerprint, Recycle } from "lucide-react";
+import { Fingerprint, Recycle, File, HeartHandshake, FileText } from "lucide-react";
 
 export default function NaturalLayout({
   children,
@@ -15,6 +16,9 @@ export default function NaturalLayout({
     const navItems = [
         { href: "/tarjeta-digital", label: "ID Digital", icon: Fingerprint },
         { href: "/tarjeta-reciclaje", label: "Eco-Créditos", icon: Recycle },
+        { href: "/documentos", label: "Documentos", icon: File },
+        { href: "/directorio-medico", label: "Salud", icon: HeartHandshake },
+        { href: "/partidas-nacimiento", label: "Trámites", icon: FileText },
     ];
 
     return (

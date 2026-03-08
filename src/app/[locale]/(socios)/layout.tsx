@@ -1,9 +1,10 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Users, Building } from "lucide-react";
+import { Users, Building, TrendingUp, Rocket } from "lucide-react";
 
 export default function SociosLayout({
   children,
@@ -15,6 +16,8 @@ export default function SociosLayout({
     const navItems = [
         { href: "/dashboard-socios", label: "Holding", icon: Users },
         { href: "/poderes-representacion", label: "Empresas", icon: Building },
+        { href: "/estudio-factibilidad-economica", label: "Factibilidad", icon: TrendingUp },
+        { href: "/planes-crecimiento", label: "Crecimiento", icon: Rocket },
     ];
 
     return (

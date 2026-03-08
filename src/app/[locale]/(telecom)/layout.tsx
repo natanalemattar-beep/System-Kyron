@@ -1,9 +1,10 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { FileText, Radio } from "lucide-react";
+import { FileText, Radio, Signal, AlertTriangle } from "lucide-react";
 
 export default function TelecomLayout({
   children,
@@ -13,7 +14,9 @@ export default function TelecomLayout({
     const user = { name: "Telecom Admin", email: "telecom@kyron.com", fallback: "TE" };
 
     const navItems = [
+        { href: "/dashboard-telecom", label: "NOC", icon: Signal },
         { href: "/conatel/licenses", label: "Licencias", icon: FileText },
+        { href: "/conatel/alerts", label: "Alertas", icon: AlertTriangle },
         { href: "/venta-linea", label: "Venta Línea", icon: Radio },
     ];
 

@@ -1,9 +1,10 @@
+
 'use client';
 
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
-import { Gavel, Wand2 } from "lucide-react";
+import { Gavel, Wand2, FileSignature, ShieldCheck } from "lucide-react";
 
 export default function LegalLayout({
   children,
@@ -15,6 +16,8 @@ export default function LegalLayout({
     const navItems = [
         { href: "/escritorio-juridico", label: "Bóveda", icon: Gavel },
         { href: "/generador-documentos", label: "Generador IA", icon: Wand2 },
+        { href: "/contratos", label: "Contratos", icon: FileSignature },
+        { href: "/poderes-representacion", label: "Poderes", icon: ShieldCheck },
     ];
 
     return (
