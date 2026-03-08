@@ -131,7 +131,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
                     <DropdownMenuItem asChild className="rounded-xl">
                       <Link href="/manual-usuario" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-[0.2em]">
                           <FileText className="mr-4 h-4 w-4 text-primary/40" />
-                          <span>Manual de Ayuda</span>
+                          <span>Guía de Ayuda</span>
                       </Link>
                     </DropdownMenuItem>
                     

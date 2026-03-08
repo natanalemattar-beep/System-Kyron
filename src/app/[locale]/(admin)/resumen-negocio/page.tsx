@@ -1,7 +1,7 @@
 
 'use client';
 
-import { CheckCircle, TrendingDown, AlertTriangle, Users, LayoutGrid, Zap, Lock, ArrowRight } from "lucide-react";
+import { CheckCircle, TrendingDown, AlertTriangle, Users, LayoutGrid, Zap, Lock, ArrowRight, Activity } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { RecentInvoices } from "@/components/dashboard/recent-invoices";
@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 
 const recentActivities = [
-  { description: "IVA Junio 2024 despachado.", time: "hace 2h", icon: CheckCircle, iconColor: "text-emerald-500" },
+  { description: "IVA Julio 2024 despachado.", time: "hace 2h", icon: CheckCircle, iconColor: "text-emerald-500" },
   { description: "Gasto Bs. 1.200 registrado.", time: "hace 5h", icon: TrendingDown, iconColor: "text-rose-500" },
   { description: "Factura INV-005 en mora.", time: "hace 1d", icon: AlertTriangle, iconColor: "text-amber-500" },
   { description: "Nómina Q1 procesada.", time: "hace 2d", icon: Users, iconColor: "text-blue-500" },
@@ -34,12 +34,12 @@ export default function DashboardEmpresaPage() {
   return (
     <div className="space-y-12 w-full animate-in fade-in duration-700 px-6 md:px-10 pb-20">
       
-      <header className="flex flex-col md:flex-row justify-between items-end gap-6 border-l border-white/10 pl-10 py-2">
+      <header className="flex flex-col md:flex-row justify-between items-end gap-6 border-l-4 border-primary pl-10 py-2">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-white/5 text-white/40 text-[9px] font-bold uppercase tracking-widest border border-white/5">
-                <LayoutGrid className="h-3 w-3" /> RESUMEN DE NEGOCIO
+                <Activity className="h-3 w-3" /> ESTADO DEL NEGOCIO
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic italic-shadow">Estado de <span className="text-white/20">Operaciones</span></h1>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic italic-shadow">Resumen <span className="text-white/20">Operativo</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest opacity-40">System Kyron • Gestión Corporativa 2.6</p>
         </div>
         <div className="flex gap-3">
@@ -90,7 +90,7 @@ export default function DashboardEmpresaPage() {
         <div className="grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-12">
                 <div className="flex items-center gap-6 mb-8">
-                    <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">Secciones de Gestión</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-white/40">Módulos de Gestión</h2>
                     <div className="h-[1px] flex-1 bg-white/5"></div>
                 </div>
                 <QuickAccess navGroups={adminNavGroups} />

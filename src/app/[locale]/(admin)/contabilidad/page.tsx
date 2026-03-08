@@ -26,7 +26,6 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 
 export default function ContabilidadPage() {
-  // Extraemos específicamente el grupo de contabilidad para el acceso rápido
   const contabilidadGroup = adminNavGroups.find(g => g.title === "Contabilidad");
 
   return (
@@ -51,7 +50,7 @@ export default function ContabilidadPage() {
                 </Link>
             </Button>
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white">
-                Sincronizar BCV
+                Sincronizar Bancos
             </Button>
         </div>
       </motion.header>
@@ -107,7 +106,7 @@ export default function ContabilidadPage() {
                             <div className="text-sm font-bold italic text-white/70 leading-relaxed text-justify space-y-4">
                                 <div className="flex gap-6 items-start">
                                     <span className="font-black text-xs text-primary">[1]</span>
-                                    <span>Consolidación de ventas del punto de venta y transferencias.</span>
+                                    <span>Consolidación de ventas del periodo actual.</span>
                                 </div>
                                 <div className="flex gap-6 items-start">
                                     <span className="font-black text-xs text-primary">[2]</span>
@@ -115,7 +114,7 @@ export default function ContabilidadPage() {
                                 </div>
                                 <div className="flex gap-6 items-start">
                                     <span className="font-black text-xs text-primary">[3]</span>
-                                    <span>Generación de reportes de situación y flujo de efectivo.</span>
+                                    <span>Generación de reportes de situación financiera.</span>
                                 </div>
                                 <div className="flex gap-6 items-start">
                                     <span className="font-black text-xs text-primary">[4]</span>
@@ -141,10 +140,10 @@ export default function ContabilidadPage() {
                             <Scale className="h-6 w-6" /> Asesoría IA
                         </h3>
                         <p className="text-sm font-bold opacity-80 leading-relaxed mb-8 relative z-10">
-                            Analice el impacto legal de sus balances actuales con nuestro asistente de leyes fiscales.
+                            Analice el impacto legal de sus estados financieros con nuestro asistente especializado.
                         </p>
                         <Button asChild className="w-full h-12 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-2xl">
-                            <Link href="/gaceta-6952">INICIAR ANÁLISIS <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                            <Link href="/gaceta-6952">INICIAR CONSULTA <ArrowRight className="ml-2 h-4 w-4"/></Link>
                         </Button>
                     </Card>
 

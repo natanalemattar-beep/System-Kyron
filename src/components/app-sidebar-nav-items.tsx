@@ -32,15 +32,16 @@ import {
   Signal,
   LayoutGrid,
   Lock,
-  Wand2
+  Wand2,
+  Activity
 } from "lucide-react";
 
 export const naturalNavGroups = [
     {
-        title: "Inicio",
+        title: "Principal",
         icon: Home,
         items: [
-            { href: "/dashboard", label: "Dashboard", icon: Home },
+            { href: "/dashboard", label: "Inicio", icon: Home },
             { href: "/tarjeta-digital", label: "Mi Perfil", icon: User },
             { href: "/seguridad", label: "Seguridad", icon: Shield },
             { href: "/notificaciones", label: "Avisos", icon: Bell },
@@ -60,7 +61,7 @@ export const naturalNavGroups = [
         subGroups: [],
     },
     {
-        title: "Sustentabilidad",
+        title: "Sostenibilidad",
         icon: Recycle,
         items: [
             { href: "/tarjeta-reciclaje", label: "Puntos Verdes", icon: Recycle },
@@ -83,7 +84,7 @@ export const adminNavGroups = [
   { 
     title: "Administración", 
     icon: LayoutDashboard, 
-    items: [{ href: "/resumen-negocio", label: "Resumen de Negocio", icon: LayoutDashboard }], 
+    items: [{ href: "/resumen-negocio", label: "Estado del Negocio", icon: LayoutDashboard }], 
     subGroups: [] 
   },
   { 
@@ -126,7 +127,7 @@ export const adminNavGroups = [
     icon: Briefcase,
     subGroups: [
       {
-        title: "Empleados",
+        title: "Personal",
         icon: Users,
         items: [
             { href: "/dashboard-rrhh", label: "Inicio RR.HH.", icon: LayoutDashboard },
@@ -159,7 +160,7 @@ export const adminNavGroups = [
 export const legalNavGroups = [
   { title: "Inicio", icon: Gavel, items: [{ href: "/escritorio-juridico", label: "Inicio Legal", icon: Gavel }], subGroups: [] },
   { 
-    title: "Documentación", 
+    title: "Gestión", 
     icon: Gavel, 
     items: [
         { href: "/generador-documentos", label: "Crear Contratos", icon: Wand2 },
