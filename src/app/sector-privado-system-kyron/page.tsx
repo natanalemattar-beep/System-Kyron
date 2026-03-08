@@ -87,7 +87,7 @@ export default function SectorPrivadoPage() {
                             <p className="text-sm font-bold uppercase">NOMBRE DEL PROYECTO</p>
                         </div>
                         <div className="border-b-[1.5px] border-black p-3 bg-white min-h-[45px]">
-                            <p className="text-sm font-medium italic">System Kyron v2.6.5: Ecosistema de Inteligencia Corporativa</p>
+                            <p className="text-sm font-medium italic">System Kyron</p>
                         </div>
 
                         {/* INTEGRANTES DEL EQUIPO */}
@@ -103,7 +103,7 @@ export default function SectorPrivadoPage() {
                             <p className="text-sm font-bold uppercase">INSTITUCIÓN EDUCATIVA</p>
                         </div>
                         <div className="border-b-[1.5px] border-black p-3 bg-white min-h-[45px]">
-                            <p className="text-sm font-medium italic">Centro de Innovación Tecnológica Kyron / Sector Privado</p>
+                            <p className="text-sm font-medium italic">Gabriela Mistral</p>
                         </div>
 
                         {/* PAÍS/CIUDAD */}
@@ -111,7 +111,7 @@ export default function SectorPrivadoPage() {
                             <p className="text-sm font-bold uppercase">PAÍS/CIUDAD</p>
                         </div>
                         <div className="p-3 bg-white min-h-[45px]">
-                            <p className="text-sm font-medium italic">Venezuela, Caracas</p>
+                            <p className="text-sm font-medium italic">La Guaira, Catia La Mar, Venezuela</p>
                         </div>
                     </div>
                 </div>
