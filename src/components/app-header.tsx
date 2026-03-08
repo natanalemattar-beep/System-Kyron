@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -20,17 +19,32 @@ import {
     Clock,
     LayoutGrid,
     ShieldCheck,
-    Cpu
+    Cpu,
+    User,
+    Recycle,
+    Calculator,
+    Briefcase,
+    Signal,
+    Users,
+    Wand2,
+    FileText
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
+interface NavItem {
+    href: string;
+    label: string;
+    icon: React.ElementType;
+}
+
 interface AppHeaderProps {
     user: any;
     dashboardHref: string;
+    navItems?: NavItem[];
 }
 
-export function AppHeader({ user }: AppHeaderProps) {
+export function AppHeader({ user, navItems }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
 
@@ -47,21 +61,26 @@ export function AppHeader({ user }: AppHeaderProps) {
       <div className="w-full px-6 md:px-12">
         <div className="flex items-center justify-between w-full">
           
-          {/* LEFT: BRAND & DASHBOARD */}
+          {/* LEFT: BRAND & CONTEXTUAL NAV */}
           <div className="flex items-center gap-10 flex-1 justify-start">
-            <Link href="/" className="flex items-center gap-4 group">
+            <Link href="/" className="flex items-center gap-4 group shrink-0">
                 <Logo className="h-8 w-8 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
                 <span className="hidden sm:inline-block text-[11px] font-black tracking-[0.5em] uppercase text-white italic italic-shadow">KYRON</span>
             </Link>
             
-            <nav className="hidden lg:flex items-center gap-8 border-l border-white/10 pl-10">
-                <Link href="/dashboard-empresa" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5">
-                    <LayoutGrid className="h-3.5 w-3.5" /> Consola
-                </Link>
-                <Link href="/sector-privado-system-kyron" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5">
-                    <Lock className="h-3.5 w-3.5" /> Sector Privado
-                </Link>
-            </nav>
+            {navItems && navItems.length > 0 && (
+                <nav className="hidden lg:flex items-center gap-6 border-l border-white/10 pl-10">
+                    {navItems.map((item) => (
+                        <Link 
+                            key={item.href} 
+                            href={item.href as any} 
+                            className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5 whitespace-nowrap"
+                        >
+                            <item.icon className="h-3.5 w-3.5 opacity-50" /> {item.label}
+                        </Link>
+                    ))}
+                </nav>
+            )}
           </div>
 
           {/* CENTER: TIME HUD */}

@@ -3,6 +3,7 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+import { FileText, Radio } from "lucide-react";
 
 export default function TelecomLayout({
   children,
@@ -10,6 +11,11 @@ export default function TelecomLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Telecom Admin", email: "telecom@kyron.com", fallback: "TE" };
+
+    const navItems = [
+        { href: "/conatel/licenses", label: "Licencias", icon: FileText },
+        { href: "/venta-linea", label: "Venta Línea", icon: Radio },
+    ];
 
     return (
       <div className="flex min-h-screen bg-[#080602] text-white relative overflow-hidden hud-grid">
@@ -19,7 +25,11 @@ export default function TelecomLayout({
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
-              <AppHeader user={{...user, color: "bg-amber-600 shadow-glow"}} dashboardHref="/dashboard-telecom" />
+              <AppHeader 
+                user={{...user, color: "bg-amber-600 shadow-glow"}} 
+                dashboardHref="/dashboard-telecom" 
+                navItems={navItems}
+              />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
                 initial={{ opacity: 0, y: -20 }}

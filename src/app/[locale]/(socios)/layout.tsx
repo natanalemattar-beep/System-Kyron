@@ -3,6 +3,7 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+import { Users, Building } from "lucide-react";
 
 export default function SociosLayout({
   children,
@@ -10,6 +11,11 @@ export default function SociosLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Socio", email: "socio@kyron.com", fallback: "SO" };
+
+    const navItems = [
+        { href: "/dashboard-socios", label: "Holding", icon: Users },
+        { href: "/poderes-representacion", label: "Empresas", icon: Building },
+    ];
 
     return (
       <div className="flex min-h-screen bg-[#03040a] text-white relative overflow-hidden hud-grid">
@@ -20,7 +26,11 @@ export default function SociosLayout({
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
-              <AppHeader user={{...user, color: "bg-indigo-900 shadow-glow"}} dashboardHref="/dashboard-socios" />
+              <AppHeader 
+                user={{...user, color: "bg-indigo-900 shadow-glow"}} 
+                dashboardHref="/dashboard-socios" 
+                navItems={navItems}
+              />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
                 initial={{ opacity: 0, scale: 1.02 }}

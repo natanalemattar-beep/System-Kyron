@@ -3,6 +3,7 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+import { Gavel, Wand2 } from "lucide-react";
 
 export default function LegalLayout({
   children,
@@ -10,6 +11,11 @@ export default function LegalLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Abogado", email: "legal@kyron.com", fallback: "AB" };
+
+    const navItems = [
+        { href: "/escritorio-juridico", label: "Bóveda", icon: Gavel },
+        { href: "/generador-documentos", label: "Generador IA", icon: Wand2 },
+    ];
 
     return (
       <div className="flex min-h-screen bg-[#05070a] text-white relative overflow-hidden hud-grid">
@@ -20,7 +26,11 @@ export default function LegalLayout({
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
-              <AppHeader user={{...user, color: "bg-slate-800 shadow-glow"}} dashboardHref="/escritorio-juridico" />
+              <AppHeader 
+                user={{...user, color: "bg-slate-800 shadow-glow"}} 
+                dashboardHref="/escritorio-juridico" 
+                navItems={navItems}
+              />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
                 initial={{ opacity: 0, x: 20 }}

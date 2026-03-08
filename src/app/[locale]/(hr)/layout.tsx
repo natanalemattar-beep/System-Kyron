@@ -3,6 +3,7 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+import { Users, UserPlus } from "lucide-react";
 
 export default function HRLayout({
   children,
@@ -10,6 +11,11 @@ export default function HRLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "RR.HH.", email: "rrhh@kyron.com", fallback: "RH" };
+
+    const navItems = [
+        { href: "/nominas", label: "Nóminas", icon: Users },
+        { href: "/reclutamiento", label: "Reclutamiento", icon: UserPlus },
+    ];
 
     return (
       <div className="flex min-h-screen bg-[#020502] text-white relative overflow-hidden hud-grid">
@@ -20,7 +26,11 @@ export default function HRLayout({
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
-              <AppHeader user={{...user, color: "bg-secondary shadow-glow"}} dashboardHref="/dashboard-rrhh" />
+              <AppHeader 
+                user={{...user, color: "bg-secondary shadow-glow"}} 
+                dashboardHref="/dashboard-rrhh" 
+                navItems={navItems}
+              />
               <motion.main 
                 className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
                 initial={{ opacity: 0 }}

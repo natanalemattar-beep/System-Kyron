@@ -3,6 +3,7 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+import { Fingerprint, Recycle } from "lucide-react";
 
 export default function NaturalLayout({
   children,
@@ -10,6 +11,11 @@ export default function NaturalLayout({
   children: React.ReactNode;
 }>) {
     const user = { name: "Usuario Natural", email: "usuario@kyron.com", fallback: "UN" };
+
+    const navItems = [
+        { href: "/tarjeta-digital", label: "ID Digital", icon: Fingerprint },
+        { href: "/tarjeta-reciclaje", label: "Eco-Créditos", icon: Recycle },
+    ];
 
     return (
       <div className="flex min-h-screen bg-background relative overflow-hidden">
@@ -22,6 +28,7 @@ export default function NaturalLayout({
               <AppHeader 
                 user={{...user, color: "bg-primary/30 text-primary shadow-glow"}} 
                 dashboardHref="/dashboard"
+                navItems={navItems}
               />
               
               <motion.main 
