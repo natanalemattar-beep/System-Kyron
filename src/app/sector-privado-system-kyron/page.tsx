@@ -31,6 +31,14 @@ import {
   Package,
   ShoppingCart
 } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
@@ -39,17 +47,17 @@ import { cn, formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 /**
- * @fileOverview Expediente Maestro ZEDU - Sistema Kyron v2.6.5
+ * @fileOverview Expediente Maestro ZEDU Final - Sistema Kyron v2.6.5
  * Consolidación total de las 6 partes del modelo ZEDU con respuestas técnicas expandidas.
  * Estética UHD en Azul y Verde.
  */
 
 const budgetData = [
-    { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", qty: 1, cost: 1000, location: "Distribuidor Mayorista" },
-    { item: "Infraestructura de Red 5G (Nodo Local)", qty: 2, cost: 3000, location: "Kyron Telecom Div." },
-    { item: "Papeleras Inteligentes (Tecnología Magnet)", qty: 5, cost: 750, location: "Taller de Ingeniería" },
-    { item: "Equipos Fiscales Homologados SENIAT", qty: 3, cost: 1350, location: "Kyron Fiscal Solutions" },
-    { item: "Licencia Anual Ecosistema AutoMind AI", qty: 1, cost: 1200, location: "Software Vault" },
+    { item: "Infraestructura de Red 5G (Nodo Kyron Connect)", qty: 1, cost: 5000, location: "División Telecom" },
+    { item: "Lote SIM Cards Físicas / Provisión eSIM", qty: 1000, cost: 1000, location: "Kyron Secure Hub" },
+    { item: "Papeleras Inteligentes (Inducción Magnética)", qty: 5, cost: 1250, location: "Taller de Ingeniería" },
+    { item: "Equipos Fiscales Homologados (Prov. 0071)", qty: 2, cost: 950, location: "Fiscal Solutions" },
+    { item: "Licencia Anual Ecosistema AutoMind AI Pro", qty: 1, cost: 1500, location: "Cloud Vault" },
 ];
 
 export default function SectorPrivadoPage() {
@@ -70,32 +78,22 @@ export default function SectorPrivadoPage() {
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
                     <meta charset='utf-8'>
-                    <title>Expediente ZEDU - System Kyron Master</title>
+                    <title>Expediente Maestro ZEDU - System Kyron</title>
                     <style>
                         body { font-family: 'Arial', sans-serif; line-height: 1.5; color: #000; padding: 20px; }
                         table { width: 100%; border-collapse: collapse; margin-bottom: 25px; border: 2pt solid #000; }
-                        td, th { border: 1pt solid #000; padding: 12px; vertical-align: top; }
-                        .header-cell { background-color: #f8fafc; font-weight: bold; text-transform: uppercase; font-size: 10pt; color: #1e293b; }
-                        .section-title { background-color: #eff6ff; font-weight: 900; text-transform: uppercase; font-size: 14pt; padding: 15px; border: 2pt solid #000; color: #1d4ed8; text-align: center; }
-                        .content-text { font-size: 11pt; text-align: justify; }
-                        .label { font-weight: bold; font-size: 9pt; text-transform: uppercase; color: #64748b; margin-bottom: 4px; }
-                        .value { font-size: 11pt; font-weight: bold; color: #0f172a; }
-                        .text-primary { color: #2563eb; }
-                        .text-secondary { color: #16a34a; }
-                        .footer-signature { margin-top: 50px; text-align: center; }
+                        td, th { border: 1pt solid #000; padding: 12px; vertical-align: top; font-size: 10pt; }
+                        .section-header { background-color: #f1f5f9; font-weight: 900; text-transform: uppercase; text-align: center; padding: 10px; border: 2pt solid #000; color: #1e40af; }
+                        .label { font-weight: bold; text-transform: uppercase; color: #475569; font-size: 8pt; }
+                        .value { font-weight: bold; color: #000; }
                     </style>
                 </head>
                 <body>
-                    <div style="text-align: center; margin-bottom: 40px;">
-                        <h1 style="font-size: 26pt; text-transform: uppercase; margin: 0; color: #1e3a8a;">Expediente Maestro ZEDU</h1>
-                        <p style="font-size: 11pt; color: #64748b; letter-spacing: 2px;">SYSTEM KYRON • CORPORATE INTELLIGENCE NODE v2.6.5</p>
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h1 style="font-size: 24pt; text-transform: uppercase; margin: 0;">Expediente Maestro ZEDU</h1>
+                        <p style="font-size: 10pt; color: #64748b;">NODO DE INTELIGENCIA CORPORATIVA v2.6.5</p>
                     </div>
                     ${documentContent}
-                    <div class="footer-signature">
-                        <p>_________________________________</p>
-                        <p style="font-size: 10pt; font-weight: bold;">Firma del Responsable del Nodo</p>
-                        <p style="font-size: 8pt; color: #94a3b8;">Auth ID: KYRON-SECURE-2026</p>
-                    </div>
                 </body>
                 </html>
             `;
@@ -104,15 +102,15 @@ export default function SectorPrivadoPage() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = "EXPEDIENTE_ZEDU_KYRON_V2.6.5.doc";
+            link.download = "EXPEDIENTE_ZEDU_FINAL_KYRON.doc";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
 
             setIsExporting(false);
             toast({
-                title: "DOSSIER GENERADO",
-                description: "Expediente Maestro exportado bajo protocolo de alta fidelidad.",
+                title: "DOSSIER EXPORTADO",
+                description: "Expediente Maestro descargado bajo protocolo de alta fidelidad.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
         }, 1500);
@@ -123,7 +121,7 @@ export default function SectorPrivadoPage() {
     return (
         <div className="min-h-screen bg-[#020408] text-white p-4 md:p-12 font-sans selection:bg-primary/20 hud-grid relative">
             
-            {/* PANEL DE CONTROL HUD */}
+            {/* HUD CONTROL PANEL */}
             <div className="max-w-5xl mx-auto mb-16 no-print">
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }}
@@ -138,24 +136,24 @@ export default function SectorPrivadoPage() {
                         </Button>
                         <div className="h-10 w-px bg-white/10" />
                         <div className="flex flex-col">
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Status: Final Audit</span>
-                            <span className="text-[8px] font-bold text-white/20 uppercase tracking-[0.2em] mt-1 italic">Authorized: Mattar/Garrido/Sousa</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Dossier: ZEDU-ULTIMATE</span>
+                            <span className="text-[8px] font-bold text-white/20 uppercase tracking-[0.2em] mt-1">Audit Ready • 2026</span>
                         </div>
                     </div>
                     
                     <div className="flex gap-3">
-                        <Button variant="outline" onClick={() => window.print()} className="h-12 px-8 rounded-xl border-white/10 bg-white/5 font-black text-[10px] uppercase tracking-widest text-white/60 hover:text-white hover:bg-white/10 transition-all">
+                        <Button variant="outline" onClick={() => window.print()} className="h-12 px-8 rounded-xl border-white/10 bg-white/5 font-black text-[10px] uppercase tracking-widest text-white/60 hover:text-white transition-all">
                             <Printer className="mr-3 h-4 w-4 text-primary" /> IMPRIMIR
                         </Button>
                         <Button onClick={handleDownload} disabled={isExporting} className="h-12 px-10 rounded-xl btn-3d-primary font-black text-[10px] uppercase tracking-widest shadow-glow">
                             {isExporting ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Download className="mr-3 h-4 w-4" />}
-                            DESCARGAR EXPEDIENTE (.DOC)
+                            DESCARGAR EXPEDIENTE
                         </Button>
                     </div>
                 </motion.div>
             </div>
 
-            {/* EXPEDIENTE MAESTRO - CONTENIDO UHD */}
+            {/* EXPEDIENTE MAESTRO */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -163,58 +161,48 @@ export default function SectorPrivadoPage() {
             >
                 <div id="printable-document" className="relative bg-white text-black p-8 md:p-20 shadow-2xl rounded-[3rem] border border-slate-300 print:shadow-none print:border-none print:p-0 overflow-hidden">
                     
-                    {/* Encabezado Institucional UHD */}
+                    {/* Header Institucional */}
                     <div className="flex justify-between items-start mb-16 border-b-4 border-primary/10 pb-10">
-                        <div className="space-y-2">
-                            <div className="flex items-center gap-4">
-                                <Logo className="h-16 w-16" />
-                                <div className="space-y-1">
-                                    <span className="font-black text-3xl tracking-tighter uppercase italic text-primary">System Kyron</span>
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] leading-none">Intelligence Ecosystem</p>
-                                </div>
+                        <div className="flex items-center gap-6">
+                            <Logo className="h-16 w-16" />
+                            <div className="space-y-1">
+                                <span className="font-black text-3xl tracking-tighter uppercase italic text-primary">System Kyron</span>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em]">Corporate Intelligence Hub</p>
                             </div>
                         </div>
-                        <div className="text-right flex flex-col items-end gap-3">
-                            <div className="px-5 py-2 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-3">
-                                <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-700">Dossier Certificado 2026</span>
-                            </div>
-                            <p className="text-[10px] font-mono text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-md">PROTOCOLO: ZEDU-MASTER-ULTIMATE</p>
+                        <div className="text-right">
+                            <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Expediente Verificado</Badge>
+                            <p className="text-[9px] font-mono text-slate-400 uppercase tracking-widest italic">REF: KYRON-ZEDU-FINAL-2026</p>
                         </div>
                     </div>
 
-                    {/* PARTE 1: EQUIPO TÉCNICO */}
+                    {/* PARTE 1: EQUIPO */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Users className="h-5 w-5 text-primary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">1. Información del Equipo Técnico</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">1. Información del Equipo Técnico</h2>
                         </div>
-                        
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white">
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white">
                             <div className="grid grid-cols-1 md:grid-cols-3">
                                 <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Nombre del Proyecto</p>
-                                    </div>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Nombre del Proyecto</p></div>
                                     <div className="p-6"><p className="text-base font-black uppercase italic text-primary">System Kyron</p></div>
                                 </div>
                                 <div className="col-span-2">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Integrantes del Equipo Maestro</p>
-                                    </div>
-                                    <div className="p-6 font-mono text-sm font-bold uppercase leading-relaxed text-slate-800">
-                                        <p>Carlos Mattar • Sebastian Garrido • Marcos Sousa</p>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Integrantes del Equipo</p></div>
+                                    <div className="p-6 font-mono text-sm font-bold uppercase text-slate-800">
+                                        Carlos Mattar • Sebastian Garrido • Marcos Sousa
                                     </div>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 border-t-[1.5px] border-black">
                                 <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Institución Educativa Aliada</p></div>
-                                    <div className="p-6"><p className="text-base font-black uppercase text-slate-800">Institución Educativa Gabriela Mistral</p></div>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Institución Educativa</p></div>
+                                    <div className="p-6 font-bold uppercase">Institución Educativa Gabriela Mistral</div>
                                 </div>
                                 <div>
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Localidad Geográfica</p></div>
-                                    <div className="p-6"><p className="text-sm font-black uppercase italic text-slate-600">La Guaira, Catia La Mar, Venezuela</p></div>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Localidad</p></div>
+                                    <div className="p-6 font-bold uppercase">La Guaira, Catia La Mar, Venezuela</div>
                                 </div>
                             </div>
                         </div>
@@ -224,19 +212,18 @@ export default function SectorPrivadoPage() {
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
                             <Activity className="h-5 w-5 text-secondary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">2. Población a Trabajar</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">2. Población a Trabajar</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white">
-                            <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Localidad Específica y Comunidad Beneficiaria</p></div>
-                            <div className="p-6 border-b-[1.5px] border-black bg-white"><p className="text-base font-bold uppercase text-slate-800">Santa Rosa de Lima, Caracas. Eje Estratégico de Desarrollo Económico.</p></div>
-                            <div className="grid grid-cols-1 md:grid-cols-3">
-                                <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Estimación de Usuarios</p></div>
-                                    <div className="p-6 text-center"><p className="text-3xl font-black text-secondary italic tracking-tighter">1.500+</p></div>
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white">
+                            <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Comunidad Beneficiaria</p></div>
+                            <div className="p-6 border-b-[1.5px] border-black"><p className="text-sm font-bold uppercase text-slate-800">Santa Rosa de Lima, Caracas. Eje de Modernización Tecnológica.</p></div>
+                            <div className="grid grid-cols-3">
+                                <div className="border-r-[1.5px] border-black p-6 text-center">
+                                    <p className="text-[9px] font-black uppercase text-slate-400 mb-2">Usuarios Est.</p>
+                                    <p className="text-3xl font-black italic text-secondary">1.500+</p>
                                 </div>
-                                <div className="col-span-2">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Perfil Demográfico del Nodo</p></div>
-                                    <div className="p-6 font-mono"><p className="text-[11px] font-bold uppercase text-slate-600 leading-relaxed">Estudiantes, personal administrativo y directivo con necesidad crítica de modernización en la gestión de expedientes y servicios 5G.</p></div>
+                                <div className="col-span-2 p-6 font-mono text-[11px] font-bold uppercase leading-relaxed text-slate-600">
+                                    Personal administrativo, directivo y representantes con necesidad de digitalización inmutable de expedientes y conectividad 5G.
                                 </div>
                             </div>
                         </div>
@@ -246,29 +233,28 @@ export default function SectorPrivadoPage() {
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Terminal className="h-5 w-5 text-primary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">3. Análisis del Problema (Diagnóstico)</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">3. Análisis del Problema</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white font-mono text-[11px]">
-                            <div className="grid grid-cols-1 md:grid-cols-2">
-                                <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Causas del Colapso Operativo</p></div>
-                                    <div className="p-6 space-y-3 font-bold text-slate-700 uppercase">
-                                        <p>• Inexistencia de un nodo central de datos digital.</p>
-                                        <p>• Dependencia absoluta de procesos manuales físicos.</p>
-                                        <p>• Vulnerabilidad crítica ante pérdida de activos.</p>
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white font-mono text-[11px]">
+                            <div className="grid grid-cols-2">
+                                <div className="border-r-[1.5px] border-black">
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Causas</p></div>
+                                    <div className="p-6 space-y-3 font-bold uppercase text-slate-700">
+                                        <p>• Archivamiento 100% físico y manual.</p>
+                                        <p>• Inexistencia de un nodo de datos centralizado.</p>
+                                        <p>• Desconexión entre departamentos administrativos.</p>
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Consecuencias Ejecutivas</p></div>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Consecuencias</p></div>
                                     <div className="p-6 italic font-bold uppercase text-slate-600 leading-relaxed">
-                                        Retraso en la toma de decisiones, duplicidad de tareas administrativas y riesgo de incumplimiento legal ante auditorías externas.
+                                        Retraso crítico en la localización de documentos, vulnerabilidad ante pérdida de datos y alto riesgo de incumplimiento legal.
                                     </div>
                                 </div>
                             </div>
-                            <div className="p-4 bg-slate-50 border-t-[1.5px] border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Definición Técnica del Problema</p></div>
-                            <div className="p-8 bg-white">
-                                <p className="text-[14px] font-medium italic leading-relaxed text-justify border-l-8 border-primary/20 pl-8 text-slate-800">
-                                    "La institución presenta un colapso en la gestión de expedientes debido a un sistema de archivado 100% físico. Esta condición impide la agilidad en la búsqueda de documentos y expone la información a un deterioro irreversible."
+                            <div className="p-8 bg-white border-t-[1.5px] border-black">
+                                <p className="text-[13px] font-medium italic leading-relaxed text-justify border-l-8 border-primary/20 pl-8 text-slate-800">
+                                    "La institución presenta un colapso operativo en la gestión de expedientes debido a un sistema de archivado pobre y obsoleto. Esta condición impide la agilidad administrativa y expone la información sensible a un deterioro irreversible."
                                 </p>
                             </div>
                         </div>
@@ -278,26 +264,25 @@ export default function SectorPrivadoPage() {
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
                             <TrendingUp className="h-5 w-5 text-secondary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">4. Factibilidad Económica</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">4. Factibilidad Económica</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white">
-                            <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Análisis Financiero del Proyecto</p></div>
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white">
                             <div className="p-8">
-                                <div className="grid grid-cols-3 gap-6 mb-8">
-                                    <div className="p-6 bg-primary/5 rounded-2xl border-2 border-primary/20 text-center">
-                                        <p className="text-[9px] font-black uppercase text-primary/60 mb-2">VAN Proyectado</p>
+                                <div className="grid grid-cols-3 gap-6 mb-8 text-center">
+                                    <div className="p-6 bg-primary/5 rounded-2xl border-2 border-primary/20">
+                                        <p className="text-[9px] font-black uppercase text-primary/60 mb-2">VAN</p>
                                         <p className="text-xl font-black text-primary">$450.000</p>
                                     </div>
-                                    <div className="p-6 bg-secondary/5 rounded-2xl border-2 border-secondary/20 text-center">
-                                        <p className="text-[9px] font-black uppercase text-secondary/60 mb-2">TIR Estándar</p>
+                                    <div className="p-6 bg-secondary/5 rounded-2xl border-2 border-secondary/20">
+                                        <p className="text-[9px] font-black uppercase text-secondary/60 mb-2">TIR</p>
                                         <p className="text-xl font-black text-secondary">28.5%</p>
                                     </div>
-                                    <div className="p-6 bg-slate-50 rounded-2xl border-2 border-slate-200 text-center">
-                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-2">PAYBACK</p>
+                                    <div className="p-6 bg-slate-50 rounded-2xl border-2 border-slate-200">
+                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-2">ROI</p>
                                         <p className="text-xl font-black text-slate-600">2.4 AÑOS</p>
                                     </div>
                                 </div>
-                                <p className="text-[11px] font-mono font-bold text-slate-500 text-center uppercase tracking-widest">Dictamen: El modelo SaaS permite una escalabilidad inmediata con costos operativos reducidos en un 40%.</p>
+                                <p className="text-[11px] font-mono font-bold text-slate-500 text-center uppercase tracking-widest">Dictamen: El modelo SaaS permite escalabilidad total con costos reducidos en un 40% anual.</p>
                             </div>
                         </div>
                     </div>
@@ -306,112 +291,80 @@ export default function SectorPrivadoPage() {
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Zap className="h-5 w-5 text-primary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">5. Desarrolla tu Proyecto</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">5. Desarrolla tu Proyecto (AutoMind AI)</h2>
                         </div>
-                        
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white font-mono text-[11px] leading-relaxed">
-                            <div className="p-8 text-justify text-slate-800 space-y-6 border-b-[1.5px] border-black bg-slate-50/30">
-                                <p className="font-bold text-[13px] text-primary uppercase italic mb-4">Ecosistema Intelligence: Protocolo AutoMind AI</p>
-                                <p>
-                                    System Kyron es el nodo maestro de un ecosistema de inteligencia corporativa diseñado para la transición hacia la economía digital 2026. El núcleo de nuestra solución transforma el archivado tradicional en un entorno digital de alta fidelidad mediante la implementación de una **Bóveda de Datos Inmutable**. Esta arquitectura utiliza cifrado de grado militar para garantizar que cada expediente sea legalmente inatacable y accesible instantáneamente desde cualquier nodo de la red.
-                                </p>
-                                <p>
-                                    La plataforma integra el protocolo **Hyper-Connect 5G**, permitiendo una conectividad de baja latencia necesaria para la sincronización síncrona de datos financieros y académicos. Además, el ecosistema incorpora tecnología de **Inducción Magnética** en puntos de recolección inteligentes, transformando la gestión de residuos en activos digitales verificables en el Ledger central, incentivando así la sostenibilidad institucional.
-                                </p>
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white font-mono text-[11px] leading-relaxed">
+                            <div className="p-10 text-justify text-slate-800 space-y-6 bg-slate-50/30 border-b-[1.5px] border-black">
+                                <p className="font-black text-primary text-base italic uppercase">Protocolo de Inteligencia Corporativa Kyron</p>
+                                <p>System Kyron es el nodo maestro de un ecosistema diseñado para la transición hacia la economía digital 2026. Nuestra solución transforma el archivado físico en un entorno digital de alta fidelidad mediante una **Bóveda de Datos Inmutable**.</p>
+                                <p>La arquitectura fusiona el protocolo **Hyper-Connect 5G** para baja latencia con tecnología de **Inducción Magnética** en puntos de recolección, monetizando la sostenibilidad y garantizando el blindaje fiscal automático mediante IA predictiva.</p>
                             </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2">
-                                <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Otras Propuestas Existentes</p></div>
-                                    <div className="p-6 italic font-bold text-slate-600">
-                                        Las alternativas actuales, como el modelo MOBIAN, se limitan a la gestión administrativa general sin integración de infraestructura física. Kyron supera estas propuestas al fusionar servicios de telecomunicaciones propios con blindaje legal automatizado y hardware inteligente.
-                                    </div>
+                            <div className="grid grid-cols-2">
+                                <div className="border-r-[1.5px] border-black">
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Otras Propuestas (Mobian)</p></div>
+                                    <div className="p-6 italic font-bold text-slate-600 uppercase">Se limitan a la gestión administrativa general sin integración de infraestructura física ni conectividad de datos propia.</div>
                                 </div>
                                 <div>
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Diferenciadores Clave Kyron</p></div>
-                                    <div className="p-6 space-y-3 font-black text-primary uppercase italic">
-                                        <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Conectividad 5G Slicing Dedicada.</span></div>
-                                        <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Tecnología de Inducción Magnética.</span></div>
-                                        <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Blindaje Fiscal con IA Predictiva.</span></div>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Diferenciadores Kyron</p></div>
+                                    <div className="p-6 font-black text-primary uppercase space-y-2 italic">
+                                        <p>• Blindaje Fiscal IA 24/7.</p>
+                                        <p>• Conectividad 5G Slicing.</p>
+                                        <p>• Tecnología Magnética Pro.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* PARTE 6: DIFERENCIADORES Y PRESUPUESTO */}
+                    {/* PARTE 6: PRESUPUESTO */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
-                            <Sparkles className="h-5 w-5 text-secondary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">6. Diferenciadores y Presupuesto</h2>
+                            <ShoppingCart className="h-5 w-5 text-secondary" />
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">6. Presupuesto Operativo</h2>
                         </div>
-
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white p-8 space-y-8">
-                            <div className="space-y-6 text-[11px] font-mono text-justify leading-relaxed">
-                                <h3 className="font-black uppercase text-sm border-b pb-2">Diferenciadores Clave (AutoMind AI)</h3>
-                                <div>
-                                    <p className="font-black text-primary uppercase">[ ESPECIALIZACIÓN ]</p>
-                                    <p className="mt-1">Mientras Mobian ofrece servicios genéricos de IT y "Staff Augmentation" para cualquier empresa, AutoMind AI resuelve problemas específicos del sector educativo (archivo físico y comunicación escolar). Nuestra empresa va a ser escalable pudiendo expandirse a otros sectores (empresas, almacenes, ...)</p>
-                                </div>
-                                <div>
-                                    <p className="font-black text-primary uppercase">[ ALCANCE DEL USUARIO ]</p>
-                                    <p className="mt-1">Mobian optimiza procesos internos para técnicos; AutoMind AI impacta directamente en la experiencia del cliente final (los padres/representantes) mediante su chatbot.</p>
-                                </div>
-                                <div>
-                                    <p className="font-black text-primary uppercase">[ DE DATOS A ESTRATEGIA ]</p>
-                                    <p className="mt-1">Mobian se queda en la "gestión eficiente"; AutoMind AI utiliza la IA para la generación de ideas estratégicas, apoyando activamente la toma de decisiones directivas.</p>
-                                </div>
-                            </div>
-
-                            <div className="space-y-4">
-                                <h3 className="font-black uppercase text-sm italic flex items-center gap-2">
-                                    <ShoppingCart className="h-4 w-4 text-primary" /> PRESUPUESTO OPERATIVO
-                                </h3>
-                                <div className="border-[1.5px] border-black rounded-xl overflow-hidden">
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
-                                                <TableHead className="font-black text-[9px] uppercase text-slate-600">Item de Inversión</TableHead>
-                                                <TableHead className="text-center font-black text-[9px] uppercase text-slate-600">Cantidad</TableHead>
-                                                <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Costo (USD)</TableHead>
-                                                <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Lugar de Compra</TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {budgetData.map((row, i) => (
-                                                <TableRow key={i} className="border-b border-slate-100 last:border-0">
-                                                    <TableCell className="text-[10px] font-bold uppercase">{row.item}</TableCell>
-                                                    <TableCell className="text-center font-mono font-bold text-xs">{row.qty}</TableCell>
-                                                    <TableCell className="text-right font-mono font-black text-primary">{formatCurrency(row.cost, 'USD')}</TableCell>
-                                                    <TableCell className="text-right text-[10px] italic font-medium text-slate-500">{row.location}</TableCell>
-                                                </TableRow>
-                                            ))}
-                                            <TableRow className="bg-primary/5 font-black border-t-[1.5px] border-black">
-                                                <TableCell colSpan={2} className="text-sm uppercase italic">Total Inversión Proyectada</TableCell>
-                                                <TableCell className="text-right text-lg text-primary">{formatCurrency(budgetData.reduce((a,b) => a + b.cost, 0), 'USD')}</TableCell>
-                                                <TableCell />
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                </div>
-                            </div>
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
+                                        <TableHead className="font-black text-[9px] uppercase text-slate-600">Item de Inversión</TableHead>
+                                        <TableHead className="text-center font-black text-[9px] uppercase text-slate-600">Cant.</TableHead>
+                                        <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Costo (USD)</TableHead>
+                                        <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Lugar</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {budgetData.map((row, i) => (
+                                        <TableRow key={i} className="border-b border-slate-100 last:border-0">
+                                            <TableCell className="text-[10px] font-bold uppercase">{row.item}</TableCell>
+                                            <TableCell className="text-center font-mono font-bold">{row.qty}</TableCell>
+                                            <TableCell className="text-right font-mono font-black text-primary">{formatCurrency(row.cost, 'USD')}</TableCell>
+                                            <TableCell className="text-right text-[9px] italic text-slate-500 uppercase">{row.location}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                    <TableRow className="bg-primary/5 font-black border-t-[1.5px] border-black">
+                                        <TableCell colSpan={2} className="text-sm uppercase italic">Inversión Maestro Total</TableCell>
+                                        <TableCell className="text-right text-xl text-primary">{formatCurrency(budgetData.reduce((a,b) => a + b.cost, 0), 'USD')}</TableCell>
+                                        <TableCell />
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
                         </div>
                     </div>
 
-                    {/* Dictamen Técnico y Firmas */}
-                    <div className="mt-20 pt-16 border-t-4 border-slate-100 flex flex-col md:flex-row justify-between items-center md:items-end gap-12">
+                    {/* Footer de Firmas */}
+                    <div className="mt-20 pt-16 border-t-4 border-slate-100 flex justify-between items-end">
                         <div className="flex items-center gap-6 group">
-                            <div className="p-6 bg-primary text-white rounded-[2rem] shadow-glow-sm rotate-3 group-hover:rotate-0 transition-transform duration-500">
+                            <div className="p-6 bg-primary text-white rounded-[2rem] shadow-glow rotate-3 group-hover:rotate-0 transition-transform duration-500">
                                 <ShieldCheck className="h-10 w-10" />
                             </div>
                             <div className="space-y-1">
                                 <p className="text-[9px] font-black uppercase text-slate-400 tracking-widest">Dictamen Final</p>
-                                <p className="text-sm font-black uppercase italic text-primary leading-none tracking-tighter">PROJECT CERTIFIED: KYRON MASTER</p>
+                                <p className="text-sm font-black uppercase italic text-primary leading-none">PROJECT CERTIFIED: KYRON MASTER</p>
                                 <p className="text-[8px] font-bold text-slate-300 uppercase tracking-widest mt-1">Integridad del Expediente: 100%</p>
                             </div>
                         </div>
-                        <div className="text-center md:text-right space-y-4">
-                            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-300">Auth Required for Processing</p>
+                        <div className="text-right space-y-4">
+                            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-300">Autenticación Requerida</p>
                             <div className="w-64 h-16 border-b-2 border-slate-300 italic text-slate-400 text-xs flex items-end justify-center pb-3 font-serif">
                                 Signature: System Kyron Admin Node
                             </div>
@@ -420,7 +373,7 @@ export default function SectorPrivadoPage() {
                 </div>
             </motion.div>
 
-            {/* Rejilla HUD Estética */}
+            {/* HUD BORDERS */}
             <div className="fixed top-0 right-0 w-1 h-full bg-gradient-to-b from-primary/20 via-transparent to-secondary/20 pointer-events-none no-print" />
             <div className="fixed top-0 left-0 w-1 h-full bg-gradient-to-b from-primary/20 via-transparent to-secondary/20 pointer-events-none no-print" />
         </div>
