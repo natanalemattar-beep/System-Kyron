@@ -4,84 +4,107 @@
 
 @layer base {
   :root {
-    --background: 240 10% 2%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 4%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 2%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 210 100% 50%; /* Azul Ciber */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 145 100% 50%; /* Verde Neón */
-    --secondary-foreground: 240 10% 2%;
-    --muted: 240 10% 10%;
-    --muted-foreground: 240 5% 64%;
-    --accent: 210 100% 50%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 10% 12%;
-    --input: 240 10% 12%;
-    --ring: 210 100% 50%;
+    /* Light Mode - System Kyron Corporate Identity */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    
+    /* Azul institucional #0A2472 */
+    --primary: 225 84% 25%;
+    --primary-foreground: 210 40% 98%;
+    
+    /* Verde corporativo #00A86B */
+    --secondary: 158 100% 33%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 225 84% 25%;
     --radius: 1rem;
+  }
+
+  .dark {
+    /* Dark Mode - System Kyron Dark Identity */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 6.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    
+    /* A bit lighter blue for visibility in dark mode */
+    --primary: 210 100% 50%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    
+    /* A bit lighter green for visibility */
+    --secondary: 145 100% 50%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
 @layer base {
   * { @apply border-border; }
   body {
-    @apply bg-black text-foreground antialiased font-sans selection:bg-primary/20;
+    @apply bg-background text-foreground antialiased font-sans selection:bg-primary/20;
     text-rendering: optimizeLegibility;
   }
 }
 
 @layer utilities {
   .btn-3d-primary {
-    @apply bg-primary text-white shadow-[0_4px_0_0_#1d4ed8] active:shadow-none active:translate-y-1 transition-all;
+    @apply bg-primary text-primary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-none active:translate-y-1 transition-all;
   }
 
   .btn-3d-secondary {
-    @apply bg-secondary text-black shadow-[0_4px_0_0_#15803d] active:shadow-none active:translate-y-1 transition-all;
+    @apply bg-secondary text-secondary-foreground shadow-[0_4px_0_0_rgba(0,0,0,0.2)] active:shadow-none active:translate-y-1 transition-all;
   }
 
   .glass-card {
-    @apply bg-white/[0.02] border border-white/5 backdrop-blur-3xl shadow-2xl transition-all duration-500 hover:border-primary/30;
+    @apply bg-card/40 border border-border/50 backdrop-blur-md shadow-sm transition-all duration-300 hover:shadow-md;
   }
   
-  .neon-border-blue {
-    @apply border-2 border-primary/40 shadow-[0_0_25px_rgba(37,99,235,0.4)];
-  }
-
-  .neon-border-green {
-    @apply border-2 border-secondary/40 shadow-[0_0_25px_rgba(34,197,94,0.4)];
-  }
-
-  .italic-shadow {
-    text-shadow: 4px 4px 0px rgba(37,99,235,0.2);
-  }
-
   .shadow-glow {
-    box-shadow: 0 0 40px hsla(210, 100%, 50%, 0.4);
+    box-shadow: 0 0 20px hsla(var(--primary), 0.2);
   }
 
   .shadow-glow-secondary {
-    box-shadow: 0 0 40px hsla(145, 100%, 50%, 0.4);
+    box-shadow: 0 0 20px hsla(var(--secondary), 0.2);
   }
 
-  .shadow-glow-text {
-    text-shadow: 0 0 20px hsla(210, 100%, 50%, 0.6);
+  .italic-shadow {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
   }
 
   .hud-grid {
     background-image: 
-      linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
+      linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 
-  .gradient-mesh {
-    background: radial-gradient(at 0% 0%, hsla(210, 100% , 50%, 0.15) 0, transparent 55%),
-                radial-gradient(at 100% 100%, hsla(145, 100%, 50%, 0.1) 0, transparent 55%);
+  .dark .hud-grid {
+    background-image: 
+      linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
   }
 
   .no-scrollbar::-webkit-scrollbar {
@@ -127,8 +150,12 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
