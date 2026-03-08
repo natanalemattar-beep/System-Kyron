@@ -27,7 +27,9 @@ import {
   Scale,
   TrendingUp,
   ArrowRight,
-  ChevronRight
+  ChevronRight,
+  Package,
+  ShoppingCart
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
@@ -38,9 +40,17 @@ import { Badge } from "@/components/ui/badge";
 
 /**
  * @fileOverview Expediente Maestro ZEDU - Sistema Kyron v2.6.5
- * Consolidación total de las 5 partes del modelo ZEDU con respuestas técnicas expandidas.
+ * Consolidación total de las 6 partes del modelo ZEDU con respuestas técnicas expandidas.
  * Estética UHD en Azul y Verde.
  */
+
+const budgetData = [
+    { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", qty: 1, cost: 1000, location: "Distribuidor Mayorista" },
+    { item: "Infraestructura de Red 5G (Nodo Local)", qty: 2, cost: 3000, location: "Kyron Telecom Div." },
+    { item: "Papeleras Inteligentes (Tecnología Magnet)", qty: 5, cost: 750, location: "Taller de Ingeniería" },
+    { item: "Equipos Fiscales Homologados SENIAT", qty: 3, cost: 1350, location: "Kyron Fiscal Solutions" },
+    { item: "Licencia Anual Ecosistema AutoMind AI", qty: 1, cost: 1200, location: "Software Vault" },
+];
 
 export default function SectorPrivadoPage() {
     const { toast } = useToast();
@@ -151,17 +161,8 @@ export default function SectorPrivadoPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-[1000px] mx-auto relative pb-32"
             >
-                {/* Glows de Identidad */}
-                <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
-                <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary/10 blur-[150px] rounded-full pointer-events-none" />
-                
                 <div id="printable-document" className="relative bg-white text-black p-8 md:p-20 shadow-2xl rounded-[3rem] border border-slate-300 print:shadow-none print:border-none print:p-0 overflow-hidden">
                     
-                    {/* Marca de Agua Kyron */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none">
-                        <Logo className="w-[800px] h-[800px] grayscale" />
-                    </div>
-
                     {/* Encabezado Institucional UHD */}
                     <div className="flex justify-between items-start mb-16 border-b-4 border-primary/10 pb-10">
                         <div className="space-y-2">
@@ -317,9 +318,6 @@ export default function SectorPrivadoPage() {
                                 <p>
                                     La plataforma integra el protocolo **Hyper-Connect 5G**, permitiendo una conectividad de baja latencia necesaria para la sincronización síncrona de datos financieros y académicos. Además, el ecosistema incorpora tecnología de **Inducción Magnética** en puntos de recolección inteligentes, transformando la gestión de residuos en activos digitales verificables en el Ledger central, incentivando así la sostenibilidad institucional.
                                 </p>
-                                <p>
-                                    A diferencia de las soluciones convencionales, Kyron actúa como un **Oficial de Cumplimiento IA**, auditando cada transacción y documento contra la Gaceta Oficial en tiempo real, eliminando el riesgo fiscal y optimizando la toma de decisiones gerenciales mediante tableros de control predictivos.
-                                </p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2">
@@ -335,8 +333,66 @@ export default function SectorPrivadoPage() {
                                         <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Conectividad 5G Slicing Dedicada.</span></div>
                                         <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Tecnología de Inducción Magnética.</span></div>
                                         <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Blindaje Fiscal con IA Predictiva.</span></div>
-                                        <div className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-secondary" /><span>Bóveda de Datos Inmutable (Ledger).</span></div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* PARTE 6: DIFERENCIADORES Y PRESUPUESTO */}
+                    <div className="space-y-6 mb-16">
+                        <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
+                            <Sparkles className="h-5 w-5 text-secondary" />
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em]">6. Diferenciadores y Presupuesto</h2>
+                        </div>
+
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white p-8 space-y-8">
+                            <div className="space-y-6 text-[11px] font-mono text-justify leading-relaxed">
+                                <h3 className="font-black uppercase text-sm border-b pb-2">Diferenciadores Clave (AutoMind AI)</h3>
+                                <div>
+                                    <p className="font-black text-primary uppercase">[ ESPECIALIZACIÓN ]</p>
+                                    <p className="mt-1">Mientras Mobian ofrece servicios genéricos de IT y "Staff Augmentation" para cualquier empresa, AutoMind AI resuelve problemas específicos del sector educativo (archivo físico y comunicación escolar). Nuestra empresa va a ser escalable pudiendo expandirse a otros sectores (empresas, almacenes, ...)</p>
+                                </div>
+                                <div>
+                                    <p className="font-black text-primary uppercase">[ ALCANCE DEL USUARIO ]</p>
+                                    <p className="mt-1">Mobian optimiza procesos internos para técnicos; AutoMind AI impacta directamente en la experiencia del cliente final (los padres/representantes) mediante su chatbot.</p>
+                                </div>
+                                <div>
+                                    <p className="font-black text-primary uppercase">[ DE DATOS A ESTRATEGIA ]</p>
+                                    <p className="mt-1">Mobian se queda en la "gestión eficiente"; AutoMind AI utiliza la IA para la generación de ideas estratégicas, apoyando activamente la toma de decisiones directivas.</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <h3 className="font-black uppercase text-sm italic flex items-center gap-2">
+                                    <ShoppingCart className="h-4 w-4 text-primary" /> PRESUPUESTO OPERATIVO
+                                </h3>
+                                <div className="border-[1.5px] border-black rounded-xl overflow-hidden">
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
+                                                <TableHead className="font-black text-[9px] uppercase text-slate-600">Item de Inversión</TableHead>
+                                                <TableHead className="text-center font-black text-[9px] uppercase text-slate-600">Cantidad</TableHead>
+                                                <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Costo (USD)</TableHead>
+                                                <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Lugar de Compra</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {budgetData.map((row, i) => (
+                                                <TableRow key={i} className="border-b border-slate-100 last:border-0">
+                                                    <TableCell className="text-[10px] font-bold uppercase">{row.item}</TableCell>
+                                                    <TableCell className="text-center font-mono font-bold text-xs">{row.qty}</TableCell>
+                                                    <TableCell className="text-right font-mono font-black text-primary">{formatCurrency(row.cost, 'USD')}</TableCell>
+                                                    <TableCell className="text-right text-[10px] italic font-medium text-slate-500">{row.location}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                            <TableRow className="bg-primary/5 font-black border-t-[1.5px] border-black">
+                                                <TableCell colSpan={2} className="text-sm uppercase italic">Total Inversión Proyectada</TableCell>
+                                                <TableCell className="text-right text-lg text-primary">{formatCurrency(budgetData.reduce((a,b) => a + b.cost, 0), 'USD')}</TableCell>
+                                                <TableCell />
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
                                 </div>
                             </div>
                         </div>
