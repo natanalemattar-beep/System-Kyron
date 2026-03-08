@@ -1,59 +1,59 @@
 
-import { User, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Banknote, Signal, Recycle } from "lucide-react";
+import { User, Gavel, ShoppingCart, Briefcase, Users, Megaphone, Cpu, Banknote, Signal, Smartphone } from "lucide-react";
 
 export const loginOptions = [
     { 
         href: "/login-personal", 
-        label: "Mi Cuenta Personal", 
+        label: "Cuenta Personal", 
         icon: User, 
-        description: "Acceso a sus documentos de identidad, trámites civiles y servicios de salud en un entorno seguro." 
+        description: "Acceso a sus documentos de identidad, trámites civiles y servicios de salud." 
+    },
+    { 
+        href: "/login-linea", 
+        label: "Mi Línea 5G", 
+        icon: Smartphone, 
+        description: "Control de consumo de datos, recargas de saldo y gestión de perfiles eSIM." 
     },
     { 
         href: "/login-empresa", 
         label: "Contabilidad", 
         icon: Banknote, 
-        description: "Gestión financiera de su negocio con automatización de impuestos y reportes bancarios." 
+        description: "Gestión financiera de su negocio con automatización de impuestos y balances." 
     },
     { 
         href: "/login-escritorio-juridico", 
         label: "Asesoría Legal", 
         icon: Gavel, 
-        description: "Control de contratos, documentos legales y trámites ante registros y notarías." 
+        description: "Control de contratos, documentos legales y trámites ante registros." 
     },
     { 
         href: "/login-ventas", 
-        label: "Facturación y Ventas", 
+        label: "Facturación", 
         icon: ShoppingCart, 
-        description: "Punto de venta para cobros, control de inventario y pagos multimoneda." 
+        description: "Punto de venta para cobros rápidos, control de inventario y ventas." 
     },
     { 
         href: "/login-rrhh", 
         label: "Recursos Humanos", 
         icon: Briefcase, 
-        description: "Administración de nóminas, beneficios, vacaciones y expedientes de personal." 
+        description: "Administración de nóminas, beneficios y expedientes de personal." 
     },
     { 
         href: "/login-socios", 
         label: "Socios y Directivos", 
         icon: Users, 
-        description: "Supervisión de empresas, reparto de beneficios y análisis de rentabilidad estratégica." 
-    },
-    { 
-        href: "/login-marketing", 
-        label: "Marketing", 
-        icon: Megaphone, 
-        description: "Mejora de rendimiento comercial mediante análisis de mercado y estrategias con IA." 
+        description: "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad." 
     },
     { 
         href: "/login-telecom", 
-        label: "Líneas y Conectividad", 
+        label: "Administración de Red", 
         icon: Signal, 
-        description: "Gestión de líneas telefónicas, planes de datos y servicios de comunicación 5G." 
+        description: "Gestión técnica de infraestructura, radiobases y provisión masiva." 
     },
     { 
         href: "/login-informatica", 
-        label: "Proyectos Técnicos", 
+        label: "Ingeniería e IT", 
         icon: Cpu, 
-        description: "Control de infraestructura tecnológica, planos, presupuestos y soporte técnico." 
+        description: "Control de infraestructura tecnológica, planos y presupuestos técnicos." 
     },
 ];

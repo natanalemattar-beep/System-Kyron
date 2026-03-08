@@ -43,6 +43,7 @@ export const naturalNavGroups = [
         items: [
             { href: "/dashboard", label: "Inicio", icon: Home },
             { href: "/tarjeta-digital", label: "Mi Perfil", icon: User },
+            { href: "/mi-linea", label: "Mi Línea 5G", icon: Smartphone },
             { href: "/seguridad", label: "Seguridad", icon: Shield },
             { href: "/notificaciones", label: "Avisos", icon: Bell },
         ],
@@ -198,6 +199,7 @@ export const telecomNavGroups = [
     icon: Smartphone, 
     items: [ 
       { href: "/venta-linea", label: "Nueva Línea", icon: Phone },
+      { href: "/mi-linea", label: "Mi Línea 5G", icon: Smartphone },
       { href: "/conatel/licenses", label: "Licencias Conatel", icon: FileText },
     ], 
     subGroups: [] 

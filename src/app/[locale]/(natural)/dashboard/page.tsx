@@ -13,7 +13,8 @@ import {
     Smartphone,
     Bell,
     Settings,
-    ShieldCheck
+    ShieldCheck,
+    Zap
 } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
@@ -23,7 +24,7 @@ import { formatDate, cn } from "@/lib/utils";
 
 const kpiData = [
   { title: "Mis Documentos", value: "4 Activos", icon: FileText, desc: "RIF vence en 15 días", color: "text-blue-400", bg: "bg-blue-400/5" },
-  { title: "Estado de Cuenta", value: "Al día", icon: CheckCircle, desc: "+58 424-1234567", color: "text-emerald-400", bg: "bg-emerald-400/5" },
+  { title: "Mi Línea 5G", value: "12.4 GB", icon: Smartphone, desc: "Saldo: $ 15.00", color: "text-primary", bg: "bg-primary/10" },
   { title: "Eco-Créditos", value: "1,250 pts", icon: Recycle, desc: "340kg CO₂ evitado", color: "text-secondary", bg: "bg-secondary/10" },
 ];
 
@@ -44,7 +45,7 @@ export default function DashboardPersonalPage() {
                 <ShieldCheck className="h-3 w-3" /> IDENTIDAD VERIFICADA
             </div>
             <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow">¡Hola, Carlos!</h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Acceso Seguro • Último ingreso: Hoy 9:30 AM</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Acceso Seguro • Gestión Personal 2.6</p>
         </div>
         
         <div className="flex gap-3">
@@ -135,24 +136,28 @@ export default function DashboardPersonalPage() {
         <div className="lg:col-span-4 space-y-8">
            <Card className="border-none bg-primary text-primary-foreground rounded-[2.5rem] overflow-hidden relative group p-1 shadow-2xl">
                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                    <Smartphone className="h-32 w-32" />
+                    <Zap className="h-32 w-32" />
                 </div>
                 <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[2.4rem]">
                     <div className="space-y-1">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none text-white">Mi Línea Kyron</CardTitle>
-                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo de Datos 5G</p>
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none text-white">Mi Línea 5G</CardTitle>
+                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo de Datos Pro</p>
                     </div>
                     <div className="space-y-4">
                         <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                            <span>Uso: 12GB / 30GB</span>
-                            <span className="italic">40%</span>
+                            <span>Uso: 12.4GB / 30GB</span>
+                            <span className="italic">41%</span>
                         </div>
                         <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden">
-                            <div className="h-full w-[40%] bg-white shadow-glow" />
+                            <div className="h-full w-[41%] bg-white shadow-glow" />
                         </div>
                         <div className="grid grid-cols-2 gap-2 pt-4">
-                            <Button variant="secondary" className="h-10 text-[8px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-tighter">RECARGAR</Button>
-                            <Button variant="outline" className="h-10 text-[8px] font-black border-white/20 text-white hover:bg-white/10 rounded-xl uppercase tracking-tighter">DETALLES</Button>
+                            <Button variant="secondary" asChild className="h-10 text-[8px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-tighter">
+                                <Link href="/mi-linea">RECARGAR</Link>
+                            </Button>
+                            <Button variant="outline" asChild className="h-10 text-[8px] font-black border-white/20 text-white hover:bg-white/10 rounded-xl uppercase tracking-tighter">
+                                <Link href="/mi-linea">DETALLES</Link>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -175,22 +180,6 @@ export default function DashboardPersonalPage() {
            </Card>
         </div>
       </div>
-
-      <Card className="bg-rose-500/5 border border-rose-500/20 rounded-[2rem] p-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8 opacity-5"><Bell className="h-32 w-32" /></div>
-          <h3 className="text-lg font-black uppercase italic tracking-tighter text-rose-500 mb-6 flex items-center gap-3">
-              <Bell className="h-5 w-5" /> Avisos Pendientes
-          </h3>
-          <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-black/40 rounded-xl border border-white/5">
-                  <div className="flex items-center gap-4">
-                      <ShieldAlert className="h-5 w-5 text-amber-500" />
-                      <span className="text-xs font-bold text-white/80 uppercase">Renovación de RIF (Vence en 15 días)</span>
-                  </div>
-                  <Button size="sm" className="btn-3d-primary h-8 px-4 text-[8px] font-black uppercase">RENOVAR</Button>
-              </div>
-          </div>
-      </Card>
     </div>
   );
 }
