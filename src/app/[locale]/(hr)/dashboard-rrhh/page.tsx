@@ -12,7 +12,9 @@ import {
   ShieldCheck,
   Terminal,
   Calculator,
-  Scale
+  Scale,
+  Activity,
+  School
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
@@ -121,7 +123,6 @@ export default function RecursosHumanosPage() {
                 </CardContent>
             </Card>
 
-            {/* SECCIÓN DETALLADA DE INTELIGENCIA TÉCNICA (RR.HH.) */}
             <Card className="glass-card border-none p-10 rounded-[3rem] bg-white/[0.02]">
                 <CardHeader className="p-0 mb-8">
                     <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Concepto Maestro: Gestión de Talento y LOTTT</CardTitle>

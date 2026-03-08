@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardTitle, CardDescription, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, ShieldAlert, Fingerprint, ArrowRight, Activity, Sparkles, Home, FileText, Recycle } from 'lucide-react';
+import { CheckCircle, Clock, ShieldAlert, Fingerprint, ArrowRight, Activity, Sparkles, Home, FileText, Recycle, Smartphone } from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
