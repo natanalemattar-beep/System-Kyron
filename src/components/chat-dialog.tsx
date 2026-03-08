@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Bot, Send, Loader2, MessageCircle, ChevronRight, X, User, Wallet, Activity } from "lucide-react";
+import { Bot, Send, MessageCircle, ChevronRight, X, User, Wallet, Activity, Loader2 } from "lucide-react";
 import { 
   Sheet, 
   SheetContent, 
@@ -135,7 +135,7 @@ export function ChatDialog() {
                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setIsWalletOpen(false)}><X className="h-3 w-3"/></Button>
                     </div>
                     <div className="space-y-2">
-                        <div className="flex justify-between text-xs font-bold"><span>Bs.</span> <span>45.678,90</span></div>
+                        <div className="flex justify-between text-xs font-bold text-white/80"><span>Bs.</span> <span>45.678,90</span></div>
                         <div className="flex justify-between text-xs font-bold text-primary"><span>USD</span> <span>$ 12.345,67</span></div>
                     </div>
                 </div>

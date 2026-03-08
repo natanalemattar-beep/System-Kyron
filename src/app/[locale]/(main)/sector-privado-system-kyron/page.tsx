@@ -18,7 +18,8 @@ import {
   Smartphone,
   ChevronDown,
   Terminal,
-  FileCheck2
+  FileCheck2,
+  Loader2
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatPercentage, cn } from "@/lib/utils";
@@ -257,7 +258,7 @@ export default function SectorPrivadoPage() {
                 </div>
                 <div className="flex w-full md:w-auto gap-2">
                     <Button variant="outline" className="flex-1 md:flex-none h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white" onClick={() => window.print()}>
-                        <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
+                        <Printer className="mr-2 h-4 w-4" /> IMPRIMIR VISTA
                     </Button>
                 </div>
             </header>
@@ -372,7 +373,7 @@ export default function SectorPrivadoPage() {
                         <div className="space-y-10 max-w-5xl mx-auto">
                             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                                 <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 italic">Análisis de Viabilidad Técnica</h3>
-                                <Button size="sm" variant="outline" className="w-full md:w-auto rounded-xl h-12 px-8 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10" onClick={handleDownloadFactibilidad}>
+                                <Button size="sm" variant="outline" className="w-full md:w-auto rounded-xl h-12 px-8 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary hover:bg-primary/10">
                                     <FileWord className="mr-3 h-4 w-4" /> EXPORTAR DICTAMEN (.DOC)
                                 </Button>
                             </div>
@@ -396,11 +397,6 @@ export default function SectorPrivadoPage() {
                     <TabsContent value="propuesta" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Card className="glass-card rounded-[3rem] border-white/5 overflow-hidden bg-black/40 max-w-5xl mx-auto shadow-2xl">
                             <CardHeader className="p-10 md:p-16 text-center border-b border-white/5 bg-white/[0.01] space-y-8">
-                                <div className="flex justify-end no-print">
-                                    <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-secondary/30 text-primary hover:bg-primary/10" onClick={handleDownloadPropuesta}>
-                                        <FileWord className="mr-3 h-4 w-4" /> EXPORTAR PROPUESTA (.DOC)
-                                    </Button>
-                                </div>
                                 <div className="mx-auto w-fit bg-black p-6 rounded-[2.5rem] shadow-glow border border-primary/20">
                                     <Logo className="h-16 w-16" />
                                 </div>
