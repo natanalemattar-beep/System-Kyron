@@ -52,128 +52,87 @@ import { Link } from "@/navigation";
 import { motion } from "framer-motion";
 import React from "react";
 
-/**
- * @fileOverview Manual de Usuario Maestro v2.6.5.
- * Enciclopedia técnica que integra absolutamente todos los módulos públicos del ecosistema.
- */
-
 const manualModules = [
     {
         id: "identidad",
-        title: "Módulo 1: Identidad Digital Biométrica 3D",
+        title: "Módulo 1: Identidad Personal y Acceso",
         icon: Fingerprint,
         color: "text-[#0ea5e9]",
-        concept: "Sistema de autenticación soberana basado en biometría facial UHD. Genera un identificador inmutable vinculado al RIF personal o jurídico, permitiendo el acceso seguro a todos los nodos del ecosistema sin contraseñas tradicionales.",
-        procedure: "1. Calibración de cámara UHD. 2. Escaneo de 512 puntos vectoriales faciales. 3. Prueba de vitalidad (Anti-spoofing). 4. Cifrado en enclave seguro (TEE). 5. Emisión de ID Digital Kyron.",
-        technical: "Cifrado AES-512, Almacenamiento Zero-Knowledge, Sincronización Blockchain."
+        concept: "Sistema de identificación segura basado en rasgos físicos. Crea un perfil único vinculado a tus documentos legales, permitiendo entrar a las distintas áreas del sistema de forma protegida.",
+        procedure: "1. Preparación de cámara. 2. Identificación de puntos faciales. 3. Verificación de identidad real. 4. Cifrado de datos personales. 5. Creación de cuenta Kyron.",
+        technical: "Protección de datos personales, Almacenamiento seguro, Validación de identidad."
     },
     {
         id: "telecom",
-        title: "Módulo 2: Telecomunicaciones y eSIM 5G",
+        title: "Módulo 2: Telefonía y Planes de Datos",
         icon: Radio,
         color: "text-[#22c55e]",
-        concept: "Infraestructura de red convergente que permite el aprovisionamiento remoto de líneas telefónicas. Gestión masiva de perfiles eSIM para flotas corporativas con priorización de tráfico para datos fiscales (Network Slicing).",
-        procedure: "1. Registro de terminal homologado. 2. Selección de plan de datos 5G. 3. Descarga de perfil eSIM vía OTA. 4. Activación inmediata de número y servicios.",
-        technical: "Protocolo GSMA SM-DP+, Conectividad de baja latencia, Túneles IPsec automáticos."
+        concept: "Servicio de líneas telefónicas que se activan de forma digital. Permite gestionar números para uso personal o para todos los empleados de una empresa con internet de alta velocidad.",
+        procedure: "1. Selección de equipo o tarjeta SIM. 2. Elección del plan de datos. 3. Descarga del perfil digital. 4. Uso inmediato de llamadas e internet.",
+        technical: "Red 5G, Activación remota, Prioridad para trámites de negocio."
     },
     {
         id: "tpv",
-        title: "Módulo 3: Punto de Venta (TPV) e Inventario",
+        title: "Módulo 3: Punto de Venta y Facturación",
         icon: TabletSmartphone,
         color: "text-[#0ea5e9]",
-        concept: "Terminal inteligente de ventas adaptado a la Providencia SNAT/2011/0071. Automatiza la carga de datos fiscales mediante RIF, gestiona el inventario en tiempo real y procesa pagos multimoneda con tasas BCV síncronas.",
-        procedure: "1. Identificación del cajero. 2. Captura de RIF del cliente (Carga automática). 3. Escaneo de productos. 4. Selección de método de pago. 5. Emisión de factura fiscal homologada.",
-        technical: "Motor de precios dinámico, Sincronización con Kardex de Inventario, Ledger transaccional."
+        concept: "Herramienta para cobrar a clientes cumpliendo con las leyes fiscales. Carga los datos del cliente al instante con su RIF, controla lo que hay en el almacén y acepta pagos en bolívares o dólares.",
+        procedure: "1. Identificación del vendedor. 2. Ingreso del RIF del cliente. 3. Selección de productos. 4. Cobro según la tasa del día. 5. Impresión de factura legal.",
+        technical: "Control de inventario, Precios automáticos, Historial de ventas."
     },
     {
         id: "financiamiento",
-        title: "Módulo 4: Facturación a Crédito y BNPL (Cashea)",
+        title: "Módulo 4: Ventas a Crédito y Pagos en Cuotas",
         icon: Smartphone,
         color: "text-[#22c55e]",
-        concept: "Gestión de ventas bajo la modalidad 'Compra Ahora, Paga Después'. Integración nativa con Cashea (Niveles 1 a 6) y sistemas de crédito directo empresarial para facilitar el consumo masivo.",
-        procedure: "1. Validación de perfil crediticio del cliente. 2. Aplicación de pago inicial (según nivel). 3. Financiamiento del saldo en cuotas fijas sin intereses. 4. Monitoreo de cobranza y alertas de vencimiento.",
-        technical: "Integración vía API con pasarelas BNPL, Motor de scoring de riesgo inteligente."
+        concept: "Permite a los clientes comprar productos y pagarlos por partes. Integrado con aplicaciones de financiamiento populares y sistemas de crédito propios de la empresa.",
+        procedure: "1. Revisión de historial del cliente. 2. Cobro del pago inicial. 3. Entrega inmediata del producto. 4. Seguimiento de las cuotas pendientes.",
+        technical: "Análisis de riesgo, Alertas de cobro, Integración con bancos."
     },
     {
         id: "contabilidad",
-        title: "Módulo 5: Contabilidad y Reajuste RIPF",
+        title: "Módulo 5: Contabilidad y Balance Fiscal",
         icon: Calculator,
         color: "text-[#0ea5e9]",
-        concept: "Automatización contable integral bajo normas VEN-NIF. Ejecuta de forma actuarial el Reajuste por Inflación Fiscal (RIPF) integrando los índices INPC del Banco Central de Venezuela.",
-        procedure: "1. Consolización de asientos desde TPV y Nómina. 2. Clasificación de partidas monetarias y no monetarias. 3. Ejecución de motor de ajuste por inflación. 4. Emisión de estados financieros UHD.",
-        technical: "Cálculo recursivo de índices, Auditoría de integridad contable 100%."
+        concept: "Automatización de las cuentas de la empresa. Calcula automáticamente los ajustes por inflación usando los datos oficiales del banco central para tener estados financieros reales.",
+        procedure: "1. Registro de ingresos y gastos. 2. Clasificación de cuentas. 3. Cálculo de inflación del periodo. 4. Emisión de informes de ganancias y pérdidas.",
+        technical: "Normas contables nacionales, Auditoría de saldos, Reportes oficiales."
     },
     {
         id: "seniat",
-        title: "Módulo 6: Cumplimiento SENIAT (Zero Risk)",
+        title: "Módulo 6: Cumplimiento de Impuestos",
         icon: ShieldCheck,
         color: "text-[#22c55e]",
-        concept: "Escudo de protección fiscal que garantiza cero sanciones. La IA audita cada documento contra la ley vigente y las últimas Gacetas Oficiales antes de cualquier declaración o fiscalización.",
-        procedure: "1. Auditoría continua de transacciones. 2. Verificación de retenciones de IVA/ISLR. 3. Generación automática de archivos TXT y declaraciones estimadas. 4. Alerta temprana de inconsistencias.",
-        technical: "Algoritmos predictivos de cumplimiento, Monitor de Gaceta Oficial 24/7."
+        concept: "Protección contra multas y sanciones. El sistema revisa cada factura y documento contra la ley actual antes de presentar las declaraciones a la administración tributaria.",
+        procedure: "1. Revisión diaria de transacciones. 2. Cálculo de retenciones de IVA. 3. Preparación de archivos para declaración. 4. Aviso de posibles errores.",
+        technical: "Control de riesgo fiscal, Monitoreo de leyes, Validación legal."
     },
     {
         id: "rrhh",
-        title: "Módulo 7: Gestión de Talento y LOTTT",
+        title: "Módulo 7: Recursos Humanos y Nómina",
         icon: Users,
         color: "text-[#0ea5e9]",
-        concept: "Administración estratégica del capital humano. Automatiza el cumplimiento de la LOTTT, LOPNNA y la contribución de Protección de Pensiones, asegurando pagos precisos y expedientes inmutables.",
-        procedure: "1. Enrolamiento biométrico de personal. 2. Gestión de nómina y parafiscales. 3. Control de horas extras y vacaciones. 4. Despacho digital de recibos de pago. 5. Cálculo de finiquitos.",
-        technical: "Cálculo de pasivos laborales en tiempo real, Firma digital de documentos laborales."
+        concept: "Gestión de los trabajadores de la empresa. Automatiza el pago de sueldos, vacaciones y beneficios de ley, asegurando que los expedientes de personal estén completos.",
+        procedure: "1. Registro de nuevos empleados. 2. Configuración de sueldo y bonos. 3. Cálculo quincenal de nómina. 4. Envío de recibos de pago digitales.",
+        technical: "Cálculo de prestaciones sociales, Control de asistencia, Archivo de personal."
     },
     {
         id: "juridico",
-        title: "Módulo 8: Bóveda Jurídica y Contratos IA",
+        title: "Módulo 8: Documentos Legales y Contratos",
         icon: Gavel,
         color: "text-[#22c55e]",
-        concept: "Resguardo inmutable de los activos legales de la empresa. Incluye un generador de borradores legales mediante IA que redacta contratos y actas basados en el marco jurídico nacional vigente.",
-        procedure: "1. Redacción asistida por IA jurídica. 2. Firma digital centralizada. 3. Sellado de tiempo RFC 3161. 4. Resguardo en Bóveda Zero-Knowledge. 5. Control de poderes y asambleas.",
-        technical: "Cifrado de grado militar, Inteligencia Artificial Generativa Legal."
-    },
-    {
-        id: "civiles",
-        title: "Módulo 9: Trámites Civiles y Ciudadanía",
-        icon: FileText,
-        color: "text-[#0ea5e9]",
-        concept: "Nodo ciudadano para la gestión simplificada de documentos de identidad. Centraliza partidas de nacimiento, actas de matrimonio y antecedentes penales en un solo buzón seguro.",
-        procedure: "1. Carga de datos base. 2. Digitalización de documentos físicos. 3. Validación ante el Registro Civil digital. 4. Emisión de copias certificadas con validez QR.",
-        technical: "OCR para extracción de datos, Integración con Bóveda Personal."
+        concept: "Lugar seguro para guardar papeles importantes. Incluye un asistente que ayuda a redactar contratos y actas de asamblea basados en las leyes del país.",
+        procedure: "1. Redacción de borrador con ayuda. 2. Revisión del documento legal. 3. Firma y sellado de tiempo. 4. Guardado seguro en la nube. 5. Control de vencimientos.",
+        technical: "Asesoría legal digital, Seguridad de archivos, Registro de actas."
     },
     {
         id: "sustentabilidad",
-        title: "Módulo 10: Eco-Créditos y Reciclaje Magnético",
+        title: "Módulo 9: Reciclaje y Puntos de Premio",
         icon: Recycle,
         color: "text-[#22c55e]",
-        concept: "Programa de inyección de sustentabilidad. Utiliza papeleras inteligentes con tecnología de inducción magnética para validar residuos y recompensar al ciudadano con Eco-Créditos digitales.",
-        procedure: "1. Identificación vía app en Smart Bin. 2. Depósito de residuos metálicos/plásticos. 3. Validación por sensor magnético. 4. Asignación de puntos al Ledger. 5. Canje en red de aliados.",
-        technical: "Blockchain para trazabilidad verde, Sensores de precisión industrial."
-    },
-    {
-        id: "analitica",
-        title: "Módulo 11: Analítica, BI y Factibilidad",
-        icon: TrendingUp,
-        color: "text-[#0ea5e9]",
-        concept: "Centro de inteligencia de negocios. Calcula indicadores de factibilidad económica (VAN, TIR, Payback) y realiza estudios de población para la toma de decisiones estratégicas de expansión.",
-        procedure: "1. Inyección de datos operativos. 2. Análisis de márgenes por producto/cliente. 3. Proyección de flujos de caja. 4. Evaluación demográfica por geolocalización.",
-        technical: "Motores estadísticos OLAP, Visualización de datos UHD."
-    },
-    {
-        id: "ingenieria",
-        title: "Módulo 12: Ingeniería y Proyectos IA",
-        icon: Cpu,
-        color: "text-[#22c55e]",
-        concept: "Asistente técnico para planificación física. Genera planos a escala a partir de imágenes de locales, calcula cómputos métricos y elabora presupuestos de construcción detallados por área.",
-        procedure: "1. Captura fotográfica del entorno. 2. Generación de plano base por IA. 3. Selección de acabados y materiales. 4. Cálculo de cantidades. 5. Emisión de presupuesto maestro.",
-        technical: "Visión Artificial (Computer Vision), Base de datos de rendimientos técnicos."
-    },
-    {
-        id: "academia",
-        title: "Módulo 13: Academia Kyron y Certificación",
-        icon: School,
-        color: "text-[#0ea5e9]",
-        concept: "Eje educativo para operadores y gerentes. Cursos de formación técnica en gestión fiscal, telecomunicaciones 5G y operatividad del ecosistema con emisión de credenciales Blockchain.",
-        procedure: "1. Registro en ruta de aprendizaje. 2. Visualización de módulos técnicos. 3. Evaluación práctica en entorno sandbox. 4. Obtención de Certificación Maestra.",
-        technical: "LMS de alta densidad, Credenciales verificables (Verifiable Credentials)."
+        concept: "Programa ambiental que premia a los usuarios. Usa papeleras especiales que identifican los residuos y otorgan puntos digitales que pueden canjearse por beneficios.",
+        procedure: "1. Identificación en la papelera. 2. Depósito de botellas o latas. 3. Validación automática del residuo. 4. Carga de puntos a la cuenta personal.",
+        technical: "Trazabilidad ambiental, Sistema de recompensas, Tecnología de sensores."
     }
 ];
 
@@ -185,76 +144,6 @@ export default function ManualUsuarioPage() {
         setMounted(true);
     }, []);
 
-    const handleDownloadDoc = () => {
-        const logoSvgBase64 = "PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTAgNUw4OSAyNy41VjcyLjVMNTAgOTVMMTEgNzIuNVYyNy41TDUwIDVaIiBmaWxsPSIjMDUwNTA1Ii8+PHBhdGggZD0iTTUwIDVMODkgMjcuNVY3Mi41TDUwIDk1TDExIDcyLjVWMjcuNUw1MCA1WiIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjMiLz48ZyBmaWx0ZXI9InVybCgjZ2xvdykiPjxwYXRoIGQ9Ik02NSAzMEw0MCA1MEw2NSA3MCIgc3Ryb2tlPSIjMGVhNWU5IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjUwIiByPSI1IiBmaWxsPSIjZmZmZmZmIi8+PGNpcmNsZSBjeD0iNDAiIGN5PSI1MCIgcj0iMiIgZmlsbD0iIzIyYzU1ZSIvPjwvZz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUiIHI9IjIiIGZpbGw9IiMwZWE1ZTkiLz48Y2lyY2xlIGN4PSI1MCIgY3k9Ijk1IiByPSIyIiBmaWxsPSIjMjJjNTVlIi8+PC9zdmc+";
-
-        let modulesHtml = "";
-        manualModules.forEach((mod) => {
-            modulesHtml += `
-                <div style="margin-bottom: 30pt; border-bottom: 1px solid #eee; padding-bottom: 20pt; page-break-inside: avoid;">
-                    <h2 style="color: #0ea5e9; font-size: 18pt; text-transform: uppercase; font-style: italic; font-weight: 900; margin-bottom: 12pt; border-left: 6pt solid #0ea5e9; padding-left: 15pt;">${mod.title}</h2>
-                    <p style="font-size: 8pt; font-weight: bold; color: #0ea5e9; text-transform: uppercase; letter-spacing: 2pt; margin-bottom: 8pt;">[ CONCEPTO MAESTRO ]</p>
-                    <p style="text-align: justify; font-size: 10.5pt; line-height: 1.6; color: #111; margin-bottom: 12pt;">${mod.concept}</p>
-                    <div style="background-color: #f8fafc; padding: 15pt; border-left: 4pt solid #22c55e; margin: 12pt 0;">
-                        <p style="font-size: 8pt; font-weight: bold; color: #15803d; text-transform: uppercase; letter-spacing: 2pt; margin-bottom: 6pt;">[ PROTOCOLO DE EJECUCIÓN ]</p>
-                        <div style="font-size: 10pt; color: #334155; line-height: 1.5;">${mod.procedure}</div>
-                    </div>
-                    <p style="font-size: 8pt; font-weight: bold; color: #94a3b8; text-transform: uppercase; tracking: 1pt;">Arquitectura Técnica: ${mod.technical}</p>
-                </div>
-            `;
-        });
-
-        const content = `
-            <div style="font-family: 'Segoe UI', Arial, sans-serif; color: #000;">
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000; border-bottom: 15pt solid #0ea5e9;">
-                    <tr>
-                        <td align="center" style="padding: 50pt 0 30pt 0;">
-                            <img src="data:image/svg+xml;base64,${logoSvgBase64}" width="140" height="140" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="padding: 0 30pt 60pt 30pt;">
-                            <h1 style="color: #ffffff; font-size: 52pt; font-style: italic; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: -2pt;">SYSTEM KYRON</h1>
-                            <p style="color: #0ea5e9; font-size: 18pt; font-weight: bold; text-transform: uppercase; letter-spacing: 6pt; margin: 20pt 0 8pt 0;">ENCICLOPEDIA TÉCNICA DE OPERACIONES</p>
-                            <p style="color: #64748b; font-size: 11pt; font-weight: bold; text-transform: uppercase; letter-spacing: 4pt;">VERSIÓN 2.6.5 • PROTOCOLO MAESTRO 2026</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <div style="text-align: center; margin-top: 40pt;">
-                    <div style="border: 2pt solid #22c55e; padding: 12pt 40pt; border-radius: 20pt; display: inline-block;">
-                        <p style="font-size: 14pt; font-weight: 900; text-transform: uppercase; letter-spacing: 5pt; color: #22c55e; margin: 0;">[ ACCESO PÚBLICO UNIVERSAL ]</p>
-                    </div>
-                    <p style="font-size: 9pt; color: #94a3b8; font-weight: bold; text-transform: uppercase; margin-top: 15pt; letter-spacing: 2pt;">ÚLTIMA REVISIÓN TÉCNICA: MARZO 2026</p>
-                </div>
-
-                <div style="page-break-before: always;"></div>
-                
-                <h3 style="color: #0ea5e9; font-size: 14pt; font-weight: 900; text-transform: uppercase; font-style: italic; border-bottom: 2pt solid #0ea5e9; padding-bottom: 6pt; margin-bottom: 30pt; text-decoration: underline;">ÍNDICE DE NODOS OPERATIVOS</h3>
-                
-                ${modulesHtml}
-
-                <div style="margin-top: 50pt; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20pt;">
-                    <p style="font-size: 8pt; color: #94a3b8; font-weight: bold; text-transform: uppercase; letter-spacing: 2pt;">SYSTEM KYRON CORPORATE • DOCUMENTACIÓN DE MISIÓN CRÍTICA • © 2026</p>
-                </div>
-            </div>
-        `;
-
-        const blob = new Blob([`<html><head><meta charset='utf-8'></head><body>${content}</body></html>`], { type: 'application/msword' });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "Manual_Usuario_Kyron_v2.6.5_Maestro.doc";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        toast({ 
-            title: "EXPEDIENTE DESCARGADO", 
-            description: "Manual de Usuario exportado bajo protocolo corporativo de alta fidelidad.",
-            action: <ShieldCheck className="text-primary h-4 w-4" />
-        });
-    };
-
     if (!mounted) return null;
 
     return (
@@ -265,16 +154,13 @@ export default function ManualUsuarioPage() {
                         <Logo className="h-8 w-8" />
                     </div>
                     <div className="hidden sm:block border-l border-white/10 pl-6">
-                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/80">MANUAL DE USUARIO</span>
-                        <p className="text-[8px] font-bold text-primary uppercase mt-1">v2.6.5 [NODO MAESTRO]</p>
+                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/80">CENTRO DE AYUDA</span>
+                        <p className="text-[8px] font-bold text-primary uppercase mt-1">Manual de Usuario v2.6</p>
                     </div>
                 </div>
                 <div className="flex gap-4">
                     <Button variant="ghost" asChild className="h-10 px-6 rounded-xl text-[10px] font-black uppercase border border-white/5 hover:bg-white/5 transition-all">
                         <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> Volver</Link>
-                    </Button>
-                    <Button className="btn-3d-primary h-10 px-8 rounded-xl text-[10px] font-black uppercase" onClick={handleDownloadDoc}>
-                        <Download className="mr-2 h-4 w-4" /> Descargar Manual
                     </Button>
                 </div>
             </header>
@@ -288,7 +174,7 @@ export default function ManualUsuarioPage() {
                                     <div className="p-4 bg-black rounded-2xl border border-primary/20 w-fit mx-auto mb-4 shadow-glow">
                                         <Logo className="h-12 w-12" />
                                     </div>
-                                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic">Manual de Usuario</CardTitle>
+                                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic">Guía de Secciones</CardTitle>
                                 </CardHeader>
                                 <CardContent className="p-4 max-h-[calc(100vh-25rem)] overflow-y-auto custom-scrollbar space-y-1">
                                     {manualModules.map(mod => (
@@ -311,7 +197,7 @@ export default function ManualUsuarioPage() {
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
                             <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Manual de Usuario</h1>
                             <p className="text-lg font-medium text-white/60 italic leading-relaxed max-w-2xl mx-auto">
-                                Enciclopedia Técnica v2.6.5. El estándar definitivo para la gestión integral del ecosistema Kyron bajo protocolos de misión crítica.
+                                Información detallada para el uso de la plataforma. Aprende a gestionar tus documentos, finanzas y servicios.
                             </p>
                         </section>
 
@@ -327,16 +213,16 @@ export default function ManualUsuarioPage() {
                                         </div>
                                         <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-10 space-y-10">
                                             <div className="space-y-4">
-                                                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Concepto Maestro</h4>
+                                                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Propósito</h4>
                                                 <p className="text-xl font-bold italic text-white/70 leading-relaxed text-justify">{mod.concept}</p>
                                             </div>
                                             <div className="p-8 rounded-3xl bg-black border border-white/5 shadow-inner">
-                                                <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-6">Protocolo Operativo</h4>
+                                                <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-emerald-500 mb-6">Pasos a seguir</h4>
                                                 <p className="text-sm font-medium italic text-white/60 leading-relaxed">{mod.procedure}</p>
                                             </div>
                                             <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.2em] text-white/20">
-                                                <Terminal className="h-4 w-4" />
-                                                <span>Arquitectura: {mod.technical}</span>
+                                                <ShieldCheck className="h-4 w-4" />
+                                                <span>Seguridad Aplicada: {mod.technical}</span>
                                             </div>
                                         </Card>
                                     </div>

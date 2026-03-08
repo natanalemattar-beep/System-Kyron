@@ -5,7 +5,7 @@ import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
   BarChart3, Users, Recycle, Radio, Cpu, Gavel, Lock, LayoutGrid, Cog, Activity,
-  User, FileText, Smartphone, Bell, UserCircle, Briefcase, Star
+  User, FileText, Smartphone, Bell, UserCircle, Briefcase, Star, Fingerprint, Home
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
@@ -15,17 +15,17 @@ const personalMenu = [
   { id: 'perfil', label: 'Mi Perfil', icon: UserCircle, href: '/tarjeta-digital' },
   { id: 'identidad', label: 'Mi Identidad', icon: Fingerprint, href: '/dashboard' },
   { id: 'documentos', label: 'Mis Documentos', icon: FileText, href: '/documentos' },
-  { id: 'linea', label: 'Mi Línea 5G', icon: Smartphone, href: '/venta-linea' },
-  { id: 'reciclaje', label: 'Mis Puntos Verdes', icon: Recycle, href: '/tarjeta-reciclaje' },
-  { id: 'alertas', label: 'Mis Alertas', icon: Bell, href: '/notificaciones' },
+  { id: 'linea', label: 'Mi Línea', icon: Smartphone, href: '/venta-linea' },
+  { id: 'reciclaje', label: 'Mis Puntos', icon: Recycle, href: '/tarjeta-reciclaje' },
+  { id: 'alertas', label: 'Mis Avisos', icon: Bell, href: '/notificaciones' },
   { id: 'config', label: 'Configuración', icon: Cog, href: '/seguridad' },
 ];
 
 const corporativoMenu = [
-  { id: 'admin', label: 'Empresa (Admin)', icon: Briefcase, href: '/dashboard-empresa' },
+  { id: 'admin', label: 'Empresa', icon: Briefcase, href: '/dashboard-empresa' },
   { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3, href: '/contabilidad' },
   { id: 'legal', label: 'Asesoría Legal', icon: Gavel, href: '/escritorio-juridico' },
-  { id: 'holding', label: 'Socios & Holding', icon: Users, href: '/dashboard-socios' },
+  { id: 'holding', label: 'Socios y Junta', icon: Users, href: '/dashboard-socios' },
 ];
 
 export function AppSidebar() {
@@ -65,7 +65,7 @@ export function AppSidebar() {
           <Logo className="h-14 w-14 drop-shadow-[0_0_20px_rgba(37,99,235,0.4)]" />
           <div className="text-center">
             <span className="text-[11px] font-black tracking-[0.5em] text-white uppercase italic italic-shadow">System Kyron</span>
-            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-60 italic">Personal Access v2.6</p>
+            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-60 italic">Plataforma de Gestión v2.6</p>
           </div>
         </Link>
       </div>
@@ -79,7 +79,7 @@ export function AppSidebar() {
         </section>
 
         <section>
-            <p className="text-[8px] font-black uppercase text-white/20 tracking-[0.5em] mb-6 px-4 italic border-l-2 border-white/5 ml-2">💼 OTROS NODOS</p>
+            <p className="text-[8px] font-black uppercase text-white/20 tracking-[0.5em] mb-6 px-4 italic border-l-2 border-white/5 ml-2">💼 OTROS SERVICIOS</p>
             <div className="space-y-1.5 opacity-60 hover:opacity-100 transition-opacity">
                 {corporativoMenu.map((item) => <MenuItem key={item.id} item={item} />)}
             </div>
@@ -90,7 +90,7 @@ export function AppSidebar() {
         <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 shadow-inner">
             <div className="flex items-center gap-3">
                 <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]" />
-                <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.3em]">SECURE NODE</span>
+                <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.3em]">ESTADO SEGURO</span>
             </div>
             <Star className="h-3 w-3 text-secondary animate-spin-slow" />
         </div>

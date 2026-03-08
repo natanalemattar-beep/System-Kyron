@@ -30,11 +30,6 @@ import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
-/**
- * @fileOverview Centro de Mando Jurídico v2.6.5.
- * Integra el Generador de Documentos IA y la Bóveda Zero-Knowledge.
- */
-
 const kpiData = [
   { title: "Contratos Activos", value: "24", icon: FileSignature, color: "text-blue-400", bg: "bg-blue-400/5" },
   { title: "Alertas Críticas", value: "3", icon: AlertTriangle, color: "text-rose-400", bg: "bg-rose-400/5" },
@@ -61,19 +56,19 @@ export default function EscritorioJuridicoPage() {
       <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-slate-500 pl-8 py-2 mt-10">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-500/10 border border-slate-500/20 text-[9px] font-black uppercase tracking-[0.4em] text-slate-400 shadow-glow mb-4">
-                <Gavel className="h-3 w-3" /> NODO LEGAL
+                <Gavel className="h-3 w-3" /> ÁREA LEGAL
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Centro de <span className="text-slate-400 italic">Mando Jurídico</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Bóveda de Documentos Inmutables • Compliance Hub 2026</p>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Centro de <span className="text-slate-400 italic">Gestión Jurídica</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Bóveda de Documentos Protegidos • Cumplimiento 2026</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-primary/30 bg-primary/5 text-primary">
             <Link href="/generador-documentos">
-                <Wand2 className="mr-2 h-4 w-4" /> GENERADOR IA
+                <Wand2 className="mr-2 h-4 w-4" /> GENERADOR DE CONTRATOS
             </Link>
           </Button>
           <Button variant="outline" size="sm" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white">
-            <Download className="mr-2 h-4 w-4" /> Exportar Auditoría
+            <Download className="mr-2 h-4 w-4" /> Exportar Registro
           </Button>
         </div>
       </header>
@@ -110,17 +105,17 @@ export default function EscritorioJuridicoPage() {
             </div>
             <div className="relative w-full md:w-64 mt-4 md:mt-0">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
-                <Input placeholder="Buscar en el Ledger..." className="pl-10 h-11 rounded-xl bg-white/5 border-white/10 text-xs font-bold" />
+                <Input placeholder="Buscar en el registro..." className="pl-10 h-11 rounded-xl bg-white/5 border-white/10 text-xs font-bold" />
             </div>
           </CardHeader>
           <CardContent className="p-0">
             <Table>
               <TableHeader>
                 <TableRow className="bg-white/[0.02] border-none">
-                  <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/20">Ref. Operativa</TableHead>
+                  <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/20">Referencia</TableHead>
                   <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-white/20">Asunto Institucional</TableHead>
                   <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest text-white/20">Fecha</TableHead>
-                  <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest text-white/20">Estatus</TableHead>
+                  <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest text-white/20">Estado</TableHead>
                   <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest text-white/20">Acción</TableHead>
                 </TableRow>
               </TableHeader>
@@ -155,11 +150,11 @@ export default function EscritorioJuridicoPage() {
         <div className="lg:col-span-4 space-y-10">
           <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden shadow-glow border-none group">
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                <Wand2 className="h-32 w-32" />
+                <FileText className="h-32 w-32" />
             </div>
             <div className="relative z-10">
-                <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Generador Jurídico IA</h3>
-                <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">Redacción automatizada de borradores legales homologados 2026.</p>
+                <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Generador Legal IA</h3>
+                <h4 className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">Redacción automatizada de borradores legales seguros.</h4>
             </div>
             <Button asChild className="w-full h-12 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-2xl">
                 <Link href="/generador-documentos">NUEVO CONTRATO <ArrowRight className="ml-2 h-4 w-4"/></Link>
@@ -183,7 +178,7 @@ export default function EscritorioJuridicoPage() {
               <div className="flex items-start gap-5 p-5 rounded-2xl bg-rose-500/5 border border-rose-500/10 group hover:bg-rose-500/10 transition-all">
                 <AlertTriangle className="h-6 w-6 text-rose-500 shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <p className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Habilitación CONATEL</p>
+                  <p className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Habilitación Legal</p>
                   <p className="text-[9px] font-black text-rose-500 uppercase italic">VENCIDA (CON-003)</p>
                 </div>
               </div>
@@ -192,7 +187,6 @@ export default function EscritorioJuridicoPage() {
         </div>
       </div>
 
-      {/* SECCIÓN DETALLADA DE INTELIGENCIA TÉCNICA (JURÍDICO) */}
       <Card className="glass-card border-none p-12 md:p-20 rounded-[4rem] bg-white/[0.02] mt-20 overflow-hidden relative">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-slate-500/40 to-transparent"></div>
           <div className="grid lg:grid-cols-12 gap-16 md:gap-24 relative z-10">
@@ -200,49 +194,49 @@ export default function EscritorioJuridicoPage() {
                   <div className="flex items-center gap-6">
                       <Logo className="h-16 w-16 drop-shadow-glow" />
                       <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none">
-                          Bóveda <br/> <span className="text-slate-500">Jurídica</span>
+                          Archivo <br/> <span className="text-slate-500">Legal Seguro</span>
                       </h2>
                   </div>
                   <p className="text-xl font-bold italic text-white/60 leading-relaxed text-justify border-l-4 border-slate-500/20 pl-10">
-                      Archivo digital de grado legal para el resguardo inmutable de los activos jurídicos de la empresa. Centraliza Actas Constitutivas, Modificaciones de Estatutos, Poderes de Representación y Registros de Marca ante el SAPI. El sistema actúa como un Oficial de Cumplimiento IA, garantizando que la preexistencia de documentos sea legalmente inatacable.
+                      Archivo digital de grado profesional para el resguardo de los activos jurídicos de la empresa. Centraliza Actas Constitutivas, Modificaciones de Estatutos y Poderes de Representación. El sistema garantiza que sus documentos estén siempre protegidos y disponibles para cualquier auditoría.
                   </p>
                   <div className="flex items-center gap-10 pt-6 text-[9px] font-black uppercase tracking-[0.5em] text-white/10">
-                      <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> RFC 3161 TIMESTAMP</span>
-                      <span className="flex items-center gap-2"><Lock className="h-3 w-3" /> ZERO-KNOWLEDGE</span>
+                      <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> DATOS CIFRADOS</span>
+                      <span className="flex items-center gap-2"><Lock className="h-3 w-3" /> PRIVACIDAD TOTAL</span>
                   </div>
               </div>
 
               <div className="lg:col-span-7 space-y-12">
                   <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 shadow-inner">
                       <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-slate-400 mb-10 flex items-center gap-3">
-                          <Terminal className="h-4 w-4" /> Protocolo de Custodia Legal
+                          <Activity className="h-4 w-4" /> Protocolo de Custodia de Documentos
                       </h4>
                       <div className="text-sm font-bold italic text-white/70 leading-relaxed text-justify space-y-6">
                           <div className="flex gap-8 items-start">
                               <span className="font-black text-xs text-slate-500">[1]</span>
-                              <span>Digitalización de instrumentos legales con metadatos de clasificación por expediente (SAREN/SAPI).</span>
+                              <span>Digitalización de instrumentos legales con clasificación automática.</span>
                           </div>
                           <div className="flex gap-8 items-start">
                               <span className="font-black text-xs text-slate-500">[2]</span>
-                              <span>Configuración de alertas predictivas para evitar el cese de facultades de representantes legales.</span>
+                              <span>Alertas automáticas para evitar el vencimiento de poderes legales.</span>
                           </div>
                           <div className="flex gap-8 items-start">
                               <span className="font-black text-xs text-slate-500">[3]</span>
-                              <span>Cifrado de archivos en reposo: desencriptación exclusiva mediante llave biométrica del titular.</span>
+                              <span>Cifrado de archivos para máxima protección de información sensible.</span>
                           </div>
                           <div className="flex gap-8 items-start">
                               <span className="font-black text-xs text-slate-500">[4]</span>
-                              <span>Sincronización síncrona con el Registro de Accionistas y Holding de Empresas.</span>
+                              <span>Sincronización con el registro de socios y el grupo empresarial.</span>
                           </div>
                       </div>
                   </div>
                   
                   <Card className="bg-slate-500/5 border border-slate-500/20 p-10 rounded-[3rem] flex items-center justify-between">
                       <div className="space-y-2">
-                          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Estado de Bóveda</p>
+                          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Estado del Archivo</p>
                           <p className="text-2xl font-black text-white italic tracking-tighter uppercase">INTEGRIDAD 100%</p>
                       </div>
-                      <Badge className="bg-slate-500/20 text-slate-400 border-slate-500/30 text-[9px] font-black px-6 py-2 rounded-xl shadow-glow uppercase">Secure Node Active</Badge>
+                      <Badge className="bg-slate-500/20 text-slate-400 border-slate-500/30 text-[9px] font-black px-6 py-2 rounded-xl shadow-glow uppercase">Protegido</Badge>
                   </Card>
               </div>
           </div>

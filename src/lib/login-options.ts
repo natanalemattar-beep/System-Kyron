@@ -28,13 +28,13 @@ export const loginOptions = [
     },
     { 
         href: "/login-rrhh", 
-        label: "Empleados", 
+        label: "Recursos Humanos", 
         icon: Briefcase, 
         description: "Administra el pago de nóminas, beneficios, vacaciones y expedientes de todo tu equipo." 
     },
     { 
         href: "/login-socios", 
-        label: "Socios y Holdings", 
+        label: "Socios y Directivos", 
         icon: Users, 
         description: "Supervisión de empresas, reparto de ganancias y análisis de crecimiento para dueños y directivos." 
     },

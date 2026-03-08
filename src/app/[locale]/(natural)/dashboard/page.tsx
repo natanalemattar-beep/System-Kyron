@@ -34,7 +34,7 @@ import { formatDate, cn, formatCurrency } from "@/lib/utils";
 const kpiData = [
   { title: "Mis Documentos", value: "4 Activos", icon: FileText, desc: "RIF vence en 15d", color: "text-blue-400", bg: "bg-blue-400/5" },
   { title: "Mi Línea Kyron", value: "Activa", icon: CheckCircle, desc: "+58 424-1234567", color: "text-emerald-400", bg: "bg-emerald-400/5" },
-  { title: "Eco-Créditos", value: "1,250 pts", icon: Recycle, desc: "340kg CO₂ ahorrado", color: "text-secondary", bg: "bg-secondary/10" },
+  { title: "Mis Puntos", value: "1,250 pts", icon: Recycle, desc: "340kg CO₂ ahorrado", color: "text-secondary", bg: "bg-secondary/10" },
 ];
 
 const misDocumentos = [
@@ -57,7 +57,7 @@ export default function DashboardPersonalPage() {
             <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow flex items-center gap-4">
                 ¡Hola, Carlos! <span className="not-italic">👋</span>
             </h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Último acceso: Hoy 9:30 AM • Nodo Ciudadano</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Último acceso: Hoy 9:30 AM • Área Personal</p>
         </div>
         
         <div className="flex gap-3">
@@ -83,7 +83,7 @@ export default function DashboardPersonalPage() {
                   <CardContent className="p-8">
                       <div className="flex justify-between items-center mb-8">
                         <p className="text-[9px] font-black uppercase tracking-[0.5em] text-white/20">{kpi.title}</p>
-                        <div className={cn("p-3 rounded-xl border border-white/5 transition-transform group-hover:-rotate-6", kpi.bg)}>
+                        <div className={cn("p-3 rounded-xl border border-white/5 transition-all group-hover:-rotate-6", kpi.bg)}>
                             <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                         </div>
                       </div>
@@ -101,19 +101,21 @@ export default function DashboardPersonalPage() {
             <CardHeader className="p-10 border-b border-white/5 flex flex-row items-center justify-between bg-white/[0.01]">
                 <div className="space-y-1">
                     <CardTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-4 text-white">
-                        <Fingerprint className="text-primary h-6 w-6" /> Tu Identidad Digital
+                        <Fingerprint className="text-primary h-6 w-6" /> Mis Documentos Oficiales
                     </CardTitle>
-                    <p className="text-[9px] font-bold uppercase text-white/20 tracking-widest italic">Expedientes activos en Bóveda</p>
+                    <p className="text-[9px] font-bold uppercase text-white/20 tracking-widest italic">Expedientes activos y seguros</p>
                 </div>
-                <Button variant="ghost" size="sm" className="text-[9px] font-black uppercase tracking-widest text-primary hover:text-white">Ver Todo</Button>
+                <Button variant="ghost" asChild size="sm" className="text-[9px] font-black uppercase tracking-widest text-primary hover:text-white">
+                    <Link href="/documentos">Gestionar Todo</Link>
+                </Button>
             </CardHeader>
             <CardContent className="p-0">
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-white/[0.01] border-none">
                             <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Documento</TableHead>
-                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus</TableHead>
-                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Validez</TableHead>
+                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estado</TableHead>
+                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Vigencia</TableHead>
                             <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Acción</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -153,19 +155,19 @@ export default function DashboardPersonalPage() {
                 </div>
                 <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[2.4rem]">
                     <div className="space-y-1">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none text-white">Mi Línea 5G</CardTitle>
-                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo de Datos en Tiempo Real</p>
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none text-white">Mi Línea de Datos</CardTitle>
+                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo en Tiempo Real</p>
                     </div>
                     <div className="space-y-4">
                         <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                            <span>Datos: 12GB / 30GB</span>
+                            <span>Plan: 12GB / 30GB</span>
                             <span className="italic">40%</span>
                         </div>
                         <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden">
                             <div className="h-full w-[40%] bg-white shadow-glow" />
                         </div>
                         <p className="text-[10px] leading-relaxed font-bold italic opacity-80 uppercase">
-                            Estado: <span className="text-white underline underline-offset-4">✅ Activa y Verificada</span>
+                            Estado: <span className="text-white underline underline-offset-4">Conexión Segura</span>
                         </p>
                         <div className="grid grid-cols-2 gap-2 pt-2">
                             <Button variant="secondary" className="h-10 text-[8px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-tighter">Recargar</Button>
@@ -179,15 +181,15 @@ export default function DashboardPersonalPage() {
            <Card className="bg-white/[0.02] border-white/5 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group border-l-4 border-secondary">
                 <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Recycle className="h-20 w-20" /></div>
                 <h3 className="text-sm font-black text-secondary uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
-                    <Sparkles className="h-4 w-4" /> Mis Puntos Verdes
+                    <Sparkles className="h-4 w-4" /> Mis Puntos Acumulados
                 </h3>
                 <div className="space-y-6">
                     <div>
                         <p className="text-4xl font-black italic tracking-tighter text-white">1,250</p>
-                        <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest mt-1">Eco-Créditos acumulados</p>
+                        <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest mt-1">Disponibles para canje</p>
                     </div>
                     <Button asChild variant="outline" className="w-full h-12 rounded-xl border-secondary/20 text-secondary hover:bg-secondary/10 font-black text-[9px] uppercase tracking-widest">
-                        <Link href="/tarjeta-reciclaje">CANJEAR RECOMPENSAS</Link>
+                        <Link href="/tarjeta-reciclaje">USAR MIS PUNTOS</Link>
                     </Button>
                 </div>
            </Card>
@@ -196,46 +198,46 @@ export default function DashboardPersonalPage() {
 
       {/* ALERTAS PERSONALES */}
       <Card className="bg-rose-500/5 border border-rose-500/20 rounded-[2rem] p-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-8 opacity-5"><ShieldAlert className="h-32 w-32" /></div>
+          <div className="absolute top-0 right-0 p-8 opacity-5"><Bell className="h-32 w-32" /></div>
           <h3 className="text-lg font-black uppercase italic tracking-tighter text-rose-500 mb-6 flex items-center gap-3">
-              <Bell className="h-5 w-5" /> Alertas Importantes
+              <Bell className="h-5 w-5" /> Avisos Importantes
           </h3>
           <div className="space-y-4">
               <div className="flex items-center justify-between p-4 bg-black/40 rounded-xl border border-white/5">
                   <div className="flex items-center gap-4">
                       <ShieldAlert className="h-5 w-5 text-amber-500" />
-                      <span className="text-xs font-bold text-white/80 uppercase">RIF Personal por vencer (15 días)</span>
+                      <span className="text-xs font-bold text-white/80 uppercase">Actualización de RIF requerida (15 días)</span>
                   </div>
-                  <Button size="sm" className="btn-3d-primary h-8 px-4 text-[8px] font-black uppercase">RENOVAR AHORA</Button>
+                  <Button size="sm" className="btn-3d-primary h-8 px-4 text-[8px] font-black uppercase">RENOVAR</Button>
               </div>
               <div className="flex items-center justify-between p-4 bg-black/40 rounded-xl border border-white/5">
                   <div className="flex items-center gap-4">
                       <Sparkles className="h-5 w-5 text-primary" />
-                      <span className="text-xs font-bold text-white/80 uppercase">Nuevo beneficio: 2x1 en puntos verdes este fin de semana</span>
+                      <span className="text-xs font-bold text-white/80 uppercase">Nuevo beneficio: 2x1 en puntos de reciclaje este mes</span>
                   </div>
-                  <Button size="sm" variant="ghost" className="h-8 px-4 text-[8px] font-black uppercase text-white/40">VER DETALLE</Button>
+                  <Button size="sm" variant="ghost" className="h-8 px-4 text-[8px] font-black uppercase text-white/40">VER MÁS</Button>
               </div>
           </div>
       </Card>
 
-      {/* OTROS MÓDULOS (ACCESOS RÁPIDOS) */}
+      {/* OTROS SERVICIOS */}
       <section className="space-y-8 pt-10">
           <div className="flex items-center gap-6">
-              <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Acceso a otros Nodos</h2>
+              <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Acceso a otros Módulos</h2>
               <div className="h-px flex-1 bg-white/5"></div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
                   { label: "Empresa", icon: CreditCard, color: "text-blue-400" },
                   { label: "Contabilidad", icon: BarChart3, color: "text-primary" },
-                  { label: "RR.HH.", icon: Users, color: "text-emerald-400" },
-                  { label: "Legal", icon: Scale, color: "text-secondary" }
-              ].map((nodo, i) => (
+                  { label: "Recursos Humanos", icon: Users, color: "text-emerald-400" },
+                  { label: "Área Legal", icon: Scale, color: "text-secondary" }
+              ].map((serv, i) => (
                   <Card key={i} className="bg-white/[0.01] border-white/5 rounded-[1.5rem] p-6 hover:bg-white/[0.03] transition-all cursor-pointer group text-center">
-                      <div className={cn("p-3 rounded-xl bg-white/5 border border-white/5 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform", nodo.color)}>
-                          <nodo.icon className="h-5 w-5" />
+                      <div className={cn("p-3 rounded-xl bg-white/5 border border-white/5 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform", serv.color)}>
+                          <serv.icon className="h-5 w-5" />
                       </div>
-                      <p className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">{nodo.label}</p>
+                      <p className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">{serv.label}</p>
                   </Card>
               ))}
           </div>

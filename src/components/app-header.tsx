@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -17,7 +18,8 @@ import {
     LogOut, 
     ShieldCheck, 
     Cpu,
-    ChevronDown
+    ChevronDown,
+    Activity
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -65,7 +67,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
             </Link>
           </div>
 
-          {/* CENTER: CONTEXTUAL NAV (NODES) */}
+          {/* CENTER: CONTEXTUAL NAV (SECTIONS) */}
           <div className="flex-1 flex justify-center overflow-x-auto no-scrollbar">
             <nav className="flex items-center gap-2 md:gap-4 px-4">
                 {navGroups && navGroups.map((group) => (
@@ -98,7 +100,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
             </nav>
           </div>
 
-          {/* RIGHT: HUD USER CONTROLS */}
+          {/* RIGHT: CONTROLS */}
           <div className="flex items-center justify-end gap-4 md:gap-6 min-w-[120px]">
             <div className="flex items-center gap-4">
                 <ThemeToggle />
@@ -124,14 +126,14 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
                     <DropdownMenuItem asChild className="rounded-xl mt-2">
                       <Link href="/seguridad" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-[0.2em]">
                           <ShieldCheck className="mr-4 h-4 w-4 text-primary/40" />
-                          <span>Seguridad de Nodo</span>
+                          <span>Seguridad de la Cuenta</span>
                       </Link>
                     </DropdownMenuItem>
                     
                     <DropdownMenuItem asChild className="rounded-xl">
                       <Link href="/manual-usuario" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-[0.2em]">
-                          <Cpu className="mr-4 h-4 w-4 text-primary/40" />
-                          <span>Manual Técnico</span>
+                          <FileText className="mr-4 h-4 w-4 text-primary/40" />
+                          <span>Manual de Ayuda</span>
                       </Link>
                     </DropdownMenuItem>
                     

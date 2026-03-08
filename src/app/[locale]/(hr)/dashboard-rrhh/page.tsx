@@ -14,11 +14,12 @@ import {
   Calculator,
   Scale,
   Activity,
-  School
+  School,
+  FileText
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
-import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import { ChartContainer, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
@@ -59,14 +60,14 @@ export default function RecursosHumanosPage() {
       <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-secondary pl-8 py-2 mt-10">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/10 border border-secondary/20 text-[9px] font-black uppercase tracking-[0.4em] text-secondary shadow-glow-secondary mb-4">
-                <Briefcase className="h-3 w-3" /> NODO DE TALENTO
+                <Briefcase className="h-3 w-3" /> ÁREA DE PERSONAL
             </div>
             <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Gestión de <span className="text-secondary italic">Talento y Cultura</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Cumplimiento LOTTT & LOPNNA • Blindaje Laboral Activo</p>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Cumplimiento Legal y Laboral • 2026</p>
         </div>
         <div className="flex gap-2">
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white">
-                Reporte Trimestral IVSS
+                Reporte de Seguros
             </Button>
         </div>
       </header>
@@ -103,8 +104,8 @@ export default function RecursosHumanosPage() {
                       <Users className="h-6 w-6 text-secondary"/>
                     </div>
                     <div>
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter">Distribución de Capital Humano</CardTitle>
-                        <CardDescription className="text-[10px] font-bold uppercase opacity-30 tracking-widest">Métricas por unidad organizativa</CardDescription>
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter">Distribución de Empleados</CardTitle>
+                        <CardDescription className="text-[10px] font-bold uppercase opacity-30 tracking-widest">Resumen por departamentos</CardDescription>
                     </div>
                   </div>
                 </CardHeader>
@@ -115,7 +116,7 @@ export default function RecursosHumanosPage() {
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
                             <XAxis dataKey="name" stroke="#475569" fontSize={10} fontWeight="900" tickLine={false} axisLine={false}/>
                             <YAxis stroke="#475569" fontSize={10} fontWeight="900" tickLine={false} axisLine={false} />
-                            <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: 'rgba(255,255,255,0.05)', opacity: 0.5 }}/>
+                            <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: 'rgba(255,255,255,0.05)', opacity: 0.5 }} />
                             <Bar dataKey="count" name="Empleados" fill="#22c55e" radius={[8, 8, 0, 0]} />
                         </BarChart>
                     </ResponsiveContainer>
@@ -125,41 +126,41 @@ export default function RecursosHumanosPage() {
 
             <Card className="glass-card border-none p-10 rounded-[3rem] bg-white/[0.02]">
                 <CardHeader className="p-0 mb-8">
-                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Concepto Maestro: Gestión de Talento y LOTTT</CardTitle>
+                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-white">Administración del Personal</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 space-y-8">
                     <p className="text-lg font-bold italic text-white/60 leading-relaxed text-justify">
-                        La administración integral del capital humano en Kyron está centrada en el cumplimiento riguroso de la **LOTTT** y la **LOPNNA**. El motor de nómina garantiza que cada cálculo de salarios, beneficios, retenciones de ley (IVSS, FAOV, INCES) y la nueva contribución de **Protección de Pensiones** sea legalmente inatacable. Centralizamos el expediente digital bajo cifrado de alta fidelidad, asegurando que la preexistencia de documentos soporte cualquier fiscalización laboral.
+                        La administración integral del talento humano en Kyron asegura el cumplimiento de las leyes laborales vigentes. El sistema garantiza que los pagos de nómina, beneficios y retenciones de ley se realicen sin errores, protegiendo tanto a la empresa como al trabajador mediante registros seguros y transparentes.
                     </p>
                     <div className="p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 shadow-inner">
                         <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-secondary mb-8 flex items-center gap-3">
-                            <Terminal className="h-4 w-4" /> Protocolo de Nómina Maestra
+                            <Activity className="h-4 w-4" /> Procedimientos del Área
                         </h4>
                         <div className="text-sm font-bold italic text-white/70 leading-relaxed text-justify space-y-4">
                             <div className="flex gap-6 items-start">
                                 <span className="font-black text-xs text-secondary">[1]</span>
-                                <span>Enrolamiento de trabajador con validación biométrica de carga familiar (LOPNNA).</span>
+                                <span>Ingreso de personal con validación de datos familiares.</span>
                             </div>
                             <div className="flex gap-6 items-start">
                                 <span className="font-black text-xs text-secondary">[2]</span>
-                                <span>Parametrización de beneficios contractuales y deducciones de ley automáticas.</span>
+                                <span>Cálculo automático de salarios y beneficios de ley.</span>
                             </div>
                             <div className="flex gap-6 items-start">
                                 <span className="font-black text-xs text-secondary">[3]</span>
-                                <span>Generación del Ledger de Nómina para auditoría inmutable de pagos.</span>
+                                <span>Registro de pagos para auditoría interna permanente.</span>
                             </div>
                             <div className="flex gap-6 items-start">
                                 <span className="font-black text-xs text-secondary">[4]</span>
-                                <span>Despacho de recibos con sellado digital y generación de archivos TXT gubernamentales.</span>
+                                <span>Emisión de recibos digitales y archivos para entes públicos.</span>
                             </div>
                         </div>
                     </div>
                 </CardContent>
                 <CardFooter className="p-0 pt-10 border-t border-white/5 mt-10 flex justify-between items-center">
                     <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-widest text-white/20">
-                        <ShieldCheck className="h-4 w-4 text-secondary" /> CUMPLIMIENTO LABORAL VERIFICADO 2026
+                        <ShieldCheck className="h-4 w-4 text-secondary" /> CUMPLIMIENTO LABORAL 2026
                     </div>
-                    <Badge variant="outline" className="border-secondary/20 text-secondary text-[8px] font-black px-4 py-1.5 rounded-lg shadow-glow-secondary uppercase tracking-widest">Misión Crítica</Badge>
+                    <Badge variant="outline" className="border-secondary/20 text-secondary text-[8px] font-black px-4 py-1.5 rounded-lg shadow-glow-secondary uppercase tracking-widest">Activo</Badge>
                 </CardFooter>
             </Card>
          </div>
@@ -168,7 +169,7 @@ export default function RecursosHumanosPage() {
               <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-8">
                 <CardHeader className="p-0 mb-6">
                     <CardTitle className="text-sm font-black uppercase tracking-widest text-secondary flex items-center gap-3">
-                        <Activity className="h-4 w-4" /> Alertas de Cumplimiento
+                        <Activity className="h-4 w-4" /> Avisos de Cumplimiento
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 space-y-4">
@@ -183,26 +184,26 @@ export default function RecursosHumanosPage() {
 
                <Card className="bg-[#050505] border border-white/10 rounded-[2.5rem] overflow-hidden group">
                 <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-lg font-black uppercase italic tracking-tighter text-white">Nodos Operativos</CardTitle>
+                    <CardTitle className="text-lg font-black uppercase italic tracking-tighter text-white">Gestión de Personal</CardTitle>
                 </CardHeader>
                 <CardContent className="p-8 pt-0 flex flex-col gap-3">
                     <Button asChild className="w-full h-12 rounded-xl bg-white/[0.03] border border-white/10 text-white hover:bg-secondary hover:text-black font-black uppercase text-[10px] tracking-widest transition-all">
-                        <Link href="/nominas"><ArrowRight className="mr-3 h-4 w-4"/>GESTIONAR NÓMINAS</Link>
+                        <Link href="/nominas"><ArrowRight className="mr-3 h-4 w-4"/>PAGO DE NÓMINA</Link>
                     </Button>
                      <Button asChild className="w-full h-12 rounded-xl bg-white/[0.03] border border-white/10 text-white hover:bg-primary hover:text-white font-black uppercase text-[10px] tracking-widest transition-all">
-                        <Link href="/reclutamiento"><ArrowRight className="mr-3 h-4 w-4"/>PORTAL RECLUTAMIENTO</Link>
+                        <Link href="/reclutamiento"><ArrowRight className="mr-3 h-4 w-4"/>NUEVAS VACANTES</Link>
                     </Button>
                     <Button asChild className="w-full h-12 rounded-xl btn-3d-secondary mt-4 font-black uppercase text-[10px] tracking-widest">
-                        <Link href="/academia-kyron"><School className="mr-3 h-4 w-4"/>ACADEMIA KYRON</Link>
+                        <Link href="/academia-kyron"><School className="mr-3 h-4 w-4"/>CURSOS Y AYUDA</Link>
                     </Button>
                 </CardContent>
               </Card>
 
               <Card className="glass-card border-none bg-blue-600/10 rounded-[2.5rem] p-10 flex flex-col justify-center items-center text-center">
                     <Scale className="h-12 w-12 text-blue-400 mb-6 animate-pulse" />
-                    <CardTitle className="text-xl font-black uppercase italic text-white mb-2">Soporte Legal LOTTT</CardTitle>
-                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-[0.3em] mb-8">Consultoría jurídica IA especializada</p>
-                    <Button variant="outline" className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest border-blue-500/20 text-blue-400 hover:bg-blue-500/10">SOLICITAR DICTAMEN</Button>
+                    <CardTitle className="text-xl font-black uppercase italic text-white mb-2">Ayuda Legal Laboral</CardTitle>
+                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-[0.3em] mb-8">Consultoría especializada en leyes de trabajo</p>
+                    <Button variant="outline" className="h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest border-blue-500/20 text-blue-400 hover:bg-blue-500/10">PEDIR ASESORÍA</Button>
               </Card>
           </div>
        </div>

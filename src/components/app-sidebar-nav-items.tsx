@@ -131,7 +131,7 @@ export const naturalNavGroups = [
         icon: Recycle,
         items: [
             { href: "/tarjeta-reciclaje", label: "Mi Tarjeta de Puntos", icon: Recycle },
-            { href: "/mercado-ecocreditos", label: "Tienda de Eco-Puntos", icon: Coins },
+            { href: "/mercado-ecocreditos", label: "Tienda de Puntos", icon: Coins },
         ],
         subGroups: [],
     },
@@ -169,7 +169,7 @@ export const adminNavGroups = [
     ]
   },
   {
-    title: "Contabilidad",
+    title: "Finanzas",
     icon: Calculator,
     subGroups: [
       {
@@ -193,11 +193,11 @@ export const adminNavGroups = [
     items: []
   },
   {
-    title: "Empleados",
+    title: "Recursos Humanos",
     icon: Briefcase,
     subGroups: [
       {
-        title: "Personal",
+        title: "Gestión de Personal",
         icon: Users,
         items: [
             { href: "/dashboard-rrhh", label: "Resumen de Personal", icon: LayoutDashboard },
@@ -209,15 +209,15 @@ export const adminNavGroups = [
     items: []
   },
   { 
-    title: "Legal", 
+    title: "Asesoría Legal", 
     icon: Gavel, 
     subGroups: [
         {
-          title: "Documentos",
+          title: "Documentos Legales",
           icon: FileSignature,
           items: [
-            { href: "/escritorio-juridico", label: "Asesoría Legal", icon: Gavel },
-            { href: "/generador-documentos", label: "Crear Contratos IA", icon: Wand2 },
+            { href: "/escritorio-juridico", label: "Área Legal", icon: Gavel },
+            { href: "/generador-documentos", label: "Crear Contratos", icon: Wand2 },
             { href: "/contratos", label: "Mis Contratos", icon: FileSignature },
             { href: "/permisos", label: "Permisos y Licencias", icon: UserCheck },
           ]
@@ -242,13 +242,13 @@ export const legalNavGroups = [
 ];
 
 export const rrhhNavGroups = [
-    { title: "Inicio", icon: Briefcase, items: [{ href: "/dashboard-rrhh", label: "Inicio RR.HH.", icon: LayoutDashboard }], subGroups: []},
+    { title: "Inicio", icon: Briefcase, items: [{ href: "/dashboard-rrhh", label: "Inicio de Área", icon: LayoutDashboard }], subGroups: []},
     { 
         title: "Nómina", 
         icon: Users, 
         items: [
             { href: "/nominas", label: "Pagos de Nómina", icon: Users },
-            { href: "/prestaciones-sociales", label: "Cálculo Liquidación", icon: Calculator },
+            { href: "/prestaciones-sociales", label: "Cálculo de Liquidación", icon: Calculator },
         ],
         subGroups: []
     },
@@ -259,7 +259,7 @@ export const telecomNavGroups = [
     title: "Inicio", 
     icon: LayoutDashboard, 
     items: [ 
-      { href: "/dashboard-telecom", label: "Inicio Telecom", icon: Signal },
+      { href: "/dashboard-telecom", label: "Área de Control", icon: Signal },
     ], 
     subGroups: [] 
   },
@@ -267,8 +267,8 @@ export const telecomNavGroups = [
     title: "Líneas", 
     icon: Signal, 
     items: [ 
-      { href: "/venta-linea", label: "Nueva Línea 5G", icon: Phone },
-      { href: "/conatel/licenses", label: "Licencias Conatel", icon: FileText },
+      { href: "/venta-linea", label: "Nueva Línea", icon: Phone },
+      { href: "/conatel/licenses", label: "Licencias Oficiales", icon: FileText },
     ], 
     subGroups: [] 
   },
@@ -276,8 +276,8 @@ export const telecomNavGroups = [
 
 export const sociosNavGroups = [
     { title: "Holding", icon: Briefcase, items: [
-        { href: "/dashboard-socios", label: "Resumen para Socios", icon: LayoutDashboard },
+        { href: "/dashboard-socios", label: "Resumen Estratégico", icon: LayoutDashboard },
         { href: "/poderes-representacion", label: "Empresas del Grupo", icon: Gavel },
-        { href: "/planes-crecimiento", label: "Planes de Futuro", icon: Rocket },
+        { href: "/planes-crecimiento", label: "Planes de Crecimiento", icon: Rocket },
     ], subGroups: [] },
 ];
