@@ -6,14 +6,16 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, User, ChevronLeft } from 'lucide-react';
+import { Loader2, AlertTriangle, User, ChevronLeft, Fingerprint, ShieldCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Link } from "@/navigation";
 import { useToast } from '@/hooks/use-toast';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LoginPersonalPage() {
     const [isLoading, setIsLoading] = useState(false);
+    const [isScanning, setIsScanning] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
     const { toast } = useToast();
@@ -30,79 +32,126 @@ export default function LoginPersonalPage() {
         const DEMO_EMAIL = "usuario@kyron.com";
         const DEMO_PASS = "password123";
         
-        // Keep personal snappiness consistent
         setTimeout(() => {
             if (email === DEMO_EMAIL && password === DEMO_PASS) {
-                toast({ title: "Acceso Concedido", description: "Bienvenido a tu portal personal." });
+                toast({ title: "¡Hola de nuevo!", description: "Acceso concedido a tu portal personal." });
                 router.push('/dashboard');
             } else {
-                setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
+                setError("Correo o contraseña incorrectos.");
                 setIsLoading(false);
             }
-        }, 300);
+        }, 800);
+    };
+
+    const handleBiometric = () => {
+        setIsScanning(true);
+        setTimeout(() => {
+            setIsScanning(false);
+            toast({ 
+                title: "✅ Identidad Confirmada", 
+                description: "Bienvenido Carlos. Accediendo con biometría 3D." 
+            });
+            router.push('/dashboard');
+        }, 2000);
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
-             <Button variant="ghost" asChild className="mb-6 self-start md:absolute md:top-8 md:left-8 h-9 rounded-xl text-xs">
-                <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4"/> Volver</Link>
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[#020202] hud-grid">
+            <Button variant="ghost" asChild className="mb-6 self-start md:absolute md:top-8 md:left-8 h-10 rounded-xl text-xs font-black uppercase text-white/40 hover:text-white">
+                <Link href="/login" className="flex items-center"><ChevronLeft className="mr-2 h-4 w-4"/> VOLVER</Link>
             </Button>
-            <Card className="w-full max-w-lg bg-card/80 backdrop-blur-2xl border border-border shadow-xl rounded-[2rem] overflow-hidden">
-                 <CardHeader className="text-center p-8 pb-4">
-                    <div className="mx-auto bg-primary/10 p-4 rounded-2xl w-fit mb-6 shadow-inner">
-                        <User className="h-10 w-10 text-primary"/>
-                    </div>
-                    <CardTitle className="text-3xl font-black tracking-tighter">Portal Personal</CardTitle>
-                    <CardDescription className="text-base text-muted-foreground mt-2 leading-snug">
-                        Accede a tus trámites civiles y documentos digitalizados.
-                    </CardDescription>
-                </CardHeader>
-                <form onSubmit={handleLogin}>
-                    <CardContent className="p-8 pt-4 space-y-6">
-                         <Alert variant="default" className="bg-secondary/50 border-none rounded-2xl p-4">
-                            <AlertTriangle className="h-5 w-5 text-primary" />
-                            <AlertTitle className="text-sm font-bold ml-3">Modo Demostración</AlertTitle>
-                            <AlertDescription className="ml-3 mt-1">
-                                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
-                                    <p className="font-mono text-xs"><strong>Correo:</strong> usuario@kyron.com</p>
-                                    <p className="font-mono text-xs"><strong>Clave:</strong> password123</p>
+
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="w-full max-w-lg"
+            >
+                <Card className="bg-white/[0.02] backdrop-blur-3xl border-white/5 shadow-2xl rounded-[2.5rem] overflow-hidden relative">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+                    
+                    <CardHeader className="text-center p-10 pb-4">
+                        <div className="mx-auto bg-primary/10 p-5 rounded-[1.5rem] w-fit mb-6 shadow-glow border border-primary/20">
+                            <User className="h-10 w-10 text-primary"/>
+                        </div>
+                        <CardTitle className="text-3xl font-black tracking-tighter uppercase italic text-white">Mi Cuenta Personal</CardTitle>
+                        <CardDescription className="text-sm font-bold text-white/30 uppercase tracking-widest mt-2 leading-snug">
+                            Bóveda de Identidad y Trámites Civiles
+                        </CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="p-10 pt-4 space-y-8">
+                        <form onSubmit={handleLogin} className="space-y-6">
+                            {error && (
+                                <Alert variant="destructive" className="rounded-2xl bg-rose-500/10 border-rose-500/20">
+                                    <AlertTriangle className="h-4 w-4" />
+                                    <AlertTitle className="text-xs font-black uppercase tracking-widest">Error</AlertTitle>
+                                    <AlertDescription className="text-[10px] uppercase font-bold opacity-70">{error}</AlertDescription>
+                                </Alert>
+                            )}
+                            
+                            <div className="space-y-2">
+                                <Label htmlFor="email" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 ml-1">Correo Electrónico</Label>
+                                <Input id="email" name="email" type="email" placeholder="carlos@ejemplo.com" required className="h-12 text-sm px-5 rounded-xl bg-white/[0.03] border-white/10 text-white focus-visible:ring-primary font-medium" />
+                            </div>
+                            
+                            <div className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <Label htmlFor="password" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 ml-1">Contraseña</Label>
+                                    <Button variant="link" className="p-0 h-auto text-[9px] font-black text-primary uppercase">¿La olvidaste?</Button>
                                 </div>
-                            </AlertDescription>
-                        </Alert>
-                        {error && (
-                             <Alert variant="destructive" className="rounded-2xl p-4">
-                                <AlertTriangle className="h-5 w-5" />
-                                <AlertTitle className="text-sm font-bold ml-3">Error de Autenticación</AlertTitle>
-                                <AlertDescription className="ml-3 mt-1 text-xs">{error}</AlertDescription>
-                            </Alert>
-                        )}
-                        <div className="space-y-3">
-                            <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest opacity-70">Correo Electrónico</Label>
-                            <Input id="email" name="email" type="email" placeholder="tu@correo.com" required className="h-11 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
-                        </div>
-                        <div className="space-y-3">
-                            <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest opacity-70">Contraseña</Label>
-                            <Input id="password" name="password" type="password" required className="h-11 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
-                        </div>
-                    </CardContent>
-                    <CardFooter className="p-8 pt-0 flex flex-col gap-6">
-                        <Button type="submit" className="w-full text-lg font-black h-12 rounded-xl shadow-lg btn-3d-primary" disabled={isLoading}>{
-                            isLoading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : 'Iniciar Sesión Segura'
-                        }</Button>
-                        <div className="text-center w-full pt-6 border-t border-border/10">
-                            <p className="text-xs text-muted-foreground mb-3">¿No tienes una cuenta?</p>
-                            <div className="flex justify-center gap-6">
-                                <Button variant="link" asChild className="p-0 h-auto text-sm font-bold">
-                                    <Link href="/register">Crear cuenta</Link>
-                                </Button>
-                                <Button variant="link" asChild className="p-0 h-auto text-sm font-bold">
-                                    <Link href="#">Recuperar acceso</Link>
-                                </Button>
+                                <Input id="password" name="password" type="password" required className="h-12 text-sm px-5 rounded-xl bg-white/[0.03] border-white/10 text-white focus-visible:ring-primary font-medium" />
+                            </div>
+
+                            <Button type="submit" className="w-full text-xs font-black h-14 rounded-2xl shadow-glow btn-3d-primary uppercase tracking-widest" disabled={isLoading || isScanning}>
+                                {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'ENTRAR AL PORTAL'}
+                            </Button>
+                        </form>
+
+                        <div className="relative">
+                            <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-white/5"></span></div>
+                            <div className="relative flex justify-center text-[8px] uppercase font-black tracking-[0.4em] text-white/20">
+                                <span className="bg-black px-4">O accede con tu cuerpo</span>
                             </div>
                         </div>
+
+                        <div className="flex flex-col items-center gap-6">
+                            <button 
+                                onClick={handleBiometric}
+                                disabled={isScanning || isLoading}
+                                className={cn(
+                                    "p-8 rounded-[2rem] border-2 transition-all duration-500 group relative overflow-hidden",
+                                    isScanning ? "border-secondary bg-secondary/10 shadow-glow-secondary" : "border-white/5 bg-white/[0.02] hover:border-primary/30 hover:bg-primary/5"
+                                )}
+                            >
+                                <Fingerprint className={cn(
+                                    "h-16 w-16 transition-all duration-500",
+                                    isScanning ? "text-secondary scale-110" : "text-white/20 group-hover:text-primary"
+                                )} />
+                                {isScanning && (
+                                    <motion.div 
+                                        className="absolute inset-0 bg-secondary/20"
+                                        initial={{ top: "-100%" }}
+                                        animate={{ top: "100%" }}
+                                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                                    />
+                                )}
+                            </button>
+                            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest text-center">
+                                {isScanning ? "ESCANEANDO HUELLA..." : "Toca el lector para acceso biométrico"}
+                            </p>
+                        </div>
+                    </CardContent>
+
+                    <CardFooter className="p-10 pt-0 border-t border-white/5 bg-white/[0.01] flex flex-col items-center">
+                        <p className="text-[10px] text-white/40 uppercase font-bold tracking-widest mb-4">¿Aún no eres parte del ecosistema?</p>
+                        <Button variant="outline" asChild className="w-full h-12 rounded-xl border-white/10 bg-white/5 text-[9px] font-black uppercase tracking-widest hover:bg-white/10">
+                            <Link href="/register/natural">CREAR MI CUENTA PERSONAL</Link>
+                        </Button>
+                        <p className="mt-8 text-[8px] text-white/10 uppercase font-black tracking-[0.5em]">System Kyron v2.6.5 • SSL Secure Node</p>
                     </CardFooter>
-                </form>
-            </Card>
+                </Card>
+            </motion.div>
         </div>
     );
 }

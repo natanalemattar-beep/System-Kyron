@@ -1,56 +1,82 @@
 
 "use client";
 
-import { Card, CardContent, CardTitle, CardDescription, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardTitle, CardDescription, CardHeader, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, ShieldAlert, Fingerprint, ArrowRight, Activity, Sparkles, Home, FileText, Recycle, Smartphone } from 'lucide-react';
+import { 
+    CheckCircle, 
+    Clock, 
+    ShieldAlert, 
+    Fingerprint, 
+    ArrowRight, 
+    Activity, 
+    Sparkles, 
+    Home, 
+    FileText, 
+    Recycle, 
+    Smartphone,
+    CreditCard,
+    Zap,
+    Download,
+    Eye,
+    Bell,
+    Settings,
+    MoreHorizontal
+} from 'lucide-react';
 import { Link } from "@/navigation";
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { formatDate, cn } from "@/lib/utils";
+import { formatDate, cn, formatCurrency } from "@/lib/utils";
 
 const kpiData = [
-  { title: "Mis Trámites", value: "2", icon: Clock, color: "text-blue-400", bg: "bg-blue-400/5" },
-  { title: "Estado de Cuenta", value: "ACTIVA", icon: CheckCircle, color: "text-emerald-400", bg: "bg-emerald-400/5" },
-  { title: "Avisos Pendientes", value: "1 URGENTE", icon: ShieldAlert, color: "text-rose-400", bg: "bg-rose-400/5" },
+  { title: "Mis Documentos", value: "4 Activos", icon: FileText, desc: "RIF vence en 15d", color: "text-blue-400", bg: "bg-blue-400/5" },
+  { title: "Mi Línea Kyron", value: "Activa", icon: CheckCircle, desc: "+58 424-1234567", color: "text-emerald-400", bg: "bg-emerald-400/5" },
+  { title: "Eco-Créditos", value: "1,250 pts", icon: Recycle, desc: "340kg CO₂ ahorrado", color: "text-secondary", bg: "bg-secondary/10" },
+];
+
+const misDocumentos = [
+    { id: "V-32...", doc: "Cédula de Identidad", estado: "Vigente", vencimiento: "2031", validez: "OK" },
+    { id: "J-12...", doc: "RIF Personal", estado: "Por Renovar", vencimiento: "15 días", validez: "Alert" },
+    { id: "PAS-...", doc: "Pasaporte", estado: "Vigente", vencimiento: "2028", validez: "OK" },
 ];
 
 export default function DashboardPersonalPage() {
   return (
-    <div className="space-y-12 w-full animate-in fade-in duration-700 px-8 pb-20">
+    <div className="space-y-12 w-full animate-in fade-in duration-700 px-6 md:px-10 pb-20">
       
+      {/* CABECERA PERSONAL */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 border-l-4 border-primary pl-8 py-2">
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/10">
-                <Home className="h-3 w-3" /> MI PORTAL PERSONAL
+                <ShieldAlert className="h-3 w-3" /> IDENTIDAD VERIFICADA
             </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow">Inicio</h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Tus Documentos y Gestiones en un solo lugar</p>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-white italic-shadow flex items-center gap-4">
+                ¡Hola, Carlos! <span className="not-italic">👋</span>
+            </h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Último acceso: Hoy 9:30 AM • Nodo Ciudadano</p>
         </div>
         
         <div className="flex gap-3">
-            <Button asChild variant="outline" className="h-10 px-6 rounded-xl font-bold text-[9px] uppercase tracking-widest border-white/5 hover:bg-white/5 transition-all shadow-xl">
-                <Link href="/tarjeta-reciclaje">MIS ECO-PUNTOS</Link>
+            <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/5 bg-white/5 hover:bg-white/10 transition-all">
+                <Link href="/notificaciones"><Bell className="h-5 w-5 text-white/40" /></Link>
             </Button>
-            <Button asChild className="h-10 px-8 rounded-xl bg-primary text-primary-foreground font-black text-[9px] uppercase tracking-widest btn-3d-primary">
-                <Link href="/tarjeta-digital" className="flex items-center gap-2.5">
-                    <Fingerprint className="h-4 w-4" /> MI ID DIGITAL
-                </Link>
+            <Button asChild variant="outline" size="icon" className="h-12 w-12 rounded-xl border-white/5 bg-white/5 hover:bg-white/10 transition-all">
+                <Link href="/seguridad"><Settings className="h-5 w-5 text-white/40" /></Link>
             </Button>
         </div>
       </header>
       
+      {/* TARJETAS KPI */}
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {kpiData.map((kpi, index) => (
             <motion.div
               key={kpi.title}
               initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="bg-white/[0.02] border-white/5 rounded-[1.5rem] overflow-hidden group hover:bg-white/[0.04] transition-all duration-500 shadow-xl">
+              <Card className="bg-white/[0.02] border-white/5 rounded-[2rem] overflow-hidden group hover:bg-white/[0.04] transition-all duration-500 shadow-xl">
                   <CardContent className="p-8">
                       <div className="flex justify-between items-center mb-8">
                         <p className="text-[9px] font-black uppercase tracking-[0.5em] text-white/20">{kpi.title}</p>
@@ -58,79 +84,135 @@ export default function DashboardPersonalPage() {
                             <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                         </div>
                       </div>
-                      <p className="text-3xl font-black tracking-tighter italic text-white/90 leading-none">{kpi.value}</p>
+                      <p className="text-3xl font-black tracking-tighter italic text-white/90 leading-none mb-3">{kpi.value}</p>
+                      <p className={cn("text-[10px] font-bold uppercase tracking-widest", kpi.title === "Mis Documentos" ? "text-amber-400" : "text-white/30")}>{kpi.desc}</p>
                   </CardContent>
               </Card>
             </motion.div>
         ))}
       </div>
 
-      <div className="grid gap-8 grid-cols-1 lg:grid-cols-12">
-        <Card className="lg:col-span-8 bg-white/[0.01] border-white/5 rounded-[2rem] overflow-hidden shadow-2xl">
-            <div className="p-8 border-b border-white/5 flex items-center justify-between">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Resumen de mis Actividades</h3>
-                <Activity className="h-4 w-4 text-primary/20" />
-            </div>
+      <div className="grid gap-10 grid-cols-1 lg:grid-cols-12">
+        {/* IDENTIDAD DIGITAL */}
+        <Card className="lg:col-span-8 bg-white/[0.01] border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
+            <CardHeader className="p-10 border-b border-white/5 flex flex-row items-center justify-between bg-white/[0.01]">
+                <div className="space-y-1">
+                    <CardTitle className="text-xl font-black uppercase italic tracking-tighter flex items-center gap-4">
+                        <Fingerprint className="text-primary h-6 w-6" /> Tu Identidad Digital
+                    </CardTitle>
+                    <p className="text-[9px] font-bold uppercase text-white/20 tracking-widest italic">Expedientes activos en Bóveda</p>
+                </div>
+                <Button variant="ghost" size="sm" className="text-[9px] font-black uppercase tracking-widest text-primary hover:text-white">Ver Todo</Button>
+            </CardHeader>
             <CardContent className="p-0">
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-white/[0.01] border-none">
-                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Nº de Orden</TableHead>
-                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Tipo de Servicio</TableHead>
-                            <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus</TableHead>
+                            <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Documento</TableHead>
+                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estatus</TableHead>
+                            <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Validez</TableHead>
+                            <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Acción</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow className="hover:bg-white/[0.02] border-white/5 transition-all">
-                            <TableCell className="font-mono text-[10px] font-black text-primary pl-10 py-6 italic">ID-2026-X1-KYR</TableCell>
-                            <TableCell className="py-6">
-                                <div className="flex flex-col gap-1">
-                                    <span className="text-xs font-black uppercase tracking-tight text-white/80">Activación de Cuenta Personal</span>
-                                    <span className="text-[9px] text-muted-foreground font-bold uppercase opacity-30 tracking-widest">Registrado hoy</span>
-                                </div>
-                            </TableCell>
-                            <TableCell className="text-right pr-10 py-6">
-                                <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest border-emerald-500/20 text-emerald-400 bg-emerald-500/5 h-7 px-3 rounded-lg">LISTO</Badge>
-                            </TableCell>
-                        </TableRow>
+                        {misDocumentos.map((doc, idx) => (
+                            <TableRow key={idx} className="hover:bg-white/[0.02] border-white/5 transition-all">
+                                <TableCell className="pl-10 py-6">
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-xs font-black uppercase tracking-tight text-white/80">{doc.doc}</span>
+                                        <span className="text-[9px] text-primary font-bold tracking-widest font-mono italic">{doc.id}</span>
+                                    </div>
+                                </TableCell>
+                                <TableCell className="py-6">
+                                    <Badge variant="outline" className={cn(
+                                        "text-[8px] font-black uppercase tracking-widest h-6 px-3 rounded-lg",
+                                        doc.estado === "Vigente" ? "border-emerald-500/20 text-emerald-400 bg-emerald-500/5" : "border-amber-500/20 text-amber-400 bg-amber-500/5"
+                                    )}>{doc.estado}</Badge>
+                                </TableCell>
+                                <TableCell className="py-6 text-[10px] font-bold text-white/30 uppercase">{doc.vencimiento}</TableCell>
+                                <TableCell className="text-right pr-10 py-6">
+                                    <Button variant="ghost" size="sm" className="h-9 rounded-xl hover:bg-primary/10 hover:text-primary font-black text-[9px] uppercase tracking-widest transition-all">
+                                        {doc.estado === "Por Renovar" ? "Renovar" : "Ver"}
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </CardContent>
         </Card>
 
         <div className="lg:col-span-4 space-y-8">
-           <Card className="border-none bg-primary text-primary-foreground rounded-[2rem] overflow-hidden relative group p-1 shadow-2xl">
+           {/* TU LÍNEA KYRON */}
+           <Card className="border-none bg-primary text-primary-foreground rounded-[2.5rem] overflow-hidden relative group p-1 shadow-2xl">
                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-all duration-1000">
                     <Smartphone className="h-32 w-32" />
                 </div>
-                <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[1.9rem]">
-                    <CardHeader className="p-0">
-                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter">Mi Línea</CardTitle>
-                        <p className="text-[9px] font-black uppercase tracking-[0.5em] opacity-40">Internet y Datos 5G</p>
-                    </CardHeader>
-                    <p className="text-xs leading-relaxed font-bold opacity-80 italic">
-                        Activa tu línea telefónica ahora mismo y disfruta de la mejor velocidad del país.
-                    </p>
-                    <Button variant="secondary" asChild className="w-full h-11 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest">
-                        <Link href="/venta-linea">COMPRAR LÍNEA <ArrowRight className="ml-2 h-4 w-4"/></Link>
-                    </Button>
+                <div className="p-8 space-y-6 relative z-10 bg-primary rounded-[2.4rem]">
+                    <div className="space-y-1">
+                        <CardTitle className="text-2xl font-black uppercase italic tracking-tighter leading-none">Mi Línea 5G</CardTitle>
+                        <p className="text-[9px] font-bold uppercase tracking-[0.4em] opacity-40 text-white">Consumo de Datos en Tiempo Real</p>
+                    </div>
+                    <div className="space-y-4">
+                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                            <span>Datos: 12GB / 30GB</span>
+                            <span className="italic">40%</span>
+                        </div>
+                        <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden">
+                            <div className="h-full w-[40%] bg-white shadow-glow" />
+                        </div>
+                        <p className="text-[10px] leading-relaxed font-bold italic opacity-80 uppercase">
+                            Estado: <span className="text-white underline underline-offset-4">✅ Activa y Verificada</span>
+                        </p>
+                        <div className="grid grid-cols-2 gap-2 pt-2">
+                            <Button variant="secondary" className="h-10 text-[8px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-tighter">Recargar</Button>
+                            <Button variant="outline" className="h-10 text-[8px] font-black border-white/20 text-white hover:bg-white/10 rounded-xl uppercase tracking-tighter">Detalles</Button>
+                        </div>
+                    </div>
                 </div>
            </Card>
 
-           <Card className="bg-white/[0.02] border-white/5 rounded-[1.5rem] p-6 shadow-2xl relative overflow-hidden">
-                <div className="flex items-start gap-6">
-                    <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 shadow-inner">
-                        <ShieldAlert className="h-5 w-5 text-rose-500" />
+           {/* ECO-CRÉDITOS */}
+           <Card className="bg-white/[0.02] border-white/5 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden group border-l-4 border-secondary">
+                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform"><Recycle className="h-20 w-20" /></div>
+                <h3 className="text-sm font-black text-secondary uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
+                    <Sparkles className="h-4 w-4" /> Mis Puntos Verdes
+                </h3>
+                <div className="space-y-6">
+                    <div>
+                        <p className="text-4xl font-black italic tracking-tighter text-white">1,250</p>
+                        <p className="text-[9px] font-bold text-white/30 uppercase tracking-widest mt-1">Eco-Créditos acumulados</p>
                     </div>
-                    <div className="space-y-2">
-                        <p className="font-black text-rose-500 uppercase tracking-[0.3em] text-[9px]">Alerta</p>
-                        <p className="text-white/90 font-black text-base uppercase tracking-tight italic">Documentos</p>
-                        <p className="text-muted-foreground text-[10px] leading-relaxed font-medium">Tienes una actualización pendiente sobre tu RIF personal.</p>
-                    </div>
+                    <Button asChild variant="outline" className="w-full h-12 rounded-xl border-secondary/20 text-secondary hover:bg-secondary/10 font-black text-[9px] uppercase tracking-widest">
+                        <Link href="/tarjeta-reciclaje">CANJEAR RECOMPENSAS</Link>
+                    </Button>
                 </div>
            </Card>
         </div>
       </div>
+
+      {/* OTROS MÓDULOS (ACCESOS RÁPIDOS) */}
+      <section className="space-y-8 pt-10">
+          <div className="flex items-center gap-6">
+              <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Acceso a otros Nodos</h2>
+              <div className="h-px flex-1 bg-white/5"></div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {[
+                  { label: "Empresa", icon: CreditCard, color: "text-blue-400" },
+                  { label: "Contabilidad", icon: BarChart3, color: "text-primary" },
+                  { label: "RR.HH.", icon: Users, color: "text-emerald-400" },
+                  { label: "Legal", icon: Scale, color: "text-secondary" }
+              ].map((nodo, i) => (
+                  <Card key={i} className="bg-white/[0.01] border-white/5 rounded-[1.5rem] p-6 hover:bg-white/[0.03] transition-all cursor-pointer group text-center">
+                      <div className={cn("p-3 rounded-xl bg-white/5 border border-white/5 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform", nodo.color)}>
+                          <nodo.icon className="h-5 w-5" />
+                      </div>
+                      <p className="text-[9px] font-black uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">{nodo.label}</p>
+                  </Card>
+              ))}
+          </div>
+      </section>
     </div>
   );
 }
