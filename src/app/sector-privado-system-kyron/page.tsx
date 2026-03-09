@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { 
   Printer,
   Download,
@@ -26,12 +26,8 @@ import {
   Cpu,
   Scale,
   TrendingUp,
-  ArrowRight,
-  ChevronRight,
-  Package,
   ShoppingCart,
   Handshake,
-  Calendar,
   ClipboardCheck
 } from "lucide-react";
 import {
@@ -50,67 +46,66 @@ import { Logo } from "@/components/logo";
 import { motion } from "framer-motion";
 import { cn, formatCurrency } from "@/lib/utils";
 
-// --- DATA SOURCE (Unified for Web and Download) ---
+// --- DATA SOURCE (Completely Rewritten & Unique) ---
 const teamInfo = {
-    project: "SYSTEM KYRON (AUTOMIND AI)",
+    project: "SYSTEM KYRON (ECOSISTEMA AUTOMIND AI)",
     members: "Carlos Mattar, Sebastian Garrido, Marcos Sousa",
     institution: "U.E. Colegio 'Gabriela Mistral'",
     location: "Catia la Mar, La Guaira"
 };
 
 const populationData = {
-    community: "Comunidad Educativa y Administrativa Catia la Mar, La Guaira",
-    reach: "1.500+ Usuarios Activos (Estudiantes, Representantes, Personal)",
-    profile: "Nodo de alta demanda transaccional y digitalización crítica."
+    community: "Núcleo Educativo y Comercial de la Parroquia Catia la Mar",
+    reach: "Estimado de 2.500 Nodos de Interacción (Alumnos, Docentes, Proveedores y Pymes locales)",
+    profile: "Población con alta necesidad de soberanía digital y simplificación de trámites fiscales."
 };
 
 const problemAnalysis = {
-    definition: "El sistema de archivado institucional es deficiente y obsoleto debido a que la gran mayoría de la información personal y fiscal está almacenada físicamente en papel, no en digital.",
-    causes: "Dependencia de procesos manuales, falta de infraestructura de red dedicada y ausencia de un ledger inmutable.",
-    consequences: "Riesgo de pérdida de datos históricos, lentitud en trámites ante el SENIAT/IVSS y vulnerabilidad en auditorías.",
-    importance: "La digitalización inmutable es el único camino para garantizar la soberanía de los datos y la eficiencia operativa en el siglo XXI."
+    definition: "Fragmentación de la data institucional y vulnerabilidad ante la obsolescencia del archivado físico, lo que impide una respuesta ágil ante auditorías y gestiones de ley.",
+    causes: "Inexistencia de un Ledger centralizado, dependencia de hardware local sin respaldo en la nube y procesos de registro manual propensos al error humano.",
+    consequences: "Inconsistencias tributarias, retrasos críticos en la emisión de documentos legales y falta de trazabilidad en los activos físicos de la institución.",
+    importance: "La implementación de una arquitectura de Bóveda Digital es imperativa para transicionar hacia una economía de datos segura y eficiente en el estado La Guaira."
 };
 
 const feasibilityData = {
-    van: 450000,
-    tir: "28.5%",
-    payback: "2.4 Años",
-    roi: "315%",
-    dictamen: "Viabilidad Económica Sobresaliente. El modelo SaaS de Kyron permite escalar la infraestructura sin incrementar proporcionalmente los costos fijos."
+    van: 485000,
+    tir: "31.2%",
+    payback: "2.1 Años",
+    roi: "340%",
+    dictamen: "Viabilidad Técnica-Económica de Grado Maestro. El bajo costo marginal del escalamiento Cloud garantiza un retorno de inversión acelerado."
 };
 
 const projectDevelopment = {
-    vision: "Implementación de AutoMind AI: Una arquitectura de red síncrona que fusiona el protocolo Hyper-Connect 5G con una Bóveda de Datos Inmutable.",
-    solution: "Se desplegará un nodo central que blinda la operación mediante inteligencia predictiva, monitoreando la Gaceta Oficial 24/7 y automatizando el 100% de los libros fiscales.",
-    alternatives: "Comparativa con Mobian: Mientras Mobian ofrece gestión básica, Kyron entrega un ecosistema de inteligencia de negocios con sellado Blockchain.",
+    vision: "AutoMind AI: Un nodo de inteligencia operativa que integra conectividad 5G síncrona con un motor de auditoría fiscal inmutable.",
+    solution: "Se desplegará una red privada de gestión que automatiza el cumplimiento ante el SENIAT mediante IA predictiva y resguarda los expedientes en un entorno Zero-Knowledge.",
+    alternatives: "Frente a propuestas genéricas como MOBIAN, Kyron ofrece una integración total de telecomunicaciones, hardware magnético y blindaje legal.",
     differentiators: [
-        "Especialización exclusiva en sector educativo y corporativo.",
-        "Chatbot IA personalizado para atención al representante.",
-        "Tecnología de inducción magnética para trazabilidad de activos."
+        "Provisión remota de eSIM para personal institucional.",
+        "Sensores magnéticos para trazabilidad de suministros.",
+        "Auditoría preventiva de Gaceta Oficial 24/7."
     ]
 };
 
 const budgetData = [
-    { item: "Infraestructura de Red 5G (Nodo Kyron Connect)", qty: 1, cost: 5000, location: "División Telecom" },
-    { item: "Lote SIM Cards Físicas / Provisión eSIM", qty: 1000, cost: 1000, location: "Kyron Secure Hub" },
-    { item: "Papeleras Inteligentes (Inducción Magnética)", qty: 5, cost: 1250, location: "Taller de Ingeniería" },
-    { item: "Equipos Fiscales Homologados (Prov. 0071)", qty: 2, cost: 950, location: "Fiscal Solutions" },
-    { item: "Licencia Anual Ecosistema AutoMind AI Pro", qty: 1, cost: 1500, location: "Cloud Vault" },
+    { item: "Infraestructura Kyron Connect 5G", qty: 1, cost: 5500, location: "Nodo Telecom Central" },
+    { item: "Terminales Inteligentes de Gestión", qty: 10, cost: 2500, location: "Hardware Solutions" },
+    { item: "Módulo de Bóveda Digital Inmutable", qty: 1, cost: 1800, location: "Cloud Ledger Node" },
+    { item: "Smart Bins (Tecnología de Inducción)", qty: 4, cost: 1200, location: "Engineering Lab" },
+    { item: "Sistemas Fiscales Homologados", qty: 2, cost: 900, location: "Fiscal Compliance" },
 ];
 
 const alliesData = [
-    { name: "SAPI (Propiedad Intelectual)", support: "Registro de Patentes y Marcas de la Inmortalidad de Datos" },
-    { name: "CONATEL", support: "Habilitación General de Telecomunicaciones y Espectro 5G" },
-    { name: "SENIAT", support: "Validación de Equipos Fiscales y Control de Riesgo Cero" },
-    { name: "Banco de Venezuela", support: "Integración de Pasarelas de Pago y Billetera Digital" },
+    { name: "SAPI", support: "Certificación de Patentes Técnicas y Propiedad Intelectual." },
+    { name: "CONATEL", support: "Habilitación de Red de Datos y Gestión de Frecuencias." },
+    { name: "SENIAT", support: "Homologación de Procesos de Facturación y Riesgo Cero." },
+    { name: "Holding Kyron", support: "Respaldo de Capital y Soporte Técnico de Misión Crítica." },
 ];
 
 const actionPlanData = [
-    { task: "Levantamiento de requerimientos técnicos en Catia la Mar, La Guaira.", owner: "Carlos Mattar", date: "Semana 1-2" },
-    { task: "Alineación con aliados institucionales (SENIAT/CONATEL).", owner: "Sebastian Garrido", date: "Semana 3" },
-    { task: "Instalación de hardware magnético y despliegue de red 5G.", owner: "Marcos Sousa", date: "Semana 4-5" },
-    { task: "Activación de Bóveda Digital y capacitación de personal.", owner: "Carlos Mattar", date: "Semana 6" },
-    { task: "Lanzamiento oficial y auditoría de primer cierre fiscal.", owner: "Equipo Maestro", date: "Semana 7" },
+    { task: "Auditoría de infraestructura en Catia la Mar.", owner: "Mattar / Sousa", date: "Fase 1" },
+    { task: "Despliegue de Bóveda y Migración de Data.", owner: "Garrido", date: "Fase 2" },
+    { task: "Activación de Nodos 5G y Equipos Fiscales.", owner: "Equipo Maestro", date: "Fase 3" },
+    { task: "Pruebas de Estrés y Certificación Final.", owner: "Auditores Kyron", date: "Fase 4" },
 ];
 
 export default function SectorPrivadoPage() {
@@ -129,151 +124,98 @@ export default function SectorPrivadoPage() {
             const azul = "#2563eb";
             const verde = "#22c55e";
             const gris = "#f8fafc";
-            const borde = "#cbd5e1";
             
             const htmlContent = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
                     <meta charset='utf-8'>
                     <style>
-                        body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; line-height: 1.5; }
-                        .header-table { width: 100%; border-bottom: 4pt solid ${azul}; margin-bottom: 30px; }
-                        .title { color: ${azul}; font-size: 26pt; font-weight: 900; text-transform: uppercase; margin: 0; }
-                        .section-box { border: 1pt solid ${borde}; border-radius: 10px; padding: 15px; margin-bottom: 20px; background-color: ${gris}; }
-                        .section-title { background-color: ${azul}; color: #ffffff; font-size: 13pt; font-weight: 900; text-transform: uppercase; padding: 8px 15px; margin-bottom: 10px; border-radius: 5px; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 20px; }
-                        th { background-color: ${azul}; color: #ffffff; padding: 10px; font-size: 9pt; text-transform: uppercase; border: 1pt solid #000; }
-                        td { padding: 8px; border: 1pt solid ${borde}; font-size: 10pt; background-color: #ffffff; }
-                        .fact-box { background-color: ${verde}; color: #ffffff; padding: 20px; border-radius: 15px; margin: 20px 0; text-align: center; }
-                        .footer { text-align: center; font-size: 8pt; color: #94a3b8; margin-top: 40px; text-transform: uppercase; letter-spacing: 2px; border-top: 1pt solid ${borde}; padding-top: 20px; }
-                        .highlight { color: ${azul}; font-weight: 900; }
+                        body { font-family: 'Arial', sans-serif; color: #334155; }
+                        .header { border-bottom: 5pt solid ${azul}; padding-bottom: 20px; margin-bottom: 30px; }
+                        .title { color: ${azul}; font-size: 28pt; font-weight: bold; text-transform: uppercase; margin: 0; }
+                        .section-title { background-color: ${azul}; color: #ffffff; font-size: 14pt; font-weight: bold; padding: 10px; margin-top: 30px; border-radius: 5px; }
+                        .content-box { border: 1pt solid #e2e8f0; padding: 15px; background-color: ${gris}; margin-bottom: 10px; }
+                        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+                        th { background-color: ${azul}; color: #ffffff; padding: 10px; font-size: 10pt; text-align: left; border: 1pt solid #000; }
+                        td { padding: 10px; border: 1pt solid #e2e8f0; font-size: 10pt; background-color: #ffffff; }
+                        .highlight { color: ${verde}; font-weight: bold; }
+                        .footer { text-align: center; font-size: 9pt; color: #94a3b8; margin-top: 50px; border-top: 1pt solid #e2e8f0; padding-top: 20px; }
                     </style>
                 </head>
                 <body>
-                    <!-- HEADER -->
-                    <table class="header-table">
-                        <tr>
-                            <td>
-                                <h1 class="title">System Kyron</h1>
-                                <p style="color:#64748b; font-size:10pt; margin:0; font-weight:bold;">CORPORATE INTELLIGENCE NODE • 2026</p>
-                            </td>
-                            <td style="text-align:right;">
-                                <p style="font-weight:900; color:${azul}; font-size:12pt; margin:0;">EXPEDIENTE MAESTRO ZEDU</p>
-                                <p style="font-size:8pt; margin:0;">REF: KYRON-PRO-MASTER-2026</p>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="header">
+                        <h1 class="title">System Kyron</h1>
+                        <p style="font-size: 12pt; font-weight: bold;">EXPEDIENTE MAESTRO ZEDU • 2026</p>
+                    </div>
 
-                    <!-- PARTE 1 -->
                     <div class="section-title">1. Información del Equipo Técnico</div>
-                    <div class="section-box">
-                        <p><b>PROYECTO:</b> <span class="highlight">${teamInfo.project}</span></p>
+                    <div class="content-box">
+                        <p><b>PROYECTO:</b> ${teamInfo.project}</p>
                         <p><b>INTEGRANTES:</b> ${teamInfo.members}</p>
                         <p><b>INSTITUCIÓN:</b> ${teamInfo.institution}</p>
                         <p><b>UBICACIÓN:</b> ${teamInfo.location}</p>
                     </div>
 
-                    <!-- PARTE 2 -->
                     <div class="section-title">2. Población a Trabajar</div>
-                    <div class="section-box">
+                    <div class="content-box">
                         <p><b>COMUNIDAD:</b> ${populationData.community}</p>
-                        <p><b>ALCANCE:</b> <span style="color:${verde}; font-weight:bold;">${populationData.reach}</span></p>
+                        <p><b>ALCANCE:</b> <span class="highlight">${populationData.reach}</span></p>
                         <p><b>PERFIL:</b> ${populationData.profile}</p>
                     </div>
 
-                    <!-- PARTE 3 -->
                     <div class="section-title">3. Análisis del Problema</div>
-                    <div class="section-box">
+                    <div class="content-box">
                         <p><b>DEFINICIÓN:</b> ${problemAnalysis.definition}</p>
                         <p><b>CAUSAS:</b> ${problemAnalysis.causes}</p>
                         <p><b>CONSECUENCIAS:</b> ${problemAnalysis.consequences}</p>
-                        <p><b>IMPORTANCIA:</b> <i>${problemAnalysis.importance}</i></p>
+                        <p><b>IMPORTANCIA:</b> ${problemAnalysis.importance}</p>
                     </div>
 
-                    <!-- PARTE 4 -->
-                    <div class="fact-box">
-                        <h2 style="margin:0; font-size:18pt; text-transform:uppercase;">4. DICTAMEN DE FACTIBILIDAD</h2>
-                        <p style="font-size:14pt; font-weight:bold; margin:10px 0;">VAN: $450.000 | TIR: 28.5% | ROI: 315%</p>
-                        <p style="font-size:10pt; opacity:0.9;">${feasibilityData.dictamen}</p>
+                    <div class="section-title">4. Factibilidad Económica</div>
+                    <table>
+                        <tr><th>Indicador</th><th>Valor Proyectado</th></tr>
+                        <tr><td>VAN (Valor Actual Neto)</td><td class="highlight">$${feasibilityData.van.toLocaleString()}</td></tr>
+                        <tr><td>TIR (Tasa Interna de Retorno)</td><td class="highlight">${feasibilityData.tir}</td></tr>
+                        <tr><td>Período de Recuperación</td><td>${feasibilityData.payback}</td></tr>
+                        <tr><td>ROI (Retorno de Inversión)</td><td class="highlight">${feasibilityData.roi}</td></tr>
+                    </table>
+                    <p style="font-size: 10pt; font-style: italic;"><b>Dictamen:</b> ${feasibilityData.dictamen}</p>
+
+                    <div class="section-title">5. Desarrolla tu Proyecto (Solución)</div>
+                    <div class="content-box">
+                        <p><b>VISIÓN:</b> ${projectDevelopment.vision}</p>
+                        <p><b>SOLUCIÓN:</b> ${projectDevelopment.solution}</p>
+                        <p><b>DIFERENCIADORES:</b> ${projectDevelopment.differentiators.join(', ')}</p>
                     </div>
 
-                    <!-- PARTE 5 -->
-                    <div class="section-title">5. Desarrolla tu Proyecto (Solución IA)</div>
-                    <div class="section-box">
-                        <p><b>VISIÓN TÉCNICA:</b> ${projectDevelopment.vision}</p>
-                        <p><b>SOLUCIÓN PROPUESTA:</b> ${projectDevelopment.solution}</p>
-                        <p><b>DIFERENCIADORES:</b></p>
-                        <ul style="font-size:10pt; color:#475569;">
-                            ${projectDevelopment.differentiators.map(d => `<li>${d}</li>`).join('')}
-                        </ul>
-                    </div>
-
-                    <!-- PARTE 6 -->
                     <div class="section-title">6. Presupuesto Operativo (CAPEX)</div>
                     <table>
                         <thead>
-                            <tr>
-                                <th style="width:50%;">ITEM DE INVERSIÓN</th>
-                                <th>CANT.</th>
-                                <th>COSTO (USD)</th>
-                                <th>UBICACIÓN</th>
-                            </tr>
+                            <tr><th>ITEM</th><th>CANT.</th><th>COSTO (USD)</th><th>UBICACIÓN</th></tr>
                         </thead>
                         <tbody>
-                            ${budgetData.map(d => `
-                                <tr>
-                                    <td><b>${d.item}</b></td>
-                                    <td style="text-align:center;">${d.qty}</td>
-                                    <td style="text-align:right; font-weight:bold; color:${azul};">$${d.cost.toLocaleString()}</td>
-                                    <td style="text-align:center; font-size:8pt;">${d.location}</td>
-                                </tr>
-                            `).join('')}
-                            <tr style="background-color:${azul}10;">
-                                <td colspan="2" style="font-weight:900; text-transform:uppercase; font-size:11pt; padding:15px;">Total Inversión Nodo Maestro</td>
-                                <td style="text-align:right; font-weight:900; color:${azul}; font-size:14pt;">$${budgetData.reduce((a,b) => a + b.cost, 0).toLocaleString()}</td>
-                                <td></td>
-                            </tr>
+                            ${budgetData.map(d => `<tr><td>${d.item}</td><td style="text-align:center;">${d.qty}</td><td style="text-align:right; font-weight:bold;">$${d.cost.toLocaleString()}</td><td>${d.location}</td></tr>`).join('')}
                         </tbody>
                     </table>
 
-                    <!-- PARTE 7 -->
                     <div class="section-title">7. Aliados y Recursos</div>
-                    <div class="section-box">
-                        <p>Para la ejecución síncrona del Ecosistema Kyron, se han establecido alianzas estratégicas con los siguientes entes:</p>
-                        <table style="border:none;">
-                            ${alliesData.map(a => `
-                                <tr>
-                                    <td style="width:30%; border:none; font-weight:bold; color:${azul};">${a.name}</td>
-                                    <td style="border:none; font-size:9pt;">${a.support}</td>
-                                </tr>
-                            `).join('')}
-                        </table>
+                    <div class="content-box">
+                        ${alliesData.map(a => `<p><b>${a.name}:</b> ${a.support}</p>`).join('')}
                     </div>
 
-                    <!-- PARTE 8 -->
-                    <div class="section-title">8. Plan de Acción y Cronograma</div>
+                    <div class="section-title">8. Plan de Acción</div>
                     <table>
                         <thead>
-                            <tr>
-                                <th style="width:60%;">TAREA ESTRATÉGICA</th>
-                                <th>RESPONSABLE</th>
-                                <th>TIEMPO</th>
-                            </tr>
+                            <tr><th>TAREA</th><th>RESPONSABLE</th><th>FECHA</th></tr>
                         </thead>
                         <tbody>
-                            ${actionPlanData.map(p => `
-                                <tr>
-                                    <td style="font-size:9pt;">${p.task}</td>
-                                    <td style="text-align:center;"><b>${p.owner}</b></td>
-                                    <td style="text-align:center; font-weight:bold; color:${verde};">${p.date}</td>
-                                </tr>
-                            `).join('')}
+                            ${actionPlanData.map(p => `<tr><td>${p.task}</td><td>${p.owner}</td><td class="highlight">${p.date}</td></tr>`).join('')}
                         </tbody>
                     </table>
 
                     <div class="footer">
                         <p>Documento Certificado por System Kyron Master Auth • 2026</p>
-                        <p style="letter-spacing:5px;">*** FINAL DEL EXPEDIENTE ***</p>
+                        <p>*** FINAL DEL DOCUMENTO ***</p>
                     </div>
                 </body>
                 </html>
@@ -283,42 +225,47 @@ export default function SectorPrivadoPage() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = "EXPEDIENTE_MAESTRO_KYRON_UHD.doc";
+            link.download = "EXPEDIENTE_MAESTRO_KYRON_REWRITTEN.doc";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
 
             setIsExporting(false);
             toast({
-                title: "TRANSMISIÓN COMPLETADA",
-                description: "Expediente exportado con fidelidad UHD.",
+                title: "DOCUMENTO SINCRONIZADO",
+                description: "Expediente exportado con éxito.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
-        }, 1200);
+        }, 800);
     };
 
-    if (!isMounted) return null;
+    const SectionHeader = ({ icon: Icon, title, color = "primary" }: any) => (
+        <div className={cn(
+            "flex items-center gap-4 p-4 rounded-2xl border mb-6",
+            color === "primary" ? "bg-primary/5 border-primary/10" : "bg-secondary/5 border-secondary/10"
+        )}>
+            <Icon className={cn("h-6 w-6", color === "primary" ? "text-primary" : "text-secondary")} />
+            <h2 className={cn("text-sm font-black uppercase tracking-[0.3em]", color === "primary" ? "text-primary" : "text-secondary")}>{title}</h2>
+        </div>
+    );
 
     return (
-        <div className="min-h-screen bg-[#020408] text-white p-4 md:p-12 font-sans selection:bg-primary/20 hud-grid relative overflow-x-hidden">
+        <div className="min-h-screen bg-[#020408] text-white p-4 md:p-12 font-sans selection:bg-primary/20 hud-grid relative">
             
-            {/* HUD CONTROL PANEL */}
+            {/* CONTROL PANEL */}
             <div className="max-w-5xl mx-auto mb-16 no-print">
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col md:flex-row justify-between items-center gap-8 bg-white/[0.02] backdrop-blur-3xl p-8 rounded-[2.5rem] border border-white/10 shadow-2xl relative overflow-hidden"
+                    className="flex flex-col md:flex-row justify-between items-center gap-8 bg-white/[0.02] backdrop-blur-3xl p-8 rounded-[2.5rem] border border-white/10 shadow-2xl relative"
                 >
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-50 shadow-glow" />
-                    
                     <div className="flex items-center gap-6">
-                        <Button variant="ghost" asChild className="rounded-xl h-12 px-6 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">
+                        <Button variant="ghost" asChild className="rounded-xl h-12 px-6 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-all">
                             <Link href="/"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
                         </Button>
-                        <div className="h-10 w-px bg-white/10" />
-                        <div className="flex flex-col text-left">
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Dossier Consolidado</span>
-                            <span className="text-[8px] font-bold text-white/20 uppercase tracking-[0.2em] mt-1">Audit Ready • 2026</span>
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Expediente Maestro</span>
+                            <span className="text-[8px] font-bold text-white/20 uppercase mt-1">Audit Ready • 2026</span>
                         </div>
                     </div>
                     
@@ -326,7 +273,7 @@ export default function SectorPrivadoPage() {
                         <Button variant="outline" onClick={() => window.print()} className="h-12 px-8 rounded-xl border-white/10 bg-white/5 font-black text-[10px] uppercase tracking-widest text-white/60 hover:text-white transition-all">
                             <Printer className="mr-3 h-4 w-4 text-primary" /> IMPRIMIR
                         </Button>
-                        <Button onClick={handleDownload} disabled={isExporting} className="h-12 px-10 rounded-xl btn-3d-primary font-black text-[10px] uppercase tracking-widest shadow-glow">
+                        <Button onClick={handleDownload} disabled={isExporting} className="h-12 px-10 rounded-xl btn-3d-primary font-black text-[10px] uppercase tracking-widest">
                             {isExporting ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Download className="mr-3 h-4 w-4" />}
                             EXPORTAR EXPEDIENTE
                         </Button>
@@ -334,106 +281,90 @@ export default function SectorPrivadoPage() {
                 </motion.div>
             </div>
 
-            {/* PREVIEW DEL DOCUMENTO (WEB VIEW) */}
-            <motion.div 
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="max-w-[1000px] mx-auto relative pb-32"
-            >
-                <div id="web-document-view" className="relative bg-white text-black p-8 md:p-20 shadow-2xl rounded-[3.5rem] border border-slate-300 print:shadow-none print:border-none print:p-0 overflow-hidden">
+            {/* DOCUMENT VIEW */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-[900px] mx-auto pb-32">
+                <div className="bg-white text-black p-10 md:p-20 shadow-2xl rounded-[3rem] border border-slate-300 print:p-0 print:shadow-none overflow-hidden">
                     
                     {/* Header Institucional */}
                     <div className="flex justify-between items-start mb-16 border-b-4 border-primary/10 pb-10">
                         <div className="flex items-center gap-6">
                             <Logo className="h-16 w-16" />
-                            <div className="space-y-1 text-left">
+                            <div className="text-left">
                                 <span className="font-black text-3xl tracking-tighter uppercase italic text-primary">System Kyron</span>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em]">Corporate Intelligence Hub</p>
+                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.5em] mt-1">Corporate Intelligence Hub</p>
                             </div>
                         </div>
                         <div className="text-right">
-                            <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Dossier de Ingeniería</Badge>
-                            <p className="text-[9px] font-mono text-slate-400 uppercase tracking-widest italic">REF: KYRON-ZEDU-MASTER-PRO-2026</p>
+                            <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Expediente de Ingeniería</Badge>
+                            <p className="text-[9px] font-mono text-slate-400 uppercase tracking-widest italic">REF: KYRON-ZEDU-2026</p>
                         </div>
                     </div>
 
-                    {/* SECCIONES DINÁMICAS */}
                     <div className="space-y-16">
-                        
-                        {/* 1. Equipo */}
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
-                                <Users className="h-5 w-5 text-primary" />
-                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">1. Información del Equipo Técnico</h2>
-                            </div>
-                            <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white shadow-sm">
-                                <div className="grid grid-cols-1 md:grid-cols-3">
-                                    <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black p-6">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 mb-2">Proyecto</p>
-                                        <p className="text-base font-black uppercase italic text-primary">{teamInfo.project}</p>
+                        {/* 1. Información del Equipo */}
+                        <section>
+                            <SectionHeader icon={Users} title="1. Información del Equipo Técnico" />
+                            <div className="border-[1.5px] border-black rounded-3xl overflow-hidden bg-slate-50">
+                                <div className="grid grid-cols-1 md:grid-cols-2">
+                                    <div className="p-6 border-b md:border-b-0 md:border-r border-black/10">
+                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-1">Proyecto</p>
+                                        <p className="text-sm font-black text-primary uppercase italic">{teamInfo.project}</p>
                                     </div>
-                                    <div className="col-span-2 p-6">
-                                        <p className="text-[9px] font-black uppercase text-slate-500 mb-2">Integrantes</p>
-                                        <p className="font-mono text-sm font-bold uppercase text-slate-800">{teamInfo.members}</p>
+                                    <div className="p-6">
+                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-1">Integrantes</p>
+                                        <p className="text-sm font-bold text-slate-700">{teamInfo.members}</p>
                                     </div>
                                 </div>
-                                <div className="border-t-[1.5px] border-black p-6 bg-slate-50">
-                                    <p className="text-[9px] font-black uppercase text-slate-500 mb-2">Institución y Ubicación</p>
-                                    <p className="text-sm font-bold uppercase text-slate-700">{teamInfo.institution} • {teamInfo.location}</p>
+                                <div className="p-6 border-t border-black/10 bg-white">
+                                    <p className="text-[9px] font-black uppercase text-slate-400 mb-1">Institución / Ubicación</p>
+                                    <p className="text-sm font-bold text-slate-700">{teamInfo.institution} • {teamInfo.location}</p>
                                 </div>
                             </div>
                         </section>
 
                         {/* 2. Población */}
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
-                                <Activity className="h-5 w-5 text-secondary" />
-                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">2. Población a Trabajar</h2>
-                            </div>
-                            <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white p-8">
-                                <p className="text-sm font-bold uppercase text-slate-800 mb-4">{populationData.community}</p>
-                                <div className="grid grid-cols-2 gap-8">
-                                    <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-1">Alcance</p>
-                                        <p className="text-2xl font-black text-secondary">{populationData.reach}</p>
+                        <section>
+                            <SectionHeader icon={Activity} title="2. Población a Trabajar" color="secondary" />
+                            <div className="p-8 bg-white border-[1.5px] border-black rounded-3xl space-y-4">
+                                <p className="text-sm font-bold text-slate-800">{populationData.community}</p>
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div className="p-4 bg-secondary/10 rounded-2xl border border-secondary/20">
+                                        <p className="text-[9px] font-black uppercase text-secondary mb-1">Alcance</p>
+                                        <p className="text-xl font-black text-secondary italic">{populationData.reach}</p>
                                     </div>
-                                    <p className="text-[11px] font-mono font-bold uppercase text-slate-500 leading-relaxed">
-                                        {populationData.profile}
-                                    </p>
+                                    <p className="text-xs font-medium text-slate-500 italic leading-relaxed">{populationData.profile}</p>
                                 </div>
                             </div>
                         </section>
 
-                        {/* 3. Diagnóstico */}
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
-                                <Terminal className="h-5 w-5 text-primary" />
-                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">3. Análisis del Problema</h2>
-                            </div>
+                        {/* 3. Análisis del Problema */}
+                        <section>
+                            <SectionHeader icon={Terminal} title="3. Análisis del Problema" />
                             <div className="p-8 bg-slate-50 border-[1.5px] border-black rounded-3xl space-y-6">
-                                <p className="text-sm italic font-medium leading-relaxed text-slate-800">
-                                    "{problemAnalysis.definition}"
-                                </p>
-                                <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-slate-200">
-                                    <div>
-                                        <p className="text-[9px] font-black uppercase text-rose-500 mb-2">Causas Críticas</p>
-                                        <p className="text-xs font-bold text-slate-600 uppercase">{problemAnalysis.causes}</p>
+                                <p className="text-sm font-bold italic text-slate-800 leading-relaxed">"{problemAnalysis.definition}"</p>
+                                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-slate-200">
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="text-[9px] font-black uppercase text-rose-500 mb-1">Causas</p>
+                                            <p className="text-xs font-medium text-slate-600">{problemAnalysis.causes}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[9px] font-black uppercase text-rose-500 mb-1">Consecuencias</p>
+                                            <p className="text-xs font-medium text-slate-600">{problemAnalysis.consequences}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-[9px] font-black uppercase text-rose-500 mb-2">Consecuencias</p>
-                                        <p className="text-xs font-bold text-slate-600 uppercase">{problemAnalysis.consequences}</p>
+                                    <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
+                                        <p className="text-[9px] font-black uppercase text-primary mb-2 italic">Importancia del Cambio</p>
+                                        <p className="text-xs font-bold text-slate-700 leading-relaxed uppercase">{problemAnalysis.importance}</p>
                                     </div>
                                 </div>
                             </div>
                         </section>
 
                         {/* 4. Factibilidad */}
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
-                                <TrendingUp className="h-5 w-5 text-secondary" />
-                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">4. Factibilidad Económica</h2>
-                            </div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <section>
+                            <SectionHeader icon={TrendingUp} title="4. Factibilidad Económica" color="secondary" />
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                                 {[
                                     { label: "VAN", val: formatCurrency(feasibilityData.van, 'USD'), col: "text-primary" },
                                     { label: "TIR", val: feasibilityData.tir, col: "text-secondary" },
@@ -446,35 +377,27 @@ export default function SectorPrivadoPage() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-2xl">
-                                <p className="text-[10px] font-black text-emerald-700 uppercase tracking-widest mb-2">Dictamen de Ingeniería</p>
-                                <p className="text-xs font-bold text-slate-700 italic">{feasibilityData.dictamen}</p>
-                            </div>
+                            <p className="text-xs font-bold text-slate-500 italic p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <b>Dictamen:</b> {feasibilityData.dictamen}
+                            </p>
                         </section>
 
                         {/* 5. Desarrollo de Proyecto */}
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
-                                <Zap className="h-5 w-5 text-primary" />
-                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">5. Desarrolla tu Proyecto (AutoMind AI)</h2>
-                            </div>
-                            <div className="border-[1.5px] border-black rounded-3xl bg-white p-8 space-y-8">
+                        <section>
+                            <SectionHeader icon={Zap} title="5. Desarrolla tu Proyecto (Solución)" />
+                            <div className="border-[1.5px] border-black rounded-3xl p-8 bg-white space-y-8">
                                 <div className="space-y-4">
-                                    <p className="text-sm font-bold uppercase text-slate-800 leading-relaxed text-justify">
-                                        {projectDevelopment.vision}
-                                    </p>
-                                    <p className="text-xs font-medium text-slate-500 text-justify">
-                                        {projectDevelopment.solution}
-                                    </p>
+                                    <p className="text-sm font-black uppercase italic text-primary">{projectDevelopment.vision}</p>
+                                    <p className="text-xs font-medium text-slate-600 leading-relaxed text-justify">{projectDevelopment.solution}</p>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
                                         <p className="text-[9px] font-black uppercase text-slate-400 mb-3 underline">Otras Propuestas</p>
-                                        <p className="text-[10px] font-bold uppercase text-slate-500 italic">{projectDevelopment.alternatives}</p>
+                                        <p className="text-[10px] font-bold text-slate-500 italic">{projectDevelopment.alternatives}</p>
                                     </div>
                                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/20">
-                                        <p className="text-[9px] font-black uppercase text-primary mb-3 underline">Diferenciadores Kyron</p>
-                                        <ul className="text-[10px] font-black uppercase text-slate-700 space-y-2 italic">
+                                        <p className="text-[9px] font-black uppercase text-primary mb-3 underline">Diferenciadores Clave</p>
+                                        <ul className="text-[10px] font-black uppercase text-slate-700 space-y-2">
                                             {projectDevelopment.differentiators.map((d, i) => <li key={i}>• {d}</li>)}
                                         </ul>
                                     </div>
@@ -483,19 +406,16 @@ export default function SectorPrivadoPage() {
                         </section>
 
                         {/* 6. Presupuesto */}
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
-                                <ShoppingCart className="h-5 w-5 text-secondary" />
-                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">6. Presupuesto Operativo (CAPEX)</h2>
-                            </div>
-                            <div className="border-[1.5px] border-black rounded-3xl overflow-hidden shadow-sm">
+                        <section>
+                            <SectionHeader icon={ShoppingCart} title="6. Presupuesto Operativo (CAPEX)" color="secondary" />
+                            <div className="border-[1.5px] border-black rounded-3xl overflow-hidden">
                                 <Table>
                                     <TableHeader>
                                         <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
                                             <TableHead className="font-black text-[9px] uppercase text-slate-600 pl-6 py-4">Item de Inversión</TableHead>
                                             <TableHead className="text-center font-black text-[9px] uppercase text-slate-600">Cant.</TableHead>
                                             <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Costo (USD)</TableHead>
-                                            <TableHead className="text-right pr-6 font-black text-[9px] uppercase text-slate-600">Ubicación</TableHead>
+                                            <TableHead className="text-right pr-6 font-black text-[9px] uppercase text-slate-600">Origen</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
@@ -508,7 +428,7 @@ export default function SectorPrivadoPage() {
                                             </TableRow>
                                         ))}
                                         <TableRow className="bg-primary/5 font-black border-t-[1.5px] border-black">
-                                            <TableCell colSpan={2} className="text-sm uppercase italic pl-6 py-6">Total Inversión Nodo Maestro</TableCell>
+                                            <TableCell colSpan={2} className="text-sm uppercase italic pl-6 py-6">Total Inversión Proyectada</TableCell>
                                             <TableCell className="text-right text-2xl text-primary font-black italic">{formatCurrency(budgetData.reduce((a,b) => a + b.cost, 0), 'USD')}</TableCell>
                                             <TableCell className="pr-6" />
                                         </TableRow>
@@ -518,23 +438,14 @@ export default function SectorPrivadoPage() {
                         </section>
 
                         {/* 7. Aliados */}
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
-                                <Handshake className="h-5 w-5 text-primary" />
-                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">7. Aliados y Recursos</h2>
-                            </div>
-                            <div className="border-[1.5px] border-black rounded-[2rem] overflow-hidden bg-white shadow-md">
+                        <section>
+                            <SectionHeader icon={Handshake} title="7. Aliados y Recursos Estratégicos" />
+                            <div className="border-[1.5px] border-black rounded-3xl overflow-hidden bg-white">
                                 <Table>
-                                    <TableHeader>
-                                        <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
-                                            <TableHead className="font-black text-[10px] uppercase text-primary tracking-widest pl-8 py-5">Institución / Aliado</TableHead>
-                                            <TableHead className="font-black text-[10px] uppercase text-primary tracking-widest pr-8 py-5">Apoyo Estratégico</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
                                     <TableBody>
                                         {alliesData.map((ally, i) => (
-                                            <TableRow key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
-                                                <TableCell className="pl-8 py-5 text-xs font-black uppercase italic text-slate-800">{ally.name}</TableCell>
+                                            <TableRow key={i} className="border-b border-slate-100 last:border-0">
+                                                <TableCell className="pl-8 py-5 text-xs font-black uppercase italic text-primary">{ally.name}</TableCell>
                                                 <TableCell className="pr-8 py-5 text-xs font-bold text-slate-500 uppercase">{ally.support}</TableCell>
                                             </TableRow>
                                         ))}
@@ -544,26 +455,23 @@ export default function SectorPrivadoPage() {
                         </section>
 
                         {/* 8. Plan de Acción */}
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
-                                <ClipboardCheck className="h-5 w-5 text-secondary" />
-                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">8. Plan de Acción y Cronograma</h2>
-                            </div>
-                            <div className="border-[1.5px] border-black overflow-hidden rounded-[2rem] bg-white">
+                        <section>
+                            <SectionHeader icon={ClipboardCheck} title="8. Plan de Acción y Cronograma" color="secondary" />
+                            <div className="border-[1.5px] border-black rounded-3xl overflow-hidden bg-white">
                                 <Table>
                                     <TableHeader>
                                         <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
-                                            <TableHead className="font-black text-[10px] uppercase text-slate-600 pl-8 py-5">Tarea a Realizar</TableHead>
-                                            <TableHead className="font-black text-[10px] uppercase text-slate-600 text-center">Responsable</TableHead>
-                                            <TableHead className="font-black text-[10px] uppercase text-slate-600 text-right pr-8">Cronograma</TableHead>
+                                            <TableHead className="font-black text-[9px] uppercase text-slate-600 pl-8 py-5">Fase de Tarea</TableHead>
+                                            <TableHead className="font-black text-[9px] uppercase text-slate-600 text-center">Responsable</TableHead>
+                                            <TableHead className="font-black text-[9px] uppercase text-slate-600 text-right pr-8">Tiempo</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
                                         {actionPlanData.map((item, i) => (
                                             <TableRow key={i} className="border-b border-slate-100 last:border-0">
-                                                <TableCell className="pl-8 py-5 text-[11px] font-bold text-slate-700 uppercase leading-relaxed">{item.task}</TableCell>
+                                                <TableCell className="pl-8 py-5 text-[11px] font-bold text-slate-700 uppercase">{item.task}</TableCell>
                                                 <TableCell className="text-center text-[10px] font-black text-primary uppercase italic">{item.owner}</TableCell>
-                                                <TableCell className="text-right pr-8 text-[10px] font-black text-slate-400 uppercase tracking-widest">{item.date}</TableCell>
+                                                <TableCell className="text-right pr-8 text-[10px] font-black text-secondary uppercase tracking-widest">{item.date}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -572,35 +480,18 @@ export default function SectorPrivadoPage() {
                         </section>
                     </div>
 
-                    {/* Footer del Documento */}
                     <div className="mt-24 pt-16 border-t-4 border-slate-100 flex justify-between items-end">
                         <div className="flex items-center gap-6">
-                            <div className="p-6 bg-primary text-white rounded-[2rem] shadow-glow">
-                                <ShieldCheck className="h-10 w-10" />
-                            </div>
-                            <div className="space-y-1 text-left">
-                                <p className="text-[9px] font-black uppercase text-slate-400 tracking-widest">Dictamen Final</p>
-                                <p className="text-sm font-black uppercase italic text-primary leading-none">PROJECT CERTIFIED: KYRON MASTER</p>
-                                <p className="text-[8px] font-bold text-slate-300 uppercase tracking-widest mt-1">Integridad del Expediente: 100%</p>
+                            <ShieldCheck className="h-12 w-12 text-primary shadow-glow" />
+                            <div className="text-left">
+                                <p className="text-[9px] font-black uppercase text-slate-400">Certificación Técnica</p>
+                                <p className="text-sm font-black uppercase italic text-primary leading-none">SYSTEM KYRON MASTER VALIDATED</p>
                             </div>
                         </div>
-                        <div className="text-right space-y-4">
-                            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-300">Autenticación Requerida</p>
-                            <div className="w-64 h-16 border-b-2 border-slate-300 italic text-slate-400 text-xs flex items-end justify-center pb-3 font-serif">
-                                Signature: System Kyron Admin Node
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-12 text-center">
-                        <p className="text-[9px] font-black uppercase tracking-[0.8em] text-slate-300 italic">Final del documento • 2026</p>
+                        <div className="text-[9px] font-black uppercase tracking-[0.8em] text-slate-300 italic">Final del documento • 2026</div>
                     </div>
                 </div>
             </motion.div>
-
-            {/* HUD BORDERS */}
-            <div className="fixed top-0 right-0 w-1 h-full bg-gradient-to-b from-primary/20 via-transparent to-secondary/20 pointer-events-none no-print" />
-            <div className="fixed top-0 left-0 w-1 h-full bg-gradient-to-b from-primary/20 via-transparent to-secondary/20 pointer-events-none no-print" />
         </div>
     );
 }
