@@ -89,164 +89,265 @@ export default function SectorPrivadoPage() {
             const azul = "#2563eb";
             const verde = "#22c55e";
             const gris = "#64748b";
+            const negro = "#0f172a";
             
             const htmlContent = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
                     <meta charset='utf-8'>
                     <style>
-                        body { font-family: 'Arial', sans-serif; color: #1e293b; line-height: 1.6; }
-                        .header-table { width: 100%; border-bottom: 4pt solid ${azul}; margin-bottom: 40px; padding-bottom: 20px; }
-                        .title { color: ${azul}; font-size: 28pt; font-weight: bold; text-transform: uppercase; margin: 0; letter-spacing: -1pt; }
-                        .subtitle { color: ${gris}; font-size: 11pt; font-weight: bold; margin-top: 5pt; text-transform: uppercase; letter-spacing: 2pt; }
+                        body { font-family: 'Calibri', 'Arial', sans-serif; color: ${negro}; line-height: 1.4; background-color: #ffffff; }
+                        .main-container { width: 100%; max-width: 800px; margin: 0 auto; }
                         
-                        .section-header { background-color: ${azul}; color: #ffffff; padding: 12px 20px; font-size: 13pt; font-weight: bold; margin-top: 35px; text-transform: uppercase; border-radius: 6px; }
-                        .content-box { border: 1.5pt solid #e2e8f0; padding: 20px; background-color: #f8fafc; margin-top: 10px; border-radius: 10px; }
+                        /* Header Styles */
+                        .header-table { width: 100%; border-bottom: 3pt solid ${azul}; margin-bottom: 25px; }
+                        .header-left { padding: 10px 0; }
+                        .brand-name { color: ${azul}; font-size: 26pt; font-weight: bold; text-transform: uppercase; margin: 0; }
+                        .brand-tagline { color: ${gris}; font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2pt; margin-top: 2pt; }
+                        .header-right { text-align: right; vertical-align: bottom; padding-bottom: 10px; }
+                        .ref-id { color: ${azul}; font-size: 9pt; font-weight: bold; margin: 0; }
+                        .audit-date { color: ${gris}; font-size: 8pt; margin: 0; }
+
+                        /* Section Styles */
+                        .section-title { 
+                            background-color: ${azul}; 
+                            color: #ffffff; 
+                            padding: 8pt 15pt; 
+                            font-size: 12pt; 
+                            font-weight: bold; 
+                            text-transform: uppercase; 
+                            margin-top: 25pt; 
+                            border-radius: 4pt;
+                        }
                         
-                        table { width: 100%; border-collapse: collapse; margin: 20px 0; border: 1.5pt solid #000; }
-                        th { background-color: #f1f5f9; color: ${azul}; padding: 12px; font-size: 10pt; text-align: left; border: 1pt solid #000; font-weight: bold; text-transform: uppercase; }
-                        td { padding: 12px; border: 1pt solid #cbd5e1; font-size: 10pt; background-color: #ffffff; color: #334155; }
+                        .content-card { 
+                            border: 1pt solid #e2e8f0; 
+                            padding: 15pt; 
+                            background-color: #fcfdfe; 
+                            margin-top: 5pt; 
+                            border-radius: 8pt; 
+                        }
+
+                        .label-text { color: ${gris}; font-size: 8pt; font-weight: bold; text-transform: uppercase; margin-bottom: 2pt; }
+                        .value-text { font-size: 10pt; font-weight: bold; color: ${negro}; margin-bottom: 10pt; }
                         
-                        .fact-card { background-color: #ecfdf5; border: 2pt solid ${verde}; padding: 20px; border-radius: 12px; margin: 20px 0; }
-                        .metric-label { color: ${verde}; font-size: 9pt; font-weight: bold; text-transform: uppercase; }
-                        .metric-value { font-size: 18pt; font-weight: bold; color: #064e3b; }
+                        /* Metrics Dashboard */
+                        .metrics-table { width: 100%; margin: 15pt 0; }
+                        .metric-card { 
+                            background-color: #f0fdf4; 
+                            border: 1.5pt solid ${verde}; 
+                            padding: 15pt; 
+                            text-align: center; 
+                            border-radius: 8pt;
+                        }
+                        .metric-val { font-size: 18pt; font-weight: bold; color: #166534; margin: 0; }
+                        .metric-lab { font-size: 8pt; font-weight: bold; color: ${verde}; text-transform: uppercase; margin: 0; }
+
+                        /* Tables */
+                        .data-table { width: 100%; border-collapse: collapse; margin-top: 10pt; }
+                        .data-table th { 
+                            background-color: #f1f5f9; 
+                            border: 1pt solid #cbd5e1; 
+                            padding: 8pt; 
+                            font-size: 9pt; 
+                            text-align: left; 
+                            color: ${azul}; 
+                            text-transform: uppercase;
+                        }
+                        .data-table td { 
+                            border: 1pt solid #e2e8f0; 
+                            padding: 8pt; 
+                            font-size: 9pt; 
+                        }
+                        .data-table tr.total-row { background-color: #f8fafc; font-weight: bold; }
+
+                        /* Quote Box */
+                        .quote-box { 
+                            border-left: 4pt solid #e2e8f0; 
+                            padding-left: 15pt; 
+                            margin: 15pt 0; 
+                            font-style: italic; 
+                            color: #475569; 
+                            font-size: 11pt;
+                        }
+
+                        /* Footer */
+                        .doc-footer { 
+                            text-align: center; 
+                            font-size: 8pt; 
+                            color: ${gris}; 
+                            margin-top: 50pt; 
+                            border-top: 0.5pt solid #e2e8f0; 
+                            padding-top: 15pt;
+                        }
                         
-                        .footer { text-align: center; font-size: 9pt; color: ${gris}; margin-top: 60px; border-top: 1pt solid #e2e8f0; padding-top: 20px; font-style: italic; }
-                        .highlight { color: ${azul}; font-weight: bold; }
-                        .cert-box { border: 2pt dashed ${azul}; padding: 15px; text-align: center; margin-top: 30px; border-radius: 10px; }
+                        .cert-stamp {
+                            border: 2pt dashed ${azul};
+                            padding: 10pt;
+                            text-align: center;
+                            margin-top: 20pt;
+                            color: ${azul};
+                            font-weight: bold;
+                            font-size: 10pt;
+                        }
                     </style>
                 </head>
                 <body>
-                    <table class="header-table">
-                        <tr>
-                            <td style="border:none;">
-                                <h1 class="title">SYSTEM KYRON</h1>
-                                <p class="subtitle">Corporate Intelligence Hub • Expediente Maestro ZEDU</p>
-                            </td>
-                            <td style="border:none; text-align: right;">
-                                <p style="font-size: 10pt; color: ${azul}; font-weight: bold;">REF: KYRON-ZEDU-2026</p>
-                                <p style="font-size: 8pt; color: ${gris};">AUDIT READY: ${new Date().toLocaleDateString()}</p>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <div class="section-header">1. Información del Equipo Técnico</div>
-                    <div class="content-box">
-                        ${EQUIPO.map(e => `<p><b>${e.label.toUpperCase()}:</b> ${e.val}</p>`).join('')}
-                    </div>
-
-                    <div class="section-header">2. Población a Trabajar</div>
-                    <div class="content-box">
-                        <p><b>UBICACIÓN ESTRATÉGICA:</b> Catia la Mar, Estado La Guaira.</p>
-                        <p><b>ALCANCE DEL NODO:</b> <span class="highlight">2.500 Nodos de Interacción Directa.</span></p>
-                        <p><b>PERFIL DEMOGRÁFICO:</b> Comunidad con alta densidad comercial y necesidad crítica de digitalización de trámites y seguridad de activos.</p>
-                    </div>
-
-                    <div class="section-header">3. Análisis del Problema</div>
-                    <div class="content-box">
-                        <p style="font-style: italic; font-size: 11pt;">"La obsolescencia del archivado físico en la región ha generado un cuello de botella administrativo, resultando en pérdida de activos y riesgo fiscal elevado."</p>
-                        <p><b>CAUSAS RAÍZ:</b> Fragmentación de la data, ausencia de protocolos 5G y dependencia de procesos manuales no auditables.</p>
-                    </div>
-
-                    <div class="section-header">4. Factibilidad Económica</div>
-                    <div class="fact-card">
-                        <table style="border:none; background:transparent;">
+                    <div class="main-container">
+                        <!-- HEADER -->
+                        <table class="header-table" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="border:none; background:transparent;">
-                                    <p class="metric-label">VAN (Valor Actual Neto)</p>
-                                    <p class="metric-value">$ 485.000,00</p>
+                                <td class="header-left">
+                                    <p class="brand-name">SYSTEM KYRON</p>
+                                    <p class="brand-tagline">Corporate Intelligence Hub • ZEDU 2.6</p>
                                 </td>
-                                <td style="border:none; background:transparent;">
-                                    <p class="metric-label">TIR (Tasa de Retorno)</p>
-                                    <p class="metric-value">31.2%</p>
-                                </td>
-                                <td style="border:none; background:transparent;">
-                                    <p class="metric-label">ROI proyectado</p>
-                                    <p class="metric-value">340%</p>
+                                <td class="header-right">
+                                    <p class="ref-id">REF: KYRON-ZEDU-2026-X1</p>
+                                    <p class="audit-date">FECHA: ${new Date().toLocaleDateString()}</p>
                                 </td>
                             </tr>
                         </table>
-                        <p style="margin-top: 10px; color: #065f46; font-size: 10pt;"><b>DICTAMEN:</b> Viabilidad Sobresaliente. El modelo SaaS permite escalabilidad masiva con costos de mantenimiento marginales.</p>
-                    </div>
 
-                    <div class="section-header">5. Desarrolla tu Proyecto (Solución)</div>
-                    <div class="content-box">
-                        <p><b>AutoMind AI:</b> Sistema de inteligencia dirigida para el control total del ecosistema empresarial. Integra conectividad 5G, hardware de inducción magnética para activos físicos y un ledger blockchain inmutable para auditorías en tiempo real.</p>
-                        <p><b>DIFERENCIADORES KYRON:</b> A diferencia de MOBIAN, nuestra solución ofrece blindaje legal predictivo y un chatbot estratégico de atención 24/7 sincronizado con la Gaceta Oficial.</p>
-                    </div>
-
-                    <div class="section-header">6. Presupuesto Operativo (CAPEX)</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Item de Inversión</th>
-                                <th style="text-align: center;">Cant.</th>
-                                <th style="text-align: right;">Costo (USD)</th>
-                                <th>Origen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${PRESUPUESTO.map(p => `
-                                <tr>
-                                    <td>${p.item}</td>
-                                    <td style="text-align: center;">${p.qty}</td>
-                                    <td style="text-align: right; font-weight: bold;">$ ${p.cost.toLocaleString()}.00</td>
-                                    <td>${p.location}</td>
-                                </tr>
+                        <!-- PART 1 -->
+                        <div class="section-title">1. Información del Equipo Técnico</div>
+                        <div class="content-card">
+                            ${EQUIPO.map(e => `
+                                <p class="label-text">${e.label}</p>
+                                <p class="value-text">${e.val}</p>
                             `).join('')}
-                            <tr style="background-color: #f8fafc; font-weight: bold;">
-                                <td colspan="2">TOTAL INVERSIÓN PROYECTADA</td>
-                                <td style="text-align: right; color: ${azul}; font-size: 14pt;">$ 11.900,00</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        </div>
 
-                    <div class="section-header">7. Aliados y Recursos Estratégicos</div>
-                    <table>
-                        <thead>
+                        <!-- PART 2 -->
+                        <div class="section-title">2. Población a Trabajar</div>
+                        <div class="content-card">
+                            <p class="label-text">Ubicación Estratégica</p>
+                            <p class="value-text">Catia la Mar, Estado La Guaira.</p>
+                            <p class="label-text">Alcance Directo</p>
+                            <p class="value-text">2.500 Nodos de Interacción Directa.</p>
+                            <div class="quote-box">
+                                "La zona presenta una densidad comercial crítica que requiere una infraestructura de seguridad digital inmediata."
+                            </div>
+                        </div>
+
+                        <!-- PART 3 -->
+                        <div class="section-title">3. Análisis del Problema</div>
+                        <div class="content-card">
+                            <div class="quote-box">
+                                "El colapso del sistema de archivado físico y la fragmentación de la data han generado un cuello de botella legal en la región."
+                            </div>
+                            <p class="label-text">Causas Identificadas</p>
+                            <p class="value-text">Dependencia del papel, vulnerabilidad ante auditorías y falta de un ledger inmutable.</p>
+                        </div>
+
+                        <!-- PART 4 -->
+                        <div class="section-title">4. Factibilidad Económica</div>
+                        <table class="metrics-table" cellpadding="10" cellspacing="10">
                             <tr>
-                                <th>INSTITUCIÓN / RECURSO</th>
-                                <th>APOYO ESTRATÉGICO</th>
+                                <td width="33%">
+                                    <div class="metric-card">
+                                        <p class="metric-lab">VAN</p>
+                                        <p class="metric-val">$ 485.000</p>
+                                    </div>
+                                </td>
+                                <td width="33%">
+                                    <div class="metric-card">
+                                        <p class="metric-lab">TIR</p>
+                                        <p class="metric-val">31.2%</p>
+                                    </div>
+                                </td>
+                                <td width="33%">
+                                    <div class="metric-card">
+                                        <p class="metric-lab">ROI</p>
+                                        <p class="metric-val">340%</p>
+                                    </div>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            ${ALIADOS.map(a => `
+                        </table>
+                        <div class="content-card" style="border-color: ${verde}; background-color: #f0fdf4;">
+                            <p style="color: #166534; font-size: 10pt; margin: 0;"><b>DICTAMEN:</b> Viabilidad Sobresaliente. El modelo SaaS permite escalabilidad masiva con costos operativos marginales.</p>
+                        </div>
+
+                        <!-- PART 5 -->
+                        <div class="section-title">5. Desarrollo del Proyecto (Solución)</div>
+                        <div class="content-card">
+                            <p class="label-text">Visión AutoMind AI</p>
+                            <p class="value-text">Implementación de un ecosistema 5G con hardware magnético y auditoría blockchain síncrona.</p>
+                            <p class="label-text">Ventaja Competitiva</p>
+                            <p class="value-text">A diferencia de Mobian, Kyron ofrece blindaje legal predictivo y atención neuronal 24/7.</p>
+                        </div>
+
+                        <!-- PART 6 -->
+                        <div class="section-title">6. Presupuesto Operativo (CAPEX)</div>
+                        <table class="data-table">
+                            <thead>
                                 <tr>
-                                    <td style="font-weight: bold; color: ${azul};">${a.name}</td>
-                                    <td>${a.support}</td>
+                                    <th>Item de Inversión</th>
+                                    <th style="text-align: center;">Cant.</th>
+                                    <th style="text-align: right;">Costo (USD)</th>
                                 </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                ${PRESUPUESTO.map(p => `
+                                    <tr>
+                                        <td>${p.item}</td>
+                                        <td style="text-align: center;">${p.qty}</td>
+                                        <td style="text-align: right;">$ ${p.cost.toLocaleString()}.00</td>
+                                    </tr>
+                                `).join('')}
+                                <tr class="total-row">
+                                    <td colspan="2">TOTAL INVERSIÓN</td>
+                                    <td style="text-align: right; color: ${azul};">$ 11.900,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                    <div class="section-header">8. Plan de Acción</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Fase de Tarea</th>
-                                <th>Responsable</th>
-                                <th style="text-align: right;">Tiempo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${PLAN_ACCION.map(task => `
+                        <!-- PART 7 -->
+                        <div class="section-title">7. Aliados Estratégicos</div>
+                        <table class="data-table">
+                            <thead>
                                 <tr>
-                                    <td>${task.task}</td>
-                                    <td style="font-weight: bold;">${task.owner}</td>
-                                    <td style="text-align: right; color: ${verde}; font-weight: bold;">${task.date}</td>
+                                    <th>Institución</th>
+                                    <th>Apoyo Operativo</th>
                                 </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                ${ALIADOS.map(a => `
+                                    <tr>
+                                        <td style="font-weight: bold; color: ${azul};">${a.name}</td>
+                                        <td>${a.support}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
 
-                    <div class="cert-box">
-                        <p style="font-size: 11pt; font-weight: bold; color: ${azul}; margin: 0;">CERTIFICACIÓN TÉCNICA: SYSTEM KYRON MASTER VALIDATED</p>
-                        <p style="font-size: 8pt; color: ${gris}; margin-top: 5px;">Sello Digital: [KYRON-AUTH-2026-X1]</p>
-                    </div>
+                        <!-- PART 8 -->
+                        <div class="section-title">8. Plan de Acción</div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Fase</th>
+                                    <th>Responsable</th>
+                                    <th style="text-align: right;">Tiempo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${PLAN_ACCION.map(task => `
+                                    <tr>
+                                        <td>${task.task}</td>
+                                        <td>${task.owner}</td>
+                                        <td style="text-align: right; color: ${verde};"><b>${task.date}</b></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
 
-                    <div class="footer">
-                        <p>Final del documento • Dossier Institucional de Ingeniería • © 2026 System Kyron Corporate</p>
+                        <div class="cert-stamp">
+                            CERTIFICACIÓN MAESTRA: SYSTEM KYRON VALIDATED [KYRON-AUTH-2026]
+                        </div>
+
+                        <div class="doc-footer">
+                            <p>EXPEDIENTE CONFIDENCIAL • DOCUMENTO OFICIAL DE INGENIERÍA • © 2026 SYSTEM KYRON</p>
+                        </div>
                     </div>
                 </body>
                 </html>
@@ -256,18 +357,18 @@ export default function SectorPrivadoPage() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = "EXPEDIENTE_MAESTRO_ZEDU_KYRON.doc";
+            link.download = "EXPEDIENTE_MAESTRO_KYRON_ZEDU.doc";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
 
             setIsExporting(false);
             toast({ 
-                title: "EXPEDIENTE DESCARGADO", 
-                description: "El dossier de alta fidelidad ha sido generado con éxito.",
+                title: "TRANSMISIÓN COMPLETADA", 
+                description: "El expediente de alta fidelidad ha sido generado con éxito.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
-        }, 800);
+        }, 1000);
     };
 
     if (!isMounted) return null;
@@ -283,7 +384,7 @@ export default function SectorPrivadoPage() {
                 >
                     <div className="flex items-center gap-6">
                         <Button variant="ghost" asChild className="rounded-xl h-12 px-6 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white">
-                            <Link href="/"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
+                            <Link href="/" className="flex items-center"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
                         </Button>
                         <div className="h-10 w-px bg-white/10" />
                         <div className="flex flex-col">
@@ -296,7 +397,7 @@ export default function SectorPrivadoPage() {
                         <Button variant="outline" onClick={() => window.print()} className="h-12 px-8 rounded-xl border-white/10 bg-white/5 font-black text-[10px] uppercase tracking-widest text-white/60 hover:text-white transition-all">
                             <Printer className="mr-3 h-4 w-4 text-primary" /> IMPRIMIR
                         </Button>
-                        <Button onClick={handleDownload} disabled={isExporting} variant="modern" className="h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest">
+                        <Button onClick={handleDownload} disabled={isExporting} variant="modern" className="h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
                             {isExporting ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Download className="mr-3 h-4 w-4" />}
                             EXPORTAR EXPEDIENTE
                         </Button>
