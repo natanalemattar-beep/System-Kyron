@@ -22,7 +22,13 @@ import {
   Target,
   BarChart3,
   Recycle,
-  Gavel
+  Gavel,
+  BookOpen,
+  Calculator,
+  Shield,
+  Handshake,
+  MessageSquare,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -85,7 +91,7 @@ export default function ModeloZeduPage() {
             "xmlns:w='urn:schemas-microsoft-com:office:word' "+
             "xmlns='http://www.w3.org/TR/REC-html40'>"+
             "<head><meta charset='utf-8'><title>MODELO ZEDU - SYSTEM KYRON</title><style>" +
-            "body { font-family: 'Arial', sans-serif; color: #0f172a; background-color: #ffffff; }" +
+            "body { font-family: 'Arial', sans-serif; color: #0f172a; background-color: #ffffff; padding: 20pt; }" +
             "table { border-collapse: collapse; width: 100%; margin-bottom: 25pt; border: 1.5pt solid #000000; }" +
             "td, th { border: 1.0pt solid #000000; padding: 12pt; font-size: 10pt; vertical-align: top; }" +
             ".header-cell { background-color: #0A2472 !important; color: #ffffff !important; font-weight: bold; text-transform: uppercase; text-align: center; }" +
@@ -160,7 +166,7 @@ export default function ModeloZeduPage() {
                             <div className="bg-[#0A2472] text-white p-6 border-4 border-black inline-block">
                                 <h2 className="text-4xl font-black uppercase tracking-tighter leading-none">MODELO ZEDU</h2>
                             </div>
-                            <p className="text-[10px] font-black uppercase mt-4 text-slate-400 tracking-widest">EXPEDIENTE MAESTRO 2026</p>
+                            <p className="text-[10px] font-black uppercase mt-4 text-slate-400 tracking-widest italic">Documento Oficial de Formulación</p>
                         </div>
                     </div>
 
@@ -176,12 +182,12 @@ export default function ModeloZeduPage() {
                             <div className="text-left space-y-2">
                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Sede Operativa</p>
                                 <p className="font-bold text-sm">Catia la Mar, Edo. La Guaira</p>
-                                <p className="text-xs text-slate-600 italic">U.E.C. Gabriela Mistral</p>
+                                <p className="text-xs text-slate-600 italic">Unidad Educativa Privada Colegio Gabriela Mistral</p>
                             </div>
                             <div className="text-right space-y-2">
                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Contacto Oficial</p>
                                 <p className="font-bold text-sm">systemkyronofficial@gmail.com</p>
-                                <p className="text-xs text-slate-600 italic">V-32855496-4</p>
+                                <p className="text-xs text-slate-600 italic">Expediente ID: V-32855496-4</p>
                             </div>
                         </div>
                     </div>
@@ -218,7 +224,7 @@ export default function ModeloZeduPage() {
                             </tr>
                             <tr>
                                 <td className={tableLabelClass}>Institución</td>
-                                <td className={tableCellClass} colSpan={2}>Unidad Educativa Colegio Gabriela Mistral</td>
+                                <td className={tableCellClass} colSpan={2}>Unidad Educativa Privada Colegio Gabriela Mistral</td>
                             </tr>
                             <tr>
                                 <td className={tableLabelClass}>Localización</td>
@@ -232,36 +238,36 @@ export default function ModeloZeduPage() {
                     </table>
                     
                     <div className="mt-12 space-y-6">
-                        <h3 className="text-sm font-black uppercase tracking-widest text-slate-400">Resumen del Perfil</h3>
-                        <p className="text-sm leading-relaxed text-justify">El equipo promotor de System Kyron está compuesto por especialistas en desarrollo de software, análisis fiscal y gestión de infraestructura tecnológica. Nuestra visión es transformar la operatividad del sector privado mediante una arquitectura modular que garantice la transparencia financiera y la inmutabilidad de los registros legales, basando nuestra operación en el centro económico de Catia la Mar.</p>
+                        <h3 className="text-sm font-black uppercase tracking-widest text-slate-400">Resumen de Trayectoria</h3>
+                        <p className="text-sm leading-relaxed text-justify">El equipo promotor de System Kyron se constituye como una fuerza multidisciplinaria dedicada a la resolución de conflictos estructurales mediante la tecnología. Con base en la Unidad Educativa Privada Colegio Gabriela Mistral, hemos desarrollado una arquitectura de software que unifica la fiscalidad, la identidad y la sostenibilidad, posicionando a La Guaira como un centro de innovación tecnológica de referencia nacional.</p>
                     </div>
                 </div>
 
                 {/* 2. POBLACIÓN A TRABAJAR - PÁGINA 3 */}
                 <div className="mb-20 page-break">
                     <h2 className="text-xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                        <Target className="h-6 w-6" /> 2. POBLACIÓN Y ENTORNO OPERATIVO
+                        <Target className="h-6 w-6" /> 2. POBLACIÓN A TRABAJAR (NÚCLEO ESTRATÉGICO)
                     </h2>
                     <table className="w-full">
                         <tbody>
                             <tr>
-                                <td className={tableHeaderClass} colSpan={2}>Análisis Demográfico: Catia la Mar</td>
+                                <td className={tableHeaderClass} colSpan={2}>Análisis Demográfico y Operativo: Catia la Mar</td>
                             </tr>
                             <tr>
                                 <td className={tableLabelClass}>Unidades de Negocio</td>
-                                <td className={tableCellClass}><span className="font-black text-lg">2.500 Nodos Comerciales Identificados</span></td>
+                                <td className={tableCellClass}><span className="font-black text-lg">2.500 Unidades Comerciales Identificadas</span></td>
                             </tr>
                             <tr>
                                 <td className={tableLabelClass}>Perfil Poblacional</td>
-                                <td className={tableCellClass}>Población económicamente activa en sectores de comercio minorista, servicios portuarios y logística. Alta densidad de pequeñas y medianas empresas (PYMES) que requieren modernización urgente.</td>
+                                <td className={tableCellClass}>Emprendedores, comerciantes y microempresarios del sector servicios y logística portuaria. Se estima un 60% de participación masculina y 40% femenina en la toma de decisiones corporativas.</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Distribución Etaria</td>
-                                <td className={tableCellClass}>Predominancia de emprendedores entre 25 y 55 años con alta disposición a la adopción de herramientas digitales para optimizar tiempos de gestión.</td>
+                                <td className={tableLabelClass}>Características del Entorno</td>
+                                <td className={tableCellClass}>Zona costera con alta salinidad y humedad relativa (superior al 85% anual). Esta condición climática genera un deterioro crítico en los archivos físicos de papel, haciendo de la digitalización inmutable una necesidad de preservación legal.</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Condiciones del Entorno</td>
-                                <td className={tableCellClass}>Ambiente costero con niveles críticos de salinidad y humedad (superior al 80%). El deterioro de archivos físicos es acelerado, lo que justifica la digitalización inmediata como método de preservación legal.</td>
+                                <td className={tableLabelClass}>Segmentación por Edad</td>
+                                <td className={tableCellClass}>Predominancia del rango 25-50 años (Generación Digital Nativa y Adaptativa), lo que garantiza una baja curva de aprendizaje para la implementación del ecosistema System Kyron.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -275,7 +281,7 @@ export default function ModeloZeduPage() {
                     <table className="w-full">
                         <tbody>
                             <tr>
-                                <td className={tableHeaderClass}>DEFINICIÓN DEL CONFLICTO</td>
+                                <td className={tableHeaderClass}>DEFINICIÓN CENTRAL DEL CONFLICTO</td>
                             </tr>
                             <tr>
                                 <td className={tableCellClass}>
@@ -290,10 +296,22 @@ export default function ModeloZeduPage() {
                             <tr>
                                 <td className={tableCellClass}>
                                     <ul className="list-disc pl-5 space-y-3">
-                                        <li><strong>Fragmentación Documental:</strong> La información legal y contable reside en silos aislados, dificultando la auditoría.</li>
-                                        <li><strong>Procesos Analógicos:</strong> Persistencia del uso de papel en un entorno climático hostil para materiales orgánicos.</li>
-                                        <li><strong>Falta de Ledger:</strong> Inexistencia de un registro inmutable de transacciones que prevenga el fraude interno y externo.</li>
-                                        <li><strong>Desconexión Ambiental:</strong> Los comercios no poseen incentivos directos para la gestión de residuos plásticos y metálicos.</li>
+                                        <li><strong>Fragmentación Documental:</strong> Los registros contables, legales y de identidad residen en silos desconectados, dificultando la auditoría.</li>
+                                        <li><strong>Procesos Analógicos:</strong> Persistencia del papel en un clima hostil, derivando en pérdida de activos informativos críticos.</li>
+                                        <li><strong>Falta de Registro Central (Ledger):</strong> Inexistencia de un historial inmutable de transacciones que proteja al comerciante de fraudes.</li>
+                                        <li><strong>Desconexión Ambiental:</strong> Los residuos plásticos y metálicos son vistos como basura y no como activos financieros potenciales.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className={tableLabelClass}>Consecuencias Directas</td>
+                            </tr>
+                            <tr>
+                                <td className={tableCellClass}>
+                                    <ul className="list-disc pl-5 space-y-3">
+                                        <li><strong>Multas Fiscales:</strong> Por errores humanos en cálculos de IVA e ISLR.</li>
+                                        <li><strong>Inseguridad Jurídica:</strong> Dificultad para verificar la vigencia de poderes y representaciones legales.</li>
+                                        <li><strong>Ineficiencia en Costos:</strong> Gasto excesivo en almacenamiento físico y logística de documentos.</li>
                                     </ul>
                                 </td>
                             </tr>
@@ -301,7 +319,7 @@ export default function ModeloZeduPage() {
                     </table>
                 </div>
 
-                {/* 4. SOLUCIÓN PROPUESTA - PÁGINA 5-7 (DETALLE EXTENSO) */}
+                {/* 4. SOLUCIÓN PROPUESTA - PÁGINA 5-8 (DETALLE EXTENSO) */}
                 <div className="mb-20 page-break">
                     <h2 className="text-xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                         <Cpu className="h-6 w-6" /> 4. SOLUCIÓN: ECOSISTEMA SYSTEM KYRON
@@ -309,42 +327,60 @@ export default function ModeloZeduPage() {
                     <table className="w-full">
                         <tbody>
                             <tr>
-                                <td className={tableHeaderClass} colSpan={2}>Arquitectura Modular de Gestión</td>
+                                <td className={tableHeaderClass} colSpan={2}>Arquitectura Modular de Gestión Integral</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Módulo 01: Blindaje Fiscal</td>
-                                <td className={tableCellClass}>Automatización de declaraciones de IVA, ISLR e IGTF mediante auditoría predictiva. El sistema detecta inconsistencias antes de que sean reportadas al SENIAT, garantizando cumplimiento total.</td>
+                                <td className={tableLabelClass}>Módulo 01: Blindaje Fiscal IA</td>
+                                <td className={tableCellClass}>Automatización total de declaraciones de IVA, ISLR e IGTF mediante un motor de auditoría predictiva. El sistema analiza cada factura en milisegundos, detectando inconsistencias antes de que se conviertan en multas ante el SENIAT.</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Módulo 02: Bóveda de Identidad</td>
-                                <td className={tableCellClass}>Identidad biométrica 3D vinculada a documentos civiles (Cédula, RIF, Pasaporte). Permite el acceso seguro y autenticación de representantes legales en actos de disposición.</td>
+                                <td className={tableLabelClass}>Módulo 02: Bóveda de Identidad 3D</td>
+                                <td className={tableCellClass}>Uso de biometría facial y fotogrametría para crear una ID digital inalterable. Vincula documentos civiles (Cédula, RIF, Pasaporte) con una llave privada única, eliminando la posibilidad de suplantación de identidad en actos legales.</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Módulo 03: Finanzas Pro</td>
-                                <td className={tableCellClass}>Contabilidad bajo normas VEN-NIF con ajuste por inflación automatizado basado en índices oficiales del BCV. Control de flujo de caja multimoneda (Bs./USD/EUR).</td>
+                                <td className={tableLabelClass}>Módulo 03: Gestión Financiera VEN-NIF</td>
+                                <td className={tableCellClass}>Contabilidad profesional automatizada que aplica ajustes por inflación basados en índices oficiales del BCV. Control de flujo de caja multimoneda síncrono con bancos nacionales e internacionales.</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Módulo 04: Sostenibilidad</td>
-                                <td className={tableCellClass}>Implementación de Smart Bins con tecnología de inducción magnética que recompensa el reciclaje con Eco-Créditos tokenizados en la billetera del usuario.</td>
+                                <td className={tableLabelClass}>Módulo 04: Sostenibilidad Magnética</td>
+                                <td className={tableCellClass}>Despliegue de papeleras inteligentes que utilizan tecnología de inducción magnética para la clasificación precisa de materiales. El sistema recompensa el reciclaje con Eco-Créditos tokenizados en el perfil del usuario.</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Módulo 05: Asesoría Legal IA</td>
-                                <td className={tableCellClass}>Generador de borradores de contratos y actas de asamblea con lenguaje jurídico formal, adaptado a la legislación mercantil y civil venezolana vigente.</td>
+                                <td className={tableLabelClass}>Módulo 05: Asesoría Legal Digital</td>
+                                <td className={tableCellClass}>Generador inteligente de borradores de contratos y actas de asamblea. Redacta documentos con lenguaje jurídico formal ajustado a la legislación mercantil venezolana vigente, listos para ser visados por abogados.</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Módulo 06: Gestión de Talento</td>
-                                <td className={tableCellClass}>Administración de nómina, cálculo de prestaciones sociales y control de expedientes de personal bajo normativa de la LOTTT.</td>
+                                <td className={tableLabelClass}>Módulo 06: Administración de Talento</td>
+                                <td className={tableCellClass}>Control exhaustivo de nómina, vacaciones, horas extras y prestaciones sociales bajo la normativa de la LOTTT. Gestión de expedientes digitales de personal con recordatorios de vencimiento de contratos.</td>
+                            </tr>
+                            <tr>
+                                <td className={tableLabelClass}>Módulo 07: Control de Existencias</td>
+                                <td className={tableCellClass}>Inventario inteligente con alertas de stock crítico y valorización de activos en tiempo real. Integrado directamente con el Punto de Venta para una trazabilidad total del ciclo de producto.</td>
+                            </tr>
+                            <tr>
+                                <td className={tableLabelClass}>Módulo 08: Auditoría Blockchain</td>
+                                <td className={tableCellClass}>Cada acción administrativa genera un hash inmutable en un Ledger privado. Esto garantiza que ningún registro pueda ser alterado retroactivamente, proporcionando una transparencia absoluta para los socios.</td>
+                            </tr>
+                            <tr>
+                                <td className={tableLabelClass}>Módulo 09: Ingeniería IA</td>
+                                <td className={tableCellClass}>Herramienta para la generación de planos y presupuestos de obra mediante fotogrametría. Permite calcular materiales y mano de obra a partir de una simple imagen de un local comercial.</td>
+                            </tr>
+                            <tr>
+                                <td className={tableLabelClass}>Módulo 10: Academia Pro</td>
+                                <td className={tableCellClass}>Centro de formación técnica integrado para capacitar al personal en el uso del ecosistema, con certificaciones digitales que validan las competencias en gestión moderna.</td>
                             </tr>
                         </tbody>
                     </table>
                     
                     <div className="p-10 bg-[#00A86B]/10 border-2 border-[#00A86B] rounded-[3rem] mt-10">
-                        <h4 className="text-xs font-black uppercase tracking-[0.2em] text-[#00A86B] mb-4">Diferenciador Estratégico</h4>
-                        <p className="text-base font-bold italic leading-relaxed text-slate-800 text-justify">"A diferencia de sistemas administrativos convencionales, System Kyron opera como un centro de mando unificado. No solo registra datos; protege el patrimonio mediante la prevención de multas fiscales y la inmutabilidad de los archivos digitales, convirtiendo la sostenibilidad en un activo financiero real."</p>
+                        <h4 className="text-xs font-black uppercase tracking-[0.2em] text-[#00A86B] mb-4 flex items-center gap-2">
+                            <Sparkles className="h-4 w-4" /> Diferenciador Estratégico
+                        </h4>
+                        <p className="text-base font-bold italic leading-relaxed text-slate-800 text-justify">"System Kyron no es una aplicación aislada; es una unidad de inteligencia centralizada. Nuestra capacidad de unificar la identidad civil con la fiscalidad empresarial y la sostenibilidad ambiental crea una barrera de eficiencia que reduce los costos operativos en un 45% durante el primer año."</p>
                     </div>
                 </div>
 
-                {/* 5. FACTIBILIDAD ECONÓMICA - PÁGINA 8 */}
+                {/* 5. FACTIBILIDAD ECONÓMICA - PÁGINA 9 */}
                 <div className="mb-20 page-break">
                     <h2 className="text-xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                         <TrendingUp className="h-6 w-6" /> 5. ESTUDIO DE FACTIBILIDAD ECONÓMICA
@@ -352,33 +388,29 @@ export default function ModeloZeduPage() {
                     <table className="w-full">
                         <tbody>
                             <tr>
-                                <td className={tableHeaderClass} colSpan={2}>Métricas de Viabilidad Financiera</td>
+                                <td className={tableHeaderClass} colSpan={2}>Indicadores de Viabilidad Financiera</td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Tasa de Retorno (TIR)</td>
+                                <td className={tableLabelClass}>Tasa Interna de Retorno (TIR)</td>
                                 <td className={tableCellClass}><span className="text-[#00A86B] font-black text-xl">28.5% Anual Proyectada</span></td>
                             </tr>
                             <tr>
-                                <td className={tableLabelClass}>Margen Operativo Neto</td>
-                                <td className={tableCellClass}>32% tras la deducción de costos de infraestructura cloud y mantenimiento preventivo de hardware.</td>
+                                <td className={tableLabelClass}>Valor Actual Neto (VAN)</td>
+                                <td className={tableCellClass}><span className="text-[#0A2472] font-black text-xl">$ 450.000,00 (Horizonte 5 años)</span></td>
                             </tr>
                             <tr>
                                 <td className={tableLabelClass}>Punto de Equilibrio</td>
-                                <td className={tableCellClass}>Mes 14 de operación continua en el primer lote de despliegue (Catia la Mar).</td>
+                                <td className={tableCellClass}>Se alcanza en el mes 14 tras el despliegue del primer lote de 100 unidades en comercios de La Guaira.</td>
                             </tr>
                             <tr>
-                                <td className={tableHeaderClass} colSpan={2}>Estrategia de Mitigación de Riesgos</td>
-                            </tr>
-                            <tr>
-                                <td className={tableCellClass} colSpan={2}>
-                                    <p>El proyecto utiliza un modelo de negocio SaaS (Software as a Service) que minimiza los costos de adquisición para el cliente y asegura un flujo de caja recurrente. La tecnología Cloud-Native garantiza escalabilidad horizontal sin incremento lineal de gastos operativos.</p>
-                                </td>
+                                <td className={tableLabelClass}>Modelo de Ingresos</td>
+                                <td className={tableCellClass}>SaaS (Suscripción mensual por módulo) + Venta de Hardware (Smart Bins y Equipos Fiscales) + Comisiones por transacciones de Eco-Créditos.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* 6. PRESUPUESTO - PÁGINA 9 */}
+                {/* 6. PRESUPUESTO - PÁGINA 10 */}
                 <div className="mb-20 page-break">
                     <h2 className="text-xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                         <Zap className="h-6 w-6" /> 6. PRESUPUESTO Y ASIGNACIÓN DE CAPITAL
@@ -391,79 +423,72 @@ export default function ModeloZeduPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td className={tableCellClass}>Arquitectura Core: Bóveda Digital & Cloud Ledger</td><td className={cn(tableCellClass, "text-right font-black")}>$ 8.500,00</td></tr>
-                            <tr><td className={tableCellClass}>Desarrollo Motor IA Fiscal & Legal</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.500,00</td></tr>
-                            <tr><td className={tableCellClass}>Hardware de Reciclaje: Smart Bins Magnéticos (Prototipos)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.183,00</td></tr>
-                            <tr><td className={tableCellClass}>Equipos Fiscales Homologados para Integración TPV</td><td className={cn(tableCellClass, "text-right font-black")}>$ 4.000,00</td></tr>
-                            <tr><td className={tableCellClass}>Unidades Biométricas de Alta Definición (Grado Legal)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 4.500,00</td></tr>
-                            <tr><td className={tableCellClass}>Operación, Despliegue y Logística en Edo. La Guaira</td><td className={cn(tableCellClass, "text-right font-black")}>$ 3.200,00</td></tr>
+                            <tr><td className={tableCellClass}>Arquitectura de Software: Bóveda Digital & Cloud Ledger</td><td className={cn(tableCellClass, "text-right font-black")}>$ 8.500,00</td></tr>
+                            <tr><td className={tableCellClass}>Desarrollo de Algoritmos IA (Fiscal, Legal e Ingeniería)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.500,00</td></tr>
+                            <tr><td className={tableCellClass}>Hardware de Reciclaje: Prototipos de Smart Bins Magnéticos</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.183,00</td></tr>
+                            <tr><td className={tableCellClass}>Equipos Fiscales Homologados (Integración TPV)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 4.000,00</td></tr>
+                            <tr><td className={tableCellClass}>Unidades Biométricas de Alta Fidelidad (Grado Legal)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 4.500,00</td></tr>
+                            <tr><td className={tableCellClass}>Logística, Despliegue y Capacitación en Edo. La Guaira</td><td className={cn(tableCellClass, "text-right font-black")}>$ 3.200,00</td></tr>
                             <tr className="bg-slate-100">
-                                <td className={cn(tableCellClass, "text-right font-black text-sm")}>TOTAL INVERSIÓN INICIAL</td>
+                                <td className={cn(tableCellClass, "text-right font-black text-sm uppercase")}>TOTAL INVERSIÓN PROYECTADA</td>
                                 <td className={cn(tableCellClass, "text-right font-black text-2xl text-[#0A2472]")}>$ 32.883,00</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* 7. ALIADOS - PÁGINA 10 */}
-                <div className="mb-20 page-break">
+                {/* 7. ALIADOS - PÁGINA 11 */}
+                <div className="mb-20">
                     <h2 className="text-xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                        <Scale className="h-6 w-6" /> 7. ALIADOS ESTRATÉGICOS Y RECURSOS
+                        <Scale className="h-6 w-6" /> 7. ALIADOS ESTRATÉGICOS Y PLAN DE ACCIÓN
                     </h2>
                     <table className="w-full">
                         <thead>
                             <tr>
                                 <th className={tableHeaderClass} style={{ width: '45%' }}>ENTIDAD ALIADA</th>
-                                <th className={tableHeaderClass} style={{ width: '55%' }}>FUNCIÓN EN EL ECOSISTEMA</th>
+                                <th className={tableHeaderClass} style={{ width: '55%' }}>FUNCIÓN TÉCNICA</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td className={tableCellClass}><span className="font-black">THE FACTORY HKA</span></td><td className={tableCellClass}>Provisión y homologación de hardware fiscal bajo estándares del SENIAT.</td></tr>
-                            <tr><td className={tableCellClass}><span className="font-black">SAPI / PROPIEDAD INTEL.</span></td><td className={tableCellClass}>Registro de patentes de hardware y protección de algoritmos propietarios.</td></tr>
-                            <tr><td className={tableCellClass}><span className="font-black">SAMSUNG / UHD DISPLAY</span></td><td className={tableCellClass}>Infraestructura de visualización para terminales biométricas 3D.</td></tr>
-                            <tr><td className={tableCellClass}><span className="font-black">COLEGIO GABRIELA MISTRAL</span></td><td className={tableCellClass}>Sede de desarrollo, pruebas de concepto y laboratorio de ingeniería.</td></tr>
+                            <tr><td className={tableCellClass}><span className="font-black">THE FACTORY HKA</span></td><td className={tableCellClass}>Provisión de hardware fiscal homologado por el SENIAT.</td></tr>
+                            <tr><td className={tableCellClass}><span className="font-black">SAPI / REGISTRO PROPIEDAD</span></td><td className={tableCellClass}>Protección de patentes industriales y derechos de autor del código.</td></tr>
+                            <tr><td className={tableCellClass}><span className="font-black">U.E.P. COLEGIO GABRIELA MISTRAL</span></td><td className={tableCellClass}>Centro de investigación, desarrollo y laboratorios de prueba.</td></tr>
                         </tbody>
                     </table>
-                </div>
 
-                {/* 8. PLAN DE ACCIÓN - PÁGINA 11 */}
-                <div className="mb-20">
-                    <h2 className="text-xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                        <Clock className="h-6 w-6" /> 8. PLAN DE ACCIÓN Y CRONOGRAMA DE DESPLIEGUE
-                    </h2>
+                    <h3 className="text-sm font-black uppercase mb-6 tracking-widest text-[#0A2472] mt-12 italic">Cronograma de Ejecución (Fase Beta)</h3>
                     <table className="w-full">
                         <thead>
                             <tr>
-                                <th className={tableHeaderClass} style={{ width: '15%' }}>FASE</th>
-                                <th className={tableHeaderClass} style={{ width: '55%' }}>ACCIÓN TÉCNICA / OPERATIVA</th>
+                                <th className={tableHeaderClass} style={{ width: '15%' }}>SEMANA</th>
+                                <th className={tableHeaderClass} style={{ width: '55%' }}>HITO TÉCNICO</th>
                                 <th className={tableHeaderClass} style={{ width: '30%' }}>RESPONSABLE</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td className={cn(tableCellClass, "text-center")}>01</td><td className={tableCellClass}>Levantamiento demográfico y censo de necesidades en comercios de Catia la Mar.</td><td className={tableCellClass}>Marcos Sousa</td></tr>
-                            <tr><td className={cn(tableCellClass, "text-center")}>02</td><td className={tableCellClass}>Configuración de Bóveda Digital y sellado de registros en Ledger Blockchain.</td><td className={tableCellClass}>Carlos Mattar</td></tr>
-                            <tr><td className={cn(tableCellClass, "text-center")}>03</td><td className={tableCellClass}>Instalación de prototipos Smart Bins y pruebas de inducción magnética.</td><td className={tableCellClass}>Sebastián Garrido</td></tr>
-                            <tr><td className={cn(tableCellClass, "text-center")}>04</td><td className={tableCellClass}>Activación de IA Fiscal y capacitación de personal administrativo aliado.</td><td className={tableCellClass}>Carlos Mattar</td></tr>
-                            <tr><td className={cn(tableCellClass, "text-center")}>05</td><td className={tableCellClass}>Lanzamiento de Red de Beneficios y validación de Eco-Créditos.</td><td className={tableCellClass}>Equipo Maestro</td></tr>
+                            <tr><td className={cn(tableCellClass, "text-center")}>01-04</td><td className={tableCellClass}>Levantamiento de requerimientos y censo en Catia la Mar.</td><td className={tableCellClass}>Marcos Sousa</td></tr>
+                            <tr><td className={cn(tableCellClass, "text-center")}>05-12</td><td className={tableCellClass}>Desarrollo del Core Contable y Bóveda de Identidad.</td><td className={tableCellClass}>Carlos Mattar</td></tr>
+                            <tr><td className={cn(tableCellClass, "text-center")}>13-16</td><td className={tableCellClass}>Ensamble de Smart Bins y pruebas de campo magnético.</td><td className={tableCellClass}>Sebastián Garrido</td></tr>
+                            <tr><td className={cn(tableCellClass, "text-center")}>17-20</td><td className={tableCellClass}>Lanzamiento de la Red de Beneficios y Canje de Puntos.</td><td className={tableCellClass}>Equipo Maestro</td></tr>
                         </tbody>
                     </table>
 
                     <div className="mt-20 p-12 bg-slate-50 border-4 border-[#0A2472] rounded-xl space-y-8">
-                        <h3 className="text-2xl font-black uppercase text-[#0A2472] border-b-2 border-[#0A2472] pb-4 italic">Dictamen Final de Viabilidad</h3>
+                        <h3 className="text-2xl font-black uppercase text-[#0A2472] border-b-2 border-[#0A2472] pb-4 italic">Dictamen Maestro de Viabilidad</h3>
                         <p className="text-base font-bold italic text-slate-700 leading-relaxed text-justify">
-                            "El Modelo ZEDU para System Kyron ha sido evaluado bajo parámetros de ingeniería estratégica y financiera rigorosos. Se dictamina que el proyecto posee una viabilidad técnica sobresaliente, apalancada por la inmutabilidad de los datos y el cumplimiento fiscal absoluto. La integración de sostenibilidad y gestión empresarial representa una oportunidad de inversión de bajo riesgo y alto impacto social para el Estado La Guaira."
+                            "El Modelo ZEDU para System Kyron ha sido evaluado bajo parámetros de ingeniería y finanzas corporativas rigurosos. Se concluye que el proyecto posee una viabilidad técnica superior, sustentada en la inmutabilidad de los datos y la escalabilidad del modelo de negocio. La integración de sostenibilidad y fiscalidad representa la evolución lógica de la gestión comercial en la República Bolivariana de Venezuela."
                         </p>
                         <div className="flex flex-col md:flex-row justify-between items-end pt-12 gap-12">
                             <div className="text-center w-full md:w-64">
                                 <div className="border-t-2 border-black pt-3">
-                                    <p className="text-xs font-black uppercase tracking-widest">Firma del Equipo</p>
-                                    <p className="text-[10px] text-slate-400">System Kyron Official</p>
+                                    <p className="text-xs font-black uppercase tracking-widest">Firma del Equipo Promotor</p>
+                                    <p className="text-[10px] text-slate-400 mt-1 uppercase font-bold">System Kyron Official</p>
                                 </div>
                             </div>
                             <div className="text-center w-full md:w-64">
                                 <div className="border-t-2 border-black pt-3">
                                     <p className="text-xs font-black uppercase tracking-widest">Sello Institucional</p>
-                                    <p className="text-[10px] text-slate-400">MARZO 2026</p>
+                                    <p className="text-[10px] text-slate-400 mt-1 uppercase font-bold">MARZO 2026</p>
                                 </div>
                             </div>
                         </div>
@@ -471,15 +496,15 @@ export default function ModeloZeduPage() {
                 </div>
 
                 <footer className="mt-20 pt-10 border-t-2 border-slate-100 flex flex-col items-center gap-4 text-center">
-                    <p className="text-[9px] font-black text-slate-300 uppercase tracking-[1em] italic">DOCUMENTO OFICIAL • COPIA MAESTRA</p>
-                    <p className="text-[8px] font-bold text-slate-400 uppercase">© 2026 SYSTEM KYRON • TODOS LOS DERECHOS RESERVADOS</p>
+                    <p className="text-[9px] font-black text-slate-300 uppercase tracking-[1em] italic">DOCUMENTO OFICIAL • MODELO ZEDU</p>
+                    <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">© 2026 SYSTEM KYRON • TODOS LOS DERECHOS RESERVADOS</p>
                 </footer>
             </motion.div>
 
             <div className="max-w-5xl mx-auto mt-12 flex flex-wrap justify-center items-center gap-8 md:gap-16 no-print text-[10px] font-black uppercase text-slate-500 tracking-[0.6em] opacity-60 italic">
-                <span className="flex items-center gap-3"><Lock className="h-4 w-4" /> INTEGRIDAD GARANTIZADA</span>
-                <span className="flex items-center gap-3"><Activity className="h-4 w-4" /> MODELO ZEDU ACTIVO</span>
-                <span className="flex items-center gap-3"><ShieldCheck className="h-4 w-4" /> CERTIFICADO KYRON-PRO</span>
+                <span className="flex items-center gap-3"><Lock className="h-4 w-4 text-primary" /> INTEGRIDAD GARANTIZADA</span>
+                <span className="flex items-center gap-3"><Activity className="h-4 w-4 text-secondary" /> MODELO ZEDU ACTIVO</span>
+                <span className="flex items-center gap-3"><ShieldCheck className="h-4 w-4 text-emerald-500" /> CERTIFICADO KYRON-PRO</span>
             </div>
         </div>
     );
