@@ -12,7 +12,12 @@ import {
   Activity,
   QrCode,
   FileText,
-  Table as TableIcon
+  Table as TableIcon,
+  Users,
+  Briefcase,
+  Zap,
+  TrendingUp,
+  Cpu
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -44,7 +49,6 @@ export default function ModeloZeduPage() {
 
     if (!isMounted) return null;
 
-    const tableBorderStyle = "border border-black";
     const headerCellStyle = "bg-slate-50 text-black font-black uppercase p-3 text-xs border border-black";
     const contentCellStyle = "p-3 text-xs border border-black text-slate-900 bg-white";
 
@@ -117,8 +121,8 @@ export default function ModeloZeduPage() {
                                 <td className={contentCellStyle} colSpan={2}><span className="text-lg font-black uppercase">SYSTEM KYRON • CORPORATE INTELLIGENCE</span></td>
                             </tr>
                             <tr>
-                                <td className={headerCellStyle} className="w-1/2 bg-slate-50 border border-black font-black p-3 text-xs">INTEGRANTES (NODO MAESTRO)</td>
-                                <td className={headerCellStyle} className="w-1/2 bg-slate-50 border border-black font-black p-3 text-xs">INSTITUCIÓN / SEDE</td>
+                                <td className={cn(headerCellStyle, "w-1/2")}>INTEGRANTES (NODO MAESTRO)</td>
+                                <td className={cn(headerCellStyle, "w-1/2")}>INSTITUCIÓN / SEDE</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>
@@ -254,45 +258,45 @@ export default function ModeloZeduPage() {
                 {/* 5. PRESUPUESTO */}
                 <div className="mb-12">
                     <h2 className="text-sm font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <formatCurrency amount={0} /> 5. PRESUPUESTO OPERATIVO (CAPEX)
+                        <TrendingUp className="h-4 w-4" /> 5. PRESUPUESTO OPERATIVO (CAPEX)
                     </h2>
                     <table className="w-full border-collapse border-2 border-black text-center">
                         <thead className="bg-slate-50">
                             <tr>
-                                <th className={headerCellStyle} className="p-3 text-[10px] font-black border border-black">ÍTEM DE INVERSIÓN</th>
-                                <th className={headerCellStyle} className="p-3 text-[10px] font-black border border-black">CANT.</th>
-                                <th className={headerCellStyle} className="p-3 text-[10px] font-black border border-black">COSTO UNIT (USD)</th>
-                                <th className={headerCellStyle} className="p-3 text-[10px] font-black border border-black">TOTAL (USD)</th>
+                                <th className={cn(headerCellStyle, "text-[10px]")}>ÍTEM DE INVERSIÓN</th>
+                                <th className={cn(headerCellStyle, "text-[10px]")}>CANT.</th>
+                                <th className={cn(headerCellStyle, "text-[10px]")}>COSTO UNIT (USD)</th>
+                                <th className={cn(headerCellStyle, "text-[10px]")}>TOTAL (USD)</th>
                             </tr>
                         </thead>
                         <tbody className="font-bold uppercase">
                             <tr>
-                                <td className={contentCellStyle} className="text-left p-3 border border-black">Infraestructura Cloud Ledger & Nodo 5G</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">01</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">$ 15.000,00</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">$ 15.000,00</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Infraestructura Cloud Ledger & Nodo 5G</td>
+                                <td className={contentCellStyle}>01</td>
+                                <td className={contentCellStyle}>$ 15.000,00</td>
+                                <td className={contentCellStyle}>$ 15.000,00</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle} className="text-left p-3 border border-black">Terminales Inteligentes de Gestión Pro</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">10</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">$ 850,00</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">$ 8.500,00</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Terminales Inteligentes de Gestión Pro</td>
+                                <td className={contentCellStyle}>10</td>
+                                <td className={contentCellStyle}>$ 850,00</td>
+                                <td className={contentCellStyle}>$ 8.500,00</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle} className="text-left p-3 border border-black">Módulo de Bóveda Digital Inmutable</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">01</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">$ 4.200,00</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">$ 4.200,00</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Módulo de Bóveda Digital Inmutable</td>
+                                <td className={contentCellStyle}>01</td>
+                                <td className={contentCellStyle}>$ 4.200,00</td>
+                                <td className={contentCellStyle}>$ 4.200,00</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle} className="text-left p-3 border border-black">Smart Bins (Inducción Magnética Síncrona)</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">04</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">$ 1.295,75</td>
-                                <td className={contentCellStyle} className="p-3 border border-black">$ 5.183,00</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Smart Bins (Inducción Magnética Síncrona)</td>
+                                <td className={contentCellStyle}>04</td>
+                                <td className={contentCellStyle}>$ 1.295,75</td>
+                                <td className={contentCellStyle}>$ 5.183,00</td>
                             </tr>
                             <tr className="bg-slate-100">
-                                <td className={contentCellStyle} className="text-right p-4 border border-black font-black text-sm" colSpan={3}>TOTAL INVERSIÓN PROYECTADA</td>
-                                <td className={contentCellStyle} className="p-4 border border-black font-black text-sm text-primary">$ 32.883,00</td>
+                                <td className={cn(contentCellStyle, "text-right p-4 font-black text-sm")} colSpan={3}>TOTAL INVERSIÓN PROYECTADA</td>
+                                <td className={cn(contentCellStyle, "p-4 font-black text-sm text-primary")}>$ 32.883,00</td>
                             </tr>
                         </tbody>
                     </table>
