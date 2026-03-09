@@ -55,11 +55,11 @@ const teamInfo = {
     project: "SYSTEM KYRON (AUTOMIND AI)",
     members: "Carlos Mattar, Sebastian Garrido, Marcos Sousa",
     institution: "U.E. Colegio 'Gabriela Mistral'",
-    location: "Santa Rosa de Lima, Caracas"
+    location: "Catia la Mar, La Guaira"
 };
 
 const populationData = {
-    community: "Comunidad Educativa y Administrativa Santa Rosa de Lima",
+    community: "Comunidad Educativa y Administrativa Catia la Mar, La Guaira",
     reach: "1.500+ Usuarios Activos (Estudiantes, Representantes, Personal)",
     profile: "Nodo de alta demanda transaccional y digitalización crítica."
 };
@@ -106,7 +106,7 @@ const alliesData = [
 ];
 
 const actionPlanData = [
-    { task: "Levantamiento de requerimientos técnicos en Santa Rosa de Lima.", owner: "Carlos Mattar", date: "Semana 1-2" },
+    { task: "Levantamiento de requerimientos técnicos en Catia la Mar, La Guaira.", owner: "Carlos Mattar", date: "Semana 1-2" },
     { task: "Alineación con aliados institucionales (SENIAT/CONATEL).", owner: "Sebastian Garrido", date: "Semana 3" },
     { task: "Instalación de hardware magnético y despliegue de red 5G.", owner: "Marcos Sousa", date: "Semana 4-5" },
     { task: "Activación de Bóveda Digital y capacitación de personal.", owner: "Carlos Mattar", date: "Semana 6" },
@@ -147,7 +147,6 @@ export default function SectorPrivadoPage() {
                         .fact-box { background-color: ${verde}; color: #ffffff; padding: 20px; border-radius: 15px; margin: 20px 0; text-align: center; }
                         .footer { text-align: center; font-size: 8pt; color: #94a3b8; margin-top: 40px; text-transform: uppercase; letter-spacing: 2px; border-top: 1pt solid ${borde}; padding-top: 20px; }
                         .highlight { color: ${azul}; font-weight: 900; }
-                        .tag { display: inline-block; padding: 2px 8px; background: ${azul}20; color: ${azul}; border-radius: 4px; font-size: 8pt; font-weight: bold; }
                     </style>
                 </head>
                 <body>
