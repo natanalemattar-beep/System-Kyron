@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Link } from "@/navigation";
+import Link from "next/link";
 import NextImage from "next/image";
 import { 
   Printer, 
@@ -203,7 +203,7 @@ export default function ExpedienteMaestroPage() {
                     </Button>
                     <Button 
                         onClick={handleDownload}
-                        className="modern h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl"
+                        className="h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl bg-[#0A2472] text-white hover:bg-[#0A2472]/90"
                     >
                         <Download className="mr-2 h-4 w-4" /> EXPORTAR EXPEDIENTE
                     </Button>
@@ -321,7 +321,7 @@ export default function ExpedienteMaestroPage() {
                                 </div>
                             </div>
                             <div className="bg-[#0A2472] text-white p-10 text-center rounded-xl shadow-2xl relative overflow-hidden group">
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0,transparent_70%)] opacity-0 group-hover:opacity-10 transition-opacity" />
                                 <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 text-blue-300">Inversión Inicial Estimada</p>
                                 <p className="text-4xl font-black tracking-tighter italic leading-none">$ 32.883 USD</p>
                                 <p className="text-[8px] font-bold mt-4 opacity-40 uppercase tracking-widest">Auditado por Holding Kyron</p>
@@ -340,7 +340,7 @@ export default function ExpedienteMaestroPage() {
                                 { title: "Eco-Token", desc: "Mercado de compensación ambiental.", icon: Recycle },
                                 { title: "5G Slice", desc: "Priorización de red para procesos críticos.", icon: Radio }
                             ].map((item, i) => (
-                                <div key={i} className="flex gap-6 items-start">
+                                <div key={i} className="flex gap-6 items-start text-[#0f172a]">
                                     <div className="p-3 bg-white border border-slate-200 rounded-lg shadow-sm">
                                         <item.icon className="h-5 w-5 text-[#0A2472]" />
                                     </div>
