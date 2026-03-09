@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -136,7 +137,7 @@ export default function ExpedienteMaestroPage() {
                     </div>
                 </header>
 
-                {/* SECCIÓN 1: KPI QUANTUM DATA */}
+                {/* SECCIÓN 1: KPI QUANTUM DATA (Contenido Nuevo) */}
                 <section className="mb-16">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
@@ -207,7 +208,7 @@ export default function ExpedienteMaestroPage() {
                         </div>
                     </section>
 
-                    {/* 4. CAPACIDADES MAESTRO + TIER 2 */}
+                    {/* 4. CAPACIDADES MAESTRO + TIER 2 (Contenido Nuevo) */}
                     <section className="bg-slate-900 text-white p-10 rounded-sm relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-6 opacity-10"><Zap className="h-32 w-32" /></div>
                         <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 mb-8 font-sans">4. Capacidades del Ecosistema</h2>
@@ -232,7 +233,7 @@ export default function ExpedienteMaestroPage() {
                         </div>
                     </section>
 
-                    {/* 5. VIABILIDAD Y PRESUPUESTO */}
+                    {/* 5. VIABILIDAD Y PRESUPUESTO (Contenido Nuevo) */}
                     <section className="border-2 border-slate-900 p-8">
                         <h2 className="text-xs font-black uppercase tracking-[0.4em] text-[#0A2472] mb-8 font-sans text-center">5. Análisis de Factibilidad y Presupuesto</h2>
                         <div className="grid md:grid-cols-2 gap-10 items-center">
@@ -303,7 +304,7 @@ export default function ExpedienteMaestroPage() {
                 </div>
             </motion.div>
 
-            {/* BARRA DE ESTADO INFERIOR */}
+            {/* BARRA DE ESTADO INFERIOR (NO PRINT) */}
             <div className="max-w-4xl mx-auto mt-8 flex justify-center items-center gap-8 no-print text-[9px] font-black uppercase text-slate-500 tracking-[0.3em]">
                 <span className="flex items-center gap-2"><Lock className="h-3 w-3" /> ENCRYPT: AES-512</span>
                 <span className="flex items-center gap-2"><Activity className="h-3 w-3" /> NODES: ONLINE</span>
