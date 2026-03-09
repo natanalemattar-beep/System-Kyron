@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link } from "@/navigation";
+import Link from "next/link";
 import { 
   Printer,
   Download,
@@ -46,25 +46,25 @@ import { Logo } from "@/components/logo";
 import { motion } from "framer-motion";
 import { cn, formatCurrency } from "@/lib/utils";
 
-// --- DATA SOURCE (Completely Rewritten & Unique) ---
+// --- DATOS MAESTROS (Sincronizados) ---
 const teamInfo = {
-    project: "SYSTEM KYRON (ECOSISTEMA AUTOMIND AI)",
+    project: "SYSTEM KYRON • AUTOMIND AI",
     members: "Carlos Mattar, Sebastian Garrido, Marcos Sousa",
     institution: "U.E. Colegio 'Gabriela Mistral'",
     location: "Catia la Mar, La Guaira"
 };
 
 const populationData = {
-    community: "Núcleo Educativo y Comercial de la Parroquia Catia la Mar",
-    reach: "Estimado de 2.500 Nodos de Interacción (Alumnos, Docentes, Proveedores y Pymes locales)",
-    profile: "Población con alta necesidad de soberanía digital y simplificación de trámites fiscales."
+    community: "Núcleo Institucional y Comercial de Catia la Mar",
+    reach: "2.500 Nodos de Interacción (Comunidad Educativa y Pymes)",
+    profile: "Población con alta demanda de simplificación de trámites y seguridad de datos."
 };
 
 const problemAnalysis = {
-    definition: "Fragmentación de la data institucional y vulnerabilidad ante la obsolescencia del archivado físico, lo que impide una respuesta ágil ante auditorías y gestiones de ley.",
-    causes: "Inexistencia de un Ledger centralizado, dependencia de hardware local sin respaldo en la nube y procesos de registro manual propensos al error humano.",
-    consequences: "Inconsistencias tributarias, retrasos críticos en la emisión de documentos legales y falta de trazabilidad en los activos físicos de la institución.",
-    importance: "La implementación de una arquitectura de Bóveda Digital es imperativa para transicionar hacia una economía de datos segura y eficiente en el estado La Guaira."
+    definition: "Colapso del sistema de archivado físico y fragmentación de la data histórica, imposibilitando una gestión fiscal y legal eficiente.",
+    causes: "Dependencia de registros manuales, falta de infraestructura 5G dedicada y ausencia de un ledger inmutable.",
+    consequences: "Riesgo de sanciones por el SENIAT, pérdida de documentos críticos y lentitud operativa.",
+    importance: "La transición a una Bóveda Digital es vital para la soberanía administrativa del sector privado en La Guaira."
 };
 
 const feasibilityData = {
@@ -72,40 +72,40 @@ const feasibilityData = {
     tir: "31.2%",
     payback: "2.1 Años",
     roi: "340%",
-    dictamen: "Viabilidad Técnica-Económica de Grado Maestro. El bajo costo marginal del escalamiento Cloud garantiza un retorno de inversión acelerado."
+    dictamen: "Viabilidad Sobresaliente. El modelo SaaS permite escalabilidad total con costos operativos mínimos tras el despliegue del nodo."
 };
 
 const projectDevelopment = {
-    vision: "AutoMind AI: Un nodo de inteligencia operativa que integra conectividad 5G síncrona con un motor de auditoría fiscal inmutable.",
-    solution: "Se desplegará una red privada de gestión que automatiza el cumplimiento ante el SENIAT mediante IA predictiva y resguarda los expedientes en un entorno Zero-Knowledge.",
-    alternatives: "Frente a propuestas genéricas como MOBIAN, Kyron ofrece una integración total de telecomunicaciones, hardware magnético y blindaje legal.",
+    vision: "AutoMind AI: Inteligencia dirigida para el control total del ecosistema empresarial.",
+    solution: "Implementación de una infraestructura que integra conectividad 5G, hardware magnético y un motor de auditoría fiscal inmutable.",
+    alternatives: "A diferencia de MOBIAN, Kyron ofrece blindaje legal predictivo y trazabilidad de activos físicos mediante sensores de inducción.",
     differentiators: [
-        "Provisión remota de eSIM para personal institucional.",
-        "Sensores magnéticos para trazabilidad de suministros.",
-        "Auditoría preventiva de Gaceta Oficial 24/7."
+        "Chatbot estratégico para atención al representante/cliente.",
+        "Automatización de libros de compra/venta síncrona.",
+        "Acceso biométrico 3D para bóveda de documentos."
     ]
 };
 
 const budgetData = [
-    { item: "Infraestructura Kyron Connect 5G", qty: 1, cost: 5500, location: "Nodo Telecom Central" },
-    { item: "Terminales Inteligentes de Gestión", qty: 10, cost: 2500, location: "Hardware Solutions" },
-    { item: "Módulo de Bóveda Digital Inmutable", qty: 1, cost: 1800, location: "Cloud Ledger Node" },
-    { item: "Smart Bins (Tecnología de Inducción)", qty: 4, cost: 1200, location: "Engineering Lab" },
-    { item: "Sistemas Fiscales Homologados", qty: 2, cost: 900, location: "Fiscal Compliance" },
+    { item: "Infraestructura Kyron Connect 5G", qty: 1, cost: 5500, location: "Nodo Central" },
+    { item: "Terminales Inteligentes de Gestión", qty: 10, cost: 2500, location: "Hardware Lab" },
+    { item: "Módulo de Bóveda Digital Inmutable", qty: 1, cost: 1800, location: "Cloud Ledger" },
+    { item: "Smart Bins (Magnetismo Síncrono)", qty: 4, cost: 1200, location: "Engineering" },
+    { item: "Equipos Fiscales Homologados", qty: 2, cost: 900, location: "Fiscal Compliance" },
 ];
 
 const alliesData = [
-    { name: "SAPI", support: "Certificación de Patentes Técnicas y Propiedad Intelectual." },
-    { name: "CONATEL", support: "Habilitación de Red de Datos y Gestión de Frecuencias." },
-    { name: "SENIAT", support: "Homologación de Procesos de Facturación y Riesgo Cero." },
-    { name: "Holding Kyron", support: "Respaldo de Capital y Soporte Técnico de Misión Crítica." },
+    { name: "SAPI", support: "Certificación de Patentes y Propiedad Intelectual." },
+    { name: "SENIAT", support: "Homologación de procesos de riesgo cero." },
+    { name: "CONATEL", support: "Habilitación de Red 5G y servicios de datos." },
+    { name: "Holding Kyron", support: "Respaldo de capital y soporte técnico master." },
 ];
 
 const actionPlanData = [
-    { task: "Auditoría de infraestructura en Catia la Mar.", owner: "Mattar / Sousa", date: "Fase 1" },
-    { task: "Despliegue de Bóveda y Migración de Data.", owner: "Garrido", date: "Fase 2" },
-    { task: "Activación de Nodos 5G y Equipos Fiscales.", owner: "Equipo Maestro", date: "Fase 3" },
-    { task: "Pruebas de Estrés y Certificación Final.", owner: "Auditores Kyron", date: "Fase 4" },
+    { task: "Auditoría de campo en Catia la Mar", owner: "Equipo Técnico", date: "Semana 1" },
+    { task: "Despliegue de Bóveda y Migración", owner: "C. Mattar", date: "Semana 2" },
+    { task: "Activación de Nodos 5G y eSIM", owner: "S. Garrido", date: "Semana 3" },
+    { task: "Certificación y Lanzamiento", owner: "Auditores Kyron", date: "Semana 4" },
 ];
 
 export default function SectorPrivadoPage() {
@@ -119,33 +119,32 @@ export default function SectorPrivadoPage() {
 
     const handleDownload = () => {
         setIsExporting(true);
-        
         setTimeout(() => {
             const azul = "#2563eb";
             const verde = "#22c55e";
-            const gris = "#f8fafc";
             
             const htmlContent = `
-                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <html>
                 <head>
                     <meta charset='utf-8'>
                     <style>
-                        body { font-family: 'Arial', sans-serif; color: #334155; }
-                        .header { border-bottom: 5pt solid ${azul}; padding-bottom: 20px; margin-bottom: 30px; }
-                        .title { color: ${azul}; font-size: 28pt; font-weight: bold; text-transform: uppercase; margin: 0; }
-                        .section-title { background-color: ${azul}; color: #ffffff; font-size: 14pt; font-weight: bold; padding: 10px; margin-top: 30px; border-radius: 5px; }
-                        .content-box { border: 1pt solid #e2e8f0; padding: 15px; background-color: ${gris}; margin-bottom: 10px; }
-                        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-                        th { background-color: ${azul}; color: #ffffff; padding: 10px; font-size: 10pt; text-align: left; border: 1pt solid #000; }
-                        td { padding: 10px; border: 1pt solid #e2e8f0; font-size: 10pt; background-color: #ffffff; }
+                        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1e293b; line-height: 1.5; }
+                        .header { border-bottom: 4pt solid ${azul}; padding-bottom: 20px; margin-bottom: 40px; text-align: center; }
+                        .title { color: ${azul}; font-size: 24pt; font-weight: 900; text-transform: uppercase; margin: 0; }
+                        .section-title { background-color: ${azul}; color: #ffffff; font-size: 12pt; font-weight: bold; padding: 10px; margin-top: 30px; text-transform: uppercase; border-radius: 8px; }
+                        .content-box { border: 1pt solid #e2e8f0; padding: 15px; background-color: #f8fafc; margin-bottom: 10px; border-radius: 10px; }
+                        table { width: 100%; border-collapse: collapse; margin: 15px 0; border-radius: 8px; overflow: hidden; }
+                        th { background-color: #f1f5f9; color: ${azul}; padding: 12px; font-size: 9pt; text-align: left; border: 1pt solid #cbd5e1; text-transform: uppercase; }
+                        td { padding: 12px; border: 1pt solid #e2e8f0; font-size: 9pt; background-color: #ffffff; }
                         .highlight { color: ${verde}; font-weight: bold; }
-                        .footer { text-align: center; font-size: 9pt; color: #94a3b8; margin-top: 50px; border-top: 1pt solid #e2e8f0; padding-top: 20px; }
+                        .footer { text-align: center; font-size: 8pt; color: #94a3b8; margin-top: 60px; border-top: 1pt solid #e2e8f0; padding-top: 20px; text-transform: uppercase; letter-spacing: 2px; }
+                        .badge { display: inline-block; padding: 4px 12px; background-color: ${verde}; color: white; border-radius: 20px; font-size: 8pt; font-weight: bold; }
                     </style>
                 </head>
                 <body>
                     <div class="header">
-                        <h1 class="title">System Kyron</h1>
-                        <p style="font-size: 12pt; font-weight: bold;">EXPEDIENTE MAESTRO ZEDU • 2026</p>
+                        <h1 class="title">SYSTEM KYRON</h1>
+                        <p style="font-size: 10pt; font-weight: bold; color: #64748b;">EXPEDIENTE MAESTRO ZEDU • 2026</p>
                     </div>
 
                     <div class="section-title">1. Información del Equipo Técnico</div>
@@ -166,25 +165,22 @@ export default function SectorPrivadoPage() {
                     <div class="section-title">3. Análisis del Problema</div>
                     <div class="content-box">
                         <p><b>DEFINICIÓN:</b> ${problemAnalysis.definition}</p>
-                        <p><b>CAUSAS:</b> ${problemAnalysis.causes}</p>
-                        <p><b>CONSECUENCIAS:</b> ${problemAnalysis.consequences}</p>
                         <p><b>IMPORTANCIA:</b> ${problemAnalysis.importance}</p>
                     </div>
 
                     <div class="section-title">4. Factibilidad Económica</div>
                     <table>
-                        <tr><th>Indicador</th><th>Valor Proyectado</th></tr>
+                        <tr><th>Indicador Técnico</th><th>Métrica Proyectada</th></tr>
                         <tr><td>VAN (Valor Actual Neto)</td><td class="highlight">$${feasibilityData.van.toLocaleString()}</td></tr>
                         <tr><td>TIR (Tasa Interna de Retorno)</td><td class="highlight">${feasibilityData.tir}</td></tr>
                         <tr><td>Período de Recuperación</td><td>${feasibilityData.payback}</td></tr>
-                        <tr><td>ROI (Retorno de Inversión)</td><td class="highlight">${feasibilityData.roi}</td></tr>
+                        <tr><td>Dictamen Final</td><td class="badge">VIABLE / MASTER</td></tr>
                     </table>
-                    <p style="font-size: 10pt; font-style: italic;"><b>Dictamen:</b> ${feasibilityData.dictamen}</p>
 
                     <div class="section-title">5. Desarrolla tu Proyecto (Solución)</div>
                     <div class="content-box">
-                        <p><b>VISIÓN:</b> ${projectDevelopment.vision}</p>
-                        <p><b>SOLUCIÓN:</b> ${projectDevelopment.solution}</p>
+                        <p><b>VISIÓN ESTRATÉGICA:</b> ${projectDevelopment.vision}</p>
+                        <p><b>SOLUCIÓN TÉCNICA:</b> ${projectDevelopment.solution}</p>
                         <p><b>DIFERENCIADORES:</b> ${projectDevelopment.differentiators.join(', ')}</p>
                     </div>
 
@@ -206,7 +202,7 @@ export default function SectorPrivadoPage() {
                     <div class="section-title">8. Plan de Acción</div>
                     <table>
                         <thead>
-                            <tr><th>TAREA</th><th>RESPONSABLE</th><th>FECHA</th></tr>
+                            <tr><th>TAREA</th><th>RESPONSABLE</th><th>FASE</th></tr>
                         </thead>
                         <tbody>
                             ${actionPlanData.map(p => `<tr><td>${p.task}</td><td>${p.owner}</td><td class="highlight">${p.date}</td></tr>`).join('')}
@@ -214,8 +210,8 @@ export default function SectorPrivadoPage() {
                     </table>
 
                     <div class="footer">
-                        <p>Documento Certificado por System Kyron Master Auth • 2026</p>
-                        <p>*** FINAL DEL DOCUMENTO ***</p>
+                        <p>Certificación de Integridad System Kyron Master Auth • 2026</p>
+                        <p>*** Final del documento ***</p>
                     </div>
                 </body>
                 </html>
@@ -231,38 +227,26 @@ export default function SectorPrivadoPage() {
             document.body.removeChild(link);
 
             setIsExporting(false);
-            toast({
-                title: "DOCUMENTO SINCRONIZADO",
-                description: "Expediente exportado con éxito.",
-                action: <CheckCircle className="text-primary h-4 w-4" />
-            });
+            toast({ title: "EXPEDIENTE DESCARGADO", description: "El documento con vida y diseño ha sido generado." });
         }, 800);
     };
 
-    const SectionHeader = ({ icon: Icon, title, color = "primary" }: any) => (
-        <div className={cn(
-            "flex items-center gap-4 p-4 rounded-2xl border mb-6",
-            color === "primary" ? "bg-primary/5 border-primary/10" : "bg-secondary/5 border-secondary/10"
-        )}>
-            <Icon className={cn("h-6 w-6", color === "primary" ? "text-primary" : "text-secondary")} />
-            <h2 className={cn("text-sm font-black uppercase tracking-[0.3em]", color === "primary" ? "text-primary" : "text-secondary")}>{title}</h2>
-        </div>
-    );
+    if (!isMounted) return null;
 
     return (
         <div className="min-h-screen bg-[#020408] text-white p-4 md:p-12 font-sans selection:bg-primary/20 hud-grid relative">
             
-            {/* CONTROL PANEL */}
             <div className="max-w-5xl mx-auto mb-16 no-print">
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col md:flex-row justify-between items-center gap-8 bg-white/[0.02] backdrop-blur-3xl p-8 rounded-[2.5rem] border border-white/10 shadow-2xl relative"
+                    className="flex flex-col md:flex-row justify-between items-center gap-8 bg-white/[0.02] backdrop-blur-3xl p-8 rounded-[2.5rem] border border-white/10 shadow-2xl"
                 >
                     <div className="flex items-center gap-6">
-                        <Button variant="ghost" asChild className="rounded-xl h-12 px-6 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-all">
+                        <Button variant="ghost" asChild className="rounded-xl h-12 px-6 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white">
                             <Link href="/"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
                         </Button>
+                        <div className="h-10 w-px bg-white/10" />
                         <div className="flex flex-col">
                             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Expediente Maestro</span>
                             <span className="text-[8px] font-bold text-white/20 uppercase mt-1">Audit Ready • 2026</span>
@@ -281,11 +265,9 @@ export default function SectorPrivadoPage() {
                 </motion.div>
             </div>
 
-            {/* DOCUMENT VIEW */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-[900px] mx-auto pb-32">
                 <div className="bg-white text-black p-10 md:p-20 shadow-2xl rounded-[3rem] border border-slate-300 print:p-0 print:shadow-none overflow-hidden">
                     
-                    {/* Header Institucional */}
                     <div className="flex justify-between items-start mb-16 border-b-4 border-primary/10 pb-10">
                         <div className="flex items-center gap-6">
                             <Logo className="h-16 w-16" />
@@ -301,19 +283,16 @@ export default function SectorPrivadoPage() {
                     </div>
 
                     <div className="space-y-16">
-                        {/* 1. Información del Equipo */}
+                        {/* 1. Equipo */}
                         <section>
-                            <SectionHeader icon={Users} title="1. Información del Equipo Técnico" />
+                            <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10 mb-6">
+                                <Users className="h-5 w-5 text-primary" />
+                                <h2 className="text-sm font-black uppercase tracking-[0.3em]">1. Información del Equipo Técnico</h2>
+                            </div>
                             <div className="border-[1.5px] border-black rounded-3xl overflow-hidden bg-slate-50">
-                                <div className="grid grid-cols-1 md:grid-cols-2">
-                                    <div className="p-6 border-b md:border-b-0 md:border-r border-black/10">
-                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-1">Proyecto</p>
-                                        <p className="text-sm font-black text-primary uppercase italic">{teamInfo.project}</p>
-                                    </div>
-                                    <div className="p-6">
-                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-1">Integrantes</p>
-                                        <p className="text-sm font-bold text-slate-700">{teamInfo.members}</p>
-                                    </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 p-6 gap-6">
+                                    <div><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Proyecto</p><p className="text-sm font-black text-primary uppercase italic">{teamInfo.project}</p></div>
+                                    <div><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Integrantes</p><p className="text-sm font-bold text-slate-700">{teamInfo.members}</p></div>
                                 </div>
                                 <div className="p-6 border-t border-black/10 bg-white">
                                     <p className="text-[9px] font-black uppercase text-slate-400 mb-1">Institución / Ubicación</p>
@@ -324,7 +303,10 @@ export default function SectorPrivadoPage() {
 
                         {/* 2. Población */}
                         <section>
-                            <SectionHeader icon={Activity} title="2. Población a Trabajar" color="secondary" />
+                            <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10 mb-6">
+                                <Activity className="h-5 w-5 text-secondary" />
+                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">2. Población a Trabajar</h2>
+                            </div>
                             <div className="p-8 bg-white border-[1.5px] border-black rounded-3xl space-y-4">
                                 <p className="text-sm font-bold text-slate-800">{populationData.community}</p>
                                 <div className="grid grid-cols-2 gap-6">
@@ -337,22 +319,16 @@ export default function SectorPrivadoPage() {
                             </div>
                         </section>
 
-                        {/* 3. Análisis del Problema */}
+                        {/* 3. Diagnóstico */}
                         <section>
-                            <SectionHeader icon={Terminal} title="3. Análisis del Problema" />
+                            <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10 mb-6">
+                                <Terminal className="h-5 w-5 text-primary" />
+                                <h2 className="text-sm font-black uppercase tracking-[0.3em]">3. Análisis del Problema</h2>
+                            </div>
                             <div className="p-8 bg-slate-50 border-[1.5px] border-black rounded-3xl space-y-6">
                                 <p className="text-sm font-bold italic text-slate-800 leading-relaxed">"{problemAnalysis.definition}"</p>
                                 <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-slate-200">
-                                    <div className="space-y-4">
-                                        <div>
-                                            <p className="text-[9px] font-black uppercase text-rose-500 mb-1">Causas</p>
-                                            <p className="text-xs font-medium text-slate-600">{problemAnalysis.causes}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[9px] font-black uppercase text-rose-500 mb-1">Consecuencias</p>
-                                            <p className="text-xs font-medium text-slate-600">{problemAnalysis.consequences}</p>
-                                        </div>
-                                    </div>
+                                    <div><p className="text-[9px] font-black uppercase text-rose-500 mb-1">Causas</p><p className="text-xs font-medium text-slate-600">{problemAnalysis.causes}</p></div>
                                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
                                         <p className="text-[9px] font-black uppercase text-primary mb-2 italic">Importancia del Cambio</p>
                                         <p className="text-xs font-bold text-slate-700 leading-relaxed uppercase">{problemAnalysis.importance}</p>
@@ -363,7 +339,10 @@ export default function SectorPrivadoPage() {
 
                         {/* 4. Factibilidad */}
                         <section>
-                            <SectionHeader icon={TrendingUp} title="4. Factibilidad Económica" color="secondary" />
+                            <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10 mb-6">
+                                <TrendingUp className="h-5 w-5 text-secondary" />
+                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">4. Factibilidad Económica</h2>
+                            </div>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                                 {[
                                     { label: "VAN", val: formatCurrency(feasibilityData.van, 'USD'), col: "text-primary" },
@@ -382,9 +361,12 @@ export default function SectorPrivadoPage() {
                             </p>
                         </section>
 
-                        {/* 5. Desarrollo de Proyecto */}
+                        {/* 5. Desarrollo / Solución */}
                         <section>
-                            <SectionHeader icon={Zap} title="5. Desarrolla tu Proyecto (Solución)" />
+                            <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10 mb-6">
+                                <Zap className="h-5 w-5 text-primary" />
+                                <h2 className="text-sm font-black uppercase tracking-[0.3em]">5. Desarrolla tu Proyecto (Solución)</h2>
+                            </div>
                             <div className="border-[1.5px] border-black rounded-3xl p-8 bg-white space-y-8">
                                 <div className="space-y-4">
                                     <p className="text-sm font-black uppercase italic text-primary">{projectDevelopment.vision}</p>
@@ -407,7 +389,10 @@ export default function SectorPrivadoPage() {
 
                         {/* 6. Presupuesto */}
                         <section>
-                            <SectionHeader icon={ShoppingCart} title="6. Presupuesto Operativo (CAPEX)" color="secondary" />
+                            <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10 mb-6">
+                                <ShoppingCart className="h-5 w-5 text-secondary" />
+                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">6. Presupuesto Operativo (CAPEX)</h2>
+                            </div>
                             <div className="border-[1.5px] border-black rounded-3xl overflow-hidden">
                                 <Table>
                                     <TableHeader>
@@ -439,7 +424,10 @@ export default function SectorPrivadoPage() {
 
                         {/* 7. Aliados */}
                         <section>
-                            <SectionHeader icon={Handshake} title="7. Aliados y Recursos Estratégicos" />
+                            <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10 mb-6">
+                                <Handshake className="h-5 w-5 text-primary" />
+                                <h2 className="text-sm font-black uppercase tracking-[0.3em]">7. Aliados y Recursos Estratégicos</h2>
+                            </div>
                             <div className="border-[1.5px] border-black rounded-3xl overflow-hidden bg-white">
                                 <Table>
                                     <TableBody>
@@ -456,7 +444,10 @@ export default function SectorPrivadoPage() {
 
                         {/* 8. Plan de Acción */}
                         <section>
-                            <SectionHeader icon={ClipboardCheck} title="8. Plan de Acción y Cronograma" color="secondary" />
+                            <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10 mb-6">
+                                <ClipboardCheck className="h-5 w-5 text-secondary" />
+                                <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">8. Plan de Acción</h2>
+                            </div>
                             <div className="border-[1.5px] border-black rounded-3xl overflow-hidden bg-white">
                                 <Table>
                                     <TableHeader>
