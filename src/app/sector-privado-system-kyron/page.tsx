@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -18,7 +17,8 @@ import {
   Lock,
   ArrowRight,
   TrendingUp,
-  Award
+  Award,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -173,7 +173,7 @@ export default function ExpedienteMaestroPage() {
                             </div>
                             <div className="flex flex-col md:flex-row md:items-baseline gap-4 border-b border-slate-200 pb-4">
                                 <span className="text-[10px] font-black uppercase text-slate-400 w-48 font-sans">Despliegue Operativo</span>
-                                <span className="font-bold text-slate-900 italic">Marcos Sousa (Operations Flow)</span>
+                                <span className="font-bold text-slate-900 italic">Marcos Sousa (Operational Flow)</span>
                             </div>
                             <div className="flex flex-col md:flex-row md:items-baseline gap-4">
                                 <span className="text-[10px] font-black uppercase text-slate-400 w-48 font-sans">Sede de Control</span>
