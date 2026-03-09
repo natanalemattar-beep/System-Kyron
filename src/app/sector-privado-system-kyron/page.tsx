@@ -3,7 +3,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import NextImage from "next/image";
 import { 
   Printer, 
   Download, 
