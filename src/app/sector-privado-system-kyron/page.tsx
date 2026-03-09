@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import Link from "next/link"; // Importación estándar para evitar error de intl context
 import { 
   Printer,
   Download,
@@ -41,15 +41,14 @@ import {
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn, formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 /**
  * @fileOverview Expediente Maestro ZEDU Final - Sistema Kyron v2.6.5
- * Consolidación total de las 6 partes del modelo ZEDU con respuestas técnicas expandidas.
- * Estética UHD en Azul y Verde.
+ * Consolidación total de las 6 partes del modelo ZEDU.
+ * Estética UHD en Azul Kyron y Verde Esmeralda.
  */
 
 const budgetData = [
@@ -119,7 +118,7 @@ export default function SectorPrivadoPage() {
     if (!isMounted) return null;
 
     return (
-        <div className="min-h-screen bg-[#020408] text-white p-4 md:p-12 font-sans selection:bg-primary/20 hud-grid relative">
+        <div className="min-h-screen bg-[#020408] text-white p-4 md:p-12 font-sans selection:bg-primary/20 hud-grid relative overflow-x-hidden">
             
             {/* HUD CONTROL PANEL */}
             <div className="max-w-5xl mx-auto mb-16 no-print">
@@ -132,7 +131,7 @@ export default function SectorPrivadoPage() {
                     
                     <div className="flex items-center gap-6">
                         <Button variant="ghost" asChild className="rounded-xl h-12 px-6 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">
-                            <Link href="/es"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
+                            <Link href="/"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
                         </Button>
                         <div className="h-10 w-px bg-white/10" />
                         <div className="flex flex-col">
@@ -171,8 +170,8 @@ export default function SectorPrivadoPage() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Expediente Verificado</Badge>
-                            <p className="text-[9px] font-mono text-slate-400 uppercase tracking-widest italic">REF: KYRON-ZEDU-FINAL-2026</p>
+                            <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Expediente Maestro</Badge>
+                            <p className="text-[9px] font-mono text-slate-400 uppercase tracking-widest italic">REF: KYRON-ZEDU-MASTER-2026</p>
                         </div>
                     </div>
 
@@ -182,7 +181,7 @@ export default function SectorPrivadoPage() {
                             <Users className="h-5 w-5 text-primary" />
                             <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">1. Información del Equipo Técnico</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white">
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white shadow-sm">
                             <div className="grid grid-cols-1 md:grid-cols-3">
                                 <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Nombre del Proyecto</p></div>
@@ -214,12 +213,12 @@ export default function SectorPrivadoPage() {
                             <Activity className="h-5 w-5 text-secondary" />
                             <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">2. Población a Trabajar</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white">
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white">
                             <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Comunidad Beneficiaria</p></div>
-                            <div className="p-6 border-b-[1.5px] border-black"><p className="text-sm font-bold uppercase text-slate-800">Santa Rosa de Lima, Caracas. Eje de Modernización Tecnológica.</p></div>
+                            <div className="p-6 border-b-[1.5px] border-black"><p className="text-sm font-bold uppercase text-slate-800">Santa Rosa de Lima, Caracas. Nodo de Modernización.</p></div>
                             <div className="grid grid-cols-3">
                                 <div className="border-r-[1.5px] border-black p-6 text-center">
-                                    <p className="text-[9px] font-black uppercase text-slate-400 mb-2">Usuarios Est.</p>
+                                    <p className="text-[9px] font-black uppercase text-slate-400 mb-2">Alcance</p>
                                     <p className="text-3xl font-black italic text-secondary">1.500+</p>
                                 </div>
                                 <div className="col-span-2 p-6 font-mono text-[11px] font-bold uppercase leading-relaxed text-slate-600">
@@ -235,24 +234,24 @@ export default function SectorPrivadoPage() {
                             <Terminal className="h-5 w-5 text-primary" />
                             <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">3. Análisis del Problema</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white font-mono text-[11px]">
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white font-mono text-[11px]">
                             <div className="grid grid-cols-2">
                                 <div className="border-r-[1.5px] border-black">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Causas</p></div>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Causas Detectadas</p></div>
                                     <div className="p-6 space-y-3 font-bold uppercase text-slate-700">
                                         <p>• Archivamiento 100% físico y manual.</p>
                                         <p>• Inexistencia de un nodo de datos centralizado.</p>
-                                        <p>• Desconexión entre departamentos administrativos.</p>
+                                        <p>• Desconexión operativa entre departamentos.</p>
                                     </div>
                                 </div>
                                 <div>
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Consecuencias</p></div>
                                     <div className="p-6 italic font-bold uppercase text-slate-600 leading-relaxed">
-                                        Retraso crítico en la localización de documentos, vulnerabilidad ante pérdida de datos y alto riesgo de incumplimiento legal.
+                                        Retraso crítico en localización de datos, vulnerabilidad ante pérdida de expedientes y alto riesgo de incumplimiento legal.
                                     </div>
                                 </div>
                             </div>
-                            <div className="p-8 bg-white border-t-[1.5px] border-black">
+                            <div className="p-10 bg-white border-t-[1.5px] border-black">
                                 <p className="text-[13px] font-medium italic leading-relaxed text-justify border-l-8 border-primary/20 pl-8 text-slate-800">
                                     "En la Institución el sistema de archivado es muy pobre debido a que la gran mayoría de la información personal está archivada en papel y no en digital. Esta falta de digitalización inmutable compromete la integridad histórica de la institución."
                                 </p>
@@ -266,7 +265,7 @@ export default function SectorPrivadoPage() {
                             <TrendingUp className="h-5 w-5 text-secondary" />
                             <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">4. Factibilidad Económica</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white">
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white">
                             <div className="p-8">
                                 <div className="grid grid-cols-3 gap-6 mb-8 text-center">
                                     <div className="p-6 bg-primary/5 rounded-2xl border-2 border-primary/20">
@@ -278,31 +277,35 @@ export default function SectorPrivadoPage() {
                                         <p className="text-xl font-black text-secondary">28.5%</p>
                                     </div>
                                     <div className="p-6 bg-slate-50 rounded-2xl border-2 border-slate-200">
-                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-2">ROI (Recuperación)</p>
+                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-2">Recuperación</p>
                                         <p className="text-xl font-black text-slate-600">2.4 AÑOS</p>
                                     </div>
                                 </div>
-                                <p className="text-[11px] font-mono font-bold text-slate-500 text-center uppercase tracking-widest">Dictamen: El modelo SaaS permite escalabilidad total con costos reducidos en un 40% anual gracias a la automatización IA.</p>
+                                <p className="text-[11px] font-mono font-bold text-slate-500 text-center uppercase tracking-widest leading-relaxed">
+                                    DICTAMEN: El modelo SaaS permite una escalabilidad total con costos reducidos en un 40% anual gracias a la automatización mediante IA predictiva y nodos de red privada.
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* PARTE 5: DESARROLLA TU PROYECTO (AUTOMIND AI) */}
+                    {/* PARTE 5: DESARROLLA TU PROYECTO */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Zap className="h-5 w-5 text-primary" />
                             <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">5. Desarrolla tu Proyecto</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white font-mono text-[11px] leading-relaxed">
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white font-mono text-[11px] leading-relaxed">
                             <div className="p-10 text-justify text-slate-800 space-y-6 bg-slate-50/30 border-b-[1.5px] border-black">
-                                <p className="font-black text-primary text-base italic uppercase">AutoMind AI: Nodo Maestro de Gestión</p>
+                                <p className="font-black text-primary text-base italic uppercase">Propuesta Técnica: AutoMind AI</p>
                                 <p>System Kyron implementa **AutoMind AI**, una arquitectura de red síncrona que fusiona el protocolo Hyper-Connect 5G con una Bóveda de Datos Inmutable. Nuestra solución no solo digitaliza; blinda la operación institucional mediante inteligencia predictiva.</p>
                                 <p>A través de **Kyron Connect**, se asignan líneas de datos de alta velocidad para la transmisión de expedientes cifrados, mientras que las **Smart Bins** monetizan la sostenibilidad institucional mediante tecnología magnética.</p>
                             </div>
                             <div className="grid grid-cols-2">
                                 <div className="border-r-[1.5px] border-black">
-                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Otras Propuestas (Mobian)</p></div>
-                                    <div className="p-6 italic font-bold text-slate-600 uppercase">Enfocadas únicamente en la gestión administrativa plana, sin integración de hardware inteligente ni conectividad 5G propia.</div>
+                                    <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Otras Propuestas (MOBIAN)</p></div>
+                                    <div className="p-6 italic font-bold text-slate-600 uppercase">
+                                        Enfoques basados únicamente en gestión administrativa convencional sin integración de hardware inteligente, conectividad 5G propia ni sellado inmutable Blockchain.
+                                    </div>
                                 </div>
                                 <div>
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Diferenciadores Kyron</p></div>
@@ -310,6 +313,7 @@ export default function SectorPrivadoPage() {
                                         <p>• Especialización en el Sector Escolar.</p>
                                         <p>• Chatbot Avanzado para Representantes.</p>
                                         <p>• Tecnología Magnética de Reciclaje.</p>
+                                        <p>• Provisión de Red 5G Corporativa.</p>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +326,7 @@ export default function SectorPrivadoPage() {
                             <ShoppingCart className="h-5 w-5 text-secondary" />
                             <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">6. Presupuesto Operativo</h2>
                         </div>
-                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white">
+                        <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white">
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
