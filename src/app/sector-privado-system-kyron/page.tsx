@@ -67,10 +67,10 @@ const DIAGNOSTICO = {
 };
 
 const FACTIBILIDAD = [
-    { label: "VAN (Valor Presente)", val: "$ 485.000,00", col: "#2563eb" },
+    { label: "VAN (Valor Presente)", val: "$ 485.000,00", col: "#0ea5e9" },
     { label: "TIR (Rendimiento)", val: "31.2%", col: "#22c55e" },
     { label: "Payback Period", val: "2.1 Años", col: "#64748b" },
-    { label: "ROI Proyectado", val: "340%", col: "#2563eb" }
+    { label: "ROI Proyectado", val: "340%", col: "#0ea5e9" }
 ];
 
 const SOLUCION = {
@@ -118,215 +118,212 @@ export default function SectorPrivadoPage() {
     const handleDownload = () => {
         setIsExporting(true);
         setTimeout(() => {
-            const PRIMARY_BLUE = "#2563eb";
-            const DARK_NAVY = "#0f172a";
-            const BORDER_COLOR = "#e2e8f0";
-            const CONTENT_BG = "#f8fafc";
+            const PRIMARY_BLUE = "#0ea5e9";
+            const DARK_NAVY = "#050505";
+            const ACCENT_GREEN = "#22c55e";
+            const BORDER_COLOR = "#1e293b";
+            const CONTENT_BG = "#ffffff";
             
+            // Layout de tabla para máxima compatibilidad con Word
             const html = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
                     <meta charset='utf-8'>
                     <style>
-                        body { font-family: 'Arial', sans-serif; color: #000000; line-height: 1.4; background-color: #ffffff; }
-                        .section-container { margin-bottom: 30pt; width: 100%; }
+                        body { font-family: 'Segoe UI', Arial, sans-serif; color: #000000; line-height: 1.5; background-color: #ffffff; margin: 0; padding: 0; }
+                        .section-table { width: 100%; border-collapse: collapse; margin-bottom: 25pt; page-break-inside: avoid; }
+                        .header-row { background-color: ${DARK_NAVY}; }
+                        .accent-cell { width: 6pt; background-color: ${PRIMARY_BLUE}; }
+                        .title-cell { padding: 12pt 20pt; vertical-align: middle; }
+                        .title-text { color: #ffffff; font-size: 13pt; font-weight: 900; text-transform: uppercase; letter-spacing: 2pt; font-style: italic; }
                         
-                        /* Marcador lateral + Título estilo Imagen */
-                        .header-table { width: 100%; border-collapse: collapse; margin-bottom: 8pt; }
-                        .accent-bar { width: 5pt; background-color: ${PRIMARY_BLUE}; }
-                        .spacer { width: 10pt; }
-                        .navy-title-bar { background-color: ${DARK_NAVY}; padding: 12pt 20pt; }
-                        .title-text { color: #ffffff; font-size: 14pt; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5pt; font-style: italic; }
+                        .content-table { width: 100%; border-collapse: collapse; margin-top: -1px; }
+                        .content-cell { padding: 25pt; border: 1.5pt solid ${BORDER_COLOR}; border-top: none; background-color: #fafafa; }
+                        
+                        .label { color: ${PRIMARY_BLUE}; font-size: 9pt; font-weight: 900; text-transform: uppercase; letter-spacing: 1pt; margin-bottom: 4pt; }
+                        .value { font-size: 11pt; font-weight: 700; color: #111111; margin-bottom: 15pt; }
+                        
+                        .grid-table { width: 100%; border-collapse: separate; border-spacing: 10pt; }
+                        .grid-card { background-color: #ffffff; border: 2pt solid ${PRIMARY_BLUE}; padding: 15pt; text-align: center; border-radius: 10pt; }
+                        .grid-val { font-size: 22pt; font-weight: 900; color: ${PRIMARY_BLUE}; margin: 0; font-style: italic; }
+                        .grid-lbl { font-size: 8pt; font-weight: 800; color: #64748b; text-transform: uppercase; margin-top: 5pt; }
 
-                        /* Caja de Contenido */
-                        .content-box { 
-                            margin-left: 15pt; 
-                            background-color: ${CONTENT_BG}; 
-                            border: 1.5pt solid ${BORDER_COLOR}; 
-                            padding: 20pt; 
-                            border-radius: 5pt;
-                        }
+                        .data-table { width: 100%; border-collapse: collapse; margin-top: 10pt; border: 1.5pt solid ${DARK_NAVY}; }
+                        .data-table th { background-color: ${DARK_NAVY}; color: #ffffff; padding: 10pt; text-align: left; font-size: 9pt; font-weight: 900; text-transform: uppercase; }
+                        .data-table td { padding: 10pt; border: 1pt solid #cbd5e1; font-size: 10pt; font-weight: 600; }
+                        .total-row { background-color: ${PRIMARY_BLUE}; color: #ffffff; font-weight: 900; font-size: 14pt; }
 
-                        .label-style { color: ${PRIMARY_BLUE}; font-size: 10pt; font-weight: 900; text-transform: uppercase; margin-bottom: 4pt; display: block; letter-spacing: 0.5pt; }
-                        .value-style { font-size: 12pt; font-weight: 700; margin-bottom: 18pt; display: block; color: #000000; }
-
-                        /* Tabla de Datos Pro */
-                        .pro-table { width: 100%; border-collapse: collapse; margin-top: 15pt; border: 2pt solid ${DARK_NAVY}; }
-                        .pro-table th { background-color: ${DARK_NAVY}; color: #ffffff; padding: 12pt; text-align: left; font-size: 10pt; font-weight: 900; text-transform: uppercase; }
-                        .pro-table td { padding: 12pt; border: 1pt solid ${BORDER_COLOR}; font-size: 11pt; font-weight: 700; background-color: #ffffff; }
-                        .total-highlight { background-color: ${PRIMARY_BLUE}; color: #ffffff; font-weight: 900; font-size: 16pt; font-style: italic; }
-
-                        .stats-grid { width: 100%; border-collapse: separate; border-spacing: 15pt; }
-                        .stat-card { border: 3pt solid ${PRIMARY_BLUE}; padding: 25pt; text-align: center; border-radius: 20pt; background-color: #ffffff; }
-                        .stat-val { font-size: 26pt; font-weight: 900; color: ${PRIMARY_BLUE}; margin: 0; font-style: italic; }
-                        .stat-lbl { font-size: 10pt; font-weight: 800; color: #64748b; text-transform: uppercase; margin-top: 8pt; }
+                        .footer { text-align: center; margin-top: 50pt; border-top: 1pt solid #e2e8f0; padding-top: 20pt; color: #94a3b8; font-size: 8pt; font-weight: 800; text-transform: uppercase; letter-spacing: 4pt; }
                     </style>
                 </head>
                 <body>
-                    <!-- Portada / Cabecera -->
-                    <table width="100%" style="margin-bottom: 50pt;">
+                    <!-- Cabecera Institucional -->
+                    <table width="100%" style="margin-bottom: 40pt; border-bottom: 4pt solid ${PRIMARY_BLUE};">
                         <tr>
-                            <td style="padding-bottom: 20pt;">
-                                <p style="font-size: 42pt; font-weight: 900; color: ${PRIMARY_BLUE}; margin: 0; text-transform: uppercase; font-style: italic; letter-spacing: -2pt;">SYSTEM KYRON</p>
-                                <p style="font-size: 12pt; color: #94a3b8; letter-spacing: 8pt; margin: 0; font-weight: 800; text-transform: uppercase;">CORPORATE INTELLIGENCE HUB</p>
+                            <td width="80" style="padding-bottom: 20pt;">
+                                <div style="width: 60pt; height: 60pt; background-color: ${DARK_NAVY}; border-radius: 15pt; text-align: center; vertical-align: middle;">
+                                    <span style="color: ${PRIMARY_BLUE}; font-size: 30pt; font-weight: 900; line-height: 60pt;">K</span>
+                                </div>
+                            </td>
+                            <td style="padding-left: 20pt; padding-bottom: 20pt;">
+                                <p style="font-size: 36pt; font-weight: 900; color: ${DARK_NAVY}; margin: 0; text-transform: uppercase; font-style: italic; letter-spacing: -1pt;">SYSTEM <span style="color: ${PRIMARY_BLUE};">KYRON</span></p>
+                                <p style="font-size: 10pt; color: #64748b; letter-spacing: 6pt; margin: 5pt 0 0 0; font-weight: 800; text-transform: uppercase;">Corporate Intelligence Ledger</p>
                             </td>
                         </tr>
                     </table>
 
-                    <!-- SECCIÓN 1 -->
-                    <div class="section-container">
-                        <table class="header-table">
-                            <tr>
-                                <td class="accent-bar">&nbsp;</td>
-                                <td class="spacer">&nbsp;</td>
-                                <td class="navy-title-bar"><span class="title-text">1. Información del Equipo Técnico</span></td>
-                            </tr>
-                        </table>
-                        <div class="content-box">
-                            <span class="label-style">Proyecto</span><span class="value-style">SYSTEM KYRON • CORPORATE INTELLIGENCE</span>
-                            <span class="label-style">Dirección General</span><span class="value-style">Ing. Carlos Mattar (Lead Architecture)</span>
-                            <span class="label-style">Ingeniería de Sistemas</span><span class="value-style">Sebastian Garrido (Network Slicing)</span>
-                            <span class="label-style">Logística y Despliegue</span><span class="value-style">Marcos Sousa (Operational Flow)</span>
-                            <span class="label-style">Sede de Operaciones</span><span class="value-style">Catia la Mar, Estado La Guaira • Colegio 'Gabriela Mistral'</span>
-                        </div>
-                    </div>
+                    <!-- PARTE 1 -->
+                    <table class="section-table">
+                        <tr class="header-row">
+                            <td class="accent-cell"></td>
+                            <td class="title-cell"><span class="title-text">1. FICHA TÉCNICA DEL EQUIPO</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="content-cell">
+                                <div class="label">Proyecto de Ingeniería</div><div class="value">SYSTEM KYRON • CORPORATE INTELLIGENCE</div>
+                                <div class="label">Lead Architecture</div><div class="value">Ing. Carlos Mattar</div>
+                                <div class="label">Network & Infrastructure</div><div class="value">Sebastian Garrido</div>
+                                <div class="label">Logistics Node</div><div class="value">Marcos Sousa</div>
+                                <div class="label">Centro de Operaciones</div><div class="value">Catia la Mar, La Guaira (Colegio Gabriela Mistral)</div>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <!-- SECCIÓN 2 -->
-                    <div class="section-container">
-                        <table class="header-table">
-                            <tr>
-                                <td class="accent-bar">&nbsp;</td>
-                                <td class="spacer">&nbsp;</td>
-                                <td class="navy-title-bar"><span class="title-text">2. Población a Trabajar</span></td>
-                            </tr>
-                        </table>
-                        <div class="content-box">
-                            <span class="label-style">Núcleo Estratégico</span><span class="value-style">${POBLACION_DATA.nucleo}</span>
-                            <span class="label-style">Alcance del Nodo</span><span class="value-style">${POBLACION_DATA.alcance}</span>
-                            <span class="label-style">Análisis Demográfico</span><span class="value-style">${POBLACION_DATA.perfil}</span>
-                        </div>
-                    </div>
+                    <!-- PARTE 2 -->
+                    <table class="section-table">
+                        <tr class="header-row">
+                            <td class="accent-cell"></td>
+                            <td class="title-cell"><span class="title-text">2. NODO POBLACIONAL</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="content-cell">
+                                <div class="label">Ubicación Geoestratégica</div><div class="value">${POBLACION_DATA.nucleo}</div>
+                                <div class="label">Alcance del Nodo</div><div class="value">${POBLACION_DATA.alcance}</div>
+                                <div class="label">Perfil Demográfico</div><div class="value">${POBLACION_DATA.perfil}</div>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <!-- SECCIÓN 3 -->
-                    <div class="section-container">
-                        <table class="header-table">
-                            <tr>
-                                <td class="accent-bar">&nbsp;</td>
-                                <td class="spacer">&nbsp;</td>
-                                <td class="navy-title-bar"><span class="title-text">3. Análisis del Problema</span></td>
-                            </tr>
-                        </table>
-                        <div class="content-box">
-                            <span class="label-style">Diagnóstico</span><span class="value-style" style="font-style: italic;">"${DIAGNOSTICO.problema}"</span>
-                            <span class="label-style">Causas</span><span class="value-style">${DIAGNOSTICO.causas}</span>
-                            <span class="label-style">Impacto</span><span class="value-style">${DIAGNOSTICO.impacto}</span>
-                        </div>
-                    </div>
+                    <!-- PARTE 3 -->
+                    <table class="section-table">
+                        <tr class="header-row">
+                            <td class="accent-cell" style="background-color: ${ACCENT_GREEN};"></td>
+                            <td class="title-cell"><span class="title-text">3. DIAGNÓSTICO DE SITUACIÓN</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="content-cell">
+                                <div class="label">Problema Central</div><div class="value" style="font-style: italic; border-left: 3pt solid #e2e8f0; padding-left: 10pt;">"${DIAGNOSTICO.problema}"</div>
+                                <div class="label">Causas Identificadas</div><div class="value">${DIAGNOSTICO.causas}</div>
+                                <div class="label">Impacto Estimado</div><div class="value">${DIAGNOSTICO.impacto}</div>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <!-- SECCIÓN 4 -->
-                    <div class="section-container">
-                        <table class="header-table">
-                            <tr>
-                                <td class="accent-bar">&nbsp;</td>
-                                <td class="spacer">&nbsp;</td>
-                                <td class="navy-title-bar"><span class="title-text">4. Factibilidad Económica</span></td>
-                            </tr>
-                        </table>
-                        <table class="stats-grid">
-                            <tr>
-                                <td><div class="stat-card"><p class="stat-val">$485k</p><p class="stat-lbl">VAN</p></div></td>
-                                <td><div class="stat-card"><p class="stat-val">31.2%</p><p class="stat-lbl">TIR</p></div></td>
-                                <td><div class="stat-card"><p class="stat-val">2.1 A.</p><p class="stat-lbl">Payback</p></div></td>
-                            </tr>
-                        </table>
-                        <div style="margin-left: 15pt; background-color: #22c55e; color: #ffffff; padding: 15pt; text-align: center; font-weight: 900; border-radius: 10pt; margin-top: 15pt;">
-                            VIABILIDAD CONFIRMADA • MODELO ESCALABLE 2026
-                        </div>
-                    </div>
-
-                    <!-- SECCIÓN 5 -->
-                    <div class="section-container">
-                        <table class="header-table">
-                            <tr>
-                                <td class="accent-bar">&nbsp;</td>
-                                <td class="spacer">&nbsp;</td>
-                                <td class="navy-title-bar"><span class="title-text">5. Desarrollo del Proyecto (Solución)</span></td>
-                            </tr>
-                        </table>
-                        <div class="content-box">
-                            <span class="label-style">Visión</span><span class="value-style">${SOLUCION.vision}</span>
-                            <span class="label-style">Arquitectura</span><span class="value-style">${SOLUCION.detalles}</span>
-                            <span class="label-style">Capacidades Maestro</span>
-                            <div class="value-style">
-                                ${SOLUCION.claves.map(c => `• ${c}<br>`).join('')}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SECCIÓN 6 -->
-                    <div class="section-container">
-                        <table class="header-table">
-                            <tr>
-                                <td class="accent-bar">&nbsp;</td>
-                                <td class="spacer">&nbsp;</td>
-                                <td class="navy-title-bar"><span class="title-text">6. Presupuesto Operativo</span></td>
-                            </tr>
-                        </table>
-                        <div style="margin-left: 15pt;">
-                            <table class="pro-table">
-                                <thead>
+                    <!-- PARTE 4 -->
+                    <table class="section-table">
+                        <tr class="header-row">
+                            <td class="accent-cell"></td>
+                            <td class="title-cell"><span class="title-text">4. FACTIBILIDAD ECONÓMICA</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="content-cell">
+                                <table class="grid-table">
                                     <tr>
-                                        <th>Componente de Inversión</th>
-                                        <th style="text-align: right;">Monto (USD)</th>
+                                        <td><div class="grid-card"><p class="grid-val">$485k</p><p class="grid-lbl">VAN</p></div></td>
+                                        <td><div class="grid-card"><p class="grid-val">31.2%</p><p class="grid-lbl">TIR</p></div></td>
+                                        <td><div class="grid-card"><p class="grid-val">2.1 A.</p><p class="grid-lbl">Recuperación</p></div></td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    ${PRESUPUESTO.map(p => `<tr><td>${p.item}</td><td style="text-align: right;">$ ${p.cost.toLocaleString()}.00</td></tr>`).join('')}
-                                    <tr class="total-highlight">
-                                        <td style="padding: 20pt;">INVERSIÓN TOTAL</td>
-                                        <td style="text-align: right; padding: 20pt;">$ 11.900,00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                </table>
+                                <div style="margin-top: 20pt; padding: 15pt; background-color: #ecfdf5; border: 1pt solid ${ACCENT_GREEN}; color: #065f46; font-size: 10pt; font-weight: 700; text-align: center; border-radius: 8pt;">
+                                    DICTAMEN: PROYECTO DE ALTA RENTABILIDAD Y ESCALABILIDAD 5G.
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <!-- SECCIÓN 7 -->
-                    <div class="section-container">
-                        <table class="header-table">
-                            <tr>
-                                <td class="accent-bar">&nbsp;</td>
-                                <td class="spacer">&nbsp;</td>
-                                <td class="navy-title-bar"><span class="title-text">7. Aliados Estratégicos</span></td>
-                            </tr>
-                        </table>
-                        <div class="content-box">
-                            ${ALIADOS.map(a => `<span class="label-style">${a.name}</span><span class="value-style">${a.support}</span>`).join('')}
-                        </div>
-                    </div>
+                    <!-- PARTE 5 -->
+                    <table class="section-table">
+                        <tr class="header-row">
+                            <td class="accent-cell"></td>
+                            <td class="title-cell"><span class="title-text">5. SOLUCIÓN TECNOLÓGICA</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="content-cell">
+                                <div class="label">Visión Estratégica</div><div class="value">${SOLUCION.vision}</div>
+                                <div class="label">Arquitectura de Nodo</div><div class="value">${SOLUCION.detalles}</div>
+                                <div class="label">Capacidades del Sistema</div>
+                                <div class="value">
+                                    • Chatbot Neuronal de Atención.<br>
+                                    • Automatización Fiscal Inmutable.<br>
+                                    • Bóveda con Seguridad Biométrica.
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <!-- SECCIÓN 8 -->
-                    <div class="section-container">
-                        <table class="header-table">
-                            <tr>
-                                <td class="accent-bar">&nbsp;</td>
-                                <td class="spacer">&nbsp;</td>
-                                <td class="navy-title-bar"><span class="title-text">8. Plan de Acción</span></td>
-                            </tr>
-                        </table>
-                        <div style="margin-left: 15pt;">
-                            <table class="pro-table">
-                                <thead><tr><th>Fase Operativa</th><th style="text-align: right;">Cronograma</th></tr></thead>
-                                <tbody>
-                                    ${PLAN_ACCION.map(task => `<tr><td>${task.task}</td><td style="text-align: right; color: ${PRIMARY_BLUE}; uppercase">${task.date}</td></tr>`).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <!-- PARTE 6 -->
+                    <table class="section-table">
+                        <tr class="header-row">
+                            <td class="accent-cell"></td>
+                            <td class="title-cell"><span class="title-text">6. PRESUPUESTO MAESTRO (CAPEX)</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="content-cell">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Componente</th>
+                                            <th style="text-align: right;">USD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${PRESUPUESTO.map(p => `<tr><td>${p.item}</td><td style="text-align: right;">$ ${p.cost.toLocaleString()}</td></tr>`).join('')}
+                                        <tr class="total-row">
+                                            <td style="padding: 15pt;">INVERSIÓN TOTAL</td>
+                                            <td style="text-align: right; padding: 15pt;">$ 11.900,00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <p style="text-align: center; margin-top: 100pt; border-top: 2pt solid ${BORDER_COLOR}; padding-top: 20pt; color: #94a3b8; font-size: 10pt; font-weight: 900; text-transform: uppercase; letter-spacing: 5pt;">
-                        EXPEDIENTE MAESTRO VALIDADO • © 2026 SYSTEM KYRON
-                    </p>
+                    <!-- PARTE 7 -->
+                    <table class="section-table">
+                        <tr class="header-row">
+                            <td class="accent-cell"></td>
+                            <td class="title-cell"><span class="title-text">7. ALIADOS DEL ECOSISTEMA</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="content-cell">
+                                <table width="100%">
+                                    ${ALIADOS.map(a => `<tr><td style="padding-bottom: 10pt;"><div class="label">${a.name}</div><div class="value">${a.support}</div></td></tr>`).join('')}
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- PARTE 8 -->
+                    <table class="section-table">
+                        <tr class="header-row">
+                            <td class="accent-cell"></td>
+                            <td class="title-cell"><span class="title-text">8. CRONOGRAMA DE ACCIÓN</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="content-cell">
+                                <table class="data-table">
+                                    <thead><tr><th>Fase</th><th>Tiempo</th></tr></thead>
+                                    <tbody>
+                                        ${PLAN_ACCION.map(task => `<tr><td>${task.task}</td><td style="color: ${PRIMARY_BLUE};">${task.date}</td></tr>`).join('')}
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="footer">
+                        SYSTEM KYRON • MASTER ASSET ARCHIVE • 2026
+                    </div>
                 </body>
                 </html>
             `;
@@ -335,20 +332,26 @@ export default function SectorPrivadoPage() {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = "SYSTEM_KYRON_EXPEDIENTE_MAESTRO_2026.doc";
+            a.download = "EXPEDIENTE_MAESTRO_KYRON_2026.doc";
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             setIsExporting(false);
-            toast({ title: "EXPEDIENTE GENERADO", description: "Documento de alta fidelidad descargado.", action: <CheckCircle className="text-primary h-4 w-4" /> });
-        }, 800);
+            
+            toast({ 
+                title: "TRANSMISIÓN EXITOSA", 
+                description: "Expediente exportado en alta fidelidad.", 
+                action: <CheckCircle className="text-primary h-4 w-4" /> 
+            });
+        }, 1000);
     };
 
     if (!isMounted) return null;
 
     return (
         <div className="min-h-screen bg-[#020202] text-white p-4 md:p-12 font-sans selection:bg-primary/20 hud-grid relative">
-            {/* PANEL DE CONTROL SUPERIOR */}
+            
+            {/* HUD CONTROL BAR */}
             <div className="max-w-5xl mx-auto mb-16 no-print">
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }}
@@ -384,7 +387,7 @@ export default function SectorPrivadoPage() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-[950px] mx-auto pb-32">
                 <div className="bg-white text-black p-10 md:p-24 shadow-2xl rounded-[4rem] border border-slate-300 print:p-0 print:shadow-none overflow-hidden relative">
                     
-                    {/* ENCABEZADO INSTITUCIONAL */}
+                    {/* CABECERA UHD */}
                     <div className="flex justify-between items-start mb-20 border-b-8 border-primary/10 pb-12">
                         <div className="flex items-center gap-8">
                             <Logo className="h-20 w-20" />
@@ -416,7 +419,7 @@ export default function SectorPrivadoPage() {
                             </div>
                         </section>
 
-                        {/* 2. Población a Trabajar */}
+                        {/* 2. Población */}
                         <section>
                             <div className="flex items-center gap-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl mb-10 border-l-8 border-secondary">
                                 <Activity className="h-6 w-6" />
@@ -437,19 +440,19 @@ export default function SectorPrivadoPage() {
                             </div>
                         </section>
 
-                        {/* 3. Análisis del Problema */}
+                        {/* 3. Diagnóstico */}
                         <section>
                             <div className="flex items-center gap-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl mb-10 border-l-8 border-primary">
                                 <Terminal className="h-6 w-6" />
                                 <h2 className="text-base font-black uppercase tracking-[0.4em]">3. Análisis del Problema</h2>
                             </div>
-                            <div className="px-6 space-y-8 text-justify">
-                                <div className="p-10 bg-slate-50 border-2 border-slate-100 rounded-[3rem] relative">
+                            <div className="px-6 space-y-8">
+                                <div className="p-10 bg-slate-50 border-2 border-slate-100 rounded-[3rem]">
                                     <p className="text-xl font-bold italic text-slate-800 leading-relaxed">"{DIAGNOSTICO.problema}"</p>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-10">
-                                    <div className="space-y-4">
-                                        <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest border-b pb-2">Causas Raíz</p>
+                                    <div>
+                                        <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-3">Causas Raíz</p>
                                         <p className="text-xs font-bold text-slate-600 uppercase leading-relaxed">{DIAGNOSTICO.causas}</p>
                                     </div>
                                     <div className="p-8 bg-primary/5 rounded-[2.5rem] border-2 border-primary/10">
@@ -460,47 +463,43 @@ export default function SectorPrivadoPage() {
                             </div>
                         </section>
 
-                        {/* 4. Factibilidad Económica */}
+                        {/* 4. Factibilidad */}
                         <section>
                             <div className="flex items-center gap-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl mb-10 border-l-8 border-secondary">
                                 <TrendingUp className="h-6 w-6" />
                                 <h2 className="text-base font-black uppercase tracking-[0.4em]">4. Factibilidad Económica</h2>
                             </div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-6 mb-10">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
                                 {FACTIBILIDAD.map(stat => (
-                                    <div key={stat.label} className="p-8 bg-slate-50 border-2 border-slate-100 rounded-[2rem] text-center shadow-inner hover:scale-105 transition-transform">
+                                    <div key={stat.label} className="p-8 bg-slate-50 border-2 border-slate-100 rounded-[2rem] text-center shadow-inner">
                                         <p className="text-[9px] font-black uppercase text-slate-400 mb-2 tracking-widest">{stat.label}</p>
                                         <p className="text-xl font-black italic" style={{ color: stat.col }}>{stat.val}</p>
                                     </div>
                                 ))}
                             </div>
-                            <div className="mx-6 p-8 bg-emerald-500/10 rounded-[2.5rem] border-2 border-emerald-500/20 text-center">
-                                <p className="text-xs font-black text-emerald-600 uppercase tracking-[0.3em] mb-2">Dictamen de Ingeniería</p>
-                                <p className="text-sm font-bold text-slate-700 italic">Viabilidad Sobresaliente. El modelo SaaS permite una escalabilidad total con costos operativos mínimos tras el despliegue del nodo inicial.</p>
-                            </div>
                         </section>
 
-                        {/* 5. Desarrollo de la Solución */}
+                        {/* 5. Solución */}
                         <section>
                             <div className="flex items-center gap-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl mb-10 border-l-8 border-primary">
                                 <Zap className="h-6 w-6" />
-                                <h2 className="text-base font-black uppercase tracking-[0.4em]">5. Desarrollo del Proyecto (Solución)</h2>
+                                <h2 className="text-base font-black uppercase tracking-[0.4em]">5. Desarrollo del Proyecto</h2>
                             </div>
-                            <div className="px-6 space-y-12">
-                                <div className="space-y-4">
-                                    <p className="text-base font-black uppercase italic text-primary underline decoration-primary/20 underline-offset-8 tracking-tight">{SOLUCION.vision}</p>
-                                    <p className="text-sm font-medium text-slate-600 leading-relaxed text-justify">{SOLUCION.detalles}</p>
+                            <div className="px-6 space-y-12 text-justify">
+                                <div>
+                                    <p className="text-base font-black uppercase italic text-primary mb-4">{SOLUCION.vision}</p>
+                                    <p className="text-sm font-medium text-slate-600 leading-relaxed">{SOLUCION.detalles}</p>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-10">
-                                    <div className="p-8 bg-slate-50 rounded-[2.5rem] border-2 border-slate-100 shadow-inner">
-                                        <p className="text-[10px] font-black uppercase text-slate-400 mb-4 italic tracking-widest">Diferenciador Institucional</p>
+                                    <div className="p-8 bg-slate-50 rounded-[2.5rem] border-2 border-slate-100">
+                                        <p className="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">Diferenciador</p>
                                         <p className="text-xs font-bold text-slate-500 uppercase leading-relaxed">{SOLUCION.diferencia}</p>
                                     </div>
                                     <div className="p-8 bg-primary/5 rounded-[2.5rem] border-2 border-primary/20">
-                                        <p className="text-[10px] font-black uppercase text-primary mb-4 italic tracking-widest">Capacidades del Sistema</p>
+                                        <p className="text-[10px] font-black uppercase text-primary mb-4 italic tracking-widest">Capacidades</p>
                                         <ul className="text-[11px] font-black uppercase text-slate-700 space-y-3">
                                             {SOLUCION.claves.map((c, i) => (
-                                                <li key={i} className="flex gap-3 items-center"><span className="text-primary text-lg">›</span> <span>{c}</span></li>
+                                                <li key={i} className="flex gap-3 items-center"><span className="text-primary">•</span> <span>{c}</span></li>
                                             ))}
                                         </ul>
                                     </div>
@@ -508,77 +507,70 @@ export default function SectorPrivadoPage() {
                             </div>
                         </section>
 
-                        {/* 6. Presupuesto Operativo */}
+                        {/* 6. Presupuesto */}
                         <section>
                             <div className="flex items-center gap-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl mb-10 border-l-8 border-secondary">
                                 <ShoppingCart className="h-6 w-6" />
                                 <h2 className="text-base font-black uppercase tracking-[0.4em]">6. Presupuesto Operativo (CAPEX)</h2>
                             </div>
-                            <div className="border-2 border-slate-200 rounded-[2.5rem] overflow-hidden mx-6 shadow-2xl bg-white">
+                            <div className="border-2 border-slate-200 rounded-[2.5rem] overflow-hidden mx-6 shadow-2xl">
                                 <Table>
                                     <TableHeader>
                                         <TableRow className="bg-slate-900 hover:bg-slate-900 border-none">
-                                            <TableHead className="font-black text-[10px] uppercase text-white/60 pl-10 py-6 tracking-widest">Componente de Inversión</TableHead>
-                                            <TableHead className="text-center font-black text-[10px] uppercase text-white/60 tracking-widest">Cant.</TableHead>
-                                            <TableHead className="text-right font-black text-[10px] uppercase text-white/60 tracking-widest">Costo (USD)</TableHead>
-                                            <TableHead className="text-right pr-10 font-black text-[10px] uppercase text-white/60 tracking-widest">Ubicación</TableHead>
+                                            <TableHead className="font-black text-[10px] uppercase text-white/60 pl-10 py-6 tracking-widest">Inversión</TableHead>
+                                            <TableHead className="text-right pr-10 font-black text-[10px] uppercase text-white/60 tracking-widest">Monto (USD)</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
                                         {PRESUPUESTO.map((row, i) => (
                                             <TableRow key={i} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                                                 <TableCell className="text-xs font-black uppercase pl-10 py-6 text-slate-700 italic">{row.item}</TableCell>
-                                                <TableCell className="text-center font-mono font-black text-slate-500">{row.qty}</TableCell>
-                                                <TableCell className="text-right font-mono font-black text-primary italic text-base">$ {row.cost.toLocaleString()}.00</TableCell>
-                                                <TableCell className="text-right text-[10px] italic text-slate-400 uppercase font-black pr-10">{row.location}</TableCell>
+                                                <TableCell className="text-right font-mono font-black text-primary italic text-base pr-10">$ {row.cost.toLocaleString()}</TableCell>
                                             </TableRow>
                                         ))}
-                                        <TableRow className="bg-primary/10 font-black border-t-4 border-primary/20">
-                                            <TableCell colSpan={2} className="text-lg uppercase italic pl-10 py-10 text-primary">Inversión Proyectada Total</TableCell>
-                                            <TableCell className="text-right text-4xl text-primary font-black italic tracking-tighter">$ 11.900,00</TableCell>
-                                            <TableCell className="pr-10" />
+                                        <TableRow className="bg-primary/10 font-black">
+                                            <TableCell className="text-lg uppercase italic pl-10 py-10 text-primary">TOTAL INVERSIÓN</TableCell>
+                                            <TableCell className="text-right text-4xl text-primary font-black italic tracking-tighter pr-10">$ 11.900,00</TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
                             </div>
                         </section>
 
-                        {/* 7. Aliados Estratégicos */}
+                        {/* 7. Aliados */}
                         <section>
                             <div className="flex items-center gap-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl mb-10 border-l-8 border-primary">
                                 <Handshake className="h-6 w-6" />
-                                <h2 className="text-base font-black uppercase tracking-[0.4em]">7. Aliados y Recursos Estratégicos</h2>
+                                <h2 className="text-base font-black uppercase tracking-[0.4em]">7. Aliados Estratégicos</h2>
                             </div>
                             <div className="px-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {ALIADOS.map((ally, i) => (
-                                    <div key={i} className="flex flex-col justify-between p-8 bg-slate-50 rounded-[2rem] border-2 border-slate-100 hover:border-primary/30 transition-all shadow-sm">
-                                        <span className="text-base font-black uppercase italic text-primary mb-3 underline decoration-primary/10 underline-offset-4">{ally.name}</span>
-                                        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-tight leading-relaxed">{ally.support}</span>
+                                    <div key={i} className="p-8 bg-slate-50 rounded-[2rem] border-2 border-slate-100 shadow-sm">
+                                        <span className="text-base font-black uppercase italic text-primary mb-3 block">{ally.name}</span>
+                                        <span className="text-[11px] font-bold text-slate-500 uppercase leading-relaxed">{ally.support}</span>
                                     </div>
                                 ))}
                             </div>
                         </section>
 
-                        {/* 8. Plan de Acción Operativo */}
+                        {/* 8. Plan Acción */}
                         <section>
                             <div className="flex items-center gap-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl mb-10 border-l-8 border-secondary">
                                 <ClipboardCheck className="h-6 w-6" />
-                                <h2 className="text-base font-black uppercase tracking-[0.4em]">8. Plan de Acción Operativo</h2>
+                                <h2 className="text-base font-black uppercase tracking-[0.4em]">8. Plan de Acción</h2>
                             </div>
-                            <div className="border-2 border-slate-200 rounded-[2.5rem] overflow-hidden mx-6 shadow-2xl bg-white">
+                            <div className="border-2 border-slate-200 rounded-[2.5rem] overflow-hidden mx-6 shadow-2xl">
                                 <Table>
                                     <TableHeader>
                                         <TableRow className="bg-slate-900 hover:bg-slate-900 border-none">
-                                            <TableHead className="font-black text-[10px] uppercase text-white/60 pl-10 py-6 tracking-widest">Fase Operativa</TableHead>
-                                            <TableHead className="font-black text-[10px] uppercase text-center text-white/60 tracking-widest">Responsable</TableHead>
+                                            <TableHead className="font-black text-[10px] uppercase text-white/60 pl-10 py-6 tracking-widest">Fase</TableHead>
                                             <TableHead className="font-black text-[10px] uppercase text-right pr-10 text-white/60 tracking-widest">Cronograma</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
                                         {PLAN_ACCION.map((item, i) => (
-                                            <TableRow key={i} className="border-b border-slate-100 hover:bg-slate-50">
-                                                <TableCell className="pl-10 py-6 text-xs font-bold text-slate-700 uppercase tracking-tight italic">{item.task}</TableCell>
-                                                <TableCell className="text-center text-[10px] font-black text-primary uppercase italic">{item.owner}</TableCell>
+                                            <TableRow key={i} className="border-b border-slate-100">
+                                                <TableCell className="pl-10 py-6 text-xs font-bold text-slate-700 uppercase italic">{item.task}</TableCell>
                                                 <TableCell className="text-right pr-10 text-[11px] font-black text-secondary uppercase tracking-widest">{item.date}</TableCell>
                                             </TableRow>
                                         ))}
@@ -598,7 +590,7 @@ export default function SectorPrivadoPage() {
                                 <p className="text-xl font-black uppercase italic text-primary tracking-tighter">SYSTEM KYRON MASTER VALIDATED</p>
                             </div>
                         </div>
-                        <div className="text-[10px] font-black uppercase tracking-[1em] text-slate-300 italic animate-pulse text-center">Final del documento • 2026</div>
+                        <div className="text-[10px] font-black uppercase tracking-[1em] text-slate-300 italic animate-pulse">Final del Expediente • 2026</div>
                     </div>
                 </div>
             </motion.div>
