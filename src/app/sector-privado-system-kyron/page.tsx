@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link"; // Importación estándar para evitar error de intl context
+import Link from "next/link";
 import { 
   Printer,
   Download,
@@ -29,7 +29,8 @@ import {
   ArrowRight,
   ChevronRight,
   Package,
-  ShoppingCart
+  ShoppingCart,
+  Handshake
 } from "lucide-react";
 import {
   Table,
@@ -45,18 +46,20 @@ import { motion } from "framer-motion";
 import { cn, formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
-/**
- * @fileOverview Expediente Maestro ZEDU Final - Sistema Kyron v2.6.5
- * Consolidación total de las 6 partes del modelo ZEDU.
- * Estética UHD en Azul Kyron y Verde Esmeralda.
- */
-
 const budgetData = [
     { item: "Infraestructura de Red 5G (Nodo Kyron Connect)", qty: 1, cost: 5000, location: "División Telecom" },
     { item: "Lote SIM Cards Físicas / Provisión eSIM", qty: 1000, cost: 1000, location: "Kyron Secure Hub" },
     { item: "Papeleras Inteligentes (Inducción Magnética)", qty: 5, cost: 1250, location: "Taller de Ingeniería" },
     { item: "Equipos Fiscales Homologados (Prov. 0071)", qty: 2, cost: 950, location: "Fiscal Solutions" },
     { item: "Licencia Anual Ecosistema AutoMind AI Pro", qty: 1, cost: 1500, location: "Cloud Vault" },
+];
+
+const alliesData = [
+    { name: "SAPI (Propiedad Intelectual)", support: "Registro de Patentes y Marcas" },
+    { name: "CONATEL", support: "Habilitación de Telecomunicaciones" },
+    { name: "SENIAT", support: "Validación de Equipos Fiscales" },
+    { name: "Banco de Venezuela", support: "Integración de Pasarelas de Pago" },
+    { name: "Ministerio de Petróleo", support: "Certificación de Transporte" },
 ];
 
 export default function SectorPrivadoPage() {
@@ -80,18 +83,20 @@ export default function SectorPrivadoPage() {
                     <title>Expediente Maestro ZEDU - System Kyron</title>
                     <style>
                         body { font-family: 'Arial', sans-serif; line-height: 1.5; color: #000; padding: 20px; }
-                        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; border: 2pt solid #000; }
-                        td, th { border: 1pt solid #000; padding: 12px; vertical-align: top; font-size: 10pt; }
-                        .section-header { background-color: #f1f5f9; font-weight: 900; text-transform: uppercase; text-align: center; padding: 10px; border: 2pt solid #000; color: #1e40af; }
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; border: 1.5pt solid #000; }
+                        td, th { border: 1pt solid #000; padding: 10px; vertical-align: top; font-size: 10pt; }
+                        .section-header { background-color: #f1f5f9; font-weight: 900; text-transform: uppercase; text-align: left; padding: 10px; border: 1.5pt solid #000; color: #1e40af; }
                         .label { font-weight: bold; text-transform: uppercase; color: #475569; font-size: 8pt; }
                         .value { font-weight: bold; color: #000; }
+                        .title { font-size: 24pt; font-weight: 900; text-align: center; text-transform: uppercase; margin-bottom: 5px; }
+                        .subtitle { font-size: 10pt; text-align: center; color: #64748b; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
+                        .text-block { margin-bottom: 20px; text-align: justify; font-size: 10pt; }
+                        .important-note { font-weight: bold; font-style: italic; color: #1e40af; }
                     </style>
                 </head>
                 <body>
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <h1 style="font-size: 24pt; text-transform: uppercase; margin: 0;">Expediente Maestro ZEDU</h1>
-                        <p style="font-size: 10pt; color: #64748b;">NODO DE INTELIGENCIA CORPORATIVA v2.6.5</p>
-                    </div>
+                    <div class="title">System Kyron</div>
+                    <div class="subtitle">Expediente Maestro ZEDU v2.6.5</div>
                     ${documentContent}
                 </body>
                 </html>
@@ -101,15 +106,15 @@ export default function SectorPrivadoPage() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = "EXPEDIENTE_ZEDU_FINAL_KYRON.doc";
+            link.download = "EXPEDIENTE_ZEDU_TOTAL_KYRON.doc";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
 
             setIsExporting(false);
             toast({
-                title: "DOSSIER EXPORTADO",
-                description: "Expediente Maestro descargado bajo protocolo de alta fidelidad.",
+                title: "PROTOCOLO COMPLETADO",
+                description: "Expediente Maestro de 7 partes exportado con éxito.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
         }, 1500);
@@ -135,7 +140,7 @@ export default function SectorPrivadoPage() {
                         </Button>
                         <div className="h-10 w-px bg-white/10" />
                         <div className="flex flex-col">
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Dossier: ZEDU-ULTIMATE</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Status: Maestro Consolidado</span>
                             <span className="text-[8px] font-bold text-white/20 uppercase tracking-[0.2em] mt-1">Audit Ready • 2026</span>
                         </div>
                     </div>
@@ -146,13 +151,13 @@ export default function SectorPrivadoPage() {
                         </Button>
                         <Button onClick={handleDownload} disabled={isExporting} className="h-12 px-10 rounded-xl btn-3d-primary font-black text-[10px] uppercase tracking-widest shadow-glow">
                             {isExporting ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Download className="mr-3 h-4 w-4" />}
-                            DESCARGAR EXPEDIENTE
+                            EXPORTAR EXPEDIENTE
                         </Button>
                     </div>
                 </motion.div>
             </div>
 
-            {/* EXPEDIENTE MAESTRO */}
+            {/* DOCUMENTO DINÁMICO */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -170,8 +175,8 @@ export default function SectorPrivadoPage() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Expediente Maestro</Badge>
-                            <p className="text-[9px] font-mono text-slate-400 uppercase tracking-widest italic">REF: KYRON-ZEDU-MASTER-2026</p>
+                            <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Dossier de Ingeniería</Badge>
+                            <p className="text-[9px] font-mono text-slate-400 uppercase tracking-widest italic">REF: KYRON-ZEDU-MASTER-FINAL</p>
                         </div>
                     </div>
 
@@ -215,14 +220,14 @@ export default function SectorPrivadoPage() {
                         </div>
                         <div className="border-[1.5px] border-black overflow-hidden rounded-3xl shadow-sm bg-white">
                             <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Comunidad Beneficiaria</p></div>
-                            <div className="p-6 border-b-[1.5px] border-black"><p className="text-sm font-bold uppercase text-slate-800">Santa Rosa de Lima, Caracas. Nodo de Modernización.</p></div>
+                            <div className="p-6 border-b-[1.5px] border-black"><p className="text-sm font-bold uppercase text-slate-800">Comunidad de Santa Rosa de Lima, Caracas. Zona de Alta Demanda Tecnológica.</p></div>
                             <div className="grid grid-cols-3">
                                 <div className="border-r-[1.5px] border-black p-6 text-center">
                                     <p className="text-[9px] font-black uppercase text-slate-400 mb-2">Alcance</p>
                                     <p className="text-3xl font-black italic text-secondary">1.500+</p>
                                 </div>
                                 <div className="col-span-2 p-6 font-mono text-[11px] font-bold uppercase leading-relaxed text-slate-600">
-                                    Personal administrativo, directivo y representantes con necesidad de digitalización inmutable de expedientes y conectividad 5G.
+                                    Personal administrativo, directivo y representantes con necesidad crítica de digitalización inmutable de expedientes y conectividad 5G de baja latencia.
                                 </div>
                             </div>
                         </div>
@@ -247,7 +252,7 @@ export default function SectorPrivadoPage() {
                                 <div>
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Consecuencias</p></div>
                                     <div className="p-6 italic font-bold uppercase text-slate-600 leading-relaxed">
-                                        Retraso crítico en localización de datos, vulnerabilidad ante pérdida de expedientes y alto riesgo de incumplimiento legal.
+                                        Retraso crítico en localización de datos, vulnerabilidad ante pérdida de expedientes y alto riesgo de incumplimiento legal ante entes públicos.
                                     </div>
                                 </div>
                             </div>
@@ -303,7 +308,7 @@ export default function SectorPrivadoPage() {
                             <div className="grid grid-cols-2">
                                 <div className="border-r-[1.5px] border-black">
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Otras Propuestas (MOBIAN)</p></div>
-                                    <div className="p-6 italic font-bold text-slate-600 uppercase">
+                                    <div className="p-6 italic font-bold text-slate-600 uppercase leading-relaxed">
                                         Enfoques basados únicamente en gestión administrativa convencional sin integración de hardware inteligente, conectividad 5G propia ni sellado inmutable Blockchain.
                                     </div>
                                 </div>
@@ -352,6 +357,40 @@ export default function SectorPrivadoPage() {
                                     </TableRow>
                                 </TableBody>
                             </Table>
+                        </div>
+                    </div>
+
+                    {/* PARTE 7: ALIADOS */}
+                    <div className="space-y-6 mb-16">
+                        <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
+                            <Handshake className="h-5 w-5 text-primary" />
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">7. Aliados y Recursos</h2>
+                        </div>
+                        <div className="space-y-8">
+                            <div className="p-8 bg-slate-50 border-[1.5px] border-black rounded-3xl text-justify">
+                                <p className="text-xs font-medium leading-relaxed text-slate-700 italic">
+                                    Los ítems pueden incluir todo material o servicio necesario para ejecutar el proyecto, puede ser donaciones monetarias o en especie. Ejemplo de los ítems: libretas, lápices, bolígrafos, material electrónico o eléctricos, mesas, sillas, formación académica o especializada, traslados y transporte, etc. <span className="font-black text-primary uppercase">NOTA: preferiblemente elabora esta tabla en excel o en hoja de cálculo.</span>
+                                </p>
+                            </div>
+
+                            <div className="border-[1.5px] border-black rounded-[2rem] overflow-hidden bg-white shadow-md">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
+                                            <TableHead className="font-black text-[10px] uppercase text-primary tracking-widest pl-8">Institución / Aliado</TableHead>
+                                            <TableHead className="font-black text-[10px] uppercase text-primary tracking-widest pr-8">Tipo de Apoyo</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {alliesData.map((ally, i) => (
+                                            <TableRow key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+                                                <TableCell className="pl-8 py-5 text-xs font-black uppercase italic text-slate-800">{ally.name}</TableCell>
+                                                <TableCell className="pr-8 py-5 text-xs font-bold text-slate-500 uppercase">{ally.support}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
                         </div>
                     </div>
 
