@@ -39,12 +39,40 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Logo } from "@/components/logo";
 import { motion } from "framer-motion";
 import { cn, formatCurrency } from "@/lib/utils";
+
+// --- CONSTANTES TÉCNICAS UNIFICADAS ---
+const EQUIPO = [
+    { label: "Proyecto", val: "SYSTEM KYRON • AUTOMIND AI" },
+    { label: "Integrantes", val: "Carlos Mattar, Sebastian Garrido, Marcos Sousa" },
+    { label: "Institución / Ubicación", val: "U.E. Colegio 'Gabriela Mistral' • Catia la Mar, La Guaira" },
+];
+
+const PRESUPUESTO = [
+    { item: "Infraestructura Kyron Connect 5G", qty: 1, cost: 5500, location: "Nodo Central" },
+    { item: "Terminales Inteligentes de Gestión", qty: 10, cost: 2500, location: "Hardware Lab" },
+    { item: "Módulo de Bóveda Digital Inmutable", qty: 1, cost: 1800, location: "Cloud Ledger" },
+    { item: "Smart Bins (Magnetismo Síncrono)", qty: 4, cost: 1200, location: "Engineering" },
+    { item: "Equipos Fiscales Homologados", qty: 2, cost: 900, location: "Fiscal Compliance" },
+];
+
+const PLAN_ACCION = [
+    { task: "Auditoría de campo en Catia la Mar", owner: "Equipo Técnico", date: "Semana 1" },
+    { task: "Despliegue de Bóveda y Migración", owner: "C. Mattar", date: "Semana 2" },
+    { task: "Activación de Nodos 5G y eSIM", owner: "S. Garrido", date: "Semana 3" },
+    { task: "Certificación y Lanzamiento", owner: "Auditores Kyron", date: "Semana 4" },
+];
+
+const ALIADOS = [
+    { name: "SAPI", support: "Certificación de Patentes y Propiedad Intelectual." },
+    { name: "SENIAT", support: "Homologación de procesos de riesgo cero." },
+    { name: "CONATEL", support: "Habilitación de Red 5G y servicios de datos." },
+    { name: "Holding Kyron", support: "Respaldo de capital y soporte técnico master." },
+];
 
 export default function SectorPrivadoPage() {
     const { toast } = useToast();
@@ -60,137 +88,165 @@ export default function SectorPrivadoPage() {
         setTimeout(() => {
             const azul = "#2563eb";
             const verde = "#22c55e";
+            const gris = "#64748b";
             
             const htmlContent = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
                     <meta charset='utf-8'>
                     <style>
-                        body { font-family: 'Arial', sans-serif; color: #334155; line-height: 1.5; }
-                        .header-table { width: 100%; border-bottom: 3pt solid ${azul}; margin-bottom: 30px; }
-                        .title { color: ${azul}; font-size: 24pt; font-weight: bold; text-transform: uppercase; margin: 0; }
-                        .section-header { background-color: ${azul}; color: #ffffff; padding: 10px 15px; font-size: 12pt; font-weight: bold; margin-top: 25px; text-transform: uppercase; border-radius: 4px; }
-                        .content-card { border: 1pt solid #e2e8f0; padding: 15px; background-color: #f8fafc; margin-top: 5px; border-radius: 8px; }
-                        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-                        th { background-color: #f1f5f9; color: ${azul}; padding: 10px; font-size: 9pt; text-align: left; border: 1pt solid #cbd5e1; font-weight: bold; }
-                        td { padding: 10px; border: 1pt solid #e2e8f0; font-size: 9pt; background-color: #ffffff; }
-                        .total-row { background-color: #f8fafc; font-weight: bold; }
-                        .highlight-green { color: ${verde}; font-weight: bold; }
-                        .footer { text-align: center; font-size: 8pt; color: #94a3b8; margin-top: 40px; border-top: 1pt solid #e2e8f0; padding-top: 15px; }
-                        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 8pt; font-weight: bold; border: 1px solid #cbd5e1; margin-bottom: 10px; }
+                        body { font-family: 'Arial', sans-serif; color: #1e293b; line-height: 1.6; }
+                        .header-table { width: 100%; border-bottom: 4pt solid ${azul}; margin-bottom: 40px; padding-bottom: 20px; }
+                        .title { color: ${azul}; font-size: 28pt; font-weight: bold; text-transform: uppercase; margin: 0; letter-spacing: -1pt; }
+                        .subtitle { color: ${gris}; font-size: 11pt; font-weight: bold; margin-top: 5pt; text-transform: uppercase; letter-spacing: 2pt; }
+                        
+                        .section-header { background-color: ${azul}; color: #ffffff; padding: 12px 20px; font-size: 13pt; font-weight: bold; margin-top: 35px; text-transform: uppercase; border-radius: 6px; }
+                        .content-box { border: 1.5pt solid #e2e8f0; padding: 20px; background-color: #f8fafc; margin-top: 10px; border-radius: 10px; }
+                        
+                        table { width: 100%; border-collapse: collapse; margin: 20px 0; border: 1.5pt solid #000; }
+                        th { background-color: #f1f5f9; color: ${azul}; padding: 12px; font-size: 10pt; text-align: left; border: 1pt solid #000; font-weight: bold; text-transform: uppercase; }
+                        td { padding: 12px; border: 1pt solid #cbd5e1; font-size: 10pt; background-color: #ffffff; color: #334155; }
+                        
+                        .fact-card { background-color: #ecfdf5; border: 2pt solid ${verde}; padding: 20px; border-radius: 12px; margin: 20px 0; }
+                        .metric-label { color: ${verde}; font-size: 9pt; font-weight: bold; text-transform: uppercase; }
+                        .metric-value { font-size: 18pt; font-weight: bold; color: #064e3b; }
+                        
+                        .footer { text-align: center; font-size: 9pt; color: ${gris}; margin-top: 60px; border-top: 1pt solid #e2e8f0; padding-top: 20px; font-style: italic; }
+                        .highlight { color: ${azul}; font-weight: bold; }
+                        .cert-box { border: 2pt dashed ${azul}; padding: 15px; text-align: center; margin-top: 30px; border-radius: 10px; }
                     </style>
                 </head>
                 <body>
                     <table class="header-table">
                         <tr>
-                            <td style="border:none; width: 70%;">
+                            <td style="border:none;">
                                 <h1 class="title">SYSTEM KYRON</h1>
-                                <p style="font-size: 10pt; color: #64748b; font-weight: bold; margin-top: 5px;">Corporate Intelligence Hub • Expediente de Ingeniería</p>
+                                <p class="subtitle">Corporate Intelligence Hub • Expediente Maestro ZEDU</p>
                             </td>
-                            <td style="border:none; text-align: right; width: 30%;">
-                                <p style="font-size: 9pt; color: #2563eb; font-weight: bold; margin: 0;">REF: KYRON-ZEDU-2026</p>
+                            <td style="border:none; text-align: right;">
+                                <p style="font-size: 10pt; color: ${azul}; font-weight: bold;">REF: KYRON-ZEDU-2026</p>
+                                <p style="font-size: 8pt; color: ${gris};">AUDIT READY: ${new Date().toLocaleDateString()}</p>
                             </td>
                         </tr>
                     </table>
 
                     <div class="section-header">1. Información del Equipo Técnico</div>
-                    <div class="content-card">
-                        <p><b>PROYECTO:</b> SYSTEM KYRON • AUTOMIND AI</p>
-                        <p><b>INTEGRANTES:</b> Carlos Mattar, Sebastian Garrido, Marcos Sousa</p>
-                        <p><b>INSTITUCIÓN / UBICACIÓN:</b> U.E. Colegio 'Gabriela Mistral' • Catia la Mar, La Guaira</p>
+                    <div class="content-box">
+                        ${EQUIPO.map(e => `<p><b>${e.label.toUpperCase()}:</b> ${e.val}</p>`).join('')}
                     </div>
 
                     <div class="section-header">2. Población a Trabajar</div>
-                    <div class="content-card">
-                        <p><b>COMUNIDAD:</b> Núcleo Institucional y Comercial de Catia la Mar</p>
-                        <p><b>ALCANCE:</b> <span class="highlight-green">2.500 Nodos de Interacción (Comunidad Educativa y Pymes)</span></p>
-                        <p><b>PERFIL:</b> Población con alta demanda de simplificación de trámites y seguridad de datos.</p>
+                    <div class="content-box">
+                        <p><b>UBICACIÓN ESTRATÉGICA:</b> Catia la Mar, Estado La Guaira.</p>
+                        <p><b>ALCANCE DEL NODO:</b> <span class="highlight">2.500 Nodos de Interacción Directa.</span></p>
+                        <p><b>PERFIL DEMOGRÁFICO:</b> Comunidad con alta densidad comercial y necesidad crítica de digitalización de trámites y seguridad de activos.</p>
                     </div>
 
                     <div class="section-header">3. Análisis del Problema</div>
-                    <div class="content-card">
-                        <p style="font-style: italic; color: #1e293b;">"Colapso del sistema de archivado físico y fragmentación de la data histórica, imposibilitando una gestión fiscal y legal eficiente."</p>
-                        <p><b>CAUSAS:</b> Dependencia de registros manuales, falta de infraestructura 5G dedicada y ausencia de un ledger inmutable.</p>
-                        <p><b>IMPORTANCIA:</b> La transición a una Bóveda Digital es vital para la soberanía administrativa del sector privado en La Guaira.</p>
+                    <div class="content-box">
+                        <p style="font-style: italic; font-size: 11pt;">"La obsolescencia del archivado físico en la región ha generado un cuello de botella administrativo, resultando en pérdida de activos y riesgo fiscal elevado."</p>
+                        <p><b>CAUSAS RAÍZ:</b> Fragmentación de la data, ausencia de protocolos 5G y dependencia de procesos manuales no auditables.</p>
                     </div>
 
                     <div class="section-header">4. Factibilidad Económica</div>
-                    <table>
-                        <tr><th style="width: 50%;">Indicador Clave</th><th style="text-align: right;">Métrica de Proyecto</th></tr>
-                        <tr><td>VAN (Valor Actual Neto)</td><td style="text-align: right;" class="highlight-green">$ 485.000,00</td></tr>
-                        <tr><td>TIR (Tasa Interna de Retorno)</td><td style="text-align: right;" class="highlight-green">31.2%</td></tr>
-                        <tr><td>Payback (Retorno de Inversión)</td><td style="text-align: right;">2.1 Años</td></tr>
-                        <tr><td>ROI (Retorno sobre Inversión)</td><td style="text-align: right;" class="highlight-green">340%</td></tr>
-                    </table>
-                    <div style="background-color: #ecfdf5; border: 1px solid #10b981; padding: 10px; border-radius: 5px;">
-                        <p style="margin: 0; font-size: 9pt; color: #065f46;"><b>DICTAMEN:</b> Viabilidad Sobresaliente. El modelo SaaS permite escalabilidad total con costos operativos mínimos tras el despliegue del nodo.</p>
+                    <div class="fact-card">
+                        <table style="border:none; background:transparent;">
+                            <tr>
+                                <td style="border:none; background:transparent;">
+                                    <p class="metric-label">VAN (Valor Actual Neto)</p>
+                                    <p class="metric-value">$ 485.000,00</p>
+                                </td>
+                                <td style="border:none; background:transparent;">
+                                    <p class="metric-label">TIR (Tasa de Retorno)</p>
+                                    <p class="metric-value">31.2%</p>
+                                </td>
+                                <td style="border:none; background:transparent;">
+                                    <p class="metric-label">ROI proyectado</p>
+                                    <p class="metric-value">340%</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p style="margin-top: 10px; color: #065f46; font-size: 10pt;"><b>DICTAMEN:</b> Viabilidad Sobresaliente. El modelo SaaS permite escalabilidad masiva con costos de mantenimiento marginales.</p>
                     </div>
 
                     <div class="section-header">5. Desarrolla tu Proyecto (Solución)</div>
-                    <div class="content-card">
-                        <p><b>VISIÓN ESTRATÉGICA:</b> AutoMind AI: Inteligencia dirigida para el control total del ecosistema empresarial. Implementación de una infraestructura que integra conectividad 5G, hardware magnético y un motor de auditoría fiscal inmutable.</p>
-                        <p><b>OTRAS PROPUESTAS:</b> A diferencia de MOBIAN, Kyron ofrece blindaje legal predictivo y trazabilidad de activos físicos mediante sensores de inducción.</p>
-                        <p><b>DIFERENCIADORES CLAVE:</b><br/>
-                        • Chatbot estratégico para atención al representante/cliente.<br/>
-                        • Automatización de libros de compra/venta síncrona.<br/>
-                        • Acceso biométrico 3D para bóveda de documentos.</p>
+                    <div class="content-box">
+                        <p><b>AutoMind AI:</b> Sistema de inteligencia dirigida para el control total del ecosistema empresarial. Integra conectividad 5G, hardware de inducción magnética para activos físicos y un ledger blockchain inmutable para auditorías en tiempo real.</p>
+                        <p><b>DIFERENCIADORES KYRON:</b> A diferencia de MOBIAN, nuestra solución ofrece blindaje legal predictivo y un chatbot estratégico de atención 24/7 sincronizado con la Gaceta Oficial.</p>
                     </div>
 
                     <div class="section-header">6. Presupuesto Operativo (CAPEX)</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>ITEM DE INVERSIÓN</th>
-                                <th style="text-align: center;">CANT.</th>
-                                <th style="text-align: right;">COSTO (USD)</th>
-                                <th>ORIGEN</th>
+                                <th>Item de Inversión</th>
+                                <th style="text-align: center;">Cant.</th>
+                                <th style="text-align: right;">Costo (USD)</th>
+                                <th>Origen</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Infraestructura Kyron Connect 5G</td><td style="text-align: center;">1</td><td style="text-align: right;">$ 5.500,00</td><td>Nodo Central</td></tr>
-                            <tr><td>Terminales Inteligentes de Gestión</td><td style="text-align: center;">10</td><td style="text-align: right;">$ 2.500,00</td><td>Hardware Lab</td></tr>
-                            <tr><td>Módulo de Bóveda Digital Inmutable</td><td style="text-align: center;">1</td><td style="text-align: right;">$ 1.800,00</td><td>Cloud Ledger</td></tr>
-                            <tr><td>Smart Bins (Magnetismo Síncrono)</td><td style="text-align: center;">4</td><td style="text-align: right;">$ 1.200,00</td><td>Engineering</td></tr>
-                            <tr><td>Equipos Fiscales Homologados</td><td style="text-align: center;">2</td><td style="text-align: right;">$ 900,00</td><td>Fiscal Compliance</td></tr>
-                            <tr class="total-row">
+                            ${PRESUPUESTO.map(p => `
+                                <tr>
+                                    <td>${p.item}</td>
+                                    <td style="text-align: center;">${p.qty}</td>
+                                    <td style="text-align: right; font-weight: bold;">$ ${p.cost.toLocaleString()}.00</td>
+                                    <td>${p.location}</td>
+                                </tr>
+                            `).join('')}
+                            <tr style="background-color: #f8fafc; font-weight: bold;">
                                 <td colspan="2">TOTAL INVERSIÓN PROYECTADA</td>
-                                <td style="text-align: right; color: ${azul};">$ 11.900,00</td>
+                                <td style="text-align: right; color: ${azul}; font-size: 14pt;">$ 11.900,00</td>
                                 <td></td>
                             </tr>
                         </tbody>
                     </table>
 
                     <div class="section-header">7. Aliados y Recursos Estratégicos</div>
-                    <div class="content-card">
-                        <p><b>SAPI:</b> Certificación de Patentes y Propiedad Intelectual.</p>
-                        <p><b>SENIAT:</b> Homologación de procesos de riesgo cero.</p>
-                        <p><b>CONATEL:</b> Habilitación de Red 5G y servicios de datos.</p>
-                        <p><b>Holding Kyron:</b> Respaldo de capital y soporte técnico master.</p>
-                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>INSTITUCIÓN / RECURSO</th>
+                                <th>APOYO ESTRATÉGICO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${ALIADOS.map(a => `
+                                <tr>
+                                    <td style="font-weight: bold; color: ${azul};">${a.name}</td>
+                                    <td>${a.support}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
 
                     <div class="section-header">8. Plan de Acción</div>
                     <table>
                         <thead>
                             <tr>
-                                <th>FASE DE TAREA</th>
-                                <th>RESPONSABLE</th>
-                                <th style="text-align: right;">TIEMPO</th>
+                                <th>Fase de Tarea</th>
+                                <th>Responsable</th>
+                                <th style="text-align: right;">Tiempo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Auditoría de campo en Catia la Mar</td><td>Equipo Técnico</td><td style="text-align: right;" class="highlight-green">Semana 1</td></tr>
-                            <tr><td>Despliegue de Bóveda y Migración</td><td>C. Mattar</td><td style="text-align: right;" class="highlight-green">Semana 2</td></tr>
-                            <tr><td>Activación de Nodos 5G y eSIM</td><td>S. Garrido</td><td style="text-align: right;" class="highlight-green">Semana 3</td></tr>
-                            <tr><td>Certificación y Lanzamiento</td><td>Auditores Kyron</td><td style="text-align: right;" class="highlight-green">Semana 4</td></tr>
+                            ${PLAN_ACCION.map(task => `
+                                <tr>
+                                    <td>${task.task}</td>
+                                    <td style="font-weight: bold;">${task.owner}</td>
+                                    <td style="text-align: right; color: ${verde}; font-weight: bold;">${task.date}</td>
+                                </tr>
+                            `).join('')}
                         </tbody>
                     </table>
 
-                    <div style="margin-top: 30px; border-top: 2pt solid #eee; padding-top: 20px;">
-                        <p style="font-size: 10pt; font-weight: bold; color: ${azul};">CERTIFICACIÓN TÉCNICA: SYSTEM KYRON MASTER VALIDATED</p>
+                    <div class="cert-box">
+                        <p style="font-size: 11pt; font-weight: bold; color: ${azul}; margin: 0;">CERTIFICACIÓN TÉCNICA: SYSTEM KYRON MASTER VALIDATED</p>
+                        <p style="font-size: 8pt; color: ${gris}; margin-top: 5px;">Sello Digital: [KYRON-AUTH-2026-X1]</p>
                     </div>
 
                     <div class="footer">
-                        <p>Final del documento • 2026 • © System Kyron Corporate</p>
+                        <p>Final del documento • Dossier Institucional de Ingeniería • © 2026 System Kyron Corporate</p>
                     </div>
                 </body>
                 </html>
@@ -208,7 +264,7 @@ export default function SectorPrivadoPage() {
             setIsExporting(false);
             toast({ 
                 title: "EXPEDIENTE DESCARGADO", 
-                description: "El dossier institucional ha sido generado con éxito.",
+                description: "El dossier de alta fidelidad ha sido generado con éxito.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
         }, 800);
@@ -240,7 +296,7 @@ export default function SectorPrivadoPage() {
                         <Button variant="outline" onClick={() => window.print()} className="h-12 px-8 rounded-xl border-white/10 bg-white/5 font-black text-[10px] uppercase tracking-widest text-white/60 hover:text-white transition-all">
                             <Printer className="mr-3 h-4 w-4 text-primary" /> IMPRIMIR
                         </Button>
-                        <Button onClick={handleDownload} disabled={isExporting} className="h-12 px-10 rounded-xl btn-3d-primary font-black text-[10px] uppercase tracking-widest">
+                        <Button onClick={handleDownload} disabled={isExporting} variant="modern" className="h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest">
                             {isExporting ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Download className="mr-3 h-4 w-4" />}
                             EXPORTAR EXPEDIENTE
                         </Button>
@@ -274,9 +330,12 @@ export default function SectorPrivadoPage() {
                                 <h2 className="text-sm font-black uppercase tracking-[0.3em]">1. Información del Equipo Técnico</h2>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-                                <div><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Proyecto</p><p className="text-sm font-black text-primary uppercase italic">SYSTEM KYRON • AUTOMIND AI</p></div>
-                                <div><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Integrantes</p><p className="text-sm font-bold text-slate-700">Carlos Mattar, Sebastian Garrido, Marcos Sousa</p></div>
-                                <div className="md:col-span-2"><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Institución / Ubicación</p><p className="text-sm font-bold text-slate-700">U.E. Colegio 'Gabriela Mistral' • Catia la Mar, La Guaira</p></div>
+                                {EQUIPO.map((item, i) => (
+                                    <div key={i} className={i === 2 ? "md:col-span-2" : ""}>
+                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-1">{item.label}</p>
+                                        <p className={cn("text-sm font-bold text-slate-700", i === 0 && "text-primary font-black italic")}>{item.val}</p>
+                                    </div>
+                                ))}
                             </div>
                         </section>
 
@@ -287,13 +346,13 @@ export default function SectorPrivadoPage() {
                                 <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">2. Población a Trabajar</h2>
                             </div>
                             <div className="px-4 space-y-4">
-                                <p className="text-sm font-bold text-slate-800">Núcleo Institucional y Comercial de Catia la Mar</p>
+                                <p className="text-sm font-bold text-slate-800 italic">Núcleo Institucional y Comercial de Catia la Mar, Estado La Guaira.</p>
                                 <div className="grid grid-cols-2 gap-6">
-                                    <div className="p-4 bg-secondary/10 rounded-2xl border border-secondary/20">
-                                        <p className="text-[9px] font-black uppercase text-secondary mb-1">Alcance</p>
-                                        <p className="text-xl font-black text-secondary italic">2.500 Nodos de Interacción (Comunidad Educativa y Pymes)</p>
+                                    <div className="p-4 bg-secondary/10 rounded-2xl border border-secondary/20 shadow-inner">
+                                        <p className="text-[9px] font-black uppercase text-secondary mb-1">Alcance Directo</p>
+                                        <p className="text-xl font-black text-secondary italic">2.500 Nodos de Interacción</p>
                                     </div>
-                                    <p className="text-xs font-medium text-slate-500 italic leading-relaxed">Población con alta demanda de simplificación de trámites y seguridad de datos.</p>
+                                    <p className="text-xs font-medium text-slate-500 italic leading-relaxed text-justify">La zona de Catia la Mar presenta una alta densidad de transacciones comerciales que requieren urgentemente una infraestructura de seguridad digital y simplificación tributaria.</p>
                                 </div>
                             </div>
                         </section>
@@ -304,12 +363,12 @@ export default function SectorPrivadoPage() {
                                 <Terminal className="h-5 w-5 text-primary" />
                                 <h2 className="text-sm font-black uppercase tracking-[0.3em]">3. Análisis del Problema</h2>
                             </div>
-                            <div className="px-4 space-y-6">
-                                <p className="text-sm font-bold italic text-slate-800 leading-relaxed">"Colapso del sistema de archivado físico y fragmentación de la data histórica, imposibilitando una gestión fiscal y legal eficiente."</p>
+                            <div className="px-4 space-y-6 text-justify">
+                                <p className="text-sm font-bold italic text-slate-800 leading-relaxed border-l-4 border-slate-200 pl-6">"El colapso del sistema de archivado físico y la fragmentación de la data histórica han imposibilitado una gestión fiscal y legal eficiente en el sector privado de la región."</p>
                                 <div className="grid md:grid-cols-2 gap-6">
-                                    <div><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Causas</p><p className="text-xs font-medium text-slate-600">Dependencia de registros manuales, falta de infraestructura 5G dedicada y ausencia de un ledger inmutable.</p></div>
+                                    <div><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Causas Identificadas</p><p className="text-xs font-medium text-slate-600">Dependencia absoluta de registros en papel, vulnerabilidad ante fiscalizaciones por falta de trazabilidad y ausencia de un ledger inmutable.</p></div>
                                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
-                                        <p className="text-[9px] font-black uppercase text-primary mb-2 italic">Importancia del Cambio</p>
+                                        <p className="text-[9px] font-black uppercase text-primary mb-2 italic">Importancia Estratégica</p>
                                         <p className="text-xs font-bold text-slate-700 leading-relaxed uppercase">La transición a una Bóveda Digital es vital para la soberanía administrativa del sector privado en La Guaira.</p>
                                     </div>
                                 </div>
@@ -329,14 +388,14 @@ export default function SectorPrivadoPage() {
                                     { label: "Payback", val: "2.1 Años", col: "text-slate-600" },
                                     { label: "ROI", val: "340%", col: "text-primary" }
                                 ].map(stat => (
-                                    <div key={stat.label} className="p-6 bg-slate-50 border border-slate-200 rounded-3xl text-center shadow-sm">
+                                    <div key={stat.label} className="p-6 bg-slate-50 border border-slate-200 rounded-3xl text-center shadow-sm hover:shadow-md transition-all">
                                         <p className="text-[9px] font-black uppercase text-slate-400 mb-1">{stat.label}</p>
                                         <p className={cn("text-lg font-black italic", stat.col)}>{stat.val}</p>
                                     </div>
                                 ))}
                             </div>
-                            <p className="text-xs font-bold text-slate-500 italic p-4 bg-slate-50 rounded-xl border border-slate-200 ml-4">
-                                <b>Dictamen:</b> Viabilidad Sobresaliente. El modelo SaaS permite escalabilidad total con costos operativos mínimos tras el despliegue del nodo.
+                            <p className="text-xs font-bold text-slate-500 italic p-6 bg-secondary/5 rounded-2xl border border-secondary/20 ml-4 leading-relaxed">
+                                <b className="text-secondary">Dictamen Final:</b> Viabilidad Sobresaliente. El modelo SaaS permite una escalabilidad total con costos operativos mínimos tras el despliegue del nodo inicial.
                             </p>
                         </section>
 
@@ -348,20 +407,20 @@ export default function SectorPrivadoPage() {
                             </div>
                             <div className="px-4 space-y-8">
                                 <div className="space-y-4">
-                                    <p className="text-sm font-black uppercase italic text-primary">Visión Estratégica</p>
-                                    <p className="text-xs font-medium text-slate-600 leading-relaxed text-justify">AutoMind AI: Inteligencia dirigida para el control total del ecosistema empresarial. Implementación de una infraestructura que integra conectividad 5G, hardware magnético y un motor de auditoría fiscal inmutable.</p>
+                                    <p className="text-sm font-black uppercase italic text-primary underline decoration-primary/20 underline-offset-8">Visión Estratégica: AutoMind AI</p>
+                                    <p className="text-xs font-medium text-slate-600 leading-relaxed text-justify">Implementación de una infraestructura que integra conectividad 5G, hardware magnético y un motor de auditoría fiscal inmutable. Nuestra solución no solo digitaliza, sino que predice riesgos legales antes de que ocurran.</p>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-3 underline">Otras Propuestas</p>
-                                        <p className="text-[10px] font-bold text-slate-500 italic">A diferencia de MOBIAN, Kyron ofrece blindaje legal predictivo y trazabilidad de activos físicos mediante sensores de inducción.</p>
+                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-3 italic">Comparativa de Mercado</p>
+                                        <p className="text-[10px] font-bold text-slate-500">A diferencia de propuestas como MOBIAN, Kyron ofrece blindaje legal predictivo y trazabilidad de activos físicos mediante sensores de inducción magnética síncrona.</p>
                                     </div>
                                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/20">
-                                        <p className="text-[9px] font-black uppercase text-primary mb-3 underline">Diferenciadores Clave</p>
+                                        <p className="text-[9px] font-black uppercase text-primary mb-3 italic">Diferenciadores Clave</p>
                                         <ul className="text-[10px] font-black uppercase text-slate-700 space-y-2">
-                                            <li>• Chatbot estratégico para atención al representante/cliente.</li>
-                                            <li>• Automatización de libros de compra/venta síncrona.</li>
-                                            <li>• Acceso biométrico 3D para bóveda de documentos.</li>
+                                            <li className="flex gap-2"><span>[•]</span> <span>Chatbot estratégico para atención neuronal.</span></li>
+                                            <li className="flex gap-2"><span>[•]</span> <span>Automatización de libros fiscales síncrona.</span></li>
+                                            <li className="flex gap-2"><span>[•]</span> <span>Acceso biométrico 3D para Bóveda Digital.</span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -374,7 +433,7 @@ export default function SectorPrivadoPage() {
                                 <ShoppingCart className="h-5 w-5 text-secondary" />
                                 <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">6. Presupuesto Operativo (CAPEX)</h2>
                             </div>
-                            <div className="border-[1.5px] border-black rounded-3xl overflow-hidden mx-4 shadow-sm">
+                            <div className="border-[1.5px] border-black rounded-3xl overflow-hidden mx-4 shadow-sm bg-white">
                                 <Table>
                                     <TableHeader>
                                         <TableRow className="bg-slate-50 border-b-[1.5px] border-black">
@@ -385,13 +444,7 @@ export default function SectorPrivadoPage() {
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        {[
-                                            { item: "Infraestructura Kyron Connect 5G", qty: 1, cost: 5500, location: "Nodo Central" },
-                                            { item: "Terminales Inteligentes de Gestión", qty: 10, cost: 2500, location: "Hardware Lab" },
-                                            { item: "Módulo de Bóveda Digital Inmutable", qty: 1, cost: 1800, location: "Cloud Ledger" },
-                                            { item: "Smart Bins (Magnetismo Síncrono)", qty: 4, cost: 1200, location: "Engineering" },
-                                            { item: "Equipos Fiscales Homologados", qty: 2, cost: 900, location: "Fiscal Compliance" },
-                                        ].map((row, i) => (
+                                        {PRESUPUESTO.map((row, i) => (
                                             <TableRow key={i} className="border-b border-slate-200 last:border-0">
                                                 <TableCell className="text-[10px] font-bold uppercase pl-6 py-4">{row.item}</TableCell>
                                                 <TableCell className="text-center font-mono font-bold">{row.qty}</TableCell>
@@ -415,18 +468,15 @@ export default function SectorPrivadoPage() {
                                 <Handshake className="h-5 w-5 text-primary" />
                                 <h2 className="text-sm font-black uppercase tracking-[0.3em]">7. Aliados y Recursos Estratégicos</h2>
                             </div>
-                            <div className="px-4 space-y-4">
-                                {[
-                                    { name: "SAPI", support: "Certificación de Patentes y Propiedad Intelectual." },
-                                    { name: "SENIAT", support: "Homologación de procesos de riesgo cero." },
-                                    { name: "CONATEL", support: "Habilitación de Red 5G y servicios de datos." },
-                                    { name: "Holding Kyron", support: "Respaldo de capital y soporte técnico master." },
-                                ].map((ally, i) => (
-                                    <div key={i} className="flex justify-between items-center py-3 border-b border-slate-100 last:border-0">
-                                        <span className="text-xs font-black uppercase italic text-primary">{ally.name}</span>
-                                        <span className="text-xs font-bold text-slate-500 uppercase">{ally.support}</span>
-                                    </div>
-                                ))}
+                            <div className="px-4">
+                                <div className="grid grid-cols-1 gap-4">
+                                    {ALIADOS.map((ally, i) => (
+                                        <div key={i} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 bg-slate-50 rounded-2xl border border-slate-200 group hover:border-primary/20 transition-all">
+                                            <span className="text-xs font-black uppercase italic text-primary mb-1 sm:mb-0">{ally.name}</span>
+                                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tight">{ally.support}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </section>
 
@@ -436,23 +486,18 @@ export default function SectorPrivadoPage() {
                                 <ClipboardCheck className="h-5 w-5 text-secondary" />
                                 <h2 className="text-sm font-black uppercase tracking-[0.3em] text-secondary">8. Plan de Acción</h2>
                             </div>
-                            <div className="border border-slate-200 rounded-3xl overflow-hidden mx-4 shadow-sm">
+                            <div className="border border-slate-200 rounded-3xl overflow-hidden mx-4 shadow-sm bg-white">
                                 <Table>
                                     <TableHeader>
-                                        <TableRow className="bg-slate-50">
-                                            <TableHead className="font-black text-[9px] uppercase pl-8 py-5">Fase de Tarea</TableHead>
+                                        <TableRow className="bg-slate-50 border-b">
+                                            <TableHead className="font-black text-[9px] uppercase pl-8 py-5">Fase Operativa</TableHead>
                                             <TableHead className="font-black text-[9px] uppercase text-center">Responsable</TableHead>
-                                            <TableHead className="font-black text-[9px] uppercase text-right pr-8">Tiempo</TableHead>
+                                            <TableHead className="font-black text-[9px] uppercase text-right pr-8">Cronograma</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        {[
-                                            { task: "Auditoría de campo en Catia la Mar", owner: "Equipo Técnico", date: "Semana 1" },
-                                            { task: "Despliegue de Bóveda y Migración", owner: "C. Mattar", date: "Semana 2" },
-                                            { task: "Activación de Nodos 5G y eSIM", owner: "S. Garrido", date: "Semana 3" },
-                                            { task: "Certificación y Lanzamiento", owner: "Auditores Kyron", date: "Semana 4" },
-                                        ].map((item, i) => (
-                                            <TableRow key={i}>
+                                        {PLAN_ACCION.map((item, i) => (
+                                            <TableRow key={i} className="border-b last:border-0">
                                                 <TableCell className="pl-8 py-5 text-[11px] font-bold text-slate-700 uppercase">{item.task}</TableCell>
                                                 <TableCell className="text-center text-[10px] font-black text-primary uppercase italic">{item.owner}</TableCell>
                                                 <TableCell className="text-right pr-8 text-[10px] font-black text-secondary uppercase tracking-widest">{item.date}</TableCell>
@@ -464,12 +509,14 @@ export default function SectorPrivadoPage() {
                         </section>
                     </div>
 
-                    <div className="mt-24 pt-16 border-t-4 border-slate-100 flex justify-between items-end">
+                    <div className="mt-24 pt-16 border-t-4 border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8">
                         <div className="flex items-center gap-6">
-                            <ShieldCheck className="h-12 w-12 text-primary" />
+                            <div className="p-4 bg-primary/5 rounded-[1.5rem] border border-primary/10">
+                                <ShieldCheck className="h-10 w-10 text-primary" />
+                            </div>
                             <div className="text-left">
-                                <p className="text-[9px] font-black uppercase text-slate-400">Certificación Técnica</p>
-                                <p className="text-sm font-black uppercase italic text-primary leading-none">SYSTEM KYRON MASTER VALIDATED</p>
+                                <p className="text-[9px] font-black uppercase text-slate-400 mb-1">Certificación Institucional</p>
+                                <p className="text-sm font-black uppercase italic text-primary leading-none tracking-tight">SYSTEM KYRON MASTER VALIDATED</p>
                             </div>
                         </div>
                         <div className="text-[9px] font-black uppercase tracking-[0.8em] text-slate-300 italic">Final del documento • 2026</div>
