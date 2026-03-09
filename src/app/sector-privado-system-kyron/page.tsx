@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -7,23 +6,16 @@ import {
   Download, 
   ChevronLeft, 
   CheckCircle,
-  ShieldCheck,
-  FileText,
   Users,
-  Zap,
-  TrendingUp,
   Cpu,
-  Scale,
-  Database,
-  Terminal,
   Activity,
   Target,
-  BarChart3,
-  Recycle,
-  Gavel,
-  Calculator,
-  Shield,
-  Sparkles
+  ShieldCheck,
+  Zap,
+  Lock,
+  Terminal,
+  FileText,
+  Scale
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -35,7 +27,6 @@ import Link from "next/link";
 export default function ModeloZeduPage() {
     const { toast } = useToast();
     const [isMounted, setIsMounted] = useState(false);
-    const logoContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -45,7 +36,7 @@ export default function ModeloZeduPage() {
         const contentElement = document.getElementById('zedu-document-content');
         if (!contentElement) return;
 
-        // Capturar logo específicamente
+        // Capturar logo y redimensionar a tamaño profesional (120px)
         const svgElement = document.querySelector('#main-logo-zedu') as SVGElement;
         let logoHtml = "";
         
@@ -55,9 +46,9 @@ export default function ModeloZeduPage() {
             const ctx = canvas.getContext("2d");
             const img = new Image();
             
-            const svgSize = 250; 
-            canvas.width = svgSize * 2;
-            canvas.height = svgSize * 2;
+            const svgSize = 120; 
+            canvas.width = svgSize * 4; // Mayor resolución para calidad
+            canvas.height = svgSize * 4;
             
             const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
             const url = URL.createObjectURL(svgBlob);
@@ -76,17 +67,17 @@ export default function ModeloZeduPage() {
             });
             
             const base64 = canvas.toDataURL("image/png");
-            logoHtml = `<div style="text-align: center; margin-top: 100pt; margin-bottom: 50pt;"><img src="${base64}" width="${svgSize}" height="${svgSize}" /></div>`;
+            logoHtml = `<div style="text-align: center; margin-top: 150pt; margin-bottom: 30pt;"><img src="${base64}" width="${svgSize}" height="${svgSize}" /></div>`;
         }
 
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
             "xmlns:w='urn:schemas-microsoft-com:office:word' "+
             "xmlns='http://www.w3.org/TR/REC-html40'>"+
-            "<head><meta charset='utf-8'><title>MODELO ZEDU - SYSTEM KYRON</title><style>" +
+            "<head><meta charset='utf-8'><title>MODELO ZEDU SYSTEM KYRON</title><style>" +
             "body { font-family: 'Arial', sans-serif; color: #0f172a; background-color: #ffffff; padding: 40pt; }" +
-            ".cover { text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; }" +
-            ".cover-title { color: #0A2472; font-size: 48pt; font-weight: bold; margin-bottom: 10pt; text-transform: uppercase; }" +
-            ".cover-subtitle { color: #1e293b; font-size: 32pt; font-weight: bold; text-transform: uppercase; }" +
+            ".cover { text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }" +
+            ".cover-title { color: #0A2472; font-size: 36pt; font-weight: bold; margin-bottom: 5pt; text-transform: uppercase; text-align: center; }" +
+            ".cover-subtitle { color: #1e293b; font-size: 24pt; font-weight: bold; text-transform: uppercase; text-align: center; }" +
             "table { border-collapse: collapse; width: 100%; margin-bottom: 25pt; border: 1.5pt solid #000000; }" +
             "td, th { border: 1.0pt solid #000000; padding: 12pt; font-size: 10pt; vertical-align: top; }" +
             ".header-cell { background-color: #0A2472 !important; color: #ffffff !important; font-weight: bold; text-transform: uppercase; text-align: center; }" +
@@ -119,8 +110,8 @@ export default function ModeloZeduPage() {
         document.body.removeChild(link);
 
         toast({
-            title: "DESCARGA INICIADA",
-            description: "El expediente ha sido exportado correctamente.",
+            title: "DESCARGA COMPLETADA",
+            description: "El expediente ha sido ordenado y exportado.",
             action: <CheckCircle className="text-green-500 h-4 w-4" />
         });
     };
@@ -152,26 +143,28 @@ export default function ModeloZeduPage() {
                 animate={{ opacity: 1 }}
                 className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-20 text-slate-950 border border-slate-200"
             >
-                {/* PORTADA VISUAL EN WEB */}
-                <div className="min-h-[900px] flex flex-col items-center justify-center border-b-4 border-slate-100 mb-20 pb-20 text-center">
-                    <Logo id="main-logo-zedu" className="h-64 w-64 mb-12 drop-shadow-2xl border-8 border-[#0A2472] p-6 bg-white" />
-                    <h1 className="text-7xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none mb-4">MODELO ZEDU</h1>
-                    <h2 className="text-5xl font-black text-slate-900 uppercase tracking-tighter italic mb-12">SYSTEM KYRON</h2>
+                {/* PORTADA ORDENADA */}
+                <div className="min-h-[800px] flex flex-col items-center justify-center border-b-4 border-slate-100 mb-20 pb-20 text-center space-y-8">
+                    <Logo id="main-logo-zedu" className="h-32 w-32 md:h-40 md:w-40 border-4 border-[#0A2472] p-4 bg-white shadow-xl" />
+                    <div className="space-y-2">
+                        <h1 className="text-5xl md:text-6xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter italic">SYSTEM KYRON</h2>
+                    </div>
                 </div>
 
                 <div id="zedu-document-content">
-                    {/* 1. INFORMACIÓN DEL EQUIPO */}
+                    {/* 1. INTEGRANTES */}
                     <div className="mb-24">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Users className="h-7 w-7" /> 1. INTEGRANTES DEL PROYECTO
+                            <Users className="h-7 w-7" /> 1. INTEGRANTES
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Identificación de Participantes</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black py-10")}>Carlos Mattar</td>
-                                    <td className={cn(tableCellClass, "text-center font-black py-10")}>Sebastián Garrido</td>
-                                    <td className={cn(tableCellClass, "text-center font-black py-10")}>Marcos Sousa</td>
+                                    <td className={cn(tableCellClass, "text-center font-black py-10 uppercase")}>Carlos Mattar</td>
+                                    <td className={cn(tableCellClass, "text-center font-black py-10 uppercase")}>Sebastián Garrido</td>
+                                    <td className={cn(tableCellClass, "text-center font-black py-10 uppercase")}>Marcos Sousa</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Sede Institucional</td></tr>
                                 <tr>
@@ -183,127 +176,157 @@ export default function ModeloZeduPage() {
                                     <td className={tableCellClass} colSpan={2}>Catia la Mar, Municipio Vargas, Estado La Guaira, Venezuela</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Correo Oficial</td>
+                                    <td className={tableLabelClass}>Contacto Directo</td>
                                     <td className={tableCellClass} colSpan={2}>systemkyronofficial@gmail.com</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    {/* 2. POBLACIÓN A TRABAJAR */}
+                    {/* 2. ANÁLISIS DEL CENTRO ESTRATÉGICO */}
                     <div className="mb-24">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <Target className="h-7 w-7" /> 2. ANÁLISIS DEL CENTRO ESTRATÉGICO
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
-                                <tr><td className={tableHeaderClass} colSpan={2}>Universo Operativo: Catia la Mar</td></tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Contexto Operativo: Catia la Mar</td></tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Densidad Comercial</td>
-                                    <td className={tableCellClass}><span className="font-black text-2xl text-[#0A2472]">2.500 Unidades Económicas</span></td>
+                                    <td className={tableLabelClass}>Diagnóstico Geográfico</td>
+                                    <td className={tableCellClass}>La Parroquia Catia la Mar se posiciona como el epicentro logístico del Estado La Guaira. El Modelo ZEDU aprovecha esta ubicación estratégica para desplegar el ecosistema System Kyron, enfocado en resolver la degradación documental causada por la salinidad marina del litoral.</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Segmentación</td>
-                                    <td className={tableCellClass}>Microempresarios y comerciantes del sector logístico y servicios. La población requiere una transición urgente hacia la digitalización para optimizar la recaudación y reducir la carga administrativa manual.</td>
+                                    <td className={tableLabelClass}>Población de Impacto</td>
+                                    <td className={tableCellClass}>Se estima una base de 2.500 comerciantes y microempresarios que operan sin sistemas de respaldo inmutable. El proyecto busca formalizar y blindar sus activos financieros y legales mediante tecnología de vanguardia.</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Condición Ambiental</td>
-                                    <td className={tableCellClass}>La zona de Catia la Mar presenta niveles de salinidad superiores a los 50 mg/m² día y humedad constante. Esto anula la efectividad del almacenamiento en papel, destruyendo la legibilidad de facturas y actas en periodos cortos, justificando el uso de la Bóveda Digital inmutable.</td>
+                                    <td className={tableLabelClass}>Marco Institucional</td>
+                                    <td className={tableCellClass}>La Unidad Educativa Privada Colegio Gabriela Mistral actúa como el centro de desarrollo técnico, integrando la formación profesional con la implementación de soluciones de ingeniería para el sector privado local.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    {/* 3. DIAGNÓSTICO DEL PROBLEMA */}
+                    {/* 3. MÓDULOS OPERATIVOS (DETALLE EXTENSO) */}
                     <div className="mb-24">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Activity className="h-7 w-7" /> 3. DIAGNÓSTICO OPERATIVO
+                            <Cpu className="h-7 w-7" /> 3. ARQUITECTURA TÉCNICA (MÓDULOS)
                         </h2>
+                        
+                        {/* UNIDADES 1-3 */}
                         <table className="w-full border-collapse">
                             <tbody>
-                                <tr><td className={tableHeaderClass}>NÚCLEO DEL CONFLICTO IDENTIFICADO</td></tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 01: Blindaje Fiscal con IA</td></tr>
                                 <tr>
-                                    <td className={tableCellClass}>
-                                        <p className="text-2xl font-black italic text-rose-600 leading-tight uppercase text-center py-12 px-6">
-                                            "INEXISTENCIA DE UN SISTEMA INTEGRAL QUE GARANTICE LA INTEGRIDAD FISCAL, EL RESGUARDO DOCUMENTAL Y LA SOSTENIBILIDAD URBANA."
-                                        </p>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Implementación de un motor de inferencia entrenado en la normativa del SENIAT (Providencia 0071). El sistema audita en tiempo real los libros de compra y venta, identificando inconsistencias antes de la emisión de declaraciones de IVA e ISLR. El objetivo es alcanzar una tasa de error del 0%, eliminando multas por errores de forma o fondo.</p>
                                     </td>
                                 </tr>
-                                <tr><td className={tableLabelClass}>Efectos de la Problemática</td></tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 02: Bóveda de Identidad y Resguardo</td></tr>
                                 <tr>
-                                    <td className={tableCellClass}>
-                                        <ul className="list-disc pl-8 space-y-4 text-sm font-medium">
-                                            <li><strong>Vulnerabilidad ante Auditorías:</strong> El 70% de las empresas de la zona pierden soportes físicos por factores climáticos, arriesgando multas severas del SENIAT.</li>
-                                            <li><strong>Ineficiencia Administrativa:</strong> La gestión de nómina y contabilidad manual consume hasta el 40% del tiempo operativo del comerciante.</li>
-                                            <li><strong>Desconexión Ambiental:</strong> Los residuos reciclables no se cuantifican ni se monetizan, resultando en pérdidas de activos potenciales para la comunidad.</li>
-                                            <li><strong>Falta de Soporte Jurídico:</strong> Dificultad para acceder a borradores legales técnicos y actualizados según la ley venezolana.</li>
-                                        </ul>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Almacenamiento de grado legal bajo protocolo Zero-Knowledge. Los documentos de identidad, actas constitutivas y títulos de propiedad son digitalizados y cifrados. Esta unidad protege la data contra la corrosión física del ambiente costero, garantizando que los expedientes sean legibles y legalmente válidos de forma permanente.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 03: Centro de Contabilidad VEN-NIF</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Gestión contable profesional ajustada a las Normas de Información Financiera de Venezuela. Incluye la automatización del Reajuste por Inflación Fiscal mediante conexión directa con los indicadores del Banco Central de Venezuela (BCV), permitiendo la emisión de Balances Generales y Estados de Resultados reales en segundos.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        {/* UNIDADES 4-6 */}
+                        <table className="w-full border-collapse">
+                            <tbody>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 04: Sostenibilidad Magnética e IA</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Despliegue de estaciones de recolección inteligentes (Smart Bins) equipadas con sensores de inducción magnética. Estos sensores clasifican automáticamente materiales metálicos y polímeros. Cada depósito es validado y transformado en Eco-Créditos digitales que los ciudadanos pueden canjear en la red de comercios asociados, inyectando liquidez a la economía local.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 05: Asesoría Jurídica Digital</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Generador de instrumentos legales técnicos basado en el Código de Comercio y el Código Civil. Permite la redacción inmediata de borradores de contratos de arrendamiento, compraventa, acuerdos de confidencialidad y actas de asamblea extraordinarias, listos para visado profesional.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 06: Gestión de Talento y Cultura</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Administración automatizada de la nómina bajo los parámetros de la LOTTT. El sistema calcula salarios, vacaciones, utilidades y prestaciones sociales de forma precisa, generando recibos de pago digitales que son enviados automáticamente a los trabajadores, reduciendo el gasto de papelería en un 100%.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        {/* UNIDADES 7-10 */}
+                        <table className="w-full border-collapse">
+                            <tbody>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 07: Control de Existencias Multimoneda</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Kardex de inventario con capacidad de valoración en tiempo real (Bs./USD). Incluye alertas de stock crítico y reportes de rotación de productos estrella, optimizando las compras y evitando el estancamiento de capital en mercancía de baja demanda.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 08: Ledger Blockchain Corporativo</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Sellado digital de todas las transacciones críticas de la empresa. Cada factura emitida y cada documento guardado recibe una firma digital inmutable que certifica su integridad ante cualquier fiscalización, creando un historial auditable que previene la alteración de registros.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 09: Ingeniería IA y Cómputos</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Uso de visión artificial para procesar capturas de locales comerciales y convertirlas en planos técnicos a escala. El módulo calcula automáticamente los cómputos métricos de materiales (pisos, pintura, iluminación) necesarios para remodelaciones, optimizando los presupuestos de construcción.</p>
+                                    </td>
+                                </tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Unidad 10: Academia Master Gabriela Mistral</td></tr>
+                                <tr>
+                                    <td className={tableCellClass} colSpan={2}>
+                                        <p>Centro de formación técnica para la capacitación del personal administrativo en el uso del ecosistema System Kyron. Los usuarios obtienen certificaciones verificables que validan su competencia en gestión fiscal, contable y operativa moderna.</p>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    {/* 4. SOLUCIÓN PROPUESTA (MÓDULOS) */}
+                    {/* 4. PRESUPUESTO DETALLADO */}
                     <div className="mb-24">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Cpu className="h-7 w-7" /> 4. ARQUITECTURA TÉCNICA: MÓDULOS KYRON
+                            <Zap className="h-7 w-7" /> 4. INVERSIÓN ESTRATÉGICA (CAPEX)
                         </h2>
                         <table className="w-full border-collapse">
+                            <thead>
+                                <tr>
+                                    <th className={tableHeaderClass} style={{ width: '75%' }}>DESCRIPCIÓN DE LA INVERSIÓN</th>
+                                    <th className={tableHeaderClass} style={{ width: '25%' }}>TOTAL (USD)</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                                <tr><td className={tableHeaderClass} colSpan={2}>Capacidades de Gestión Corporativa</td></tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 01: Blindaje Fiscal IA</td>
-                                    <td className={tableCellClass}>Automatización de libros de compra/venta y declaraciones de IVA. El motor IA audita preventivamente cada asiento contra la normativa del SENIAT para garantizar riesgo cero.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 02: Bóveda de Identidad</td>
-                                    <td className={tableCellClass}>Resguardo inmutable de documentos de identidad y actas civiles. Utiliza biometría y encriptación de grado militar para proteger la data contra la degradación física.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 03: Centro VEN-NIF</td>
-                                    <td className={tableCellClass}>Contabilidad profesional que aplica automáticamente los ajustes por inflación del BCV, permitiendo visualizar balances reales en tiempo real.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 04: Sostenibilidad Magnética</td>
-                                    <td className={tableCellClass}>Implementación de Smart Bins con tecnología de inducción para la clasificación de residuos y generación de Eco-Créditos financieros.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 05: Asesoría Jurídica IA</td>
-                                    <td className={tableCellClass}>Generador de borradores legales técnicos para contratos y actas de asamblea, garantizando el cumplimiento con el Código de Comercio.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 06: Gestión de Talento</td>
-                                    <td className={tableCellClass}>Cálculo automatizado de nómina, vacaciones y liquidaciones bajo los parámetros de la LOTTT y leyes de seguridad social.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 07: Control de Existencias</td>
-                                    <td className={tableCellClass}>Kardex de inventario con valoración multimoneda y alertas de stock crítico para evitar quiebres de inventario.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 08: Ledger Blockchain</td>
-                                    <td className={tableCellClass}>Sellado digital de transacciones financieras y legales, creando un historial auditable que previene la alteración de registros.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 09: Ingeniería IA</td>
-                                    <td className={tableCellClass}>Visión artificial para procesar capturas de locales y generar planos técnicos con cómputos métricos de materiales de construcción.</td>
-                                </tr>
-                                <tr>
-                                    <td className={tableLabelClass}>Unidad 10: Academia Master</td>
-                                    <td className={tableLabelClass}>Módulo de capacitación técnica para la formación continua del personal en normativas de cumplimiento y uso de herramientas digitales.</td>
+                                <tr><td className={tableCellClass}>Arquitectura Core de Software y Bóveda Digital Inmutable</td><td className={cn(tableCellClass, "text-right font-black")}>$ 8.500,00</td></tr>
+                                <tr><td className={tableCellClass}>Desarrollo de Motores de IA: Fiscal, Jurídico e Ingeniería</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.500,00</td></tr>
+                                <tr><td className={tableCellClass}>Unidades de Sostenibilidad (5 Smart Bins Pro con Magnetismo)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.183,00</td></tr>
+                                <tr><td className={tableCellClass}>Equipos Fiscales Homologados para Centro de Operaciones</td><td className={cn(tableCellClass, "text-right font-black")}>$ 4.000,00</td></tr>
+                                <tr><td className={tableCellClass}>Terminales de Captura Biométrica y Control de Acceso</td><td className={cn(tableCellClass, "text-right font-black")}>$ 4.500,00</td></tr>
+                                <tr><td className={tableCellClass}>Logística, Despliegue y Capacitación en Catia la Mar</td><td className={cn(tableCellClass, "text-right font-black")}>$ 3.200,00</td></tr>
+                                <tr className="bg-slate-50">
+                                    <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500")}>TOTAL PROYECTADO</td>
+                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 32.883,00</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    {/* 5. FACTIBILIDAD ECONÓMICA */}
+                    {/* 5. FACTIBILIDAD Y RETORNO */}
                     <div className="mb-24">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <TrendingUp className="h-7 w-7" /> 5. FACTIBILIDAD Y RETORNO (ROI)
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
-                                <tr><td className={tableHeaderClass} colSpan={2}>Proyección Financiera del Ecosistema</td></tr>
+                                <tr><td className={tableHeaderClass} colSpan={2}>Análisis Financiero del Ecosistema</td></tr>
                                 <tr>
                                     <td className={tableLabelClass}>Rentabilidad Estimada</td>
                                     <td className={tableCellClass}><span className="text-[#00A86B] font-black text-2xl">28.5% Anual (TIR)</span></td>
@@ -314,74 +337,47 @@ export default function ModeloZeduPage() {
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Modelo de Negocio</td>
-                                    <td className={tableCellClass}>SaaS (Software as a Service) modular con escalabilidad de bajo costo. Generación de ingresos recurrentes mediante suscripciones y servicios de valor agregado.</td>
+                                    <td className={tableCellClass}>SaaS (Software as a Service) modular. Generación de ingresos recurrentes mediante licencias empresariales y monetización de activos ambientales.</td>
                                 </tr>
                                 <tr>
-                                    <td className={tableLabelClass}>Ahorro Operativo</td>
-                                    <td className={tableCellClass}>Reducción del 95% en multas fiscales y ahorro del 60% en horas-hombre dedicadas a procesos administrativos manuales.</td>
+                                    <td className={tableLabelClass}>Mitigación de Riesgos</td>
+                                    <td className={tableCellClass}>Reducción del 95% en multas fiscales y ahorro del 60% en horas-hombre administrativas. La plataforma es inmune a las fallas de almacenamiento físico costero.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    {/* 6. PRESUPUESTO DE ACTIVOS */}
+                    {/* 6. CRONOGRAMA DE DESPLIEGUE */}
                     <div className="mb-24">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Zap className="h-7 w-7" /> 6. INVERSIÓN ESTRATÉGICA (CAPEX)
+                            <Terminal className="h-7 w-7" /> 6. CRONOGRAMA OPERATIVO
                         </h2>
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr>
-                                    <th className={tableHeaderClass} style={{ width: '70%' }}>MÓDULO DE INVERSIÓN</th>
-                                    <th className={tableHeaderClass} style={{ width: '30%' }}>TOTAL (USD)</th>
+                                    <th className={tableHeaderClass} style={{ width: '25%' }}>SEMANA</th>
+                                    <th className={tableHeaderClass} style={{ width: '75%' }}>HITO DE DESPLIEGUE</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td className={tableCellClass}>Arquitectura de Software y Bóveda Digital (Core)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 8.500,00</td></tr>
-                                <tr><td className={tableCellClass}>Motores de IA: Fiscal, Legal e Ingeniería</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.500,00</td></tr>
-                                <tr><td className={tableCellClass}>Unidades de Sostenibilidad (5 Smart Bins Pro)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.183,00</td></tr>
-                                <tr><td className={tableCellClass}>Equipos Fiscales Homologados para Centro de Mando</td><td className={cn(tableCellClass, "text-right font-black")}>$ 4.000,00</td></tr>
-                                <tr><td className={tableCellClass}>Terminales de Captura Biométrica 3D</td><td className={cn(tableCellClass, "text-right font-black")}>$ 4.500,00</td></tr>
-                                <tr><td className={tableCellClass}>Logística, Despliegue y Capacitación en La Guaira</td><td className={cn(tableCellClass, "text-right font-black")}>$ 3.200,00</td></tr>
-                                <tr className="bg-slate-50">
-                                    <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500")}>TOTAL INVERSIÓN PROYECTADA</td>
-                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 32.883,00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    {/* 7. PLAN DE ACCIÓN */}
-                    <div className="mb-24">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Terminal className="h-7 w-7" /> 7. CRONOGRAMA OPERATIVO
-                        </h2>
-                        <table className="w-full border-collapse">
-                            <thead>
-                                <tr>
-                                    <th className={tableHeaderClass} style={{ width: '20%' }}>FASE</th>
-                                    <th className={tableHeaderClass} style={{ width: '80%' }}>HITO DE DESPLIEGUE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>01-04</td><td className={tableCellClass}>Censo comercial y relevamiento técnico en Catia la Mar. Selección de socios estratégicos.</td></tr>
-                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>05-12</td><td className={tableCellClass}>Desarrollo y entrenamiento del Core Contable y motores de IA Jurídica. Pruebas de Bóveda Digital.</td></tr>
-                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>13-16</td><td className={tableCellClass}>Instalación física de Smart Bins y Terminales Biométricos. Configuración de Ledger Blockchain.</td></tr>
-                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>17-20</td><td className={tableCellClass}>Lanzamiento de la Red de Beneficios y Billetera Eco-Créditos. Onboarding masivo de empresas.</td></tr>
+                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>01 - 04</td><td className={tableCellClass}>Censo comercial en Catia la Mar y levantamiento de requerimientos técnicos en el Colegio Gabriela Mistral.</td></tr>
+                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>05 - 12</td><td className={tableCellClass}>Desarrollo y entrenamiento de los motores de IA Fiscal y Jurídica. Configuración de la Bóveda de Identidad.</td></tr>
+                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>13 - 16</td><td className={tableCellClass}>Instalación física de los Smart Bins y Terminales Biométricos. Activación del Ledger Blockchain.</td></tr>
+                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>17 - 20</td><td className={tableCellClass}>Lanzamiento oficial de la Red de Beneficios y Billetera de Eco-Créditos. Onboarding masivo de empresas.</td></tr>
                             </tbody>
                         </table>
 
-                        <div className="mt-20 p-16 bg-slate-50 border-4 border-[#0A2472] rounded-[3rem] text-center shadow-xl">
-                            <h3 className="text-3xl font-black uppercase text-[#0A2472] mb-8 italic">Conclusión de Auditoría</h3>
+                        <div className="mt-20 p-12 bg-slate-50 border-4 border-[#0A2472] rounded-[3rem] text-center shadow-xl">
+                            <h3 className="text-3xl font-black uppercase text-[#0A2472] mb-6 italic">Conclusión de Dictamen</h3>
                             <p className="text-lg font-bold italic leading-relaxed text-slate-700 text-justify">
-                                "El Modelo ZEDU para System Kyron representa la solución definitiva para la modernización económica de Catia la Mar. La integración de tecnologías inmutables y automatización fiscal garantiza una ventaja competitiva sostenible para el Colegio Gabriela Mistral y el sector privado circundante."
+                                "El Modelo ZEDU System Kyron es la solución definitiva para la modernización comercial de Catia la Mar. La integración de tecnologías inmutables y automatización fiscal garantiza una ventaja competitiva sostenible, protegiendo el patrimonio de las empresas contra los desafíos ambientales y regulatorios del país."
                             </p>
                             <div className="flex justify-between pt-24 gap-12">
                                 <div className="flex-1 border-t-2 border-black pt-4">
-                                    <p className="text-[10px] font-black uppercase tracking-widest">Validación de Integrantes</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Firma de Integrantes</p>
                                 </div>
                                 <div className="flex-1 border-t-2 border-black pt-4">
-                                    <p className="text-[10px] font-black uppercase tracking-widest">Sello Institucional Colegio Gabriela Mistral</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Sello Institucional Colegio Gabriela Mistral</p>
                                 </div>
                             </div>
                         </div>
