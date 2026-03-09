@@ -132,7 +132,7 @@ export default function SectorPrivadoPage() {
                     
                     <div className="flex items-center gap-6">
                         <Button variant="ghost" asChild className="rounded-xl h-12 px-6 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all">
-                            <Link href="/"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
+                            <Link href="/es"><ChevronLeft className="mr-3 h-4 w-4" /> VOLVER</Link>
                         </Button>
                         <div className="h-10 w-px bg-white/10" />
                         <div className="flex flex-col">
@@ -198,11 +198,11 @@ export default function SectorPrivadoPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 border-t-[1.5px] border-black">
                                 <div className="border-b-[1.5px] md:border-b-0 md:border-r-[1.5px] border-black">
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Institución Educativa</p></div>
-                                    <div className="p-6 font-bold uppercase">Institución Educativa Gabriela Mistral</div>
+                                    <div className="p-6 font-bold uppercase text-xs">Institución Educativa Gabriela Mistral</div>
                                 </div>
                                 <div>
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Localidad</p></div>
-                                    <div className="p-6 font-bold uppercase">La Guaira, Catia La Mar, Venezuela</div>
+                                    <div className="p-6 font-bold uppercase text-xs">La Guaira, Catia La Mar, Venezuela</div>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +229,7 @@ export default function SectorPrivadoPage() {
                         </div>
                     </div>
 
-                    {/* PARTE 3: DIAGNÓSTICO */}
+                    {/* PARTE 3: ANÁLISIS DEL PROBLEMA */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Terminal className="h-5 w-5 text-primary" />
@@ -254,13 +254,13 @@ export default function SectorPrivadoPage() {
                             </div>
                             <div className="p-8 bg-white border-t-[1.5px] border-black">
                                 <p className="text-[13px] font-medium italic leading-relaxed text-justify border-l-8 border-primary/20 pl-8 text-slate-800">
-                                    "La institución presenta un colapso operativo en la gestión de expedientes debido a un sistema de archivado pobre y obsoleto. Esta condición impide la agilidad administrativa y expone la información sensible a un deterioro irreversible."
+                                    "En la Institución el sistema de archivado es muy pobre debido a que la gran mayoría de la información personal está archivada en papel y no en digital. Esta falta de digitalización inmutable compromete la integridad histórica de la institución."
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* PARTE 4: FACTIBILIDAD */}
+                    {/* PARTE 4: FACTIBILIDAD ECONÓMICA */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-secondary/5 p-4 rounded-2xl border border-secondary/10">
                             <TrendingUp className="h-5 w-5 text-secondary" />
@@ -270,46 +270,46 @@ export default function SectorPrivadoPage() {
                             <div className="p-8">
                                 <div className="grid grid-cols-3 gap-6 mb-8 text-center">
                                     <div className="p-6 bg-primary/5 rounded-2xl border-2 border-primary/20">
-                                        <p className="text-[9px] font-black uppercase text-primary/60 mb-2">VAN</p>
+                                        <p className="text-[9px] font-black uppercase text-primary/60 mb-2">VAN (Valor Actual)</p>
                                         <p className="text-xl font-black text-primary">$450.000</p>
                                     </div>
                                     <div className="p-6 bg-secondary/5 rounded-2xl border-2 border-secondary/20">
-                                        <p className="text-[9px] font-black uppercase text-secondary/60 mb-2">TIR</p>
+                                        <p className="text-[9px] font-black uppercase text-secondary/60 mb-2">TIR (Retorno)</p>
                                         <p className="text-xl font-black text-secondary">28.5%</p>
                                     </div>
                                     <div className="p-6 bg-slate-50 rounded-2xl border-2 border-slate-200">
-                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-2">ROI</p>
+                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-2">ROI (Recuperación)</p>
                                         <p className="text-xl font-black text-slate-600">2.4 AÑOS</p>
                                     </div>
                                 </div>
-                                <p className="text-[11px] font-mono font-bold text-slate-500 text-center uppercase tracking-widest">Dictamen: El modelo SaaS permite escalabilidad total con costos reducidos en un 40% anual.</p>
+                                <p className="text-[11px] font-mono font-bold text-slate-500 text-center uppercase tracking-widest">Dictamen: El modelo SaaS permite escalabilidad total con costos reducidos en un 40% anual gracias a la automatización IA.</p>
                             </div>
                         </div>
                     </div>
 
-                    {/* PARTE 5: SOLUCIÓN MAESTRA */}
+                    {/* PARTE 5: DESARROLLA TU PROYECTO (AUTOMIND AI) */}
                     <div className="space-y-6 mb-16">
                         <div className="flex items-center gap-4 bg-primary/5 p-4 rounded-2xl border border-primary/10">
                             <Zap className="h-5 w-5 text-primary" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">5. Desarrolla tu Proyecto (AutoMind AI)</h2>
+                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">5. Desarrolla tu Proyecto</h2>
                         </div>
                         <div className="border-[1.5px] border-black overflow-hidden rounded-3xl bg-white font-mono text-[11px] leading-relaxed">
                             <div className="p-10 text-justify text-slate-800 space-y-6 bg-slate-50/30 border-b-[1.5px] border-black">
-                                <p className="font-black text-primary text-base italic uppercase">Protocolo de Inteligencia Corporativa Kyron</p>
-                                <p>System Kyron es el nodo maestro de un ecosistema diseñado para la transición hacia la economía digital 2026. Nuestra solución transforma el archivado físico en un entorno digital de alta fidelidad mediante una **Bóveda de Datos Inmutable**.</p>
-                                <p>La arquitectura fusiona el protocolo **Hyper-Connect 5G** para baja latencia con tecnología de **Inducción Magnética** en puntos de recolección, monetizando la sostenibilidad y garantizando el blindaje fiscal automático mediante IA predictiva.</p>
+                                <p className="font-black text-primary text-base italic uppercase">AutoMind AI: Nodo Maestro de Gestión</p>
+                                <p>System Kyron implementa **AutoMind AI**, una arquitectura de red síncrona que fusiona el protocolo Hyper-Connect 5G con una Bóveda de Datos Inmutable. Nuestra solución no solo digitaliza; blinda la operación institucional mediante inteligencia predictiva.</p>
+                                <p>A través de **Kyron Connect**, se asignan líneas de datos de alta velocidad para la transmisión de expedientes cifrados, mientras que las **Smart Bins** monetizan la sostenibilidad institucional mediante tecnología magnética.</p>
                             </div>
                             <div className="grid grid-cols-2">
                                 <div className="border-r-[1.5px] border-black">
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Otras Propuestas (Mobian)</p></div>
-                                    <div className="p-6 italic font-bold text-slate-600 uppercase">Se limitan a la gestión administrativa general sin integración de infraestructura física ni conectividad de datos propia.</div>
+                                    <div className="p-6 italic font-bold text-slate-600 uppercase">Enfocadas únicamente en la gestión administrativa plana, sin integración de hardware inteligente ni conectividad 5G propia.</div>
                                 </div>
                                 <div>
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Diferenciadores Kyron</p></div>
                                     <div className="p-6 font-black text-primary uppercase space-y-2 italic">
-                                        <p>• Blindaje Fiscal IA 24/7.</p>
-                                        <p>• Conectividad 5G Slicing.</p>
-                                        <p>• Tecnología Magnética Pro.</p>
+                                        <p>• Especialización en el Sector Escolar.</p>
+                                        <p>• Chatbot Avanzado para Representantes.</p>
+                                        <p>• Tecnología Magnética de Reciclaje.</p>
                                     </div>
                                 </div>
                             </div>
@@ -329,7 +329,7 @@ export default function SectorPrivadoPage() {
                                         <TableHead className="font-black text-[9px] uppercase text-slate-600">Item de Inversión</TableHead>
                                         <TableHead className="text-center font-black text-[9px] uppercase text-slate-600">Cant.</TableHead>
                                         <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Costo (USD)</TableHead>
-                                        <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Lugar</TableHead>
+                                        <TableHead className="text-right font-black text-[9px] uppercase text-slate-600">Lugar de Compra</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -338,11 +338,11 @@ export default function SectorPrivadoPage() {
                                             <TableCell className="text-[10px] font-bold uppercase">{row.item}</TableCell>
                                             <TableCell className="text-center font-mono font-bold">{row.qty}</TableCell>
                                             <TableCell className="text-right font-mono font-black text-primary">{formatCurrency(row.cost, 'USD')}</TableCell>
-                                            <TableCell className="text-right text-[9px] italic text-slate-500 uppercase">{row.location}</TableCell>
+                                            <TableCell className="text-right text-[9px] italic text-slate-500 uppercase font-bold">{row.location}</TableCell>
                                         </TableRow>
                                     ))}
                                     <TableRow className="bg-primary/5 font-black border-t-[1.5px] border-black">
-                                        <TableCell colSpan={2} className="text-sm uppercase italic">Inversión Maestro Total</TableCell>
+                                        <TableCell colSpan={2} className="text-sm uppercase italic">Inversión Nodo Maestro Total</TableCell>
                                         <TableCell className="text-right text-xl text-primary">{formatCurrency(budgetData.reduce((a,b) => a + b.cost, 0), 'USD')}</TableCell>
                                         <TableCell />
                                     </TableRow>
