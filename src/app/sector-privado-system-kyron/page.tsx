@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import NextImage from "next/image";
 import { 
   Printer, 
@@ -20,19 +20,26 @@ import {
   ArrowRight,
   TrendingUp,
   Award,
-  Sparkles
+  Sparkles,
+  Target,
+  Search,
+  FileCode,
+  Shield
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { useToast } from "@/hooks/use-toast";
 
 /**
  * @fileOverview EXPEDIENTE MAESTRO SYSTEM KYRON v2.6.5
  * Diseño UHD: Documento de Inteligencia Corporativa.
+ * Optimizado para lectura en cualquier tema y exportación profesional.
  */
 
 export default function ExpedienteMaestroPage() {
+    const { toast } = useToast();
     const [isMounted, setIsMounted] = useState(false);
     const logoRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +54,7 @@ export default function ExpedienteMaestroPage() {
                 <meta charset='utf-8'>
                 <title>Expediente Maestro System Kyron</title>
                 <style>
-                    body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #0f172a; }
+                    body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #0f172a; background-color: #ffffff; }
                     .header-table { width: 100%; border-bottom: 3px solid #0A2472; margin-bottom: 30px; padding-bottom: 20px; }
                     .section-header { background-color: #0f172a; color: #ffffff; padding: 12px 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; border-left: 6px solid #2563eb; margin-top: 30px; }
                     .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
@@ -77,9 +84,10 @@ export default function ExpedienteMaestroPage() {
                 <div class="section-header">1. Información del Equipo Técnico</div>
                 <table class="data-table">
                     <tr><td class="label">Proyecto</td><td class="value">SYSTEM KYRON • CORPORATE INTELLIGENCE</td></tr>
-                    <tr><td class="label">Dirección General</td><td class="value">Ing. Carlos Mattar (Lead Architecture)</td></tr>
+                    <tr><td class="label">Dirección Maestra</td><td class="value">Ing. Carlos Mattar (Lead Architecture)</td></tr>
                     <tr><td class="label">Ingeniería de Red</td><td class="value">Sebastian Garrido (Network Slicing)</td></tr>
-                    <tr><td class="label">Sede Operativa</td><td class="value">Catia la Mar, La Guaira (Colegio 'Gabriela Mistral')</td></tr>
+                    <tr><td class="label">Logística Operativa</td><td class="value">Marcos Sousa (Strategic Flow)</td></tr>
+                    <tr><td class="label">Sede de Operaciones</td><td class="value">Catia la Mar • Colegio 'Gabriela Mistral'</td></tr>
                 </table>
 
                 <div class="section-header">2. Análisis de Factibilidad</div>
@@ -91,31 +99,31 @@ export default function ExpedienteMaestroPage() {
                     </tr>
                 </table>
 
-                <div class="section-header">3. Solución Maestra</div>
+                <div class="section-header">3. Visión del Ecosistema</div>
                 <p style="font-weight: 700; color: #334155; padding: 15px; background-color: #f8fafc; border-left: 4px solid #0A2472;">
-                    Implementación de una Bóveda Digital Inmutable bajo protocolo Zero-Knowledge, soportada por conectividad 5G dedicada y hardware de inducción magnética para la trazabilidad de activos.
+                    Implementación de una Bóveda Digital Inmutable bajo protocolo Zero-Knowledge, soportada por conectividad 5G dedicada y hardware de inducción magnética para la trazabilidad de activos estratégicos.
                 </p>
 
                 <div class="section-header">4. Presupuesto Operativo (CAPEX)</div>
                 <table class="data-table">
                     <tr style="background-color: #0f172a; color: #ffffff; font-size: 10px; font-weight: 900;">
-                        <td>CONCEPTO</td><td>CANT</td><td>COSTO (USD)</td><td>ORIGEN</td>
+                        <td>CONCEPTO</td><td>CANT</td><td>COSTO (USD)</td><td>NODO</td>
                     </tr>
-                    <tr><td>Infraestructura Cloud Ledger</td><td>1</td><td>$ 5.500,00</td><td>Core Node</td></tr>
-                    <tr><td>Terminales de Gestión Pro</td><td>10</td><td>$ 2.500,00</td><td>Hardware Lab</td></tr>
-                    <tr><td>Smart Bins (Magnetismo)</td><td>4</td><td>$ 1.200,00</td><td>Eco Engineering</td></tr>
+                    <tr><td>Infraestructura Cloud Ledger</td><td>1</td><td>$ 5.500,00</td><td>Core</td></tr>
+                    <tr><td>Terminales de Gestión Pro</td><td>10</td><td>$ 2.500,00</td><td>Hardware</td></tr>
+                    <tr><td>Smart Bins (Magnetismo)</td><td>4</td><td>$ 1.200,00</td><td>Eco</td></tr>
                     <tr><td>Sistemas Fiscales Homologados</td><td>2</td><td>$ 1.350,00</td><td>Compliance</td></tr>
                     <tr style="background-color: #f1f5f9; font-weight: 900;">
-                        <td colspan="2">TOTAL INVERSIÓN</td><td colspan="2" style="color: #2563eb;">$ 10.550,00</td>
+                        <td colspan="2">TOTAL INVERSIÓN ESTIMADA</td><td colspan="2" style="color: #2563eb;">$ 32.883,00</td>
                     </tr>
                 </table>
 
                 <div class="section-header">5. Plan de Acción 2026</div>
                 <table class="data-table">
-                    <tr><td class="label">Semana 1</td><td class="value">Auditoría Técnica y Censo en Catia la Mar</td></tr>
-                    <tr><td class="label">Semana 2</td><td class="value">Despliegue de Bóveda Digital y Migración</td></tr>
-                    <tr><td class="label">Semana 3</td><td class="value">Activación de Nodos 5G y Provisión eSIM</td></tr>
-                    <tr><td class="label">Semana 4</td><td class="value">Certificación Maestra y Lanzamiento Oficial</td></tr>
+                    <tr><td class="label">Fase 1</td><td class="value">Auditoría Técnica y Censo en Catia la Mar</td></tr>
+                    <tr><td class="label">Fase 2</td><td class="value">Despliegue de Bóveda Digital y Migración de Data</td></tr>
+                    <tr><td class="label">Fase 3</td><td class="value">Activación de Nodos 5G y Provisión de eSIM</td></tr>
+                    <tr><td class="label">Fase 4</td><td class="value">Certificación Maestra y Lanzamiento de Mercado</td></tr>
                 </table>
 
                 <p style="text-align: center; margin-top: 50px; font-size: 10px; font-weight: 900; color: #94a3b8; letter-spacing: 5px;">
@@ -137,12 +145,17 @@ export default function ExpedienteMaestroPage() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        toast({
+            title: "EXPORTACIÓN EXITOSA",
+            description: "Dossier corporativo generado con protocolo UHD.",
+        });
     };
 
     if (!isMounted) return null;
 
     return (
-        <div className="min-h-screen bg-[#E5E2D9] py-12 px-4 md:px-8 selection:bg-blue-200">
+        <div className="min-h-screen bg-slate-100 dark:bg-slate-950 py-12 px-4 md:px-8 selection:bg-blue-200 transition-colors duration-500">
             <style jsx global>{`
                 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;700;900&display=swap');
                 
@@ -179,18 +192,18 @@ export default function ExpedienteMaestroPage() {
             `}</style>
 
             <div className="max-w-5xl mx-auto mb-10 flex justify-between items-center no-print">
-                <Button variant="ghost" asChild className="text-slate-600 hover:text-[#0A2472] font-black uppercase text-[10px] tracking-widest transition-all">
-                    <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL NODO CENTRAL</Link>
+                <Button variant="ghost" asChild className="text-slate-600 dark:text-slate-400 hover:text-[#0A2472] dark:hover:text-primary font-black uppercase text-[10px] tracking-widest transition-all">
+                    <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER</Link>
                 </Button>
                 <div className="flex gap-3">
-                    <Button variant="outline" onClick={() => window.print()} className="bg-white/50 backdrop-blur-sm border-slate-300 rounded-xl h-12 px-6 font-black text-[10px] uppercase tracking-widest">
+                    <Button variant="outline" onClick={() => window.print()} className="bg-white/50 dark:bg-white/5 backdrop-blur-sm border-slate-300 dark:border-white/10 rounded-xl h-12 px-6 font-black text-[10px] uppercase tracking-widest">
                         <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                     </Button>
                     <Button 
                         onClick={handleDownload}
                         className="modern h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl"
                     >
-                        <Download className="mr-2 h-4 w-4" /> EXPORTAR EXPEDIENTE UHD
+                        <Download className="mr-2 h-4 w-4" /> EXPORTAR EXPEDIENTE
                     </Button>
                 </div>
             </div>
@@ -198,7 +211,7 @@ export default function ExpedienteMaestroPage() {
             <motion.div 
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="max-w-4xl mx-auto paper-texture p-12 md:p-24 relative overflow-hidden border border-slate-200 rounded-sm"
+                className="max-w-4xl mx-auto paper-texture p-12 md:p-24 relative overflow-hidden border border-slate-200 rounded-sm text-slate-950"
             >
                 {/* CLASSIFICATION BAR */}
                 <div className="absolute top-0 left-0 right-0 h-14 bg-slate-900 flex items-center justify-between px-12 text-[10px] font-black tracking-[0.6em] text-white/40 uppercase">
@@ -219,23 +232,23 @@ export default function ExpedienteMaestroPage() {
                             <div className="w-20 h-20 bg-[#0A2472] flex items-center justify-center rounded-sm shadow-xl">
                                 <Logo className="text-white h-14 w-14" />
                             </div>
-                            <div className="space-y-1">
-                                <h1 className="text-5xl font-black tracking-tight text-[#0A2472] font-sans leading-none uppercase italic">System Kyron</h1>
+                            <div className="space-y-1 text-slate-950">
+                                <h1 className="text-5xl font-black tracking-tight font-sans leading-none uppercase italic">System Kyron</h1>
                                 <p className="text-[12px] font-black uppercase tracking-[0.5em] text-slate-500 italic">Corporate Intelligence</p>
                             </div>
                         </div>
                         <div className="space-y-1.5 text-xs font-black uppercase tracking-widest text-slate-400 font-sans">
                             <p className="flex items-center gap-2"><FileText className="h-3 w-3" /> REF: KYRON-ZEDU-2026-MASTER</p>
-                            <p className="flex items-center gap-2"><Activity className="h-3 w-3" /> VERSION: 2.6.5 – FINAL BUILD</p>
+                            <p className="flex items-center gap-2"><Activity className="h-3 w-3" /> VERSION: 2.6.5 – MARZO 2026</p>
                         </div>
                     </div>
 
                     <div className="text-right space-y-4">
                         <div className="stamp stamp-blue text-xs">VALIDADO POR NODO MAESTRO</div>
                         <div className="font-mono text-[11px] leading-relaxed text-slate-500 font-bold uppercase tracking-tighter">
-                            <p>FECHA: 12-MAR-2026</p>
+                            <p>FECHA: 15-MAR-2026</p>
                             <p>ORIGEN: CATIA LA MAR, VEN</p>
-                            <p>NIVEL: ACCESO TOTAL</p>
+                            <p>NIVEL: GRADO CORPORATIVO</p>
                         </div>
                     </div>
                 </header>
@@ -244,7 +257,7 @@ export default function ExpedienteMaestroPage() {
                 <section className="mb-20 grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
                     {[
                         { label: "Empresas", val: "127", icon: Users },
-                        { label: "Trámites", val: "15.340", icon: FileText },
+                        { label: "Declaraciones", val: "15.340", icon: FileText },
                         { label: "Riesgo Fiscal", val: "0%", icon: ShieldCheck, color: "text-[#00A86B]" },
                         { label: "Nodos Activos", val: "2.500", icon: Zap },
                     ].map((stat, i) => (
@@ -288,7 +301,7 @@ export default function ExpedienteMaestroPage() {
                     <section>
                         <h2 className="text-xs font-black uppercase tracking-[0.5em] text-[#0A2472] mb-8 font-sans flex items-center gap-4">
                             <span className="w-8 h-8 bg-[#0A2472] text-white flex items-center justify-center rounded-full text-[10px]">02</span>
-                            Factibilidad y Presupuesto
+                            Viabilidad y Presupuesto
                         </h2>
                         <div className="grid md:grid-cols-2 gap-12 items-center">
                             <div className="space-y-6">
@@ -307,7 +320,7 @@ export default function ExpedienteMaestroPage() {
                             </div>
                             <div className="bg-[#0A2472] text-white p-10 text-center rounded-xl shadow-2xl relative overflow-hidden group">
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 text-blue-300">Presupuesto Inicial CapEx</p>
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 text-blue-300">Inversión Inicial Estimada</p>
                                 <p className="text-4xl font-black tracking-tighter italic leading-none">$ 32.883 USD</p>
                                 <p className="text-[8px] font-bold mt-4 opacity-40 uppercase tracking-widest">Auditado por Holding Kyron</p>
                             </div>
@@ -321,12 +334,14 @@ export default function ExpedienteMaestroPage() {
                         <div className="grid md:grid-cols-2 gap-10 relative z-10">
                             {[
                                 { title: "Voice Hub", desc: "Asistente de voz corporativo neuronal.", icon: Sparkles },
-                                { title: "Legal Gen", desc: "Generador de contratos con IA certificada.", icon: Wand2 },
+                                { title: "Legal Gen", desc: "Generador de contratos con IA certificada.", icon: FileText },
                                 { title: "Eco-Token", desc: "Mercado de compensación ambiental.", icon: Recycle },
-                                { title: "5G Slice", desc: "Priorización de red para procesos críticos.", icon: Signal }
+                                { title: "5G Slice", desc: "Priorización de red para procesos críticos.", icon: Radio }
                             ].map((item, i) => (
                                 <div key={i} className="flex gap-6 items-start">
-                                    <div className="p-3 bg-white border border-slate-200 rounded-lg shadow-sm"><item.icon className="h-5 w-5 text-[#0A2472]" /></div>
+                                    <div className="p-3 bg-white border border-slate-200 rounded-lg shadow-sm">
+                                        <item.icon className="h-5 w-5 text-[#0A2472]" />
+                                    </div>
                                     <div>
                                         <h4 className="text-xs font-black uppercase text-slate-900 mb-1">{item.title}</h4>
                                         <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter">{item.desc}</p>
@@ -379,7 +394,7 @@ export default function ExpedienteMaestroPage() {
                 </div>
 
                 {/* FOOTER */}
-                <footer className="mt-24 pt-16 border-t-4 border-slate-900 flex flex-col md:flex-row justify-between items-end gap-12 relative z-10">
+                <footer className="mt-24 pt-16 border-t-4 border-slate-900 flex flex-col md:flex-row justify-between items-end gap-12 relative z-10 text-slate-950">
                     <div className="space-y-8 w-full md:w-auto">
                         <div className="flex items-center gap-12">
                             <div className="space-y-2">
@@ -395,8 +410,8 @@ export default function ExpedienteMaestroPage() {
                     </div>
 
                     <div className="text-right space-y-6">
-                        <div className="stamp stamp-red text-2xl px-10 py-4 inline-block">CONFIDENCIAL</div>
-                        <p className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400 leading-relaxed">
+                        <div className="stamp stamp-red text-2xl px-10 py-4 inline-block font-sans">CONFIDENCIAL</div>
+                        <p className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-400 leading-relaxed font-sans">
                             © 2026 SYSTEM KYRON <br/> 
                             NODO ESTRATÉGICO CARACAS
                         </p>
@@ -412,27 +427,4 @@ export default function ExpedienteMaestroPage() {
             </div>
         </div>
     );
-}
-
-function Signal(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M2 20h.01" />
-      <path d="M7 20v-4" />
-      <path d="M12 20v-8" />
-      <path d="M17 20V8" />
-      <path d="M22 20V4" />
-    </svg>
-  );
 }
