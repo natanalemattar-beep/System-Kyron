@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { 
   Printer, 
   Download, 
@@ -15,7 +16,8 @@ import {
   Lock,
   Terminal,
   FileText,
-  Scale
+  Scale,
+  TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -36,7 +38,6 @@ export default function ModeloZeduPage() {
         const contentElement = document.getElementById('zedu-document-content');
         if (!contentElement) return;
 
-        // Capturar logo y redimensionar a tamaño profesional (120px)
         const svgElement = document.querySelector('#main-logo-zedu') as SVGElement;
         let logoHtml = "";
         
@@ -47,7 +48,7 @@ export default function ModeloZeduPage() {
             const img = new Image();
             
             const svgSize = 120; 
-            canvas.width = svgSize * 4; // Mayor resolución para calidad
+            canvas.width = svgSize * 4; 
             canvas.height = svgSize * 4;
             
             const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
@@ -95,7 +96,7 @@ export default function ModeloZeduPage() {
                 <div class="cover-title">MODELO ZEDU</div>
                 <div class="cover-subtitle">SYSTEM KYRON</div>
             </div>
-            <div class="page-break"></div>
+            <div class="page-break" style="page-break-after: always;"></div>
             ${contentElement.innerHTML}
         `;
         
@@ -143,12 +144,12 @@ export default function ModeloZeduPage() {
                 animate={{ opacity: 1 }}
                 className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-20 text-slate-950 border border-slate-200"
             >
-                {/* PORTADA ORDENADA */}
-                <div className="min-h-[800px] flex flex-col items-center justify-center border-b-4 border-slate-100 mb-20 pb-20 text-center space-y-8">
-                    <Logo id="main-logo-zedu" className="h-32 w-32 md:h-40 md:w-40 border-4 border-[#0A2472] p-4 bg-white shadow-xl" />
-                    <div className="space-y-2">
-                        <h1 className="text-5xl md:text-6xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
-                        <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter italic">SYSTEM KYRON</h2>
+                {/* PORTADA MINIMALISTA */}
+                <div className="min-h-[800px] flex flex-col items-center justify-center border-b-4 border-slate-100 mb-20 pb-20 text-center space-y-12">
+                    <Logo id="main-logo-zedu" className="h-32 w-32 border-4 border-[#0A2472] p-4 bg-white shadow-xl" />
+                    <div className="space-y-4">
+                        <h1 className="text-6xl md:text-7xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
+                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter italic">SYSTEM KYRON</h2>
                     </div>
                 </div>
 
@@ -193,99 +194,86 @@ export default function ModeloZeduPage() {
                                 <tr><td className={tableHeaderClass} colSpan={2}>Contexto Operativo: Catia la Mar</td></tr>
                                 <tr>
                                     <td className={tableLabelClass}>Diagnóstico Geográfico</td>
-                                    <td className={tableCellClass}>La Parroquia Catia la Mar se posiciona como el epicentro logístico del Estado La Guaira. El Modelo ZEDU aprovecha esta ubicación estratégica para desplegar el ecosistema System Kyron, enfocado en resolver la degradación documental causada por la salinidad marina del litoral.</td>
+                                    <td className={tableCellClass}>La Parroquia Catia la Mar se posiciona como el epicentro logístico del Estado La Guaira. El Modelo ZEDU aprovecha esta ubicación estratégica para desplegar el ecosistema System Kyron, enfocado en resolver la degradación documental causada por la salinidad marina del litoral. Se ha identificado una necesidad crítica de sistemas de gestión que no dependan exclusivamente de soportes físicos vulnerables a la oxidación y humedad extrema característica de la zona portuaria.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Población de Impacto</td>
-                                    <td className={tableCellClass}>Se estima una base de 2.500 comerciantes y microempresarios que operan sin sistemas de respaldo inmutable. El proyecto busca formalizar y blindar sus activos financieros y legales mediante tecnología de vanguardia.</td>
+                                    <td className={tableCellClass}>Se estima una base de 2.500 comerciantes y microempresarios que operan sin sistemas de respaldo inmutable. El proyecto busca formalizar y blindar sus activos financieros y legales mediante tecnología de vanguardia. La transición hacia una economía digital segura permitirá a estos actores económicos integrarse de manera competitiva en los mercados nacionales e internacionales, reduciendo los tiempos de respuesta administrativa en un 70%.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Marco Institucional</td>
-                                    <td className={tableCellClass}>La Unidad Educativa Privada Colegio Gabriela Mistral actúa como el centro de desarrollo técnico, integrando la formación profesional con la implementación de soluciones de ingeniería para el sector privado local.</td>
+                                    <td className={tableCellClass}>La Unidad Educativa Privada Colegio Gabriela Mistral actúa como el centro de desarrollo técnico, integrando la formación profesional con la implementación de soluciones de ingeniería para el sector privado local. Esta sinergia entre academia y empresa garantiza que la mano de obra calificada se forme directamente sobre las herramientas que liderarán la economía venezolana en el próximo decenio.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    {/* 3. MÓDULOS OPERATIVOS (DETALLE EXTENSO) */}
+                    {/* 3. ARQUITECTURA TÉCNICA (MÓDULOS) */}
                     <div className="mb-24">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <Cpu className="h-7 w-7" /> 3. ARQUITECTURA TÉCNICA (MÓDULOS)
                         </h2>
                         
-                        {/* UNIDADES 1-3 */}
                         <table className="w-full border-collapse">
                             <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 01: Blindaje Fiscal con IA</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Implementación de un motor de inferencia entrenado en la normativa del SENIAT (Providencia 0071). El sistema audita en tiempo real los libros de compra y venta, identificando inconsistencias antes de la emisión de declaraciones de IVA e ISLR. El objetivo es alcanzar una tasa de error del 0%, eliminando multas por errores de forma o fondo.</p>
+                                        <p>Implementación de un motor de inferencia entrenado en la normativa del SENIAT (Providencia 0071). El sistema audita en tiempo real los libros de compra y venta, identificando inconsistencias antes de la emisión de declaraciones de IVA e ISLR. El objetivo es alcanzar una tasa de error del 0%, eliminando multas por errores de forma o fondo. La IA procesa patrones históricos para predecir flujos tributarios y optimizar el cumplimiento preventivo.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 02: Bóveda de Identidad y Resguardo</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Almacenamiento de grado legal bajo protocolo Zero-Knowledge. Los documentos de identidad, actas constitutivas y títulos de propiedad son digitalizados y cifrados. Esta unidad protege la data contra la corrosión física del ambiente costero, garantizando que los expedientes sean legibles y legalmente válidos de forma permanente.</p>
+                                        <p>Almacenamiento de grado legal bajo protocolo Zero-Knowledge. Los documentos de identidad, actas constitutivas y títulos de propiedad son digitalizados y cifrados. Esta unidad protege la data contra la corrosión física del ambiente costero, garantizando que los expedientes sean legibles y legalmente válidos de forma permanente. El acceso es exclusivamente biométrico, asegurando la soberanía del titular sobre sus activos digitales.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 03: Centro de Contabilidad VEN-NIF</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Gestión contable profesional ajustada a las Normas de Información Financiera de Venezuela. Incluye la automatización del Reajuste por Inflación Fiscal mediante conexión directa con los indicadores del Banco Central de Venezuela (BCV), permitiendo la emisión de Balances Generales y Estados de Resultados reales en segundos.</p>
+                                        <p>Gestión contable profesional ajustada a las Normas de Información Financiera de Venezuela. Incluye la automatización del Reajuste por Inflación Fiscal mediante conexión directa con los indicadores del Banco Central de Venezuela (BCV), permitiendo la emisión de Balances Generales y Estados de Resultados reales en segundos. El sistema permite la gestión multimoneda con conversión automática a tasa oficial para fines de reporte legal.</p>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-
-                        {/* UNIDADES 4-6 */}
-                        <table className="w-full border-collapse">
-                            <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 04: Sostenibilidad Magnética e IA</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Despliegue de estaciones de recolección inteligentes (Smart Bins) equipadas con sensores de inducción magnética. Estos sensores clasifican automáticamente materiales metálicos y polímeros. Cada depósito es validado y transformado en Eco-Créditos digitales que los ciudadanos pueden canjear en la red de comercios asociados, inyectando liquidez a la economía local.</p>
+                                        <p>Despliegue de estaciones de recolección inteligentes (Smart Bins) equipadas con sensores de inducción magnética. Estos sensores clasifican automáticamente materiales metálicos y polímeros mediante análisis de densidad y conductividad. Cada depósito es validado y transformado en Eco-Créditos digitales que los ciudadanos pueden canjear en la red de comercios asociados, inyectando liquidez a la economía local mientras se reduce la huella de carbono.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 05: Asesoría Jurídica Digital</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Generador de instrumentos legales técnicos basado en el Código de Comercio y el Código Civil. Permite la redacción inmediata de borradores de contratos de arrendamiento, compraventa, acuerdos de confidencialidad y actas de asamblea extraordinarias, listos para visado profesional.</p>
+                                        <p>Generador de instrumentos legales técnicos basado en el Código de Comercio y el Código Civil. Permite la redacción inmediata de borradores de contratos de arrendamiento, compraventa, acuerdos de confidencialidad y actas de asamblea extraordinarias, listos para visado profesional. El motor legal incluye una base de datos actualizada de gacetas oficiales para garantizar la vigencia de todas las cláusulas generadas.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 06: Gestión de Talento y Cultura</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Administración automatizada de la nómina bajo los parámetros de la LOTTT. El sistema calcula salarios, vacaciones, utilidades y prestaciones sociales de forma precisa, generando recibos de pago digitales que son enviados automáticamente a los trabajadores, reduciendo el gasto de papelería en un 100%.</p>
+                                        <p>Administración automatizada de la nómina bajo los parámetros de la LOTTT. El sistema calcula salarios, vacaciones, utilidades y prestaciones sociales de forma precisa, generando recibos de pago digitales que son enviados automáticamente a los trabajadores. La plataforma gestiona el archivo histórico de expedientes laborales, previniendo litigios mediante el cumplimiento estricto de los plazos y obligaciones patronales.</p>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-
-                        {/* UNIDADES 7-10 */}
-                        <table className="w-full border-collapse">
-                            <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 07: Control de Existencias Multimoneda</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Kardex de inventario con capacidad de valoración en tiempo real (Bs./USD). Incluye alertas de stock crítico y reportes de rotación de productos estrella, optimizando las compras y evitando el estancamiento de capital en mercancía de baja demanda.</p>
+                                        <p>Kardex de inventario con capacidad de valoración en tiempo real (Bs./USD). Incluye alertas de stock crítico y reportes de rotación de productos estrella, optimizando las compras y evitando el estancamiento de capital en mercancía de baja demanda. La integración con el punto de venta asegura una actualización síncrona de los activos disponibles en todas las sucursales del holding.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 08: Ledger Blockchain Corporativo</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Sellado digital de todas las transacciones críticas de la empresa. Cada factura emitida y cada documento guardado recibe una firma digital inmutable que certifica su integridad ante cualquier fiscalización, creando un historial auditable que previene la alteración de registros.</p>
+                                        <p>Sellado digital de todas las transacciones críticas de la empresa. Cada factura emitida y cada documento guardado recibe una firma digital inmutable que certifica su integridad ante cualquier fiscalización, creando un historial auditable que previene la alteración de registros. Esta unidad es la base de la transparencia operativa, permitiendo auditorías externas remotas con total confianza en la veracidad de la data.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 09: Ingeniería IA y Cómputos</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Uso de visión artificial para procesar capturas de locales comerciales y convertirlas en planos técnicos a escala. El módulo calcula automáticamente los cómputos métricos de materiales (pisos, pintura, iluminación) necesarios para remodelaciones, optimizando los presupuestos de construcción.</p>
+                                        <p>Uso de visión artificial para procesar capturas de locales comerciales y convertirlas en planos técnicos a escala. El módulo calcula automáticamente los cómputos métricos de materiales (pisos, pintura, iluminación) necesarios para remodelaciones, optimizando los presupuestos de construcción y reduciendo el desperdicio de materiales en un 25% mediante simulaciones de distribución espacial inteligente.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 10: Academia Master Gabriela Mistral</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Centro de formación técnica para la capacitación del personal administrativo en el uso del ecosistema System Kyron. Los usuarios obtienen certificaciones verificables que validan su competencia en gestión fiscal, contable y operativa moderna.</p>
+                                        <p>Centro de formación técnica para la capacitación del personal administrativo en el uso del ecosistema System Kyron. Los usuarios obtienen certificaciones verificables que validan su competencia en gestión fiscal, contable y operativa moderna. Esta unidad garantiza la transferencia de conocimiento y la sostenibilidad del proyecto a través de la formación de una nueva generación de operadores digitales.</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -337,11 +325,11 @@ export default function ModeloZeduPage() {
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Modelo de Negocio</td>
-                                    <td className={tableCellClass}>SaaS (Software as a Service) modular. Generación de ingresos recurrentes mediante licencias empresariales y monetización de activos ambientales.</td>
+                                    <td className={tableCellClass}>SaaS (Software as a Service) modular. Generación de ingresos recurrentes mediante licencias empresariales, servicios de auditoría fiscal IA y monetización de activos ambientales a través del mercado de Eco-Créditos.</td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Mitigación de Riesgos</td>
-                                    <td className={tableCellClass}>Reducción del 95% en multas fiscales y ahorro del 60% en horas-hombre administrativas. La plataforma es inmune a las fallas de almacenamiento físico costero.</td>
+                                    <td className={tableCellClass}>Reducción del 95% en multas fiscales y ahorro del 60% en horas-hombre administrativas. La plataforma es inmune a las fallas de almacenamiento físico costero gracias a su redundancia en la nube y cifrado de alta fidelidad.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -360,17 +348,17 @@ export default function ModeloZeduPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>01 - 04</td><td className={tableCellClass}>Censo comercial en Catia la Mar y levantamiento de requerimientos técnicos en el Colegio Gabriela Mistral.</td></tr>
-                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>05 - 12</td><td className={tableCellClass}>Desarrollo y entrenamiento de los motores de IA Fiscal y Jurídica. Configuración de la Bóveda de Identidad.</td></tr>
-                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>13 - 16</td><td className={tableCellClass}>Instalación física de los Smart Bins y Terminales Biométricos. Activación del Ledger Blockchain.</td></tr>
-                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>17 - 20</td><td className={tableCellClass}>Lanzamiento oficial de la Red de Beneficios y Billetera de Eco-Créditos. Onboarding masivo de empresas.</td></tr>
+                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>01 - 04</td><td className={tableCellClass}>Censo comercial en Catia la Mar y levantamiento de requerimientos técnicos en el Colegio Gabriela Mistral. Configuración del nodo maestro.</td></tr>
+                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>05 - 12</td><td className={tableCellClass}>Desarrollo y entrenamiento de los motores de IA Fiscal y Jurídica. Configuración de la Bóveda de Identidad. Pruebas de estrés de seguridad.</td></tr>
+                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>13 - 16</td><td className={tableCellClass}>Instalación física de los Smart Bins y Terminales Biométricos. Activación del Ledger Blockchain. Integración con sistemas de pago nacionales.</td></tr>
+                                <tr><td className={cn(tableCellClass, "text-center font-bold")}>17 - 20</td><td className={tableCellClass}>Lanzamiento oficial de la Red de Beneficios y Billetera de Eco-Créditos. Onboarding masivo de empresas y validación de protocolos operativos.</td></tr>
                             </tbody>
                         </table>
 
                         <div className="mt-20 p-12 bg-slate-50 border-4 border-[#0A2472] rounded-[3rem] text-center shadow-xl">
                             <h3 className="text-3xl font-black uppercase text-[#0A2472] mb-6 italic">Conclusión de Dictamen</h3>
                             <p className="text-lg font-bold italic leading-relaxed text-slate-700 text-justify">
-                                "El Modelo ZEDU System Kyron es la solución definitiva para la modernización comercial de Catia la Mar. La integración de tecnologías inmutables y automatización fiscal garantiza una ventaja competitiva sostenible, protegiendo el patrimonio de las empresas contra los desafíos ambientales y regulatorios del país."
+                                "El Modelo ZEDU System Kyron es la solución definitiva para la modernización comercial de Catia la Mar. La integración de tecnologías inmutables y automatización fiscal garantiza una ventaja competitiva sostenible, protegiendo el patrimonio de las empresas contra los desafíos ambientales y regulatorios del país. Este expediente certifica la viabilidad técnica y financiera para el despliegue inmediato de las unidades operativas aquí descritas."
                             </p>
                             <div className="flex justify-between pt-24 gap-12">
                                 <div className="flex-1 border-t-2 border-black pt-4">
