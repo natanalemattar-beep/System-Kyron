@@ -47,7 +47,7 @@ import { cn, formatCurrency } from "@/lib/utils";
 
 // --- CONSTANTES TÉCNICAS UNIFICADAS ---
 const EQUIPO = [
-    { label: "Proyecto", val: "SYSTEM KYRON • AUTOMIND AI" },
+    { label: "Proyecto", val: "SYSTEM KYRON • CORPORATE INTELLIGENCE" },
     { label: "Integrantes", val: "Carlos Mattar, Sebastian Garrido, Marcos Sousa" },
     { label: "Institución / Ubicación", val: "U.E. Colegio 'Gabriela Mistral' • Catia la Mar, La Guaira" },
 ];
@@ -96,99 +96,109 @@ export default function SectorPrivadoPage() {
                 <head>
                     <meta charset='utf-8'>
                     <style>
-                        body { font-family: 'Calibri', 'Arial', sans-serif; color: ${negro}; line-height: 1.4; background-color: #ffffff; }
+                        body { font-family: 'Segoe UI', 'Arial', sans-serif; color: ${negro}; line-height: 1.4; background-color: #ffffff; }
                         .main-container { width: 100%; max-width: 800px; margin: 0 auto; }
                         
                         /* Header Styles */
-                        .header-table { width: 100%; border-bottom: 3pt solid ${azul}; margin-bottom: 25px; }
-                        .header-left { padding: 10px 0; }
-                        .brand-name { color: ${azul}; font-size: 26pt; font-weight: bold; text-transform: uppercase; margin: 0; }
-                        .brand-tagline { color: ${gris}; font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 2pt; margin-top: 2pt; }
-                        .header-right { text-align: right; vertical-align: bottom; padding-bottom: 10px; }
-                        .ref-id { color: ${azul}; font-size: 9pt; font-weight: bold; margin: 0; }
-                        .audit-date { color: ${gris}; font-size: 8pt; margin: 0; }
+                        .header-table { width: 100%; border-bottom: 4pt solid ${azul}; margin-bottom: 30px; }
+                        .header-left { padding: 15px 0; }
+                        .brand-name { color: ${azul}; font-size: 28pt; font-weight: 900; text-transform: uppercase; margin: 0; font-style: italic; }
+                        .brand-tagline { color: ${gris}; font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 3pt; margin-top: 2pt; }
+                        .header-right { text-align: right; vertical-align: bottom; padding-bottom: 15px; }
+                        .ref-id { color: ${azul}; font-size: 10pt; font-weight: 900; margin: 0; }
+                        .audit-date { color: ${gris}; font-size: 9pt; font-weight: bold; margin: 0; }
 
                         /* Section Styles */
                         .section-title { 
                             background-color: ${azul}; 
                             color: #ffffff; 
-                            padding: 8pt 15pt; 
-                            font-size: 12pt; 
-                            font-weight: bold; 
+                            padding: 10pt 20pt; 
+                            font-size: 13pt; 
+                            font-weight: 900; 
                             text-transform: uppercase; 
-                            margin-top: 25pt; 
-                            border-radius: 4pt;
+                            margin-top: 30pt; 
+                            border-radius: 6pt;
+                            letter-spacing: 1pt;
                         }
                         
                         .content-card { 
                             border: 1pt solid #e2e8f0; 
-                            padding: 15pt; 
-                            background-color: #fcfdfe; 
-                            margin-top: 5pt; 
-                            border-radius: 8pt; 
+                            padding: 20pt; 
+                            background-color: #fafbfc; 
+                            margin-top: 8pt; 
+                            border-radius: 10pt; 
                         }
 
-                        .label-text { color: ${gris}; font-size: 8pt; font-weight: bold; text-transform: uppercase; margin-bottom: 2pt; }
-                        .value-text { font-size: 10pt; font-weight: bold; color: ${negro}; margin-bottom: 10pt; }
+                        .label-text { color: ${gris}; font-size: 8pt; font-weight: 900; text-transform: uppercase; margin-bottom: 2pt; letter-spacing: 0.5pt; }
+                        .value-text { font-size: 11pt; font-weight: bold; color: ${negro}; margin-bottom: 12pt; }
                         
                         /* Metrics Dashboard */
-                        .metrics-table { width: 100%; margin: 15pt 0; }
+                        .metrics-table { width: 100%; margin: 20pt 0; border-collapse: separate; border-spacing: 10pt; }
                         .metric-card { 
                             background-color: #f0fdf4; 
-                            border: 1.5pt solid ${verde}; 
-                            padding: 15pt; 
+                            border: 2pt solid ${verde}; 
+                            padding: 20pt; 
                             text-align: center; 
-                            border-radius: 8pt;
+                            border-radius: 12pt;
                         }
-                        .metric-val { font-size: 18pt; font-weight: bold; color: #166534; margin: 0; }
-                        .metric-lab { font-size: 8pt; font-weight: bold; color: ${verde}; text-transform: uppercase; margin: 0; }
+                        .metric-val { font-size: 22pt; font-weight: 900; color: #166534; margin: 0; font-style: italic; }
+                        .metric-lab { font-size: 9pt; font-weight: 900; color: ${verde}; text-transform: uppercase; margin: 0; letter-spacing: 1pt; }
 
                         /* Tables */
-                        .data-table { width: 100%; border-collapse: collapse; margin-top: 10pt; }
+                        .data-table { width: 100%; border-collapse: collapse; margin-top: 15pt; border: 1.5pt solid ${negro}; }
                         .data-table th { 
                             background-color: #f1f5f9; 
-                            border: 1pt solid #cbd5e1; 
-                            padding: 8pt; 
+                            border: 1.5pt solid ${negro}; 
+                            padding: 10pt; 
                             font-size: 9pt; 
                             text-align: left; 
                             color: ${azul}; 
                             text-transform: uppercase;
+                            font-weight: 900;
                         }
                         .data-table td { 
                             border: 1pt solid #e2e8f0; 
-                            padding: 8pt; 
-                            font-size: 9pt; 
+                            padding: 10pt; 
+                            font-size: 10pt; 
+                            font-weight: 500;
                         }
-                        .data-table tr.total-row { background-color: #f8fafc; font-weight: bold; }
+                        .data-table tr.total-row { background-color: #f8fafc; font-weight: 900; border-top: 2pt solid ${negro}; }
 
                         /* Quote Box */
                         .quote-box { 
-                            border-left: 4pt solid #e2e8f0; 
-                            padding-left: 15pt; 
-                            margin: 15pt 0; 
+                            border-left: 5pt solid ${azul}; 
+                            padding: 15pt 20pt; 
+                            margin: 20pt 0; 
                             font-style: italic; 
-                            color: #475569; 
-                            font-size: 11pt;
+                            color: #334155; 
+                            font-size: 12pt;
+                            background-color: #f1f5f9;
+                            border-radius: 0 10pt 10pt 0;
                         }
 
                         /* Footer */
                         .doc-footer { 
                             text-align: center; 
-                            font-size: 8pt; 
+                            font-size: 9pt; 
                             color: ${gris}; 
-                            margin-top: 50pt; 
-                            border-top: 0.5pt solid #e2e8f0; 
-                            padding-top: 15pt;
+                            margin-top: 60pt; 
+                            border-top: 1pt solid #e2e8f0; 
+                            padding-top: 20pt;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            letter-spacing: 2pt;
                         }
                         
                         .cert-stamp {
-                            border: 2pt dashed ${azul};
-                            padding: 10pt;
+                            border: 3pt dashed ${azul};
+                            padding: 15pt;
                             text-align: center;
-                            margin-top: 20pt;
+                            margin-top: 30pt;
                             color: ${azul};
-                            font-weight: bold;
-                            font-size: 10pt;
+                            font-weight: 900;
+                            font-size: 12pt;
+                            text-transform: uppercase;
+                            background-color: #eff6ff;
                         }
                     </style>
                 </head>
@@ -203,7 +213,7 @@ export default function SectorPrivadoPage() {
                                 </td>
                                 <td class="header-right">
                                     <p class="ref-id">REF: KYRON-ZEDU-2026-X1</p>
-                                    <p class="audit-date">FECHA: ${new Date().toLocaleDateString()}</p>
+                                    <p class="audit-date">EXPEDIENTE OFICIAL DE INGENIERÍA</p>
                                 </td>
                             </tr>
                         </table>
@@ -225,7 +235,7 @@ export default function SectorPrivadoPage() {
                             <p class="label-text">Alcance Directo</p>
                             <p class="value-text">2.500 Nodos de Interacción Directa.</p>
                             <div class="quote-box">
-                                "La zona presenta una densidad comercial crítica que requiere una infraestructura de seguridad digital inmediata."
+                                "La zona presenta una densidad comercial crítica que requiere una infraestructura de seguridad digital inmediata y un blindaje legal inmutable."
                             </div>
                         </div>
 
@@ -233,15 +243,15 @@ export default function SectorPrivadoPage() {
                         <div class="section-title">3. Análisis del Problema</div>
                         <div class="content-card">
                             <div class="quote-box">
-                                "El colapso del sistema de archivado físico y la fragmentación de la data han generado un cuello de botella legal en la región."
+                                "El colapso del sistema de archivado físico y la fragmentación de la data han generado un cuello de botella legal en la región, vulnerando la soberanía de las empresas."
                             </div>
                             <p class="label-text">Causas Identificadas</p>
-                            <p class="value-text">Dependencia del papel, vulnerabilidad ante auditorías y falta de un ledger inmutable.</p>
+                            <p class="value-text">Dependencia absoluta del papel, falta de protocolos de inmutabilidad y ausencia de un sistema de auditoría fiscal proactivo.</p>
                         </div>
 
                         <!-- PART 4 -->
                         <div class="section-title">4. Factibilidad Económica</div>
-                        <table class="metrics-table" cellpadding="10" cellspacing="10">
+                        <table class="metrics-table" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td width="33%">
                                     <div class="metric-card">
@@ -264,16 +274,18 @@ export default function SectorPrivadoPage() {
                             </tr>
                         </table>
                         <div class="content-card" style="border-color: ${verde}; background-color: #f0fdf4;">
-                            <p style="color: #166534; font-size: 10pt; margin: 0;"><b>DICTAMEN:</b> Viabilidad Sobresaliente. El modelo SaaS permite escalabilidad masiva con costos operativos marginales.</p>
+                            <p style="color: #166534; font-size: 11pt; margin: 0; font-weight: bold; text-align: center;">
+                                DICTAMEN: VIABILIDAD SOBRESALIENTE. EL MODELO SAAS PERMITE ESCALABILIDAD TOTAL TRAS EL DESPLIEGUE DEL NODO INICIAL.
+                            </p>
                         </div>
 
                         <!-- PART 5 -->
                         <div class="section-title">5. Desarrollo del Proyecto (Solución)</div>
                         <div class="content-card">
-                            <p class="label-text">Visión AutoMind AI</p>
-                            <p class="value-text">Implementación de un ecosistema 5G con hardware magnético y auditoría blockchain síncrona.</p>
-                            <p class="label-text">Ventaja Competitiva</p>
-                            <p class="value-text">A diferencia de Mobian, Kyron ofrece blindaje legal predictivo y atención neuronal 24/7.</p>
+                            <p class="label-text">Visión Estratégica Kyron</p>
+                            <p class="value-text">Implementación de un ecosistema 5G con hardware de inducción magnética y auditoría blockchain síncrona para blindaje fiscal.</p>
+                            <p class="label-text">Diferenciación de Mercado</p>
+                            <p class="value-text">Kyron ofrece un ledger inmutable y atención neuronal 24/7, garantizando que el sector privado opere con riesgo cero.</p>
                         </div>
 
                         <!-- PART 6 -->
@@ -295,8 +307,8 @@ export default function SectorPrivadoPage() {
                                     </tr>
                                 `).join('')}
                                 <tr class="total-row">
-                                    <td colspan="2">TOTAL INVERSIÓN</td>
-                                    <td style="text-align: right; color: ${azul};">$ 11.900,00</td>
+                                    <td colspan="2">TOTAL INVERSIÓN PROYECTADA</td>
+                                    <td style="text-align: right; color: ${azul}; font-size: 12pt;">$ 11.900,00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -306,14 +318,14 @@ export default function SectorPrivadoPage() {
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Institución</th>
-                                    <th>Apoyo Operativo</th>
+                                    <th width="30%">Institución</th>
+                                    <th>Apoyo Operativo / Recurso</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 ${ALIADOS.map(a => `
                                     <tr>
-                                        <td style="font-weight: bold; color: ${azul};">${a.name}</td>
+                                        <td style="font-weight: 900; color: ${azul};">${a.name}</td>
                                         <td>${a.support}</td>
                                     </tr>
                                 `).join('')}
@@ -325,9 +337,9 @@ export default function SectorPrivadoPage() {
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Fase</th>
-                                    <th>Responsable</th>
-                                    <th style="text-align: right;">Tiempo</th>
+                                    <th>Fase Operativa</th>
+                                    <th width="25%">Responsable</th>
+                                    <th style="text-align: right;" width="20%">Tiempo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -335,7 +347,7 @@ export default function SectorPrivadoPage() {
                                     <tr>
                                         <td>${task.task}</td>
                                         <td>${task.owner}</td>
-                                        <td style="text-align: right; color: ${verde};"><b>${task.date}</b></td>
+                                        <td style="text-align: right; color: ${verde}; font-weight: bold;">${task.date}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -365,7 +377,7 @@ export default function SectorPrivadoPage() {
             setIsExporting(false);
             toast({ 
                 title: "TRANSMISIÓN COMPLETADA", 
-                description: "El expediente de alta fidelidad ha sido generado con éxito.",
+                description: "El expediente ha sido generado con el diseño corporativo final.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
         }, 1000);
@@ -388,7 +400,7 @@ export default function SectorPrivadoPage() {
                         </Button>
                         <div className="h-10 w-px bg-white/10" />
                         <div className="flex flex-col">
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Expediente Maestro</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Dossier de Ingeniería</span>
                             <span className="text-[8px] font-bold text-white/20 uppercase mt-1">Audit Ready • 2026</span>
                         </div>
                     </div>
@@ -418,7 +430,7 @@ export default function SectorPrivadoPage() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Expediente de Ingeniería</Badge>
+                            <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px] font-black px-4 h-8 rounded-xl mb-3">Dossier de Ingeniería</Badge>
                             <p className="text-[9px] font-mono text-slate-400 uppercase tracking-widest italic">REF: KYRON-ZEDU-2026</p>
                         </div>
                     </div>
@@ -453,7 +465,7 @@ export default function SectorPrivadoPage() {
                                         <p className="text-[9px] font-black uppercase text-secondary mb-1">Alcance Directo</p>
                                         <p className="text-xl font-black text-secondary italic">2.500 Nodos de Interacción</p>
                                     </div>
-                                    <p className="text-xs font-medium text-slate-500 italic leading-relaxed text-justify">La zona de Catia la Mar presenta una alta densidad de transacciones comerciales que requieren urgentemente una infraestructura de seguridad digital y simplificación tributaria.</p>
+                                    <p className="text-xs font-medium text-slate-500 italic leading-relaxed text-justify">La zona de Catia la Mar presenta una alta densidad de transacciones comerciales que requieren urgentemente una infraestructura de seguridad digital y un blindaje legal inmutable.</p>
                                 </div>
                             </div>
                         </section>
@@ -467,7 +479,7 @@ export default function SectorPrivadoPage() {
                             <div className="px-4 space-y-6 text-justify">
                                 <p className="text-sm font-bold italic text-slate-800 leading-relaxed border-l-4 border-slate-200 pl-6">"El colapso del sistema de archivado físico y la fragmentación de la data histórica han imposibilitado una gestión fiscal y legal eficiente en el sector privado de la región."</p>
                                 <div className="grid md:grid-cols-2 gap-6">
-                                    <div><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Causas Identificadas</p><p className="text-xs font-medium text-slate-600">Dependencia absoluta de registros en papel, vulnerabilidad ante fiscalizaciones por falta de trazabilidad y ausencia de un ledger inmutable.</p></div>
+                                    <div><p className="text-[9px] font-black uppercase text-slate-400 mb-1">Causas Identificadas</p><p className="text-xs font-medium text-slate-600">Dependencia absoluta de registros en papel, falta de protocolos de inmutabilidad y ausencia de un sistema de auditoría fiscal proactivo.</p></div>
                                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
                                         <p className="text-[9px] font-black uppercase text-primary mb-2 italic">Importancia Estratégica</p>
                                         <p className="text-xs font-bold text-slate-700 leading-relaxed uppercase">La transición a una Bóveda Digital es vital para la soberanía administrativa del sector privado en La Guaira.</p>
@@ -508,18 +520,18 @@ export default function SectorPrivadoPage() {
                             </div>
                             <div className="px-4 space-y-8">
                                 <div className="space-y-4">
-                                    <p className="text-sm font-black uppercase italic text-primary underline decoration-primary/20 underline-offset-8">Visión Estratégica: AutoMind AI</p>
-                                    <p className="text-xs font-medium text-slate-600 leading-relaxed text-justify">Implementación de una infraestructura que integra conectividad 5G, hardware magnético y un motor de auditoría fiscal inmutable. Nuestra solución no solo digitaliza, sino que predice riesgos legales antes de que ocurran.</p>
+                                    <p className="text-sm font-black uppercase italic text-primary underline decoration-primary/20 underline-offset-8">Visión Estratégica Kyron</p>
+                                    <p className="text-xs font-medium text-slate-600 leading-relaxed text-justify">Implementación de una infraestructura que integra conectividad 5G, hardware magnético y un motor de auditoría fiscal inmutable. Nuestra solución no solo digitaliza, sino que garantiza que cada registro sea un activo seguro.</p>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-3 italic">Comparativa de Mercado</p>
-                                        <p className="text-[10px] font-bold text-slate-500">A diferencia de propuestas como MOBIAN, Kyron ofrece blindaje legal predictivo y trazabilidad de activos físicos mediante sensores de inducción magnética síncrona.</p>
+                                        <p className="text-[9px] font-black uppercase text-slate-400 mb-3 italic">Diferenciación de Mercado</p>
+                                        <p className="text-[10px] font-bold text-slate-500">Kyron ofrece un blindaje legal predictivo y trazabilidad de activos físicos mediante sensores de inducción magnética síncrona, superando cualquier sistema tradicional.</p>
                                     </div>
                                     <div className="p-6 bg-primary/5 rounded-2xl border border-primary/20">
                                         <p className="text-[9px] font-black uppercase text-primary mb-3 italic">Diferenciadores Clave</p>
                                         <ul className="text-[10px] font-black uppercase text-slate-700 space-y-2">
-                                            <li className="flex gap-2"><span>[•]</span> <span>Chatbot estratégico para atención neuronal.</span></li>
+                                            <li className="flex gap-2"><span>[•]</span> <span>Atención neuronal para gestión de expedientes.</span></li>
                                             <li className="flex gap-2"><span>[•]</span> <span>Automatización de libros fiscales síncrona.</span></li>
                                             <li className="flex gap-2"><span>[•]</span> <span>Acceso biométrico 3D para Bóveda Digital.</span></li>
                                         </ul>
