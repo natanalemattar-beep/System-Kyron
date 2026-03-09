@@ -17,7 +17,8 @@ import {
   Terminal,
   FileText,
   Scale,
-  TrendingUp
+  TrendingUp,
+  BarChart3
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -47,7 +48,7 @@ export default function ModeloZeduPage() {
             const ctx = canvas.getContext("2d");
             const img = new Image();
             
-            const svgSize = 120; 
+            const svgSize = 100; 
             canvas.width = svgSize * 4; 
             canvas.height = svgSize * 4;
             
@@ -68,23 +69,23 @@ export default function ModeloZeduPage() {
             });
             
             const base64 = canvas.toDataURL("image/png");
-            logoHtml = `<div style="text-align: center; margin-top: 150pt; margin-bottom: 30pt;"><img src="${base64}" width="${svgSize}" height="${svgSize}" /></div>`;
+            logoHtml = `<div style="text-align: center; margin-top: 50pt; margin-bottom: 20pt;"><img src="${base64}" width="${svgSize}" height="${svgSize}" /></div>`;
         }
 
         const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
             "xmlns:w='urn:schemas-microsoft-com:office:word' "+
             "xmlns='http://www.w3.org/TR/REC-html40'>"+
             "<head><meta charset='utf-8'><title>MODELO ZEDU SYSTEM KYRON</title><style>" +
-            "body { font-family: 'Arial', sans-serif; color: #0f172a; background-color: #ffffff; padding: 40pt; }" +
-            ".cover { text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }" +
-            ".cover-title { color: #0A2472; font-size: 36pt; font-weight: bold; margin-bottom: 5pt; text-transform: uppercase; text-align: center; }" +
-            ".cover-subtitle { color: #1e293b; font-size: 24pt; font-weight: bold; text-transform: uppercase; text-align: center; }" +
-            "table { border-collapse: collapse; width: 100%; margin-bottom: 25pt; border: 1.5pt solid #000000; }" +
-            "td, th { border: 1.0pt solid #000000; padding: 12pt; font-size: 10pt; vertical-align: top; }" +
+            "body { font-family: 'Arial', sans-serif; color: #0f172a; background-color: #ffffff; padding: 30pt; }" +
+            ".cover { text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }" +
+            ".cover-title { color: #0A2472; font-size: 28pt; font-weight: bold; margin-bottom: 5pt; text-transform: uppercase; text-align: center; }" +
+            ".cover-subtitle { color: #1e293b; font-size: 18pt; font-weight: bold; text-transform: uppercase; text-align: center; }" +
+            "table { border-collapse: collapse; width: 100%; margin-bottom: 15pt; border: 1.5pt solid #000000; }" +
+            "td, th { border: 1.0pt solid #000000; padding: 8pt; font-size: 10pt; vertical-align: top; }" +
             ".header-cell { background-color: #0A2472 !important; color: #ffffff !important; font-weight: bold; text-transform: uppercase; text-align: center; }" +
             ".label-cell { background-color: #f8fafc !important; font-weight: bold; color: #475569 !important; width: 30%; text-transform: uppercase; font-size: 8pt; }" +
-            "h2 { color: #0A2472; text-transform: uppercase; border-bottom: 2pt solid #0A2472; padding-bottom: 5pt; margin-top: 30pt; }" +
-            "p { margin-bottom: 10pt; line-height: 1.6; text-align: justify; }" +
+            "h2 { color: #0A2472; text-transform: uppercase; border-bottom: 2pt solid #0A2472; padding-bottom: 3pt; margin-top: 20pt; }" +
+            "p { margin-bottom: 8pt; line-height: 1.5; text-align: justify; }" +
             ".page-break { page-break-after: always; }" +
             "</style></head><body>";
         
@@ -119,21 +120,21 @@ export default function ModeloZeduPage() {
 
     if (!isMounted) return null;
 
-    const tableHeaderClass = "bg-[#0A2472] text-white font-black uppercase p-5 text-[10px] border-2 border-black tracking-widest text-center";
-    const tableCellClass = "p-5 text-[11px] border-2 border-black text-slate-900 bg-white leading-relaxed font-medium";
-    const tableLabelClass = "bg-slate-50 p-5 text-[9px] font-black uppercase border-2 border-black text-slate-500 w-1/3";
+    const tableHeaderClass = "bg-[#0A2472] text-white font-black uppercase p-3 text-[10px] border-2 border-black tracking-widest text-center";
+    const tableCellClass = "p-3 text-[11px] border-2 border-black text-slate-900 bg-white leading-relaxed font-medium";
+    const tableLabelClass = "bg-slate-50 p-3 text-[9px] font-black uppercase border-2 border-black text-slate-500 w-1/3";
 
     return (
-        <div className="min-h-screen bg-slate-100 py-12 px-4 selection:bg-blue-100">
-            <div className="max-w-5xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-center gap-4 no-print">
+        <div className="min-h-screen bg-slate-100 py-8 px-4 selection:bg-blue-100">
+            <div className="max-w-5xl mx-auto mb-6 flex flex-col md:flex-row justify-between items-center gap-4 no-print">
                 <Button variant="ghost" asChild className="font-bold text-xs uppercase tracking-widest text-slate-500 hover:text-black">
                     <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL PORTAL</Link>
                 </Button>
                 <div className="flex gap-3">
-                    <Button variant="outline" onClick={() => window.print()} className="bg-white border-slate-300 rounded-xl font-bold text-xs uppercase h-11 px-6 shadow-sm">
+                    <Button variant="outline" onClick={() => window.print()} className="bg-white border-slate-300 rounded-xl font-bold text-xs uppercase h-10 px-6 shadow-sm">
                         <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                     </Button>
-                    <Button onClick={handleDownloadWord} className="bg-[#0A2472] text-white hover:bg-blue-900 rounded-xl font-black text-xs uppercase h-11 px-8 shadow-xl">
+                    <Button onClick={handleDownloadWord} className="bg-[#0A2472] text-white hover:bg-blue-900 rounded-xl font-black text-xs uppercase h-10 px-8 shadow-xl">
                         <Download className="mr-2 h-4 w-4" /> DESCARGAR WORD (.DOC)
                     </Button>
                 </div>
@@ -142,30 +143,30 @@ export default function ModeloZeduPage() {
             <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-20 text-slate-950 border border-slate-200"
+                className="max-w-5xl mx-auto bg-white shadow-2xl p-8 md:p-12 text-slate-950 border border-slate-200"
             >
-                {/* PORTADA MINIMALISTA */}
-                <div className="min-h-[800px] flex flex-col items-center justify-center border-b-4 border-slate-100 mb-20 pb-20 text-center space-y-12">
-                    <Logo id="main-logo-zedu" className="h-32 w-32 border-4 border-[#0A2472] p-4 bg-white shadow-xl" />
-                    <div className="space-y-4">
-                        <h1 className="text-6xl md:text-7xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
-                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter italic">SYSTEM KYRON</h2>
+                {/* PORTADA COMPACTA */}
+                <div className="min-h-[300px] flex flex-col items-center justify-center border-b-4 border-slate-100 mb-12 pb-12 text-center space-y-8">
+                    <Logo id="main-logo-zedu" className="h-24 w-24 border-2 border-[#0A2472] p-2 bg-white shadow-lg" />
+                    <div className="space-y-2">
+                        <h1 className="text-4xl md:text-5xl font-black text-[#0A2472] uppercase tracking-tighter italic leading-none">MODELO ZEDU</h1>
+                        <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter italic">SYSTEM KYRON</h2>
                     </div>
                 </div>
 
                 <div id="zedu-document-content">
                     {/* 1. INTEGRANTES */}
-                    <div className="mb-24">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Users className="h-7 w-7" /> 1. INTEGRANTES
+                    <div className="mb-12">
+                        <h2 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Users className="h-6 w-6" /> 1. INTEGRANTES
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Identificación de Participantes</td></tr>
                                 <tr>
-                                    <td className={cn(tableCellClass, "text-center font-black py-10 uppercase")}>Carlos Mattar</td>
-                                    <td className={cn(tableCellClass, "text-center font-black py-10 uppercase")}>Sebastián Garrido</td>
-                                    <td className={cn(tableCellClass, "text-center font-black py-10 uppercase")}>Marcos Sousa</td>
+                                    <td className={cn(tableCellClass, "text-center font-black py-6 uppercase")}>Carlos Mattar</td>
+                                    <td className={cn(tableCellClass, "text-center font-black py-6 uppercase")}>Sebastián Garrido</td>
+                                    <td className={cn(tableCellClass, "text-center font-black py-6 uppercase")}>Marcos Sousa</td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={3}>Sede Institucional</td></tr>
                                 <tr>
@@ -185,9 +186,9 @@ export default function ModeloZeduPage() {
                     </div>
 
                     {/* 2. ANÁLISIS DEL CENTRO ESTRATÉGICO */}
-                    <div className="mb-24">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Target className="h-7 w-7" /> 2. ANÁLISIS DEL CENTRO ESTRATÉGICO
+                    <div className="mb-12">
+                        <h2 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Target className="h-6 w-6" /> 2. ANÁLISIS DEL CENTRO ESTRATÉGICO
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
@@ -209,9 +210,9 @@ export default function ModeloZeduPage() {
                     </div>
 
                     {/* 3. ARQUITECTURA TÉCNICA (MÓDULOS) */}
-                    <div className="mb-24">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Cpu className="h-7 w-7" /> 3. ARQUITECTURA TÉCNICA (MÓDULOS)
+                    <div className="mb-12">
+                        <h2 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Cpu className="h-6 w-6" /> 3. ARQUITECTURA TÉCNICA (MÓDULOS)
                         </h2>
                         
                         <table className="w-full border-collapse">
@@ -281,9 +282,9 @@ export default function ModeloZeduPage() {
                     </div>
 
                     {/* 4. PRESUPUESTO DETALLADO */}
-                    <div className="mb-24">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Zap className="h-7 w-7" /> 4. INVERSIÓN ESTRATÉGICA (CAPEX)
+                    <div className="mb-12">
+                        <h2 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Zap className="h-6 w-6" /> 4. INVERSIÓN ESTRATÉGICA (CAPEX)
                         </h2>
                         <table className="w-full border-collapse">
                             <thead>
@@ -301,27 +302,27 @@ export default function ModeloZeduPage() {
                                 <tr><td className={tableCellClass}>Logística, Despliegue y Capacitación en Catia la Mar</td><td className={cn(tableCellClass, "text-right font-black")}>$ 3.200,00</td></tr>
                                 <tr className="bg-slate-50">
                                     <td className={cn(tableCellClass, "text-right font-black uppercase text-slate-500")}>TOTAL PROYECTADO</td>
-                                    <td className={cn(tableCellClass, "text-right font-black text-3xl text-[#0A2472] italic")}>$ 32.883,00</td>
+                                    <td className={cn(tableCellClass, "text-right font-black text-2xl text-[#0A2472] italic")}>$ 32.883,00</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
                     {/* 5. FACTIBILIDAD Y RETORNO */}
-                    <div className="mb-24">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <TrendingUp className="h-7 w-7" /> 5. FACTIBILIDAD Y RETORNO (ROI)
+                    <div className="mb-12">
+                        <h2 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <TrendingUp className="h-6 w-6" /> 5. FACTIBILIDAD Y RETORNO (ROI)
                         </h2>
                         <table className="w-full border-collapse">
                             <tbody>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Análisis Financiero del Ecosistema</td></tr>
                                 <tr>
                                     <td className={tableLabelClass}>Rentabilidad Estimada</td>
-                                    <td className={tableCellClass}><span className="text-[#00A86B] font-black text-2xl">28.5% Anual (TIR)</span></td>
+                                    <td className={tableCellClass}><span className="text-[#00A86B] font-black text-xl">28.5% Anual (TIR)</span></td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>VAN Proyectado</td>
-                                    <td className={tableCellClass}><span className="text-[#0A2472] font-black text-2xl">$ 450.000,00</span></td>
+                                    <td className={tableCellClass}><span className="text-[#0A2472] font-black text-xl">$ 450.000,00</span></td>
                                 </tr>
                                 <tr>
                                     <td className={tableLabelClass}>Modelo de Negocio</td>
@@ -336,9 +337,9 @@ export default function ModeloZeduPage() {
                     </div>
 
                     {/* 6. CRONOGRAMA DE DESPLIEGUE */}
-                    <div className="mb-24">
-                        <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
-                            <Terminal className="h-7 w-7" /> 6. CRONOGRAMA OPERATIVO
+                    <div className="mb-12">
+                        <h2 className="text-xl font-black uppercase mb-6 tracking-tighter flex items-center gap-4 text-[#0A2472]">
+                            <Terminal className="h-6 w-6" /> 6. CRONOGRAMA OPERATIVO
                         </h2>
                         <table className="w-full border-collapse">
                             <thead>
@@ -355,25 +356,25 @@ export default function ModeloZeduPage() {
                             </tbody>
                         </table>
 
-                        <div className="mt-20 p-12 bg-slate-50 border-4 border-[#0A2472] rounded-[3rem] text-center shadow-xl">
-                            <h3 className="text-3xl font-black uppercase text-[#0A2472] mb-6 italic">Conclusión de Dictamen</h3>
-                            <p className="text-lg font-bold italic leading-relaxed text-slate-700 text-justify">
+                        <div className="mt-12 p-8 bg-slate-50 border-2 border-[#0A2472] rounded-[2rem] text-center shadow-lg">
+                            <h3 className="text-2xl font-black uppercase text-[#0A2472] mb-4 italic">Conclusión de Dictamen</h3>
+                            <p className="text-md font-bold italic leading-relaxed text-slate-700 text-justify">
                                 "El Modelo ZEDU System Kyron es la solución definitiva para la modernización comercial de Catia la Mar. La integración de tecnologías inmutables y automatización fiscal garantiza una ventaja competitiva sostenible, protegiendo el patrimonio de las empresas contra los desafíos ambientales y regulatorios del país. Este expediente certifica la viabilidad técnica y financiera para el despliegue inmediato de las unidades operativas aquí descritas."
                             </p>
-                            <div className="flex justify-between pt-24 gap-12">
-                                <div className="flex-1 border-t-2 border-black pt-4">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Firma de Integrantes</p>
+                            <div className="flex justify-between pt-16 gap-8">
+                                <div className="flex-1 border-t border-black pt-2">
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Firma de Integrantes</p>
                                 </div>
-                                <div className="flex-1 border-t-2 border-black pt-4">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Sello Institucional Colegio Gabriela Mistral</p>
+                                <div className="flex-1 border-t border-black pt-2">
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Sello Institucional Colegio Gabriela Mistral</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <footer className="mt-24 pt-12 border-t-2 border-slate-100 flex flex-col items-center gap-6 text-center opacity-40">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[1em] italic">MODELO ZEDU SYSTEM KYRON • 2026</p>
-                        <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">© SYSTEM KYRON • TODOS LOS DERECHOS RESERVADOS</p>
+                    <footer className="mt-12 pt-8 border-t-2 border-slate-100 flex flex-col items-center gap-4 text-center opacity-40">
+                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-[1em] italic">MODELO ZEDU SYSTEM KYRON • 2026</p>
+                        <p className="text-[7px] font-bold text-slate-500 uppercase tracking-widest">© SYSTEM KYRON • TODOS LOS DERECHOS RESERVADOS</p>
                     </footer>
                 </div>
             </motion.div>
