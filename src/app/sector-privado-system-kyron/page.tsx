@@ -25,7 +25,7 @@ import { useToast } from "@/hooks/use-toast";
 
 /**
  * @fileOverview MODELO ZEDU - SYSTEM KYRON v2.6.5
- * Documento de formulación técnica de alta fidelidad (6 páginas estimadas).
+ * Documento de formulación técnica de alta fidelidad estructurado en tablas.
  */
 
 export default function ModeloZeduPage() {
@@ -88,7 +88,7 @@ export default function ModeloZeduPage() {
                         <Printer className="mr-2 h-4 w-4" /> VISTA DE IMPRESIÓN
                     </Button>
                     <Button onClick={handleDownloadWord} className="bg-black dark:bg-primary text-white hover:bg-slate-800 rounded-xl font-black text-xs uppercase h-11 px-8 shadow-xl">
-                        <Download className="mr-2 h-4 w-4" /> DESCARGAR WORD (.DOC)
+                        <Download className="mr-2 h-4 w-4" /> DESCARGAR MODELO ZEDU (WORD)
                     </Button>
                 </div>
             </div>
@@ -100,7 +100,7 @@ export default function ModeloZeduPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-20 document-font text-black relative border border-slate-200 rounded-sm"
             >
-                {/* PÁGINA 1: CARÁTULA E IDENTIFICACIÓN */}
+                {/* ENCABEZADO INSTITUCIONAL */}
                 <div className="flex justify-between items-start mb-16 border-b-4 border-black pb-8">
                     <div className="flex items-center gap-6">
                         <div className="p-3 border-2 border-black rounded-xl">
@@ -109,7 +109,7 @@ export default function ModeloZeduPage() {
                         <div>
                             <h1 className="text-4xl font-black uppercase tracking-tighter leading-none italic">System Kyron</h1>
                             <p className="text-xs font-bold uppercase tracking-[0.4em] text-slate-500 mt-2">Corporate Intelligence Hub</p>
-                            <p className="text-[10px] font-black text-primary mt-1 uppercase">Validación de Módulo Maestro • 2026</p>
+                            <p className="text-[10px] font-black text-primary mt-1 uppercase">Validación de Sistema Maestro • 2026</p>
                         </div>
                     </div>
                     <div className="text-right">
@@ -158,16 +158,16 @@ export default function ModeloZeduPage() {
                 {/* 2. POBLACIÓN Y ESTUDIO DEMOGRÁFICO */}
                 <div className="mb-12">
                     <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <Users className="h-5 w-5" /> 2. POBLACIÓN A TRABAJAR (UNIDAD ESTRATÉGICA)
+                        <Users className="h-5 w-5" /> 2. POBLACIÓN A TRABAJAR (NÚCLEO ESTRATÉGICO)
                     </h2>
                     <table className="w-full border-collapse border-2 border-black">
                         <tbody>
                             <tr>
-                                <td className={headerCellStyle}>ALCANCE INICIAL (MODULOS ACTIVOS)</td>
+                                <td className={headerCellStyle}>ALCANCE INICIAL (UNIDADES ACTIVAS)</td>
                                 <td className={headerCellStyle}>UBICACIÓN GEOGRÁFICA</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}><span className="text-base font-black">2.500 Unidades Activas</span></td>
+                                <td className={contentCellStyle}><span className="text-base font-black">2.500 Unidades Registradas</span></td>
                                 <td className={contentCellStyle}>Eje Comercial Catia la Mar, Municipio Vargas</td>
                             </tr>
                             <tr>
@@ -190,7 +190,7 @@ export default function ModeloZeduPage() {
                     </table>
                 </div>
 
-                {/* PÁGINA 2: DIAGNÓSTICO Y FACTIBILIDAD */}
+                {/* 3. DIAGNÓSTICO Y ANÁLISIS DEL PROBLEMA */}
                 <div className="mb-12">
                     <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
                         <Lock className="h-5 w-5" /> 3. ANÁLISIS DEL PROBLEMA Y DIAGNÓSTICO
@@ -224,7 +224,7 @@ export default function ModeloZeduPage() {
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>Pérdida masiva de horas hombre en conciliación manual y errores en inventario.</td>
-                                <td className={contentCellStyle}>Sanciones por el SENIAT, multas por IGTF mal calculado y extinción de permisos CONATEL.</td>
+                                <td className={contentCellStyle}>Sanciones por el SENIAT, multas por IGTF mal calculado y extinción de permisos.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -242,7 +242,7 @@ export default function ModeloZeduPage() {
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>
-                                    Implementación de un Centro de Inteligencia Centralizada bajo protocolo Zero-Knowledge, que unifica 10 módulos estratégicos:
+                                    Implementación de un Centro de Inteligencia Centralizada bajo protocolo Zero-Knowledge, que unifica 10 áreas estratégicas:
                                 </td>
                             </tr>
                             <tr>
@@ -254,7 +254,7 @@ export default function ModeloZeduPage() {
                                         <li>[04] Gestión de RR.HH. y Nómina</li>
                                         <li>[05] Contabilidad y Balances IA</li>
                                         <li>[06] Sostenibilidad (Eco-Créditos)</li>
-                                        <li>[07] Módulo Legal y Contratos</li>
+                                        <li>[07] Área Legal y Contratos</li>
                                         <li>[08] Ingeniería y Fotogrametría</li>
                                         <li>[09] Facturación y TPV Pro</li>
                                         <li>[10] Inteligencia de Negocio (BI)</li>
@@ -273,7 +273,7 @@ export default function ModeloZeduPage() {
                     </table>
                 </div>
 
-                {/* PÁGINA 3: DATOS CUANTITATIVOS Y KPI */}
+                {/* 5. DATOS CUANTITATIVOS Y KPI */}
                 <div className="mb-12">
                     <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
                         <TrendingUp className="h-5 w-5" /> 5. INDICADORES DE IMPACTO CUANTITATIVO
@@ -288,22 +288,22 @@ export default function ModeloZeduPage() {
                         </thead>
                         <tbody className="font-bold uppercase">
                             <tr>
-                                <td className={contentCellStyle}>Empresas Activas en el Sistema</td>
+                                <td className={contentCellStyle}>Empresas Activas</td>
                                 <td className={contentCellStyle}>127 Unidades</td>
                                 <td className={contentCellStyle}>OPTIMO</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>Declaraciones Fiscales Procesadas</td>
+                                <td className={contentCellStyle}>Declaraciones Procesadas</td>
                                 <td className={contentCellStyle}>15.340 Documentos</td>
                                 <td className={contentCellStyle}>SIN ERRORES</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>Índice de Riesgo Fiscal</td>
+                                <td className={contentCellStyle}>Riesgo Fiscal</td>
                                 <td className={cn(contentCellStyle, "text-[#00A86B] font-black")}>0.00%</td>
                                 <td className={contentCellStyle}>CERTIFICADO</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>Nodos de Usuario en Red</td>
+                                <td className={contentCellStyle}>Usuarios en Red</td>
                                 <td className={contentCellStyle}>2.500 Usuarios</td>
                                 <td className={contentCellStyle}>ACTIVO</td>
                             </tr>
@@ -311,7 +311,7 @@ export default function ModeloZeduPage() {
                     </table>
                 </div>
 
-                {/* 6. PRESUPUESTO RESUMIDO (CAPEX) */}
+                {/* 6. PRESUPUESTO DE INVERSIÓN (CAPEX) */}
                 <div className="mb-12">
                     <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
                         <Zap className="h-5 w-5" /> 6. PRESUPUESTO DE INVERSIÓN (CAPEX)
@@ -326,13 +326,13 @@ export default function ModeloZeduPage() {
                         </thead>
                         <tbody className="font-bold uppercase">
                             <tr>
-                                <td className={cn(contentCellStyle, "text-left")}>Infraestructura Cloud Ledger & 5G</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Infraestructura Central & 5G</td>
                                 <td className={contentCellStyle}>Servidores de alta fidelidad</td>
                                 <td className={contentCellStyle}>$ 12.500,00</td>
                             </tr>
                             <tr>
                                 <td className={cn(contentCellStyle, "text-left")}>Desarrollo Ecosistema Modular</td>
-                                <td className={contentCellStyle}>Full-Stack 10 Módulos</td>
+                                <td className={contentCellStyle}>Full-Stack 10 Áreas</td>
                                 <td className={contentCellStyle}>$ 10.200,00</td>
                             </tr>
                             <tr>
@@ -342,7 +342,7 @@ export default function ModeloZeduPage() {
                             </tr>
                             <tr>
                                 <td className={cn(contentCellStyle, "text-left")}>Despliegue y Logística</td>
-                                <td className={contentCellStyle}>Unidades de Campo (Bera)</td>
+                                <td className={contentCellStyle}>Unidades de Campo</td>
                                 <td className={contentCellStyle}>$ 4.000,00</td>
                             </tr>
                             <tr className="bg-slate-100">
@@ -353,7 +353,7 @@ export default function ModeloZeduPage() {
                     </table>
                 </div>
 
-                {/* PÁGINA 4: ALIADOS Y RECURSOS */}
+                {/* 7. ALIADOS Y RECURSOS ESTRATÉGICOS */}
                 <div className="mb-12">
                     <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
                         <ShieldCheck className="h-5 w-5" /> 7. ALIADOS Y RECURSOS ESTRATÉGICOS
@@ -368,7 +368,7 @@ export default function ModeloZeduPage() {
                         <tbody>
                             <tr>
                                 <td className={contentCellStyle}><span className="font-black">DIGITEL / CONATEL</span></td>
-                                <td className={contentCellStyle}>Espectro Radioeléctrico y Enlaces 5G Master</td>
+                                <td className={contentCellStyle}>Espectro Radioeléctrico y Enlaces 5G</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}><span className="font-black">SENIAT / FISCALÍA</span></td>
@@ -380,7 +380,7 @@ export default function ModeloZeduPage() {
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}><span className="font-black">HOLDING KYRON</span></td>
-                                <td className={contentCellStyle}>Respaldo Financiero y Soporte Técnico Nivel 3</td>
+                                <td className={contentCellStyle}>Respaldo Financiero y Soporte Técnico</td>
                             </tr>
                         </tbody>
                     </table>
@@ -389,7 +389,7 @@ export default function ModeloZeduPage() {
                 {/* 8. PLAN DE ACCIÓN Y CRONOGRAMA */}
                 <div className="mb-12">
                     <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <Activity className="h-5 w-5" /> 8. PLAN DE ACCIÓN (DESPLIEGUE SEMANAL)
+                        <Activity className="h-5 w-5" /> 8. PLAN DE ACCIÓN (DESPLIEGUE MENSUAL)
                     </h2>
                     <table className="w-full border-collapse border-2 border-black">
                         <thead className="bg-slate-50">
@@ -403,49 +403,22 @@ export default function ModeloZeduPage() {
                             <tr>
                                 <td className={contentCellStyle}>Auditoría de Procesos en Catia la Mar</td>
                                 <td className={contentCellStyle}>Equipo de Campo</td>
-                                <td className={cn(contentCellStyle, "text-center")}>SEMANA 1</td>
+                                <td className={cn(contentCellStyle, "text-center")}>MES 1</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>Instalación de Módulos 5G y eSIM</td>
                                 <td className={contentCellStyle}>Ing. S. Garrido</td>
-                                <td className={cn(contentCellStyle, "text-center")}>SEMANA 2</td>
+                                <td className={cn(contentCellStyle, "text-center")}>MES 2</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>Despliegue de Bóveda y Ledger Fiscal</td>
                                 <td className={contentCellStyle}>Ing. Carlos Mattar</td>
-                                <td className={cn(contentCellStyle, "text-center")}>SEMANA 3</td>
+                                <td className={cn(contentCellStyle, "text-center")}>MES 3</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>Lanzamiento del Mercado Ambiental</td>
                                 <td className={contentCellStyle}>Ing. Marcos Sousa</td>
-                                <td className={cn(contentCellStyle, "text-center")}>SEMANA 4</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* PÁGINA 5: INNOVACIONES TIER 2 Y CIERRE */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <LayoutGrid className="h-5 w-5" /> 9. INNOVACIONES TIER 2 (AVANZADO)
-                    </h2>
-                    <table className="w-full border-collapse border-2 border-black">
-                        <tbody>
-                            <tr>
-                                <td className={headerCellStyle}>COMPONENTE ADICIONAL</td>
-                                <td className={headerCellStyle}>VALOR AGREGADO CORPORATIVO</td>
-                            </tr>
-                            <tr>
-                                <td className={contentCellStyle}>Asistente de Voz Corporativo</td>
-                                <td className={contentCellStyle}>Control de inventario y balances mediante comandos neuronales.</td>
-                            </tr>
-                            <tr>
-                                <td className={contentCellStyle}>Generador Jurídico IA</td>
-                                <td className={contentCellStyle}>Creación de Smart Contracts automatizados con validez legal.</td>
-                            </tr>
-                            <tr>
-                                <td className={contentCellStyle}>Mercado de Eco-Créditos</td>
-                                <td className={contentCellStyle}>Monetización de la huella de carbono positiva en el ecosistema.</td>
+                                <td className={cn(contentCellStyle, "text-center")}>MES 4</td>
                             </tr>
                         </tbody>
                     </table>
@@ -471,7 +444,7 @@ export default function ModeloZeduPage() {
                     <div className="text-right space-y-4">
                         <div className="flex items-center justify-end gap-3 mb-6">
                             <div className="h-3 w-3 rounded-full bg-green-500 animate-pulse" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em]">CENTRO DE MANDO: ACTIVO</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em]">CENTRO DE GESTIÓN: ACTIVO</span>
                         </div>
                         <p className="text-[10px] font-black uppercase text-slate-400">© 2026 SYSTEM KYRON OFFICIAL • ALL RIGHTS RESERVED</p>
                     </div>
@@ -483,26 +456,13 @@ export default function ModeloZeduPage() {
                         <span className="text-[140px] font-black uppercase tracking-[0.5em] italic">MODELO ZEDU</span>
                     </div>
                 </div>
-
-                {/* SELLOS GRÁFICOS DINÁMICOS */}
-                <div className="absolute top-40 right-12 flex flex-col gap-8 no-print opacity-80 pointer-events-none">
-                    <div className="border-4 border-rose-600 p-2 rounded transform rotate-12 text-rose-600 font-black text-xl uppercase tracking-tighter shadow-sm bg-white/50 backdrop-blur-sm">
-                        CONFIDENCIAL
-                    </div>
-                    <div className="border-4 border-emerald-600 p-2 rounded-full transform -rotate-6 text-emerald-600 font-black text-lg uppercase tracking-tighter shadow-sm bg-white/50 backdrop-blur-sm flex items-center gap-2">
-                        <CheckCircle className="h-5 w-5" /> VALIDADO
-                    </div>
-                    <div className="border-4 border-[#0A2472] p-2 rounded transform rotate-3 text-[#0A2472] font-black text-sm uppercase tracking-tighter shadow-sm bg-white/50 backdrop-blur-sm">
-                        GRADO CORPORATIVO
-                    </div>
-                </div>
             </motion.div>
 
             {/* STATUS BAR BOTTOM */}
             <div className="max-w-5xl mx-auto mt-10 flex justify-center items-center gap-12 no-print text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] opacity-60">
-                <span className="flex items-center gap-2"><Lock className="h-3 w-3" /> SECURE LEDGER</span>
-                <span className="flex items-center gap-2"><Activity className="h-3 w-3" /> 2.500 ACTIVE UNITS</span>
-                <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> VERIFIED BY KYRON-HUB</span>
+                <span className="flex items-center gap-2"><Lock className="h-3 w-3" /> REGISTRO SEGURO</span>
+                <span className="flex items-center gap-2"><Activity className="h-3 w-3" /> 2.500 UNIDADES ACTIVAS</span>
+                <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> VERIFICADO POR KYRON-HUB</span>
             </div>
         </div>
     );
