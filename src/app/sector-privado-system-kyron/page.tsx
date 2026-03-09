@@ -51,7 +51,7 @@ import { Badge } from "@/components/ui/badge";
 const budgetData = [
     { item: "Infraestructura de Red 5G (Nodo Kyron Connect)", qty: 1, cost: 5000, location: "División Telecom" },
     { item: "Lote SIM Cards Físicas / Provisión eSIM", qty: 1000, cost: 1000, location: "Kyron Secure Hub" },
-    { id: "M4", item: "Papeleras Inteligentes (Inducción Magnética)", qty: 5, cost: 1250, location: "Taller de Ingeniería" },
+    { item: "Papeleras Inteligentes (Inducción Magnética)", qty: 5, cost: 1250, location: "Taller de Ingeniería" },
     { item: "Equipos Fiscales Homologados (Prov. 0071)", qty: 2, cost: 950, location: "Fiscal Solutions" },
     { item: "Licencia Anual Ecosistema AutoMind AI Pro", qty: 1, cost: 1500, location: "Cloud Vault" },
 ];
@@ -85,29 +85,131 @@ export default function SectorPrivadoPage() {
         setIsExporting(true);
         
         setTimeout(() => {
-            const documentContent = document.getElementById('printable-document')?.innerHTML || '';
+            const azulKyron = "#2563eb";
+            const verdeKyron = "#22c55e";
+            
             const header = `
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head>
                     <meta charset='utf-8'>
                     <title>Expediente Maestro ZEDU - System Kyron</title>
                     <style>
-                        body { font-family: 'Arial', sans-serif; line-height: 1.5; color: #000; padding: 40px; }
-                        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; border: 1.5pt solid #000; }
-                        td, th { border: 1pt solid #000; padding: 12px; vertical-align: top; font-size: 10pt; }
-                        .section-header { background-color: #f1f5f9; font-weight: 900; text-transform: uppercase; text-align: left; padding: 12px; border: 1.5pt solid #000; color: #1e40af; }
-                        .title { font-size: 28pt; font-weight: 900; text-align: center; text-transform: uppercase; margin-bottom: 5px; color: #1e40af; }
-                        .subtitle { font-size: 11pt; text-align: center; color: #64748b; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 3px; font-weight: bold; }
-                        .text-block { margin-bottom: 25px; text-align: justify; font-size: 11pt; line-height: 1.6; }
-                        .footer-text { font-size: 9pt; color: #94a3b8; text-align: center; margin-top: 50px; text-transform: uppercase; letter-spacing: 2px; }
-                        strong { color: #1e40af; }
+                        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #334155; padding: 40px; background-color: #fff; }
+                        h1 { color: ${azulKyron}; font-size: 28pt; text-transform: uppercase; margin-bottom: 0; text-align: center; font-weight: 900; }
+                        .subtitle { color: #94a3b8; font-size: 10pt; text-align: center; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; font-weight: bold; }
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; border: 2pt solid #000; }
+                        th, td { border: 1pt solid #000; padding: 12px; text-align: left; font-size: 10pt; }
+                        .section-title { background-color: #f8fafc; color: ${azulKyron}; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; font-size: 11pt; border-bottom: 2pt solid ${azulKyron}; }
+                        .label { background-color: #f1f5f9; font-weight: bold; width: 30%; color: #64748b; font-size: 9pt; text-transform: uppercase; }
+                        .value { font-weight: bold; color: #1e293b; }
+                        .highlight { color: ${azulKyron}; font-weight: 900; font-style: italic; }
+                        .success { color: ${verdeKyron}; font-weight: 900; }
+                        .footer { margin-top: 60px; text-align: center; border-top: 1pt solid #e2e8f0; pt: 20px; font-size: 8pt; color: #cbd5e1; text-transform: uppercase; letter-spacing: 2px; }
+                        .box { border: 1.5pt solid ${azulKyron}; padding: 20px; background-color: #f0f9ff; margin-bottom: 30px; border-radius: 10px; }
+                        .signature-line { border-top: 1pt solid #000; width: 200px; margin: 40px auto 10px; }
                     </style>
                 </head>
                 <body>
-                    <div class="title">System Kyron</div>
+                    <h1>SYSTEM KYRON</h1>
                     <div class="subtitle">Expediente Maestro ZEDU v2.6.5 • 2026</div>
-                    ${documentContent}
-                    <div class="footer-text">Final del documento • System Kyron Intelligence Node</div>
+
+                    <!-- PARTE 1 -->
+                    <table>
+                        <tr><th colspan="2" class="section-title">1. INFORMACIÓN DEL EQUIPO TÉCNICO</th></tr>
+                        <tr><td class="label">Proyecto</td><td class="value highlight">SYSTEM KYRON</td></tr>
+                        <tr><td class="label">Integrantes</td><td class="value">Carlos Mattar, Sebastian Garrido, Marcos Sousa</td></tr>
+                        <tr><td class="label">Institución</td><td class="value">Gabriela Mistral</td></tr>
+                        <tr><td class="label">Localidad</td><td class="value">Catia La Mar, Venezuela</td></tr>
+                    </table>
+
+                    <!-- PARTE 2 -->
+                    <table>
+                        <tr><th colspan="2" class="section-title">2. POBLACIÓN A TRABAJAR</th></tr>
+                        <tr><td class="label">Comunidad</td><td class="value">Santa Rosa de Lima, Caracas</td></tr>
+                        <tr><td class="label">Alcance</td><td class="value success">1.500+ Usuarios Activos</td></tr>
+                        <tr><td class="label">Perfil</td><td class="value">Personal Administrativo y Directivo con Necesidad de Digitalización Inmutable</td></tr>
+                    </table>
+
+                    <!-- PARTE 3 -->
+                    <table>
+                        <tr><th colspan="2" class="section-title">3. ANÁLISIS DEL PROBLEMA</th></tr>
+                        <tr><td class="label">Causas</td><td class="value">Archivamiento 100% físico, Inexistencia de Nodo Central, Vulnerabilidad de Activos.</td></tr>
+                        <tr><td class="label">Dictamen</td><td class="value">"El sistema de archivado es muy pobre debido a que la gran mayoría de la información personal está archivada en papel y no en digital."</td></tr>
+                    </table>
+
+                    <!-- PARTE 4 -->
+                    <div class="box">
+                        <h3 style="color:${azulKyron}; margin-top:0;">4. FACTIBILIDAD ECONÓMICA</h3>
+                        <p><b>VAN:</b> <span class="success">$450.000</span> | <b>TIR:</b> <span class="success">28.5%</span> | <b>Recuperación:</b> 2.4 Años</p>
+                        <p style="font-size:9pt; font-style:italic;">Dictamen: Viabilidad sobresaliente bajo modelo SaaS con escalabilidad del 300%.</p>
+                    </div>
+
+                    <!-- PARTE 5 -->
+                    <div style="margin-bottom:30px;">
+                        <h3 style="color:${azulKyron}; text-transform:uppercase;">5. DESARROLLA TU PROYECTO (AUTOMIND AI)</h3>
+                        <p style="text-align:justify;">System Kyron implementa <b>AutoMind AI</b>, una arquitectura de red síncrona que fusiona el protocolo Hyper-Connect 5G con una Bóveda de Datos Inmutable. La solución blinda la operación institucional mediante inteligencia predictiva que monitorea la Gaceta Oficial 24/7.</p>
+                    </div>
+
+                    <!-- PARTE 6 -->
+                    <table>
+                        <tr><th colspan="4" class="section-title">6. PRESUPUESTO OPERATIVO (CAPEX)</th></tr>
+                        <tr style="background-color:#f1f5f9;">
+                            <th>Item de Inversión</th>
+                            <th>Cant.</th>
+                            <th>Costo (USD)</th>
+                            <th>Localización</th>
+                        </tr>
+                        ${budgetData.map(d => `
+                            <tr>
+                                <td>${d.item}</td>
+                                <td style="text-align:center;">${d.qty}</td>
+                                <td style="text-align:right; font-weight:bold;">$${d.cost.toLocaleString()}</td>
+                                <td>${d.location}</td>
+                            </tr>
+                        `).join('')}
+                        <tr style="background-color:#eff6ff;">
+                            <td colspan="2"><b>TOTAL INVERSIÓN NODO MAESTRO</b></td>
+                            <td style="text-align:right; color:${azulKyron}; font-weight:900;">$${budgetData.reduce((a,b) => a+b.cost, 0).toLocaleString()}</td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    <!-- PARTE 7 -->
+                    <table>
+                        <tr><th colspan="2" class="section-title">7. ALIADOS ESTRATÉGICOS</th></tr>
+                        ${alliesData.map(a => `
+                            <tr><td class="label">${a.name}</td><td class="value">${a.support}</td></tr>
+                        `).join('')}
+                    </table>
+
+                    <!-- PARTE 8 -->
+                    <table>
+                        <tr><th colspan="3" class="section-title">8. PLAN DE ACCIÓN Y CRONOGRAMA</th></tr>
+                        <tr style="background-color:#f1f5f9;">
+                            <th>Tarea Estratégica</th>
+                            <th>Responsable</th>
+                            <th>Cronograma</th>
+                        </tr>
+                        ${actionPlanData.map(p => `
+                            <tr>
+                                <td style="font-size:9pt;">${p.task}</td>
+                                <td style="text-align:center; font-weight:bold; color:${azulKyron}; font-size:8pt;">${p.owner}</td>
+                                <td style="text-align:center; font-weight:bold; font-size:8pt;">${p.date}</td>
+                            </tr>
+                        `).join('')}
+                    </table>
+
+                    <div style="page-break-before: always;"></div>
+
+                    <div style="text-align:center; margin-top:100px;">
+                        <div class="signature-line"></div>
+                        <p style="font-weight:900; text-transform:uppercase; font-size:10pt;">Dirección General de Ingeniería</p>
+                        <p style="color:#94a3b8; font-size:8pt;">VALIDADO POR NODO MAESTRO KYRON</p>
+                    </div>
+
+                    <div class="footer">
+                        Final del documento • Dossier de Inteligencia Corporativa • 2026
+                    </div>
                 </body>
                 </html>
             `;
@@ -116,15 +218,15 @@ export default function SectorPrivadoPage() {
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = "EXPEDIENTE_ZEDU_KYRON_MASTER.doc";
+            link.download = "EXPEDIENTE_ZEDU_KYRON_MASTER_UHD.doc";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
 
             setIsExporting(false);
             toast({
-                title: "PROTOCOLO COMPLETADO",
-                description: "Dossier Maestro de 8 partes exportado con éxito.",
+                title: "PROTOCOLO DE EXPORTACIÓN FINALIZADO",
+                description: "El dossier ha sido generado con diseño de alta fidelidad.",
                 action: <CheckCircle className="text-primary h-4 w-4" />
             });
         }, 1500);
@@ -237,7 +339,7 @@ export default function SectorPrivadoPage() {
                                     <p className="text-3xl font-black italic text-secondary">1.500+</p>
                                 </div>
                                 <div className="col-span-2 p-6 font-mono text-[11px] font-bold uppercase leading-relaxed text-slate-600 text-justify">
-                                    Personal administrativo, directivo y representantes con necesidad crítica de digitalización inmutable de expedientes, blindaje fiscal ante el SENIAT y conectividad 5G de baja latencia para operaciones síncronas.
+                                    Personal administrativo, directivo y representantes con necesidad crítica de digitalización inmutable de expedientes, blindaje fiscal ante el SENIAT y conectividad 5G de baja latencia.
                                 </div>
                             </div>
                         </div>
@@ -263,13 +365,13 @@ export default function SectorPrivadoPage() {
                                 <div>
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Consecuencias</p></div>
                                     <div className="p-6 italic font-bold uppercase text-slate-600 leading-relaxed text-justify">
-                                        Retraso crítico en localización de datos, vulnerabilidad ante pérdida de expedientes históricos y alto riesgo de incumplimiento legal ante entes públicos nacionales.
+                                        Retraso crítico en localización de datos, vulnerabilidad ante pérdida de expedientes históricos y alto riesgo de incumplimiento legal ante entes públicos.
                                     </div>
                                 </div>
                             </div>
                             <div className="p-10 bg-slate-50/30 border-t-[1.5px] border-black">
                                 <p className="text-[13px] font-medium italic leading-relaxed text-justify border-l-8 border-primary/20 pl-8 text-slate-800">
-                                    "En la Institución el sistema de archivado es muy pobre debido a que la gran mayoría de la información personal está archivada en papel y no en digital. Esta falta de digitalización inmutable compromete la integridad histórica y la eficiencia operativa de la institución."
+                                    "En la Institución el sistema de archivado es muy pobre debido a que la gran mayoría de la información personal está archivada en papel y no en digital. Esta falta de digitalización inmutable compromete la integridad histórica y la eficiencia operativa."
                                 </p>
                             </div>
                         </div>
@@ -298,7 +400,7 @@ export default function SectorPrivadoPage() {
                                     </div>
                                 </div>
                                 <p className="text-[11px] font-mono font-bold text-slate-500 text-center uppercase tracking-widest leading-relaxed">
-                                    DICTAMEN TÉCNICO: El modelo SaaS de System Kyron permite una escalabilidad total con costos reducidos en un 40% anual gracias a la automatización mediante IA predictiva y el uso de nodos de red privada 5G.
+                                    DICTAMEN TÉCNICO: El modelo SaaS permite una escalabilidad total con costos reducidos en un 40% anual gracias a la automatización mediante IA predictiva.
                                 </p>
                             </div>
                         </div>
@@ -320,7 +422,7 @@ export default function SectorPrivadoPage() {
                                 <div className="border-r-[1.5px] border-black">
                                     <div className="p-4 bg-slate-50 border-b-[1.5px] border-black"><p className="text-[9px] font-black uppercase text-slate-500">Otras Propuestas (MOBIAN)</p></div>
                                     <div className="p-6 italic font-bold text-slate-600 uppercase leading-relaxed text-justify">
-                                        Enfoques tradicionales basados únicamente en gestión administrativa convencional, sin integración de hardware inteligente, conectividad 5G propia ni sellado inmutable Blockchain.
+                                        Enfoques tradicionales basados únicamente en gestión administrativa convencional, sin integración de hardware inteligente ni sellado inmutable Blockchain.
                                     </div>
                                 </div>
                                 <div>
@@ -377,31 +479,23 @@ export default function SectorPrivadoPage() {
                             <Handshake className="h-5 w-5 text-primary" />
                             <h2 className="text-sm font-black uppercase tracking-[0.3em] text-primary">7. Aliados y Recursos</h2>
                         </div>
-                        <div className="space-y-8">
-                            <div className="p-8 bg-slate-50 border-[1.5px] border-black rounded-3xl text-justify">
-                                <p className="text-xs font-medium leading-relaxed text-slate-700 italic">
-                                    Los aliados estratégicos de Kyron proporcionan el soporte legal, técnico y financiero para la ejecución del Nodo Maestro. El intercambio de recursos incluye desde donaciones en especie hasta formación especializada en leyes de propiedad intelectual y telecomunicaciones.
-                                </p>
-                            </div>
-
-                            <div className="border-[1.5px] border-black rounded-[2rem] overflow-hidden bg-white shadow-md">
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow className="bg-slate-100 border-b-[1.5px] border-black">
-                                            <TableHead className="font-black text-[10px] uppercase text-primary tracking-widest pl-8 py-5">Institución / Aliado</TableHead>
-                                            <TableHead className="font-black text-[10px] uppercase text-primary tracking-widest pr-8 py-5">Tipo de Apoyo Estratégico</TableHead>
+                        <div className="border-[1.5px] border-black rounded-[2rem] overflow-hidden bg-white shadow-md">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-slate-100 border-b-[1.5px] border-black">
+                                        <TableHead className="font-black text-[10px] uppercase text-primary tracking-widest pl-8 py-5">Institución / Aliado</TableHead>
+                                        <TableHead className="font-black text-[10px] uppercase text-primary tracking-widest pr-8 py-5">Tipo de Apoyo Estratégico</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {alliesData.map((ally, i) => (
+                                        <TableRow key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+                                            <TableCell className="pl-8 py-5 text-xs font-black uppercase italic text-slate-800">{ally.name}</TableCell>
+                                            <TableCell className="pr-8 py-5 text-xs font-bold text-slate-500 uppercase">{ally.support}</TableCell>
                                         </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {alliesData.map((ally, i) => (
-                                            <TableRow key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
-                                                <TableCell className="pl-8 py-5 text-xs font-black uppercase italic text-slate-800">{ally.name}</TableCell>
-                                                <TableCell className="pr-8 py-5 text-xs font-bold text-slate-500 uppercase">{ally.support}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </div>
+                                    ))}
+                                </TableBody>
+                            </Table>
                         </div>
                     </div>
 
@@ -431,12 +525,6 @@ export default function SectorPrivadoPage() {
                                     ))}
                                 </TableBody>
                             </Table>
-                        </div>
-
-                        <div className="p-10 bg-slate-50/50 rounded-[2.5rem] border border-slate-200">
-                            <p className="text-sm font-medium italic leading-relaxed text-justify text-slate-600">
-                                El plan de acción incluye todas las tareas estratégicas a realizar, con responsables asignados y fechas de ejecución, asegurando que el presupuesto y los recursos necesarios estén alineados. Las tareas comprenden desde las visitas técnicas a la comunidad y reuniones con aliados institucionales, hasta la compra de materiales de ingeniería y la promoción publicitaria del ecosistema Kyron.
-                            </p>
                         </div>
                     </div>
 
