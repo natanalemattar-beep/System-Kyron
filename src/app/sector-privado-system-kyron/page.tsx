@@ -15,7 +15,11 @@ import {
   Zap,
   TrendingUp,
   Cpu,
-  LayoutGrid
+  LayoutGrid,
+  Scale,
+  Database,
+  BrainCircuit,
+  Terminal
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -25,7 +29,9 @@ import { useToast } from "@/hooks/use-toast";
 
 /**
  * @fileOverview MODELO ZEDU - SYSTEM KYRON v2.6.5
- * Documento de formulación técnica de alta fidelidad estructurado en tablas.
+ * Documento de formulación técnica detallada (5-6 páginas proyectadas).
+ * Eliminadas competencias de telecomunicaciones.
+ * Colores institucionales: Azul (#0A2472) y Verde (#00A86B).
  */
 
 export default function ModeloZeduPage() {
@@ -44,10 +50,13 @@ export default function ModeloZeduPage() {
             "xmlns:w='urn:schemas-microsoft-com:office:word' "+
             "xmlns='http://www.w3.org/TR/REC-html40'>"+
             "<head><meta charset='utf-8'><title>MODELO ZEDU - SYSTEM KYRON</title><style>" +
-            "table { border-collapse: collapse; width: 100%; margin-bottom: 20px; font-family: Arial, sans-serif; }" +
-            "td, th { border: 1pt solid black; padding: 10pt; font-size: 10pt; }" +
-            ".header-cell { background-color: #f8fafc; font-weight: bold; text-transform: uppercase; }" +
-            "h1, h2, h3 { font-family: Arial, sans-serif; text-transform: uppercase; }" +
+            "table { border-collapse: collapse; width: 100%; margin-bottom: 30px; font-family: 'Segoe UI', Tahoma, sans-serif; }" +
+            "td, th { border: 1.5pt solid #000000; padding: 12pt; font-size: 10pt; vertical-align: top; }" +
+            ".header-cell { background-color: #0A2472; color: #ffffff; font-weight: bold; text-transform: uppercase; }" +
+            ".accent-cell { background-color: #f0f4f8; font-weight: bold; }" +
+            ".success-text { color: #00A86B; font-weight: bold; }" +
+            "h1, h2, h3 { font-family: sans-serif; text-transform: uppercase; margin-top: 20pt; }" +
+            "p { margin-bottom: 10pt; line-height: 1.5; }" +
             "</style></head><body>";
         const footer = "</body></html>";
         const sourceHTML = header + content + footer;
@@ -73,22 +82,23 @@ export default function ModeloZeduPage() {
 
     if (!isMounted) return null;
 
-    const headerCellStyle = "bg-slate-50 text-black font-black uppercase p-4 text-xs border border-black header-cell";
-    const contentCellStyle = "p-4 text-xs border border-black text-slate-900 bg-white leading-relaxed";
+    const headerCellStyle = "bg-[#0A2472] text-white font-black uppercase p-4 text-[10px] border-2 border-black header-cell tracking-widest";
+    const contentCellStyle = "p-5 text-[11px] border-2 border-black text-slate-900 bg-white leading-relaxed font-medium";
+    const accentCellStyle = "bg-slate-50 p-4 text-[10px] font-black uppercase border-2 border-black text-slate-600";
 
     return (
         <div className="min-h-screen bg-slate-100 dark:bg-slate-950 py-12 px-4 selection:bg-blue-100">
             {/* BARRA DE NAVEGACIÓN UI */}
             <div className="max-w-5xl mx-auto mb-8 flex justify-between items-center no-print">
                 <Button variant="ghost" asChild className="font-bold text-xs uppercase tracking-widest text-slate-500 hover:text-black">
-                    <NextLink href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER</NextLink>
+                    <NextLink href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL PORTAL</NextLink>
                 </Button>
                 <div className="flex gap-3">
                     <Button variant="outline" onClick={() => window.print()} className="bg-white dark:bg-slate-900 border-slate-300 rounded-xl font-bold text-xs uppercase h-11 px-6 shadow-sm">
-                        <Printer className="mr-2 h-4 w-4" /> VISTA DE IMPRESIÓN
+                        <Printer className="mr-2 h-4 w-4" /> VISTA PREVIA
                     </Button>
-                    <Button onClick={handleDownloadWord} className="bg-black dark:bg-primary text-white hover:bg-slate-800 rounded-xl font-black text-xs uppercase h-11 px-8 shadow-xl">
-                        <Download className="mr-2 h-4 w-4" /> DESCARGAR MODELO ZEDU (WORD)
+                    <Button onClick={handleDownloadWord} className="bg-[#0A2472] text-white hover:bg-blue-900 rounded-xl font-black text-xs uppercase h-11 px-8 shadow-xl">
+                        <Download className="mr-2 h-4 w-4" /> DESCARGAR WORD
                     </Button>
                 </div>
             </div>
@@ -96,47 +106,49 @@ export default function ModeloZeduPage() {
             {/* CONTENEDOR DEL DOCUMENTO */}
             <motion.div 
                 id="zedu-document-content"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-20 document-font text-black relative border border-slate-200 rounded-sm"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-24 document-font text-black relative border border-slate-200 rounded-sm"
             >
                 {/* ENCABEZADO INSTITUCIONAL */}
-                <div className="flex justify-between items-start mb-16 border-b-4 border-black pb-8">
-                    <div className="flex items-center gap-6">
-                        <div className="p-3 border-2 border-black rounded-xl">
-                            <Logo className="h-16 w-16" />
+                <div className="flex justify-between items-start mb-20 border-b-8 border-[#0A2472] pb-10">
+                    <div className="flex items-center gap-8">
+                        <div className="p-4 border-4 border-black rounded-2xl bg-white shadow-xl">
+                            <Logo className="h-20 w-20" />
                         </div>
                         <div>
-                            <h1 className="text-4xl font-black uppercase tracking-tighter leading-none italic">System Kyron</h1>
-                            <p className="text-xs font-bold uppercase tracking-[0.4em] text-slate-500 mt-2">Corporate Intelligence Hub</p>
-                            <p className="text-[10px] font-black text-primary mt-1 uppercase">Validación de Sistema Maestro • 2026</p>
+                            <h1 className="text-5xl font-black uppercase tracking-tighter leading-none italic text-[#0A2472]">System Kyron</h1>
+                            <p className="text-sm font-bold uppercase tracking-[0.5em] text-slate-400 mt-3 italic">Corporate Intelligence Hub</p>
+                            <p className="text-[11px] font-black text-[#00A86B] mt-2 uppercase tracking-widest flex items-center gap-2">
+                                <ShieldCheck className="h-4 w-4" /> VALIDACIÓN DE SISTEMA MAESTRO • 2026
+                            </p>
                         </div>
                     </div>
                     <div className="text-right">
-                        <div className="inline-block border-4 border-black p-4 bg-slate-50">
-                            <h2 className="text-2xl font-black uppercase tracking-widest leading-none">MODELO ZEDU</h2>
+                        <div className="inline-block border-4 border-black p-6 bg-[#0A2472]">
+                            <h2 className="text-3xl font-black uppercase tracking-[0.2em] leading-none text-white">MODELO ZEDU</h2>
                         </div>
-                        <p className="text-[9px] font-black uppercase mt-4 text-slate-400">VERSION: 2.6.5 – MARZO 2026</p>
+                        <p className="text-[10px] font-black uppercase mt-4 text-slate-400 tracking-widest">VERSION: 2.6.5 – MARZO 2026</p>
                     </div>
                 </div>
 
                 {/* 1. INFORMACIÓN DEL EQUIPO TÉCNICO */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <Activity className="h-5 w-5" /> 1. INFORMACIÓN DEL EQUIPO TÉCNICO
+                <div className="mb-16">
+                    <h2 className="text-lg font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                        <Activity className="h-6 w-6" /> 1. INFORMACIÓN DEL EQUIPO TÉCNICO
                     </h2>
-                    <table className="w-full border-collapse border-2 border-black">
+                    <table className="w-full border-collapse">
                         <tbody>
                             <tr>
                                 <td className={headerCellStyle} colSpan={3}>NOMBRE DEL PROYECTO ESTRATÉGICO</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle} colSpan={3}><span className="text-lg font-black uppercase">SYSTEM KYRON • CORPORATE INTELLIGENCE</span></td>
+                                <td className={contentCellStyle} colSpan={3}><span className="text-2xl font-black uppercase text-[#0A2472]">SYSTEM KYRON • CORPORATE INTELLIGENCE</span></td>
                             </tr>
                             <tr>
-                                <td className={cn(headerCellStyle, "w-1/3")}>LÍDER DE ARQUITECTURA</td>
-                                <td className={cn(headerCellStyle, "w-1/3")}>REDES Y TELECOM</td>
-                                <td className={cn(headerCellStyle, "w-1/3")}>FLUJO OPERATIVO</td>
+                                <td className={accentCellStyle} style={{ width: '33.33%' }}>LÍDER DE ARQUITECTURA</td>
+                                <td className={accentCellStyle} style={{ width: '33.33%' }}>SISTEMAS Y DATOS</td>
+                                <td className={accentCellStyle} style={{ width: '33.33%' }}>FLUJO OPERATIVO</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>Ing. Carlos Mattar</td>
@@ -144,325 +156,382 @@ export default function ModeloZeduPage() {
                                 <td className={contentCellStyle}>Ing. Marcos Sousa</td>
                             </tr>
                             <tr>
-                                <td className={headerCellStyle} colSpan={2}>INSTITUCIÓN EDUCATIVA / SEDE</td>
-                                <td className={headerCellStyle}>UBICACIÓN DEL CENTRO</td>
+                                <td className={accentCellStyle} colSpan={2}>INSTITUCIÓN EDUCATIVA / SEDE DE OPERACIONES</td>
+                                <td className={accentCellStyle}>UBICACIÓN DEL CENTRO</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle} colSpan={2}>Colegio Gabriela Mistral</td>
-                                <td className={contentCellStyle}>Catia la Mar, Edo. La Guaira</td>
+                                <td className={contentCellStyle} colSpan={2}>Unidad Educativa Colegio Gabriela Mistral</td>
+                                <td className={contentCellStyle}>Catia la Mar, Estado La Guaira, Venezuela</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* 2. POBLACIÓN Y ESTUDIO DEMOGRÁFICO */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <Users className="h-5 w-5" /> 2. POBLACIÓN A TRABAJAR (NÚCLEO ESTRATÉGICO)
+                {/* 2. POBLACIÓN Y ESTUDIO DEMOGRÁFICO DETALLADO */}
+                <div className="mb-16">
+                    <h2 className="text-lg font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                        <Users className="h-6 w-6" /> 2. POBLACIÓN A TRABAJAR (ESTUDIO DEMOGRÁFICO)
                     </h2>
-                    <table className="w-full border-collapse border-2 border-black">
+                    <table className="w-full border-collapse">
                         <tbody>
                             <tr>
-                                <td className={headerCellStyle}>ALCANCE INICIAL (UNIDADES ACTIVAS)</td>
-                                <td className={headerCellStyle}>UBICACIÓN GEOGRÁFICA</td>
+                                <td className={headerCellStyle} style={{ width: '50%' }}>ALCANCE INICIAL DEL ECOSISTEMA</td>
+                                <td className={headerCellStyle} style={{ width: '50%' }}>UBICACIÓN GEOGRÁFICA DE CONTROL</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}><span className="text-base font-black">2.500 Unidades Registradas</span></td>
-                                <td className={contentCellStyle}>Eje Comercial Catia la Mar, Municipio Vargas</td>
+                                <td className={contentCellStyle}>
+                                    <span className="text-xl font-black text-[#0A2472]">2.500 Unidades Operativas</span>
+                                    <p className="mt-2 text-[10px] font-bold text-slate-500 uppercase">Capacidad de escalamiento mensual: +15%</p>
+                                </td>
+                                <td className={contentCellStyle}>
+                                    <span className="font-bold">Parroquia Catia la Mar</span>
+                                    <p className="mt-1 text-slate-600">Eje comercial central, Municipio Vargas, Estado La Guaira.</p>
+                                </td>
                             </tr>
                             <tr>
-                                <td className={headerCellStyle}>DISTRIBUCIÓN DEMOGRÁFICA</td>
-                                <td className={headerCellStyle}>PERFIL SOCIO-ECONÓMICO</td>
+                                <td className={accentCellStyle}>SEGMENTACIÓN POR GÉNERO Y RANGO</td>
+                                <td className={accentCellStyle}>PERFIL DEL USUARIO MAESTRO</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>52% Femenino / 48% Masculino. Rango: 18-65 años.</td>
-                                <td className={contentCellStyle}>Empresarial, Comercial y Emprendedores Autónomos.</td>
+                                <td className={contentCellStyle}>
+                                    <ul className="list-disc pl-5">
+                                        <li>Femenino: 52% | Masculino: 48%</li>
+                                        <li>Rango de edad productiva: 18 - 65 años</li>
+                                        <li>Densidad poblacional: Alta (Sector Comercio)</li>
+                                    </ul>
+                                </td>
+                                <td className={contentCellStyle}>
+                                    Empresarios, emprendedores, contadores y gestores legales con necesidad de digitalización inmutable.
+                                </td>
                             </tr>
                             <tr>
-                                <td className={headerCellStyle} colSpan={2}>CARACTERÍSTICAS DEL GRUPO OBJETIVO</td>
+                                <td className={headerCellStyle} colSpan={2}>FACTORES AMBIENTALES Y CONTEXTO LOCAL</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle} colSpan={2}>
-                                    Población con alta dependencia de procesos manuales, vulnerable ante fiscalización tributaria y con deterioro documental por factores climáticos costeros (salinidad y humedad relativa del 85%+).
+                                    <p className="font-bold">ZONA COSTERA DE ALTA CRITICIDAD:</p>
+                                    La población objetivo opera en un entorno con humedad relativa superior al 85% y altos niveles de salinidad atmosférica. Estas condiciones provocan el deterioro físico acelerado de documentos en papel (facturas, actas constititivas, libros contables), lo que justifica la necesidad inmediata de una <strong>Bóveda Digital Blindada</strong> y procesos de <strong>Cero Riesgo Fiscal</strong> que no dependan de soportes físicos degradables.
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* 3. DIAGNÓSTICO Y ANÁLISIS DEL PROBLEMA */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <Lock className="h-5 w-5" /> 3. ANÁLISIS DEL PROBLEMA Y DIAGNÓSTICO
+                {/* 3. DIAGNÓSTICO Y ANÁLISIS DEL PROBLEMA TÉCNICO */}
+                <div className="mb-16">
+                    <h2 className="text-lg font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                        <Activity className="h-6 w-6" /> 3. DIAGNÓSTICO Y ANÁLISIS DEL PROBLEMA
                     </h2>
-                    <table className="w-full border-collapse border-2 border-black">
+                    <table className="w-full border-collapse">
                         <tbody>
                             <tr>
-                                <td className={headerCellStyle}>DEFINICIÓN DEL PROBLEMA CENTRAL</td>
+                                <td className={headerCellStyle}>DEFINICIÓN TÉCNICA DEL PROBLEMA</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>
-                                    <p className="font-black italic text-sm leading-relaxed uppercase underline decoration-primary/20 decoration-4">
-                                        "FRAGMENTACIÓN DE DATA OPERATIVA Y VULNERABILIDAD LEGAL POR EL USO DE REGISTROS FÍSICOS OBSOLETOS E INEXISTENCIA DE UN ECOSISTEMA INTEGRADO QUE UNIFIQUE TELECOMUNICACIONES, FISCALIDAD Y SOSTENIBILIDAD."
+                                    <p className="text-base font-black italic uppercase leading-tight text-red-600">
+                                        "AUSENCIA DE UN ECOSISTEMA INTEGRADO QUE UNIFIQUE LA AUTOMATIZACIÓN FISCAL, EL RESGUARDO LEGAL INMUTABLE Y LA SOSTENIBILIDAD OPERATIVA BAJO UN PROTOCOLO DE SEGURIDAD MAESTRO."
                                     </p>
                                 </td>
                             </tr>
                             <tr>
-                                <td className={headerCellStyle} colSpan={2}>CAUSAS IDENTIFICADAS</td>
-                            </tr>
-                            <tr>
-                                <td className={contentCellStyle} colSpan={2}>
-                                    1. Procesos fiscales manuales dependientes de humanos. <br/>
-                                    2. Falta de un Ledger (libro mayor) centralizado e inmutable. <br/>
-                                    3. Conectividad inestable para procesos de facturación electrónica. <br/>
-                                    4. Gestión de residuos sin trazabilidad ni incentivo económico.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className={headerCellStyle}>CONSECUENCIAS OPERATIVAS</td>
-                                <td className={headerCellStyle}>IMPACTO LEGAL/FISCAL</td>
-                            </tr>
-                            <tr>
-                                <td className={contentCellStyle}>Pérdida masiva de horas hombre en conciliación manual y errores en inventario.</td>
-                                <td className={contentCellStyle}>Sanciones por el SENIAT, multas por IGTF mal calculado y extinción de permisos.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* 4. SOLUCIÓN PROPUESTA (DETALLADA) */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <CheckCircle className="h-5 w-5" /> 4. SOLUCIÓN PROPUESTA: ECOSISTEMA SYSTEM KYRON
-                    </h2>
-                    <table className="w-full border-collapse border-2 border-black">
-                        <tbody>
-                            <tr>
-                                <td className={headerCellStyle}>DESCRIPCIÓN DE LA ARQUITECTURA</td>
+                                <td className={accentCellStyle}>CAUSAS DEL PROBLEMA (RAÍZ)</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>
-                                    Implementación de un Centro de Inteligencia Centralizada bajo protocolo Zero-Knowledge, que unifica 10 áreas estratégicas:
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className={contentCellStyle}>
-                                    <ul className="grid grid-cols-2 gap-2 list-none p-0 font-bold uppercase text-[10px]">
-                                        <li>[01] Telecomunicaciones 5G / eSIM</li>
-                                        <li>[02] Automatización Fiscal SENIAT</li>
-                                        <li>[03] Bóveda de Identidad 3D</li>
-                                        <li>[04] Gestión de RR.HH. y Nómina</li>
-                                        <li>[05] Contabilidad y Balances IA</li>
-                                        <li>[06] Sostenibilidad (Eco-Créditos)</li>
-                                        <li>[07] Área Legal y Contratos</li>
-                                        <li>[08] Ingeniería y Fotogrametría</li>
-                                        <li>[09] Facturación y TPV Pro</li>
-                                        <li>[10] Inteligencia de Negocio (BI)</li>
+                                    <ul className="space-y-3">
+                                        <li><strong>Fragmentación de Data:</strong> La información fiscal, contable y legal reside en sistemas aislados que no se comunican entre sí.</li>
+                                        <li><strong>Obsolescencia Analógica:</strong> Dependencia de libros contables físicos vulnerables a la humedad y el extravío.</li>
+                                        <li><strong>Incertidumbre Normativa:</strong> Desconexión entre los procesos diarios y las actualizaciones constantes de la Gaceta Oficial (SENIAT/SAREN).</li>
+                                        <li><strong>Inexistencia de Trazabilidad Ambiental:</strong> Desperdicio de materiales sin un sistema de incentivos o registro digital.</li>
                                     </ul>
                                 </td>
                             </tr>
                             <tr>
-                                <td className={headerCellStyle}>DIFERENCIADORES ESTRATÉGICOS</td>
+                                <td className={accentCellStyle}>CONSECUENCIAS Y RIESGOS ASOCIADOS</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>
-                                    Integración vertical completa (Hardware + Software), IA Predictiva para Riesgo Fiscal 0%, Inmutabilidad por Blockchain y Hardware propio de ingeniería ambiental.
+                                    <ul className="space-y-3">
+                                        <li><strong>Impacto Económico:</strong> Multas severas por errores en declaraciones de IVA, ISLR e IGTF.</li>
+                                        <li><strong>Vulnerabilidad Legal:</strong> Extinción de poderes y permisos por falta de control de vencimientos.</li>
+                                        <li><strong>Pérdida de Eficiencia:</strong> +40 horas hombre al mes dedicadas a conciliación manual de facturas y arqueos de caja.</li>
+                                        <li><strong>Inseguridad Documental:</strong> Imposibilidad de verificar la autenticidad de firmas y sellos en documentos históricos.</li>
+                                    </ul>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* 5. DATOS CUANTITATIVOS Y KPI */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <TrendingUp className="h-5 w-5" /> 5. INDICADORES DE IMPACTO CUANTITATIVO
+                {/* 4. SOLUCIÓN PROPUESTA: ECOSISTEMA SYSTEM KYRON */}
+                <div className="mb-16">
+                    <h2 className="text-lg font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                        <Cpu className="h-6 w-6" /> 4. SOLUCIÓN PROPUESTA (DETALLES DEL SISTEMA)
                     </h2>
-                    <table className="w-full border-collapse border-2 border-black text-center">
+                    <table className="w-full border-collapse">
+                        <tbody>
+                            <tr>
+                                <td className={headerCellStyle} colSpan={2}>ARQUITECTURA DEL ECOSISTEMA MODULAR</td>
+                            </tr>
+                            <tr>
+                                <td className={contentCellStyle} colSpan={2}>
+                                    <p className="font-bold text-[#0A2472] uppercase mb-4">Integración Vertical de 9 Módulos Maestros:</p>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                                        <div>
+                                            <p><strong>[01] Automatización Fiscal:</strong> Motor IA que procesa RIPF, IGTF e IVA con validación síncrona ante el SENIAT.</p>
+                                            <p><strong>[02] Bóveda de Identidad:</strong> Registro de ciudadanos y representantes mediante biometría 3D y sellado digital.</p>
+                                            <p><strong>[03] Gestión de RR.HH:</strong> Control de nómina, prestaciones sociales y contratos LOTTT automatizados.</p>
+                                            <p><strong>[04] Contabilidad IA:</strong> Generación de balances VEN-NIF con ajuste por inflación automático basado en el BCV.</p>
+                                        </div>
+                                        <div>
+                                            <p><strong>[05] Sostenibilidad:</strong> Smart Bins con tecnología de magnetismo para recolección y emisión de Eco-Créditos.</p>
+                                            <p><strong>[06] Unidad Legal:</strong> Asistente para redacción de contratos, actas de asamblea y registro ante el SAREN/SAPI.</p>
+                                            <p><strong>[07] Ingeniería IA:</strong> Uso de fotogrametría para generación de planos y cómputos métricos de locales comerciales.</p>
+                                            <p><strong>[08] TPV Pro:</strong> Punto de venta multimoneda con gestión de inventario bloqueado por factura fiscal.</p>
+                                            <p><strong>[09] Business Intelligence:</strong> Tableros de control estratégico para socios y juntas directivas.</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className={headerCellStyle} style={{ width: '50%' }}>DIFERENCIADORES CLAVE</td>
+                                <td className={headerCellStyle} style={{ width: '50%' }}>TECNOLOGÍAS APLICADAS</td>
+                            </tr>
+                            <tr>
+                                <td className={contentCellStyle}>
+                                    <ul className="list-disc pl-5">
+                                        <li><strong>Riesgo Fiscal 0%:</strong> Auditoría preventiva antes del sellado.</li>
+                                        <li><strong>Inmutabilidad:</strong> Blockchain Ledger para cada transacción.</li>
+                                        <li><strong>Independencia Física:</strong> Cloud Computing de alta fidelidad.</li>
+                                    </ul>
+                                </td>
+                                <td className={contentCellStyle}>
+                                    <ul className="list-disc pl-5">
+                                        <li>Generative AI (Modelos Propios)</li>
+                                        <li>Distributed Ledger Technology (DLT)</li>
+                                        <li>Biometría de Alta Resolución</li>
+                                        <li>Sensores de Inducción Magnética</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* 5. DATOS CUANTITATIVOS Y KPI DE RENDIMIENTO */}
+                <div className="mb-16">
+                    <h2 className="text-lg font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                        <TrendingUp className="h-6 w-6" /> 5. INDICADORES CUANTITATIVOS (DATOS MAESTROS)
+                    </h2>
+                    <table className="w-full border-collapse">
                         <thead>
                             <tr>
-                                <th className={headerCellStyle}>MÉTRICA DE CONTROL</th>
-                                <th className={headerCellStyle}>VALOR ACTUAL / META</th>
-                                <th className={headerCellStyle}>ESTATUS DE SEGURIDAD</th>
+                                <th className={headerCellStyle}>INDICADOR DE CONTROL</th>
+                                <th className={headerCellStyle}>VALOR OPERATIVO</th>
+                                <th className={headerCellStyle}>ESTATUS DE SISTEMA</th>
                             </tr>
                         </thead>
-                        <tbody className="font-bold uppercase">
+                        <tbody className="text-center font-bold">
                             <tr>
-                                <td className={contentCellStyle}>Empresas Activas</td>
+                                <td className={contentCellStyle}>Empresas en el Ecosistema</td>
                                 <td className={contentCellStyle}>127 Unidades</td>
-                                <td className={contentCellStyle}>OPTIMO</td>
+                                <td className={cn(contentCellStyle, "text-[#00A86B]")}>ACTIVO</td>
                             </tr>
                             <tr>
                                 <td className={contentCellStyle}>Declaraciones Procesadas</td>
                                 <td className={contentCellStyle}>15.340 Documentos</td>
-                                <td className={contentCellStyle}>SIN ERRORES</td>
+                                <td className={cn(contentCellStyle, "text-[#00A86B]")}>VERIFICADO</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>Riesgo Fiscal</td>
-                                <td className={cn(contentCellStyle, "text-[#00A86B] font-black")}>0.00%</td>
-                                <td className={contentCellStyle}>CERTIFICADO</td>
+                                <td className={contentCellStyle}>Riesgo de Sanción Fiscal</td>
+                                <td className={cn(contentCellStyle, "text-[#00A86B] text-base")}>0%</td>
+                                <td className={cn(contentCellStyle, "text-[#00A86B]")}>GARANTIZADO</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>Usuarios en Red</td>
-                                <td className={contentCellStyle}>2.500 Usuarios</td>
-                                <td className={contentCellStyle}>ACTIVO</td>
+                                <td className={contentCellStyle}>Nodos Activos en Red</td>
+                                <td className={contentCellStyle}>2.500 Unidades</td>
+                                <td className={cn(contentCellStyle, "text-[#00A86B]")}>SINCRO</td>
+                            </tr>
+                            <tr>
+                                <td className={contentCellStyle}>Eco-Créditos Emitidos</td>
+                                <td className={contentCellStyle}>45.800 Unidades</td>
+                                <td className={cn(contentCellStyle, "text-[#00A86B]")}>LIQUIDEZ</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 {/* 6. PRESUPUESTO DE INVERSIÓN (CAPEX) */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <Zap className="h-5 w-5" /> 6. PRESUPUESTO DE INVERSIÓN (CAPEX)
+                <div className="mb-16">
+                    <h2 className="text-lg font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                        <Zap className="h-6 w-6" /> 6. PRESUPUESTO DE INVERSIÓN (ESTRUCTURA DE COSTOS)
                     </h2>
-                    <table className="w-full border-collapse border-2 border-black text-center">
-                        <thead className="bg-slate-50">
+                    <table className="w-full border-collapse">
+                        <thead>
                             <tr>
-                                <th className={cn(headerCellStyle, "text-[10px]")}>COMPONENTE DE INVERSIÓN</th>
-                                <th className={cn(headerCellStyle, "text-[10px]")}>ESPECIFICACIÓN TÉCNICA</th>
-                                <th className={cn(headerCellStyle, "text-[10px]")}>TOTAL (USD)</th>
+                                <th className={headerCellStyle}>RUBRO DE INVERSIÓN</th>
+                                <th className={headerCellStyle}>DETALLE TÉCNICO</th>
+                                <th className={headerCellStyle}>TOTAL (USD)</th>
                             </tr>
                         </thead>
-                        <tbody className="font-bold uppercase">
+                        <tbody className="uppercase">
                             <tr>
-                                <td className={cn(contentCellStyle, "text-left")}>Infraestructura Central & 5G</td>
-                                <td className={contentCellStyle}>Servidores de alta fidelidad</td>
-                                <td className={contentCellStyle}>$ 12.500,00</td>
+                                <td className={contentCellStyle}>Arquitectura de Software</td>
+                                <td className={contentCellStyle}>Ecosistema Web, Cloud Ledger y Nodo IA</td>
+                                <td className={cn(contentCellStyle, "text-right font-black")}>$ 12.000,00</td>
                             </tr>
                             <tr>
-                                <td className={cn(contentCellStyle, "text-left")}>Desarrollo Ecosistema Modular</td>
-                                <td className={contentCellStyle}>Full-Stack 10 Áreas</td>
-                                <td className={contentCellStyle}>$ 10.200,00</td>
+                                <td className={contentCellStyle}>Hardware de Sostenibilidad</td>
+                                <td className={contentCellStyle}>Sensores de Inducción para Smart Bins</td>
+                                <td className={cn(contentCellStyle, "text-right font-black")}>$ 6.183,00</td>
                             </tr>
                             <tr>
-                                <td className={cn(contentCellStyle, "text-left")}>Hardware Fiscal & Smart Bins</td>
-                                <td className={contentCellStyle}>Sensores de Inducción</td>
-                                <td className={contentCellStyle}>$ 6.183,00</td>
+                                <td className={contentCellStyle}>Equipos de Oficina Fiscal</td>
+                                <td className={contentCellStyle}>Terminales Biométricos e Impresoras Fiscales</td>
+                                <td className={cn(contentCellStyle, "text-right font-black")}>$ 8.500,00</td>
                             </tr>
                             <tr>
-                                <td className={cn(contentCellStyle, "text-left")}>Despliegue y Logística</td>
-                                <td className={contentCellStyle}>Unidades de Campo</td>
-                                <td className={contentCellStyle}>$ 4.000,00</td>
+                                <td className={contentCellStyle}>Logística y Operaciones</td>
+                                <td className={contentCellStyle}>Unidad de Transporte (Moto Bera DT-200)</td>
+                                <td className={cn(contentCellStyle, "text-right font-black")}>$ 2.800,00</td>
+                            </tr>
+                            <tr>
+                                <td className={contentCellStyle}>Marketing y Despliegue</td>
+                                <td className={contentCellStyle}>Campaña de Afiliación Catia la Mar</td>
+                                <td className={cn(contentCellStyle, "text-right font-black")}>$ 3.400,00</td>
                             </tr>
                             <tr className="bg-slate-100">
-                                <td className={cn(contentCellStyle, "text-right p-4 font-black text-sm")} colSpan={2}>INVERSIÓN INICIAL ESTIMADA</td>
-                                <td className={cn(contentCellStyle, "p-4 font-black text-sm text-[#0A2472]")}>$ 32.883,00</td>
+                                <td className={cn(contentCellStyle, "text-right font-black text-sm")} colSpan={2}>INVERSIÓN TOTAL ESTIMADA DEL PROYECTO</td>
+                                <td className={cn(contentCellStyle, "text-right font-black text-base text-[#0A2472]")}>$ 32.883,00</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 {/* 7. ALIADOS Y RECURSOS ESTRATÉGICOS */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <ShieldCheck className="h-5 w-5" /> 7. ALIADOS Y RECURSOS ESTRATÉGICOS
+                <div className="mb-16">
+                    <h2 className="text-lg font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                        <ShieldCheck className="h-6 w-6" /> 7. ALIADOS Y RECURSOS ESTRATÉGICOS
                     </h2>
-                    <table className="w-full border-collapse border-2 border-black">
+                    <table className="w-full border-collapse">
                         <thead>
                             <tr>
                                 <th className={headerCellStyle}>ORGANIZACIÓN ALIADA</th>
-                                <th className={headerCellStyle}>MODALIDAD DE APOYO / VÍNCULO</th>
+                                <th className={headerCellStyle}>VÍNCULO Y TIPO DE APOYO</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="font-bold">
                             <tr>
-                                <td className={contentCellStyle}><span className="font-black">DIGITEL / CONATEL</span></td>
-                                <td className={contentCellStyle}>Espectro Radioeléctrico y Enlaces 5G</td>
+                                <td className={contentCellStyle}>SENIAT / ADMINISTRACIÓN TRIBUTARIA</td>
+                                <td className={contentCellStyle}>Validación de protocolos de cumplimiento y auditoría fiscal.</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}><span className="font-black">SENIAT / FISCALÍA</span></td>
-                                <td className={contentCellStyle}>Validación de Protocolos de Riesgo 0</td>
+                                <td className={contentCellStyle}>SAREN / REGISTROS Y NOTARÍAS</td>
+                                <td className={contentCellStyle}>Sincronización de libros digitales y actas de asamblea legalizadas.</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}><span className="font-black">SAMSUNG / FACTORY HKA</span></td>
-                                <td className={contentCellStyle}>Hardware de Gestión y Unidades Fiscales</td>
+                                <td className={contentCellStyle}>SAPI / PROPIEDAD INTELECTUAL</td>
+                                <td className={contentCellStyle}>Resguardo de patentes de software y marcas del ecosistema.</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}><span className="font-black">HOLDING KYRON</span></td>
-                                <td className={contentCellStyle}>Respaldo Financiero y Soporte Técnico</td>
+                                <td className={contentCellStyle}>HOLDING SYSTEM KYRON</td>
+                                <td className={contentCellStyle}>Soporte financiero central y unidad de investigación y desarrollo.</td>
+                            </tr>
+                            <tr>
+                                <td className={contentCellStyle}>SAMSUNG / FACTORY HKA</td>
+                                <td className={contentCellStyle}>Provisión de hardware certificado para terminales de venta.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* 8. PLAN DE ACCIÓN Y CRONOGRAMA */}
-                <div className="mb-12">
-                    <h2 className="text-base font-black uppercase mb-4 tracking-tighter flex items-center gap-2">
-                        <Activity className="h-5 w-5" /> 8. PLAN DE ACCIÓN (DESPLIEGUE MENSUAL)
+                {/* 8. PLAN DE ACCIÓN Y CRONOGRAMA DE DESPLIEGUE */}
+                <div className="mb-16">
+                    <h2 className="text-lg font-black uppercase mb-6 tracking-tighter flex items-center gap-3 text-[#0A2472]">
+                        <LayoutGrid className="h-6 w-6" /> 8. PLAN DE ACCIÓN (CRONOGRAMA DE EJECUCIÓN)
                     </h2>
-                    <table className="w-full border-collapse border-2 border-black">
-                        <thead className="bg-slate-50">
+                    <table className="w-full border-collapse text-center">
+                        <thead>
                             <tr>
                                 <th className={headerCellStyle}>FASE OPERATIVA</th>
                                 <th className={headerCellStyle}>RESPONSABLE</th>
-                                <th className={headerCellStyle}>TIEMPO</th>
+                                <th className={headerCellStyle}>TIEMPO ESTIMADO</th>
                             </tr>
                         </thead>
-                        <tbody className="font-bold uppercase">
+                        <tbody className="font-bold uppercase text-[10px]">
                             <tr>
-                                <td className={contentCellStyle}>Auditoría de Procesos en Catia la Mar</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Fase 1: Diagnóstico y Auditoría de Nodos</td>
                                 <td className={contentCellStyle}>Equipo de Campo</td>
-                                <td className={cn(contentCellStyle, "text-center")}>MES 1</td>
+                                <td className={contentCellStyle}>SEMANA 1-2</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>Instalación de Módulos 5G y eSIM</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Fase 2: Instalación de Bóveda y Ledger Digital</td>
                                 <td className={contentCellStyle}>Ing. S. Garrido</td>
-                                <td className={cn(contentCellStyle, "text-center")}>MES 2</td>
+                                <td className={contentCellStyle}>SEMANA 3-5</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>Despliegue de Bóveda y Ledger Fiscal</td>
-                                <td className={contentCellStyle}>Ing. Carlos Mattar</td>
-                                <td className={cn(contentCellStyle, "text-center")}>MES 3</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Fase 3: Despliegue de Unidades Magnéticas (Reciclaje)</td>
+                                <td className={contentCellStyle}>Ing. M. Sousa</td>
+                                <td className={contentCellStyle}>SEMANA 6-8</td>
                             </tr>
                             <tr>
-                                <td className={contentCellStyle}>Lanzamiento del Mercado Ambiental</td>
-                                <td className={contentCellStyle}>Ing. Marcos Sousa</td>
-                                <td className={cn(contentCellStyle, "text-center")}>MES 4</td>
+                                <td className={cn(contentCellStyle, "text-left")}>Fase 4: Activación de Inteligencia Fiscal IA</td>
+                                <td className={contentCellStyle}>Ing. C. Mattar</td>
+                                <td className={contentCellStyle}>SEMANA 9-10</td>
+                            </tr>
+                            <tr>
+                                <td className={cn(contentCellStyle, "text-left")}>Fase 5: Lanzamiento y Afiliación Comercial</td>
+                                <td className={contentCellStyle}>Dirección General</td>
+                                <td className={contentCellStyle}>SEMANA 11-12</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {/* PIE DE DOCUMENTO / SELLOS */}
-                <footer className="mt-24 pt-12 border-t-2 border-black flex justify-between items-end">
-                    <div className="space-y-6">
-                        <div className="flex items-center gap-6">
-                            <div className="p-2 border border-slate-300 rounded">
-                                <FileText className="h-12 w-12 text-slate-300" />
+                {/* PIE DE DOCUMENTO / SELLOS DE AUTENTICIDAD */}
+                <footer className="mt-32 pt-16 border-t-4 border-black flex justify-between items-end relative overflow-hidden">
+                    <div className="space-y-8">
+                        <div className="flex items-center gap-8">
+                            <div className="p-3 border-2 border-slate-300 rounded">
+                                <FileText className="h-16 w-16 text-slate-300" />
                             </div>
                             <div className="space-y-1">
-                                <p className="text-[10px] font-black uppercase">Contacto Oficial</p>
-                                <p className="text-sm font-black italic">systemkyronofficial@gmail.com</p>
-                                <p className="text-xs font-bold">www.systemkyron.com</p>
+                                <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Contacto Maestro</p>
+                                <p className="text-lg font-black italic text-[#0A2472]">systemkyronofficial@gmail.com</p>
+                                <p className="text-xs font-bold text-slate-600 tracking-widest">www.systemkyron.com</p>
                             </div>
                         </div>
-                        <div className="border-4 border-[#0A2472] p-3 bg-slate-50 inline-block font-black text-xs uppercase tracking-widest italic text-[#0A2472]">
+                        <div className="border-4 border-[#0A2472] p-4 bg-slate-50 inline-block font-black text-xs uppercase tracking-[0.2em] italic text-[#0A2472]">
                             MODELO ZEDU VALIDADO • 2026
                         </div>
                     </div>
-                    <div className="text-right space-y-4">
-                        <div className="flex items-center justify-end gap-3 mb-6">
-                            <div className="h-3 w-3 rounded-full bg-green-500 animate-pulse" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em]">CENTRO DE GESTIÓN: ACTIVO</span>
+                    
+                    <div className="text-right space-y-6">
+                        <div className="flex flex-col items-end gap-2 mb-8">
+                            <div className="flex items-center gap-3">
+                                <div className="h-3 w-3 rounded-full bg-[#00A86B] animate-pulse shadow-glow-secondary" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">SISTEMA: OPERACIONAL</span>
+                            </div>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">SELLADO EN BLOCKCHAIN: 0x8F2...3A1</p>
                         </div>
-                        <p className="text-[10px] font-black uppercase text-slate-400">© 2026 SYSTEM KYRON OFFICIAL • ALL RIGHTS RESERVED</p>
+                        <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">© 2026 SYSTEM KYRON OFFICIAL • ALL RIGHTS RESERVED</p>
                     </div>
                 </footer>
 
-                {/* MARCA DE AGUA CONFIDENCIAL */}
+                {/* MARCA DE AGUA DE SEGURIDAD (FONDO) */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03]">
-                    <div className="border-[20px] border-black rounded-full p-24">
-                        <span className="text-[140px] font-black uppercase tracking-[0.5em] italic">MODELO ZEDU</span>
+                    <div className="border-[30px] border-[#0A2472] rounded-full p-40">
+                        <span className="text-[180px] font-black uppercase tracking-[0.5em] italic text-[#0A2472]">MODELO ZEDU</span>
                     </div>
                 </div>
             </motion.div>
 
-            {/* STATUS BAR BOTTOM */}
-            <div className="max-w-5xl mx-auto mt-10 flex justify-center items-center gap-12 no-print text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] opacity-60">
-                <span className="flex items-center gap-2"><Lock className="h-3 w-3" /> REGISTRO SEGURO</span>
-                <span className="flex items-center gap-2"><Activity className="h-3 w-3" /> 2.500 UNIDADES ACTIVAS</span>
-                <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> VERIFICADO POR KYRON-HUB</span>
+            {/* STATUS BAR BOTTOM UI */}
+            <div className="max-w-5xl mx-auto mt-12 flex justify-center items-center gap-16 no-print text-[10px] font-black uppercase text-slate-500 tracking-[0.6em] opacity-60">
+                <span className="flex items-center gap-3"><Lock className="h-4 w-4" /> REGISTRO SEGURO</span>
+                <span className="flex items-center gap-3"><Activity className="h-4 w-4" /> 2.500 UNIDADES ACTIVAS</span>
+                <span className="flex items-center gap-3"><ShieldCheck className="h-4 w-4" /> CERTIFICADO KYRON-HUB</span>
             </div>
         </div>
     );
