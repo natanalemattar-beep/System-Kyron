@@ -101,7 +101,6 @@ export default function ModeloZeduPage() {
                     <div className="text-right">
                         <div className="inline-block border-4 border-black p-4 bg-slate-50">
                             <h2 className="text-2xl font-black uppercase tracking-widest leading-none">MODELO ZEDU</h2>
-                            <p className="text-[10px] font-bold uppercase mt-2 text-slate-500 tracking-tighter">EXPEDIENTE DE INGENIERÍA ESTRATÉGICA</p>
                         </div>
                         <p className="text-[9px] font-black uppercase mt-4 text-slate-400">REF: KYRON-ZEDU-2026-V2.6.5</p>
                     </div>
