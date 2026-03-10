@@ -39,6 +39,14 @@ export function LandingHeader() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [handleScroll]);
 
+    // Mapeo robusto de enlaces para el menú móvil para evitar 404
+    const mobileMenuItems = [
+        { label: 'Inicio', href: '/#inicio' },
+        { label: 'Ecosistema', href: '/ecosistema' },
+        { label: 'Nosotros', href: '/#nosotros' },
+        { label: 'Manual', href: '/manual-usuario' }
+    ];
+
     return (
         <header className={cn(
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 gpu-accelerated w-full",
@@ -147,10 +155,10 @@ export function LandingHeader() {
                                 <nav className="p-10 space-y-8">
                                     <p className="text-[10px] font-black uppercase text-primary tracking-[0.5em] italic">Directorio</p>
                                     <div className="flex flex-col gap-2">
-                                        {['Inicio', 'Ecosistema', 'Nosotros', 'Manual'].map((item) => (
-                                            <SheetClose key={item} asChild>
-                                                <Link href={item === 'Inicio' ? '/#inicio' : item === 'Nosotros' ? '/#nosotros' : `/${item.toLowerCase()}` as any} className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all">
-                                                    {item}
+                                        {mobileMenuItems.map((item) => (
+                                            <SheetClose key={item.label} asChild>
+                                                <Link href={item.href as any} className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all">
+                                                    {item.label}
                                                 </Link>
                                             </SheetClose>
                                         ))}
