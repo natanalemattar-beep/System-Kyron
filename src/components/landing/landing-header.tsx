@@ -39,10 +39,10 @@ export function LandingHeader() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [handleScroll]);
 
-    // Mapeo robusto de enlaces para el menú móvil para evitar 404
-    const mobileMenuItems = [
+    const navItems = [
         { label: 'Inicio', href: '/#inicio' },
         { label: 'Ecosistema', href: '/ecosistema' },
+        { label: 'Servicios', href: '/#servicios' },
         { label: 'Nosotros', href: '/#nosotros' },
         { label: 'Manual', href: '/manual-usuario' }
     ];
@@ -69,23 +69,17 @@ export function LandingHeader() {
                     </div>
 
                     {/* NAV (CENTER) */}
-                    <nav className="hidden lg:flex items-center justify-center gap-12 flex-1">
-                        <Link href="/#inicio" className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group">
-                            Inicio
-                            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
-                        </Link>
-                        <Link href="/ecosistema" className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group">
-                            Ecosistema
-                            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
-                        </Link>
-                        <Link href="/#nosotros" className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-secondary transition-all relative group">
-                            Nosotros
-                            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-secondary transition-all group-hover:w-full shadow-glow-secondary"></span>
-                        </Link>
-                        <Link href="/manual-usuario" className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group">
-                            Manual
-                            <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
-                        </Link>
+                    <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-12 flex-1">
+                        {navItems.map((item) => (
+                            <Link 
+                                key={item.label}
+                                href={item.href as any} 
+                                className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
+                            >
+                                {item.label}
+                                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
+                            </Link>
+                        ))}
                     </nav>
 
                     {/* ACTIONS (RIGHT) */}
@@ -155,7 +149,7 @@ export function LandingHeader() {
                                 <nav className="p-10 space-y-8">
                                     <p className="text-[10px] font-black uppercase text-primary tracking-[0.5em] italic">Directorio</p>
                                     <div className="flex flex-col gap-2">
-                                        {mobileMenuItems.map((item) => (
+                                        {navItems.map((item) => (
                                             <SheetClose key={item.label} asChild>
                                                 <Link href={item.href as any} className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all">
                                                     {item.label}

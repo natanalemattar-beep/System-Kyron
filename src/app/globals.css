@@ -70,7 +70,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth !important;
   }
   * { @apply border-border; }
   body {
