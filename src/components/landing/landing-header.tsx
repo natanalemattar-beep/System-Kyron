@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -53,7 +52,7 @@ export function LandingHeader() {
                         <Link href="/" className="flex items-center gap-4 group">
                             <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 drop-shadow-glow" /> 
                             <div className="flex flex-col">
-                                <span className="text-xs font-black tracking-[0.5em] text-white uppercase italic italic-shadow leading-none">KYRON</span>
+                                <span className="text-xs font-black tracking-[0.5em] text-white uppercase italic italic-shadow leading-none">System Kyron</span>
                                 <span className="hidden md:inline-block text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-60">
                                     {t('slogan')}
                                 </span>
