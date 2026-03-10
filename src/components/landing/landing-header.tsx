@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -40,12 +41,22 @@ export function LandingHeader() {
     }, [handleScroll]);
 
     const navItems = [
-        { label: 'Inicio', href: '/#inicio' },
-        { label: 'Ecosistema', href: '/ecosistema' },
-        { label: 'Servicios', href: '/#servicios' },
-        { label: 'Nosotros', href: '/#nosotros' },
-        { label: 'Manual', href: '/manual-usuario' }
+        { label: 'Inicio', href: '#inicio' },
+        { label: 'Ecosistema', href: '#servicios' },
+        { label: 'Servicios', href: '#servicios' },
+        { label: 'Nosotros', href: '#nosotros' },
+        { label: 'Manual', href: '/guia-ayuda' }
     ];
+
+    const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const element = document.querySelector(href);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
 
     return (
         <header className={cn(
@@ -57,7 +68,7 @@ export function LandingHeader() {
                     
                     {/* LOGO (LEFT) */}
                     <div className="flex-1 flex justify-start">
-                        <Link href="/" className="flex items-center gap-4 group">
+                        <Link href="/" className="flex items-center gap-4 group shrink-0">
                             <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 drop-shadow-glow" /> 
                             <div className="flex flex-col">
                                 <span className="text-xs font-black tracking-[0.5em] text-white uppercase italic italic-shadow leading-none">System Kyron</span>
@@ -74,6 +85,7 @@ export function LandingHeader() {
                             <Link 
                                 key={item.label}
                                 href={item.href as any} 
+                                onClick={(e) => handleAnchorClick(e, item.href)}
                                 className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
                             >
                                 {item.label}
@@ -151,7 +163,11 @@ export function LandingHeader() {
                                     <div className="flex flex-col gap-2">
                                         {navItems.map((item) => (
                                             <SheetClose key={item.label} asChild>
-                                                <Link href={item.href as any} className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all">
+                                                <Link 
+                                                    href={item.href as any} 
+                                                    onClick={(e) => handleAnchorClick(e, item.href)}
+                                                    className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all"
+                                                >
                                                     {item.label}
                                                 </Link>
                                             </SheetClose>

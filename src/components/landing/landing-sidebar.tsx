@@ -34,11 +34,21 @@ import { loginOptions } from "@/lib/login-options";
 export function LandingSidebar() {
     const [isAccesoOpen, setIsAccesoOpen] = useState(false);
     
+    const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const element = document.querySelector(href);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
     const navLinks = [
       { href: "#inicio", label: "Inicio", icon: LayoutGrid },
-      { href: "/ecosistema", label: "Ecosistema", icon: Zap },
+      { href: "#servicios", label: "Ecosistema", icon: Zap },
       { href: "#servicios", label: "Servicios", icon: ShoppingCart },
-      { href: "#tecnologia", label: "Tecnología", icon: Cpu },
+      { href: "#caracteristicas", label: "Tecnología", icon: Cpu },
       { href: "#nosotros", label: "Nosotros", icon: Users },
       { href: "#faq", label: "FAQ", icon: HelpCircle },
     ];
@@ -63,8 +73,9 @@ export function LandingSidebar() {
                 <p className="text-[9px] font-black uppercase text-muted-foreground/40 tracking-[0.3em] mb-6 px-4 italic">Navegación Maestro</p>
                 {navLinks.map((link) => (
                     <Link 
-                        key={link.href} 
+                        key={link.label} 
                         href={link.href as any}
+                        onClick={(e) => handleAnchorClick(e, link.href)}
                         className="group flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 hover:bg-primary/5 text-muted-foreground hover:text-primary relative overflow-hidden"
                     >
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary scale-y-0 group-hover:scale-y-100 transition-transform"></div>

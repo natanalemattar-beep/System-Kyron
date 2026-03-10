@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Link } from "@/navigation";
@@ -17,6 +18,16 @@ export function Footer() {
     const { isHolidayActive } = useHoliday();
     const t = useTranslations('HeroSection');
 
+    const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const element = document.querySelector(href);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
     return (
         <footer id="footer" className="py-16 border-t border-border/50 bg-transparent">
             <div className="container mx-auto px-6 grid md:grid-cols-3 gap-16">
@@ -35,10 +46,10 @@ export function Footer() {
                 <div className="space-y-6">
                     <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Navegación</h4>
                     <nav className="flex flex-col gap-3 text-[10px] font-black uppercase tracking-widest">
-                        <a href="#inicio" className="text-muted-foreground/60 hover:text-primary transition-colors">Inicio</a>
-                        <a href="/ecosistema" className="text-muted-foreground/60 hover:text-primary transition-colors">Ecosistema</a>
-                        <a href="#servicios" className="text-muted-foreground/60 hover:text-primary transition-colors">Servicios</a>
-                        <a href="#contacto" className="text-muted-foreground/60 hover:text-primary transition-colors">Contacto</a>
+                        <a href="#inicio" onClick={(e) => handleAnchorClick(e, '#inicio')} className="text-muted-foreground/60 hover:text-primary transition-colors">Inicio</a>
+                        <a href="#servicios" onClick={(e) => handleAnchorClick(e, '#servicios')} className="text-muted-foreground/60 hover:text-primary transition-colors">Ecosistema</a>
+                        <a href="#servicios" onClick={(e) => handleAnchorClick(e, '#servicios')} className="text-muted-foreground/60 hover:text-primary transition-colors">Servicios</a>
+                        <a href="#contacto" onClick={(e) => handleAnchorClick(e, '#contacto')} className="text-muted-foreground/60 hover:text-primary transition-colors">Contacto</a>
                     </nav>
                 </div>
                 <div className="space-y-6">
