@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Link } from "@/navigation";
@@ -48,7 +47,7 @@ export function Footer() {
                     <nav className="flex flex-col gap-3 text-[10px] font-black uppercase tracking-widest">
                         <a href="#inicio" onClick={(e) => handleAnchorClick(e, '#inicio')} className="text-muted-foreground/60 hover:text-primary transition-colors">Inicio</a>
                         <a href="#servicios" onClick={(e) => handleAnchorClick(e, '#servicios')} className="text-muted-foreground/60 hover:text-primary transition-colors">Ecosistema</a>
-                        <a href="#servicios" onClick={(e) => handleAnchorClick(e, '#servicios')} className="text-muted-foreground/60 hover:text-primary transition-colors">Servicios</a>
+                        <a href="#nosotros" onClick={(e) => handleAnchorClick(e, '#nosotros')} className="text-muted-foreground/60 hover:text-primary transition-colors">Nosotros</a>
                         <a href="#contacto" onClick={(e) => handleAnchorClick(e, '#contacto')} className="text-muted-foreground/60 hover:text-primary transition-colors">Contacto</a>
                     </nav>
                 </div>

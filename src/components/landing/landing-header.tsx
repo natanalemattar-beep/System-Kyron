@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -43,7 +42,6 @@ export function LandingHeader() {
     const navItems = [
         { label: 'Inicio', href: '#inicio' },
         { label: 'Ecosistema', href: '#servicios' },
-        { label: 'Servicios', href: '#servicios' },
         { label: 'Nosotros', href: '#nosotros' },
         { label: 'Manual', href: '/guia-ayuda' }
     ];

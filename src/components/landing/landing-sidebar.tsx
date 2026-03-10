@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from "react";
@@ -47,7 +46,6 @@ export function LandingSidebar() {
     const navLinks = [
       { href: "#inicio", label: "Inicio", icon: LayoutGrid },
       { href: "#servicios", label: "Ecosistema", icon: Zap },
-      { href: "#servicios", label: "Servicios", icon: ShoppingCart },
       { href: "#caracteristicas", label: "Tecnología", icon: Cpu },
       { href: "#nosotros", label: "Nosotros", icon: Users },
       { href: "#faq", label: "FAQ", icon: HelpCircle },
