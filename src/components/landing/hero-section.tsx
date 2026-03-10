@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from "framer-motion";
@@ -40,7 +41,7 @@ export function HeroSection() {
             </div>
 
             <div className="space-y-4">
-                <h1 className="text-2xl md:text-4xl lg:text-6xl font-black tracking-tight text-white uppercase italic leading-[0.9] italic-shadow">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white uppercase italic leading-[0.9] italic-shadow">
                   {t('title')}
                 </h1>
                 <p className="text-primary font-black uppercase tracking-[0.4em] text-[9px] md:text-[10px] opacity-60">
