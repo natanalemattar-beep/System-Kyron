@@ -43,7 +43,8 @@ export function LandingHeader() {
         { label: 'Inicio', href: '#inicio' },
         { label: 'Ecosistema', href: '#servicios' },
         { label: 'Nosotros', href: '#nosotros' },
-        { label: 'Manual', href: '/guia-ayuda' }
+        { label: 'FAQ', href: '#faq' },
+        { label: 'Manual', href: '/manual-usuario' }
     ];
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
