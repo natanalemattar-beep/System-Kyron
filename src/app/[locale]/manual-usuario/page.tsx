@@ -31,7 +31,9 @@ import {
   Globe,
   Briefcase,
   Award,
-  AlertTriangle
+  AlertTriangle,
+  Landmark,
+  School
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
