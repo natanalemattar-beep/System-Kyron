@@ -5,11 +5,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, BookOpen, Briefcase, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, duration?: number }) => {
+    const [displayValue, setDisplayValue] = useState(from);
     const count = useMotionValue(from);
     const rounded = useTransform(count, (latest) => Math.round(latest));
     const ref = useRef(null);
@@ -21,7 +22,11 @@ const Counter = ({ from, to, duration = 1.5 }: { from: number, to: number, durat
         }
     }, [count, inView, to, duration]);
 
-    return <motion.span ref={ref}>{rounded}</motion.span>;
+    useEffect(() => {
+        return rounded.onChange(latest => setDisplayValue(latest));
+    }, [rounded]);
+
+    return <motion.span ref={ref}>{displayValue}</motion.span>;
 }
 
 const testimonials = [

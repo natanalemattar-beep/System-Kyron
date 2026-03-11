@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Link } from "@/navigation";
@@ -7,6 +6,7 @@ import { Mail, MapPin, Linkedin, Twitter, FileText, Shield, Gavel } from "lucide
 import { useHoliday } from "@/hooks/use-holiday";
 import { cn } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
+import { useState, useEffect } from 'react';
 
 const SocialIcon = ({ href, children }: { href: string, children: React.ReactNode }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="text-white/20 hover:text-primary transition-all duration-300 hover:scale-110">
@@ -17,6 +17,11 @@ const SocialIcon = ({ href, children }: { href: string, children: React.ReactNod
 export function Footer() {
     const { isHolidayActive } = useHoliday();
     const t = useTranslations('HeroSection');
+    const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+    useEffect(() => {
+        setCurrentYear(new Date().getFullYear());
+    }, []);
 
     const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (href.startsWith('#')) {
@@ -82,7 +87,7 @@ export function Footer() {
 
             <div className="container mx-auto px-6 mt-24 pt-10 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-8">
                 <p className="text-[9px] font-black uppercase tracking-[0.5em] text-white/10 italic">
-                    &copy; {new Date().getFullYear()} System Kyron • Corporate Intelligence Node • MK-2.6
+                    &copy; {currentYear || '2026'} System Kyron • Corporate Intelligence Node • MK-2.6
                 </p>
                 <div className="flex flex-wrap justify-center gap-10 text-[9px] font-black uppercase tracking-widest text-white/20">
                     <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-2"><FileText className="h-3 w-3"/> Manual</Link>

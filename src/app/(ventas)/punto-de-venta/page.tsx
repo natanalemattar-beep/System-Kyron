@@ -1,7 +1,6 @@
-
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -47,8 +46,15 @@ export default function PuntoDeVentaPage() {
     const [activeCashier, setActiveCashier] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [isProcessing, setIsProcessing] = useState(false);
+    const [qrCodeData, setQrCodeData] = useState("");
     
     const { toast } = useToast();
+
+    useEffect(() => {
+        if (isReceiptOpen) {
+            setQrCodeData(`SystemKyron-Factura-${Math.random().toString(36).substr(2, 9)}`);
+        }
+    }, [isReceiptOpen]);
     
     const addToCart = (product: typeof products[0]) => {
         if (!activeCashier) {
@@ -158,7 +164,7 @@ export default function PuntoDeVentaPage() {
                             <div className="space-y-3">
                                 {cart.map(item => (
                                     <div key={item.id} className="flex items-center justify-between p-2 bg-secondary/20 rounded-xl">
-                                        <div className="flex-1 min-w-0">
+                                        <div className="flex-1 min-0">
                                             <p className="font-bold text-[10px] truncate">{item.name}</p>
                                             <p className="text-[9px] text-muted-foreground">{item.quantity} x {formatCurrency(item.price, 'USD')}</p>
                                         </div>
@@ -246,7 +252,9 @@ export default function PuntoDeVentaPage() {
                             </div>
                         </div>
                         <div className="p-4 bg-secondary/30 rounded-2xl border border-primary/10">
-                            <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SystemKyron-Factura-${Math.random().toString(36).substr(2, 9)}`} alt="Factura QR" width={120} height={120} className="mx-auto border p-2 bg-white rounded-xl" />
+                            {qrCodeData && (
+                                <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrCodeData)}`} alt="Factura QR" width={120} height={120} className="mx-auto border p-2 bg-white rounded-xl" />
+                            )}
                         </div>
                         <Button onClick={() => { setIsReceiptOpen(false); setCart([]); }} className="w-full h-12 rounded-xl font-black uppercase text-xs">Nueva Venta</Button>
                     </div>

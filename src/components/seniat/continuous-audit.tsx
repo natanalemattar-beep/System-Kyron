@@ -1,11 +1,10 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
 
 interface AuditLog {
   id: string;
-  timestamp: Date;
+  timestamp: string;
   transaction: string;
   type: 'IVA' | 'ISLR' | 'Nómina' | 'Retenciones';
   status: 'verified' | 'warning' | 'error';
@@ -18,23 +17,10 @@ export const ContinuousAudit = () => {
   const [totalTransactions, setTotalTransactions] = useState(12456);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTotalTransactions(prev => prev + Math.floor(Math.random() * 5));
-      const newLog: AuditLog = {
-        id: `audit-${Date.now()}`,
-        timestamp: new Date(),
-        transaction: `TRN-${Math.floor(Math.random() * 100000)}`,
-        type: ['IVA', 'ISLR', 'Nómina', 'Retenciones'][Math.floor(Math.random() * 4)] as any,
-        status: 'verified',
-        details: 'Verificación automática exitosa'
-      };
-      setAuditLogs(prev => [newLog, ...prev.slice(0, 4)]);
-    }, 3000);
-
     const initialLogs: AuditLog[] = [
       {
         id: 'audit-001',
-        timestamp: new Date(),
+        timestamp: new Date().toLocaleTimeString(),
         transaction: 'TRN-12345',
         type: 'IVA',
         status: 'verified',
@@ -42,7 +28,7 @@ export const ContinuousAudit = () => {
       },
       {
         id: 'audit-002',
-        timestamp: new Date(Date.now() - 60000),
+        timestamp: new Date(Date.now() - 60000).toLocaleTimeString(),
         transaction: 'TRN-12346',
         type: 'Nómina',
         status: 'warning',
@@ -51,7 +37,7 @@ export const ContinuousAudit = () => {
       },
       {
         id: 'audit-003',
-        timestamp: new Date(Date.now() - 120000),
+        timestamp: new Date(Date.now() - 120000).toLocaleTimeString(),
         transaction: 'TRN-12347',
         type: 'ISLR',
         status: 'verified',
@@ -59,6 +45,19 @@ export const ContinuousAudit = () => {
       }
     ];
     setAuditLogs(initialLogs);
+
+    const interval = setInterval(() => {
+      setTotalTransactions(prev => prev + Math.floor(Math.random() * 5));
+      const newLog: AuditLog = {
+        id: `audit-${Date.now()}`,
+        timestamp: new Date().toLocaleTimeString(),
+        transaction: `TRN-${Math.floor(Math.random() * 100000)}`,
+        type: ['IVA', 'ISLR', 'Nómina', 'Retenciones'][Math.floor(Math.random() * 4)] as any,
+        status: 'verified',
+        details: 'Verificación automática exitosa'
+      };
+      setAuditLogs(prev => [newLog, ...prev.slice(0, 4)]);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -92,7 +91,7 @@ export const ContinuousAudit = () => {
             <div key={log.id} className="border border-border rounded-lg p-3">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-muted-foreground">{log.timestamp.toLocaleTimeString()}</span>
+                  <span className="text-xs text-muted-foreground">{log.timestamp}</span>
                   <span className="font-mono text-xs text-gray-300">{log.transaction}</span>
                   <span className="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded-full text-xs">
                     {log.type}
