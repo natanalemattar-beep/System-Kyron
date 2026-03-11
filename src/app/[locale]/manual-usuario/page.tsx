@@ -16,141 +16,394 @@ import {
   Lock,
   Search,
   FileText,
-  Activity
+  Activity,
+  Network,
+  Database,
+  BrainCircuit,
+  Fingerprint,
+  Smartphone,
+  Recycle,
+  Coins,
+  Scale,
+  Calculator,
+  Target,
+  BarChart3,
+  Globe,
+  Briefcase,
+  Award,
+  AlertTriangle
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { Link } from "@/navigation";
+import { cn } from "@/lib/utils";
 
-const manualSections = [
+/**
+ * @fileOverview Manual de Usuario Maestro - System Kyron v2.6.5.
+ * Documentación de alta densidad técnica estructurada en 20 capítulos.
+ * Estética HUD (Heads-Up Display) de grado corporativo.
+ */
+
+const chapters = [
   {
-    id: "getting-started",
-    title: "1. Inicio Rápido",
-    icon: Zap,
-    content: "Para comenzar en System Kyron, localice el botón de 'ACCESO' en la barra superior. Seleccione el portal correspondiente a su rol (Empresa, Personal, Legal, etc.). El sistema utiliza autenticación de grado militar con soporte para biometría en dispositivos compatibles.",
-    steps: ["Selección de Portal", "Autenticación Segura", "Sincronización de Nodo"]
+    id: "vision",
+    title: "01. Visión y Propósito del Ecosistema",
+    icon: Target,
+    content: "System Kyron es un nodo de inteligencia operativa diseñado para la soberanía tecnológica y financiera. Su propósito es fusionar la gestión administrativa con tecnologías de tercera generación (Web3, AI, 5G) para erradicar el riesgo operativo y fiscal en el sector privado venezolano.",
+    details: [
+      "Misión Crítica: Integridad de datos al 100%.",
+      "Visión 2030: Estandarización de la economía digital regional.",
+      "Valores: Inmutabilidad, Transparencia y Eficiencia Neuronal."
+    ]
+  },
+  {
+    id: "security",
+    title: "02. Protocolos de Acceso y Seguridad de Nodo",
+    icon: Lock,
+    content: "El sistema emplea un esquema de seguridad Zero-Knowledge. La autenticación se realiza mediante llaves criptográficas vinculadas a la identidad biométrica del usuario. El acceso está segmentado por Tiers de autorización, garantizando que la información sensible solo sea accesible por el personal certificado.",
+    details: [
+      "Cifrado de grado militar AES-XTS-512.",
+      "Autenticación Multifactor (MFA) obligatoria.",
+      "Registro de auditoría inmutable en el Ledger Central."
+    ]
   },
   {
     id: "accounting",
-    title: "2. Módulo Contable (VEN-NIF)",
-    icon: Cpu,
-    content: "Automatización total de libros fiscales y balances. El motor IA procesa el ajuste por inflación automáticamente utilizando los índices oficiales del BCV. Los registros se sellan en el Ledger para garantizar inmutabilidad.",
-    steps: ["Carga de Facturas", "Ajuste por Inflación", "Emisión de Balances"]
+    title: "03. Automatización Contable VEN-NIF",
+    icon: Calculator,
+    content: "Motor de procesamiento financiero que cumple estrictamente con las Normas de Información Financiera de Venezuela. El sistema realiza el cierre mensual de forma autónoma, calculando el ajuste por inflación fiscal basándose en los índices del BCV sincronizados en tiempo real.",
+    details: [
+      "Ajuste por Inflación Fiscal (RIPF) automatizado.",
+      "Consolidación multimoneda (VES/USD/EUR).",
+      "Emisión de balances bajo estándares internacionales."
+    ]
   },
   {
-    id: "telecom",
-    title: "3. Conectividad 5G & eSIM",
-    icon: Radio,
-    content: "Gestión de flotas de datos. Puede activar líneas nuevas o eSIMs digitales de forma remota. El sistema permite el monitoreo de consumo en tiempo real y la priorización de tráfico para aplicaciones críticas (Network Slicing).",
-    steps: ["Activación Remota", "Recargas de Saldo", "Asignación de Números"]
+    id: "taxes",
+    title: "04. Blindaje Fiscal y Cumplimiento SENIAT",
+    icon: ShieldCheck,
+    content: "Módulo de protección ante fiscalizaciones. La IA de Kyron audita cada factura de compra y venta contra la Providencia 0071 antes de permitir su registro. Esto garantiza que los Libros de IVA y las declaraciones de ISLR sean matemáticamente perfectos.",
+    details: [
+      "Validación de RIF y número de control en tiempo real.",
+      "Generación de archivos .TXT para el portal fiscal.",
+      "Control preventivo de retenciones y percepciones."
+    ]
+  },
+  {
+    id: "hr",
+    title: "05. Gestión de Talento y Cultura (LOTTT)",
+    icon: Users,
+    content: "Administración integral del capital humano. El sistema automatiza el cálculo de nóminas quincenales, utilidades, bonos vacacionales y prestaciones sociales, minimizando las contingencias legales laborales mediante el estricto cumplimiento de la LOTTT.",
+    details: [
+      "Cálculo de liquidaciones y prestaciones en 2.3ms.",
+      "Control de asistencia mediante telemetría.",
+      "Portal de autoservicio para el trabajador."
+    ]
   },
   {
     id: "legal",
-    title: "4. Bóveda Legal & Contratos",
+    title: "06. Bóveda Jurídica y Gestión de Contratos",
     icon: Gavel,
-    content: "Resguardo inmutable de activos jurídicos. Utilice el Generador IA para redactar contratos homologados. El sistema emitirá alertas automáticas antes del vencimiento de poderes o licencias CONATEL/SAPI.",
-    steps: ["Redacción con IA", "Cifrado de Documentos", "Gestión de Poderes"]
+    content: "Repositorio inmutable de activos legales. Kyron permite la redacción de contratos mediante IA entrenada en jurisprudencia venezolana. Los documentos se almacenan con sellado de tiempo RFC 3161, garantizando su validez ante cualquier tribunal.",
+    details: [
+      "Generador de borradores legales inteligentes.",
+      "Alertas de vencimiento de poderes y licencias.",
+      "Indexación automática por expediente judicial."
+    ]
+  },
+  {
+    id: "telecom",
+    title: "07. Infraestructura 5G y eSIM Digital",
+    icon: Radio,
+    content: "Gestión de conectividad convergente. Kyron opera como un orquestador de red, permitiendo la activación de líneas y perfiles de datos eSIM para flotas corporativas. El sistema garantiza latencia cero para aplicaciones administrativas críticas.",
+    details: [
+      "Aprovisionamiento remoto de perfiles eUICC.",
+      "Monitoreo de tráfico y Network Slicing.",
+      "Integración nativa con dispositivos de última generación."
+    ]
+  },
+  {
+    id: "pos",
+    title: "08. Punto de Venta (TPV) Inteligente",
+    icon: Smartphone,
+    content: "Interfaz de ventas optimizada para alta rotación. El TPV está vinculado al inventario central y al motor fiscal, permitiendo cobros en múltiples divisas y métodos de pago (Zelle, Pago Móvil, Cripto) con conciliación automática.",
+    details: [
+      "Facturación rápida con validación de RIF.",
+      "Integración con máquinas fiscales homologadas.",
+      "Soporte para plataformas de crédito (Cashea/Krece)."
+    ]
+  },
+  {
+    id: "sustainability",
+    title: "09. Economía Circular y Eco-Créditos",
+    icon: Recycle,
+    content: "Iniciativa de la Fundación Kyron para la monetización de la responsabilidad ambiental. Las papeleras inteligentes con tecnología magnética registran la recolección de residuos y acreditan puntos digitales en la billetera del usuario.",
+    details: [
+      "Trazabilidad de residuos mediante Blockchain.",
+      "Marketplace de canje de Eco-Créditos.",
+      "Certificación de huella de carbono neutral."
+    ]
+  },
+  {
+    id: "engineering",
+    title: "10. Ingeniería IA: Planos y Presupuestos",
+    icon: Cpu,
+    content: "Herramienta de asistencia técnica para proyectos de infraestructura. La IA procesa imágenes de locales comerciales para generar planos arquitectónicos a escala y cómputos métricos detallados para presupuestos de obra.",
+    details: [
+      "Inferencia de medidas mediante visión artificial.",
+      "Cálculo automático de materiales y mano de obra.",
+      "Exportación de expedientes técnicos maestros."
+    ]
+  },
+  {
+    id: "api",
+    title: "11. Integración y Nodo de Datos",
+    icon: Network,
+    content: "Kyron actúa como un HUB de datos. Nuestra API RESTful permite conectar sistemas externos (CRMs, ERPs antiguos) con el núcleo de inteligencia del ecosistema, asegurando un flujo de información unidireccional y seguro.",
+    details: [
+      "Webhooks para eventos financieros en vivo.",
+      "Documentación técnica para desarrolladores.",
+      "Sincronización síncrona de inventarios."
+    ]
+  },
+  {
+    id: "blockchain",
+    title: "12. Inmutabilidad en el Ledger Digital",
+    icon: Database,
+    content: "Cada registro operativo (una venta, un contrato, un pago de nómina) genera un hash único en el Ledger de Kyron. Esto crea una cadena de custodia de la información que es imposible de alterar, ideal para auditorías de alta fidelidad.",
+    details: [
+      "Sellado digital de cada transacción.",
+      "Prueba de existencia inatacable.",
+      "Transparencia radical para socios y directivos."
+    ]
+  },
+  {
+    id: "market",
+    title: "13. Business Intelligence y Análisis de Mercado",
+    icon: BarChart3,
+    content: "Panel estratégico de visualización de datos. El sistema analiza tendencias de consumo, comportamiento de la competencia y salud financiera del holding para proporcionar proyecciones predictivas de rentabilidad.",
+    details: [
+      "Dashboard de KPIs en tiempo real.",
+      "Análisis de demografía y potencial de zona.",
+      "Simulador de escenarios 'What-If'."
+    ]
+  },
+  {
+    id: "support",
+    title: "14. Soporte Técnico Neuronal",
+    icon: BrainCircuit,
+    content: "El Asistente Kyron (Chat IA) está entrenado en toda la documentación técnica y legal del sistema. Puede resolver dudas operativas, explicar procesos fiscales complejos o generar reportes bajo demanda mediante lenguaje natural.",
+    details: [
+      "Atención automatizada 24/7.",
+      "Escalamiento a soporte humano Nivel 3.",
+      "Guías de resolución de problemas integradas."
+    ]
+  },
+  {
+    id: "compliance",
+    title: "15. Auditoría Preventiva Continua",
+    icon: Activity,
+    content: "El sistema no espera al cierre del ejercicio para auditar. El motor de cumplimiento monitorea cada nodo operativo buscando inconsistencias, notificando al administrador antes de que se conviertan en multas o sanciones.",
+    details: [
+      "Detección de anomalías transaccionales.",
+      "Verificación de integridad de archivos.",
+      "Reportes de cumplimiento para juntas directivas."
+    ]
+  },
+  {
+    id: "personal",
+    title: "16. Identidad Personal Ciudadana",
+    icon: Fingerprint,
+    content: "El portal para la persona natural centraliza sus trámites civiles. Desde partidas de nacimiento hasta antecedentes penales, Kyron actúa como el gestor digital de su vida civil bajo protocolos de máxima privacidad.",
+    details: [
+      "Bóveda de documentos de identidad.",
+      "Seguimiento de trámites ante registros.",
+      "Acceso a servicios de salud y carnet digital."
+    ]
+  },
+  {
+    id: "banking",
+    title: "17. Conciliación Bancaria Inteligente",
+    icon: Landmark,
+    content: "Sincronización con la banca nacional e internacional. El sistema empareja automáticamente los estados de cuenta con las facturas registradas, detectando pagos faltantes o transferencias no identificadas.",
+    details: [
+      "Lectura automática de estados de cuenta.",
+      "Validación de referencias de Pago Móvil.",
+      "Control de flujo de caja multimoneda."
+    ]
+  },
+  {
+    id: "academy",
+    title: "18. Formación y Academia Kyron",
+    icon: School,
+    content: "Centro de transferencia de conocimiento. Ofrecemos cursos certificados en gestión fiscal, ciberseguridad y uso del ecosistema para que el personal de su empresa alcance el nivel de 'Operador Maestro'.",
+    details: [
+      "Cursos técnicos online y presenciales.",
+      "Certificación verificable en Blockchain.",
+      "Actualizaciones constantes sobre leyes."
+    ]
+  },
+  {
+    id: "holding",
+    title: "19. Gestión Estratégica de Holdings",
+    icon: Globe,
+    content: "Módulo para grandes corporaciones. Permite gestionar múltiples empresas, sucursales y franquicias desde una sola pantalla, consolidando estados financieros y estructurando el reparto de beneficios.",
+    details: [
+      "Estructura de socios y participación accionaria.",
+      "Consolidación de informes de grupo.",
+      "Gestión de poderes inter-empresariales."
+    ]
+  },
+  {
+    id: "maintenance",
+    title: "20. Mantenimiento y Ciclo de Vida",
+    icon: Terminal,
+    content: "Protocolos de actualización del sistema. System Kyron evoluciona diariamente. Este capítulo detalla cómo el sistema integra nuevas leyes y mejoras técnicas sin interrumpir la operación del negocio.",
+    details: [
+      "Actualizaciones transparentes sin tiempo de baja.",
+      "Backup redundante en 3 regiones geográficas.",
+      "Mejora continua basada en feedback del nodo."
+    ]
   }
 ];
 
 export default function ManualUsuarioPage() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white py-12 px-6 md:px-16 relative overflow-hidden hud-grid">
+    <div className="min-h-screen bg-[#050505] text-white py-12 px-4 md:px-16 relative overflow-hidden hud-grid">
+      {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.03] rounded-full blur-[300px]" />
+        <div className="absolute bottom-0 left-0 w-full h-full bg-secondary/[0.02] rounded-full blur-[300px]" />
       </div>
 
-      <header className="max-w-5xl mx-auto mb-16 border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-          <BookOpen className="h-3 w-3" /> SOPORTE TÉCNICO
+      {/* Main Header */}
+      <header className="max-w-6xl mx-auto mb-20 border-l-4 border-primary pl-8 py-2 mt-10">
+        <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+          <BookOpen className="h-3 w-3" /> EXPEDIENTE TÉCNICO MAESTRO
         </div>
-        <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow">Manual de <span className="text-primary">Usuario</span></h1>
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2">Protocolo de Operación v2.6.5 • Ecosistema Kyron</p>
+        <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
+          Manual de <span className="text-primary not-italic">Operación</span>
+        </h1>
+        <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
+          Protocolo Integral de Gestión Corporativa • Versión de Inferencia v2.6.5 • Ecosistema Kyron
+        </p>
       </header>
 
-      <div className="max-w-5xl mx-auto grid lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-8 space-y-10">
-          <section className="relative">
-            <div className="absolute -left-10 top-0 h-full w-1 bg-white/5 hidden md:block"></div>
-            <div className="relative space-y-12">
-              {manualSections.map((section, idx) => (
-                <motion.div 
-                  key={section.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                >
-                  <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] p-10 group overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><section.icon className="h-24 w-24" /></div>
-                    <CardHeader className="p-0 mb-6">
-                      <CardTitle className="text-2xl font-black uppercase italic tracking-tighter flex items-center gap-4 text-white">
-                        <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20 shadow-inner">
-                          <section.icon className="h-6 w-6 text-primary" />
-                        </div>
-                        {section.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0 space-y-8">
-                      <p className="text-sm font-bold text-white/60 leading-relaxed text-justify uppercase tracking-widest">{section.content}</p>
-                      
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        {section.steps.map((step, sIdx) => (
-                          <div key={sIdx} className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                            <span className="text-[10px] font-black text-primary">0{sIdx + 1}</span>
-                            <span className="text-[9px] font-bold text-white/40 uppercase">{step}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        <aside className="lg:col-span-4 space-y-10">
-          <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 relative overflow-hidden shadow-glow border-none">
-            <div className="absolute top-0 right-0 p-6 opacity-10"><Lock className="h-32 w-32" /></div>
-            <h3 className="text-xl font-black uppercase italic tracking-tighter mb-4 flex items-center gap-3">
-              <ShieldCheck className="h-5 w-5" /> Protocolo Zero Risk
-            </h3>
-            <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">
-              Toda la información procesada en los módulos financieros y legales está protegida por sellado inmutable en Blockchain.
-            </p>
-            <Button variant="secondary" className="w-full h-12 bg-white text-primary rounded-xl font-black uppercase text-[9px] tracking-widest">Ver Certificación</Button>
-          </Card>
-
-          <Card className="glass-card border-none bg-white/[0.02] rounded-[2.5rem] p-10">
-            <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-8 flex items-center gap-3">
-              <Terminal className="h-4 w-4" /> Centro de Ayuda
-            </h4>
-            <div className="space-y-6">
-              {[
-                { label: "Preguntas Frecuentes", icon: Info },
-                { label: "Gaceta Oficial", icon: Activity },
-                { label: "Soporte Técnico", icon: Search }
-              ].map((item, i) => (
-                <button key={i} className="w-full flex items-center justify-between group p-2 hover:bg-white/5 rounded-lg transition-all text-left">
-                  <div className="flex items-center gap-4">
-                    <item.icon className="h-4 w-4 text-white/20 group-hover:text-primary transition-colors" />
-                    <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest group-hover:text-white transition-colors">{item.label}</span>
-                  </div>
-                  <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                </button>
-              ))}
-            </div>
-          </Card>
-
-          <div className="p-8 rounded-[2.5rem] border-2 border-dashed border-white/5 text-center flex flex-col items-center">
-            <Activity className="h-8 w-8 text-white/10 mb-4 animate-pulse" />
-            <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.5em]">Terminal System Kyron v2.6.5</p>
-          </div>
-        </aside>
+      {/* Overview Table of Contents */}
+      <div className="max-w-6xl mx-auto mb-24 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {chapters.map((ch, idx) => (
+            <a 
+                key={ch.id} 
+                href={`#${ch.id}`}
+                className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-primary/40 hover:bg-primary/5 transition-all text-center group"
+            >
+                <ch.icon className="h-5 w-5 mx-auto mb-3 text-white/20 group-hover:text-primary transition-colors" />
+                <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-white">Capítulo 0{idx + 1}</span>
+            </a>
+        ))}
       </div>
+
+      {/* Chapters Loop */}
+      <div className="max-w-6xl mx-auto space-y-24 pb-32">
+        {chapters.map((chapter, idx) => (
+          <motion.section 
+            id={chapter.id}
+            key={chapter.id}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="scroll-mt-32"
+          >
+            <Card className="glass-card border-none rounded-[3rem] bg-white/[0.02] overflow-hidden relative">
+              <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-10 transition-all pointer-events-none">
+                <chapter.icon className="h-64 w-64 rotate-12" />
+              </div>
+              
+              <div className="grid lg:grid-cols-12 gap-0">
+                {/* Lateral Numbering */}
+                <div className="lg:col-span-1 bg-white/[0.03] border-r border-white/5 flex items-center justify-center p-8 lg:p-0">
+                    <span className="text-4xl font-black text-white/10 uppercase vertical-text tracking-tighter">
+                        CH.{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+                    </span>
+                </div>
+
+                {/* Content Area */}
+                <div className="lg:col-span-11 p-10 md:p-16 space-y-12">
+                    <header className="space-y-4">
+                        <div className="flex items-center gap-4">
+                            <div className="p-4 bg-primary/10 rounded-[1.5rem] border border-primary/20 shadow-inner">
+                                <chapter.icon className="h-8 w-8 text-primary" />
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-white">{chapter.title}</h2>
+                        </div>
+                        <div className="h-px w-full bg-gradient-to-r from-primary/40 to-transparent"></div>
+                    </header>
+
+                    <div className="grid lg:grid-cols-2 gap-16">
+                        <div className="space-y-8">
+                            <div className="space-y-4">
+                                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Resumen Operativo</h4>
+                                <p className="text-lg font-medium italic text-white/70 leading-relaxed text-justify">
+                                    {chapter.content}
+                                </p>
+                            </div>
+                            <div className="p-8 rounded-[2rem] bg-black/40 border border-white/5 shadow-inner">
+                                <h4 className="text-[9px] font-black uppercase tracking-[0.6em] text-white/30 mb-6 flex items-center gap-3">
+                                    <Terminal className="h-4 w-4" /> Especificaciones de Nodo
+                                </h4>
+                                <ul className="space-y-4 text-xs font-bold text-white/60 uppercase tracking-widest leading-relaxed">
+                                    {chapter.details.map((detail, dIdx) => (
+                                        <li key={dIdx} className="flex gap-4 items-start">
+                                            <span className="text-primary font-black">[0{dIdx + 1}]</span>
+                                            <span>{detail}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="space-y-8">
+                            <Card className="bg-white/5 border-white/10 rounded-[2rem] p-8 flex flex-col justify-center items-center text-center gap-6 group hover:bg-primary/5 transition-all">
+                                <ShieldCheck className="h-12 w-12 text-primary opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all" />
+                                <div className="space-y-2">
+                                    <h5 className="text-sm font-black uppercase tracking-widest">Garantía de Integridad</h5>
+                                    <p className="text-[10px] text-white/30 uppercase leading-relaxed font-medium">Este módulo ha sido verificado bajo el protocolo Zero Risk 2026. Los datos procesados aquí son inmutables y legalmente válidos ante fiscalizaciones.</p>
+                                </div>
+                            </Card>
+                            
+                            <div className="p-8 rounded-[2rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center">
+                                <Activity className="h-6 w-6 text-white/10 mb-4 animate-pulse" />
+                                <span className="text-[8px] font-black uppercase tracking-[0.5em] text-white/10 italic">Terminal Status: Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </Card>
+          </motion.section>
+        ))}
+      </div>
+
+      {/* Footer Support */}
+      <footer className="max-w-6xl mx-auto border-t border-white/5 pt-20 pb-10 text-center space-y-10">
+        <div className="space-y-4">
+            <h3 className="text-2xl font-black uppercase italic italic-shadow">¿Necesitas Asistencia Neuronal?</h3>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] max-w-lg mx-auto">Nuestro asistente de IA está disponible en la esquina inferior para resolver cualquier duda técnica en tiempo real.</p>
+        </div>
+        <div className="flex justify-center gap-4">
+            <Button variant="outline" className="h-14 px-10 rounded-2xl border-white/10 bg-white/5 text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
+                Contactar a Soporte
+            </Button>
+            <Button asChild className="btn-3d-primary h-14 px-10 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-2xl">
+                <Link href="/">Volver al Portal Central</Link>
+            </Button>
+        </div>
+        <p className="text-[9px] font-black text-white/10 uppercase tracking-[1em] italic pt-10">
+            SYSTEM KYRON • CORPORATE INTELLIGENCE • 2026
+        </p>
+      </footer>
     </div>
   );
 }
