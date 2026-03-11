@@ -74,6 +74,7 @@ export function Footer() {
                     &copy; {new Date().getFullYear()} System Kyron • Corporate Intelligence Node
                 </p>
                 <div className="flex gap-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground/40">
+                    <Link href="/manual-usuario" className="hover:text-primary">Manual</Link>
                     <Link href="/terms" className="hover:text-primary">Términos</Link>
                     <Link href="/politica-privacidad" className="hover:text-primary">Privacidad</Link>
                 </div>
