@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Link } from "@/navigation";
@@ -43,7 +44,7 @@ export function Footer() {
                         <Logo className="h-12 w-12 drop-shadow-glow" />
                         <div className="flex flex-col">
                             <span className="text-2xl font-black uppercase italic tracking-tighter text-white leading-none">System Kyron</span>
-                            <span className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-2 opacity-60 italic">{t('slogan')}</span>
+                            <span className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-2 opacity-60 italic">Eficiencia Sin Fronteras • Finanzas del Futuro</span>
                         </div>
                     </div>
                     <p className="text-xs font-bold uppercase tracking-widest text-white/40 leading-relaxed max-w-sm">
@@ -90,7 +91,7 @@ export function Footer() {
                     &copy; {currentYear || '2026'} System Kyron • Corporate Intelligence Node • MK-2.6
                 </p>
                 <div className="flex flex-wrap justify-center gap-10 text-[9px] font-black uppercase tracking-widest text-white/20">
-                    <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-2"><FileText className="h-3 w-3"/> Manual</Link>
+                    <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-2"><FileText className="h-3 w-3"/> Manual de Usuario</Link>
                     <Link href="/terms" className="hover:text-primary transition-all flex items-center gap-2"><Gavel className="h-3 w-3"/> Términos</Link>
                     <Link href="/politica-privacidad" className="hover:text-primary transition-all flex items-center gap-2"><Shield className="h-3 w-3"/> Privacidad</Link>
                 </div>
