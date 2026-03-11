@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -44,6 +45,7 @@ export function LandingHeader() {
         { label: 'Ecosistema', href: '#servicios' },
         { label: 'Nosotros', href: '#nosotros' },
         { label: 'FAQ', href: '#faq' },
+        { label: 'Contacto', href: '#contacto' },
         { label: 'Manual', href: '/manual-usuario' }
     ];
 
