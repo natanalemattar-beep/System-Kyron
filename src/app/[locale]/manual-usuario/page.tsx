@@ -12,7 +12,6 @@ import {
   Cpu, 
   Terminal,
   ChevronRight,
-  Info,
   Lock,
   Search,
   FileText,
@@ -33,19 +32,19 @@ import {
   Award,
   AlertTriangle,
   Landmark,
-  School
+  School,
+  Download,
+  Printer,
+  ChevronLeft
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
 import { cn } from "@/lib/utils";
-
-/**
- * @fileOverview Manual de Usuario Maestro - System Kyron v2.6.5.
- * Documentación de alta densidad técnica estructurada en 20 capítulos.
- * Estética HUD (Heads-Up Display) de grado corporativo.
- */
+import { Logo } from "@/components/logo";
+import { useRef, useState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const chapters = [
   {
@@ -118,7 +117,7 @@ const chapters = [
     id: "telecom",
     title: "07. Infraestructura 5G y eSIM Digital",
     icon: Radio,
-    content: "Gestión de conectividad convergente. Kyron opera como un orquestador de red, permitiendo la activación de líneas y perfiles de datos eSIM para flotas corporativas. El sistema garantiza latencia cero para aplicaciones administrativas críticas.",
+    content: "Gestión de conectividad convergente. Kyron opera como un orscriptador de red, permitiendo la activación de líneas y perfiles de datos eSIM para flotas corporativas. El sistema garantiza latencia cero para aplicaciones administrativas críticas.",
     details: [
       "Aprovisionamiento remoto de perfiles eUICC.",
       "Monitoreo de tráfico y Network Slicing.",
@@ -271,29 +270,143 @@ const chapters = [
 ];
 
 export default function ManualUsuarioPage() {
+  const { toast } = useToast();
+  const [isExporting, setIsExporting] = useState(false);
+  const logoRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadWord = async () => {
+    setIsExporting(true);
+    
+    // Capturar el SVG del logo para integrarlo como imagen en el Word
+    let logoBase64 = "";
+    if (logoRef.current) {
+        const svgElement = logoRef.current.querySelector("svg");
+        if (svgElement) {
+            const svgData = new XMLSerializer().serializeToString(svgElement);
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const img = new Image();
+            
+            canvas.width = 400;
+            canvas.height = 400;
+            
+            const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+            const url = URL.createObjectURL(svgBlob);
+            
+            await new Promise((resolve) => {
+                img.onload = () => {
+                    if (ctx) {
+                        ctx.clearRect(0, 0, 400, 400);
+                        ctx.drawImage(img, 0, 0, 400, 400);
+                    }
+                    URL.revokeObjectURL(url);
+                    resolve(true);
+                };
+                img.src = url;
+            });
+            logoBase64 = canvas.toDataURL("image/png");
+        }
+    }
+
+    const docContent = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+      <head>
+        <meta charset='utf-8'>
+        <title>Manual de Usuario System Kyron</title>
+        <style>
+          body { font-family: 'Segoe UI', Arial, sans-serif; color: #333; line-height: 1.6; }
+          .header { text-align: center; margin-bottom: 50px; border-bottom: 2px solid #2563eb; padding-bottom: 20px; }
+          .logo { width: 120px; margin-bottom: 20px; }
+          h1 { color: #2563eb; font-size: 28pt; margin-bottom: 5pt; }
+          h2 { color: #1e40af; border-bottom: 1px solid #ddd; margin-top: 30pt; padding-bottom: 5pt; font-size: 18pt; }
+          h3 { color: #2563eb; font-size: 12pt; margin-top: 15pt; }
+          p { margin-bottom: 10pt; text-align: justify; }
+          ul { margin-bottom: 15pt; }
+          li { margin-bottom: 5pt; }
+          .footer { margin-top: 50px; text-align: center; font-size: 9pt; color: #999; border-top: 1px solid #eee; padding-top: 20px; }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <img src="${logoBase64}" class="logo" />
+          <h1>SYSTEM KYRON</h1>
+          <p style="text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #666;">Manual Maestro de Operaciones v2.6.5</p>
+        </div>
+
+        ${chapters.map(ch => `
+          <h2>${ch.title}</h2>
+          <p>${ch.content}</p>
+          <h3>Especificaciones Técnicas:</h3>
+          <ul>
+            ${ch.details.map(d => `<li>${d}</li>`).join('')}
+          </ul>
+        `).join('')}
+
+        <div class="footer">
+          <p>&copy; 2026 System Kyron • Corporate Intelligence Node • Documento de Clase Confidencial</p>
+        </div>
+      </body>
+      </html>
+    `;
+
+    const blob = new Blob(['\ufeff', docContent], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Manual_Usuario_System_Kyron_Master.doc';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    setIsExporting(false);
+    toast({
+        title: "PROTOCOLO DE EXPORTACIÓN COMPLETADO",
+        description: "El manual ha sido generado con el logo oficial integrado.",
+        action: <CheckCircle className="text-primary h-4 w-4" />
+    });
+  };
+
   return (
     <div className="min-h-screen bg-[#050505] text-white py-12 px-4 md:px-16 relative overflow-hidden hud-grid">
-      {/* Background Decor */}
+      
+      {/* Logo oculto para captura en la exportación */}
+      <div className="hidden" ref={logoRef} aria-hidden="true">
+        <Logo className="h-40 w-40" />
+      </div>
+
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.03] rounded-full blur-[300px]" />
         <div className="absolute bottom-0 left-0 w-full h-full bg-secondary/[0.02] rounded-full blur-[300px]" />
       </div>
 
-      {/* Main Header */}
-      <header className="max-w-6xl mx-auto mb-20 border-l-4 border-primary pl-8 py-2 mt-10">
-        <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-          <BookOpen className="h-3 w-3" /> EXPEDIENTE TÉCNICO MAESTRO
+      <header className="max-w-6xl mx-auto mb-20 border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+        <div className="space-y-3">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+            <BookOpen className="h-3 w-3" /> EXPEDIENTE TÉCNICO MAESTRO
+            </div>
+            <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
+            Manual de <span className="text-primary not-italic">Operación</span>
+            </h1>
+            <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
+            Protocolo Integral de Gestión Corporativa • Versión de Inferencia v2.6.5 • Ecosistema Kyron
+            </p>
         </div>
-        <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
-          Manual de <span className="text-primary not-italic">Operación</span>
-        </h1>
-        <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
-          Protocolo Integral de Gestión Corporativa • Versión de Inferencia v2.6.5 • Ecosistema Kyron
-        </p>
+        <div className="flex gap-3 no-print">
+            <Button variant="outline" onClick={() => window.print()} className="h-12 px-6 rounded-xl border-white/10 bg-white/5 text-white text-[9px] font-black uppercase tracking-widest">
+                <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
+            </Button>
+            <Button 
+                onClick={handleDownloadWord} 
+                disabled={isExporting}
+                className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-2xl"
+            >
+                {isExporting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+                DESCARGAR WORD
+            </Button>
+        </div>
       </header>
 
-      {/* Overview Table of Contents */}
-      <div className="max-w-6xl mx-auto mb-24 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="max-w-6xl mx-auto mb-24 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 no-print">
         {chapters.map((ch, idx) => (
             <a 
                 key={ch.id} 
@@ -306,7 +419,6 @@ export default function ManualUsuarioPage() {
         ))}
       </div>
 
-      {/* Chapters Loop */}
       <div className="max-w-6xl mx-auto space-y-24 pb-32">
         {chapters.map((chapter, idx) => (
           <motion.section 
@@ -324,14 +436,12 @@ export default function ManualUsuarioPage() {
               </div>
               
               <div className="grid lg:grid-cols-12 gap-0">
-                {/* Lateral Numbering */}
                 <div className="lg:col-span-1 bg-white/[0.03] border-r border-white/5 flex items-center justify-center p-8 lg:p-0">
                     <span className="text-4xl font-black text-white/10 uppercase vertical-text tracking-tighter">
                         CH.{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                     </span>
                 </div>
 
-                {/* Content Area */}
                 <div className="lg:col-span-11 p-10 md:p-16 space-y-12">
                     <header className="space-y-4">
                         <div className="flex items-center gap-4">
@@ -370,7 +480,7 @@ export default function ManualUsuarioPage() {
                             <Card className="bg-white/5 border-white/10 rounded-[2rem] p-8 flex flex-col justify-center items-center text-center gap-6 group hover:bg-primary/5 transition-all">
                                 <ShieldCheck className="h-12 w-12 text-primary opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all" />
                                 <div className="space-y-2">
-                                    <h5 className="text-sm font-black uppercase tracking-widest">Garantía de Integridad</h5>
+                                    <h5 className="text-sm font-black uppercase tracking-widest text-white">Garantía de Integridad</h5>
                                     <p className="text-[10px] text-white/30 uppercase leading-relaxed font-medium">Este módulo ha sido verificado bajo el protocolo Zero Risk 2026. Los datos procesados aquí son inmutables y legalmente válidos ante fiscalizaciones.</p>
                                 </div>
                             </Card>
@@ -388,7 +498,6 @@ export default function ManualUsuarioPage() {
         ))}
       </div>
 
-      {/* Footer Support */}
       <footer className="max-w-6xl mx-auto border-t border-white/5 pt-20 pb-10 text-center space-y-10">
         <div className="space-y-4">
             <h3 className="text-2xl font-black uppercase italic italic-shadow">¿Necesitas Asistencia Neuronal?</h3>
