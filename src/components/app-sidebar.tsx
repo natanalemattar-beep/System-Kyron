@@ -4,8 +4,8 @@
 import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
-  BarChart3, Users, Recycle, Radio, Cpu, Gavel, Lock, LayoutGrid, Cog, Activity,
-  User, FileText, Smartphone, Bell, UserCircle, Briefcase, Star, Fingerprint, Home
+  BarChart3, Users, Recycle, Radio, Cpu, Gavel, Lock, Cog, 
+  UserCircle, Briefcase, Star, Fingerprint, Home, FileText, Smartphone, Bell
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
@@ -15,24 +15,24 @@ const personalMenu = [
   { id: 'perfil', label: 'Mi Perfil', icon: UserCircle, href: '/tarjeta-digital' },
   { id: 'identidad', label: 'Mi Identidad', icon: Fingerprint, href: '/dashboard' },
   { id: 'documentos', label: 'Mis Documentos', icon: FileText, href: '/documentos' },
-  { id: 'linea', label: 'Mi Línea', icon: Smartphone, href: '/venta-linea' },
-  { id: 'reciclaje', label: 'Mis Puntos Verdes', icon: Recycle, href: '/tarjeta-reciclaje' },
-  { id: 'alertas', label: 'Mis Avisos', icon: Bell, href: '/notificaciones' },
-  { id: 'config', label: 'Configuración', icon: Cog, href: '/seguridad' },
+  { id: 'linea', label: 'Mi Línea 5G', icon: Smartphone, href: '/mi-linea' },
+  { id: 'reciclaje', label: 'Puntos Verdes', icon: Recycle, href: '/tarjeta-reciclaje' },
+  { id: 'alertas', label: 'Avisos', icon: Bell, href: '/notificaciones' },
 ];
 
 const corporativoMenu = [
-  { id: 'admin', label: 'Administración', icon: Briefcase, href: '/dashboard-empresa' },
+  { id: 'admin', label: 'Administración', icon: Briefcase, href: '/resumen-negocio' },
   { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3, href: '/contabilidad' },
   { id: 'legal', label: 'Asesoría Legal', icon: Gavel, href: '/escritorio-juridico' },
   { id: 'holding', label: 'Socios y Directivos', icon: Users, href: '/dashboard-socios' },
+  { id: 'it', label: 'Ingeniería e IT', icon: Cpu, href: '/dashboard-informatica' },
 ];
 
 export function AppSidebar() {
   const pathname = usePathname();
 
   const MenuItem = ({ item }: { item: any }) => {
-    const isActive = pathname === item.href || (item.href !== '/inicio' && pathname.startsWith(item.href));
+    const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
     return (
       <Link 
         href={item.href as any}
@@ -57,7 +57,7 @@ export function AppSidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#0a0a0a] border-r border-white/5 flex flex-col z-[100] hidden lg:flex shadow-2xl backdrop-blur-3xl overflow-hidden">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-[#050505] border-r border-white/5 flex flex-col z-[100] hidden lg:flex shadow-2xl backdrop-blur-3xl overflow-hidden">
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:30px_30px]" />
       
       <div className="p-10 border-b border-white/5 flex flex-col items-center gap-6 relative z-10 bg-black/40">
@@ -79,21 +79,21 @@ export function AppSidebar() {
         </section>
 
         <section>
-            <p className="text-[8px] font-black uppercase text-white/20 tracking-[0.5em] mb-6 px-4 italic border-l-2 border-white/5 ml-2">💼 OTROS SERVICIOS</p>
-            <div className="space-y-1.5 opacity-60 hover:opacity-100 transition-opacity">
+            <p className="text-[8px] font-black uppercase text-white/20 tracking-[0.5em] mb-6 px-4 italic border-l-2 border-white/5 ml-2">💼 SERVICIOS EMPRESARIALES</p>
+            <div className="space-y-1.5">
                 {corporativoMenu.map((item) => <MenuItem key={item.id} item={item} />)}
             </div>
         </section>
       </div>
 
       <div className="p-6 border-t border-white/10 bg-black/60 relative z-10">
-        <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 shadow-inner">
+        <Link href="/seguridad" className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 shadow-inner hover:bg-white/5 transition-all group">
             <div className="flex items-center gap-3">
-                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]" />
-                <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.3em]">ESTADO SEGURO</span>
+                <Cog className="h-3.5 w-3.5 text-white/20 group-hover:text-primary group-hover:rotate-90 transition-all duration-500" />
+                <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.3em]">CONFIGURACIÓN</span>
             </div>
-            <Star className="h-3 w-3 text-secondary animate-spin-slow" />
-        </div>
+            <Star className="h-3 w-3 text-secondary animate-spin-slow opacity-20" />
+        </Link>
       </div>
     </aside>
   );

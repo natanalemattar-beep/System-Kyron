@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -59,18 +60,18 @@ export function LandingHeader() {
 
     return (
         <header className={cn(
-            "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 gpu-accelerated w-full",
+            "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 w-full",
              isScrolled ? "bg-black/80 backdrop-blur-3xl py-3 border-b border-white/5 shadow-2xl" : "bg-transparent py-8"
         )}>
             <div className="container mx-auto px-6 md:px-12">
                 <div className="flex items-center justify-between h-12 w-full">
                     
-                    {/* LOGO (LEFT) */}
-                    <div className="flex-1 flex justify-start">
+                    {/* LOGO (LEFT) - Elevado y alineado */}
+                    <div className="flex items-center justify-start min-w-[120px]">
                         <Link href="/" className="flex items-center gap-4 group shrink-0">
-                            <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 drop-shadow-glow" /> 
-                            <div className="flex flex-col">
-                                <span className="text-xs font-black tracking-[0.5em] text-white uppercase italic italic-shadow leading-none">System Kyron</span>
+                            <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
+                            <div className="flex flex-col -mt-1">
+                                <span className="text-sm font-black tracking-[0.4em] text-white uppercase italic italic-shadow leading-none">System Kyron</span>
                                 <span className="hidden md:inline-block text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-60">
                                     {t('slogan')}
                                 </span>
@@ -94,7 +95,7 @@ export function LandingHeader() {
                     </nav>
 
                     {/* ACTIONS (RIGHT) */}
-                    <div className="flex-1 flex justify-end items-center gap-6">
+                    <div className="flex items-center justify-end gap-6 min-w-[120px]">
                         <div className="hidden sm:flex items-center gap-4">
                             <ThemeToggle />
                             <DropdownMenu>
@@ -145,7 +146,7 @@ export function LandingHeader() {
                                     variant="ghost" 
                                     size="icon" 
                                     className="lg:hidden rounded-xl h-10 w-10 bg-white/5 border border-white/5"
-                                    aria-label="Menú móvil de navegación"
+                                    aria-label="Menú móvil"
                                 >
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
@@ -157,21 +158,18 @@ export function LandingHeader() {
                                         <SheetTitle className="text-xl font-black tracking-tight text-white uppercase italic">NODO KYRON</SheetTitle>
                                     </div>
                                 </SheetHeader>
-                                <nav className="p-10 space-y-8">
-                                    <p className="text-[10px] font-black uppercase text-primary tracking-[0.5em] italic">Directorio</p>
-                                    <div className="flex flex-col gap-2">
-                                        {navItems.map((item) => (
-                                            <SheetClose key={item.label} asChild>
-                                                <Link 
-                                                    href={item.href as any} 
-                                                    onClick={(e) => handleAnchorClick(e, item.href)}
-                                                    className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all"
-                                                >
-                                                    {item.label}
-                                                </Link>
-                                            </SheetClose>
-                                        ))}
-                                    </div>
+                                <nav className="p-10 flex flex-col gap-2">
+                                    {navItems.map((item) => (
+                                        <SheetClose key={item.label} asChild>
+                                            <Link 
+                                                href={item.href as any} 
+                                                onClick={(e) => handleAnchorClick(e, item.href)}
+                                                className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all"
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        </SheetClose>
+                                    ))}
                                     <div className="pt-10">
                                         <Button asChild className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase tracking-widest text-[10px]">
                                             <Link href="/login">ACCEDER A CONSOLA</Link>
