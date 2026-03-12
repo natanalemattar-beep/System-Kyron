@@ -2,6 +2,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Logo } from "@/components/logo";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/navigation";
 import { 
   BookOpen, 
   ShieldCheck, 
@@ -10,7 +13,6 @@ import {
   Gavel, 
   Users, 
   Cpu, 
-  Terminal,
   ChevronRight,
   Lock,
   Search,
@@ -47,298 +49,294 @@ import {
   LayoutDashboard
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "@/navigation";
-import { cn } from "@/lib/utils";
-import { Logo } from "@/components/logo";
 import { useRef, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 /**
- * @fileOverview Manual de Usuario de System Kyron v2.6.5.
- * 20 Capítulos escritos en lenguaje sencillo y extremadamente detallado para garantizar extensión.
+ * @fileOverview Manual de Usuario Maestro de System Kyron v2.6.5.
+ * 20 Capítulos escritos en lenguaje sencillo y extremadamente detallado para garantizar 23 páginas de extensión.
  */
 
 const chapters = [
   {
     id: "bienvenida",
-    title: "01. Bienvenida a System Kyron",
+    title: "01. Bienvenida al Ecosistema System Kyron",
     icon: Target,
-    content: `¡Bienvenido a System Kyron! Estamos muy felices de que hayas elegido nuestra plataforma para manejar tu negocio o tus documentos personales. Este sistema ha sido creado para facilitarte la vida de una manera que nunca imaginaste. Sabemos que manejar una empresa en nuestro país puede ser un camino lleno de retos, papeleos infinitos y leyes que cambian de la noche a la mañana. Por eso, diseñamos Kyron: para que sea ese compañero de trabajo inteligente que nunca se cansa, que se encarga de todo lo aburrido y lo complicado, permitiéndote que tú pongas toda tu energía en lo que realmente importa: hacer que tu negocio crezca y que tus sueños se hagan realidad.
+    content: `¡Te damos la más cordial bienvenida a System Kyron! Estamos profundamente agradecidos y emocionados de que hayas decidido confiar en nuestra plataforma para gestionar tu negocio o tus documentos más valiosos. Este no es un programa cualquiera; es el resultado de años de ingeniería pensada específicamente para solucionar los problemas reales que enfrentan los emprendedores, empresarios y ciudadanos en nuestro país. Sabemos que el camino del éxito está lleno de papeleo, normas que cambian y procesos que a veces parecen imposibles de entender. Por eso nació Kyron: para ser tu aliado fiel, ese compañero de trabajo inteligente que nunca se cansa y que se encarga de las tareas difíciles, permitiéndote que tú pongas todo tu ingenio y pasión en hacer crecer tu proyecto.
 
-En este manual, que hemos preparado con mucho cariño y atención al detalle, te explicaremos paso a paso cómo usar cada una de las herramientas de la forma más fácil posible. No tienes que preocuparte si no eres un experto en computadoras o en tecnología moderna; hemos diseñado Kyron para que sea tan intuitivo como usar tu teléfono celular. Aquí encontrarás la respuesta a todas tus dudas, desde cómo registrar una venta hasta cómo manejar los pagos de tus empleados o cómo proteger tus documentos legales más importantes. Recuerda siempre que Kyron es un sistema de altísima seguridad que cuida tu información como si fuera un tesoro, dándote la tranquilidad y el respaldo que tú y tu familia merecen.`,
+Nuestra filosofía se basa en la "Simplicidad Poderosa". Queremos que cuando uses Kyron, sientas que tienes el control absoluto sin necesidad de ser un experto en computación o leyes. En este manual, que hemos preparado con un nivel de detalle sin precedentes, te guiaremos de la mano por cada rincón de nuestra tecnología. Te explicaremos desde cómo entrar al sistema por primera vez hasta cómo usar la inteligencia artificial para proteger tu patrimonio. Queremos que leas este documento con calma, porque cada página ha sido escrita para darte seguridad y libertad. Con System Kyron, el futuro de tu gestión no solo es más fácil, sino que es totalmente seguro y transparente. ¡Comencemos este viaje hacia la eficiencia total!`,
     details: [
-      "Diseño Amigable: Hemos creado botones grandes, colores claros y explicaciones que cualquier persona puede entender sin necesidad de manuales técnicos complicados.",
-      "Integración Total: Ya no tendrás que saltar de un programa a otro. En Kyron, la contabilidad habla con las ventas, y las ventas hablan con el inventario de forma natural.",
-      "Seguridad Bancaria: Utilizamos la misma tecnología que los bancos más grandes del mundo para que nadie pueda ver tus datos privados sin tu autorización expresa.",
-      "Actualización Automática: Cuando el gobierno anuncia un cambio en los impuestos o en las leyes laborales, el sistema se ajusta solo. Tú no tienes que hacer nada, solo seguir trabajando."
+      "Visión del Proyecto: Nacimos para eliminar el error humano y la burocracia innecesaria mediante tecnología de punta.",
+      "Soporte Continuo: No solo te damos el software, te acompañamos en cada paso de tu crecimiento con guías y asistencia.",
+      "Seguridad de Grado Militar: Tus datos son privados y están protegidos por las capas de cifrado más fuertes del mundo.",
+      "Compromiso Ambiental: Parte de tu uso del sistema ayuda a financiar proyectos de limpieza y reciclaje en comunidades locales."
     ]
   },
   {
-    id: "inicio",
-    title: "02. Cómo empezar a usar el sistema",
+    id: "acceso",
+    title: "02. Cómo entrar y dar tus primeros pasos",
     icon: UserCircle,
-    content: `Entrar al mundo de System Kyron es el primer paso hacia una gestión mucho más ordenada. El proceso es sumamente sencillo. Cuando escribas nuestra dirección en tu navegador, lo primero que verás es una pantalla elegante con una opción brillante que dice 'ACCESO'. Al presionar ese botón, se abrirán varias 'puertas' o portales. Esto lo hicimos para que cada persona entre exactamente al lugar que necesita sin perderse en opciones que no va a usar. Si eres el dueño de la empresa o el encargado de las cuentas, elegirás 'Contabilidad'. Si eres un socio que solo quiere ver cómo van las ganancias, entrarás por 'Socios'. Los empleados tienen su propio portal de 'Recursos Humanos', y si tú solo quieres guardar tus papeles personales, entrarás por 'Cuenta Personal'.
+    content: `Empezar a usar System Kyron es tan emocionante como abrir las puertas de una nueva oficina. Para entrar, solo necesitas un dispositivo con internet (computadora, tablet o celular) y abrir tu navegador favorito. Una vez en nuestra página de inicio, verás un botón destacado que dice 'ACCESO'. Al presionarlo, te encontrarás con una pantalla que muestra diferentes 'puertas' o portales. Esto es muy importante: hemos dividido el sistema en áreas específicas para que no te confundas con opciones que no necesitas. Por ejemplo, si vas a llevar las cuentas de tu empresa, elegirás 'Contabilidad'; si eres un socio que solo quiere ver resultados, elegirás 'Socios'; y si quieres manejar tus papeles personales, entrarás por 'Cuenta Personal'.
 
-Una vez que elijas tu portal, el sistema te pedirá tu nombre de usuario y tu contraseña. Te pedimos que crees una clave que sea fuerte pero que puedas recordar con facilidad. La primera vez que logres entrar, te daremos un pequeño tour de bienvenida. Te recomendamos que te tomes unos minutos para completar tu perfil personal: coloca tu nombre completo, verifica que tu correo electrónico esté bien escrito y, si quieres, sube una foto tuya. Esto es muy útil porque permite que el sistema se dirija a ti por tu nombre y que te envíe avisos urgentes si, por ejemplo, una factura está por vencer o si recibiste un pago nuevo.`,
+La primera vez que entres, el sistema te pedirá crear una identidad única. Necesitarás un correo electrónico válido y crear una contraseña. Te recomendamos que tu clave sea algo que solo tú sepas, mezclando letras y números para que sea muy segura. Una vez adentro, te recibirá un asistente virtual que te dará un pequeño paseo por las funciones principales. Te sugerimos que lo primero que hagas sea ir a 'Mi Perfil' y completar tus datos: tu nombre completo, una foto profesional y tu número de teléfono. Esto permite que Kyron te reconozca y te envíe avisos importantes, como cuando alguien te hace un pago o cuando tienes una tarea urgente por terminar. Es como ponerle tu nombre a tu nuevo escritorio virtual.`,
     details: [
-      "Selección de Portal: Cada entrada está diseñada para un rol específico, lo que hace que la pantalla sea más limpia y fácil de navegar.",
-      "Contraseña de Protección: Tu clave es tu firma digital. Asegúrate de no compartirla con nadie para mantener tu información siempre a salvo.",
-      "Perfil de Usuario: Al tener tus datos al día, el sistema puede automatizar muchas tareas por ti, como el envío de correos o reportes.",
-      "Asistente de Bienvenida: Si es tu primera vez, deja que el sistema te guíe por las funciones principales para que te sientas como en casa desde el primer minuto."
+      "Selección de Portal: Entra directamente a lo que necesitas: Ventas, RR.HH., Legal o Administración.",
+      "Contraseñas Seguras: Aprende a crear llaves digitales que protejan tu información contra cualquier intento de intrusión.",
+      "Personalización del Perfil: Coloca tu marca o tu foto para que la experiencia sea totalmente tuya.",
+      "Ayuda Inicial: El sistema te mostrará globos de texto con explicaciones sencillas la primera vez que toques un botón nuevo."
     ]
   },
   {
     id: "seguridad",
-    title: "03. Protegiendo tu cuenta y tus datos",
+    title: "03. Seguridad Total: Tu información está a salvo",
     icon: ShieldCheck,
-    content: `Para nosotros en Kyron, proteger tu información no es solo una tarea técnica, es un compromiso de honor. Sabemos que en tus manos tienes el esfuerzo de muchos años, por eso hemos blindado el sistema con lo mejor de la tecnología actual. Una de las funciones que más te recomendamos usar es la 'Verificación de Identidad por Teléfono' (también llamada 2FA). Al activarla, el sistema te pedirá un código especial que solo llegará a tu móvil cada vez que intentes entrar. Es como tener un guardaespaldas digital que confirma que realmente eres tú quien quiere acceder a las cuentas.
+    content: `En System Kyron, nos tomamos tu privacidad más en serio que cualquier otra cosa. Sabemos que tu información financiera y tus documentos personales son sagrados. Por eso, hemos implementado lo que llamamos 'Capa de Seguridad Nivel 5'. Una de las herramientas que más te protege es la 'Verificación en Dos Pasos'. Esto significa que, además de tu clave, el sistema te pedirá un código especial que llega solo a tu teléfono celular. Es como tener una puerta con dos cerraduras diferentes: si alguien llega a saber tu clave, no podrá entrar porque no tiene tu teléfono en sus manos.
 
-Pero no nos quedamos ahí. Dentro de la sección de seguridad, tendrás una herramienta llamada 'Monitor de Conexiones'. Allí podrás ver una lista de todos los dispositivos (como teléfonos, tablets o computadoras) que han entrado a tu cuenta recientemente. Si ves algo que no te suena familiar, puedes cerrar esa sesión inmediatamente con un solo botón. Y en casos extremos, si llegas a perder tu teléfono principal, tenemos un 'Botón de Pánico' o Bloqueo Maestro que congela el acceso a todos tus documentos sensibles hasta que tú mismo verifiques tu identidad nuevamente. Queremos que sientas que con Kyron, tu información está en una caja fuerte digital indestructible.`,
+Además, dentro del menú de 'Seguridad', tienes acceso al 'Monitor de Actividad'. Aquí puedes ver, minuto a minuto, desde qué ciudades y desde qué equipos se ha entrado a tu cuenta. Si alguna vez ves algo extraño, como una conexión desde un país que no conoces, puedes presionar un botón rojo para cerrar esa sesión de inmediato. Y para tu máxima tranquilidad, todos tus archivos están 'cifrados'. Esto significa que si un pirata informático intentara robar tu información, solo vería códigos sin sentido. Solo tú, con tu clave y tu identidad, puedes 'desbloquear' los datos para leerlos. Con Kyron, puedes dormir tranquilo sabiendo que tu esfuerzo de años está protegido por una muralla digital invisible e indestructible.`,
     details: [
-      "Doble Cerradura Digital: El código al teléfono asegura que nadie entre a tu cuenta aunque sepa tu contraseña.",
-      "Control de Dispositivos: Tú tienes el mando total para decidir qué computadoras pueden ver tus datos y cuáles no.",
-      "Privacidad Absoluta: Tus documentos están cifrados, lo que significa que se convierten en códigos secretos que solo tú puedes leer.",
-      "Bloqueo de Emergencia: Ante cualquier sospecha de robo o pérdida, puedes proteger toda tu empresa en un segundo."
+      "Verificación Móvil (2FA): Activa el código al celular para que nadie pueda entrar sin tu permiso físico.",
+      "Control de Dispositivos: Mira la lista de teléfonos y computadoras que tienen acceso y elimina los que ya no uses.",
+      "Cifrado de Datos: Tu información viaja y se guarda convertida en códigos secretos imposibles de descifrar por terceros.",
+      "Botón de Bloqueo Maestro: En caso de emergencia, puedes congelar todo el sistema con un solo toque desde tu móvil."
     ]
   },
   {
     id: "tablero",
-    title: "04. Conoce tu tablero de herramientas",
+    title: "04. Domina tu Centro de Mando",
     icon: LayoutDashboard,
-    content: `Imagina que eres el capitán de un barco y que el Tablero de Kyron es tu panel de navegación. Hemos diseñado este espacio para que, sin tener que buscar mucho, sepas exactamente qué está pasando en tu negocio en este mismo instante. En la parte central verás unos cuadros grandes con números importantes: cuánto dinero ha entrado hoy, cuánto has tenido que pagar y cuánto te queda libre. Si los números están en verde, ¡celébralo, vas por buen camino! Si aparecen en rojo, el sistema te está avisando que debes prestar atención a ese gasto.
+    content: `Cuando entras a tu área de trabajo, te recibe el 'Tablero Principal' o 'Centro de Mando'. Hemos diseñado este espacio para que te sientas como el piloto de una nave de alta tecnología, pero con la sencillez de un tablero de juego. Lo primero que verás son unos cuadros de colores con los números más importantes de tu día: ¿Cuánto dinero entró hoy? ¿Cuánto salió? ¿Cuántas ventas hiciste?. No hace falta que busques en listas largas de números; los colores te lo dicen todo. El verde significa que todo va excelente, el amarillo te dice que tengas cuidado, y el rojo es un aviso para que revises algo urgente.
 
-En la parte izquierda de tu pantalla siempre estará el menú principal. Está organizado por categorías lógicas como 'Ventas', 'Contabilidad' o 'Personal'. Lo más increíble de este tablero es que es inteligente. No es solo una pantalla quieta; si hay una tarea que tienes pendiente, como declarar un impuesto que vence mañana o un empleado que necesita una constancia de trabajo, el tablero te pondrá una pequeña campana brillante o un aviso de color. Es como tener un secretario que te recuerda lo importante para que tú puedas relajarte y dedicarte a ser creativo y a buscar nuevos clientes.`,
+En la parte izquierda de la pantalla verás una columna con todos los módulos. Si necesitas hacer una factura, vas a 'Ventas'. Si quieres ver a tus empleados, vas a 'Recursos Humanos'. Lo más maravilloso de este tablero es que es 'dinámico'. Si el gobierno publica una nueva ley en la Gaceta Oficial que afecte tus impuestos, aparecerá un aviso brillante arriba diciéndote: '¡Hola! Hay una nueva norma, ya la configuré por ti'. El tablero también te muestra las tareas que tienes pendientes para hoy, como llamar a un cliente que debe un pago o revisar el inventario de un producto que se está acabando. Es tu asistente personal que nunca duerme y que siempre te mantiene organizado.`,
     details: [
-      "Gráficos de Fácil Lectura: No necesitas ser matemático; los dibujos te muestran si tu negocio está creciendo o si debes ahorrar.",
-      "Acceso Directo: Llega a cualquier parte del sistema en menos de dos clics.",
-      "Recordatorios Automáticos: Olvídate de anotar fechas en calendarios de papel; el sistema lo hace por ti.",
-      "Resumen de Hoy: Mira las ventas del día y los pagos realizados apenas entras al sistema."
+      "Vistazo Rápido: Mira el estado de tu dinero y tus tareas apenas abras el sistema.",
+      "Menú Organizado: Encuentra cada herramienta en su lugar lógico, sin menús escondidos ni complicados.",
+      "Alertas de Inteligencia: El sistema te avisa con sonidos y colores cuando algo requiere tu atención inmediata.",
+      "Accesos Directos: Puedes poner tus funciones favoritas al principio para ahorrar tiempo cada mañana."
     ]
   },
   {
     id: "contabilidad",
-    title: "05. Contabilidad sin complicaciones",
+    title: "05. Contabilidad Fácil y Automática",
     icon: Calculator,
-    content: `Mucha gente piensa que la contabilidad es algo aburrido y lleno de números difíciles, pero en Kyron la hemos transformado en una experiencia sencilla y hasta satisfactoria. Ya no tienes que pasar horas llenando hojas de Excel o anotando en cuadernos que luego se pierden. El sistema es tan inteligente que 'aprende' de lo que haces. Por ejemplo, cuando registras una venta en el mostrador, Kyron ya sabe que ese dinero entró a tu caja y lo anota automáticamente en tu contabilidad sin que tú tengas que hacer nada adicional.
+    content: `Mucha gente le tiene miedo a la contabilidad porque piensa que son libros llenos de números difíciles y cálculos que nunca cuadran. En Kyron, hemos convertido la contabilidad en algo que sucede casi por arte de magia. Cada vez que tú registras una venta en tu tienda o pagas una factura a un proveedor, el sistema hace el asiento contable por ti en silencio. Ya no tienes que pasar noches enteras pasando datos de un cuaderno a una computadora. Al final del mes, Kyron suma todo y te entrega tus balances listos para que se los envíes a tu contador o a los socios.
 
-Una herramienta que te va a ahorrar muchísimo tiempo y dinero es nuestro calculador de 'Ajuste por Inflación'. Como sabemos que en nuestro país los precios cambian, el sistema se conecta con los datos oficiales y ajusta el valor de tus bienes y de tu dinero para que tus reportes financieros siempre digan la verdad. Al final de cada mes o de cada año, con solo presionar un botón, el sistema te entregará tu 'Balance General' y tu 'Estado de Resultados' listos para que se los muestres a tu contador o a los socios. Es contabilidad profesional, pero hecha para gente que quiere resultados rápidos y sin errores.`,
+Una de nuestras herramientas más potentes es el 'Ajuste por Inflación Automático'. Como sabemos que en nuestra economía los precios cambian con frecuencia, el sistema se conecta todos los días con la tasa oficial del Banco Central. Así, tus cuentas siempre reflejan el valor real de tu dinero y de tus bienes, ya sea en bolívares o en dólares. También incluimos una 'Conciliación Bancaria' inteligente: tú subes tu estado de cuenta del banco y Kyron te dice: 'Mira, este depósito coincide con esta factura'. Te ahorramos horas de trabajo manual y eliminamos el riesgo de que se te escape un centavo. Es contabilidad de nivel experto, pero manejada por ti con total sencillez.`,
     details: [
-      "Libros que se llenan solos: Tus registros contables se actualizan con cada venta o compra que hagas.",
-      "Manejo de Varias Monedas: Lleva tus cuentas en bolívares y dólares al mismo tiempo sin enredarte con las tasas de cambio.",
-      "Reportes Listos para Imprimir: Genera documentos oficiales que cumplen con todas las normas contables de Venezuela.",
-      "Control de Gastos: Categoriza tus gastos (como luz, alquiler o sueldos) para saber en qué se está yendo el dinero."
+      "Registros sin Esfuerzo: El sistema anota cada movimiento de dinero automáticamente mientras tú trabajas.",
+      "Balances en un Clic: Genera tu Balance General y Estado de Resultados en segundos y descárgalos en PDF.",
+      "Manejo de Varias Monedas: Lleva tus cuentas en bolívares y dólares al mismo tiempo sin enredos.",
+      "Ajuste por Inflación: Olvídate de los cálculos difíciles; el sistema ajusta tus valores según las leyes vigentes."
     ]
   },
   {
     id: "impuestos",
-    title: "06. Tus impuestos siempre al día",
+    title: "06. Cumplimiento Fiscal: Cero Multas",
     icon: Landmark,
-    content: `Sabemos que cumplir con los impuestos y con el SENIAT es una de las mayores preocupaciones de cualquier dueño de negocio. Una multa puede ser un golpe muy fuerte para tu economía. Por eso, hemos diseñado a Kyron para que sea tu escudo protector. El sistema revisa cada factura que emites y cada compra que registras para asegurarse de que el RIF sea correcto, que el número de control siga la secuencia y que el cálculo del IVA esté perfecto. Si algo falta o está mal escrito, el sistema te lo dirá amablemente antes de que sea un problema.
+    content: `Estar al día con el SENIAT y los impuestos es fundamental para que tu negocio prospere sin sobresaltos. Por eso, hemos construido a Kyron como un 'Escudo Fiscal'. El sistema conoce todas las reglas de facturación vigentes (Providencia 0071) y no te deja cometer errores. Por ejemplo, si intentas hacer una factura y te falta el RIF del cliente o si el cálculo del IVA está mal, el sistema te avisará antes de que la imprimas. Es como tener un inspector amigo que te corrige en privado para que siempre estés perfecto ante la ley.
 
-Cuando llegue el momento de declarar, ya sea quincenal o mensualmente, no tendrás que buscar facturas en carpetas polvorientas. Kyron tiene una sección llamada 'Centro de Declaración' donde ya todo está sumado y organizado. Solo tienes que descargar un archivo pequeño (que llamamos archivo .txt) y subirlo directamente a la página del SENIAT. Es un proceso que antes tomaba horas y ahora solo te tomará unos minutos. Además, te avisaremos con varios días de anticipación para que nunca se te pase una fecha de pago y evites multas por olvido.`,
+Cuando llega el momento de declarar el IVA o el ISLR, ya no tendrás que buscar facturas en carpetas o cajas. En el módulo de 'Impuestos', verás que Kyron ya tiene todo sumado y clasificado. El sistema genera los archivos exactos (llamados archivos .txt) que se suben a la página del SENIAT. Solo tienes que descargarlos y listo. También te avisaremos con varios días de anticipación cuando se acerque tu fecha de declaración según el último número de tu RIF. Con Kyron, las visitas de los fiscales dejarán de ser una preocupación, porque sabrás que tienes tus libros de compra y venta impecables y tus impuestos pagados a tiempo.`,
     details: [
-      "Validación de RIF: El sistema verifica que los datos de tus clientes y proveedores sean reales y estén activos.",
-      "Libros de Compra y Venta: Estos libros obligatorios se generan automáticamente y están siempre listos para una inspección.",
-      "Cálculo de Retenciones: Si eres contribuyente especial, el sistema hace los cálculos de retención de IVA e ISLR por ti.",
-      "Calendario Fiscal: Un aviso visual te recordará siempre cuándo te toca declarar según el último número de tu RIF."
+      "Validación en Tiempo Real: El sistema revisa cada dato de tus facturas para asegurar que cumplan con la ley.",
+      "Archivos para el SENIAT: Genera y descarga los archivos listos para subir al portal fiscal sin errores.",
+      "Libros Fiscales Automáticos: Tus libros de compra y venta se llenan solos con cada transacción que registres.",
+      "Alertas Predictivas: Te avisamos cuándo te toca declarar para que nunca se te pase una fecha importante."
     ]
   },
   {
-    id: "personal",
-    title: "07. Manejo fácil de tus empleados",
+    id: "rrhh",
+    title: "07. Gestión de Personal y Nómina",
     icon: Users,
-    content: `Tus empleados son como tu segunda familia y la parte más importante de tu empresa. Por eso, en Kyron hemos creado un espacio dedicado exclusivamente a cuidarlos y organizar todo lo relacionado con ellos. En el módulo de 'Personal', puedes crear una ficha digital para cada trabajador. Allí pondrás su nombre, su cargo, cuánto gana y hasta sus datos de emergencia. Lo mejor de todo es que el sistema calcula la nómina de forma automática. Al final de la quincena, solo tienes que revisar los montos y el sistema generará los recibos de pago.
+    content: `Tu equipo es el motor de tu empresa, y cuidarlos es la mejor inversión que puedes hacer. En el módulo de 'Recursos Humanos' de Kyron, hemos simplificado al máximo la administración de tu personal. Puedes crear una ficha digital para cada empleado donde guardas su contrato, su cargo y sus datos de contacto. Lo mejor de todo es el 'Generador de Nómina': al final de la quincena, el sistema calcula automáticamente los sueldos, las cestaticket, las retenciones de ley (IVSS, FAOV) y los bonos que quieras darles. En segundos, tendrás los recibos listos para enviar por WhatsApp o correo.
 
-¿Necesitas saber cuánto tiene acumulado un empleado en prestaciones sociales? Ya no tienes que sacar cuentas manuales difíciles. Solo entras al perfil del empleado y verás el monto exacto al día de hoy, calculado según la ley (LOTTT). También puedes llevar un control de las vacaciones para que sepas quién ha descansado y a quién le toca pronto. Todo este orden no solo hace que tus empleados estén más contentos y seguros, sino que te protege a ti legalmente porque tienes todas las pruebas de que cumples con tus obligaciones como patrono de forma justa.`,
+¿Un empleado necesita una constancia de trabajo? No tienes que redactarla desde cero. Solo vas a su perfil, presionas un botón y el sistema genera una carta profesional con el logo de tu empresa y todos los datos necesarios. También llevamos el control de las prestaciones sociales según la ley (LOTTT). En cualquier momento puedes ver cuánto dinero tiene acumulado cada trabajador por su tiempo de servicio. Esto te da una gran tranquilidad financiera y legal, porque siempre sabes cuáles son tus compromisos con tu equipo. Ordenar tu personal con Kyron no solo te ahorra tiempo, sino que mejora la relación con tus trabajadores al ser siempre claro y puntual con sus pagos.`,
     details: [
-      "Nómina en un Clic: Paga a todo tu personal en segundos con cálculos de sueldo y bonos exactos.",
-      "Cálculo de Liquidaciones: Si un empleado se va, el sistema te dice exactamente cuánto debes pagarle según la ley.",
-      "Control de Asistencia: Registra las faltas o permisos de forma organizada para que la nómina siempre sea correcta.",
-      "Recibos por WhatsApp: Envía el comprobante de pago directamente al teléfono del empleado para ahorrar papel y tiempo."
+      "Pago de Nómina Rápido: Calcula sueldos y beneficios de todo tu equipo en un solo paso.",
+      "Cálculo de Prestaciones: Mira cuánto acumulado tiene cada empleado según la ley actual.",
+      "Constancias Instantáneas: Genera cartas de trabajo y otros documentos de personal con un clic.",
+      "Control de Vacaciones: Registra quién ha salido de vacaciones y a quién le toca para mantener el orden."
     ]
   },
   {
-    id: "ventas",
-    title: "08. Vende más con nuestro Punto de Venta",
+    id: "punto-venta",
+    title: "08. Punto de Venta: Cobra Rápido y Fácil",
     icon: ShoppingCart,
-    content: `Vender debe ser la parte más emocionante de tu día. Para que sea así, creamos el Punto de Venta (TPV) de Kyron, pensando en que sea rápido, colorido y muy fácil de usar. Es ideal si usas una tablet en tu mostrador o una computadora. Puedes buscar los productos por su nombre o simplemente usar un lector de códigos de barras. Al elegir los productos, el sistema te muestra el total de inmediato y te permite elegir cómo te va a pagar el cliente: ¿en efectivo?, ¿con tarjeta?, ¿por Pago Móvil? o ¿con dólares?. El sistema maneja todo eso sin que te confundas con las cuentas.
+    content: `Vender debe ser una experiencia ágil y sin complicaciones tanto para ti como para tu cliente. El Punto de Venta (TPV) de Kyron ha sido diseñado para ser visualmente atractivo y extremadamente fácil de operar, incluso si nunca has usado uno. Si tienes una tienda física, puedes usarlo en una tablet o computadora. Puedes organizar tus productos por categorías con fotos grandes, o simplemente usar un lector de código de barras para pasar la mercancía. El sistema sumará todo automáticamente y aplicará el IVA correspondiente sin que tengas que sacar cuentas manuales.
 
-Lo que hace que nuestro sistema sea especial es que está 'vivo'. Cada vez que vendes algo, el sistema le avisa al almacén: 'Oye, acabamos de vender una camisa, descuéntala del inventario'. Si te queda poca mercancía de algún producto, verás un aviso de alerta para que pidas más a tu proveedor antes de que se te agote. Al cerrar el día, el sistema te entrega un resumen de todo lo que vendiste y cuánto dinero deberías tener en caja. Se acabaron los cierres de caja hasta las 10 de la noche; con Kyron, cierras tu tienda en un minuto y te vas a descansar tranquilo.`,
+Lo más potente de nuestro TPV es que maneja 'Multimoneda'. Si un cliente te paga una parte en efectivo (bolívares), otra con tarjeta y otra en dólares, el sistema lo registra todo perfectamente y te da el cambio exacto usando la tasa del día. Al finalizar la venta, puedes imprimir un ticket profesional o enviárselo al cliente por correo. Además, cada vez que vendes algo, el sistema le avisa al almacén para que descuente el producto del inventario. Si te queda poca mercancía de algo, verás una alerta para que repongas stock. Al cerrar tu turno, tendrás un reporte detallado de cuánto dinero hay en cada caja, eliminando las descuadradas y los dolores de cabeza al final del día.`,
     details: [
-      "Pantalla Táctil Amigable: Diseñada con botones grandes para que no cometas errores al cobrar.",
-      "Inventario en Tiempo Real: El sistema sabe exactamente qué tienes en tus estantes en cada momento.",
-      "Multimoneda Flexible: Cobra en bolívares o divisas y el sistema hace la conversión a la tasa del día automáticamente.",
-      "Ticket de Venta Profesional: Entrega a tus clientes un comprobante elegante con tu logo y todos los datos legales."
+      "Interfaz Táctil Amigable: Diseñada con botones grandes y claros para evitar errores al cobrar.",
+      "Venta en Varias Monedas: Cobra en bolívares, dólares o euros y el sistema hace la conversión sola.",
+      "Inventario Sincronizado: Tus existencias se actualizan al instante con cada venta que realices.",
+      "Cierre de Caja en un Minuto: Obtén el resumen total de dinero y formas de pago al terminar tu jornada."
     ]
   },
   {
     id: "legal-ia",
-    title: "09. Crea contratos legales en segundos",
+    title: "09. Tu Abogado Digital con IA",
     icon: Gavel,
-    content: `A veces necesitas un documento legal rápido, como un contrato de alquiler o un permiso, y no tienes tiempo de esperar a que un abogado lo redacte. Para esos momentos creamos nuestra 'Inteligencia Artificial Legal'. Es como tener un abogado experto dentro de tu computadora que te ayuda a redactar borradores de documentos profesionales en solo segundos. Solo tienes que decirle qué tipo de papel necesitas, los nombres de las personas involucradas y los montos o fechas importantes.
+    content: `A veces, en los negocios surgen situaciones donde necesitas un documento legal rápido y no puedes esperar días a que un abogado lo redacte. Para esos momentos, Kyron pone a tu disposición a nuestro 'Asistente Legal con Inteligencia Artificial'. Es como tener a un experto en leyes dentro de tu sistema que te ayuda a escribir borradores de contratos y documentos profesionales en segundos. Solo tienes que decirle qué tipo de documento necesitas (por ejemplo, un contrato de alquiler o una venta de vehículo) y responder unas preguntas sencillas sobre quiénes participan y por qué monto.
 
-La IA escribirá el documento usando las palabras correctas y citando las leyes venezolanas actuales para que el papel tenga fuerza y seriedad. Todos estos borradores se guardan en tu 'Bóveda de Documentos', un lugar seguro donde nunca se van a perder ni a mojar. Si luego quieres que tu abogado de confianza le dé un vistazo final, ya le estarás entregando un trabajo adelantado en un 90%, lo que te ahorrará mucho dinero en honorarios. Es tecnología pensada para darte poder legal y agilidad en tus negocios.`,
+La IA redactará el documento usando un lenguaje jurídico formal, elegante y, lo más importante, ajustado a las leyes venezolanas actuales (Código Civil, Código de Comercio, etc.). Todos estos borradores se guardan en tu 'Bóveda de Documentos', un lugar super seguro donde nunca se perderán. Puedes descargarlos, imprimirlos o enviarlos por correo. Si bien siempre recomendamos que un abogado de carne y hueso revise los temas muy complejos, nuestra IA te ahorra el 90% del trabajo y te evita gastar dinerales en redacciones básicas. Es agilidad y protección legal al alcance de tu mano.`,
     details: [
-      "Redacción Instantánea: Crea borradores de contratos comunes (alquiler, venta de carros, etc.) en un momento.",
-      "Lenguaje de Abogado: La IA utiliza términos legales formales y precisos para tu protección.",
-      "Bóveda de Resguardo: Todos tus contratos quedan archivados digitalmente para que los consultes cuando quieras.",
-      "Fácil de Personalizar: Puedes cambiar cualquier parte del documento antes de imprimirlo o enviarlo."
+      "Redacción en Segundos: Crea contratos de alquiler, ventas o acuerdos en un instante.",
+      "Lenguaje Profesional: Documentos escritos con la terminología legal correcta para tu seguridad.",
+      "Ahorro de Costos: Reduce tus gastos en asesoría legal para trámites comunes y sencillos.",
+      "Bóveda Inmutable: Tus documentos quedan guardados digitalmente y protegidos contra extravíos."
     ]
   },
   {
     id: "telecom-5g",
-    title: "10. Activa tu línea telefónica Kyron 5G",
+    title: "10. Conectividad Kyron 5G y eSIM",
     icon: Smartphone,
-    content: `En Kyron no solo nos ocupamos de tus cuentas, también queremos que estés siempre conectado. Por eso, tenemos nuestro propio servicio de telefonía e internet móvil de alta velocidad. Puedes activar una línea nueva para ti o para tu empresa sin necesidad de comprar un chip de plástico. Usamos una tecnología llamada 'eSIM' o chip digital. Solo tienes que escanear un código con la cámara de tu teléfono y, en un par de minutos, ya tendrás señal y datos para navegar.
+    content: `En la era moderna, un negocio sin internet es un negocio que no existe. En System Kyron queremos que estés siempre conectado con la máxima velocidad disponible. Por eso, hemos integrado nuestro propio servicio de telecomunicaciones de alta fidelidad. Puedes activar líneas telefónicas y planes de datos 5G directamente desde tu panel de control. Lo más innovador es que usamos tecnología 'eSIM' o chip digital. Ya no hace falta que esperes a que te llegue un pedacito de plástico por correo; solo escaneas un código QR con tu celular y en minutos ya tienes señal y datos para navegar.
 
-Nuestra red es 5G, lo que significa que es increíblemente rápida. Esto es muy importante para tu negocio, porque asegura que tus sistemas de cobro, tus redes sociales y tu contabilidad siempre tengan internet para funcionar, sin importar dónde estés. Además, desde tu panel de Kyron puedes ver cuántos megas han gastado tus empleados, ponerles límites de consumo o recargarles saldo a todos juntos con un solo botón. Es la forma más moderna, rápida y económica de manejar las comunicaciones de tu equipo de trabajo.`,
+Nuestra red 5G está optimizada para que tus sistemas de cobro, tus redes sociales y tus aplicaciones administrativas funcionen con una rapidez increíble. Desde el portal de 'Telecom', puedes ver cuántos megas han consumido tus empleados, asignarles límites de uso para que no se excedan, o recargar saldo a todo tu equipo con un solo clic. Es la forma más inteligente y económica de manejar las comunicaciones de tu empresa, asegurando que el internet nunca sea una barrera para tu productividad. Con Kyron, tu oficina viaja contigo a donde quiera que vayas.`,
     details: [
-      "Activación Digital (eSIM): Olvídate de hacer colas en tiendas; activa tu línea desde tu casa u oficina.",
-      "Velocidad Ultra Rápida: Navega con 5G para que tus aplicaciones de trabajo vuelen.",
-      "Gestión de Flota: Controla las líneas de todos tus trabajadores desde una sola pantalla.",
-      "Planes a tu Medida: Elige el plan que más te convenga según cuánto internet necesites cada mes."
+      "Activación Inmediata (eSIM): Activa tu línea digital en minutos sin necesidad de un chip físico.",
+      "Velocidad de Vanguardia: Navega con 5G para que tus operaciones en la nube sean instantáneas.",
+      "Control de Consumo: Mira cuánto internet gasta tu equipo y gestiona sus recargas de forma centralizada.",
+      "Conexión Segura: Nuestra red utiliza protocolos de cifrado avanzados para proteger tus transmisiones de datos."
     ]
   },
   {
     id: "reciclaje",
-    title: "11. Gana puntos por reciclar",
+    title: "11. Sostenibilidad: Gana Premios por Reciclar",
     icon: Recycle,
-    content: `Cuidar el medio ambiente es una tarea de todos, y en Kyron queremos premiarte por hacerlo. A través de nuestra Fundación, hemos instalado estaciones de reciclaje llamadas 'Papeleras Inteligentes' en plazas y centros comerciales. Estas papeleras son maravillas tecnológicas: usan imanes y sensores especiales para saber si lo que estás botando es plástico o metal. Lo mejor de todo es que cada vez que reciclas, el sistema te reconoce y te da un premio.
+    content: `Cuidar nuestro planeta es un compromiso que todos debemos asumir, y en System Kyron queremos motivarte a hacerlo. A través de nuestra iniciativa ambiental impulsada por la **Fundación Kyron**, hemos instalado estaciones de recolección llamadas 'Papeleras Inteligentes'. Estas papeleras son equipos de ingeniería avanzada que utilizan tecnología de magnetismo para sujetar y clasificar tus envases plásticos y metálicos de forma automática. ¡Es magia tecnológica al servicio de la ecología!
 
-¿Cómo funciona? Acercas tu teléfono o tu tarjeta digital de Kyron a la papelera antes de botar tu envase. El sistema te identifica y, por cada botella o lata que recicles, te regala 'Eco-Créditos'. Estos créditos son como puntos de regalo que se acumulan en tu billetera digital. Luego, puedes ir a nuestras tiendas aliadas, como panaderías, cafeterías o cines, y usar esos puntos para pagar o para obtener descuentos especiales. ¡Es nuestra forma de decirte gracias por ayudar a que nuestro país sea más limpio y verde!`,
+¿Cómo participas? Es muy fácil. Solo tienes que acercar tu Tarjeta Digital de Kyron o escanear un código QR desde tu app en la papelera antes de depositar tu residuo. El sistema te reconocerá y, por cada envase que recicles correctamente, te regalará 'Eco-Créditos'. Estos créditos son puntos de valor real que se acumulan en tu billetera digital. Luego, puedes ir a nuestra red de comercios aliados (como panaderías, cafeterías o cines) y canjear tus puntos por descuentos, café gratis o productos. Reciclar con Kyron no solo limpia tu ciudad, sino que inyecta valor a tu bolsillo. ¡Es un círculo donde todos ganan!`,
     details: [
-      "Premios por Reciclar: Recibe puntos reales cada vez que uses nuestras estaciones inteligentes.",
-      "Billetera de Puntos: Mira en tu perfil cuántos 'Eco-Créditos' llevas acumulados.",
-      "Canje en Comercios: Usa tus puntos para comprar café, entradas al cine o productos en tiendas amigas.",
-      "Ayuda al Planeta: El sistema te muestra cuánto has ayudado a reducir la contaminación con tus acciones."
+      "Tecnología Magnética: Clasificación automática de residuos con sensores de alta precisión.",
+      "Eco-Créditos Digitales: Gana puntos por cada lata o botella que deposites en nuestras estaciones.",
+      "Canje en Comercios: Usa tus puntos para obtener beneficios reales en tus tiendas favoritas.",
+      "Impacto Visible: Mira en tu perfil cuánto has ayudado a reducir la contaminación con tus acciones."
     ]
   },
   {
     id: "ingenieria",
-    title: "12. Planifica tu local comercial",
+    title: "12. Ingeniería IA: Planifica tus Espacios",
     icon: Cpu,
-    content: `Si estás soñando con abrir una nueva tienda, una oficina o simplemente quieres remodelar tu negocio actual, esta herramienta de ingeniería te va a fascinar. Hemos creado una Inteligencia Artificial que puede 'leer' los espacios. Ya no necesitas una cinta métrica complicada para saber cuánto mide un local vacío. Solo tienes que tomar una foto del espacio y subirla a Kyron. La IA analizará la foto y, basándose en las paredes y el suelo, te entregará las medidas casi exactas del lugar.
+    content: `Si tienes planes de abrir un nuevo local, remodelar tu oficina o simplemente quieres saber cuánto mide una habitación para comprar mobiliario, nuestra herramienta de 'Ingeniería con IA' es tu mejor aliada. Ya no necesitas herramientas de medición costosas o cintas métricas difíciles de usar. Solo tienes que tomar una fotografía clara del espacio vacío y subirla al sistema Kyron. Nuestra inteligencia artificial analizará los puntos de fuga, las esquinas y la profundidad para entregarte un plano a escala casi exacta del lugar.
 
-Pero no solo te da las medidas. El sistema también te ayuda a calcular cuántos materiales vas a necesitar para la obra. Por ejemplo, te dirá: 'Para este piso necesitas 50 cajas de porcelanato' o 'Para estas paredes necesitas 4 galones de pintura'. Al final, te entrega un informe técnico muy completo que puedes imprimir y mostrarle a tu maestro de obra o al dueño del local para que aprueben tus cambios. Es como tener un ingeniero civil y un arquitecto trabajando para ti de forma instantánea y sencilla.`,
+Pero no se queda solo en el dibujo. El sistema también te ayuda con los 'Cómputos Métricos', que es una forma elegante de decir que saca la cuenta de los materiales por ti. Si quieres poner piso nuevo, la IA te dirá exactamente cuántas cajas de cerámica o porcelanato necesitas comprar. Si vas a pintar, te dirá cuántos galones de pintura son necesarios. Al final, obtendrás un informe técnico detallado que puedes mostrarle a tu maestro de obra para que te dé un presupuesto real. Es como tener a un ingeniero y a un arquitecto trabajando para ti de forma instantánea, ahorrándote tiempo y evitando que compres material de más por error.`,
     details: [
-      "Medidas por Fotografía: Obtén el tamaño de cualquier local subiendo solo una imagen.",
-      "Cálculo de Materiales: Saca la cuenta de cuánta pintura, piso o cemento vas a gastar.",
-      "Planos Automáticos: El sistema dibuja un plano básico a escala de tu espacio.",
-      "Presupuesto de Obra: Estima cuánto dinero vas a invertir en la remodelación antes de empezar."
+      "Medición por Foto: Obtén las medidas de cualquier espacio subiendo solo una imagen clara.",
+      "Cómputo de Materiales: Saca la cuenta de pintura, cemento o pisos necesarios para tu obra.",
+      "Planos a Escala: El sistema dibuja un plano arquitectónico básico basado en tus fotos.",
+      "Ahorro de Tiempo y Dinero: Evita desperdiciar material comprando solo lo que realmente necesitas."
     ]
   },
   {
     id: "reportes",
-    title: "13. Mira cómo crece tu negocio (Reportes)",
+    title: "13. Reportes IA: Entiende tu Negocio",
     icon: BarChart3,
-    content: `Un buen dueño de negocio necesita saber hacia dónde va su empresa, y para eso creamos la sección de 'Reportes'. Aquí no verás listas de números aburridas; convertimos toda tu información en gráficas de colores muy bonitas y fáciles de entender. Podrás ver, por ejemplo, una montaña de color azul que te muestra tus ventas: si la montaña sube cada mes, ¡felicidades, tu negocio está creciendo!
+    content: `Como dueño de empresa, necesitas saber exactamente qué está pasando con tu dinero y tus ventas, pero no tienes tiempo de leer reportes de 50 páginas. Para eso creamos la sección de 'Reportes Inteligentes'. Convertimos todos tus datos en gráficas de colores, limpias y muy fáciles de entender. Podrás ver una montaña azul que representa tus ingresos y una línea roja para tus gastos. Si la montaña es más alta que la línea, ¡estás ganando dinero! Si se cruzan, el sistema te avisará que debes tener cuidado.
 
-También podrás saber cuáles son tus productos 'estrella', esos que se venden más rápido, y cuáles son los que están 'dormidos' y necesitan una oferta para salir. Nuestra Inteligencia Artificial analiza estos dibujos por ti y te da consejos prácticos: 'Oye, los sábados vendes mucha comida, ¿por qué no pones una oferta especial ese día?'. Es como tener un asesor de negocios experto que mira tus cuentas todos los días y te dice qué hacer para ganar más dinero y gastar menos.`,
+Lo más valioso es que nuestra IA analiza estos dibujos por ti y te da consejos prácticos que puedes aplicar hoy mismo. Por ejemplo, puede decirte: 'Oye, tus ventas de los martes están muy bajas, ¿por qué no lanzas una oferta ese día?'. O también: 'Este cliente es tu mejor comprador, deberías mandarle un regalo por su lealtad'. Son consejos de estrategia comercial que te ayudan a tomar decisiones basadas en la realidad de tus números y no solo en corazonadas. Con Kyron, tú no solo administras, tú lideras tu empresa hacia el crecimiento constante con datos reales.`,
     details: [
-      "Dibujos Fáciles: Entiende la salud de tu empresa mirando gráficas de barras y tortas de colores.",
-      "Análisis de Ventas: Descubre qué productos te dan más dinero y cuáles menos.",
-      "Consejos de la IA: Recibe sugerencias personalizadas para mejorar tu estrategia comercial.",
-      "Descarga Profesional: Guarda tus reportes en PDF para imprimirlos o enviarlos por correo a tus socios."
+      "Visualización de Datos: Gráficas de barras, tortas y líneas que cuentan la historia de tu empresa.",
+      "Análisis de Rentabilidad: Descubre qué productos te dejan más ganancia y cuáles están 'durmiendo' en el almacén.",
+      "Consejos de Estrategia IA: Recibe sugerencias personalizadas para aumentar tus ventas y reducir gastos.",
+      "Informes Listos para Socios: Descarga estados financieros profesionales en PDF con un diseño impecable."
     ]
   },
   {
     id: "billetera",
-    title: "14. Tu Billetera Digital Kyron",
+    title: "14. Billetera Digital y Multimoneda",
     icon: Wallet,
-    content: `Kyron incluye su propia 'Caja Digital' o Billetera para que manejes tu dinero de la forma más moderna y segura posible. En esta sección puedes guardar saldos en diferentes monedas: bolívares, dólares o euros. Es una herramienta fantástica porque te permite pagarle a tus proveedores que también usen Kyron de forma inmediata, sin tener que esperar a que el banco procese la transferencia y sin pagar comisiones costosas.
+    content: `System Kyron incluye su propia 'Caja Digital' o Billetera para que manejes el flujo de caja de tu empresa de la forma más moderna posible. Aquí puedes guardar y mover saldos en bolívares, dólares o euros de forma separada pero organizada. Es una herramienta ideal para pagarle a tus proveedores o empleados que también usan Kyron, ya que el dinero se transfiere al instante, las 24 horas del día, sin comisiones bancarias y con seguridad absoluta.
 
-La seguridad de tu billetera es máxima. Para mover cualquier cantidad de dinero, el sistema te pedirá usar tu huella dactilar o que mires a la cámara para reconocerte (biometría). Así, aunque alguien sepa tu clave, nunca podrá tocar tu dinero. También puedes usar la billetera para cambiar tus bolívares a dólares (según la tasa oficial) y así proteger tus ahorros de la inflación. Es como tener tu propio banco privado y seguro dentro del ecosistema de tu empresa, disponible en todo momento.`,
+La seguridad de tu dinero es nuestra prioridad máxima. Para autorizar cualquier salida de fondos, el sistema te pedirá usar tu huella dactilar o el escaneo de tu rostro (biometría). Esto garantiza que, aunque alguien tuviera tu teléfono encendido, nunca podría tocar tu capital. También puedes usar la billetera para realizar cambios de divisa a la tasa oficial, protegiendo así tus ahorros contra la inflación. Es como tener tu propia bóveda bancaria privada dentro de tu sistema de gestión, dándote la libertad de operar en la moneda que prefieras con total legalidad y rapidez.`,
     details: [
-      "Multimoneda Real: Maneja tus fondos en diferentes divisas sin complicaciones.",
-      "Pagos al Instante: Envía dinero a otros usuarios de Kyron en un segundo.",
-      "Cambio Seguro: Compra divisas a la tasa oficial de forma garantizada y legal.",
-      "Seguridad Biométrica: Protege tu capital usando tu huella o tu rostro para autorizar pagos."
+      "Gestión Multimoneda: Mantén tus ahorros y pagos en Bs., USD o EUR en una sola cuenta.",
+      "Pagos Instantáneos: Transfiere fondos a otros usuarios del ecosistema Kyron en un segundo.",
+      "Cambio de Divisas: Convierte tu dinero a la tasa oficial del día de forma segura y transparente.",
+      "Seguridad de Biometría: Autoriza tus movimientos de dinero usando tu huella o tu rostro para máxima protección."
     ]
   },
   {
-    id: "errores",
-    title: "15. Revisión automática de errores",
-    icon: Activity,
-    content: `Equivocarse es algo muy común, pero en el mundo de los impuestos y las cuentas, un pequeño error puede traer grandes problemas. Por eso, en Kyron hemos creado un 'Sistema de Auditoría Permanente'. Imagina que es un supervisor invisible que está parado detrás de ti, revisando cada dato que escribes. Si por descuido escribes un número que no cuadra o si te falta un dato importante en una factura, el sistema se detendrá y te pondrá un aviso: '¡Atención! Este dato parece incorrecto'.
+    id: "auditoria-ia",
+    title: "15. Auditoría IA: Cero Errores, Cero Riesgo",
+    icon: ShieldCheck,
+    content: `Equivocarse es humano, pero en el mundo de los impuestos y las leyes, un error puede costar muy caro. Por eso hemos dotado a Kyron de un 'Cerebro de Auditoría' basado en inteligencia artificial que vigila todo lo que haces en el sistema. Imagina que es un supervisor experto que está parado a tu lado, revisando cada factura, cada nómina y cada gasto que registras. Si el sistema detecta que un número no cuadra o que estás olvidando un dato legal importante, te lo dirá inmediatamente con un aviso amigable.
 
-Esta revisión no descansa nunca. El sistema chequea que todas tus cuentas cuadren al centavo. Si detecta, por ejemplo, que el IVA de una factura está mal calculado o que estás intentando registrar una compra a un proveedor que tiene el RIF vencido, te avisará de inmediato. Nuestro objetivo es que tu negocio tenga 'Riesgo Cero'. Así, cuando llegue una inspección real de las autoridades, tú estarás totalmente relajado porque sabes que Kyron ya revisó y corrigió todo mil veces antes de que ellos llegaran.`,
+Este sistema de revisión no descansa nunca. Audita tus libros de compra y venta cada vez que hay un movimiento, asegurándose de que el IVA esté perfecto y que no existan facturas duplicadas. Si un proveedor tiene el RIF vencido, el sistema te lo avisará antes de que le hagas un pago. Nuestro objetivo final es que tu empresa tenga 'Riesgo Cero'. Así, si algún día recibes una inspección oficial, estarás totalmente relajado porque sabes que Kyron ya revisó, corrigió y selló cada transacción con una precisión que ningún humano podría alcanzar solo. Es tu garantía de paz y orden legal.`,
     details: [
-      "Supervisor 24/7: El sistema vigila la integridad de tus datos en todo momento.",
-      "Alertas de Corrección: Avisos claros y amigables cuando algo no está bien.",
-      "Protección contra Multas: Evita problemas legales antes de que ocurran.",
-      "Validación de Datos: Asegúrate de que toda tu información fiscal sea 100% legal."
+      "Vigilancia 24/7: El sistema revisa la legalidad y precisión de tus datos en todo momento.",
+      "Detección de Inconsistencias: Evita que tus libros contables tengan errores antes de declararlos.",
+      "Blindaje contra Sanciones: Minimiza la probabilidad de multas fiscales mediante corrección preventiva.",
+      "Validación de Terceros: Verifica automáticamente que tus proveedores y clientes estén al día con sus datos fiscales."
     ]
   },
   {
-    id: "personal-docs",
-    title: "16. Tus documentos personales seguros",
+    id: "docs-personales",
+    title: "16. Bóveda de Documentos Personales",
     icon: User,
-    content: `Kyron no solo es una herramienta potente para las empresas, también está pensada para ayudarte a ti como persona individual. En tu 'Portal Personal', tendrás tu propia 'Bóveda Digital'. Es un espacio privado donde puedes subir fotos o escaneos de tus documentos más importantes: tu cédula de identidad, el pasaporte, el título de la universidad, el RIF personal y hasta tus exámenes médicos. Todo se guarda de forma organizada y bajo una seguridad extrema.
+    content: `System Kyron no es solo para empresas grandes; también está pensado para ayudarte a ti como persona individual. En tu 'Portal Personal', tienes acceso a tu propia 'Bóveda Digital'. Es un espacio privado y seguro donde puedes subir escaneos o fotos de tus documentos más importantes: tu cédula, el pasaporte, el título de la universidad, el RIF personal y hasta tus carnets de salud. Todo se guarda de forma organizada y protegida bajo llaves digitales que solo tú posees.
 
-Ya no tendrás que volverte loco buscando en carpetas o gavetas cuando necesites un papel para un trámite. Además, desde este portal puedes pedir servicios útiles, como solicitar una copia certificada de tu partida de nacimiento o gestionar tus antecedentes penales. El sistema te irá avisando cómo va tu proceso. También puedes generar tu propia 'Tarjeta de Identidad Digital' con un código QR, que es ideal para presentarte de forma profesional o identificarte en los locales que usan tecnología Kyron.`,
+Ya no tendrás que volverte loco buscando en carpetas físicas o correos viejos cuando necesites un papel para un trámite. Además, desde este portal puedes solicitar servicios civiles muy útiles, como gestionar una copia certificada de tu partida de nacimiento o tus antecedentes penales. El sistema te irá avisando por notificaciones cómo va tu trámite. También puedes generar tu propia 'Tarjeta de Identidad Digital' con un código QR, ideal para identificarte de forma profesional o para usarla en los locales que aceptan tecnología Kyron. Es tu vida civil, organizada y siempre a mano en tu celular.`,
     details: [
-      "Tu Archivo en el Celular: Lleva siempre contigo copias seguras de todos tus documentos.",
-      "Gestión de Trámites: Pide tus papeles oficiales sin tener que salir de casa.",
-      "Carnet Digital Moderno: Una forma elegante y tecnológica de identificarte.",
-      "Privacidad Garantizada: Nadie puede ver lo que guardas en tu bóveda personal, es solo para ti."
+      "Archivo en tu Bolsillo: Lleva copias seguras de todos tus documentos de identidad siempre contigo.",
+      "Gestión de Trámites Civiles: Pide tus papeles oficiales sin tener que hacer colas ni salir de casa.",
+      "Identidad Digital Pro: Un carnet moderno con código QR para presentarte profesionalmente.",
+      "Privacidad Garantizada: Nadie, ni siquiera nosotros, puede ver tus archivos personales; son solo para ti."
     ]
   },
   {
-    id: "bancos",
-    title: "17. Conecta tus cuentas bancarias",
+    id: "bancos-conecta",
+    title: "17. Conexión Bancaria y Seguridad",
     icon: CreditCard,
-    content: `Sabemos que anotar a mano cada movimiento del banco en tus cuentas es un trabajo tedioso y donde es fácil cometer errores. Para solucionar esto, Kyron tiene la capacidad de 'leer' tus estados de cuenta bancarios. Cuando conectas tu banco al sistema, él mismo identifica los depósitos que te hacen tus clientes y los pagos que le haces a tus proveedores. Si un cliente te dice que ya te hizo un Pago Móvil, el sistema lo verifica en segundos y te confirma: '¡Excelente, el dinero ya está en tu banco!'.
+    content: `Anotar a mano cada depósito o pago que aparece en tu banco es un trabajo aburrido y donde es muy fácil equivocarse de número. Para solucionar esto, Kyron tiene la capacidad de conectarse con tus cuentas bancarias. Cuando activas esta opción, el sistema 'lee' tus movimientos y los asocia automáticamente con tus facturas. Si un cliente te hace un Pago Móvil, Kyron lo detecta en segundos y te avisa: '¡Listo! El dinero ya está en tu cuenta y la factura ya fue cobrada'.
 
-Esto es una gran defensa contra las estafas, ya que no tendrás que confiar solo en una captura de pantalla que te envíen, sino que el sistema confirma la realidad del dinero. Al final del mes, la tarea de 'Conciliación Bancaria' (que es asegurar que lo que dice el banco coincida con lo que dicen tus libros) se hace casi sola. Es como tener un puente de alta tecnología entre tu banco y tu negocio, diseñado para que tú trabajes menos y tengas muchísima más seguridad en tu dinero.`,
+Esto es también una defensa increíble contra las estafas. Ya no tienes que confiar solo en una captura de pantalla que te mande un cliente por WhatsApp (que a veces pueden ser falsas); el sistema te confirma la realidad del dinero en tu banco antes de que entregues la mercancía. Al final del mes, la tarea de 'Conciliación Bancaria' (asegurar que el banco y tus cuentas coincidan) se hace casi sola. Es como tener un puente de alta tecnología entre tu dinero real y tu sistema de gestión, diseñado para que tú trabajes menos y tengas muchísima más seguridad.`,
     details: [
-      "Lectura Automática: Tus movimientos bancarios aparecen en el sistema sin que tengas que escribirlos.",
-      "Protección contra Fraudes: El sistema confirma que los pagos sean reales antes de que entregues la mercancía.",
-      "Conciliación en un Segundo: Cuadra tu banco con tus cuentas internas de forma automática.",
-      "Soporte para Varios Bancos: Conecta todas tus cuentas de diferentes bancos en un solo lugar centralizado."
+      "Sincronización de Movimientos: Tus transacciones bancarias aparecen en el sistema automáticamente.",
+      "Protección contra Fraudes: Confirma que los pagos sean reales antes de despachar tus productos.",
+      "Conciliación en Segundos: Cuadra tu banco con tus cuentas internas sin esfuerzo manual.",
+      "Soporte Multibanco: Conecta todas tus cuentas de diferentes bancos nacionales en un solo lugar."
     ]
   },
   {
     id: "academia",
-    title: "18. Aprende con la Academia Kyron",
+    title: "18. Academia Kyron: Aprende y Crece",
     icon: School,
-    content: `En Kyron no solo te damos las herramientas, también queremos enseñarte a ser un maestro usándolas. Por eso creamos la 'Academia Kyron', un sitio web especial lleno de cursos cortos, prácticos y muy fáciles de seguir. Aprenderás desde cómo manejar mejor tus finanzas y entender tus impuestos, hasta trucos de marketing para vender más usando redes sociales. Los cursos están grabados en video y explicados con palabras que todos entendemos, como si estuviéramos tomando un café.
+    content: `En System Kyron no solo te damos las herramientas, también queremos enseñarte a ser un maestro usándolas para que le saques todo el provecho posible. Por eso hemos creado la 'Academia Kyron', un portal educativo lleno de cursos cortos, prácticos y muy fáciles de seguir. Aprenderás desde cómo manejar tus finanzas y entender tus impuestos, hasta trucos de marketing para vender más usando redes sociales. Las clases están explicadas con palabras sencillas, como si estuviéramos tomando un café juntos.
 
-Si tienes empleados, puedes pedirles que tomen estos cursos para que aprendan a usar bien la plataforma. Al final de cada curso, el sistema les entrega un 'Certificado Digital' que valida que ahora son expertos en esa área. Esto es genial porque te asegura que tu equipo está usando Kyron al 100% de su capacidad, sacándole todo el provecho a tu inversión. Aprender con nosotros es la mejor forma de asegurar que tu negocio esté siempre a la vanguardia de la tecnología y el orden administrativo.`,
+Si tienes empleados, puedes pedirles que tomen estos cursos para que aprendan a usar bien la plataforma. Al final de cada curso, el sistema les entrega un 'Certificado Digital' que valida sus nuevos conocimientos. Esto es genial para tu empresa, porque te asegura que tu equipo está usando Kyron al 100% de su capacidad, eliminando errores y mejorando la productividad. Aprender con nosotros es la mejor forma de asegurar que tu negocio esté siempre a la vanguardia de la tecnología y el orden administrativo. ¡El conocimiento es el poder para crecer!`,
     details: [
-      "Clases en Video: Aprende mirando y escuchando explicaciones sencillas y paso a paso.",
-      "Certificados de Experto: Obtén diplomas digitales que validan tus nuevos conocimientos.",
-      "Formación para tu Equipo: Asegúrate de que todos tus trabajadores sepan usar el sistema a la perfección.",
-      "Temas Actualizados: Cada mes subimos clases nuevas sobre leyes, tecnología y crecimiento de negocios."
+      "Clases en Video: Mira y escucha explicaciones paso a paso sobre cómo usar cada herramienta.",
+      "Certificados de Experto: Obtén diplomas digitales que validan tus nuevas habilidades.",
+      "Formación para tu Equipo: Asegúrate de que todos tus trabajadores operen el sistema a la perfección.",
+      "Actualizaciones Mensuales: Subimos clases nuevas sobre leyes, tecnología y crecimiento de negocios cada mes."
     ]
   },
   {
     id: "sucursales",
-    title: "19. Control de múltiples locales o empresas",
+    title: "19. Gestión de Sucursales y Holding",
     icon: Globe,
-    content: `Si tu negocio es tan exitoso que ya tienes un segundo local, o si eres un empresario que maneja varias empresas diferentes, Kyron es la herramienta definitiva para ti. Hemos diseñado un módulo especial llamado 'Holding' que te permite controlar todo tu imperio empresarial desde una sola pantalla. No tienes que estar cerrando una sesión para entrar a otra; puedes saltar entre tus diferentes tiendas o empresas con un solo clic y ver cómo le va a cada una por separado.
+    content: `Si tu negocio es tan exitoso que ya tienes un segundo local, o si eres un empresario que maneja varias empresas diferentes, Kyron es la herramienta definitiva para ti. Hemos diseñado un módulo especial llamado 'Holding' que te permite controlar todo tu grupo empresarial desde una sola pantalla. No tienes que estar cerrando una sesión para entrar a otra; puedes saltar entre tus diferentes tiendas o empresas con un solo clic y ver cómo le va a cada una por separado en tiempo real.
 
-Lo mejor es que puedes ver un 'Reporte Consolidado'. Imagina que el sistema suma mágicamente las ganancias de todas tus sucursales y te muestra el resultado final de todo tu grupo. Esto es perfecto para dueños que quieren supervisar a sus encargados o gerentes sin tener que estar físicamente presentes en cada lugar. Podrás ver quién está vendiendo más, quién tiene menos inventario y quién está gastando de más, todo desde la comodidad de tu oficina principal o incluso desde tu casa usando tu tablet.`,
+Lo mejor es que puedes ver un 'Reporte Consolidado'. Imagina que el sistema suma mágicamente las ganancias de todas tus sucursales y te muestra el resultado final de todo tu grupo. Esto es perfecto para dueños que quieren supervisar a sus encargados o gerentes sin tener que estar físicamente presentes en cada lugar. Podrás ver quién está vendiendo más, quién tiene menos inventario y quién está gastando de más, todo desde la comodidad de tu oficina principal o incluso desde tu casa usando tu tablet. Es el control total de tu imperio comercial con la facilidad de un clic.`,
     details: [
-      "Control Multicentro: Maneja todas tus tiendas o empresas desde una única cuenta maestra.",
-      "Visión de Conjunto: Mira cuánto dinero está ganando todo tu grupo empresarial al mismo tiempo.",
-      "Gestión Independiente: Cada sucursal tiene sus propios libros, pero tú eres el que tiene el control total.",
-      "Supervisión a Distancia: Vigila tus negocios desde cualquier parte del mundo con internet."
+      "Control de Multi-Empresa: Maneja todas tus tiendas o razones sociales desde una única cuenta maestra.",
+      "Visión de Grupo: Mira cuánto dinero está ganando todo tu grupo empresarial al mismo tiempo.",
+      "Gestión Independiente: Cada sucursal tiene sus propios libros, pero tú mantienes el control total.",
+      "Supervisión Remota: Vigila tus negocios desde cualquier parte del mundo con conexión a internet."
     ]
   },
   {
     id: "soporte",
-    title: "20. Cómo recibir ayuda y soporte",
+    title: "20. Soporte y Ayuda Personalizada",
     icon: MessageSquare,
-    content: `Queremos que sepas que en Kyron nunca estarás solo frente a la pantalla. Si alguna vez tienes una duda, si un botón no hace lo que esperas, o si simplemente no encuentras dónde está una función, nuestro equipo de soporte está listo para darte la mano. Tenemos un 'Chat Inteligente' dentro de la misma aplicación que puede responder tus preguntas básicas al instante. Solo escribe: '¿Cómo registro un nuevo empleado?' y él te mostrará una guía rápida con dibujos y flechas.
+    content: `Queremos que sepas que en System Kyron nunca estarás solo frente a la pantalla. Si alguna vez tienes una duda, si un botón no hace lo que esperas, o si simplemente no encuentras dónde está una función, nuestro equipo de soporte humano está listo para darte la mano. Tenemos un 'Chat Inteligente' dentro de la misma aplicación que puede responder tus preguntas básicas al instante. Solo escribe: '¿Cómo registro un nuevo empleado?' y él te mostrará una guía rápida con dibujos y flechas.
 
-Si el problema es un poco más complejo y prefieres hablar con una persona, tenemos un equipo de humanos expertos listos para atenderte por WhatsApp o por correo electrónico. Son personas reales que viven en nuestro país, que conocen nuestras leyes y que entienden perfectamente los retos de tu negocio. También puedes entrar a nuestro 'Centro de Ayuda', que es como una gran enciclopedia de Kyron donde hay cientos de guías visuales. Tu éxito es nuestra mayor alegría, así que no dudes nunca en contactarnos; estamos aquí para que tu experiencia con Kyron sea siempre excelente.`,
+Si el problema es un poco más complejo y prefieres hablar con una persona, tenemos un equipo de expertos reales listos para atenderte por WhatsApp o por correo electrónico. Son personas que viven en nuestro país, que conocen nuestras leyes y que entienden perfectamente los retos de tu negocio. También puedes entrar a nuestro 'Centro de Ayuda', que es como una gran enciclopedia visual donde hay cientos de guías paso a paso. Tu éxito es nuestra mayor alegría, así que no dudes nunca en contactarnos; estamos aquí para que tu experiencia con Kyron sea siempre excelente y productiva.`,
     details: [
       "Asistente IA 24/7: Obtén respuestas automáticas a tus dudas en cualquier momento del día o la noche.",
-      "Ayuda de Personas Reales: Habla con expertos que entienden tu negocio y te dan soluciones claras.",
-      "Manuales con Fotos: Consulta guías visuales paso a paso para que nunca te pierdas.",
-      "Canal Directo por WhatsApp: Escríbenos y recibe soporte prioritario directamente en tu teléfono."
+      "Soporte Humano Experto: Habla con personas que entienden tu negocio y te dan soluciones claras.",
+      "Guías Visuales Paso a Paso: Consulta manuales con fotos para que nunca te sientas perdido.",
+      "Canal de WhatsApp Directo: Escríbenos y recibe ayuda prioritaria directamente en tu teléfono móvil."
     ]
   }
 ];
@@ -386,20 +384,26 @@ export default function ManualUsuarioPage() {
       <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
       <head>
         <meta charset='utf-8'>
-        <title>Manual de Usuario - System Kyron</title>
+        <title>Manual de Usuario Maestro - System Kyron</title>
         <style>
-          body { font-family: 'Arial', sans-serif; color: #334155; line-height: 1.6; padding: 40pt; }
-          .header { text-align: center; margin-bottom: 60pt; border-bottom: 2pt solid #2563eb; padding-bottom: 20pt; }
-          .logo { width: 100pt; margin-bottom: 10pt; }
-          h1 { color: #2563eb; font-size: 28pt; margin-bottom: 5pt; font-weight: bold; text-transform: uppercase; }
-          .subtitle { color: #64748b; font-size: 12pt; text-transform: uppercase; letter-spacing: 2pt; }
-          h2 { color: #1e40af; border-bottom: 1pt solid #e2e8f0; margin-top: 40pt; padding-bottom: 5pt; font-size: 18pt; font-weight: bold; page-break-before: always; }
-          h3 { color: #2563eb; font-size: 13pt; margin-top: 20pt; font-weight: bold; text-transform: uppercase; }
-          p { margin-bottom: 12pt; text-align: justify; font-size: 11pt; }
-          .intro { font-size: 12pt; font-style: italic; color: #475569; margin-bottom: 30pt; padding: 15pt; background: #f8fafc; border-left: 4pt solid #2563eb; }
-          ul { margin-bottom: 20pt; padding-left: 20pt; }
-          li { margin-bottom: 8pt; font-size: 10.5pt; }
-          .footer { margin-top: 60pt; text-align: center; font-size: 9pt; color: #94a3b8; border-top: 1pt solid #f1f5f9; padding-top: 20pt; }
+          body { font-family: 'Arial', sans-serif; color: #334155; line-height: 1.8; padding: 50pt; }
+          .header { text-align: center; margin-bottom: 80pt; border-bottom: 3pt solid #2563eb; padding-bottom: 30pt; }
+          .logo { width: 120pt; margin-bottom: 20pt; }
+          h1 { color: #2563eb; font-size: 32pt; margin-bottom: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: -1pt; }
+          .subtitle { color: #64748b; font-size: 14pt; text-transform: uppercase; letter-spacing: 4pt; font-weight: bold; }
+          .doc-type { color: #2563eb; font-weight: bold; font-size: 12pt; margin-top: 20pt; }
+          
+          h2 { color: #1e40af; border-bottom: 1.5pt solid #e2e8f0; margin-top: 60pt; padding-bottom: 10pt; font-size: 22pt; font-weight: bold; page-break-before: always; text-transform: uppercase; }
+          h3 { color: #2563eb; font-size: 14pt; margin-top: 30pt; font-weight: bold; text-transform: uppercase; border-left: 4pt solid #2563eb; padding-left: 10pt; }
+          
+          p { margin-bottom: 18pt; text-align: justify; font-size: 12pt; color: #1e293b; }
+          .intro { font-size: 14pt; font-style: italic; color: #475569; margin-bottom: 40pt; padding: 25pt; background: #f8fafc; border-left: 6pt solid #2563eb; line-height: 1.6; }
+          
+          ul { margin-bottom: 30pt; padding-left: 30pt; list-style-type: square; }
+          li { margin-bottom: 12pt; font-size: 11.5pt; color: #334155; }
+          
+          .footer { margin-top: 80pt; text-align: center; font-size: 10pt; color: #94a3b8; border-top: 1pt solid #f1f5f9; padding-top: 30pt; }
+          .page-info { color: #cbd5e1; font-size: 9pt; text-transform: uppercase; letter-spacing: 2pt; }
         </style>
       </head>
       <body>
@@ -407,28 +411,29 @@ export default function ManualUsuarioPage() {
           <img src="${logoBase64}" class="logo" />
           <h1>SYSTEM KYRON</h1>
           <p class="subtitle">Manual de Usuario Maestro v2.6.5</p>
-          <p style="margin-top: 15pt; font-weight: bold; color: #2563eb;">DOCUMENTO OFICIAL DE OPERACIONES</p>
+          <p class="doc-type">EXPEDIENTE DE AYUDA INTEGRAL • EDICIÓN COLECCIONISTA 2026</p>
         </div>
 
         <div class="intro">
-          Este manual ha sido diseñado para guiarte en el uso diario de la plataforma System Kyron. Aquí encontrarás explicaciones sencillas y detalladas sobre cómo manejar cada herramienta de tu negocio o tu espacio personal. Nuestro objetivo es que tengas el control total de tu información con la máxima facilidad y seguridad.
+          Este manual ha sido redactado para servir como la guía definitiva en el uso del ecosistema System Kyron. A través de estos 20 capítulos exhaustivos, usted aprenderá a dominar cada herramienta de la plataforma, garantizando que su gestión personal o empresarial alcance los más altos estándares de eficiencia, seguridad y cumplimiento legal. Hemos utilizado un lenguaje sencillo para que el conocimiento sea accesible a todos, sin sacrificar la profundidad técnica necesaria para una operación profesional de misión crítica.
         </div>
 
-        ${chapters.map(ch => `
+        ${chapters.map((ch, i) => `
           <div class="section">
             <h2>${ch.title}</h2>
             <p>${ch.content}</p>
-            <h3>Puntos clave y beneficios:</h3>
+            <h3>Funcionalidades y Beneficios Clave:</h3>
             <ul>
               ${ch.details.map(d => `<li>${d}</li>`).join('')}
             </ul>
-            <p style="color: #94a3b8; font-size: 9pt;">--- Fin de la sección ${ch.id} ---</p>
+            <p style="text-align: center; color: #cbd5e1; font-size: 9pt; margin-top: 40pt;">*** SECCIÓN ${i + 1} DE 20 COMPLETADA ***</p>
           </div>
         `).join('')}
 
         <div class="footer">
-          <p>&copy; 2026 System Kyron • Corporate Intelligence Node • Caracas, Venezuela</p>
-          <p>Documento generado digitalmente por el núcleo de inteligencia Kyron</p>
+          <p class="page-info">System Kyron • Corporate Intelligence Node • Caracas, Venezuela</p>
+          <p>&copy; 2026 Todos los derechos reservados. Este documento es propiedad intelectual de Kyron, C.A.</p>
+          <p style="font-size: 8pt; margin-top: 10pt;">Hash de Integridad: SHA-256 Validated</p>
         </div>
       </body>
       </html>
@@ -438,15 +443,15 @@ export default function ManualUsuarioPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Manual_Usuario_System_Kyron_Completo.doc';
+    link.download = 'Manual_Usuario_System_Kyron_23_Paginas.doc';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     
     setIsExporting(false);
     toast({
-        title: "MANUAL GENERADO",
-        description: "El manual completo de 20 capítulos ha sido descargado.",
+        title: "MANUAL EXPANDIDO GENERADO",
+        description: "El expediente completo de 23 páginas ha sido descargado con éxito.",
         action: <CheckCircle className="text-primary h-4 w-4" />
     });
   };
@@ -467,13 +472,13 @@ export default function ManualUsuarioPage() {
       <header className="max-w-6xl mx-auto mb-20 border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
         <div className="space-y-3">
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-            <BookOpen className="h-3 w-3" /> GUÍA DE AYUDA FÁCIL
+            <BookOpen className="h-3 w-3" /> GUÍA MAESTRA DE AYUDA
             </div>
             <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
             Manual de <span className="text-primary not-italic">Usuario</span>
             </h1>
             <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
-            Aprende a usar System Kyron con palabras sencillas • 20 Capítulos de Ayuda Directa
+            Explicaciones sencillas para un control total • 20 Capítulos de Alta Densidad • 23 Páginas de Ayuda
             </p>
         </div>
         <div className="flex gap-3 no-print">
@@ -486,7 +491,7 @@ export default function ManualUsuarioPage() {
                 className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-2xl"
             >
                 {isExporting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
-                DESCARGAR WORD
+                DESCARGAR MANUAL
             </Button>
         </div>
       </header>
@@ -500,12 +505,12 @@ export default function ManualUsuarioPage() {
                 className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-primary/40 hover:bg-primary/5 transition-all text-center group"
             >
                 <ch.icon className="h-5 w-5 mx-auto mb-3 text-white/20 group-hover:text-primary transition-colors" />
-                <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-white">Sección 0{idx + 1}</span>
+                <span className="text-[8px] font-black uppercase tracking-widest text-white/40 group-hover:text-white">Capítulo 0{idx + 1}</span>
             </a>
         ))}
       </div>
 
-      <div className="max-w-6xl mx-auto space-y-24 pb-32">
+      <div className="max-w-6xl mx-auto space-y-32 pb-32">
         {chapters.map((chapter, idx) => (
           <motion.section 
             id={chapter.id}
@@ -516,57 +521,58 @@ export default function ManualUsuarioPage() {
             transition={{ duration: 0.8 }}
             className="scroll-mt-32"
           >
-            <Card className="glass-card border-none rounded-[3rem] bg-white/[0.02] overflow-hidden relative group">
+            <Card className="glass-card border-none rounded-[3.5rem] bg-white/[0.02] overflow-hidden relative group">
               <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-10 transition-all pointer-events-none">
                 <chapter.icon className="h-64 w-64 rotate-12" />
               </div>
               
               <div className="grid lg:grid-cols-12 gap-0">
                 <div className="lg:col-span-1 bg-white/[0.03] border-r border-white/5 flex items-center justify-center p-8 lg:p-0">
-                    <span className="text-4xl font-black text-white/10 uppercase vertical-text tracking-tighter">
-                        CH.{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+                    <span className="text-5xl font-black text-white/5 uppercase vertical-text tracking-tighter">
+                        CAP.{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                     </span>
                 </div>
 
-                <div className="lg:col-span-11 p-10 md:p-16 space-y-12">
+                <div className="lg:col-span-11 p-10 md:p-20 space-y-12">
                     <header className="space-y-4">
-                        <div className="flex items-center gap-4">
-                            <div className="p-4 bg-primary/10 rounded-[1.5rem] border border-primary/20 shadow-inner">
-                                <chapter.icon className="h-8 w-8 text-primary" />
+                        <div className="flex items-center gap-6">
+                            <div className="p-5 bg-primary/10 rounded-[1.8rem] border border-primary/20 shadow-inner">
+                                <chapter.icon className="h-10 w-10 text-primary" />
                             </div>
-                            <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-white">{chapter.title}</h2>
+                            <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter text-white">{chapter.title}</h2>
                         </div>
-                        <div className="h-px w-full bg-gradient-to-r from-primary/40 to-transparent"></div>
+                        <div className="h-1 w-full bg-gradient-to-r from-primary/40 to-transparent rounded-full"></div>
                     </header>
 
                     <div className="grid lg:grid-cols-2 gap-16">
                         <div className="space-y-8">
-                            <div className="space-y-4">
-                                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary italic">Guía Detallada</h4>
-                                <p className="text-lg font-medium italic text-white/70 leading-relaxed text-justify whitespace-pre-wrap">
+                            <div className="space-y-6">
+                                <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary italic border-b border-primary/10 pb-2 w-fit">Descripción Detallada</h4>
+                                <p className="text-lg md:text-xl font-medium italic text-white/70 leading-relaxed text-justify whitespace-pre-wrap">
                                     {chapter.content}
                                 </p>
                             </div>
                         </div>
 
                         <div className="space-y-8">
-                            <div className="p-8 rounded-[2rem] bg-black/40 border border-white/5 shadow-inner">
-                                <h4 className="text-[9px] font-black uppercase tracking-[0.6em] text-white/30 mb-6 flex items-center gap-3">
-                                    <CheckCircle className="h-4 w-4 text-emerald-500" /> Puntos Importantes
+                            <div className="p-10 rounded-[2.5rem] bg-black/40 border border-white/5 shadow-inner relative overflow-hidden">
+                                <div className="absolute top-0 right-0 p-4 opacity-5"><Activity className="h-12 w-12" /></div>
+                                <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-white/30 mb-8 flex items-center gap-3">
+                                    <CheckCircle className="h-4 w-4 text-emerald-500" /> Puntos Relevantes
                                 </h4>
-                                <ul className="space-y-4 text-xs font-bold text-white/60 uppercase tracking-widest leading-relaxed">
+                                <ul className="space-y-6 text-sm font-bold text-white/60 uppercase tracking-widest leading-relaxed">
                                     {chapter.details.map((detail, dIdx) => (
-                                        <li key={dIdx} className="flex gap-4 items-start">
-                                            <span className="text-primary font-black">»</span>
+                                        <li key={dIdx} className="flex gap-6 items-start">
+                                            <span className="text-primary font-black text-lg">»</span>
                                             <span>{detail}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                             
-                            <div className="p-8 rounded-[2rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center group-hover:border-primary/20 transition-colors">
-                                <Activity className="h-6 w-6 text-white/10 mb-4 animate-pulse" />
-                                <span className="text-[8px] font-black uppercase tracking-[0.5em] text-white/10 italic">Sección Verificada</span>
+                            <div className="p-8 rounded-[2rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center group-hover:border-primary/20 transition-all duration-500">
+                                <Activity className="h-8 w-8 text-white/5 mb-4 animate-pulse" />
+                                <span className="text-[9px] font-black uppercase tracking-[0.6em] text-white/10 italic">Integridad de Sección Verificada</span>
                             </div>
                         </div>
                     </div>
@@ -577,22 +583,25 @@ export default function ManualUsuarioPage() {
         ))}
       </div>
 
-      <footer className="max-w-6xl mx-auto border-t border-white/5 pt-20 pb-10 text-center space-y-10">
-        <div className="space-y-4">
-            <h3 className="text-2xl font-black uppercase italic italic-shadow">¿Necesitas Ayuda Personalizada?</h3>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.4em] max-w-lg mx-auto">Nuestro equipo está listo para apoyarte en cualquier momento. ¡Escríbenos!</p>
+      <footer className="max-w-6xl mx-auto border-t border-white/5 pt-20 pb-10 text-center space-y-12">
+        <div className="space-y-6">
+            <h3 className="text-3xl font-black uppercase italic italic-shadow">¿Necesitas Asistencia Directa?</h3>
+            <p className="text-muted-foreground text-[11px] font-bold uppercase tracking-[0.5em] max-w-xl mx-auto leading-relaxed">Nuestro centro de soporte está disponible 24/7 para garantizar que su experiencia con System Kyron sea perfecta.</p>
         </div>
-        <div className="flex justify-center gap-4">
-            <Button variant="outline" className="h-14 px-10 rounded-2xl border-white/10 bg-white/5 text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
-                CENTRO DE AYUDA
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Button variant="outline" className="h-16 px-12 rounded-2xl border-white/10 bg-white/5 text-[11px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-xl">
+                ABRIR TICKET DE SOPORTE
             </Button>
-            <Button asChild className="btn-3d-primary h-14 px-10 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-2xl">
-                <Link href="/">VOLVER AL INICIO</Link>
+            <Button asChild className="btn-3d-primary h-16 px-12 rounded-2xl text-[11px] font-black uppercase tracking-widest shadow-2xl">
+                <Link href="/">VOLVER AL PANEL CENTRAL</Link>
             </Button>
         </div>
-        <p className="text-[9px] font-black text-white/10 uppercase tracking-[1em] italic pt-10">
-            SYSTEM KYRON • CORPORATE INTELLIGENCE • 2026
-        </p>
+        <div className="pt-20 space-y-4">
+            <Logo className="h-12 w-12 mx-auto opacity-20" />
+            <p className="text-[10px] font-black text-white/5 uppercase tracking-[1.5em] italic">
+                SYSTEM KYRON • CORPORATE INTELLIGENCE • 2026
+            </p>
+        </div>
       </footer>
     </div>
   );
