@@ -35,7 +35,9 @@ import {
   School,
   Download,
   Printer,
-  ChevronLeft
+  ChevronLeft,
+  Loader2,
+  CheckCircle
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -277,7 +279,6 @@ export default function ManualUsuarioPage() {
   const handleDownloadWord = async () => {
     setIsExporting(true);
     
-    // Capturar el SVG del logo para integrarlo como imagen en el Word
     let logoBase64 = "";
     if (logoRef.current) {
         const svgElement = logoRef.current.querySelector("svg");
@@ -296,7 +297,8 @@ export default function ManualUsuarioPage() {
             await new Promise((resolve) => {
                 img.onload = () => {
                     if (ctx) {
-                        ctx.clearRect(0, 0, 400, 400);
+                        ctx.fillStyle = "white";
+                        ctx.fillRect(0, 0, 400, 400);
                         ctx.drawImage(img, 0, 0, 400, 400);
                     }
                     URL.revokeObjectURL(url);
