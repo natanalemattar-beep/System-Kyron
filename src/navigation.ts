@@ -53,7 +53,7 @@ export const pathnames = {
   '/estudio-factibilidad-economica': '/factibilidad-economica',
   '/estudio-poblacion': '/analisis-demografico',
   '/sector-privado-system-kyron': '/dossier-corporativo',
-  '/manual-usuario': '/guia-ayuda',
+  '/manual-usuario': '/manual-usuario',
   '/identidad-marca': '/identidad-marca',
   '/mercado-ecocreditos': '/canje-puntos',
   '/generador-documentos': '/crear-contratos',
