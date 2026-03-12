@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Link } from "@/navigation";
@@ -44,7 +43,7 @@ export function Footer() {
                         <Logo className="h-12 w-12 drop-shadow-glow" />
                         <div className="flex flex-col">
                             <span className="text-2xl font-black uppercase italic tracking-tighter text-white leading-none">System Kyron</span>
-                            <span className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-2 opacity-60 italic">Eficiencia Sin Fronteras • Finanzas del Futuro</span>
+                            <span className="text-[8px] font-bold text-primary uppercase tracking-[0.4em] mt-2 opacity-60 italic">Telecom, Reciclaje y Control Total</span>
                         </div>
                     </div>
                     <p className="text-xs font-bold uppercase tracking-widest text-white/40 leading-relaxed max-w-sm">

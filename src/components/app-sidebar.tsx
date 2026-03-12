@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Link, usePathname } from "@/navigation";
@@ -65,7 +64,7 @@ export function AppSidebar() {
           <Logo className="h-14 w-14 drop-shadow-[0_0_20px_rgba(37,99,235,0.4)]" />
           <div className="text-center">
             <span className="text-[11px] font-black tracking-[0.5em] text-white uppercase italic italic-shadow">System Kyron</span>
-            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-60 italic">Gestión Integral v2.6</p>
+            <p className="text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-3 opacity-60 italic">Telecom, Reciclaje y Control Total</p>
           </div>
         </Link>
       </div>

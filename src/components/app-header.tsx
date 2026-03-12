@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -68,7 +67,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
                 <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
                 <div className="flex flex-col -mt-1">
                     <span className="text-xs font-black tracking-[0.4em] uppercase text-white italic italic-shadow leading-none">System Kyron</span>
-                    <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-60">Control Center 2.6</p>
+                    <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-60">Telecom, Reciclaje y Control Total</p>
                 </div>
             </Link>
           </div>
