@@ -1,148 +1,165 @@
-/**
- * Core Philosophy: This ruleset enforces a strict user-ownership model. All user-generated
- * data, including financial documents, transactions, and invoices, is stored within a
- * private data tree specific to that user. Access is granted only to the authenticated
- * owner of that data tree.
- *
- * Data Structure: All data is hierarchically nested under the /users/{userId} path. This
- * path-based ownership is the cornerstone of the security model, making authorization
- * checks simple, performant, and independent of other data lookups.
- * - /users/{userId} - The user's own profile document.
- * - /users/{userId}/financialDocuments/{docId} - Financial documents owned by the user.
- * - /users/{userId}/invoices/{invoiceId} - Invoices owned by the user.
- *
- * Key Security Decisions:
- * - User Isolation: Users can only access documents where the {userId} in the path matches
- *   their own authentication UID. They cannot see, list, or modify data belonging to any
- *   other user.
- * - No User Listing: It is not possible to list all documents in the top-level /users
- *   collection, protecting user privacy.
- * - Relational Integrity: On document creation, the rules enforce that internal ID fields
- *   (like `userId`) correctly match the IDs in the document path. These fields are then
- *   enforced as immutable to prevent re-associating data with a different owner.
- * - No `get()` for Authorization: The path-based structure avoids the need for cross-document
- *   `get()` calls for authorization, leading to faster and more scalable rules. An `exists()`
- *   call is used only for data integrity to prevent orphaned transaction documents.
- */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper functions to promote readable, secure, and maintainable rules.
-
     /**
-     * isSignedIn
-     * @description Checks if the user is authenticated.
+     * FINTRACK AUTOMATION SECURITY RULES
+     * 
+     * Core Philosophy: 
+     * This ruleset implements a dual-layer security model. Individual user profiles are protected 
+     * by a strict ownership model, while organizational data follows a collaborative, role-based 
+     * shared access model. 
+     * 
+     * Data Structure:
+     * - /users/{userId}: Private user profile data.
+     * - /organizations/{organizationId}: Root for collaborative financial data.
+     * - Subcollections (customers, invoices, etc.): Nested under organizations for logical grouping.
+     * 
+     * Key Security Decisions:
+     * 1. Authorization Independence: Subcollection documents denormalize the organization's member list 
+     *    to allow for faster authorization on single-document reads and writes.
+     * 2. Strict Relational Integrity: On creation, documents must include IDs that match their 
+     *    Firestore path to prevent data or ownership hijacking.
+     * 3. Lookup-Based Listing: To comply with strict query security, list operations on subcollections 
+     *    verify membership by looking up the parent organization document.
+     * 4. Prototyping Flexibility: While access control is strict, the schema (fields like name, email, 
+     *    balance) is not enforced to allow for rapid development.
      */
+
+    // --- GLOBAL HELPER FUNCTIONS ---
+
+    /** Checks if the request is from a signed-in user. */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /**
-     * isOwner
-     * @description Checks if the requesting user's UID matches the given userId.
-     * @param userId The user ID to check against the request's auth UID.
-     */
+    /** Checks if the user's UID matches the provided ID. */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    /**
-     * isExistingOwner
-     * @description Checks if a document exists and if the requester is the owner.
-     *              Crucial for safe update and delete operations.
-     * @param userId The user ID to check for ownership.
-     */
+    /** Checks for existence and ownership for destructive operations. */
     function isExistingOwner(userId) {
-      return isOwner(userId) && resource != null;
+      return resource != null && isOwner(userId);
     }
 
-    /**
-     * canCreateOwnDocument
-     * @description Validates that a user is creating a document for themselves,
-     *              enforcing that the internal userId matches the path.
-     * @param userId The user ID from the path.
-     */
-    function canCreateOwnDocument(userId) {
-      return isOwner(userId) && request.resource.data.userId == userId;
-    }
-    
-    /**
-     * isOwnerDataImmutable
-     * @description On update, ensures the internal userId field cannot be changed,
-     *              preventing documents from being reassigned to other users.
-     */
-    function isOwnerDataImmutable() {
-      return request.resource.data.userId == resource.data.userId;
+    /** Checks if the user is a member in an organization document's member map. */
+    function isOrgMember(orgData) {
+      return isSignedIn() && orgData.members[request.auth.uid] != null;
     }
 
+    /** Checks if the user is a member of an organization by looking up the parent document. */
+    function checkOrgAccess(orgId) {
+      return isOrgMember(get(/databases/$(database)/documents/organizations/$(orgId)).data);
+    }
+
+    /** Validates that a field in the incoming data matches a path parameter. */
+    function matchesPath(field, pathParam) {
+      return request.resource.data[field] == pathParam;
+    }
+
+    /** Enforces immutability of a field during updates. */
+    function isImmutable(field) {
+      return request.resource.data[field] == resource.data[field];
+    }
+
+    // --- COLLECTION RULES ---
+
     /**
-     * @description   User profile data. A user can create their own profile, and can only read,
-     *                update, or delete their own document. Listing all users is disabled.
-     * @path          /users/{userId}
-     * @allow         (create) An authenticated user with UID 'user_abc' creating their own profile at /users/user_abc.
-     * @deny          (list) Any user trying to get a list of all documents at /users.
-     * @principle     Restricts access to a user's own data tree and enforces self-creation.
+     * @description Rules for individual user profile documents.
+     * @path /users/{userId}
+     * @allow (create) if auth.uid matches userId and data.id matches userId.
+     * @deny (read) if auth.uid does not match userId.
+     * @principle Enforces path-based ownership and relational consistency for private data.
      */
     match /users/{userId} {
       allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && matchesPath('id', userId);
+      allow update: if isExistingOwner(userId) && isImmutable('id');
       allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Rules for the root Organization documents.
+     * @path /organizations/{organizationId}
+     * @allow (get) if user is in the members map.
+     * @deny (list) Top-level listing is restricted to prevent scanning all organizations.
+     * @principle Uses a denormalized member map for shared access control.
+     */
+    match /organizations/{organizationId} {
+      allow get: if isOrgMember(resource.data);
+      allow list: if false; // Users should not list all organizations; query specific Orgs instead.
+      allow create: if isSignedIn() && matchesPath('id', organizationId);
+      allow update: if isOrgMember(resource.data) && isImmutable('id');
+      allow delete: if isOrgMember(resource.data) && resource.data.members[request.auth.uid] == 'owner';
+    }
+
+    /**
+     * @description Shared rules for organizational subcollections (Customers, Accounts, etc.).
+     * @path /organizations/{organizationId}/[subcollection]/{documentId}
+     * @allow (read) if user is a member of the organization.
+     * @deny (write) if user is not an organization member.
+     * @principle Uses parent-document lookup for list operations and local data for single-doc access.
+     */
+    match /organizations/{organizationId}/customers/{customerId} {
+      allow get: if isOrgMember(resource.data.organizationMembers);
+      allow list: if checkOrgAccess(organizationId);
+      allow create: if checkOrgAccess(organizationId) && matchesPath('id', customerId) && matchesPath('organizationId', organizationId);
+      allow update: if isOrgMember(resource.data.organizationMembers) && isImmutable('id') && isImmutable('organizationId');
+      allow delete: if isOrgMember(resource.data.organizationMembers);
+    }
+
+    match /organizations/{organizationId}/financialAccounts/{accountId} {
+      allow get: if isOrgMember(resource.data.organizationMembers);
+      allow list: if checkOrgAccess(organizationId);
+      allow create: if checkOrgAccess(organizationId) && matchesPath('id', accountId) && matchesPath('organizationId', organizationId);
+      allow update: if isOrgMember(resource.data.organizationMembers) && isImmutable('id') && isImmutable('organizationId');
+      allow delete: if isOrgMember(resource.data.organizationMembers);
+    }
+
+    match /organizations/{organizationId}/categories/{categoryId} {
+      allow get: if isOrgMember(resource.data.organizationMembers);
+      allow list: if checkOrgAccess(organizationId);
+      allow create: if checkOrgAccess(organizationId) && matchesPath('id', categoryId) && matchesPath('organizationId', organizationId);
+      allow update: if isOrgMember(resource.data.organizationMembers) && isImmutable('id') && isImmutable('organizationId');
+      allow delete: if isOrgMember(resource.data.organizationMembers);
+    }
+
+    match /organizations/{organizationId}/transactions/{transactionId} {
+      allow get: if isOrgMember(resource.data.organizationMembers);
+      allow list: if checkOrgAccess(organizationId);
+      allow create: if checkOrgAccess(organizationId) && matchesPath('id', transactionId) && matchesPath('organizationId', organizationId);
+      allow update: if isOrgMember(resource.data.organizationMembers) && isImmutable('id') && isImmutable('organizationId');
+      allow delete: if isOrgMember(resource.data.organizationMembers);
+    }
+
+    match /organizations/{organizationId}/invoices/{invoiceId} {
+      allow get: if isOrgMember(resource.data.organizationMembers);
+      allow list: if checkOrgAccess(organizationId);
+      allow create: if checkOrgAccess(organizationId) && matchesPath('id', invoiceId) && matchesPath('organizationId', organizationId);
+      allow update: if isOrgMember(resource.data.organizationMembers) && isImmutable('id') && isImmutable('organizationId');
+      allow delete: if isOrgMember(resource.data.organizationMembers);
 
       /**
-       * @description   Financial documents owned by the user. The user has full control over their
-       *                own documents but cannot access anyone else's.
-       * @path          /users/{userId}/financialDocuments/{financialDocumentId}
-       * @allow         (get, list, create, update, delete) User 'user_abc' accessing their own documents at /users/user_abc/financialDocuments/...
-       * @deny          (get) User 'user_xyz' trying to read a document at /users/user_abc/financialDocuments/doc123.
-       * @principle     Enforces document ownership for all operations within a user's private subcollection.
+       * @description Line items nested under an invoice.
+       * @path /organizations/{organizationId}/invoices/{invoiceId}/invoiceItems/{itemId}
        */
-      match /financialDocuments/{financialDocumentId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow create: if canCreateOwnDocument(userId);
-        allow update: if isExistingOwner(userId) && isOwnerDataImmutable();
-        allow delete: if isExistingOwner(userId);
-
-        /**
-         * @description   Transactions associated with a specific financial document. Access is
-         *                granted based on ownership of the parent user profile.
-         * @path          /users/{userId}/financialDocuments/{financialDocumentId}/transactions/{transactionId}
-         * @allow         (create) User 'user_abc' creating a transaction under their own financial document.
-         * @deny          (create) User 'user_abc' creating a transaction where the internal `userId` is 'user_xyz'.
-         * @principle     Validates relational integrity by ensuring transactions are only created under existing parent documents and owned by the correct user.
-         */
-        match /transactions/{transactionId} {
-          allow get: if isOwner(userId);
-          allow list: if isOwner(userId);
-          allow create: if isOwner(userId)
-                          && request.resource.data.userId == userId
-                          && request.resource.data.financialDocumentId == financialDocumentId
-                          && exists(/databases/$(database)/documents/users/$(userId)/financialDocuments/$(financialDocumentId));
-          allow update: if isExistingOwner(userId)
-                          && request.resource.data.userId == resource.data.userId
-                          && request.resource.data.financialDocumentId == resource.data.financialDocumentId;
-          allow delete: if isExistingOwner(userId);
-        }
+      match /invoiceItems/{itemId} {
+        allow get: if isOrgMember(resource.data.organizationMembers);
+        allow list: if checkOrgAccess(organizationId);
+        allow create: if checkOrgAccess(organizationId) && matchesPath('id', itemId) && matchesPath('invoiceId', invoiceId);
+        allow update: if isOrgMember(resource.data.organizationMembers) && isImmutable('id') && isImmutable('invoiceId');
+        allow delete: if isOrgMember(resource.data.organizationMembers);
       }
+    }
 
-      /**
-       * @description   Invoices created by the user. The user has full control over their own
-       *                invoices but cannot access anyone else's.
-       * @path          /users/{userId}/invoices/{invoiceId}
-       * @allow         (get, list, create, update, delete) User 'user_abc' accessing their own invoices at /users/user_abc/invoices/...
-       * @deny          (update) User 'user_xyz' trying to modify an invoice at /users/user_abc/invoices/inv456.
-       * @principle     Enforces document ownership for all operations within a user's private subcollection.
-       */
-      match /invoices/{invoiceId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow create: if canCreateOwnDocument(userId);
-        allow update: if isExistingOwner(userId) && isOwnerDataImmutable();
-        allow delete: if isExistingOwner(userId);
-      }
+    match /organizations/{organizationId}/financialDocuments/{docId} {
+      allow get: if isOrgMember(resource.data.organizationMembers);
+      allow list: if checkOrgAccess(organizationId);
+      allow create: if checkOrgAccess(organizationId) && matchesPath('id', docId) && matchesPath('organizationId', organizationId) && matchesPath('uploadedByUserId', request.auth.uid);
+      allow update: if isOrgMember(resource.data.organizationMembers) && isImmutable('id') && isImmutable('organizationId');
+      allow delete: if isOrgMember(resource.data.organizationMembers);
     }
   }
 }
