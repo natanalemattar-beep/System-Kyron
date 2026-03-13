@@ -1,35 +1,36 @@
+/**
+ * FinTrack Automation: Firestore Security Rules (Version 2)
+ *
+ * Core Philosophy:
+ * This ruleset implements a robust, decentralized authorization model using a Shared Access (Closed Collaborators) 
+ * pattern combined with strict User Ownership. The primary goal is "Authorization Independence," which is 
+ * achieved by denormalizing membership data directly onto documents.
+ *
+ * Data Structure:
+ * 1. User-specific data is located at /users/{userId}. Access is restricted strictly to that user.
+ * 2. Organizational data is located under /organizations/{organizationId}. 
+ * 3. Administrative roles are managed via a dedicated /system_roles/admins/{userId} path.
+ *
+ * Key Security Decisions:
+ * - Denormalization for Authorization: To avoid slow and expensive get() calls, every document within an 
+ *   organization's hierarchy (Accounts, Transactions, Invoices, etc.) MUST include a 'members' map 
+ *   (e.g., { "userId": "role" }). Rules verify membership directly against this map.
+ * - Structural Segregation: Collaborative data is strictly separated from private user data and 
+ *   system-level configuration.
+ * - Prototyping Flexibility: Rules focus on WHO can access data (Authorization) and maintain 
+ *   relational integrity (e.g., ensuring a transaction's organizationId matches its path) 
+ *   rather than enforcing strict schema validation for content fields.
+ */
+
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    /**
-     * FINTRACK AUTOMATION SECURITY RULES
-     * 
-     * CORE PHILOSOPHY:
-     * This ruleset enforces a strict User-Ownership model. Access is primarily determined 
-     * by the document's location within the /users/{userId} hierarchy.
-     * 
-     * DATA STRUCTURE:
-     * The database is organized hierarchically. All user-specific data, including accounts,
-     * categories, transactions, documents, customers, and invoices, is nested under 
-     * the specific user's root document.
-     * 
-     * KEY SECURITY DECISIONS:
-     * 1. Path-Based Authorization: We rely on the {userId} wildcard in the path to 
-     *    match the authenticated user's UID (request.auth.uid).
-     * 2. Denormalization for Authorization: Essential relational fields (like userId and invoiceId) 
-     *    are required to be present on the documents themselves. This allows for rapid 
-     *    authorization checks without the need for additional get() calls.
-     * 3. Prototyping Flexibility: While we strictly enforce who can access data, we do not 
-     *    validate the full schema (types, optional fields) to allow for rapid iteration.
-     * 4. Relational Integrity: On creation and update, we verify that the denormalized 
-     *    UIDs in the document match the path wildcards to prevent data from being 
-     *    "orphaned" or moved between users.
-     */
+    // -----------------------------------------------------------------
+    // HELPER FUNCTIONS
+    // -----------------------------------------------------------------
 
-    // --- Global Helper Functions ---
-
-    /** @description Checks if the request is made by an authenticated user. */
+    /** @description Checks if the user is authenticated with Firebase Auth. */
     function isSignedIn() {
       return request.auth != null;
     }
@@ -39,123 +40,114 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    /** @description Combines ownership check with a check that the resource actually exists (for updates/deletes). */
+    /** @description Checks if the user is an owner of an existing document. */
     function isExistingOwner(userId) {
-      return isOwner(userId) && resource != null;
+      return resource != null && isOwner(userId);
     }
 
-    // --- Collection Rules ---
+    /** @description Checks if the user is a member of an organization based on a denormalized map. */
+    function isOrgMember(data) {
+      return isSignedIn() && data.members[request.auth.uid] != null;
+    }
 
-    /**
-     * @description Rules for User profiles. Users can only access and manage their own profile.
+    /** @description Checks if the user has a specific role (e.g., 'admin') within an organization's members map. */
+    function hasOrgRole(data, role) {
+      return isSignedIn() && data.members[request.auth.uid] == role;
+    }
+
+    /** @description Validates that the user is a global system administrator. */
+    function isSystemAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/system_roles/admins/$(request.auth.uid));
+    }
+
+    // -----------------------------------------------------------------
+    // COLLECTION RULES
+    // -----------------------------------------------------------------
+
+    /** 
+     * @description Rules for the User profile collection. Restricted to the authenticated user.
      * @path /users/{userId}
-     * @allow (create) if auth.uid == "user123" and path is /users/user123
-     * @deny (get) if auth.uid == "user456" but path is /users/user123
-     * @principle Implements the Self-Creation and Ownership patterns.
+     * @allow (get) request.auth.uid == "user_abc"
+     * @deny (list) request.auth.uid != "user_abc"
+     * @principle Restricts access to a user's own data tree.
      */
     match /users/{userId} {
       allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) && request.resource.data.id == resource.data.id;
       allow delete: if isExistingOwner(userId);
-
-      /**
-       * @description Rules for Financial Accounts. Owned by the user in the path.
-       * @path /users/{userId}/accounts/{accountId}
-       * @allow (update) if owner modifies their own bank account document.
-       * @deny (create) if the userId field in the data does not match the path userId.
-       * @principle Enforces path-based ownership and relational integrity for subcollections.
-       */
-      match /accounts/{accountId} {
-        allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.userId == userId && request.resource.data.id == accountId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-        allow delete: if isExistingOwner(userId);
-      }
-
-      /**
-       * @description Rules for Transaction Categories.
-       * @path /users/{userId}/categories/{categoryId}
-       * @allow (list) owner retrieving their category list.
-       * @deny (delete) if the category does not exist.
-       * @principle Ensures private access to categorization settings.
-       */
-      match /categories/{categoryId} {
-        allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.userId == userId && request.resource.data.id == categoryId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-        allow delete: if isExistingOwner(userId);
-      }
-
-      /**
-       * @description Rules for Financial Transactions.
-       * @path /users/{userId}/transactions/{transactionId}
-       * @allow (create) if transaction is linked to the correct owning user.
-       * @deny (update) if trying to change the userId of the transaction.
-       * @principle Protects individual transaction records via denormalized ownership.
-       */
-      match /transactions/{transactionId} {
-        allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.userId == userId && request.resource.data.id == transactionId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-        allow delete: if isExistingOwner(userId);
-      }
-
-      /**
-       * @description Rules for Uploaded Documents (Receipts/Invoices).
-       * @path /users/{userId}/documents/{documentId}
-       * @allow (get) owner viewing their own document metadata.
-       * @deny (write) if not signed in.
-       * @principle Secure storage of sensitive financial document metadata.
-       */
-      match /documents/{documentId} {
-        allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.userId == userId && request.resource.data.id == documentId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-        allow delete: if isExistingOwner(userId);
-      }
-
-      /**
-       * @description Rules for Customer records.
-       * @path /users/{userId}/customers/{customerId}
-       * @allow (update) owner updating customer contact info.
-       * @deny (list) non-owner trying to list customers.
-       * @principle Restricts customer CRM data to the managing user.
-       */
-      match /customers/{customerId} {
-        allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.userId == userId && request.resource.data.id == customerId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-        allow delete: if isExistingOwner(userId);
-      }
-
-      /**
-       * @description Rules for Invoices.
-       * @path /users/{userId}/invoices/{invoiceId}
-       * @allow (create) owner generating a new invoice.
-       * @deny (delete) unauthorized users.
-       * @principle Protects billing data through ownership and path wildcards.
-       */
-      match /invoices/{invoiceId} {
-        allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.userId == userId && request.resource.data.id == invoiceId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-        allow delete: if isExistingOwner(userId);
-
-        /**
-         * @description Rules for Line Items within an Invoice.
-         * @path /users/{userId}/invoices/{invoiceId}/lineItems/{lineItemId}
-         * @allow (create) if document contains matching userId and invoiceId.
-         * @deny (update) if the parent invoiceId or userId is changed.
-         * @principle Deeply nested authorization relying on double denormalization (userId + invoiceId).
-         */
-        match /lineItems/{lineItemId} {
-          allow get, list: if isOwner(userId);
-          allow create: if isOwner(userId) && request.resource.data.userId == userId && request.resource.data.invoiceId == invoiceId && request.resource.data.id == lineItemId;
-          allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId && request.resource.data.invoiceId == resource.data.invoiceId;
-          allow delete: if isExistingOwner(userId);
-        }
-      }
     }
+
+    /** 
+     * @description Rules for Organizations. Access is managed via the 'members' map on the document.
+     * @path /organizations/{organizationId}
+     * @allow (create) Signed-in user who sets themselves as 'admin' in the members map.
+     * @deny (update) User who is not in the 'members' map.
+     * @principle Shared Access (Closed Collaborators) via member mapping.
+     */
+    match /organizations/{organizationId} {
+      allow get: if isOrgMember(resource.data) || isSystemAdmin();
+      allow list: if isSignedIn(); // Filtered by organizationIds in the User document or query filtering
+      allow create: if isSignedIn() && hasOrgRole(request.resource.data, 'admin');
+      allow update: if isOrgMember(resource.data) && (hasOrgRole(resource.data, 'admin') || hasOrgRole(resource.data, 'editor'));
+      allow delete: if resource != null && (hasOrgRole(resource.data, 'admin') || isSystemAdmin());
+    }
+
+    /** 
+     * @description Shared rule template for organization sub-collections (Accounts, Categories, Transactions, etc.).
+     * These documents rely on a denormalized 'members' map for atomic authorization.
+     */
+    match /organizations/{organizationId}/{collectionName}/{docId} {
+      
+      /** 
+       * @description Generic rule for organizational entities.
+       * @path /organizations/{organizationId}/[accounts|categories|transactions|documents|customers|invoices|reportConfigurations]/{docId}
+       * @allow (get) Any user present in the document's denormalized 'members' map.
+       * @deny (create) Mismatched organizationId between path and document data.
+       * @principle Denormalization for Authorization (avoids get() calls).
+       */
+      allow get, list: if isOrgMember(resource.data) || isSystemAdmin();
+      allow create: if isSignedIn() && 
+                    request.resource.data.organizationId == organizationId && 
+                    isOrgMember(request.resource.data);
+      allow update: if resource != null && 
+                    isOrgMember(resource.data) && 
+                    request.resource.data.organizationId == resource.data.organizationId;
+      allow delete: if resource != null && 
+                    (hasOrgRole(resource.data, 'admin') || isSystemAdmin());
+    }
+
+    /** 
+     * @description Nested rules for Invoice Items, maintaining hierarchical integrity.
+     * @path /organizations/{organizationId}/invoices/{invoiceId}/invoiceItems/{invoiceItemId}
+     * @allow (create) Valid member of the organization setting the correct parent invoiceId.
+     * @deny (delete) User who is not an admin of the organization.
+     * @principle Path consistency and Shared Access propagation.
+     */
+    match /organizations/{organizationId}/invoices/{invoiceId}/invoiceItems/{invoiceItemId} {
+      allow get, list: if isOrgMember(resource.data) || isSystemAdmin();
+      allow create: if isSignedIn() && 
+                    request.resource.data.invoiceId == invoiceId && 
+                    isOrgMember(request.resource.data);
+      allow update: if resource != null && 
+                    isOrgMember(resource.data) && 
+                    request.resource.data.invoiceId == resource.data.invoiceId;
+      allow delete: if resource != null && 
+                    (hasOrgRole(resource.data, 'admin') || isSystemAdmin());
+    }
+
+    /** 
+     * @description System Administration mapping. Managed by DBAC (Database Access Control).
+     * @path /system_roles/admins/{userId}
+     * @allow (get) Signed-in users checking for existence.
+     * @deny (write) Any direct client write (reserved for server-side/admin SDK).
+     * @principle Roles based on document existence.
+     */
+    match /system_roles/admins/{userId} {
+      allow get: if isSignedIn();
+      allow list: if isSystemAdmin();
+      allow create, update, delete: if false; // System roles should only be modified via Admin SDK/Cloud Functions
+    }
+
   }
 }

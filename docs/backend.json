@@ -4,16 +4,11 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "User",
       "type": "object",
-      "description": "Represents a user of the FinTrack Automation application, holding their personal information and settings.",
+      "description": "Represents an individual user of the FinTrack Automation application.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the User entity."
-        },
-        "email": {
-          "type": "string",
-          "description": "The user's email address.",
-          "format": "email"
         },
         "firstName": {
           "type": "string",
@@ -22,6 +17,18 @@
         "lastName": {
           "type": "string",
           "description": "The last name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user, used for communication.",
+          "format": "email"
+        },
+        "organizationIds": {
+          "type": "array",
+          "description": "References to Organizations this user belongs to or manages. (Relationship: User N:N Organization)",
+          "items": {
+            "type": "string"
+          }
         },
         "createdAt": {
           "type": "string",
@@ -36,9 +43,63 @@
       },
       "required": [
         "id",
-        "email",
         "firstName",
         "lastName",
+        "email",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Organization": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Organization",
+      "type": "object",
+      "description": "Represents a business or entity whose financial data is managed by the application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Organization entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The legal name of the organization."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the organization."
+        },
+        "address": {
+          "type": "string",
+          "description": "The primary physical address of the organization."
+        },
+        "contactEmail": {
+          "type": "string",
+          "description": "The primary contact email for the organization.",
+          "format": "email"
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "The primary contact phone number for the organization."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The primary operating currency for the organization (e.g., 'USD', 'EUR')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the organization record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the organization record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "currency",
         "createdAt",
         "updatedAt"
       ]
@@ -47,50 +108,49 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Account",
       "type": "object",
-      "description": "Represents a financial account (e.g., bank account, credit card) belonging to a user.",
+      "description": "Represents a financial account (e.g., bank, credit card, cash) belonging to an organization.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the Account entity."
         },
-        "userId": {
+        "organizationId": {
           "type": "string",
-          "description": "Reference to the User who owns this account. (Relationship: User 1:N Account)"
+          "description": "Reference to the Organization that owns this account. (Relationship: Organization 1:N Account)"
         },
         "name": {
           "type": "string",
-          "description": "A user-defined name for the account (e.g., 'Checking Account', 'Savings')."
+          "description": "A user-friendly name for the account (e.g., 'Main Checking', 'Savings', 'Business Credit Card')."
         },
         "type": {
           "type": "string",
-          "description": "The type of financial account (e.g., 'Bank', 'Credit Card', 'Cash', 'Investment')."
+          "description": "The type of the financial account (e.g., 'Bank', 'Credit Card', 'Cash')."
         },
-        "currency": {
-          "type": "string",
-          "description": "The currency code for the account (e.g., 'USD', 'EUR')."
-        },
-        "balance": {
+        "currentBalance": {
           "type": "number",
           "description": "The current balance of the account."
         },
+        "description": {
+          "type": "string",
+          "description": "An optional description for the account."
+        },
         "createdAt": {
           "type": "string",
-          "description": "Timestamp when the account was created.",
+          "description": "Timestamp when the account record was created.",
           "format": "date-time"
         },
         "updatedAt": {
           "type": "string",
-          "description": "Timestamp when the account was last updated.",
+          "description": "Timestamp when the account record was last updated.",
           "format": "date-time"
         }
       },
       "required": [
         "id",
-        "userId",
+        "organizationId",
         "name",
         "type",
-        "currency",
-        "balance",
+        "currentBalance",
         "createdAt",
         "updatedAt"
       ]
@@ -99,38 +159,51 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Category",
       "type": "object",
-      "description": "Represents a category for financial transactions (e.g., 'Groceries', 'Salary', 'Rent').",
+      "description": "Defines a classification for transactions (e.g., 'Groceries', 'Salary', 'Rent').",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the Category entity."
         },
-        "userId": {
+        "organizationId": {
           "type": "string",
-          "description": "Reference to the User who owns this category. (Relationship: User 1:N Category)"
+          "description": "Reference to the Organization this category belongs to. (Relationship: Organization 1:N Category)"
         },
         "name": {
           "type": "string",
-          "description": "The name of the category (e.g., 'Food', 'Utilities')."
+          "description": "The name of the category (e.g., 'Utilities', 'Travel')."
         },
         "type": {
           "type": "string",
-          "description": "The type of financial flow this category represents (e.g., 'Expense', 'Income', 'Transfer')."
+          "description": "The financial type of the category (e.g., 'Income', 'Expense')."
         },
         "description": {
           "type": "string",
-          "description": "A brief description of the category."
+          "description": "An optional description for the category."
         },
-        "parentCategoryId": {
+        "isSystemDefined": {
+          "type": "boolean",
+          "description": "Indicates if the category is a default system-provided category or user-defined."
+        },
+        "createdAt": {
           "type": "string",
-          "description": "Reference to a parent category for hierarchical categorization. (Relationship: Category 1:N Category - self-referencing)"
+          "description": "Timestamp when the category record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the category record was last updated.",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
-        "userId",
+        "organizationId",
         "name",
-        "type"
+        "type",
+        "isSystemDefined",
+        "createdAt",
+        "updatedAt"
       ]
     },
     "Transaction": {
@@ -143,9 +216,9 @@
           "type": "string",
           "description": "Unique identifier for the Transaction entity."
         },
-        "userId": {
+        "organizationId": {
           "type": "string",
-          "description": "Reference to the User who owns this transaction. (Relationship: User 1:N Transaction)"
+          "description": "Reference to the Organization this transaction belongs to. (Relationship: Organization 1:N Transaction)"
         },
         "accountId": {
           "type": "string",
@@ -155,30 +228,34 @@
           "type": "string",
           "description": "Reference to the Category assigned to this transaction. (Relationship: Category 1:N Transaction)"
         },
-        "description": {
+        "documentId": {
           "type": "string",
-          "description": "A description or payee/payer for the transaction."
+          "description": "Optional reference to the Document from which this transaction was extracted. (Relationship: Document 1:N Transaction)"
         },
         "amount": {
           "type": "number",
-          "description": "The monetary amount of the transaction. Positive for income, negative for expense."
+          "description": "The monetary value of the transaction. Positive for income, negative for expense."
         },
-        "date": {
+        "type": {
           "type": "string",
-          "description": "The date when the transaction occurred.",
+          "description": "The overall type of the transaction (e.g., 'Income', 'Expense', 'Transfer')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the transaction."
+        },
+        "transactionDate": {
+          "type": "string",
+          "description": "The date and time when the transaction occurred.",
           "format": "date-time"
+        },
+        "merchant": {
+          "type": "string",
+          "description": "The name of the merchant or source/destination of the transaction."
         },
         "isAutomated": {
           "type": "boolean",
-          "description": "Indicates if the transaction was automatically entered or categorized."
-        },
-        "status": {
-          "type": "string",
-          "description": "The current status of the transaction (e.g., 'cleared', 'pending', 'reconciled')."
-        },
-        "sourceDocumentId": {
-          "type": "string",
-          "description": "Reference to the Document from which this transaction was extracted. (Relationship: Document 1:N Transaction)"
+          "description": "Indicates if this transaction was automatically extracted and entered (e.g., via OCR)."
         },
         "createdAt": {
           "type": "string",
@@ -193,14 +270,14 @@
       },
       "required": [
         "id",
-        "userId",
+        "organizationId",
         "accountId",
         "categoryId",
-        "description",
         "amount",
-        "date",
+        "type",
+        "description",
+        "transactionDate",
         "isAutomated",
-        "status",
         "createdAt",
         "updatedAt"
       ]
@@ -209,41 +286,45 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Document",
       "type": "object",
-      "description": "Represents an uploaded financial document (e.g., receipt, invoice, bank statement) for OCR processing.",
+      "description": "Stores details about financial documents (e.g., receipts, invoices) uploaded for automated data entry.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the Document entity."
         },
-        "userId": {
+        "organizationId": {
+          "type": "string",
+          "description": "Reference to the Organization this document belongs to. (Relationship: Organization 1:N Document)"
+        },
+        "uploadedByUserId": {
           "type": "string",
           "description": "Reference to the User who uploaded this document. (Relationship: User 1:N Document)"
         },
-        "type": {
+        "filename": {
           "type": "string",
-          "description": "The type of document (e.g., 'Invoice', 'Receipt', 'Bank Statement')."
-        },
-        "fileName": {
-          "type": "string",
-          "description": "The original file name of the uploaded document."
+          "description": "The original filename of the uploaded document."
         },
         "fileUrl": {
           "type": "string",
-          "description": "The URL where the document file is stored.",
+          "description": "The URL or path where the document file is stored.",
           "format": "uri"
+        },
+        "fileType": {
+          "type": "string",
+          "description": "The MIME type or file extension of the document (e.g., 'application/pdf', 'image/jpeg')."
         },
         "uploadDate": {
           "type": "string",
-          "description": "The date when the document was uploaded.",
+          "description": "The date and time when the document was uploaded.",
           "format": "date-time"
         },
         "extractedText": {
           "type": "string",
-          "description": "The full text content extracted from the document using OCR."
+          "description": "The full text extracted from the document using OCR."
         },
-        "status": {
+        "processingStatus": {
           "type": "string",
-          "description": "The processing status of the document (e.g., 'uploaded', 'processing', 'processed', 'error')."
+          "description": "The current processing status of the document (e.g., 'Uploaded', 'Processing', 'Processed', 'Error')."
         },
         "createdAt": {
           "type": "string",
@@ -258,12 +339,13 @@
       },
       "required": [
         "id",
-        "userId",
-        "type",
-        "fileName",
+        "organizationId",
+        "uploadedByUserId",
+        "filename",
         "fileUrl",
+        "fileType",
         "uploadDate",
-        "status",
+        "processingStatus",
         "createdAt",
         "updatedAt"
       ]
@@ -272,32 +354,36 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Customer",
       "type": "object",
-      "description": "Represents a customer (individual or company) to whom invoices are issued.",
+      "description": "Represents a client or customer of an organization, typically for invoicing purposes.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the Customer entity."
         },
-        "userId": {
+        "organizationId": {
           "type": "string",
-          "description": "Reference to the User who manages this customer. (Relationship: User 1:N Customer)"
+          "description": "Reference to the Organization this customer is associated with. (Relationship: Organization 1:N Customer)"
         },
         "name": {
           "type": "string",
-          "description": "The full name or company name of the customer."
+          "description": "The name of the customer (e.g., company name or individual's name)."
+        },
+        "contactPerson": {
+          "type": "string",
+          "description": "The name of the primary contact person at the customer's organization."
         },
         "email": {
           "type": "string",
-          "description": "The primary email address for contacting the customer.",
+          "description": "The primary email address for the customer.",
           "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The primary phone number for the customer."
         },
         "address": {
           "type": "string",
           "description": "The billing address of the customer."
-        },
-        "phone": {
-          "type": "string",
-          "description": "The phone number of the customer."
         },
         "createdAt": {
           "type": "string",
@@ -312,8 +398,9 @@
       },
       "required": [
         "id",
-        "userId",
+        "organizationId",
         "name",
+        "email",
         "createdAt",
         "updatedAt"
       ]
@@ -322,33 +409,33 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Invoice",
       "type": "object",
-      "description": "Represents an invoice created, sent, and tracked by the user.",
+      "description": "Manages invoices created and sent by an organization to its customers.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the Invoice entity."
         },
-        "userId": {
+        "organizationId": {
           "type": "string",
-          "description": "Reference to the User who created this invoice. (Relationship: User 1:N Invoice)"
+          "description": "Reference to the Organization that created this invoice. (Relationship: Organization 1:N Invoice)"
         },
         "customerId": {
           "type": "string",
-          "description": "Reference to the Customer to whom this invoice is issued. (Relationship: Customer 1:N Invoice)"
+          "description": "Reference to the Customer to whom this invoice is sent. (Relationship: Customer 1:N Invoice)"
         },
         "invoiceNumber": {
           "type": "string",
-          "description": "A unique, sequential identifier for the invoice."
+          "description": "A unique, human-readable identifier for the invoice (e.g., 'INV-2023-001')."
         },
         "issueDate": {
           "type": "string",
           "description": "The date when the invoice was issued.",
-          "format": "date-time"
+          "format": "date"
         },
         "dueDate": {
           "type": "string",
-          "description": "The date when the invoice payment is due.",
-          "format": "date-time"
+          "description": "The date by which the invoice payment is due.",
+          "format": "date"
         },
         "totalAmount": {
           "type": "number",
@@ -356,24 +443,19 @@
         },
         "currency": {
           "type": "string",
-          "description": "The currency code for the invoice (e.g., 'USD', 'EUR')."
+          "description": "The currency of the invoice (e.g., 'USD', 'EUR')."
         },
         "status": {
           "type": "string",
-          "description": "The current status of the invoice (e.g., 'draft', 'sent', 'paid', 'overdue', 'void')."
+          "description": "The current status of the invoice (e.g., 'Draft', 'Sent', 'Paid', 'Overdue', 'Cancelled')."
         },
-        "paymentDate": {
+        "paymentTerms": {
           "type": "string",
-          "description": "The date when payment for the invoice was received.",
-          "format": "date-time"
-        },
-        "paymentTransactionId": {
-          "type": "string",
-          "description": "Reference to the Transaction representing the payment received for this invoice. (Relationship: Transaction 1:N Invoice Payment)"
+          "description": "Description of the payment terms (e.g., 'Net 30', 'Due on receipt')."
         },
         "notes": {
           "type": "string",
-          "description": "Any additional notes or terms for the invoice."
+          "description": "Optional notes or comments for the invoice."
         },
         "createdAt": {
           "type": "string",
@@ -388,7 +470,7 @@
       },
       "required": [
         "id",
-        "userId",
+        "organizationId",
         "customerId",
         "invoiceNumber",
         "issueDate",
@@ -400,44 +482,44 @@
         "updatedAt"
       ]
     },
-    "InvoiceLineItem": {
+    "InvoiceItem": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "InvoiceLineItem",
+      "title": "InvoiceItem",
       "type": "object",
-      "description": "Represents a single line item within an invoice, detailing a product or service.",
+      "description": "Represents a single line item within an invoice.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the InvoiceLineItem entity."
+          "description": "Unique identifier for the InvoiceItem entity."
         },
         "invoiceId": {
           "type": "string",
-          "description": "Reference to the Invoice this line item belongs to. (Relationship: Invoice 1:N InvoiceLineItem)"
+          "description": "Reference to the Invoice this item belongs to. (Relationship: Invoice 1:N InvoiceItem)"
         },
         "description": {
           "type": "string",
-          "description": "A description of the product or service being billed."
+          "description": "A description of the product or service billed."
         },
         "quantity": {
           "type": "number",
-          "description": "The quantity of the item or service."
+          "description": "The quantity of the item."
         },
         "unitPrice": {
           "type": "number",
-          "description": "The price per unit of the item or service."
+          "description": "The price per unit of the item."
         },
-        "amount": {
+        "total": {
           "type": "number",
-          "description": "The total amount for this line item (quantity * unitPrice)."
+          "description": "The total price for this item (quantity * unitPrice)."
         },
         "createdAt": {
           "type": "string",
-          "description": "Timestamp when the invoice line item record was created.",
+          "description": "Timestamp when the invoice item record was created.",
           "format": "date-time"
         },
         "updatedAt": {
           "type": "string",
-          "description": "Timestamp when the invoice line item record was last updated.",
+          "description": "Timestamp when the invoice item record was last updated.",
           "format": "date-time"
         }
       },
@@ -447,7 +529,63 @@
         "description",
         "quantity",
         "unitPrice",
-        "amount",
+        "total",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ReportConfiguration": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ReportConfiguration",
+      "type": "object",
+      "description": "Stores the configuration settings for a customizable financial report.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ReportConfiguration entity."
+        },
+        "organizationId": {
+          "type": "string",
+          "description": "Reference to the Organization this report configuration belongs to. (Relationship: Organization 1:N ReportConfiguration)"
+        },
+        "name": {
+          "type": "string",
+          "description": "A descriptive name for the report configuration (e.g., 'Monthly Income Statement Q1')."
+        },
+        "reportType": {
+          "type": "string",
+          "description": "The type of financial report (e.g., 'Income Statement', 'Balance Sheet', 'Cash Flow')."
+        },
+        "parameters": {
+          "type": "string",
+          "description": "A JSON string or opaque object storing specific parameters for report generation (e.g., '{\"startDate\":\"2023-01-01\", \"endDate\":\"2023-03-31\"}')."
+        },
+        "lastGeneratedByUserId": {
+          "type": "string",
+          "description": "Reference to the User who last generated a report using this configuration. (Relationship: User 1:N ReportConfiguration)"
+        },
+        "lastGeneratedDate": {
+          "type": "string",
+          "description": "The timestamp when a report was last generated using this configuration.",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the report configuration was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the report configuration was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "organizationId",
+        "name",
+        "reportType",
+        "parameters",
         "createdAt",
         "updatedAt"
       ]
@@ -468,160 +606,206 @@
           "schema": {
             "$ref": "#/backend/entities/User"
           },
-          "description": "Root collection for user profiles. Each document represents a single user and is owned by the user whose UID matches {userId}.",
+          "description": "Stores individual user profiles. Access is restricted to the owner matching `request.auth.uid`. Includes an `organizationIds` array for efficient querying of user's associated organizations."
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}",
+        "definition": {
+          "entityName": "Organization",
+          "schema": {
+            "$ref": "#/backend/entities/Organization"
+          },
+          "description": "Root collection for organizations. Documents include a `members` map (`{[userId]: \"role\"}`) for collaborative access control, which is denormalized to all child documents for authorization independence.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique ID of the user, matching `request.auth.uid`."
+              "name": "organizationId",
+              "description": "The unique identifier of the organization."
             }
           ]
         }
       },
       {
-        "path": "/users/{userId}/accounts/{accountId}",
+        "path": "/organizations/{organizationId}/accounts/{accountId}",
         "definition": {
           "entityName": "Account",
           "schema": {
             "$ref": "#/backend/entities/Account"
           },
-          "description": "Collection for financial accounts owned by a specific user. Includes denormalized 'userId' for authorization independence.",
+          "description": "Financial accounts belonging to an organization. Includes denormalized `organizationId` and `members` map for authorization independence and simplified rules.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique ID of the owning user."
+              "name": "organizationId",
+              "description": "The unique identifier of the parent organization."
             },
             {
               "name": "accountId",
-              "description": "The unique ID of the financial account."
+              "description": "The unique identifier of the account."
             }
           ]
         }
       },
       {
-        "path": "/users/{userId}/categories/{categoryId}",
+        "path": "/organizations/{organizationId}/categories/{categoryId}",
         "definition": {
           "entityName": "Category",
           "schema": {
             "$ref": "#/backend/entities/Category"
           },
-          "description": "Collection for transaction categories created and owned by a specific user. Includes denormalized 'userId' for authorization independence.",
+          "description": "Transaction categories defined for an organization. Includes denormalized `organizationId` and `members` map for authorization independence and simplified rules.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique ID of the owning user."
+              "name": "organizationId",
+              "description": "The unique identifier of the parent organization."
             },
             {
               "name": "categoryId",
-              "description": "The unique ID of the transaction category."
+              "description": "The unique identifier of the category."
             }
           ]
         }
       },
       {
-        "path": "/users/{userId}/transactions/{transactionId}",
+        "path": "/organizations/{organizationId}/transactions/{transactionId}",
         "definition": {
           "entityName": "Transaction",
           "schema": {
             "$ref": "#/backend/entities/Transaction"
           },
-          "description": "Collection for financial transactions recorded by a specific user. Includes denormalized 'userId' for authorization independence.",
+          "description": "Individual financial transactions within an organization. Includes denormalized `organizationId` and `members` map for authorization independence and simplified rules.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique ID of the owning user."
+              "name": "organizationId",
+              "description": "The unique identifier of the parent organization."
             },
             {
               "name": "transactionId",
-              "description": "The unique ID of the financial transaction."
+              "description": "The unique identifier of the transaction."
             }
           ]
         }
       },
       {
-        "path": "/users/{userId}/documents/{documentId}",
+        "path": "/organizations/{organizationId}/documents/{documentId}",
         "definition": {
           "entityName": "Document",
           "schema": {
             "$ref": "#/backend/entities/Document"
           },
-          "description": "Collection for financial documents uploaded by a specific user. Includes denormalized 'userId' for authorization independence.",
+          "description": "Financial documents (e.g., receipts, invoices) uploaded by users for an organization. Includes denormalized `organizationId`, `uploadedByUserId`, and `members` map for authorization independence.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique ID of the owning user."
+              "name": "organizationId",
+              "description": "The unique identifier of the parent organization."
             },
             {
               "name": "documentId",
-              "description": "The unique ID of the uploaded document."
+              "description": "The unique identifier of the document."
             }
           ]
         }
       },
       {
-        "path": "/users/{userId}/customers/{customerId}",
+        "path": "/organizations/{organizationId}/customers/{customerId}",
         "definition": {
           "entityName": "Customer",
           "schema": {
             "$ref": "#/backend/entities/Customer"
           },
-          "description": "Collection for customer records managed by a specific user. Includes denormalized 'userId' for authorization independence.",
+          "description": "Customer records associated with an organization. Includes denormalized `organizationId` and `members` map for authorization independence and simplified rules.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique ID of the owning user."
+              "name": "organizationId",
+              "description": "The unique identifier of the parent organization."
             },
             {
               "name": "customerId",
-              "description": "The unique ID of the customer record."
+              "description": "The unique identifier of the customer."
             }
           ]
         }
       },
       {
-        "path": "/users/{userId}/invoices/{invoiceId}",
+        "path": "/organizations/{organizationId}/invoices/{invoiceId}",
         "definition": {
           "entityName": "Invoice",
           "schema": {
             "$ref": "#/backend/entities/Invoice"
           },
-          "description": "Collection for invoices created and managed by a specific user. Includes denormalized 'userId' for authorization independence.",
+          "description": "Invoices created by an organization. Includes denormalized `organizationId`, `customerId`, and `members` map for authorization independence and simplified rules.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique ID of the owning user."
+              "name": "organizationId",
+              "description": "The unique identifier of the parent organization."
             },
             {
               "name": "invoiceId",
-              "description": "The unique ID of the invoice."
+              "description": "The unique identifier of the invoice."
             }
           ]
         }
       },
       {
-        "path": "/users/{userId}/invoices/{invoiceId}/lineItems/{lineItemId}",
+        "path": "/organizations/{organizationId}/invoices/{invoiceId}/invoiceItems/{invoiceItemId}",
         "definition": {
-          "entityName": "InvoiceLineItem",
+          "entityName": "InvoiceItem",
           "schema": {
-            "$ref": "#/backend/entities/InvoiceLineItem"
+            "$ref": "#/backend/entities/InvoiceItem"
           },
-          "description": "Subcollection for line items belonging to a specific invoice. CRITICAL: Requires denormalized 'userId' from the parent Invoice and 'invoiceId' in each document for authorization independence.",
+          "description": "Line items for a specific invoice. Includes denormalized `organizationId` (inherited from parent Invoice) and `members` map for authorization independence.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique ID of the owning user (denormalized from parent invoice)."
+              "name": "organizationId",
+              "description": "The unique identifier of the grandparent organization."
             },
             {
               "name": "invoiceId",
-              "description": "The unique ID of the parent invoice (denormalized into line item document)."
+              "description": "The unique identifier of the parent invoice."
             },
             {
-              "name": "lineItemId",
-              "description": "The unique ID of the invoice line item."
+              "name": "invoiceItemId",
+              "description": "The unique identifier of the invoice item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/reportConfigurations/{reportConfigurationId}",
+        "definition": {
+          "entityName": "ReportConfiguration",
+          "schema": {
+            "$ref": "#/backend/entities/ReportConfiguration"
+          },
+          "description": "Configuration settings for customizable financial reports for an organization. Includes denormalized `organizationId`, `lastGeneratedByUserId`, and `members` map for authorization independence.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier of the parent organization."
+            },
+            {
+              "name": "reportConfigurationId",
+              "description": "The unique identifier of the report configuration."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/system_roles/admins/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Represents global administrators. Documents in this collection exist solely to grant 'admin' system-level roles based on the user's UID (DBAC - existence over content). No sensitive user data should be stored here.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user (Firebase Auth UID)."
             }
           ]
         }
       }
     ],
-    "reasoning": "The FinTrack Automation Firestore structure prioritizes robust security, scalability, and debuggability by adhering strictly to the core design principles.\n\n**Authorization Independence (CRITICAL) & Denormalization:**\nEvery collection path, especially for user-specific data, is designed with path-based ownership, leveraging the `/users/{userId}/` pattern. For entities like `Account`, `Category`, `Transaction`, `Document`, `Customer`, and `Invoice`, the `userId` is explicitly included in the document schema and is also part of the document's path (`/users/{userId}/<collection>/<docId>`). This ensures that authorization rules can directly compare `request.auth.uid` with the `{userId}` wildcard in the path, eliminating the need for `get()` calls to parent documents to determine ownership. This design makes atomic operations like creating a user and their initial settings much simpler and more secure.\n\nFor `InvoiceLineItem`, which originally lacked a `userId` in its schema but resides as a subcollection under an Invoice, the `userId` from its parent `Invoice` (and thus, the owning `User`) MUST be denormalized and stored directly within each `InvoiceLineItem` document. This allows a rule matching `/users/{userId}/invoices/{invoiceId}/lineItems/{lineItemId}` to directly verify `request.auth.uid == userId` without an expensive and rule-breaking `get()` operation on the parent `Invoice` document. The `invoiceId` should also be denormalized into `InvoiceLineItem` to simplify rule logic and querying.\n\n**Structural Segregation & QAPs (Rules are not Filters):**\nAll collections are designed to have a homogeneous security posture. For instance, all documents within `/users/{userId}/accounts` are owned by and accessible only to `{userId}`. This prevents mixing data with different access requirements in the same collection, which would necessitate complex and error-prone `where` clauses or conditional logic in security rules. By embedding the `userId` in the path and the document, `list` operations (QAPs) are inherently secure. A query to `/users/{request.auth.uid}/accounts` will only ever return accounts owned by the authenticated user, and the security rules will enforce this path-based ownership, preventing data leakage or unauthorized access during list operations without acting as filters.\n\n**Access Modeling & Consistency:**\n*   **Private Data & Hierarchical Paths:** All user-centric data (User, Account, Category, Transaction, Document, Customer, Invoice) follows the `/users/{userId}/<collection>/<docId>` pattern, establishing clear, private ownership. This makes writing concise and correct security rules for CRUD operations trivial.\n*   **Nested Data:** `InvoiceLineItem` continues this hierarchy by being nested under `Invoice` (`/users/{userId}/invoices/{invoiceId}/lineItems/{lineItemId}`), but with the critical denormalization of `userId` and `invoiceId` into each line item document to maintain authorization independence.\n\nThis architecture ensures that security rules are straightforward, explicit, and easy to debug, primarily relying on path matching and direct field comparisons, significantly reducing the surface area for security vulnerabilities."
+    "reasoning": "The FinTrack Automation Firestore structure prioritizes Authorization Independence and Structural Segregation to ensure robust, debuggable, and scalable security rules. The core design principle involves denormalizing authorization context, specifically the 'members' map, into documents that require access control based on organizational membership. This strategy eliminates the need for `get()` calls in security rules, which can break atomic operations and complicate debugging.1. Authorization Independence via Denormalization: The `Organization` entity serves as the primary collaborative unit. Each `Organization` document (`/organizations/{organizationId}`) will contain a `members` map (e.g., `{\"uid1\":\"admin\", \"uid2\":\"editor\"}`). Critically, all sub-collection documents directly or indirectly owned by an organization (e.g., `Accounts`, `Categories`, `Transactions`, `Documents`, `Customers`, `Invoices`, `ReportConfigurations`, and `InvoiceItems`) will inherit and store a denormalized copy of this `members` map from their respective parent `Organization`. This allows security rules to check `resource.data.members[request.auth.uid]` directly within the document itself, making authorization decisions atomic and independent of parent document fetches. This approach is vital for supporting efficient transactions and batch writes across related entities.2. Structural Segregation (Homogeneous Security Posture): All collections under `/organizations/{organizationId}` (e.g., `/organizations/{organizationId}/accounts`, `/organizations/{organizationId}/transactions`) are designed to have a homogeneous security posture. Every document within these collections requires a user to be a member of the specified `organizationId` with an appropriate role. This clear segregation prevents mixing data with different access requirements in the same collection, thereby simplifying security rules. Instead of complex logical checks, rules can rely on the structural context and the denormalized 'members' map present in every document.3. Path-Based Ownership and Hierarchy: User-specific private data is stored under `/users/{userId}`, ensuring direct ownership via `request.auth.uid`. Collaborative and organizational data is nested under `/organizations/{organizationId}`, clearly establishing organizational context. Further nested entities like `InvoiceItem` maintain this hierarchy (`/organizations/{organizationId}/invoices/{invoiceId}/invoiceItems/{invoiceItemId}`), ensuring that the denormalized `members` map from the `Organization` is propagated down, making security checks consistent at any level.4. QAPs (Query as Authorization Patterns): The structure is designed to enable secure `list` operations without relying on rules as filters. For a user to list their organizations, the `organizationIds` array within their `/users/{userId}` document provides a direct reference for client-side queries. For listing data within an organization (e.g., 'all transactions for Org X'), queries are inherently secure because every `Transaction` document (and any other document in an organization's subtree) contains the denormalized `members` map. This allows Firestore rules to efficiently verify `request.auth.uid` against `resource.data.members` for each document returned by the query, ensuring only authorized data is accessed without needing additional database lookups. This structure provides a clear, maintainable, and secure foundation for FinTrack Automation."
   }
 }
