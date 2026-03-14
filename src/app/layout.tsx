@@ -1,4 +1,3 @@
-
 import type { ReactNode } from "react";
 import "./globals.css";
 import { GeistSans } from 'geist/font/sans';
@@ -12,7 +11,7 @@ import { Providers } from "@/components/providers";
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
-      <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-[#020202] text-white overflow-x-hidden">
+      <body className="min-h-screen font-sans antialiased selection:bg-primary/10 bg-background text-foreground overflow-x-hidden">
         <Providers>
           {children}
         </Providers>

@@ -4,28 +4,28 @@
 
 @layer base {
   :root {
-    /* Light Mode - Vivid Blue and Vibrant Tones */
-    --background: 210 100% 97%; /* Vibrant Ice Blue Wash */
-    --foreground: 222.2 84% 12%; /* Deep Navy for maximum readability */
+    /* Light Mode - Paleta de Azules Claros y Tonos Vivos */
+    --background: 210 100% 98%; /* Azul Glaciar muy claro */
+    --foreground: 222.2 84% 4.9%; /* Azul Marino casi negro para legibilidad */
     
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 12%;
+    --card-foreground: 222.2 84% 4.9%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 12%;
+    --popover-foreground: 222.2 84% 4.9%;
     
-    /* Vivid Azure Blue */
+    /* Azul Primario Vibrante */
     --primary: 217 100% 50%;
     --primary-foreground: 210 40% 98%;
     
-    /* Bright Emerald Green */
+    /* Verde de Acento Vivo */
     --secondary: 142 76% 40%;
     --secondary-foreground: 210 40% 98%;
     
     --muted: 214.3 31.8% 91.4%;
-    --muted-foreground: 215.4 25% 40%;
+    --muted-foreground: 215.4 25% 27%; /* Gris azulado oscuro */
     
-    --accent: 199 100% 45%; /* Vivid Sky Blue */
+    --accent: 199 100% 45%; 
     --accent-foreground: 222.2 47.4% 11.2%;
     
     --destructive: 0 84.2% 60.2%;
@@ -35,11 +35,11 @@
     --input: 214.3 31.8% 85%;
     --ring: 217 100% 50%;
     
-    --radius: 1rem;
+    --radius: 1.5rem;
   }
 
   .dark {
-    /* Dark Mode - System Kyron Tech Identity */
+    /* Dark Mode - Identidad Original System Kyron */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     
