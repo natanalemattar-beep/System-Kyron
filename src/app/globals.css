@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    /* Light Mode - System Kyron Professional Precision */
-    --background: 0 0% 100%;
+    /* Light Mode - Vivid Blue and Vibrant Tones */
+    --background: 210 40% 98%; /* Light Ice Blue Wash */
     --foreground: 222.2 84% 4.9%;
     
     --card: 0 0% 100%;
@@ -14,18 +14,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     
-    /* #0A2472 */
-    --primary: 225 84% 25%;
+    /* Vivid Azure Blue */
+    --primary: 217 91% 60%;
     --primary-foreground: 210 40% 98%;
     
-    /* #00A86B */
-    --secondary: 158 100% 33%;
+    /* Bright Emerald Green */
+    --secondary: 142 71% 45%;
     --secondary-foreground: 210 40% 98%;
     
     --muted: 214.3 31.8% 91.4%;
     --muted-foreground: 215.4 16.3% 46.9%;
     
-    --accent: 214.3 31.8% 91.4%;
+    --accent: 199 89% 48%; /* Vivid Sky Blue */
     --accent-foreground: 222.2 47.4% 11.2%;
     
     --destructive: 0 84.2% 60.2%;
@@ -33,7 +33,7 @@
     
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 225 84% 25%;
+    --ring: 217 91% 60%;
     
     --radius: 1rem;
   }

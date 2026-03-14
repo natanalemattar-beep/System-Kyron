@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -53,7 +52,7 @@ Para garantizar que nadie más que tú pueda entrar a tu información, hemos imp
     icon: LayoutDashboard,
     content: `El 'Tablero Principal' o 'Centro de Mando' es la pantalla que verás apenas entres al sistema. Ha sido diseñada para ser tu asistente visual personal. En la parte superior, verás tarjetas brillantes que te indican tus ingresos totales, tus gastos y tu utilidad neta en tiempo real. No tienes que esperar al final del mes para saber cuánto dinero tienes; Kyron te lo dice al segundo. El uso de colores es intuitivo: el verde significa éxito y estabilidad, mientras que el rojo o el naranja son avisos preventivos para cosas que requieren tu revisión inmediata.
 
-A la izquierda de la pantalla, siempre tendrás a mano el menú de navegación. Desde allí puedes saltar rápidamente entre Ventas, Contabilidad, Personal o Bóveda Legal. Lo más potente de este tablero es su capacidad de 'Auditoría Preventiva'. Si el sistema detecta que una ley ha cambiado en la Gaceta Oficial, o que tienes una factura que vence mañana, verás una notificación clara en tu panel de alertas. De esta forma, ya no tienes que memorizar fechas de vencimiento; Kyron lo hace por ti, permitiéndote enfocarte en lo que realmente importa: hacer crecer tu negocio.`,
+A la izquierda de la pantalla, siempre tendrás a mano el menú de navegación. Desde allí puedes saltar rápidamente entre Ventas, Contabilidad, Personal o Bóveda Legal. Lo más potente de este tablero es su capacidad de 'Auditoría Preventiva'. Si el sistema detecta que una ley ha cambiado en la Gaceta Oficial, o que tienes una factura que vence mañana, verás una notificación clara en tu panel de alertas. De esta forma, ya no tienes que memorizar fechas de vencimiento; Kyron hace por ti, permitiéndote enfocarte en lo que realmente importa: hacer crecer tu negocio.`,
     details: [
       "Gráficos de Pulso: Mira cómo suben tus ventas mediante líneas de tiempo fáciles de comprender.",
       "Alertas de Cumplimiento: Recibe avisos directos sobre pagos de impuestos o trámites por vencer.",
@@ -276,7 +275,7 @@ export default function ManualUsuarioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white py-12 px-4 md:px-16 relative overflow-hidden hud-grid">
+    <div className="min-h-screen bg-background text-foreground py-12 px-4 md:px-16 relative overflow-hidden hud-grid">
       
       <div className="hidden" ref={logoRef} aria-hidden="true">
         <Logo className="h-40 w-40" />
@@ -291,7 +290,7 @@ export default function ManualUsuarioPage() {
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
             <BookOpen className="h-3 w-3" /> DOCUMENTACIÓN MAESTRA
             </div>
-            <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">
+            <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-foreground italic-shadow leading-none">
             Manual de <span className="text-primary not-italic">Usuario</span>
             </h1>
             <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
@@ -299,7 +298,7 @@ export default function ManualUsuarioPage() {
             </p>
         </div>
         <div className="flex gap-3 no-print">
-            <Button variant="outline" onClick={() => window.print()} className="h-12 px-6 rounded-xl border-white/10 bg-white/5 text-white text-[9px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">
+            <Button variant="outline" onClick={() => window.print()} className="h-12 px-6 rounded-xl border-border bg-card/50 text-foreground text-[9px] font-black uppercase tracking-widest hover:bg-card/80 transition-all">
                 <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
             </Button>
             <Button 
@@ -323,14 +322,14 @@ export default function ManualUsuarioPage() {
             viewport={{ once: true, margin: "-50px" }}
             className="scroll-mt-32"
           >
-            <Card className="glass-card border-none rounded-[2.5rem] bg-white/[0.02] overflow-hidden relative group">
+            <Card className="glass-card border-border rounded-[2.5rem] bg-card/40 overflow-hidden relative group">
               <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 transition-all pointer-events-none">
                 <chapter.icon className="h-48 w-48 rotate-12" />
               </div>
               
               <div className="flex flex-col lg:flex-row">
-                <div className="lg:w-20 bg-white/[0.03] border-r border-white/5 flex items-center justify-center p-6 lg:p-0">
-                    <span className="text-3xl font-black text-white/5 uppercase lg:vertical-text tracking-tighter">
+                <div className="lg:w-20 bg-muted/30 border-r border-border flex items-center justify-center p-6 lg:p-0">
+                    <span className="text-3xl font-black text-foreground/5 uppercase lg:vertical-text tracking-tighter">
                         CAP 0{idx + 1}
                     </span>
                 </div>
@@ -340,21 +339,21 @@ export default function ManualUsuarioPage() {
                         <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 shadow-inner">
                             <chapter.icon className="h-8 w-8 text-primary" />
                         </div>
-                        <h2 className="text-2xl md:text-4xl font-black uppercase italic tracking-tighter text-white">{chapter.title}</h2>
+                        <h2 className="text-2xl md:text-4xl font-black uppercase italic tracking-tighter text-foreground">{chapter.title}</h2>
                     </div>
 
                     <div className="grid lg:grid-cols-2 gap-12">
                         <div className="space-y-6">
-                            <p className="text-base md:text-lg font-medium italic text-white/70 leading-relaxed text-justify">
+                            <p className="text-base md:text-lg font-medium italic text-muted-foreground leading-relaxed text-justify">
                                 {chapter.content}
                             </p>
                         </div>
 
-                        <div className="p-8 rounded-[2.5rem] bg-black/40 border border-white/5 shadow-inner flex flex-col">
-                            <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-white/30 mb-8 flex items-center gap-3">
+                        <div className="p-8 rounded-[2.5rem] bg-muted/20 border border-border shadow-inner flex flex-col">
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-foreground/30 mb-8 flex items-center gap-3">
                                 <CheckCircle className="h-4 w-4 text-emerald-500" /> Puntos clave de gestión
                             </h4>
-                            <ul className="space-y-6 text-xs font-bold text-white/60 uppercase tracking-widest leading-relaxed flex-grow">
+                            <ul className="space-y-6 text-xs font-bold text-muted-foreground uppercase tracking-widest leading-relaxed flex-grow">
                                 {chapter.details.map((detail, dIdx) => (
                                     <li key={dIdx} className="flex gap-4 items-start">
                                         <span className="text-primary font-black text-lg leading-none">»</span>
@@ -362,8 +361,8 @@ export default function ManualUsuarioPage() {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="mt-8 pt-6 border-t border-white/5">
-                                <p className="text-[8px] font-black text-white/10 uppercase tracking-[0.4em]">Protocolo Verificado v2.6</p>
+                            <div className="mt-8 pt-6 border-t border-border">
+                                <p className="text-[8px] font-black text-muted-foreground/20 uppercase tracking-[0.4em]">Protocolo Verificado v2.6</p>
                             </div>
                         </div>
                     </div>
@@ -374,9 +373,9 @@ export default function ManualUsuarioPage() {
         ))}
       </div>
 
-      <footer className="max-w-6xl mx-auto border-t border-white/5 pt-20 pb-10 text-center space-y-12">
+      <footer className="max-w-6xl mx-auto border-t border-border pt-20 pb-10 text-center space-y-12">
         <Logo className="h-12 w-12 mx-auto opacity-20" />
-        <p className="text-[10px] font-black text-white/5 uppercase tracking-[1.5em] italic">
+        <p className="text-[10px] font-black text-foreground/10 uppercase tracking-[1.5em] italic">
             SYSTEM KYRON • TELECOM, RECICLAJE Y CONTROL TOTAL • 2026
         </p>
       </footer>

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -91,19 +90,19 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
     if (!isMounted) return null;
 
     return (
-        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen bg-black relative">
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none [background-image:radial-gradient(circle_at_center,white_1px,transparent_1px)] [background-size:40px_40px]"></div>
+        <div className="space-y-12 w-full animate-in fade-in duration-1000 pb-20 px-6 md:px-16 min-h-screen bg-background text-foreground relative">
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none [background-image:radial-gradient(circle_at_center,currentColor_1px,transparent_1px)] [background-size:40px_40px]"></div>
 
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
                         <Lock className="h-3 w-3" /> ÁREA ESTRATÉGICA
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Bóveda <span className="text-primary italic">Kyron</span></h1>
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight uppercase leading-none italic-shadow">Bóveda <span className="text-primary italic">Kyron</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">EXPEDIENTE MAESTRO • TERMINAL ZEDU 2.6.5</p>
                 </div>
                 <div className="flex gap-3">
-                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 hover:bg-white/10 text-white transition-all" onClick={() => window.print()}>
+                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 hover:bg-card text-foreground transition-all" onClick={() => window.print()}>
                         <Printer className="mr-2 h-4 w-4" /> IMPRIMIR
                     </Button>
                     <Button className="btn-3d-primary h-12 px-10 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-2xl" onClick={handleDownloadExpediente}>
@@ -113,9 +112,9 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
             </header>
 
             <Tabs defaultValue="zedu" className="w-full relative z-10">
-                <TabsList className="flex h-14 bg-white/[0.02] border border-white/5 rounded-2xl p-1.5 mb-16 shadow-inner">
-                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Matriz ZEDU</TabsTrigger>
-                    <TabsTrigger value="budget" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-white transition-all">Presupuesto CapEx</TabsTrigger>
+                <TabsList className="flex h-14 bg-card/50 border border-border rounded-2xl p-1.5 mb-16 shadow-inner">
+                    <TabsTrigger value="zedu" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all">Matriz ZEDU</TabsTrigger>
+                    <TabsTrigger value="budget" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.3em] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all">Presupuesto CapEx</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="zedu" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -127,19 +126,19 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1 }}
                             >
-                                <Card className={cn("glass-card p-10 rounded-[3rem] h-full flex flex-col items-center text-center border-2 bg-black/40 group hover:scale-[1.02]", m.border)}>
-                                    <div className={cn("p-6 rounded-[2rem] mb-10 shadow-inner border border-white/5 transition-all duration-500 group-hover:scale-110", m.color, m.glow)}>
+                                <Card className={cn("glass-card p-10 rounded-[3rem] h-full flex flex-col items-center text-center border-2 bg-card group hover:scale-[1.02]", m.border)}>
+                                    <div className={cn("p-6 rounded-[2rem] mb-10 shadow-inner border border-border transition-all duration-500 group-hover:scale-110", m.color, m.glow)}>
                                         <m.icon className="h-12 w-12" />
                                     </div>
-                                    <h4 className="font-black uppercase text-base tracking-widest mb-4 text-white italic underline decoration-primary/20 underline-offset-8">{m.title}</h4>
-                                    <p className="text-[11px] font-bold text-white/40 leading-relaxed uppercase max-w-[200px]">{m.desc}</p>
+                                    <h4 className="font-black uppercase text-base tracking-widest mb-4 text-foreground italic underline decoration-primary/20 underline-offset-8">{m.title}</h4>
+                                    <p className="text-[11px] font-bold text-muted-foreground leading-relaxed uppercase max-w-[200px]">{m.desc}</p>
                                     
-                                    <div className="mt-auto pt-10 w-full flex justify-between items-center border-t border-white/5">
+                                    <div className="mt-auto pt-10 w-full flex justify-between items-center border-t border-border">
                                         <div className="flex items-center gap-2">
                                             <Activity className="h-3 w-3 text-primary animate-pulse" />
-                                            <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">ÁREA {m.id}</span>
+                                            <span className="text-[8px] font-black text-muted-foreground uppercase tracking-widest">ÁREA {m.id}</span>
                                         </div>
-                                        <div className={cn("text-[8px] font-black uppercase tracking-widest px-3 h-6 flex items-center bg-white/5 rounded-full", m.color)}>
+                                        <div className={cn("text-[8px] font-black uppercase tracking-widest px-3 h-6 flex items-center bg-muted rounded-full", m.color)}>
                                             {m.status}
                                         </div>
                                     </div>
@@ -150,29 +149,29 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                 </TabsContent>
 
                 <TabsContent value="budget" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <Card className="glass-card overflow-hidden rounded-[3rem] border-white/5 shadow-2xl bg-black/40 p-1 md:p-2">
+                    <Card className="glass-card overflow-hidden rounded-[3rem] border-border shadow-2xl bg-card p-1 md:p-2">
                         <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
-                                    <TableRow className="bg-white/[0.03] border-none hover:bg-white/[0.03]">
+                                    <TableRow className="bg-muted/50 border-none hover:bg-muted/50">
                                         <TableHead className="pl-12 py-8 font-black uppercase text-primary text-[11px] tracking-[0.4em]">Componente de Inversión</TableHead>
                                         <TableHead className="text-right pr-12 py-8 font-black uppercase text-primary text-[11px] tracking-[0.4em]">Monto (USD)</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {budgetData.map((d, i) => (
-                                        <TableRow key={i} className="border-white/5 hover:bg-primary/[0.03] transition-colors group">
-                                            <TableCell className="pl-12 py-6 text-sm font-bold text-white/70 uppercase tracking-tight group-hover:text-white transition-colors">
+                                        <TableRow key={i} className="border-border hover:bg-primary/[0.03] transition-colors group">
+                                            <TableCell className="pl-12 py-6 text-sm font-bold text-foreground/70 uppercase tracking-tight group-hover:text-foreground transition-colors">
                                                 <div className="flex items-center gap-4">
                                                     <div className="h-1.5 w-1.5 rounded-full bg-primary/40 group-hover:bg-primary" />
                                                     {d.item}
                                                 </div>
                                             </TableCell>
-                                            <TableCell className="text-right pr-12 font-mono font-black text-white text-lg italic">{formatCurrency(d.cost, 'USD')}</TableCell>
+                                            <TableCell className="text-right pr-12 font-mono font-black text-foreground text-lg italic">{formatCurrency(d.cost, 'USD')}</TableCell>
                                         </TableRow>
                                     ))}
                                     <TableRow className="bg-primary/10 border-none hover:bg-primary/15 transition-all">
-                                        <TableCell className="pl-12 py-12 text-2xl font-black text-white italic uppercase tracking-tighter">
+                                        <TableCell className="pl-12 py-12 text-2xl font-black text-foreground italic uppercase tracking-tighter">
                                             <div className="flex items-center gap-4">
                                                 <TerminalIcon className="h-8 w-8 text-primary" />
                                                 TOTAL INVERSIÓN ESTRATÉGICA
@@ -190,7 +189,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
             </Tabs>
 
             <div className="mt-20 flex justify-center pb-10">
-                <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-white/10 italic">
+                <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground italic">
                     <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Encrypt: AES-512</span>
                     <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> AI Engine: Active</span>
                     <span className="flex items-center gap-2"><Database className="h-3 w-3" /> Ledger: Verified</span>
