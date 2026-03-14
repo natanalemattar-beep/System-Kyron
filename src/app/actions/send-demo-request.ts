@@ -1,9 +1,5 @@
-'use server';
 
-/**
- * @fileOverview Acción de servidor para gestionar solicitudes de demo de alta fidelidad.
- * Despacha correos electrónicos mediante Resend y respalda datos en Firestore.
- */
+'use server';
 
 import { Resend } from 'resend';
 import { initializeFirebase } from '@/firebase';
@@ -24,7 +20,6 @@ export async function sendDemoRequestAction(data: {
   message?: string;
 }) {
   try {
-    // 1. Respaldo Inmutable en Firestore (Nodo Maestro)
     const { firestore } = initializeFirebase();
     await addDoc(collection(firestore, 'demoRequests'), {
       ...data,
@@ -33,8 +28,6 @@ export async function sendDemoRequestAction(data: {
       timestamp: serverTimestamp(),
     });
 
-    // 2. Despacho de Correo Real vía Resend
-    // Nota: El correo llegará a infosystemkyron@gmail.com
     await resend.emails.send({
       from: 'System Kyron <onboarding@resend.dev>',
       to: 'infosystemkyron@gmail.com',
@@ -64,7 +57,6 @@ export async function sendDemoRequestAction(data: {
     return { success: true };
   } catch (error) {
     console.error("Error en protocolo de despacho:", error);
-    // Retornamos éxito falso pero con log para auditoría técnica
     return { success: false, error: "Falla en transmisión" };
   }
 }

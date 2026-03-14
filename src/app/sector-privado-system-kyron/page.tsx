@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -30,11 +31,6 @@ import { cn, formatCurrency } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
-
-/**
- * @fileOverview Expediente Maestro Modelo ZEDU - System Kyron.
- * Contenido expandido para alcanzar las 11 páginas de densidad técnica.
- */
 
 export default function ModeloZeduPage() {
     const { toast } = useToast();
@@ -142,7 +138,6 @@ export default function ModeloZeduPage() {
 
     return (
         <div className="min-h-screen bg-slate-100 py-12 px-4 selection:bg-blue-100">
-            {/* Toolbar Superior */}
             <div className="max-w-5xl mx-auto mb-8 flex flex-col md:flex-row justify-between items-center gap-4 no-print">
                 <Button variant="ghost" asChild className="font-bold text-xs uppercase tracking-widest text-slate-500 hover:text-black">
                     <Link href="/"><ChevronLeft className="mr-2 h-4 w-4" /> VOLVER AL PORTAL</Link>
@@ -162,7 +157,6 @@ export default function ModeloZeduPage() {
                 animate={{ opacity: 1 }}
                 className="max-w-5xl mx-auto bg-white shadow-2xl p-12 md:p-20 text-slate-950 border border-slate-200"
             >
-                {/* Cabecera Web con Logo a la izquierda y Títulos elevados */}
                 <div className="flex items-start justify-start border-b-4 border-slate-100 mb-16 pb-10 gap-12">
                     <Logo id="main-logo-zedu" className="h-28 w-24 border-2 border-[#0A2472] p-2 bg-white shadow-lg rounded-2xl shrink-0" />
                     <div className="pt-2 space-y-2">
@@ -172,7 +166,6 @@ export default function ModeloZeduPage() {
                 </div>
 
                 <div id="zedu-document-content">
-                    {/* 1. IDENTIFICACIÓN */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <Users className="h-7 w-7" /> 1. IDENTIFICACIÓN INSTITUCIONAL
@@ -204,7 +197,6 @@ export default function ModeloZeduPage() {
 
                     <div className="page-break" />
 
-                    {/* 2. DIAGNÓSTICO */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <Target className="h-7 w-7" /> 2. DIAGNÓSTICO Y JUSTIFICACIÓN TÉCNICA
@@ -228,7 +220,6 @@ export default function ModeloZeduPage() {
                         </table>
                     </div>
 
-                    {/* 3. UNIDADES OPERATIVAS (MÓDULOS) - EXPANDIDO */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <Cpu className="h-7 w-7" /> 3. UNIDADES OPERATIVAS DE SYSTEM KYRON (ALTA DENSIDAD)
@@ -262,7 +253,7 @@ export default function ModeloZeduPage() {
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 04: Sostenibilidad mediante Inducción Magnética</td></tr>
                                 <tr>
                                     <td className={tableCellClass} colSpan={2}>
-                                        <p>Innovación de ingeniería civil y electrónica aplicada a la sustentabilidad urbana. Despliegue de estaciones de recolección dotadas de sensores de inducción magnética síncrona. Esta tecnología permite clasificar residuos con una precisión superior al 95%, vinculando la acción ambiental del ciudadano con una recompensa en "Eco-Créditos" digitales gestionados en el Ledger de Kyron.</p>
+                                        <p>Innovación de ingeniería civil y electrónica aplicada a la sustentabilidad urbana. Despliegue de estaciones de recolección dotadas de sensores de inducción magnética síncrona. Esta tecnología permite clasificar residuos con una precisión superior al 95%, vinculando la acción ambiental del ciudadano con una recompensa en "Eco-Créditos" digitales gestionados en el sistema de Kyron.</p>
                                     </td>
                                 </tr>
                                 <tr><td className={tableHeaderClass} colSpan={2}>Unidad 05: Centro de Transferencia Gabriela Mistral</td></tr>
@@ -277,7 +268,6 @@ export default function ModeloZeduPage() {
 
                     <div className="page-break" />
 
-                    {/* SECCIÓN ADICIONAL PARA ALCANZAR LAS PÁGINAS: MARCO LEGAL Y RIESGOS */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <Scale className="h-7 w-7" /> 4. MARCO LEGAL Y PROTOCOLOS DE SEGURIDAD
@@ -303,7 +293,6 @@ export default function ModeloZeduPage() {
                         </table>
                     </div>
 
-                    {/* 5. INVERSIÓN */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <Zap className="h-7 w-7" /> 5. INVERSIÓN ESTRATÉGICA (CAPEX)
@@ -316,7 +305,7 @@ export default function ModeloZeduPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td className={tableCellClass}>Infraestructura Cloud, Bóveda Inmutable y Nodo Ledger Blockchain</td><td className={cn(tableCellClass, "text-right font-black")}>$ 8.500,00</td></tr>
+                                <tr><td className={tableCellClass}>Infraestructura Cloud, Bóveda Inmutable y Registro Blockchain</td><td className={cn(tableCellClass, "text-right font-black")}>$ 8.500,00</td></tr>
                                 <tr><td className={tableCellClass}>Entrenamiento de Motores de IA (Módulos Fiscal, Jurídico e Ingeniería)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.500,00</td></tr>
                                 <tr><td className={tableCellClass}>Despliegue de Unidades de Sostenibilidad (Smart Bins con Sensores)</td><td className={cn(tableCellClass, "text-right font-black")}>$ 6.183,00</td></tr>
                                 <tr><td className={tableCellClass}>Equipos Fiscales Homologados y Terminales de Captura Biométrica</td><td className={cn(tableCellClass, "text-right font-black")}>$ 8.500,00</td></tr>
@@ -331,7 +320,6 @@ export default function ModeloZeduPage() {
 
                     <div className="page-break" />
 
-                    {/* 6. IMPACTO Y CIERRE */}
                     <div className="mb-20">
                         <h2 className="text-2xl font-black uppercase mb-8 tracking-tighter flex items-center gap-4 text-[#0A2472]">
                             <TrendingUp className="h-7 w-7" /> 6. PROYECCIÓN DE IMPACTO Y DICTAMEN FINAL

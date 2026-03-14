@@ -121,7 +121,7 @@ Pero no solo sirve para guardar; también es una herramienta de creación. Nuest
     id: "tecnologia",
     title: "07. Tecnología 5G, eSIM y Reciclaje",
     icon: Smartphone,
-    content: `System Kyron te conecta con el futuro a través de la tecnología y la ecología. Mediante nuestro nodo de conectividad, puedes activar líneas telefónicas 5G de alta velocidad en minutos. Somos pioneros en el uso de eSIM (chips digitales), lo que te permite activar un número nuevo escaneando un simple código QR desde tu oficina, sin necesidad de un chip físico. Esto es ideal para empresas que necesitan estar conectadas de forma inmediata con la red más moderna y estable.
+    content: `System Kyron te conecta con el futuro a través de la tecnología y la ecología. Mediante nuestro centro de conectividad, puedes activar líneas telefónicas 5G de alta velocidad en minutos. Somos pioneros en el uso de eSIM (chips digitales), lo que te permite activar un número nuevo escaneando un simple código QR desde tu oficina, sin necesidad de un chip físico. Esto es ideal para empresas que necesitan estar conectadas de forma inmediata con la red más moderna y estable.
 
 Nuestra visión también incluye el cuidado del planeta. Hemos creado las 'Papeleras Inteligentes' Kyron, que utilizan tecnología magnética para detectar y clasificar materiales como metal y plástico. Por cada envase que recicles en nuestras estaciones, el sistema validará tu acción y te otorgará 'Eco-Créditos' en tu billetera digital. Estos puntos puedes canjearlos por descuentos reales, productos y beneficios exclusivos en nuestra red de comercios aliados, premiando tus hábitos responsables.`,
     details: [

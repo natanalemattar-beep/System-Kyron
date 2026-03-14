@@ -151,7 +151,7 @@ export default function DashboardTelecomPage() {
 
               <div className="lg:col-span-7 space-y-12">
                   <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 shadow-inner">
-                      <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-amber-400 mb-10 flex items-center gap-3">
+                      <h4 className="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-10 flex items-center gap-3">
                           <Terminal className="h-4 w-4" /> Gestión de Servicios Digitales
                       </h4>
                       <div className="text-sm font-bold italic text-white/70 leading-relaxed text-justify space-y-6">
@@ -176,7 +176,7 @@ export default function DashboardTelecomPage() {
                   
                   <Card className="bg-amber-500/5 border border-amber-500/20 p-10 rounded-[3rem] flex items-center justify-between">
                       <div className="space-y-2">
-                          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-400">Estado de la Red</p>
+                          <p className="text-[10px] font-black uppercase tracking-widest text-amber-400">Estado de la Red</p>
                           <p className="text-2xl font-black text-white italic tracking-tighter uppercase">FUNCIONANDO</p>
                       </div>
                       <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[9px] font-black px-6 py-2 rounded-xl shadow-glow-secondary uppercase">Alta Velocidad</Badge>

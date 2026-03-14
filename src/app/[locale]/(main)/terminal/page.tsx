@@ -18,7 +18,7 @@ import { motion } from "framer-motion";
 const budgetData = [
   { item: "Infraestructura Telecom (5G/Contrato Mayorista)", cost: 5000 },
   { item: "Lote SIM Cards Físicas Kyron (1.000 uds)", cost: 1000 },
-  { item: "Gestión eSIM y Nodo de Datos", cost: 2500 },
+  { item: "Gestión eSIM y Centro de Datos", cost: 2500 },
   { item: "Ecosistema Web & Cloud Ledger", cost: 4500 },
   { item: "Módulo Inteligencia Artificial Fiscal", cost: 1000 },
   { item: "Hardware Papeleras Magnéticas (Sensores)", cost: 683 },
@@ -30,7 +30,7 @@ const budgetData = [
 const zeduModules = [
     { id: "M1", title: "IA FISCAL", desc: "Inferencia predictiva para cumplimiento 100%.", icon: BrainCircuit, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Óptimo" },
     { id: "M2", title: "BLOCKCHAIN", desc: "Sellado inmutable de registros transaccionales.", icon: Lock, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Sincronizado" },
-    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Nodo redundante de baja latencia.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
+    { id: "M3", title: "CONECTIVIDAD 5G", desc: "Centro redundante de baja latencia.", icon: Network, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Activo" },
     { id: "M4", title: "MAG-SENSOR", desc: "Reciclaje con inducción magnética.", icon: Zap, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Operacional" },
     { id: "M5", title: "CONTROL ZEDU", desc: "Matriz Maestra de desarrollo económico.", icon: Cpu, color: "text-primary", border: "border-primary/40", glow: "shadow-glow", status: "Maestro" },
     { id: "M6", title: "EXPEDIENTE ID", desc: "Identidad digital biométrica 3D unificada.", icon: Database, color: "text-secondary", border: "border-secondary/40", glow: "shadow-glow-secondary", status: "Verificado" }
@@ -50,9 +50,9 @@ export default function TerminalVaultPage() {
       SYSTEM KYRON • CORPORATE INTELLIGENCE
 ==================================================
 EXPEDIENTE TÉCNICO MAESTRO: MODELO ZEDU
-ID NODO: MASTER-VAULT-PRO-001
+ID ÁREA: MASTER-VAULT-PRO-001
 FECHA: ${new Date().toLocaleDateString()}
-ESTADO: VERIFICADO POR NODO MAESTRO
+ESTADO: VERIFICADO POR EL ÁREA MAESTRA
 --------------------------------------------------
 
 1. ARQUITECTURA DE INGENIERÍA (MÓDULOS)
@@ -97,7 +97,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
             <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-10 py-4 mt-10 relative z-10">
                 <div className="space-y-3">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow">
-                        <Lock className="h-3 w-3" /> NODO ESTRATÉGICO
+                        <Lock className="h-3 w-3" /> ÁREA ESTRATÉGICA
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Bóveda <span className="text-primary italic">Kyron</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">EXPEDIENTE MAESTRO • TERMINAL ZEDU 2.6.5</p>
@@ -137,7 +137,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
                                     <div className="mt-auto pt-10 w-full flex justify-between items-center border-t border-white/5">
                                         <div className="flex items-center gap-2">
                                             <Activity className="h-3 w-3 text-primary animate-pulse" />
-                                            <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">NODO {m.id}</span>
+                                            <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">ÁREA {m.id}</span>
                                         </div>
                                         <div className={cn("text-[8px] font-black uppercase tracking-widest px-3 h-6 flex items-center bg-white/5 rounded-full", m.color)}>
                                             {m.status}
