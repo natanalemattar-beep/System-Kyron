@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback } from "react";
@@ -61,7 +60,7 @@ export function LandingHeader() {
     return (
         <header className={cn(
             "fixed top-0 left-0 right-0 z-[150] transition-all duration-500 w-full",
-             isScrolled ? "bg-black/80 backdrop-blur-3xl py-3 border-b border-white/5 shadow-2xl" : "bg-transparent py-8"
+             isScrolled ? "bg-background/80 backdrop-blur-3xl py-3 border-b border-border shadow-2xl" : "bg-transparent py-8"
         )}>
             <div className="container mx-auto px-6 md:px-12">
                 <div className="flex items-center justify-between h-12 w-full">
@@ -71,8 +70,8 @@ export function LandingHeader() {
                         <Link href="/" className="flex items-center gap-4 group shrink-0">
                             <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
                             <div className="flex flex-col -mt-1">
-                                <span className="text-sm font-black tracking-[0.4em] text-white uppercase italic italic-shadow leading-none">System Kyron</span>
-                                <span className="hidden md:inline-block text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-60">
+                                <span className="text-sm font-black tracking-[0.4em] text-foreground uppercase italic italic-shadow leading-none">System Kyron</span>
+                                <span className="hidden md:inline-block text-[7px] font-bold text-primary uppercase tracking-[0.4em] mt-1 opacity-80">
                                     {t('slogan')}
                                 </span>
                             </div>
@@ -86,7 +85,7 @@ export function LandingHeader() {
                                 key={item.label}
                                 href={item.href as any} 
                                 onClick={(e) => handleAnchorClick(e, item.href)}
-                                className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40 hover:text-primary transition-all relative group"
+                                className="text-[9px] font-black uppercase tracking-[0.4em] text-muted-foreground hover:text-primary transition-all relative group"
                             >
                                 {item.label}
                                 <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all group-hover:w-full shadow-glow"></span>
@@ -106,35 +105,35 @@ export function LandingHeader() {
                                         <ChevronDown className="h-3 w-3 ml-2 opacity-40" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="w-[480px] p-0 rounded-[2rem] border-white/10 bg-black/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
-                                    <div className="p-8 border-b border-white/5 bg-white/[0.02]">
+                                <DropdownMenuContent align="end" className="w-[480px] p-0 rounded-[2rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
+                                    <div className="p-8 border-b border-border bg-muted/30">
                                         <DropdownMenuLabel className="p-0 flex items-center gap-4">
                                             <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20">
                                                 <Sparkles className="h-5 w-5 text-primary" />
                                             </div>
                                             <div className="flex flex-col">
-                                                <span className="text-xs font-black uppercase tracking-[0.3em] text-white">Centro de Control</span>
-                                                <span className="text-[8px] font-bold text-white/30 uppercase tracking-widest mt-1 italic">Protocolo de Seguridad Nivel 5</span>
+                                                <span className="text-xs font-black uppercase tracking-[0.3em] text-foreground">Centro de Control</span>
+                                                <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest mt-1 italic">Protocolo de Seguridad Nivel 5</span>
                                             </div>
                                         </DropdownMenuLabel>
                                     </div>
                                     <div className="p-6 grid grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto custom-scrollbar">
                                         {loginOptions.map((option) => (
-                                            <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-4 cursor-pointer focus:bg-primary/10 border border-white/5 bg-white/[0.01] hover:border-primary/30 transition-all">
+                                            <DropdownMenuItem key={option.href} asChild className="rounded-2xl p-4 cursor-pointer focus:bg-primary/10 border border-border bg-muted/10 hover:border-primary/30 transition-all">
                                                 <Link href={option.href as any} className="flex items-start gap-4">
                                                     <div className="p-2 bg-primary/5 rounded-lg">
                                                         <option.icon className="h-4 w-4 text-primary" />
                                                     </div>
                                                     <div className="flex flex-col gap-1">
-                                                        <span className="font-black text-[10px] uppercase italic text-white/90">{option.label}</span>
-                                                        <p className="text-[8px] text-white/30 line-clamp-1 font-medium">{option.description}</p>
+                                                        <span className="font-black text-[10px] uppercase italic text-foreground/90">{option.label}</span>
+                                                        <p className="text-[8px] text-muted-foreground line-clamp-1 font-medium">{option.description}</p>
                                                     </div>
                                                 </Link>
                                             </DropdownMenuItem>
                                         ))}
                                     </div>
-                                    <div className="p-4 bg-white/[0.02] border-t border-white/5 text-center">
-                                        <Link href="/login" className="text-[8px] font-black uppercase tracking-[0.4em] text-primary hover:text-white transition-colors">Ver Todos los Servicios</Link>
+                                    <div className="p-4 bg-muted/20 border-t border-border text-center">
+                                        <Link href="/login" className="text-[8px] font-black uppercase tracking-[0.4em] text-primary hover:text-foreground transition-colors">Ver Todos los Servicios</Link>
                                     </div>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -145,17 +144,17 @@ export function LandingHeader() {
                                 <Button 
                                     variant="ghost" 
                                     size="icon" 
-                                    className="lg:hidden rounded-xl h-10 w-10 bg-white/5 border border-white/5"
+                                    className="lg:hidden rounded-xl h-10 w-10 bg-muted border border-border"
                                     aria-label="Menú móvil"
                                 >
                                     <Menu className="h-5 w-5 text-primary" />
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-black border-l-white/10">
-                                <SheetHeader className="p-10 border-b border-white/5 flex items-center justify-between">
+                            <SheetContent side="right" className="w-full sm:max-w-md p-0 bg-background border-l-border">
+                                <SheetHeader className="p-10 border-b border-border flex items-center justify-between">
                                     <div className="flex items-center gap-4">
                                         <Logo className="h-8 w-8" />
-                                        <SheetTitle className="text-xl font-black tracking-tight text-white uppercase italic">PORTAL KYRON</SheetTitle>
+                                        <SheetTitle className="text-xl font-black tracking-tight text-foreground uppercase italic">PORTAL KYRON</SheetTitle>
                                     </div>
                                 </SheetHeader>
                                 <nav className="p-10 flex flex-col gap-2">
@@ -164,7 +163,7 @@ export function LandingHeader() {
                                             <Link 
                                                 href={item.href as any} 
                                                 onClick={(e) => handleAnchorClick(e, item.href)}
-                                                className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-white/5 text-white/40 hover:text-primary transition-all"
+                                                className="text-lg font-black uppercase tracking-[0.2em] py-4 border-b border-border text-muted-foreground hover:text-primary transition-all"
                                             >
                                                 {item.label}
                                             </Link>
