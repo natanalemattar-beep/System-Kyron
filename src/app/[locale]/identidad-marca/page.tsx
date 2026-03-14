@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion } from "framer-motion";
@@ -20,7 +21,6 @@ import { useToast } from "@/hooks/use-toast";
 
 /**
  * @fileOverview Página de Identidad de Marca Consolidada.
- * Logo con fondo de contraste integrado para visualización profesional.
  */
 
 export default function IdentidadMarcaPage() {
@@ -94,7 +94,7 @@ export default function IdentidadMarcaPage() {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.08)_0,transparent_70%)]" />
         <div className="absolute top-12 left-12 border-l border-primary/20 pl-4">
-          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20 italic">Master Asset Node</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20 italic">Centro de Activos Maestro</p>
           <p className="text-[8px] font-bold text-primary uppercase tracking-[0.3em] mt-1">Version 2.6.5 [Final]</p>
         </div>
       </div>
@@ -166,7 +166,7 @@ export default function IdentidadMarcaPage() {
             className="btn-3d-primary h-14 px-10 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-2xl"
             onClick={() => window.print()}
           >
-            <Camera className="mr-3 h-4 w-4" /> CAPTURAR NODO
+            <Camera className="mr-3 h-4 w-4" /> CAPTURAR PANTALLA
           </Button>
         </div>
       </motion.div>

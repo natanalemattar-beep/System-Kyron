@@ -66,8 +66,8 @@ export function LandingHeader() {
             <div className="container mx-auto px-6 md:px-12">
                 <div className="flex items-center justify-between h-12 w-full">
                     
-                    {/* LOGO (LEFT) - Elevado y alineado */}
-                    <div className="flex items-center justify-start min-w-[120px]">
+                    {/* LOGO (LEFT) */}
+                    <div className="flex items-center justify-start min-w-[180px]">
                         <Link href="/" className="flex items-center gap-4 group shrink-0">
                             <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
                             <div className="flex flex-col -mt-1">
@@ -113,7 +113,7 @@ export function LandingHeader() {
                                                 <Sparkles className="h-5 w-5 text-primary" />
                                             </div>
                                             <div className="flex flex-col">
-                                                <span className="text-xs font-black uppercase tracking-[0.3em] text-white">Consola de Ecosistema</span>
+                                                <span className="text-xs font-black uppercase tracking-[0.3em] text-white">Centro de Control</span>
                                                 <span className="text-[8px] font-bold text-white/30 uppercase tracking-widest mt-1 italic">Protocolo de Seguridad Nivel 5</span>
                                             </div>
                                         </DropdownMenuLabel>
@@ -134,7 +134,7 @@ export function LandingHeader() {
                                         ))}
                                     </div>
                                     <div className="p-4 bg-white/[0.02] border-t border-white/5 text-center">
-                                        <Link href="/login" className="text-[8px] font-black uppercase tracking-[0.4em] text-primary hover:text-white transition-colors">Ver Todos los Protocolos</Link>
+                                        <Link href="/login" className="text-[8px] font-black uppercase tracking-[0.4em] text-primary hover:text-white transition-colors">Ver Todos los Servicios</Link>
                                     </div>
                                 </DropdownMenuContent>
                             </DropdownMenu>
@@ -155,7 +155,7 @@ export function LandingHeader() {
                                 <SheetHeader className="p-10 border-b border-white/5 flex items-center justify-between">
                                     <div className="flex items-center gap-4">
                                         <Logo className="h-8 w-8" />
-                                        <SheetTitle className="text-xl font-black tracking-tight text-white uppercase italic">NODO KYRON</SheetTitle>
+                                        <SheetTitle className="text-xl font-black tracking-tight text-white uppercase italic">PORTAL KYRON</SheetTitle>
                                     </div>
                                 </SheetHeader>
                                 <nav className="p-10 flex flex-col gap-2">
@@ -172,7 +172,7 @@ export function LandingHeader() {
                                     ))}
                                     <div className="pt-10">
                                         <Button asChild className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase tracking-widest text-[10px]">
-                                            <Link href="/login">ACCEDER A CONSOLA</Link>
+                                            <Link href="/login">ACCEDER AL PORTAL</Link>
                                         </Button>
                                     </div>
                                 </nav>

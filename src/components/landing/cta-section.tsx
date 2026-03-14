@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { loginOptions } from "@/lib/login-options";
 import { useToast } from "@/hooks/use-toast";
@@ -29,9 +28,6 @@ const formSchema = z.object({
   message: z.string().optional(),
 });
 
-const sectorOptions = ["Tecnología", "Comercio", "Construcción", "Salud", "Educación", "Logística", "Servicios", "Otros"];
-const urgencyOptions = ["Baja (Planificación)", "Media (Próximo Mes)", "Alta (Inmediata)"];
-
 export function CtaSection() {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -47,7 +43,7 @@ export function CtaSection() {
             companySize: "",
             sector: "",
             urgency: "",
-            module: "Centro de Contabilidad",
+            module: "Contabilidad",
             message: "",
         },
     });
@@ -59,7 +55,7 @@ export function CtaSection() {
             if (result.success) {
                 toast({
                     title: "TRANSMISIÓN COMPLETADA",
-                    description: "Expediente enviado a auditoría. Un oficial de cuenta iniciará contacto.",
+                    description: "Expediente enviado a revisión. Un oficial de cuenta iniciará contacto.",
                     action: <ShieldCheck className="text-primary h-4 w-4" />
                 });
                 form.reset();
@@ -93,7 +89,7 @@ export function CtaSection() {
                             Inyecta Inteligencia <br/> <span className="text-primary not-italic">a tu Operación</span>
                         </h2>
                         <p className="text-sm md:text-lg text-muted-foreground max-w-xl mx-auto lg:ml-0 leading-relaxed font-bold uppercase tracking-tight italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">
-                            Despliegue de ecosistema personalizado. Complete el expediente técnico para priorizar su auditoría de nodo.
+                            Despliegue de ecosistema personalizado. Complete el expediente técnico para priorizar su auditoría técnica.
                         </p>
                     </motion.div>
 
@@ -159,7 +155,7 @@ export function CtaSection() {
                                         name="email"
                                         render={({ field }) => (
                                             <FormItem className="space-y-1.5 text-left">
-                                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Email Nodo</FormLabel>
+                                                <FormLabel className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 ml-1">Correo Electrónico</FormLabel>
                                                 <FormControl>
                                                     <Input type="email" placeholder="tu@correo.com" {...field} className="h-10 bg-background/50 border-border/50 rounded-xl text-xs font-bold" />
                                                 </FormControl>

@@ -13,7 +13,6 @@ import {
 
 /**
  * @fileOverview Sección de Servicios: Ecosistema Modular y Responsivo.
- * Carrusel optimizado para visualización móvil y navegación fluida.
  */
 
 export function ServicesSection() {
@@ -53,7 +52,7 @@ export function ServicesSection() {
                                         </div>
                                         
                                         <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-3">
-                                            <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-white/20">Protocol Node 0{index + 1}</span>
+                                            <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-white/20">Área de Protocolo 0{index + 1}</span>
                                         </div>
                                     </div>
                                 </CarouselItem>

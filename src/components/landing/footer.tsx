@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Link } from "@/navigation";
@@ -67,7 +68,7 @@ export function Footer() {
                 </div>
 
                 <div className="md:col-span-4 space-y-8">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Nodo de Contacto</h4>
+                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Centro de Contacto</h4>
                     <div className="space-y-6 text-[10px] font-black uppercase tracking-widest">
                         <div className="flex items-center gap-4 text-white/40 group">
                             <div className="p-2 bg-white/5 rounded-lg border border-white/5 group-hover:border-primary/40 transition-colors">
@@ -87,7 +88,7 @@ export function Footer() {
 
             <div className="container mx-auto px-6 mt-24 pt-10 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-8">
                 <p className="text-[9px] font-black uppercase tracking-[0.5em] text-white/10 italic">
-                    &copy; {currentYear || '2026'} System Kyron • Corporate Intelligence Node • MK-2.6
+                    &copy; {currentYear || '2026'} System Kyron • Inteligencia Corporativa • MK-2.6
                 </p>
                 <div className="flex flex-wrap justify-center gap-10 text-[9px] font-black uppercase tracking-widest text-white/20">
                     <Link href="/manual-usuario" className="hover:text-primary transition-all flex items-center gap-2"><FileText className="h-3 w-3"/> Manual de Usuario</Link>

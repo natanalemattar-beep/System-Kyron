@@ -190,7 +190,7 @@ FIRMA DIGITAL: [KYRON-MASTER-AUTH-ID-2026]
             </Tabs>
 
             <div className="mt-20 flex justify-center pb-10">
-                <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-white/10">
+                <div className="flex items-center gap-10 text-[9px] font-black uppercase tracking-[0.5em] text-white/10 italic">
                     <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3" /> Encrypt: AES-512</span>
                     <span className="flex items-center gap-2"><Sparkles className="h-3 w-3" /> AI Engine: Active</span>
                     <span className="flex items-center gap-2"><Database className="h-3 w-3" /> Ledger: Verified</span>
