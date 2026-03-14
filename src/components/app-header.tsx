@@ -18,8 +18,6 @@ import {
     ShieldCheck, 
     ChevronDown,
     FileText,
-    Settings,
-    Activity
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -57,7 +55,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
   if (!mounted) return null;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-white/5 bg-black/80 backdrop-blur-3xl h-16 flex items-center w-full">
+    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-border bg-background/80 backdrop-blur-3xl h-16 flex items-center w-full">
       <div className="w-full px-6 md:px-12">
         <div className="flex items-center justify-between w-full gap-4">
           
@@ -66,7 +64,7 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
             <Link href="/" className="flex items-center gap-4 group shrink-0">
                 <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
                 <div className="flex flex-col -mt-1">
-                    <span className="text-xs font-black tracking-[0.4em] uppercase text-white italic italic-shadow leading-none">System Kyron</span>
+                    <span className="text-xs font-black tracking-[0.4em] uppercase text-foreground italic italic-shadow leading-none">System Kyron</span>
                     <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-60">Telecom, Reciclaje y Control Total</p>
                 </div>
             </Link>
@@ -80,20 +78,20 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
                         <DropdownMenuTrigger asChild>
                             <Button 
                                 variant="ghost" 
-                                className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 hover:text-primary transition-all flex items-center gap-2.5 h-10 px-4 rounded-xl hover:bg-white/5 group whitespace-nowrap"
+                                className="text-[9px] font-black uppercase tracking-[0.3em] text-foreground/40 hover:text-primary transition-all flex items-center gap-2.5 h-10 px-4 rounded-xl hover:bg-foreground/5 group whitespace-nowrap"
                             >
                                 <group.icon className="h-3.5 w-3.5 opacity-50 group-hover:opacity-100 group-hover:text-primary transition-all" /> 
-                                <span className="group-hover:text-white transition-colors">{group.title}</span>
+                                <span className="group-hover:text-foreground transition-colors">{group.title}</span>
                                 <ChevronDown className="h-3 w-3 opacity-20 group-hover:opacity-100" />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="center" className="w-64 p-2 rounded-[1.5rem] border-white/10 bg-black/95 backdrop-blur-3xl shadow-2xl">
-                            <DropdownMenuLabel className="px-4 py-3 text-[8px] font-black uppercase tracking-[0.4em] text-primary/60 border-b border-white/5 mb-2">
+                        <DropdownMenuContent align="center" className="w-64 p-2 rounded-[1.5rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl">
+                            <DropdownMenuLabel className="px-4 py-3 text-[8px] font-black uppercase tracking-[0.4em] text-primary/60 border-b border-border mb-2">
                                 {group.title}
                             </DropdownMenuLabel>
                             {(group.items && group.items.length > 0 ? group.items : (group.subGroups?.flatMap(sg => sg.items) || [])).map((item) => (
                                 <DropdownMenuItem key={item.href} asChild className="rounded-xl">
-                                    <Link href={item.href as any} className="flex items-center py-3 px-4 text-[9px] font-bold uppercase tracking-widest text-white/70 hover:text-white">
+                                    <Link href={item.href as any} className="flex items-center py-3 px-4 text-[9px] font-bold uppercase tracking-widest text-foreground/70 hover:text-foreground">
                                         <item.icon className="mr-4 h-4 w-4 opacity-40" />
                                         <span>{item.label}</span>
                                     </Link>
@@ -108,13 +106,11 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
           {/* USER (RIGHT) */}
           <div className="flex items-center justify-end gap-4 md:gap-6 min-w-[120px]">
             <div className="flex items-center gap-4">
-                <div className="hidden sm:block">
-                    <ThemeToggle />
-                </div>
+                <ThemeToggle />
                 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full border border-white/10 p-0 overflow-hidden hover:border-primary/40 transition-all bg-white/5 shadow-inner">
+                    <Button variant="ghost" className="relative h-10 w-10 rounded-full border border-border p-0 overflow-hidden hover:border-primary/40 transition-all bg-foreground/5 shadow-inner">
                       <Avatar className="h-full w-full rounded-none">
                         <AvatarFallback className={cn("rounded-none font-black text-[10px] text-white", user.color || "bg-primary shadow-glow")}>
                             {user.fallback}
@@ -122,11 +118,11 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
                       </Avatar>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-72 p-3 rounded-[2rem] border-white/10 bg-black/95 backdrop-blur-3xl shadow-2xl">
-                    <DropdownMenuLabel className="p-5 bg-white/[0.02] rounded-2xl mb-2 border border-white/5">
+                  <DropdownMenuContent align="end" className="w-72 p-3 rounded-[2rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl">
+                    <DropdownMenuLabel className="p-5 bg-foreground/5 rounded-2xl mb-2 border border-border">
                        <div className="flex flex-col gap-1.5">
                           <p className="text-[11px] font-black uppercase tracking-widest text-primary">{user.name}</p>
-                          <p className="text-[9px] text-white/30 truncate font-mono italic">{user.email}</p>
+                          <p className="text-[9px] text-foreground/30 truncate font-mono italic">{user.email}</p>
                        </div>
                     </DropdownMenuLabel>
                     
@@ -144,9 +140,9 @@ export function AppHeader({ user, navGroups }: AppHeaderProps) {
                       </Link>
                     </DropdownMenuItem>
                     
-                    <DropdownMenuSeparator className="bg-white/5 my-2" />
+                    <DropdownMenuSeparator className="bg-border my-2" />
                     
-                    <DropdownMenuItem asChild className="rounded-xl text-rose-400 focus:text-rose-400 focus:bg-rose-500/10">
+                    <DropdownMenuItem asChild className="rounded-xl text-rose-500 focus:text-rose-600 focus:bg-rose-500/10">
                       <Link href="/" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-[0.2em]">
                           <LogOut className="mr-4 h-4 w-4" />
                           <span>Cerrar Conexión</span>

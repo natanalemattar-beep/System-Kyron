@@ -13,15 +13,15 @@ export default function TelecomLayout({
     const user = { name: "Área Técnica", email: "telecom@kyron.com", fallback: "TE" };
 
     return (
-      <div className="flex min-h-screen bg-[#080602] text-white relative overflow-hidden hud-grid">
+      <div className="flex min-h-screen bg-background text-foreground relative overflow-hidden">
           <div className="fixed inset-0 pointer-events-none -z-10">
-            <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:20px_20px]" />
-            <div className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-amber-500/[0.06] rounded-full blur-[200px] opacity-40" />
+            <div className="absolute inset-0 opacity-[0.02] hud-grid" />
+            <div className="absolute top-[-10%] right-[-10%] w-[1000px] h-[1000px] bg-amber-500/[0.04] rounded-full blur-[200px] opacity-40" />
           </div>
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
-                user={{...user, color: "bg-amber-600 shadow-glow"}} 
+                user={{...user, color: "bg-amber-600 shadow-glow-secondary"}} 
                 dashboardHref="/dashboard-telecom" 
                 navGroups={telecomNavGroups}
               />
@@ -33,8 +33,8 @@ export default function TelecomLayout({
               >
                   {children}
               </motion.main>
-              <footer className="p-10 border-t border-white/5 bg-white/[0.01] text-center backdrop-blur-3xl">
-                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-white/10 italic">
+              <footer className="p-10 border-t border-border bg-card/10 text-center backdrop-blur-3xl">
+                <p className="text-[10px] font-black uppercase tracking-[0.8em] text-foreground/10 italic">
                   System Kyron v2.6 • Telecom Central • 2026
                 </p>
               </footer>
