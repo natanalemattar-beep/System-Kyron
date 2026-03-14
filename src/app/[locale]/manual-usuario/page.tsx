@@ -33,7 +33,12 @@ import {
   Cpu,
   MessageSquare,
   Building2,
-  FileText
+  FileText,
+  Gavel,
+  Radio,
+  Recycle,
+  Wallet,
+  BarChart3
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRef, useState, useEffect } from "react";
@@ -45,12 +50,12 @@ const chapters = [
     id: "bienvenida",
     title: "01. Bienvenida al Ecosistema",
     icon: Target,
-    content: `Bienvenido a la documentación maestra de System Kyron. Este documento representa la visión técnica y operativa de un ecosistema integral diseñado para la excelencia en la gestión empresarial y ciudadana en Venezuela. Bajo la dirección estratégica de Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS), System Kyron se propone como el nodo central de inteligencia que fusiona telecomunicaciones, finanzas blockchain y cumplimiento legal automatizado. Este manual detalla las capacidades previstas para transformar la operatividad del sector privado bajo los más altos estándares de seguridad y eficiencia.`,
+    content: `Bienvenido a la documentación maestra de System Kyron. Este documento representa la visión técnica y operativa de un ecosistema integral diseñado para la excelencia en la gestión empresarial y ciudadana en Venezuela. Bajo la dirección estratégica de Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS), System Kyron se propone como el centro de inteligencia que fusiona telecomunicaciones, finanzas blockchain y cumplimiento legal automatizado. Este manual detalla las capacidades previstas para transformar la operatividad del sector privado bajo los más altos estándares de seguridad y eficiencia.`,
     details: [
       "Propósito: Centralizar el 100% de las operaciones críticas en una plataforma única.",
       "Identidad: Desarrollo de ingeniería soberana nacido en el Colegio Gabriela Mistral.",
       "Visión 2026: Preparar a las empresas para la economía digital inmutable.",
-      "Escalabilidad: Módulos independientes que crecen con su organización."
+      "Escalabilidad: Áreas independientes que crecen con su organización."
     ]
   },
   {
@@ -60,7 +65,7 @@ const chapters = [
     content: `El despliegue de System Kyron está diseñado para ser fluido e intuitivo. Al iniciar, el sistema le guiará a través de una configuración maestra donde definirá el perfil de su organización o identidad personal. Nuestra propuesta incluye un asistente de configuración que mapea automáticamente sus necesidades según el sector económico, asegurando que los módulos de FACTURACIÓN, CONTABILIDAD y RECURSOS HUMANOS se activen con los parámetros legales correspondientes a su jurisdicción.`,
     details: [
       "Perfil Maestro: Registro de RIF, Razón Social y datos de contacto oficiales.",
-      "Selector de Módulos: Activación bajo demanda de las 10 áreas principales.",
+      "Selector de Áreas: Activación bajo demanda de las 10 secciones principales.",
       "Onboarding IA: Guía asistida por voz y texto para la carga inicial de datos.",
       "Multilingüe: Soporte completo para operaciones nacionales e internacionales."
     ]
@@ -81,9 +86,9 @@ const chapters = [
     id: "tablero",
     title: "04. Tablero de herramientas",
     icon: LayoutDashboard,
-    content: `El módulo central de System Kyron es un espejo de la salud de su negocio. El tablero ha sido diseñado para mostrar KPIs (Indicadores Clave de Desempeño) en tiempo real. Podrá visualizar el pulso financiero, la telemetría de red y el impacto ambiental desde una única consola. La interfaz utiliza glassmorphism para reducir la carga cognitiva, permitiendo que el operador identifique anomalías o éxitos mediante códigos de colores vivos y alertas visuales dinámicas.`,
+    content: `El portal central de System Kyron es un espejo de la salud de su negocio. El tablero ha sido diseñado para mostrar KPIs (Indicadores Clave de Desempeño) en tiempo real. Podrá visualizar el pulso financiero, la telemetría de red y el impacto ambiental desde una única consola. La interfaz utiliza glassmorphism para reducir la carga cognitiva, permitiendo que el operador identifique anomalías o éxitos mediante códigos de colores vivos y alertas visuales dinámicas.`,
     details: [
-      "Visión 360°: Resumen consolidado de los 10 módulos de gestión.",
+      "Visión 360°: Resumen consolidado de las 10 áreas de gestión.",
       "Personalización: Ajuste el tablero según su rol (Gerente, Contador, Operador).",
       "Telemetría en Vivo: Datos actualizados al segundo sin necesidad de recarga.",
       "Acceso Multi-Portal: Salte entre su cuenta personal y corporativa con un clic."
@@ -129,7 +134,7 @@ const chapters = [
     id: "tpv",
     title: "08. FACTURACIÓN (Punto de Venta)",
     icon: ShoppingCart,
-    content: `El módulo de FACTURACIÓN integra un Punto de Venta (TPV) de alta velocidad que respeta estrictamente el horario laboral configurado por la gerencia. Si un operador intenta procesar una venta fuera de su turno, el sistema bloqueará la transacción, requiriendo autorización de un gerente con clave maestra. Esta funcionalidad, junto con la homologación de equipos fiscales, asegura un control total sobre el inventario y los ingresos, eliminando el riesgo de ventas no registradas o discrepancias en el arqueo de caja.`,
+    content: `El área de FACTURACIÓN integra un Punto de Venta (TPV) de alta velocidad que respeta estrictamente el horario laboral configurado por la gerencia. Si un operador intenta procesar una venta fuera de su turno, el sistema bloqueará la transacción, requiriendo autorización de un gerente con clave maestra. Esta funcionalidad, junto con la homologación de equipos fiscales, asegura un control total sobre el inventario y los ingresos, eliminando el riesgo de ventas no registradas o discrepancias en el arqueo de caja.`,
     details: [
       "Control de Horario: Bloqueo automático del TPV fuera del tiempo laboral.",
       "Venta Multimoneda: Cobro mixto (Bs./Divisas) con cálculo exacto de IGTF.",
@@ -141,7 +146,7 @@ const chapters = [
     id: "legal",
     title: "09. ASESORÍA LEGAL (IA)",
     icon: Gavel,
-    content: `El área jurídica de System Kyron actúa como un Oficial de Cumplimiento virtual. Nuestra IA está entrenada en leyes venezolanas para ayudarle a redactar borradores de contratos de arrendamiento, acuerdos de confidencialidad y actas de asamblea. Además, el sistema monitorea los registros ante el SAREN y el SAPI, emitiendo alertas sobre el vencimiento de poderes de representación o la necesidad de renovar marcas comerciales, asegurando que la estructura legal de su empresa sea inexpugnable.`,
+    content: `El centro jurídico de System Kyron actúa como un Oficial de Cumplimiento virtual. Nuestra IA está entrenada en leyes venezolanas para ayudarle a redactar borradores de contratos de arrendamiento, acuerdos de confidencialidad y actas de asamblea. Además, el sistema monitorea los registros ante el SAREN y el SAPI, emitiendo alertas sobre el vencimiento de poderes de representación o la necesidad de renovar marcas comerciales, asegurando que la estructura legal de su empresa sea inexpugnable.`,
     details: [
       "Redacción Jurídica: Generación de documentos basados en leyes vigentes.",
       "Alerta de Poderes: Avisos preventivos antes de la caducidad de facultades.",
@@ -165,7 +170,7 @@ const chapters = [
     id: "sostenibilidad",
     title: "11. SOSTENIBILIDAD (Reciclaje)",
     icon: Recycle,
-    content: `El décimo módulo de System Kyron introduce la economía circular al ecosistema. Mediante el uso de nuestras papeleras inteligentes con tecnología de inducción magnética, los usuarios pueden transformar residuos en activos digitales. El sistema valida el pesaje por IA y acredita Eco-Créditos en su cuenta. Estos créditos pueden ser intercambiados en el 'Mercado de Eco-Créditos' interno, permitiendo a las empresas comprar o vender bonos verdes, creando una nueva línea de ingresos basada en la responsabilidad ambiental.`,
+    content: `Esta sección de System Kyron introduce la economía circular al ecosistema. Mediante el uso de nuestros puntos de reciclaje con tecnología de inducción magnética, los usuarios pueden transformar residuos en activos digitales. El sistema valida el pesaje por IA y acredita Eco-Créditos en su cuenta. Estos créditos pueden ser intercambiados en el 'Mercado de Eco-Créditos' interno, permitiendo a las empresas comprar o vender bonos verdes, creando una nueva línea de ingresos basada en la responsabilidad ambiental.`,
     details: [
       "Tecnología Magnética: Clasificación precisa de metales y plásticos.",
       "Mercado de Créditos: Exchange descentralizado de activos ambientales.",
@@ -249,7 +254,7 @@ const chapters = [
     id: "academia",
     title: "18. Academia Kyron",
     icon: School,
-    content: `Creemos en la formación continua. La Academia Kyron es un portal educativo donde los operadores pueden aprender a usar cada módulo del sistema mediante cursos certificados. El conocimiento generado en el Colegio Gabriela Mistral se transfiere a los usuarios para que dominen la ingeniería fiscal y técnica del sistema, convirtiéndose en profesionales más competentes y capaces de liderar la transformación digital en sus empresas.`,
+    content: `Creemos en la formación continua. La Academia Kyron es un portal educativo donde los operadores pueden aprender a usar cada área del sistema mediante cursos certificados. El conocimiento generado en el Colegio Gabriela Mistral se transfiere a los usuarios para que dominen la ingeniería fiscal y técnica del sistema, convirtiéndose en profesionales más competentes y capaces de liderar la transformación digital en sus empresas.`,
     details: [
       "Cursos Certificados: Validación de competencias en gestión Kyron.",
       "Tutoriales en Video: Guías visuales paso a paso de cada funcionalidad.",
