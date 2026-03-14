@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -103,7 +102,7 @@ export function CtaSection() {
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 p-6 md:p-10 border border-border/50 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl relative overflow-hidden bg-card/40 backdrop-blur-3xl">
                                 <div className="absolute top-0 right-0 p-8 opacity-5">
-                                    <Building2 className="h-24 w-24 md:h-32 md:w-32 rotate-12" />
+                                    <Building2 className="h-24 w-24 md:h-32 md:w-32 rotate-12 text-primary/20" />
                                 </div>
                                 
                                 <div className="space-y-1 mb-6 relative z-10 text-center sm:text-left">

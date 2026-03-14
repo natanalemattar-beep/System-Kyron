@@ -46,7 +46,7 @@ export function FeaturesSection() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-[7px] font-black uppercase tracking-[0.3em] text-secondary mx-auto lg:ml-0">
                         <ShieldCheck className="h-3 w-3" /> Seguridad Corporativa
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase italic italic-shadow leading-tight">Control <br className="hidden sm:block"/> <span className="text-primary not-italic">Financiero</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase italic italic-shadow leading-tight">Control <br className="hidden sm:block"/> <span className="text-primary not-italic">Financiero</span></h2>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 md:gap-6">
@@ -59,8 +59,8 @@ export function FeaturesSection() {
                           <feature.icon className="h-6 w-6" />
                         </div>
                         <div className="space-y-2 text-center sm:text-left">
-                          <h4 className="font-black text-sm uppercase text-white/90">{feature.title}</h4>
-                          <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">{feature.description}</p>
+                          <h4 className="font-black text-sm uppercase text-foreground/90">{feature.title}</h4>
+                          <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">{feature.description}</p>
                         </div>
                     </div>
                     ))}

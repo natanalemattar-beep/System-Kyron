@@ -69,8 +69,8 @@ export function AboutUsSection() {
                             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-[0.4em] border border-primary/20 mx-auto lg:ml-0 shadow-glow-sm">
                                 <Sparkles className="h-3 w-3" /> Equipo Profesional
                             </div>
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-white italic-shadow leading-none">Sobre <span className="text-primary not-italic">Nosotros</span></h2>
-                            <p className="text-base md:text-xl text-white/60 font-bold uppercase tracking-tight leading-relaxed italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">Desarrollamos ingeniería de software diseñada para la excelencia operativa.</p>
+                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground italic-shadow leading-none">Sobre <span className="text-primary not-italic">Nosotros</span></h2>
+                            <p className="text-base md:text-xl text-muted-foreground font-bold uppercase tracking-tight leading-relaxed italic border-l-0 lg:border-l-4 border-primary/30 lg:pl-8">Desarrollamos ingeniería de software diseñada para la excelencia operativa.</p>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -78,15 +78,15 @@ export function AboutUsSection() {
                                 <div className="p-3 bg-primary/10 rounded-xl w-fit group-hover:scale-110 transition-transform mb-6 mx-auto lg:ml-0 shadow-inner border border-primary/10">
                                     <Target className="text-primary h-6 w-6" />
                                 </div>
-                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2 leading-none">Misión</h3>
-                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Garantizar la gestión empresarial mediante registros seguros, transparentes e inmutables.</p>
+                                <h3 className="text-lg font-black uppercase italic tracking-tight text-foreground mb-2 leading-none">Misión</h3>
+                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">Garantizar la gestión empresarial mediante registros seguros, transparentes e inmutables.</p>
                             </Card>
                             <Card className="glass-card border-none p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.05] transition-all group shadow-2xl">
                                 <div className="p-3 bg-secondary/10 rounded-xl w-fit group-hover:scale-110 transition-transform mb-6 mx-auto lg:ml-0 shadow-inner border border-secondary/10">
                                     <Eye className="text-secondary h-6 w-6" />
                                 </div>
-                                <h3 className="text-lg font-black uppercase italic tracking-tight text-white mb-2 leading-none">Visión</h3>
-                                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-relaxed">Consolidarnos como el estándar global de eficiencia para empresas e instituciones de vanguardia.</p>
+                                <h3 className="text-lg font-black uppercase italic tracking-tight text-foreground mb-2 leading-none">Visión</h3>
+                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-relaxed">Consolidarnos como el estándar global de eficiencia para empresas e instituciones de vanguardia.</p>
                             </Card>
                         </div>
 
@@ -118,7 +118,7 @@ export function AboutUsSection() {
                                     <p className={cn("text-4xl font-black italic tracking-tighter mb-2", stat.color)}>
                                         <Counter from={0} to={stat.val} />{stat.suffix}
                                     </p>
-                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20">{stat.label}</p>
+                                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">{stat.label}</p>
                                 </Card>
                             ))}
                         </div>
@@ -133,7 +133,7 @@ export function AboutUsSection() {
                                                 <div className="p-2 bg-primary/10 rounded-lg shadow-inner"><testimonial.icon className="h-4 w-4 text-primary"/></div>
                                                 <span className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">{testimonial.module}</span>
                                             </div>
-                                            <p className="text-xl md:text-2xl font-bold italic text-white/80 leading-relaxed">"{testimonial.text}"</p>
+                                            <p className="text-xl md:text-2xl font-bold italic text-foreground/80 leading-relaxed">"{testimonial.text}"</p>
                                             <footer className="flex flex-col sm:flex-row items-center gap-6 pt-8 border-t border-white/5">
                                                 {avatar && (
                                                     <Avatar className="h-14 w-14 border-2 border-primary/20 shadow-2xl">
@@ -142,8 +142,8 @@ export function AboutUsSection() {
                                                     </Avatar>
                                                 )}
                                                 <div className="text-center sm:text-left space-y-1">
-                                                    <p className="font-black text-sm uppercase tracking-widest text-white leading-none">{testimonial.name}</p>
-                                                    <p className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em]">{testimonial.company}</p>
+                                                    <p className="font-black text-sm uppercase tracking-widest text-foreground leading-none">{testimonial.name}</p>
+                                                    <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-[0.2em]">{testimonial.company}</p>
                                                 </div>
                                             </footer>
                                         </CardContent>

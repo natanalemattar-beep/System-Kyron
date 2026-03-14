@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -52,16 +51,16 @@ export function FaqSection() {
                     <Accordion type="single" collapsible className="w-full">
                         {faqItems.map((item, index) => (
                             <AccordionItem key={index} value={`item-${index}`} className={cn(
-                                "border-none rounded-2xl mb-4 px-6 overflow-hidden transition-all hover:bg-white/5",
+                                "border-none rounded-2xl mb-4 px-6 overflow-hidden transition-all hover:bg-foreground/5",
                                 isHolidayActive ? "bg-card/50 backdrop-blur-sm" : "bg-card/40 shadow-sm"
                             )}>
                                 <AccordionTrigger className="text-left hover:no-underline py-6">
                                     <div className="flex items-start gap-4">
                                         <HelpCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                                        <span className="text-xs md:text-sm font-black uppercase tracking-tight italic">{item.question}</span>
+                                        <span className="text-xs md:text-sm font-black uppercase tracking-tight italic text-foreground/90">{item.question}</span>
                                     </div>
                                 </AccordionTrigger>
-                                <AccordionContent className="pb-6 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed pl-9 border-t border-white/5 pt-4">
+                                <AccordionContent className="pb-6 text-muted-foreground text-xs md:text-sm font-medium leading-relaxed pl-9 border-t border-border/10 pt-4">
                                     {item.answer}
                                 </AccordionContent>
                             </AccordionItem>
