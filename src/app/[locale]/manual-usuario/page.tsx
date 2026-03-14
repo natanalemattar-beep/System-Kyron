@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion } from "framer-motion";
@@ -22,9 +23,17 @@ import {
   LayoutDashboard,
   ShoppingCart,
   Clock,
-  Settings2,
   ShieldAlert,
-  History
+  History,
+  Scale,
+  Landmark,
+  Globe,
+  Coins,
+  Activity,
+  Cpu,
+  MessageSquare,
+  Building2,
+  FileText
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRef, useState, useEffect } from "react";
@@ -34,128 +43,242 @@ import { cn } from "@/lib/utils";
 const chapters = [
   {
     id: "bienvenida",
-    title: "01. Bienvenida y Acceso al Ecosistema",
+    title: "01. Bienvenida al Ecosistema",
     icon: Target,
-    content: `¡Te damos la bienvenida oficial a System Kyron! Has dado el paso más importante para modernizar y proteger tu futuro financiero y empresarial. Esta plataforma no es un software común; es un ecosistema de inteligencia corporativa diseñado para que tengas el control total de tus activos en un entorno seguro y profesional. Para comenzar tu experiencia, el proceso de entrada es fundamental. Solo necesitas tu correo electrónico registrado y una contraseña que sea difícil de adivinar para otros. 
-
-Para garantizar que nadie más que tú pueda entrar a tu información, hemos implementado el 'Protocolo de Seguridad Nivel 5'. Esto significa que, después de poner tu clave, el sistema te pedirá un código único que llegará directamente a tu teléfono celular. Este paso adicional se conoce como Verificación en Dos Pasos (2FA) y es tu mejor escudo contra accesos no autorizados. Si tu dispositivo lo permite, también puedes configurar el acceso por huella dactilar o reconocimiento facial, lo que hace que entrar sea tan rápido como mirar tu pantalla o tocar un sensor. Una vez dentro, podrás elegir el 'Portal' que necesites: Personal para tus trámites civiles, o Empresarial para manejar tu negocio.`,
+    content: `Bienvenido a la documentación maestra de System Kyron. Este documento representa la visión técnica y operativa de un ecosistema integral diseñado para la excelencia en la gestión empresarial y ciudadana en Venezuela. Bajo la dirección estratégica de Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS), System Kyron se propone como el nodo central de inteligencia que fusiona telecomunicaciones, finanzas blockchain y cumplimiento legal automatizado. Este manual detalla las capacidades previstas para transformar la operatividad del sector privado bajo los más altos estándares de seguridad y eficiencia.`,
     details: [
-      "Elección de Portal: Elige entre el área personal o los módulos de empresa según tu necesidad del momento.",
-      "Seguridad Biométrica: Configura tu rostro o huella para entrar sin necesidad de escribir contraseñas largas.",
-      "Protección de Datos: Toda la información que subas se guarda bajo un cifrado militar llamado AES-512.",
-      "Perfil de Usuario: Mantén tus datos actualizados para que el sistema pueda generar documentos por ti automáticamente."
+      "Propósito: Centralizar el 100% de las operaciones críticas en una plataforma única.",
+      "Identidad: Desarrollo de ingeniería soberana nacido en el Colegio Gabriela Mistral.",
+      "Visión 2026: Preparar a las empresas para la economía digital inmutable.",
+      "Escalabilidad: Módulos independientes que crecen con su organización."
     ]
   },
   {
-    id: "centro-mando",
-    title: "02. El Centro de Mando: Tu Oficina Virtual",
+    id: "empezar",
+    title: "02. Cómo empezar",
+    icon: Zap,
+    content: `El despliegue de System Kyron está diseñado para ser fluido e intuitivo. Al iniciar, el sistema le guiará a través de una configuración maestra donde definirá el perfil de su organización o identidad personal. Nuestra propuesta incluye un asistente de configuración que mapea automáticamente sus necesidades según el sector económico, asegurando que los módulos de FACTURACIÓN, CONTABILIDAD y RECURSOS HUMANOS se activen con los parámetros legales correspondientes a su jurisdicción.`,
+    details: [
+      "Perfil Maestro: Registro de RIF, Razón Social y datos de contacto oficiales.",
+      "Selector de Módulos: Activación bajo demanda de las 10 áreas principales.",
+      "Onboarding IA: Guía asistida por voz y texto para la carga inicial de datos.",
+      "Multilingüe: Soporte completo para operaciones nacionales e internacionales."
+    ]
+  },
+  {
+    id: "seguridad",
+    title: "03. Protegiendo tu cuenta",
+    icon: ShieldCheck,
+    content: `La seguridad en System Kyron no es una opción, es la base de nuestra arquitectura. El sistema implementa el 'Protocolo de Seguridad Nivel 5', que combina cifrado de grado militar AES-512 con autenticación biométrica 3D. Para proteger sus activos digitales, la propuesta incluye la validación obligatoria de Dos Factores (2FA). Cada vez que se intente un acceso sensible, el sistema requerirá una confirmación desde su terminal MI LÍNEA 5G vinculado, garantizando que solo el titular posea la llave de desencriptación de la Bóveda Maestra.`,
+    details: [
+      "Cifrado Inmutable: Sus documentos se sellan mediante tecnología Blockchain.",
+      "Auth Nivel 5: Reconocimiento facial y dactilar estándar eIDAS.",
+      "Alertas de Intrusión: Notificaciones instantáneas ante intentos de acceso no autorizados.",
+      "Zero-Knowledge: Ni siquiera nuestros administradores pueden ver su data privada."
+    ]
+  },
+  {
+    id: "tablero",
+    title: "04. Tablero de herramientas",
     icon: LayoutDashboard,
-    content: `El 'Tablero Principal' o 'Centro de Mando' es la pantalla que verás apenas entres al sistema. Ha sido diseñada para ser tu asistente visual personal. En la parte superior, verás tarjetas brillantes que te indican tus ingresos totales, tus gastos y tu utilidad neta en tiempo real. No tienes que esperar al final del mes para saber cuánto dinero tienes; Kyron te lo dice al segundo. El uso de colores es intuitivo: el verde significa éxito y estabilidad, mientras que el rojo o el naranja son avisos preventivos para cosas que requieren tu revisión inmediata.
-
-A la izquierda de la pantalla, siempre tendrás a mano el menú de navegación. Desde allí puedes saltar rápidamente entre Ventas, Contabilidad, Personal o Bóveda Legal. Lo más potente de este tablero es su capacidad de 'Auditoría Preventiva'. Si el sistema detecta que una ley ha cambiado en la Gaceta Oficial, o que tienes una factura que vence mañana, verás una notificación clara en tu panel de alertas. De esta forma, ya no tienes que memorizar fechas de vencimiento; Kyron hace por ti, permitiéndote enfocarte en lo que realmente importa: hacer crecer tu negocio.`,
+    content: `El módulo central de System Kyron es un espejo de la salud de su negocio. El tablero ha sido diseñado para mostrar KPIs (Indicadores Clave de Desempeño) en tiempo real. Podrá visualizar el pulso financiero, la telemetría de red y el impacto ambiental desde una única consola. La interfaz utiliza glassmorphism para reducir la carga cognitiva, permitiendo que el operador identifique anomalías o éxitos mediante códigos de colores vivos y alertas visuales dinámicas.`,
     details: [
-      "Gráficos de Pulso: Mira cómo suben tus ventas mediante líneas de tiempo fáciles de comprender.",
-      "Alertas de Cumplimiento: Recibe avisos directos sobre pagos de impuestos o trámites por vencer.",
-      "Acceso Rápido: Botones configurables para las tareas que realizas con más frecuencia cada día.",
-      "Modo Multipantalla: El tablero se adapta perfectamente si lo usas en una computadora, tablet o celular."
+      "Visión 360°: Resumen consolidado de los 10 módulos de gestión.",
+      "Personalización: Ajuste el tablero según su rol (Gerente, Contador, Operador).",
+      "Telemetría en Vivo: Datos actualizados al segundo sin necesidad de recarga.",
+      "Acceso Multi-Portal: Salte entre su cuenta personal y corporativa con un clic."
     ]
   },
   {
-    id: "finanzas",
-    title: "03. Finanzas, Impuestos y Blindaje Fiscal",
+    id: "contabilidad",
+    title: "05. CONTABILIDAD",
     icon: Calculator,
-    content: `Manejar la contabilidad en Venezuela puede ser un reto, pero con Kyron se convierte en un proceso automático y seguro. Nuestro motor financiero está diseñado bajo las normas VEN-NIF e incluye la capacidad de manejar múltiples divisas al mismo tiempo. El sistema saca todas las cuentas difíciles por ti, incluyendo el IVA y el IGTF, asegurando que cada centavo esté en su lugar y refleje el valor real de tu dinero.
-
-El 'Blindaje Fiscal' es una de nuestras herramientas estrella. Antes de que guardes una factura, Kyron revisa que el RIF del cliente sea válido y que el formato cumpla con lo que exige el SENIAT. Si falta algo, el sistema te avisará para corregirlo al instante, evitando errores que luego podrían convertirse en multas. Al final del periodo, puedes generar tus reportes contables con un solo clic, obteniendo archivos listos para cumplir con tus obligaciones. Es como tener a un equipo de expertos trabajando para ti las 24 horas del día.`,
+    content: `Nuestra propuesta contable revoluciona el cumplimiento en Venezuela al alinearse estrictamente con las normas VEN-NIF. El sistema está diseñado para procesar automáticamente los asientos diarios, integrando las ventas del TPV y los gastos registrados. La funcionalidad más avanzada incluye la gestión multimoneda con tasas oficiales del BCV y el cálculo automático del Reajuste por Inflación Fiscal (RIPF), utilizando los índices INPC para asegurar que sus estados financieros reflejen la realidad económica del país.`,
     details: [
-      "Ajuste de Divisas: Tus cuentas se actualizan automáticamente según las tasas oficiales.",
-      "Libros Fiscales: Genera tus reportes de compra y venta en segundos, sin errores manuales.",
-      "Validación de RIF: El sistema verifica automáticamente la identidad fiscal de tus clientes.",
-      "Control de Gastos: Registra y categoriza cada egreso para saber exactamente a dónde va tu dinero."
+      "Normativa VEN-NIF: Adaptación total a los principios contables nacionales.",
+      "Gestión Multimoneda: Conversión síncrona en Bs., USD y EUR según el BCV.",
+      "RIPF Automatizado: Ajuste de activos no monetarios sin errores manuales.",
+      "Balances al Minuto: Estado de Situación y Ganancias y Pérdidas siempre listos."
     ]
   },
   {
-    id: "personal",
-    title: "04. Nómina y Gestión de Personal",
+    id: "impuestos",
+    title: "06. Impuestos (Pre-Alerta IA)",
+    icon: Landmark,
+    content: `El cumplimiento ante el SENIAT es de misión crítica. System Kyron incorpora un motor de 'Pre-Alerta de Impuestos' que notifica al usuario con 15, 7 y 3 días de antelación sobre cada vencimiento. El sistema está diseñado para calcular automáticamente el IVA, las retenciones de ISLR y el IGTF (3%) según el método de pago utilizado. Al automatizar estos procesos según la Providencia SNAT/2011/0071, nuestra propuesta ayuda a evitar multas que pueden alcanzar 1.000 veces el tipo de cambio oficial por declaraciones extemporáneas.`,
+    details: [
+      "Formatos Homologados: Generación automática de libros de Compra y Venta.",
+      "Cálculo de IGTF: Aplicación del 3% en transacciones de divisas al instante.",
+      "Blindaje contra Multas: Notificaciones proactivas para cumplimiento a tiempo.",
+      "Archivos .txt: Exportación de archivos listos para el portal fiscal."
+    ]
+  },
+  {
+    id: "empleados",
+    title: "07. RECURSOS HUMANOS",
     icon: Users,
-    content: `Tu equipo es el corazón de tu empresa, y cuidarlos es fundamental. El módulo de Gestión de Personal te permite manejar todo el ciclo de vida de tus trabajadores de forma profesional. Calcular la nómina ahora es una tarea de segundos: el sistema toma el sueldo base y añade automáticamente bonos, cestatickets y las deducciones de ley requeridas. Al terminar, puedes enviar los recibos de pago de forma masiva directamente a los correos de tus empleados con un diseño impecable.
-
-Además del pago quincenal, Kyron lleva el control exacto de la antigüedad y los beneficios de cada trabajador. Puedes consultar cuánto ha acumulado una persona en prestaciones sociales o generar el cálculo de una liquidación siguiendo estrictamente las leyes laborales. Si necesitas una carta de trabajo, el sistema la genera automáticamente con el sello de tu empresa y un código QR de verificación, lo que le da una validez y un profesionalismo superior a cualquier documento hecho a mano.`,
+    content: `La gestión del talento bajo System Kyron garantiza el respeto total a la LOTTT. El sistema está diseñado para calcular nóminas, vacaciones, utilidades y prestaciones sociales de forma transparente. Innovamos con la entrega de recibos de pago firmados digitalmente a través de WhatsApp, con plena validez legal. Además, para fomentar un clima organizacional de excelencia, el sistema incluirá el envío automático de mensajes motivacionales y reconocimientos de logros al personal, fortaleciendo el compromiso del equipo.`,
     details: [
-      "Cálculo Automático: Olvídate de las hojas de Excel; Kyron aplica todas las fórmulas por ti.",
-      "Recibos Digitales: Envía comprobantes de pago seguros que tus empleados pueden guardar en sus teléfonos.",
-      "Control de Vacaciones: El sistema te avisa cuándo le toca descanso a cada integrante de tu equipo.",
-      "Archivo Digital: Guarda copias de cédulas, contratos y títulos de tu personal de forma organizada."
+      "Aportes Parafiscales: Cálculo automático de IVSS, FAOV e INCES.",
+      "Recibos WhatsApp: Notificación instantánea y ecológica de pagos.",
+      "Mensajes de Incentivo: Reconocimiento automatizado de metas y cumpleaños.",
+      "Expediente Digital: Resguardo de títulos, contratos y solvencias de salud."
     ]
   },
   {
-    id: "ventas",
-    title: "05. Punto de Venta y Cobros Rápidos",
+    id: "tpv",
+    title: "08. FACTURACIÓN (Punto de Venta)",
     icon: ShoppingCart,
-    content: `Vender debe ser un proceso rápido y sin complicaciones. El Punto de Venta (TPV) de Kyron ha sido creado para ser visual y muy veloz. Puedes buscar tus productos por nombre o simplemente usando un escáner de códigos de barras. El sistema maneja múltiples formas de pago al mismo tiempo: puedes cobrar una parte en bolívares por Pago Móvil y otra en dólares en efectivo, y Kyron hará el cálculo exacto al instante. Al finalizar, se genera una factura profesional lista para entregar.
-
-El control de tus productos es total. Cada vez que vendes algo, el sistema lo descuenta de tu inventario. Si un producto está por agotarse, verás una alerta para que puedas reponerlo a tiempo. Al final del día, el proceso de 'Arqueo de Caja' te guía para que cuentes tu efectivo y cheques tus pagos digitales, dándote un reporte detallado de cualquier diferencia. Este nivel de control elimina las pérdidas y te da la tranquilidad de que todo lo que entra a tu negocio está bien registrado.`,
+    content: `El módulo de FACTURACIÓN integra un Punto de Venta (TPV) de alta velocidad que respeta estrictamente el horario laboral configurado por la gerencia. Si un operador intenta procesar una venta fuera de su turno, el sistema bloqueará la transacción, requiriendo autorización de un gerente con clave maestra. Esta funcionalidad, junto con la homologación de equipos fiscales, asegura un control total sobre el inventario y los ingresos, eliminando el riesgo de ventas no registradas o discrepancias en el arqueo de caja.`,
     details: [
-      "Cobro Multimoneda: Acepta pagos combinados en Bs. y divisas con total precisión.",
-      "Inventario en Vivo: Tus existencias se actualizan con cada clic en el punto de venta.",
-      "Facturación Veloz: Registra a tus clientes solo con su cédula y el sistema cargará sus datos.",
-      "Cierres de Caja: Reportes detallados por turno para un control administrativo total."
+      "Control de Horario: Bloqueo automático del TPV fuera del tiempo laboral.",
+      "Venta Multimoneda: Cobro mixto (Bs./Divisas) con cálculo exacto de IGTF.",
+      "Inventario Síncrono: Actualización de existencias con cada transacción.",
+      "Autorización Maestra: Registro de excepciones supervisadas por gerencia."
     ]
   },
   {
-    id: "boveda",
-    title: "06. Bóveda Digital y Documentos Legales",
-    icon: Lock,
-    content: `En Kyron, tus documentos son activos valiosos. La 'Bóveda Digital' es un espacio de máxima seguridad donde puedes resguardar tus archivos más importantes, como cédulas, RIF, títulos de propiedad y contratos. Lo que hace especial a esta bóveda es que utiliza tecnología de 'Sellado Inmutable', lo que garantiza que tus documentos no puedan ser alterados y que siempre tengas una copia fiel disponible, protegida contra cualquier pérdida física o digital. 
-
-Pero no solo sirve para guardar; también es una herramienta de creación. Nuestra Inteligencia Artificial Legal te ayuda a redactar borradores de contratos en cuestión de segundos. Ya sea que necesites un contrato de alquiler o un acuerdo de confidencialidad, solo tienes que ingresar los datos básicos y la IA generará un documento profesional ajustado a las leyes vigentes. Además, puedes hacer seguimiento a trámites oficiales y recibir notificaciones apenas tus documentos estén listos para ser descargados.`,
+    id: "legal",
+    title: "09. ASESORÍA LEGAL (IA)",
+    icon: Gavel,
+    content: `El área jurídica de System Kyron actúa como un Oficial de Cumplimiento virtual. Nuestra IA está entrenada en leyes venezolanas para ayudarle a redactar borradores de contratos de arrendamiento, acuerdos de confidencialidad y actas de asamblea. Además, el sistema monitorea los registros ante el SAREN y el SAPI, emitiendo alertas sobre el vencimiento de poderes de representación o la necesidad de renovar marcas comerciales, asegurando que la estructura legal de su empresa sea inexpugnable.`,
     details: [
-      "Seguridad Bancaria: Tu información está protegida con los estándares más altos del mercado.",
-      "Redacción con IA: Genera contratos legales profesionales de forma automática y sencilla.",
-      "Alertas de Vencimiento: Te avisamos con tiempo antes de que caduque tu RIF o tus permisos.",
-      "Gestión de Trámites: Recibe y organiza documentos oficiales directamente en tu cuenta."
+      "Redacción Jurídica: Generación de documentos basados en leyes vigentes.",
+      "Alerta de Poderes: Avisos preventivos antes de la caducidad de facultades.",
+      "Gestión SAPI: Control de registros de marca y patentes de invención.",
+      "Protocolos SAREN: Organización de documentos públicos y notariales."
     ]
   },
   {
-    id: "tecnologia",
-    title: "07. Tecnología 5G, eSIM y Reciclaje",
-    icon: Smartphone,
-    content: `System Kyron te conecta con el futuro a través de la tecnología y la ecología. Mediante nuestro centro de conectividad, puedes activar líneas telefónicas 5G de alta velocidad en minutos. Somos pioneros en el uso de eSIM (chips digitales), lo que te permite activar un número nuevo escaneando un simple código QR desde tu oficina, sin necesidad de un chip físico. Esto es ideal para empresas que necesitan estar conectadas de forma inmediata con la red más moderna y estable.
-
-Nuestra visión también incluye el cuidado del planeta. Hemos creado las 'Papeleras Inteligentes' Kyron, que utilizan tecnología magnética para detectar y clasificar materiales como metal y plástico. Por cada envase que recicles en nuestras estaciones, el sistema validará tu acción y te otorgará 'Eco-Créditos' en tu billetera digital. Estos puntos puedes canjearlos por descuentos reales, productos y beneficios exclusivos en nuestra red de comercios aliados, premiando tus hábitos responsables.`,
+    id: "telecom",
+    title: "10. MI LÍNEA 5G",
+    icon: Radio,
+    content: `Kyron opera como un centro de telecomunicaciones de vanguardia bajo normativas de CONATEL. Nuestra propuesta permite la activación inmediata de líneas móviles mediante eSIM (chips digitales), eliminando la logística física. Las empresas pueden gestionar flotas de datos 5G para sus empleados con priorización de red (Network Slicing), garantizando que las aplicaciones de gestión tengan siempre la máxima velocidad y estabilidad, incluso en zonas de alta congestión.`,
     details: [
-      "Activación Instantánea: Obtén tu número telefónico y plan de datos 5G al momento.",
-      "Chip Digital (eSIM): Activa servicios de comunicación modernos sin salir de casa.",
-      "Eco-Créditos: Gana premios y beneficios tangibles por reciclar de forma inteligente.",
-      "Impacto Positivo: Mira en tu tablero cuánto estás ayudando al medio ambiente con tus acciones."
+      "Activación eSIM: Provisión de servicio telefónico en minutos vía código QR.",
+      "Equipos Homologados: Garantía de cumplimiento con los estándares de CONATEL.",
+      "Control de Flotas: Gestión centralizada de consumo para planes corporativos.",
+      "Conectividad 5G: Acceso a la red de mayor velocidad y menor latencia."
+    ]
+  },
+  {
+    id: "sostenibilidad",
+    title: "11. SOSTENIBILIDAD (Reciclaje)",
+    icon: Recycle,
+    content: `El décimo módulo de System Kyron introduce la economía circular al ecosistema. Mediante el uso de nuestras papeleras inteligentes con tecnología de inducción magnética, los usuarios pueden transformar residuos en activos digitales. El sistema valida el pesaje por IA y acredita Eco-Créditos en su cuenta. Estos créditos pueden ser intercambiados en el 'Mercado de Eco-Créditos' interno, permitiendo a las empresas comprar o vender bonos verdes, creando una nueva línea de ingresos basada en la responsabilidad ambiental.`,
+    details: [
+      "Tecnología Magnética: Clasificación precisa de metales y plásticos.",
+      "Mercado de Créditos: Exchange descentralizado de activos ambientales.",
+      "Billetera Verde: Acumulación de puntos canjeables por servicios Kyron.",
+      "Certificación CO₂: Reportes de impacto ambiental para balance social."
+    ]
+  },
+  {
+    id: "ingenieria",
+    title: "12. INGENIERÍA E IT",
+    icon: Cpu,
+    content: `El área de ingeniería proporciona herramientas de planificación técnica avanzada. Está diseñada para empresas que manejan infraestructura, permitiendo generar presupuestos de obra detallados y planos básicos mediante inferencia de IA. El sistema ayuda a controlar los costos de materiales y mano de obra, integrándose con el módulo de CONTABILIDAD para una ejecución presupuestaria impecable y sin desviaciones financieras.`,
+    details: [
+      "Cómputos Métricos: Cálculo automático de materiales por área.",
+      "Presupuestos Técnicos: Análisis de costos unitarios y márgenes de obra.",
+      "Inferencia de Planos: Generación de layouts arquitectónicos con IA.",
+      "Soporte Crítico: Monitoreo de servidores y servicios de infraestructura."
+    ]
+  },
+  {
+    id: "reportes",
+    title: "13. Reportes",
+    icon: BarChart3,
+    content: `System Kyron transforma los datos en decisiones. El generador de reportes permite extraer información analítica de cualquier área del sistema. Podrá obtener desde reportes de ventas por hora hasta análisis de rentabilidad por producto. Todos los reportes son exportables en formatos PDF y Excel, y están diseñados para ser presentados ante juntas directivas o entes gubernamentales con total transparencia y profesionalismo.`,
+    details: [
+      "Reportes Ejecutivos: Resúmenes de alto nivel para socios y directores.",
+      "Análisis de Tendencias: Proyecciones de ventas basadas en IA.",
+      "Exportación Fiscal: Documentos listos para auditorías del SENIAT.",
+      "Historial de Operaciones: Ledger completo de cada acción en el sistema."
+    ]
+  },
+  {
+    id: "billetera",
+    title: "14. Billetera Digital",
+    icon: Wallet,
+    content: `La Billetera Digital de Kyron es el centro financiero del ecosistema. Permite realizar pagos instantáneos entre usuarios de la plataforma (empleados y proveedores) sin comisiones. Los fondos pueden provenir de ventas, transferencias bancarias o del canje de Eco-Créditos. Nuestra propuesta financiera busca agilizar la liquidez empresarial, permitiendo que el dinero circule de forma segura y verificada dentro del ecosistema inmutable de Kyron.`,
+    details: [
+      "Pagos P2P/B2B: Transferencias inmediatas dentro de la red Kyron.",
+      "Canje de Puntos: Transformación de Eco-Créditos en saldo real.",
+      "Custodia Segura: Protección de fondos bajo protocolos de cifrado nivel 5.",
+      "Historial Blockchain: Cada pago queda sellado para evitar fraudes."
+    ]
+  },
+  {
+    id: "auditoria",
+    title: "15. Auditoría (Supervisor 24/7)",
+    icon: Activity,
+    content: `Para garantizar el 'Cero Riesgo Fiscal', System Kyron cuenta con un Supervisor IA que audita las transacciones las 24 horas del día. Esta herramienta detecta inconsistencias antes de que se conviertan en multas, como RIFs vencidos de proveedores o cálculos erróneos de retenciones. El sistema sugiere correcciones automáticas y asegura que la data que llega a sus libros contables sea 100% veraz y cumpla con las leyes venezolanas actuales.`,
+    details: [
+      "Detección Temprana: Identificación de errores en base imponible o IGTF.",
+      "Validación de Terceros: Chequeo automático de estatus de proveedores.",
+      "Supervisor Permanente: El sistema nunca duerme ni omite validaciones.",
+      "Score de Cumplimiento: Medición del riesgo fiscal de su empresa."
+    ]
+  },
+  {
+    id: "documentos-personales",
+    title: "16. Documentos personales",
+    icon: FileText,
+    content: `El portal de CUENTA PERSONAL incluye una bóveda para trámites civiles. El ciudadano podrá gestionar y resguardar copias certificadas de partidas de nacimiento, actas de matrimonio y documentos judiciales. Nuestra propuesta incluye la integración con el marco legal de la LOPNNA, permitiendo calcular automáticamente obligaciones de manutención basadas en los ingresos y el índice inflacionario del BCV, garantizando los derechos de los menores.`,
+    details: [
+      "Bóveda Civil: Resguardo de documentos de identidad y propiedad.",
+      "LOPNNA Sync: Cálculo de pensión alimenticia con ajuste inflacionario.",
+      "Trámites Ante SAREN: Seguimiento de expedientes personales.",
+      "Identidad Digital: Su ficha única para todos los servicios del Estado."
+    ]
+  },
+  {
+    id: "conexion-bancaria",
+    title: "17. Conexión bancaria",
+    icon: Landmark,
+    content: `System Kyron está diseñado para integrarse con las principales instituciones financieras del país. Esta conexión permite la conciliación bancaria automática, donde el sistema compara sus registros contables con los movimientos de sus cuentas. Nuestra propuesta tecnológica busca reducir el tiempo de oficina en un 80% al automatizar el reconocimiento de pagos móviles, transferencias y cargos por servicios bancarios.`,
+    details: [
+      "Conciliación IA: Apareo inteligente de transacciones bancarias.",
+      "Sincronización BCV: Actualización diaria de tasas de cambio.",
+      "Control de Caja: Cuadre entre bancos y efectivo en tiempo real.",
+      "Seguridad Bancaria: Enlaces cifrados mediante protocolos de alta seguridad."
+    ]
+  },
+  {
+    id: "academia",
+    title: "18. Academia Kyron",
+    icon: School,
+    content: `Creemos en la formación continua. La Academia Kyron es un portal educativo donde los operadores pueden aprender a usar cada módulo del sistema mediante cursos certificados. El conocimiento generado en el Colegio Gabriela Mistral se transfiere a los usuarios para que dominen la ingeniería fiscal y técnica del sistema, convirtiéndose en profesionales más competentes y capaces de liderar la transformación digital en sus empresas.`,
+    details: [
+      "Cursos Certificados: Validación de competencias en gestión Kyron.",
+      "Tutoriales en Video: Guías visuales paso a paso de cada funcionalidad.",
+      "Actualización Legal: Webinars sobre cambios en Gacetas Oficiales.",
+      "Biblioteca Técnica: Acceso a manuales, guías y casos de éxito."
+    ]
+  },
+  {
+    id: "locales",
+    title: "19. Múltiples locales",
+    icon: Building2,
+    content: `Para las empresas en expansión, System Kyron ofrece gestión multi-local. Podrá controlar inventarios, ventas y personal de diferentes sedes desde una cuenta maestra de SOCIOS Y DIRECTIVOS. El sistema permite consolidar la operación global del negocio manteniendo la independencia administrativa de cada punto, ideal para franquicias o holdings que operan en distintos estados de Venezuela o a nivel internacional.`,
+    details: [
+      "Consolidación Global: Reportes unificados de todos sus puntos de venta.",
+      "Transferencias de Stock: Movimiento de mercancía entre locales.",
+      "Gestión Jerárquica: Permisos diferenciados por gerente de sede.",
+      "Visión en Tiempo Real: Sepa qué ocurre en cada local al instante."
     ]
   },
   {
     id: "soporte",
-    title: "08. Academia Kyron y Ayuda Técnica",
-    icon: School,
-    content: `Tu crecimiento es nuestra prioridad, y por eso hemos creado la 'Academia Kyron'. Es un centro de formación dentro de la plataforma donde tú y tu equipo pueden acceder a guías prácticas sobre cómo dominar cada herramienta del sistema. Aprenderás desde cómo hacer una factura perfecta hasta cómo optimizar tus ventas. Al completar los cursos, obtendrás certificados que validan tus conocimientos, ayudándote a ser cada día más eficiente en tu gestión.
-
-Si alguna vez tienes una duda o un problema técnico, nuestro equipo de soporte está siempre listo para ayudarte. Puedes hablar con nuestro 'Asistente de Voz IA' para obtener respuestas rápidas o contactar directamente a nuestros expertos humanos a través del chat de ayuda. No importa si es una duda sencilla o un caso complejo; estamos aquí para asegurar que tu negocio nunca se detenga y que siempre sientas el respaldo de la mejor tecnología a tu lado.`,
+    title: "20. Soporte",
+    icon: MessageSquare,
+    content: `El soporte técnico de System Kyron es de grado corporativo. Nuestra propuesta incluye asistencia multicanal mediante chat IA, voz y conexión directa con nuestros ingenieros. En el manual de usuario, encontrará los protocolos para reportar incidencias o solicitar nuevas funcionalidades. Estamos comprometidos con que su experiencia sea de misión crítica: sin caídas, sin errores y con una respuesta técnica inmediata ante cualquier desafío operativo.`,
     details: [
-      "Formación Práctica: Guías y cursos fáciles de seguir para dominar todo el sistema.",
-      "Certificados Digitales: Obtén diplomas que demuestran tu pericia en el uso de la plataforma.",
-      "Asistencia IA: Habla con el sistema para resolver dudas de forma natural y rápida.",
-      "Soporte Directo: Acceso a especialistas humanos para resolver cualquier inconveniente."
-    ]
-  },
-  {
-    id: "horario-laboral",
-    title: "09. Control de Horario Laboral desde el TPV",
-    icon: Clock,
-    content: `Una de las herramientas más útiles para dueños y gerentes es la posibilidad de definir el horario de trabajo de su negocio directamente desde el sistema. Kyron te permite establecer, por ejemplo, que tu tienda abre a las 8:00 a.m. y cierra a las 6:00 p.m. de lunes a sábado. Una vez configurado, el sistema gestionará automáticamente varias funciones críticas para la seguridad y organización de tu establecimiento.
-
-Con esta funcionalidad, los cajeros solo podrán iniciar sesión y realizar ventas dentro del horario autorizado. Fuera de ese rango, el punto de venta se bloqueará automáticamente, evitando transacciones no supervisadas. Además, el sistema genera reportes detallados por cada turno de trabajo, permitiéndote ver exactamente cuánto vendió cada empleado en su franja horaria. Si necesitas abrir en un horario especial o un día festivo, el gerente puede autorizar una excepción rápidamente con su clave maestra, manteniendo siempre un registro de quién hizo el cambio y por qué.`,
-    details: [
-      "Bloqueo Automático: Evita ventas fuera de horas para mayor seguridad del inventario.",
-      "Gestión de Turnos: Separa y analiza el rendimiento de tus empleados por mañana o tarde.",
-      "Calendario de Excepciones: Configura cierres tempranos o días feriados con antelación.",
-      "Autorización Maestra: Permite ventas excepcionales fuera de horario mediante clave de gerente."
+      "Asistente de Voz: Resolución de dudas mediante IA conversacional.",
+      "Tickets de Servicio: Seguimiento transparente de requerimientos técnicos.",
+      "Mantenimiento Proactivo: Actualizaciones de sistema sin interrupciones.",
+      "Comunidad Kyron: Foro de usuarios para compartir mejores prácticas."
     ]
   }
 ];
@@ -203,7 +326,7 @@ export default function ManualUsuarioPage() {
       <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
       <head>
         <meta charset='utf-8'>
-        <title>Manual de Usuario - System Kyron</title>
+        <title>Manual de Usuario - System Kyron v2.6.5</title>
         <style>
           @page { size: 8.5in 11in; margin: 1in; }
           body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; line-height: 1.6; width: 100%; }
@@ -223,17 +346,18 @@ export default function ManualUsuarioPage() {
           
           .footer { margin-top: 100pt; text-align: center; font-size: 10pt; color: #94a3b8; border-top: 1pt solid #e2e8f0; padding-top: 30pt; width: 100%; }
           .highlight-box { padding: 20pt; background-color: #f1f5f9; border-radius: 15pt; margin-bottom: 20pt; border: 1pt solid #e2e8f0; }
+          .legal-note { font-size: 9pt; color: #64748b; font-style: italic; margin-top: 40pt; }
         </style>
       </head>
       <body>
         <div class="header">
           <img src="${logoBase64}" class="logo" />
           <h1>SYSTEM KYRON</h1>
-          <p class="subtitle">Manual de Usuario Consolidado v2.6.5</p>
+          <p class="subtitle">Manual de Usuario Maestro v2.6.5</p>
         </div>
 
         <div class="intro">
-          Este manual ha sido diseñado para guiarte paso a paso en el uso de System Kyron. Aquí encontrarás explicaciones claras y sencillas para que puedas aprovechar al máximo cada herramienta del ecosistema, garantizando que tu empresa o tus gestiones personales se manejen con total eficiencia y seguridad legal. Bienvenido al estándar de oro de la gestión inteligente.
+          Este manual representa la documentación maestra de System Kyron (v2.6.5), un ecosistema tecnológico integral diseñado por Carlos Mattar (CM), Sebastián Garrido (SG) y Marcos Sousa (MS). La plataforma se proyecta como una solución de misión crítica para el mercado venezolano en 2026, integrando normativas del SENIAT, CONATEL, LOTTT y otros entes reguladores. Esta guía detalla las funcionalidades previstas para garantizar la excelencia operativa y el cumplimiento legal absoluto de su organización.
         </div>
 
         ${chapters.map((ch) => `
@@ -249,9 +373,13 @@ export default function ManualUsuarioPage() {
           </div>
         `).join('')}
 
+        <div class="legal-note">
+            Nota: System Kyron es un proyecto en etapa de propuesta tecnológica. Las funcionalidades descritas en este manual representan el diseño final previsto para el lanzamiento oficial. Las referencias a entes gubernamentales (SENIAT, CONATEL, etc.) se basan en las normativas y Gacetas Oficiales proyectadas a marzo de 2026.
+        </div>
+
         <div class="footer">
           <p>System Kyron • Telecom, Reciclaje y Control Total • Caracas, Venezuela</p>
-          <p>&copy; 2026 Todos los derechos reservados bajo Protocolo de Integridad.</p>
+          <p>&copy; 2026 Todos los derechos reservados bajo Protocolo de Integridad Maestro.</p>
         </div>
       </body>
       </html>
@@ -261,7 +389,7 @@ export default function ManualUsuarioPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Manual_Usuario_System_Kyron_Pro.doc';
+    link.download = 'Manual_Usuario_System_Kyron_v2.6.5_Master.doc';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -269,7 +397,7 @@ export default function ManualUsuarioPage() {
     setIsExporting(false);
     toast({
         title: "PROTOCOLO DE DESCARGA FINALIZADO",
-        description: "El manual detallado ha sido generado con éxito.",
+        description: "El manual maestro detallado (20 capítulos) ha sido generado con éxito.",
         action: <CheckCircle className="text-primary h-4 w-4" />
     });
   };
@@ -288,13 +416,13 @@ export default function ManualUsuarioPage() {
       <header className="max-w-6xl mx-auto mb-20 border-l-4 border-primary pl-8 py-2 mt-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
         <div className="space-y-3">
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-            <BookOpen className="h-3 w-3" /> DOCUMENTACIÓN MAESTRA
+            <BookOpen className="h-3 w-3" /> DOCUMENTACIÓN MAESTRA v2.6.5
             </div>
             <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase italic text-foreground italic-shadow leading-none">
             Manual de <span className="text-primary not-italic">Usuario</span>
             </h1>
             <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
-            Guía de Operaciones Detallada • Consolidado de 9 Capítulos • Versión 2.6.5
+            Consolidado Técnico de 20 Capítulos • Alineado con Gacetas Oficiales 2026 • CM | SG | MS
             </p>
         </div>
         <div className="flex gap-3 no-print">
@@ -307,7 +435,7 @@ export default function ManualUsuarioPage() {
                 className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-2xl"
             >
                 {isExporting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
-                DESCARGAR WORD
+                DESCARGAR WORD (.DOC)
             </Button>
         </div>
       </header>
@@ -362,7 +490,7 @@ export default function ManualUsuarioPage() {
                                 ))}
                             </ul>
                             <div className="mt-8 pt-6 border-t border-border">
-                                <p className="text-[8px] font-black text-muted-foreground/20 uppercase tracking-[0.4em]">Protocolo Verificado v2.6</p>
+                                <p className="text-[8px] font-black text-muted-foreground/20 uppercase tracking-[0.4em]">Protocolo Verificado v2.6.5</p>
                             </div>
                         </div>
                     </div>
@@ -374,9 +502,23 @@ export default function ManualUsuarioPage() {
       </div>
 
       <footer className="max-w-6xl mx-auto border-t border-border pt-20 pb-10 text-center space-y-12">
+        <div className="flex justify-center gap-12 opacity-20">
+            <div className="flex flex-col items-center gap-2">
+                <div className="h-10 w-10 rounded-full bg-foreground flex items-center justify-center text-[10px] font-black text-background">CM</div>
+                <span className="text-[8px] font-black uppercase">Carlos Mattar</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+                <div className="h-10 w-10 rounded-full bg-foreground flex items-center justify-center text-[10px] font-black text-background">SG</div>
+                <span className="text-[8px] font-black uppercase">Sebastián Garrido</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+                <div className="h-10 w-10 rounded-full bg-foreground flex items-center justify-center text-[10px] font-black text-background">MS</div>
+                <span className="text-[8px] font-black uppercase">Marcos Sousa</span>
+            </div>
+        </div>
         <Logo className="h-12 w-12 mx-auto opacity-20" />
         <p className="text-[10px] font-black text-foreground/10 uppercase tracking-[1.5em] italic">
-            SYSTEM KYRON • TELECOM, RECICLAJE Y CONTROL TOTAL • 2026
+            SYSTEM KYRON • CORPORATE INTELLIGENCE • 2026
         </p>
       </footer>
     </div>
