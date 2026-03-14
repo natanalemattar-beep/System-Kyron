@@ -26,7 +26,10 @@ import {
     Search,
     ChevronRight,
     Loader2,
-    ArrowRight
+    ArrowRight,
+    Smartphone,
+    CreditCard,
+    Globe
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,7 +47,8 @@ import {
     DialogHeader, 
     DialogTitle, 
     DialogDescription, 
-    DialogFooter 
+    DialogFooter,
+    DialogTrigger
 } from "@/components/ui/dialog";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -54,13 +58,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 // --- Mock Data ---
-const kpiData = [
-    { title: "Saldo Eco-Créditos", value: "1,250 ECR", icon: Coins, color: "text-secondary", bg: "bg-secondary/10", desc: "+120 esta semana" },
-    { title: "CO₂ Evitado", value: "340 kg", icon: Droplets, color: "text-blue-400", bg: "bg-blue-400/10", desc: "Equiv. a 5 vuelos cortos" },
-    { title: "Árboles Salvados", value: "18", icon: TreePine, color: "text-emerald-500", bg: "bg-emerald-500/10", desc: "Impacto forestal directo" },
-    { title: "Residuos Reciclados", value: "245 kg", icon: Recycle, color: "text-orange-400", bg: "bg-orange-400/10", desc: "Total recolectado" },
-];
-
 const evolutionData = [
     { month: "Ene", credits: 850 },
     { month: "Feb", credits: 920 },
@@ -96,14 +93,43 @@ const achievements = [
     { id: 3, title: "Héroe Ambiental", target: "500 kg", current: 225, unlocked: false, icon: "🥇" },
 ];
 
+const redemptionOptions = [
+    { 
+        id: "red-1", 
+        title: "Saldo para Línea 5G", 
+        desc: "Añade $5.00 a tu saldo telefónico.", 
+        cost: 500, 
+        icon: Smartphone, 
+        color: "text-blue-400" 
+    },
+    { 
+        id: "red-2", 
+        title: "Descuento en Factura", 
+        desc: "10% de descuento en tu próxima factura.", 
+        cost: 1000, 
+        icon: CreditCard, 
+        color: "text-primary" 
+    },
+    { 
+        id: "red-3", 
+        title: "Plantar un Árbol", 
+        desc: "Siembra un árbol en el Bosque Kyron.", 
+        cost: 200, 
+        icon: TreePine, 
+        color: "text-emerald-500" 
+    },
+];
+
 const chartConfig = {
     credits: { label: "Eco-Créditos", color: "hsl(var(--secondary))" },
 } satisfies ChartConfig;
 
 export default function SostenibilidadPage() {
     const { toast } = useToast();
+    const [balance, setBalance] = useState(1250);
     const [selectedBin, setSelectedBin] = useState<string | null>(null);
     const [isMarketModalOpen, setIsMarketModalOpen] = useState(false);
+    const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
 
     const handleSimulation = (msg: string) => {
@@ -123,6 +149,36 @@ export default function SostenibilidadPage() {
         }, 1500);
     };
 
+    const handleRedeem = (option: typeof redemptionOptions[0]) => {
+        if (balance < option.cost) {
+            toast({
+                variant: "destructive",
+                title: "PUNTOS INSUFICIENTES",
+                description: `Necesitas ${option.cost} ECR para este canje.`,
+            });
+            return;
+        }
+
+        setIsProcessing(true);
+        setTimeout(() => {
+            setBalance(prev => prev - option.cost);
+            setIsProcessing(false);
+            setIsRedeemModalOpen(false);
+            toast({
+                title: "CANJE EXITOSO",
+                description: `Has canjeado ${option.cost} ECR por: ${option.title}.`,
+                action: <Zap className="text-yellow-400 h-4 w-4" />
+            });
+        }, 1200);
+    };
+
+    const kpiData = [
+        { title: "Saldo Eco-Créditos", value: `${balance.toLocaleString()} ECR`, icon: Coins, color: "text-secondary", bg: "bg-secondary/10", desc: "+120 esta semana" },
+        { title: "CO₂ Evitado", value: "340 kg", icon: Droplets, color: "text-blue-400", bg: "bg-blue-400/10", desc: "Equiv. a 5 vuelos cortos" },
+        { title: "Árboles Salvados", value: "18", icon: TreePine, color: "text-emerald-500", bg: "bg-emerald-500/10", desc: "Impacto forestal directo" },
+        { title: "Residuos Reciclados", value: "245 kg", icon: Recycle, color: "text-orange-400", bg: "bg-orange-400/10", desc: "Total recolectado" },
+    ];
+
     return (
         <div className="space-y-12 pb-20 px-6 md:px-10">
             {/* --- Header --- */}
@@ -135,11 +191,53 @@ export default function SostenibilidadPage() {
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Gestión de Eco-Créditos • Trazabilidad Inmutable v2.6</p>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/5 text-foreground" onClick={() => handleSimulation("Función disponible en la próxima actualización.")}>
+                    <Dialog open={isRedeemModalOpen} onOpenChange={setIsRedeemModalOpen}>
+                        <DialogTrigger asChild>
+                            <Button className="btn-3d-secondary h-12 px-8 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-2xl">
+                                <Zap className="mr-2 h-4 w-4" /> CANJEAR PUNTOS
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="rounded-[3rem] bg-card/95 backdrop-blur-3xl border-border p-10">
+                            <DialogHeader className="mb-8">
+                                <div className="p-3 bg-secondary/10 rounded-2xl w-fit mb-4">
+                                    <Sparkles className="h-8 w-8 text-secondary" />
+                                </div>
+                                <DialogTitle className="text-3xl font-black italic uppercase tracking-tighter text-foreground leading-none">Canje de <br/> Activos Verdes</DialogTitle>
+                                <DialogDescription className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary/60">Selecciona tu beneficio por impacto positivo</DialogDescription>
+                            </DialogHeader>
+                            
+                            <div className="space-y-4">
+                                {redemptionOptions.map((opt) => (
+                                    <button
+                                        key={opt.id}
+                                        onClick={() => handleRedeem(opt)}
+                                        disabled={isProcessing}
+                                        className="w-full group p-5 rounded-[1.5rem] bg-white/[0.03] border border-white/5 hover:border-secondary/40 hover:bg-secondary/5 transition-all text-left flex items-center justify-between"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="p-3 bg-white/5 rounded-xl group-hover:scale-110 transition-transform">
+                                                <opt.icon className={cn("h-5 w-5", opt.color)} />
+                                            </div>
+                                            <div>
+                                                <p className="text-xs font-black uppercase text-foreground/90">{opt.title}</p>
+                                                <p className="text-[9px] font-bold text-muted-foreground/60 uppercase">{opt.desc}</p>
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-sm font-black italic text-secondary">{opt.cost} ECR</p>
+                                            <ArrowRight className="h-3 w-3 text-white/10 group-hover:text-secondary group-hover:translate-x-1 transition-all ml-auto mt-1" />
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+
+                            <DialogFooter className="mt-8 border-t border-white/5 pt-6 flex flex-col items-center">
+                                <p className="text-[9px] font-black uppercase text-white/20 tracking-widest">Saldo Disponible: {balance} ECR</p>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                    <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/5 text-foreground" onClick={() => window.print()}>
                         <Download className="mr-2 h-4 w-4" /> Exportar Auditoría
-                    </Button>
-                    <Button className="btn-3d-secondary h-12 px-8 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-2xl">
-                        <Zap className="mr-2 h-4 w-4" /> Activar Sensores
                     </Button>
                 </div>
             </header>
@@ -156,7 +254,14 @@ export default function SostenibilidadPage() {
                                 </div>
                             </CardHeader>
                             <CardContent className="p-6 pt-0">
-                                <div className="text-3xl font-black italic text-foreground tracking-tighter leading-none mb-2">{kpi.value}</div>
+                                <motion.div 
+                                    key={kpi.value}
+                                    initial={{ scale: 0.95 }}
+                                    animate={{ scale: 1 }}
+                                    className="text-3xl font-black italic text-foreground tracking-tighter leading-none mb-2"
+                                >
+                                    {kpi.value}
+                                </motion.div>
                                 <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">{kpi.desc}</p>
                             </CardContent>
                         </Card>
@@ -260,13 +365,11 @@ export default function SostenibilidadPage() {
                         <p className="text-[10px] font-bold uppercase opacity-30 tracking-widest">Estado de los Puntos de Recolección</p>
                         
                         <div className="relative aspect-square bg-muted/30 rounded-[2.5rem] border border-border/50 overflow-hidden group">
-                            {/* SVG Map Mockup */}
                             <svg viewBox="0 0 400 400" className="w-full h-full opacity-20">
                                 <path d="M50 100 Q 150 50 350 150 T 350 350" stroke="currentColor" strokeWidth="2" fill="none" />
                                 <path d="M100 350 Q 200 300 300 350" stroke="currentColor" strokeWidth="2" fill="none" />
                             </svg>
                             
-                            {/* Pulse Markers */}
                             {[
                                 { x: 80, y: 120, id: " Plaza Catia" },
                                 { x: 250, y: 80, id: " Puerto La Guaira" },
@@ -306,135 +409,6 @@ export default function SostenibilidadPage() {
                 </Card>
             </div>
 
-            {/* --- Market Exchange --- */}
-            <div className="grid gap-10 lg:grid-cols-12">
-                <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-card/20 overflow-hidden shadow-2xl">
-                    <CardHeader className="p-10 border-b border-border/5 flex flex-row justify-between items-center bg-card/10">
-                        <div className="space-y-1">
-                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">Mercado de Eco-Créditos</CardTitle>
-                            <p className="text-[9px] font-bold uppercase opacity-30 tracking-widest italic">Exchange Transparente de Bonos Verdes</p>
-                        </div>
-                        <div className="flex gap-2">
-                            <Button size="sm" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest btn-3d-secondary" onClick={() => setIsMarketModalOpen(true)}>VENDER ECR</Button>
-                            <Button size="sm" variant="outline" className="rounded-xl h-10 px-6 text-[9px] font-black uppercase tracking-widest border-primary/40 text-primary" onClick={() => setIsMarketModalOpen(true)}>COMPRAR ECR</Button>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                        <Table>
-                            <TableHeader>
-                                <TableRow className="bg-muted/30 border-none">
-                                    <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Orden</TableHead>
-                                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Cantidad</TableHead>
-                                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Precio (USD)</TableHead>
-                                    <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Empresa</TableHead>
-                                    <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Estado</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {marketOrders.map((order, i) => (
-                                    <TableRow key={i} className="border-border/5 hover:bg-foreground/5 transition-all">
-                                        <TableCell className="pl-10 py-6">
-                                            <span className={cn("text-[9px] font-black uppercase px-2 h-5 rounded flex items-center w-fit", order.type === 'Compra' ? "bg-primary/20 text-primary" : "bg-rose-500/20 text-rose-400")}>{order.type}</span>
-                                        </TableCell>
-                                        <TableCell className="py-6 font-black italic text-foreground/80">{order.qty}</TableCell>
-                                        <TableCell className="py-6 font-mono font-bold text-secondary">{order.price}</TableCell>
-                                        <TableCell className="py-6 text-[10px] font-black uppercase text-muted-foreground/60">{order.user}</TableCell>
-                                        <TableCell className="text-right pr-10 py-6">
-                                            <Badge variant={order.status === 'Completada' ? 'default' : 'outline'} className="text-[8px] font-black uppercase px-3 h-6 rounded-lg">{order.status}</Badge>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </CardContent>
-                </Card>
-
-                <Card className="lg:col-span-4 glass-card border-none rounded-[3rem] bg-card/20 p-10 shadow-2xl flex flex-col justify-between">
-                    <div className="space-y-6">
-                        <h3 className="text-sm font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">Valor ECR (USD)</h3>
-                        <div className="h-40 w-full bg-muted/30 rounded-2xl p-4 border border-border relative overflow-hidden group">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={[ {v: 1.12}, {v: 1.15}, {v: 1.10}, {v: 1.22}, {v: 1.18}, {v: 1.25} ]}>
-                                    <Line type="step" dataKey="v" stroke="#00A86B" strokeWidth={3} dot={false} />
-                                </LineChart>
-                            </ResponsiveContainer>
-                            <div className="absolute top-4 right-4 text-secondary font-black italic text-lg">$ 1.25</div>
-                        </div>
-                        <div className="space-y-4">
-                            <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground/40"><span>Capitalización:</span> <span className="text-muted-foreground">$ 1.5M</span></div>
-                            <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground/40"><span>Volumen 24h:</span> <span className="text-muted-foreground">45k ECR</span></div>
-                        </div>
-                    </div>
-                    <Button variant="outline" className="w-full h-12 rounded-xl mt-8 border-border bg-card/10 font-black text-[9px] uppercase tracking-widest text-muted-foreground/60 group hover:text-foreground hover:bg-card/30" onClick={() => handleSimulation("Abriendo estadísticas completas...")}>ANÁLISIS TÉCNICO <ArrowUpRight className="ml-2 h-3 w-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"/></Button>
-                </Card>
-            </div>
-
-            {/* --- Achievements & Certificates --- */}
-            <div className="grid gap-10 lg:grid-cols-12">
-                <Card className="lg:col-span-6 glass-card border-none rounded-[3rem] bg-card/20 p-10 shadow-2xl">
-                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-8 flex items-center gap-4">
-                        <Award className="text-amber-400 h-6 w-6" /> Logros y Reconocimientos
-                    </h3>
-                    <div className="space-y-8">
-                        {achievements.map(ach => (
-                            <div key={ach.id} className="space-y-3">
-                                <div className="flex justify-between items-center">
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-2xl">{ach.icon}</span>
-                                        <div className="space-y-0.5">
-                                            <p className={cn("text-xs font-black uppercase tracking-tight", ach.unlocked ? "text-foreground" : "text-muted-foreground/30")}>{ach.title}</p>
-                                            <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">{ach.unlocked ? "Desbloqueado" : `Meta: ${ach.target}`}</p>
-                                        </div>
-                                    </div>
-                                    {ach.unlocked && <CheckCircle className="h-4 w-4 text-secondary" />}
-                                </div>
-                                {!ach.unlocked && (
-                                    <div className="space-y-1.5">
-                                        <div className="flex justify-between text-[8px] font-black text-secondary/60 uppercase"><span>Progreso</span> <span>{Math.round((ach.current / parseInt(ach.target)) * 100)}%</span></div>
-                                        <Progress value={(ach.current / parseInt(ach.target)) * 100} className="h-1.5 bg-muted/20 border border-border/50" />
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </Card>
-
-                <Card className="lg:col-span-6 glass-card border-none rounded-[3rem] bg-card/20 p-10 shadow-2xl">
-                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground mb-8 flex items-center gap-4">
-                        <FileText className="text-primary h-6 w-6" /> Certificados Ambientales
-                    </h3>
-                    <div className="space-y-4">
-                        {[
-                            { name: "Certificado de Carbono Neutral", date: "Marzo 2026", ref: "CN-2026-03" },
-                            { name: "Certificado de Reciclaje", date: "Q1 2026", ref: "REC-2026-Q1" },
-                        ].map((cert, i) => (
-                            <div key={i} className="p-6 rounded-2xl bg-muted/30 border border-border flex justify-between items-center group hover:border-primary/20 transition-all">
-                                <div className="flex items-center gap-6">
-                                    <div className="p-3 bg-primary/10 rounded-xl"><FileText className="h-5 w-5 text-primary" /></div>
-                                    <div>
-                                        <p className="text-xs font-black uppercase italic text-foreground/90">{cert.name}</p>
-                                        <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">{cert.date} • REF: {cert.ref}</p>
-                                    </div>
-                                </div>
-                                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-foreground/5" onClick={() => handleSimulation("Generando PDF de certificado...")}><Download className="h-4 w-4" /></Button>
-                                    <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-foreground/5" onClick={() => handleSimulation("Compartiendo certificado en red...")}><Share2 className="h-4 w-4" /></Button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    <CardFooter className="p-0 pt-10 flex justify-center border-t border-border/50 mt-10">
-                        <div className="flex items-center gap-4 opacity-20">
-                            <QrCode className="h-12 w-12" />
-                            <div className="text-left">
-                                <p className="text-[10px] font-black uppercase tracking-widest leading-none">Validación On-Chain</p>
-                                <p className="text-[8px] font-bold uppercase mt-1">Escanee para verificar autenticidad</p>
-                            </div>
-                        </div>
-                    </CardFooter>
-                </Card>
-            </div>
-
             {/* --- Market Modal --- */}
             <Dialog open={isMarketModalOpen} onOpenChange={setIsMarketModalOpen}>
                 <DialogContent className="rounded-[3rem] bg-card/95 backdrop-blur-3xl border-border p-10">
@@ -460,10 +434,6 @@ export default function SostenibilidadPage() {
                                 <Input type="number" placeholder="1.25" className="h-14 bg-muted/30 border-border rounded-2xl pl-12 text-lg font-black italic text-foreground" />
                                 <Zap className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
                             </div>
-                        </div>
-                        <div className="p-6 rounded-2xl bg-muted/20 border border-border space-y-2">
-                            <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground/40"><span>Total Proyectado:</span> <span className="text-muted-foreground/80">$ 0.00</span></div>
-                            <div className="flex justify-between text-[10px] font-black uppercase text-muted-foreground/40"><span>Comisión Ecosistema (1%):</span> <span className="text-muted-foreground/80">$ 0.00</span></div>
                         </div>
                     </div>
 

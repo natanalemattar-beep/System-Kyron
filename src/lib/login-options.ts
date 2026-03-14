@@ -45,7 +45,7 @@ export const loginOptions = [
         description: "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad." 
     },
     { 
-        href: "/sostenibilidad", 
+        href: "/login-sostenibilidad", 
         label: "Sostenibilidad", 
         icon: Recycle, 
         description: "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." 

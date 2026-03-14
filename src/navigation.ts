@@ -18,6 +18,7 @@ export const pathnames = {
   '/login-telecom': '/login-telecom',
   '/login-informatica': '/login-informatica',
   '/login-linea': '/login-linea',
+  '/login-sostenibilidad': '/login-sostenibilidad',
   '/register': '/register',
   '/ecosistema': '/plataforma',
   '/dashboard': '/inicio',
