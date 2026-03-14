@@ -1,5 +1,5 @@
 
-import { User, Gavel, ShoppingCart, Briefcase, Users, Cpu, Banknote, Signal, Smartphone } from "lucide-react";
+import { User, Gavel, ShoppingCart, Briefcase, Users, Cpu, Banknote, Signal, Smartphone, Recycle } from "lucide-react";
 
 export const loginOptions = [
     { 
@@ -43,6 +43,12 @@ export const loginOptions = [
         label: "Socios y Directivos", 
         icon: Users, 
         description: "Supervisión estratégica, reparto de beneficios y análisis de rentabilidad." 
+    },
+    { 
+        href: "/sostenibilidad", 
+        label: "Sostenibilidad", 
+        icon: Recycle, 
+        description: "Gestión ambiental, Eco-Créditos y tecnología de reciclaje inteligente." 
     },
     { 
         href: "/login-telecom", 

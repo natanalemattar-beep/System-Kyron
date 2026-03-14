@@ -33,7 +33,8 @@ import {
   LayoutGrid,
   Lock,
   Wand2,
-  Activity
+  Activity,
+  Leaf
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -90,14 +91,27 @@ export const adminNavGroups = [
     subGroups: []
   },
   {
-    title: "Telecomunicaciones",
-    icon: Signal,
+    title: "Sostenibilidad",
+    icon: Recycle,
     items: [
-        { href: "/dashboard-telecom", label: "Estado de Red", icon: Signal },
-        { href: "/conatel/licenses", label: "Licencias Conatel", icon: FileText },
+        { href: "/sostenibilidad", label: "Dashboard Verde", icon: Activity },
+        { href: "/mercado-ecocreditos", label: "Eco-Exchange", icon: Coins },
     ],
     subGroups: []
   }
+];
+
+export const sostenibildadNavGroups = [
+    {
+        title: "Gestión Ambiental",
+        icon: Recycle,
+        items: [
+            { href: "/sostenibilidad", label: "Dashboard", icon: LayoutDashboard },
+            { href: "/mercado-ecocreditos", label: "Mercado ECR", icon: Coins },
+            { href: "/tarjeta-reciclaje", label: "ID Reciclaje", icon: CreditCard },
+        ],
+        subGroups: []
+    }
 ];
 
 export const telecomNavGroups = [

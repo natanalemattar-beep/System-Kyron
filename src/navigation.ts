@@ -66,6 +66,7 @@ export const pathnames = {
   '/directorio-medico': '/directorio-medico',
   '/manutencion': '/pago-manutencion',
   '/registro-rif': '/registro-rif-familia',
+  '/sostenibilidad': '/sostenibilidad',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({

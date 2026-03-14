@@ -1,10 +1,11 @@
+
 'use client';
 
 import { Link, usePathname } from "@/navigation";
 import { cn } from "@/lib/utils";
 import { 
   BarChart3, Users, Recycle, Radio, Cpu, Gavel, Lock, Cog, 
-  UserCircle, Briefcase, Star, Fingerprint, Home, FileText, Smartphone, Bell
+  UserCircle, Briefcase, Star, Fingerprint, Home, FileText, Smartphone, Bell, Leaf
 } from "lucide-react";
 import { Logo } from "./logo";
 import { motion } from "framer-motion";
@@ -23,6 +24,7 @@ const corporativoMenu = [
   { id: 'admin', label: 'Administración', icon: Briefcase, href: '/resumen-negocio' },
   { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3, href: '/contabilidad' },
   { id: 'legal', label: 'Asesoría Legal', icon: Gavel, href: '/escritorio-juridico' },
+  { id: 'sostenibilidad', label: 'Sostenibilidad', icon: Recycle, href: '/sostenibilidad' },
   { id: 'holding', label: 'Socios y Directivos', icon: Users, href: '/dashboard-socios' },
   { id: 'it', label: 'Ingeniería e IT', icon: Cpu, href: '/dashboard-informatica' },
 ];
