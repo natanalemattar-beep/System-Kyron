@@ -98,7 +98,7 @@ const chapters = [
     id: "contabilidad",
     title: "05. CONTABILIDAD",
     icon: Calculator,
-    content: `Nuestra propuesta contable revoluciona el cumplimiento en Venezuela al alinearse estrictamente con las normas VEN-NIF. El sistema está diseñado para procesar automáticamente los asientos diarios, integrando las ventas del TPV y los gastos registrados. La funcionalidad más avanzada incluye la gestión multimoneda con tasas oficiales del BCV y el cálculo automático del Reajuste por Inflación Fiscal (RIPF), utilizando los índices INPC para asegurar que sus estados financieros reflejen la realidad económica del país.`,
+    content: `Nuestra propuesta contable revoluciona el cumplimiento en Venezuela al alinearse estrictamente con las normas VEN-NIF. El sistema está diseñado para procesar automáticamente los asientos diarios, integrando las ventas del TPV y los gastos registrados. La funcionalidad más avanzada incluye la gestión multimoneda con tasas oficiales del BCV y el cálculo automático del Reajuste por Inflación Fiscal (RIPF), utilizando los índices INPC publicados por el BCV para asegurar que sus estados financieros reflejen la realidad económica del país.`,
     details: [
       "Normativa VEN-NIF: Adaptación total a los principios contables nacionales.",
       "Gestión Multimoneda: Conversión síncrona en Bs., USD y EUR según el BCV.",
@@ -146,7 +146,7 @@ const chapters = [
     id: "legal",
     title: "09. ASESORÍA LEGAL (IA)",
     icon: Gavel,
-    content: `El centro jurídico de System Kyron actúa como un Oficial de Cumplimiento virtual. Nuestra IA está entrenada en leyes venezolanas para ayudarle a redactar borradores de contratos de arrendamiento, acuerdos de confidencialidad y actas de asamblea. Además, el sistema monitorea los registros ante el SAREN y el SAPI, emitiendo alertas sobre el vencimiento de poderes de representación o la necesidad de renovar marcas comerciales, asegurando que la estructura legal de su empresa sea inexpugnable.`,
+    content: `El área jurídica de System Kyron actúa como un Oficial de Cumplimiento virtual. Nuestra IA está entrenada en leyes venezolanas para ayudarle a redactar borradores de contratos de arrendamiento, acuerdos de confidencialidad y actas de asamblea. Además, el sistema monitorea los registros ante el SAREN y el SAPI, emitiendo alertas sobre el vencimiento de poderes de representación o la necesidad de renovar marcas comerciales, asegurando que la estructura legal de su empresa sea inexpugnable.`,
     details: [
       "Redacción Jurídica: Generación de documentos basados en leyes vigentes.",
       "Alerta de Poderes: Avisos preventivos antes de la caducidad de facultades.",
@@ -394,7 +394,7 @@ export default function ManualUsuarioPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Manual_Usuario_System_Kyron_v2.6.5_Master.doc';
+    link.download = 'Manual de usuario System Kyron.doc';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
