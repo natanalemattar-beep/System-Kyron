@@ -21,7 +21,11 @@ import {
   CheckCircle,
   Target,
   LayoutDashboard,
-  ShoppingCart
+  ShoppingCart,
+  Clock,
+  Settings2,
+  ShieldAlert,
+  History
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRef, useState, useEffect } from "react";
@@ -61,84 +65,98 @@ A la izquierda de la pantalla, siempre tendrás a mano el menú de navegación. 
     id: "finanzas",
     title: "03. Finanzas, Impuestos y Blindaje Fiscal",
     icon: Calculator,
-    content: `Manejar la contabilidad en Venezuela puede ser un reto, pero con Kyron se convierte en un proceso automático y seguro. Nuestro motor financiero está diseñado bajo las normas VEN-NIF y se mantiene conectado permanentemente con las tasas oficiales del Banco Central de Venezuela. Esto significa que cada factura que emites o recibes se ajusta automáticamente para reflejar el valor real de tu dinero, protegiéndote contra los efectos de la inflación. El sistema saca todas las cuentas difíciles por ti, incluyendo el IVA y el IGTF, asegurando que cada centavo esté en su lugar.
+    content: `Manejar la contabilidad en Venezuela puede ser un reto, pero con Kyron se convierte en un proceso automático y seguro. Nuestro motor financiero está diseñado bajo las normas VEN-NIF e incluye la capacidad de manejar múltiples divisas al mismo tiempo. El sistema saca todas las cuentas difíciles por ti, incluyendo el IVA y el IGTF, asegurando que cada centavo esté en su lugar y refleje el valor real de tu dinero.
 
-El 'Blindaje Fiscal' es una de nuestras herramientas estrella. Antes de que guardes una factura, Kyron revisa que el RIF del cliente sea válido y que el formato cumpla con lo que exige el SENIAT (Providencia 0071). Si falta algo, el sistema te avisará para corregirlo al instante, evitando que acumules errores que luego podrían convertirse en multas. Al final del periodo, puedes generar tus Libros de Compra y Venta con un solo clic, obteniendo archivos listos para ser subidos al portal fiscal. Es como tener a un equipo de contadores expertos trabajando para ti las 24 horas del día, garantizando el cumplimiento total.`,
+El 'Blindaje Fiscal' es una de nuestras herramientas estrella. Antes de que guardes una factura, Kyron revisa que el RIF del cliente sea válido y que el formato cumpla con lo que exige el SENIAT. Si falta algo, el sistema te avisará para corregirlo al instante, evitando errores que luego podrían convertirse en multas. Al final del periodo, puedes generar tus reportes contables con un solo clic, obteniendo archivos listos para cumplir con tus obligaciones. Es como tener a un equipo de expertos trabajando para ti las 24 horas del día.`,
     details: [
-      "Ajuste por Inflación: Tus cuentas se actualizan solas usando los datos oficiales del BCV.",
-      "Libros Fiscales: Genera tus reportes de IVA e ISLR en segundos, sin errores manuales.",
-      "Validación de RIF: El sistema verifica automáticamente la identidad fiscal de tus proveedores y clientes.",
-      "Conciliación Bancaria: Empareja tus estados de cuenta con tus facturas registradas para evitar fugas de dinero."
+      "Ajuste de Divisas: Tus cuentas se actualizan automáticamente según las tasas oficiales.",
+      "Libros Fiscales: Genera tus reportes de compra y venta en segundos, sin errores manuales.",
+      "Validación de RIF: El sistema verifica automáticamente la identidad fiscal de tus clientes.",
+      "Control de Gastos: Registra y categoriza cada egreso para saber exactamente a dónde va tu dinero."
     ]
   },
   {
     id: "personal",
-    title: "04. Nómina y Gestión de Talento Humano",
+    title: "04. Nómina y Gestión de Personal",
     icon: Users,
-    content: `Tu equipo es el motor de tu empresa, y cuidarlos es fundamental. El módulo de Gestión de Personal te permite manejar todo el ciclo de vida de tus trabajadores de forma profesional y transparente. Calcular la nómina ahora es una tarea de segundos: el sistema toma el sueldo base y añade automáticamente bonos, cestatickets y retenciones de ley como el IVSS, FAOV e INCES. Al terminar el cálculo, puedes enviar los recibos de pago de forma masiva directamente a los correos electrónicos de tus empleados o a sus números de WhatsApp con un diseño impecable.
+    content: `Tu equipo es el corazón de tu empresa, y cuidarlos es fundamental. El módulo de Gestión de Personal te permite manejar todo el ciclo de vida de tus trabajadores de forma profesional. Calcular la nómina ahora es una tarea de segundos: el sistema toma el sueldo base y añade automáticamente bonos, cestatickets y las deducciones de ley requeridas. Al terminar, puedes enviar los recibos de pago de forma masiva directamente a los correos de tus empleados con un diseño impecable.
 
-Además del pago quincenal o mensual, Kyron lleva el control exacto de la antigüedad de cada trabajador. Puedes consultar en cualquier momento cuánto ha acumulado una persona en prestaciones sociales o generar el cálculo de una liquidación (finiquito) siguiendo estrictamente la LOTTT. Si necesitas emitir una carta de trabajo o una constancia, no tienes que redactarla desde cero; el sistema usa los datos guardados para generar el documento oficial con el sello de tu empresa y un código QR de verificación, lo que le da una validez y un nivel de profesionalismo superior a cualquier documento manual.`,
+Además del pago quincenal, Kyron lleva el control exacto de la antigüedad y los beneficios de cada trabajador. Puedes consultar cuánto ha acumulado una persona en prestaciones sociales o generar el cálculo de una liquidación siguiendo estrictamente las leyes laborales. Si necesitas una carta de trabajo, el sistema la genera automáticamente con el sello de tu empresa y un código QR de verificación, lo que le da una validez y un profesionalismo superior a cualquier documento hecho a mano.`,
     details: [
-      "Cálculo Automático: Olvídate de las hojas de Excel; Kyron aplica todas las fórmulas de ley por ti.",
+      "Cálculo Automático: Olvídate de las hojas de Excel; Kyron aplica todas las fórmulas por ti.",
       "Recibos Digitales: Envía comprobantes de pago seguros que tus empleados pueden guardar en sus teléfonos.",
       "Control de Vacaciones: El sistema te avisa cuándo le toca descanso a cada integrante de tu equipo.",
-      "Archivo de Expedientes: Guarda copias de cédulas, contratos y títulos de tu personal de forma organizada."
+      "Archivo Digital: Guarda copias de cédulas, contratos y títulos de tu personal de forma organizada."
     ]
   },
   {
     id: "ventas",
-    title: "05. Punto de Venta y Facturación Inteligente",
+    title: "05. Punto de Venta y Cobros Rápidos",
     icon: ShoppingCart,
-    content: `Vender debe ser un proceso rápido y sin complicaciones. El Punto de Venta (TPV) de Kyron ha sido creado para ser táctil, visual y sumamente veloz. Puedes buscar tus productos por nombre, categoría o simplemente usando un escáner de códigos de barras. El sistema maneja múltiples divisas al mismo tiempo: puedes cobrar una parte en bolívares por Pago Móvil y otra parte en dólares en efectivo, y Kyron hará la conversión exacta al instante. Al finalizar cada venta, se genera una factura fiscal con todos los requisitos legales, lista para ser impresa en impresoras térmicas o fiscales homologadas.
+    content: `Vender debe ser un proceso rápido y sin complicaciones. El Punto de Venta (TPV) de Kyron ha sido creado para ser visual y muy veloz. Puedes buscar tus productos por nombre o simplemente usando un escáner de códigos de barras. El sistema maneja múltiples formas de pago al mismo tiempo: puedes cobrar una parte en bolívares por Pago Móvil y otra en dólares en efectivo, y Kyron hará el cálculo exacto al instante. Al finalizar, se genera una factura profesional lista para entregar.
 
-El control de tus productos es total. Cada vez que vendes algo, el sistema lo descuenta automáticamente de tu inventario. Si un producto está por agotarse, verás una alerta para que puedas reponerlo a tiempo y nunca pierdas una venta por falta de stock. Al final de la jornada, el proceso de 'Arqueo de Caja' te guía para que cuentes tu efectivo y cheques tus pagos digitales, dándote un reporte detallado de cualquier diferencia. Este nivel de control elimina las pérdidas desconocidas y te da la tranquilidad de que cada centavo que entra a tu negocio está debidamente registrado y justificado.`,
+El control de tus productos es total. Cada vez que vendes algo, el sistema lo descuenta de tu inventario. Si un producto está por agotarse, verás una alerta para que puedas reponerlo a tiempo. Al final del día, el proceso de 'Arqueo de Caja' te guía para que cuentes tu efectivo y cheques tus pagos digitales, dándote un reporte detallado de cualquier diferencia. Este nivel de control elimina las pérdidas y te da la tranquilidad de que todo lo que entra a tu negocio está bien registrado.`,
     details: [
-      "Cobro Multimoneda: Acepta pagos combinados en Bs. y divisas con cálculo de tasa automático.",
-      "Inventario en Tiempo Real: Tus existencias se actualizan con cada clic en el punto de venta.",
-      "Facturación Rápida: Registra a tus clientes solo con su cédula y el sistema cargará sus datos fiscales.",
-      "Cierres de Caja Seguros: Reportes detallados por turno y cajero para un control administrativo total."
+      "Cobro Multimoneda: Acepta pagos combinados en Bs. y divisas con total precisión.",
+      "Inventario en Vivo: Tus existencias se actualizan con cada clic en el punto de venta.",
+      "Facturación Veloz: Registra a tus clientes solo con su cédula y el sistema cargará sus datos.",
+      "Cierres de Caja: Reportes detallados por turno para un control administrativo total."
     ]
   },
   {
     id: "boveda",
     title: "06. Bóveda Digital y Documentos Legales",
     icon: Lock,
-    content: `En el mundo actual, tus documentos son tus activos más valiosos. La 'Bóveda Digital' de Kyron es un espacio de máxima seguridad donde puedes resguardar tus archivos más sensibles. Aquí puedes subir versiones digitales de tu cédula, RIF, títulos de propiedad, actas constitutivas y contratos. Lo que hace especial a esta bóveda es que utiliza tecnología de 'Sellado Inmutable', lo que garantiza que tus documentos no puedan ser alterados y que siempre tengas una copia fiel disponible, incluso si pierdes los papeles originales. 
+    content: `En Kyron, tus documentos son activos valiosos. La 'Bóveda Digital' es un espacio de máxima seguridad donde puedes resguardar tus archivos más importantes, como cédulas, RIF, títulos de propiedad y contratos. Lo que hace especial a esta bóveda es que utiliza tecnología de 'Sellado Inmutable', lo que garantiza que tus documentos no puedan ser alterados y que siempre tengas una copia fiel disponible, protegida contra cualquier pérdida física o digital. 
 
-Pero no solo sirve para guardar; también es una herramienta de creación. Nuestra Inteligencia Artificial Legal te ayuda a redactar borradores de contratos en cuestión de segundos. Ya sea que necesites un contrato de alquiler, un acuerdo de confidencialidad o un acta de asamblea, solo tienes que ingresar los datos básicos y la IA generará un documento con lenguaje jurídico profesional ajustado a las leyes venezolanas. Además, desde este módulo puedes hacer seguimiento a trámites como la solicitud de antecedentes penales o partidas de nacimiento, recibiendo notificaciones apenas el documento oficial esté listo para descargar.`,
+Pero no solo sirve para guardar; también es una herramienta de creación. Nuestra Inteligencia Artificial Legal te ayuda a redactar borradores de contratos en cuestión de segundos. Ya sea que necesites un contrato de alquiler o un acuerdo de confidencialidad, solo tienes que ingresar los datos básicos y la IA generará un documento profesional ajustado a las leyes vigentes. Además, puedes hacer seguimiento a trámites oficiales y recibir notificaciones apenas tus documentos estén listos para ser descargados.`,
     details: [
-      "Cifrado AES-512: Tu información está protegida con el mismo nivel de seguridad que usan los bancos.",
-      "Redacción con IA: Genera contratos legales profesionales sin necesidad de plantillas complicadas.",
-      "Alertas de Vencimiento: Te avisamos con antelación antes de que caduque tu RIF o tu pasaporte.",
-      "Trámites Digitales: Gestiona y recibe documentos oficiales directamente en tu cuenta de Kyron."
+      "Seguridad Bancaria: Tu información está protegida con los estándares más altos del mercado.",
+      "Redacción con IA: Genera contratos legales profesionales de forma automática y sencilla.",
+      "Alertas de Vencimiento: Te avisamos con tiempo antes de que caduque tu RIF o tus permisos.",
+      "Gestión de Trámites: Recibe y organiza documentos oficiales directamente en tu cuenta."
     ]
   },
   {
     id: "tecnologia",
-    title: "07. Tecnología 5G, eSIM y Sostenibilidad",
+    title: "07. Tecnología 5G, eSIM y Reciclaje",
     icon: Smartphone,
-    content: `System Kyron te conecta con el futuro de las telecomunicaciones y la ecología. A través de nuestro nodo de conectividad, puedes activar líneas telefónicas 5G de alta velocidad en cuestión de minutos. Somos pioneros en el uso de eSIM (chips digitales), lo que significa que puedes activar un número nuevo escaneando un simple código QR, sin necesidad de insertar una tarjeta física en tu teléfono. Esto es ideal para flotas corporativas o para usuarios que necesitan estar conectados de forma inmediata con la red de datos más estable y rápida del ecosistema.
+    content: `System Kyron te conecta con el futuro a través de la tecnología y la ecología. Mediante nuestro nodo de conectividad, puedes activar líneas telefónicas 5G de alta velocidad en minutos. Somos pioneros en el uso de eSIM (chips digitales), lo que te permite activar un número nuevo escaneando un simple código QR desde tu oficina, sin necesidad de un chip físico. Esto es ideal para empresas que necesitan estar conectadas de forma inmediata con la red más moderna y estable.
 
-Nuestra visión también incluye el cuidado del planeta a través de la Iniciativa de Sostenibilidad Kyron. Hemos desplegado 'Papeleras Inteligentes' equipadas con tecnología de inducción magnética. Estas estaciones pueden detectar y clasificar materiales como metal y plástico mediante sensores avanzados. Por cada envase que recicles en estas estaciones, el sistema validará la acción y te otorgará 'Eco-Créditos' directamente en tu billetera digital de Kyron. Estos puntos no son solo números; son activos que puedes canjear por descuentos reales, productos de cortesía y beneficios exclusivos en nuestra amplia red de comercios aliados.`,
+Nuestra visión también incluye el cuidado del planeta. Hemos creado las 'Papeleras Inteligentes' Kyron, que utilizan tecnología magnética para detectar y clasificar materiales como metal y plástico. Por cada envase que recicles en nuestras estaciones, el sistema validará tu acción y te otorgará 'Eco-Créditos' en tu billetera digital. Estos puntos puedes canjearlos por descuentos reales, productos y beneficios exclusivos en nuestra red de comercios aliados, premiando tus hábitos responsables.`,
     details: [
       "Activación Instantánea: Obtén tu número telefónico y plan de datos 5G al momento.",
-      "Tecnología eSIM: Activa servicios de comunicación digital sin salir de tu oficina.",
-      "Eco-Créditos: Gana recompensas tangibles por tus hábitos de reciclaje responsable.",
-      "Impacto Ambiental: Mira en tu tablero cuánto CO2 has ayudado a evitar con tus acciones."
+      "Chip Digital (eSIM): Activa servicios de comunicación modernos sin salir de casa.",
+      "Eco-Créditos: Gana premios y beneficios tangibles por reciclar de forma inteligente.",
+      "Impacto Positivo: Mira en tu tablero cuánto estás ayudando al medio ambiente con tus acciones."
     ]
   },
   {
     id: "soporte",
-    title: "08. Academia Kyron y Soporte Técnico",
+    title: "08. Academia Kyron y Ayuda Técnica",
     icon: School,
-    content: `Tu crecimiento es nuestra prioridad, y por eso hemos creado la 'Academia Kyron'. Es un centro de formación dentro de la plataforma donde tú y tu equipo pueden acceder a cursos cortos y prácticos sobre cómo dominar cada herramienta del sistema. Aprenderás desde cómo hacer una declaración de IVA perfecta hasta cómo optimizar tus ventas usando los reportes de IA. Al completar cada curso, el sistema te otorgará un certificado digital que valida tus conocimientos, ayudándote a profesionalizar aún más tu gestión empresarial.
+    content: `Tu crecimiento es nuestra prioridad, y por eso hemos creado la 'Academia Kyron'. Es un centro de formación dentro de la plataforma donde tú y tu equipo pueden acceder a guías prácticas sobre cómo dominar cada herramienta del sistema. Aprenderás desde cómo hacer una factura perfecta hasta cómo optimizar tus ventas. Al completar los cursos, obtendrás certificados que validan tus conocimientos, ayudándote a ser cada día más eficiente en tu gestión.
 
-Si en algún momento tienes una duda o surge un inconveniente técnico, nuestro equipo de soporte está siempre a tu disposición. Puedes interactuar con nuestro 'Asistente de Voz IA' para obtener respuestas rápidas sobre funciones del sistema o contactar directamente a nuestros expertos humanos a través del chat prioritario de WhatsApp. No importa si es un problema con una factura o una duda sobre cómo configurar una nueva línea 5G; estamos aquí para asegurar que tu operación nunca se detenga y que siempre sientas el respaldo de una ingeniería de clase mundial a tu lado.`,
+Si alguna vez tienes una duda o un problema técnico, nuestro equipo de soporte está siempre listo para ayudarte. Puedes hablar con nuestro 'Asistente de Voz IA' para obtener respuestas rápidas o contactar directamente a nuestros expertos humanos a través del chat de ayuda. No importa si es una duda sencilla o un caso complejo; estamos aquí para asegurar que tu negocio nunca se detenga y que siempre sientas el respaldo de la mejor tecnología a tu lado.`,
     details: [
-      "Formación Continua: Cursos nuevos cada mes sobre leyes, finanzas y tecnología avanzada.",
-      "Certificados Blockchain: Obtén diplomas digitales inalterables que demuestran tu pericia técnica.",
+      "Formación Práctica: Guías y cursos fáciles de seguir para dominar todo el sistema.",
+      "Certificados Digitales: Obtén diplomas que demuestran tu pericia en el uso de la plataforma.",
       "Asistencia IA: Habla con el sistema para resolver dudas de forma natural y rápida.",
-      "Soporte Humano: Acceso directo a especialistas para resolver casos complejos de inmediato."
+      "Soporte Directo: Acceso a especialistas humanos para resolver cualquier inconveniente."
+    ]
+  },
+  {
+    id: "horario-laboral",
+    title: "09. Control de Horario Laboral desde el TPV",
+    icon: Clock,
+    content: `Una de las herramientas más útiles para dueños y gerentes es la posibilidad de definir el horario de trabajo de su negocio directamente desde el sistema. Kyron te permite establecer, por ejemplo, que tu tienda abre a las 8:00 a.m. y cierra a las 6:00 p.m. de lunes a sábado. Una vez configurado, el sistema gestionará automáticamente varias funciones críticas para la seguridad y organización de tu establecimiento.
+
+Con esta funcionalidad, los cajeros solo podrán iniciar sesión y realizar ventas dentro del horario autorizado. Fuera de ese rango, el punto de venta se bloqueará automáticamente, evitando transacciones no supervisadas. Además, el sistema genera reportes detallados por cada turno de trabajo, permitiéndote ver exactamente cuánto vendió cada empleado en su franja horaria. Si necesitas abrir en un horario especial o un día festivo, el gerente puede autorizar una excepción rápidamente con su clave maestra, manteniendo siempre un registro de quién hizo el cambio y por qué.`,
+    details: [
+      "Bloqueo Automático: Evita ventas fuera de horas para mayor seguridad del inventario.",
+      "Gestión de Turnos: Separa y analiza el rendimiento de tus empleados por mañana o tarde.",
+      "Calendario de Excepciones: Configura cierres tempranos o días feriados con antelación.",
+      "Autorización Maestra: Permite ventas excepcionales fuera de horario mediante clave de gerente."
     ]
   }
 ];
@@ -189,22 +207,23 @@ export default function ManualUsuarioPage() {
         <title>Manual de Usuario - System Kyron</title>
         <style>
           @page { size: 8.5in 11in; margin: 1in; }
-          body { font-family: 'Arial', sans-serif; color: #1e293b; line-height: 1.6; width: 100%; }
-          .header { text-align: center; margin-bottom: 50pt; border-bottom: 2pt solid #2563eb; padding-bottom: 20pt; width: 100%; }
+          body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; line-height: 1.6; width: 100%; }
+          .header { text-align: center; margin-bottom: 50pt; border-bottom: 3pt solid #0A2472; padding-bottom: 25pt; width: 100%; }
           .logo { width: 120pt; margin-bottom: 15pt; }
-          h1 { color: #2563eb; font-size: 32pt; margin-bottom: 5pt; font-weight: bold; text-transform: uppercase; }
-          .subtitle { color: #64748b; font-size: 14pt; text-transform: uppercase; letter-spacing: 3pt; font-weight: bold; }
+          h1 { color: #0A2472; font-size: 34pt; margin-bottom: 5pt; font-weight: 900; text-transform: uppercase; }
+          .subtitle { color: #64748b; font-size: 14pt; text-transform: uppercase; letter-spacing: 4pt; font-weight: bold; }
           
-          h2 { color: #1e40af; border-bottom: 1pt solid #cbd5e1; margin-top: 45pt; padding-bottom: 10pt; font-size: 22pt; font-weight: bold; page-break-before: always; text-transform: uppercase; width: 100%; }
-          h3 { color: #2563eb; font-size: 14pt; margin-top: 25pt; font-weight: bold; text-transform: uppercase; border-left: 4pt solid #2563eb; padding-left: 10pt; }
+          h2 { color: #0A2472; border-bottom: 1.5pt solid #cbd5e1; margin-top: 50pt; padding-bottom: 12pt; font-size: 24pt; font-weight: 900; page-break-before: always; text-transform: uppercase; width: 100%; }
+          h3 { color: #00A86B; font-size: 16pt; margin-top: 30pt; font-weight: 800; text-transform: uppercase; border-left: 5pt solid #00A86B; padding-left: 12pt; }
           
-          p { margin-bottom: 18pt; text-align: justify; font-size: 12pt; color: #334155; width: 100%; }
-          .intro { font-size: 14pt; font-style: italic; color: #475569; margin-bottom: 40pt; padding: 25pt; background: #f1f5f9; border-left: 5pt solid #2563eb; }
+          p { margin-bottom: 20pt; text-align: justify; font-size: 12.5pt; color: #334155; width: 100%; line-height: 1.8; }
+          .intro { font-size: 15pt; font-style: italic; color: #475569; margin-bottom: 45pt; padding: 30pt; background: #f8fafc; border-left: 6pt solid #0A2472; line-height: 1.7; }
           
-          ul { margin-bottom: 25pt; padding-left: 30pt; width: 100%; }
-          li { margin-bottom: 12pt; font-size: 11.5pt; color: #1e293b; text-align: justify; }
+          ul { margin-bottom: 30pt; padding-left: 35pt; width: 100%; }
+          li { margin-bottom: 14pt; font-size: 12pt; color: #1e293b; text-align: justify; }
           
-          .footer { margin-top: 80pt; text-align: center; font-size: 10pt; color: #94a3b8; border-top: 1pt solid #e2e8f0; padding-top: 25pt; width: 100%; }
+          .footer { margin-top: 100pt; text-align: center; font-size: 10pt; color: #94a3b8; border-top: 1pt solid #e2e8f0; padding-top: 30pt; width: 100%; }
+          .highlight-box { padding: 20pt; background-color: #f1f5f9; border-radius: 15pt; margin-bottom: 20pt; border: 1pt solid #e2e8f0; }
         </style>
       </head>
       <body>
@@ -215,22 +234,24 @@ export default function ManualUsuarioPage() {
         </div>
 
         <div class="intro">
-          Esta guía exhaustiva ha sido diseñada para proporcionarte una comprensión total del Ecosistema Kyron. A través de estos 8 capítulos, aprenderás a operar cada módulo con la precisión de un experto, garantizando que tu empresa o tus gestiones personales alcancen un nivel superior de eficiencia y seguridad legal. Bienvenido al estándar de oro de la gestión inteligente.
+          Este manual ha sido diseñado para guiarte paso a paso en el uso de System Kyron. Aquí encontrarás explicaciones claras y sencillas para que puedas aprovechar al máximo cada herramienta del ecosistema, garantizando que tu empresa o tus gestiones personales se manejen con total eficiencia y seguridad legal. Bienvenido al estándar de oro de la gestión inteligente.
         </div>
 
         ${chapters.map((ch) => `
           <div class="section">
             <h2>${ch.title}</h2>
             <p>${ch.content}</p>
-            <h3>Capacidades y Puntos Clave:</h3>
-            <ul>
-              ${ch.details.map(d => `<li>${d}</li>`).join('')}
-            </ul>
+            <div class="highlight-box">
+                <h3>Capacidades y Puntos Clave:</h3>
+                <ul>
+                ${ch.details.map(d => `<li>${d}</li>`).join('')}
+                </ul>
+            </div>
           </div>
         `).join('')}
 
         <div class="footer">
-          <p>System Kyron • Corporate Intelligence Node • Caracas, Venezuela</p>
+          <p>System Kyron • Telecom, Reciclaje y Control Total • Caracas, Venezuela</p>
           <p>&copy; 2026 Todos los derechos reservados bajo Protocolo de Integridad.</p>
         </div>
       </body>
@@ -249,7 +270,7 @@ export default function ManualUsuarioPage() {
     setIsExporting(false);
     toast({
         title: "PROTOCOLO DE DESCARGA FINALIZADO",
-        description: "El manual de alta densidad ha sido generado con éxito.",
+        description: "El manual detallado ha sido generado con éxito.",
         action: <CheckCircle className="text-primary h-4 w-4" />
     });
   };
@@ -257,7 +278,6 @@ export default function ManualUsuarioPage() {
   return (
     <div className="min-h-screen bg-[#050505] text-white py-12 px-4 md:px-16 relative overflow-hidden hud-grid">
       
-      {/* Logo oculto para la captura en exportación */}
       <div className="hidden" ref={logoRef} aria-hidden="true">
         <Logo className="h-40 w-40" />
       </div>
@@ -275,7 +295,7 @@ export default function ManualUsuarioPage() {
             Manual de <span className="text-primary not-italic">Usuario</span>
             </h1>
             <p className="text-muted-foreground text-[10px] md:text-[12px] font-bold uppercase tracking-[0.6em] opacity-40 mt-4 max-w-2xl leading-relaxed">
-            Consolidado de 8 Capítulos • Guía de Operaciones de Misión Crítica • Versión 2.6.5
+            Guía de Operaciones Detallada • Consolidado de 9 Capítulos • Versión 2.6.5
             </p>
         </div>
         <div className="flex gap-3 no-print">
@@ -324,22 +344,27 @@ export default function ManualUsuarioPage() {
                     </div>
 
                     <div className="grid lg:grid-cols-2 gap-12">
-                        <p className="text-base md:text-lg font-medium italic text-white/70 leading-relaxed text-justify">
-                            {chapter.content}
-                        </p>
+                        <div className="space-y-6">
+                            <p className="text-base md:text-lg font-medium italic text-white/70 leading-relaxed text-justify">
+                                {chapter.content}
+                            </p>
+                        </div>
 
-                        <div className="p-8 rounded-[2rem] bg-black/40 border border-white/5 shadow-inner">
-                            <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-white/30 mb-6 flex items-center gap-3">
+                        <div className="p-8 rounded-[2.5rem] bg-black/40 border border-white/5 shadow-inner flex flex-col">
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-white/30 mb-8 flex items-center gap-3">
                                 <CheckCircle className="h-4 w-4 text-emerald-500" /> Puntos clave de gestión
                             </h4>
-                            <ul className="space-y-4 text-xs font-bold text-white/60 uppercase tracking-widest leading-relaxed">
+                            <ul className="space-y-6 text-xs font-bold text-white/60 uppercase tracking-widest leading-relaxed flex-grow">
                                 {chapter.details.map((detail, dIdx) => (
                                     <li key={dIdx} className="flex gap-4 items-start">
-                                        <span className="text-primary font-black">»</span>
+                                        <span className="text-primary font-black text-lg leading-none">»</span>
                                         <span>{detail}</span>
                                     </li>
                                 ))}
                             </ul>
+                            <div className="mt-8 pt-6 border-t border-white/5">
+                                <p className="text-[8px] font-black text-white/10 uppercase tracking-[0.4em]">Protocolo Verificado v2.6</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -352,7 +377,7 @@ export default function ManualUsuarioPage() {
       <footer className="max-w-6xl mx-auto border-t border-white/5 pt-20 pb-10 text-center space-y-12">
         <Logo className="h-12 w-12 mx-auto opacity-20" />
         <p className="text-[10px] font-black text-white/5 uppercase tracking-[1.5em] italic">
-            SYSTEM KYRON • CORPORATE INTELLIGENCE • 2026
+            SYSTEM KYRON • TELECOM, RECICLAJE Y CONTROL TOTAL • 2026
         </p>
       </footer>
     </div>
