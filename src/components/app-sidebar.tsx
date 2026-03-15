@@ -21,7 +21,7 @@ const personalMenu = [
 ];
 
 const corporativoMenu = [
-  { id: 'admin', label: 'Administración', icon: Briefcase, href: '/resumen-negocio' },
+  { id: 'admin', label: 'Administración', icon: Briefcase, href: '/dashboard-empresa' },
   { id: 'contabilidad', label: 'Contabilidad', icon: BarChart3, href: '/contabilidad' },
   { id: 'legal', label: 'Asesoría Legal', icon: Gavel, href: '/escritorio-juridico' },
   { id: 'sostenibilidad', label: 'Sostenibilidad', icon: Recycle, href: '/sostenibilidad' },

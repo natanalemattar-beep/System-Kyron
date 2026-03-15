@@ -7,18 +7,17 @@ export const localePrefix = 'always';
 
 /**
  * @fileOverview Mapa de Navegación del Ecosistema Kyron.
- * Organizado por Nodos de Inteligencia (Carpetas Lógicas).
+ * Organizado por Áreas Lógicas.
  */
 export const pathnames = {
   '/': '/',
   '/login': '/login',
   '/register': '/register',
   
-  // NODO MAESTRO
-  '/dashboard-empresa': '/dashboard-maestro',
-  '/resumen-negocio': '/dashboard-maestro',
+  // ÁREA MAESTRA
+  '/dashboard-empresa': '/dashboard-empresa',
   
-  // NODO: FINANZAS Y CONTABILIDAD
+  // FINANZAS Y CONTABILIDAD
   '/contabilidad': '/finanzas/contabilidad',
   '/cuentas-por-cobrar': '/finanzas/cuentas-por-cobrar',
   '/cuentas-por-pagar': '/finanzas/cuentas-por-pagar',
@@ -29,7 +28,7 @@ export const pathnames = {
   '/billetera-cambio': '/finanzas/billetera-cambio',
   '/estudio-factibilidad-economica': '/finanzas/factibilidad-economica',
   
-  // NODO: VENTAS Y FACTURACIÓN
+  // VENTAS Y FACTURACIÓN
   '/facturacion': '/ventas/facturacion',
   '/punto-de-venta': '/ventas/punto-de-venta',
   '/facturacion-credito': '/ventas/facturacion-credito',
@@ -40,7 +39,7 @@ export const pathnames = {
   '/analisis-ventas': '/ventas/analisis-comercial',
   '/analisis-mercado': '/ventas/analisis-mercado',
   
-  // NODO: LEGAL Y CUMPLIMIENTO
+  // LEGAL Y CUMPLIMIENTO
   '/escritorio-juridico': '/legal/escritorio-juridico',
   '/acta-asamblea': '/legal/acta-asamblea',
   '/contratos': '/legal/contratos',
@@ -52,7 +51,7 @@ export const pathnames = {
   '/generador-documentos': '/legal/crear-contratos',
   '/zero-risk': '/legal/blindaje-total',
   
-  // NODO: RECURSOS HUMANOS
+  // RECURSOS HUMANOS
   '/dashboard-rrhh': '/rrhh/dashboard',
   '/nominas': '/rrhh/pagos-nomina',
   '/prestaciones-sociales': '/rrhh/liquidaciones',
@@ -60,7 +59,7 @@ export const pathnames = {
   '/libro-horario-nocturno': '/rrhh/libro-nocturno',
   '/carnet-personal': '/rrhh/id-biometrica',
   
-  // NODO: TECNOLOGÍA E INGENIERÍA
+  // TECNOLOGÍA E INGENIERÍA
   '/dashboard-informatica': '/it/dashboard',
   '/ingenieria-ia': '/it/ingenieria-ia',
   '/mi-linea': '/telecom/mi-linea-5g',
@@ -70,7 +69,7 @@ export const pathnames = {
   '/tarjeta-reciclaje': '/ambiente/mis-puntos',
   '/mercado-ecocreditos': '/ambiente/canje-puntos',
   
-  // NODO: PERSONAL Y CIUDADANO
+  // PERSONAL Y CIUDADANO
   '/dashboard': '/personal/inicio',
   '/tarjeta-digital': '/personal/mi-perfil',
   '/documentos': '/personal/mis-documentos',
