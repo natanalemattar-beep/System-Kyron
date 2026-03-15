@@ -12,8 +12,8 @@ import { Badge } from "@/components/ui/badge";
 
 export default function LibroCompraVentaPage() {
     return (
-        <div className="space-y-12 pb-20 px-6 md:px-10">
-            <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-8 py-2 mt-10">
+        <div className="space-y-12 pb-20 px-4 md:px-10">
+            <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-6 md:pl-8 py-2 mt-10">
                 <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                         <Landmark className="h-3 w-3" /> FORMALIDADES FISCALES
