@@ -2,7 +2,6 @@
 'use client';
 
 import { AppHeader } from "@/components/app-header";
-import { AppSidebar } from "@/components/app-sidebar";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
@@ -12,7 +11,12 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const user = { name: "Contador Maestro", email: "master@kyron.com", fallback: "CM" };
+    const user = { 
+        name: "Contador Maestro", 
+        email: "master@kyron.com", 
+        fallback: "CM",
+        color: "bg-primary shadow-glow"
+    };
 
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-hidden">
@@ -22,16 +26,14 @@ export default function AdminLayout({
             <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.03] rounded-full blur-[300px]" />
           </div>
 
-          <AppSidebar />
-
-          <div className="flex-1 lg:pl-64 flex flex-col min-h-screen relative w-full">
+          <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
-                user={{...user, color: "bg-primary shadow-glow"}} 
+                user={user} 
                 dashboardHref="/dashboard-empresa" 
                 navGroups={adminNavGroups}
               />
               <motion.main 
-                className="flex-1 w-full p-4 md:p-8 pt-20 relative z-10"
+                className="flex-1 w-full p-4 md:p-10 pt-24 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
@@ -40,7 +42,7 @@ export default function AdminLayout({
               </motion.main>
               <footer className="p-10 border-t border-border bg-card/60 text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[1em] text-foreground/20 italic">
-                  System Kyron v2.6.5 • Corporate Intelligence • 2026
+                  System Kyron v2.6.5 • Intelligence Node • 2026
                 </p>
               </footer>
           </div>
