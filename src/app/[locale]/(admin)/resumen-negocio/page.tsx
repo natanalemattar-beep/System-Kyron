@@ -43,7 +43,13 @@ import {
   Box,
   Truck,
   Building,
-  CreditCard
+  CreditCard,
+  ShieldAlert,
+  Terminal,
+  Settings2,
+  Sparkles,
+  Search,
+  LayoutDashboard
 } from "lucide-react";
 import { 
   AreaChart, 
@@ -59,9 +65,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn, formatCurrency } from "@/lib/utils";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { useToast } from "@/hooks/use-toast";
 
 const financialData = [
   { month: "Ago '23", ingresos: 25000, gastos: 18000 },
@@ -151,10 +158,24 @@ const moduleSections = [
 
 export default function ResumenNegocioPage() {
   const [mounted, setMounted] = useState(false);
+  const [simulation, setSimulation] = useState<string | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const runSimulation = (type: string) => {
+    setSimulation(null);
+    setTimeout(() => {
+      setSimulation(type);
+      toast({
+        title: "SIMULACIÓN COMPLETADA",
+        description: "El gemelo digital ha proyectado los resultados del escenario estratégico.",
+        action: <CheckCircle2 className="h-4 w-4 text-primary" />
+      });
+    }, 1000);
+  };
 
   if (!mounted) return null;
 
@@ -187,32 +208,54 @@ export default function ResumenNegocioPage() {
       </div>
 
       <div className="grid gap-8 lg:grid-cols-12">
-        {/* 2. ARCHIVO SEGURO */}
-        <Card className="lg:col-span-4 bg-primary text-primary-foreground rounded-[3rem] overflow-hidden relative group p-1 shadow-glow">
-            <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                <Lock className="h-40 w-40" />
-            </div>
-            <div className="p-10 space-y-8 relative z-10 bg-primary rounded-[2.9rem] h-full flex flex-col justify-between">
-                <div className="space-y-2">
-                    <CardTitle className="text-3xl font-black uppercase italic tracking-tighter leading-tight text-white italic-shadow">Archivo Seguro</CardTitle>
-                    <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 text-white">PROTECCIÓN DE DATOS 2026</p>
+        {/* 2. GEMELO DIGITAL - SIMULADOR ESTRATÉGICO */}
+        <Card className="lg:col-span-5 glass-card border-primary/20 overflow-hidden bg-white/[0.02] rounded-[3.5rem] shadow-2xl">
+            <CardHeader className="p-10 border-b border-white/5 bg-primary/5">
+                <CardTitle className="flex items-center gap-4 text-2xl font-black uppercase italic tracking-tighter">
+                    <BarChart3 className="h-8 w-8 text-primary" />
+                    Gemelo Digital
+                </CardTitle>
+                <CardDescription className="text-primary font-bold uppercase text-[9px] tracking-[0.3em]">Simulación de Escenarios en Tiempo Real</CardDescription>
+            </CardHeader>
+            <CardContent className="p-8 space-y-6">
+                <div className="grid grid-cols-1 gap-3">
+                    {[
+                        { id: "sucursales", label: "Expansión +3 Sedes", icon: Building },
+                        { id: "ventas", label: "Aumento Ventas 20%", icon: TrendingUp },
+                        { id: "crisis", label: "Escenario Inflación", icon: ShieldAlert }
+                    ].map(sc => (
+                        <Button 
+                            key={sc.id}
+                            onClick={() => runSimulation(sc.id)}
+                            variant="outline" 
+                            className="justify-start h-14 rounded-2xl border-white/10 bg-white/5 hover:bg-primary/10 group"
+                        >
+                            <sc.icon className="mr-4 h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                            <span className="text-[10px] font-black uppercase tracking-widest">{sc.label}</span>
+                        </Button>
+                    ))}
                 </div>
-                <div className="space-y-8">
-                    <p className="text-sm font-bold opacity-80 leading-relaxed italic text-white uppercase tracking-widest text-justify">
-                        Acceso seguro a expedientes corporativos y guías de cumplimiento bajo protocolo de cifrado AES-512. Inyectado con tecnología Blockchain.
-                    </p>
-                    <Button variant="secondary" asChild className="w-full h-14 text-[10px] font-black bg-white text-primary hover:bg-white/90 rounded-2xl uppercase tracking-widest transition-all shadow-2xl">
-                        <Link href="/manual-usuario" className="flex justify-between w-full px-6">
-                            <span>EXPLORAR GUÍAS TÉCNICAS</span> 
-                            <ArrowRight className="h-4 w-4"/>
-                        </Link>
-                    </Button>
-                </div>
-            </div>
+                <AnimatePresence mode="wait">
+                    {simulation && (
+                        <motion.div 
+                            initial={{ opacity: 0, y: 10 }} 
+                            animate={{ opacity: 1, y: 0 }} 
+                            className="p-6 bg-primary/10 rounded-2xl border border-primary/20 shadow-inner"
+                        >
+                            <p className="text-[9px] font-black uppercase text-primary mb-2">Impacto Proyectado</p>
+                            <p className="text-sm font-bold italic text-foreground leading-relaxed">
+                                {simulation === 'ventas' ? "Incremento del 28% en rentabilidad neta para el Q3." : 
+                                 simulation === 'sucursales' ? "Punto de equilibrio estimado en 14 meses por sede." : 
+                                 "Requerimiento de liquidez adicional del 15% para cubrir costos op."}
+                            </p>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </CardContent>
         </Card>
 
         {/* 3. GRÁFICO FINANCIERO */}
-        <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+        <Card className="lg:col-span-7 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
           <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
             <div className="flex items-center justify-between">
                 <div className="space-y-1">
@@ -237,8 +280,8 @@ export default function ResumenNegocioPage() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
-                  <XAxis dataKey="month" axisLine={false} tickLine={false} stroke="#475569" fontSize={10} fontWeight="900" tickMargin={15} />
-                  <YAxis axisLine={false} tickLine={false} stroke="#475569" fontSize={10} fontWeight="900" tickFormatter={(val) => `${val / 1000}k`} />
+                  <XAxis dataKey="month" axisLine={false} tickLine={false} stroke="#475569" fontSize={10} fontWeights="900" tickMargin={15} />
+                  <YAxis axisLine={false} tickLine={false} stroke="#475569" fontSize={10} fontWeights="900" tickFormatter={(val) => `${val / 1000}k`} />
                   <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
                   <Area type="monotone" dataKey="ingresos" stroke="#00A86B" strokeWidth={4} fillOpacity={1} fill="url(#colorIngresos)" />
                   <Area type="monotone" dataKey="gastos" stroke="#0A2472" strokeWidth={4} fillOpacity={1} fill="url(#colorGastos)" />
