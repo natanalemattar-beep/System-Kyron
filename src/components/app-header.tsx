@@ -43,12 +43,71 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
-interface AppHeaderProps {
-    user: any;
-    dashboardHref: string;
-}
+// Static configuration outside component to speed up render
+const navigationConfig = [
+  { 
+      label: "CENTRO DE MANDO", 
+      href: "/dashboard-empresa", 
+      icon: LayoutDashboard,
+      type: 'link'
+  },
+  { 
+      label: "LIBROS", 
+      icon: BookOpen,
+      type: 'menu',
+      items: [
+          { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: FileText },
+          { label: "Nómina y Personal", href: "/contabilidad/libros/nomina", icon: Users },
+          { label: "Inventario Activo", href: "/contabilidad/libros/inventario", icon: Box },
+          { label: "Control de Licores", href: "/contabilidad/libros/control-licores", icon: Landmark },
+          { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", icon: Banknote },
+          { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", icon: History },
+          { label: "Ver Biblioteca", href: "/contabilidad/libros", icon: BookOpen },
+      ]
+  },
+  { 
+      label: "TRIBUTOS", 
+      icon: Landmark,
+      type: 'menu',
+      items: [
+          { label: "Declaración IVA", href: "/declaracion-iva", icon: FileText },
+          { label: "ISLR y AR-C", href: "/islr-arc", icon: Banknote },
+          { label: "Retenciones", href: "/contabilidad/impuestos/retenciones", icon: ShieldCheck },
+          { label: "Calendario Fiscal", href: "/contabilidad/impuestos/calendario", icon: Calendar },
+          { label: "Impuestos Municipales", href: "/contabilidad/impuestos/municipales", icon: Landmark },
+          { label: "Multas y Sanciones", href: "/contabilidad/impuestos/multas", icon: ShieldAlert },
+          { label: "Homologación SENIAT", href: "/contabilidad/impuestos/homologacion", icon: CheckCircle },
+          { label: "Reportes Fiscales", href: "/contabilidad/impuestos/reportes", icon: FileSearch },
+      ]
+  },
+  { 
+      label: "CUENTAS", 
+      icon: Wallet,
+      type: 'menu',
+      items: [
+          { label: "Resumen de Cuentas", href: "/cuentas", icon: Wallet },
+          { label: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", icon: TrendingUp },
+          { label: "Cuentas por Pagar", href: "/cuentas-por-pagar", icon: HandCoins },
+          { label: "Análisis de Caja", href: "/analisis-caja", icon: Activity },
+          { label: "Ver Todas", href: "/cuentas/todas", icon: BookOpen },
+      ]
+  },
+  { 
+      label: "ANÁLISIS", 
+      icon: PieChart,
+      type: 'menu',
+      items: [
+          { label: "Ventas e Ingresos", href: "/analisis-ventas", icon: BarChart3 },
+          { label: "Riesgo Financiero", href: "/analisis-riesgo", icon: ShieldCheck },
+          { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
+          { label: "Factibilidad Económica", href: "/estudio-factibilidad-economica", icon: Calculator },
+          { label: "Estructura de Costos", href: "/estructura-costos", icon: Activity },
+          { label: "Centro de Análisis", href: "/analisis", icon: PieChart },
+      ]
+  }
+];
 
-export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
+export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: string }) {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
@@ -56,80 +115,9 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-
-  const navigation = [
-    { 
-        label: "CENTRO DE MANDO", 
-        href: "/dashboard-empresa", 
-        icon: LayoutDashboard,
-        type: 'link'
-    },
-    { 
-        label: "LIBROS", 
-        icon: BookOpen,
-        type: 'menu',
-        items: [
-            { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: FileText },
-            { label: "Nómina y Personal", href: "/contabilidad/libros/nomina", icon: Users },
-            { label: "Inventario Activo", href: "/contabilidad/libros/inventario", icon: Box },
-            { label: "Control de Licores", href: "/contabilidad/libros/control-licores", icon: Landmark },
-            { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", icon: Banknote },
-            { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", icon: History },
-            { label: "Ver Biblioteca", href: "/contabilidad/libros", icon: BookOpen },
-        ]
-    },
-    { 
-        label: "TRIBUTOS", 
-        icon: Landmark,
-        type: 'menu',
-        items: [
-            { label: "Declaración IVA", href: "/declaracion-iva", icon: FileText },
-            { label: "ISLR y AR-C", href: "/islr-arc", icon: Banknote },
-            { label: "Retenciones (IVA/ISLR)", href: "/contabilidad/impuestos/retenciones", icon: ShieldCheck },
-            { label: "Calendario Fiscal", href: "/contabilidad/impuestos/calendario", icon: Calendar },
-            { label: "Impuestos Municipales", href: "/contabilidad/impuestos/municipales", icon: Landmark },
-            { label: "Multas y Sanciones", href: "/contabilidad/impuestos/multas", icon: ShieldAlert },
-            { label: "Homologación SENIAT", href: "/contabilidad/impuestos/homologacion", icon: CheckCircle },
-            { label: "Reportes Fiscales", href: "/contabilidad/impuestos/reportes", icon: FileSearch },
-        ]
-    },
-    { 
-        label: "CUENTAS", 
-        icon: Wallet,
-        type: 'menu',
-        items: [
-            { label: "Resumen de Cuentas", href: "/cuentas", icon: Wallet },
-            { label: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", icon: TrendingUp },
-            { label: "Cuentas por Pagar", href: "/cuentas-por-pagar", icon: HandCoins },
-            { label: "Análisis de Caja", href: "/analisis-caja", icon: Activity },
-            { label: "Ver Todas", href: "/cuentas/todas", icon: BookOpen },
-        ]
-    },
-    { 
-        label: "ANÁLISIS", 
-        icon: PieChart,
-        type: 'menu',
-        items: [
-            { label: "Ventas e Ingresos", href: "/analisis-ventas", icon: BarChart3 },
-            { label: "Riesgo Financiero", href: "/analisis-riesgo", icon: ShieldCheck },
-            { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
-            { label: "Factibilidad Económica", href: "/estudio-factibilidad-economica", icon: Calculator },
-            { label: "Estructura de Costos", href: "/estructura-costos", icon: Activity },
-            { label: "Centro de Análisis", href: "/analisis", icon: PieChart },
-        ]
-    },
-    { 
-        label: "TESORERÍA", 
-        icon: Activity,
-        type: 'menu',
-        items: [
-            { label: "Arqueo de Caja", href: "/arqueo-caja", icon: Calculator },
-            { label: "Billetera Multimoneda", href: "/billetera-cambio", icon: Wallet },
-            { label: "Historial de Transacciones", href: "/transactions", icon: History },
-        ]
-    }
-  ];
+  if (!mounted) return (
+    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-border/50 bg-background/80 backdrop-blur-3xl h-20 w-full shadow-xl" />
+  );
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[150] border-b border-border/50 bg-background/80 backdrop-blur-3xl h-20 flex items-center w-full shadow-xl">
@@ -138,7 +126,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
           
           <div className="flex items-center justify-start min-w-fit">
             <Link href="/" className="flex items-center gap-4 group shrink-0">
-                <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
+                <Logo className="h-9 w-9 transition-transform group-hover:scale-110 drop-shadow-glow" /> 
                 <div className="flex flex-col -mt-1 hidden xl:flex">
                     <span className="text-xs font-black tracking-[0.3em] uppercase text-foreground italic leading-none">System Kyron</span>
                     <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Centro de Inteligencia Contable</p>
@@ -147,7 +135,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
           </div>
 
           <nav className="hidden lg:flex items-center justify-center gap-1 flex-1">
-            {navigation.map((nav) => (
+            {navigationConfig.map((nav) => (
                 nav.type === 'link' ? (
                     <Button 
                         key={nav.href}
@@ -168,7 +156,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                         <DropdownMenuTrigger asChild>
                             <Button 
                                 variant="ghost" 
-                                className="h-10 px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-2 text-muted-foreground hover:text-primary hover:bg-primary/5 whitespace-nowrap"
+                                className="h-10 px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-primary hover:bg-primary/5 whitespace-nowrap"
                             >
                                 <nav.icon className="h-3.5 w-3.5" />
                                 {nav.label}
