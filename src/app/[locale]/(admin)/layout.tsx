@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AppHeader } from "@/components/app-header";
@@ -18,6 +17,13 @@ export default function AdminLayout({
         color: "bg-primary shadow-glow"
     };
 
+    // Filtramos los grupos de navegación para que solo pasen los relevantes al área contable/corporativa
+    const filteredNavGroups = adminNavGroups.filter(group => 
+        group.title === "Contabilidad" || 
+        group.title === "Administración" || 
+        group.title === "Ventas"
+    );
+
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-hidden">
           {/* HUD Texture Background */}
@@ -30,15 +36,17 @@ export default function AdminLayout({
               <AppHeader 
                 user={user} 
                 dashboardHref="/dashboard-empresa" 
-                navGroups={adminNavGroups}
+                navGroups={filteredNavGroups}
               />
               <motion.main 
-                className="flex-1 w-full p-4 md:p-10 pt-24 relative z-10"
+                className="flex-1 w-full p-4 md:p-10 pt-32 relative z-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
               >
-                  {children}
+                  <div className="max-w-[1600px] mx-auto">
+                    {children}
+                  </div>
               </motion.main>
               <footer className="p-10 border-t border-border bg-card/60 text-center backdrop-blur-3xl">
                 <p className="text-[10px] font-black uppercase tracking-[1em] text-foreground/20 italic">

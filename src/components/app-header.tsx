@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -17,25 +16,26 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Link } from "@/navigation";
+import { Link, usePathname } from "@/navigation";
 import { Logo } from "./logo";
 import { 
     LogOut, 
     ShieldCheck, 
     ChevronDown,
     Bell,
-    Search,
     Signal,
     Activity,
     Calculator,
-    LayoutGrid,
-    Menu,
+    LayoutDashboard,
+    FileText,
+    Wallet,
+    Landmark,
     Settings,
-    Globe
+    Globe,
+    Zap
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
-import { Input } from "./ui/input";
 import { Badge } from "./ui/badge";
 
 interface NavItem {
@@ -58,6 +58,7 @@ interface AppHeaderProps {
 
 export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -65,61 +66,55 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
 
   if (!mounted) return null;
 
-  // Filtramos solo los grupos contables para evitar "ligues" con otros módulos
-  const accountingGroups = navGroups?.filter(g => 
-    g.title === "Contabilidad" || g.title === "Administración" || g.title === "Finanzas"
-  ) || [];
+  // Botones Nativos de Contabilidad Moderna
+  const nativeButtons = [
+    { label: "Resumen", href: "/resumen-negocio", icon: LayoutDashboard },
+    { label: "Contabilidad", href: "/contabilidad", icon: Calculator },
+    { label: "Facturación", href: "/facturacion", icon: FileText },
+    { label: "Tesorería", href: "/analisis-caja", icon: Wallet },
+    { label: "Fiscal", href: "/tramites-fiscales", icon: Landmark },
+  ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-border bg-background/80 backdrop-blur-3xl h-16 flex items-center w-full shadow-2xl">
+    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-border bg-background/80 backdrop-blur-3xl h-20 flex items-center w-full shadow-2xl">
       <div className="w-full px-6 md:px-10">
-        <div className="flex items-center justify-between w-full gap-8">
+        <div className="flex items-center justify-between w-full gap-4">
           
           {/* BRAND (LEFT) */}
-          <div className="flex items-center gap-8 min-w-fit">
+          <div className="flex items-center gap-6 min-w-fit">
             <Link href="/" className="flex items-center gap-4 group shrink-0">
-                <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
-                <div className="flex flex-col -mt-1">
-                    <span className="text-xs font-black tracking-[0.4em] uppercase text-foreground italic italic-shadow leading-none">System Kyron</span>
-                    <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-60">Control Maestro</p>
+                <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
+                <div className="flex flex-col -mt-1 hidden sm:flex">
+                    <span className="text-sm font-black tracking-[0.4em] uppercase text-foreground italic italic-shadow leading-none">System Kyron</span>
+                    <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-60">Corporate Node</p>
                 </div>
             </Link>
+          </div>
 
-            {/* MÓDULOS DROPDOWN (Reemplaza la barra lateral) */}
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="rounded-xl border-primary/20 bg-primary/5 text-primary text-[10px] font-black uppercase tracking-widest gap-3 h-10 px-5 shadow-glow-sm">
-                        <Calculator className="h-4 w-4" /> MÓDULOS <ChevronDown className="h-3 w-3 opacity-40" />
+          {/* NATIVE BUTTONS (CENTER) - SUSTITUYE AL INPUT DE BÚSQUEDA */}
+          <nav className="hidden lg:flex items-center justify-center gap-2 flex-1 max-w-4xl">
+            {nativeButtons.map((btn) => {
+                const isActive = pathname.includes(btn.href);
+                return (
+                    <Button 
+                        key={btn.href}
+                        asChild 
+                        variant="ghost" 
+                        className={cn(
+                            "h-11 px-5 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-3 border border-transparent",
+                            isActive 
+                                ? "bg-primary/10 text-primary border-primary/20 shadow-glow-sm" 
+                                : "text-muted-foreground/60 hover:text-foreground hover:bg-white/5"
+                        )}
+                    >
+                        <Link href={btn.href as any}>
+                            <btn.icon className={cn("h-4 w-4", isActive ? "text-primary animate-pulse" : "opacity-40")} />
+                            {btn.label}
+                        </Link>
                     </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-72 p-2 rounded-[2rem] bg-card/95 backdrop-blur-3xl border-border shadow-2xl">
-                    <DropdownMenuLabel className="p-4 text-[9px] font-black uppercase tracking-[0.3em] opacity-40">Gestión Contable Pro</DropdownMenuLabel>
-                    {accountingGroups.map(group => (
-                        <div key={group.title} className="space-y-1 py-2">
-                            {group.items.map(item => (
-                                <DropdownMenuItem key={item.href} asChild className="rounded-xl">
-                                    <Link href={item.href as any} className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-widest gap-4">
-                                        <item.icon className="h-4 w-4 text-primary/40" />
-                                        <span>{item.label}</span>
-                                    </Link>
-                                </DropdownMenuItem>
-                            ))}
-                        </div>
-                    ))}
-                </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-
-          {/* SEARCH (CENTER) */}
-          <div className="hidden lg:flex items-center gap-6 flex-1 justify-center max-w-xl">
-            <div className="relative w-full group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                <Input 
-                    placeholder="COMANDOS CONTABLES..." 
-                    className="h-11 pl-12 rounded-2xl bg-foreground/5 border-border/50 text-[10px] font-black uppercase tracking-[0.2em] focus-visible:ring-primary/30"
-                />
-            </div>
-          </div>
+                )
+            })}
+          </nav>
 
           {/* TELEMETRY & USER (RIGHT) */}
           <div className="flex items-center justify-end gap-4 min-w-fit">
