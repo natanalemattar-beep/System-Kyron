@@ -76,6 +76,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
             { label: "Control de Licores", href: "/contabilidad/libros/control-licores", icon: Landmark },
             { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", icon: Banknote },
             { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", icon: History },
+            { label: "Ver Biblioteca", href: "/contabilidad/libros", icon: BookOpen },
         ]
     },
     { 
@@ -98,9 +99,11 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
         icon: Wallet,
         type: 'menu',
         items: [
+            { label: "Resumen de Cuentas", href: "/cuentas", icon: Wallet },
             { label: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", icon: TrendingUp },
             { label: "Cuentas por Pagar", href: "/cuentas-por-pagar", icon: HandCoins },
             { label: "Análisis de Caja", href: "/analisis-caja", icon: Activity },
+            { label: "Ver Todas", href: "/cuentas/todas", icon: BookOpen },
         ]
     },
     { 

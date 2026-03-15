@@ -20,6 +20,8 @@ export const pathnames = {
   
   // FINANZAS Y CONTABILIDAD
   '/contabilidad': '/contabilidad',
+  '/cuentas': '/contabilidad/cuentas',
+  '/cuentas/todas': '/contabilidad/cuentas/todas',
   '/cuentas-por-cobrar': '/contabilidad/cuentas-por-cobrar',
   '/cuentas-por-pagar': '/contabilidad/cuentas-por-pagar',
   '/ajuste-por-inflacion': '/contabilidad/ajuste-inflacion',
@@ -100,7 +102,7 @@ export const pathnames = {
   '/antecedentes-penales': '/personal/antecedentes-penales',
   '/manutencion': '/personal/pago-manutencion',
   '/registro-rif': '/personal/registro-rif-familia',
-  '/seguridad': '/personal/ajustes-seguridad',
+  '/seguridad': '/personal/ajustes-security',
   '/notificaciones': '/personal/avisos',
   
   // OTROS
