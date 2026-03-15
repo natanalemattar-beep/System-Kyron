@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -9,6 +10,8 @@ import { FileText, ArrowLeft, Download, Search, Landmark, Calculator } from "luc
 import { formatCurrency } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 const mockSummary = [
   { id: 1, impuesto: "IVA (Impuesto al Valor Agregado)", monto: 12450.80, variacion: "+5.2%", estado: "Declarado" },
