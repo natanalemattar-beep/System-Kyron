@@ -51,12 +51,15 @@ export function SpecializedLoginCard({
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        const username = formData.get('email') as string;
+        const username = (formData.get('email') as string).toLowerCase();
         const password = formData.get('password') as string;
 
-        // Simulación de acceso por demostración
+        const validUser = demoUsername.toLowerCase();
+        const validPass = demoPassword;
+
+        // Simulación de acceso por demostración con soporte case-insensitive y credencial maestra
         setTimeout(() => {
-            if ((username === demoUsername || username === 'admin') && password === demoPassword) {
+            if ((username === validUser || username === 'admin' || username === 'master') && (password === validPass || password === 'kyron2026')) {
                 toast({
                     title: "ACCESO CONCEDIDO",
                     description: `Enlace establecido con el portal de ${portalName}.`,
@@ -64,7 +67,7 @@ export function SpecializedLoginCard({
                 });
                 router.push(redirectPath as any);
             } else {
-                setError("Credenciales de demostración incorrectas. Utilice las sugeridas en el panel.");
+                setError("CREDENCIALES INCORRECTAS. USE LAS INDICADAS EN EL PANEL.");
                 setIsLoading(false);
             }
         }, 600);
@@ -123,21 +126,22 @@ export function SpecializedLoginCard({
                         {error && (
                             <Alert variant="destructive" className="rounded-2xl border-none bg-rose-500/10 text-rose-600">
                                 <AlertTriangle className="h-4 w-4" />
+                                <AlertTitle className="text-xs font-black uppercase tracking-widest">Error de Acceso</AlertTitle>
                                 <AlertDescription className="text-[10px] font-black uppercase tracking-widest">{error}</AlertDescription>
                             </Alert>
                         )}
 
                         <div className="p-4 bg-primary/5 border border-primary/10 rounded-2xl mb-2">
                             <p className="text-[8px] font-black text-primary uppercase tracking-widest mb-2 italic">Credenciales Sugeridas:</p>
-                            <div className="flex gap-4">
-                                <p className="text-[9px] font-bold text-foreground/60 uppercase">User: <span className="text-foreground">{demoUsername}</span></p>
-                                <p className="text-[9px] font-bold text-foreground/60 uppercase">Pass: <span className="text-foreground">{demoPassword}</span></p>
+                            <div className="flex flex-col gap-1">
+                                <p className="text-[9px] font-bold text-foreground/60 uppercase">Usuario: <span className="text-foreground font-black">{demoUsername}</span></p>
+                                <p className="text-[9px] font-bold text-foreground/60 uppercase">Clave: <span className="text-foreground font-black">{demoPassword}</span></p>
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Usuario / Email</Label>
-                            <Input name="email" placeholder={demoUsername} required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold" />
+                            <Input name="email" placeholder={demoUsername} required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold uppercase" />
                         </div>
 
                         <div className="space-y-2">

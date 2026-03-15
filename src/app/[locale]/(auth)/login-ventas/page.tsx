@@ -1,4 +1,3 @@
-
 "use client";
 
 import { SpecializedLoginCard } from "@/components/auth/specialized-login-card";
@@ -11,8 +10,8 @@ export default function LoginVentasPage() {
             portalDescription="Punto de venta inteligente para cobros rápidos y control de inventario."
             redirectPath="/punto-de-venta"
             icon={ShoppingCart}
-            demoUsername="cajero.01"
-            demoPassword="password123"
+            demoUsername="admin"
+            demoPassword="kyron2026"
             features={[
                 "Punto de Venta (TPV) Multimoneda",
                 "Validación de RIF en Tiempo Real",
