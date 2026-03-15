@@ -42,7 +42,8 @@ import {
   Coins,
   Box,
   Truck,
-  Building
+  Building,
+  CreditCard
 } from "lucide-react";
 import { 
   AreaChart, 
