@@ -12,12 +12,14 @@ import {
   ArrowRight,
   BookOpen,
   ChevronRight,
-  ShieldCheck
+  ShieldCheck,
+  History
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 /**
  * @fileOverview Centro de Gestión de Cuentas - Vista de Acceso Rápido.
@@ -49,13 +51,13 @@ export default function CuentasPage() {
   ];
 
   return (
-    <div className="p-6 md:p-12 bg-background min-h-screen space-y-12">
+    <div className="space-y-12 pb-20 px-4 md:px-10">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
             <Wallet className="h-3 w-3" /> NODO DE TESORERÍA
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic italic-shadow">
             Gestión de <span className="text-primary">Cuentas</span>
           </h1>
           <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Control Financiero y Bancario 2026</p>
@@ -68,8 +70,8 @@ export default function CuentasPage() {
       {/* --- ACCESOS RÁPIDOS --- */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {quickAccess.map((item, i) => (
-          <Link key={i} href={item.href as any}>
-            <Card className="glass-card border-none bg-card p-10 flex flex-col justify-between group shadow-sm hover:shadow-xl transition-all duration-500 rounded-[2.5rem] min-h-[220px]">
+          <Link key={i} href={item.href as any} className="block group">
+            <Card className="glass-card border-none bg-card p-10 flex flex-col justify-between group shadow-sm hover:shadow-2xl transition-all duration-500 rounded-[2.5rem] min-h-[220px]">
               <div className="space-y-6">
                 <div className="p-4 bg-muted rounded-2xl w-fit group-hover:bg-primary/10 transition-colors border border-transparent group-hover:border-primary/20 shadow-inner">
                   <item.icon className={cn("h-8 w-8 transition-all", item.color)} />
@@ -98,10 +100,10 @@ export default function CuentasPage() {
           </div>
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
-              <Badge className="bg-white/20 text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg">Biblioteca Maestra</Badge>
+              <Badge className="bg-white/20 text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg shadow-glow">Biblioteca Maestra</Badge>
               <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow">VER TODAS LAS <br/> CUENTAS</h3>
               <p className="text-lg font-medium opacity-80 leading-relaxed uppercase">Acceda al repositorio completo de módulos bancarios, anticipos y reportes financieros analíticos.</p>
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none relative z-30">
                 EXPLORAR REPOSITORIO <ArrowRight className="ml-4 h-5 w-5" />
               </Button>
             </div>

@@ -8,7 +8,6 @@ import {
   ArrowLeft, 
   Search, 
   Landmark, 
-  ConciergeBell, 
   FileText, 
   History, 
   HandCoins, 
@@ -37,47 +36,47 @@ const libraryCategories = [
     title: "Cuentas Bancarias",
     icon: Landmark,
     items: [
-      { label: "Libro de Bancos", icon: Building2, kpi: "4 cuentas activas", color: "text-blue-600" },
-      { label: "Conciliación Bancaria", icon: Activity, kpi: "Conciliado hoy", color: "text-emerald-600" },
-      { label: "Cheques Emitidos", icon: FileText, kpi: "Último: #456", color: "text-slate-600" },
-      { label: "Depósitos", icon: Wallet, kpi: "12 hoy", color: "text-emerald-600" },
-      { label: "Transferencias", icon: ExternalLink, kpi: "Sincronizado", color: "text-blue-600" },
+      { label: "Libro de Bancos", icon: Building2, kpi: "4 cuentas activas", color: "text-blue-600", href: "#" },
+      { label: "Conciliación Bancaria", icon: Activity, kpi: "Conciliado hoy", color: "text-emerald-600", href: "/analisis-caja" },
+      { label: "Cheques Emitidos", icon: FileText, kpi: "Último: #456", color: "text-slate-600", href: "#" },
+      { label: "Depósitos", icon: Wallet, kpi: "12 hoy", color: "text-emerald-600", href: "#" },
+      { label: "Transferencias", icon: ExternalLink, kpi: "Sincronizado", color: "text-blue-600", href: "#" },
     ]
   },
   {
     title: "Anticipos",
     icon: HandCoins,
     items: [
-      { label: "Anticipos a Proveedores", icon: HandCoins, kpi: "2 pendientes", color: "text-rose-600" },
-      { label: "Anticipos de Clientes", icon: Coins, kpi: "Saldo favor", color: "text-emerald-600" },
+      { label: "Anticipos a Proveedores", icon: HandCoins, kpi: "2 pendientes", color: "text-rose-600", href: "/cuentas-por-pagar" },
+      { label: "Anticipos de Clientes", icon: Coins, kpi: "Saldo favor", color: "text-emerald-600", href: "/cuentas-por-cobrar" },
     ]
   },
   {
     title: "Notas y Ajustes",
     icon: FileSearch,
     items: [
-      { label: "Notas de Débito", icon: Banknote, kpi: "Bancarias", color: "text-rose-600" },
-      { label: "Notas de Crédito", icon: Banknote, kpi: "Bancarias", color: "text-emerald-600" },
-      { label: "Ajustes Contables", icon: Calculator, kpi: "Regulatorios", color: "text-amber-600" },
+      { label: "Notas de Débito", icon: Banknote, kpi: "Bancarias", color: "text-rose-600", href: "#" },
+      { label: "Notas de Crédito", icon: Banknote, kpi: "Bancarias", color: "text-emerald-600", href: "#" },
+      { label: "Ajustes Contables", icon: Calculator, kpi: "Regulatorios", color: "text-amber-600", href: "#" },
     ]
   },
   {
     title: "Análisis Avanzado",
     icon: TrendingUp,
     items: [
-      { label: "Flujo Proyectado", icon: Activity, kpi: "12 meses", color: "text-emerald-600" },
-      { label: "Antigüedad de Saldos", icon: Clock, kpi: "Vencimiento", color: "text-rose-600" },
-      { label: "Ratios Financieros", icon: PieChart, kpi: "KPIs Salud", color: "text-primary" },
+      { label: "Flujo Proyectado", icon: Activity, kpi: "12 meses", color: "text-emerald-600", href: "/analisis-caja" },
+      { label: "Antigüedad de Saldos", icon: Clock, kpi: "Vencimiento", color: "text-rose-600", href: "#" },
+      { label: "Ratios Financieros", icon: PieChart, kpi: "KPIs Salud", color: "text-primary", href: "#" },
     ]
   },
   {
     title: "Reportes Maestro",
     icon: BarChart3,
     items: [
-      { label: "Reporte de CxC", icon: FileSearch, kpi: "Clientes", color: "text-blue-600" },
-      { label: "Reporte de CxP", icon: FileSearch, kpi: "Proveedores", color: "text-rose-600" },
-      { label: "Movimientos Bancarios", icon: History, kpi: "Mensual", color: "text-slate-600" },
-      { label: "Flujo de Caja", icon: BarChart3, kpi: "Analítico", color: "text-emerald-600" },
+      { label: "Reporte de CxC", icon: FileSearch, kpi: "Clientes", color: "text-blue-600", href: "/cuentas-por-cobrar" },
+      { label: "Reporte de CxP", icon: FileSearch, kpi: "Proveedores", color: "text-rose-600", href: "/cuentas-por-pagar" },
+      { label: "Movimientos Bancarios", icon: History, kpi: "Mensual", color: "text-slate-600", href: "#" },
+      { label: "Flujo de Caja", icon: BarChart3, kpi: "Analítico", color: "text-emerald-600", href: "/analisis-caja" },
     ]
   }
 ];
@@ -86,11 +85,14 @@ export default function TodasLasCuentasPage() {
   const { toast } = useToast();
   const [search, setSearch] = useState("");
 
-  const handleItemClick = (label: string) => {
-    toast({
-      title: "MÓDULO EN CONSTRUCCIÓN",
-      description: `El servicio "${label}" está siendo sincronizado con el sistema de tesorería.`,
-    });
+  const handleItemClick = (e: React.MouseEvent, item: any) => {
+    if (item.href === "#") {
+      e.preventDefault();
+      toast({
+        title: "MÓDULO EN CONSTRUCCIÓN",
+        description: `El servicio "${item.label}" está siendo sincronizado con el sistema de tesorería.`,
+      });
+    }
   };
 
   return (
@@ -100,7 +102,7 @@ export default function TodasLasCuentasPage() {
           <Button variant="ghost" asChild className="p-0 h-auto text-primary hover:bg-transparent mb-4">
             <Link href="/cuentas"><ArrowLeft className="mr-2 h-4 w-4"/> Volver</Link>
           </Button>
-          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter flex items-center gap-4 italic leading-none">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter flex items-center gap-4 italic leading-none italic-shadow">
             <Wallet className="h-10 w-10 text-secondary" />
             Gestión de Cuentas
           </h1>
@@ -124,7 +126,7 @@ export default function TodasLasCuentasPage() {
         {libraryCategories.map((category, idx) => (
           <div key={idx} className="space-y-8">
             <div className="flex items-center gap-4 ml-2">
-              <div className="p-3 bg-primary/5 rounded-xl">
+              <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
                 <category.icon className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-lg font-black uppercase tracking-[0.4em] text-foreground italic">{category.title}</h3>
@@ -135,7 +137,7 @@ export default function TodasLasCuentasPage() {
               {category.items
                 .filter(item => item.label.toLowerCase().includes(search.toLowerCase()))
                 .map((item, i) => (
-                <button key={i} onClick={() => handleItemClick(item.label)} className="text-left w-full">
+                <Link key={i} href={item.href as any} onClick={(e) => handleItemClick(e, item)} className="block">
                   <Card className="border-none bg-card hover:bg-muted/20 transition-all rounded-3xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
                         <item.icon className="h-12 w-12" />
@@ -155,7 +157,7 @@ export default function TodasLasCuentasPage() {
                       </div>
                     </div>
                   </Card>
-                </button>
+                </Link>
               ))}
             </div>
           </div>
