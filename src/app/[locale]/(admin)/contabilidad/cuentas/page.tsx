@@ -9,20 +9,18 @@ import {
   TrendingUp, 
   HandCoins, 
   Activity, 
-  ArrowRight,
-  BookOpen,
   ChevronRight,
-  ShieldCheck,
-  History
+  BookOpen,
+  ArrowRight
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 /**
- * @fileOverview Centro de Gestión de Cuentas - Vista de Acceso Rápido.
+ * @fileOverview Centro de Gestión de Cuentas - Vista de Acceso Rápido (Corregida).
  */
 
 export default function CuentasPage() {
@@ -54,7 +52,7 @@ export default function CuentasPage() {
     <div className="space-y-12 pb-20 px-4 md:px-10">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-l-4 border-primary pl-8 py-2 mt-10">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-3 shadow-glow-sm">
             <Wallet className="h-3 w-3" /> NODO DE TESORERÍA
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter italic italic-shadow">
@@ -62,12 +60,11 @@ export default function CuentasPage() {
           </h1>
           <p className="text-muted-foreground font-bold text-xs uppercase tracking-widest opacity-60">Control Financiero y Bancario 2026</p>
         </div>
-        <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary">
-          <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al Centro Contable</Link>
+        <Button variant="ghost" asChild className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-all">
+          <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> VOLVER</Link>
         </Button>
       </header>
 
-      {/* --- ACCESOS RÁPIDOS --- */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {quickAccess.map((item, i) => (
           <Link key={i} href={item.href as any} className="block group">
@@ -91,28 +88,20 @@ export default function CuentasPage() {
         ))}
       </div>
 
-      {/* --- BANNER MAESTRO --- */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-        <Card className="bg-primary border-none rounded-[3rem] p-12 text-primary-foreground relative overflow-hidden shadow-2xl group cursor-pointer">
+      <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
+        <Card className="bg-primary border-none rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl group cursor-pointer">
           <Link href="/cuentas/todas" className="absolute inset-0 z-20" />
           <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-transform duration-1000">
             <BookOpen className="h-64 w-64" />
           </div>
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-center md:text-left">
-              <Badge className="bg-white/20 text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg shadow-glow">Biblioteca Maestra</Badge>
-              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow">VER TODAS LAS <br/> CUENTAS</h3>
+              <Badge className="bg-white/20 text-white border-none text-[10px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg">Biblioteca Maestra</Badge>
+              <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-none italic-shadow text-white">VER TODAS LAS <br/> CUENTAS</h3>
               <p className="text-lg font-medium opacity-80 leading-relaxed uppercase">Acceda al repositorio completo de módulos bancarios, anticipos y reportes financieros analíticos.</p>
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none relative z-30">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-black uppercase text-[11px] tracking-[0.2em] h-16 px-12 rounded-2xl shadow-2xl border-none relative z-30 pointer-events-none">
                 EXPLORAR REPOSITORIO <ArrowRight className="ml-4 h-5 w-5" />
               </Button>
-            </div>
-            <div className="hidden md:flex justify-end">
-              <div className="p-12 rounded-[3.5rem] bg-black/20 border border-white/10 backdrop-blur-md shadow-inner text-center space-y-4">
-                <ShieldCheck className="h-20 w-20 mx-auto text-secondary mb-2 drop-shadow-glow" />
-                <p className="text-5xl font-black italic tracking-tighter">100%</p>
-                <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60">Sincronización Bancaria</p>
-              </div>
             </div>
           </div>
         </Card>

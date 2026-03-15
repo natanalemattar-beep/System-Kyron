@@ -1,14 +1,16 @@
+
 "use client";
 
 import { IntelligentPortfolioManager } from "@/components/cobranza/intelligent-portfolio-manager";
 import { AutomatedCollectionSystem } from "@/components/cobranza/automated-collection-system";
 import { PaymentReconciliation } from "@/components/cobranza/payment-reconciliation";
-import { Activity, Landmark, ArrowLeft } from "lucide-react";
+import { Landmark, ArrowLeft, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
+import { motion } from "framer-motion";
 
 /**
- * @fileOverview Gestión Inteligente de Cuentas por Cobrar.
+ * @fileOverview Gestión de Cuentas por Cobrar (Localizada).
  */
 
 export default function CuentasPorCobrarPage() {
@@ -22,13 +24,17 @@ export default function CuentasPorCobrarPage() {
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Gestión de Clientes • Conciliación de Ingresos 2026</p>
         </header>
 
-        <div className="grid gap-10">
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="grid gap-10"
+        >
             <IntelligentPortfolioManager />
             <div className="grid lg:grid-cols-2 gap-10">
                 <AutomatedCollectionSystem />
                 <PaymentReconciliation />
             </div>
-        </div>
+        </motion.div>
     </div>
   );
 }
