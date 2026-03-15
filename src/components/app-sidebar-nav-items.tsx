@@ -34,7 +34,8 @@ import {
   Lock,
   Wand2,
   Activity,
-  Leaf
+  Leaf,
+  Wallet
 } from "lucide-react";
 
 export const naturalNavGroups = [
