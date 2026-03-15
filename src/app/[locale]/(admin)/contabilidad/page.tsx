@@ -29,7 +29,8 @@ import {
   ChevronRight,
   AlertTriangle,
   CheckCircle2,
-  Clock
+  Clock,
+  FileSignature
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -38,18 +39,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { cn, formatCurrency } from "@/lib/utils";
 
 /**
- * @fileOverview Dashboard de Contabilidad Maestra - System Kyron v2.6.5
- * Consola de Inteligencia Financiera exclusivamente contable.
+ * @fileOverview Centro de Gestión Contable - System Kyron
+ * Consola integrada para el control financiero, impuestos y tesorería.
  */
 
 const accountingCategories = [
   {
-    title: "Libros Fiscales",
+    title: "Libros Contables",
     icon: BookOpen,
     items: [
-      { label: "Libro Compras/Ventas", href: "/contabilidad/libros/compra-venta", kpi: "15 Facturas Mes", icon: Receipt },
-      { label: "Libro de Nómina", href: "/contabilidad/libros/nomina", kpi: "23 Empleados", icon: History },
-      { label: "Libro de Inventario", href: "/contabilidad/libros/inventario", kpi: "4 SKUs Críticos", icon: ClipboardCheck },
+      { label: "Libro Compras/Ventas", href: "/contabilidad/libros/compra-venta", kpi: "15 facturas este mes", icon: Receipt },
+      { label: "Libro de Nómina", href: "/contabilidad/libros/nomina", kpi: "23 empleados", icon: History },
+      { label: "Libro de Inventario", href: "/contabilidad/libros/inventario", kpi: "4 SKUs en mínimo", icon: ClipboardCheck },
       { label: "Libro Cesta Ticket", href: "/contabilidad/libros/cesta-ticket", kpi: "Q1 Procesada", icon: Wallet },
     ]
   },
@@ -57,9 +58,9 @@ const accountingCategories = [
     title: "Gestión de Impuestos",
     icon: Landmark,
     items: [
-      { label: "Declaración IVA", href: "/contabilidad/impuestos/iva", kpi: "Vence en 5d", icon: Calculator },
-      { label: "ISLR y AR-C", href: "/contabilidad/impuestos/islr", kpi: "Periodo 2025", icon: FileText },
-      { label: "IGTF (3%)", href: "/contabilidad/impuestos/igtf", kpi: "Tasa Activa", icon: Coins },
+      { label: "IVA", href: "/contabilidad/impuestos/iva", kpi: "Vence en 5 días", icon: Calculator },
+      { label: "ISLR y AR-C", href: "/contabilidad/impuestos/islr", kpi: "Por declarar", icon: FileText },
+      { label: "IGTF (Tasa 3%)", href: "/contabilidad/impuestos/igtf", kpi: "Cálculo activo", icon: Coins },
       { label: "Timbres Fiscales", href: "/contabilidad/impuestos/timbres", kpi: "UT: 0.40", icon: Scale },
     ]
   },
@@ -69,29 +70,28 @@ const accountingCategories = [
     items: [
       { label: "Cuentas por Cobrar", href: "/contabilidad/cuentas/por-cobrar", kpi: "Bs. 45.678", icon: ArrowUpRight },
       { label: "Cuentas por Pagar", href: "/contabilidad/cuentas/por-pagar", kpi: "Bs. 23.456", icon: ArrowDownRight },
-      { label: "Cuentas Bancarias", href: "/contabilidad/cuentas/bancarias", kpi: "3 Cuentas Ok", icon: Building },
+      { label: "Cuentas Bancarias", href: "/contabilidad/cuentas/bancarias", kpi: "3 cuentas ok", icon: Building },
     ]
   },
   {
-    title: "Análisis Financiero",
+    title: "Análisis y Reportes",
     icon: BarChart3,
     items: [
-      { label: "Análisis de Ventas", href: "/contabilidad/analisis/ventas", kpi: "+12.7% Mes", icon: TrendingUp },
+      { label: "Análisis de Ventas", href: "/contabilidad/analisis/ventas", kpi: "+20% vs mes anterior", icon: TrendingUp },
       { label: "Análisis de Caja", href: "/contabilidad/analisis/caja", kpi: "Ratio: 2.4", icon: Activity },
       { label: "Análisis de Riesgo", href: "/contabilidad/analisis/riesgo", kpi: "Nivel: Bajo", icon: ShieldAlert },
-      { label: "Rentabilidad Pro", href: "/contabilidad/analisis/rentabilidad", kpi: "ROI: 28%", icon: Target },
-      { label: "Factibilidad Econ.", href: "/contabilidad/analisis/factibilidad", kpi: "Audit: 2026", icon: PieChart },
+      { label: "Reportes Contables", href: "/contabilidad/reportes", kpi: "Dossier 2024", icon: FileSignature },
     ]
   },
   {
     title: "Tesorería y Ajustes",
     icon: Zap,
     items: [
-      { label: "Ajuste por Inflación", href: "/contabilidad/ajustes/inflacion", kpi: "RIPF Activo", icon: Zap },
+      { label: "Ajuste por Inflación", href: "/contabilidad/ajustes/inflacion", kpi: "Último: 01/03", icon: Zap },
       { label: "Estructura de Costos", href: "/contabilidad/ajustes/costos", kpi: "Margen: 32%", icon: Calculator },
-      { label: "Arqueo de Caja", href: "/contabilidad/tesoreria/arqueo", kpi: "Hoy 08:00", icon: ClipboardCheck },
-      { label: "Billetera Digital", href: "/contabilidad/tesoreria/billetera", kpi: "Sincronizada", icon: CreditCard },
-      { label: "Transacciones", href: "/contabilidad/tesoreria/transacciones", kpi: "45 Hoy", icon: History },
+      { label: "Arqueo de Caja", href: "/contabilidad/tesoreria/arqueo", kpi: "Último: Hoy", icon: ClipboardCheck },
+      { label: "Billetera Digital", href: "/contabilidad/tesoreria/billetera", kpi: "Saldo Bs. 12.345", icon: CreditCard },
+      { label: "Transacciones", href: "/contabilidad/tesoreria/transacciones", kpi: "45 movimientos hoy", icon: History },
     ]
   }
 ];
@@ -100,7 +100,6 @@ export default function ContabilidadPage() {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    // Inyectar Chart.js desde CDN
     const script = document.createElement("script");
     script.src = "https://cdn.jsdelivr.net/npm/chart.js";
     script.async = true;
@@ -152,7 +151,7 @@ export default function ContabilidadPage() {
     document.body.appendChild(script);
   }, []);
 
-  const handleDevAlert = () => alert("Funcionalidad en desarrollo operativo.");
+  const handleDevAlert = () => alert("Funcionalidad en desarrollo administrativo.");
 
   return (
     <div className="min-h-screen bg-[#f5f7fa] text-slate-900 pb-20 font-sans">
@@ -169,39 +168,33 @@ export default function ContabilidadPage() {
           box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
           border-color: rgba(10, 36, 114, 0.2);
         }
-        .hud-grid {
-          background-image: radial-gradient(#0A2472 0.5px, transparent 0.5px);
-          background-size: 30px 30px;
-          opacity: 0.03;
-        }
         .italic-shadow {
           text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
         }
       `}</style>
 
-      {/* 1. HEADER HUD */}
+      {/* HEADER */}
       <header className="p-8 md:p-12 mb-8 bg-white border-b flex flex-col md:flex-row justify-between items-end gap-6 relative overflow-hidden">
-        <div className="absolute inset-0 hud-grid pointer-events-none"></div>
         <div className="space-y-2 relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#0A2472]/10 border border-[#0A2472]/20 text-[9px] font-black uppercase tracking-[0.4em] text-[#0A2472] mb-4">
-            <Calculator className="h-3 w-3" /> NODO CONTABLE v2.6.5
+            <Calculator className="h-3 w-3" /> ÁREA CONTABLE v2.6.5
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic leading-none italic-shadow">Contabilidad <span className="text-[#0A2472]">Master</span></h1>
-          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">Gestión Financiera Integral • 15/03/2026</p>
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase italic leading-none italic-shadow">Contabilidad · <span className="text-[#0A2472]">System Kyron</span></h1>
+          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">Gestión Financiera Integral · 15/03/2026</p>
         </div>
         <div className="flex gap-3 relative z-10">
           <Button variant="outline" className="h-12 px-6 rounded-xl text-[9px] font-black uppercase tracking-widest border-slate-200 bg-white" onClick={handleDevAlert}>
-            REPORTE GLOBAL
+            GENERAR BALANCE
           </Button>
           <Button className="h-12 px-10 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-xl bg-[#0A2472] text-white hover:bg-blue-900" onClick={handleDevAlert}>
-            CERRAR PERIODO
+            CERRAR MES
           </Button>
         </div>
       </header>
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 space-y-12">
         
-        {/* 2. KPIs PRINCIPALES */}
+        {/* KPIs PRINCIPALES */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { label: "SALDO DE CAJA", value: "Bs. 123.456,00", trend: "+5.2%", icon: Wallet, color: "text-emerald-500" },
@@ -224,7 +217,7 @@ export default function ContabilidadPage() {
           ))}
         </div>
 
-        {/* 3. MATRIZ DE MÓDULOS CONTABLES */}
+        {/* MATRIZ DE FUNCIONES */}
         <section className="space-y-12">
           {accountingCategories.map((group) => (
             <div key={group.title} className="space-y-8">
@@ -259,14 +252,14 @@ export default function ContabilidadPage() {
           ))}
         </section>
 
-        {/* 4. GRÁFICO Y ALERTAS */}
+        {/* GRÁFICO Y ALERTAS */}
         <div className="grid lg:grid-cols-12 gap-10">
           <Card className="lg:col-span-8 glass-card border-none rounded-[3rem] overflow-hidden">
             <CardHeader className="p-10 border-b border-slate-100 bg-slate-50/50">
               <div className="flex items-center justify-between">
                   <div className="space-y-1">
-                      <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472] italic">Evolución de Ingresos y Gastos</CardTitle>
-                      <CardDescription className="text-[9px] font-bold uppercase opacity-30 tracking-widest">Análisis Comparativo Semestral</CardDescription>
+                      <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472] italic">Evolución Financiera</CardTitle>
+                      <CardDescription className="text-[9px] font-bold uppercase opacity-30 tracking-widest">Ingresos vs Gastos del Semestre</CardDescription>
                   </div>
                   <Activity className="h-5 w-5 text-[#0A2472] animate-pulse" />
               </div>
@@ -282,14 +275,14 @@ export default function ContabilidadPage() {
                       <ShieldAlert className="h-32 w-32" />
                   </div>
                   <CardHeader className="p-0 mb-8">
-                      <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-white/60">Alertas y Vencimientos</CardTitle>
+                      <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-white/60">Avisos y Vencimientos</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0 space-y-6">
                       {[
                           { text: "IVA Julio 2024 vence en 5 días", color: "text-amber-400", icon: Clock },
                           { text: "ISLR por declarar (31/03)", color: "text-amber-400", icon: AlertTriangle },
                           { text: "3 Facturas vencidas (Bs. 12.500)", color: "text-rose-400", icon: ShieldAlert },
-                          { text: "Última conciliación: hoy 08:00", color: "text-emerald-400", icon: CheckCircle2 },
+                          { text: "Conciliación bancaria: Hoy 08:00", color: "text-emerald-400", icon: CheckCircle2 },
                       ].map((alert, i) => (
                           <div key={i} className="flex items-start gap-4 group/alert">
                               <alert.icon className={cn("h-5 w-5 mt-0.5", alert.color)} />
@@ -304,12 +297,12 @@ export default function ContabilidadPage() {
           </div>
         </div>
 
-        {/* 5. MOVIMIENTOS RECIENTES */}
+        {/* MOVIMIENTOS RECIENTES */}
         <Card className="glass-card border-none rounded-[3rem] overflow-hidden">
           <CardHeader className="p-10 border-b border-slate-100 bg-slate-50/50 flex flex-row justify-between items-center">
-            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472] italic">Libro de Movimientos Recientes</CardTitle>
+            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472] italic">Movimientos Recientes</CardTitle>
             <Button variant="ghost" className="text-[#0A2472] text-[9px] font-black uppercase tracking-widest hover:bg-blue-50" asChild>
-                <Link href="/contabilidad/tesoreria/transacciones">VER HISTÓRICO</Link>
+                <Link href="/contabilidad/tesoreria/transacciones">VER HISTORIAL</Link>
             </Button>
           </CardHeader>
           <CardContent className="p-0">
@@ -317,16 +310,16 @@ export default function ContabilidadPage() {
               <TableHeader>
                 <TableRow className="bg-slate-50 border-none">
                   <TableHead className="pl-10 py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Fecha</TableHead>
-                  <TableHead className="py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Descripción de Operación</TableHead>
+                  <TableHead className="py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Descripción</TableHead>
                   <TableHead className="py-6 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Estado</TableHead>
-                  <TableHead className="text-right pr-10 py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Monto Final</TableHead>
+                  <TableHead className="text-right pr-10 py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {[
-                    { date: "15/03/2026", desc: "Pago proveedor Suministros Kyron XYZ", amount: -5000, status: "Pagado" },
-                    { date: "14/03/2026", desc: "Venta de Licencia Anual - Factura INV-005", amount: 12000, status: "Pendiente" },
-                    { date: "13/03/2026", desc: "Recibo de nómina quincenal Q1 - Marzo", amount: -23000, status: "Procesado" },
+                    { date: "15/03/2026", desc: "Pago proveedor Suministros ABC", amount: -5000, status: "Pagado" },
+                    { date: "14/03/2026", desc: "Factura de venta INV-005", amount: 12000, status: "Pendiente" },
+                    { date: "13/03/2026", desc: "Recibo de nómina quincenal Q1", amount: -23000, status: "Procesado" },
                 ].map((inv, i) => (
                   <TableRow key={i} className="border-slate-100 hover:bg-slate-50 transition-all group">
                     <TableCell className="pl-10 py-6 text-[10px] font-black text-slate-400 uppercase">{inv.date}</TableCell>
