@@ -83,7 +83,7 @@ export const adminNavGroups = [
     icon: LayoutDashboard, 
     items: [
         { href: "/resumen-negocio", label: "Resumen General", icon: LayoutDashboard },
-        { href: "/analisis-rentabilidad", label: "Rentabilidad", icon: TrendingUp },
+        { href: "/analisis-rentabilidad", label: "Rentabilidad Pro", icon: TrendingUp },
     ], 
     subGroups: [] 
   },
@@ -104,10 +104,10 @@ export const adminNavGroups = [
     title: "Ventas", 
     icon: ShoppingCart, 
     items: [
-        { href: "/facturacion", label: "Facturación", icon: FileText },
+        { href: "/facturacion", label: "Centro de Facturas", icon: FileText },
         { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/proformas", label: "Cotizaciones", icon: Receipt },
-        { href: "/facturacion-credito", label: "Ventas Crédito", icon: CreditCard },
+        { href: "/facturacion-credito", label: "Ventas a Crédito", icon: CreditCard },
     ],
     subGroups: []
   },
@@ -120,51 +120,6 @@ export const adminNavGroups = [
     ],
     subGroups: []
   }
-];
-
-export const sostenibildadNavGroups = [
-    {
-        title: "Gestión Ambiental",
-        icon: Recycle,
-        items: [
-            { href: "/sostenibilidad", label: "Dashboard", icon: LayoutDashboard },
-            { href: "/mercado-ecocreditos", label: "Mercado ECR", icon: Coins },
-            { href: "/tarjeta-reciclaje", label: "ID Reciclaje", icon: CreditCard },
-        ],
-        subGroups: []
-    }
-];
-
-export const telecomNavGroups = [
-  { 
-    title: "Estado Técnico", 
-    icon: Signal, 
-    items: [ 
-      { href: "/dashboard-telecom", label: "Estado de Red", icon: Signal },
-    ], 
-    subGroups: [] 
-  },
-  { 
-    title: "Servicios", 
-    icon: Smartphone, 
-    items: [ 
-      { href: "/venta-linea", label: "Nueva Línea", icon: Phone },
-      { href: "/conatel/licenses", label: "Licencias Conatel", icon: FileText },
-    ], 
-    subGroups: [] 
-  },
-];
-
-export const lineUserNavGroups = [
-    {
-        title: "Mi Conectividad",
-        icon: Smartphone,
-        items: [
-            { href: "/mi-linea", label: "Resumen de Consumo", icon: Activity },
-            { href: "/mi-linea", label: "Recargar Saldo", icon: Wallet },
-        ],
-        subGroups: []
-    }
 ];
 
 export const legalNavGroups = [
@@ -196,7 +151,27 @@ export const rrhhNavGroups = [
 
 export const sociosNavGroups = [
     { title: "Estrategia", icon: Briefcase, items: [
-        { href: "/dashboard-socios", label: "Socios", icon: LayoutDashboard },
-        { href: "/poderes-representacion", label: "Empresas", icon: Gavel },
+        { href: "/dashboard-socios", label: "Dashboard Socios", icon: LayoutDashboard },
+        { href: "/poderes-representacion", label: "Empresas Holding", icon: Gavel },
     ], subGroups: [] },
+];
+
+export const telecomNavGroups = [
+  { 
+    title: "Estado Técnico", 
+    icon: Signal, 
+    items: [ 
+      { href: "/dashboard-telecom", label: "Estado de Red", icon: Signal },
+    ], 
+    subGroups: [] 
+  },
+  { 
+    title: "Servicios", 
+    icon: Smartphone, 
+    items: [ 
+      { href: "/venta-linea", label: "Nueva Línea", icon: Phone },
+      { href: "/conatel/licenses", label: "Licencias Conatel", icon: FileText },
+    ], 
+    subGroups: [] 
+  },
 ];

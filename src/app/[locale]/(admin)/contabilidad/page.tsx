@@ -26,7 +26,8 @@ import {
     Loader2,
     CheckCircle,
     FileText,
-    Banknote
+    Banknote,
+    ChevronRight
 } from "lucide-react";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
@@ -35,7 +36,7 @@ import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -73,13 +74,13 @@ export default function ContabilidadPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                 <Calculator className="h-3 w-3" /> ÁREA CONTABLE
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Gestión <span className="text-primary italic">Financiera</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40">Automatización VEN-NIF • Control Fiscal Activo</p>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Centro <span className="text-primary italic">Financiero</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Arquitectura VEN-NIF • Gestión de Liquidez 2026</p>
         </div>
         <div className="flex gap-2">
             <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-secondary/30 bg-secondary/5 text-secondary">
                 <Link href="/mercado-ecocreditos">
-                    <Coins className="mr-2 h-4 w-4" /> CANJE DE PUNTOS
+                    <Coins className="mr-2 h-4 w-4" /> ECO-LIQUIDEZ
                 </Link>
             </Button>
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground hover:bg-card">
@@ -93,7 +94,7 @@ export default function ContabilidadPage() {
 
         <section className="space-y-8">
             <div className="flex items-center gap-6">
-                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground/40 italic">Tesorería / Caja Digital</h2>
+                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground/40 italic">Tesorería Inteligente</h2>
                 <div className="h-[1px] flex-1 bg-border/50"></div>
             </div>
 
@@ -102,7 +103,7 @@ export default function ContabilidadPage() {
                 <Card className="lg:col-span-5 glass-card border-none p-10 rounded-[3rem] bg-card/40 relative overflow-hidden group shadow-2xl">
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><Wallet className="h-32 w-32" /></div>
                     <CardHeader className="p-0 mb-10">
-                        <CardTitle className="text-xs font-black uppercase tracking-[0.4em] text-primary">Saldo Disponible Consolidado</CardTitle>
+                        <CardTitle className="text-xs font-black uppercase tracking-[0.4em] text-primary">Saldos Certificados</CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 space-y-8">
                         <div className="grid grid-cols-1 gap-6">
@@ -129,8 +130,8 @@ export default function ContabilidadPage() {
                                 </DialogTrigger>
                                 <DialogContent className="rounded-[2.5rem] bg-card/95 backdrop-blur-3xl border-border p-10">
                                     <DialogHeader>
-                                        <DialogTitle className="text-xl font-black uppercase italic tracking-tighter">Datos para Depósito</DialogTitle>
-                                        <DialogDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40 italic">Cuentas vinculadas al ecosistema</DialogDescription>
+                                        <DialogTitle className="text-xl font-black uppercase italic tracking-tighter">Datos para Inyección</DialogTitle>
+                                        <DialogDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40 italic">Cuentas certificadas Kyron</DialogDescription>
                                     </DialogHeader>
                                     <div className="py-6 space-y-6">
                                         <div className="p-6 rounded-2xl bg-muted/30 border border-border space-y-4">
@@ -150,7 +151,7 @@ export default function ContabilidadPage() {
                                         </div>
                                     </div>
                                     <DialogFooter>
-                                        <Button className="w-full h-12 rounded-xl font-black uppercase text-[10px]">Copiar Datos</Button>
+                                        <Button className="w-full h-12 rounded-xl font-black uppercase text-[10px]">Copiar Expediente</Button>
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
@@ -158,29 +159,29 @@ export default function ContabilidadPage() {
                             <Dialog open={isPaying} onOpenChange={(val) => { setIsPaying(val); if(!val) setPayStep(1); }}>
                                 <DialogTrigger asChild>
                                     <Button variant="outline" className="flex-1 h-12 rounded-xl border-border bg-card/5 text-foreground font-black uppercase text-[9px] tracking-widest hover:bg-card/80">
-                                        <ArrowUpRight className="mr-2 h-4 w-4" /> Hacer Pago
+                                        <ArrowUpRight className="mr-2 h-4 w-4" /> Emitir Pago
                                     </Button>
                                 </DialogTrigger>
                                 <DialogContent className="rounded-[2.5rem] bg-card/95 backdrop-blur-3xl border-border p-10">
                                     <DialogHeader>
-                                        <DialogTitle className="text-xl font-black uppercase italic tracking-tighter">Emitir Pago Digital</DialogTitle>
+                                        <DialogTitle className="text-xl font-black uppercase italic tracking-tighter">Protocolo de Dispersión</DialogTitle>
                                     </DialogHeader>
                                     
                                     <div className="py-6">
                                         {payStep === 1 && (
                                             <div className="space-y-6 animate-in fade-in">
                                                 <div className="space-y-2">
-                                                    <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Beneficiario</Label>
-                                                    <Input placeholder="Nombre o RIF" className="bg-muted/30 border-border rounded-xl h-12 text-xs font-bold" />
+                                                    <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Beneficiario / RIF</Label>
+                                                    <Input placeholder="Nombre o Identificación Fiscal" className="bg-muted/30 border-border rounded-xl h-12 text-xs font-bold uppercase" />
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Monto de la Operación</Label>
+                                                    <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Monto de Operación</Label>
                                                     <div className="relative">
                                                         <Input type="number" placeholder="0.00" className="bg-muted/30 border-border rounded-xl pl-12 h-14 text-lg font-black italic" />
                                                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-black">$</span>
                                                     </div>
                                                 </div>
-                                                <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest" onClick={handleSimulatePayment}>AUTORIZAR PAGO</Button>
+                                                <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-glow" onClick={handleSimulatePayment}>AUTORIZAR TRANSACCIÓN</Button>
                                             </div>
                                         )}
 
@@ -193,9 +194,9 @@ export default function ContabilidadPage() {
                                                     </div>
                                                 </div>
                                                 <div className="text-center space-y-2">
-                                                    <p className="text-sm font-black uppercase italic text-foreground">Validando Identidad</p>
+                                                    <p className="text-sm font-black uppercase italic text-foreground">Escaneo Biométrico</p>
                                                     <p className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-[0.3em] flex items-center gap-2">
-                                                        <Loader2 className="h-3 w-3 animate-spin" /> Escaneo Biométrico...
+                                                        <Loader2 className="h-3 w-3 animate-spin" /> Validando Firma Digital...
                                                     </p>
                                                 </div>
                                             </div>
@@ -203,14 +204,14 @@ export default function ContabilidadPage() {
 
                                         {payStep === 3 && (
                                             <div className="py-12 text-center space-y-6 animate-in fade-in">
-                                                <div className="p-6 bg-emerald-500/10 rounded-full w-fit mx-auto border-2 border-emerald-500/30">
+                                                <div className="p-6 bg-emerald-500/10 rounded-full w-fit mx-auto border-2 border-emerald-500/30 shadow-glow-secondary">
                                                     <CheckCircle className="h-16 w-16 text-emerald-500" />
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Pago Exitoso</h3>
-                                                    <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Transacción Sellada en Ledger</p>
+                                                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Sello Exitoso</h3>
+                                                    <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Inyectado en Ledger Inmutable</p>
                                                 </div>
-                                                <Button variant="outline" className="w-full h-12 rounded-xl" onClick={() => setIsPaying(false)}>Cerrar Protocolo</Button>
+                                                <Button variant="outline" className="w-full h-12 rounded-xl" onClick={() => setIsPaying(false)}>Finalizar Protocolo</Button>
                                             </div>
                                         )}
                                     </div>
@@ -220,27 +221,27 @@ export default function ContabilidadPage() {
                     </CardContent>
                 </Card>
 
-                {/* Movimientos Recientes */}
+                {/* Ledger Detallado */}
                 <Card className="lg:col-span-7 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
                     <CardHeader className="p-10 border-b border-border/50 flex flex-row justify-between items-center bg-muted/10">
-                        <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">Movimientos Recientes</CardTitle>
-                        <Button variant="ghost" className="text-[9px] font-black uppercase tracking-widest text-primary">Historial Completo <ArrowRight className="ml-2 h-3 w-3"/></Button>
+                        <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">Ledger Transaccional</CardTitle>
+                        <Button variant="ghost" className="text-[9px] font-black uppercase tracking-widest text-primary">Archivo Maestro <ArrowRight className="ml-2 h-3 w-3"/></Button>
                     </CardHeader>
                     <CardContent className="p-0">
                         <Table>
                             <TableHeader>
                                 <TableRow className="bg-muted/30 border-none">
-                                    <TableHead className="pl-10 text-[9px] font-black uppercase tracking-widest opacity-30">Fecha</TableHead>
-                                    <TableHead className="text-[9px] font-black uppercase tracking-widest opacity-30">Descripción</TableHead>
-                                    <TableHead className="text-right pr-10 text-[9px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
+                                    <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Timestamp</TableHead>
+                                    <TableHead className="text-[9px] font-black uppercase tracking-widest opacity-30">Descripción Operativa</TableHead>
+                                    <TableHead className="text-right pr-10 text-[9px] font-black uppercase tracking-widest opacity-30">Monto Final</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {[
-                                    { date: "08 MAR", desc: "Pago Factura #F123", amount: -450.00, curr: "USD", type: "out" },
-                                    { date: "07 MAR", desc: "Recarga Línea Kyron 5G", amount: -1200.00, curr: "Bs.", type: "out" },
-                                    { date: "06 MAR", desc: "Cobro Cliente Epsilon", amount: 2300.00, curr: "USD", type: "in" },
-                                    { date: "05 MAR", desc: "Pago Nómina Q1 (Billetera)", amount: -8500.00, curr: "Bs.", type: "out" },
+                                    { date: "08 MAR", desc: "Liquidación Factura #F123", amount: -450.00, curr: "USD", type: "out" },
+                                    { date: "07 MAR", desc: "Recarga Nodo Kyron 5G", amount: -1200.00, curr: "Bs.", type: "out" },
+                                    { date: "06 MAR", desc: "Inyección Cliente Epsilon", amount: 2300.00, curr: "USD", type: "in" },
+                                    { date: "05 MAR", desc: "Dispersión Nómina Q1", amount: -8500.00, curr: "Bs.", type: "out" },
                                 ].map((move, i) => (
                                     <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-colors group">
                                         <TableCell className="pl-10 py-5 text-[9px] font-black text-muted-foreground/40 uppercase tracking-widest">{move.date}</TableCell>
@@ -285,69 +286,71 @@ export default function ContabilidadPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
         >
             <div className="flex items-center gap-6">
-                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground/40">Protocolos de Control</h2>
+                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground/40">Protocolos de Control Fiscal</h2>
                 <div className="h-[1px] flex-1 bg-border/50"></div>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-8">
-                <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40 lg:col-span-2 shadow-xl">
+                <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40 lg:col-span-2 shadow-xl border-l-4 border-emerald-500">
                     <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">Automatización de Balances</CardTitle>
+                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+                            <ShieldCheck className="h-6 w-6 text-emerald-500" /> Auditoría Predictiva SENIAT
+                        </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 space-y-8">
                         <p className="text-lg font-bold italic text-muted-foreground/60 leading-relaxed text-justify">
-                            El sistema procesa los registros contables garantizando la integridad bajo normas nacionales. La automatización del ajuste por inflación utiliza datos oficiales para reflejar la situación económica real de la empresa en múltiples divisas.
+                            El sistema procesa los registros contables garantizando la integridad total bajo la Providencia 0071. El Supervisor IA monitorea desviaciones en el IGTF y el Ajuste por Inflación, sugiriendo correcciones antes del cierre fiscal.
                         </p>
                         <div className="p-10 rounded-[2.5rem] bg-muted/30 border border-border shadow-inner">
                             <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-8 flex items-center gap-3">
-                                <Terminal className="h-4 w-4" /> Pasos del Cierre Mensual
+                                <Terminal className="h-4 w-4" /> Checklist de Cierre Fiscal
                             </h4>
                             <div className="text-sm font-bold italic text-muted-foreground/70 leading-relaxed text-justify space-y-4">
                                 <div className="flex gap-6 items-start">
                                     <span className="font-black text-xs text-primary">[1]</span>
-                                    <span>Consolidación de ventas del periodo actual.</span>
+                                    <span>Consolidación de Libros de Compra y Venta (Bs/USD).</span>
                                 </div>
                                 <div className="flex gap-6 items-start">
                                     <span className="font-black text-xs text-primary">[2]</span>
-                                    <span>Ejecución del análisis de inflación basado en el BCV.</span>
+                                    <span>Validación de retenciones ISLR aplicadas a proveedores.</span>
                                 </div>
                                 <div className="flex gap-6 items-start">
                                     <span className="font-black text-xs text-primary">[3]</span>
-                                    <span>Generación de reportes de situación financiera.</span>
+                                    <span>Ejecución del Reajuste RIPF basado en INPC del mes.</span>
                                 </div>
                                 <div className="flex gap-6 items-start">
                                     <span className="font-black text-xs text-primary">[4]</span>
-                                    <span>Cierre de libros fiscales para presentación oficial.</span>
+                                    <span>Generación de archivos .txt para el portal SENIAT.</span>
                                 </div>
                             </div>
                         </div>
                     </CardContent>
                     <CardFooter className="p-0 pt-10 border-t border-border mt-10 flex justify-between items-center">
                         <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">
-                            <ShieldCheck className="h-4 w-4 text-primary" /> VALIDACIÓN FISCAL 2026
+                            <Activity className="h-4 w-4 text-emerald-500" /> ESTATUS: CERO RIESGO FISCAL
                         </div>
-                        <Badge variant="outline" className="border-primary/20 text-primary text-[8px] font-black px-4 py-1.5 rounded-lg shadow-glow uppercase tracking-widest">Activo</Badge>
+                        <Badge variant="outline" className="border-emerald-500/20 text-emerald-500 text-[8px] font-black px-4 py-1.5 rounded-lg shadow-glow-secondary uppercase tracking-widest">Verificado</Badge>
                     </CardFooter>
                 </Card>
 
                 <div className="space-y-8">
                     <Card className="glass-card border-none bg-primary text-primary-foreground rounded-[2.5rem] p-10 relative overflow-hidden group shadow-2xl">
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                            <Landmark className="h-32 w-32" />
+                            <Banknote className="h-32 w-32" />
                         </div>
                         <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 flex items-center gap-3 relative z-10">
-                            <Scale className="h-6 w-6" /> Asesoría IA
+                            <Scale className="h-6 w-6" /> Gaceta 6.952
                         </h3>
                         <p className="text-sm font-bold opacity-80 leading-relaxed mb-8 relative z-10 uppercase tracking-wide">
-                            Analice el impacto legal de sus estados financieros con nuestro asistente especializado.
+                            Consulte el impacto de los nuevos decretos en sus exoneraciones de IVA y reformas arancelarias.
                         </p>
                         <Button asChild className="w-full h-12 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-2xl">
-                            <Link href="/gaceta-6952" className="flex items-center justify-center">CONSULTAR GACETA <ArrowRight className="ml-2 h-4 w-4"/></Link>
+                            <Link href="/gaceta-6952" className="flex items-center justify-center">CONSULTAR IA <ArrowRight className="ml-2 h-4 w-4"/></Link>
                         </Button>
                     </Card>
 
                     <div className="space-y-4">
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic pl-4">Herramientas Contables</h3>
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic pl-4">Herramientas del Área</h3>
                         <div className="grid grid-cols-1 gap-2">
                             {contabilidadGroup?.items.slice(1).map((item) => (
                                 <Button key={item.href} asChild variant="ghost" className="justify-between h-12 px-6 rounded-2xl border border-border bg-card/40 hover:bg-primary/5 hover:border-primary/30 transition-all group">
