@@ -31,6 +31,8 @@ import {
     Wallet,
     Landmark,
     Globe,
+    Cpu,
+    Zap
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -52,7 +54,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   if (!mounted) return null;
 
   const nativeButtons = [
-    { label: "Resumen", href: "/resumen-negocio", icon: LayoutDashboard },
+    { label: "Mando", href: "/dashboard-empresa", icon: Cpu },
     { label: "Contabilidad", href: "/contabilidad", icon: Calculator },
     { label: "Facturación", href: "/facturacion", icon: FileText },
     { label: "Billetera", href: "/billetera-cambio", icon: Wallet },
@@ -69,7 +71,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                 <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
                 <div className="flex flex-col -mt-1 hidden sm:flex">
                     <span className="text-sm font-black tracking-[0.4em] uppercase text-foreground italic italic-shadow leading-none">System Kyron</span>
-                    <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-60">Corporate Node</p>
+                    <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-60">Corporate Master Node</p>
                 </div>
             </Link>
           </div>
@@ -115,8 +117,9 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-80 p-0 rounded-[2.5rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
-                    <div className="p-6 border-b border-border bg-muted/30">
-                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Alertas Fiscales</p>
+                    <div className="p-6 border-b border-border bg-muted/30 flex justify-between items-center">
+                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Alertas de Nodo</p>
+                        <Zap className="h-3 w-3 text-yellow-400" />
                     </div>
                     <div className="p-3 max-h-[300px] overflow-y-auto custom-scrollbar space-y-1">
                         {[
@@ -158,13 +161,13 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                 
                 <DropdownMenuItem asChild className="rounded-xl mt-2">
                     <Link href={dashboardHref as any} className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-widest gap-4">
-                        <Activity className="h-4 w-4 text-primary/40" />
+                        <Cpu className="h-4 w-4 text-primary/40" />
                         <span>Consola Maestra</span>
                     </Link>
                 </DropdownMenuItem>
 
                 <DropdownMenuItem asChild className="rounded-xl">
-                    <Link href="/ajustes-seguridad" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-widest gap-4">
+                    <Link href="/seguridad" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-widest gap-4">
                         <ShieldCheck className="h-4 w-4 text-primary/40" />
                         <span>Seguridad Nodo</span>
                     </Link>
