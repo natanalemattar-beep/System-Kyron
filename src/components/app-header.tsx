@@ -30,12 +30,12 @@ import {
     FileText,
     Wallet,
     Landmark,
-    Globe,
     Cpu,
-    Zap
+    Zap,
+    Search
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
-import { cn } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 
 interface AppHeaderProps {
     user: any;
@@ -54,7 +54,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   if (!mounted) return null;
 
   const nativeButtons = [
-    { label: "Mando", href: "/dashboard-empresa", icon: Cpu },
+    { label: "Mando", href: "/resumen-negocio", icon: Cpu },
     { label: "Contabilidad", href: "/contabilidad", icon: Calculator },
     { label: "Facturación", href: "/facturacion", icon: FileText },
     { label: "Billetera", href: "/billetera-cambio", icon: Wallet },
@@ -77,6 +77,10 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
           </div>
 
           <nav className="hidden lg:flex items-center justify-center gap-2 flex-1 max-w-4xl">
+            <div className="relative w-full max-w-xs mr-4">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/40" />
+                <input placeholder="BUSCAR MÓDULO..." className="w-full h-10 bg-foreground/5 border-none rounded-xl pl-9 text-[9px] font-black uppercase tracking-widest focus:ring-1 focus:ring-primary/30 outline-none" />
+            </div>
             {nativeButtons.map((btn) => {
                 const isActive = pathname.includes(btn.href);
                 return (
