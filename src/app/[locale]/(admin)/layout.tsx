@@ -3,18 +3,35 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+import { useUser } from "@/firebase/provider";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { SplashScreen } from "@/components/splash-screen";
 
 export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const user = { 
-        name: "Administrador Maestro", 
-        email: "master@kyron.com", 
-        fallback: "CM",
+    const { user, isUserLoading } = useUser();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!isUserLoading && !user) {
+            router.push('/login');
+        }
+    }, [user, isUserLoading, router]);
+
+    const headerUser = { 
+        name: user?.displayName || user?.email?.split('@')[0] || "Operador", 
+        email: user?.email || "master@kyron.com", 
+        fallback: user?.email?.charAt(0).toUpperCase() || "KY",
         color: "bg-primary shadow-glow"
     };
+
+    if (isUserLoading || !user) {
+        return <SplashScreen />;
+    }
 
     return (
       <div className="flex min-h-screen bg-background text-foreground relative overflow-hidden">
@@ -27,7 +44,7 @@ export default function AdminLayout({
 
           <div className="flex-1 flex flex-col min-h-screen relative w-full">
               <AppHeader 
-                user={user} 
+                user={headerUser} 
                 dashboardHref="/dashboard-empresa" 
               />
               

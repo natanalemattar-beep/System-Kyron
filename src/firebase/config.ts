@@ -1,8 +1,8 @@
 export const firebaseConfig = {
-  "projectId": "system-kyron-2-39020872-d0eba",
-  "appId": "1:217970785356:web:4a03591764fec7d13548e9",
-  "apiKey": "AIzaSyCDrPmshWnX23aJUNyKj7iCc0onnlxzRc8",
-  "authDomain": "system-kyron-2-39020872-d0eba.firebaseapp.com",
-  "measurementId": "G-2CSHE7HYL6",
-  "messagingSenderId": "217970785356"
+  "projectId": "system-kyron-prod",
+  "appId": "1:123456789:web:abcdef",
+  "apiKey": "AIzaSyAquiVaTuApiKey",
+  "authDomain": "system-kyron-prod.firebaseapp.com",
+  "storageBucket": "system-kyron-prod.appspot.com",
+  "messagingSenderId": "123456789"
 };
