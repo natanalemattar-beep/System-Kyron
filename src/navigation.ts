@@ -1,4 +1,3 @@
-
 import {createLocalizedPathnamesNavigation} from 'next-intl/navigation';
 
 export const locales = ['en', 'es'] as const;
@@ -85,7 +84,6 @@ export const pathnames = {
   
   // OTROS
   '/estudio-poblacion': '/analisis-demografico',
-  '/sector-privado-system-kyron': '/dossier-corporativo',
   '/manual-usuario': '/manual-usuario',
   '/identidad-marca': '/identidad-marca',
   '/academia-kyron': '/formacion',

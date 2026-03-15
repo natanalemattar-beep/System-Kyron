@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -29,7 +28,15 @@ import {
     Wallet,
     Gavel,
     Users,
-    PieChart
+    PieChart,
+    Smartphone,
+    TrendingUp,
+    HandCoins,
+    BarChart3,
+    Box,
+    Banknote,
+    Stamp,
+    History
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -37,7 +44,6 @@ import { cn } from "@/lib/utils";
 interface AppHeaderProps {
     user: any;
     dashboardHref: string;
-    navGroups?: any[];
 }
 
 export function AppHeader({ user }: AppHeaderProps) {
@@ -52,65 +58,64 @@ export function AppHeader({ user }: AppHeaderProps) {
 
   const navigation = [
     { 
-        label: "MANDO", 
+        label: "CENTRO DE MANDO", 
         href: "/dashboard-empresa", 
         icon: LayoutDashboard,
         type: 'link'
     },
     { 
-        label: "CONTABILIDAD", 
+        label: "LIBROS", 
         icon: BookOpen,
         type: 'menu',
         items: [
-            { label: "Área Contable", href: "/contabilidad", icon: Calculator },
-            { label: "Libro Compra/Venta", href: "/libro-compra-venta", icon: FileText },
-            { label: "Libro Nómina", href: "/nominas", icon: Users },
-            { label: "Libro Inventario", href: "/inventario", icon: Box },
-            { label: "Libro de Licores", href: "/libro-licores", icon: Landmark },
+            { label: "Compra y Venta", href: "/libro-compra-venta", icon: FileText },
+            { label: "Nómina y Personal", href: "/nominas", icon: Users },
+            { label: "Inventario Activo", href: "/inventario", icon: Box },
+            { label: "Control de Licores", href: "/libro-licores", icon: Landmark },
+            { label: "Cesta-Ticket", href: "/contabilidad", icon: Banknote },
         ]
     },
     { 
-        label: "FISCAL", 
+        label: "TRIBUTOS", 
         icon: Landmark,
         type: 'menu',
         items: [
             { label: "Declaración IVA", href: "/declaracion-iva", icon: FileText },
             { label: "ISLR y AR-C", href: "/islr-arc", icon: Banknote },
-            { label: "IGTF y Exoneraciones", href: "/gaceta-6952", icon: ShieldCheck },
+            { label: "IGTF y Gaceta", href: "/gaceta-6952", icon: ShieldCheck },
             { label: "Timbres Fiscales", href: "/permisos", icon: Stamp },
         ]
     },
     { 
-        label: "OPERACIONES", 
-        icon: Activity,
+        label: "CUENTAS", 
+        icon: Wallet,
         type: 'menu',
         items: [
-            { label: "Punto de Venta", href: "/punto-de-venta", icon: Smartphone },
             { label: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", icon: TrendingUp },
             { label: "Cuentas por Pagar", href: "/cuentas-por-pagar", icon: HandCoins },
-            { label: "Billetera Multimoneda", href: "/billetera-cambio", icon: Wallet },
+            { label: "Análisis de Caja", href: "/analisis-caja", icon: Activity },
         ]
     },
     { 
-        label: "ESTRATEGIA", 
+        label: "ANÁLISIS", 
         icon: PieChart,
         type: 'menu',
         items: [
-            { label: "Análisis de Ventas", href: "/analisis-ventas", icon: BarChart3 },
-            { label: "Riesgo y Rentabilidad", href: "/analisis-riesgo", icon: ShieldAlert },
-            { label: "Factibilidad Económica", href: "/estudio-factibilidad-economica", icon: TrendingUp },
-            { label: "Estructura de Costos", href: "/estructura-costos", icon: Calculator },
+            { label: "Ventas e Ingresos", href: "/analisis-ventas", icon: BarChart3 },
+            { label: "Riesgo Financiero", href: "/analisis-riesgo", icon: ShieldCheck },
+            { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
+            { label: "Factibilidad Económica", href: "/estudio-factibilidad-economica", icon: Calculator },
+            { label: "Estructura de Costos", href: "/estructura-costos", icon: Activity },
         ]
     },
     { 
-        label: "LEGAL", 
-        icon: Gavel,
+        label: "TESORERÍA", 
+        icon: Activity,
         type: 'menu',
         items: [
-            { label: "Escritorio Jurídico", href: "/escritorio-juridico", icon: Gavel },
-            { label: "Archivo de Contratos", href: "/contratos", icon: FileSignature },
-            { label: "Permisos y Licencias", href: "/permisos", icon: UserCheck },
-            { label: "Recursos Fiscales", href: "/recursos-fiscales", icon: Scale },
+            { label: "Arqueo de Caja", href: "/arqueo-caja", icon: Calculator },
+            { label: "Billetera Multimoneda", href: "/billetera-cambio", icon: Wallet },
+            { label: "Historial de Transacciones", href: "/transactions", icon: History },
         ]
     }
   ];
@@ -125,7 +130,7 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
                 <div className="flex flex-col -mt-1 hidden xl:flex">
                     <span className="text-xs font-black tracking-[0.3em] uppercase text-white italic leading-none">System Kyron</span>
-                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Sistema Maestro Administrativo</p>
+                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Sistema Contable Maestro</p>
                 </div>
             </Link>
           </div>
@@ -189,8 +194,8 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-xl border border-white/10 p-0 overflow-hidden hover:border-primary/40 transition-all bg-white/5 shadow-inner group">
                     <Avatar className="h-full w-full rounded-none">
-                    <AvatarFallback className={cn("rounded-none font-black text-[9px] text-white transition-all group-hover:scale-110", user.color || "bg-primary")}>
-                        {user.fallback}
+                    <AvatarFallback className={cn("rounded-none font-black text-[9px] text-white transition-all group-hover:scale-110", "bg-primary shadow-glow")}>
+                        RH
                     </AvatarFallback>
                     </Avatar>
                 </Button>
@@ -198,8 +203,8 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <DropdownMenuContent align="end" className="w-72 p-3 rounded-[2rem] border-white/10 bg-black/95 backdrop-blur-3xl shadow-2xl">
                 <DropdownMenuLabel className="p-6 bg-white/5 rounded-[1.5rem] mb-2 border border-white/5">
                     <div className="flex flex-col gap-1.5">
-                        <p className="text-[11px] font-black uppercase tracking-widest text-primary">{user.name}</p>
-                        <p className="text-[8px] text-white/30 truncate font-mono italic">{user.email}</p>
+                        <p className="text-[11px] font-black uppercase tracking-widest text-primary">Responsable de Contabilidad</p>
+                        <p className="text-[8px] text-white/30 truncate font-mono italic">finanzas@kyron.com</p>
                     </div>
                 </DropdownMenuLabel>
                 
@@ -213,7 +218,7 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <DropdownMenuItem asChild className="rounded-xl">
                     <Link href="/seguridad" className="flex items-center py-3 px-4 text-[9px] font-black uppercase tracking-widest gap-4 text-white/60">
                         <ShieldCheck className="h-4 w-4 text-primary/40" />
-                        <span>Seguridad</span>
+                        <span>Seguridad Bancaria</span>
                     </Link>
                 </DropdownMenuItem>
                 
@@ -233,14 +238,3 @@ export function AppHeader({ user }: AppHeaderProps) {
     </header>
   );
 }
-
-// Icon placeholders used in navigation
-function Box(props: any) { return <Cpu {...props} /> }
-function Banknote(props: any) { return <Calculator {...props} /> }
-function Stamp(props: any) { return <Activity {...props} /> }
-function TrendingUp(props: any) { return <Activity {...props} /> }
-function HandCoins(props: any) { return <Wallet {...props} /> }
-function BarChart3(props: any) { return <PieChart {...props} /> }
-function ShieldAlert(props: any) { return <ShieldCheck {...props} /> }
-function FileSignature(props: any) { return <FileText {...props} /> }
-function UserCheck(props: any) { return <Users {...props} /> }
