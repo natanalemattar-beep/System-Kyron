@@ -5,15 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, ChevronLeft, CheckCircle2, ShieldCheck, ArrowRight, UserPlus, LogIn } from 'lucide-react';
+import { Loader2, AlertTriangle, ChevronLeft, CheckCircle2, ShieldCheck, ArrowRight, LogIn } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Link } from "@/navigation";
 import { useToast } from '@/hooks/use-toast';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 interface SpecializedLoginCardProps {
     portalName: string;
@@ -43,7 +41,6 @@ export function SpecializedLoginCard({
     footerLinks 
 }: SpecializedLoginCardProps) {
     const [isLoading, setIsLoading] = useState(false);
-    const [isRegister, setIsRegister] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
     const { toast } = useToast();
@@ -54,51 +51,23 @@ export function SpecializedLoginCard({
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        const email = formData.get('email') as string;
+        const username = formData.get('email') as string;
         const password = formData.get('password') as string;
-        const name = formData.get('name') as string;
 
-        const auth = getAuth();
-        const db = getFirestore();
-
-        try {
-            if (isRegister) {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                
-                // Guardar perfil en Firestore
-                await setDoc(doc(db, "users", user.uid), {
-                    id: user.uid,
-                    firstName: name.split(' ')[0] || name,
-                    lastName: name.split(' ').slice(1).join(' ') || '',
-                    email: user.email,
-                    portal: portalName,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
-                });
-
-                toast({
-                    title: "CUENTA CREADA",
-                    description: "Bienvenido al ecosistema Kyron.",
-                    action: <CheckCircle2 className="text-emerald-500 h-4 w-4" />
-                });
-            } else {
-                await signInWithEmailAndPassword(auth, email, password);
+        // Simulación de acceso por demostración
+        setTimeout(() => {
+            if ((username === demoUsername || username === 'admin') && password === demoPassword) {
                 toast({
                     title: "ACCESO CONCEDIDO",
-                    description: "Enlace establecido con el nodo central.",
+                    description: `Enlace establecido con el portal de ${portalName}.`,
+                    action: <CheckCircle2 className="text-emerald-500 h-4 w-4" />
                 });
+                router.push(redirectPath as any);
+            } else {
+                setError("Credenciales de demostración incorrectas. Utilice las sugeridas en el panel.");
+                setIsLoading(false);
             }
-            router.push(redirectPath as any);
-        } catch (err: any) {
-            console.error(err);
-            let message = "Error en el protocolo de acceso.";
-            if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') message = "Credenciales incorrectas.";
-            if (err.code === 'auth/email-already-in-use') message = "El usuario ya existe en el registro.";
-            if (err.code === 'auth/weak-password') message = "La clave debe tener al menos 6 caracteres.";
-            setError(message);
-            setIsLoading(false);
-        }
+        }, 600);
     };
 
     return (
@@ -146,66 +115,49 @@ export function SpecializedLoginCard({
                 {/* Formulario de Auth */}
                 <div className="p-8 md:p-12 flex flex-col justify-center bg-card">
                     <div className="mb-8 space-y-1">
-                        <h2 className="text-2xl font-black uppercase italic tracking-tight text-primary">
-                            {isRegister ? "Crear Registro" : "Acceso Seguro"}
-                        </h2>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Protocolo Kyron v2.6</p>
+                        <h2 className="text-2xl font-black uppercase italic tracking-tight text-primary">Acceso de Demo</h2>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Protocolo Kyron v2.6.5</p>
                     </div>
 
                     <form onSubmit={handleAuth} className="space-y-5">
-                        <AnimatePresence mode="wait">
-                            {error && (
-                                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                                    <Alert variant="destructive" className="rounded-2xl border-none bg-rose-500/10 text-rose-600">
-                                        <AlertTriangle className="h-4 w-4" />
-                                        <AlertDescription className="text-[10px] font-black uppercase tracking-widest">{error}</AlertDescription>
-                                    </Alert>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-
-                        {isRegister && (
-                            <div className="space-y-2">
-                                <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Nombre Completo</Label>
-                                <Input name="name" placeholder="Tu nombre" required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold" />
-                            </div>
+                        {error && (
+                            <Alert variant="destructive" className="rounded-2xl border-none bg-rose-500/10 text-rose-600">
+                                <AlertTriangle className="h-4 w-4" />
+                                <AlertDescription className="text-[10px] font-black uppercase tracking-widest">{error}</AlertDescription>
+                            </Alert>
                         )}
 
-                        <div className="space-y-2">
-                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Correo Electrónico</Label>
-                            <Input name="email" type="email" placeholder="usuario@kyron.com" required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold" />
+                        <div className="p-4 bg-primary/5 border border-primary/10 rounded-2xl mb-2">
+                            <p className="text-[8px] font-black text-primary uppercase tracking-widest mb-2 italic">Credenciales Sugeridas:</p>
+                            <div className="flex gap-4">
+                                <p className="text-[9px] font-bold text-foreground/60 uppercase">User: <span className="text-foreground">{demoUsername}</span></p>
+                                <p className="text-[9px] font-bold text-foreground/60 uppercase">Pass: <span className="text-foreground">{demoPassword}</span></p>
+                            </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Clave Maestra</Label>
+                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Usuario / Email</Label>
+                            <Input name="email" placeholder={demoUsername} required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold" />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Clave de Acceso</Label>
                             <Input name="password" type="password" placeholder="••••••••" required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold" />
                         </div>
 
                         <Button type="submit" className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-2xl" disabled={isLoading}>
-                            {isLoading ? (
-                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                            ) : (
-                                isRegister ? "REGISTRAR EN LEDGER" : "AUTENTICAR NODO"
-                            )}
+                            {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : "AUTENTICAR DEMO"}
                         </Button>
                     </form>
 
-                    <div className="mt-8 pt-6 border-t border-border/50 text-center space-y-4">
-                        <button 
-                            onClick={() => setIsRegister(!isRegister)}
-                            className="text-[10px] font-black uppercase text-primary hover:underline flex items-center justify-center gap-2 mx-auto"
-                        >
-                            {isRegister ? <LogIn className="h-3 w-3"/> : <UserPlus className="h-3 w-3"/>}
-                            {isRegister ? "¿Ya tienes cuenta? Entrar" : "¿No tienes cuenta? Registrarse"}
-                        </button>
-                        
-                        {footerLinks && !isRegister && (
+                    <div className="mt-8 pt-6 border-t border-border/50 text-center">
+                        {footerLinks && (
                             <Link href={footerLinks.primary.href as any} className="block text-[9px] font-bold uppercase text-slate-400 hover:text-primary transition-colors">{footerLinks.primary.text}</Link>
                         )}
                     </div>
                 </div>
             </motion.div>
-            <p className="mt-10 text-[8px] font-black text-slate-300 dark:text-white/10 uppercase tracking-[0.6em]">System Kyron v2.6.5 • Secure Access Protocol</p>
+            <p className="mt-10 text-[8px] font-black text-slate-300 dark:text-white/10 uppercase tracking-[0.6em]">System Kyron v2.6.5 • Prototyping Mode</p>
         </div>
     );
 }

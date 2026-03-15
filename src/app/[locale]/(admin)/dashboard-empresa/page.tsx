@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
     Calculator, 
     Wallet, 
@@ -17,12 +17,12 @@ import {
     History,
     Calendar,
     Box,
-    HandCoins,
     FileText,
     Banknote,
     Receipt,
     Loader2,
-    ShieldAlert
+    ShieldAlert,
+    BarChart3
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -32,9 +32,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
-import { useUser } from "@/firebase/provider";
 
-// Static Data outside component
 const kpiStats = [
   { label: "INGRESOS TOTALES", value: "Bs. 45.231,89", trend: "+20.1%", icon: TrendingUp, color: "text-emerald-600" },
   { label: "GASTOS TOTALES", value: "Bs. 21.345,67", trend: "+12.5%", icon: TrendingDown, color: "text-rose-600" },
@@ -51,7 +49,6 @@ const quickBooks = [
 
 export default function DashboardEmpresaPage() {
   const { toast } = useToast();
-  const { user } = useUser();
   const [simulation, setSimulation] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -75,8 +72,6 @@ export default function DashboardEmpresaPage() {
     }, 800);
   };
 
-  const userName = user?.displayName || user?.email?.split('@')[0] || "Operador";
-
   return (
     <div className="space-y-10 pb-20">
       <header className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-8 py-2 mt-10">
@@ -88,7 +83,7 @@ export default function DashboardEmpresaPage() {
                 CENTRO DE <span className="text-primary italic">MANDO</span>
             </h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] mt-2 italic">
-                Bienvenido de nuevo, {userName.toUpperCase()} • 2026
+                Portal Empresarial • Modo Prototipo 2026
             </p>
         </div>
         <div className="flex gap-3 no-print">
@@ -192,7 +187,7 @@ export default function DashboardEmpresaPage() {
                     <AnimatePresence mode="wait">
                         {simulation && (
                             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-6 bg-white/10 rounded-2xl border border-white/20">
-                                <p className="text-[9px] font-black uppercase text-[#00A86B] mb-2">Impacto en Nodo</p>
+                                <p className="text-[9px] font-black uppercase text-[#00A86B] mb-2">Impacto Proyectado</p>
                                 <p className="text-sm font-bold italic opacity-80 uppercase leading-relaxed">
                                     {simulation === 'ventas' ? "Incremento del 28% en rentabilidad neta para el Q2." : 
                                      "Requerimiento de liquidez adicional del 15% para cubrir costos op."}
