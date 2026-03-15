@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -20,7 +21,9 @@ import {
     Building,
     TrendingDown,
     LayoutDashboard,
-    CreditCard
+    CreditCard,
+    Loader2,
+    Receipt
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -48,6 +51,7 @@ export default function DashboardEmpresaPage() {
   const { toast } = useToast();
   const [simulation, setSimulation] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -63,6 +67,23 @@ export default function DashboardEmpresaPage() {
         action: <CheckCircle className="text-primary h-4 w-4" />
       });
     }, 1000);
+  };
+
+  const handleClosePeriod = () => {
+    setIsClosing(true);
+    toast({
+      title: "INICIANDO CIERRE DE PERIODO",
+      description: "Auditando balances y sellando libros fiscales...",
+    });
+
+    setTimeout(() => {
+      setIsClosing(false);
+      toast({
+        title: "PERIODO CERRADO EXITOSAMENTE",
+        description: "El ejercicio fiscal ha sido sellado en el sistema inmutable.",
+        action: <CheckCircle className="text-primary h-4 w-4" />
+      });
+    }, 3000);
   };
 
   if (!mounted) return null;
@@ -86,8 +107,13 @@ export default function DashboardEmpresaPage() {
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white">
                 AUDITORÍA GLOBAL
             </Button>
-            <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                CERRAR PERIODO
+            <Button 
+                className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl"
+                onClick={handleClosePeriod}
+                disabled={isClosing}
+            >
+                {isClosing ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Receipt className="mr-3 h-4 w-4" />}
+                {isClosing ? "CERRANDO..." : "CERRAR PERIODO"}
             </Button>
         </div>
       </motion.header>
@@ -167,10 +193,10 @@ export default function DashboardEmpresaPage() {
                     <h3 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter leading-none">Cero Riesgo <br/> Fiscal</h3>
                 </div>
                 <p className="text-sm font-medium opacity-80 leading-relaxed uppercase tracking-widest max-w-md">
-                    Auditoría permanente en cada transacción contra la Gaceta Oficial. Sellado digital en Ledger inmutable.
+                    Auditoría permanente en cada transacción contra la Gaceta Oficial. Sellado digital en sistema inmutable.
                 </p>
                 <div className="flex items-center gap-8 text-[9px] font-black uppercase tracking-[0.3em]">
-                    <span className="flex items-center gap-2"><Lock className="h-3 w-3" /> Ledger Inmutable</span>
+                    <span className="flex items-center gap-2"><Lock className="h-3 w-3" /> Registro Inmutable</span>
                     <span className="flex items-center gap-2"><Zap className="h-3 w-3" /> Auditoría 24/7</span>
                 </div>
             </div>
