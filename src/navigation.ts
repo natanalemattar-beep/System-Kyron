@@ -8,7 +8,6 @@ export const localePrefix = 'always';
 /**
  * @fileOverview Mapa de Navegación del Ecosistema Kyron.
  * Organizado por Áreas Lógicas para una navegación de alta fidelidad.
- * Se han unificado las rutas para evitar errores 404.
  */
 export const pathnames = {
   '/': '/',
@@ -17,6 +16,7 @@ export const pathnames = {
   
   // ÁREA MAESTRA
   '/dashboard-empresa': '/dashboard-empresa',
+  '/resumen-negocio': '/dashboard-empresa',
   
   // FINANZAS Y CONTABILIDAD
   '/contabilidad': '/contabilidad',
@@ -30,7 +30,6 @@ export const pathnames = {
   '/analisis-riesgo': '/contabilidad/analisis-riesgo',
   '/billetera-cambio': '/contabilidad/billetera-cambio',
   '/estudio-factibilidad-economica': '/contabilidad/factibilidad-economica',
-  '/libro-licores': '/contabilidad/libro-licores',
 
   // LIBROS CONTABLES
   '/contabilidad/libros': '/contabilidad/libros',

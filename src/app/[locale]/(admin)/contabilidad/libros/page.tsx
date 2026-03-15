@@ -49,7 +49,7 @@ const libraryCategories = [
     items: [
       { label: "Libro Diario", href: "#", kpi: "Asientos al día", icon: FileText, color: "text-blue-600" },
       { label: "Libro Mayor", href: "#", kpi: "Saldos revisados", icon: BookOpen, color: "text-blue-600" },
-      { label: "Libro de Balance", href: "/reportes-maestros", kpi: "Cierre mensual", icon: Scale, color: "text-emerald-600" },
+      { label: "Libro de Balance", href: "/reports", kpi: "Cierre mensual", icon: Scale, color: "text-emerald-600" },
     ]
   },
   {
@@ -60,7 +60,7 @@ const libraryCategories = [
       { label: "Retenciones IVA", href: "/contabilidad/impuestos/retenciones", kpi: "15 registradas", icon: HandCoins, color: "text-emerald-600" },
       { label: "Retenciones ISLR", href: "/islr-arc", kpi: "Pendiente AR-C", icon: Banknote, color: "text-amber-600" },
       { label: "Libro de IVA", href: "/declaracion-iva", kpi: "Débito vs Crédito", icon: Calculator, color: "text-blue-600" },
-      { label: "Libro de ISLR", href: "#", kpi: "Estimada 2026", icon: Landmark, color: "text-blue-600" },
+      { label: "Libro de ISLR", href: "/islr-arc", kpi: "Estimada 2026", icon: Landmark, color: "text-blue-600" },
       { label: "Libro de IGTF", href: "#", kpi: "Operaciones 3%", icon: Coins, color: "text-rose-600" },
       { label: "Timbres Fiscales", href: "#", kpi: "Saldo: Ok", icon: Stamp, color: "text-slate-600" },
       { label: "Homologación", href: "/contabilidad/impuestos/homologacion", kpi: "Equipos: Ok", icon: CheckCircle, color: "text-emerald-600" },
@@ -74,8 +74,8 @@ const libraryCategories = [
       { label: "Conciliación", href: "/analisis-caja", kpi: "Conciliado hoy", icon: Activity, color: "text-emerald-600" },
       { label: "Cheques Emitidos", href: "#", kpi: "Último: #456", icon: FileText, color: "text-slate-600" },
       { label: "Depósitos", href: "#", kpi: "Recibidos hoy", icon: Wallet, color: "text-emerald-600" },
-      { label: "Anticipos Prov.", href: "#", kpi: "2 pendientes", icon: HandCoins, color: "text-rose-600" },
-      { label: "Anticipos Cli.", href: "#", kpi: "Saldo favor", icon: Coins, color: "text-emerald-600" },
+      { label: "Anticipos Prov.", href: "/cuentas-por-pagar", kpi: "2 pendientes", icon: HandCoins, color: "text-rose-600" },
+      { label: "Anticipos Cli.", href: "/cuentas-por-cobrar", kpi: "Saldo favor", icon: Coins, color: "text-emerald-600" },
     ]
   },
   {
@@ -87,8 +87,8 @@ const libraryCategories = [
       { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", kpi: "17h este mes", icon: Timer, color: "text-amber-600" },
       { label: "Libro Vacaciones", href: "#", kpi: "3 disfrutando", icon: Plane, color: "text-blue-600" },
       { label: "Libro Utilidades", href: "#", kpi: "Proyectadas", icon: Zap, color: "text-yellow-600" },
-      { label: "Prestaciones", href: "/rrhh/liquidaciones", kpi: "Fondo acumulado", icon: Scale, color: "text-emerald-600" },
-      { label: "Aportes Paraf.", href: "#", kpi: "IVSS/FAOV", icon: Landmark, color: "text-blue-600" },
+      { label: "Prestaciones", href: "/prestaciones-sociales", kpi: "Fondo acumulado", icon: Scale, color: "text-emerald-600" },
+      { label: "Aportes Paraf.", href: "/tramites-fiscales", icon: Landmark, kpi: "IVSS/FAOV", color: "text-blue-600" },
       { label: "Asistencia", href: "#", kpi: "Turno Mañana", icon: Clock, color: "text-slate-600" },
     ]
   },
@@ -97,20 +97,20 @@ const libraryCategories = [
     icon: Box,
     items: [
       { label: "Inventario Activo", href: "/contabilidad/libros/inventario", kpi: "45 SKUs", icon: Box, color: "text-blue-600" },
-      { label: "Activos Fijos", href: "/legal/permisos-y-licencias", kpi: "Propiedades", icon: Building2, color: "text-slate-600" },
-      { label: "Depreciación", href: "#", kpi: "Método lineal", icon: TrendingUp, color: "text-rose-600" },
-      { label: "Inv. Valorado", href: "#", kpi: "Kardex FIFO", icon: Calculator, color: "text-emerald-600" },
-      { label: "Ajustes RIPF", href: "/contabilidad/ajuste-inflacion", kpi: "Inflación BCV", icon: Activity, color: "text-amber-600" },
+      { label: "Activos Fijos", href: "/activos-inmobiliarios", kpi: "Propiedades", icon: Building2, color: "text-slate-600" },
+      { label: "Depreciación", href: "/reports", kpi: "Método lineal", icon: TrendingUp, color: "text-rose-600" },
+      { label: "Inv. Valorado", href: "/contabilidad/libros/inventario", kpi: "Kardex FIFO", icon: Calculator, color: "text-emerald-600" },
+      { label: "Ajustes RIPF", href: "/ajuste-por-inflacion", kpi: "Inflación BCV", icon: Activity, color: "text-amber-600" },
     ]
   },
   {
     title: "Legales y Corporativos",
     icon: Gavel,
     items: [
-      { label: "Actas Asamblea", href: "/legal/acta-asamblea", kpi: "Última: Feb 26", icon: FileText, color: "text-blue-600" },
-      { label: "Libro Accionistas", href: "/legal/poderes-holding", kpi: "Registro Civil", icon: Users, color: "text-blue-600" },
-      { label: "Libro de Poderes", href: "/legal/poderes-holding", kpi: "SAREN Verificado", icon: ShieldCheck, color: "text-emerald-600" },
-      { label: "Libro Contratos", href: "/legal/contratos", kpi: "12 Vigentes", icon: FileSearch, color: "text-blue-600" },
+      { label: "Actas Asamblea", href: "/acta-asamblea", kpi: "Última: Feb 26", icon: FileText, color: "text-blue-600" },
+      { label: "Libro Accionistas", href: "/poderes-representacion", kpi: "Registro Civil", icon: Users, color: "text-blue-600" },
+      { label: "Libro de Poderes", href: "/poderes-representacion", kpi: "SAREN Verificado", icon: ShieldCheck, color: "text-emerald-600" },
+      { label: "Libro Contratos", href: "/contratos", kpi: "12 Vigentes", icon: FileSearch, color: "text-blue-600" },
       { label: "Control Licores", href: "/contabilidad/libros/control-licores", kpi: "Alícuotas OK", icon: Landmark, color: "text-amber-600" },
     ]
   },
@@ -118,10 +118,10 @@ const libraryCategories = [
     title: "Análisis y Reportes",
     icon: BarChart3,
     items: [
-      { label: "Flujo Proyectado", href: "/contabilidad/analisis-caja", kpi: "12 meses", icon: Activity, color: "text-emerald-600" },
-      { label: "Rentabilidad", href: "/contabilidad/analisis-rentabilidad", kpi: "Margen: 32%", icon: TrendingUp, color: "text-primary" },
-      { label: "Análisis Costos", href: "/contabilidad/estructura-costos", kpi: "Eficiencia", icon: PieChart, color: "text-blue-600" },
-      { label: "Rep. Gerenciales", href: "/reportes-maestros", kpi: "Dossier Global", icon: LayoutDashboard, color: "text-slate-600" },
+      { label: "Flujo Proyectado", href: "/analisis-caja", kpi: "12 meses", icon: Activity, color: "text-emerald-600" },
+      { label: "Rentabilidad", href: "/analisis-rentabilidad", kpi: "Margen: 32%", icon: TrendingUp, color: "text-primary" },
+      { label: "Análisis Costos", href: "/estructura-costos", kpi: "Eficiencia", icon: PieChart, color: "text-blue-600" },
+      { label: "Rep. Gerenciales", href: "/reports", kpi: "Dossier Global", icon: LayoutDashboard, color: "text-slate-600" },
     ]
   }
 ];
@@ -147,7 +147,7 @@ export default function TodosLosLibrosPage() {
           <Button variant="ghost" asChild className="p-0 h-auto text-[#0A2472] dark:text-primary hover:bg-transparent mb-4">
             <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al Centro Contable</Link>
           </Button>
-          <h1 className="text-3xl md:text-5xl font-black text-[#0A2472] dark:text-foreground uppercase tracking-tighter flex items-center gap-4 italic">
+          <h1 className="text-3xl md:text-5xl font-black text-[#0A2472] dark:text-foreground uppercase tracking-tighter flex items-center gap-4 italic leading-none">
             <Book className="h-10 w-10 text-[#00A86B]" />
             Biblioteca de Libros Contables
           </h1>
@@ -188,7 +188,7 @@ export default function TodosLosLibrosPage() {
                         <item.icon className="h-12 w-12" />
                     </div>
                     <div className="flex items-center gap-5">
-                      <div className="p-4 bg-muted rounded-2xl group-hover:bg-white transition-colors border border-transparent group-hover:border-slate-100">
+                      <div className="p-4 bg-muted rounded-2xl group-hover:bg-white transition-colors border border-transparent group-hover:border-slate-100 shadow-inner">
                         <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                       </div>
                       <div>
@@ -209,8 +209,8 @@ export default function TodosLosLibrosPage() {
         ))}
       </div>
 
-      <footer className="pt-20 pb-10 text-center opacity-20">
-        <p className="text-[10px] font-black uppercase tracking-[1em] text-slate-900 dark:text-foreground italic">SYSTEM KYRON • LIBRARY NODE • 2026</p>
+      <footer className="pt-20 pb-10 text-center opacity-20 border-t border-border">
+        <p className="text-[10px] font-black uppercase tracking-[1em] text-foreground italic">SYSTEM KYRON • LIBRARY NODE • 2026</p>
       </footer>
     </div>
   );
