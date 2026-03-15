@@ -1,22 +1,17 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
     Calculator, 
     Wallet, 
-    Globe, 
     TrendingUp, 
+    TrendingDown, 
     ShieldCheck, 
     Terminal, 
-    Bot, 
-    Settings2, 
-    Sparkles, 
     Activity, 
     ArrowUpRight, 
     ArrowDownRight, 
-    Fingerprint, 
-    Loader2, 
     CheckCircle,
     Lock,
     Zap,
@@ -26,9 +21,20 @@ import {
     FileText,
     Landmark,
     Banknote,
-    History
+    History,
+    Receipt,
+    BookOpen,
+    Scale,
+    AlertTriangle,
+    PieChart,
+    Target,
+    LayoutDashboard,
+    Clock,
+    Search,
+    Database,
+    Coins,
+    Box
 } from "lucide-react";
-import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
@@ -36,245 +42,329 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, cn } from "@/lib/utils";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { StatsCards } from "@/components/dashboard/stats-cards";
-import { OverviewChart } from "@/components/dashboard/overview-chart";
+import { 
+    AreaChart, 
+    Area, 
+    XAxis, 
+    YAxis, 
+    CartesianGrid, 
+    Tooltip, 
+    ResponsiveContainer,
+    Legend
+} from "recharts";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useToast } from "@/hooks/use-toast";
+
+const financialData = [
+  { month: "Ene", ingresos: 45000, gastos: 32000 },
+  { month: "Feb", ingresos: 52000, gastos: 35000 },
+  { month: "Mar", ingresos: 48000, gastos: 38000 },
+  { month: "Abr", ingresos: 61000, gastos: 41000 },
+  { month: "May", ingresos: 55000, gastos: 39000 },
+  { month: "Jun", ingresos: 72000, gastos: 45000 },
+];
+
+const chartConfig = {
+  ingresos: { label: "Ingresos", color: "#00A86B" },
+  gastos: { label: "Gastos", color: "#0A2472" },
+};
+
+const moduleGroups = [
+  {
+    title: "Libros Fiscales",
+    icon: BookOpen,
+    items: [
+      { label: "Libro de Compras", href: "/libro-compra-venta", kpi: "10 facturas mes", icon: Receipt },
+      { label: "Libro de Ventas", href: "/libro-compra-venta", kpi: "15 facturas", icon: FileText },
+      { label: "Libro de Nómina", href: "/nominas", kpi: "23 empleados", icon: Users },
+      { label: "Inventario", href: "/inventario", kpi: "4 SKUs críticos", icon: Box },
+    ]
+  },
+  {
+    title: "Impuestos y Tasas",
+    icon: Landmark,
+    items: [
+      { label: "Declaración IVA", href: "/declaracion-iva", kpi: "Vence: 15/04", icon: Calculator },
+      { label: "ISLR AR-C", href: "/islr-arc", kpi: "Por declarar", icon: Banknote },
+      { label: "IGTF (3%)", href: "/gaceta-6952", kpi: "Tasa Activa", icon: Coins },
+      { label: "Timbres Fiscales", href: "/permisos", kpi: "UT Actualizada", icon: Scale },
+    ]
+  },
+  {
+    title: "Cuentas y Bancos",
+    icon: Wallet,
+    items: [
+      { label: "Cuentas x Cobrar", href: "/cuentas-por-cobrar", kpi: "Bs. 45.678", icon: ArrowUpRight },
+      { label: "Cuentas x Pagar", href: "/cuentas-por-pagar", kpi: "Bs. 23.456", icon: ArrowDownRight },
+      { label: "Conciliación", href: "/analisis-caja", kpi: "Hoy 08:00", icon: CheckCircle },
+      { label: "Billetera Cambio", href: "/billetera-cambio", kpi: "USD/EUR/VES", icon: Globe },
+    ]
+  },
+  {
+    title: "Análisis y BI",
+    icon: BarChart3,
+    items: [
+      { label: "Análisis Ventas", href: "/analisis-ventas", kpi: "+20% vs mes ant.", icon: TrendingUp },
+      { label: "Flujo de Caja", href: "/analisis-caja", kpi: "Solvencia: 2.4", icon: Activity },
+      { label: "Riesgo Fiscal", href: "/analisis-riesgo", kpi: "Nivel: Bajo", icon: ShieldAlert },
+      { label: "Estructura Costos", href: "/estructura-costos", kpi: "Margen: 32%", icon: PieChart },
+    ]
+  },
+  {
+    title: "Ajustes y Tesorería",
+    icon: Settings2,
+    items: [
+      { label: "Ajuste Inflación", href: "/ajuste-por-inflacion", kpi: "Ult: 01/03", icon: Zap },
+      { label: "Arqueo de Caja", href: "/arqueo-caja", kpi: "Último: Hoy", icon: ClipboardCheck },
+      { label: "Transacciones", href: "/transactions", kpi: "45 hoy", icon: History },
+      { label: "Reportes Pro", href: "/reports", kpi: "Dossier Listo", icon: FileText },
+    ]
+  }
+];
+
+// Helper Icon for Arqueo (Lucide sometimes misses it in specific contexts)
+const ClipboardCheck = (props: any) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
+);
 
 export default function ContabilidadPage() {
   const { toast } = useToast();
-  const [isPaying, setIsPaying] = useState(false);
-  const [payStep, setPayStep] = useState(1);
+  const [mounted, setMounted] = useState(false);
 
-  const handleSimulatePayment = () => {
-    setIsPaying(true);
-    setPayStep(1);
-    setTimeout(() => setPayStep(2), 1500); 
-    setTimeout(() => {
-        setPayStep(3);
-        toast({
-            title: "PAGO PROCESADO",
-            description: "La transacción ha sido sellada en el registro contable inmutable.",
-            action: <CheckCircle className="text-primary h-4 w-4" />
-        });
-    }, 3500);
-  };
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const contabilidadModules = adminNavGroups.find(g => g.title === "Contabilidad")?.items || [];
+  if (!mounted) return null;
 
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10">
-      {/* 1. HEADER ESTRATÉGICO */}
+      {/* 1. HEADER HUD */}
       <motion.header 
-        className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-6 md:pl-8 py-2 mt-10"
+        className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-[#0A2472] pl-6 md:pl-8 py-2 mt-10"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
       >
         <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#0A2472]/10 border border-[#0A2472]/20 text-[9px] font-black uppercase tracking-[0.4em] text-[#0A2472] shadow-glow mb-4">
                 <Calculator className="h-3 w-3" /> NODO CONTABLE v2.6
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Inteligencia <span className="text-primary italic">Financiera</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Arquitectura VEN-NIF & IFRS • Gestión Global</p>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">CONTABILIDAD <span className="text-[#0A2472] italic">SYSTEM KYRON</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Gestión Financiera Integral • Arquitectura VEN-NIF</p>
         </div>
-        <div className="flex gap-3">
-            <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-primary/20 bg-primary/5 text-primary hover:bg-primary/10">
-                <Link href="/billetera-cambio">
-                    <Wallet className="mr-2 h-4 w-4" /> EXCHANGE
-                </Link>
+        <div className="flex gap-3 no-print">
+            <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-[#0A2472]/20 bg-[#0A2472]/5 text-[#0A2472]">
+                AUDITORÍA IA
             </Button>
-            <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                AUDITORÍA MAESTRA
+            <Button className="btn-3d-primary h-12 px-8 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl bg-[#0A2472]">
+                CERRAR PERIODO
             </Button>
         </div>
       </motion.header>
 
-      <div className="space-y-10">
-        {/* 2. KPIs DE LIQUIDEZ */}
-        <StatsCards />
+      {/* 2. KPIs PRINCIPALES */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { label: "SALDO DE CAJA", value: "Bs. 123.456,00", trend: "+5.2%", icon: Wallet, color: "text-emerald-500" },
+          { label: "CUENTAS X COBRAR", value: "Bs. 45.678,50", trend: "-2.1%", icon: ArrowUpRight, color: "text-blue-500" },
+          { label: "CUENTAS X PAGAR", value: "Bs. 23.456,20", trend: "+1.8%", icon: ArrowDownRight, color: "text-rose-500" },
+          { label: "IVA POR DECLARAR", value: "Bs. 5.678,00", sub: "Vence: 15/04", icon: Landmark, color: "text-amber-500" },
+        ].map((kpi, i) => (
+          <Card key={i} className="glass-card border-none bg-card/40 p-2 rounded-2xl shadow-xl hover:bg-card/60 transition-all">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 p-6">
+              <CardTitle className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">{kpi.label}</CardTitle>
+              <div className="p-2.5 rounded-xl bg-muted/50 border border-border">
+                <kpi.icon className={cn("h-4 w-4", kpi.color)} />
+              </div>
+            </CardHeader>
+            <CardContent className="p-6 pt-0">
+              <div className="text-xl font-black italic tracking-tighter text-foreground">{kpi.value}</div>
+              <p className={cn("text-[9px] font-black uppercase mt-2", kpi.color)}>{kpi.trend || kpi.sub}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
-        {/* 3. NÚCLEO OPERATIVO ORGANIZADO */}
-        <div className="grid lg:grid-cols-12 gap-8">
-            
-            {/* AGENTE FISCAL - BLOQUE IZQUIERDO */}
-            <Card className="lg:col-span-7 glass-card border-primary/20 overflow-hidden relative group shadow-2xl">
-                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-all duration-1000">
-                    <Bot className="h-48 w-48 text-primary" />
+      {/* 3. GRÁFICO Y ALERTAS */}
+      <div className="grid lg:grid-cols-12 gap-8">
+        <Card className="lg:col-span-8 glass-card border-none rounded-[2.5rem] bg-card/40 overflow-hidden shadow-2xl">
+          <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
+            <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                    <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472] italic">Evolución de Ingresos y Gastos</CardTitle>
+                    <CardDescription className="text-[9px] font-bold uppercase opacity-30 tracking-widest">Análisis semestral consolidado</CardDescription>
                 </div>
-                <CardHeader className="p-10 border-b border-border/50 bg-primary/5">
-                    <div className="flex items-center justify-between">
-                        <div className="space-y-1">
-                            <CardTitle className="text-2xl font-black uppercase italic tracking-tighter flex items-center gap-4 text-foreground">
-                                <Sparkles className="h-6 w-6 text-primary animate-pulse" />
-                                Agente Fiscal Autónomo
-                            </CardTitle>
-                            <CardDescription className="text-[10px] font-bold uppercase tracking-widest opacity-60">Supervisión Predictiva de Cumplimiento</CardDescription>
-                        </div>
-                        <Badge className="bg-emerald-500/20 text-emerald-500 border-none text-[8px] font-black uppercase tracking-widest h-6 px-4">Activo 24/7</Badge>
-                    </div>
-                </CardHeader>
-                <CardContent className="p-10">
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {[
-                            { title: "Prórroga IVA", desc: "Auditada", status: "Ok" },
-                            { title: "Libros Fiscales", desc: "Sincronizados", status: "Ok" },
-                            { title: "ISLR ARI/ARC", desc: "Validado", status: "Ok" },
-                        ].map((item, i) => (
-                            <div key={i} className="p-6 bg-white/[0.02] border border-border/50 rounded-2xl shadow-inner group/item hover:border-primary/30 transition-all">
-                                <div className="flex justify-between items-start mb-4">
-                                    <ShieldCheck className="h-5 w-5 text-emerald-500" />
-                                    <span className="text-[8px] font-black text-emerald-500 bg-emerald-500/10 px-2 rounded-md">{item.status}</span>
-                                </div>
-                                <p className="text-[10px] font-black uppercase tracking-widest text-foreground/80">{item.title}</p>
-                                <p className="text-[9px] font-bold text-muted-foreground/40 uppercase mt-1">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="mt-10 p-8 rounded-3xl bg-black/40 border border-white/5 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-4"><Terminal className="h-4 w-4 text-primary/20" /></div>
-                        <p className="text-sm font-bold italic text-white/60 leading-relaxed uppercase tracking-widest">
-                            "Protocolo preventivo: Se recomienda revisar la base imponible del periodo actual. El INPC proyectado sugiere un reajuste de activos no monetarios del 12.4%."
-                        </p>
-                    </div>
-                </CardContent>
-            </Card>
+                <Activity className="h-5 w-5 text-[#0A2472] animate-pulse" />
+            </div>
+          </CardHeader>
+          <CardContent className="p-10 h-[350px]">
+            <ChartContainer config={chartConfig} className="w-full h-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={financialData}>
+                  <defs>
+                    <linearGradient id="colorIngresos" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#00A86B" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#00A86B" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="colorGastos" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#0A2472" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#0A2472" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
+                  <XAxis dataKey="month" axisLine={false} tickLine={false} stroke="#475569" fontSize={10} fontWeights="900" />
+                  <YAxis axisLine={false} tickLine={false} stroke="#475569" fontSize={10} fontWeights="900" tickFormatter={(val) => `${val / 1000}k`} />
+                  <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
+                  <Area type="monotone" dataKey="ingresos" stroke="#00A86B" strokeWidth={4} fillOpacity={1} fill="url(#colorIngresos)" />
+                  <Area type="monotone" dataKey="gastos" stroke="#0A2472" strokeWidth={4} fillOpacity={1} fill="url(#colorGastos)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </CardContent>
+        </Card>
 
-            {/* TESORERÍA MULTIMONEDA - BLOQUE DERECHO */}
-            <Card className="lg:col-span-5 glass-card border-none p-10 rounded-[3rem] bg-card/40 relative overflow-hidden group shadow-2xl">
-                <div className="absolute top-0 right-0 p-8 opacity-5"><Wallet className="h-32 w-32" /></div>
-                <CardHeader className="p-0 mb-10">
-                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3">
-                        <Lock className="h-3 w-3" /> Caja Digital Certificada
+        <div className="lg:col-span-4 space-y-8">
+            <Card className="glass-card border-none p-8 rounded-[2.5rem] bg-card/40 shadow-xl">
+                <CardHeader className="p-0 mb-6">
+                    <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] text-rose-500 flex items-center gap-3">
+                        <ShieldAlert className="h-4 w-4" /> Alertas Críticas
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="p-0 space-y-8">
-                    <div className="space-y-6">
-                        <div className="flex justify-between items-end border-b border-border/50 pb-4">
-                            <span className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇻🇪 Bolívares (VES)</span>
-                            <span className="text-3xl font-black italic text-foreground tracking-tighter">Bs. 45.678,90</span>
+                <CardContent className="p-0 space-y-4">
+                    {[
+                        { text: "IVA Julio 2024 vence en 5 días", color: "text-amber-600", bg: "bg-amber-500/10" },
+                        { text: "ISLR por declarar (31/03)", color: "text-amber-600", bg: "bg-amber-500/10" },
+                        { text: "3 facturas vencidas (Bs. 12.500)", color: "text-rose-600", bg: "bg-rose-500/10" },
+                        { text: "Última conciliación: Hoy 08:00", color: "text-emerald-600", bg: "bg-emerald-500/10" },
+                    ].map((alert, i) => (
+                        <div key={i} className={cn("p-4 rounded-xl border border-transparent flex items-center gap-4 group hover:scale-[1.02] transition-all", alert.bg)}>
+                            <div className={cn("h-1.5 w-1.5 rounded-full shrink-0 animate-pulse", alert.color.replace('text-', 'bg-'))} />
+                            <p className={cn("text-[10px] font-black uppercase tracking-widest", alert.color)}>{alert.text}</p>
                         </div>
-                        <div className="flex justify-between items-end border-b border-border/50 pb-4">
-                            <span className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇺🇸 Dólares (USD)</span>
-                            <span className="text-3xl font-black italic text-primary tracking-tighter">$ 12.345,67</span>
-                        </div>
-                        <div className="flex justify-between items-end">
-                            <span className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇪🇺 Euros (EUR)</span>
-                            <span className="text-3xl font-black italic text-foreground/80 tracking-tighter">€ 890,12</span>
-                        </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4 pt-4">
-                        <Button className="h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest">
-                            <ArrowDownRight className="mr-2 h-4 w-4" /> INYECTAR
-                        </Button>
-                        <Button variant="outline" className="h-14 rounded-2xl border-border bg-card/5 text-foreground font-black uppercase text-[10px] tracking-widest hover:bg-card/80 shadow-xl" onClick={() => setIsPaying(true)}>
-                            <ArrowUpRight className="mr-2 h-4 w-4" /> DISPERSAR
-                        </Button>
-                    </div>
+                    ))}
                 </CardContent>
             </Card>
-        </div>
 
-        {/* 4. ANÁLISIS Y ACCESO DIRECTO */}
-        <div className="grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-8">
-                <OverviewChart />
-            </div>
-            
-            {/* MÓDULOS DE CONTROL - BLOQUE ORGANIZADO */}
-            <div className="lg:col-span-4 space-y-8">
-                <Card className="glass-card border-none p-8 rounded-[2.5rem] bg-white/[0.02] shadow-2xl">
-                    <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Módulos de Control</CardTitle>
-                    </CardHeader>
-                    <div className="grid grid-cols-1 gap-3">
-                        {contabilidadModules.map((item) => (
-                            <Button
-                                key={item.href}
-                                asChild
-                                variant="ghost"
-                                className="justify-between h-12 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-primary/10 hover:text-primary transition-all group"
-                            >
-                                <Link href={item.href as any}>
-                                    <div className="flex items-center gap-4">
-                                        <item.icon className="h-4 w-4 opacity-30 group-hover:opacity-100 transition-opacity" />
-                                        <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
-                                    </div>
-                                    <ChevronRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                                </Link>
-                            </Button>
-                        ))}
-                    </div>
-                </Card>
-
-                <Card className="bg-primary text-primary-foreground rounded-[2.5rem] p-10 relative overflow-hidden shadow-glow border-none group">
-                    <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all duration-1000"><Zap className="h-32 w-32" /></div>
-                    <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Zero-Risk Active</h3>
-                    <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8">Sincronización total con el portal fiscal. Blindaje contra sanciones del SENIAT.</p>
-                    <Button variant="secondary" asChild className="w-full h-12 bg-white text-primary font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">
-                        <Link href="/zero-risk">ESTADO DE BLINDAJE</Link>
-                    </Button>
-                </Card>
-            </div>
+            <Card className="bg-[#0A2472] text-white rounded-[2.5rem] p-8 relative overflow-hidden shadow-glow border-none group">
+                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-24 w-24" /></div>
+                <h3 className="text-xl font-black uppercase italic tracking-tighter mb-4">Zero-Risk Fiscal</h3>
+                <p className="text-[10px] font-bold opacity-80 leading-relaxed uppercase mb-8">Auditoría preventiva 24/7 sincronizada con el portal del SENIAT.</p>
+                <Button variant="secondary" asChild className="w-full h-12 bg-white text-[#0A2472] font-black uppercase text-[10px] tracking-widest rounded-xl shadow-2xl">
+                    <Link href="/zero-risk">ESTADO DE BLINDAJE</Link>
+                </Button>
+            </Card>
         </div>
       </div>
 
-      {/* 5. DIÁLOGO DE DISPERSIÓN BIOMÉTRICA */}
-      <Dialog open={isPaying} onOpenChange={(val) => { setIsPaying(val); if(!val) setPayStep(1); }}>
-        <DialogContent className="rounded-[3rem] bg-card/95 backdrop-blur-3xl border-border p-10">
-            <DialogHeader>
-                <DialogTitle className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Autorización Maestro</DialogTitle>
-            </DialogHeader>
-            <div className="py-8">
-                {payStep === 1 && (
-                    <div className="space-y-8 animate-in fade-in">
-                        <div className="space-y-3">
-                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Beneficiario del Pago</Label>
-                            <Input placeholder="Nombre o RIF Destino" className="h-12 rounded-xl bg-white/5 border-border font-bold text-sm uppercase" />
-                        </div>
-                        <div className="space-y-3">
-                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Monto a Liquidar</Label>
-                            <div className="relative">
-                                <Input type="number" placeholder="0.00" className="h-16 rounded-2xl bg-white/5 border-border pl-14 text-2xl font-black italic text-primary" />
-                                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl font-black text-primary/40">$</span>
-                            </div>
-                        </div>
-                        <Button className="w-full h-16 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-glow" onClick={handleSimulatePayment}>AUTORIZAR TRANSACCIÓN</Button>
-                    </div>
-                )}
-                {payStep === 2 && (
-                    <div className="py-12 flex flex-col items-center justify-center space-y-8">
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full animate-pulse" />
-                            <div className="p-10 rounded-[3rem] border-2 border-primary bg-primary/10 relative z-10">
-                                <Fingerprint className="h-20 w-20 text-primary" />
-                            </div>
-                        </div>
-                        <div className="text-center space-y-3">
-                            <p className="text-lg font-black uppercase italic text-foreground tracking-tight">Escaneo de Identidad</p>
-                            <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground/40 uppercase tracking-[0.3em]">
-                                <Loader2 className="h-4 w-4 animate-spin" /> Verificando Firma...
-                            </div>
-                        </div>
-                    </div>
-                )}
-                {payStep === 3 && (
-                    <div className="py-12 text-center space-y-8 animate-in fade-in">
-                        <div className="p-8 bg-emerald-500/10 rounded-full w-fit mx-auto border-2 border-emerald-500/30 shadow-glow-secondary">
-                            <CheckCircle className="h-20 w-20 text-emerald-500" />
-                        </div>
-                        <div className="space-y-2">
-                            <h3 className="text-3xl font-black uppercase italic tracking-tighter text-foreground">Dispersión Exitosa</h3>
-                            <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-[0.4em]">REGISTRADO EN LEDGER INMUTABLE</p>
-                        </div>
-                        <Button variant="outline" className="w-full h-14 rounded-xl border-border text-[9px] font-black uppercase tracking-widest" onClick={() => setIsPaying(false)}>FINALIZAR PROTOCOLO</Button>
-                    </div>
-                )}
+      {/* 4. MATRIZ DE MÓDULOS (TARJETAS NATIVAS) */}
+      <section className="space-y-16">
+        {moduleGroups.map((group) => (
+          <div key={group.title} className="space-y-8">
+            <div className="flex items-center gap-6">
+                <div className="p-3 bg-[#0A2472]/10 rounded-2xl border border-[#0A2472]/20">
+                    <group.icon className="h-6 w-6 text-[#0A2472]" />
+                </div>
+                <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground italic-shadow">{group.title}</h3>
+                <div className="h-px flex-1 bg-border/50"></div>
             </div>
-        </DialogContent>
-      </Dialog>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {group.items.map((item) => (
+                <Link key={item.label} href={item.href as any}>
+                  <Card className="glass-card border-none bg-card/40 p-8 hover:bg-card/80 transition-all group h-full flex flex-col justify-between border-transparent hover:border-[#0A2472]/30 shadow-xl rounded-[2rem]">
+                    <div className="space-y-6">
+                        <div className="p-3 bg-[#0A2472]/5 rounded-xl w-fit group-hover:scale-110 group-hover:bg-[#0A2472]/10 transition-all shadow-inner border border-[#0A2472]/5">
+                        <item.icon className="h-5 w-5 text-[#0A2472]" />
+                        </div>
+                        <div>
+                            <h4 className="text-[11px] font-black uppercase tracking-tight text-foreground/80 group-hover:text-[#0A2472] transition-colors leading-none mb-2">{item.label}</h4>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase opacity-40 italic tracking-widest">{item.kpi}</p>
+                        </div>
+                    </div>
+                    <div className="flex justify-end pt-6">
+                        <ChevronRight className="h-4 w-4 text-muted-foreground/20 group-hover:text-[#0A2472] group-hover:translate-x-1 transition-all" />
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* 5. RESUMEN DE LIBROS Y MOVIMIENTOS */}
+      <div className="grid gap-10 lg:grid-cols-12">
+        <Card className="lg:col-span-7 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
+          <CardHeader className="p-10 border-b border-border/50 bg-muted/10 flex flex-row justify-between items-center">
+            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-[#0A2472] italic">Movimientos Recientes</CardTitle>
+            <Button variant="ghost" asChild className="text-[9px] font-black uppercase text-[#0A2472] tracking-widest hover:bg-[#0A2472]/10">
+                <Link href="/transactions">VER LIBRO DIARIO <ArrowRight className="ml-3 h-4 w-4" /></Link>
+            </Button>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/30 border-none">
+                  <TableHead className="pl-10 py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Fecha</TableHead>
+                  <TableHead className="py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Descripción</TableHead>
+                  <TableHead className="py-6 text-[9px] font-black uppercase tracking-widest opacity-30 text-center">Estado</TableHead>
+                  <TableHead className="text-right pr-10 py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {[
+                    { date: "15 MAR", desc: "Pago proveedor OficinaTech", amount: -5000, status: "Pagado" },
+                    { date: "14 MAR", desc: "Factura INV-005 Epsilon", amount: 12000, status: "Pendiente" },
+                    { date: "13 MAR", desc: "Recibo Nómina Q1", amount: -23000, status: "Procesado" },
+                    { date: "12 MAR", desc: "Pago Móvil Venta TPV", amount: 1500, status: "Liquidado" },
+                ].map((inv, i) => (
+                  <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all group">
+                    <TableCell className="pl-10 py-6 text-[9px] font-black text-muted-foreground uppercase">{inv.date}</TableCell>
+                    <TableCell className="py-6 font-bold text-xs text-foreground/80 uppercase group-hover:text-[#0A2472]">{inv.desc}</TableCell>
+                    <TableCell className="py-6 text-center">
+                        <Badge variant="outline" className="text-[8px] font-black uppercase tracking-widest">{inv.status}</Badge>
+                    </TableCell>
+                    <TableCell className={cn(
+                        "text-right pr-10 py-6 font-mono text-sm font-black italic",
+                        inv.amount > 0 ? "text-emerald-600" : "text-rose-600"
+                    )}>
+                        {formatCurrency(inv.amount, 'Bs.')}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        <Card className="lg:col-span-5 glass-card border-none rounded-[3rem] bg-white/[0.02] p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform duration-1000"><Database className="h-32 w-32" /></div>
+            <div className="relative z-10">
+                <h3 className="text-xl font-black uppercase italic tracking-tighter text-[#0A2472] mb-10 flex items-center gap-4">
+                    <Terminal className="h-5 w-5" /> Resumen de Libros (Mes)
+                </h3>
+                <div className="space-y-8">
+                    {[
+                        { label: "Libro de Compras", stats: "10 facturas · Bs. 45.000", color: "bg-blue-500" },
+                        { label: "Libro de Ventas", stats: "15 facturas · Bs. 78.000", color: "bg-emerald-500" },
+                        { label: "Libro de Nómina", stats: "23 empleados · Bs. 56.000", color: "bg-purple-500" },
+                    ].map((book, i) => (
+                        <div key={i} className="space-y-2">
+                            <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-foreground/60">
+                                <span>{book.label}</span>
+                                <span className="text-foreground">{book.stats}</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                                <div className={cn("h-full opacity-60", book.color)} style={{ width: `${40 + (i * 20)}%` }} />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="pt-10 border-t border-border/50 mt-10 text-center">
+                <p className="text-[8px] font-black text-muted-foreground/40 uppercase tracking-[0.5em] italic">Kyron Ledger Node • March 2026</p>
+            </div>
+        </Card>
+      </div>
     </div>
   );
 }
