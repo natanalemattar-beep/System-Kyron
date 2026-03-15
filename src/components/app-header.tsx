@@ -16,18 +16,11 @@ import { Logo } from "./logo";
 import { 
     LogOut, 
     ShieldCheck, 
-    Bell,
     Signal,
     Calculator,
     FileText,
-    Wallet,
-    Landmark,
-    Cpu,
     LayoutDashboard,
-    Gavel,
-    Users,
-    Recycle,
-    Smartphone
+    Cpu
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -48,17 +41,11 @@ export function AppHeader({ user }: AppHeaderProps) {
 
   if (!mounted) return null;
 
+  // Barra superior simplificada a los 3 pilares maestros
   const mainNavLinks = [
     { label: "MANDO", href: "/dashboard-empresa", icon: LayoutDashboard },
     { label: "CONTABILIDAD", href: "/contabilidad", icon: Calculator },
     { label: "FACTURACIÓN", href: "/facturacion", icon: FileText },
-    { label: "BILLETERA", href: "/billetera-cambio", icon: Wallet },
-    { label: "FISCAL", href: "/tramites-fiscales", icon: Landmark },
-    { label: "LEGAL", href: "/escritorio-juridico", icon: Gavel },
-    { label: "TALENTO", href: "/dashboard-rrhh", icon: Users },
-    { label: "INGENIERÍA", href: "/dashboard-informatica", icon: Cpu },
-    { label: "RED", href: "/dashboard-telecom", icon: Signal },
-    { label: "AMBIENTE", href: "/sostenibilidad", icon: Recycle },
   ];
 
   return (
@@ -71,12 +58,12 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
                 <div className="flex flex-col -mt-1 hidden xl:flex">
                     <span className="text-xs font-black tracking-[0.3em] uppercase text-white italic leading-none">System Kyron</span>
-                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Centro Maestro Administrativo</p>
+                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Sistema Maestro Administrativo</p>
                 </div>
             </Link>
           </div>
 
-          <nav className="hidden lg:flex items-center justify-center gap-1 xl:gap-2 flex-1 overflow-x-auto no-scrollbar scroll-smooth">
+          <nav className="hidden lg:flex items-center justify-center gap-2 flex-1">
             {mainNavLinks.map((btn) => {
                 const isActive = pathname.includes(btn.href);
                 return (
@@ -85,14 +72,14 @@ export function AppHeader({ user }: AppHeaderProps) {
                         asChild 
                         variant="ghost" 
                         className={cn(
-                            "h-10 px-3 xl:px-4 rounded-xl text-[8px] font-black uppercase tracking-[0.15em] transition-all gap-2 border border-transparent whitespace-nowrap",
+                            "h-10 px-6 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-3 border border-transparent whitespace-nowrap",
                             isActive 
                                 ? "bg-primary/10 text-primary border-primary/20 shadow-glow-sm" 
                                 : "text-white/40 hover:text-white hover:bg-white/5"
                         )}
                     >
                         <Link href={btn.href as any}>
-                            <btn.icon className={cn("h-3.5 w-3.5", isActive ? "text-primary animate-pulse" : "opacity-40")} />
+                            <btn.icon className={cn("h-4 w-4", isActive ? "text-primary animate-pulse" : "opacity-40")} />
                             {btn.label}
                         </Link>
                     </Button>
@@ -103,7 +90,7 @@ export function AppHeader({ user }: AppHeaderProps) {
           <div className="flex items-center justify-end gap-3 min-w-fit">
             <div className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-xl bg-white/5 border border-white/5">
                 <div className="flex flex-col items-end">
-                    <span className="text-[6px] font-black uppercase text-white/20 tracking-widest leading-none">Network 5G</span>
+                    <span className="text-[6px] font-black uppercase text-white/20 tracking-widest leading-none">Red 5G</span>
                     <span className="text-[9px] font-mono font-bold text-emerald-500 italic leading-none mt-1">14 MS</span>
                 </div>
                 <Signal className="h-3.5 w-3.5 text-emerald-500 animate-pulse" />
