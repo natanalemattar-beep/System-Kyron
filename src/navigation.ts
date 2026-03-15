@@ -68,6 +68,10 @@ export const pathnames = {
   '/manutencion': '/pago-manutencion',
   '/registro-rif': '/registro-rif-familia',
   '/sostenibilidad': '/sostenibilidad',
+  '/ajuste-por-inflacion': '/ajuste-inflacion',
+  '/analisis-caja': '/analisis-caja',
+  '/cuentas-por-pagar': '/cuentas-pagar',
+  '/analisis-rentabilidad': '/rentabilidad-pro',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({

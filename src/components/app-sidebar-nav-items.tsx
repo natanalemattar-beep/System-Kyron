@@ -35,7 +35,10 @@ import {
   Wand2,
   Activity,
   Leaf,
-  Wallet
+  Wallet,
+  Landmark,
+  BarChart3,
+  Scale
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -78,8 +81,24 @@ export const adminNavGroups = [
   { 
     title: "Administración", 
     icon: LayoutDashboard, 
-    items: [{ href: "/resumen-negocio", label: "Estado del Negocio", icon: LayoutDashboard }], 
+    items: [
+        { href: "/resumen-negocio", label: "Resumen General", icon: LayoutDashboard },
+        { href: "/analisis-rentabilidad", label: "Rentabilidad", icon: TrendingUp },
+    ], 
     subGroups: [] 
+  },
+  {
+    title: "Contabilidad",
+    icon: Calculator,
+    items: [
+        { href: "/contabilidad", label: "Centro Contable", icon: Calculator },
+        { href: "/libro-compra-venta", label: "Libros Fiscales", icon: Landmark },
+        { href: "/declaracion-iva", label: "Declaración IVA", icon: FileText },
+        { href: "/islr-arc", label: "Comprobantes AR-C", icon: Banknote },
+        { href: "/ajuste-por-inflacion", label: "Ajuste RIPF", icon: Activity },
+        { href: "/analisis-caja", label: "Flujo de Caja", icon: Wallet },
+    ],
+    subGroups: []
   },
   { 
     title: "Ventas", 
@@ -88,6 +107,7 @@ export const adminNavGroups = [
         { href: "/facturacion", label: "Facturación", icon: FileText },
         { href: "/punto-de-venta", label: "Punto de Venta", icon: TabletSmartphone },
         { href: "/proformas", label: "Cotizaciones", icon: Receipt },
+        { href: "/facturacion-credito", label: "Ventas Crédito", icon: CreditCard },
     ],
     subGroups: []
   },
@@ -95,7 +115,7 @@ export const adminNavGroups = [
     title: "Sostenibilidad",
     icon: Recycle,
     items: [
-        { href: "/sostenibilidad", label: "Dashboard Verde", icon: Activity },
+        { href: "/sostenibilidad", label: "Dashboard Verde", icon: Leaf },
         { href: "/mercado-ecocreditos", label: "Eco-Exchange", icon: Coins },
     ],
     subGroups: []
