@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -20,7 +21,15 @@ import {
     Calculator,
     FileText,
     LayoutDashboard,
-    Cpu
+    Cpu,
+    ChevronDown,
+    BookOpen,
+    Landmark,
+    Activity,
+    Wallet,
+    Gavel,
+    Users,
+    PieChart
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -41,11 +50,69 @@ export function AppHeader({ user }: AppHeaderProps) {
 
   if (!mounted) return null;
 
-  // Barra superior simplificada a los 3 pilares maestros
-  const mainNavLinks = [
-    { label: "MANDO", href: "/dashboard-empresa", icon: LayoutDashboard },
-    { label: "CONTABILIDAD", href: "/contabilidad", icon: Calculator },
-    { label: "FACTURACIÓN", href: "/facturacion", icon: FileText },
+  const navigation = [
+    { 
+        label: "MANDO", 
+        href: "/dashboard-empresa", 
+        icon: LayoutDashboard,
+        type: 'link'
+    },
+    { 
+        label: "CONTABILIDAD", 
+        icon: BookOpen,
+        type: 'menu',
+        items: [
+            { label: "Área Contable", href: "/contabilidad", icon: Calculator },
+            { label: "Libro Compra/Venta", href: "/libro-compra-venta", icon: FileText },
+            { label: "Libro Nómina", href: "/nominas", icon: Users },
+            { label: "Libro Inventario", href: "/inventario", icon: Box },
+            { label: "Libro de Licores", href: "/libro-licores", icon: Landmark },
+        ]
+    },
+    { 
+        label: "FISCAL", 
+        icon: Landmark,
+        type: 'menu',
+        items: [
+            { label: "Declaración IVA", href: "/declaracion-iva", icon: FileText },
+            { label: "ISLR y AR-C", href: "/islr-arc", icon: Banknote },
+            { label: "IGTF y Exoneraciones", href: "/gaceta-6952", icon: ShieldCheck },
+            { label: "Timbres Fiscales", href: "/permisos", icon: Stamp },
+        ]
+    },
+    { 
+        label: "OPERACIONES", 
+        icon: Activity,
+        type: 'menu',
+        items: [
+            { label: "Punto de Venta", href: "/punto-de-venta", icon: Smartphone },
+            { label: "Cuentas por Cobrar", href: "/cuentas-por-cobrar", icon: TrendingUp },
+            { label: "Cuentas por Pagar", href: "/cuentas-por-pagar", icon: HandCoins },
+            { label: "Billetera Multimoneda", href: "/billetera-cambio", icon: Wallet },
+        ]
+    },
+    { 
+        label: "ESTRATEGIA", 
+        icon: PieChart,
+        type: 'menu',
+        items: [
+            { label: "Análisis de Ventas", href: "/analisis-ventas", icon: BarChart3 },
+            { label: "Riesgo y Rentabilidad", href: "/analisis-riesgo", icon: ShieldAlert },
+            { label: "Factibilidad Económica", href: "/estudio-factibilidad-economica", icon: TrendingUp },
+            { label: "Estructura de Costos", href: "/estructura-costos", icon: Calculator },
+        ]
+    },
+    { 
+        label: "LEGAL", 
+        icon: Gavel,
+        type: 'menu',
+        items: [
+            { label: "Escritorio Jurídico", href: "/escritorio-juridico", icon: Gavel },
+            { label: "Archivo de Contratos", href: "/contratos", icon: FileSignature },
+            { label: "Permisos y Licencias", href: "/permisos", icon: UserCheck },
+            { label: "Recursos Fiscales", href: "/recursos-fiscales", icon: Scale },
+        ]
+    }
   ];
 
   return (
@@ -63,28 +130,48 @@ export function AppHeader({ user }: AppHeaderProps) {
             </Link>
           </div>
 
-          <nav className="hidden lg:flex items-center justify-center gap-2 flex-1">
-            {mainNavLinks.map((btn) => {
-                const isActive = pathname.includes(btn.href);
-                return (
+          <nav className="hidden lg:flex items-center justify-center gap-1 flex-1">
+            {navigation.map((nav) => (
+                nav.type === 'link' ? (
                     <Button 
-                        key={btn.href}
+                        key={nav.href}
                         asChild 
                         variant="ghost" 
                         className={cn(
-                            "h-10 px-6 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-3 border border-transparent whitespace-nowrap",
-                            isActive 
-                                ? "bg-primary/10 text-primary border-primary/20 shadow-glow-sm" 
-                                : "text-white/40 hover:text-white hover:bg-white/5"
+                            "h-10 px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-2 border border-transparent whitespace-nowrap",
+                            pathname.includes(nav.href!) ? "bg-primary/10 text-primary border-primary/20" : "text-white/40 hover:text-white hover:bg-white/5"
                         )}
                     >
-                        <Link href={btn.href as any}>
-                            <btn.icon className={cn("h-4 w-4", isActive ? "text-primary animate-pulse" : "opacity-40")} />
-                            {btn.label}
+                        <Link href={nav.href as any}>
+                            <nav.icon className="h-3.5 w-3.5" />
+                            {nav.label}
                         </Link>
                     </Button>
+                ) : (
+                    <DropdownMenu key={nav.label}>
+                        <DropdownMenuTrigger asChild>
+                            <Button 
+                                variant="ghost" 
+                                className="h-10 px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-2 text-white/40 hover:text-white hover:bg-white/5 whitespace-nowrap"
+                            >
+                                <nav.icon className="h-3.5 w-3.5" />
+                                {nav.label}
+                                <ChevronDown className="h-3 w-3 opacity-20" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-64 p-2 rounded-[1.5rem] border-white/10 bg-black/95 backdrop-blur-3xl shadow-2xl">
+                            {nav.items?.map((item) => (
+                                <DropdownMenuItem key={item.href} asChild className="rounded-xl">
+                                    <Link href={item.href as any} className="flex items-center py-3 px-4 text-[9px] font-black uppercase tracking-widest gap-4 group">
+                                        <item.icon className="h-4 w-4 text-primary/40 group-hover:text-primary transition-colors" />
+                                        <span>{item.label}</span>
+                                    </Link>
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 )
-            })}
+            ))}
           </nav>
 
           <div className="flex items-center justify-end gap-3 min-w-fit">
@@ -146,3 +233,14 @@ export function AppHeader({ user }: AppHeaderProps) {
     </header>
   );
 }
+
+// Icon placeholders used in navigation
+function Box(props: any) { return <Cpu {...props} /> }
+function Banknote(props: any) { return <Calculator {...props} /> }
+function Stamp(props: any) { return <Activity {...props} /> }
+function TrendingUp(props: any) { return <Activity {...props} /> }
+function HandCoins(props: any) { return <Wallet {...props} /> }
+function BarChart3(props: any) { return <PieChart {...props} /> }
+function ShieldAlert(props: any) { return <ShieldCheck {...props} /> }
+function FileSignature(props: any) { return <FileText {...props} /> }
+function UserCheck(props: any) { return <Users {...props} /> }

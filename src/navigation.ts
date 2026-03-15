@@ -7,7 +7,7 @@ export const localePrefix = 'always';
 
 /**
  * @fileOverview Mapa de Navegación del Ecosistema Kyron.
- * Organizado por Áreas Lógicas.
+ * Organizado por Áreas Lógicas para una navegación de alta fidelidad.
  */
 export const pathnames = {
   '/': '/',
@@ -27,6 +27,7 @@ export const pathnames = {
   '/analisis-riesgo': '/finanzas/analisis-riesgo',
   '/billetera-cambio': '/finanzas/billetera-cambio',
   '/estudio-factibilidad-economica': '/finanzas/factibilidad-economica',
+  '/libro-licores': '/finanzas/libro-licores',
   
   // VENTAS Y FACTURACIÓN
   '/facturacion': '/ventas/facturacion',
