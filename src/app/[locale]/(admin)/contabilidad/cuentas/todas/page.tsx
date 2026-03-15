@@ -23,7 +23,8 @@ import {
   ArrowUpRight,
   Wallet,
   Clock,
-  ExternalLink
+  ExternalLink,
+  ChevronRight
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -36,10 +37,10 @@ const libraryCategories = [
     title: "Cuentas Bancarias",
     icon: Landmark,
     items: [
-      { label: "Libro de Bancos", icon: Building2, kpi: "4 cuentas", color: "text-blue-600", href: "#" },
+      { label: "Libro de Bancos", icon: Building2, kpi: "4 cuentas", color: "text-blue-600", href: "/analisis-caja" },
       { label: "Conciliación Bancaria", icon: Activity, kpi: "Al día", color: "text-emerald-600", href: "/analisis-caja" },
       { label: "Cheques Emitidos", icon: FileText, kpi: "Registro: Ok", color: "text-slate-600", href: "#" },
-      { label: "Depósitos", icon: Wallet, kpi: "Sincronizado", color: "text-emerald-600", href: "#" },
+      { label: "Depósitos", icon: Wallet, kpi: "Sincronizado", color: "text-emerald-600", href: "/analisis-caja" },
       { label: "Transferencias", icon: ExternalLink, kpi: "T+0", color: "text-blue-600", href: "#" },
     ]
   },
@@ -102,43 +103,49 @@ export default function TodasLasCuentasPage() {
       </div>
 
       <div className="space-y-16">
-        {libraryCategories.map((category, idx) => (
-          <div key={idx} className="space-y-8">
-            <div className="flex items-center gap-4 ml-2">
-              <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
-                <category.icon className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-lg font-black uppercase tracking-[0.4em] text-foreground italic">{category.title}</h3>
-              <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
-            </div>
+        {libraryCategories.map((category, idx) => {
+          const filteredItems = category.items.filter(item => 
+            item.label.toLowerCase().includes(search.toLowerCase())
+          );
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {category.items
-                .filter(item => item.label.toLowerCase().includes(search.toLowerCase()))
-                .map((item, i) => (
-                <Link key={i} href={item.href as any} onClick={(e) => handleItemClick(e, item)} className="block">
-                  <Card className="border-none bg-card hover:bg-muted/20 transition-all rounded-3xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform"><item.icon className="h-12 w-12" /></div>
-                    <div className="flex items-center gap-5">
-                      <div className="p-4 bg-muted rounded-2xl group-hover:bg-card transition-colors border border-transparent group-hover:border-border shadow-inner">
-                        <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
+          if (filteredItems.length === 0) return null;
+
+          return (
+            <div key={idx} className="space-y-8">
+              <div className="flex items-center gap-4 ml-2">
+                <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
+                  <category.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-black uppercase tracking-[0.4em] text-foreground italic">{category.title}</h3>
+                <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filteredItems.map((item, i) => (
+                  <Link key={i} href={item.href as any} onClick={(e) => handleItemClick(e, item)} className="block group">
+                    <Card className="glass-card border-none bg-card hover:bg-muted/20 transition-all rounded-[2rem] p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform"><item.icon className="h-12 w-12" /></div>
+                      <div className="flex items-center gap-5">
+                        <div className="p-4 bg-muted rounded-2xl group-hover:bg-white transition-colors border border-transparent group-hover:border-border shadow-inner">
+                          <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
+                        </div>
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors leading-tight">{item.label}</p>
+                          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5">{item.kpi}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors leading-tight">{item.label}</p>
-                        <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5">{item.kpi}</p>
+                      <div className="flex justify-end mt-4">
+                        <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                          <ChevronRight className="h-4 w-4" />
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex justify-end mt-4">
-                      <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-                        <ArrowUpRight className="h-4 w-4" />
-                      </div>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
+                    </Card>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
