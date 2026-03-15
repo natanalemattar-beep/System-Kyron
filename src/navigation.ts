@@ -1,3 +1,4 @@
+
 import {createLocalizedPathnamesNavigation} from 'next-intl/navigation';
 
 export const locales = ['en', 'es'] as const;
@@ -30,6 +31,7 @@ export const pathnames = {
   '/libro-licores': '/contabilidad/libro-licores',
 
   // LIBROS CONTABLES
+  '/contabilidad/libros': '/contabilidad/libros',
   '/contabilidad/libros/compra-venta': '/contabilidad/libros/compra-venta',
   '/contabilidad/libros/nomina': '/contabilidad/libros/nomina',
   '/contabilidad/libros/inventario': '/contabilidad/libros/inventario',
