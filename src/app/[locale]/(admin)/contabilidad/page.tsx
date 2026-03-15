@@ -7,50 +7,43 @@ import { RecentInvoices } from "@/components/dashboard/recent-invoices";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
 import { QuickAccess } from "@/components/dashboard/quick-access";
 import { 
-    BookOpen, 
-    Scale, 
-    ArrowRight, 
+    Calculator, 
+    Wallet, 
+    Globe, 
+    TrendingUp, 
     ShieldCheck, 
     Terminal, 
-    Calculator, 
-    Landmark,
-    Coins,
-    TrendingUp,
-    Zap,
-    Activity,
-    Wallet,
-    ArrowUpRight,
-    ArrowDownRight,
-    Lock,
-    Fingerprint,
-    Loader2,
+    Bot, 
+    Settings2, 
+    Sparkles, 
+    Activity, 
+    ArrowUpRight, 
+    ArrowDownRight, 
+    Fingerprint, 
+    Loader2, 
     CheckCircle,
-    FileText,
-    Banknote,
-    Bot,
-    Settings2,
-    Sparkles,
-    ChevronRight
+    Lock,
+    Zap,
+    ChevronRight,
+    ArrowRight
 } from "lucide-react";
 import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatCurrency, cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 export default function ContabilidadPage() {
-  const { toast } = useToast();
   const [isPaying, setIsPaying] = useState(false);
   const [payStep, setPayStep] = useState(1);
-  const contabilidadGroup = adminNavGroups.find(g => g.title === "Contabilidad");
+  const { toast } = (require("@/hooks/use-toast")).useToast();
 
   const handleSimulatePayment = () => {
     setIsPaying(true);
@@ -66,12 +59,7 @@ export default function ContabilidadPage() {
     }, 3500);
   };
 
-  const handleConfigSave = () => {
-    toast({
-      title: "Configuración Actualizada",
-      description: "Los niveles de autonomía del Agente Fiscal han sido guardados.",
-    });
-  };
+  const contabilidadGroup = adminNavGroups.find(g => g.title === "Contabilidad");
 
   return (
     <div className="space-y-12 pb-20 px-4 md:px-10">
@@ -83,19 +71,19 @@ export default function ContabilidadPage() {
       >
         <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
-                <Calculator className="h-3 w-3" /> ÁREA CONTABLE
+                <Calculator className="h-3 w-3" /> NODO CONTABLE MAESTRO
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Centro <span className="text-primary italic">Financiero</span></h1>
-            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Arquitectura VEN-NIF • Gestión de Liquidez 2026</p>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Inteligencia <span className="text-primary italic">Financiera</span></h1>
+            <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Arquitectura VEN-NIF • Gestión Global 2026</p>
         </div>
         <div className="flex gap-2">
-            <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-secondary/30 bg-secondary/5 text-secondary">
-                <Link href="/mercado-ecocreditos">
-                    <Coins className="mr-2 h-4 w-4" /> ECO-LIQUIDEZ
+            <Button variant="outline" asChild className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 transition-all">
+                <Link href="/billetera-cambio">
+                    <Wallet className="mr-2 h-4 w-4" /> EXCHANGE INTERNO
                 </Link>
             </Button>
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-border bg-card/50 text-foreground hover:bg-card">
-                Sincronizar BCV
+                SINCRONIZAR BCV
             </Button>
         </div>
       </motion.header>
@@ -103,242 +91,85 @@ export default function ContabilidadPage() {
       <div className="space-y-10">
         <StatsCards />
 
-        {/* Módulo de Agente Fiscal Autónomo (Rescatado de /app/admin) */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Card className="glass-card border-primary/20 overflow-hidden relative group shadow-2xl">
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-all duration-1000">
-              <Sparkles className="h-32 w-32 text-primary" />
-            </div>
-            <CardHeader className="p-8 md:p-10 border-b border-border/50 bg-primary/5">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div className="space-y-2">
-                  <CardTitle className="flex items-center gap-3 text-2xl font-black uppercase italic tracking-tighter">
-                    <Bot className="h-8 w-8 text-primary" />
-                    Agente Fiscal Autónomo (Beta)
-                  </CardTitle>
-                  <CardDescription className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary/60">
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Estado: Activo • Supervisando transacciones en tiempo real
-                  </CardDescription>
-                </div>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="outline" size="sm" className="rounded-xl border-primary/20 text-primary h-10 px-6 font-black uppercase text-[10px] tracking-widest">
-                      <Settings2 className="mr-2 h-4 w-4" />
-                      Configurar Autonomía
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px] rounded-[2.5rem] bg-card/95 backdrop-blur-3xl border-border p-10">
-                    <DialogHeader>
-                      <DialogTitle className="text-xl font-black uppercase italic tracking-tighter">Protocolo de Autonomía</DialogTitle>
-                      <DialogDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40 italic">
-                        Define el nivel de intervención de la IA en tus balances.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="py-8">
-                      <RadioGroup defaultValue="consult" className="space-y-4">
-                        {[
-                          { id: "r1", val: "auto", title: "Acción Directa", desc: "Permitir ajustes menores a $1,000 sin consultar." },
-                          { id: "r2", val: "consult", title: "Supervisión Manual", desc: "El agente sugiere cambios pero espera aprobación." },
-                          { id: "r3", val: "off", title: "Modo Pasivo", desc: "Se detendrá todo el aprendizaje autónomo.", danger: true },
-                        ].map((opt) => (
-                          <div key={opt.id} className="flex items-center space-x-4 border border-border p-5 rounded-2xl hover:bg-primary/5 transition-all cursor-pointer group">
-                            <RadioGroupItem value={opt.val} id={opt.id} className="border-primary/40 text-primary" />
-                            <Label htmlFor={opt.id} className="cursor-pointer flex-1">
-                              <p className={cn("font-black uppercase text-[10px] tracking-widest", opt.danger ? "text-rose-500" : "text-foreground/80")}>{opt.title}</p>
-                              <p className="text-[9px] text-muted-foreground font-medium mt-1 leading-snug">{opt.desc}</p>
-                            </Label>
-                          </div>
-                        ))}
-                      </RadioGroup>
-                    </div>
-                    <DialogFooter>
-                      <Button onClick={handleConfigSave} className="w-full h-12 rounded-xl btn-3d-primary font-black uppercase text-[10px]">Guardar Configuración</Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            </CardHeader>
-            <CardContent className="p-8 md:p-10">
-              <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  { title: "Prórroga IVA", desc: "Vencimiento Hoy • Aprobada", icon: CheckCircle },
-                  { title: "Detección Duplicados", desc: "Factura #F123 Depurada", icon: CheckCircle },
-                  { title: "Optimización ISLR", desc: "Ahorro Estimado: $450.00", icon: CheckCircle },
-                ].map((action, i) => (
-                  <div key={i} className="flex items-center gap-4 p-5 bg-white/[0.02] rounded-2xl border border-white/5 hover:border-primary/20 transition-all shadow-inner">
-                    <action.icon className="h-6 w-6 text-emerald-500 shrink-0" />
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-foreground/80">{action.title}</p>
-                      <p className="text-[9px] text-muted-foreground font-bold uppercase mt-1">{action.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
+        {/* Billetera Digital y Operaciones Internacionales */}
         <section className="space-y-8">
             <div className="flex items-center gap-6">
-                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground/40 italic">Tesorería y Caja Digital</h2>
+                <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground/40 italic">Tesorería y Flujo Internacional</h2>
                 <div className="h-[1px] flex-1 bg-border/50"></div>
             </div>
 
             <div className="grid lg:grid-cols-12 gap-8">
-                {/* Saldos Multimoneda */}
+                {/* Billetera Multimoneda */}
                 <Card className="lg:col-span-5 glass-card border-none p-10 rounded-[3rem] bg-card/40 relative overflow-hidden group shadow-2xl">
-                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><Wallet className="h-32 w-32" /></div>
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform"><Wallet className="h-32 w-32 text-primary" /></div>
                     <CardHeader className="p-0 mb-10">
-                        <CardTitle className="text-xs font-black uppercase tracking-[0.4em] text-primary">Saldos Certificados</CardTitle>
+                        <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3">
+                            <Lock className="h-3 w-3" /> Caja Digital Certificada
+                        </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 space-y-8">
-                        <div className="grid grid-cols-1 gap-6">
+                        <div className="space-y-6">
                             <div className="flex justify-between items-end border-b border-border pb-4">
-                                <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇻🇪 Bolívares</span>
+                                <span className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇻🇪 Bolívares (VES)</span>
                                 <span className="text-3xl font-black italic text-foreground tracking-tighter">Bs. 45.678,90</span>
                             </div>
                             <div className="flex justify-between items-end border-b border-border pb-4">
-                                <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇺🇸 Dólares</span>
+                                <span className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇺🇸 Dólares (USD)</span>
                                 <span className="text-3xl font-black italic text-primary tracking-tighter">$ 12.345,67</span>
                             </div>
                             <div className="flex justify-between items-end">
-                                <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇪🇺 Euros</span>
+                                <span className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">🇪🇺 Euros (EUR)</span>
                                 <span className="text-3xl font-black italic text-foreground/80 tracking-tighter">€ 890,12</span>
                             </div>
                         </div>
                         
                         <div className="flex gap-3 pt-4">
-                            <Dialog>
-                                <DialogTrigger asChild>
-                                    <Button className="flex-1 h-12 rounded-xl btn-3d-primary font-black uppercase text-[9px] tracking-widest">
-                                        <ArrowDownRight className="mr-2 h-4 w-4" /> Recibir Fondos
-                                    </Button>
-                                </DialogTrigger>
-                                <DialogContent className="rounded-[2.5rem] bg-card/95 backdrop-blur-3xl border-border p-10">
-                                    <DialogHeader>
-                                        <DialogTitle className="text-xl font-black uppercase italic tracking-tighter">Datos para Inyección</DialogTitle>
-                                        <DialogDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40 italic">Cuentas certificadas Kyron</DialogDescription>
-                                    </DialogHeader>
-                                    <div className="py-6 space-y-6">
-                                        <div className="p-6 rounded-2xl bg-muted/30 border border-border space-y-4">
-                                            <p className="text-[9px] font-black uppercase text-primary tracking-widest">🏦 Banco Nacional (Bs.)</p>
-                                            <div className="text-sm font-mono text-foreground/80 space-y-1 uppercase">
-                                                <p>Kyron, C.A.</p>
-                                                <p>J-12345678-9</p>
-                                                <p>0102-XXXX-XXXX-XXXX-XXXX</p>
-                                            </div>
-                                        </div>
-                                        <div className="p-6 rounded-2xl bg-muted/30 border border-border space-y-4">
-                                            <p className="text-[9px] font-black uppercase text-secondary tracking-widest">🏦 Custodia Digital ($)</p>
-                                            <div className="text-sm font-mono text-foreground/80 space-y-1">
-                                                <p>SWIFT: KYRONVEAA</p>
-                                                <p>ACCT: 9876543210</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <DialogFooter>
-                                        <Button className="w-full h-12 rounded-xl font-black uppercase text-[10px]">Copiar Expediente</Button>
-                                    </DialogFooter>
-                                </DialogContent>
-                            </Dialog>
-
-                            <Dialog open={isPaying} onOpenChange={(val) => { setIsPaying(val); if(!val) setPayStep(1); }}>
-                                <DialogTrigger asChild>
-                                    <Button variant="outline" className="flex-1 h-12 rounded-xl border-border bg-card/5 text-foreground font-black uppercase text-[9px] tracking-widest hover:bg-card/80">
-                                        <ArrowUpRight className="mr-2 h-4 w-4" /> Emitir Pago
-                                    </Button>
-                                </DialogTrigger>
-                                <DialogContent className="rounded-[2.5rem] bg-card/95 backdrop-blur-3xl border-border p-10">
-                                    <DialogHeader>
-                                        <DialogTitle className="text-xl font-black uppercase italic tracking-tighter">Protocolo de Dispersión</DialogTitle>
-                                    </DialogHeader>
-                                    
-                                    <div className="py-6">
-                                        {payStep === 1 && (
-                                            <div className="space-y-6 animate-in fade-in">
-                                                <div className="space-y-2">
-                                                    <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Beneficiario / RIF</Label>
-                                                    <Input placeholder="Nombre o Identificación Fiscal" className="bg-muted/30 border-border rounded-xl h-12 text-xs font-bold uppercase" />
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Monto de Operación</Label>
-                                                    <div className="relative">
-                                                        <Input type="number" placeholder="0.00" className="bg-muted/30 border-border rounded-xl pl-12 h-14 text-lg font-black italic" />
-                                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-black">$</span>
-                                                    </div>
-                                                </div>
-                                                <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-glow" onClick={handleSimulatePayment}>AUTORIZAR TRANSACCIÓN</Button>
-                                            </div>
-                                        )}
-
-                                        {payStep === 2 && (
-                                            <div className="py-12 flex flex-col items-center justify-center space-y-6 animate-in zoom-in-95">
-                                                <div className="relative">
-                                                    <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-pulse" />
-                                                    <div className="p-8 rounded-[2.5rem] border-2 border-primary bg-primary/10 relative z-10">
-                                                        <Fingerprint className="h-16 w-16 text-primary" />
-                                                    </div>
-                                                </div>
-                                                <div className="text-center space-y-2">
-                                                    <p className="text-sm font-black uppercase italic text-foreground">Escaneo Biométrico</p>
-                                                    <p className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-[0.3em] flex items-center gap-2">
-                                                        <Loader2 className="h-3 w-3 animate-spin" /> Validando Firma Digital...
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {payStep === 3 && (
-                                            <div className="py-12 text-center space-y-6 animate-in fade-in">
-                                                <div className="p-6 bg-emerald-500/10 rounded-full w-fit mx-auto border-2 border-emerald-500/30 shadow-glow-secondary">
-                                                    <CheckCircle className="h-16 w-16 text-emerald-500" />
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Sello Exitoso</h3>
-                                                    <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Inyectado en Ledger Inmutable</p>
-                                                </div>
-                                                <Button variant="outline" className="w-full h-12 rounded-xl" onClick={() => setIsPaying(false)}>Finalizar Protocolo</Button>
-                                            </div>
-                                        )}
-                                    </div>
-                                </DialogContent>
-                            </Dialog>
+                            <Button className="flex-1 h-12 rounded-xl btn-3d-primary font-black uppercase text-[9px] tracking-widest">
+                                <ArrowDownRight className="mr-2 h-4 w-4" /> INYECTAR
+                            </Button>
+                            <Button variant="outline" className="flex-1 h-12 rounded-xl border-border bg-card/5 text-foreground font-black uppercase text-[9px] tracking-widest hover:bg-card/80" onClick={() => setIsPaying(true)}>
+                                <ArrowUpRight className="mr-2 h-4 w-4" /> DISPERSAR
+                            </Button>
                         </div>
                     </CardContent>
                 </Card>
 
-                {/* Ledger Detallado */}
+                {/* Ledger Internacional */}
                 <Card className="lg:col-span-7 glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
                     <CardHeader className="p-10 border-b border-border/50 flex flex-row justify-between items-center bg-muted/10">
-                        <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">Ledger Transaccional</CardTitle>
-                        <Button variant="ghost" className="text-[9px] font-black uppercase tracking-widest text-primary">Archivo Maestro <ArrowRight className="ml-2 h-3 w-3"/></Button>
+                        <div className="space-y-1">
+                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Operaciones Globales</CardTitle>
+                            <p className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-widest">Sincronización con pasarelas internacionales</p>
+                        </div>
+                        <div className="flex gap-2">
+                            <Badge variant="outline" className="border-blue-500/20 text-blue-400 bg-blue-500/5 h-6 text-[8px] font-black uppercase">Stripe: Online</Badge>
+                            <Badge variant="outline" className="border-blue-500/20 text-blue-400 bg-blue-500/5 h-6 text-[8px] font-black uppercase">PayPal: Active</Badge>
+                        </div>
                     </CardHeader>
                     <CardContent className="p-0">
                         <Table>
                             <TableHeader>
                                 <TableRow className="bg-muted/30 border-none">
                                     <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Timestamp</TableHead>
-                                    <TableHead className="text-[9px] font-black uppercase tracking-widest opacity-30">Descripción Operativa</TableHead>
+                                    <TableHead className="text-[9px] font-black uppercase tracking-widest opacity-30">Concepto / Referencia</TableHead>
+                                    <TableHead className="text-center py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Canal</TableHead>
                                     <TableHead className="text-right pr-10 text-[9px] font-black uppercase tracking-widest opacity-30">Monto Final</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {[
-                                    { date: "08 MAR", desc: "Liquidación Factura #F123", amount: -450.00, curr: "USD", type: "out" },
-                                    { date: "07 MAR", desc: "Recarga Nodo Kyron 5G", amount: -1200.00, curr: "Bs.", type: "out" },
-                                    { date: "06 MAR", desc: "Inyección Cliente Epsilon", amount: 2300.00, curr: "USD", type: "in" },
-                                    { date: "05 MAR", desc: "Dispersión Nómina Q1", amount: -8500.00, curr: "Bs.", type: "out" },
+                                    { date: "08 MAR", desc: "Venta Licencia Global", amount: 450.00, curr: "USD", type: "in", channel: "Stripe" },
+                                    { date: "07 MAR", desc: "Pago Servidores Cloud", amount: -120.00, curr: "USD", type: "out", channel: "Corporate" },
+                                    { date: "06 MAR", desc: "Honorarios Consultoría", amount: 2300.00, curr: "USD", type: "in", channel: "PayPal" },
                                 ].map((move, i) => (
-                                    <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-colors group">
-                                        <TableCell className="pl-10 py-5 text-[9px] font-black text-muted-foreground/40 uppercase tracking-widest">{move.date}</TableCell>
+                                    <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all group">
+                                        <TableCell className="pl-10 py-5 text-[9px] font-black text-muted-foreground/40 uppercase">{move.date}</TableCell>
                                         <TableCell className="py-5 font-bold text-foreground/80 text-xs uppercase italic flex items-center gap-3">
-                                            <Lock className="h-3 w-3 text-primary/40 group-hover:text-primary transition-colors" />
+                                            <Globe className="h-3 w-3 text-primary/40 group-hover:text-primary transition-colors" />
                                             {move.desc}
+                                        </TableCell>
+                                        <TableCell className="text-center">
+                                            <span className="text-[8px] font-black uppercase px-2 py-1 bg-white/5 rounded-md text-white/40">{move.channel}</span>
                                         </TableCell>
                                         <TableCell className={cn(
                                             "text-right pr-10 py-5 font-mono text-sm font-black italic",
@@ -355,109 +186,138 @@ export default function ContabilidadPage() {
             </div>
         </section>
 
-        <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <div className="grid gap-10 lg:grid-cols-12">
-              <div className="lg:col-span-8">
-                   <OverviewChart />
+        {/* Agente Fiscal y Auditoría Predictiva */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+          <Card className="glass-card border-primary/20 overflow-hidden relative group shadow-2xl">
+            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-all duration-1000">
+              <Sparkles className="h-32 w-32 text-primary" />
+            </div>
+            <CardHeader className="p-10 border-b border-border/50 bg-primary/5">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="space-y-2">
+                  <CardTitle className="flex items-center gap-3 text-2xl font-black uppercase italic tracking-tighter">
+                    <Bot className="h-8 w-8 text-primary" />
+                    Agente Fiscal Autónomo
+                  </CardTitle>
+                  <CardDescription className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary/60">
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Estado: Activo • Monitoreo síncrono del Ledger Inmutable
+                  </CardDescription>
+                </div>
+                <Button variant="outline" className="rounded-xl border-primary/20 text-primary h-10 px-6 font-black uppercase text-[10px] tracking-widest">
+                  <Settings2 className="mr-2 h-4 w-4" /> Configurar Protocolo
+                </Button>
               </div>
-              <div className="lg:col-span-4">
-                   <RecentInvoices />
+            </CardHeader>
+            <CardContent className="p-10">
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  { title: "Prórroga IVA", desc: "Auditada y Verificada", icon: ShieldCheck },
+                  { title: "Integridad Ledger", desc: "0 Discrepancias", icon: ShieldCheck },
+                  { title: "Optimización ISLR", desc: "Base Imponible Sincronizada", icon: ShieldCheck },
+                ].map((action, i) => (
+                  <div key={i} className="flex items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-white/5 hover:border-primary/20 transition-all shadow-inner">
+                    <action.icon className="h-6 w-6 text-emerald-500 shrink-0" />
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-foreground/80">{action.title}</p>
+                      <p className="text-[9px] text-muted-foreground font-bold uppercase mt-1">{action.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-          </div>
+            </CardContent>
+          </Card>
         </motion.div>
 
-        <motion.div
-          className="space-y-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        <div className="grid gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+                <OverviewChart />
+            </div>
+            <div className="lg:col-span-4">
+                <RecentInvoices />
+            </div>
+        </div>
+
+        {/* Áreas de Gestión Directa */}
+        <section className="space-y-8">
             <div className="flex items-center gap-6">
-                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground/40">Protocolos de Control Fiscal</h2>
+                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground/40 italic">Módulos de Control Maestro</h2>
                 <div className="h-[1px] flex-1 bg-border/50"></div>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {contabilidadGroup?.items.map((item) => (
+                    <Card key={item.href} className="glass-card border-none bg-card/40 p-1 rounded-[2rem] hover:bg-card/60 transition-all group overflow-hidden shadow-xl">
+                        <Link href={item.href as any} className="p-8 flex flex-col justify-between h-full min-h-[180px]">
+                            <div className="space-y-4">
+                                <div className="p-3 bg-primary/10 rounded-xl w-fit group-hover:scale-110 transition-transform border border-primary/20">
+                                    <item.icon className="h-5 w-5 text-primary" />
+                                </div>
+                                <h3 className="text-sm font-black uppercase italic tracking-tighter text-foreground group-hover:text-primary transition-colors">{item.label}</h3>
+                            </div>
+                            <div className="flex justify-between items-center mt-6">
+                                <span className="text-[8px] font-bold text-muted-foreground/40 uppercase tracking-widest">Protocolo Activo</span>
+                                <ChevronRight className="h-4 w-4 text-muted-foreground/20 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                            </div>
+                        </Link>
+                    </Card>
+                ))}
+            </div>
+        </section>
+      </div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
-                <Card className="glass-card border-none p-10 rounded-[3rem] bg-card/40 lg:col-span-2 shadow-xl border-l-4 border-emerald-500">
-                    <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
-                            <ShieldCheck className="h-6 w-6 text-emerald-500" /> Auditoría Predictiva SENIAT
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0 space-y-8">
-                        <p className="text-lg font-bold italic text-muted-foreground/60 leading-relaxed text-justify">
-                            El sistema procesa los registros contables garantizando la integridad total bajo la Providencia 0071. El Supervisor IA monitorea desviaciones en el IGTF y el Ajuste por Inflación, sugiriendo correcciones antes del cierre fiscal.
-                        </p>
-                        <div className="p-10 rounded-[2.5rem] bg-muted/30 border border-border shadow-inner">
-                            <h4 className="text-[10px] font-black uppercase tracking-[0.6em] text-primary mb-8 flex items-center gap-3">
-                                <Terminal className="h-4 w-4" /> Checklist de Cierre Fiscal
-                            </h4>
-                            <div className="text-sm font-bold italic text-muted-foreground/70 leading-relaxed text-justify space-y-4">
-                                <div className="flex gap-6 items-start">
-                                    <span className="font-black text-xs text-primary">[1]</span>
-                                    <span>Consolidación de Libros de Compra y Venta (Bs/USD).</span>
-                                </div>
-                                <div className="flex gap-6 items-start">
-                                    <span className="font-black text-xs text-primary">[2]</span>
-                                    <span>Validación de retenciones ISLR aplicadas a proveedores.</span>
-                                </div>
-                                <div className="flex gap-6 items-start">
-                                    <span className="font-black text-xs text-primary">[3]</span>
-                                    <span>Ejecución del Reajuste RIPF basado en INPC del mes.</span>
-                                </div>
-                                <div className="flex gap-6 items-start">
-                                    <span className="font-black text-xs text-primary">[4]</span>
-                                    <span>Generación de archivos .txt para el portal SENIAT.</span>
-                                </div>
+      <Dialog open={isPaying} onOpenChange={(val) => { setIsPaying(val); if(!val) setPayStep(1); }}>
+        <DialogContent className="rounded-[2.5rem] bg-card/95 backdrop-blur-3xl border-border p-10">
+            <DialogHeader>
+                <DialogTitle className="text-xl font-black uppercase italic tracking-tighter">Autorización de Dispersión</DialogTitle>
+            </DialogHeader>
+            <div className="py-6">
+                {payStep === 1 && (
+                    <div className="space-y-6 animate-in fade-in">
+                        <div className="space-y-2">
+                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Beneficiario Certificado</Label>
+                            <Input placeholder="Nombre o RIF de la Empresa" className="bg-muted/30 border-border rounded-xl h-12 text-xs font-bold uppercase" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 ml-1">Monto de Operación</Label>
+                            <div className="relative">
+                                <Input type="number" placeholder="0.00" className="bg-muted/30 border-border rounded-xl pl-12 h-14 text-lg font-black italic" />
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-black">$</span>
                             </div>
                         </div>
-                    </CardContent>
-                    <CardFooter className="p-0 pt-10 border-t border-border mt-10 flex justify-between items-center">
-                        <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-widest text-muted-foreground/40">
-                            <Activity className="h-4 w-4 text-emerald-500" /> ESTATUS: CERO RIESGO FISCAL
+                        <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-glow" onClick={handleSimulatePayment}>AUTORIZAR TRANSACCIÓN</Button>
+                    </div>
+                )}
+                {payStep === 2 && (
+                    <div className="py-12 flex flex-col items-center justify-center space-y-6">
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-pulse" />
+                            <div className="p-8 rounded-[2.5rem] border-2 border-primary bg-primary/10 relative z-10">
+                                <Fingerprint className="h-16 w-16 text-primary" />
+                            </div>
                         </div>
-                        <Badge variant="outline" className="border-emerald-500/20 text-emerald-500 text-[8px] font-black px-4 py-1.5 rounded-lg shadow-glow-secondary uppercase tracking-widest">Verificado</Badge>
-                    </CardFooter>
-                </Card>
-
-                <div className="space-y-8">
-                    <Card className="glass-card border-none bg-primary text-primary-foreground rounded-[2.5rem] p-10 relative overflow-hidden group shadow-2xl">
-                        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-all duration-1000">
-                            <Banknote className="h-32 w-32" />
-                        </div>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 flex items-center gap-3 relative z-10">
-                            <Scale className="h-6 w-6" /> Gaceta 6.952
-                        </h3>
-                        <p className="text-sm font-bold opacity-80 leading-relaxed mb-8 relative z-10 uppercase tracking-wide">
-                            Consulte el impacto de los nuevos decretos en sus exoneraciones de IVA y reformas arancelarias.
-                        </p>
-                        <Button asChild className="w-full h-12 text-[9px] font-black bg-white text-primary hover:bg-white/90 rounded-xl uppercase tracking-widest relative z-10 shadow-2xl">
-                            <Link href="/gaceta-6952" className="flex items-center justify-center">CONSULTAR IA <ArrowRight className="ml-2 h-4 w-4"/></Link>
-                        </Button>
-                    </Card>
-
-                    <div className="space-y-4">
-                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic pl-4">Herramientas del Área</h3>
-                        <div className="grid grid-cols-1 gap-2">
-                            {contabilidadGroup?.items.slice(1).map((item) => (
-                                <Button key={item.href} asChild variant="ghost" className="justify-between h-12 px-6 rounded-2xl border border-border bg-card/40 hover:bg-primary/5 hover:border-primary/30 transition-all group">
-                                    <Link href={item.href as any} className="flex items-center gap-4">
-                                        <item.icon className="h-4 w-4 text-primary/40 group-hover:text-primary" />
-                                        <span className="text-[9px] font-black uppercase tracking-widest text-foreground/70 group-hover:text-foreground">{item.label}</span>
-                                    </Link>
-                                    <ChevronRight className="h-3 w-3 text-muted-foreground/30 group-hover:text-primary" />
-                                </Button>
-                            ))}
+                        <div className="text-center space-y-2">
+                            <p className="text-sm font-black uppercase italic text-foreground">Escaneo Biométrico</p>
+                            <p className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-[0.3em] flex items-center gap-2">
+                                <Loader2 className="h-3 w-3 animate-spin" /> Validando Firma Digital...
+                            </p>
                         </div>
                     </div>
-                </div>
+                )}
+                {payStep === 3 && (
+                    <div className="py-12 text-center space-y-6 animate-in fade-in">
+                        <div className="p-6 bg-emerald-500/10 rounded-full w-fit mx-auto border-2 border-emerald-500/30 shadow-glow-secondary">
+                            <CheckCircle className="h-16 w-16 text-emerald-500" />
+                        </div>
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-black uppercase italic tracking-tighter text-foreground">Sello Exitoso</h3>
+                            <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Inyectado en Ledger Inmutable</p>
+                        </div>
+                        <Button variant="outline" className="w-full h-12 rounded-xl" onClick={() => setIsPaying(false)}>Finalizar Protocolo</Button>
+                    </div>
+                )}
             </div>
-        </motion.div>
-      </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

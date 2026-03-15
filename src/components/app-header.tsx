@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -21,7 +22,6 @@ import { Logo } from "./logo";
 import { 
     LogOut, 
     ShieldCheck, 
-    ChevronDown,
     Bell,
     Signal,
     Activity,
@@ -30,33 +30,18 @@ import {
     FileText,
     Wallet,
     Landmark,
-    Settings,
     Globe,
-    Zap
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
-import { Badge } from "./ui/badge";
-
-interface NavItem {
-    href: string;
-    label: string;
-    icon: React.ElementType;
-}
-
-interface NavGroup {
-    title: string;
-    icon: React.ElementType;
-    items: NavItem[];
-}
 
 interface AppHeaderProps {
     user: any;
     dashboardHref: string;
-    navGroups?: NavGroup[];
+    navGroups?: any[];
 }
 
-export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
+export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
@@ -66,12 +51,11 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
 
   if (!mounted) return null;
 
-  // Botones Nativos de Contabilidad Moderna
   const nativeButtons = [
     { label: "Resumen", href: "/resumen-negocio", icon: LayoutDashboard },
     { label: "Contabilidad", href: "/contabilidad", icon: Calculator },
     { label: "Facturación", href: "/facturacion", icon: FileText },
-    { label: "Tesorería", href: "/analisis-caja", icon: Wallet },
+    { label: "Billetera", href: "/billetera-cambio", icon: Wallet },
     { label: "Fiscal", href: "/tramites-fiscales", icon: Landmark },
   ];
 
@@ -80,7 +64,6 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
       <div className="w-full px-6 md:px-10">
         <div className="flex items-center justify-between w-full gap-4">
           
-          {/* BRAND (LEFT) */}
           <div className="flex items-center gap-6 min-w-fit">
             <Link href="/" className="flex items-center gap-4 group shrink-0">
                 <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
@@ -91,7 +74,6 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
             </Link>
           </div>
 
-          {/* NATIVE BUTTONS (CENTER) - SUSTITUYE AL INPUT DE BÚSQUEDA */}
           <nav className="hidden lg:flex items-center justify-center gap-2 flex-1 max-w-4xl">
             {nativeButtons.map((btn) => {
                 const isActive = pathname.includes(btn.href);
@@ -116,7 +98,6 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
             })}
           </nav>
 
-          {/* TELEMETRY & USER (RIGHT) */}
           <div className="flex items-center justify-end gap-4 min-w-fit">
             <div className="hidden md:flex items-center gap-4 px-5 py-2 rounded-xl bg-foreground/5 border border-border/50">
                 <div className="flex flex-col items-end">
@@ -183,7 +164,7 @@ export function AppHeader({ user, navGroups, dashboardHref }: AppHeaderProps) {
                 </DropdownMenuItem>
 
                 <DropdownMenuItem asChild className="rounded-xl">
-                    <Link href="/seguridad" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-widest gap-4">
+                    <Link href="/ajustes-seguridad" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-widest gap-4">
                         <ShieldCheck className="h-4 w-4 text-primary/40" />
                         <span>Seguridad Nodo</span>
                     </Link>
