@@ -54,7 +54,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
   if (!mounted) return null;
 
   const nativeButtons = [
-    { label: "Mando", href: "/resumen-negocio", icon: Cpu },
+    { label: "Mando", href: "/dashboard-empresa", icon: Cpu },
     { label: "Contabilidad", href: "/contabilidad", icon: Calculator },
     { label: "Facturación", href: "/facturacion", icon: FileText },
     { label: "Billetera", href: "/billetera-cambio", icon: Wallet },
@@ -68,7 +68,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
           
           <div className="flex items-center gap-6 min-w-fit">
             <Link href="/" className="flex items-center gap-4 group shrink-0">
-                <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" />
+                <Logo className="h-10 w-10 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
                 <div className="flex flex-col -mt-1 hidden sm:flex">
                     <span className="text-sm font-black tracking-[0.4em] uppercase text-foreground italic italic-shadow leading-none">System Kyron</span>
                     <p className="text-[7px] font-bold text-primary uppercase tracking-[0.3em] mt-1 opacity-60">Corporate Master Node</p>
@@ -164,7 +164,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                 </DropdownMenuLabel>
                 
                 <DropdownMenuItem asChild className="rounded-xl mt-2">
-                    <Link href={dashboardHref as any} className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-widest gap-4">
+                    <Link href="/dashboard-empresa" className="flex items-center py-3 px-4 text-[10px] font-black uppercase tracking-widest gap-4">
                         <Cpu className="h-4 w-4 text-primary/40" />
                         <span>Consola Maestra</span>
                     </Link>

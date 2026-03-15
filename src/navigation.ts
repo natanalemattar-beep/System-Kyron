@@ -14,6 +14,10 @@ export const pathnames = {
   '/login': '/login',
   '/register': '/register',
   
+  // NODO MAESTRO
+  '/dashboard-empresa': '/dashboard-maestro',
+  '/resumen-negocio': '/dashboard-maestro',
+  
   // NODO: FINANZAS Y CONTABILIDAD
   '/contabilidad': '/finanzas/contabilidad',
   '/cuentas-por-cobrar': '/finanzas/cuentas-por-cobrar',
@@ -26,7 +30,6 @@ export const pathnames = {
   '/estudio-factibilidad-economica': '/finanzas/factibilidad-economica',
   
   // NODO: VENTAS Y FACTURACIÓN
-  '/resumen-negocio': '/dashboard-maestro',
   '/facturacion': '/ventas/facturacion',
   '/punto-de-venta': '/ventas/punto-de-venta',
   '/facturacion-credito': '/ventas/facturacion-credito',
