@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -22,7 +21,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, Sparkles } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import { categorizeTransactionAction } from "@/app/(main)/transactions/actions";
+import { categorizeTransactionAction } from "@/app/actions/transactions";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "../ui/skeleton";
 
@@ -85,21 +84,21 @@ export function TransactionsTable({
   
   if (isLoading) {
     return (
-       <Card>
+       <Card className="glass-card border-none bg-card/40">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Fecha</TableHead>
-                <TableHead>Descripción</TableHead>
-                <TableHead className="text-right">Monto</TableHead>
-                <TableHead>Categoría</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
+              <TableRow className="bg-muted/30 border-none">
+                <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Fecha</TableHead>
+                <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Descripción</TableHead>
+                <TableHead className="text-right text-[10px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
+                <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Categoría</TableHead>
+                <TableHead className="text-right text-[10px] font-black uppercase tracking-widest opacity-30">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {[...Array(5)].map((_, i) => (
-                <TableRow key={i}>
+                <TableRow key={i} className="border-border/50">
                   <TableCell><Skeleton className="h-4 w-[80px]" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-[250px]" /></TableCell>
                   <TableCell className="text-right"><Skeleton className="h-4 w-[100px] ml-auto" /></TableCell>
@@ -115,58 +114,59 @@ export function TransactionsTable({
   }
 
   return (
-    <Card>
+    <Card className="glass-card border-none bg-card/40 overflow-hidden shadow-2xl">
       <CardContent className="p-0">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Fecha</TableHead>
-              <TableHead>Descripción</TableHead>
-              <TableHead className="text-right">Monto</TableHead>
-              <TableHead>Categoría</TableHead>
-              <TableHead className="text-right">Acciones</TableHead>
+            <TableRow className="bg-muted/30 border-none">
+              <TableHead className="pl-8 text-[10px] font-black uppercase tracking-widest opacity-30">Fecha</TableHead>
+              <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Descripción</TableHead>
+              <TableHead className="text-right text-[10px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
+              <TableHead className="text-[10px] font-black uppercase tracking-widest opacity-30">Categoría</TableHead>
+              <TableHead className="text-right pr-8 text-[10px] font-black uppercase tracking-widest opacity-30">Acciones</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {transactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell>{formatDate(transaction.date)}</TableCell>
-                <TableCell className="font-medium">
+              <TableRow key={transaction.id} className="border-border/50 hover:bg-muted/20 transition-all">
+                <TableCell className="pl-8 py-6 text-xs font-bold text-muted-foreground uppercase">{formatDate(transaction.date)}</TableCell>
+                <TableCell className="py-6 font-black uppercase text-xs italic text-white/80">
                   {transaction.description}
                 </TableCell>
                 <TableCell
-                  className={`text-right font-mono ${
+                  className={`text-right py-6 font-mono text-sm font-black italic ${
                     transaction.amount > 0
-                      ? "text-green-600"
-                      : "text-red-600 dark:text-red-500"
+                      ? "text-emerald-500"
+                      : "text-rose-500"
                   }`}
                 >
                   {formatCurrency(transaction.amount, 'Bs.')}
                 </TableCell>
-                <TableCell>
+                <TableCell className="py-6">
                   <Select
                     value={transaction.category}
                     onValueChange={(value) =>
                       handleCategoryChange(transaction.id, value)
                     }
                   >
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Seleccionar categoría" />
+                    <SelectTrigger className="w-[180px] h-10 rounded-xl bg-white/5 border-white/10 text-[10px] font-bold uppercase">
+                      <SelectValue placeholder="Seleccionar..." />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-black/95 border-white/10">
                       {categories.map((cat) => (
-                        <SelectItem key={cat} value={cat}>
+                        <SelectItem key={cat} value={cat} className="text-[10px] font-bold uppercase">
                           {cat}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right pr-8 py-6">
                   {transaction.category === "Sin Categorizar" && (
                     <Button
                       variant="ghost"
                       size="sm"
+                      className="rounded-xl h-10 px-4 hover:bg-primary/10 hover:text-primary transition-all font-black text-[9px] uppercase tracking-widest"
                       onClick={() => handleAutoCategorize(transaction)}
                       disabled={categorizingId === transaction.id}
                     >
@@ -174,7 +174,7 @@ export function TransactionsTable({
                         <Loader2 className="h-4 w-4 animate-spin" />
                       ) : (
                         <>
-                          <Sparkles className="mr-2 h-4 w-4 text-yellow-500" />
+                          <Sparkles className="mr-2 h-4 w-4 text-primary animate-pulse" />
                           Categorizar
                         </>
                       )}

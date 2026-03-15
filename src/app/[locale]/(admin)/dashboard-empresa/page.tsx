@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -20,18 +19,30 @@ import {
     Cpu,
     Building,
     TrendingDown,
-    LayoutDashboard
+    LayoutDashboard,
+    CreditCard
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { 
+    Table, 
+    TableBody, 
+    TableCell, 
+    TableHead, 
+    TableHeader, 
+    TableRow 
+} from "@/components/ui/table";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { OverviewChart } from "@/components/dashboard/overview-chart";
-import { Logo } from "@/components/logo";
+
+/**
+ * @fileOverview Centro de Mando Maestro de System Kyron.
+ * Centraliza la toma de decisiones estratégicas, auditoría fiscal y simulación de negocios.
+ */
 
 export default function DashboardEmpresaPage() {
   const { toast } = useToast();
@@ -58,7 +69,7 @@ export default function DashboardEmpresaPage() {
 
   return (
     <div className="space-y-12 pb-20">
-      {/* 1. HEADER HUD */}
+      {/* HEADER ESTRATÉGICO */}
       <motion.header 
         className="flex flex-col md:flex-row justify-between items-end gap-10 border-l-4 border-primary pl-8 py-2 mt-10"
         initial={{ opacity: 0, x: -20 }}
@@ -68,7 +79,7 @@ export default function DashboardEmpresaPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                 <Cpu className="h-3 w-3" /> SISTEMA MAESTRO v2.6.5
             </div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">CENTRO DE <span className="text-primary italic">MANDO EMPRESA</span></h1>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-none italic-shadow text-white">CENTRO DE <span className="text-primary italic">MANDO EMPRESA</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 italic">Consola de Inteligencia de Negocios • Control Estratégico</p>
         </div>
         <div className="flex gap-3 no-print">
@@ -81,7 +92,7 @@ export default function DashboardEmpresaPage() {
         </div>
       </motion.header>
 
-      {/* 2. KPIs GLOBALES */}
+      {/* KPIs EJECUTIVOS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { label: "INGRESOS TOTALES", value: "Bs. 45.231,89", trend: "+20.1%", icon: TrendingUp, color: "text-emerald-500" },
@@ -97,15 +108,15 @@ export default function DashboardEmpresaPage() {
               </div>
             </CardHeader>
             <CardContent className="p-6 pt-0">
-              <div className="text-2xl font-black italic tracking-tighter text-foreground text-white">{kpi.value}</div>
+              <div className="text-2xl font-black italic tracking-tighter text-white">{kpi.value}</div>
               <p className={cn("text-[9px] font-black uppercase mt-2", kpi.color)}>{kpi.trend || kpi.sub}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* 3. GEMELO DIGITAL Y BLINDAJE FISCAL */}
       <div className="grid lg:grid-cols-12 gap-8">
+        {/* SIMULADOR DE NEGOCIOS */}
         <Card className="lg:col-span-5 glass-card border-primary/20 overflow-hidden bg-white/[0.02] rounded-[3.5rem] shadow-2xl">
             <CardHeader className="p-10 border-b border-white/5 bg-primary/5">
                 <CardTitle className="flex items-center gap-4 text-2xl font-black uppercase italic tracking-tighter text-white">
@@ -136,10 +147,10 @@ export default function DashboardEmpresaPage() {
                     {simulation && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-6 bg-primary/10 rounded-2xl border border-primary/20 shadow-inner">
                             <p className="text-[9px] font-black uppercase text-primary mb-2">Impacto Proyectado</p>
-                            <p className="text-sm font-bold italic text-foreground leading-relaxed text-white/80">
+                            <p className="text-sm font-bold italic text-white/80 leading-relaxed">
                                 {simulation === 'ventas' ? "Incremento del 28% en rentabilidad neta para el cierre de ciclo." : 
                                  simulation === 'sucursales' ? "Punto de equilibrio estimado en 14 meses bajo inversión CapEx." : 
-                                 "Requerimiento de liquidez adicional del 15% detectado por el motor de IA."}
+                                 "Requerimiento de liquidez adicional del 15% detectado por el sistema."}
                             </p>
                         </motion.div>
                     )}
@@ -147,11 +158,12 @@ export default function DashboardEmpresaPage() {
             </CardContent>
         </Card>
 
+        {/* BLINDAJE FISCAL */}
         <Card className="lg:col-span-7 bg-emerald-600 text-white rounded-[3.5rem] p-10 flex flex-col md:flex-row justify-between items-center gap-10 relative overflow-hidden shadow-glow-secondary border-none group">
             <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform duration-1000"><ShieldCheck className="h-48 w-48" /></div>
             <div className="space-y-6 relative z-10">
                 <div className="space-y-2">
-                    <Badge className="bg-white/20 text-white border-none text-[8px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg">Sistema de Blindaje Activo</Badge>
+                    <Badge className="bg-white/20 text-white border-none text-[8px] font-black uppercase tracking-[0.4em] px-4 py-1.5 rounded-lg">Blindaje Activo</Badge>
                     <h3 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter leading-none">Cero Riesgo <br/> Fiscal</h3>
                 </div>
                 <p className="text-sm font-medium opacity-80 leading-relaxed uppercase tracking-widest max-w-md">
@@ -168,7 +180,7 @@ export default function DashboardEmpresaPage() {
         </Card>
       </div>
 
-      {/* 4. ANÁLISIS Y FACTURACIÓN VIP */}
+      {/* ANÁLISIS Y FACTURACIÓN */}
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-8">
             <OverviewChart />
@@ -179,12 +191,18 @@ export default function DashboardEmpresaPage() {
           </CardHeader>
           <CardContent className="p-0">
             <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/30 border-none">
+                  <TableHead className="pl-10 py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Cliente VIP</TableHead>
+                  <TableHead className="text-right pr-10 py-6 text-[9px] font-black uppercase tracking-widest opacity-30">Monto</TableHead>
+                </TableRow>
+              </TableHeader>
               <TableBody>
                 {[
-                    { client: "Tech Solutions LLC", date: "20/07", amount: 5000 },
-                    { client: "Innovate Corp", date: "18/07", amount: 12000 },
-                    { client: "Marketing Pro", date: "25/06", amount: 2500 },
-                    { client: "Constructora XYZ", date: "22/07", amount: 7500 },
+                    { client: "Tech Solutions LLC", amount: 5000 },
+                    { client: "Innovate Corp", amount: 12000 },
+                    { client: "Marketing Pro", amount: 2500 },
+                    { client: "Constructora XYZ", amount: 7500 },
                 ].map((inv, i) => (
                   <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all group">
                     <TableCell className="pl-10 py-6 font-black text-[10px] text-white/80 uppercase italic group-hover:text-primary">{inv.client}</TableCell>
