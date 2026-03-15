@@ -6,6 +6,7 @@ import {
     Calculator, 
     Wallet, 
     TrendingUp, 
+    TrendingDown,
     ShieldCheck, 
     Activity, 
     CheckCircle,
@@ -230,7 +231,7 @@ export default function DashboardEmpresaPage() {
                     <div className="grid grid-cols-1 gap-3">
                         {[
                             { id: "ventas", label: "Aumento Ventas 20%", icon: TrendingUp },
-                            { id: "sucursales", label: "Expansión +3 Sedes", icon: Building },
+                            { id: "sucursales", label: "Expansión +3 Sedes", icon: Landmark },
                             { id: "crisis", label: "Escenario Inflación", icon: ShieldAlert }
                         ].map(sc => (
                             <Button 
