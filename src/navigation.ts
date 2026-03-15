@@ -7,6 +7,7 @@ export const localePrefix = 'always';
 /**
  * @fileOverview Mapa de Navegación del Ecosistema Kyron.
  * Organizado por Áreas Lógicas para una navegación de alta fidelidad.
+ * Se han unificado las rutas para evitar errores 404.
  */
 export const pathnames = {
   '/': '/',
@@ -17,16 +18,16 @@ export const pathnames = {
   '/dashboard-empresa': '/dashboard-empresa',
   
   // FINANZAS Y CONTABILIDAD
-  '/contabilidad': '/finanzas/contabilidad',
-  '/cuentas-por-cobrar': '/finanzas/cuentas-por-cobrar',
-  '/cuentas-por-pagar': '/finanzas/cuentas-por-pagar',
-  '/ajuste-por-inflacion': '/finanzas/ajuste-inflacion',
-  '/analisis-caja': '/finanzas/analisis-caja',
-  '/analisis-rentabilidad': '/finanzas/rentabilidad-pro',
-  '/analisis-riesgo': '/finanzas/analisis-riesgo',
-  '/billetera-cambio': '/finanzas/billetera-cambio',
-  '/estudio-factibilidad-economica': '/finanzas/factibilidad-economica',
-  '/libro-licores': '/finanzas/libro-licores',
+  '/contabilidad': '/contabilidad',
+  '/cuentas-por-cobrar': '/contabilidad/cuentas-por-cobrar',
+  '/cuentas-por-pagar': '/contabilidad/cuentas-por-pagar',
+  '/ajuste-por-inflacion': '/contabilidad/ajuste-inflacion',
+  '/analisis-caja': '/contabilidad/analisis-caja',
+  '/analisis-rentabilidad': '/contabilidad/analisis-rentabilidad',
+  '/analisis-riesgo': '/contabilidad/analisis-riesgo',
+  '/billetera-cambio': '/contabilidad/billetera-cambio',
+  '/estudio-factibilidad-economica': '/contabilidad/factibilidad-economica',
+  '/libro-licores': '/contabilidad/libro-licores',
 
   // LIBROS CONTABLES
   '/contabilidad/libros/compra-venta': '/contabilidad/libros/compra-venta',
@@ -37,6 +38,8 @@ export const pathnames = {
   '/contabilidad/libros/control-licores': '/contabilidad/libros/control-licores',
 
   // TRIBUTOS E IMPUESTOS
+  '/declaracion-iva': '/contabilidad/impuestos/iva',
+  '/islr-arc': '/contabilidad/impuestos/islr-arc',
   '/contabilidad/impuestos/retenciones': '/contabilidad/impuestos/retenciones',
   '/contabilidad/impuestos/calendario': '/contabilidad/impuestos/calendario',
   '/contabilidad/impuestos/municipales': '/contabilidad/impuestos/municipales',

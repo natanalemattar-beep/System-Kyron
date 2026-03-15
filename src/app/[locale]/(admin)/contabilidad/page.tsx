@@ -40,6 +40,7 @@ import { OverviewChart } from "@/components/dashboard/overview-chart";
 
 /**
  * @fileOverview Centro de Contabilidad Maestro de System Kyron.
+ * Centraliza el acceso a todos los módulos financieros mediante rutas localizadas verificadas.
  */
 
 const accountingSections = [
@@ -218,7 +219,7 @@ export default function ContabilidadPage() {
             {/* Blindaje Fiscal */}
             <Card className="bg-[#0A2472] text-white rounded-[2.5rem] p-10 relative overflow-hidden shadow-xl group border-none">
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-1000"><Zap className="h-32 w-32" /></div>
-                <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 relative z-10 text-[#00A86B]">Blindaje de Área</h3>
+                <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 relative z-10 text-[#00A86B]">Blindaje Operativo</h3>
                 <p className="text-xs font-bold opacity-80 leading-relaxed uppercase mb-8 relative z-10">Revisión automática de libros contra la Gaceta Oficial 6.952.</p>
                 <Button className="w-full h-12 bg-[#00A86B] hover:bg-emerald-600 text-white font-black uppercase text-[10px] tracking-widest rounded-xl shadow-lg relative z-10 border-none">REVISAR CUMPLIMIENTO</Button>
             </Card>
