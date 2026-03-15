@@ -32,7 +32,9 @@ import {
   ShieldCheck, 
   FileSearch, 
   LayoutDashboard,
-  PieChart
+  PieChart,
+  BarChart3,
+  ArrowRight
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -139,13 +141,13 @@ export default function TodosLosLibrosPage() {
   };
 
   return (
-    <div className="p-6 md:p-12 bg-[#f5f7fa] min-h-screen space-y-12">
+    <div className="p-6 md:p-12 bg-[#f5f7fa] dark:bg-background min-h-screen space-y-12">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-1">
-          <Button variant="ghost" asChild className="p-0 h-auto text-[#0A2472] hover:bg-transparent mb-4">
+          <Button variant="ghost" asChild className="p-0 h-auto text-[#0A2472] dark:text-primary hover:bg-transparent mb-4">
             <Link href="/contabilidad"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al Centro Contable</Link>
           </Button>
-          <h1 className="text-3xl md:text-5xl font-black text-[#0A2472] uppercase tracking-tighter flex items-center gap-4 italic">
+          <h1 className="text-3xl md:text-5xl font-black text-[#0A2472] dark:text-foreground uppercase tracking-tighter flex items-center gap-4 italic">
             <Book className="h-10 w-10 text-[#00A86B]" />
             Biblioteca de Libros Contables
           </h1>
@@ -158,7 +160,7 @@ export default function TodosLosLibrosPage() {
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 h-5 w-5" />
         <Input 
             placeholder="Buscar libro por nombre o categoría..." 
-            className="h-14 rounded-2xl bg-white border-none shadow-sm pl-12 font-bold uppercase text-xs tracking-widest placeholder:text-slate-300"
+            className="h-14 rounded-2xl bg-card border-none shadow-sm pl-12 font-bold uppercase text-xs tracking-widest placeholder:text-slate-300"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
         />
@@ -172,7 +174,7 @@ export default function TodosLosLibrosPage() {
               <div className="p-3 bg-[#0A2472]/5 rounded-xl">
                 <category.icon className="h-6 w-6 text-[#0A2472]" />
               </div>
-              <h3 className="text-lg font-black uppercase tracking-[0.4em] text-[#0A2472] italic">{category.title}</h3>
+              <h3 className="text-lg font-black uppercase tracking-[0.4em] text-[#0A2472] dark:text-foreground italic">{category.title}</h3>
               <div className="h-px flex-1 bg-gradient-to-r from-slate-200 to-transparent" />
             </div>
 
@@ -181,16 +183,16 @@ export default function TodosLosLibrosPage() {
                 .filter(item => item.label.toLowerCase().includes(search.toLowerCase()))
                 .map((item, i) => (
                 <Link key={i} href={item.href as any} onClick={(e) => handleItemClick(e, item)}>
-                  <Card className="border-none bg-white hover:bg-slate-50 transition-all rounded-3xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
+                  <Card className="border-none bg-card hover:bg-muted/20 transition-all rounded-3xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
                         <item.icon className="h-12 w-12" />
                     </div>
                     <div className="flex items-center gap-5">
-                      <div className="p-4 bg-slate-50 rounded-2xl group-hover:bg-white transition-colors border border-transparent group-hover:border-slate-100">
+                      <div className="p-4 bg-muted rounded-2xl group-hover:bg-white transition-colors border border-transparent group-hover:border-slate-100">
                         <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
                       </div>
                       <div>
-                        <p className="text-xs font-black uppercase tracking-tight text-slate-700 group-hover:text-[#0A2472] transition-colors leading-tight">{item.label}</p>
+                        <p className="text-xs font-black uppercase tracking-tight text-slate-700 dark:text-foreground group-hover:text-[#0A2472] transition-colors leading-tight">{item.label}</p>
                         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1.5">{item.kpi}</p>
                       </div>
                     </div>
@@ -208,7 +210,7 @@ export default function TodosLosLibrosPage() {
       </div>
 
       <footer className="pt-20 pb-10 text-center opacity-20">
-        <p className="text-[10px] font-black uppercase tracking-[1em] text-slate-900 italic">SYSTEM KYRON • LIBRARY NODE • 2026</p>
+        <p className="text-[10px] font-black uppercase tracking-[1em] text-slate-900 dark:text-foreground italic">SYSTEM KYRON • LIBRARY NODE • 2026</p>
       </footer>
     </div>
   );
