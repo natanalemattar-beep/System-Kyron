@@ -37,7 +37,15 @@ import {
   UserCog, 
   LayoutDashboard, 
   Bell,
-  ArrowUpRight
+  ArrowUpRight,
+  Package,
+  ShieldCheck,
+  BrainCircuit,
+  Boxes,
+  Truck,
+  GraduationCap,
+  Sparkles,
+  Gavel
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -88,6 +96,54 @@ const libraryCategories = [
     ]
   },
   {
+    title: "Inteligencia de Inventario",
+    icon: Package,
+    items: [
+      { label: "Análisis ABC", href: "#", kpi: "Clase A: 20%", icon: Boxes, color: "text-blue-600" },
+      { label: "Rotación de Stock", href: "#", kpi: "Ciclo: 12d", icon: RefreshCw, color: "text-emerald-600" },
+      { label: "Previsión de Quiebre", href: "#", kpi: "Salud: Ok", icon: ShieldAlert, color: "text-rose-600" },
+      { label: "Valoración Kardex", href: "/contabilidad/libros/inventario", kpi: "FIFO Pro", icon: Calculator, color: "text-primary" },
+    ]
+  },
+  {
+    title: "Capital Humano",
+    icon: Users,
+    items: [
+      { label: "Costo vs Prod.", href: "#", kpi: "Eficiencia: 88%", icon: Activity, color: "text-emerald-600" },
+      { label: "Tasa de Rotación", href: "#", kpi: "Baja: 2%", icon: TrendingDown, color: "text-blue-600" },
+      { label: "Análisis Bonos", href: "#", kpi: "Impacto: 12%", icon: Wallet, color: "text-amber-600" },
+      { label: "Productividad Individual", href: "#", kpi: "Auditado", icon: UserCog, color: "text-slate-600" },
+    ]
+  },
+  {
+    title: "Inteligencia Fiscal",
+    icon: Landmark,
+    items: [
+      { label: "Presión Tributaria", href: "#", kpi: "Tasa: 18%", icon: Scale, color: "text-rose-600" },
+      { label: "Optimización Créditos", href: "#", kpi: "Ahorro: 5%", icon: Zap, color: "text-emerald-600" },
+      { label: "Análisis de Gacetas", href: "/gaceta-6952", kpi: "IA Sync", icon: Gavel, color: "text-primary" },
+      { label: "Simulador de Multas", href: "/contabilidad/impuestos/multas", kpi: "Riesgo: 0", icon: ShieldCheck, color: "text-emerald-600" },
+    ]
+  },
+  {
+    title: "Experiencia del Cliente (IA)",
+    icon: BrainCircuit,
+    items: [
+      { label: "Análisis Sentimiento", href: "#", kpi: "Positivo: 94%", icon: BrainCircuit, color: "text-primary" },
+      { label: "Tendencia de NPS", href: "#", kpi: "Score: 78", icon: Target, color: "text-emerald-600" },
+      { label: "Fidelización Pro", href: "/fidelizacion-clientes", kpi: "Activa", icon: Star, color: "text-yellow-600" },
+    ]
+  },
+  {
+    title: "Gestión de Proyectos",
+    icon: Briefcase,
+    items: [
+      { label: "ROI por Proyecto", href: "#", kpi: "Prom: 2.4", icon: TrendingUp, color: "text-emerald-600" },
+      { label: "Hitos vs Presupuesto", href: "#", kpi: "Varianza: -2%", icon: Calculator, color: "text-blue-600" },
+      { label: "Carga de Recursos", href: "#", kpi: "Óptima", icon: Layers, color: "text-slate-600" },
+    ]
+  },
+  {
     title: "Flujo de Caja",
     icon: Wallet,
     items: [
@@ -124,15 +180,6 @@ const libraryCategories = [
     ]
   },
   {
-    title: "Productividad",
-    icon: Clock,
-    items: [
-      { label: "Prod. por Empleado", href: "#", kpi: "Meta: 100%", icon: Clock, color: "text-emerald-600" },
-      { label: "Eficiencia Laboral", href: "#", kpi: "Ok", icon: Zap, color: "text-yellow-600" },
-      { label: "Control de Horas", href: "#", kpi: "17h Extras", icon: UserCog, color: "text-blue-600" },
-    ]
-  },
-  {
     title: "Dashboard de KPIs",
     icon: LayoutDashboard,
     items: [
@@ -151,7 +198,7 @@ export default function TodasLasAnalisisPage() {
       e.preventDefault();
       toast({
         title: "ÁREA EN DESARROLLO",
-        description: `El módulo "${item.label}" está siendo sincronizado con el motor de inteligencia.`,
+        description: `El módulo "${item.label}" está siendo sincronizado con el motor de inteligencia estratégica.`,
       });
     }
   };
@@ -161,13 +208,13 @@ export default function TodasLasAnalisisPage() {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-1">
           <Button variant="ghost" asChild className="p-0 h-auto text-primary hover:bg-transparent mb-4">
-            <Link href="/analisis"><ArrowLeft className="mr-2 h-4 w-4"/> Volver</Link>
+            <Link href="/analisis"><ArrowLeft className="mr-2 h-4 w-4"/> Volver al Centro</Link>
           </Button>
           <h1 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter flex items-center gap-4 italic leading-none">
-            <PieChart className="h-10 w-10 text-secondary" />
-            Centro de Análisis
+            <Sparkles className="h-10 w-10 text-primary animate-pulse" />
+            Directorio de Inteligencia
           </h1>
-          <p className="text-muted-foreground font-bold text-sm uppercase tracking-widest opacity-60">Biblioteca de Inteligencia de Negocios y BI</p>
+          <p className="text-muted-foreground font-bold text-sm uppercase tracking-widest opacity-60">Biblioteca Maestra de Business Intelligence y Analítica Pro</p>
         </div>
       </header>
 
@@ -175,7 +222,7 @@ export default function TodasLasAnalisisPage() {
       <div className="relative max-w-2xl">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 h-5 w-5" />
         <Input 
-            placeholder="Buscar análisis, ratio o métrica..." 
+            placeholder="Buscar métrica, ratio o estudio..." 
             className="h-14 rounded-2xl bg-card border-none shadow-sm pl-12 font-bold uppercase text-xs tracking-widest placeholder:text-slate-300"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -184,45 +231,51 @@ export default function TodasLasAnalisisPage() {
 
       {/* --- CATEGORÍAS --- */}
       <div className="space-y-16">
-        {libraryCategories.map((category, idx) => (
-          <div key={idx} className="space-y-8">
-            <div className="flex items-center gap-4 ml-2">
-              <div className="p-3 bg-primary/5 rounded-xl">
-                <category.icon className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-lg font-black uppercase tracking-[0.4em] text-foreground italic">{category.title}</h3>
-              <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
-            </div>
+        {libraryCategories.map((category, idx) => {
+          const filteredItems = category.items.filter(item => 
+            item.label.toLowerCase().includes(search.toLowerCase())
+          );
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {category.items
-                .filter(item => item.label.toLowerCase().includes(search.toLowerCase()))
-                .map((item, i) => (
-                <Link key={i} href={item.href as any} onClick={(e) => handleItemClick(e, item)}>
-                  <Card className="border-none bg-card hover:bg-muted/20 transition-all rounded-[2rem] p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
-                        <item.icon className="h-12 w-12" />
-                    </div>
-                    <div className="flex items-center gap-5">
-                      <div className="p-4 bg-muted rounded-2xl group-hover:bg-card transition-colors border border-transparent group-hover:border-border shadow-inner">
-                        <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
+          if (filteredItems.length === 0) return null;
+
+          return (
+            <div key={idx} className="space-y-8">
+              <div className="flex items-center gap-4 ml-2">
+                <div className="p-3 bg-primary/5 rounded-xl border border-primary/10">
+                  <category.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-black uppercase tracking-[0.4em] text-foreground italic">{category.title}</h3>
+                <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filteredItems.map((item, i) => (
+                  <Link key={i} href={item.href as any} onClick={(e) => handleItemClick(e, item)}>
+                    <Card className="border-none bg-card hover:bg-muted/20 transition-all rounded-[2rem] p-8 flex flex-col justify-between group shadow-sm hover:shadow-lg min-h-[160px] relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform">
+                          <item.icon className="h-12 w-12" />
                       </div>
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors leading-tight">{item.label}</p>
-                        <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5">{item.kpi}</p>
+                      <div className="flex items-center gap-5">
+                        <div className="p-4 bg-muted rounded-2xl group-hover:bg-card transition-colors border border-transparent group-hover:border-border shadow-inner">
+                          <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
+                        </div>
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-tight text-foreground/80 group-hover:text-primary transition-colors leading-tight">{item.label}</p>
+                          <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5">{item.kpi}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex justify-end mt-4">
-                      <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-                        <ArrowUpRight className="h-4 w-4" />
+                      <div className="flex justify-end mt-4">
+                        <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                          <ArrowUpRight className="h-4 w-4" />
+                        </div>
                       </div>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
+                    </Card>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <footer className="pt-20 pb-10 text-center opacity-20 border-t border-border">
