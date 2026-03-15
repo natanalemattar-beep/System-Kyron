@@ -116,6 +116,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
             { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
             { label: "Factibilidad Económica", href: "/estudio-factibilidad-economica", icon: Calculator },
             { label: "Estructura de Costos", href: "/estructura-costos", icon: Activity },
+            { label: "Centro de Análisis", href: "/analisis", icon: PieChart },
         ]
     },
     { 
@@ -171,7 +172,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                             >
                                 <nav.icon className="h-3.5 w-3.5" />
                                 {nav.label}
-                                <ChevronDown className="h-3 w-3 opacity-20" />
+                                <ChevronDown className="h-3 w-3 ml-2 opacity-20" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-64 p-2 rounded-[1.5rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl">
@@ -213,7 +214,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                 <DropdownMenuContent align="end" className="w-72 p-3 rounded-[2rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl">
                 <DropdownMenuLabel className="p-6 bg-muted/50 rounded-[1.5rem] mb-2 border border-border">
                     <div className="flex flex-col gap-1.5">
-                        <p className="text-[11px] font-black uppercase tracking-widest text-primary">Responsable Contable</p>
+                        <p className="text-[11px] font-black uppercase tracking-widest text-primary">Operador Maestro</p>
                         <p className="text-[8px] text-muted-foreground truncate font-mono italic">{user?.email || "finanzas@kyron.com"}</p>
                     </div>
                 </DropdownMenuLabel>
@@ -221,7 +222,7 @@ export function AppHeader({ user, dashboardHref }: AppHeaderProps) {
                 <DropdownMenuItem asChild className="rounded-xl mt-2">
                     <Link href={dashboardHref as any} className="flex items-center py-3 px-4 text-[9px] font-black uppercase tracking-widest gap-4">
                         <Cpu className="h-4 w-4 text-primary/40" />
-                        <span>Consola Maestra</span>
+                        <span>Consola de Inteligencia</span>
                     </Link>
                 </DropdownMenuItem>
 

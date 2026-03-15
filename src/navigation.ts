@@ -61,6 +61,11 @@ export const pathnames = {
   '/analisis-ventas': '/ventas/analisis-comercial',
   '/analisis-mercado': '/ventas/analisis-mercado',
   
+  // ANÁLISIS E INTELIGENCIA
+  '/analisis': '/analisis',
+  '/analisis/todos': '/analisis/todos',
+  '/estructura-costos': '/contabilidad/estructura-costos',
+  
   // LEGAL Y CUMPLIMIENTO
   '/escritorio-juridico': '/legal/escritorio-juridico',
   '/acta-asamblea': '/legal/acta-asamblea',
