@@ -36,7 +36,10 @@ import {
     Box,
     Banknote,
     Stamp,
-    History
+    History,
+    Calendar,
+    ShieldAlert,
+    FileSearch
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -68,11 +71,12 @@ export function AppHeader({ user }: AppHeaderProps) {
         icon: BookOpen,
         type: 'menu',
         items: [
-            { label: "Compra y Venta", href: "/libro-compra-venta", icon: FileText },
-            { label: "Nómina y Personal", href: "/nominas", icon: Users },
-            { label: "Inventario Activo", href: "/inventario", icon: Box },
-            { label: "Control de Licores", href: "/libro-licores", icon: Landmark },
-            { label: "Cesta-Ticket", href: "/contabilidad", icon: Banknote },
+            { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", icon: FileText },
+            { label: "Nómina y Personal", href: "/contabilidad/libros/nomina", icon: Users },
+            { label: "Inventario Activo", href: "/contabilidad/libros/inventario", icon: Box },
+            { label: "Control de Licores", href: "/contabilidad/libros/control-licores", icon: Landmark },
+            { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", icon: Banknote },
+            { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", icon: History },
         ]
     },
     { 
@@ -82,8 +86,12 @@ export function AppHeader({ user }: AppHeaderProps) {
         items: [
             { label: "Declaración IVA", href: "/declaracion-iva", icon: FileText },
             { label: "ISLR y AR-C", href: "/islr-arc", icon: Banknote },
-            { label: "IGTF y Gaceta", href: "/gaceta-6952", icon: ShieldCheck },
-            { label: "Timbres Fiscales", href: "/permisos", icon: Stamp },
+            { label: "Retenciones (IVA/ISLR)", href: "/contabilidad/impuestos/retenciones", icon: ShieldCheck },
+            { label: "Calendario Fiscal", href: "/contabilidad/impuestos/calendario", icon: Calendar },
+            { label: "Impuestos Municipales", href: "/contabilidad/impuestos/municipales", icon: Landmark },
+            { label: "Multas y Sanciones", href: "/contabilidad/impuestos/multas", icon: ShieldAlert },
+            { label: "Homologación SENIAT", href: "/contabilidad/impuestos/homologacion", icon: CheckCircle },
+            { label: "Reportes Fiscales", href: "/contabilidad/impuestos/reportes", icon: FileSearch },
         ]
     },
     { 
@@ -130,7 +138,7 @@ export function AppHeader({ user }: AppHeaderProps) {
                 <Logo className="h-9 w-9 transition-all duration-500 group-hover:scale-110 drop-shadow-glow" /> 
                 <div className="flex flex-col -mt-1 hidden xl:flex">
                     <span className="text-xs font-black tracking-[0.3em] uppercase text-white italic leading-none">System Kyron</span>
-                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Sistema Contable Maestro</p>
+                    <p className="text-[6px] font-bold text-primary uppercase tracking-[0.2em] mt-1 opacity-60">Centro de Inteligencia Contable</p>
                 </div>
             </Link>
           </div>
