@@ -29,7 +29,9 @@ import {
     FileSearch,
     Box,
     HandCoins,
-    Stamp
+    Stamp,
+    FileText,
+    Banknote
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -156,7 +158,7 @@ export default function DashboardEmpresaPage() {
                 { label: "Control Licores", href: "/contabilidad/libros/control-licores", icon: Landmark, kpi: "Alícuotas: Ok", color: "text-rose-600" },
             ].map((item, i) => (
                 <Link key={i} href={item.href as any}>
-                    <Card className="border-none bg-white hover:bg-slate-50 transition-all rounded-3xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
+                    <Card className="border-none bg-white hover:bg-slate-50 transition-all rounded-2xl p-8 flex flex-col justify-between group shadow-sm hover:shadow-md min-h-[140px]">
                         <div className="flex items-center gap-5">
                             <div className="p-4 bg-slate-50 rounded-2xl group-hover:bg-white transition-colors border border-transparent group-hover:border-slate-100">
                                 <item.icon className={cn("h-6 w-6 transition-all", item.color)} />
