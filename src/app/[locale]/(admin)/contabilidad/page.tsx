@@ -15,11 +15,9 @@ import {
   ShieldCheck, 
   AlertTriangle,
   Receipt,
-  TrendingDown,
   CheckCircle,
   Clock,
   PieChart,
-  DollarSign,
   ChevronRight,
   Box,
   Banknote,
@@ -28,7 +26,8 @@ import {
   ShieldAlert,
   Terminal,
   Zap,
-  Loader2
+  Loader2,
+  Users
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
@@ -43,11 +42,12 @@ const accountingModules = [
     title: "Libros Fiscales",
     icon: BookOpen,
     items: [
-      { label: "Compra y Venta", href: "/libro-compra-venta", kpi: "10 facturas este mes", icon: FileText },
-      { label: "Libro de Nómina", href: "/nominas", kpi: "23 empleados", icon: Users },
-      { label: "Libro Inventario", href: "/inventario", kpi: "Existencias: Ok", icon: Box },
-      { label: "Control Licores", href: "/libro-licores", kpi: "Alícuotas al día", icon: Landmark },
-      { label: "Cesta-Ticket", href: "/contabilidad", kpi: "Vigente Mar'26", icon: Banknote },
+      { label: "Compra y Venta", href: "/contabilidad/libros/compra-venta", kpi: "10 facturas este mes", icon: FileText },
+      { label: "Libro de Nómina", href: "/contabilidad/libros/nomina", kpi: "23 empleados", icon: Users },
+      { label: "Libro Inventario", href: "/contabilidad/libros/inventario", kpi: "Existencias: Ok", icon: Box },
+      { label: "Control Licores", href: "/contabilidad/libros/control-licores", kpi: "Alícuotas al día", icon: Landmark },
+      { label: "Cesta-Ticket", href: "/contabilidad/libros/cesta-ticket", kpi: "Vigente Mar'26", icon: Banknote },
+      { label: "Horas Extras", href: "/contabilidad/libros/horas-extras", kpi: "Control Activo", icon: Clock },
     ]
   },
   {
@@ -111,7 +111,7 @@ export default function ContabilidadPage() {
             <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-none italic-shadow">Centro <span className="text-primary italic">Financiero</span></h1>
             <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Ejercicio Fiscal 2026 • Auditoría síncrona activa</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 no-print">
             <Button variant="outline" className="h-12 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest border-white/10 bg-white/5 text-white">
                 <History className="mr-3 h-4 w-4" /> AUDITORÍA
             </Button>
@@ -227,7 +227,9 @@ export default function ContabilidadPage() {
                     </Table>
                 </CardContent>
                 <CardFooter className="p-6 bg-primary/5 flex justify-center border-t border-border/50">
-                    <Button variant="link" className="text-[9px] font-black uppercase tracking-widest text-primary hover:text-white">VER TODAS LAS TRANSACCIONES</Button>
+                    <Button variant="link" asChild className="text-[9px] font-black uppercase tracking-widest text-primary hover:text-white">
+                        <Link href="/transactions">VER TODAS LAS TRANSACCIONES</Link>
+                    </Button>
                 </CardFooter>
             </Card>
 

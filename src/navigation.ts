@@ -27,6 +27,14 @@ export const pathnames = {
   '/billetera-cambio': '/finanzas/billetera-cambio',
   '/estudio-factibilidad-economica': '/finanzas/factibilidad-economica',
   '/libro-licores': '/finanzas/libro-licores',
+
+  // LIBROS CONTABLES (NUEVOS)
+  '/contabilidad/libros/compra-venta': '/contabilidad/libros/compra-venta',
+  '/contabilidad/libros/nomina': '/contabilidad/libros/nomina',
+  '/contabilidad/libros/inventario': '/contabilidad/libros/inventario',
+  '/contabilidad/libros/cesta-ticket': '/contabilidad/libros/cesta-ticket',
+  '/contabilidad/libros/horas-extras': '/contabilidad/libros/horas-extras',
+  '/contabilidad/libros/control-licores': '/contabilidad/libros/control-licores',
   
   // VENTAS Y FACTURACIÓN
   '/facturacion': '/ventas/facturacion',
