@@ -72,6 +72,18 @@ export const pathnames = {
   '/analisis-caja': '/analisis-caja',
   '/cuentas-por-pagar': '/cuentas-pagar',
   '/analisis-rentabilidad': '/rentabilidad-pro',
+  '/inventario': '/inventario',
+  '/estructura-costos': '/estructura-costos',
+  '/fidelizacion-clientes': '/fidelizacion-clientes',
+  '/pasarelas-pago': '/pasarelas-pago',
+  '/reports': '/reportes',
+  '/tramites-fiscales': '/tramites-fiscales',
+  '/analisis-mercado': '/analisis-mercado',
+  '/analisis-riesgo': '/analisis-riesgo',
+  '/billetera-cambio': '/billetera-cambio',
+  '/acta-asamblea': '/acta-asamblea',
+  '/activos-inmobiliarios': '/activos-inmobiliarios',
+  '/autorizaciones': '/autorizaciones',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
