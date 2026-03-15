@@ -28,13 +28,21 @@ export const pathnames = {
   '/estudio-factibilidad-economica': '/finanzas/factibilidad-economica',
   '/libro-licores': '/finanzas/libro-licores',
 
-  // LIBROS CONTABLES (NUEVOS)
+  // LIBROS CONTABLES
   '/contabilidad/libros/compra-venta': '/contabilidad/libros/compra-venta',
   '/contabilidad/libros/nomina': '/contabilidad/libros/nomina',
   '/contabilidad/libros/inventario': '/contabilidad/libros/inventario',
   '/contabilidad/libros/cesta-ticket': '/contabilidad/libros/cesta-ticket',
   '/contabilidad/libros/horas-extras': '/contabilidad/libros/horas-extras',
   '/contabilidad/libros/control-licores': '/contabilidad/libros/control-licores',
+
+  // TRIBUTOS E IMPUESTOS
+  '/contabilidad/impuestos/retenciones': '/contabilidad/impuestos/retenciones',
+  '/contabilidad/impuestos/calendario': '/contabilidad/impuestos/calendario',
+  '/contabilidad/impuestos/municipales': '/contabilidad/impuestos/municipales',
+  '/contabilidad/impuestos/multas': '/contabilidad/impuestos/multas',
+  '/contabilidad/impuestos/homologacion': '/contabilidad/impuestos/homologacion',
+  '/contabilidad/impuestos/reportes': '/contabilidad/impuestos/reportes',
   
   // VENTAS Y FACTURACIÓN
   '/facturacion': '/ventas/facturacion',
