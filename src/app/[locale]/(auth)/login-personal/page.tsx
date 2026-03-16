@@ -38,7 +38,7 @@ export default function LoginPersonalPage() {
                 toast({ title: "¡Bienvenido, Carlos!", description: "Acceso concedido a tu cuenta personal." });
                 router.push('/dashboard');
             } else {
-                setError("Correo o contraseña incorrectos.");
+                setError("Correo o contraseña incorrectos. Utilice las credenciales de demo.");
                 setIsLoading(false);
             }
         }, 800);
@@ -82,18 +82,28 @@ export default function LoginPersonalPage() {
                     </CardHeader>
 
                     <CardContent className="p-10 pt-4 space-y-8">
+                        {/* Demo Alert */}
+                        <Alert className="bg-primary/10 border-primary/20 text-primary rounded-2xl">
+                            <ShieldCheck className="h-4 w-4" />
+                            <AlertTitle className="text-[10px] font-black uppercase tracking-widest">Modo Demostración</AlertTitle>
+                            <AlertDescription className="text-[9px] font-bold uppercase mt-1">
+                                <p>Email: <span className="text-white">usuario@kyron.com</span></p>
+                                <p>Clave: <span className="text-white">password123</span></p>
+                            </AlertDescription>
+                        </Alert>
+
                         <form onSubmit={handleLogin} className="space-y-6">
                             {error && (
                                 <Alert variant="destructive" className="rounded-2xl bg-rose-500/10 border-rose-500/20">
                                     <AlertTriangle className="h-4 w-4" />
-                                    <AlertTitle className="text-xs font-black uppercase tracking-widest">Error</AlertTitle>
+                                    <AlertTitle className="text-xs font-black uppercase tracking-widest">Error de Acceso</AlertTitle>
                                     <AlertDescription className="text-[10px] uppercase font-bold opacity-70">{error}</AlertDescription>
                                 </Alert>
                             )}
                             
                             <div className="space-y-2">
                                 <Label htmlFor="email" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 ml-1">Correo Electrónico</Label>
-                                <Input id="email" name="email" type="email" placeholder="ejemplo@correo.com" required className="h-12 text-sm px-5 rounded-xl bg-white/[0.03] border-white/10 text-white focus-visible:ring-primary font-medium" />
+                                <Input id="email" name="email" type="email" placeholder="usuario@kyron.com" required className="h-12 text-sm px-5 rounded-xl bg-white/[0.03] border-white/10 text-white focus-visible:ring-primary font-medium" />
                             </div>
                             
                             <div className="space-y-2">
@@ -101,7 +111,7 @@ export default function LoginPersonalPage() {
                                     <Label htmlFor="password" className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 ml-1">Contraseña</Label>
                                     <Button variant="link" className="p-0 h-auto text-[9px] font-black text-primary uppercase">¿La olvidaste?</Button>
                                 </div>
-                                <Input id="password" name="password" type="password" required className="h-12 text-sm px-5 rounded-xl bg-white/[0.03] border-white/10 text-white focus-visible:ring-primary font-medium" />
+                                <Input id="password" name="password" type="password" placeholder="••••••••" required className="h-12 text-sm px-5 rounded-xl bg-white/[0.03] border-white/10 text-white focus-visible:ring-primary font-medium" />
                             </div>
 
                             <Button type="submit" className="w-full text-xs font-black h-14 rounded-2xl shadow-glow btn-3d-primary uppercase tracking-widest" disabled={isLoading || isScanning}>
@@ -147,7 +157,7 @@ export default function LoginPersonalPage() {
                     <CardFooter className="p-10 pt-0 border-t border-white/5 bg-white/[0.01] flex flex-col items-center">
                         <p className="text-[10px] text-white/40 uppercase font-bold tracking-widest mb-4">¿No tienes una cuenta personal?</p>
                         <Button variant="outline" asChild className="w-full h-12 rounded-xl border-white/10 bg-white/5 text-[9px] font-black uppercase tracking-widest hover:bg-white/10">
-                            <Link href="/register/natural">REGISTRARSE AHORA</Link>
+                            <Link href="/register">REGISTRARSE AHORA</Link>
                         </Button>
                         <p className="mt-8 text-[8px] text-white/10 uppercase font-black tracking-[0.5em]">System Kyron v2.6.5 • SSL Secure Connection</p>
                     </CardFooter>

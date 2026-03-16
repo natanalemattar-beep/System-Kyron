@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, AlertTriangle, User, ChevronLeft } from 'lucide-react';
+import { Loader2, AlertTriangle, User, ChevronLeft, ShieldCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
@@ -35,7 +35,7 @@ export default function LoginPersonalPage() {
                 toast({ title: "Acceso Concedido", description: "Bienvenido a tu portal personal." });
                 router.push('/dashboard');
             } else {
-                setError("Credenciales de demostración incorrectas. Utilice las indicadas.");
+                setError("Correo o contraseña incorrectos. Utilice las credenciales de demo.");
                 setIsLoading(false);
             }
         }, 1000);
@@ -58,12 +58,12 @@ export default function LoginPersonalPage() {
                 </CardHeader>
                 <form onSubmit={handleLogin}>
                     <CardContent className="p-8 pt-4 space-y-6">
-                         <Alert variant="default" className="bg-secondary/50 border-none rounded-2xl p-4">
-                            <AlertTriangle className="h-5 w-5 text-primary" />
-                            <AlertTitle className="text-sm font-bold ml-3">Modo Demostración</AlertTitle>
+                         <Alert variant="default" className="bg-primary/10 border-primary/20 text-primary rounded-2xl p-4">
+                            <ShieldCheck className="h-5 w-5" />
+                            <AlertTitle className="text-sm font-bold ml-3 uppercase tracking-widest">Modo Demostración</AlertTitle>
                             <AlertDescription className="ml-3 mt-1">
-                                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
-                                    <p className="font-mono text-xs"><strong>Correo:</strong> usuario@kyron.com</p>
+                                <div className="flex flex-wrap gap-x-4 gap-y-1">
+                                    <p className="font-mono text-xs"><strong>Email:</strong> usuario@kyron.com</p>
                                     <p className="font-mono text-xs"><strong>Clave:</strong> password123</p>
                                 </div>
                             </AlertDescription>
@@ -73,11 +73,11 @@ export default function LoginPersonalPage() {
                                 <AlertTriangle className="h-5 w-5" />
                                 <AlertTitle className="text-sm font-bold ml-3">Error de Autenticación</AlertTitle>
                                 <AlertDescription className="ml-3 mt-1 text-xs">{error}</AlertDescription>
-                            </Alert>
+                             </Alert>
                         )}
                         <div className="space-y-3">
                             <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest opacity-70">Correo Electrónico</Label>
-                            <Input id="email" name="email" type="email" placeholder="tu@correo.com" required className="h-11 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
+                            <Input id="email" name="email" type="email" placeholder="usuario@kyron.com" required className="h-11 text-base px-4 rounded-xl bg-secondary/30 border-none focus-visible:ring-primary" />
                         </div>
                         <div className="space-y-3">
                             <Label htmlFor="password" className="text-xs font-bold uppercase tracking-widest opacity-70">Contraseña</Label>
