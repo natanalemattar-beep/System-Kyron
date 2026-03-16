@@ -1,14 +1,37 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Palmtree, PlusCircle, CheckCircle, FileText, Activity, Terminal, Star } from "lucide-react";
+import { Palmtree, PlusCircle, CheckCircle, FileText, Activity, Terminal, Star, Download, Printer } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Logo } from "@/components/logo";
 
 export default function MinisterioTurismoPage() {
     const { toast } = useToast();
+
+    const letterTemplate = `
+Caracas, [Fecha Actual]
+
+Ciudadanos
+Ministerio del Poder Popular para el Turismo (MINTUR)
+Registro Turístico Nacional (RTN)
+Presente.-
+
+Asunto: Solicitud de Inscripción / Actualización RTN
+
+Yo, [Nombre del Representante], Representante Legal de System Kyron, C.A. (RIF J-12345678-9), me dirijo a ustedes para solicitar formalmente la actualización de nuestro Registro Turístico Nacional.
+
+Nuestra organización provee soluciones tecnológicas para el sector servicios y turismo, cumpliendo con la contribución del 1% INATUR y los estándares de calidad del sector.
+
+Atentamente,
+
+_________________________
+Representante Legal
+System Kyron, C.A.
+    `;
 
     return (
         <div className="space-y-12 pb-20 px-4 md:px-10">
@@ -20,49 +43,77 @@ export default function MinisterioTurismoPage() {
                     <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Ministerio de <span className="text-primary italic">Turismo</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Registro de Prestadores de Servicios (RTN) • 2026</p>
                 </div>
-                <Button className="btn-3d-primary h-12 px-10 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-2xl">
-                    ACTUALIZAR RTN
-                </Button>
             </header>
 
-            <div className="grid gap-8 md:grid-cols-2">
-                <Card className="glass-card border-none bg-card/40 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between group hover:border-primary/30 transition-all">
-                    <div className="space-y-8">
-                        <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 group-hover:scale-110 transition-transform w-fit">
-                            <Star className="h-8 w-8 text-primary" />
-                        </div>
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground">Contribución 1% INATUR</h3>
-                            <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase text-justify">
-                                Liquidación mensual obligatoria para prestadores de servicios turísticos. El sistema calcula la tasa basada en los ingresos brutos del periodo declarados en el TPV.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="pt-10">
-                        <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">Generar Declaración</Button>
-                    </div>
-                </Card>
+            <Tabs defaultValue="rtn" className="w-full">
+                <TabsList className="flex h-14 bg-card/50 border border-white/5 rounded-2xl p-1.5 mb-10 shadow-inner max-w-md">
+                    <TabsTrigger value="rtn" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-primary data-[state=active]:text-white">Mi RTN</TabsTrigger>
+                    <TabsTrigger value="comunicaciones" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-primary data-[state=active]:text-white">Generar Carta</TabsTrigger>
+                </TabsList>
 
-                <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl">
-                    <CardHeader className="p-0 mb-8">
-                        <CardTitle className="text-sm font-black uppercase tracking-widest text-primary italic">Estatus RTN Corporativo</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0 space-y-6">
-                        <div className="flex justify-between items-center border-b border-border/50 pb-4">
-                            <span className="text-[9px] font-bold text-slate-500 uppercase">Nro. de Registro</span>
-                            <span className="text-xs font-black font-mono">RTN-2026-00456</span>
+                <TabsContent value="rtn" className="animate-in fade-in duration-500">
+                    <div className="grid gap-8 md:grid-cols-2">
+                        <Card className="glass-card border-none bg-card/40 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-between group hover:border-primary/30 transition-all">
+                            <div className="space-y-8">
+                                <div className="p-4 bg-primary/10 rounded-2xl border border-primary/20 group-hover:scale-110 transition-transform w-fit">
+                                    <Star className="h-8 w-8 text-primary" />
+                                </div>
+                                <div className="space-y-4">
+                                    <h3 className="text-xl font-black uppercase italic tracking-tighter text-foreground">Contribución 1% INATUR</h3>
+                                    <p className="text-xs font-bold text-muted-foreground/60 leading-relaxed uppercase text-justify">
+                                        Liquidación mensual obligatoria para prestadores de servicios. El sistema calcula la tasa basada en los ingresos brutos.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="pt-10">
+                                <Button variant="outline" className="w-full h-12 rounded-xl border-border bg-white/5 text-[9px] font-black uppercase tracking-widest">Generar Declaración</Button>
+                            </div>
+                        </Card>
+
+                        <Card className="glass-card border-none bg-primary/5 p-10 rounded-[3rem] shadow-2xl">
+                            <CardHeader className="p-0 mb-8">
+                                <CardTitle className="text-sm font-black uppercase tracking-widest text-primary italic">Estatus RTN Corporativo</CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-0 space-y-6">
+                                <div className="flex justify-between items-center border-b border-border/50 pb-4">
+                                    <span className="text-[9px] font-bold text-slate-500 uppercase">Nro. de Registro</span>
+                                    <span className="text-xs font-black font-mono">RTN-2026-00456</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-[9px] font-bold text-slate-500 uppercase">Vencimiento</span>
+                                    <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase px-3 h-6 rounded-lg">31 DIC 2026</Badge>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </TabsContent>
+
+                <TabsContent value="comunicaciones" className="animate-in fade-in duration-500">
+                    <Card className="glass-card border-none rounded-[3.5rem] bg-white p-12 md:p-20 shadow-2xl relative overflow-hidden font-serif text-slate-900">
+                        <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
+                            <Logo className="h-full w-full rotate-12 scale-150 grayscale" />
                         </div>
-                        <div className="flex justify-between items-center border-b border-border/50 pb-4">
-                            <span className="text-[9px] font-bold text-slate-500 uppercase">Categoría</span>
-                            <span className="text-xs font-black uppercase italic">Servicios Corporativos</span>
+                        <header className="flex justify-between items-start mb-16 border-b-2 border-slate-900 pb-8 relative z-10">
+                            <Logo className="h-14 w-14" />
+                            <div className="text-right">
+                                <h4 className="text-lg font-black italic uppercase tracking-tighter">System Kyron, C.A.</h4>
+                                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">RIF: J-12345678-9</p>
+                            </div>
+                        </header>
+                        <div className="whitespace-pre-wrap text-sm md:text-base text-justify leading-relaxed relative z-10 min-h-[400px]">
+                            {letterTemplate}
                         </div>
-                        <div className="flex justify-between items-center">
-                            <span className="text-[9px] font-bold text-slate-500 uppercase">Vencimiento</span>
-                            <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black uppercase">31 DIC 2026</Badge>
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
+                        <footer className="mt-20 pt-8 border-t border-slate-100 flex justify-end gap-4 no-print relative z-10">
+                            <Button variant="outline" className="h-12 px-8 rounded-xl border-slate-200 text-slate-600 font-black uppercase text-[10px]" onClick={() => window.print()}>
+                                <Printer className="mr-3 h-4 w-4" /> IMPRIMIR
+                            </Button>
+                            <Button className="h-12 px-8 rounded-xl btn-3d-primary font-black uppercase text-[10px]" onClick={() => toast({ title: "WORD GENERADO" })}>
+                                <Download className="mr-3 h-4 w-4" /> BAJAR .DOC
+                            </Button>
+                        </footer>
+                    </Card>
+                </TabsContent>
+            </Tabs>
         </div>
     );
 }
