@@ -17,95 +17,39 @@ import { Link, usePathname } from "@/navigation";
 import { Logo } from "./logo";
 import { 
     LogOut, 
-    Calculator,
-    LayoutDashboard,
     ChevronDown,
-    BookOpen,
-    Landmark,
-    Wallet,
-    PieChart,
     Menu,
     Zap,
     Bell,
     Settings,
     User,
-    BarChart3,
-    TrendingUp,
-    Percent,
-    Calendar,
-    ShieldCheck,
-    Gavel,
-    History,
     Activity,
-    Banknote,
-    Building2,
-    UserCheck,
-    Briefcase,
-    FileText,
-    Boxes,
-    Bot,
-    CreditCard
+    Sparkles
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { AppSidebar } from "./app-sidebar";
 
-const navigationConfig = [
-  { 
-      label: "MANDO", 
-      href: "/dashboard-empresa", 
-      icon: LayoutDashboard,
-      type: 'link'
-  },
-  { 
-      label: "CONTABILIDAD", 
-      icon: Calculator,
-      type: 'menu',
-      items: [
-          { label: "Libros Maestros", href: "/contabilidad/libros", icon: BookOpen },
-          { label: "Gestión de Cuentas", href: "/contabilidad/cuentas", icon: Wallet },
-          { label: "Análisis e Inteligencia", href: "/contabilidad/analisis", icon: PieChart },
-          { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
-          { label: "Certificación Empresa", href: "/contabilidad/certificaciones/empresa", icon: Building2 },
-          { label: "Certificación Socios", href: "/contabilidad/certificaciones/socios", icon: UserCheck },
-          { label: "Certificados Laborales", href: "/contabilidad/rrhh/certificados-laborales", icon: Briefcase },
-      ]
-  },
-  { 
-      label: "TRIBUTOS", 
-      icon: Landmark,
-      type: 'menu',
-      items: [
-          { label: "Asistente IA", href: "/gaceta-6952", icon: Bot },
-          { label: "Centro Tributario", href: "/contabilidad/tributos", icon: Landmark },
-          { label: "Parafiscales", href: "/contabilidad/tributos/aportes-parafiscales", icon: Landmark },
-          { label: "Pensiones (DPP)", href: "/contabilidad/tributos/proteccion-pensiones", icon: ShieldCheck },
-          { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", icon: Percent },
-          { label: "Retenciones ISLR", href: "/contabilidad/tributos/retenciones-islr", icon: Banknote },
-          { label: "Impuesto IGTF", href: "/contabilidad/tributos/igtf", icon: CreditCard },
-          { label: "Municipales", href: "/contabilidad/tributos/municipales", icon: Landmark },
-          { label: "Calendario 2026", href: "/contabilidad/tributos/calendario-fiscal", icon: Calendar },
-          { label: "Multas y Sanciones", href: "/contabilidad/tributos/multas", icon: Gavel },
-          { label: "Archivo Maestro", href: "/contabilidad/tributos/declaraciones-anteriores", icon: History },
-      ]
-  },
-  { 
-      label: "AUTOMATIZACIONES", 
-      href: "/automatizaciones", 
-      icon: Zap,
-      type: 'link',
-      prefix: '⚡'
-  },
-  { 
-      label: "REPORTES", 
-      href: "/reportes", 
-      icon: BarChart3,
-      type: 'link',
-      prefix: '📊'
-  }
-];
+/**
+ * @fileOverview AppHeader Contextual.
+ * Recibe navGroups como prop para renderizar la navegación específica del portal activo.
+ */
 
-export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: string }) {
+interface AppHeaderProps {
+  user: any;
+  dashboardHref: string;
+  navGroups?: {
+    title: string;
+    icon: React.ElementType;
+    items: {
+      href: string;
+      label: string;
+      icon: React.ElementType;
+    }[];
+  }[];
+}
+
+export function AppHeader({ user, dashboardHref, navGroups }: AppHeaderProps) {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
@@ -143,7 +87,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                 </SheetContent>
             </Sheet>
 
-            <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <Link href={dashboardHref as any} className="flex items-center gap-3 group shrink-0">
                 <Logo className="h-9 w-9 drop-shadow-glow" /> 
                 <div className="flex flex-col -mt-1 hidden sm:flex">
                     <span className="text-[11px] font-black tracking-[0.3em] uppercase text-foreground italic leading-none">System Kyron</span>
@@ -152,68 +96,50 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
             </Link>
           </div>
 
+          {/* NAVEGACIÓN CONTEXTUAL DINÁMICA */}
           <nav className="hidden lg:flex items-center justify-center gap-1 flex-1 max-w-5xl mx-auto overflow-hidden">
-            {navigationConfig.map((nav) => (
-                nav.type === 'link' ? (
-                    <Button 
-                        key={nav.href}
-                        asChild 
-                        variant="ghost" 
-                        className={cn(
-                            "h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-2 border border-transparent whitespace-nowrap group",
-                            pathname.includes(nav.href!) 
-                                ? "bg-primary/5 text-primary border-primary/10 shadow-glow-sm" 
-                                : "text-muted-foreground/60 hover:text-primary hover:bg-muted/50"
-                        )}
-                    >
-                        <Link href={nav.href as any}>
-                            <nav.icon className={cn("h-3.5 w-3.5", pathname.includes(nav.href!) ? "text-primary" : "opacity-30")} />
-                            {nav.prefix ? `${nav.prefix} ${nav.label}` : nav.label}
-                        </Link>
-                    </Button>
-                ) : (
-                    <DropdownMenu key={nav.label}>
-                        <DropdownMenuTrigger asChild>
-                            <Button 
-                                variant="ghost" 
-                                className="h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-primary hover:bg-muted/50 whitespace-nowrap gap-2 group data-[state=open]:text-primary data-[state=open]:bg-primary/5"
-                            >
-                                <nav.icon className="h-3.5 w-3.5 opacity-30 group-data-[state=open]:opacity-100 transition-opacity" />
-                                {nav.label}
-                                <ChevronDown className="h-3 w-3 opacity-20 group-data-[state=open]:rotate-180 transition-transform" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="center" className="w-[520px] p-4 rounded-[2.5rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
-                            <DropdownMenuLabel className="p-4 mb-4 bg-primary/5 rounded-3xl border border-primary/10">
-                                <div className="flex items-center gap-4">
-                                    <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/20 shadow-inner">
-                                        <nav.icon className="h-5 w-5 text-primary" />
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em] leading-none">{nav.label}</span>
-                                        <span className="text-[7px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5 italic">Terminal de Gestión de Alta Densidad</span>
-                                    </div>
+            {navGroups?.map((group) => (
+                <DropdownMenu key={group.title}>
+                    <DropdownMenuTrigger asChild>
+                        <Button 
+                            variant="ghost" 
+                            className="h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-primary hover:bg-muted/50 whitespace-nowrap gap-2 group data-[state=open]:text-primary data-[state=open]:bg-primary/5"
+                        >
+                            <group.icon className="h-3.5 w-3.5 opacity-30 group-data-[state=open]:opacity-100 transition-opacity" />
+                            {group.title}
+                            <ChevronDown className="h-3 w-3 opacity-20 group-data-[state=open]:rotate-180 transition-transform" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="center" className="w-[480px] p-4 rounded-[2.5rem] border-border bg-card/95 backdrop-blur-3xl shadow-2xl overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
+                        <DropdownMenuLabel className="p-4 mb-4 bg-primary/5 rounded-3xl border border-primary/10">
+                            <div className="flex items-center gap-4">
+                                <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/20 shadow-inner">
+                                    <group.icon className="h-5 w-5 text-primary" />
                                 </div>
-                            </DropdownMenuLabel>
-                            <div className="grid grid-cols-2 gap-2">
-                                {nav.items?.map((item) => (
-                                    <DropdownMenuItem key={item.href} asChild className="rounded-[1.2rem] h-14 mb-0 focus:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group/item">
-                                        <Link href={item.href as any} className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
-                                            <div className="p-2.5 bg-muted rounded-xl border border-border group-hover/item:bg-primary/10 group-hover/item:border-primary/20 transition-all shadow-inner">
-                                                <item.icon className="h-4 w-4 text-muted-foreground group-hover/item:text-primary transition-colors" />
-                                            </div>
-                                            <span className="group-hover/item:text-foreground transition-colors">{item.label}</span>
-                                        </Link>
-                                    </DropdownMenuItem>
-                                ))}
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em] leading-none">{group.title}</span>
+                                    <span className="text-[7px] font-bold text-muted-foreground uppercase tracking-widest mt-1.5 italic">Protocolo de Gestión Activo</span>
+                                </div>
                             </div>
-                            <div className="mt-4 p-3 bg-muted/20 border-t border-border/50 text-center rounded-b-3xl">
-                                <span className="text-[7px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic">System Kyron • Intelligence Node 2026</span>
-                            </div>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                )
+                        </DropdownMenuLabel>
+                        <div className="grid grid-cols-2 gap-2">
+                            {group.items.map((item) => (
+                                <DropdownMenuItem key={item.href} asChild className="rounded-[1.2rem] h-14 mb-0 focus:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group/item">
+                                    <Link href={item.href as any} className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
+                                        <div className="p-2.5 bg-muted rounded-xl border border-border group-hover/item:bg-primary/10 group-hover/item:border-primary/20 transition-all shadow-inner">
+                                            <item.icon className="h-4 w-4 text-muted-foreground group-hover/item:text-primary transition-colors" />
+                                        </div>
+                                        <span className="group-hover/item:text-foreground transition-colors">{item.label}</span>
+                                    </Link>
+                                </DropdownMenuItem>
+                            ))}
+                        </div>
+                        <div className="mt-4 p-3 bg-muted/20 border-t border-border/50 text-center rounded-b-3xl">
+                            <span className="text-[7px] font-black uppercase tracking-[0.5em] text-muted-foreground/40 italic">System Kyron • Intelligence Node 2026</span>
+                        </div>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             ))}
           </nav>
 

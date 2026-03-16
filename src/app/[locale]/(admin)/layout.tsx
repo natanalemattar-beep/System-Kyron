@@ -4,6 +4,7 @@
 import { AppHeader } from "@/components/app-header";
 import { ChatDialog } from "@/components/chat-dialog";
 import { motion } from "framer-motion";
+import { adminNavGroups } from "@/components/app-sidebar-nav-items";
 
 /**
  * @fileOverview Layout Administrativo Consolidado.
@@ -36,6 +37,7 @@ export default function AdminLayout({
               <AppHeader 
                 user={headerUser} 
                 dashboardHref="/dashboard-empresa" 
+                navGroups={adminNavGroups}
               />
               
               <motion.main 
