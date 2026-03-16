@@ -35,6 +35,12 @@ export const pathnames = {
   '/contabilidad/libros/vacaciones': '/contabilidad/libros/vacaciones',
   '/contabilidad/libros/utilidades': '/contabilidad/libros/utilidades',
   '/contabilidad/libros/prestaciones': '/contabilidad/libros/prestaciones',
+  '/contabilidad/libros/control-licores': '/contabilidad/libros/control-licores',
+  '/contabilidad/libros/nomina': '/contabilidad/libros/nomina',
+  '/contabilidad/libros/horas-extras': '/contabilidad/libros/horas-extras',
+  '/contabilidad/libros/cesta-ticket': '/contabilidad/libros/cesta-ticket',
+  '/contabilidad/libros/compra-venta': '/contabilidad/libros/compra-venta',
+  '/contabilidad/libros/inventario': '/contabilidad/libros/inventario',
 
   // TRIBUTOS SUB-PORTAL
   '/contabilidad/tributos': '/contabilidad/tributos',
@@ -57,6 +63,7 @@ export const pathnames = {
   '/contabilidad/cuentas/anticipos-clientes': '/contabilidad/cuentas/libro-bancos',
   '/contabilidad/cuentas/flujo-caja-proyectado': '/contabilidad/cuentas/libro-bancos',
   '/contabilidad/cuentas/antiguedad-saldos': '/contabilidad/cuentas/libro-bancos',
+  '/contabilidad/cuentas/todas': '/contabilidad/cuentas/todas',
 
   // ANALISIS SUB-PORTAL
   '/contabilidad/analisis': '/contabilidad/analisis',
@@ -66,6 +73,7 @@ export const pathnames = {
   '/contabilidad/analisis/ratios': '/contabilidad/analisis/ratios',
   '/contabilidad/analisis/sensibilidad': '/contabilidad/analisis/sensibilidad',
   '/contabilidad/analisis/benchmarking': '/contabilidad/analisis/benchmarking',
+  '/contabilidad/analisis/todos': '/contabilidad/analisis/todos',
 
   // CERTIFICACIONES
   '/contabilidad/certificaciones/empresa': '/contabilidad/certificaciones/empresa',
@@ -83,6 +91,14 @@ export const pathnames = {
   '/analisis-ventas': '/ventas/analisis-comercial',
   '/facturacion': '/ventas/facturacion',
   '/punto-de-venta': '/ventas/punto-de-venta',
+  '/gaceta-6952': '/gaceta-6952',
+  '/declaracion-iva': '/declaracion-iva',
+  '/islr-arc': '/islr-arc',
+  '/libro-compra-venta': '/libro-compra-venta',
+  '/ajuste-por-inflacion': '/ajuste-por-inflacion',
+  '/acta-asamblea': '/acta-asamblea',
+  '/poderes-representacion': '/poderes-representacion',
+  '/activos-inmobiliarios': '/activos-inmobiliarios',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({

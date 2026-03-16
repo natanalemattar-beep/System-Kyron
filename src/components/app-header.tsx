@@ -42,7 +42,8 @@ import {
     UserCheck,
     Briefcase,
     FileText,
-    Boxes
+    Boxes,
+    Bot
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -74,6 +75,7 @@ const navigationConfig = [
       icon: Landmark,
       type: 'menu',
       items: [
+          { label: "Asistente Fiscal IA", href: "/gaceta-6952", icon: Bot },
           { label: "Retenciones IVA", href: "/contabilidad/tributos/retenciones-iva", icon: Percent },
           { label: "Retenciones ISLR", href: "/contabilidad/tributos/retenciones-islr", icon: Banknote },
           { label: "Impuestos Municipales", href: "/contabilidad/tributos/municipales", icon: Landmark },

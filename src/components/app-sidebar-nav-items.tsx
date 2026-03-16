@@ -43,7 +43,8 @@ import {
   Percent,
   BookOpen,
   Calendar,
-  Building2
+  Building2,
+  Bot
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -107,6 +108,7 @@ export const adminNavGroups = [
     title: "Tributos",
     icon: Landmark,
     items: [
+        { href: "/gaceta-6952", label: "Asistente Fiscal IA", icon: Bot },
         { href: "/contabilidad/tributos/retenciones-iva", label: "Retenciones IVA", icon: Percent },
         { href: "/contabilidad/tributos/retenciones-islr", label: "Retenciones ISLR", icon: Banknote },
         { href: "/contabilidad/tributos/municipales", label: "Municipales", icon: Landmark },
