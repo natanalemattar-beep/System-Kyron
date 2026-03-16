@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Link, usePathname } from "@/navigation";
 import { Logo } from "./logo";
 import { 
@@ -28,10 +28,12 @@ import {
     Bell,
     Settings,
     User,
-    BarChart3
+    BarChart3,
+    ChevronRight
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
+import { adminNavGroups } from "./app-sidebar-nav-items";
 
 const navigationConfig = [
   { 
@@ -89,48 +91,42 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
           <div className="flex items-center gap-4">
             <Sheet>
                 <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon" className="lg:hidden h-10 w-10 rounded-xl bg-white/5 border border-border">
-                        <Menu className="h-5 w-5 text-primary" />
+                    <Button variant="ghost" size="icon" className="lg:hidden h-10 w-10 rounded-xl bg-white/5 border border-border group">
+                        <Menu className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-72 p-0 bg-card border-r-border">
-                    <SheetHeader className="p-8 border-b border-border">
+                <SheetContent side="left" className="w-72 p-0 bg-card/95 backdrop-blur-3xl border-r-white/5">
+                    <SheetHeader className="p-8 border-b border-white/5 bg-muted/10">
                         <div className="flex items-center gap-4">
                             <Logo className="h-10 w-10" />
-                            <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">MENÚ</SheetTitle>
+                            <SheetTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground">SISTEMA</SheetTitle>
                         </div>
                     </SheetHeader>
-                    <div className="p-4 overflow-y-auto max-h-[calc(100vh-8rem)]">
-                        {navigationConfig.map((nav) => (
-                            <div key={nav.label} className="mb-6 last:mb-0">
-                                <p className="px-4 text-[8px] font-black uppercase text-primary tracking-[0.4em] mb-3">{nav.label}</p>
+                    <div className="p-4 overflow-y-auto max-h-[calc(100vh-8rem)] space-y-8 py-10">
+                        {adminNavGroups.map((group) => (
+                            <div key={group.title}>
+                                <p className="px-4 text-[8px] font-black uppercase text-primary/40 tracking-[0.4em] mb-4 italic">{group.title}</p>
                                 <div className="space-y-1">
-                                    {nav.type === 'link' ? (
-                                        <Button asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
-                                            <Link href={nav.href as any}>
-                                                <nav.icon className="h-4 w-4 opacity-40" />
-                                                {nav.label}
-                                            </Link>
-                                        </Button>
-                                    ) : (
-                                        nav.items?.map(item => (
-                                            <Button key={item.label} asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
-                                                <Link href={item.href as any}>
+                                    {group.items.map((item) => (
+                                        <SheetClose key={item.label} asChild>
+                                            <Link 
+                                                href={item.href as any}
+                                                className={cn(
+                                                    "flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300",
+                                                    pathname.includes(item.href) ? "bg-primary/10 text-primary" : "text-muted-foreground/60 hover:text-primary hover:bg-primary/5"
+                                                )}
+                                            >
+                                                <div className="flex items-center gap-3">
                                                     <item.icon className="h-4 w-4 opacity-40" />
-                                                    {item.label}
-                                                </Link>
-                                            </Button>
-                                        ))
-                                    )}
+                                                    <span className="text-[9px] font-black uppercase tracking-widest">{item.label}</span>
+                                                </div>
+                                                <ChevronRight className="h-3 w-3 opacity-20" />
+                                            </Link>
+                                        </SheetClose>
+                                    ))}
                                 </div>
                             </div>
                         ))}
-                        <div className="mt-10 pt-6 border-t border-border">
-                            <p className="px-4 text-[8px] font-black uppercase text-primary tracking-[0.4em] mb-3"> ALERTAS</p>
-                            <Button asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
-                                <Link href="/notificaciones"><Bell className="h-4 w-4 opacity-40" /> Notificaciones</Link>
-                            </Button>
-                        </div>
                     </div>
                 </SheetContent>
             </Sheet>
@@ -154,7 +150,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                         className={cn(
                             "h-10 px-3 xl:px-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all gap-2 border border-transparent whitespace-nowrap group",
                             pathname.includes(nav.href!) 
-                                ? "bg-primary/5 text-primary border-primary/10" 
+                                ? "bg-primary/5 text-primary border-primary/10 shadow-glow-sm" 
                                 : "text-muted-foreground/60 hover:text-primary hover:bg-muted/50"
                         )}
                     >
