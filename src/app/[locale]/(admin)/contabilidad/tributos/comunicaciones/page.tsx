@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
@@ -21,7 +21,9 @@ import {
     Smartphone,
     Globe,
     Zap,
-    X
+    X,
+    Lock,
+    ShieldCheck
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -59,11 +61,12 @@ const institutions = [
     { id: "industria", name: "MIN. INDUSTRIAS", address: "Ministerio del Poder Popular de Industrias y Producción Nacional\nRegistro Industrial" },
 ];
 
-export default function ComunicacionesSeniatPage() {
+export default function ComunicacionesPage() {
     const { toast } = useToast();
     const [institucionId, setInstitucionId] = useState("seniat");
     const [tipoCarta, setTipoCarta] = useState("inactividad");
     const [searchQuery, setSearchQuery] = useState("");
+    const [isSigned, setIsSigned] = useState(false);
     const [data, setData] = useState({
         empresa: "System Kyron, C.A.",
         rif: "J-12345678-9",
@@ -74,6 +77,11 @@ export default function ComunicacionesSeniatPage() {
         fecha: new Date().toISOString().substring(0, 10),
     });
 
+    // Resetear firma si cambian los datos
+    useEffect(() => {
+        setIsSigned(false);
+    }, [institucionId, tipoCarta, data]);
+
     const filteredInstitutions = useMemo(() => {
         return institutions.filter(inst => 
             inst.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -83,15 +91,30 @@ export default function ComunicacionesSeniatPage() {
     const selectedInst = useMemo(() => institutions.find(i => i.id === institucionId) || institutions[0], [institucionId]);
 
     const handleAction = (action: string) => {
+        if (action === 'registro') {
+            setIsSigned(true);
+            toast({
+                title: "PROTOCOLO DE FIRMA COMPLETADO",
+                description: "Documento sellado y registrado en el Ledger Kyron.",
+                action: <CheckCircle className="text-primary h-4 w-4" />
+            });
+            return;
+        }
         if (action === 'descarga') {
+            if (!isSigned) {
+                toast({
+                    variant: "destructive",
+                    title: "DOCUMENTO NO VÁLIDO",
+                    description: "Debe sellar y registrar el documento antes de su descarga."
+                });
+                return;
+            }
             handleDownloadWord();
             return;
         }
-        toast({
-            title: `PROTOCOLO ${action.toUpperCase()} ACTIVADO`,
-            description: "Comunicación procesada bajo cifrado legal.",
-            action: <CheckCircle className="text-primary h-4 w-4" />
-        });
+        if (action === 'impresion') {
+            window.print();
+        }
     };
 
     const getLetterContent = () => {
@@ -221,8 +244,18 @@ export default function ComunicacionesSeniatPage() {
                     </div>
                 </CardContent>
                 <CardFooter className="p-0 pt-10">
-                    <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-xs tracking-widest shadow-xl" onClick={() => handleAction('registro')}>
-                        <CheckCircle className="mr-3 h-5 w-5" /> SELLAR Y REGISTRAR
+                    <Button 
+                        className={cn(
+                            "w-full h-14 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl transition-all duration-500",
+                            isSigned ? "bg-emerald-600 hover:bg-emerald-700 text-white" : "btn-3d-primary"
+                        )} 
+                        onClick={() => handleAction('registro')}
+                    >
+                        {isSigned ? (
+                            <span className="flex items-center gap-3"><ShieldCheck className="h-5 w-5" /> DOCUMENTO SELLADO</span>
+                        ) : (
+                            <span className="flex items-center gap-3"><CheckCircle className="h-5 w-5" /> SELLAR Y REGISTRAR</span>
+                        )}
                     </Button>
                 </CardFooter>
             </Card>
@@ -249,44 +282,59 @@ export default function ComunicacionesSeniatPage() {
                     {getLetterContent()}
                 </div>
 
-                {/* SECCIÓN DE FIRMA Y SELLO INTEGRADO */}
-                <div className="mt-10 pt-10 flex justify-between items-end relative z-10">
-                    <div className="flex flex-col items-center">
-                        <div className="relative mb-4">
-                            {/* Firma Digitalizada Placeholder */}
-                            <Image 
-                                src="https://picsum.photos/seed/signature-kyron/200/100" 
-                                alt="Firma" 
-                                width={160} 
-                                height={80} 
-                                className="mix-blend-multiply opacity-90 brightness-90 contrast-125"
-                            />
-                            {/* Sello Institucional Kyron */}
-                            <div className="absolute -top-6 -right-10 w-28 h-28 border-4 border-primary/20 rounded-full flex items-center justify-center rotate-12 pointer-events-none bg-primary/5 backdrop-blur-[1px]">
-                                <div className="text-center p-2">
-                                    <Logo className="h-10 w-10 opacity-40 grayscale mb-1" />
-                                    <p className="text-[6px] font-black uppercase text-primary/40 leading-none">VALIDADO<br/>KYRON 2026</p>
+                {/* SECCIÓN DE FIRMA Y SELLO INTEGRADO (SÓLO SI ESTÁ FIRMADO) */}
+                <div className="mt-10 pt-10 flex justify-between items-end relative z-10 min-h-[180px]">
+                    {isSigned ? (
+                        <>
+                            <motion.div 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="flex flex-col items-center"
+                            >
+                                <div className="relative mb-4">
+                                    <Image 
+                                        src="https://picsum.photos/seed/signature-kyron/200/100" 
+                                        alt="Firma" 
+                                        width={160} 
+                                        height={80} 
+                                        className="mix-blend-multiply opacity-90 brightness-90 contrast-125"
+                                    />
+                                    <div className="absolute -top-6 -right-10 w-28 h-28 border-4 border-primary/20 rounded-full flex items-center justify-center rotate-12 pointer-events-none bg-primary/5 backdrop-blur-[1px]">
+                                        <div className="text-center p-2">
+                                            <Logo className="h-10 w-10 opacity-40 grayscale mb-1" />
+                                            <p className="text-[6px] font-black uppercase text-primary/40 leading-none">VALIDADO<br/>KYRON 2026</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div className="w-56 h-[1.5px] bg-slate-900 mb-2" />
+                                <p className="font-black text-xs uppercase tracking-tight">{data.representante}</p>
+                                <p className="text-[9px] uppercase font-bold opacity-40">C.I: {data.cedula}</p>
+                                <p className="text-[9px] uppercase font-bold opacity-40">Representante Legal</p>
+                            </motion.div>
+                            
+                            <motion.div 
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="text-right"
+                            >
+                                <div className="p-2 border-2 border-slate-100 rounded-2xl bg-white shadow-inner inline-block">
+                                    <Image 
+                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=KYRON-VALID-ID-${data.rif}-${data.fecha}&bgcolor=ffffff&color=000000&margin=1`} 
+                                        alt="QR Verificacion" 
+                                        width={90} 
+                                        height={90} 
+                                        className="grayscale"
+                                    />
+                                </div>
+                                <p className="text-[7px] font-black uppercase mt-3 opacity-20 tracking-[0.3em]">Integridad Digital Sellada</p>
+                            </motion.div>
+                        </>
+                    ) : (
+                        <div className="w-full border-2 border-dashed border-slate-100 rounded-[2rem] p-10 flex flex-col items-center justify-center gap-4 opacity-20 italic">
+                            <Lock className="h-10 w-10" />
+                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-center">Documento pendiente de firma y sellado institucional</p>
                         </div>
-                        <div className="w-56 h-[1.5px] bg-slate-900 mb-2" />
-                        <p className="font-black text-xs uppercase tracking-tight">{data.representante}</p>
-                        <p className="text-[9px] uppercase font-bold opacity-40">C.I: {data.cedula}</p>
-                        <p className="text-[9px] uppercase font-bold opacity-40">Representante Legal</p>
-                    </div>
-                    
-                    <div className="text-right">
-                        <div className="p-2 border-2 border-slate-100 rounded-2xl bg-white shadow-inner inline-block">
-                            <Image 
-                                src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=KYRON-VALID-ID-${data.rif}-${data.fecha}&bgcolor=ffffff&color=000000&margin=1`} 
-                                alt="QR Verificacion" 
-                                width={90} 
-                                height={90} 
-                                className="grayscale"
-                            />
-                        </div>
-                        <p className="text-[7px] font-black uppercase mt-3 opacity-20 tracking-[0.3em]">Integridad Digital Sellada</p>
-                    </div>
+                    )}
                 </div>
 
                 <footer className="mt-20 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8 no-print relative z-10">
@@ -294,7 +342,7 @@ export default function ComunicacionesSeniatPage() {
                         <Terminal className="h-4 w-4" /> TRANSMISIÓN AUTORIZADA KYRON
                     </div>
                     <div className="flex gap-3">
-                        <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => window.print()}>
+                        <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => handleAction('impresion')}>
                             <Printer className="mr-2 h-3.5 w-3.5" /> IMPRIMIR
                         </Button>
                         <Button variant="outline" className="h-10 rounded-xl border-slate-200 text-slate-600 text-[9px] font-black uppercase tracking-widest" onClick={() => handleAction('descarga')}>
