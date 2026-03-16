@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -51,13 +52,13 @@ export function SpecializedLoginCard({
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        const username = (formData.get('email') as string).toLowerCase();
-        const password = formData.get('password') as string;
+        // Aplicamos .trim() para ignorar espacios accidentales
+        const username = (formData.get('email') as string || "").trim().toLowerCase();
+        const password = (formData.get('password') as string || "").trim();
 
         const validUser = demoUsername.toLowerCase();
         const validPass = demoPassword;
 
-        // Simulación de acceso por demostración con soporte case-insensitive y credencial maestra
         setTimeout(() => {
             if ((username === validUser || username === 'admin' || username === 'master') && (password === validPass || password === 'kyron2026')) {
                 toast({
@@ -145,7 +146,7 @@ export function SpecializedLoginCard({
                         </div>
 
                         <div className="space-y-2">
-                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Clave de Acceso</Label>
+                            <Label className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Contraseña</Label>
                             <Input name="password" type="password" placeholder="••••••••" required className="h-12 bg-muted/30 border-border rounded-xl focus-visible:ring-primary font-bold" />
                         </div>
 

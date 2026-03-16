@@ -27,8 +27,9 @@ export default function LoginPersonalPage() {
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        const email = formData.get('email') as string;
-        const password = formData.get('password') as string;
+        // Limpiamos los espacios accidentales
+        const email = (formData.get('email') as string || "").trim().toLowerCase();
+        const password = (formData.get('password') as string || "").trim();
 
         const DEMO_EMAIL = "usuario@kyron.com";
         const DEMO_PASS = "password123";

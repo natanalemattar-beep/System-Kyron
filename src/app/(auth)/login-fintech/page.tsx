@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -30,8 +31,9 @@ export default function LoginFintechPage() {
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        const rif = formData.get('rif') as string;
-        const password = formData.get('password') as string;
+        // Trimming inputs to ignore spaces
+        const rif = (formData.get('rif') as string || "").trim();
+        const password = (formData.get('password') as string || "").trim();
 
         const DEMO_RIF = "J-12345678-9";
         const DEMO_PASS = "admin1234";
@@ -76,7 +78,7 @@ export default function LoginFintechPage() {
                                 <AlertTriangle className="h-5 w-5" />
                                 <AlertTitle className="text-sm font-bold ml-3">Error de Autenticación</AlertTitle>
                                 <AlertDescription className="ml-3 mt-1 text-xs">{error}</AlertDescription>
-                            </Alert>
+                             </Alert>
                         )}
                         <div className="space-y-3">
                             <Label htmlFor="rif" className="text-xs font-bold uppercase tracking-widest opacity-70">RIF de la Empresa</Label>

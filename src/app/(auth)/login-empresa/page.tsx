@@ -24,8 +24,9 @@ export default function LoginEmpresaPage() {
         setError(null);
 
         const formData = new FormData(event.currentTarget);
-        const rif = formData.get('rif') as string;
-        const password = formData.get('password') as string;
+        // Trimming inputs to ignore spaces
+        const rif = (formData.get('rif') as string || "").trim();
+        const password = (formData.get('password') as string || "").trim();
 
         const DEMO_RIF = "J-12345678-9";
         const DEMO_PASS = "admin1234";
@@ -72,7 +73,7 @@ export default function LoginEmpresaPage() {
                                 <AlertTriangle className="h-4 w-4" />
                                 <AlertTitle className="text-xs font-bold ml-2">Error</AlertTitle>
                                 <AlertDescription className="ml-2 mt-0.5 text-[10px]">{error}</AlertDescription>
-                            </Alert>
+                             </Alert>
                         )}
                         <div className="space-y-2">
                             <Label htmlFor="rif" className="text-[10px] font-black uppercase tracking-widest opacity-70">RIF Empresa</Label>
