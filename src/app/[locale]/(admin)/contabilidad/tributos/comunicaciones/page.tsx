@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { formatDate } from "@/lib/utils";
 import { Link } from "@/navigation";
 import { Logo } from "@/components/logo";
+import { Badge } from "@/components/ui/badge";
 
 export default function ComunicacionesSeniatPage() {
     const { toast } = useToast();
