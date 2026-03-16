@@ -23,7 +23,8 @@ import {
     Bot,
     Loader2,
     ShieldAlert,
-    BarChart3
+    BarChart3,
+    CheckCircle
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
