@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -21,7 +22,8 @@ import {
     CheckCircle2,
     UserCircle,
     UserPlus,
-    Radio
+    Radio,
+    ShieldAlert
 } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
@@ -29,7 +31,7 @@ import { cn } from "@/lib/utils";
 const steps = [
   {
     title: "Bienvenido a System Kyron",
-    description: "Estás ante el ecosistema de gestión más avanzado de Venezuela. Una plataforma de misión crítica diseñada para la excelencia.",
+    description: "Estás ante el ecosistema de gestión más avanzado de Venezuela. Una plataforma de misión crítica diseñada para la excelencia operativa.",
     icon: Sparkles,
     color: "text-yellow-400",
     bg: "bg-yellow-400/10"
@@ -49,18 +51,18 @@ const steps = [
     bg: "bg-secondary/10"
   },
   {
+    title: "Autoridad de Control",
+    description: "Al ingresar como administrador, obtienes 'Autoridad Total' sobre el ecosistema. Esto te permite supervisar todos los nodos (Legal, Fiscal, RR.HH.) desde una consola centralizada.",
+    icon: ShieldAlert,
+    color: "text-rose-500",
+    bg: "bg-rose-500/10"
+  },
+  {
     title: "Tecnología e Innovación",
     description: "Descubre nuestras Papeleras Inteligentes con magnetismo y el sistema de activación inmediata de líneas Kyron 5G.",
     icon: Magnet,
     color: "text-orange-500",
     bg: "bg-orange-500/10"
-  },
-  {
-    title: "Conectividad Total",
-    description: "Asigna números telefónicos y activa eSIMs digitales en segundos para tu flota corporativa o uso personal.",
-    icon: Radio,
-    color: "text-blue-500",
-    bg: "bg-blue-500/10"
   },
   {
     title: "Blindaje Fiscal con IA",
@@ -172,14 +174,14 @@ export function WelcomeTutorial() {
                     {currentStep === steps.length - 1 ? (
                         <Button 
                             onClick={handleNext} 
-                            className="btn-3d-primary rounded-xl px-8 h-12 text-[10px] font-black uppercase tracking-widest"
+                            className="btn-3d-primary rounded-xl px-8 h-12 text-[10px] font-black uppercase tracking-widest shadow-glow"
                         >
                             Comenzar <CheckCircle2 className="ml-2 h-4 w-4" />
                         </Button>
                     ) : (
                         <Button 
                             onClick={handleNext} 
-                            className="btn-3d-primary rounded-xl px-8 h-12 text-[10px] font-black uppercase tracking-widest"
+                            className="btn-3d-primary rounded-xl px-8 h-12 text-[10px] font-black uppercase tracking-widest shadow-glow"
                         >
                             Siguiente <ChevronRight className="ml-2 h-4 w-4" />
                         </Button>
@@ -187,10 +189,10 @@ export function WelcomeTutorial() {
                 </div>
             </DialogFooter>
 
-            <div className="p-4 bg-muted/30 text-center border-t">
+            <div className="p-4 bg-muted/30 text-center border-t border-white/5">
                 <div className="flex items-center justify-center gap-2">
                     <Logo className="h-4 w-4 opacity-40" />
-                    <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/40">System Kyron Guidance • v2.0</span>
+                    <span className="text-[8px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 italic">System Kyron Guidance • v2.6.5</span>
                 </div>
             </div>
         </div>
