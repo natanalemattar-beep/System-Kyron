@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Leaf, PlusCircle, CheckCircle, FileText, Activity, Terminal, Recycle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";

@@ -84,20 +84,20 @@ const tributoCategories = [
         color: "text-indigo-600",
         items: [
             { label: "Homologación SENIAT (Equipos)", href: "/contabilidad/tributos/homologacion", icon: Printer },
-            { label: "Registro de Comercio (SAREN)", href: "/contabilidad/tributos/poderes-representacion", icon: Gavel },
-            { label: "Propiedad Intelectual (SAPI)", href: "/contabilidad/tributos/permisos", icon: ShieldCheck },
-            { label: "Ministerio de Industrias", href: "/contabilidad/tributos/ministerio-industrias", icon: Building2 },
-            { label: "Ministerio de Comercio Exterior", href: "/contabilidad/tributos/ministerio-comercio-exterior", icon: Globe },
-            { label: "Ministerio de Transporte", href: "/contabilidad/tributos/ministerio-transporte", icon: Truck },
-            { label: "Ministerio de Ecosocialismo", href: "/contabilidad/tributos/ministerio-ecosocialismo", icon: Leaf },
-            { label: "Ministerio de Turismo", href: "/contabilidad/tributos/ministerio-turismo", icon: Palmtree },
+            { label: "Registro SAREN (Poderes y Actas)", href: "/contabilidad/tributos/poderes-representacion", icon: Gavel },
+            { label: "Propiedad Intelectual SAPI", href: "/contabilidad/tributos/permisos", icon: ShieldCheck },
+            { label: "Min. Industrias y Comercio", href: "/contabilidad/tributos/ministerio-industrias", icon: Building2 },
+            { label: "Min. Comercio Exterior", href: "/contabilidad/tributos/ministerio-comercio-exterior", icon: Globe },
+            { label: "Min. Transporte", href: "/contabilidad/tributos/ministerio-transporte", icon: Truck },
+            { label: "Min. Ecosocialismo", href: "/contabilidad/tributos/ministerio-ecosocialismo", icon: Leaf },
+            { label: "Min. Turismo", href: "/contabilidad/tributos/ministerio-turismo", icon: Palmtree },
         ]
     }
 ];
 
 const registrationStatus = [
     { label: "SENIAT (RIF)", status: "Vigente", date: "15/01/2027", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/contabilidad/tributos/iva" },
-    { label: "IVSS (Patronal)", status: "Vigente", date: "Indefinido", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/contabilidad/tributos/aportes-parafiscales" },
+    { label: "SAREN (Poderes)", status: "Vigente", date: "Indefinido", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/contabilidad/tributos/poderes-representacion" },
     { label: "SAPI (Marcas)", status: "Vigente", date: "10/02/2032", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/contabilidad/tributos/permisos" },
     { label: "MIN. INDUSTRIAS", status: "Alerta", date: "15/05/2026", color: "text-amber-500", bg: "bg-amber-500/10", href: "/contabilidad/tributos/ministerio-industrias" },
     { label: "CONATEL", status: "Vigente", date: "20/03/2028", color: "text-emerald-500", bg: "bg-emerald-500/10", href: "/conatel/licenses" },
@@ -122,8 +122,8 @@ export default function TributosHubPage() {
         <div className="lg:col-span-8 space-y-10">
             {/* --- ACORDEONES DE CATEGORÍAS --- */}
             <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-2 shadow-2xl overflow-hidden">
-                <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5 flex justify-between items-center">
-                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Directorio de Entidades y Gestión 2026</h3>
+                <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-100/50 dark:bg-white/5 flex justify-between items-center">
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-slate-950 dark:text-white italic">Directorio de Entidades y Gestión 2026</h3>
                     <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary shadow-glow-sm">Acreditado SNAT/2025/000091</Badge>
                 </div>
                 <Accordion type="single" collapsible className="w-full">
