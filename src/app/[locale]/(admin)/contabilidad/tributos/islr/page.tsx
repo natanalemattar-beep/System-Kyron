@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     Banknote, Download, Calculator, CheckCircle, 
     AlertTriangle, Activity, Terminal, Copy, Landmark, 
-    Search, History, Zap, ShieldCheck
+    Search, History, Zap, ShieldCheck, PlusCircle
 } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -50,11 +50,11 @@ export default function IslrPage() {
             <Tabs defaultValue="calculadora" className="w-full">
                 <TabsList className="flex h-14 bg-card/50 border border-border rounded-2xl p-1.5 mb-10 shadow-inner max-w-md">
                     <TabsTrigger value="calculadora" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Calculadora</TabsTrigger>
+                    <TabsTrigger value="requisitos" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Inscripción</TabsTrigger>
                     <TabsTrigger value="tarifas" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Tarifas</TabsTrigger>
-                    <TabsTrigger value="estimadas" className="flex-1 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Estimadas</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="calculadora">
+                <TabsContent value="calculadora" className="animate-in fade-in duration-500">
                     <div className="grid gap-10 lg:grid-cols-12">
                         <div className="lg:col-span-7 space-y-10">
                             <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-10 shadow-2xl">
@@ -112,6 +112,45 @@ export default function IslrPage() {
                             </Card>
                         </div>
                     </div>
+                </TabsContent>
+
+                <TabsContent value="requisitos" className="animate-in fade-in duration-500">
+                    <Card className="glass-card border-none rounded-[3rem] bg-card/40 p-10 shadow-2xl max-w-4xl mx-auto">
+                        <CardHeader className="p-0 mb-10">
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+                                <CheckCircle className="text-indigo-500 h-6 w-6" /> Dossier de Inscripción y Renovación
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-10">
+                            <div className="grid md:grid-cols-2 gap-10">
+                                <div className="space-y-6">
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-500">Recaudos Obligatorios</h4>
+                                    <ul className="space-y-3">
+                                        {["Copia del RIF actualizado", "Libros Contables Foliados", "Declaraciones Definitivas Anteriores", "Registro Mercantil Original"].map((doc, i) => (
+                                            <li key={i} className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground uppercase">
+                                                <div className="h-1.5 w-1.5 rounded-full bg-indigo-500/40" /> {doc}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="space-y-6">
+                                    <div className="p-6 bg-white/[0.03] border border-border rounded-2xl space-y-4">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-[9px] font-black uppercase text-muted-foreground/40">Estado Fiscal</span>
+                                            <Badge className="bg-emerald-500/20 text-emerald-400 border-none h-6 px-3 text-[8px] font-black uppercase">VIGENTE</Badge>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <p className="text-[8px] font-black uppercase text-muted-foreground/40">Próximo Cierre Fiscal</p>
+                                            <p className="text-xs font-bold text-foreground">31 de Marzo, 2026</p>
+                                        </div>
+                                    </div>
+                                    <Button className="w-full h-12 rounded-xl border border-indigo-500/20 bg-indigo-500/5 text-indigo-500 font-black uppercase text-[10px] tracking-widest hover:bg-indigo-500/10" onClick={() => alert("Asesoría disponible en la versión completa")}>
+                                        INICIAR AUDITORÍA DE CIERRE
+                                    </Button>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
                 </TabsContent>
             </Tabs>
         </div>

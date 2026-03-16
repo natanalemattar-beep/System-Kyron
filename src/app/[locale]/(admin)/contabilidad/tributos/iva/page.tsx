@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { 
     FileText, Download, Calculator, CheckCircle, 
     AlertTriangle, Activity, Terminal, Copy, Landmark, 
-    Smartphone, Search, Clock, Zap
+    Smartphone, Search, Clock, Zap, PlusCircle
 } from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -58,6 +58,45 @@ export default function IvaPage() {
 
             <div className="grid gap-10 lg:grid-cols-12">
                 <div className="lg:col-span-7 space-y-10">
+                    {/* --- CARD DE INSCRIPCIÓN Y RENOVACIÓN --- */}
+                    <Card className="glass-card border-none rounded-[3rem] bg-white dark:bg-card/40 p-1 shadow-2xl">
+                        <CardHeader className="p-10 border-b border-border/50">
+                            <CardTitle className="text-xl font-black uppercase italic tracking-tighter text-foreground flex items-center gap-4">
+                                <CheckCircle className="text-primary h-6 w-6" /> Dossier de Inscripción y Renovación
+                            </CardTitle>
+                            <CardDescription className="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Requisitos exigidos por el SENIAT</CardDescription>
+                        </CardHeader>
+                        <CardContent className="p-10 space-y-8">
+                            <div className="grid md:grid-cols-2 gap-10">
+                                <div>
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4">Checklist de Documentos</h4>
+                                    <ul className="space-y-3">
+                                        {["Copia del RIF Vigente", "Registro Mercantil y Modificaciones", "Cédula del Representante Legal", "Última Declaración de ISLR"].map((doc, i) => (
+                                            <li key={i} className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground uppercase">
+                                                <div className="h-1.5 w-1.5 rounded-full bg-primary/40" /> {doc}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="space-y-6">
+                                    <div className="p-6 bg-white/[0.03] border border-border rounded-2xl space-y-4">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-[9px] font-black uppercase text-muted-foreground/40">Estatus Operativo</span>
+                                            <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black px-3">ACTIVO</Badge>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <p className="text-[8px] font-black uppercase text-muted-foreground/40">Próxima Renovación RIF</p>
+                                            <p className="text-xs font-bold text-foreground">15 de Enero, 2027</p>
+                                        </div>
+                                    </div>
+                                    <Button className="w-full h-12 rounded-xl border border-primary/20 bg-primary/5 text-primary font-black uppercase text-[10px] tracking-widest hover:bg-primary/10" onClick={() => alert("Asesoría disponible en la versión completa")}>
+                                        INICIAR TRÁMITE DE ACTUALIZACIÓN
+                                    </Button>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
                     <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
                         <CardHeader className="p-10 border-b border-border/50 bg-muted/10">
                             <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Calculadora de Liquidación IVA</CardTitle>
@@ -76,38 +115,6 @@ export default function IvaPage() {
                                 </div>
                                 <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black px-4 h-6">TASA GENERAL</Badge>
                             </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="glass-card border-none rounded-[3rem] bg-card/40 overflow-hidden shadow-2xl">
-                        <CardHeader className="p-10 border-b border-border/50">
-                            <CardTitle className="text-sm font-black uppercase tracking-[0.4em] text-primary italic">Historial de Declaraciones IVA</CardTitle>
-                        </CardHeader>
-                        <CardContent className="p-0">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow className="bg-muted/30 border-none">
-                                        <TableHead className="pl-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Periodo</TableHead>
-                                        <TableHead className="py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Fecha Presentación</TableHead>
-                                        <TableHead className="text-right py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Monto Liquidado</TableHead>
-                                        <TableHead className="text-right pr-10 py-5 text-[9px] font-black uppercase tracking-widest opacity-30">Comprobante</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {mockHistory.map((row, i) => (
-                                        <TableRow key={i} className="border-border/50 hover:bg-muted/20 transition-all">
-                                            <TableCell className="pl-10 py-6 font-black text-xs uppercase italic">{row.period}</TableCell>
-                                            <TableCell className="py-6 text-[10px] font-bold text-muted-foreground uppercase">{row.date}</TableCell>
-                                            <TableCell className="text-right py-6 font-mono text-sm font-black text-primary">{formatCurrency(row.amount, 'Bs.')}</TableCell>
-                                            <TableCell className="text-right pr-10 py-6">
-                                                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-primary/10 text-primary">
-                                                    <Download className="h-4 w-4" />
-                                                </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
                         </CardContent>
                     </Card>
                 </div>
