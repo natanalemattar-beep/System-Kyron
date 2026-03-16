@@ -97,6 +97,7 @@ export const adminNavGroups = [
         { href: "/islr-arc", label: "Comprobantes AR-C", icon: Banknote },
         { href: "/ajuste-por-inflacion", label: "Ajuste RIPF", icon: Activity },
         { href: "/analisis-caja", label: "Flujo de Caja", icon: Wallet },
+        { href: "/analisis-rentabilidad", label: "Rentabilidad Pro", icon: TrendingUp },
     ],
     subGroups: []
   },

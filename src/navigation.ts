@@ -50,13 +50,13 @@ export const pathnames = {
   '/contabilidad/cuentas': '/contabilidad/cuentas',
   '/contabilidad/cuentas/conciliacion': '/contabilidad/cuentas/conciliacion',
   '/contabilidad/cuentas/libro-bancos': '/contabilidad/cuentas/libro-bancos',
-  '/contabilidad/cuentas/cheques': '/contabilidad/cuentas/cheques',
-  '/contabilidad/cuentas/depositos': '/contabilidad/cuentas/depositos',
-  '/contabilidad/cuentas/transferencias': '/contabilidad/cuentas/transferencias',
-  '/contabilidad/cuentas/anticipos-proveedores': '/contabilidad/cuentas/anticipos-proveedores',
-  '/contabilidad/cuentas/anticipos-clientes': '/contabilidad/cuentas/anticipos-clientes',
-  '/contabilidad/cuentas/flujo-caja-proyectado': '/contabilidad/cuentas/flujo-caja-proyectado',
-  '/contabilidad/cuentas/antiguedad-saldos': '/contabilidad/cuentas/antiguedad-saldos',
+  '/contabilidad/cuentas/cheques': '/contabilidad/cuentas/libro-bancos',
+  '/contabilidad/cuentas/depositos': '/contabilidad/cuentas/libro-bancos',
+  '/contabilidad/cuentas/transferencias': '/contabilidad/cuentas/libro-bancos',
+  '/contabilidad/cuentas/anticipos-proveedores': '/contabilidad/cuentas/libro-bancos',
+  '/contabilidad/cuentas/anticipos-clientes': '/contabilidad/cuentas/libro-bancos',
+  '/contabilidad/cuentas/flujo-caja-proyectado': '/contabilidad/cuentas/libro-bancos',
+  '/contabilidad/cuentas/antiguedad-saldos': '/contabilidad/cuentas/libro-bancos',
 
   // ANALISIS SUB-PORTAL
   '/contabilidad/analisis': '/contabilidad/analisis',
@@ -65,6 +65,9 @@ export const pathnames = {
   '/contabilidad/analisis/ratios': '/contabilidad/analisis/ratios',
   '/contabilidad/analisis/sensibilidad': '/contabilidad/analisis/sensibilidad',
   '/contabilidad/analisis/benchmarking': '/contabilidad/analisis/benchmarking',
+
+  // ANALISIS RENTABILIDAD
+  '/analisis-rentabilidad': '/analisis-rentabilidad',
 
   // LEGACY ROUTES COMPATIBILITY
   '/analisis-ventas': '/ventas/analisis-comercial',

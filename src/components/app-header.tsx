@@ -31,7 +31,8 @@ import {
     User,
     BarChart3,
     ChevronRight,
-    Terminal
+    Terminal,
+    TrendingUp
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -53,6 +54,7 @@ const navigationConfig = [
           { label: "Tributos", href: "/contabilidad/tributos", icon: Landmark },
           { label: "Cuentas", href: "/contabilidad/cuentas", icon: Wallet },
           { label: "Análisis", href: "/contabilidad/analisis", icon: PieChart },
+          { label: "Rentabilidad Pro", href: "/analisis-rentabilidad", icon: TrendingUp },
       ]
   },
   { 
