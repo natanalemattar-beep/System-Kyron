@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from "react";
@@ -17,34 +16,19 @@ import { Link, usePathname } from "@/navigation";
 import { Logo } from "./logo";
 import { 
     LogOut, 
-    ShieldCheck, 
-    Signal,
     Calculator,
-    FileText,
     LayoutDashboard,
-    Cpu,
     ChevronDown,
     BookOpen,
     Landmark,
-    Activity,
     Wallet,
-    Users,
     PieChart,
-    TrendingUp,
-    HandCoins,
-    BarChart3,
-    Box,
-    Banknote,
-    Calendar,
-    ShieldAlert,
-    FileSearch,
-    CheckCircle,
-    History,
     Menu,
     Zap,
     Bell,
     Settings,
-    User
+    User,
+    BarChart3
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -87,20 +71,6 @@ const navigationConfig = [
       icon: BarChart3,
       type: 'link',
       prefix: '📊'
-  },
-  { 
-      label: "CONFIGURACIÓN", 
-      href: "/configuracion", 
-      icon: Settings,
-      type: 'link',
-      prefix: '⚙️'
-  },
-  { 
-      label: "PERFIL", 
-      href: "/perfil", 
-      icon: User,
-      type: 'link',
-      prefix: '👤'
   }
 ];
 
@@ -117,7 +87,7 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-border/50 bg-background/60 backdrop-blur-3xl h-20 flex items-center w-full shadow-sm overflow-hidden">
+    <header className="fixed top-0 left-0 right-0 z-[150] border-b border-white/5 bg-background/60 backdrop-blur-3xl h-20 flex items-center w-full shadow-sm overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
       
       <div className="w-full px-4 md:px-10">
@@ -162,6 +132,15 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                                 </div>
                             </div>
                         ))}
+                        <div className="mt-10 pt-6 border-t border-border">
+                            <p className="px-4 text-[8px] font-black uppercase text-primary tracking-[0.4em] mb-3">MI CUENTA</p>
+                            <Button asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
+                                <Link href="/perfil"><User className="h-4 w-4 opacity-40" /> Perfil Maestro</Link>
+                            </Button>
+                            <Button asChild variant="ghost" className="w-full justify-start h-11 rounded-xl text-[10px] font-bold uppercase tracking-widest gap-4">
+                                <Link href="/configuracion"><Settings className="h-4 w-4 opacity-40" /> Configuración</Link>
+                            </Button>
+                        </div>
                     </div>
                 </SheetContent>
             </Sheet>
@@ -244,12 +223,21 @@ export function AppHeader({ user, dashboardHref }: { user: any; dashboardHref: s
                     </div>
                 </DropdownMenuLabel>
                 
-                <DropdownMenuItem asChild className="rounded-xl h-12">
-                    <Link href="/perfil" className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
-                        <User className="h-4 w-4 text-primary" />
-                        <span>Mi Perfil Maestro</span>
-                    </Link>
-                </DropdownMenuItem>
+                <div className="p-1 space-y-1">
+                    <DropdownMenuItem asChild className="rounded-xl h-12">
+                        <Link href="/perfil" className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
+                            <User className="h-4 w-4 text-primary" />
+                            <span>Mi Perfil Maestro</span>
+                        </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem asChild className="rounded-xl h-12">
+                        <Link href="/configuracion" className="flex items-center px-4 text-[9px] font-black uppercase tracking-widest gap-4">
+                            <Settings className="h-4 w-4 text-primary" />
+                            <span>Configuración</span>
+                        </Link>
+                    </DropdownMenuItem>
+                </div>
 
                 <DropdownMenuSeparator className="my-1 border-border/50" />
                 
