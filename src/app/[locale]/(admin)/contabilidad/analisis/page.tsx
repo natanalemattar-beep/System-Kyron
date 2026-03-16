@@ -26,6 +26,10 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
+/**
+ * @fileOverview Centro de Análisis Estratégico - Vista de Acceso Rápido y Insights Ejecutivos.
+ */
+
 export default function AnalisisPage() {
   const quickAccess = [
     { 
@@ -50,7 +54,7 @@ export default function AnalisisPage() {
       desc: "Análisis de utilidad neta y eficiencia fiscal."
     },
     { 
-      label: "FACTIBILIDAD", 
+      label: "FACTIBILIDAD ECON.", 
       href: "/estudio-factibilidad-economica", 
       icon: Calculator, 
       color: "text-primary",
@@ -138,7 +142,7 @@ export default function AnalisisPage() {
 
       <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
         <Card className="bg-[#050505] border-none rounded-[3.5rem] p-12 text-white relative overflow-hidden shadow-2xl group cursor-pointer">
-          <Link href="/contabilidad/analisis/factibilidad" className="absolute inset-0 z-20" />
+          <Link href="/estudio-factibilidad-economica" className="absolute inset-0 z-20" />
           <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-transform duration-1000">
             <FileText className="h-64 w-64 text-primary" />
           </div>

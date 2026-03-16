@@ -24,6 +24,12 @@ export const pathnames = {
   // CONTABILIDAD BASE
   '/contabilidad': '/contabilidad',
   
+  // PROYECTOS E INGENIERÍA
+  '/contabilidad/proyectos/anteproyecto': '/contabilidad/proyectos/anteproyecto',
+  '/contabilidad/proyectos/proyecto-maestro': '/contabilidad/proyectos/proyecto-maestro',
+  '/contabilidad/certificaciones/financiera': '/contabilidad/certificaciones/financiera',
+  '/estudio-factibilidad-economica': '/estudio-factibilidad-economica',
+
   // LIBROS SUB-PORTAL
   '/contabilidad/libros': '/contabilidad/libros',
   '/contabilidad/libros/diario': '/contabilidad/libros/diario',
@@ -55,7 +61,6 @@ export const pathnames = {
   '/contabilidad/tributos/hidrocarburos': '/contabilidad/tributos/hidrocarburos',
   '/contabilidad/tributos/exportadores': '/contabilidad/tributos/exportadores',
   '/contabilidad/tributos/iva-trimestral': '/contabilidad/tributos/iva-trimestral',
-  '/contabilidad/tributos/aportes-parafiscales': '/contabilidad/tributos/aportes-parafiscales',
   '/contabilidad/tributos/retenciones-iva': '/contabilidad/tributos/retenciones-iva',
   '/contabilidad/tributos/retenciones-islr': '/contabilidad/tributos/retenciones-islr',
   '/contabilidad/tributos/calendario-fiscal': '/contabilidad/tributos/calendario-fiscal',

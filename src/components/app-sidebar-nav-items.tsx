@@ -52,7 +52,11 @@ import {
   FolderArchive,
   Star,
   Zap,
-  BrainCircuit
+  BrainCircuit,
+  ClipboardList,
+  Target,
+  FileSearch,
+  Hammer
 } from "lucide-react";
 
 export const naturalNavGroups = [
@@ -113,6 +117,16 @@ export const adminNavGroups = [
         { href: "/analisis-rentabilidad", label: "Rentabilidad Avanzada", icon: TrendingUp },
     ], 
     subGroups: [] 
+  },
+  {
+    title: "Proyectos e Ingeniería",
+    icon: Hammer,
+    items: [
+        { href: "/estudio-factibilidad-economica", label: "Factibilidad Econ.", icon: Target },
+        { href: "/contabilidad/proyectos/anteproyecto", label: "Anteproyecto", icon: FileText },
+        { href: "/contabilidad/proyectos/proyecto-maestro", label: "Proyecto Maestro", icon: ClipboardList },
+        { href: "/contabilidad/certificaciones/financiera", label: "Certificación Financ.", icon: ShieldCheck },
+    ]
   },
   {
     title: "Contabilidad",
