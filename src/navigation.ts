@@ -5,10 +5,6 @@ export const locales = ['en', 'es'] as const;
 export const defaultLocale = 'es';
 export const localePrefix = 'always';
 
-/**
- * @fileOverview Mapa de Navegación del Ecosistema Kyron.
- * Organizado por Áreas Lógicas para una navegación de alta fidelidad.
- */
 export const pathnames = {
   '/': '/',
   '/login': '/login',
@@ -18,103 +14,62 @@ export const pathnames = {
   '/dashboard-empresa': '/dashboard-empresa',
   '/resumen-negocio': '/dashboard-empresa',
   
-  // FINANZAS Y CONTABILIDAD
+  // GLOBAL MODULES
+  '/automatizaciones': '/automatizaciones',
+  '/notificaciones': '/notificaciones',
+  '/reportes': '/reportes',
+  '/configuracion': '/configuracion',
+  '/perfil': '/perfil',
+
+  // CONTABILIDAD BASE
   '/contabilidad': '/contabilidad',
-  '/cuentas': '/contabilidad/cuentas',
-  '/cuentas/todas': '/contabilidad/cuentas/todas',
-  '/cuentas-por-cobrar': '/contabilidad/cuentas-por-cobrar',
-  '/cuentas-por-pagar': '/contabilidad/cuentas-por-pagar',
-  '/ajuste-por-inflacion': '/contabilidad/ajuste-inflacion',
-  '/analisis-caja': '/contabilidad/analisis-caja',
-  '/analisis-rentabilidad': '/contabilidad/analisis-rentabilidad',
-  '/analisis-riesgo': '/contabilidad/analisis-riesgo',
-  '/billetera-cambio': '/contabilidad/billetera-cambio',
-  '/estudio-factibilidad-economica': '/contabilidad/factibilidad-economica',
-
-  // LIBROS CONTABLES
-  '/contabilidad/libros': '/contabilidad/libros',
-  '/contabilidad/libros/compra-venta': '/contabilidad/libros/compra-venta',
-  '/contabilidad/libros/nomina': '/contabilidad/libros/nomina',
-  '/contabilidad/libros/inventario': '/contabilidad/libros/inventario',
-  '/contabilidad/libros/cesta-ticket': '/contabilidad/libros/cesta-ticket',
-  '/contabilidad/libros/horas-extras': '/contabilidad/libros/horas-extras',
-  '/contabilidad/libros/control-licores': '/contabilidad/libros/control-licores',
-
-  // TRIBUTOS E IMPUESTOS
-  '/declaracion-iva': '/contabilidad/impuestos/iva',
-  '/islr-arc': '/contabilidad/impuestos/islr-arc',
-  '/contabilidad/impuestos/retenciones': '/contabilidad/impuestos/retenciones',
-  '/contabilidad/impuestos/calendario': '/contabilidad/impuestos/calendario',
-  '/contabilidad/impuestos/municipales': '/contabilidad/impuestos/municipales',
-  '/contabilidad/impuestos/multas': '/contabilidad/impuestos/multas',
-  '/contabilidad/impuestos/homologacion': '/contabilidad/impuestos/homologacion',
-  '/contabilidad/impuestos/reportes': '/contabilidad/impuestos/reportes',
   
-  // VENTAS Y FACTURACIÓN
+  // LIBROS SUB-PORTAL
+  '/contabilidad/libros': '/contabilidad/libros',
+  '/contabilidad/libros/diario': '/contabilidad/libros/diario',
+  '/contabilidad/libros/mayor': '/contabilidad/libros/mayor',
+  '/contabilidad/libros/balance': '/contabilidad/libros/balance',
+  '/contabilidad/libros/activos-fijos': '/contabilidad/libros/activos-fijos',
+  '/contabilidad/libros/retenciones': '/contabilidad/libros/retenciones',
+  '/contabilidad/libros/aportes-parafiscales': '/contabilidad/libros/aportes-parafiscales',
+  '/contabilidad/libros/vacaciones': '/contabilidad/libros/vacaciones',
+  '/contabilidad/libros/utilidades': '/contabilidad/libros/utilidades',
+  '/contabilidad/libros/prestaciones': '/contabilidad/libros/prestaciones',
+
+  // TRIBUTOS SUB-PORTAL
+  '/contabilidad/tributos': '/contabilidad/tributos',
+  '/contabilidad/tributos/retenciones-iva': '/contabilidad/tributos/retenciones-iva',
+  '/contabilidad/tributos/retenciones-islr': '/contabilidad/tributos/retenciones-islr',
+  '/contabilidad/tributos/declaraciones-anteriores': '/contabilidad/tributos/declaraciones-anteriores',
+  '/contabilidad/tributos/calendario-fiscal': '/contabilidad/tributos/calendario-fiscal',
+  '/contabilidad/tributos/municipales': '/contabilidad/tributos/municipales',
+  '/contabilidad/tributos/multas': '/contabilidad/tributos/multas',
+  '/contabilidad/tributos/homologacion': '/contabilidad/tributos/homologacion',
+
+  // CUENTAS SUB-PORTAL
+  '/contabilidad/cuentas': '/contabilidad/cuentas',
+  '/contabilidad/cuentas/conciliacion': '/contabilidad/cuentas/conciliacion',
+  '/contabilidad/cuentas/libro-bancos': '/contabilidad/cuentas/libro-bancos',
+  '/contabilidad/cuentas/cheques': '/contabilidad/cuentas/cheques',
+  '/contabilidad/cuentas/depositos': '/contabilidad/cuentas/depositos',
+  '/contabilidad/cuentas/transferencias': '/contabilidad/cuentas/transferencias',
+  '/contabilidad/cuentas/anticipos-proveedores': '/contabilidad/cuentas/anticipos-proveedores',
+  '/contabilidad/cuentas/anticipos-clientes': '/contabilidad/cuentas/anticipos-clientes',
+  '/contabilidad/cuentas/flujo-caja-proyectado': '/contabilidad/cuentas/flujo-caja-proyectado',
+  '/contabilidad/cuentas/antiguedad-saldos': '/contabilidad/cuentas/antiguedad-saldos',
+
+  // ANALISIS SUB-PORTAL
+  '/contabilidad/analisis': '/contabilidad/analisis',
+  '/contabilidad/analisis/por-producto': '/contabilidad/analisis/por-producto',
+  '/contabilidad/analisis/por-cliente': '/contabilidad/analisis/por-cliente',
+  '/contabilidad/analisis/ratios': '/contabilidad/analisis/ratios',
+  '/contabilidad/analisis/sensibilidad': '/contabilidad/analisis/sensibilidad',
+  '/contabilidad/analisis/benchmarking': '/contabilidad/analisis/benchmarking',
+
+  // LEGACY ROUTES COMPATIBILITY
+  '/analisis-ventas': '/ventas/analisis-comercial',
   '/facturacion': '/ventas/facturacion',
   '/punto-de-venta': '/ventas/punto-de-venta',
-  '/facturacion-credito': '/ventas/facturacion-credito',
-  '/proformas': '/ventas/proformas',
-  '/invoices': '/ventas/invoices',
-  '/estrategias-ventas': '/ventas/estrategias-ia',
-  '/fidelizacion-clientes': '/ventas/fidelizacion',
-  '/analisis-ventas': '/ventas/analisis-comercial',
-  '/analisis-mercado': '/ventas/analisis-mercado',
-  
-  // ANÁLISIS E INTELIGENCIA
-  '/analisis': '/analisis',
-  '/analisis/todos': '/analisis/todos',
-  '/estructura-costos': '/contabilidad/estructura-costos',
-  
-  // LEGAL Y CUMPLIMIENTO
-  '/escritorio-juridico': '/legal/escritorio-juridico',
-  '/acta-asamblea': '/legal/acta-asamblea',
-  '/contratos': '/legal/contratos',
-  '/autorizaciones': '/legal/autorizaciones',
-  '/permisos': '/legal/permisos-y-licencias',
-  '/recursos-fiscales': '/legal/recursos-fiscales',
-  '/gaceta-6952': '/legal/consulta-gaceta',
-  '/poderes-representacion': '/legal/poderes-holding',
-  '/generador-documentos': '/legal/crear-contratos',
-  '/zero-risk': '/legal/blindaje-total',
-  
-  // RECURSOS HUMANOS
-  '/dashboard-rrhh': '/rrhh/dashboard',
-  '/nominas': '/rrhh/pagos-nomina',
-  '/prestaciones-sociales': '/rrhh/liquidaciones',
-  '/reclutamiento': '/rrhh/vacantes',
-  '/libro-horario-nocturno': '/rrhh/libro-nocturno',
-  '/carnet-personal': '/rrhh/id-biometrica',
-  
-  // TECNOLOGÍA E INGENIERÍA
-  '/dashboard-informatica': '/it/dashboard',
-  '/ingenieria-ia': '/it/ingenieria-ia',
-  '/mi-linea': '/telecom/mi-linea-5g',
-  '/venta-linea': '/telecom/activar-linea',
-  '/dashboard-telecom': '/telecom/dashboard',
-  '/sostenibilidad': '/ambiente/sostenibilidad',
-  '/tarjeta-reciclaje': '/ambiente/mis-puntos',
-  '/mercado-ecocreditos': '/ambiente/canje-puntos',
-  
-  // PERSONAL Y CIUDADANO
-  '/dashboard': '/personal/inicio',
-  '/tarjeta-digital': '/personal/mi-perfil',
-  '/documentos': '/personal/mis-documentos',
-  '/partidas-nacimiento': '/personal/partidas-nacimiento',
-  '/actas-matrimonio': '/personal/actas-matrimonio',
-  '/documentos-judiciales': '/personal/documentos-judiciales',
-  '/antecedentes-penales': '/personal/antecedentes-penales',
-  '/manutencion': '/personal/pago-manutencion',
-  '/registro-rif': '/personal/registro-rif-familia',
-  '/seguridad': '/personal/ajustes-security',
-  '/notificaciones': '/personal/avisos',
-  
-  // OTROS
-  '/estudio-poblacion': '/analisis-demografico',
-  '/manual-usuario': '/manual-usuario',
-  '/identidad-marca': '/identidad-marca',
-  '/academia-kyron': '/formacion',
-  '/reports': '/reportes-maestros',
 } as const;
 
 export const {Link, redirect, usePathname, useRouter} = createLocalizedPathnamesNavigation({
