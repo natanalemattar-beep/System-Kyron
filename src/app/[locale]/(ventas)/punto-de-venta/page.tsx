@@ -34,7 +34,7 @@ import { Badge } from "@/components/ui/badge";
 const products = [
     { id: 1, name: "Resma de Papel Carta (500 Hojas)", price: 8.50, barcode: "7591234567890", image: "https://picsum.photos/seed/paper/200/200" },
     { id: 2, name: "Impresora Fiscal Térmica", price: 350.00, barcode: "7591234567891", image: "https://picsum.photos/seed/printer/200/200" },
-    { id: 11, name: "Papelera Inteligente (Magnetismo)", price: 150.00, barcode: "7591234567900", image: "https://picsum.photos/seed/smartbin/200/200" },
+    { id: 11, name: "Ameru IA - Papelera Inteligente", price: 150.00, barcode: "AMERU-001", image: "https://picsum.photos/seed/smartbin/200/200" },
     { id: 13, name: "SIM Card Física (Línea Nueva)", price: 5.00, barcode: "7591234567902", image: "https://picsum.photos/seed/simcard/200/200" },
     { id: 14, name: "eSIM Digital (Línea Nueva)", price: 10.00, barcode: "7591234567903", image: "https://picsum.photos/seed/esim/200/200" },
     { id: 3, name: "Punto de Venta Inalámbrico", price: 280.00, barcode: "7591234567892", image: "https://picsum.photos/seed/pos/200/200" },
@@ -45,27 +45,6 @@ const products = [
 ];
 
 const cashiers = ["Cajero Principal", "Supervisor Ventas"];
-
-const diasSemana = [
-    { id: "lun", label: "Lunes" },
-    { id: "mar", label: "Martes" },
-    { id: "mie", label: "Miércoles" },
-    { id: "jue", label: "Jueves" },
-    { id: "vie", label: "Viernes" },
-    { id: "sab", label: "Sábado" },
-    { id: "dom", label: "Domingo" },
-];
-
-const exceptionsData = [
-    { fecha: "2026-12-24", motivo: "Nochebuena", horario: "8:00 AM - 2:00 PM" },
-    { fecha: "2026-12-25", motivo: "Navidad", horario: "Cerrado" },
-    { fecha: "2027-01-01", motivo: "Año Nuevo", horario: "Cerrado" },
-];
-
-const turnReports = [
-    { fecha: "25/07/2024", turno: "Mañana (8am-2pm)", empleado: "Carlos Pérez", total: 1250.50, transacciones: 15, cierre: "Ok" },
-    { fecha: "25/07/2024", turno: "Tarde (2pm-8pm)", empleado: "María Gómez", total: 980.20, transacciones: 12, cierre: "Ok" },
-];
 
 type CartItem = {
     id: number;
@@ -89,10 +68,6 @@ export default function PuntoDeVentaPage() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [qrCodeData, setQrCodeData] = useState("");
     
-    // Schedule States
-    const [blockOutsideHours, setBlockOutsideHours] = useState(true);
-    const [isManager, setIsManager] = useState(false); // Simulated manager role
-
     const { toast } = useToast();
 
     useEffect(() => {
@@ -137,21 +112,6 @@ export default function PuntoDeVentaPage() {
     
     const handleCheckout = () => {
         if (cart.length === 0) return;
-
-        // Simulated Schedule Check
-        const now = new Date();
-        const currentHour = now.getHours();
-        const isOutsideHours = currentHour < 8 || currentHour >= 18; // Simulated 8am - 6pm
-
-        if (blockOutsideHours && isOutsideHours && !isManager) {
-            toast({
-                variant: "destructive",
-                title: "⚠️ OPERACIÓN BLOQUEADA",
-                description: "Fuera de horario laboral. Operación no permitida. Contacta a tu gerente para autorización maestra.",
-            });
-            return;
-        }
-
         setIsCheckoutOpen(true);
     };
 
@@ -163,21 +123,10 @@ export default function PuntoDeVentaPage() {
             setIsReceiptOpen(true);
             toast({ 
                 title: "Venta Registrada", 
-                description: paymentMethod === "Billetera Kyron" 
-                    ? "Transacción sellada en Ledger Kyron y Eco-Créditos procesados." 
-                    : "La factura fiscal ha sido generada.", 
+                description: "La factura fiscal ha sido generada y sellada.", 
                 action: <CheckCircle className="text-green-500" /> 
             });
         }, 1500);
-    };
-
-    const handleSaveSchedule = () => {
-        toast({
-            title: "Configuración Guardada",
-            description: "Los horarios laborales y turnos han sido actualizados en el sistema central.",
-            action: <CheckCircle className="text-primary" />
-        });
-        setIsScheduleOpen(false);
     };
 
     return (
@@ -189,178 +138,24 @@ export default function PuntoDeVentaPage() {
                     </div>
                     <div>
                         <h1 className="text-xl font-black uppercase tracking-tighter italic text-primary">System Kyron</h1>
-                        <p className="text-[8px] font-bold uppercase tracking-[0.2em] opacity-40">Punto de Venta Profesional</p>
+                        <p className="text-[8px] font-bold uppercase tracking-widest opacity-40">Punto de Venta Profesional</p>
                     </div>
                 </div>
                  {!activeCashier ? (
-                     <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="h-8 border-rose-500/20 text-rose-500 bg-rose-500/5 px-3">Terminal Inactivo</Badge>
-                        <Select onValueChange={(value) => setActiveCashier(value)}>
-                            <SelectTrigger className="w-[200px] rounded-xl h-10 border-primary/20 bg-primary/5 font-bold">
-                                <SelectValue placeholder="Seleccionar Cajero" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {cashiers.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
-                     </div>
+                     <Select onValueChange={(value) => setActiveCashier(value)}>
+                        <SelectTrigger className="w-[200px] rounded-xl h-10 border-primary/20 bg-primary/5 font-bold">
+                            <SelectValue placeholder="Seleccionar Cajero" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {cashiers.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
                 ) : (
                     <div className="flex items-center gap-4">
-                        <div className="text-right hidden sm:block">
-                            <p className="text-[10px] font-black uppercase text-primary leading-none">{activeCashier}</p>
-                            <p className="text-[8px] font-bold text-muted-foreground uppercase mt-1">Turno: Mañana</p>
-                        </div>
                         <div className="relative w-64">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input placeholder="Escanear o buscar..." className="pl-9 h-10 rounded-xl bg-white/5 border-white/10" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         </div>
-                        
-                        <Dialog open={isScheduleOpen} onOpenChange={setIsScheduleOpen}>
-                            <DialogTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-xl bg-white/5 border border-white/10 hover:bg-primary/10 hover:text-primary transition-all">
-                                    <Settings2 className="h-5 w-5" />
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-4xl rounded-[2.5rem] bg-card/95 backdrop-blur-2xl border-white/10 p-0 overflow-hidden">
-                                <div className="p-8 border-b border-white/5 bg-primary/5">
-                                    <DialogHeader>
-                                        <div className="flex items-center gap-4 mb-2">
-                                            <div className="p-3 bg-primary/10 rounded-2xl">
-                                                <Clock className="h-6 w-6 text-primary" />
-                                            </div>
-                                            <div>
-                                                <DialogTitle className="text-2xl font-black uppercase italic tracking-tighter">Horarios y Turnos</DialogTitle>
-                                                <DialogDescription className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/60">Configuración Maestra del Establecimiento</DialogDescription>
-                                            </div>
-                                        </div>
-                                    </DialogHeader>
-                                </div>
-
-                                <Tabs defaultValue="horario" className="w-full">
-                                    <TabsList className="w-full justify-start rounded-none bg-white/5 border-b border-white/5 h-14 px-8 gap-8">
-                                        <TabsTrigger value="horario" className="text-[10px] font-black uppercase tracking-widest data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none h-full">Horario General</TabsTrigger>
-                                        <TabsTrigger value="excepciones" className="text-[10px] font-black uppercase tracking-widest data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none h-full">Excepciones</TabsTrigger>
-                                        <TabsTrigger value="reportes" className="text-[10px] font-black uppercase tracking-widest data-[state=active]:text-primary data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none h-full">Reporte por Turno</TabsTrigger>
-                                    </TabsList>
-
-                                    <div className="p-8 overflow-y-auto max-h-[60vh]">
-                                        <TabsContent value="horario" className="mt-0 space-y-8">
-                                            <div className="grid gap-6">
-                                                {diasSemana.map((dia) => (
-                                                    <div key={dia.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 group hover:border-primary/20 transition-all">
-                                                        <div className="flex items-center gap-4 mb-4 sm:mb-0">
-                                                            <Checkbox id={`check-${dia.id}`} defaultChecked={dia.id !== 'dom'} className="rounded-md border-primary/40 data-[state=checked]:bg-primary" />
-                                                            <Label htmlFor={`check-${dia.id}`} className="text-xs font-black uppercase tracking-widest w-24">{dia.label}</Label>
-                                                        </div>
-                                                        <div className="flex items-center gap-4 w-full sm:w-auto">
-                                                            <div className="space-y-1">
-                                                                <p className="text-[8px] font-bold text-white/30 uppercase ml-1">Apertura</p>
-                                                                <Input type="time" defaultValue="08:00" className="bg-black/20 border-white/10 h-10 w-32 font-mono text-xs" />
-                                                            </div>
-                                                            <ArrowRight className="h-4 w-4 text-white/10 mt-4" />
-                                                            <div className="space-y-1">
-                                                                <p className="text-[8px] font-bold text-white/30 uppercase ml-1">Cierre</p>
-                                                                <Input type="time" defaultValue="18:00" className="bg-black/20 border-white/10 h-10 w-32 font-mono text-xs" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            <div className="p-6 rounded-3xl bg-primary/5 border border-primary/10 flex items-center justify-between">
-                                                <div className="flex items-center gap-4">
-                                                    <ShieldAlert className="h-6 w-6 text-primary" />
-                                                    <div className="space-y-1">
-                                                        <Label className="text-xs font-black uppercase text-white">Bloqueo de Seguridad</Label>
-                                                        <p className="text-[9px] font-bold text-white/40 uppercase">Bloquear ventas fuera del horario establecido</p>
-                                                    </div>
-                                                </div>
-                                                <Checkbox checked={blockOutsideHours} onCheckedChange={(val) => setBlockOutsideHours(!!val)} className="rounded-md h-6 w-6 border-primary/40 data-[state=checked]:bg-primary" />
-                                            </div>
-                                        </TabsContent>
-
-                                        <TabsContent value="excepciones" className="mt-0 space-y-6">
-                                            <div className="flex justify-between items-center mb-4">
-                                                <h3 className="text-sm font-black uppercase italic tracking-widest text-primary">Días Festivos y Especiales</h3>
-                                                <Button size="sm" className="rounded-xl h-9 px-4 text-[9px] font-bold uppercase tracking-widest bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20">
-                                                    <Plus className="mr-2 h-3.5 w-3.5" /> Agregar Excepción
-                                                </Button>
-                                            </div>
-                                            <div className="border border-white/5 rounded-2xl overflow-hidden">
-                                                <Table>
-                                                    <TableHeader className="bg-white/5">
-                                                        <TableRow className="hover:bg-transparent">
-                                                            <TableHead className="text-[9px] font-black uppercase tracking-widest p-4">Fecha</TableHead>
-                                                            <TableHead className="text-[9px] font-black uppercase tracking-widest p-4">Motivo</TableHead>
-                                                            <TableHead className="text-[9px] font-black uppercase tracking-widest p-4">Horario Especial</TableHead>
-                                                            <TableHead className="text-right p-4"></TableHead>
-                                                        </TableRow>
-                                                    </TableHeader>
-                                                    <TableBody>
-                                                        {exceptionsData.map((exc, i) => (
-                                                            <TableRow key={i} className="hover:bg-white/5 border-white/5">
-                                                                <TableCell className="p-4 font-mono text-xs font-bold text-white/70">{exc.fecha}</TableCell>
-                                                                <TableCell className="p-4 text-[10px] font-black uppercase text-primary italic">{exc.motivo}</TableCell>
-                                                                <TableCell className="p-4">
-                                                                    <Badge variant="outline" className="text-[8px] border-white/10 uppercase">{exc.horario}</Badge>
-                                                                </TableCell>
-                                                                <TableCell className="p-4 text-right">
-                                                                    <Button variant="ghost" size="icon" className="text-white/20 hover:text-rose-500">
-                                                                        <X className="h-4 w-4" />
-                                                                    </Button>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        ))}
-                                                    </TableBody>
-                                                </Table>
-                                            </div>
-                                        </TabsContent>
-
-                                        <TabsContent value="reportes" className="mt-0 space-y-6">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                                {turnReports.map((rep, i) => (
-                                                    <Card key={i} className="bg-white/[0.03] border-white/5 rounded-[2rem] p-6 space-y-4">
-                                                        <div className="flex justify-between items-start">
-                                                            <div className="p-3 bg-secondary/10 rounded-2xl">
-                                                                <History className="h-5 w-5 text-secondary" />
-                                                            </div>
-                                                            <Badge className="bg-emerald-500/20 text-emerald-400 border-none text-[8px] font-black">CIERRE: {rep.cierre}</Badge>
-                                                        </div>
-                                                        <div className="space-y-1">
-                                                            <p className="text-[10px] font-black uppercase tracking-widest text-primary italic">{rep.turno}</p>
-                                                            <p className="text-[9px] font-bold text-white/30 uppercase">{rep.fecha} • {rep.empleado}</p>
-                                                        </div>
-                                                        <div className="pt-4 border-t border-white/5 flex justify-between items-end">
-                                                            <div>
-                                                                <p className="text-[8px] font-black text-white/20 uppercase">Total Ventas</p>
-                                                                <p className="text-xl font-black italic text-white">{formatCurrency(rep.total, 'USD')}</p>
-                                                            </div>
-                                                            <div className="text-right">
-                                                                <p className="text-[8px] font-black text-white/20 uppercase">Transacciones</p>
-                                                                <p className="text-xs font-bold text-white/60">{rep.transacciones}</p>
-                                                            </div>
-                                                        </div>
-                                                    </Card>
-                                                ))}
-                                            </div>
-                                        </TabsContent>
-                                    </div>
-                                </Tabs>
-
-                                <div className="p-8 border-t border-white/5 flex justify-between items-center bg-white/[0.01]">
-                                    <div className="flex items-center gap-3">
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox id="manager-role" checked={isManager} onCheckedChange={(val) => setIsManager(!!val)} />
-                                            <Label htmlFor="manager-role" className="text-[9px] font-black uppercase text-white/40 cursor-pointer">Simular Rol Gerente</Label>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-3">
-                                        <Button variant="ghost" className="rounded-xl h-12 px-8 text-[10px] font-bold uppercase tracking-widest text-white/40" onClick={() => setIsScheduleOpen(false)}>Cancelar</Button>
-                                        <Button className="rounded-xl h-12 px-10 btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={handleSaveSchedule}>Aplicar Cambios</Button>
-                                    </div>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
-
                         <Button onClick={() => setActiveCashier(null)} variant="ghost" size="sm" className="text-[10px] font-black text-rose-500 uppercase tracking-widest hover:bg-rose-500/10 rounded-lg">Finalizar Turno</Button>
                     </div>
                 )}
@@ -411,14 +206,9 @@ export default function PuntoDeVentaPage() {
                                 ))}
                             </div>
                         ) : (
-                            <div className="flex flex-col items-center justify-center h-full py-20 text-center space-y-6 opacity-20">
-                                <div className="p-8 bg-white/5 rounded-full border-2 border-dashed border-white/20">
-                                    <ShoppingCart className="h-16 w-16" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-black uppercase tracking-[0.4em]">Cesta Vacía</p>
-                                    <p className="text-[10px] font-bold uppercase mt-2">Seleccione productos para facturar</p>
-                                </div>
+                            <div className="flex flex-col items-center justify-center h-full py-20 text-center opacity-20">
+                                <Plus className="h-16 w-16" />
+                                <p className="text-xs font-black uppercase tracking-[0.4em] mt-4">Cesta Vacía</p>
                             </div>
                         )}
                     </CardContent>
@@ -496,26 +286,14 @@ export default function PuntoDeVentaPage() {
 
             <Dialog open={isReceiptOpen} onOpenChange={setIsReceiptOpen}>
                 <DialogContent className="sm:max-w-md rounded-[3rem] bg-black/95 backdrop-blur-3xl border-white/10 p-10">
-                    <DialogHeader className="sr-only">
-                        <DialogTitle>Factura Digital Kyron</DialogTitle>
+                    <DialogHeader className="text-center mb-8">
+                        <DialogTitle className="text-3xl font-black tracking-tighter uppercase italic text-white">Transacción Exitosa</DialogTitle>
+                        <DialogDescription className="text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 w-fit mx-auto mt-4">
+                            <Lock className="h-3 w-3 mr-2 inline" /> Sellado en Ledger Digital v2.6
+                        </DialogDescription>
                     </DialogHeader>
                     <div className="text-center space-y-8">
-                        <div className="relative mx-auto w-24 h-24">
-                            <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-full animate-pulse" />
-                            <div className="relative bg-emerald-500/10 p-6 rounded-[2rem] border-2 border-emerald-500/30">
-                                <CheckCircle className="h-12 w-12 text-emerald-500" />
-                            </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                            <h2 className="text-3xl font-black tracking-tighter uppercase italic text-white">Transacción Exitosa</h2>
-                            <div className="flex items-center justify-center gap-2 text-[9px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 w-fit mx-auto">
-                                <Lock className="h-3 w-3" /> Sellado en Ledger Digital v2.6
-                            </div>
-                        </div>
-
                         <div className="p-6 bg-white rounded-[2.5rem] shadow-2xl relative group">
-                            <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] blur-xl scale-0 group-hover:scale-110 transition-transform" />
                             {qrCodeData && (
                                 <div className="relative z-10 p-2 bg-white rounded-2xl border-4 border-slate-50">
                                     <Image src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrCodeData)}&bgcolor=ffffff&color=000000&margin=1`} alt="Factura QR" width={180} height={180} className="mx-auto" />
@@ -523,11 +301,7 @@ export default function PuntoDeVentaPage() {
                             )}
                             <p className="mt-4 text-[8px] font-black uppercase text-slate-400 tracking-widest">Código Fiscal Homologado</p>
                         </div>
-
-                        <div className="space-y-3">
-                            <Button onClick={() => { setIsReceiptOpen(false); setCart([]); }} className="w-full h-14 rounded-2xl font-black uppercase text-xs tracking-widest btn-3d-primary shadow-xl italic">NUEVA OPERACIÓN</Button>
-                            <Button variant="outline" className="w-full h-12 rounded-xl border-white/10 bg-white/5 font-black uppercase text-[9px] tracking-[0.2em] text-white/40">COMPARTIR COMPROBANTE</Button>
-                        </div>
+                        <Button onClick={() => { setIsReceiptOpen(false); setCart([]); }} className="w-full h-14 rounded-2xl font-black uppercase text-xs tracking-widest btn-3d-primary shadow-xl italic">NUEVA OPERACIÓN</Button>
                     </div>
                 </DialogContent>
             </Dialog>

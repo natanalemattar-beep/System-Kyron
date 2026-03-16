@@ -26,7 +26,7 @@ import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
 
 const initialInventory = [
-    { sku: "KYRON-BIN-01", nombre: "Papelera Magnética", categoria: "Tecnología", stock: 15, costo: 95, valor: 1425, vencimiento: "2026-12-31", riesgo: "Bajo" },
+    { sku: "AMERU-IA-PRO-01", nombre: "Ameru IA - Papelera Magnética", categoria: "Tecnología", stock: 15, costo: 95, valor: 1425, vencimiento: "2026-12-31", riesgo: "Bajo" },
     { sku: "SIM-CARD-5G", nombre: "SIM Card 5G Pro", categoria: "Telecom", stock: 100, costo: 2, valor: 200, vencimiento: "2026-04-15", riesgo: "Crítico" },
     { sku: "TONER-K-20", nombre: "Tóner Kyron Black", categoria: "Consumibles", stock: 45, costo: 40, valor: 1800, vencimiento: "2026-04-20", riesgo: "Crítico" },
     { sku: "PROD-002", nombre: "Impresora Fiscal", categoria: "Fiscal", stock: 30, costo: 80, valor: 2400, vencimiento: "N/A", riesgo: "Bajo" },
@@ -52,7 +52,7 @@ export default function InventarioPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-[0.4em] text-primary shadow-glow mb-4">
                         <Archive className="h-3 w-3" /> NODO DE EXISTENCIAS
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow">Kardex <span className="text-primary italic">de Inventario</span></h1>
+                    <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground uppercase leading-none italic-shadow text-white">Kardex <span className="text-primary italic">de Inventario</span></h1>
                     <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.6em] opacity-40 mt-2 italic">Gestión de Riesgo • Liquidación Preventiva 2026</p>
                 </div>
                 <div className="flex gap-2">
@@ -87,17 +87,17 @@ export default function InventarioPage() {
                                     <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-4">
                                         <div className="flex items-center gap-3">
                                             <TrendingDown className="h-5 w-5 text-rose-500" />
-                                            <h4 className="text-xs font-black uppercase text-rose-500">¿Por qué bajar el precio?</h4>
+                                            <h4 className="text-xs font-black uppercase text-rose-500">Análisis Predictivo</h4>
                                         </div>
                                         <p className="text-xs font-medium italic text-muted-foreground/80 leading-relaxed text-justify uppercase">
-                                            El motor predictivo detecta que este lote vence el <span className="text-rose-500 font-black">{activeAlert.vencimiento}</span> (en menos de 30 días). La rotación actual es de solo 2 unidades/semana. Mantener el precio original resultaría en una pérdida neta de <span className="text-rose-500 font-black">{formatCurrency(activeAlert.valor, 'Bs.')}</span> por caducidad total del activo.
+                                            El lote vence el <span className="text-rose-500 font-black">{activeAlert.vencimiento}</span>. Se recomienda liquidar mediante estrategia de volumen para proteger la inversión de capital.
                                         </p>
                                     </div>
                                 </div>
                                 <div className="w-full md:w-64 space-y-4">
                                     <div className="p-6 bg-primary/10 border border-primary/20 rounded-2xl text-center">
                                         <p className="text-[8px] font-black uppercase text-primary mb-2">Estrategia Recomendada</p>
-                                        <p className="text-sm font-black italic text-white leading-tight uppercase">FLASH SALE 30% + COMBO HARDWARE</p>
+                                        <p className="text-sm font-black italic text-white leading-tight uppercase">FLASH SALE 30% + COMBO AMERU IA</p>
                                     </div>
                                     <Button className="w-full h-14 rounded-2xl btn-3d-primary font-black uppercase text-[10px] tracking-widest shadow-xl" onClick={handleApplyStrategy}>
                                         <Wand2 className="mr-2 h-4 w-4" /> Aplicar Estrategia
@@ -111,7 +111,7 @@ export default function InventarioPage() {
                             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mb-6">Valor en Riesgo Total</p>
                             <p className="text-5xl font-black italic text-rose-500 tracking-tighter shadow-glow-sm">{formatCurrency(2000, 'Bs.')}</p>
                             <div className="mt-8 pt-8 border-t border-white/5 flex items-center justify-center gap-3 text-[9px] font-black uppercase text-muted-foreground/40">
-                                <Terminal className="h-4 w-4" /> Análisis de Pérdida Evitable
+                                <Terminal className="h-4 w-4" /> Protocolo de Contingencia Activo
                             </div>
                         </Card>
                     </motion.div>
