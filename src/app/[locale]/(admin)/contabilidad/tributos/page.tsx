@@ -8,13 +8,14 @@ import {
     ArrowRight, Activity, Zap, Bot,
     Building2, Users, Printer, Scale, Globe, Truck, Leaf, Palmtree, 
     Terminal, Coins, Microscope, Ship, Clock, AlertTriangle,
-    MailOpen, Checkbox, Settings2, Bell, ShieldAlert
+    MailOpen, Settings2, Bell, ShieldAlert
 } from "lucide-react";
 import { Link } from "@/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from "@/components/ui/card";
@@ -178,7 +179,7 @@ export default function TributosHubPage() {
                 <div className="relative z-10 space-y-8">
                     <div className="space-y-2">
                         <Badge className="bg-primary text-white border-none text-[8px] font-black px-4 uppercase mb-2 shadow-glow">LEGAL STATUS</Badge>
-                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Estatus Maestro</h3>
+                        <h3 className="text-2xl font-black uppercase italic tracking-tighter text-white">Estatus Consolidado</h3>
                         <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">Monitor de Vigencia Fiscal</p>
                     </div>
 
@@ -200,7 +201,7 @@ export default function TributosHubPage() {
 
                     <Button variant="secondary" asChild className="w-full h-14 bg-white text-primary hover:bg-slate-100 font-black uppercase text-[10px] tracking-widest rounded-2xl shadow-xl">
                         <Link href="/contabilidad/tributos/homologacion" className="flex items-center gap-2">
-                            AUDITAR EXPEDIENTE <ArrowRight className="h-3.5 w-3.5" />
+                            AUDITAR DOSSIER <ArrowRight className="h-3.5 w-3.5" />
                         </Link>
                     </Button>
                 </div>
