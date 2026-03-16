@@ -70,9 +70,9 @@ export function AppSidebar() {
       <div className="flex-grow py-8 px-4 space-y-10 overflow-y-auto custom-scrollbar relative z-10">
         {adminNavGroups.map((group) => (
           <section key={group.title} className="space-y-3">
-            <p className="px-4 text-[8px] font-black uppercase text-primary/40 tracking-[0.4em] flex items-center gap-2">
+            <div className="px-4 text-[8px] font-black uppercase text-primary/40 tracking-[0.4em] flex items-center gap-2">
               <div className="h-px w-4 bg-primary/20" /> {group.title}
-            </p>
+            </div>
             <div className="space-y-1">
               {group.items.map((item) => (
                 <MenuItem key={item.label} item={item} />
